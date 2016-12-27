@@ -12,6 +12,13 @@
       `<div>
           <UserBar user={this.state.current_user} />
 
+          <SideNav>
+              <CharacterView backgroundImage="/assets/unsplash/sand.jpg" avatar="http://d.facdn.net/art/mauabata/1475972185/1475972185.mauabata_mauflamescrying.png" />
+              <SideNavLink icon='perm_identity' href='#top' text='Summary' />
+              <SideNavLink icon='palette' href='#swatches' text='Color Swatches' />
+              <SideNavLink icon='photo_album' href='#refsheet' text='Main Image' />
+          </SideNav>
+
           <PageHeader backgroundImage="/assets/unsplash/sand.jpg">
               <CharacterCard imageSrc="http://d.facdn.net/art/mauabata/1475972185/1475972185.mauabata_mauflamescrying.png" name="Akhet" />
           </PageHeader>
