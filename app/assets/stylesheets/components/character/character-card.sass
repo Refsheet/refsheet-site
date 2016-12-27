@@ -40,10 +40,30 @@
       color: $primary-color
       display: block
 
+      .title-suffix,
+      .title-prefix
+        color: rgba(255, 255, 255, 0.8)
+        font-size: 2rem
+
+        &.official
+          color: $secondary-color
+
+    .nickname
+      font-size: 2rem
+
     .description
       @extend .margin-bottom--medium
       flex-grow: 1
       overflow: hidden
+
+    h2
+      @extend .thin
+      margin-bottom: 0
+      font-size: 1.5rem
+      color: $primary-color
+
+      & + p
+        @extend .margin-top--small
 
   @media #{$small-and-down}
     margin-top: 75px
