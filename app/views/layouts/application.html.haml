@@ -1,0 +1,12 @@
+!!!
+%html
+  %head
+    = display_meta_tags
+    = csrf_meta_tags
+    %meta{name: "viewport", content: "width=device-width, initial-scale=1"}
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    %meta{'http-equiv' => "X-Clacks-Overhead", content: "GNU Sir Terry Pratchett"}
+
+  %body{class: [yield(:body_class), params[:controller].gsub(/[^a-z]+/, ' ')].join(' ')}
+    = render 'body'

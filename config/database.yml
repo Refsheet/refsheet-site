@@ -1,0 +1,24 @@
+development:
+  adapter: postgresql
+  database: refsheet-site-dev
+  username: refsheet-site-dev
+  password: fishsticks
+  timeout: 5000
+  host: localhost
+
+test:
+  adapter: postgresql
+  database: refsheet-site-test
+  username: refsheet-site-test
+  password: fishsticks
+  timeout: 5000
+  host: localhost
+
+production:
+  adapter: <%= ENV['RDS_DB_ADAPTER'] || 'postgresql' %>
+  database: <%= ENV['RDS_DB_NAME'] %>
+  username: <%= ENV['RDS_USERNAME'] %>
+  password: <%= ENV['RDS_PASSWORD'] %>
+  host: <%= ENV['RDS_HOSTNAME'] %>
+  port: <%= ENV['RDS_PORT'] %>
+  timeout: 5000
