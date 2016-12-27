@@ -2,13 +2,10 @@
   `<div className='navbar-fixed user-bar'>
       <nav>
         <div className='container'>
-            <ul>
-                <li>
-                    <a href='#!/' className='logo'>
-                        <img src='https://placehold.it/144x50' />
-                    </a>
-                </li>
-
+            <a href='#!/' className='logo left'>
+                <img src='https://placehold.it/144x50' />
+            </a>
+            <ul className='hide-on-small-and-down'>
                 <li><a href='#!/marketplace'>Marketplace</a></li>
                 <li><a href='#!/guilds'>Guilds</a></li>
                 <li><a href='#!/search'>Search</a></li>
