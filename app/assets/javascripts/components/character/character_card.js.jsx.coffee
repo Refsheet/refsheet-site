@@ -21,7 +21,7 @@
                       </p>
                   </div>
 
-                  <div class='actions'>
+                  <div className='actions'>
                       <a href='#' className='btn z-index-1'>+ Follow</a>
                   </div>
               </div>
