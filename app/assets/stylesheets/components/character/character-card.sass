@@ -41,5 +41,36 @@
       display: block
 
     .description
+      @extend .margin-bottom--medium
       flex-grow: 1
       overflow: hidden
+
+  @media #{$small-and-down}
+    margin-top: 75px
+    padding-top: 50px
+    height: auto
+
+    .character-image
+      position: absolute
+      border-radius: 75px
+      width: 150px
+      height: 150px
+      top: -75px
+      left: 50%
+      margin-left: -75px
+
+      .slant
+        display: none
+
+      img
+        width: 100%
+        height: 100%
+        max-height: none
+        object-fit: cover
+
+    .character-details
+      .name
+        text-align: center
+
+      .actions
+        text-align: center

@@ -1,3 +1,39 @@
 .user-bar
   nav
-    background-color: rgba($card-bg-color, 0.9)
+    background-color: $card-bg-color
+    height: 56px
+
+    a
+      line-height: 56px
+      font-weight: 300
+      text-transform: uppercase
+      font-size: 0.9rem
+      color: rgba(255, 255, 255, 0.8)
+
+      &.avatar:hover,
+      &.logo:hover
+        background-color: transparent
+
+      &:hover
+        background-color: rgba(255, 255, 255, 0.2)
+        color: white
+        transition: color 0.25s ease
+        cursor: pointer
+
+    .logo
+      padding-left: 0
+      height: 56px
+
+      img
+        max-height: 36px
+        display: inline-block
+        margin: 10px 0
+
+    .avatar
+      padding-right: 0
+      height: 56px
+
+      img
+        max-height: 36px
+        display: inline-block
+        margin: 10px 0
