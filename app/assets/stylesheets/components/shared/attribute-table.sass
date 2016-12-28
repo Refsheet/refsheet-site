@@ -3,6 +3,27 @@
   width: 100%
   border-collapse: collapse
 
+  &.sortable
+    .icon
+      cursor: move
+
+    .ui-sortable-helper
+      @extend .z-depth-4
+      background-color: $card-bg-color
+      border: none
+      width: 100%
+      display: table
+
+    .ui-sortable-placeholder
+      display: table-row-group
+
+      &:before
+        height: 42px
+        content: ''
+        display: table-caption
+        position: static
+        border: none
+
   li
     display: table-row
 
@@ -15,34 +36,64 @@
       display: table-cell
       vertical-align: top
 
+    &.attribute-form
+      height: 36px
+
+      &.inactive
+        opacity: 0.5
+
+      & > div
+        padding-top: 0
+        padding-bottom: 0
+        position: relative
+
+      input
+        min-width: 150px
+        margin: 0
+
+        &.invalid
+          margin-bottom: 1.2rem
+
+        & + label:after
+          top: auto
+          bottom: 0
+
   .key
     @extend .padding-right--small
     font-variant: small-caps
     color: $secondary-color
-    width: 0
+    width: 1px
     white-space: nowrap
 
   .value
     @extend .padding-left--small
-    width: 100%
 
-  .edit, .delete
+  .notes
     @extend .padding-left--small
-    padding:
-      top: 3px
-      bottom: 0
-    color: rgba(255, 255, 255, 0.4)
+    text-align: right
 
-    &:hover
-      color: rgba(255, 255, 255, 1)
-      transition: color 0.25s ease
-      cursor: pointer
+  .actions
+    @extend .padding-left--small
+    width: 1px
+    white-space: nowrap
+    padding: 3px 0 0 7px
+    text-align: right
+    vertical-align: middle
+
+    a
+      color: rgba(255, 255, 255, 0.4)
+      margin-left: 8px
+
+      &:hover
+        color: rgba(255, 255, 255, 1)
+        transition: color 0.25s ease
+        cursor: pointer
 
   .icon
-    @extend .padding-right--medium
-    padding:
-      top: 3px
-      bottom: 0
+    width: 1px
+    vertical-align: middle
+    padding: 3px 0 0 0
 
     .material-icons
       font-size: 2rem
+      margin-right: 15px

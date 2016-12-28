@@ -48,6 +48,7 @@ gem 'will_paginate'
 gem 'will_paginate-materialize', github: 'harrybournis/will_paginate-materialize'
 gem 'faker'
 gem 'slack-notifier'
+gem 'ranked-model'
 
 # == BOWER ASSETS
 
