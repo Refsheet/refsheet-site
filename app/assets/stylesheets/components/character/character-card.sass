@@ -1,34 +1,32 @@
 .character-card
   @extend .card
   @extend .z-depth-2
-  height: 400px
-
-  .col, .row
-    height: 100%
 
   .character-image
-    position: relative
-    max-width: 400px
     overflow: hidden
-    text-align: center
-    width: auto
-    float: right
+    position: absolute
+    left: 67%
+    bottom: 0
+    top: 0
+    right: 0
 
     img
-      max-height: 400px
+      height: 100%
+      width: 100%
+      object-fit: cover
 
     .slant
       position: absolute
-      left: 0
-      top: 0
-      bottom: 0
-      z-index: 1
-      border-style: solid
-      border-width: 400px 0 0 100px
-      border-color: transparent transparent transparent $card-bg-color
+      background-color: #212121
+      width: 100%
+      transform: rotate(-15deg)
+      transform-origin: top right
+      left: -100%
+      height: 150%
 
   .character-details
     @extend .padding--large
+    margin-right: 33%
     height: 100%
     display: flex
     flex-direction: column
@@ -52,9 +50,14 @@
       font-size: 2rem
 
     .description
-      @extend .margin-bottom--medium
       flex-grow: 1
       overflow: hidden
+
+      p:last-child
+        margin-bottom: 0
+
+    .actions
+      @extend .margin-top--large
 
     h2
       @extend .thin

@@ -1,0 +1,25 @@
+.attribute-table
+  display: table
+  width: 100%
+  border-collapse: collapse
+
+  li
+    display: table-row
+
+    &:not(:first-child)
+      border-top: 1px solid rgba(255, 255, 255, 0.1)
+
+    & > div
+      @extend .padding-top--small
+      @extend .padding-bottom--small
+      display: table-cell
+
+  .key
+    @extend .padding-right--small
+    font-variant: small-caps
+    color: $secondary-color
+    width: 0
+
+  .value
+    @extend .padding-left--small
+    width: 100%

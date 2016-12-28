@@ -17,7 +17,7 @@
       </div>`
 
     actions =
-      `<div className='actions'>
+      `<div>
       </div>`
 
   else
@@ -56,26 +56,21 @@
     prefixClass += ' official'
 
   `<div className='character-card'>
-      <div className='row'>
-          <div className='col l8 m7 s12'>
-              <div className='character-details'>
-                  <h1 className='name'>
-                      <span className={ prefixClass }>{ props.titlePrefix } </span>
-                      <span className='real-name'>{ props.name }</span>
-                      { nickname }
-                      <span className={ suffixClass }> { props.titleSuffix }</span>
-                  </h1>
+      <div className='flex-row'>
+          <div className='character-details'>
+              <h1 className='name'>
+                  <span className={ prefixClass }>{ props.titlePrefix } </span>
+                  <span className='real-name'>{ props.name }</span>
+                  { nickname }
+                  <span className={ suffixClass }> { props.titleSuffix }</span>
+              </h1>
 
-                  { description }
-                  { actions }
-              </div>
+              { description }
+              { actions }
           </div>
-
-          <div className='col l4 m5 s12'>
-              <div className='character-image'>
-                  <div className='slant' />
-                  <img src={ props.imageSrc } />
-              </div>
+          <div className='character-image'>
+              <div className='slant' />
+              <img src={ props.imageSrc } />
           </div>
       </div>
   </div>`
