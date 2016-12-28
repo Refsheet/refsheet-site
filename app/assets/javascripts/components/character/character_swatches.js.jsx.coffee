@@ -1,28 +1,51 @@
 @CharacterSwatches = React.createClass
   getInitialState: ->
     swatches: null
-    
-  editSwatch: (key, data) ->
+
+  swatchParams: (data) ->
+    if data.rowOrderPosition?
+      swatch:
+        row_order_position: data.rowOrderPosition
+    else
+      swatch:
+        color: data.value || ''
+        name:  data.name  || ''
+        notes: data.notes || ''
+
+  editSwatch: (data, onSuccess, onFail) ->
     $.ajax
-      url: '/users/mauabata/akhet/swatches'
+      url: @props.characterPath + '/swatches/' + data.id
+      data: @swatchParams(data)
       type: 'PATCH'
-      success: (data) =>
-        @setState swatches: data
+      success: (_data) =>
+        @setState swatches: _data
+        onSuccess(_data) if onSuccess?
+      error: (error) ->
+        d = error.responseJSON.errors
+        onFail(value: d.color, name: d.name, notes: d.notes) if onFail?
     
-  newSwatch: (data) ->
-    $.post '/users/mauabata/akhet/swatches', (data) =>
-      @setState swatches: data
+  newSwatch: (data, onSuccess, onFail) ->
+    $.ajax
+      url: @props.characterPath + '/swatches'
+      data: @swatchParams(data)
+      type: 'POST'
+      success: (_data) =>
+        @setState swatches: _data
+        onSuccess(_data) if onSuccess?
+      error: (error) ->
+        d = error.responseJSON.errors
+        onFail(value: d.color, name: d.name, notes: d.notes) if onFail?
   
   removeSwatch: (key) ->
     $.ajax
-      url: '/users/mauabata/akhet/swatches/' + key
+      url: @props.characterPath + '/swatches/' + key
       type: 'DELETE'
-      success: (data) =>
-        @setState swatches: data
+      success: (_data) =>
+        @setState swatches: _data
 
   componentDidMount: ->
-    $.get @props.characterPath + '/swatches', (data) =>
-      @setState swatches: data
+    $.get @props.characterPath + '/swatches', (_data) =>
+      @setState swatches: _data
 
   componentDidUpdate: ->
     $('#swatch-menu').collapsible()
@@ -30,15 +53,22 @@
   render: ->
     if !@state.swatches?
       `<section className='character-swatches'>
+          <div class="progress">
+              <div class="indeterminate"></div>
+          </div>
       </section>`
 
     else
       swatches = @state.swatches.map (swatch) ->
-        `<div className='swatch' key={ swatch.guid } style={{backgroundColor: swatch.color}} />`
+        `<div className='swatch' key={ swatch.id } style={{backgroundColor: swatch.color}} />`
 
       if @props.artistView
         swatchDetails = @state.swatches.map (swatch) ->
-          `<Attribute key={ swatch.guid } value={ swatch.color } {...swatch} />`
+          `<Attribute key={ swatch.id }
+                      value={ swatch.color }
+                      iconColor={ swatch.color }
+                      icon='palette'
+              {...swatch} />`
 
         `<section className='character-swatches'>
             <div className='container'>
@@ -53,10 +83,10 @@
                             </div>
                         </div>
                         <div className='collapsible-body'>
-                            <AttributeTable onAttributeChange={ this.editSwatch }
-                                            onAttributeAdd={ this.newSwatch }
+                            <AttributeTable onAttributeUpdate={ this.editSwatch }
+                                            onAttributeCreate={ this.newSwatch }
                                             onAttributeDelete={ this.removeSwatch }
-                                            reorder={ true }>
+                                            sortable={ true }>
                                 { swatchDetails }
                             </AttributeTable>
                         </div>
