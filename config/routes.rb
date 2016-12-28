@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   get '/users/:user_id/:id', to: 'characters#show', as: :character
 
   resources :users, only: [:show] do
-    resources :characters, only: [:index]
+    resources :characters, only: [:index, :show] do
+      resources :swatches, only: [:index, :create, :update, :destroy]
+    end
   end
 
   # get  '*page', to: 'public#show', formats: :html
