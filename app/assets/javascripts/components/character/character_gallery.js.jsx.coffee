@@ -1,8 +1,12 @@
 @CharacterGallery = (props) ->
+  if props.artistView
+    featuredImage =
+      `<div className='featured-image'>
+          <img src={ props.featuredImage } />
+      </div>`
+
   `<section className='character-gallery'>
       <div className='container'>
-          <div className='featured-image'>
-              <img src={ props.featuredImage } />
-          </div>
+          { featuredImage }
       </div>
   </section>`

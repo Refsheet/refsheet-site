@@ -22,20 +22,8 @@
 
   else
     description =
-      `<div className='description'>
-          <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Sed ex metus, dignissim at aliquam a, convallis ac tortor.
-              Nulla neque. Aenean sagittis ultrices iaculis. Curabitur
-              eleifend purus id lorem dapibus, sed consequat.
-          </p>
-          <p>
-              Praesent nunc nulla, pharetra nec libero ac, vestibulum
-              venenatis nisi. Fusce ullamcorper porta malesuada. Phasellus
-              quis sem eget augue efficitur laoreet. Integer vitae neque
-              a est tincidunt varius eget ac diam. Nullam sodales, orci
-              eget fringilla mollis, urna odio commodo.
-          </p>
+      `<div className='description flow-text'>
+          { props.profile || <p className='no-description'>No description.</p> }
       </div>`
 
     actions =
@@ -56,21 +44,19 @@
     prefixClass += ' official'
 
   `<div className='character-card'>
-      <div className='flex-row'>
-          <div className='character-details'>
-              <h1 className='name'>
-                  <span className={ prefixClass }>{ props.titlePrefix } </span>
-                  <span className='real-name'>{ props.name }</span>
-                  { nickname }
-                  <span className={ suffixClass }> { props.titleSuffix }</span>
-              </h1>
+      <div className='character-details'>
+          <h1 className='name'>
+              <span className={ prefixClass }>{ props.titlePrefix } </span>
+              <span className='real-name'>{ props.name }</span>
+              { nickname }
+              <span className={ suffixClass }> { props.titleSuffix }</span>
+          </h1>
 
-              { description }
-              { actions }
-          </div>
-          <div className='character-image'>
-              <div className='slant' />
-              <img src={ props.imageSrc } />
-          </div>
+          { description }
+          { actions }
+      </div>
+      <div className='character-image'>
+          <div className='slant' />
+          <img src={ props.imageSrc } />
       </div>
   </div>`

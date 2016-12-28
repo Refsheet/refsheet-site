@@ -13,7 +13,12 @@
 #
 
 class Character < ApplicationRecord
+  include HasGuid
+
   belongs_to :user
+  has_many :swatches
+
+  has_guid :shortcode, type: :token
 
   validates_presence_of :user
   validates_presence_of :name
@@ -21,4 +26,8 @@ class Character < ApplicationRecord
 
   validates_uniqueness_of :url, scope: :user
   validates_uniqueness_of :shortcode
+
+  def to_param
+    url
+  end
 end

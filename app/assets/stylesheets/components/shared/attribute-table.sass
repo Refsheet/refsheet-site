@@ -13,13 +13,36 @@
       @extend .padding-top--small
       @extend .padding-bottom--small
       display: table-cell
+      vertical-align: top
 
   .key
     @extend .padding-right--small
     font-variant: small-caps
     color: $secondary-color
     width: 0
+    white-space: nowrap
 
   .value
     @extend .padding-left--small
     width: 100%
+
+  .edit, .delete
+    @extend .padding-left--small
+    padding:
+      top: 3px
+      bottom: 0
+    color: rgba(255, 255, 255, 0.4)
+
+    &:hover
+      color: rgba(255, 255, 255, 1)
+      transition: color 0.25s ease
+      cursor: pointer
+
+  .icon
+    @extend .padding-right--medium
+    padding:
+      top: 3px
+      bottom: 0
+
+    .material-icons
+      font-size: 2rem
