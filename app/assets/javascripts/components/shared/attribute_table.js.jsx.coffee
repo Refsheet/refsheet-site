@@ -26,13 +26,14 @@
         onDelete: @props.onAttributeDelete
         editorActive: (@state.activeEditor == child.key)
         sortable: @props.sortable
+        valueType: @props.valueType
         onEditStart: =>
           @setState activeEditor: child.key
         onEditStop: =>
           @setState activeEditor: null
 
     if @props.onAttributeCreate?
-      newForm = `<AttributeForm onCommit={ this.props.onAttributeCreate } inactive={ this.state.activeEditor != null } onFocus={ this.clearEditor } />`
+      newForm = `<AttributeForm onCommit={ this.props.onAttributeCreate } inactive={ this.state.activeEditor != null } valueType={ this.props.valueType } onFocus={ this.clearEditor } />`
 
     className = 'attribute-table'
 

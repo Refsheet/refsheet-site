@@ -46,6 +46,7 @@
                       id={ this.props.id }
                       onCancel={ this.cancelEdit }
                       onCommit={ this.props.onCommit }
+                      valueType={ this.props.valueType }
       />`
 
     else

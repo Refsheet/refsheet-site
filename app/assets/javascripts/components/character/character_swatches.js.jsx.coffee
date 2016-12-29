@@ -86,7 +86,8 @@
                             <AttributeTable onAttributeUpdate={ this.editSwatch }
                                             onAttributeCreate={ this.newSwatch }
                                             onAttributeDelete={ this.removeSwatch }
-                                            sortable={ true }>
+                                            sortable={ true }
+                                            valueType='color'>
                                 { swatchDetails }
                             </AttributeTable>
                         </div>
