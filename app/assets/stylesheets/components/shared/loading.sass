@@ -1,0 +1,21 @@
+.loading
+  @extend .card
+  position: absolute
+  top: 50%
+  width: 100%
+  transform: translateY(-50%)
+  text-align: center
+  padding: 2rem
+  background-color: rgba($card-bg-color, 0.8)
+
+  h1
+    @extend .thin
+    font-size: 3rem
+    margin-top: 0
+    margin-bottom: 3rem
+
+.progress
+  background-color: transparent
+
+  div
+    background-color: $secondary-color
