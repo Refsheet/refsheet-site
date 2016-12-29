@@ -53,8 +53,10 @@
   render: ->
     if !@state.swatches?
       `<section className='character-swatches'>
-          <div class="progress">
-              <div class="indeterminate"></div>
+          <div className='container'>
+              <div className="progress">
+                  <div className="indeterminate"></div>
+              </div>
           </div>
       </section>`
 
