@@ -27,6 +27,12 @@
     o[e.target.name] = e.target.value
     @setState o
 
+  colorPicker: (e) ->
+    @setState value: e.target.value
+
+  colorPickerClick: (e) ->
+    $(e.target).children('input').click()
+
   componentWillReceiveProps: (newProps) ->
     state = []
     state.name = newProps.name if newProps.name?
@@ -48,6 +54,13 @@
 
     if @props.inactive
       className += ' inactive'
+      
+    if @props.valueType == 'color'
+      colorPicker =
+        `<div className='color-helper' onClick={ this.colorPickerClick } style={{ backgroundColor: this.state.value }}>
+            <input type='color' className='right'
+                   onChange={ this.colorPicker } />
+        </div>`
 
     `<li className={ className }>
         <div className='icon'>
@@ -67,6 +80,8 @@
         </div>
 
         <div className='value'>
+            { colorPicker }
+
             <input type='text' name='value' placeholder='Value'
                    className={ this.state.errors.value ? 'invalid' : '' }
                    onChange={ this.handleChange }
