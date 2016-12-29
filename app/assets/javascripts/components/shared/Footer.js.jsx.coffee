@@ -1,0 +1,3 @@
+@Footer = (props) ->
+  `<footer>
+  </footer>`
