@@ -12,5 +12,5 @@ Rails.application.routes.draw do
     end
   end
 
-  # get  '*page', to: 'public#show', formats: :html
+  get '*page', to: 'application#show'
 end

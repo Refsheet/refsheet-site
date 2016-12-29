@@ -5,7 +5,7 @@ class CharactersController < ApplicationController
   def show
     respond_to do |format|
       format.json { render json: @character, serializer: CharacterSerializer }
-      format.html { render component: 'CharacterApp', characterPath: user_character_path(@character.user, @character) }
+      format.html { render 'application/show' }
     end
   end
 

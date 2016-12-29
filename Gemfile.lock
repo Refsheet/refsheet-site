@@ -228,6 +228,9 @@ GEM
     rb-fsevent (0.9.8)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
+    react-router-rails (0.13.3.1)
+      rails (>= 3.1)
+      react-rails (>= 0.12)
     redis (3.3.2)
     ref (2.0.0)
     referer-parser (0.3.0)
@@ -365,6 +368,7 @@ DEPENDENCIES
   rails-ujs
   ranked-model
   react-rails!
+  react-router-rails
   redis (~> 3.0)
   responders
   rspec-collection_matchers

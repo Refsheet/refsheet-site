@@ -20,6 +20,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'haml'
 gem 'react-rails', github: 'reactjs/react-rails', branch: 'master'
+gem 'react-router-rails'
 gem 'materialize-sass'
 
 gem 'rails-ujs'

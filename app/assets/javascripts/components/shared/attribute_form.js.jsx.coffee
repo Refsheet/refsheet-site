@@ -41,7 +41,7 @@
     @setState state
     
   componentWillUpdate: ->
-    Materialize.updateTextFields()
+    Materialize.updateTextFields() if Materialize.updateTextFields?
 
   render: ->
     if @props.onCancel?
