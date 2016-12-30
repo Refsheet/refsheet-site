@@ -1,6 +1,6 @@
 @CharacterDetailView = (props) ->
   `<div>
-      <SwatchPanel swatchesPath={ props.character.path + '/swatches' } swatches={ props.character.swatches } />
+      <SwatchPanel swatchesPath={ props.character.path + '/swatches/' } swatches={ props.character.swatches } />
 
       <Link to='character-profile'
             params={{ userId: props.character.user_id, characterId: props.character.url }}

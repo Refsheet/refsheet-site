@@ -22,8 +22,7 @@
     else
       `<div>
           <PageHeader backgroundImage="/assets/unsplash/sand.jpg">
-              <CharacterCard imageSrc="http://d.facdn.net/art/mauabata/1475972185/1475972185.mauabata_mauflamescrying.png"
-                             name={ this.state.character.name } />
+              <CharacterCard character={ this.state.character } />
           </PageHeader>
           
           <RouteHandler character={ this.state.character } />

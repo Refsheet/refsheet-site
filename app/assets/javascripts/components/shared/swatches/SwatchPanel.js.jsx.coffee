@@ -43,6 +43,9 @@
       success: (_data) =>
         @setState swatches: _data
 
+  componentDidMount: ->
+    $('#swatch-menu').collapsible()
+
   componentDidUpdate: ->
     $('#swatch-menu').collapsible()
 

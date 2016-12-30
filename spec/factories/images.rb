@@ -1,0 +1,26 @@
+# == Schema Information
+#
+# Table name: images
+#
+#  id                 :integer          not null, primary key
+#  character_id       :integer
+#  artist_id          :integer
+#  caption            :string
+#  source_url         :string
+#  image_file_name    :string
+#  image_content_type :string
+#  image_file_size    :integer
+#  image_updated_at   :datetime
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#
+
+FactoryGirl.define do
+  factory :image do
+    character_id 1
+    artist_id 1
+    caption "MyString"
+    source_url "MyString"
+    image ""
+  end
+end

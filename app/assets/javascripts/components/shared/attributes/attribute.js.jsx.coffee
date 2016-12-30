@@ -21,6 +21,10 @@
     e.preventDefault() if e?
 
   render: ->
+    if @props.defaultValue?
+      defaultValue =
+        `<span className='default-value'>{ this.props.defaultValue }</span>`
+      
     if @props.icon?
       icon =
         `<div className='icon'>
@@ -47,15 +51,22 @@
                       onCancel={ this.cancelEdit }
                       onCommit={ this.props.onCommit }
                       valueType={ this.props.valueType }
+                      hideIcon={ this.props.icon == null }
+                      freezeName={ this.props.freezeName }
+                      hideNotes={ this.props.hideNotesForm }
       />`
 
     else
+      unless @props.hideNotesForm
+        notesTag =
+          `<div className='notes'>{ this.props.notes }</div>`
+
       `<li data-attribute-id={ this.props.id }>
           { icon }
 
           <div className='key'>{ this.props.name }</div>
-          <div className='value'>{ this.props.value }</div>
-          <div className='notes'>{ this.props.notes }</div>
+          <div className='value'>{ this.props.value || defaultValue }</div>
+          { notesTag }
 
           <div className='actions'>
               { edit }
