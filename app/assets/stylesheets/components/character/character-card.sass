@@ -57,7 +57,7 @@
       p:last-child
         margin-bottom: 0
 
-    .actions
+    & > .actions
       @extend .margin-top--large
 
     h2
@@ -73,6 +73,7 @@
     margin-top: 75px
     padding-top: 50px
     height: auto
+    min-height: 0
 
     .character-image
       position: absolute
@@ -93,8 +94,12 @@
         object-fit: cover
 
     .character-details
+      margin-right: 0
+      height: auto
+      min-height: 0
+
       .name
         text-align: center
 
-      .actions
+      & > .actions
         text-align: center
