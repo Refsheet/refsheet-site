@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get '/users/:user_id/:id', to: 'characters#show', as: :character
 
   resources :users, only: [:show] do
-    resources :characters, only: [:index, :show] do
+    resources :characters, only: [:index, :show, :update] do
       resources :swatches, only: [:index, :create, :update, :destroy]
     end
   end

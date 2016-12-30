@@ -27,8 +27,13 @@
         editorActive: (@state.activeEditor == child.key)
         sortable: @props.sortable
         valueType: @props.valueType
+        defaultValue: @props.defaultValue
+        freezeName: @props.freezeName
+        hideNotesForm: @props.hideNotesForm
+
         onEditStart: =>
           @setState activeEditor: child.key
+          
         onEditStop: =>
           @setState activeEditor: null
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161228072627) do
+ActiveRecord::Schema.define(version: 20161229225854) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,8 +32,30 @@ ActiveRecord::Schema.define(version: 20161228072627) do
     t.string   "url"
     t.string   "shortcode"
     t.text     "profile"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "gender"
+    t.string   "species"
+    t.string   "height"
+    t.string   "weight"
+    t.string   "body_type"
+    t.string   "personality"
+    t.text     "special_notes"
+    t.integer  "featured_image_id"
+    t.integer  "profile_image_id"
+  end
+
+  create_table "images", force: :cascade do |t|
+    t.integer  "character_id"
+    t.integer  "artist_id"
+    t.string   "caption"
+    t.string   "source_url"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
   create_table "swatches", force: :cascade do |t|

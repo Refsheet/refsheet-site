@@ -52,6 +52,12 @@
 
     className = 'attribute-form'
 
+    if Object.keys(@state.errors).length != 0
+      saveClassName = 'red-text'
+
+    else
+      saveClassName = 'teal-text'
+
     if @props.inactive
       className += ' inactive'
       
@@ -62,12 +68,19 @@
                    onChange={ this.colorPicker } />
         </div>`
 
-    `<li className={ className }>
-        <div className='icon'>
+    unless @props.hideIcon
+      iconTag =
+        `<div className='icon'>
             <i className='material-icons'>edit</i>
-        </div>
+        </div>`
 
-        <div className='name'>
+    if @props.freezeName
+      nameTag =
+        `<div className='key'>{ this.state.name }</div>`
+
+    else
+      nameTag =
+        `<div className='key'>
             <input type='text' name='name' placeholder='Name'
                    className={ this.state.errors.name ? 'invalid' : '' }
                    data-error={ this.state.errors.name }
@@ -77,7 +90,24 @@
             />
 
             <label data-error={ this.state.errors.name } />
-        </div>
+        </div>`
+
+    unless @props.hideNotes
+      notesTag =
+        `<div className='notes'>
+            <input type='text' name='notes' placeholder='Notes'
+                   className={ this.state.errors.notes ? 'invalid' : '' }
+                   onChange={ this.handleChange }
+                   value={ this.state.notes }
+                   onFocus={ this.props.onFocus }
+            />
+
+            <label data-error={ this.state.errors.notes } />
+        </div>`
+
+    `<li className={ className }>
+        { iconTag }
+        { nameTag }
 
         <div className='value'>
             { colorPicker }
@@ -92,19 +122,10 @@
             <label data-error={ this.state.errors.value } />
         </div>
 
-        <div className='notes'>
-            <input type='text' name='notes' placeholder='Notes'
-                   className={ this.state.errors.notes ? 'invalid' : '' }
-                   onChange={ this.handleChange }
-                   value={ this.state.notes }
-                   onFocus={ this.props.onFocus }
-            />
-
-            <label data-error={ this.state.errors.notes } />
-        </div>
+        { notesTag }
 
         <div className='actions'>
-            <a className='' onClick={ this.commit }>
+            <a className={ saveClassName } onClick={ this.commit }>
                 <i className='material-icons'>save</i>
             </a>
 
