@@ -8,6 +8,10 @@ class CharacterSerializer < ActiveModel::Serializer
   has_one  :featured_image, serializer: CharacterImageSerializer
   has_one  :profile_image, serializer: CharacterImageSerializer
 
+  def swatches
+    object.swatches.rank(:row_order)
+  end
+
   def path
     user_character_path object.user, object
   end
