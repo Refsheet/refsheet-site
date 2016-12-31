@@ -1,21 +1,19 @@
-{ 
-  @RouteHandler
-  @Link
-  @Route
-  @NotFoundRoute
-  @DefaultRoute
-} = ReactRouter
+{ @Router, @browserHistory, @Route, @IndexRoute, @Link } = ReactRouter
 
-@Routes =
-  `<Route handler={ App }>
-      <DefaultRoute handler={ Loading } />
-      
-      <Route path='/users/:userId' handler={ UserApp } />
+@Routes = React.createClass
+  render: ->
+    console.log Router, browserHistory, Route, IndexRoute, Link
+    `<Router history={ browserHistory }>
+        <Route path='/' component={ App }>
+            <IndexRoute component={ Loading } />
 
-      <Route path='/users/:userId/:characterId' handler={ CharacterApp }>
-          <DefaultRoute name='character-profile' handler={ CharacterProfileView } />
-          <Route name='character-details' path='details' handler={ CharacterDetailView } />
-      </Route>
+            <Route path='/users/:userId' component={ UserApp } />
 
-      <NotFoundRoute handler={ NotFound } />
-  </Route>`
+            <Route path='/users/:userId/characters/:characterId' component={ CharacterApp }>
+                <IndexRoute name='character-profile' component={ CharacterProfileView } />
+                <Route name='character-details' path='details' component={ CharacterDetailView } />
+            </Route>
+
+            <Route path='*' component={ NotFound } />
+        </Route>
+    </Router>`

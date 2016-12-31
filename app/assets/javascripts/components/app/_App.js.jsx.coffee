@@ -4,7 +4,7 @@
         <UserBar />
 
         <main>
-            <RouteHandler />
+            { this.props.children }
         </main>
 
         <Footer />

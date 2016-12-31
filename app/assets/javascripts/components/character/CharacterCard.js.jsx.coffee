@@ -24,9 +24,7 @@
     router: React.PropTypes.func
 
   render: ->
-    [..., currentRoute] = @context.router.getCurrentRoutes()
-
-    if currentRoute.name == 'character-details'
+    if @props.detailView
       if @state.character.special_notes?
         specialNotes =
           `<div className='important-notes'>
