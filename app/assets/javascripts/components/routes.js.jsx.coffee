@@ -2,7 +2,6 @@
 
 @Routes = React.createClass
   render: ->
-    console.log Router, browserHistory, Route, IndexRoute, Link
     `<Router history={ browserHistory }>
         <Route path='/' component={ App }>
             <IndexRoute component={ Loading } />
