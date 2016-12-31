@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :users, only: [:show] do
     resources :characters, only: [:index, :show, :update] do
       resources :swatches, only: [:index, :create, :update, :destroy]
+      resources :images, only: [:index, :create, :update, :destroy]
     end
   end
 

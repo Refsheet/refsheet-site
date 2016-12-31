@@ -23,4 +23,6 @@ class Image < ApplicationRecord
   validates_attachment :image, presence: true,
                        content_type: { content_type: /image\/*/ },
                        size: { in: 0..10.megabytes }
+
+  ranks :row_order
 end
