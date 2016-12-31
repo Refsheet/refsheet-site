@@ -28,14 +28,14 @@
                 <div className='row'>
                     <div className='col m8 s12'>
                         <div className='image'>
-                            <img src='http://placehold.it/920x670' />
+                            <img src='/assets/unsplash/fox.jpg' />
                         </div>
                     </div>
                     <div className='col m4 s12'>
                         <div className='row'>
                             <div className='col m12 s6'>
                                 <div className='image'>
-                                    <img src='http://placehold.it/420x534' />
+                                    <img src='/assets/unsplash/sand.jpg' />
                                 </div>
                             </div>
                             <div className='col m12 s6'>
