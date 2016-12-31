@@ -23,7 +23,8 @@ Rails.application.configure do
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = false
+  config.assets.compile = true
+  # TODO: THIS IS REALLY BAD, but required for react-router-rails to do the correct thing.
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
