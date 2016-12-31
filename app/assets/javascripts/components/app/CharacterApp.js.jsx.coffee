@@ -1,16 +1,10 @@
 @CharacterApp = React.createClass
-  contextTypes:
-    router: React.PropTypes.func
-
-  params: ->
-    @context.router.getCurrentParams()
-
   getInitialState: ->
     character: null
     loaded: false
     
   componentDidMount: ->
-    path = '/users/' + @params().userId + '/characters/' + @params().characterId
+    path = '/users/' + @props.params.userId + '/characters/' + @props.params.characterId
     
     $.get path, (data) =>
       @setState character: data, loaded: true
@@ -21,9 +15,5 @@
 
     else
       `<div>
-          <PageHeader backgroundImage="/assets/unsplash/sand.jpg">
-              <CharacterCard character={ this.state.character } />
-          </PageHeader>
-          
-          <RouteHandler character={ this.state.character } />
+          { React.cloneElement(this.props.children, { character: this.state.character }) }
       </div>`

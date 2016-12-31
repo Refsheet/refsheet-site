@@ -1,13 +1,59 @@
-@CharacterDetailView = (props) ->
-  `<div>
-      <SwatchPanel swatchesPath={ props.character.path + '/swatches/' } swatches={ props.character.swatches } />
+@CharacterDetailView = React.createClass
+  componentDidMount: ->
+    $('.image-gallery .image').draggable
+      revert: true
 
-      <Link to='character-profile'
-            params={{ userId: props.character.user_id, characterId: props.character.url }}
-            className='side-nav-trigger tooltipped'
-            data-tooltip='Character Profile'
-            data-position='right'>
+    $('.image-gallery .image').droppable
+      drop: (event, ui) ->
+        $sP = ui.draggable.parent()
+        $tP = $(this).parent()
 
-          <i className='material-icons'>perm_identity</i>
-      </Link>
-  </div>`
+        $tP.append ui.draggable
+        $sP.append $(this)
+
+        ui.draggable.css
+          left: ''
+          top: ''
+
+  render: ->
+    `<div>
+        <PageHeader backgroundImage="/assets/unsplash/sand.jpg">
+            <CharacterCard detailView={ true } character={ this.props.character } />
+        </PageHeader>
+
+        <SwatchPanel swatchesPath={ this.props.character.path + '/swatches/' } swatches={ this.props.character.swatches } />
+
+        <section className='image-gallery'>
+            <div className='container'>
+                <div className='row'>
+                    <div className='col m8 s12'>
+                        <div className='image'>
+                            <img src='http://placehold.it/920x670' />
+                        </div>
+                    </div>
+                    <div className='col m4 s12'>
+                        <div className='row'>
+                            <div className='col m12 s6'>
+                                <div className='image'>
+                                    <img src='http://placehold.it/420x534' />
+                                </div>
+                            </div>
+                            <div className='col m12 s6'>
+                                <div className='image'>
+                                    <img src='http://placehold.it/519x321' />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <Link to={ this.props.character.path }
+              className='side-nav-trigger tooltipped'
+              data-tooltip='Character Profile'
+              data-position='right'>
+
+            <i className='material-icons'>perm_identity</i>
+        </Link>
+    </div>`
