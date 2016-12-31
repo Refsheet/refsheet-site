@@ -16,6 +16,8 @@
 #
 
 class Image < ApplicationRecord
+  include RankedModel
+
   belongs_to :character
 
   has_attached_file :image, default_url: '/assets/unsplash/fox.jpg'

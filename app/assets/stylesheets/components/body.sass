@@ -1,18 +1,19 @@
 body
   background-color: $page-bg-color
   color: $page-text-color
-  min-height: 100%
 
   #rootApp
     display: flex
-    min-height: 100%
+    min-height: 100vh
     flex-direction: column
 
     main
-      flex-grow: 1
+      position: relative
+      flex: 1
+      padding-bottom: 5rem
 
     footer
-      margin-top: 120px
+      margin-top: 0
 
       .footer-copyright
         background-color: rgba(0, 0, 0, 0.2)

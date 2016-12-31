@@ -1,16 +1,16 @@
 Rails.application.routes.draw do
-  root 'public#show', page: :home
+  root 'application#show', page: :home
 
   get '/c/:id', to: 'shortcodes#show'
-  get '/u/:id', to: redirect('/users/%{id}')
-  get '/u/:user_id/:id', to: redirect('/users/%{user_id}/characters/%{id}')
-  get '/users/:user_id/:id', to: redirect('/users/%{user_id}/characters/%{id}'), as: :character
+  get '/u/*path', to: redirect('/users/%{path}')
 
   resources :users, only: [:show] do
     resources :characters, only: [:index, :show, :update] do
       resources :swatches, only: [:index, :create, :update, :destroy]
       resources :images, only: [:index, :create, :update, :destroy]
     end
+
+    get '/*path', to: redirect('/users/%{user_id}/characters/%{path}')
   end
 
   get '*page', to: 'application#show'
