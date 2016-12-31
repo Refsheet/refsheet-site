@@ -4,7 +4,7 @@
   render: ->
     `<Router history={ browserHistory }>
         <Route path='/' component={ App }>
-            <IndexRoute component={ Loading } />
+            <IndexRoute component={ Home } />
 
             <Route path='/users/:userId' component={ UserApp } />
 
