@@ -20,9 +20,6 @@
       error: (error) =>
         onError(value: error.JSONData?.errors[data.id])
 
-  contextTypes:
-    router: React.PropTypes.func
-
   render: ->
     if @props.detailView
       if @state.character.special_notes?

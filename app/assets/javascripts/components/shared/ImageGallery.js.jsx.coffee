@@ -1,25 +1,40 @@
 @ImageGallery = React.createClass
+  getInitialState: ->
+    images: @props.images
+
+  handleImageSwap: (source, target) ->
+    $.ajax
+      url: @props.imagesPath + source
+      type: 'PATCH'
+      data: { image: { swap_target_image_id: target } }
+    , (data) =>
+      @setState images: data
+    , (error) =>
+      console.log error
+
   componentDidMount: ->
-    $('.image-gallery .image').draggable
-      revert: true
-      opacity: 0.6
-  
-    $('.image-gallery .image').droppable
-      drop: (event, ui) ->
-        $source = ui.draggable
-        $sourceParent = $source.parent()
-        $target = $(this)
-        $targetParent = $target.parent()
+    if @props.edit
+      _this = this
+      $('.image-gallery .image').draggable
+        revert: true
+        opacity: 0.6
 
-        $targetParent.append $source
-        $sourceParent.append $target
+      $('.image-gallery .image').droppable
+        drop: (event, ui) ->
+          $source = ui.draggable
+          $sourceParent = $source.parent()
+          $target = $(this)
+          $targetParent = $target.parent()
 
-        $source.css top: '', left: '0'
+          $targetParent.append $source
+          $sourceParent.append $target
 
-        sourceId = $source.data 'image-id'
-        targetId = $target.data 'image-id'
+          $source.css top: '', left: '0'
 
-        console.log "Swapping #{sourceId} with #{targetId}!"
+          sourceId = $source.data 'image-id'
+          targetId = $target.data 'image-id'
+
+          _this.handleImageSwap(sourceId, targetId)
 
   render: ->
     `<section className='image-gallery'>

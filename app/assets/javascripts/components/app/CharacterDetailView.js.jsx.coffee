@@ -5,9 +5,9 @@
             <CharacterCard detailView={ true } character={ this.props.character } />
         </PageHeader>
 
-        <SwatchPanel swatchesPath={ this.props.character.path + '/swatches/' } swatches={ this.props.character.swatches } />
+        <SwatchPanel edit={ true } swatchesPath={ this.props.character.path + '/swatches/' } swatches={ this.props.character.swatches } />
 
-        <ImageGallery />
+        <ImageGallery edit={ true } imagesPath={ this.props.character.path + '/images/' } />
 
         <Link to={ this.props.character.path }
               className='side-nav-trigger tooltipped'
