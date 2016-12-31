@@ -51,6 +51,7 @@ gem 'faker'
 gem 'slack-notifier'
 gem 'ranked-model'
 gem 'paperclip'
+gem 'react-rails-hot-loader'
 
 # == BOWER ASSETS
 
