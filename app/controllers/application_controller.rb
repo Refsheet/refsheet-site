@@ -2,9 +2,6 @@ class ApplicationController < ActionController::Base
   include SessionHelper
 
   protect_from_forgery with: :exception
-  force_ssl if Rails.env.production?
-
-  protected
 
   def self.force_ssl(options = {})
     host = options.delete(:host)
@@ -17,4 +14,6 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+
+  force_ssl if Rails.env.production?
 end
