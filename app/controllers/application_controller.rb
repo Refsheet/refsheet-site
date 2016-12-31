@@ -4,9 +4,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def self.force_ssl(options = {})
+    return unless Rails.env.production?
+
     host = options.delete(:host)
     before_filter(options) do
-      if !request.ssl? && !(respond_to?(:allow_http?) && allow_http?)
+      unless request.ssl? or allow_http?
         redirect_options = {:protocol => 'https://', :status => :moved_permanently}
         redirect_options.merge!(:host => host) if host
         redirect_options.merge!(:params => request.query_parameters)
@@ -15,5 +17,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  force_ssl if Rails.env.production?
+  force_ssl
+
+  protected
+
+  def allow_http?
+    false
+  end
 end
