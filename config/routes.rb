@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root 'application#show', page: :home
+  get '/health', to: 'public#health'
 
   get '/c/:id', to: 'shortcodes#show'
   get '/u/*path', to: redirect('/users/%{path}')
