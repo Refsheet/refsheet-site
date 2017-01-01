@@ -15,14 +15,18 @@
 class User < ApplicationRecord
   has_many :characters
 
-  validates_presence_of :name
   validates_presence_of :username
   validates_presence_of :email
 
   validates_uniqueness_of :email
   validates_uniqueness_of :username
+  validates_format_of :email, with: /@/, message: 'must have @ sign'
 
   has_secure_password
+
+  def name
+    super || username
+  end
 
   def to_param
     username

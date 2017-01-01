@@ -41,11 +41,16 @@
 
     else
       `<div className='modal-content'>
-          <h1>Log In</h1>
-
-          <form onSubmit={ this.handleFormSubmit }>
-              <Input id='username' value={ this.state.username } onChange={ this.handleInputChange } label='Username' autoFocus />
-              <Input id='password' value={ this.state.password } type='password' onChange={ this.handleInputChange } label='Password' />
-              <button type='submit' className='btn'>Log In</button>
-          </form>
+          <div className='narrow-container'>
+              <h1>Log In</h1>
+    
+              <form onSubmit={ this.handleFormSubmit }>
+                  <Input id='username' value={ this.state.username } onChange={ this.handleInputChange } label='Username' autoFocus />
+                  <Input id='password' value={ this.state.password } type='password' onChange={ this.handleInputChange } label='Password' />
+                  <div className='margin-top--medium'>
+                      <button type='submit' className='btn'>Log In</button>
+                      <Link to='/register' params={{ username: this.session.username }} className='btn grey darken-3'>Sign Up</Link>
+                  </div>
+              </form>
+          </div>
       </div>`
