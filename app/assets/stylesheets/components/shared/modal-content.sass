@@ -1,19 +1,25 @@
 .modal-content
-  position: absolute
-  top: 50%
   width: 100%
-  transform: translateY(-50%)
   text-align: center
+  flex: 1
+  display: flex
+  align-items: center
+
+  &:before
+    content: ''
+    position: absolute
+    height: 100%
+    vertical-align: middle
 
   .narrow-container
+    width: 100%
     max-width: 350px
     margin: 0 auto
 
   h1
     @extend .thin
     font-size: 2.5rem
-    margin-bottom: 3rem
-    margin-top: 0
+    margin: 3rem 0
 
   p
     margin-top: 2rem

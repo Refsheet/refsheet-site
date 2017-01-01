@@ -10,8 +10,12 @@
 
   render: ->
     if @props.currentUser?
-      signOutButton = `<a className='btn grey darken-3' onClick={ this.handleSignOut }>Log Out</a>`
-    `<div>
+      signOutButton =
+        `<div className='container'>
+            <a className='btn grey darken-3 right' onClick={ this.handleSignOut }>Log Out</a>
+        </div>`
+      
+    `<main>
         { signOutButton }
         { this.props.children }
-    </div>`
+    </main>`

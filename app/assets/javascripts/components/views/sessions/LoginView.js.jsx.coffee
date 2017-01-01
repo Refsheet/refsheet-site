@@ -45,7 +45,7 @@
           <div className='narrow-container'>
               <h1>Log In</h1>
     
-              <form onSubmit={ this.handleFormSubmit }>
+              <form onSubmit={ this.handleFormSubmit } noValidate>
                   <Input id='username' value={ this.state.username } onChange={ this.handleInputChange } label='Username' autoFocus />
                   <Input id='password' value={ this.state.password } type='password' onChange={ this.handleInputChange } label='Password' />
                   <div className='margin-top--medium'>
