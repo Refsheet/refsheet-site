@@ -21,7 +21,7 @@ gem 'coffee-rails', '~> 4.2'
 gem 'haml'
 gem 'react-rails', github: 'reactjs/react-rails', branch: 'master'
 gem 'zreact-router-rails'
-gem 'materialize-sass'
+gem 'materialize-sass', github: 'sitehive/materialize-sass', branch: 'dynamic-forms'
 
 gem 'rails-ujs'
 gem 'turbolinks', '~> 5'

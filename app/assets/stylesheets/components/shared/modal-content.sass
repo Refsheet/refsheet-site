@@ -1,4 +1,4 @@
-.loading
+.modal-content
   position: absolute
   top: 50%
   width: 100%
@@ -14,6 +14,11 @@
   p
     margin-top: 2rem
     color: rgba(255, 255, 255, 0.4)
+
+  form
+    @extend .card-panel
+    max-width: 300px
+    margin: 3rem auto
 
 .progress
   background-color: transparent

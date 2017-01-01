@@ -1,29 +1,48 @@
-@UserBar = ->
+@UserBar = (props) ->
+  if props.currentUser?
+    currentUser =
+      `<ul className='right'>
+          <li>
+              <Link to='/messages' activeClassName='teal-text text-lighten-2'>
+                  <i className='material-icons'>message</i>
+              </Link>
+          </li>
+
+          <li>
+              <Link to={ '/users/' + props.currentUser.username } className='avatar'>
+                  <img src={ props.currentUser.avatar_url } className='circle' />
+              </Link>
+          </li>
+      </ul>`
+
+  else
+    currentUser =
+      `<ul className='right'>
+          <li>
+              <Link to='/login' activeClassName='teal-text text-lighten-2'>Log In</Link>
+          </li>
+      </ul>`
+
   `<div className='navbar-fixed user-bar'>
       <nav>
         <div className='container'>
-            <a href='#!/' className='logo left'>
+            <Link to='/' className='logo left'>
                 <img src='https://placehold.it/144x50' />
-            </a>
+            </Link>
+
             <ul className='hide-on-small-and-down'>
-                <li><a href='#!/marketplace'>Marketplace</a></li>
-                <li><a href='#!/guilds'>Guilds</a></li>
-                <li><a href='#!/search'>Search</a></li>
+                <li>
+                    <Link to='/marketplace' activeClassName='teal-text text-lighten-2'>Marketplace</Link>
+                </li>
+                <li>
+                    <Link to='/guilds' activeClassName='teal-text text-lighten-2'>Guilds</Link>
+                </li>
+                <li>
+                    <Link to='/search' activeClassName='teal-text text-lighten-2'>Search</Link>
+                </li>
             </ul>
 
-            <ul className='right'>
-                <li>
-                    <a href='#!/messages'>
-                        <i className='material-icons'>message</i>
-                    </a>
-                </li>
-                
-                <li>
-                    <a href='#!/users/MauAbata' className='avatar'>
-                        <img src='https://placehold.it/100' className='circle' />
-                    </a>
-                </li>
-            </ul>
+            { currentUser }
         </div>
       </nav>
   </div>`
