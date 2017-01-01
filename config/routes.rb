@@ -12,8 +12,6 @@ Rails.application.routes.draw do
       resources :swatches, only: [:index, :create, :update, :destroy]
       resources :images, only: [:index, :create, :update, :destroy]
     end
-
-    get '/*path', to: redirect('/users/%{user_id}/characters/%{path}')
   end
 
   get '*page', to: 'application#show'

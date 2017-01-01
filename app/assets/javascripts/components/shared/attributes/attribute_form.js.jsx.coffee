@@ -107,22 +107,25 @@
 
     `<li className={ className }>
         { iconTag }
-        { nameTag }
 
-        <div className='value'>
-            { colorPicker }
+        <div className='attribute-data'>
+            { nameTag }
 
-            <input type='text' name='value' placeholder='Value'
-                   className={ this.state.errors.value ? 'invalid' : '' }
-                   onChange={ this.handleChange }
-                   value={ this.state.value }
-                   onFocus={ this.props.onFocus }
-            />
+            <div className='value'>
+                { colorPicker }
 
-            <label data-error={ this.state.errors.value } />
+                <input type='text' name='value' placeholder='Value'
+                       className={ this.state.errors.value ? 'invalid' : '' }
+                       onChange={ this.handleChange }
+                       value={ this.state.value }
+                       onFocus={ this.props.onFocus }
+                />
+
+                <label data-error={ this.state.errors.value } />
+            </div>
+
+            { notesTag }
         </div>
-
-        { notesTag }
 
         <div className='actions'>
             <a className={ saveClassName } onClick={ this.commit }>

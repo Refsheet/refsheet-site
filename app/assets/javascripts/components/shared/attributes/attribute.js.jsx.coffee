@@ -64,9 +64,11 @@
       `<li data-attribute-id={ this.props.id }>
           { icon }
 
-          <div className='key'>{ this.props.name }</div>
-          <div className='value'>{ this.props.value || defaultValue }</div>
-          { notesTag }
+          <div className='attribute-data'>
+              <div className='key'>{ this.props.name }</div>
+              <div className='value'>{ this.props.value || defaultValue }</div>
+              { notesTag }
+          </div>
 
           <div className='actions'>
               { edit }

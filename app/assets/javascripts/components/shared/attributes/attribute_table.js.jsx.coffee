@@ -8,7 +8,6 @@
   componentDidMount: ->
     $('.attribute-table.sortable').sortable
       items: 'li:not(.attribute-form)'
-      handle: 'i.material-icons'
       placeholder: 'drop-target'
       forcePlaceholderSize: true
       stop: (_, el) =>
