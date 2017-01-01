@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   get '/c/:id', to: 'shortcodes#show'
   get '/u/*path', to: redirect('/users/%{path}')
 
+  resource :session, only: [:show, :create, :destroy], controller: 'session'
+
   resources :users, only: [:show] do
     resources :characters, only: [:index, :show, :update] do
       resources :swatches, only: [:index, :create, :update, :destroy]

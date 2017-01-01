@@ -1,4 +1,8 @@
 class SessionController < ApplicationController
+  def show
+    render json: current_user
+  end
+
   def create
     @user = User.find_by('LOWER(users.username) = ?', params[:username])
 
