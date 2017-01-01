@@ -5,7 +5,7 @@
 #  id                :integer          not null, primary key
 #  user_id           :integer
 #  name              :string
-#  url               :string
+#  slug              :string
 #  shortcode         :string
 #  profile           :text
 #  created_at        :datetime         not null
@@ -23,6 +23,7 @@
 
 class Character < ApplicationRecord
   include HasGuid
+  include Sluggable
 
   belongs_to :user
   has_many :swatches
@@ -31,17 +32,12 @@ class Character < ApplicationRecord
   has_one  :profile_image, class_name: Image
 
   has_guid :shortcode, type: :token
+  slugify :name, scope: :user
 
   validates_presence_of :user
   validates_presence_of :name
-  validates_presence_of :url
 
-  validates_uniqueness_of :url, scope: :user
   validates_uniqueness_of :shortcode
-
-  def to_param
-    url
-  end
 
   def description
     ''

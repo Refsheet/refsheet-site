@@ -5,7 +5,7 @@
 #  id                :integer          not null, primary key
 #  user_id           :integer
 #  name              :string
-#  url               :string
+#  slug              :string
 #  shortcode         :string
 #  profile           :text
 #  created_at        :datetime         not null

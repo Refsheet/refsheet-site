@@ -1,11 +1,20 @@
 class CharactersController < ApplicationController
   before_action :get_user
-  before_action :get_character
+  before_action :get_character, except: [:create]
 
   def show
     respond_to do |format|
       format.json { render json: @character, serializer: CharacterSerializer }
       format.html { render 'application/show' }
+    end
+  end
+
+  def create
+    @character = Character.new character_params.merge(user: current_user)
+    if @character.save
+      render json: @character
+    else
+      render json: { errors: @character.errors }, status: :bad_request
     end
   end
 
@@ -24,7 +33,7 @@ class CharactersController < ApplicationController
   end
 
   def get_character
-    @character = @user.characters.find_by!('LOWER(characters.url) = ?', params[:id].downcase)
+    @character = @user.characters.find_by!('LOWER(characters.slug) = ?', params[:id].downcase)
   end
 
   def character_params

@@ -39,7 +39,7 @@ class SwatchesController < ApplicationController
   end
 
   def get_character
-    @character = @user.characters.find_by!(url: params[:character_id])
+    @character = @user.characters.find_by!(slug: params[:character_id])
   end
 
   def get_swatch
