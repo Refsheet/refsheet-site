@@ -53,7 +53,7 @@
           <div className='narrow-container'>
               <h1>Sign Up</h1>
 
-              <form onSubmit={ this.handleFormSubmit }>
+              <form onSubmit={ this.handleFormSubmit } noValidate>
                   <Input id='username'
                          value={ this.state.username }
                          onChange={ this.handleInputChange }

@@ -14,6 +14,6 @@
       loading = `<Loading />`
 
     else
-      `<div>
+      `<main>
           { React.cloneElement(this.props.children, { character: this.state.character }) }
-      </div>`
+      </main>`

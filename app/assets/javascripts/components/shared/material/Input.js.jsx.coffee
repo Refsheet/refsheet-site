@@ -6,6 +6,10 @@
   render: ->
     if @props.error?
       className = 'invalid'
+      error = @props.error
+
+      if error.length
+        error = error[0]
 
     `<div className='input-field'>
         <input type={ this.props.type || 'text' }
@@ -17,5 +21,5 @@
                autoFocus={ this.props.autoFocus }
                className={ className } />
 
-        <label htmlFor={ this.props.id } data-error={ this.props.error }>{ this.props.label }</label>
+        <label htmlFor={ this.props.id } data-error={ error }>{ this.props.label }</label>
     </div>`

@@ -14,16 +14,13 @@
     childrenWithProps = React.Children.map this.props.children, (child) =>
       React.cloneElement child,
         onLogin: @signInUser
+        currentUser: @state.currentUser
 
     if @state.loading
       childrenWithProps = `<Loading />`
 
     `<div id='rootApp'>
         <UserBar currentUser={ this.state.currentUser } />
-
-        <main>
-            { childrenWithProps }
-        </main>
-
+        { childrenWithProps }
         <Footer />
     </div>`

@@ -15,12 +15,14 @@
 class User < ApplicationRecord
   has_many :characters
 
-  validates_presence_of :username
-  validates_presence_of :email
+  validates :username, presence: true,
+            length: { minimum: 3, maximum: 50 },
+            format: { with: /\A[a-z0-9][a-z0-9_]+[a-z0-9]\z/i, message: 'no special characters' },
+            uniqueness: { case_sensitive: false }
 
-  validates_uniqueness_of :email, case_sensitive: false
-  validates_uniqueness_of :username, case_sensitive: false
-  validates_format_of :email, with: /@/, message: 'must have @ sign'
+  validates :email, presence: true,
+            format: { with: /@/, message: 'must have @ sign' },
+            uniqueness: { case_sensitive: false }
 
   has_secure_password
 
