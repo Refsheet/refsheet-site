@@ -13,4 +13,9 @@ class SessionController < ApplicationController
       render json: { error: 'Invalid username or password.' }, status: :unauthorized
     end
   end
+
+  def destroy
+    sign_out
+    head :ok
+  end
 end

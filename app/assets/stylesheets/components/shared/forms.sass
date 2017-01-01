@@ -1,4 +1,7 @@
 input
+  z-index: 1
+  position: relative
+
   & + label:after
     top: auto !important
     bottom: 0
@@ -7,6 +10,7 @@ input
 label
   width: 100%
   bottom: 0
+  z-index: 0
 
   &.active
     transform: translateY(0) !important
