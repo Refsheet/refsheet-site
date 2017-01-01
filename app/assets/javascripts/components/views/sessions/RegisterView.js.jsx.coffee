@@ -1,6 +1,6 @@
 @RegisterView = React.createClass
   getInitialState: ->
-    username: null
+    username: @props.location.query.username
     email: null
     password: null
     password_confirmation: null
@@ -39,18 +39,19 @@
 
   componentDidMount: ->
     Materialize.initializeForms()
+    Materialize.updateTextFields()
 
   componentDidUpdate: ->
     Materialize.updateTextFields()
 
   render: ->
     if @state.loading
-      `<Loading message='Register' />`
+      `<Loading message='Sign Up' />`
 
     else
       `<div className='modal-content'>
           <div className='narrow-container'>
-              <h1>Register</h1>
+              <h1>Sign Up</h1>
 
               <form onSubmit={ this.handleFormSubmit }>
                   <Input id='username'

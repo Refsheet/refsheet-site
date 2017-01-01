@@ -1,6 +1,6 @@
 @LoginView = React.createClass
   getInitialState: ->
-    username: null
+    username: @props.location.query.username
     password: null
     loading: false
     
@@ -31,6 +31,7 @@
 
   componentDidMount: ->
     Materialize.initializeForms()
+    Materialize.updateTextFields()
 
   componentDidUpdate: ->
     Materialize.updateTextFields()
@@ -49,7 +50,7 @@
                   <Input id='password' value={ this.state.password } type='password' onChange={ this.handleInputChange } label='Password' />
                   <div className='margin-top--medium'>
                       <button type='submit' className='btn'>Log In</button>
-                      <Link to='/register' params={{ username: this.session.username }} className='btn grey darken-3'>Sign Up</Link>
+                      <Link to='/register' query={{ username: this.state.username }} className='btn grey darken-3 right'>Sign Up</Link>
                   </div>
               </form>
           </div>
