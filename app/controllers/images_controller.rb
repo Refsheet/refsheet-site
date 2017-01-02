@@ -47,6 +47,6 @@ class ImagesController < ApplicationController
   end
 
   def image_params
-    params.require(:image).permit(:color, :name, :notes, :row_order_position).merge(character: @character)
+    params.require(:image).permit(:image, :artist_id, :caption, :source_url).merge(character: @character)
   end
 end
