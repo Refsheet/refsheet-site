@@ -26,35 +26,32 @@
 
   render: ->
     if this.state.image?
-      character =
-        `<div className='character'>
-            <div className='avatar'>
-            </div>
-            <div className='name'>
-                Akhet
-            </div>
-        </div>`
-
       lightbox =
         `<div className='lightbox'>
             <div className='image-content'>
                 <img src={ this.state.image.url } />
+
+                <div className='image-actions'>
+                    <a href='#'>Set Cover</a>
+                    <a href='#'>Set Main</a>
+
+                    <div className='right'>
+                        <a href='#'>Delete</a>
+                    </div>
+                </div>
             </div>
 
             <div className='image-details-container'>
                 <div className='image-details'>
-                    { character }
+                    <LightboxCharacterBox character={ this.state.image.character } />
+
                     <p className='caption'>
                         { this.state.image.caption || <div className='no-caption'>No caption.</div> }
                     </p>
                 </div>
                 
                 <div className='comments'>
-                    Comments?
-                </div>
-                
-                <div className='actions'>
-                    <input type='text' placeholder='Add Comment...' />
+                    <div className='no-comment'>No Comments</div>
                 </div>
             </div>
         </div>`
