@@ -37,8 +37,17 @@ class CharactersController < ApplicationController
   end
 
   def character_params
-    params.require(:character).permit(:name, :nickname, :gender, :species, :height, :weight,
-                                      :body_type, :personality, :special_notes,
-                                      :featured_image_id, :profile_image_id)
+    p = params.require(:character).permit(:name, :nickname, :gender, :species, :height, :weight,
+                                          :body_type, :personality, :special_notes)
+
+    if params[:character].include? :profile_image_guid
+      p[:profile_image] = @character.images.find_by!(guid: params[:character][:profile_image_guid])
+    end
+
+    if params[:character].include? :featured_image_guid
+      p[:featured_image] = @character.images.find_by!(guid: params[:character][:featured_image_guid])
+    end
+
+    p
   end
 end

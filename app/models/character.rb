@@ -28,16 +28,14 @@ class Character < ApplicationRecord
   belongs_to :user
   has_many :swatches
   has_many :images
-  has_one  :featured_image, class_name: Image
-  has_one  :profile_image, class_name: Image
+  belongs_to  :featured_image, class_name: Image
+  belongs_to  :profile_image, class_name: Image
 
   has_guid :shortcode, type: :token
   slugify :name, scope: :user
 
   validates_presence_of :user
   validates_presence_of :name
-
-  validates_uniqueness_of :shortcode
 
   def description
     ''
@@ -48,6 +46,10 @@ class Character < ApplicationRecord
   end
 
   def profile_image
+    super || Image.new
+  end
+
+  def featured_image
     super || Image.new
   end
 end

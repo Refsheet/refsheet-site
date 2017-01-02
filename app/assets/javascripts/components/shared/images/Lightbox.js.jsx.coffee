@@ -8,6 +8,34 @@
       @props.onClose()
       e.preventDefault()
 
+  setFeaturedImage: (e) ->
+    $.ajax
+      url: @state.image.character.path
+      type: 'PATCH'
+      data: { character: { featured_image_guid: @state.image.id } }
+      success: (data) =>
+        Materialize.toast 'Done!', 3000, 'green'
+
+      error: (error) =>
+        console.log error
+        Materialize.toast 'Error?', 3000, 'red'
+
+    e.preventDefault()
+
+  setProfileImage: (e) ->
+    $.ajax
+      url: @state.image.character.path
+      type: 'PATCH'
+      data: { character: { profile_image_guid: @state.image.id } }
+      success: (data) =>
+        Materialize.toast 'Done!', 3000, 'green'
+
+      error: (error) =>
+        console.log error
+        Materialize.toast 'Error?', 3000, 'red'
+
+    e.preventDefault()
+
   componentWillMount: ->
     $('body').addClass('lightbox-open')
 
@@ -32,8 +60,8 @@
                 <img src={ this.state.image.url } />
 
                 <div className='image-actions'>
-                    <a href='#'>Set Cover</a>
-                    <a href='#'>Set Main</a>
+                    <a href='#' onClick={ this.setFeaturedImage }>Set Cover</a>
+                    <a href='#' onClick={ this.setProfileImage }>Set Profile Image</a>
 
                     <div className='right'>
                         <a href='#'>Delete</a>
