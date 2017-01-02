@@ -1,7 +1,7 @@
 class ImagesController < ApplicationController
-  before_action :get_user
-  before_action :get_character
-  before_action :get_image, only: [:update, :destroy]
+  before_action :get_user, except: [:show, :update, :destroy]
+  before_action :get_character, except: [:show, :update, :destroy]
+  before_action :get_image, only: [:show, :update, :destroy]
 
   respond_to :json
 
@@ -9,11 +9,15 @@ class ImagesController < ApplicationController
     render json: @character.images.rank(:row_order), each_serializer: ImageSerializer
   end
 
+  def show
+    render json: @image, serializer: ImageSerializer
+  end
+
   def create
-    @image = Image.create image_params
+    @image = Image.new image_params.merge(character: @character)
 
     if @image.save
-      render json: @character.images.rank(:row_order), each_serializer: ImageSerializer
+      render json: @image, serializer: ImageSerializer
     else
       render json: { errors: @image.errors }, status: :bad_request
     end
@@ -21,7 +25,7 @@ class ImagesController < ApplicationController
 
   def update
     if @image.update_attributes image_params
-      render json: @character.images.rank(:row_order), each_serializer: ImageSerializer
+      render json: @image, serializer: ImageSerializer
     else
       render json: { errors: @image.errors }, status: :bad_request
     end
@@ -29,7 +33,7 @@ class ImagesController < ApplicationController
 
   def destroy
     @image.destroy
-    render json: @character.images.rank(:row_order), each_serializer: ImageSerializer
+    render json: @image, serializer: ImageSerializer
   end
 
   private
@@ -43,10 +47,10 @@ class ImagesController < ApplicationController
   end
 
   def get_image
-    @image = @character.images.find_by!(guid: params[:id])
+    @image = Image.find_by!(guid: params[:id])
   end
 
   def image_params
-    params.require(:image).permit(:image, :artist_id, :caption, :source_url).merge(character: @character)
+    params.require(:image).permit(:image, :artist_id, :caption, :source_url)
   end
 end

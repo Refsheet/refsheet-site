@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170102062651) do
+ActiveRecord::Schema.define(version: 20170102191111) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,8 @@ ActiveRecord::Schema.define(version: 20170102062651) do
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.integer  "row_order"
+    t.string   "guid"
+    t.index ["guid"], name: "index_images_on_guid", using: :btree
   end
 
   create_table "swatches", force: :cascade do |t|

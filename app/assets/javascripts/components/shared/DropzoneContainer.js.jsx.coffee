@@ -5,6 +5,8 @@
 
   componentDidMount: ->
     if this.props.url?
+      ___this = this
+
       $('.dropzone-container').dropzone
         url: this.props.url
         previewTemplate: ''
@@ -29,6 +31,7 @@
 
           @on 'success', (_, data) ->
             Materialize.toast "Image uploaded!", 3000, 'green'
+            ___this.props.onUpload(data.id) if ___this.props.onUpload?
 
   render: ->
     if @state.uploading

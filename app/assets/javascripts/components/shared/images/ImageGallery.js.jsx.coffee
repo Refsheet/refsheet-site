@@ -1,6 +1,6 @@
 @ImageGallery = React.createClass
   getInitialState: ->
-    images: @props.images
+    images: @props.images || null
 
   handleImageSwap: (source, target) ->
     $.ajax
@@ -12,7 +12,15 @@
     , (error) =>
       console.log error
 
+  handleImageClick: (e) ->
+    id = $(e.target).closest('[data-image-id]').data('image-id')
+    @props.onImageClick(id) if @props.onImageClick?
+
   componentDidMount: ->
+    $.get @props.imagesPath, (data) =>
+      @setState images: data
+
+  componentDidUpdate: ->
     if @props.edit
       _this = this
       $('.image-gallery .image').draggable
@@ -37,28 +45,21 @@
           _this.handleImageSwap(sourceId, targetId)
 
   render: ->
+    if @state.images?
+      images = @state.images.map (image) =>
+        `<div className='col m3 s6' key={ image.id }>
+            <div className='image' data-image-id={ image.id }>
+                <img src={ image.url } alt={ image.caption } />
+            </div>
+        </div>`
+
+    else
+      images = `<Spinner />`
+
     `<section className='image-gallery'>
         <div className='container'>
-            <div className='row'>
-                <div className='col m8 s12'>
-                    <div className='image' data-image-id='fox'>
-                        <img src='/assets/unsplash/fox.jpg' />
-                    </div>
-                </div>
-                <div className='col m4 s12'>
-                    <div className='row'>
-                        <div className='col m12 s6'>
-                            <div className='image' data-image-id='sand'>
-                                <img src='/assets/unsplash/sand.jpg' />
-                            </div>
-                        </div>
-                        <div className='col m12 s6'>
-                            <div className='image' data-image-id='boring'>
-                                <img src='http://placehold.it/519x321' />
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div className='row' onClick={ this.handleImageClick }>
+                { images }
             </div>
         </div>
     </section>`
