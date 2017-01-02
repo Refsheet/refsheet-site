@@ -7,7 +7,7 @@
 
         <SwatchPanel edit={ true } swatchesPath={ this.props.character.path + '/swatches/' } swatches={ this.props.character.swatches } />
 
-        <ImageGallery edit={ true } imagesPath={ this.props.character.path + '/images/' } />
+        <ImageGallery edit={ true } imagesPath={ this.props.character.path + '/images/' } onImageClick={ this.props.onLightbox } />
 
         <Link to={ this.props.character.path }
               className='side-nav-trigger tooltipped'

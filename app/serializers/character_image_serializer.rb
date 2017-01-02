@@ -1,5 +1,9 @@
 class CharacterImageSerializer < ActiveModel::Serializer
-  attributes :url
+  attributes :id, :url
+
+  def id
+    object.guid
+  end
 
   def url
     object.image&.url

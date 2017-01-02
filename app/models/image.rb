@@ -16,6 +16,7 @@
 #
 
 class Image < ApplicationRecord
+  include HasGuid
   include RankedModel
 
   belongs_to :character
@@ -26,5 +27,6 @@ class Image < ApplicationRecord
                        content_type: { content_type: /image\/*/ },
                        size: { in: 0..10.megabytes }
 
+  has_guid
   ranks :row_order
 end
