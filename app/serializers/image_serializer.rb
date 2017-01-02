@@ -1,7 +1,7 @@
 class ImageSerializer < ActiveModel::Serializer
   attributes :id, :caption, :url
 
-  has_one :character, serializer: CharacterSerializer
+  has_one :character, serializer: ImageCharacterSerializer
 
   def id
     object.guid
