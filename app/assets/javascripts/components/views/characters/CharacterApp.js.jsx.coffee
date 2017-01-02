@@ -15,5 +15,7 @@
 
     else
       `<main>
-          { React.cloneElement(this.props.children, { character: this.state.character }) }
+          <DropzoneContainer url={ this.state.character.path + '/images' }>
+              { React.cloneElement(this.props.children, { character: this.state.character }) }
+          </DropzoneContainer>
       </main>`

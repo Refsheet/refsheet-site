@@ -128,6 +128,8 @@ GEM
     debug_inspector (0.0.2)
     diff-lcs (1.2.5)
     docile (1.1.5)
+    dropzonejs-rails (0.7.3)
+      rails (> 3.1)
     em-websocket (0.5.1)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
@@ -369,6 +371,7 @@ DEPENDENCIES
   chartkick
   coffee-rails (~> 4.2)
   database_cleaner
+  dropzonejs-rails
   factory_girl_rails
   faker
   font-awesome-sass
