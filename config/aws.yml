@@ -1,0 +1,15 @@
+test: &default
+  bucket: refsheet-test
+  access_key_id: AKIAIVUBCYEITEHG2ZQQ
+  secret_access_key: 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
+  s3_region: us-east-1
+
+development:
+  <<: *default
+  bucket: refsheet-dev
+
+production:
+  bucket: <%= ENV['S3_BUCKET_NAME'] %>
+  access_key_id: <%= ENV['AWS_ACCESS_KEY_ID'] %>
+  secret_access_key: <%= ENV['AWS_SECRET_ACCESS_KEY'] %>
+  s3_region: <%= ENV['S3_REGION'] %>

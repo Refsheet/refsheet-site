@@ -6,6 +6,7 @@
   width: 100%
   background-color: rgba(0, 0, 0, 0.5)
   z-index: 999
+  overflow: auto
 
   .lightbox
     @extend .z-depth-4
@@ -14,7 +15,9 @@
     margin: 0 auto
     display: flex
     max-height: 95vh
-    width: 95vw
+    max-width: 95vw
+    min-height: 300px
+    min-width: 600px
 
   .image-content
     @extend .valign-wrapper
@@ -22,11 +25,28 @@
     background-color: black
     text-align: center
     position: relative
+    overflow: hidden
 
     img
       @extend .valign
       max-width: 100%
       max-height: 100%
+      margin: 0 auto
+      object-fit: scale-down
+
+    .close
+      position: absolute
+      top: 0
+      left: 0
+      color: white
+      background-color: rgba(0, 0, 0, 0.3)
+      padding: 2px 3px 0 3px
+      z-index: 1
+
+    &:hover
+      .image-actions
+        transition: opacity 0.4s ease
+        opacity: 1.0
 
     .image-actions
       position: absolute
@@ -37,15 +57,17 @@
       text-align: left
       z-index: 1
       line-height: 32px
+      opacity: 0.0
+      transition: opacity 0.4s ease
 
       a
         display: inline-block
-        padding: 10px
+        padding: 5px 10px
         color: white
 
       p
         margin: 0
-        padding: 10px
+        padding: 5px 10px
 
   .image-details-container
     border-left: 1px solid black
@@ -79,6 +101,39 @@
     @extend .valign
     margin: 0 auto
 
+  @media #{$medium-and-down}
+    .lightbox
+      min-height: 0
+      height: 75vh
+      width: 95vw
+      max-height: 100%
+      max-width: 100%
+
+  @media #{$small-and-down}
+    .lightbox
+      flex-direction: column
+      width: 100%
+      height: auto
+      min-width: 0
+      margin: 0
+
+    .image-details
+      width: auto
+
+    .image-content
+      flex-grow: 0
+      flex-direction: column
+
+      .image-actions
+        position: static
+        opacity: 1.0
+        background-color: $card-bg-color
+
+        a
+          color: rgba(255, 255, 255, 0.6)
+
+    .comments
+      overflow: visible !important
 
 .lightbox-open
   overflow: hidden

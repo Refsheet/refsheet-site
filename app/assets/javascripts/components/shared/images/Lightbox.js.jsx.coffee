@@ -74,6 +74,10 @@
             <div className='image-content'>
                 <img src={ this.state.image.url } />
 
+                <a href='#' className='close' data-close-lightbox>
+                    <i className='material-icons' data-close-lightbox>close</i>
+                </a>
+
                 <div className='image-actions'>
                     <a href='#' onClick={ this.setFeaturedImage }>Set Cover</a>
                     <a href='#' onClick={ this.setProfileImage }>Set Profile Image</a>
