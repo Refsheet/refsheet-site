@@ -4,4 +4,3 @@ class AddGuidToImages < ActiveRecord::Migration[5.0]
     add_index :images, :guid
   end
 end
-b
