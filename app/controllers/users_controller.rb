@@ -3,7 +3,8 @@ class UsersController < ApplicationController
     @user = User.new user_params
 
     if @user.save
-      render json: @user
+      sign_in @user
+      render json: @user, serializer: UserSerializer
     else
       render json: { errors: @user.errors }, status: :bad_request
     end

@@ -35,20 +35,23 @@
             <a className='btn grey darken-3 right' onClick={ this.handleSignOut }>Log Out</a>
         </div>`
 
-    characters = @props.currentUser.characters.map (character) =>
-      _this = @
-      `<li>
-          <Link to={ _this.props.currentUser.path + 'characters/' + character.slug } className='btn'>{ character.name }</Link>
-      </li>`
-      
+      characters = @props.currentUser.characters.map (character) =>
+        _this = this
+        `<li>
+            <Link to={ _this.props.currentUser.path + 'characters/' + character.slug } className='btn'>{ character.name }</Link>
+        </li>`
+
+      characterForm =
+        `<form onSubmit={ this.handleCreateCharacter }>
+            <Input id='name' label='New Character Name' onChange={ this.setCharacterName } value={ this.state.characterName } />
+            <button type='submit' className='btn'>Create Character</button>
+        </form>`
+
     `<main>
         { signOutButton }
 
-        <div className='container'>
-            <form onSubmit={ this.handleCreateCharacter }>
-                <Input id='name' label='New Character Name' onChange={ this.setCharacterName } value={ this.state.characterName } />
-                <button type='submit' className='btn'>Create Character</button>
-            </form>
+        <div className='modal-content'>
+            { characterForm }
 
             <ul>
                 { characters }

@@ -4,11 +4,11 @@ class SessionController < ApplicationController
   end
 
   def create
-    @user = User.find_by('LOWER(users.username) = ?', params[:username])
+    @user = User.find_by('LOWER(users.username) = ?', params[:username].downcase)
 
     if @user&.authenticate(params[:password])
       sign_in @user
-      render json: @user, status: :created
+      render json: @user, serializer: UserSerializer
     else
       render json: { error: 'Invalid username or password.' }, status: :unauthorized
     end
