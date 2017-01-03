@@ -16,6 +16,8 @@
                 <Route path='details' component={ CharacterDetailView } />
             </Route>
 
+            <Route path='images/:imageId' component={ ImageApp } />
+
             <Route path='marketplace' component={ Loading }>
                 <Route path='child' component={ Loading } />
             </Route>

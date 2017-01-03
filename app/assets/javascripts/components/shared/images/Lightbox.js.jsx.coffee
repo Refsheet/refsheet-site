@@ -1,7 +1,13 @@
 @Lightbox = React.createClass
   getInitialState: ->
-    image: null
-    error: null
+    if typeof @props.imageId == 'object'
+      image: @props.imageId
+      error: null
+      directLoad: true
+    else
+      image: null
+      error: null
+      directLoad: false
 
   handleClose: (e) ->
     if $(e.target).data('close-lightbox')
@@ -42,15 +48,24 @@
   componentWillUnmount: ->
     $('body').removeClass('lightbox-open')
 
-  componentDidMount: ->
-    $.ajax
-      url: "/images/#{@props.imageId}"
-      type: 'GET'
-      success: (data) =>
-        @setState image: data
+    if @state.directLoad
+      console.log "Going to #{@state.image.character.path} now..."
+      @props.history.push @state.image.character.path
+    else
+      console.log "Going 'back' now..."
+      window.history.back() if @state.image?
 
-      error: (error) =>
-        @setState error: "Image #{error.statusText}"
+  componentDidMount: ->
+    unless @state.image?
+      $.ajax
+        url: "/images/#{@props.imageId}.json"
+        type: 'GET'
+        success: (data) =>
+          @setState image: data
+          window.history.pushState {}, data.caption, data.path
+
+        error: (error) =>
+          @setState error: "Image #{error.statusText}"
 
   render: ->
     if this.state.image?

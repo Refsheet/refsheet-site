@@ -10,7 +10,10 @@ class ImagesController < ApplicationController
   end
 
   def show
-    render json: @image, serializer: ImageSerializer
+    respond_to do |format|
+      format.html { render 'application/show' }
+      format.json { render json: @image, serializer: ImageSerializer }
+    end
   end
 
   def create

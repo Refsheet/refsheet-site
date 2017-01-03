@@ -29,7 +29,7 @@
       childrenWithProps = `<Loading />`
 
     `<div id='rootApp'>
-        { this.state.lightboxImageId && <Lightbox imageId={ this.state.lightboxImageId } onClose={ this.closeLightbox } /> }
+        { this.state.lightboxImageId && <Lightbox imageId={ this.state.lightboxImageId } history={ this.props.history } onClose={ this.closeLightbox } /> }
         
         <UserBar currentUser={ this.state.currentUser } />
         
