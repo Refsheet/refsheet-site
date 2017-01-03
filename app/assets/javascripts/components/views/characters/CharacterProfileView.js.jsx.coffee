@@ -1,10 +1,12 @@
 @CharacterProfileView = (props) ->
   `<div>
-      <PageHeader backgroundImage="/assets/unsplash/sand.jpg">
+      <PageHeader backgroundImage={ props.character.featured_image.url }>
           <CharacterCard character={ props.character } />
       </PageHeader>
 
       <SwatchRule swatches={ props.character.swatches } />
+
+      <ImageGallery edit={ false } imagesPath={ props.character.path + '/images/' } onImageClick={ props.onLightbox } />
       
       <Link to={ props.character.path + '/details' }
             className='side-nav-trigger tooltipped' 

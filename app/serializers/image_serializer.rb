@@ -1,5 +1,7 @@
 class ImageSerializer < ActiveModel::Serializer
-  attributes :id, :caption, :url
+  include Rails.application.routes.url_helpers
+
+  attributes :id, :caption, :url, :path
 
   has_one :character, serializer: ImageCharacterSerializer
 
@@ -9,5 +11,9 @@ class ImageSerializer < ActiveModel::Serializer
 
   def url
     object.image&.url
+  end
+
+  def path
+    image_path object
   end
 end

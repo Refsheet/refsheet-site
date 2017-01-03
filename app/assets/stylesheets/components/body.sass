@@ -2,6 +2,10 @@ body
   background-color: $page-bg-color
   color: $page-text-color
 
+  &.no-footer
+    footer
+      display: none
+
   #rootApp
     display: flex
     min-height: 100vh
@@ -11,6 +15,11 @@ body
       position: relative
       flex: 1
       padding-bottom: 5rem
+
+      background:
+        position: center
+        size: cover
+        attachment: fixed
 
     footer
       margin-top: 0

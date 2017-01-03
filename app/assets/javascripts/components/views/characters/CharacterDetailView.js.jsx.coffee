@@ -1,7 +1,7 @@
 @CharacterDetailView = React.createClass
   render: ->
     `<div>
-        <PageHeader backgroundImage="/assets/unsplash/sand.jpg">
+        <PageHeader backgroundImage={ this.props.character.featured_image.url }>
             <CharacterCard detailView={ true } character={ this.props.character } />
         </PageHeader>
 
