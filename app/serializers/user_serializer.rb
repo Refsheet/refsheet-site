@@ -1,9 +1,9 @@
 class UserSerializer < ActiveModel::Serializer
   include GravatarImageTag::InstanceMethods
 
-  attributes :username, :email, :avatar_url, :path
+  attributes :username, :email, :avatar_url, :path, :name
 
-  has_many :characters, serializer: UserCharactersSerializer
+  has_many :characters, serializer: ImageCharacterSerializer
 
   def avatar_url
     gravatar_image_url object.email
