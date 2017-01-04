@@ -14,7 +14,7 @@
   # TODO: This is going away.
   handleCreateCharacter: (e) ->
     $.ajax
-      url: @props.currentUser.path + 'characters'
+      url: @state.user.path + 'characters'
       type: 'POST'
       data: { character: { name: @state.characterName } }
       success: (data) =>
@@ -28,18 +28,17 @@
   setCharacterName: (k, v) ->
     @setState characterName: v
 
-  render: ->
-    if @props.currentUser?
-      signOutButton =
-        `<div className='container'>
-            <a className='btn grey darken-3 right' onClick={ this.handleSignOut }>Log Out</a>
-        </div>`
+  componentDidMount: ->
+    $.get '/users/' + @props.params.userId + '.json', (data) =>
+      @setState user: data
 
-      characters = @props.currentUser.characters.map (character) =>
-        _this = this
-        `<li>
-            <Link to={ _this.props.currentUser.path + 'characters/' + character.slug } className='btn'>{ character.name }</Link>
-        </li>`
+  render: ->
+    unless @state.user?
+      return `<Loading />`
+
+    if @props.currentUser.username == @state.user.username
+      signOutButton =
+        `<a className='btn' onClick={ this.handleSignOut }>Log Out</a>`
 
       characterForm =
         `<form onSubmit={ this.handleCreateCharacter }>
@@ -47,15 +46,39 @@
             <button type='submit' className='btn'>Create Character</button>
         </form>`
 
+    characters = @state.user.characters.map (character) =>
+      _this = this
+      `<div className='col m3 s12'>
+          <CharacterLinkCard path={ character.path }
+                             name={ character.name }
+                             profileImageUrl={ character.profile_image_url } />
+      </div>`
+
     `<main>
-        { signOutButton }
+        <PageHeader backgroundImage='/assets/unsplash/sand.jpg'>
+            <div className='character-card'>
+                <div className='character-details'>
+                    <h1 className='name'>
+                        { this.state.user.name }
+                    </h1>
+                    <div className='descriptin'>
+                        <p className='caption'>@{ this.state.user.username }</p>
+                    </div>
+                    <div className='actions'>
+                        { signOutButton }
+                    </div>
+                </div>
+            </div>
+        </PageHeader>
 
-        <div className='modal-content'>
-            { characterForm }
-
-            <ul>
+        <div className='container'>
+            <div className='row'>
                 { characters }
-            </ul>
+            </div>
+
+            <div className='card-panel'>
+                { characterForm }
+            </div>
         </div>
 
         { this.props.children }
