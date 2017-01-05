@@ -55,21 +55,7 @@
       </div>`
 
     `<main>
-        <PageHeader backgroundImage='/assets/unsplash/sand.jpg'>
-            <div className='character-card'>
-                <div className='character-details'>
-                    <h1 className='name'>
-                        { this.state.user.name }
-                    </h1>
-                    <div className='descriptin'>
-                        <p className='caption'>@{ this.state.user.username }</p>
-                    </div>
-                    <div className='actions'>
-                        { signOutButton }
-                    </div>
-                </div>
-            </div>
-        </PageHeader>
+        <UserHeader { ...this.state.user } />
 
         <div className='container'>
             <div className='row'>
