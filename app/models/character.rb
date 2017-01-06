@@ -52,4 +52,12 @@ class Character < ApplicationRecord
   def featured_image
     super || Image.new
   end
+
+  def self.lookup(slug)
+    find_by('LOWER(characters.slug) = ?', slug.downcase)
+  end
+
+  def self.lookup!(slug)
+    find_by!('LOWER(characters.slug) = ?', slug.downcase)
+  end
 end

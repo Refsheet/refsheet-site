@@ -14,6 +14,7 @@
     height: 3em
     width: 3em
     object-fit: cover
+    border-radius: 1.5em
 
   .icon-container
     display: inline-block
@@ -44,19 +45,20 @@
   .chip
     display: inline-block
     border-radius: 0
-    overflow: hidden
     float: left
 
     img
       border-radius: 0
 
     &:first-child
-      border-top-left-radius: 1.5em
-      border-bottom-left-radius: 1.5em
+      img, &
+        border-top-left-radius: 1.5em
+        border-bottom-left-radius: 1.5em
 
     &:last-child
-      border-top-right-radius: 1.5em
-      border-bottom-right-radius: 1.5em
+      img, &
+        border-top-right-radius: 1.5em
+        border-bottom-right-radius: 1.5em
 
 code
   color: $secondary-color
