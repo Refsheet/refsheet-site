@@ -54,6 +54,7 @@ gem 'ranked-model'
 gem 'paperclip'
 gem 'react-rails-hot-loader'
 gem 'dropzonejs-rails'
+gem 'redcarpet'
 
 # == BOWER ASSETS
 

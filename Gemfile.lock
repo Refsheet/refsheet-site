@@ -265,6 +265,7 @@ GEM
       em-websocket
       rails
       react-rails
+    redcarpet (3.4.0)
     redis (3.3.2)
     ref (2.0.0)
     referer-parser (0.3.0)
@@ -409,6 +410,7 @@ DEPENDENCIES
   ranked-model
   react-rails!
   react-rails-hot-loader
+  redcarpet
   redis (~> 3.0)
   responders
   rspec-collection_matchers
