@@ -7,11 +7,11 @@ module RichTextHelper
         username, character = chip.split '/'
         textless = $1 == '@'
 
-        user = User.find_by(username: username)
+        user = User.lookup username
         next missing_chip(chip, textless) unless user
 
         if character
-          if (char = user.characters.find_by(slug: character))
+          if (char = user.characters.lookup character)
             character_chip(user, char, textless)
           else
             missing_chip(chip, textless)

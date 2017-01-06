@@ -2,7 +2,19 @@
   componentDidMount: ->
     $('.parallax').parallax()
 
+  handleBioChange: (markup, success) ->
+    $.ajax
+      url: @props.path
+      type: 'PATCH'
+      data: user: profile: markup
+      success: (user) =>
+        @props.onUserChange(user)
+        success(user)
+
   render: ->
+    if @props.onUserChange?
+      bioChangeCallback = @handleBioChange
+
     `<div className='user-header'>
         <div className='parallax-container'>
             <div className='parallax'>
@@ -31,6 +43,9 @@
         </div>
 
         <div className='container'>
-            <RichText className='user-bio' content={ this.props.profile } />
+            <RichText className='user-bio'
+                      content={ this.props.profile }
+                      markup={ this.props.profile_markup }
+                      onChange={ bioChangeCallback } />
         </div>
     </div>`

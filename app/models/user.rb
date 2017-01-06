@@ -33,4 +33,12 @@ class User < ApplicationRecord
   def to_param
     username
   end
+
+  def self.lookup(username)
+    find_by('LOWER(users.username) = ?', username.downcase)
+  end
+
+  def self.lookup!(username)
+    find_by!('LOWER(users.username) = ?', username.downcase)
+  end
 end

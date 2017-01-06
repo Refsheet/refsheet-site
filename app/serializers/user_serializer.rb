@@ -2,7 +2,7 @@ class UserSerializer < ActiveModel::Serializer
   include RichTextHelper
   include GravatarImageTag::InstanceMethods
 
-  attributes :username, :email, :avatar_url, :path, :name, :profile_image_url, :cover_image_url, :profile
+  attributes :username, :email, :avatar_url, :path, :name, :profile_image_url, :cover_image_url, :profile, :profile_markup
 
   has_many :characters, serializer: ImageCharacterSerializer
 
@@ -22,17 +22,11 @@ class UserSerializer < ActiveModel::Serializer
     "/users/#{object.username}/"
   end
 
+  def profile_markup
+    object.profile || ''
+  end
+
   def profile
-    linkify <<-MARKDOWN
-# Hey there!
-So profiles are comoing soon (I promise!). I just need to figure out how to lay them out. User chips are coming
-very soon though, @MauAbata will fix it. His character, @MauAbata/akhet isn't a programmer though.
-
-But what about @Invalid and @Invalid/icons and @@IconOnlyInvalid?
-
-@MauAbata<br/>@MauAbata<br/>@MauAbata<br/>
-
-#<center>@@MauAbata+Inkmaven</center>
-    MARKDOWN
+    linkify profile_markup
   end
 end

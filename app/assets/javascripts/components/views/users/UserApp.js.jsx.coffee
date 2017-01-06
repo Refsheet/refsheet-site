@@ -1,5 +1,6 @@
 @UserApp = React.createClass
   getInitialState: ->
+    user: null
     characterName: null
 
   handleSignOut: (e) ->
@@ -24,6 +25,12 @@
         Materialize.toast 'Unknown error!', 3000, 'red'
     
     e.preventDefault()
+
+  handleUserChange: (user) ->
+    @setState user: user
+
+    if user.username == @props.currentUser.username
+      @props.onLogin(user)
 
   setCharacterName: (k, v) ->
     @setState characterName: v
@@ -55,7 +62,7 @@
       </div>`
 
     `<main>
-        <UserHeader { ...this.state.user } />
+        <UserHeader { ...this.state.user } onUserChange={ this.handleUserChange } />
 
         <div className='container'>
             <div className='row'>
