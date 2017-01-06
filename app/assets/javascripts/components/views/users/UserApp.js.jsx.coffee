@@ -43,7 +43,7 @@
     unless @state.user?
       return `<Loading />`
 
-    if @props.currentUser.username == @state.user.username
+    if @props.currentUser?.username == @state.user.username
       signOutButton =
         `<a className='btn' onClick={ this.handleSignOut }>Log Out</a>`
 
