@@ -28,6 +28,10 @@ class UserSerializer < ActiveModel::Serializer
 So profiles are comoing soon (I promise!). I just need to figure out how to lay them out. User chips are coming
 very soon though, @MauAbata will fix it. His character, @MauAbata/akhet isn't a programmer though.
 
+But what about @Invalid and @Invalid/icons and @@IconOnlyInvalid?
+
+@MauAbata<br/>@MauAbata<br/>@MauAbata<br/>
+
 #<center>@@MauAbata+Inkmaven</center>
     MARKDOWN
   end

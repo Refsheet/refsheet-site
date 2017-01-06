@@ -3,21 +3,39 @@
   color: $page-text-color
   vertical-align: middle
   margin: 0
-  font-size: inherit
-  height: 3em
-  border-radius: 1.5em
-  line-height: 3em
+  font-size: 0.9em
+  height: 2em
+  border-radius: 1em
+  line-height: 2em
   padding: 0 0.5em
 
   img
-    margin: 0 0.5em 0 -0.5em
+    margin: -0.5em 0.5em -0.5em -0.5em
     height: 3em
     width: 3em
     object-fit: cover
 
+  .icon-container
+    display: inline-block
+    margin: -0.5em 0.5em -0.5em -0.5em
+    height: 3em
+    width: 3em
+    overflow: hidden
+    vertical-align: middle
+    background-color: $card-bg-color
+    border-radius: 1.5em
+
+    i.material-icons
+      font-size: 3em
+      position: relative
+
   &.textless
-    img
-      margin-right: -0.5em
+    height: 3em
+    border-radius: 1.5em
+    padding: 0
+
+    img, .icon-container
+      margin: 0
 
 .chip-group
   display: inline-block

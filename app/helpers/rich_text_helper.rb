@@ -2,7 +2,7 @@ module RichTextHelper
   def linkify(text)
     text = $markdown.render(text)
 
-    text.gsub /@(@?)(\S+)/ do |_|
+    text.gsub /@(@?)([a-z0-9_\/+-]+)/i do |_|
       chips = $2.split('+').collect do |chip|
         username, character = chip.split '/'
         textless = $1 == '@'
@@ -23,38 +23,38 @@ module RichTextHelper
 
       if chips.many?
         <<-HTML
-          <div class='chip-group'>#{ chips.join }</div>
+          <span class='chip-group'>#{ chips.join }</span>
         HTML
       else
         chips.first
       end
-    end
+    end.gsub(/[\n\t]/,' ').squish
   end
 
   def character_chip(user, char, textless=false)
     <<-HTML
-      <div class='chip character-chip #{textless ? "textless" : ""}' data-user-id='#{user.username}' data-character-id='#{char.slug}'>
+      <a href='/users/#{user.username}/characters/#{char.slug}' class='chip character-chip #{textless ? "textless" : ""}' data-user-id='#{user.username}' data-character-id='#{char.slug}'>
         <img src='#{char.profile_image.image.url}' alt='#{char.name}' />
         #{textless ? '' : char.name}
-      </div>
+      </a>
     HTML
   end
 
   def user_chip(user, textless=false)
     <<-HTML
-      <div class='chip user-chip #{textless ? "textless" : ""}' data-user-id='#{user.username}'>
+      <a href='/users/#{user.username}' class='chip user-chip #{textless ? "textless" : ""}' data-user-id='#{user.username}'>
         <img src='/assets/avatars/mau.png' alt='#{user.name}' />
         #{textless ? '' : user.name}
-      </div>
+      </a>
     HTML
   end
 
   def missing_chip(orig, textless=false)
     <<-HTML
-      <div class='chip missing-chip #{textless ? "textless" : ""}'>
-        <i class='material-icons'>help</i>
+      <span class='chip missing-chip #{textless ? "textless" : ""}'>
+        <span class='icon-container'><i class='material-icons'>help</i></span>
         #{textless ? '' : orig}
-      </div>
+      </span>
     HTML
   end
 end
