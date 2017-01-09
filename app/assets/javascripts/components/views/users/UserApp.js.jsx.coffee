@@ -56,7 +56,7 @@
     characters = @state.user.characters.map (character) =>
       _this = this
       `<div className='col m3 s12'>
-          <CharacterLinkCard path={ character.path }
+          <CharacterLinkCard path={ character.link }
                              name={ character.name }
                              profileImageUrl={ character.profile_image_url } />
       </div>`

@@ -4,6 +4,11 @@ Rails.application.routes.draw do
 
   get '/c/:id', to: 'shortcodes#show'
 
+  # Placeholder Route
+  get 'marketplace', to: 'application#show'
+  get 'guilds', to: 'application#show'
+  get 'artists', to: 'application#show'
+
   resource :session, only: [:show, :create, :destroy], controller: 'session'
 
   resources :users, only: [:show, :create, :update] do

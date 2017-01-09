@@ -18,6 +18,7 @@ class User < ApplicationRecord
   validates :username, presence: true,
             length: { minimum: 3, maximum: 50 },
             format: { with: /\A[a-z0-9][a-z0-9_]+[a-z0-9]\z/i, message: 'no special characters' },
+            exclusion: { in: RouteRecognizer.instance.initial_path_segments, message: 'is reserved' },
             uniqueness: { case_sensitive: false }
 
   validates :email, presence: true,
