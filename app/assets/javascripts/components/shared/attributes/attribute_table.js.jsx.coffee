@@ -6,17 +6,18 @@
     @setState activeEditor: null
 
   componentDidMount: ->
-    $('.attribute-table.sortable').sortable
-      items: 'li:not(.attribute-form)'
-      placeholder: 'drop-target'
-      forcePlaceholderSize: true
-      stop: (_, el) =>
-        $item = $(el.item[0])
-        position = $item.parent().children().index($item)
+    if @props.onAttributeUpdate?
+      $('.attribute-table.sortable').sortable
+        items: 'li:not(.attribute-form)'
+        placeholder: 'drop-target'
+        forcePlaceholderSize: true
+        stop: (_, el) =>
+          $item = $(el.item[0])
+          position = $item.parent().children().index($item)
 
-        @props.onAttributeUpdate
-          id: $item.data 'attribute-id'
-          rowOrderPosition: position
+          @props.onAttributeUpdate
+            id: $item.data 'attribute-id'
+            rowOrderPosition: position
 
   render: ->
     children = React.Children.map @props.children, (child) =>
