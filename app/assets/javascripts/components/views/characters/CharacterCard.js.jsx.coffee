@@ -5,66 +5,55 @@
   handleAttributeChange: (data, onSuccess, onError) ->
     postData =
       character: {}
-
     postData.character[data.id] = data.value
 
     $.ajax
       url: @state.character.path
-      type: 'PATCH',
+      type: 'PATCH'
       data: postData
-
       success: (data) =>
         @setState character: data
         onSuccess()
-
       error: (error) =>
         onError(value: error.JSONData?.errors[data.id])
 
+  handleSpecialNotesChange: (markup, onSuccess, onError) ->
+    $.ajax
+      url: @state.character.path
+      type: 'PATCH'
+      data: character: special_notes: markup
+      success: (data) =>
+        @setState character: data
+        onSuccess()
+      error: (error) =>
+        onError(error.JSONData?.errors['special_notes'])
+
   render: ->
-    if @props.detailView
-      if @state.character.special_notes?
-        specialNotes =
-          `<div className='important-notes'>
-              <h2>Important Notes:</h2>
-              <p>{ this.props.chraracter.special_notes }</p>
-          </div>`
+    specialNotes =
+      `<div className='important-notes'>
+          <h2>Important Notes:</h2>
+          <RichText content={ this.state.character.special_notes } />
+      </div>`
 
-      heightWeight =
-        [this.state.character.height, this.state.character.weight].filter((i) ->
-          i?
-        ).join ','
+    description =
+      `<div className='description'>
+          <AttributeTable onAttributeUpdate={ this.handleAttributeChange }
+                          defaultValue='Unspecified'
+                          freezeName={ true }
+                          hideNotesForm={ true }>
 
-      description =
-        `<div className='description'>
-            <AttributeTable onAttributeUpdate={ this.handleAttributeChange }
-                            defaultValue='Unspecified'
-                            freezeName={ true }
-                            hideNotesForm={ true }>
+              <Attribute id='gender' name='Gender' value={ this.state.character.gender } />
+              <Attribute id='species' name='Species' value={ this.state.character.species } />
+              <Attribute id='height' name='Height / Weight' value={ this.state.character.height } />
+              <Attribute id='body_type' name='Body Type' value={ this.state.character.body_type } />
+              <Attribute id='personality' name='Personality' value={ this.state.character.personality } />
+          </AttributeTable>
 
-                <Attribute id='gender' name='Gender' value={ this.state.character.gender } />
-                <Attribute id='species' name='Species' value={ this.state.character.species } />
-                <Attribute id='height_weight' name='Height & Weight' value={ heightWeight } />
-                <Attribute id='body_type' name='Body Type' value={ this.state.character.body_type } />
-                <Attribute id='personality' name='Personality' value={ this.state.character.personality } />
-            </AttributeTable>
-
-            { specialNotes }
-        </div>`
-
-      actions =
-        `<div>
-        </div>`
-
-    else
-      description =
-        `<div className='description flow-text'>
-            { this.state.character.special_notes || <p className='no-description'>No description.</p> }
-        </div>`
-
-      actions =
-        `<div className='actions'>
-            <a href='#' className='btn z-index-1'>+ Follow</a>
-        </div>`
+          <div className='important-notes margin-top--medium margin-bottom--medium'>
+              <h2>Important Notes</h2>
+              <RichText content={ this.state.character.special_notes_html } markup={ this.state.character.special_notes } onChange={ this.handleSpecialNotesChange } />
+          </div>
+      </div>`
 
     if @props.nickname
       nickname = `<span className='nickname'> ({ this.state.character.nickname })</span>`
@@ -88,7 +77,6 @@
             </h1>
 
             { description }
-            { actions }
         </div>
         <div className='character-image'>
             <div className='slant' />

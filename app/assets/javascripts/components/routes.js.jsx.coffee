@@ -9,17 +9,16 @@
             <Route path='login' component={ LoginView } />
             <Route path='register' component={ RegisterView } />
 
-            <Route path='users/:userId' component={ UserApp } />
-
-            <Route path='users/:userId/characters/:characterId' component={ CharacterApp }>
-                <IndexRoute component={ CharacterProfileView } />
-                <Route path='details' component={ CharacterDetailView } />
-            </Route>
-
             <Route path='images/:imageId' component={ ImageApp } />
 
             <Route path='marketplace' component={ Loading }>
                 <Route path='child' component={ Loading } />
+            </Route>
+
+            <Route path=':userId' component={ UserApp } />
+
+            <Route path=':userId/:characterId' component={ CharacterApp }>
+                <IndexRoute component={ CharacterDetailView } />
             </Route>
 
             <Route path='*' component={ NotFound } />
