@@ -60,28 +60,32 @@
                   icon='palette'
           {...swatch} />`
 
-    `<section className='character-swatches'>
-        <div className='container'>
-            <ul id='swatch-menu' className='collapsible'>
-                <li>
-                    <div className='collapsible-header swatch-container'>
-                        <div className='swatch-row'>
-                            { swatches }
-                            <div className='swatch tooltipped' data-tooltip='More Details' data-position='bottom'>
-                                <i className='material-icons'>palette</i>
-                            </div>
-                        </div>
+    if @props.swatchesPath?
+      updateCallback = @editSwatch
+      createCallback = @newSwatch
+      deleteCallback = @removeSwatch
+      
+    if @props.expand
+      activeClass = 'active'
+
+    `<ul id='swatch-menu' className='collapsible character-swatches'>
+        <li>
+            <div className={ 'collapsible-header swatch-container ' + activeClass }>
+                <div className='swatch-row'>
+                    { swatches }
+                    <div className='swatch tooltipped' data-tooltip='More Details' data-position='bottom'>
+                        <i className='material-icons'>palette</i>
                     </div>
-                    <div className='collapsible-body'>
-                        <AttributeTable onAttributeUpdate={ this.editSwatch }
-                                        onAttributeCreate={ this.newSwatch }
-                                        onAttributeDelete={ this.removeSwatch }
-                                        sortable={ true }
-                                        valueType='color'>
-                            { swatchDetails }
-                        </AttributeTable>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </section>`
+                </div>
+            </div>
+            <div className='collapsible-body'>
+                <AttributeTable onAttributeUpdate={ updateCallback }
+                                onAttributeCreate={ createCallback }
+                                onAttributeDelete={ deleteCallback }
+                                sortable={ true }
+                                valueType='color'>
+                    { swatchDetails }
+                </AttributeTable>
+            </div>
+        </li>
+    </ul>`
