@@ -19,7 +19,11 @@
     line-height: 3.5rem
 
 section
-  padding: 6rem 0
+  &.padded
+    padding: 6rem 0
+
+  &.padded-bottom
+    padding: 0 0 6rem 0
 
   .row:last-child
     margin-bottom: 0
@@ -28,7 +32,6 @@ section
     max-width: 100%
 
   h1
-    margin-top: 0
     color: color('teal', 'lighten-3')
 
   &.pop-out
