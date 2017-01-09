@@ -25,7 +25,7 @@
           </div>
       </section>
 
-      <section>
+      <section className='padded' id='detailed-reference'>
           <div className='container'>
               <div className='row'>
                   <div className='col m6 s12'>
@@ -69,4 +69,41 @@
               </div>
           </div>
       </PageHeader>
+
+      <section id='easy-to-use' className='padded-bottom'>
+          <div className='container'>
+              <div className='row'>
+                  <div className='col m5 s12'>
+                      <div className='card-panel'>
+                          <h2 className='name'>James the Hunter</h2>
+                          <AttributeTable onAttributeUpdate={ function(e, cb) { if(cb) { cb(e) } } } sortable={ true } hideNotesForm={ true } freezeName='true'>
+                              <Attribute name='Name' value='James the Hunter' />
+                              <Attribute name='Species' value='Humanoid' />
+                              <Attribute name='Age' value='135 years' />
+                              <Attribute name='Favorite Color' value={ null } />
+                          </AttributeTable>
+                      </div>
+                  </div>
+
+                  <div className='col m6 offset-m1 s12'>
+                      <h1>Easy to Use</h1>
+                      <p>
+                          The hard part was making the character, documenting it should be easy. This is why we offer
+                          in-place editing on many fields without the need to ever reload a page.
+                      </p>
+                      <p>
+                          Go ahead and give James over there a favorite color. (It won't save, though, James the Hunter
+                          isn't a real character. Perhaps you should <Link to='/register'>make your own?</Link>)
+                      </p>
+                  </div>
+              </div>
+          </div>
+      </section>
+
+      <section className='pop-out'>
+          <div className='container center'>
+              <h2>Ready to show off your characters?</h2>
+              <Link to='/register' className='btn'>Sign Up</Link>
+          </div>
+      </section>
   </main>`
