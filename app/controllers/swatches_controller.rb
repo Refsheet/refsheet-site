@@ -1,6 +1,6 @@
 class SwatchesController < ApplicationController
-  before_action :get_user
-  before_action :get_character
+  before_action :get_user, except: [:update, :destroy]
+  before_action :get_character, except: [:update, :destroy]
   before_action :get_swatch, only: [:update, :destroy]
 
   respond_to :json
@@ -21,7 +21,7 @@ class SwatchesController < ApplicationController
 
   def update
     if @swatch.update_attributes swatch_params
-      render json: @character.swatches.rank(:row_order), each_serializer: SwatchSerializer
+      render json: @swatch.character.swatches.rank(:row_order), each_serializer: SwatchSerializer
     else
       render json: { errors: @swatch.errors }, status: :bad_request
     end
@@ -29,13 +29,13 @@ class SwatchesController < ApplicationController
 
   def destroy
     @swatch.destroy
-    render json: @character.swatches.rank(:row_order), each_serializer: SwatchSerializer
+    render json: @swatch.character.swatches.rank(:row_order), each_serializer: SwatchSerializer
   end
 
   private
 
   def get_user
-    @user = User.find_by!(username: params[:user_id])
+    @user = User.lookup(params[:user_id])
   end
 
   def get_character
@@ -43,10 +43,16 @@ class SwatchesController < ApplicationController
   end
 
   def get_swatch
-    @swatch = @character.swatches.find_by!(guid: params[:id])
+    if @character
+      @swatch = @character.swatches.find_by!(guid: params[:id])
+    else
+      @swatch = Swatch.find_by!(guid: params[:id])
+    end
   end
 
   def swatch_params
-    params.require(:swatch).permit(:color, :name, :notes, :row_order_position).merge(character: @character)
+    p = params.require(:swatch).permit(:color, :name, :notes, :row_order_position)
+    p[:character] = @character if @character
+    p
   end
 end

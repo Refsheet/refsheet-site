@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   get '/health', to: 'public#health'
 
   get '/c/:id', to: 'shortcodes#show'
-  get '/u/*path', to: redirect('/users/%{path}')
 
   resource :session, only: [:show, :create, :destroy], controller: 'session'
 

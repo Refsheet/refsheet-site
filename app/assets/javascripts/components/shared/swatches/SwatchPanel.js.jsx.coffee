@@ -14,7 +14,7 @@
 
   editSwatch: (data, onSuccess, onFail) ->
     $.ajax
-      url: @props.swatchesPath + data.id
+      url: '/swatches/' + data.id
       data: @swatchParams(data)
       type: 'PATCH'
       success: (_data) =>
@@ -38,7 +38,7 @@
   
   removeSwatch: (key) ->
     $.ajax
-      url: @props.swatchesPath + key
+      url: '/swatches/' + key
       type: 'DELETE'
       success: (_data) =>
         @setState swatches: _data
