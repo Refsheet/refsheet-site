@@ -9,7 +9,7 @@
           </li>
 
           <li>
-              <Link to={ '/users/' + props.currentUser.username } className='avatar'>
+              <Link to={ '/' + props.currentUser.username } className='avatar'>
                   <img src={ props.currentUser.avatar_url } className='circle' />
               </Link>
           </li>
@@ -27,11 +27,12 @@
       <nav>
         <div className='container'>
             <Link to='/' className='logo left'>
-                <img src='https://placehold.it/144x50' />
+                Refsheet.net
+                {/*<img src='https://placehold.it/144x50' />*/}
             </Link>
 
             <ul className='hide-on-small-and-down'>
-                <li>
+                {/*<li>
                     <Link to='/marketplace' activeClassName='teal-text text-lighten-2'>Marketplace</Link>
                 </li>
                 <li>
@@ -39,7 +40,7 @@
                 </li>
                 <li>
                     <Link to='/search' activeClassName='teal-text text-lighten-2'>Search</Link>
-                </li>
+                </li>*/}
             </ul>
 
             { currentUser }
