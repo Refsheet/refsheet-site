@@ -26,6 +26,7 @@
 //= require masonry.pkgd
 //= require ahoy
 //= require dropzone
+//= require react-ga.min
 //
 //= require components
 //= require cable
