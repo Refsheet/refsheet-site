@@ -20,7 +20,7 @@ class CharactersController < ApplicationController
 
   def update
     if @character.update_attributes character_params
-      render json: @character, each_serializer: CharacterSerializer
+      render json: @character, serializer: CharacterSerializer
     else
       render json: { errors: @character.errors }, status: :bad_request
     end
@@ -38,7 +38,7 @@ class CharactersController < ApplicationController
 
   def character_params
     p = params.require(:character).permit(:name, :nickname, :gender, :species, :height, :weight,
-                                          :body_type, :personality, :special_notes)
+                                          :body_type, :personality, :special_notes, :profile, :likes, :dislikes)
 
     if params[:character].include? :profile_image_guid
       p[:profile_image] = @character.images.find_by!(guid: params[:character][:profile_image_guid])
