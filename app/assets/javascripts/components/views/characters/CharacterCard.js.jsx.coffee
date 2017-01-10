@@ -28,6 +28,10 @@
       error: (error) =>
         onError(error.JSONData?.errors['special_notes'])
 
+  handleImageClick: (e) ->
+    id = $(e.target).closest('[data-image-id]').data('image-id')
+    @props.onLightbox(id) if @props.onLightbox?
+
   render: ->
     if @props.edit
       attributeUpdate = @handleAttributeChange
@@ -47,10 +51,10 @@
               <Attribute id='personality' name='Personality' value={ this.state.character.personality } />
           </AttributeTable>
 
-          <div className='important-notes margin-top--large margin-bottom--medium'>
+          {/*<div className='important-notes margin-top--large margin-bottom--medium'>
               <h2>Important Notes</h2>
               <RichText content={ this.state.character.special_notes_html } markup={ this.state.character.special_notes } onChange={ notesUpdate } />
-          </div>
+          </div>*/}
       </div>`
 
     if @props.nickname
@@ -76,7 +80,7 @@
 
             { description }
         </div>
-        <div className='character-image' onClick={ this.props.onLightbox }>
+        <div className='character-image' onClick={ this.handleImageClick }>
             <div className='slant' />
             <img src={ this.state.character.profile_image.url } data-image-id={ this.state.character.profile_image.id } />
         </div>

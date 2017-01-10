@@ -27,6 +27,7 @@
 //= require ahoy
 //= require dropzone
 //= require react-ga.min
+//= require imagesloaded
 //
 //= require components
 //= require cable

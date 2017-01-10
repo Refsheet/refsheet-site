@@ -19,7 +19,7 @@ class CharacterSerializer < ActiveModel::Serializer
   end
 
   def link
-    "#{object.user.username}/#{object.slug}"
+    "/#{object.user.username}/#{object.slug}"
   end
 
   def user_id
