@@ -23,8 +23,6 @@
     $('.rich-text textarea').trigger 'autoresize'
 
   render: ->
-    console.log @state.markup
-
     if @state.edit
       `<div className={ 'rich-text editing ' + this.props.className }>
           <textarea className='materialize-textarea' onChange={ this.handleMarkupChange } value={ this.state.markup } autoFocus />
@@ -32,7 +30,7 @@
           <a className='btn grey darken-3 right' onClick={ this.handleEditStop }>Cancel</a>
       </div>`
 
-    else if @state.markup != null && @state.markup != ''
+    else if @state.markup != null && @state.markup != '' && @state.markup != undefined
       `<div className={ 'rich-text ' + this.props.className } onClick={ this.handleEditStart } dangerouslySetInnerHTML={{ __html: this.props.content }} />`
 
     else

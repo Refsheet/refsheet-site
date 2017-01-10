@@ -1,6 +1,7 @@
 @UserApp = React.createClass
   getInitialState: ->
     user: null
+    error: null
     characterName: null
 
   handleSignOut: (e) ->
@@ -36,10 +37,17 @@
     @setState characterName: v
 
   componentDidMount: ->
-    $.get '/users/' + @props.params.userId + '.json', (data) =>
-      @setState user: data
+    $.ajax
+      url: '/users/' + @props.params.userId + '.json'
+      success: (data) =>
+        @setState user: data
+      error: (error) =>
+        @setState error: error
 
   render: ->
+    if @state.error?
+      return `<NotFound />`
+      
     unless @state.user?
       return `<Loading />`
 

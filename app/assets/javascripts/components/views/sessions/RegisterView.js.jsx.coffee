@@ -23,7 +23,7 @@
       success: (data) =>
         @props.onLogin data
         @setState loading: false, errors: {}
-        @props.history.push '/users/' + data.username
+        @props.history.push '/' + data.username
 
       error: (error) =>
         message = error.responseJSON?.errors

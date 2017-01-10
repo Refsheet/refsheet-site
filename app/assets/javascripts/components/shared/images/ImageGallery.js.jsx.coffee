@@ -45,21 +45,41 @@
           _this.handleImageSwap(sourceId, targetId)
 
   render: ->
-    if @state.images?
-      images = @state.images.map (image) =>
-        `<div className='col m3 s6' key={ image.id }>
-            <div className='image' data-image-id={ image.id }>
-                <img src={ image.url } alt={ image.caption } />
-            </div>
-        </div>`
+    unless @state.images?
+      return `<Spinner />`
 
-    else
-      images = `<Spinner />`
+    [first, second, third, overflow...] = @state.images
+
+    imagesOverflow = overflow.map (image) =>
+      `<div className='col m3 s6' key={ image.id }>
+          <div className='image' data-image-id={ image.id }>
+              <img src={ image.url } alt={ image.caption } />
+          </div>
+      </div>`
 
     `<section className='image-gallery'>
-        <div className='container'>
-            <div className='row' onClick={ this.handleImageClick }>
-                { images }
-            </div>
+        <div className='container' onClick={ this.handleImageClick }>
+            <Row>
+                <Column m={8}>
+                    <div className='image' data-image-id={ first.id }>
+                        <img src={ first.url } alt={ first.caption } />
+                    </div>
+                </Column>
+                <Column m={4}>
+                    <Row>
+                        <Column m={12} s={6}>
+                            <div className='image' data-image-id={ second.id }>
+                                <img src={ second.url } alt={ second.caption } />
+                            </div>
+                        </Column>
+                        <Column m={12} s={6}>
+                            <div className='image' data-image-id={ third.id }>
+                                <img src={ third.url } alt={ third.caption } />
+                            </div>
+                        </Column>
+                    </Row>
+                </Column>
+            </Row>
+            <Row>{ imagesOverflow }</Row>
         </div>
     </section>`

@@ -4,7 +4,7 @@ class CharacterSerializer < ActiveModel::Serializer
 
   attributes :name, :slug, :shortcode, :profile, :path, :user_id, :gender,
              :species, :height, :weight, :body_type, :personality, :special_notes, :link,
-             :special_notes_html
+             :special_notes_html, :profile_html, :likes, :likes_html, :dislikes, :dislikes_html
 
   has_many :swatches, serializer: SwatchSerializer
   has_one  :featured_image, serializer: CharacterImageSerializer
@@ -28,5 +28,17 @@ class CharacterSerializer < ActiveModel::Serializer
 
   def special_notes_html
     linkify object.special_notes
+  end
+
+  def profile_html
+    linkify object.profile
+  end
+
+  def likes_html
+    linkify object.likes
+  end
+
+  def dislikes_html
+    linkify object.dislikes
   end
 end
