@@ -14,6 +14,17 @@
       @props.onClose()
       e.preventDefault()
 
+  handleCaptionChange: (data, onSuccess, onError) ->
+    $.ajax
+      url: @state.image.path
+      type: 'PATCH'
+      data: image: caption: data
+      success: (data) =>
+        @setState image: data
+        onSuccess()
+      error: (error) =>
+        onError(error)
+
   setFeaturedImage: (e) ->
     $.ajax
       url: @state.image.character.path
@@ -49,8 +60,8 @@
     $('body').removeClass('lightbox-open')
 
     if @state.directLoad
-      console.log "Going to #{@state.image.character.path} now..."
-      @props.history.push @state.image.character.path
+      console.log "Going to #{@state.image.character.link} now..."
+      @props.history.push @state.image.character.link
     else
       console.log "Going 'back' now..."
       window.history.back() if @state.image?
@@ -69,6 +80,19 @@
 
   render: ->
     if this.state.image?
+      if this.state.image.user_id == current_user?.username
+        imgActions =
+          `<div className='image-actions'>
+              <a href='#' onClick={ this.setFeaturedImage }>Set Cover</a>
+              <a href='#' onClick={ this.setProfileImage }>Set Profile Image</a>
+
+              <div className='right'>
+                  {/*<a href='#'>Delete</a>*/}
+              </div>
+          </div>`
+
+        captionCallback = @handleCaptionChange
+
       lightbox =
         `<div className='lightbox'>
             <div className='image-content'>
@@ -78,28 +102,24 @@
                     <i className='material-icons' data-close-lightbox>close</i>
                 </a>
 
-                <div className='image-actions'>
-                    <a href='#' onClick={ this.setFeaturedImage }>Set Cover</a>
-                    <a href='#' onClick={ this.setProfileImage }>Set Profile Image</a>
-
-                    <div className='right'>
-                        <a href='#'>Delete</a>
-                    </div>
-                </div>
+                { imgActions }
             </div>
 
             <div className='image-details-container'>
                 <div className='image-details'>
-                    <LightboxCharacterBox character={ this.state.image.character } />
+                    <LightboxCharacterBox character={ this.state.image.character }
+                                          postDate={ this.state.image.post_date } />
 
-                    <p className='caption'>
-                        { this.state.image.caption || <div className='no-caption'>No caption.</div> }
-                    </p>
+                    <RichText className='image-caption'
+                              onChange={ captionCallback }
+                              content={ this.state.image.caption_html }
+                              markup={ this.state.image.caption }
+                              placeholder='No caption.' />
                 </div>
                 
-                <div className='comments'>
+                {/*<div className='comments'>
                     <div className='no-comment'>No Comments</div>
-                </div>
+                </div>*/}
             </div>
         </div>`
     else

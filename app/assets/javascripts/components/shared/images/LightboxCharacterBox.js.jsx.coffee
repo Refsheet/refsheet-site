@@ -1,12 +1,15 @@
 @LightboxCharacterBox = (props) ->
   `<div className='character-box'>
-      <div className='character-avatar'>
+      <Link to={ props.character.link } className='character-avatar'>
           <img src={ props.character.profile_image_url } />
-      </div>
+      </Link>
       
       <div className='character-details'>
-          <div className='name'>
+          <Link to={ props.character.link } className='name'>
               { props.character.name }
+          </Link>
+          <div className='date'>
+              { props.postDate }
           </div>
       </div>
   </div>`

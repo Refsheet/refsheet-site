@@ -4,7 +4,7 @@
 
   handleImageSwap: (source, target) ->
     $.ajax
-      url: @props.imagesPath + source
+      url: '/images/' + source
       type: 'PATCH'
       data: { image: { swap_target_image_id: target } }
     , (data) =>

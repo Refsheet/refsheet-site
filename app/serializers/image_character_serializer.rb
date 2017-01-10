@@ -20,6 +20,6 @@ class ImageCharacterSerializer < ActiveModel::Serializer
   end
 
   def link
-    "#{object.user.username}/#{object.slug}"
+    "/#{object.user.username}/#{object.slug}"
   end
 end

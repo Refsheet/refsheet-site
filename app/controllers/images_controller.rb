@@ -27,7 +27,15 @@ class ImagesController < ApplicationController
   end
 
   def update
-    if @image.update_attributes image_params
+    if params[:image][:swap_target_image_id]
+      target = Image.find(params[:image][:swap_target_image_id])
+      tro = target.row_order
+      target.row_order = @image.row_order
+      @image.row_order = tro
+      target.save and @image.save
+
+      render json: @image, serializer: ImageSerializer
+    elsif @image.update_attributes image_params
       render json: @image, serializer: ImageSerializer
     else
       render json: { errors: @image.errors }, status: :bad_request
