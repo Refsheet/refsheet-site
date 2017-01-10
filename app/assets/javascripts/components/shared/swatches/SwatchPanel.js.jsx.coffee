@@ -60,7 +60,7 @@
                   icon='palette'
           {...swatch} />`
 
-    if @props.swatchesPath?
+    if @props.swatchesPath? && @props.edit
       updateCallback = @editSwatch
       createCallback = @newSwatch
       deleteCallback = @removeSwatch
