@@ -57,29 +57,56 @@
           </div>
       </div>`
 
-    `<section className='image-gallery'>
-        <div className='container' onClick={ this.handleImageClick }>
-            <Row>
-                <Column m={8}>
-                    <div className='image' data-image-id={ first.id }>
-                        <img src={ first.url } alt={ first.caption } />
-                    </div>
-                </Column>
-                <Column m={4}>
-                    <Row>
-                        <Column m={12} s={6}>
-                            <div className='image' data-image-id={ second.id }>
-                                <img src={ second.url } alt={ second.caption } />
-                            </div>
-                        </Column>
-                        <Column m={12} s={6}>
-                            <div className='image' data-image-id={ third.id }>
-                                <img src={ third.url } alt={ third.caption } />
-                            </div>
-                        </Column>
-                    </Row>
-                </Column>
-            </Row>
-            <Row>{ imagesOverflow }</Row>
-        </div>
-    </section>`
+    if first?
+      firstColWidth = 12
+      firstImage =
+        `<div className='image' data-image-id={ first.id }>
+            <img src={ first.url } alt={ first.caption } />
+        </div>`
+
+      if third?
+        thirdImage =
+          `<div className='image' data-image-id={ third.id }>
+              <img src={ third.url } alt={ third.caption } />
+          </div>`
+
+      if second?
+        firstColWidth = 8
+        secondImage =
+          `<div className='image' data-image-id={ second.id }>
+              <img src={ second.url } alt={ second.caption } />
+          </div>`
+
+        secondColumn =
+          `<Column m={4}>
+              <Row>
+                  <Column m={12} s={6}>
+                      { secondImage }
+                  </Column>
+                  <Column m={12} s={6}>
+                      { thirdImage }
+                  </Column>
+              </Row>
+          </Column>`
+
+      `<section className='image-gallery'>
+          <div className='container' onClick={ this.handleImageClick }>
+              <Row>
+                  <Column m={ firstColWidth }>
+                      { firstImage }
+                  </Column>
+                  { secondColumn }
+              </Row>
+              <Row>{ imagesOverflow }</Row>
+          </div>
+      </section>`
+
+    else if @props.edit
+      `<Section className='image-gallery'>
+          <div className='caption center'>Drag and drop images from your computer to your character pages to start a gallery.</div>
+      </Section>`
+
+    else
+      `<Section className='image-gallery'>
+          <div className='caption center'>This character has not submitted any images</div>
+      </Section>`

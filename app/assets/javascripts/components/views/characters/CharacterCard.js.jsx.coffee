@@ -29,15 +29,13 @@
         onError(error.JSONData?.errors['special_notes'])
 
   render: ->
-    specialNotes =
-      `<div className='important-notes'>
-          <h2>Important Notes:</h2>
-          <RichText content={ this.state.character.special_notes } />
-      </div>`
+    if @props.edit
+      attributeUpdate = @handleAttributeChange
+      notesUpdate = @handleSpecialNotesChange
 
     description =
       `<div className='description'>
-          <AttributeTable onAttributeUpdate={ this.handleAttributeChange }
+          <AttributeTable onAttributeUpdate={ attributeUpdate }
                           defaultValue='Unspecified'
                           freezeName={ true }
                           hideNotesForm={ true }>
@@ -49,9 +47,9 @@
               <Attribute id='personality' name='Personality' value={ this.state.character.personality } />
           </AttributeTable>
 
-          <div className='important-notes margin-top--medium margin-bottom--medium'>
+          <div className='important-notes margin-top--large margin-bottom--medium'>
               <h2>Important Notes</h2>
-              <RichText content={ this.state.character.special_notes_html } markup={ this.state.character.special_notes } onChange={ this.handleSpecialNotesChange } />
+              <RichText content={ this.state.character.special_notes_html } markup={ this.state.character.special_notes } onChange={ notesUpdate } />
           </div>
       </div>`
 
@@ -78,8 +76,8 @@
 
             { description }
         </div>
-        <div className='character-image'>
+        <div className='character-image' onClick={ this.props.onLightbox }>
             <div className='slant' />
-            <img src={ this.state.character.profile_image.url } />
+            <img src={ this.state.character.profile_image.url } data-image-id={ this.state.character.profile_image.id } />
         </div>
     </div>`
