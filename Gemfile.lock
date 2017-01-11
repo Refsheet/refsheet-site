@@ -20,8 +20,8 @@ GIT
 
 GIT
   remote: git://github.com/sitehive/materialize-sass.git
-  revision: 8e1b14007fdcab2cc4065c7ae810d9e910a4a2d0
-  branch: dynamic-forms
+  revision: 0c63910eda42bd9e9e1370f4f645fc66e3e58392
+  branch: master
   specs:
     materialize-sass (0.97.8)
       sass (~> 3.3)
