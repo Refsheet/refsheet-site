@@ -35,7 +35,9 @@ class Character < ApplicationRecord
   slugify :name, scope: :user
 
   validates_presence_of :user
-  validates_presence_of :name
+  validates :name,
+            presence: true,
+            format: { with: /[a-z]/i, message: 'must have at least one letter' }
 
   def description
     ''
