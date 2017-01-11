@@ -21,7 +21,16 @@ class Image < ApplicationRecord
 
   belongs_to :character
 
-  has_attached_file :image, default_url: '/assets/unsplash/fox.jpg'
+  has_attached_file :image,
+                    default_url: '/assets/unsplash/fox.jpg',
+                    styles: {
+                        thumbnail: "320x>",
+                        small: "427x>",
+                        medium: "854x>",
+                        large: "1280x>" },
+                    s3_permissions: {
+                        original: :private }
+
 
   validates_attachment :image, presence: true,
                        content_type: { content_type: /image\/*/ },

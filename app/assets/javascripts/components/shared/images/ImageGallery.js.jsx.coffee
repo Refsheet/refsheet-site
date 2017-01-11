@@ -53,7 +53,7 @@
     imagesOverflow = overflow.map (image) =>
       `<div className='col m3 s6' key={ image.id }>
           <div className='image' data-image-id={ image.id }>
-              <img src={ image.url } alt={ image.caption } />
+              <img src={ image.small } alt={ image.caption } />
           </div>
       </div>`
 
@@ -67,14 +67,14 @@
       if third?
         thirdImage =
           `<div className='image' data-image-id={ third.id }>
-              <img src={ third.url } alt={ third.caption } />
+              <img src={ third.medium } alt={ third.caption } />
           </div>`
 
       if second?
         firstColWidth = 8
         secondImage =
           `<div className='image' data-image-id={ second.id }>
-              <img src={ second.url } alt={ second.caption } />
+              <img src={ second.medium } alt={ second.caption } />
           </div>`
 
         secondColumn =

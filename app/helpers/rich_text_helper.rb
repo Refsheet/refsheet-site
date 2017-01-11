@@ -1,4 +1,6 @@
 module RichTextHelper
+  include GravatarImageTag
+
   def linkify(text)
     return if text.nil?
     text = $markdown.render(text)
@@ -35,7 +37,7 @@ module RichTextHelper
   def character_chip(user, char, textless=false)
     <<-HTML
       <a href='/#{user.username}/#{char.slug}' class='chip character-chip #{textless ? "textless" : ""}' data-user-id='#{user.username}' data-character-id='#{char.slug}'>
-        <img src='#{char.profile_image.image.url}' alt='#{char.name}' />
+        <img src='#{char.profile_image.image.url(:thumbnail)}' alt='#{char.name}' />
         #{textless ? '' : char.name}
       </a>
     HTML
@@ -44,7 +46,7 @@ module RichTextHelper
   def user_chip(user, textless=false)
     <<-HTML
       <a href='/#{user.username}' class='chip user-chip #{textless ? "textless" : ""}' data-user-id='#{user.username}'>
-        <img src='/assets/avatars/mau.png' alt='#{user.name}' />
+        <img src='#{gravatar_image_url user.email}' alt='#{user.name}' />
         #{textless ? '' : user.name}
       </a>
     HTML
