@@ -13,72 +13,64 @@
 
     e.preventDefault()
 
-  # TODO: This is going away.
-  handleCreateCharacter: (e) ->
-    $.ajax
-      url: @state.user.path + 'characters'
-      type: 'POST'
-      data: { character: { name: @state.characterName } }
-      success: (data) =>
-        @props.history.push data.path
-        
-      error: ->
-        Materialize.toast 'Unknown error!', 3000, 'red'
-    
-    e.preventDefault()
-
   handleUserChange: (user) ->
     @setState user: user
 
     if user.username == @props.currentUser.username
       @props.onLogin(user)
 
-  setCharacterName: (k, v) ->
-    @setState characterName: v
-
   componentDidMount: ->
     $.ajax
       url: '/users/' + @props.params.userId + '.json'
       success: (data) =>
         @setState user: data
+        $('#character-form').modal()
+
       error: (error) =>
-        @setState error: error
+          @setState error: error
+
+  goToCharacter: (character) ->
+    $('#character-form').modal('close')
+    @props.history.push character.link
 
   render: ->
     if @state.error?
       return `<NotFound />`
-      
+
     unless @state.user?
       return `<Loading />`
 
     if @props.currentUser?.username == @state.user.username
-      signOutButton =
-        `<a className='btn' onClick={ this.handleSignOut }>Log Out</a>`
+      actionButtons =
+        `<FixedActionButton clickToToggle={ true } className='red darken-1' tooltip='Menu' icon='menu'>
+            <ActionButton className='teal lighten-1 modal-trigger' tooltip='New Character' href='#character-form' icon='create' />
+            <ActionButton className='grey' tooltip='Sign Out' onClick={ this.handleSignOut } icon='exit_to_app' />
+        </FixedActionButton>`
 
-      characterForm =
-        `<form onSubmit={ this.handleCreateCharacter }>
-            <Input id='name' label='New Character Name' onChange={ this.setCharacterName } value={ this.state.characterName } />
-            <button type='submit' className='btn'>Create Character</button>
-        </form>`
+      userChangeCallback = @handleUserChange
 
-    characters = @state.user.characters.map (character) =>
-      _this = this
-      `<div className='col m3 s12'>
+    characters = @state.user.characters.map (character) ->
+      `<div className='col m3 s12' key={ character.slug }>
           <CharacterLinkCard path={ character.link }
                              name={ character.name }
                              profileImageUrl={ character.profile_image_url } />
       </div>`
 
     `<main>
-        <UserHeader { ...this.state.user } onUserChange={ this.handleUserChange } />
+        <Modal id='character-form'>
+            <h2>New Character</h2>
+            <NewCharacterForm onCancel={ function(e) { $('#character-form').modal('close'); e.preventDefault() } }
+                              onCreate={ this.goToCharacter }
+                              newCharacterPath={ this.state.user.path + '/characters' }/>
+        </Modal>
+
+        { actionButtons }
+
+        <UserHeader { ...this.state.user } onUserChange={ userChangeCallback } />
 
         <div className='container'>
             <div className='row'>
                 { characters }
-            </div>
-
-            <div className='card-panel'>
-                { characterForm }
             </div>
         </div>
 

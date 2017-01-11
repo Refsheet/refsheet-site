@@ -49,7 +49,7 @@
       `<Loading message='Sign Up' />`
 
     else
-      `<div className='modal-content'>
+      `<div className='modal-page-content'>
           <div className='narrow-container'>
               <h1>Sign Up</h1>
 

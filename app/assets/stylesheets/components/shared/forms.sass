@@ -1,6 +1,12 @@
-input
+input, text-area, select
   z-index: 1
   position: relative
+
+  &:-webkit-autofill
+    &, &:focus, &:hover, &:active
+      box-shadow: 0 0 0 1000px $card-bg-color inset !important
+      border-bottom-color: color('yellow', 'darken-1') !important
+      -webkit-text-fill-color: $page-text-color !important
 
   & + label:after
     top: auto !important

@@ -34,11 +34,11 @@
                     <h1 className='name'>{ this.props.name }</h1>
                     <div className='username'>@{ this.props.username }</div>
                 </div>
-                <div className='user-actions'>
+                {/*<div className='user-actions'>
                     <Link to={ '/messages/' + this.props.username }>
                         <i className='material-icons'>messages</i>
                     </Link>
-                </div>
+                </div>*/}
             </div>
         </div>
 

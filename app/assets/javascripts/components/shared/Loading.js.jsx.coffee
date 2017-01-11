@@ -1,5 +1,5 @@
 @Loading = (props) ->
-  `<main className='modal-content'>
+  `<main className='modal-page-content'>
       <div className='container'>
           <h1>{ props.message || 'Loading...' }</h1>
           <Spinner />

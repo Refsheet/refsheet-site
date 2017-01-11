@@ -41,7 +41,7 @@
       `<Loading message='Log In' />`
 
     else
-      `<div className='modal-content'>
+      `<div className='modal-page-content'>
           <div className='narrow-container'>
               <h1>Log In</h1>
     

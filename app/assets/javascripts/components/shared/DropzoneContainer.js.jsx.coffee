@@ -53,7 +53,7 @@
 
     `<div className={ className }>
         <div className='dropzone-overlay valign-wrapper' data-dz-overlay>
-            <div className='modal-content valign'>
+            <div className='modal-page-content valign'>
                 { dropZoneContent }
             </div>
         </div>
