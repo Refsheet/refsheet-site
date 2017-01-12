@@ -24,7 +24,6 @@
       url: '/users/' + @props.params.userId + '.json'
       success: (data) =>
         @setState user: data
-        $('#character-form').modal()
 
       error: (error) =>
           @setState error: error

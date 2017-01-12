@@ -65,7 +65,7 @@
       colorPicker =
         `<div className='color-helper' onClick={ this.colorPickerClick } style={{ backgroundColor: this.state.value }}>
             <input type='color' className='right'
-                   onChange={ this.colorPicker } />
+                   onInput={ this.colorPicker } />
         </div>`
 
     unless @props.hideIcon

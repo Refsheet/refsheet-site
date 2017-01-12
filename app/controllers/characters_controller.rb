@@ -40,6 +40,10 @@ class CharactersController < ApplicationController
     p = params.require(:character).permit(:name, :nickname, :gender, :species, :height, :weight,
                                           :body_type, :personality, :special_notes, :profile, :likes, :dislikes)
 
+    if params[:character].include? :color_scheme_attributes
+      p[:color_scheme_attributes] = { color_data: params[:character][:color_scheme_attributes][:color_data].permit!, id: @character.color_scheme_id }
+    end
+
     if params[:character].include? :profile_image_guid
       p[:profile_image] = @character.images.find_by!(guid: params[:character][:profile_image_guid])
     end

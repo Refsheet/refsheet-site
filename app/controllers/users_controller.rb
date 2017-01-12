@@ -1,11 +1,14 @@
 class UsersController < ApplicationController
   before_action :get_user, only: [:show, :update]
+  respond_to :json
+
+  def index
+    @users = User.all
+    respond_with @users.reverse, each_serializer: UserIndexSerializer
+  end
 
   def show
-    respond_to do |format|
-      format.html { render 'application/show' }
-      format.json { render json: @user, serializer: UserSerializer }
-    end
+    render json: @user, serializer: UserSerializer
   end
 
   def create
