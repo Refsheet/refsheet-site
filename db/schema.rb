@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170110055720) do
+ActiveRecord::Schema.define(version: 20170112045845) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,16 @@ ActiveRecord::Schema.define(version: 20170110055720) do
     t.integer  "profile_image_id"
     t.text     "likes"
     t.text     "dislikes"
+    t.integer  "color_scheme_id"
+  end
+
+  create_table "color_schemes", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.text     "color_data"
+    t.string   "guid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "images", force: :cascade do |t|

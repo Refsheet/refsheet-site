@@ -9,6 +9,7 @@ class CharacterSerializer < ActiveModel::Serializer
   has_many :swatches, serializer: SwatchSerializer
   has_one  :featured_image, serializer: CharacterImageSerializer
   has_one  :profile_image, serializer: CharacterImageSerializer
+  has_one  :color_scheme, serializer: ColorSchemeSerializer
 
   def swatches
     object.swatches.rank(:row_order)

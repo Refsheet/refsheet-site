@@ -26,13 +26,16 @@ class Character < ApplicationRecord
   include Sluggable
 
   belongs_to :user
+  belongs_to :color_scheme, autosave: true
+  belongs_to :featured_image, class_name: Image
+  belongs_to :profile_image, class_name: Image
   has_many :swatches
   has_many :images
-  belongs_to  :featured_image, class_name: Image
-  belongs_to  :profile_image, class_name: Image
 
   has_guid :shortcode, type: :token
   slugify :name, scope: :user
+
+  accepts_nested_attributes_for :color_scheme
 
   validates_presence_of :user
   validates :name,

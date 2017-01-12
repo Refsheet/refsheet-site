@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   resource :session, only: [:show, :create, :destroy], controller: 'session'
 
-  resources :users, only: [:show, :create, :update] do
+  resources :users, only: [:index, :show, :create, :update] do
     resources :characters, only: [:show, :update, :create] do
       resources :swatches, only: [:index, :create, :update, :destroy], shallow: true
       resources :images, only: [:index, :show, :create, :update, :destroy], shallow: true
