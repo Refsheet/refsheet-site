@@ -20,7 +20,7 @@
       <section className='pop-out'>
           <div className='container'>
               <div className='flow-text center'>
-                  A new, convinient way to organize your character designs and art.
+                  A new, convenient way to organize your character designs and art.
               </div>
           </div>
       </section>

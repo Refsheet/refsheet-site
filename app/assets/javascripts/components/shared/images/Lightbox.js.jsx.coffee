@@ -70,7 +70,6 @@
     unless @state.image?
       $.ajax
         url: "/images/#{@props.imageId}.json"
-        type: 'GET'
         success: (data) =>
           @setState image: data
           window.history.pushState {}, data.caption, data.path

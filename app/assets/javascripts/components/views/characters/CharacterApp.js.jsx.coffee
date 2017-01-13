@@ -7,7 +7,7 @@
     path = '/users/' + @props.params.userId + '/characters/' + @props.params.characterId
     
     $.ajax
-      url: path,
+      url: path + '.json',
       success: (data) =>
         @setState character: data
       error: (error) =>

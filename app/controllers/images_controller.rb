@@ -10,6 +10,21 @@ class ImagesController < ApplicationController
   end
 
   def show
+    set_meta_tags(
+        twitter: {
+            card: 'photo',
+            image: {
+                _: @image.image.url(:medium)
+            }
+        },
+        og: {
+            image: @image.image.url(:medium)
+        },
+        title: 'Image of ' + @image.character.name,
+        description: @image.caption || 'This image has no caption!',
+        image_src: @image.image.url(:medium)
+    )
+
     respond_to do |format|
       format.html { render 'application/show' }
       format.json { render json: @image, serializer: ImageSerializer }

@@ -3,9 +3,24 @@ class CharactersController < ApplicationController
   before_action :get_character, except: [:create]
 
   def show
+    set_meta_tags(
+        twitter: {
+            card: 'photo',
+            image: {
+                _: @character.profile_image.image.url(:medium)
+            }
+        },
+        og: {
+            image: @character.profile_image.image.url(:medium)
+        },
+        title: @character.name,
+        description: @character.profile.presence || 'This character has no description!',
+        image_src: @character.profile_image.image.url(:medium)
+    )
+
     respond_to do |format|
-      format.json { render json: @character, serializer: CharacterSerializer }
       format.html { render 'application/show' }
+      format.json { render json: @character, serializer: CharacterSerializer }
     end
   end
 

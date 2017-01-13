@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   include SessionHelper
-
+  
+  before_action :set_default_meta
   protect_from_forgery with: :exception
 
   def self.force_ssl(options = {})
@@ -23,5 +24,28 @@ class ApplicationController < ActionController::Base
 
   def allow_http?
     false
+  end
+
+  private
+
+  def set_default_meta
+    site = 'Refsheet.net'
+    desc = 'A new, convenient way to organize your character designs and art.'
+
+    set_meta_tags(
+        site: site,
+        description: desc,
+        reverse: true,
+        separator: '|',
+        og: {
+            title: :title,
+            description: :description,
+            site_name: site
+        },
+        twitter: {
+            title: :title,
+            description: :description
+        }
+    )
   end
 end
