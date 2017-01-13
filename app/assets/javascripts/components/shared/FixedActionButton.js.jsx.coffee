@@ -1,6 +1,6 @@
 @FixedActionButton = React.createClass
-  componentDidMount: ->
-    Materialize.initializeFAB()
+  componentDidMount: (e) ->
+    $('.fixed-action-btn').fab()
 
   render: ->
     children = React.Children.map @props.children, (child) =>

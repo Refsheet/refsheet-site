@@ -11,7 +11,7 @@ class UserSerializer < ActiveModel::Serializer
   end
 
   def profile_image_url
-    '/assets/unsplash/fox.jpg'
+    gravatar_image_url object.email, size: 200
   end
 
   def cover_image_url
