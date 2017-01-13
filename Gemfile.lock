@@ -20,7 +20,7 @@ GIT
 
 GIT
   remote: git://github.com/sitehive/materialize-sass.git
-  revision: 0c63910eda42bd9e9e1370f4f645fc66e3e58392
+  revision: 09add7cdd203a6221a2b333365a6af86d5c87ca8
   branch: master
   specs:
     materialize-sass (0.97.8)
