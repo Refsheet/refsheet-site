@@ -17,8 +17,8 @@
 
     `<div className='user-header'>
         <div className='parallax-container'>
-            <div className='parallax'>
-                <img src={ this.props.cover_image_url } />
+            <div className='parallax' style={{backgroundColor: '#000'}}>
+                {/*<img src={ this.props.cover_image_url } />*/}
             </div>
         </div>
 
@@ -39,6 +39,12 @@
                         <i className='material-icons'>messages</i>
                     </Link>
                 </div>*/}
+            </div>
+        </div>
+
+        <div className='action-row'>
+            <div className='container'>
+                Actions!
             </div>
         </div>
 

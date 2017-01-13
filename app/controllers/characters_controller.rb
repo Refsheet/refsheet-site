@@ -26,14 +26,22 @@ class CharactersController < ApplicationController
     end
   end
 
+  def destroy
+    if @character.destroy
+      render json: @character, serializer: CharacterSerializer
+    else
+      render json: { errors: @character.errors }, status: :bad_request
+    end
+  end
+
   private
 
   def get_user
-    @user = User.find_by!('LOWER(users.username) = ?', params[:user_id].downcase)
+    @user = User.lookup! params[:user_id]
   end
 
   def get_character
-    @character = @user.characters.find_by!('LOWER(characters.slug) = ?', params[:id].downcase)
+    @character = @user.characters.lookup! params[:id]
   end
 
   def character_params

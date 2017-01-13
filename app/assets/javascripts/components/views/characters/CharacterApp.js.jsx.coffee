@@ -13,6 +13,24 @@
       error: (error) =>
         @setState error: error
 
+  handleCharacterDelete: (e) ->
+    $.ajax
+      url: @state.character.path
+      type: 'DELETE'
+      success: (data) =>
+        console.log data
+        $('#delete-form').modal('close')
+        Materialize.toast "#{data.name} deleted. :(", 3000
+        @props.history.push '/' + data.user_id
+
+      error: (error) =>
+        Materialize.toast "I'm afraid I couldn't do that, Jim.", 3000, 'red'
+    e.preventDefault()
+
+  handleDeleteClose: (e) ->
+    $('#delete-form').modal('close')
+    e.preventDefault()
+
   handleProfileChange: (data, onSuccess, onError) ->
     $.ajax
       url: @state.character.path
@@ -65,7 +83,6 @@
     data = { id: key, value: null }
     @handleColorSchemeChange(data)
 
-
   handleColorSchemeClose: (e) ->
     $('#color-scheme-form').modal('close')
 
@@ -105,6 +122,7 @@
         { editable &&
             <FixedActionButton clickToToggle className='red darken-1' tooltip='Menu' icon='menu'>
                 <ActionButton className='teal lighten-1 modal-trigger' tooltip='Edit Page Colors' href='#color-scheme-form' icon='palette' />
+                <ActionButton className='red darken-1 modal-trigger' tooltip='Delete...' href='#delete-form' icon='delete' />
             </FixedActionButton>
         }
 
@@ -119,6 +137,17 @@
                 </AttributeTable>
                 <div className='actions margin-top--large'>
                   <a className='btn' onClick={ this.handleColorSchemeClose }>Done</a>
+                </div>
+            </Modal>
+        }
+
+        { editable &&
+            <Modal id='delete-form'>
+                <h2>Delete Character</h2>
+                <p>This action can not be undone! Are you sure?</p>
+                <div className='actions margin-top--large'>
+                    <a className='btn red right' onClick={ this.handleCharacterDelete }>DELETE CHARACTER</a>
+                    <a className='btn' onClick={ this.handleDeleteClose }>Cancel</a>
                 </div>
             </Modal>
         }

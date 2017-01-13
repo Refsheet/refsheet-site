@@ -11,6 +11,10 @@
     .container
       display: flex
 
+  .action-row
+    min-height: 55px
+    margin-bottom: 1rem
+
   .user-data
     padding: 1rem 1.5rem
     flex-grow: 1
@@ -24,7 +28,7 @@
     .username
       @extend .thin
       font-size: 1.2rem
-      color: $secondary-color
+      padding-top: 3px
 
   .user-avatar
     flex: 0 0 200px
@@ -58,8 +62,7 @@
 
   .user-bio
     box-sizing: border-box
-    margin-left: 200px
-    padding: 1.5rem 0 1.5rem 1.5rem
+    padding: 1.5rem 0
     min-height: 55px
     margin-bottom: 2rem
 

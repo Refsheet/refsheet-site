@@ -68,10 +68,9 @@
         <UserHeader { ...this.state.user } onUserChange={ userChangeCallback } />
 
         <div className='container'>
+            <h1>{ characters.length } Characters</h1>
             <div className='row'>
                 { characters }
             </div>
         </div>
-
-        { this.props.children }
     </main>`
