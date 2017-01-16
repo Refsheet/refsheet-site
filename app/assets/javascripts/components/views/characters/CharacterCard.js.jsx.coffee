@@ -82,6 +82,11 @@
 
             { description }
         </div>
+        <div className='user-icon'>
+            <Link to={ '/' + this.state.character.user_id }>
+                <img className='circle' src={ this.state.character.user_avatar_url } />
+            </Link>
+        </div>
         <div className='character-image' onClick={ this.handleImageClick }>
             <div className='slant' />
             <img src={ this.state.character.profile_image.url } data-image-id={ this.state.character.profile_image.id } />

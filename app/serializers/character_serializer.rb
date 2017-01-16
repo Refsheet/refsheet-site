@@ -1,10 +1,12 @@
 class CharacterSerializer < ActiveModel::Serializer
   include RichTextHelper
+  include GravatarImageTag
   include Rails.application.routes.url_helpers
 
   attributes :name, :slug, :shortcode, :profile, :path, :user_id, :gender,
              :species, :height, :weight, :body_type, :personality, :special_notes, :link,
-             :special_notes_html, :profile_html, :likes, :likes_html, :dislikes, :dislikes_html
+             :special_notes_html, :profile_html, :likes, :likes_html, :dislikes, :dislikes_html,
+             :user_avatar_url
 
   has_many :swatches, serializer: SwatchSerializer
   has_many :images, serializer: CharacterImageSerializer
@@ -26,6 +28,10 @@ class CharacterSerializer < ActiveModel::Serializer
 
   def user_id
     object.user.username
+  end
+
+  def user_avatar_url
+    gravatar_image_url object.user.email
   end
 
   def special_notes_html
