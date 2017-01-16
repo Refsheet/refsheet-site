@@ -8,8 +8,10 @@ Rails.application.routes.draw do
   get 'marketplace', to: 'application#show'
   get 'guilds', to: 'application#show'
   get 'artists', to: 'application#show'
+  get 'browse', to: 'application#show'
 
   resource :session, only: [:show, :create, :destroy], controller: 'session'
+  resource :search, only: [:show], controller: 'search'
 
   resources :users, only: [:index, :show, :create, :update] do
     resources :characters, only: [:show, :update, :create, :destroy] do
