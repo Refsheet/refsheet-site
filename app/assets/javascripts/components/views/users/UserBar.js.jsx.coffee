@@ -32,10 +32,10 @@
             </Link>
 
             <ul className='hide-on-small-and-down'>
-                {/*<li>
-                    <Link to='/marketplace' activeClassName='teal-text text-lighten-2'>Marketplace</Link>
-                </li>
                 <li>
+                    <Link to='/browse' activeClassName='teal-text text-lighten-2'>Browse</Link>
+                </li>
+                {/*<li>
                     <Link to='/guilds' activeClassName='teal-text text-lighten-2'>Guilds</Link>
                 </li>
                 <li>

@@ -19,6 +19,9 @@
 #  special_notes     :text
 #  featured_image_id :integer
 #  profile_image_id  :integer
+#  likes             :text
+#  dislikes          :text
+#  color_scheme_id   :integer
 #
 
 require 'rails_helper'
