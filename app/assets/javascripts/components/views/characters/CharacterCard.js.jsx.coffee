@@ -36,6 +36,7 @@
     if @props.edit
       attributeUpdate = @handleAttributeChange
       notesUpdate = @handleSpecialNotesChange
+      editable = true
 
     description =
       `<div className='description'>
@@ -48,13 +49,14 @@
               <Attribute id='species' name='Species' value={ this.state.character.species } />
               <Attribute id='height' name='Height / Weight' value={ this.state.character.height } />
               <Attribute id='body_type' name='Body Type' value={ this.state.character.body_type } />
-              <Attribute id='personality' name='Personality' value={ this.state.character.personality } />
           </AttributeTable>
 
-          {/*<div className='important-notes margin-top--large margin-bottom--medium'>
-              <h2>Important Notes</h2>
-              <RichText content={ this.state.character.special_notes_html } markup={ this.state.character.special_notes } onChange={ notesUpdate } />
-          </div>*/}
+          { this.state.character.special_notes || editable &&
+              <div className='important-notes margin-top--large margin-bottom--medium'>
+                  <h2>Important Notes</h2>
+                  <RichText content={ this.state.character.special_notes_html } markup={ this.state.character.special_notes } onChange={ notesUpdate } />
+              </div>
+          }
       </div>`
 
     if @props.nickname

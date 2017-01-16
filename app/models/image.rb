@@ -22,7 +22,7 @@ class Image < ApplicationRecord
   belongs_to :character
 
   has_attached_file :image,
-                    default_url: '/assets/unsplash/fox.jpg',
+                    default_url: '/assets/default.png',
                     styles: {
                         thumbnail: "320x>",
                         small: "427x>",

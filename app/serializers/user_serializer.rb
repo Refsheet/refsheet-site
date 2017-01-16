@@ -2,7 +2,7 @@ class UserSerializer < ActiveModel::Serializer
   include RichTextHelper
   include GravatarImageTag::InstanceMethods
 
-  attributes :username, :email, :avatar_url, :path, :name, :profile_image_url, :cover_image_url, :profile, :profile_markup
+  attributes :username, :email, :avatar_url, :path, :name, :profile_image_url, :profile, :profile_markup
 
   has_many :characters, serializer: ImageCharacterSerializer
 
@@ -12,10 +12,6 @@ class UserSerializer < ActiveModel::Serializer
 
   def profile_image_url
     gravatar_image_url object.email, size: 200
-  end
-
-  def cover_image_url
-    '/assets/unsplash/sand.jpg'
   end
 
   def path

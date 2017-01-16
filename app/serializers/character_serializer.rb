@@ -7,6 +7,7 @@ class CharacterSerializer < ActiveModel::Serializer
              :special_notes_html, :profile_html, :likes, :likes_html, :dislikes, :dislikes_html
 
   has_many :swatches, serializer: SwatchSerializer
+  has_many :images, serializer: CharacterImageSerializer
   has_one  :featured_image, serializer: CharacterImageSerializer
   has_one  :profile_image, serializer: CharacterImageSerializer
   has_one  :color_scheme, serializer: ColorSchemeSerializer

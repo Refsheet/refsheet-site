@@ -12,11 +12,11 @@ class ImageCharacterSerializer < ActiveModel::Serializer
   end
 
   def profile_image_url
-    object.profile_image&.image.url(:thumbnail)
+    object.profile_image&.image&.url(:thumbnail)
   end
 
   def featured_image_url
-    object.featured_image&.image.url(:xlarge)
+    object.featured_image&.image&.url(:xlarge)
   end
 
   def link

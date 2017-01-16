@@ -17,10 +17,16 @@
     @props.onImageClick(id) if @props.onImageClick?
 
   componentDidMount: ->
-    $.get @props.imagesPath, (data) =>
-      @setState images: data
+    if !@props.images?
+      @setupImageOrder()
+    else
+      $.get @props.imagesPath, (data) =>
+        @setState images: data
 
   componentDidUpdate: ->
+    @setupImageOrder()
+
+  setupImageOrder: ->
     if @props.edit
       _this = this
       $('.image-gallery .image').draggable
@@ -91,7 +97,7 @@
 
       `<section className='image-gallery'>
           <div className='container' onClick={ this.handleImageClick }>
-              <Row>
+              <Row className='featured'>
                   <Column m={ firstColWidth }>
                       { firstImage }
                   </Column>

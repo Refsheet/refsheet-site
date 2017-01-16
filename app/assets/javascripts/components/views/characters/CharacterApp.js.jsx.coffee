@@ -86,6 +86,12 @@
   handleColorSchemeClose: (e) ->
     $('#color-scheme-form').modal('close')
 
+  handleDropzoneUpload: (data) ->
+    c = @state.character
+    c.images.push data
+    console.log c.images
+    @setState character: c
+
   render: ->
     if @state.error?
       return `<NotFound />`
@@ -94,7 +100,7 @@
       return `<Loading />`
 
     if @state.character.user_id == @props.currentUser?.username
-      dropzoneUpload = @props.onLightbox
+      dropzoneUpload = @handleDropzoneUpload
       editable = true
       profileChange = @handleProfileChange
       likesChange = @handleLikesChange
@@ -152,7 +158,7 @@
             </Modal>
         }
 
-        <PageHeader backgroundImage={ this.state.character.featured_image.url }>
+        <PageHeader backgroundImage={ (this.state.character.featured_image || {}).url }>
             <CharacterCard edit={ editable } detailView={ true } character={ this.state.character } onLightbox={ this.props.onLightbox } />
             <SwatchPanel edit={ editable } swatchesPath={ this.state.character.path + '/swatches/' } swatches={ this.state.character.swatches } />
         </PageHeader>
@@ -185,5 +191,8 @@
             </Row>
         </Section>
 
-        <ImageGallery edit={ editable } imagesPath={ this.state.character.path + '/images/' } onImageClick={ this.props.onLightbox } />
+        <ImageGallery edit={ editable }
+                      imagesPath={ this.state.character.path + '/images/' }
+                      onImageClick={ this.props.onLightbox }
+                      images={ this.state.character.images } />
     </DropzoneContainer>`
