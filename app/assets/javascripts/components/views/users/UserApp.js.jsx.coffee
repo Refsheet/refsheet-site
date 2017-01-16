@@ -67,10 +67,13 @@
 
         <UserHeader { ...this.state.user } onUserChange={ userChangeCallback } />
 
-        <div className='container'>
-            <h1>{ characters.length } Characters</h1>
+        <Section className='pop-out'>
             <div className='row'>
                 { characters }
             </div>
-        </div>
+
+            { characters.length == 0 &&
+                <p className='caption center'>{ this.state.user.name } has no characters.</p>
+            }
+        </Section>
     </main>`
