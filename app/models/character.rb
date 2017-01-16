@@ -19,6 +19,9 @@
 #  special_notes     :text
 #  featured_image_id :integer
 #  profile_image_id  :integer
+#  likes             :text
+#  dislikes          :text
+#  color_scheme_id   :integer
 #
 
 class Character < ApplicationRecord
@@ -34,6 +37,7 @@ class Character < ApplicationRecord
 
   has_guid :shortcode, type: :token
   slugify :name, scope: :user
+  scoped_search on: [:name, :species, :profile, :likes, :dislikes]
 
   accepts_nested_attributes_for :color_scheme
 

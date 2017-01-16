@@ -13,6 +13,8 @@
 #  image_updated_at   :datetime
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  row_order          :integer
+#  guid               :string
 #
 
 require 'rails_helper'
