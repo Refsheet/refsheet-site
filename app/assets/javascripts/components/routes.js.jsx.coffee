@@ -18,7 +18,6 @@
 
             <Route path='login' component={ LoginView } />
             <Route path='register' component={ RegisterView } />
-            <Route path='marketplace' component={ Loading } />
             <Route path='browse' component={ BrowseApp } />
 
             <Route path='images/:imageId' component={ ImageApp } />
