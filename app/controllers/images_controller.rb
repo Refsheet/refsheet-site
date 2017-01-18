@@ -51,6 +51,10 @@ class ImagesController < ApplicationController
 
       render json: @image, serializer: ImageSerializer
     elsif @image.update_attributes image_params
+      if image_params.include? :gravity
+        @image.regenerate_thumbnail!
+      end
+
       render json: @image, serializer: ImageSerializer
     else
       render json: { errors: @image.errors }, status: :bad_request
@@ -77,6 +81,6 @@ class ImagesController < ApplicationController
   end
 
   def image_params
-    params.require(:image).permit(:image, :artist_id, :caption, :source_url)
+    params.require(:image).permit(:image, :artist_id, :caption, :source_url, :thumbnail)
   end
 end
