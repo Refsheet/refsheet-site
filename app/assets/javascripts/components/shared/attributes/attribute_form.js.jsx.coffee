@@ -106,32 +106,34 @@
         </div>`
 
     `<li className={ className }>
-        { iconTag }
+        <form onSubmit={ this.commit }>
+            { iconTag }
 
-        <div className='attribute-data'>
-            { nameTag }
+            <div className='attribute-data'>
+                { nameTag }
 
-            <div className='value'>
-                { colorPicker }
+                <div className='value'>
+                    { colorPicker }
 
-                <input type='text' name='value' placeholder='Value'
-                       className={ this.state.errors.value ? 'invalid' : '' }
-                       onChange={ this.handleChange }
-                       value={ this.state.value }
-                       onFocus={ this.props.onFocus }
-                />
+                    <input type='text' name='value'
+                           className={ this.state.errors.value ? 'invalid' : '' }
+                           onChange={ this.handleChange }
+                           value={ this.state.value }
+                           onFocus={ this.props.onFocus }
+                    />
 
-                <label data-error={ this.state.errors.value } />
+                    <label data-error={ this.state.errors.value } />
+                </div>
+
+                { notesTag }
             </div>
 
-            { notesTag }
-        </div>
+            <div className='actions'>
+                <a className={ saveClassName } onClick={ this.commit }>
+                    <i className='material-icons'>save</i>
+                </a>
 
-        <div className='actions'>
-            <a className={ saveClassName } onClick={ this.commit }>
-                <i className='material-icons'>save</i>
-            </a>
-
-            { cancel }
-        </div>
+                { cancel }
+            </div>
+        </form>
     </li>`

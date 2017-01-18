@@ -1,16 +1,16 @@
 @Footer = (props) ->
   `<footer className="page-footer grey darken-3">
-      <div className="container">
-          <div className="row">
-              <div className="col l6 s12">
-                  <h5>Refsheet.net</h5>
-                  <p>Refsheet.net is in closed-ish alpha. Twitter @refsheet</p>
-              </div>
-          </div>
-      </div>
-      <div className="footer-copyright">
-          <div className="container">
-              &copy;2016 // A Sitehive project
-          </div>
-      </div>
+      <Section>
+          <p className='center-align'>Twitter <a target='_blank' href='https://twitter.com/refsheet'>@refsheet</a> for news and bug reports.</p>
+      </Section>
+      <Section className="footer-copyright">
+          <Row>
+              <Column s='12' m='6'>
+                  &copy;2017 // A Sitehive project
+              </Column>
+              <Column s='12' m='6' className='right-align'>
+                  We're in OPEN alpha! <Link to='/register'>Try it out!</Link>
+              </Column>
+          </Row>
+      </Section>
   </footer>`

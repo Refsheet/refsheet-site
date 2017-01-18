@@ -13,6 +13,10 @@
       error: (error) =>
         @setState error: error
 
+  componentWillUpdate: (newProps, newState) ->
+    if newState.character && @state.character && newState.character.link != @state.character.link
+      window.history.replaceState {}, '', newState.character.link
+
   handleCharacterDelete: (e) ->
     $.ajax
       url: @state.character.path
@@ -86,6 +90,26 @@
   handleColorSchemeClose: (e) ->
     $('#color-scheme-form').modal('close')
 
+  handleSettingsChange: (data, onSuccess, onError) ->
+    o = {}
+    o[data.id] = data.value
+
+    console.log data
+
+    $.ajax
+      url: @state.character.path
+      data: character: o
+      type: 'PATCH'
+      success: (data) =>
+        @setState character: data
+        onSuccess() if onSuccess
+      error: (error) =>
+        e = error.responseJSON.errors[data.id]
+        onError(value: e) if onError
+
+  handleSettingsClose: (e) ->
+    $('#character-settings-form').modal('close')
+
   handleDropzoneUpload: (data) ->
     c = @state.character
     c.images.push data
@@ -126,21 +150,25 @@
         { this.state.character.color_scheme && <PageStylesheet { ...this.state.character.color_scheme.color_data } /> }
 
         { editable &&
-            <FixedActionButton clickToToggle className='red darken-1' tooltip='Menu' icon='menu'>
-                <ActionButton className='teal lighten-1 modal-trigger' tooltip='Edit Page Colors' href='#color-scheme-form' icon='palette' />
-                <ActionButton className='red darken-1 modal-trigger' tooltip='Delete...' href='#delete-form' icon='delete' />
+            <FixedActionButton clickToToggle className='teal lighten-1' tooltip='Menu' icon='menu'>
+                {/*<ActionButton className='indigo lighten-1 modal-trigger' tooltip='Manage Images' href='#character-gallery' icon='image' />*/}
+                <ActionButton className='green lighten-1 modal-trigger' tooltip='Edit Page Colors' href='#color-scheme-form' icon='palette' />
+                <ActionButton className='blue darken-1 modal-trigger' tooltip='Character Settings' href='#character-settings-form' icon='settings' />
             </FixedActionButton>
         }
 
         { editable &&
             <Modal id='color-scheme-form'>
                 <h2>Page Color Scheme</h2>
+                <p>Be sure to save each row individually. Click the trash bin to revert the color to Refsheet's default.</p>
+
                 <AttributeTable valueType='color'
                                 onAttributeUpdate={ this.handleColorSchemeChange }
                                 onAttributeDelete={ this.handleColorSchemeClear }
                                 freezeName hideNotesForm>
                     { colorSchemeFields }
                 </AttributeTable>
+
                 <div className='actions margin-top--large'>
                   <a className='btn' onClick={ this.handleColorSchemeClose }>Done</a>
                 </div>
@@ -151,9 +179,38 @@
             <Modal id='delete-form'>
                 <h2>Delete Character</h2>
                 <p>This action can not be undone! Are you sure?</p>
+
                 <div className='actions margin-top--large'>
                     <a className='btn red right' onClick={ this.handleCharacterDelete }>DELETE CHARACTER</a>
                     <a className='btn' onClick={ this.handleDeleteClose }>Cancel</a>
+                </div>
+            </Modal>
+        }
+
+        { editable &&
+            <Modal id='character-settings-form'>
+                <h2>Character Settings</h2>
+                <p>Be sure to save each row individually. Do note that your URL slug is not case-sensitive, but changing it
+                might break existing links to your character.</p>
+
+                <AttributeTable onAttributeUpdate={ this.handleSettingsChange }
+                                freezeName hideNotesForm>
+                    <Attribute id='name' name='Character Name' value={ this.state.character.name } />
+                    <Attribute id='slug' name='URL Slug' value={ this.state.character.slug } />
+                    <li>
+                        <div className='attribute-data'>
+                            <div className='key'>Delete</div>
+                            <div className='value'>
+                                <a className='red-text btn-small modal-trigger' href='#delete-form'>Delete Character</a>
+                            </div>
+                        </div>
+                        <div className='actions' />
+                    </li>
+                </AttributeTable>
+
+                <div className='actions margin-top--large'>
+                    <a className='btn' onClick={ this.handleSettingsClose }>Done</a>
+
                 </div>
             </Modal>
         }

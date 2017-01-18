@@ -6,7 +6,7 @@ class CharacterSerializer < ActiveModel::Serializer
   attributes :name, :slug, :shortcode, :profile, :path, :user_id, :gender,
              :species, :height, :weight, :body_type, :personality, :special_notes, :link,
              :special_notes_html, :profile_html, :likes, :likes_html, :dislikes, :dislikes_html,
-             :user_avatar_url
+             :user_avatar_url, :user_name
 
   has_many :swatches, serializer: SwatchSerializer
   has_many :images, serializer: CharacterImageSerializer
@@ -28,6 +28,10 @@ class CharacterSerializer < ActiveModel::Serializer
 
   def user_id
     object.user.username
+  end
+
+  def user_name
+    object.user.name
   end
 
   def user_avatar_url

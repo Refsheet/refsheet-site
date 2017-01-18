@@ -20,6 +20,10 @@
     @props.onEditStop() if @props.onEditStop?
     e.preventDefault() if e?
 
+  handleAttributeClick: (e) ->
+    if @props.onCommit
+      @startEdit(e)
+
   render: ->
     if @props.defaultValue?
       defaultValue =
@@ -61,7 +65,7 @@
         notesTag =
           `<div className='notes'>{ this.props.notes }</div>`
 
-      `<li data-attribute-id={ this.props.id }>
+      `<li data-attribute-id={ this.props.id } onClick={ this.handleAttributeClick }>
           { icon }
 
           <div className='attribute-data'>
