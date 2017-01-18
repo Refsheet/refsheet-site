@@ -24,9 +24,13 @@
     &:not(:first-child)
       border-top: 1px solid rgba(255, 255, 255, 0.1)
 
-    & > div
+    & > div, & > form > div
       @extend .padding-top--small
       @extend .padding-bottom--small
+
+    & > form
+      display: flex
+      width: 100%
 
     &.attribute-form
       &.inactive
@@ -70,6 +74,7 @@
 
   .actions
     @extend .padding-left--small
+    min-width: 3em
     white-space: nowrap
     padding: 3px 0 0 7px
     text-align: right

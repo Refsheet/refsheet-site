@@ -1,5 +1,6 @@
 @Column = (props) ->
   classes = ['col']
+  classes.push props.className
   
   props['s'] = 12 unless props['s']?
   

@@ -51,7 +51,11 @@
 
   render: ->
     swatches = @state.swatches.map (swatch) ->
-        `<div className='swatch' key={ swatch.id } style={{backgroundColor: swatch.color}} />`
+        `<div className='swatch tooltipped'
+              key={ swatch.id }
+              style={{backgroundColor: swatch.color}}
+              data-tooltip={ swatch.name + ' - ' + swatch.color }
+              data-position='bottom' />`
 
     swatchDetails = @state.swatches.map (swatch) ->
       `<Attribute key={ swatch.id }

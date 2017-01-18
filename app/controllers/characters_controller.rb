@@ -61,7 +61,7 @@ class CharactersController < ApplicationController
 
   def character_params
     p = params.require(:character).permit(:name, :nickname, :gender, :species, :height, :weight,
-                                          :body_type, :personality, :special_notes, :profile, :likes, :dislikes)
+                                          :body_type, :personality, :special_notes, :profile, :likes, :dislikes, :slug)
 
     if params[:character].include? :color_scheme_attributes
       p[:color_scheme_attributes] = { color_data: params[:character][:color_scheme_attributes][:color_data].permit!, id: @character.color_scheme_id }

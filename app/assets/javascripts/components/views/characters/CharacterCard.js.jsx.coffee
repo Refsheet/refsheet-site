@@ -2,6 +2,10 @@
   getInitialState: ->
     character: @props.character
 
+  componentWillUpdate: (newProps) ->
+    if newProps.character != @props.character
+      @setState character: newProps.character
+
   handleAttributeChange: (data, onSuccess, onError) ->
     postData =
       character: {}
@@ -51,10 +55,12 @@
               <Attribute id='body_type' name='Body Type' value={ this.state.character.body_type } />
           </AttributeTable>
 
-          { this.state.character.special_notes || editable &&
+          { (this.state.character.special_notes || editable) &&
               <div className='important-notes margin-top--large margin-bottom--medium'>
                   <h2>Important Notes</h2>
-                  <RichText content={ this.state.character.special_notes_html } markup={ this.state.character.special_notes } onChange={ notesUpdate } />
+                  <RichText content={ this.state.character.special_notes_html }
+                            markup={ this.state.character.special_notes }
+                            onChange={ notesUpdate } />
               </div>
           }
       </div>`
@@ -83,7 +89,7 @@
             { description }
         </div>
         <div className='user-icon'>
-            <Link to={ '/' + this.state.character.user_id }>
+            <Link to={ '/' + this.state.character.user_id } className='tooltipped' data-tooltip={ this.state.character.user_name } data-position='bottom'>
                 <img className='circle' src={ this.state.character.user_avatar_url } />
             </Link>
         </div>
