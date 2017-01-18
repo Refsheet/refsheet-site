@@ -29,9 +29,14 @@ class Image < ApplicationRecord
                         thumbnail: "320x>",
                         small: "427x>",
                         medium: "854x>",
-                        large: "1280x>" },
+                        large: "1280x>"
+                    },
                     s3_permissions: {
-                        original: :private }
+                        original: :private
+                    },
+                    convert_options: {
+                       thumbnail: -> (i) { "-gravity #{i.gravity} -thumbnail 320x320^ -extent 320x320" }
+                    }
 
 
   validates_attachment :image, presence: true,
@@ -40,4 +45,12 @@ class Image < ApplicationRecord
 
   has_guid
   ranks :row_order
+
+  def gravity
+    super || 'center'
+  end
+
+  def regenerate_thumbnail!
+    self.image.reprocess! :thumbnail
+  end
 end

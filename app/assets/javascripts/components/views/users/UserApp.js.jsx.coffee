@@ -58,6 +58,7 @@
     `<main>
         <Modal id='character-form'>
             <h2>New Character</h2>
+            <p>It all starts with the basics. Give us a name and a species, and we'll set up a profile.</p>
             <NewCharacterForm onCancel={ function(e) { $('#character-form').modal('close'); e.preventDefault() } }
                               onCreate={ this.goToCharacter }
                               newCharacterPath={ this.state.user.path + '/characters' }/>

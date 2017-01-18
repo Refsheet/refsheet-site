@@ -67,6 +67,8 @@
       window.history.back() if @state.image?
 
   componentDidMount: ->
+    $('.image-gravity select').material_select()
+
     unless @state.image?
       $.ajax
         url: "/images/#{@props.imageId}.json"
@@ -76,6 +78,12 @@
 
         error: (error) =>
           @setState error: "Image #{error.statusText}"
+
+  componentDidUpdate: ->
+    $('.image-gravity select').material_select()
+
+  handleGravityChange: (e) ->
+    console.log e.target.value
 
   render: ->
     if this.state.image?
@@ -92,6 +100,18 @@
 
         captionCallback = @handleCaptionChange
 
+        imgGravity =
+          `<div className='image-gravity'>
+              <select value={ this.state.image.gravity }
+                      onChange={ this.handleGravityChange }>
+                  <option name='north'>Top</option>
+                  <option name='center'>Center</option>
+                  <option name='south'>Bottom</option>
+                  <option name='west'>Left</option>
+                  <option name='east'>Right</option>
+              </select>
+          </div>`
+
       lightbox =
         `<div className='lightbox'>
             <div className='image-content'>
@@ -102,6 +122,7 @@
                 </a>
 
                 { imgActions }
+                { imgGravity }
             </div>
 
             <div className='image-details-container'>
@@ -116,9 +137,8 @@
                               placeholder='No caption.' />
                 </div>
                 
-                {/*<div className='comments'>
-                    <div className='no-comment'>No Comments</div>
-                </div>*/}
+                <div className='comments'>
+                </div>
             </div>
         </div>`
     else

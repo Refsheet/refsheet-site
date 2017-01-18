@@ -151,7 +151,7 @@
 
         { editable &&
             <FixedActionButton clickToToggle className='teal lighten-1' tooltip='Menu' icon='menu'>
-                {/*<ActionButton className='indigo lighten-1 modal-trigger' tooltip='Manage Images' href='#character-gallery' icon='image' />*/}
+                <ActionButton className='indigo lighten-1 modal-trigger' tooltip='Manage Images' href='#character-gallery' icon='image' />
                 <ActionButton className='green lighten-1 modal-trigger' tooltip='Edit Page Colors' href='#color-scheme-form' icon='palette' />
                 <ActionButton className='blue darken-1 modal-trigger' tooltip='Character Settings' href='#character-settings-form' icon='settings' />
             </FixedActionButton>
@@ -212,6 +212,12 @@
                     <a className='btn' onClick={ this.handleSettingsClose }>Done</a>
 
                 </div>
+            </Modal>
+        }
+
+        { editable &&
+            <Modal id='character-gallery'>
+                <h2>Character Uploads</h2>
             </Modal>
         }
 
