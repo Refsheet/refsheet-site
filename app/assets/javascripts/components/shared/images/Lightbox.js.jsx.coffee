@@ -86,11 +86,12 @@
               <a href='#' onClick={ this.setProfileImage }>Set Profile Image</a>
 
               <div className='right'>
-                  {/*<a href='#'>Delete</a>*/}
+                  <a href='#delete-form' className='modal-trigger'>Delete</a>
               </div>
           </div>`
 
         captionCallback = @handleCaptionChange
+        editable = true
 
       lightbox =
         `<div className='lightbox'>
@@ -128,5 +129,16 @@
         </div>`
 
     `<div className='lightbox-container' onClick={ this.handleClose } data-close-lightbox>
+        { editable &&
+            <Modal id='delete-form'>
+                <h2>Delete Image</h2>
+                <p>Are you sure? This can't be undone.</p>
+                <div className='actions margin-top--large'>
+                    <a className='btn red right'>DELETE IMAGE</a>
+                    <a className='btn'>Cancel</a>
+                </div>
+            </Modal>
+        }
+
         { lightbox }
     </div>`
