@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     end
   end
 
-  scope :webhooks do
+  namespace :webhooks do
     post :patreon, to: 'patreon#create'
   end
 
