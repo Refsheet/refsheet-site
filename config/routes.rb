@@ -20,6 +20,10 @@ Rails.application.routes.draw do
     end
   end
 
+  scope :webhooks do
+    post :patreon, to: 'patreon#create'
+  end
+
   get '/:user_id/:id', to: 'characters#show'
 
   get '*page', to: 'application#show'
