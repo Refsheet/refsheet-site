@@ -1,0 +1,11 @@
+test: &default
+  api_key: 353b7b01f1967835123c800761332f4f
+  token: b96b995099d34f35f505a413751c5e3c6fb2619868f7cf3bdd7f93aa69076c33
+  influx_list_id: 588045af98693865e58cc479
+
+development:
+  <<: *default
+
+production:
+  api_key: <%= ENV['TRELLO_API_KEY'] %>
+  token: <%= ENV['TRELLO_TOKEN'] %>
