@@ -1,0 +1,12 @@
+test: &default
+  api_key: not-a-key
+  token: not-a-token
+  influx_list_id: not-a-list
+
+development:
+  <<: *default
+
+production:
+  api_key: <%= ENV['TRELLO_API_KEY'] %>
+  token: <%= ENV['TRELLO_TOKEN'] %>
+  influx_list_id: <%= ENV['TRELLO_INFLUX_LIST_ID'] %>

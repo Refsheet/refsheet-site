@@ -1,4 +1,4 @@
-input, text-area, select
+input, textarea, select
   z-index: 1
   position: relative
 
@@ -8,10 +8,11 @@ input, text-area, select
       border-bottom-color: color('yellow', 'darken-1') !important
       -webkit-text-fill-color: $page-text-color !important
 
-  & + label:after
-    top: auto !important
-    bottom: 0
-    font-size: 0.8rem
+.hint-text
+  top: auto !important
+  bottom: 0.3rem
+  font-size: 0.8rem
+  position: absolute
 
 label
   width: 100%

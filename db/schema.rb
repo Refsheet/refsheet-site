@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170118232046) do
+ActiveRecord::Schema.define(version: 20170119042556) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,18 @@ ActiveRecord::Schema.define(version: 20170118232046) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "feedbacks", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.string   "email"
+    t.text     "comment"
+    t.string   "trello_card_id"
+    t.string   "source_url"
+    t.integer  "visit_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
   create_table "images", force: :cascade do |t|
     t.integer  "character_id"
     t.integer  "artist_id"
@@ -70,6 +82,7 @@ ActiveRecord::Schema.define(version: 20170118232046) do
     t.datetime "updated_at",         null: false
     t.integer  "row_order"
     t.string   "guid"
+    t.string   "gravity"
     t.index ["guid"], name: "index_images_on_guid", using: :btree
   end
 

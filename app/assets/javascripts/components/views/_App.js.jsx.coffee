@@ -19,21 +19,28 @@
     @setState lightboxImageId: null
 
   render: ->
-    childrenWithProps = React.Children.map this.props.children, (child) =>
-      React.cloneElement child,
-        onLogin: @signInUser
-        onLightbox: @openLightbox
-        currentUser: @state.currentUser
-
     if @state.loading
-      childrenWithProps = `<Loading />`
+      `<div id='rootApp'>
+          <Loading />
+      </div>`
+    
+    else
+      childrenWithProps = React.Children.map this.props.children, (child) =>
+        React.cloneElement child,
+          onLogin: @signInUser
+          onLightbox: @openLightbox
+          currentUser: @state.currentUser
 
-    `<div id='rootApp'>
-        { this.state.lightboxImageId && <Lightbox imageId={ this.state.lightboxImageId } history={ this.props.history } onClose={ this.closeLightbox } /> }
-        
-        <UserBar currentUser={ this.state.currentUser } />
-        
-        { childrenWithProps }
-        
-        <Footer />
-    </div>`
+
+      `<div id='rootApp'>
+          { this.state.lightboxImageId && <Lightbox imageId={ this.state.lightboxImageId } history={ this.props.history } onClose={ this.closeLightbox } /> }
+
+          <FeedbackModal name={ this.state.currentUser && this.state.currentUser.name } />
+          <a className='btn modal-trigger feedback-btn blue-grey' href='#feedback-modal'>Feedback</a>
+
+          <UserBar currentUser={ this.state.currentUser } />
+
+          { childrenWithProps }
+
+          <Footer />
+      </div>`
