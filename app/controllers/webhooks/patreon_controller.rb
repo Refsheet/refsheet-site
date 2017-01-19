@@ -1,4 +1,7 @@
 class Webhooks::PatreonController < ApplicationController
+  protect_from_forgery with: :null_session
+  before_action :verify_hmac
+
   def create
     Rails.logger.tagged 'PATREON' do
       Rails.logger.info create_params.as_json
@@ -79,5 +82,17 @@ class Webhooks::PatreonController < ApplicationController
     ).merge(
         :patreon_id => reward_id
     )
+  end
+
+  def verify_hmac
+    key = Rails.configuration.x.patreon['client_secret']
+    data = request.body.read
+    digest = OpenSSL::Digest.new('sha1')
+    hmac = OpenSSL::HMAC.hexdigest(digest, key, data)
+
+    if hmac != request.headers['X-Patreon-Signature']
+      Rails.logger.info "HMAC FAILED - Got #{hmac} should be #{request.headers['X-Patreon-Signature']}"
+      head :bad_request
+    end
   end
 end

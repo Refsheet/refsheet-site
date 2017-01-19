@@ -3,10 +3,11 @@ require 'rails_helper'
 describe Webhooks::PatreonController, type: :request do
   let(:headers) {{
       'X-Patreon-Event' => 'test',
-      'X-Patreon-Signature' => 'not-a-signature'
+      'X-Patreon-Signature' => '9c42bb36dc461710fc78b5e3a165240b08a587af',
+      'Content-Type' => 'application/json'
   }}
 
-  let(:payload) { JSON.parse(<<-JSON) }
+  let(:payload) { <<-JSON }
     {
       "data": {
         "attributes": {
@@ -297,6 +298,16 @@ describe Webhooks::PatreonController, type: :request do
       expect(Patreon::Pledge.count).to eq 1
       expect(Patreon::Reward.count).to eq 1
       expect(Patreon::Patron.count).to eq 1
+    end
+  end
+
+  context 'with tampered payload' do
+    it 'rejects the webhook' do
+      post '/webhooks/patreon', params: <<-JSON, headers: headers
+        { "data": { "tamper": "proof" } }
+      JSON
+
+      expect(response).to have_http_status :bad_request
     end
   end
 end
