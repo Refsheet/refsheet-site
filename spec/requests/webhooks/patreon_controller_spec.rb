@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Webhooks::PatreonController, type: :request do
   let(:headers) {{
       'X-Patreon-Event' => 'test',
-      'X-Patreon-Signature' => '9c42bb36dc461710fc78b5e3a165240b08a587af',
+      'X-Patreon-Signature' => '2bb35f9812d11f9878aec630c6e47699',
       'Content-Type' => 'application/json'
   }}
 
