@@ -87,7 +87,7 @@ class Webhooks::PatreonController < ApplicationController
   def verify_hmac
     key = Rails.configuration.x.patreon['client_secret']
     data = request.body.read
-    digest = OpenSSL::Digest.new('sha1')
+    digest = OpenSSL::Digest.new('md5')
     hmac = OpenSSL::HMAC.hexdigest(digest, key, data)
 
     if hmac != request.headers['X-Patreon-Signature']
