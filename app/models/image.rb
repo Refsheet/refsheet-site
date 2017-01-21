@@ -29,9 +29,9 @@ class Image < ApplicationRecord
   has_attached_file :image,
                     default_url: '/assets/default.png',
                     styles: {
-                        thumbnail: "320x320",
-                        small: "427x427",
-                        medium: "854x854",
+                        thumbnail: "320x320^",
+                        small: "427x427^",
+                        medium: "854x854^",
                         large: "1280x>"
                     },
                     s3_permissions: {
@@ -53,6 +53,15 @@ class Image < ApplicationRecord
 
   def gravity
     super || 'center'
+  end
+
+  def source_url_display
+    return nil unless self.source_url.present?
+    uri = URI.parse(self.source_url)
+    path_part = uri.path.split('/').last
+    filler = path_part == uri.path ? '' : '.../'
+
+    "#{uri}/#{filler}#{path_part}"
   end
 
   def regenerate_thumbnail!

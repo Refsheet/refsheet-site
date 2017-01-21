@@ -2,7 +2,8 @@ class ImageSerializer < ActiveModel::Serializer
   include RichTextHelper
   include Rails.application.routes.url_helpers
 
-  attributes :id, :caption, :url, :path, :post_date, :caption_html, :small, :medium, :user_id, :gravity
+  attributes :id, :caption, :url, :path, :post_date, :caption_html, :small, :medium, :user_id, :gravity, :source_url,
+             :source_url_display
 
   has_one :character, serializer: ImageCharacterSerializer
 
@@ -35,6 +36,6 @@ class ImageSerializer < ActiveModel::Serializer
   end
 
   def caption_html
-    linkify object.caption
+    object.caption
   end
 end

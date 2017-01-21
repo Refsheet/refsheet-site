@@ -7,10 +7,10 @@
       url: '/images/' + source
       type: 'PATCH'
       data: { image: { swap_target_image_id: target } }
-    , (data) =>
-      @setState images: data
-    , (error) =>
-      console.log error
+      success: (data) =>
+        Materialize.toast 'Image moved!', 3000, 'green'
+      error: (error) =>
+        console.log error
 
   handleImageClick: (e) ->
     id = $(e.target).closest('[data-image-id]').data('image-id')
