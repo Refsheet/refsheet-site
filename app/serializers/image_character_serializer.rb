@@ -16,7 +16,7 @@ class ImageCharacterSerializer < ActiveModel::Serializer
   end
 
   def featured_image_url
-    object.featured_image&.image&.url(:xlarge)
+    object.featured_image&.image&.url(:large)
   end
 
   def link

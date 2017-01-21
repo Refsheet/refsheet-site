@@ -9,10 +9,14 @@
       url: "/images/#{@props.params.imageId}.json"
       success: (data) =>
         @setState image: data
-        @props.onLightbox data
 
   componentWillUnmount: ->
     $('body').removeClass 'no-footer'
+
+  componentWillUpdate: (newProps, newState) ->
+    if newState.image? && !@state.image?
+      console.log 'Triggering LB event'
+      $(document).trigger 'app:lightbox', newState.image
 
   render: ->
     if @state.image?

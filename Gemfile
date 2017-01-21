@@ -57,6 +57,10 @@ gem 'react-rails-hot-loader'
 gem 'dropzonejs-rails'
 gem 'redcarpet'
 
+# == INTEGRATIONS
+
+gem 'ruby-trello'
+
 # == BOWER ASSETS
 
 source 'https://rails-assets.org' do

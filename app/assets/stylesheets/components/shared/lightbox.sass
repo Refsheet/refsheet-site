@@ -1,23 +1,14 @@
-.lightbox-container
-  @extend .valign-wrapper
-  position: fixed
-  top: 0
-  bottom: 0
-  width: 100%
-  background-color: rgba(0, 0, 0, 0.5)
-  z-index: 999
-  overflow: auto
+.lightbox-modal
+  height: auto
+  margin: 0 auto
+  width: 95vw
+  min-width: 600px
 
-  .lightbox
-    @extend .z-depth-4
-    @extend .valign
-    background-color: $page-bg-color
-    margin: 0 auto
-    display: flex
-    max-height: 90vh
-    width: 95vw
-    min-height: 300px
-    min-width: 600px
+.lightbox
+  display: flex
+  height: 100%
+  min-height: 50vh
+  max-height: 80vh
 
   .image-content
     @extend .valign-wrapper
@@ -43,53 +34,21 @@
       padding: 5px 6px 0 6px
       z-index: 1
 
-    &:hover
-      .image-actions
-        transition: opacity 0.4s ease
-        opacity: 1.0
+  .image-actions
+    position: absolute
+    top: 1rem
+    right: 1rem
 
-    .image-gravity
-      position: absolute
-      top: 0px
-      right: 0px
-      background-color: rgba(0, 0, 0, 0.3)
-
-      input
-        margin-bottom: 0
-        padding: 5px 6px
-        border-bottom: none
-
-    .image-actions
-      position: absolute
-      bottom: 0
-      left: 0
-      width: 100%
-      background-color: rgba(0, 0, 0, 0.6)
-      color: white
-      text-align: left
-      z-index: 2
-      line-height: 32px
-      opacity: 0.0
-      font-size: 0.9rem
-      transition: opacity 0.4s ease
-
-      a
-        display: inline-block
-        padding: 5px 10px
-        color: white
-
-      p
-        margin: 0
-        padding: 5px 10px
+    & > a
+      color: $page-text-color
 
   .image-details-container
-    border-left: 1px solid black
     display: flex
     flex-direction: column
 
     .image-details
       width: 300px
-      padding: 15px
+      padding: 1rem
 
       .image-caption
         margin-top: 1rem
@@ -103,7 +62,7 @@
         padding: 10px
         text-align: center
         font-style: italic
-        color: rgba(255, 255, 255, 0.5)
+        color: $muted-text-color
 
     h1
       @extend .thin
@@ -114,39 +73,28 @@
     @extend .valign
     margin: 0 auto
 
-  @media #{$medium-and-down}
-    .lightbox
-      min-height: 0
-      height: 75vh
-      width: 95vw
-      max-height: 100%
-      max-width: 100%
+@media #{$medium-and-down}
+  .lightbox
+    min-height: 0
+    height: 75vh
+    width: 95vw
+    max-height: 100%
+    max-width: 100%
 
-  @media #{$small-and-down}
-    .lightbox
-      flex-direction: column
-      width: 100%
-      height: auto
-      min-width: 0
-      margin: 0
+@media #{$small-and-down}
+  .lightbox
+    flex-direction: column
+    width: 100%
+    height: auto
+    min-width: 0
+    margin: 0
 
-    .image-details
-      width: auto
+  .image-details
+    width: auto
 
-    .image-content
-      flex-grow: 0
-      flex-direction: column
+  .image-content
+    flex-grow: 0
+    flex-direction: column
 
-      .image-actions
-        position: static
-        opacity: 1.0
-        background-color: $card-bg-color
-
-        a
-          color: rgba(255, 255, 255, 0.6)
-
-    .comments
-      overflow: visible !important
-
-.lightbox-open
-  overflow: hidden
+  .comments
+    overflow: visible !important

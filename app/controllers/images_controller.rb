@@ -1,7 +1,7 @@
 class ImagesController < ApplicationController
-  before_action :get_user, except: [:show, :update, :destroy]
-  before_action :get_character, except: [:show, :update, :destroy]
-  before_action :get_image, only: [:show, :update, :destroy]
+  before_action :get_user, except: [:show, :full, :update, :destroy]
+  before_action :get_character, except: [:show, :full, :update, :destroy]
+  before_action :get_image, only: [:show, :full, :update, :destroy]
 
   respond_to :json
 
@@ -29,6 +29,11 @@ class ImagesController < ApplicationController
       format.html { render 'application/show' }
       format.json { render json: @image, serializer: ImageSerializer }
     end
+  end
+
+  def full
+    not_authorized unless @image.character.user.id == current_user&.id
+    redirect_to @image.image.expiring_url(30, :original)
   end
 
   def create

@@ -14,9 +14,17 @@
 
 FactoryGirl.define do
   factory :user do
-    name "MyString"
-    username "MyString"
-    email "MyString"
-    profile "MyText"
+    name { Faker::Name.name }
+    profile { Faker::Lorem.paragraph }
+    password 'fishsticks'
+    password_confirmation 'fishsticks'
+
+    sequence :username do |n|
+      "user#{n}"
+    end
+
+    sequence :email do |n|
+      "user#{n}@example.com"
+    end
   end
 end
