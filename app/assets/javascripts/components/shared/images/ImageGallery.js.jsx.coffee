@@ -23,7 +23,9 @@
       $.get @props.imagesPath, (data) =>
         @setState images: data
 
-  componentDidUpdate: ->
+  componentDidUpdate: (newProps) ->
+    if newProps.images.length != @state.images.length
+      @setState images: newProps.images
     @setupImageOrder()
 
   setupImageOrder: ->

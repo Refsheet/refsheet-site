@@ -21,10 +21,14 @@
           # Display the image in your file.previewElement
 
         uploadprogress: (file, progress, bytesSent) =>
-          if progress >= 100
-            @setState uploading: false, uploadPercent: 0
-          else
-            @setState uploadPercent: progress
+          console.log progress
+          @setState uploadPercent: progress
+
+        success: =>
+          @setState uploading: false, uploadPercent: 0
+
+        error: =>
+          @setState uploading: false, uploadPercent: 0
 
         init: ->
           @on 'error', (_, error) ->
@@ -37,11 +41,18 @@
   render: ->
     if @state.uploading
       className = 'dropzone-container uploading'
+
+      if @state.uploadPercent == 100
+        statusMessage = 'Processing thumbnails...'
+
+      else
+        statusMessage = Math.round(this.state.uploadPercent) + '%'
+
       dropZoneContent =
         `<div className='container'>
             <h1 className='white-text'>Uploading...</h1>
             <Spinner />
-            <p className='flow-text'>{ Math.round(this.state.uploadPercent) + '%' }</p>
+            <p className='flow-text'>{ statusMessage }</p>
         </div>`
 
     else

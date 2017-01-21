@@ -26,10 +26,8 @@
 
 FactoryGirl.define do
   factory :character do
-    user_id 1
-    name "MyString"
-    url "MyString"
-    shortcode "MyString"
-    profile "MyText"
+    user
+    name { Faker::Name.name }
+    profile { Faker::Lorem.paragraph }
   end
 end

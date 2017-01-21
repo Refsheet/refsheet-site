@@ -1,23 +1,14 @@
-.lightbox-container
-  @extend .valign-wrapper
-  position: fixed
-  top: 0
-  bottom: 0
-  width: 100%
-  background-color: rgba(0, 0, 0, 0.5)
-  z-index: 999
-  overflow: auto
+.lightbox-modal
+  height: auto
+  margin: 0 auto
+  width: 95vw
+  min-width: 600px
 
-  .lightbox
-    @extend .z-depth-4
-    @extend .valign
-    background-color: $page-bg-color
-    margin: 0 auto
-    display: flex
-    max-height: 90vh
-    width: 95vw
-    min-height: 300px
-    min-width: 600px
+.lightbox
+  display: flex
+  height: 100%
+  min-height: 50vh
+  max-height: 80vh
 
   .image-content
     @extend .valign-wrapper
@@ -103,39 +94,36 @@
     @extend .valign
     margin: 0 auto
 
-  @media #{$medium-and-down}
-    .lightbox
-      min-height: 0
-      height: 75vh
-      width: 95vw
-      max-height: 100%
-      max-width: 100%
+@media #{$medium-and-down}
+  .lightbox
+    min-height: 0
+    height: 75vh
+    width: 95vw
+    max-height: 100%
+    max-width: 100%
 
-  @media #{$small-and-down}
-    .lightbox
-      flex-direction: column
-      width: 100%
-      height: auto
-      min-width: 0
-      margin: 0
+@media #{$small-and-down}
+  .lightbox
+    flex-direction: column
+    width: 100%
+    height: auto
+    min-width: 0
+    margin: 0
 
-    .image-details
-      width: auto
+  .image-details
+    width: auto
 
-    .image-content
-      flex-grow: 0
-      flex-direction: column
+  .image-content
+    flex-grow: 0
+    flex-direction: column
 
-      .image-actions
-        position: static
-        opacity: 1.0
-        background-color: $card-bg-color
+    .image-actions
+      position: static
+      opacity: 1.0
+      background-color: $card-bg-color
 
-        a
-          color: rgba(255, 255, 255, 0.6)
+      a
+        color: rgba(255, 255, 255, 0.6)
 
-    .comments
-      overflow: visible !important
-
-.lightbox-open
-  overflow: hidden
+  .comments
+    overflow: visible !important
