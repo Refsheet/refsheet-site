@@ -12,7 +12,6 @@
     '.cs-text-light--color': [
       '.attribute-table .actions a'
       '.chip .icon-container'
-      'body #rootApp footer .footer-copyright'
     ]
     '.cs-text-medium--color': [
       '.chip'
@@ -24,6 +23,7 @@
       '.rich-text.empty'
       '.character-details .date'
       '.lightbox .image-actions a'
+      'body #rootApp footer .footer-copyright'
     ]
     '.cs-card-background--background-color': [
       '.card'
@@ -38,6 +38,7 @@
     ]
     '.cs-primary--color': [
       'h1'
+      'a:not(.btn)'
     ]
     '.cs-accent1--background-color': [
       '.btn'

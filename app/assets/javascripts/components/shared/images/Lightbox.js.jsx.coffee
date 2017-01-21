@@ -99,12 +99,6 @@
     $('.dropdown-button').dropdown
       constrain_width: false
 
-  componentDidUpdate: ->
-    $('.image-gravity select').material_select()
-
-  handleGravityChange: (e) ->
-    console.log e.target.value
-
   render: ->
     if @state.image?
       if @state.image.user_id == @props.currentUser?.username
@@ -114,7 +108,7 @@
                   <li><a href='#' onClick={ this.setFeaturedImage }>Set as Cover Image</a></li>
                   <li><a href='#' onClick={ this.setProfileImage }>Set as Profile Image</a></li>
                   <li className='divider' />
-                  <li><a href='#lightbox-gravity-form' className='modal-trigger'>Change Cropping</a></li>
+                  <li><a href='#image-gravity-modal' className='modal-trigger'>Change Cropping</a></li>
                   <li className='divider' />
                   <li><a href={ this.state.image.path + '/full' } target='_blank'>Download</a></li>
                   <li><a href='#lightbox-delete-form' className='modal-trigger'>Delete</a></li>
@@ -164,8 +158,8 @@
                               placeholder='No caption.' />
                 </div>
                 
-                <div className='comments'>
-                </div>
+                {/*<div className='comments'>
+                </div>*/}
             </div>
         </div>`
     else
@@ -185,6 +179,9 @@
                 </div>
             </Modal>
         }
+
+        { editable && <ImageGravityModal image={ this.state.image } /> }
+
 
         <div className='modal lightbox-modal' id='lightbox'>
             { lightbox }

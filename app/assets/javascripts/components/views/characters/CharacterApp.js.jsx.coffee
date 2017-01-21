@@ -155,12 +155,12 @@
 
         colorSchemeFields.push `<Attribute key={ key } id={ key } name={ name } value={ value } iconColor={ value || '#000000' } icon='palette' placeholder='Not Set' />`
 
-    `<DropzoneContainer url={ this.state.character.path + '/images' } onUpload={ dropzoneUpload }>
+    `<DropzoneContainer url={ this.state.character.path + '/images' } onUpload={ dropzoneUpload } clickable={[ '#image-upload' ]}>
         { this.state.character.color_scheme && <PageStylesheet { ...this.state.character.color_scheme.color_data } /> }
 
         { editable &&
             <FixedActionButton clickToToggle className='teal lighten-1' tooltip='Menu' icon='menu'>
-                <ActionButton className='indigo lighten-1 modal-trigger' tooltip='Manage Images' href='#character-gallery' icon='image' />
+                <ActionButton className='indigo lighten-1' tooltip='Upload Images' id='image-upload' icon='file_upload' />
                 <ActionButton className='green lighten-1 modal-trigger' tooltip='Edit Page Colors' href='#color-scheme-form' icon='palette' />
                 <ActionButton className='blue darken-1 modal-trigger' tooltip='Character Settings' href='#character-settings-form' icon='settings' />
             </FixedActionButton>

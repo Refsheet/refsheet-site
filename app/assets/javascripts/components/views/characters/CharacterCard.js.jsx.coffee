@@ -95,6 +95,6 @@
         </div>
         <div className='character-image' onClick={ this.handleImageClick }>
             <div className='slant' />
-            <img src={ this.state.character.profile_image.url } data-image-id={ this.state.character.profile_image.id } />
+            <img src={ this.state.character.profile_image.medium } data-image-id={ this.state.character.profile_image.id } />
         </div>
     </div>`
