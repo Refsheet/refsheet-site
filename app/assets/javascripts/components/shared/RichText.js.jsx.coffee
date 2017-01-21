@@ -2,6 +2,7 @@
   getInitialState: ->
     edit: false
     markup: @props.markup
+    error: null
 
   handleEditStart: (e) ->
     if @props.onChange?
@@ -16,7 +17,10 @@
 
   handleSubmit: (e) ->
     @props.onChange @state.markup, =>
-      @setState edit: false
+      @setState edit: false,
+    (error) =>
+      @setState error: error
+      console.log error
     e.preventDefault()
 
   componentDidUpdate: ->

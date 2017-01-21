@@ -108,10 +108,19 @@
                   <li><a href='#' onClick={ this.setFeaturedImage }>Set as Cover Image</a></li>
                   <li><a href='#' onClick={ this.setProfileImage }>Set as Profile Image</a></li>
                   <li className='divider' />
-                  <li><a href='#image-gravity-modal' className='modal-trigger'>Change Cropping</a></li>
+                  <li><a href='#image-gravity-modal' className='modal-trigger'>
+                      <i className='material-icons left'>crop</i>
+                      <span>Cropping...</span>
+                  </a></li>
                   <li className='divider' />
-                  <li><a href={ this.state.image.path + '/full' } target='_blank'>Download</a></li>
-                  <li><a href='#lightbox-delete-form' className='modal-trigger'>Delete</a></li>
+                  <li><a href={ this.state.image.path + '/full' } target='_blank'>
+                      <i className='material-icons left'>file_download</i>
+                      <span>Download</span>
+                  </a></li>
+                  <li><a href='#lightbox-delete-form' className='modal-trigger'>
+                      <i className='material-icons left'>delete</i>
+                      <span>Delete...</span>
+                  </a></li>
               </ul>
 
               <a className='dropdown-button' href='#image-options' data-activates='lightbox-image-actions'>

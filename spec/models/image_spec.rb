@@ -20,6 +20,17 @@
 
 require 'rails_helper'
 
-RSpec.describe Image, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Image, type: :model do
+  describe '#source_url_display' do
+    let(:url) { 'https://com.example.net/images/foo/bar?image=baz' }
+    let(:image) { build :image, source_url: url }
+    subject { image.source_url_display }
+
+    it { is_expected.to eq 'com.example.net/.../bar' }
+
+    context 'when simple' do
+      let(:url) { 'http://example.net/imageId' }
+      it { is_expected.to eq 'example.net/imageId' }
+    end
+  end
 end
