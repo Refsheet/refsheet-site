@@ -24,7 +24,7 @@ class Image < ApplicationRecord
   include HasGuid
   include RankedModel
 
-  belongs_to :character
+  belongs_to :character, inverse_of: :images
 
   has_attached_file :image,
                     default_url: '/assets/default.png',
@@ -51,6 +51,8 @@ class Image < ApplicationRecord
   has_guid
   ranks :row_order
 
+  after_destroy :clean_up_character
+
   def gravity
     super || 'center'
   end
@@ -59,12 +61,17 @@ class Image < ApplicationRecord
     return nil unless self.source_url.present?
     uri = URI.parse(self.source_url)
     path_part = uri.path.split('/').last
-    filler = path_part == uri.path ? '' : '.../'
+    filler = ('/' + path_part == uri.path ? '' : '.../')
 
-    "#{uri}/#{filler}#{path_part}"
+    "#{uri.host}/#{filler}#{path_part}"
   end
 
   def regenerate_thumbnail!
     self.image.reprocess!
+  end
+
+  def clean_up_character
+    Character.where(profile_image_id: self.id).update_all profile_image_id: nil
+    Character.where(featured_image_id: self.id).update_all featured_image_id: nil
   end
 end
