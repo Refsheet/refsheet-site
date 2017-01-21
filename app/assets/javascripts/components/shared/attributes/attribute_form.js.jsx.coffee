@@ -18,13 +18,14 @@
         @setState errors: {}
         @setState name: '', value: '', notes: '' unless @props.id?
     , (data) =>
+      console.log data
       @setState errors: data
         
     e.preventDefault()
 
-  handleChange: (e) ->
+  handleChange: (key, value) ->
     o = {}
-    o[e.target.name] = e.target.value
+    o[key] = value
     @setState o
 
   colorPicker: (e) ->
@@ -39,9 +40,12 @@
     state.value = newProps.value if newProps.value?
     state.notes = newProps.notes if newProps.notes?
     @setState state
-    
+
   componentWillUpdate: ->
     Materialize.updateTextFields() if Materialize.updateTextFields?
+
+  componentDidMount: ->
+    $('[name="value"]').focus()
 
   render: ->
     if @props.onCancel?
@@ -81,28 +85,23 @@
     else
       nameTag =
         `<div className='key'>
-            <input type='text' name='name' placeholder='Name'
-                   className={ this.state.errors.name ? 'invalid' : '' }
-                   data-error={ this.state.errors.name }
+            <Input type='text'
+                   id='name'
+                   placeholder='Name'
+                   error={ this.state.errors.name }
                    onChange={ this.handleChange }
-                   value={ this.state.name }
-                   onFocus={ this.props.onFocus }
-            />
-
-            <label data-error={ this.state.errors.name } />
+                   value={ this.state.name } />
         </div>`
 
     unless @props.hideNotes
       notesTag =
         `<div className='notes'>
-            <input type='text' name='notes' placeholder='Notes'
-                   className={ this.state.errors.notes ? 'invalid' : '' }
+            <Input type='text'
+                   id='notes'
+                   placeholder='Notes'
+                   error={ this.state.errors.notes }
                    onChange={ this.handleChange }
-                   value={ this.state.notes }
-                   onFocus={ this.props.onFocus }
-            />
-
-            <label data-error={ this.state.errors.notes } />
+                   value={ this.state.notes } />
         </div>`
 
     `<li className={ className }>
@@ -115,14 +114,11 @@
                 <div className='value'>
                     { colorPicker }
 
-                    <input type='text' name='value'
-                           className={ this.state.errors.value ? 'invalid' : '' }
+                    <Input type='text'
+                           id='value'
                            onChange={ this.handleChange }
-                           value={ this.state.value }
-                           onFocus={ this.props.onFocus }
-                    />
-
-                    <label data-error={ this.state.errors.value } />
+                           error={ this.state.errors.value }
+                           value={ this.state.value } />
                 </div>
 
                 { notesTag }

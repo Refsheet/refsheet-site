@@ -41,12 +41,14 @@
 
     if @props.currentUser?.username == @state.user.username
       actionButtons =
-        `<FixedActionButton clickToToggle={ true } className='red darken-1' tooltip='Menu' icon='menu'>
-            <ActionButton className='teal lighten-1 modal-trigger' tooltip='New Character' href='#character-form' icon='create' />
+        `<FixedActionButton clickToToggle={ true } className='teal lighten-1' tooltip='Menu' icon='menu'>
+            <ActionButton className='green lighten-1 modal-trigger' tooltip='New Refsheet' href='#character-form' icon='note_add' />
             <ActionButton className='grey' tooltip='Sign Out' onClick={ this.handleSignOut } icon='exit_to_app' />
+            <ActionButton className='blue darken-1 modal-trigger' tooltip='User Settings' href='#user-settings-modal' icon='settings' />
         </FixedActionButton>`
 
       userChangeCallback = @handleUserChange
+      editable = true
 
     characters = @state.user.characters.map (character) ->
       `<div className='col m3 s12' key={ character.slug }>
@@ -65,6 +67,11 @@
         </Modal>
 
         { actionButtons }
+        
+        { editable &&
+            <UserSettingsModal user={ this.state.user }
+                               onChange={ this.handleUserChange } />
+        }
 
         <UserHeader { ...this.state.user } onUserChange={ userChangeCallback } />
 

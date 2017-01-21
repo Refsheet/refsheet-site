@@ -33,4 +33,15 @@ describe Image, type: :model do
       it { is_expected.to eq 'example.net/imageId' }
     end
   end
+
+  it 'cleans featured image' do
+    character = create :character
+    image = create :image, character: character
+
+    character.update_attributes featured_image: image
+    expect(character.reload.featured_image_id).to eq image.id
+    image.destroy
+
+    expect(character.reload.featured_image_id).to be_nil
+  end
 end
