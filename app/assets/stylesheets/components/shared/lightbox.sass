@@ -34,42 +34,21 @@
       padding: 2px 3px 0 3px
       z-index: 1
 
-    &:hover
-      .image-actions
-        transition: opacity 0.4s ease
-        opacity: 1.0
+  .image-actions
+    position: absolute
+    top: 1rem
+    right: 1rem
 
-    .image-actions
-      position: absolute
-      bottom: 0
-      left: 0
-      width: 100%
-      background-color: rgba(0, 0, 0, 0.6)
-      color: white
-      text-align: left
-      z-index: 2
-      line-height: 32px
-      opacity: 0.0
-      font-size: 0.9rem
-      transition: opacity 0.4s ease
-
-      a
-        display: inline-block
-        padding: 5px 10px
-        color: white
-
-      p
-        margin: 0
-        padding: 5px 10px
+    & > a
+      color: $page-text-color
 
   .image-details-container
-    border-left: 1px solid black
     display: flex
     flex-direction: column
 
     .image-details
       width: 300px
-      padding: 15px
+      padding: 1rem
 
       .image-caption
         margin-top: 1rem
@@ -83,7 +62,7 @@
         padding: 10px
         text-align: center
         font-style: italic
-        color: rgba(255, 255, 255, 0.5)
+        color: $muted-text-color
 
     h1
       @extend .thin
@@ -116,14 +95,6 @@
   .image-content
     flex-grow: 0
     flex-direction: column
-
-    .image-actions
-      position: static
-      opacity: 1.0
-      background-color: $card-bg-color
-
-      a
-        color: rgba(255, 255, 255, 0.6)
 
   .comments
     overflow: visible !important

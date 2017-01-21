@@ -21,7 +21,7 @@
       type: 'PATCH'
       data: { character: { featured_image_guid: @state.image.id } }
       success: (data) =>
-        Materialize.toast 'Done!', 3000, 'green'
+        Materialize.toast 'Cover image changed!', 3000, 'green'
         $(document).trigger 'app:character:update', data
 
       error: (error) =>
@@ -36,7 +36,7 @@
       type: 'PATCH'
       data: { character: { profile_image_guid: @state.image.id } }
       success: (data) =>
-        Materialize.toast 'Done!', 3000, 'green'
+        Materialize.toast 'Profile image changed!', 3000, 'green'
         $(document).trigger 'app:character:update', data
 
       error: (error) =>
@@ -92,21 +92,31 @@
               @setState error: "Image #{error.statusText}"
         else
           @setState image: imageId, directLoad: true
-          console.log imageId
-          
+
         $('#lightbox').modal('open')
 
+  componentDidUpdate: ->
+    $('.dropdown-button').dropdown
+      constrain_width: false
+
   render: ->
-    if this.state.image?
-      if this.state.image.user_id == current_user?.username
+    if @state.image?
+      if @state.image.user_id == @props.currentUser?.username
         imgActions =
           `<div className='image-actions'>
-              <a href='#' onClick={ this.setFeaturedImage }>Set Cover</a>
-              <a href='#' onClick={ this.setProfileImage }>Set Profile Image</a>
+              <ul id='lightbox-image-actions' className='dropdown-content cs-card-background--background-color'>
+                  <li><a href='#' onClick={ this.setFeaturedImage }>Set as Cover Image</a></li>
+                  <li><a href='#' onClick={ this.setProfileImage }>Set as Profile Image</a></li>
+                  <li className='divider' />
+                  <li><a href='#lightbox-gravity-form' className='modal-trigger'>Change Cropping</a></li>
+                  <li className='divider' />
+                  <li><a href={ this.state.image.path + '/full' } target='_blank'>Download</a></li>
+                  <li><a href='#lightbox-delete-form' className='modal-trigger'>Delete</a></li>
+              </ul>
 
-              <div className='right'>
-                  <a href='#lightbox-delete-form' className='modal-trigger'>Delete</a>
-              </div>
+              <a className='dropdown-button' href='#image-options' data-activates='lightbox-image-actions'>
+                  <i className='material-icons'>more_vert</i>
+              </a>
           </div>`
 
         captionCallback = @handleCaptionChange
@@ -120,12 +130,12 @@
                 <a href='#' className='close' onClick={ function(e) { $('#lightbox').modal('close'); e.preventDefault() } }>
                     <i className='material-icons' data-close-lightbox>close</i>
                 </a>
-
-                { imgActions }
             </div>
 
             <div className='image-details-container'>
                 <div className='image-details'>
+                    { imgActions }
+                    
                     <LightboxCharacterBox character={ this.state.image.character }
                                           postDate={ this.state.image.post_date } />
 

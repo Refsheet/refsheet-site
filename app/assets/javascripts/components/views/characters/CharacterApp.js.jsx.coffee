@@ -153,7 +153,7 @@
         if @state.character.color_scheme && @state.character.color_scheme.color_data
           value = @state.character.color_scheme.color_data[key]
 
-        colorSchemeFields.push `<Attribute key={ key } id={ key } name={ name } value={ value } iconColor={ value } icon='palette' placeholder='Not Set' />`
+        colorSchemeFields.push `<Attribute key={ key } id={ key } name={ name } value={ value } iconColor={ value || '#000000' } icon='palette' placeholder='Not Set' />`
 
     `<DropzoneContainer url={ this.state.character.path + '/images' } onUpload={ dropzoneUpload }>
         { this.state.character.color_scheme && <PageStylesheet { ...this.state.character.color_scheme.color_data } /> }

@@ -16,7 +16,11 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show, :create, :update] do
     resources :characters, only: [:show, :update, :create, :destroy] do
       resources :swatches, only: [:index, :create, :update, :destroy], shallow: true
-      resources :images, only: [:index, :show, :create, :update, :destroy], shallow: true
+      resources :images, only: [:index, :show, :create, :update, :destroy], shallow: true do
+        member do
+          get :full
+        end
+      end
     end
   end
 
