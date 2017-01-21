@@ -8,7 +8,7 @@
       ___this = this
 
       $('.dropzone-container').dropzone
-        clickable: false
+        clickable: @props.clickable || null
         url: this.props.url
         previewTemplate: ''
         headers: { "X-CSRF-Token" : $('meta[name="csrf-token"]').attr('content') }

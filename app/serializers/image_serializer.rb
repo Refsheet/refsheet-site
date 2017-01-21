@@ -2,7 +2,7 @@ class ImageSerializer < ActiveModel::Serializer
   include RichTextHelper
   include Rails.application.routes.url_helpers
 
-  attributes :id, :caption, :url, :path, :post_date, :caption_html, :small, :medium, :user_id
+  attributes :id, :caption, :url, :path, :post_date, :caption_html, :small, :medium, :user_id, :gravity
 
   has_one :character, serializer: ImageCharacterSerializer
 

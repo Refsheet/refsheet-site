@@ -18,6 +18,8 @@
 #  gravity            :string
 #
 
+# Should me larger than 854px in both dimensions,
+# should be no more than 20MB
 class Image < ApplicationRecord
   include HasGuid
   include RankedModel
@@ -27,22 +29,24 @@ class Image < ApplicationRecord
   has_attached_file :image,
                     default_url: '/assets/default.png',
                     styles: {
-                        thumbnail: "320x>",
-                        small: "427x>",
-                        medium: "854x>",
+                        thumbnail: "320x320",
+                        small: "427x427",
+                        medium: "854x854",
                         large: "1280x>"
                     },
                     s3_permissions: {
                         original: :private
                     },
                     convert_options: {
-                       thumbnail: -> (i) { "-gravity #{i.gravity} -thumbnail 320x320^ -extent 320x320" }
+                       thumbnail: -> (i) { "-gravity #{i.gravity} -thumbnail 320x320^ -extent 320x320" },
+                       small: -> (i) { "-gravity #{i.gravity} -thumbnail 427x427^ -extent 427x427" },
+                       medium: -> (i) { "-gravity #{i.gravity} -thumbnail 854x854^ -extent 854x854" },
                     }
 
 
   validates_attachment :image, presence: true,
                        content_type: { content_type: /image\/*/ },
-                       size: { in: 0..10.megabytes }
+                       size: { in: 0..25.megabytes }
 
   has_guid
   ranks :row_order
@@ -52,6 +56,6 @@ class Image < ApplicationRecord
   end
 
   def regenerate_thumbnail!
-    self.image.reprocess! :thumbnail
+    self.image.reprocess!
   end
 end
