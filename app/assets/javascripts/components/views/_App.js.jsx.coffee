@@ -25,7 +25,7 @@
 
 
       `<div id='rootApp'>
-          <Lightbox history={ this.props.history } onClose={ this.closeLightbox } />
+          <Lightbox currentUser={ this.state.currentUser } history={ this.props.history } />
 
           <FeedbackModal name={ this.state.currentUser && this.state.currentUser.name } />
           <a className='btn modal-trigger feedback-btn blue-grey' href='#feedback-modal'>Feedback</a>
