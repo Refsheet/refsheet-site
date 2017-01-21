@@ -20,10 +20,8 @@
 
 FactoryGirl.define do
   factory :image do
-    character_id 1
-    artist_id 1
-    caption "MyString"
-    source_url "MyString"
-    image ""
+    character
+    caption { Faker::Lorem.sentence }
+    image { File.new("app/assets/images/default.png") }
   end
 end

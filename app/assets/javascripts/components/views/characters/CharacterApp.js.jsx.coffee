@@ -2,20 +2,29 @@
   getInitialState: ->
     character: null
     error: null
-    
+
   componentDidMount: ->
-    path = '/users/' + @props.params.userId + '/characters/' + @props.params.characterId
-    
     $.ajax
-      url: path + '.json',
+      url: "/users/#{@props.params.userId}/characters/#{@props.params.characterId}.json",
       success: (data) =>
         @setState character: data
+        @componentDidLoad(data)
       error: (error) =>
         @setState error: error
+        
+    $(document).on 'app:character:update', (e, character) =>
+      if @state.character.id == character.id
+        @setState character: character
 
   componentWillUpdate: (newProps, newState) ->
     if newState.character && @state.character && newState.character.link != @state.character.link
       window.history.replaceState {}, '', newState.character.link
+
+  componentDidLoad: (character) ->
+    $(document).on 'app:image:delete', (imageId) =>
+      @setState character: null
+      $.get "/users/#{@props.params.userId}/characters/#{@props.params.characterId}.json", (data) =>
+        @setState character: data
 
   handleCharacterDelete: (e) ->
     $.ajax
