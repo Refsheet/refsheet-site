@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170118052738) do
+ActiveRecord::Schema.define(version: 20170119042556) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,18 @@ ActiveRecord::Schema.define(version: 20170118052738) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "feedbacks", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.string   "email"
+    t.text     "comment"
+    t.string   "trello_card_id"
+    t.string   "source_url"
+    t.integer  "visit_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
   create_table "images", force: :cascade do |t|
     t.integer  "character_id"
     t.integer  "artist_id"
@@ -72,6 +84,51 @@ ActiveRecord::Schema.define(version: 20170118052738) do
     t.string   "guid"
     t.string   "gravity"
     t.index ["guid"], name: "index_images_on_guid", using: :btree
+  end
+
+  create_table "patreon_patrons", force: :cascade do |t|
+    t.string   "patreon_id"
+    t.string   "email"
+    t.string   "full_name"
+    t.string   "image_url"
+    t.boolean  "is_deleted"
+    t.boolean  "is_nuked"
+    t.boolean  "is_suspended"
+    t.string   "status"
+    t.string   "thumb_url"
+    t.string   "twitch"
+    t.string   "twitter"
+    t.string   "youtube"
+    t.string   "vanity"
+    t.string   "url"
+    t.integer  "user_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "patreon_pledges", force: :cascade do |t|
+    t.string   "patreon_id"
+    t.integer  "amount_cents"
+    t.datetime "declined_since"
+    t.boolean  "patron_pays_fees"
+    t.integer  "pledge_cap_cents"
+    t.integer  "patreon_reward_id"
+    t.integer  "patreon_patron_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  create_table "patreon_rewards", force: :cascade do |t|
+    t.string   "patreon_id"
+    t.integer  "amount_cents"
+    t.text     "description"
+    t.string   "image_url"
+    t.boolean  "requires_shipping"
+    t.string   "title"
+    t.string   "url"
+    t.boolean  "grants_badge"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "swatches", force: :cascade do |t|

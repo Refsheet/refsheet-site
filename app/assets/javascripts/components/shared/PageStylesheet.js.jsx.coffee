@@ -4,6 +4,7 @@
       'body'
       '.chip, .icon-container'
       '.color-helper'
+      '.dropdown-content li:hover'
     ]
     '.cs-text--color': [
       'body'
@@ -20,6 +21,9 @@
       '.default-value'
       'nav a, body #rootApp footer'
       'label'
+      '.rich-text.empty'
+      '.character-details .date'
+      '.lightbox .image-actions a'
     ]
     '.cs-card-background--background-color': [
       '.card'
@@ -30,6 +34,7 @@
       'nav, body #rootApp footer.page-footer'
       '.lightbox'
       '.modal'
+      '.dropdown-content'
     ]
     '.cs-primary--color': [
       'h1'

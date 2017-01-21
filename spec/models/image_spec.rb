@@ -15,6 +15,7 @@
 #  updated_at         :datetime         not null
 #  row_order          :integer
 #  guid               :string
+#  gravity            :string
 #
 
 require 'rails_helper'
