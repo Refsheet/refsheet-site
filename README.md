@@ -15,7 +15,8 @@ Make sure you have **Ruby 2.3.1** installed, this project was built with
 World Wide Web. You might need to install a modem for this, see your
 workstation's hardware manufacturer for details.
 
-Oh yeah, install `postgres` or be prepared for pain.
+Oh yeah, install `postgres` or be prepared for pain. Also install
+`redis`, and `resque`.
 
 ### Setup Steps
 
@@ -34,6 +35,11 @@ Oh yeah, install `postgres` or be prepared for pain.
 Start Rails however you start Rails. Puma is our server of choice for
 local development. `rails s` will default to port 3000 of course, you
 should change this if you have other projects going on. I use 3012.
+
+If you want any of the background jobs to work (image processing, etc)
+you're going to have to start up Resque.
+
+`$ QUEUE=* bundle exec rake environment resque:work`
 
 ## Issue Tracking
 
