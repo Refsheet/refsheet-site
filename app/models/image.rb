@@ -67,7 +67,7 @@ class Image < ApplicationRecord
   end
 
   def regenerate_thumbnail!
-    self.image.reprocess!
+    ImageProcessingJob.perform_later self
   end
 
   def clean_up_character

@@ -13,6 +13,7 @@ gem 'therubyracer'
 gem 'responders'
 gem 'ahoy_matey'
 gem 'aws-sdk'
+gem 'resque'
 
 # == FRONT END
 
@@ -84,6 +85,8 @@ group :development, :test do
   gem 'bullet'
   gem 'rspec-its'
 end
+
+gem 'resque-web', require: 'resque_web'
 
 group :development do
   gem 'web-console'
