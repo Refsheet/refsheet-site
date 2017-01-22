@@ -29,13 +29,13 @@ module HasGuid
       self.guid_options = options
     end
 
-    def find(id)
-      if id.is_a? String
-        self.find_by!(self.guid_column_name => id)
-      else
-        self.find_by!(id: id)
-      end
-    end
+    # def find(id)
+    #   if id.is_a? String
+    #     self.find_by!(self.guid_column_name => id)
+    #   else
+    #     self.find_by!(id: id)
+    #   end
+    # end
   end
 
   private
