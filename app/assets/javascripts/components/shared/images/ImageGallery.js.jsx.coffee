@@ -13,23 +13,31 @@
         console.log error
 
   handleImageClick: (e) ->
-    id = $(e.target).closest('[data-image-id]').data('image-id')
-    @props.onImageClick(id) if @props.onImageClick?
+    id = $(e.target).closest('[data-gallery-image-id]').data('gallery-image-id')
+
+    if @props.onImageClick?
+      @props.onImageClick(id)
+    else
+      $(document).trigger 'app:lightbox', id
 
   componentDidMount: ->
-    if !@props.images?
-      @setupImageOrder()
-    else
-      $.get @props.imagesPath, (data) =>
-        @setState images: data
+    if @props.imagesPath?
+      if @props.images?
+        @setupImageOrder()
+      else
+        $.get @props.imagesPath, (data) =>
+          @setState images: data
 
   componentDidUpdate: (newProps) ->
     if newProps.images.length != @state.images.length
       @setState images: newProps.images
-    @setupImageOrder()
+
+    if @props.imagesPath?
+      @setupImageOrder()
 
   setupImageOrder: ->
-    if @props.edit
+    console.log @props.editable
+    if @props.editable
       _this = this
       $('.image-gallery .image').draggable
         revert: true
@@ -56,38 +64,42 @@
     unless @state.images?
       return `<Spinner />`
 
-    [first, second, third, overflow...] = @state.images
+    unless @props.noFeature
+      [first, second, third, overflow...] = @state.images
+    else
+      overflow = @state.images
 
     imagesOverflow = overflow.map (image) =>
       `<div className='col m3 s6' key={ image.id }>
-          <div className='image' data-image-id={ image.id }>
+          <div className='image' data-gallery-image-id={ image.id }>
               <img src={ image.small } alt={ image.caption } />
           </div>
       </div>`
 
-    if first?
-      firstColWidth = 12
-      firstImage =
-        `<div className='image' data-image-id={ first.id }>
-            <img src={ first.url } alt={ first.caption } />
-        </div>`
+    if first? or imagesOverflow.length > 0
+      if first?
+        firstColWidth = 12
+        firstImage =
+          `<div className='image' data-gallery-image-id={ first.id }>
+              <img src={ first.url } alt={ first.caption } />
+          </div>`
 
       if third?
         thirdImage =
-          `<div className='image' data-image-id={ third.id }>
+          `<div className='image' data-gallery-image-id={ third.id }>
               <img src={ third.medium } alt={ third.caption } />
           </div>`
 
       if second?
         firstColWidth = 8
         secondImage =
-          `<div className='image' data-image-id={ second.id }>
+          `<div className='image' data-gallery-image-id={ second.id }>
               <img src={ second.medium } alt={ second.caption } />
           </div>`
 
         secondColumn =
           `<Column m={4}>
-              <Row>
+              <Row className='featured-side'>
                   <Column m={12} s={6}>
                       { secondImage }
                   </Column>
@@ -97,24 +109,27 @@
               </Row>
           </Column>`
 
-      `<section className='image-gallery'>
-          <div className='container' onClick={ this.handleImageClick }>
+      `<div className='image-gallery' onClick={ this.handleImageClick }>
+          { !this.props.noFeature &&
               <Row className='featured'>
                   <Column m={ firstColWidth }>
                       { firstImage }
                   </Column>
                   { secondColumn }
               </Row>
-              <Row>{ imagesOverflow }</Row>
-          </div>
-      </section>`
+          }
+
+          { imagesOverflow.length > 0 &&
+              <Row className='gallery-grid'>{ imagesOverflow }</Row>
+          }
+      </div>`
 
     else if @props.edit
-      `<Section className='image-gallery'>
+      `<div className='image-gallery'>
           <div className='caption center'>Drag and drop images from your computer to your character pages to start a gallery.</div>
-      </Section>`
+      </div>`
 
     else
-      `<Section className='image-gallery'>
+      `<div className='image-gallery'>
           <div className='caption center'>This character has not submitted any images</div>
-      </Section>`
+      </div>`
