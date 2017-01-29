@@ -2,6 +2,8 @@
   getInitialState: ->
     character: null
     error: null
+    galleryTitle: null
+    onGallerySelect: null
 
   componentDidMount: ->
     $.ajax
@@ -12,9 +14,18 @@
       error: (error) =>
         @setState error: error
         
-    $(document).on 'app:character:update', (e, character) =>
-      if @state.character.id == character.id
-        @setState character: character
+    $(document)
+      .on 'app:character:update', (e, character) =>
+        if @state.character.id == character.id
+          @setState character: character
+
+      .on 'app:character:profileImage:edit', =>
+        @setState
+          galleryTitle: 'Select Profile Picture'
+          onGallerySelect: (imageId) =>
+            @setProfileImage(imageId)
+            $('#image-gallery-modal').modal 'close'
+        $('#image-gallery-modal').modal 'open'
 
   componentWillUpdate: (newProps, newState) ->
     if newState.character && @state.character && newState.character.link != @state.character.link
@@ -25,6 +36,30 @@
       @setState character: null
       $.get "/users/#{@props.params.userId}/characters/#{@props.params.characterId}.json", (data) =>
         @setState character: data
+
+  setFeaturedImage: (imageId) ->
+    $.ajax
+      url: @state.character.path
+      type: 'PATCH'
+      data: { character: { featured_image_guid: imageId } }
+      success: (data) =>
+        Materialize.toast 'Cover image changed!', 3000, 'green'
+        @setState character: data
+      error: (error) =>
+        console.log error
+        Materialize.toast 'Error?', 3000, 'red'
+
+  setProfileImage: (imageId) ->
+    $.ajax
+      url: @state.character.path
+      type: 'PATCH'
+      data: { character: { profile_image_guid: imageId } }
+      success: (data) =>
+        Materialize.toast 'Profile image changed!', 3000, 'green'
+        @setState character: data
+      error: (error) =>
+        console.log error
+        Materialize.toast 'Error?', 3000, 'red'
 
   handleCharacterDelete: (e) ->
     $.ajax
@@ -119,6 +154,14 @@
   handleSettingsClose: (e) ->
     $('#character-settings-form').modal('close')
 
+  handleHeaderImageEdit: ->
+    @setState
+      galleryTitle: 'Select Header Image'
+      onGallerySelect: (imageId) =>
+        @setFeaturedImage(imageId)
+        $('#image-gallery-modal').modal 'close'
+    $('#image-gallery-modal').modal 'open'
+
   handleDropzoneUpload: (data) ->
     c = @state.character
     c.images.push data
@@ -139,6 +182,7 @@
       likesChange = @handleLikesChange
       dislikesChange = @handleDislikesChange
       colorSchemeFields = []
+      headerImageEditCallback = @handleHeaderImageEdit
 
       for key, name of {
         primary: 'Primary Accent'
@@ -153,9 +197,17 @@
         if @state.character.color_scheme && @state.character.color_scheme.color_data
           value = @state.character.color_scheme.color_data[key]
 
-        colorSchemeFields.push `<Attribute key={ key } id={ key } name={ name } value={ value } iconColor={ value || '#000000' } icon='palette' placeholder='Not Set' />`
+        colorSchemeFields.push `<Attribute key={ key }
+                                           id={ key }
+                                           name={ name }
+                                           value={ value }
+                                           iconColor={ value || '#000000' }
+                                           icon='palette'
+                                           placeholder='Not Set' />`
 
-    `<DropzoneContainer url={ this.state.character.path + '/images' } onUpload={ dropzoneUpload } clickable={[ '#image-upload' ]}>
+    `<DropzoneContainer url={ this.state.character.path + '/images' }
+                        onUpload={ dropzoneUpload }
+                        clickable={[ '#image-upload' ]}>
         { this.state.character.color_scheme && <PageStylesheet { ...this.state.character.color_scheme.color_data } /> }
 
         { editable &&
@@ -219,18 +271,18 @@
 
                 <div className='actions margin-top--large'>
                     <a className='btn' onClick={ this.handleSettingsClose }>Done</a>
-
                 </div>
             </Modal>
         }
 
         { editable &&
-            <Modal id='character-gallery'>
-                <h2>Character Uploads</h2>
-            </Modal>
+            <ImageGalleryModal images={ this.state.character.images }
+                               title={ this.state.galleryTitle }
+                               onClick={ this.state.onGallerySelect } />
         }
 
-        <PageHeader backgroundImage={ (this.state.character.featured_image || {}).url }>
+        <PageHeader backgroundImage={ (this.state.character.featured_image || {}).url }
+                    onHeaderImageEdit={ headerImageEditCallback }>
             <CharacterCard edit={ editable } detailView={ true } character={ this.state.character } onLightbox={ this.props.onLightbox } />
             <SwatchPanel edit={ editable } swatchesPath={ this.state.character.path + '/swatches/' } swatches={ this.state.character.swatches } />
         </PageHeader>
@@ -263,8 +315,11 @@
             </Row>
         </Section>
 
-        <ImageGallery edit={ editable }
-                      imagesPath={ this.state.character.path + '/images/' }
-                      onImageClick={ this.props.onLightbox }
-                      images={ this.state.character.images } />
+        <Section>
+            <ImageGallery edit={ editable }
+                          imagesPath={ this.state.character.path + '/images/' }
+                          onImageClick={ this.props.onLightbox }
+                          images={ this.state.character.images } />
+        </Section>
+
     </DropzoneContainer>`

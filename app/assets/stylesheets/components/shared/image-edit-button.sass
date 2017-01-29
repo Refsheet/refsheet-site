@@ -1,0 +1,19 @@
+.image-edit-button
+  position: absolute
+  top: 1rem
+  right: 1rem
+  padding: 0.1rem 1rem
+  height: auto
+  background-color: rgba(black, 0.5)
+  opacity: 0.1
+  transition: opacity, background-color 0.3s ease
+
+  &:hover
+    background-color: rgba(black, 0.8)
+    transition: background-color 0.3s ease
+
+.character-image:hover,
+.page-header .parallax-container:hover
+  .image-edit-button
+    opacity: 1.0
+    transition: opacity 0.3s ease

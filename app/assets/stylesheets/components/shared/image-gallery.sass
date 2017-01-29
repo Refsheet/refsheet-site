@@ -1,6 +1,9 @@
 .image-gallery
-  @extend .margin-bottom--large
-  @extend .margin-top--large
+  margin-bottom: -1.5rem
+
+  .container > &
+    @extend .margin-bottom--large
+    @extend .margin-top--large
 
   .ui-draggable-dragging
     @extend .z-depth-3
@@ -15,7 +18,9 @@
     img
       opacity: 0.6
 
-  .row.featured
+  .row.featured,
+  .row.gallery-grid,
+  .row.featured-side
     margin-bottom: 0
 
   .image

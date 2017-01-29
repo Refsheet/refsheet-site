@@ -21,7 +21,6 @@
 //= require react_router
 //= require react_router_ujs
 //
-//= require react-rails-hot-loader
 //= require materialize-sprockets
 //= require masonry.pkgd
 //= require ahoy

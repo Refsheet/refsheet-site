@@ -1,0 +1,24 @@
+.modal
+  max-height: 80vh
+
+  .modal-body
+    display: flex
+    flex-direction: column
+    max-height: 80vh
+
+  .modal-header
+    .modal-close
+      color: rgba(255, 255, 255, 0.5)
+      position: absolute
+      right: 0.5rem
+      top: 0.5rem
+
+      &:hover
+        color: white
+
+  .modal-content
+    overflow: auto
+    flex-grow: 1
+
+  .modal-footer
+    padding: 4px 10px

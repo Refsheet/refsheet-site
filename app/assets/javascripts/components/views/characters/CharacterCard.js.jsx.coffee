@@ -32,9 +32,8 @@
       error: (error) =>
         onError(error.JSONData?.errors['special_notes'])
 
-  handleImageClick: (e) ->
-    id = $(e.target).closest('[data-image-id]').data('image-id')
-    @props.onLightbox(id) if @props.onLightbox?
+  handleProfileImageEdit: ->
+    $(document).trigger 'app:character:profileImage:edit'
 
   render: ->
     if @props.edit
@@ -88,13 +87,20 @@
 
             { description }
         </div>
+
         <div className='user-icon'>
             <Link to={ '/' + this.state.character.user_id } className='tooltipped' data-tooltip={ this.state.character.user_name } data-position='bottom'>
                 <img className='circle' src={ this.state.character.user_avatar_url } />
             </Link>
         </div>
+
         <div className='character-image' onClick={ this.handleImageClick }>
             <div className='slant' />
             <img src={ this.state.character.profile_image.medium } data-image-id={ this.state.character.profile_image.id } />
+
+            { editable &&
+                <a className='btn btn-small btn-icon image-edit-button' onClick={ this.handleProfileImageEdit }>
+                    <i className='material-icons'>edit</i>
+                </a> }
         </div>
     </div>`
