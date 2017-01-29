@@ -9,22 +9,15 @@
     background-color: black
 
     img
+      max-width: initial
       width: 150%
 
   .page-header-content
     margin-top: -200px
 
-  @media (min-height: 920px)
-    .page-header-backdrop
-      height: 564px
-
-  @media (max-height: 664px)
-    .page-header-content
-      margin-top: -300px
-
-  @media (max-height: 564px)
+  @media #{$small-and-down}
     .page-header-backdrop
       height: 364px
 
     .page-header-content
-      margin-top: -250px
+      margin-top: -400px
