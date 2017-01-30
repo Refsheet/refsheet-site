@@ -69,6 +69,14 @@ like [RubyMine][4], it'll do this for you. Specs live in `./specs`.
 This project is built and maintained by Will, and you can reach him at
 [@refsheet on Twitter](https://twitter.com/refsheet).
 
+## Special Thanks
+
+I would like to thank the bits, and bytes, and copper and fiber wires that
+made transmitting the commit containing this thank you message possible.
+
+I would also like to thank #devfurs for being good little rubber ducks.
+
+
 [1]: https://trello.com/b/4UljEwOX/application-development
 [2]: https://zube.io/eiwi1101/refsheetnet/w/application-development/kanban
 [3]: https://travis-ci.com/eiwi1101/refsheet-site
