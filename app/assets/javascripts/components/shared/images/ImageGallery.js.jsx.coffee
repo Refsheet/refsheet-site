@@ -36,7 +36,6 @@
       @setupImageOrder()
 
   setupImageOrder: ->
-    console.log @props.editable
     if @props.editable
       _this = this
       $('.image-gallery .image').draggable

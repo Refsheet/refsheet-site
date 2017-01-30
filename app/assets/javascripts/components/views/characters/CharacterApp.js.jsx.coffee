@@ -316,7 +316,7 @@
         </Section>
 
         <Section>
-            <ImageGallery edit={ editable }
+            <ImageGallery editable={ editable }
                           imagesPath={ this.state.character.path + '/images/' }
                           onImageClick={ this.props.onLightbox }
                           images={ this.state.character.images } />
