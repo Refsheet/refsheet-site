@@ -218,6 +218,16 @@ GEM
     mimemagic (0.3.2)
     mini_portile2 (2.1.0)
     minitest (5.10.1)
+    monetize (1.6.0)
+      money (~> 6.8)
+    money (6.8.1)
+      i18n (>= 0.6.4, <= 0.7.0)
+      sixarm_ruby_unaccent (>= 1.1.1, < 2)
+    money-rails (1.8.0)
+      activesupport (>= 3.0)
+      monetize (~> 1.6.0)
+      money (~> 6.8.1)
+      railties (>= 3.0)
     mono_logger (1.1.0)
     multi_json (1.12.1)
     netrc (0.11.0)
@@ -359,6 +369,7 @@ GEM
     simplecov-html (0.10.0)
     sinatra (1.0)
       rack (>= 1.0)
+    sixarm_ruby_unaccent (1.1.1)
     slack-notifier (1.5.1)
     spring (2.0.0)
       activesupport (>= 4.2)
@@ -453,6 +464,7 @@ DEPENDENCIES
   listen (~> 3.0.5)
   materialize-sass!
   meta-tags
+  money-rails
   paperclip
   paranoia
   pg (~> 0.18)
@@ -495,4 +507,4 @@ DEPENDENCIES
   zreact-router-rails
 
 BUNDLED WITH
-   1.13.6
+   1.14.3

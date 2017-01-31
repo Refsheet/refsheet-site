@@ -14,6 +14,7 @@
 
 class User < ApplicationRecord
   has_many :characters
+  has_one :invitation
 
   validates :username, presence: true,
             length: { minimum: 3, maximum: 50 },
