@@ -14,6 +14,10 @@ class CharacterSerializer < ActiveModel::Serializer
   has_one  :profile_image, serializer: CharacterImageSerializer
   has_one  :color_scheme, serializer: ColorSchemeSerializer
 
+  def images
+    object.images.rank(:row_order)
+  end
+
   def swatches
     object.swatches.rank(:row_order)
   end
