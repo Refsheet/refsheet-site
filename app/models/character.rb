@@ -41,6 +41,9 @@ class Character < ApplicationRecord
 
   accepts_nested_attributes_for :color_scheme
 
+  mattr_accessor :transfer_user_id
+  mattr_accessor :transfer_user_email
+
   validates_presence_of :user
   validates :name,
             presence: true,
@@ -64,5 +67,11 @@ class Character < ApplicationRecord
 
   def self.lookup!(slug)
     find_by!('LOWER(characters.slug) = ?', slug.downcase)
+  end
+
+  private
+
+  def initiate_transfer
+
   end
 end
