@@ -23,21 +23,50 @@ class Transfer < ApplicationRecord
   belongs_to :destination, class_name: User, foreign_key: :destination_user_id
   belongs_to :invitation
 
-  state_machine :status, initial: :pending do
-    state :sent
-    state :rejected
-    state :claimed
+  scope :pending, -> { where status: :pending }
 
-    event :deliver do
-      transition :pending => :sent
+  validates_presence_of :sender
+  validates_presence_of :destination, unless: -> (t) { t.invitation.present? }
+  validates_presence_of :invitation, unless: -> (t) { t.destination.present? }
+  validates_presence_of :character
+
+  before_validation :assign_sender
+
+  state_machine :status, initial: :pending do
+    before_transition :pending => :rejected, do: :reject_transfer
+    before_transition :pending => :claimed, do: :claim_transfer
+
+    state :rejected do
+      validates_presence_of :rejected_at
+    end
+
+    state :claimed do
+      validates_presence_of :claimed_at
     end
 
     event :claim do
-      transition :sent => :claimed
+      transition :pending => :claimed
     end
 
     event :reject do
-      transition :sent => :rejected
+      transition :pending => :rejected
     end
+  end
+
+  private
+
+  def assign_sender
+    self.sender ||= self.character.user
+  end
+
+  def claim_transfer
+    self.character.update_attributes user: self.destination
+    self.claimed_at = DateTime.now
+    # TODO notify the sender
+  end
+
+  def reject_transfer
+    self.rejected_at = DateTime.now
+    # TODO notify the sender
   end
 end

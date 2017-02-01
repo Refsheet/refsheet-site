@@ -13,8 +13,32 @@
 
 class Invitation < ApplicationRecord
   belongs_to :user
+  has_many :transfers, autosave: true
+
+  validates_presence_of :user, if: -> (i) { i.claimed? }
+
+  after_create :send_email
+  after_save :assign_transfers, if: -> (i) { i.claimed? }
+
+  def claim!
+    self.claimed_at = DateTime.now
+    self.save
+  end
 
   def claimed?
-    !claimed_at.nil?
+    self.claimed_at.present?
+  end
+
+  private
+
+  def send_email
+    # TODO Send Email
+  end
+
+  def assign_transfers
+    self.transfers.find_each do |t|
+      t.destination ||= self.user
+      t.save
+    end
   end
 end
