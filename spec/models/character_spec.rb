@@ -28,23 +28,25 @@ require 'rails_helper'
 
 describe Character, type: :model do
   it 'transfers a character to registered user' do
-    character = create :character
+    old_user = create :user
     new_user = create :user
+    character = create :character, user: old_user
 
-    character.transfer_user_id = new_user.id
+    character.transfer_to_user = new_user.username
     character.save!
 
     expect(character.pending_transfer).to_not be_nil
-    expect(new_user.incoming_transfers).to have(1).items
+    expect(old_user.transfers_out.pending).to have(1).items
+    expect(new_user.transfers_in.pending).to have(1).items
 
-    new_user.incoming_transfers.first.accept!
-    expect(character.reload.user).to eq user
+    new_user.transfers_in.first.claim!
+    expect(character.reload.user).to eq new_user
   end
 
   it 'transfers a character to new user' do
     character = create :character
 
-    character.transfer_user_email = 'FOO@bax.net'
+    character.transfer_to_user = 'FOO@bax.net'
     character.save!
 
     expect(character.pending_transfer).to_not be_nil
@@ -52,9 +54,9 @@ describe Character, type: :model do
 
     new_user = create :user, email: 'foo@bax.net'
     expect(new_user.invitation).to be_claimed
-    expect(new_user.incoming_transfers).to have(1).items
+    expect(new_user.transfers_in.pending).to have(1).items
 
-    new_user.incoming_transfers.first.accept!
-    expect(character.reload.user).to eq user
+    new_user.transfers_in.pending.first.claim!
+    expect(character.reload.user).to eq new_user
   end
 end

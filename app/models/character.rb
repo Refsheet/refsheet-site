@@ -34,6 +34,7 @@ class Character < ApplicationRecord
   belongs_to :profile_image, class_name: Image
   has_many :swatches
   has_many :images
+  has_many :transfers
 
   has_guid :shortcode, type: :token
   slugify :name, scope: :user
@@ -41,13 +42,15 @@ class Character < ApplicationRecord
 
   accepts_nested_attributes_for :color_scheme
 
-  mattr_accessor :transfer_user_id
-  mattr_accessor :transfer_user_email
+  attr_accessor :transfer_to_user
 
   validates_presence_of :user
+  validates_associated :transfers
   validates :name,
             presence: true,
             format: { with: /[a-z]/i, message: 'must have at least one letter' }
+
+  before_validation :initiate_transfer, if: -> (c) { c.transfer_to_user.present? }
 
   def description
     ''
@@ -69,9 +72,39 @@ class Character < ApplicationRecord
     find_by!('LOWER(characters.slug) = ?', slug.downcase)
   end
 
+  def pending_transfer
+    self.transfers.pending.last
+  end
+
+  def pending_transfer?
+    self.transfers.pending.any?
+  end
+
   private
 
   def initiate_transfer
+    transfer = Transfer.new character: self
+    transfer_to_user = self.transfer_to_user.downcase
 
+    if transfer_to_user =~ /@/
+      destination = User.find_by 'LOWER(users.email) = ?', transfer_to_user
+
+      if destination
+        transfer.destination = destination
+      else
+        transfer.invitation = Invitation.find_or_initialize_by email: transfer_to_user
+      end
+    else
+      destination = User.lookup transfer_to_user
+
+      if destination
+        transfer.destination = destination
+      else
+        self.errors.add :transfer_to_user, 'must be a valid username or email address, was: ' + transfer_to_user.inspect
+        return false
+      end
+    end
+
+    self.transfers << transfer
   end
 end
