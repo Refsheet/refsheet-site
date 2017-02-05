@@ -23,14 +23,34 @@
         cursor: pointer
 
     .logo
-      padding-left: 0
+      padding: 0 15px 0 0
       height: 56px
-      padding-right: 15px
+      vertical-align: middle
+      text-transform: none
 
       img
-        max-height: 36px
         display: inline-block
-        margin: 10px 0
+        max-height: 32px
+        margin: 12px 0.1rem 12px 0
+        vertical-align: middle
+        float: left
+
+      .site-name
+        display: inline-block
+        line-height: 56px
+        margin: 0
+        font-size: 2rem
+        color: $brand-primary
+        font-weight: 300
+
+        .logo-r
+          display: none
+
+        .dot-net
+          padding-left: 1px
+          font-size: 1.3rem
+          color: $page-text-color
+
 
     .avatar
       padding-right: 0
