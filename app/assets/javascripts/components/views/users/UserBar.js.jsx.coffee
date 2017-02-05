@@ -34,8 +34,10 @@
         <nav>
           <div className='container'>
               <Link to='/' className='logo left'>
-                  Refsheet.net
-                  {/*<img src='https://placehold.it/144x50' />*/}
+                  <img src='/assets/logos/RefsheetLogo_64.png' alt='Refsheet.net' width='32' height='32' />
+                  <span className='site-name'>
+                      <span className='logo-r'>R</span>efsheet<span className='dot-net'>.net</span>
+                  </span>
               </Link>
 
               <ul className='hide-on-small-and-down'>

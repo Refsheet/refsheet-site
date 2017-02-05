@@ -185,12 +185,12 @@
       headerImageEditCallback = @handleHeaderImageEdit
 
       for key, name of {
-        primary: 'Primary Accent'
-        accent1: 'Secondary Accent'
-        accent2: 'Third Accent'
+        primary: 'Primary Color'
+        accent1: 'Secondary Color'
+        accent2: 'Accent Color'
         text: 'Main Text'
-        'text-medium': 'Medium Text'
-        'text-light': 'Light Text'
+        'text-medium': 'Muted Text'
+        'text-light': 'Subtle Text'
         background: 'Page Background'
         'card-background': 'Card Background'
       }

@@ -1,4 +1,14 @@
 @PageStylesheet = (props) ->
+  isDark = (c) ->
+    c = c.substring(1) if c[0] == '#'
+    rgb = parseInt(c, 16)
+    r = rgb >> 16 & 0xff
+    g = rgb >> 8 & 0xff
+    b = rgb >> 0 & 0xff
+    luma = 0.2126 * r + 0.7152 * g + 0.0722 * b
+    console.log "Scheme luma: #{luma}"
+    luma < 100
+
   otherClasses = {
     '.cs-background--background-color': [
       'body'
@@ -12,6 +22,7 @@
     '.cs-text-light--color': [
       '.attribute-table .actions a'
       '.chip .icon-container'
+      '::-moz-placeholder, ::placeholder, ::-webkit-placeholder'
     ]
     '.cs-text-medium--color': [
       '.chip'
@@ -25,6 +36,9 @@
       '.lightbox .image-actions a'
       'body #rootApp footer .footer-copyright'
     ]
+    '.cs-text-medium--background-color': [
+      '.btn.grey.darken-3'
+    ]
     '.cs-card-background--background-color': [
       '.card'
       '.character-card'
@@ -34,6 +48,8 @@
       'nav, body #rootApp footer.page-footer'
       '.lightbox'
       '.modal'
+      '.modal-header'
+      '.modal-footer'
       '.dropdown-content'
     ]
     '.cs-primary--color': [
@@ -45,11 +61,11 @@
     ]
     '.cs-accent1--color': [
       'h2'
+      '.character-card .character-details h2'
       'code'
       'label.active'
     ]
     '.cs-accent1--border-color': [
-      'input:active, textarea:active'
       'blockquote'
     ]
     '.cs-accent2--color': [
@@ -72,6 +88,42 @@
         }\n
       """
 
+  if props['accent1']
+    css += """
+      input:active, textarea:active, input:focus, textarea:focus {
+        border-bottom: 1px solid #{props['accent1']} !important;
+        box-shadow: 0 1px 0 0 #{props['accent1']} !important;
+      }
+    """
+
+  addlCssLight = """
+    .logo img {
+      filter: brightness(0) invert(1);
+    }
+
+    .logo .site-name,
+    .logo .dot-net {
+      color: white !important;
+    }
+  """
+
+  addlCssDark = """
+    .logo img {
+      filter: brightness(0);
+    }
+
+    .logo .site-name,
+    .logo .dot-net {
+      color: black !important;
+    }
+  """
+
+  if props['card-background']? && props['card-background'] != ''
+    hasWhiteLogo = isDark(props['card-background'])
+    hasDarkLogo  = !isDark(props['card-background'])
+
   `<style type='text/css'>
       { css }
+      { hasWhiteLogo && addlCssLight }
+      { hasDarkLogo && addlCssDark }
   </style>`
