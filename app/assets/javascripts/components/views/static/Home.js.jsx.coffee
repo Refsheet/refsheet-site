@@ -153,7 +153,7 @@
             </Row>
         </Section>
 
-        <Section className='pop-out center'>
+        <Section className='center padded-bottom'>
             <h2>Ready to show off your characters?</h2>
             <Link to='/register' className='btn'>Sign Up</Link>
         </Section>
