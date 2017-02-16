@@ -36,7 +36,7 @@
               <Link to='/' className='logo left'>
                   <img src='/assets/logos/RefsheetLogo_64.png' alt='Refsheet.net' width='32' height='32' />
                   <span className='site-name'>
-                      <span className='logo-r'>R</span>efsheet<span className='dot-net'>.net</span>
+                      <span className='logo-r'>R</span>efsheet
                   </span>
               </Link>
 

@@ -31,9 +31,6 @@ section
   .row:last-child
     margin-bottom: 0
 
-  img
-    max-width: 100%
-
   h1
     color: color('teal', 'lighten-3')
 
@@ -41,6 +38,9 @@ section
     @extend .z-depth-2
     background-color: $card-bg-color
     padding: 3rem 0
+
+    &.section-light
+      background-color: $page-bg-color
 
     h2, .caption
       color: color('blue-grey', 'lighten-4')
