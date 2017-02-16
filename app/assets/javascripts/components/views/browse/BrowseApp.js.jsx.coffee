@@ -30,7 +30,7 @@
     $('input[type=search]').blur()
 
     $.ajax
-      url: '/search'
+      url: '/characters.json'
       data: q: o.query
       success: (data) =>
         @setState results: data || []

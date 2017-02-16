@@ -1,6 +1,11 @@
 class CharactersController < ApplicationController
-  before_action :get_user
-  before_action :get_character, except: [:create]
+  before_action :get_user, except: [:index]
+  before_action :get_character, except: [:index, :create]
+
+  def index
+    @characters = filter_scope.search_for(params[:q])
+    render json: @characters, each_serializer: ImageCharacterSerializer
+  end
 
   def show
     set_meta_tags(
@@ -80,5 +85,15 @@ class CharactersController < ApplicationController
     end
 
     p
+  end
+
+  def filter_scope
+    scope = Character.all
+
+    if (sort = params[:sort]&.downcase) && %w(created_at updated_at name).include?(sort)
+      scope.order("characters.#{sort} #{params[:asc] ? 'ASC' : 'DESC'}")
+    else
+      scope.default_order
+    end
   end
 end
