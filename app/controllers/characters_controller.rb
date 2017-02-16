@@ -3,7 +3,7 @@ class CharactersController < ApplicationController
   before_action :get_character, except: [:index, :create]
 
   def index
-    @characters = filter_scope.search_for(params[:q])
+    @characters = filter_scope
     render json: @characters, each_serializer: ImageCharacterSerializer
   end
 
@@ -89,11 +89,27 @@ class CharactersController < ApplicationController
 
   def filter_scope
     scope = Character.all
+    sort = nil
+    order = nil
+    query = []
 
-    if (sort = params[:sort]&.downcase) && %w(created_at updated_at name).include?(sort)
-      scope.order("characters.#{sort} #{params[:asc] ? 'ASC' : 'DESC'}")
+    params[:q].split(/\s+/).each do |q|
+      case q
+        when /sort:(\w+)/i
+          sort = $1.downcase
+        when /order:(asc|desc)/i
+          order = $1.upcase
+        else
+          query << q
+      end
+    end
+
+    if %w(created_at updated_at name).include?(sort)
+      scope.order("characters.#{sort} #{order}")
     else
       scope.default_order
     end
+
+    scope.search_for(query.join(' '))
   end
 end
