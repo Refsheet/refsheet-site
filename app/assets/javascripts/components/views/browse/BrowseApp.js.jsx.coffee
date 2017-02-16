@@ -25,7 +25,7 @@
     @setState o
 
     newPath = @props.location.pathname
-    newPath += '?q=' + o.query if o.query
+    newPath += '?' + $.param q: o.query if o.query
     window.history.replaceState {}, '', newPath
     $('input[type=search]').blur()
 
