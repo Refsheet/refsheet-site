@@ -57,9 +57,9 @@
                 <li className='tab'>
                     <Link activeClassName='active' to='/browse'>Characters</Link>
                 </li>
-                <li className='tab'>
+                {/*<li className='tab'>
                     <Link activeClassname='active' to='/browse/users'>Users</Link>
-                </li>
+                </li>*/}
             </ul>
 
             <form className='search' onSubmit={ this.handleSearchSubmit }>

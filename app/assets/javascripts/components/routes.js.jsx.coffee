@@ -18,7 +18,11 @@
 
             <Route path='login' component={ LoginView } />
             <Route path='register' component={ RegisterView } />
-            <Route path='browse' component={ BrowseApp } />
+
+            <Route path='browse' component={ BrowseApp }>
+                <IndexRoute component={ CharacterIndexView } />
+                <Route path='users' component={ UserIndexView } />
+            </Route>
 
             <Route path='images/:imageId' component={ ImageApp } />
 
