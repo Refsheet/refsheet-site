@@ -104,7 +104,7 @@ class CharactersController < ApplicationController
       end
     end
 
-    if %w(created_at updated_at name).include?(sort)
+    scope = if %w(created_at updated_at name).include?(sort)
       scope.order("characters.#{sort} #{order}")
     else
       scope.default_order
