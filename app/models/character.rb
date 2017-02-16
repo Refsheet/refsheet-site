@@ -46,6 +46,15 @@ class Character < ApplicationRecord
             presence: true,
             format: { with: /[a-z]/i, message: 'must have at least one letter' }
 
+  scope :default_order, -> do
+    order(<<-SQL)
+      CASE
+        WHEN characters.profile_image_id IS NULL THEN '1'
+        WHEN characters.profile_image_id IS NOT NULL THEN '0'
+      END, lower(characters.name) ASC
+    SQL
+  end
+
   def description
     ''
   end

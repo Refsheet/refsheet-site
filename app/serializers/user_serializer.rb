@@ -6,6 +6,10 @@ class UserSerializer < ActiveModel::Serializer
 
   has_many :characters, serializer: ImageCharacterSerializer
 
+  def characters
+    object.characters.default_order
+  end
+
   def avatar_url
     gravatar_image_url object.email
   end
