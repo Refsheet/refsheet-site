@@ -23,6 +23,8 @@ class UsersController < ApplicationController
   end
 
   def update
+    head :unauthorized and return unless @user == current_user
+
     if @user.update_attributes user_params
       render json: @user, serializer: UserSerializer
     else
@@ -33,7 +35,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username, :email, :password, :password_confirmation, :profile)
+    params.require(:user).permit(:username, :email, :password, :password_confirmation, :profile, :name)
   end
 
   def get_user

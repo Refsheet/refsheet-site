@@ -10,9 +10,10 @@
       $('.dropzone-container').dropzone
         clickable: @props.clickable || null
         url: this.props.url
+        type: @props.method || 'POST'
         previewTemplate: ''
         headers: { "X-CSRF-Token" : $('meta[name="csrf-token"]').attr('content') }
-        paramName: 'image[image]'
+        paramName: @props.paramName || 'image[image]'
 
         addedfile: (file) =>
           @setState uploading: true

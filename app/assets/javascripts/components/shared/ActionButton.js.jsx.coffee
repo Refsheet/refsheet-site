@@ -13,7 +13,7 @@
       largeClass = ' btn-large'
       iconClass = ' large'
 
-    `<a className={ 'btn-floating tooltipped ' + this.props.className + largeClass }
+    `<a className={ 'btn-floating tooltipped waves waves-light ' + this.props.className + largeClass }
         data-tooltip={ this.props.tooltip }
         href={ this.props.href }
         onClick={ this.props.onClick }

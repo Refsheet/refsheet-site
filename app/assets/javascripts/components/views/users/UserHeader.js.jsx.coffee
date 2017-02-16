@@ -14,6 +14,7 @@
   render: ->
     if @props.onUserChange?
       bioChangeCallback = @handleBioChange
+      editable = true
 
     `<div className='user-header'>
         <div className='container flex'>
@@ -31,5 +32,13 @@
                           markup={ this.props.profile_markup }
                           onChange={ bioChangeCallback } />
             </div>
+
+            { editable &&
+                <div className='user-actions'>
+                    <a className='btn waves-effect btn-icon btn-small waves-light modal-trigger' href='#user-settings-modal'>
+                        <i className='material-icons'>edit</i>
+                    </a>
+                </div>
+            }
         </div>
     </div>`

@@ -75,13 +75,31 @@
 
         <UserHeader { ...this.state.user } onUserChange={ userChangeCallback } />
 
-        <Section className='pop-out'>
+        <div className='tab-row'>
+            <div className='container'>
+                <Tabs>
+                    <li className='tab'>
+                        <Link to={ '/' + this.state.user.username } className='active'>Characters</Link>
+                    </li>
+                </Tabs>
+            </div>
+        </div>
+
+        <Section className='margin-top--large'>
             <div className='row'>
                 { characters }
             </div>
 
             { characters.length == 0 &&
-                <p className='caption center'>{ this.state.user.name } has no characters.</p>
+                <p className='caption center'>
+                    { this.state.user.name } has no characters.
+                </p>
+            }
+
+            { editable &&
+                <div className='center'>
+                    <a href='#character-form' className='margin-top--large btn center waves-effect waves-light modal-trigger'>New Character</a>
+                </div>
             }
         </Section>
     </main>`
