@@ -48,7 +48,7 @@ class ImagesController < ApplicationController
 
   def update
     if params[:image][:swap_target_image_id]
-      target = Image.find(params[:image][:swap_target_image_id])
+      target = Image.find_by!(guid: params[:image][:swap_target_image_id])
       tro = target.row_order
       target.row_order = @image.row_order
       @image.row_order = tro

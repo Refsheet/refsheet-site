@@ -287,30 +287,36 @@
             <SwatchPanel edit={ editable } swatchesPath={ this.state.character.path + '/swatches/' } swatches={ this.state.character.swatches } />
         </PageHeader>
 
-        <Section className='padded pop-out margin-top--xlarge margin-bottom--xlarge'>
-            <Row>
+        <Section className='padded'>
+            <Row className='rowfix'>
                 <Column m={12}>
-                    <h1>About { this.state.character.name }</h1>
-                    <RichText placeholder='No biography written.'
-                              onChange={ profileChange }
-                              content={ this.state.character.profile_html }
-                              markup={ this.state.character.profile } />
+                    <div className='card-panel margin--none'>
+                        <h1>About { this.state.character.name }</h1>
+                        <RichText placeholder='No biography written.'
+                                  onChange={ profileChange }
+                                  content={ this.state.character.profile_html }
+                                  markup={ this.state.character.profile } />
+                    </div>
                 </Column>
             </Row>
-            <Row className='margin-top--large'>
+            <Row className='rowfix'>
                 <Column m={6}>
-                    <h2>Likes</h2>
-                    <RichText placeholder='No likes specified.'
-                              onChange={ likesChange }
-                              content={ this.state.character.likes_html }
-                              markup={ this.state.character.likes } />
+                    <div className='card-panel margin--none'>
+                        <h2>Likes</h2>
+                        <RichText placeholder='No likes specified.'
+                                  onChange={ likesChange }
+                                  content={ this.state.character.likes_html }
+                                  markup={ this.state.character.likes } />
+                    </div>
                 </Column>
                 <Column m={6}>
-                    <h2>Dislikes</h2>
-                    <RichText placeholder='No dislikes specified.'
-                              onChange={ dislikesChange }
-                              content={ this.state.character.dislikes_html }
-                              markup={ this.state.character.dislikes } />
+                    <div className='card-panel margin--none'>
+                        <h2>Dislikes</h2>
+                        <RichText placeholder='No dislikes specified.'
+                                  onChange={ dislikesChange }
+                                  content={ this.state.character.dislikes_html }
+                                  markup={ this.state.character.dislikes } />
+                    </div>
                 </Column>
             </Row>
         </Section>

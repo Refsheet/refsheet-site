@@ -15,10 +15,11 @@
   handleImageClick: (e) ->
     id = $(e.target).closest('[data-gallery-image-id]').data('gallery-image-id')
 
-    if @props.onImageClick?
-      @props.onImageClick(id)
-    else
-      $(document).trigger 'app:lightbox', id
+    if id != undefined
+      if @props.onImageClick?
+        @props.onImageClick(id)
+      else
+        $(document).trigger 'app:lightbox', id
 
   componentDidMount: ->
     if @props.imagesPath?
@@ -54,8 +55,8 @@
 
           $source.css top: '', left: '0'
 
-          sourceId = $source.data 'image-id'
-          targetId = $target.data 'image-id'
+          sourceId = $source.data 'gallery-image-id'
+          targetId = $target.data 'gallery-image-id'
 
           _this.handleImageSwap(sourceId, targetId)
 
@@ -77,7 +78,6 @@
 
     if first? or imagesOverflow.length > 0
       if first?
-        firstColWidth = 12
         firstImage =
           `<div className='image' data-gallery-image-id={ first.id }>
               <img src={ first.url } alt={ first.caption } />
@@ -88,30 +88,33 @@
           `<div className='image' data-gallery-image-id={ third.id }>
               <img src={ third.medium } alt={ third.caption } />
           </div>`
+      else
+        thirdImage = `<div className='image-placeholder' />`
 
       if second?
-        firstColWidth = 8
         secondImage =
           `<div className='image' data-gallery-image-id={ second.id }>
               <img src={ second.medium } alt={ second.caption } />
           </div>`
+      else
+        secondImage = `<div className='image-placeholder' />`
 
-        secondColumn =
-          `<Column m={4}>
-              <Row className='featured-side'>
-                  <Column m={12} s={6}>
-                      { secondImage }
-                  </Column>
-                  <Column m={12} s={6}>
-                      { thirdImage }
-                  </Column>
-              </Row>
-          </Column>`
+      secondColumn =
+        `<Column m={4}>
+            <Row className='featured-side'>
+                <Column m={12} s={6}>
+                    { secondImage }
+                </Column>
+                <Column m={12} s={6}>
+                    { thirdImage }
+                </Column>
+            </Row>
+        </Column>`
 
       `<div className='image-gallery' onClick={ this.handleImageClick }>
           { !this.props.noFeature &&
               <Row className='featured'>
-                  <Column m={ firstColWidth }>
+                  <Column m={8}>
                       { firstImage }
                   </Column>
                   { secondColumn }
