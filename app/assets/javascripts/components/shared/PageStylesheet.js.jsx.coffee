@@ -18,6 +18,7 @@
     ]
     '.cs-text--color': [
       'body'
+      'nav a'
     ]
     '.cs-text-light--color': [
       '.attribute-table .actions a'
@@ -29,7 +30,7 @@
       'section.pop-out .caption'
       'section.pop-out .rich-text.empty'
       '.default-value'
-      'nav a, body #rootApp footer'
+      'body #rootApp footer'
       'label'
       '.rich-text.empty'
       '.character-details .date'
@@ -97,23 +98,25 @@
     """
 
   addlCssLight = """
-    .logo img {
+    .logo img, .patreon img {
       filter: brightness(0) invert(1);
     }
 
     .logo .site-name,
-    .logo .dot-net {
+    .logo .dot-net,
+    nav a.patreon {
       color: white !important;
     }
   """
 
   addlCssDark = """
-    .logo img {
+    .logo img, .patreon img {
       filter: brightness(0);
     }
 
     .logo .site-name,
-    .logo .dot-net {
+    .logo .dot-net,
+    nav a.patreon {
       color: black !important;
     }
   """

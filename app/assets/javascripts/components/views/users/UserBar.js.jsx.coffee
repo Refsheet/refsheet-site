@@ -42,8 +42,16 @@
 
               <ul className='hide-on-small-and-down'>
                   <li>
+                      <a href='https://www.patreon.com/refsheet' className='patreon'>
+                          Support on
+                          <img src='/assets/third_party/patreon_white.png' alt='Patreon' />
+                      </a>
+                  </li>
+
+                  <li>
                       <Link to='/browse' activeClassName='teal-text text-lighten-2'>Browse</Link>
                   </li>
+
                   {/*<li>
                       <Link to='/guilds' activeClassName='teal-text text-lighten-2'>Guilds</Link>
                   </li>
