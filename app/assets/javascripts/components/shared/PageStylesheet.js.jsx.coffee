@@ -52,6 +52,7 @@
       '.modal-header'
       '.modal-footer'
       '.dropdown-content'
+      '.card-panel'
     ]
     '.cs-primary--color': [
       'h1'
