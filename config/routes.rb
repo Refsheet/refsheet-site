@@ -26,14 +26,15 @@ Rails.application.routes.draw do
   end
 
   resources :feedbacks, only: [:create]
+  resources :pledges, only: [:index]
 
   namespace :webhooks do
     post :patreon, to: 'patreon#create'
   end
 
-  # if Rails.env.development?
-  mount ResqueWeb::Engine => '/resque_web'
-  # end
+  if Rails.env.development?
+    mount ResqueWeb::Engine => '/resque_web'
+  end
 
   get '/:user_id/:id', to: 'characters#show'
   get '*page', to: 'application#show'
