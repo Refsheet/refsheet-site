@@ -57,6 +57,9 @@
                 <li className='tab'>
                     <Link activeClassName='active' to='/browse'>Characters</Link>
                 </li>
+                <li className='tab'>
+                    <Link activeClassname='active' to='/browse/users'>Users</Link>
+                </li>
             </ul>
 
             <form className='search' onSubmit={ this.handleSearchSubmit }>
