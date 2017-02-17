@@ -6,6 +6,28 @@
   .container.flex
     display: flex
 
+  .user-actions
+    a
+      display: block
+      margin-bottom: 1rem
+
+    .user-badge
+      @extend .z-depth-1
+      padding: 0.5rem 1rem
+      margin-bottom: 1rem
+      background-color: $page-bg-color
+      border-radius: 2px
+      text-align: center
+      color: $text-strong-color
+      vertical-align: middle
+      line-height: 24px
+
+      img
+        margin: -4px 1rem -2px -0.5rem
+        max-height: 30px
+        vertical-align: middle
+
+
   .user-data
     padding: 0 1.5rem
     flex-grow: 2

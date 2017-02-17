@@ -2,7 +2,16 @@ class UserSerializer < ActiveModel::Serializer
   include RichTextHelper
   include GravatarImageTag::InstanceMethods
 
-  attributes :username, :email, :avatar_url, :path, :name, :profile_image_url, :profile, :profile_markup
+  attributes :username,
+             :email,
+             :avatar_url,
+             :path,
+             :name,
+             :profile_image_url,
+             :profile,
+             :profile_markup,
+             :is_admin,
+             :is_patron
 
   has_many :characters, serializer: ImageCharacterSerializer
 
@@ -28,5 +37,13 @@ class UserSerializer < ActiveModel::Serializer
 
   def profile
     linkify profile_markup
+  end
+
+  def is_admin
+    object.username.downcase == 'mauabata'
+  end
+
+  def is_patron
+    false
   end
 end

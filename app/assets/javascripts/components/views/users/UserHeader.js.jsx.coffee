@@ -33,12 +33,25 @@
                           onChange={ bioChangeCallback } />
             </div>
 
-            { editable &&
-                <div className='user-actions'>
-                    <a className='btn waves-effect btn-icon btn-small waves-light modal-trigger' href='#user-settings-modal'>
-                        <i className='material-icons'>edit</i>
+            <div className='user-actions'>
+                { editable &&
+                    <a className='btn waves-effect btn-small waves-light modal-trigger' href='#user-settings-modal'>
+                        Edit Account
                     </a>
-                </div>
-            }
+                }
+
+                { this.props.is_admin &&
+                    <div className='user-badge indigo darken-1 white-text'>
+                        ADMIN
+                    </div>
+                }
+
+                { this.props.is_patron &&
+                    <div className='user-badge'>
+                        <img src='/assets/third_party/patreon_logo.png' alt='Patreon' />
+                        Proud Patron!
+                    </div>
+                }
+            </div>
         </div>
     </div>`
