@@ -31,9 +31,9 @@ class User < ApplicationRecord
                     styles: {
                         thumbnail: '64x64#',
                         small_square: '427x427#',
-                        small: '427x427>',
+                        small: '427x>',
                         medium_square: '854x854#',
-                        medium: '854x854#'
+                        medium: '854x>'
                     },
                     s3_permissions: {
                         original: :private

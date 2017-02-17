@@ -38,8 +38,6 @@
       west: { objectPosition: 'left' }
     }
 
-    console.log this.state.gravity
-    
     `<Modal id='image-gravity-modal'>
         <h2>Change Image Cropping</h2>
         <p>Images can crop with a focus on the top, bottom, left, right or center. Ideally, the most important

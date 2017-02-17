@@ -26,21 +26,32 @@ class Image < ApplicationRecord
 
   belongs_to :character, inverse_of: :images
 
+  SIZE = {
+      thumbnail: 320,
+      small: 427,
+      medium: 854,
+      large: 1280
+  }
+
   has_attached_file :image,
                     default_url: '/assets/default.png',
                     styles: {
-                        thumbnail: "320x320^",
-                        small: "427x427^",
-                        medium: "854x854^",
-                        large: "1280x>"
+                        thumbnail: '',
+                        small: "#{SIZE[:small]}x>",
+                        small_square: '',
+                        medium: "#{SIZE[:medium]}x>",
+                        medium_square: '',
+                        large: "#{SIZE[:large]}x>",
+                        large_square: ''
                     },
                     s3_permissions: {
                         original: :private
                     },
                     convert_options: {
-                       thumbnail: -> (i) { "-gravity #{i.gravity} -thumbnail 320x320^ -extent 320x320" },
-                       small: -> (i) { "-gravity #{i.gravity} -thumbnail 427x427^ -extent 427x427" },
-                       medium: -> (i) { "-gravity #{i.gravity} -thumbnail 854x854^ -extent 854x854" },
+                       thumbnail:     -> (i) { "-resize '#{SIZE[:thumbnail]}x#{SIZE[:thumbnail]}^' +repage -gravity '#{i.gravity}' -crop '#{SIZE[:thumbnail]}x#{SIZE[:thumbnail]}+0+0'" },
+                       small_square:  -> (i) { "-resize '#{SIZE[:small]}x#{SIZE[:small]}^' +repage -gravity '#{i.gravity}' -crop '#{SIZE[:small]}x#{SIZE[:small]}+0+0'" },
+                       medium_square: -> (i) { "-resize '#{SIZE[:medium]}x#{SIZE[:medium]}^' +repage -gravity '#{i.gravity}' -crop '#{SIZE[:medium]}x#{SIZE[:medium]}+0+0'" },
+                       large_square:  -> (i) { "-resize '#{SIZE[:large]}x#{SIZE[:large]}^' +repage -gravity '#{i.gravity}' -crop '#{SIZE[:large]}x#{SIZE[:large]}+0+0'" }
                     }
 
 
