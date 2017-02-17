@@ -18,6 +18,7 @@ class UsersController < ApplicationController
       sign_in @user
       render json: @user, serializer: UserSerializer
     else
+      Rails.logger.debug @user.errors.full_messages.inspect
       render json: { errors: @user.errors }, status: :bad_request
     end
   end

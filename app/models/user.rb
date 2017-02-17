@@ -28,7 +28,6 @@ class User < ApplicationRecord
   has_secure_password
 
   has_attached_file :avatar,
-                    default_url: '/assets/default.png',
                     styles: {
                         thumbnail: '64x64#',
                         small_square: '427x427#',
@@ -40,7 +39,7 @@ class User < ApplicationRecord
                         original: :private
                     }
 
-  validates_attachment :avatar, presence: true,
+  validates_attachment :avatar,
                        content_type: { content_type: /image\/*/ },
                        size: { in: 0..25.megabytes }
 
@@ -53,11 +52,11 @@ class User < ApplicationRecord
   end
 
   def avatar_url
-    self.avatar&.url(:thumbnail) || GravatarImageTag.gravatar_url(object.email)
+    self.avatar? ? self.avatar.url(:thumbnail) : GravatarImageTag.gravatar_url(self.email)
   end
 
   def profile_image_url
-    self.avatar&.url(:small_square) || GravatarImageTag.gravatar_url(object.email, size: 200)
+    self.avatar? ? self.avatar.url(:small_square) : GravatarImageTag.gravatar_url(self.email, size: 200)
   end
 
   def self.lookup(username)
