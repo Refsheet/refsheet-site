@@ -19,14 +19,6 @@ class UserSerializer < ActiveModel::Serializer
     object.characters.default_order
   end
 
-  def avatar_url
-    gravatar_image_url object.email
-  end
-
-  def profile_image_url
-    gravatar_image_url object.email, size: 200
-  end
-
   def path
     "/users/#{object.username}/"
   end

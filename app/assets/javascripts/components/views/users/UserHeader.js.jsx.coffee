@@ -20,8 +20,14 @@
         <div className='container flex'>
             <div className='user-avatar'>
                 <div className='image'>
+                    <div className='image-edit-overlay'>
+                        <div className='content'>
+                            <i className='material-icons'>photo_camera</i>
+                            Change Avatar
+                        </div>
+                    </div>
+
                     <img src={ this.props.profile_image_url } alt={ this.props.username } />
-                    <div className='slant' />
                 </div>
             </div>
             <div className='user-data'>

@@ -49,6 +49,7 @@
 
       userChangeCallback = @handleUserChange
       editable = true
+      editPath = this.state.user.path
 
     characters = @state.user.characters.map (character) ->
       `<div className='col m3 s12' key={ character.slug }>
@@ -58,7 +59,12 @@
       </div>`
 
     `<main>
-        <DropzoneContainer>
+        <DropzoneContainer url={ editPath }
+                           method='PATCH'
+                           clickable='.user-avatar'
+                           paramName='user[avatar]'
+                           onUpload={ this.handleUserChange }>
+
             <Modal id='character-form'>
                 <h2>New Character</h2>
                 <p>It all starts with the basics. Give us a name and a species, and we'll set up a profile.</p>

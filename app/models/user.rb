@@ -27,12 +27,37 @@ class User < ApplicationRecord
 
   has_secure_password
 
+  has_attached_file :avatar,
+                    default_url: '/assets/default.png',
+                    styles: {
+                        thumbnail: '64x64#',
+                        small_square: '427x427#',
+                        small: '427x427>',
+                        medium_square: '854x854#',
+                        medium: '854x854#'
+                    },
+                    s3_permissions: {
+                        original: :private
+                    }
+
+  validates_attachment :avatar, presence: true,
+                       content_type: { content_type: /image\/*/ },
+                       size: { in: 0..25.megabytes }
+
   def name
     super || username
   end
 
   def to_param
     username
+  end
+
+  def avatar_url
+    self.avatar&.url(:thumbnail) || GravatarImageTag.gravatar_url(object.email)
+  end
+
+  def profile_image_url
+    self.avatar&.url(:small_square) || GravatarImageTag.gravatar_url(object.email, size: 200)
   end
 
   def self.lookup(username)

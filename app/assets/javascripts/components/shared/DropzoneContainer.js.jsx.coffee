@@ -1,3 +1,8 @@
+# @prop url [String] REQUIRED
+# @prop clickable [Selector]
+# @prop method [String]
+# @prop paramName [String]
+#
 @DropzoneContainer = React.createClass
   getInitialState: ->
     uploading: false
@@ -9,8 +14,8 @@
 
       $('.dropzone-container').dropzone
         clickable: @props.clickable || null
-        url: this.props.url
-        type: @props.method || 'POST'
+        url: @props.url
+        method: @props.method || 'POST'
         previewTemplate: ''
         headers: { "X-CSRF-Token" : $('meta[name="csrf-token"]').attr('content') }
         paramName: @props.paramName || 'image[image]'
