@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170119042556) do
+ActiveRecord::Schema.define(version: 20170217205726) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,29 @@ ActiveRecord::Schema.define(version: 20170119042556) do
     t.index ["name", "time"], name: "index_ahoy_events_on_name_and_time", using: :btree
     t.index ["user_id", "name"], name: "index_ahoy_events_on_user_id_and_name", using: :btree
     t.index ["visit_id", "name"], name: "index_ahoy_events_on_visit_id_and_name", using: :btree
+  end
+
+  create_table "auctions", force: :cascade do |t|
+    t.integer  "item_id"
+    t.integer  "slot_id"
+    t.integer  "starting_bid_cents",        default: 0,     null: false
+    t.string   "starting_bid_currency",     default: "USD", null: false
+    t.integer  "minimum_increase_cents",    default: 0,     null: false
+    t.string   "minimum_increase_currency", default: "USD", null: false
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+  end
+
+  create_table "bids", force: :cascade do |t|
+    t.integer  "auction_id"
+    t.integer  "user_id"
+    t.integer  "invitation_id"
+    t.integer  "amount_cents",    default: 0,     null: false
+    t.string   "amount_currency", default: "USD", null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   create_table "characters", force: :cascade do |t|
@@ -86,6 +109,46 @@ ActiveRecord::Schema.define(version: 20170119042556) do
     t.index ["guid"], name: "index_images_on_guid", using: :btree
   end
 
+  create_table "invitations", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "email"
+    t.datetime "seen_at"
+    t.datetime "claimed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.integer  "seller_user_id"
+    t.integer  "character_id"
+    t.string   "type"
+    t.string   "title"
+    t.text     "description"
+    t.integer  "amount_cents",       default: 0,     null: false
+    t.string   "amount_currency",    default: "USD", null: false
+    t.boolean  "requires_character"
+    t.datetime "published_at"
+    t.datetime "expires_at"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
+  create_table "order_items", force: :cascade do |t|
+    t.integer  "order_id"
+    t.integer  "item_id"
+    t.integer  "slot_id"
+    t.integer  "auction_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "patreon_patrons", force: :cascade do |t|
     t.string   "patreon_id"
     t.string   "email"
@@ -131,6 +194,30 @@ ActiveRecord::Schema.define(version: 20170119042556) do
     t.datetime "updated_at",        null: false
   end
 
+  create_table "payments", force: :cascade do |t|
+    t.integer  "order_id"
+    t.string   "processor_id"
+    t.integer  "amount_cents",    default: 0,     null: false
+    t.string   "amount_currency", default: "USD", null: false
+    t.string   "state"
+    t.string   "failure_reason"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+  end
+
+  create_table "slots", force: :cascade do |t|
+    t.integer  "item_id"
+    t.integer  "extends_slot_id"
+    t.string   "title"
+    t.text     "description"
+    t.string   "color"
+    t.integer  "amount_cents",       default: 0,     null: false
+    t.string   "amount_currency",    default: "USD", null: false
+    t.boolean  "requires_character"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
   create_table "swatches", force: :cascade do |t|
     t.integer  "character_id"
     t.string   "name"
@@ -142,14 +229,57 @@ ActiveRecord::Schema.define(version: 20170119042556) do
     t.datetime "updated_at",   null: false
   end
 
+  create_table "transaction_resources", force: :cascade do |t|
+    t.integer  "transaction_id"
+    t.string   "processor_id"
+    t.string   "type"
+    t.integer  "amount_cents",             default: 0,     null: false
+    t.string   "amount_currency",          default: "USD", null: false
+    t.integer  "transaction_fee_cents",    default: 0,     null: false
+    t.string   "transaction_fee_currency", default: "USD", null: false
+    t.string   "payment_mode"
+    t.string   "status"
+    t.string   "reason_code"
+    t.datetime "valid_until"
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.integer  "payment_id"
+    t.string   "processor_id"
+    t.integer  "amount_cents",    default: 0,     null: false
+    t.string   "amount_currency", default: "USD", null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+  end
+
+  create_table "transfers", force: :cascade do |t|
+    t.integer  "character_id"
+    t.integer  "item_id"
+    t.integer  "sender_user_id"
+    t.integer  "destination_user_id"
+    t.integer  "invitation_id"
+    t.datetime "seen_at"
+    t.datetime "claimed_at"
+    t.datetime "rejected_at"
+    t.string   "status"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "username"
     t.string   "email"
     t.string   "password_digest"
     t.text     "profile"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   create_table "visits", force: :cascade do |t|
