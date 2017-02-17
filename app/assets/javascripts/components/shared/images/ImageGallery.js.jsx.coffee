@@ -72,7 +72,7 @@
     imagesOverflow = overflow.map (image) =>
       `<div className='col m3 s6' key={ image.id }>
           <div className='image' data-gallery-image-id={ image.id }>
-              <img src={ image.small } alt={ image.caption } />
+              <img src={ image.small_square } alt={ image.caption } />
           </div>
       </div>`
 
@@ -80,13 +80,13 @@
       if first?
         firstImage =
           `<div className='image' data-gallery-image-id={ first.id }>
-              <img src={ first.url } alt={ first.caption } />
+              <img src={ first.large_square } alt={ first.caption } />
           </div>`
 
       if third?
         thirdImage =
           `<div className='image' data-gallery-image-id={ third.id }>
-              <img src={ third.medium } alt={ third.caption } />
+              <img src={ third.medium_square } alt={ third.caption } />
           </div>`
       else
         thirdImage = `<div className='image-placeholder' />`
@@ -94,7 +94,7 @@
       if second?
         secondImage =
           `<div className='image' data-gallery-image-id={ second.id }>
-              <img src={ second.medium } alt={ second.caption } />
+              <img src={ second.medium_square } alt={ second.caption } />
           </div>`
       else
         secondImage = `<div className='image-placeholder' />`
