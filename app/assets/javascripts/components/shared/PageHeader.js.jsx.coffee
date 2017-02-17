@@ -10,9 +10,13 @@
             </div>
 
             { this.props.onHeaderImageEdit &&
-                <a className='btn btn-small btn-icon image-edit-button' onClick={ this.props.onHeaderImageEdit }>
-                    <i className='material-icons'>edit</i>
-                </a> }
+                <a className='image-edit-overlay for-header' onClick={ this.props.onHeaderImageEdit }>
+                    <div className='content'>
+                        <i className='material-icons'>photo_camera</i>
+                        Change Cover Image
+                    </div>
+                </a>
+            }
         </div>
         <div className='page-header-content'>
           <div className='container'>
