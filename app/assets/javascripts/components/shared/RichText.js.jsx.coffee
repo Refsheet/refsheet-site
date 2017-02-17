@@ -37,7 +37,13 @@
       </div>`
 
     else if @state.markup != null && @state.markup != '' && @state.markup != undefined
-      `<div className={ 'rich-text ' + this.props.className } onClick={ this.handleEditStart } dangerouslySetInnerHTML={{ __html: this.props.content }} />`
+      `<div className={ 'rich-text ' + this.props.className } onClick={ this.handleEditStart }>
+          <a className='edit-button right' onClick={ this.handleEditStart }>
+              <i className='material-icons'>edit</i>
+          </a>
+
+          <div dangerouslySetInnerHTML={{ __html: this.props.content }} />
+      </div>`
 
     else
       if @props.onChange?
@@ -45,4 +51,10 @@
       else
         placeholderText = @props.placeholder || 'No content.'
 
-      `<div className={ 'rich-text empty ' + this.props.className } onClick={ this.handleEditStart }>{ placeholderText }</div>`
+      `<div className={ 'rich-text empty ' + this.props.className } onClick={ this.handleEditStart }>
+          <a className='edit-button right' onClick={ this.handleEditStart }>
+              <i className='material-icons'>edit</i>
+          </a>
+
+          <div>{ placeholderText }</div>
+      </div>`
