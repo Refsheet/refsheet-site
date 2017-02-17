@@ -58,48 +58,50 @@
       </div>`
 
     `<main>
-        <Modal id='character-form'>
-            <h2>New Character</h2>
-            <p>It all starts with the basics. Give us a name and a species, and we'll set up a profile.</p>
-            <NewCharacterForm onCancel={ function(e) { $('#character-form').modal('close'); e.preventDefault() } }
-                              onCreate={ this.goToCharacter }
-                              newCharacterPath={ this.state.user.path + '/characters' }/>
-        </Modal>
+        <DropzoneContainer>
+            <Modal id='character-form'>
+                <h2>New Character</h2>
+                <p>It all starts with the basics. Give us a name and a species, and we'll set up a profile.</p>
+                <NewCharacterForm onCancel={ function(e) { $('#character-form').modal('close'); e.preventDefault() } }
+                                  onCreate={ this.goToCharacter }
+                                  newCharacterPath={ this.state.user.path + '/characters' }/>
+            </Modal>
 
-        { actionButtons }
-        
-        { editable &&
-            <UserSettingsModal user={ this.state.user }
-                               onChange={ this.handleUserChange } />
-        }
-
-        <UserHeader { ...this.state.user } onUserChange={ userChangeCallback } />
-
-        <div className='tab-row'>
-            <div className='container'>
-                <Tabs>
-                    <li className='tab'>
-                        <Link to={ '/' + this.state.user.username } className='active'>Characters</Link>
-                    </li>
-                </Tabs>
-            </div>
-        </div>
-
-        <Section className='margin-top--large'>
-            <div className='row'>
-                { characters }
-            </div>
-
-            { characters.length == 0 &&
-                <p className='caption center'>
-                    { this.state.user.name } has no characters.
-                </p>
-            }
+            { actionButtons }
 
             { editable &&
-                <div className='center'>
-                    <a href='#character-form' className='margin-top--large btn center waves-effect waves-light modal-trigger'>New Character</a>
-                </div>
+                <UserSettingsModal user={ this.state.user }
+                                   onChange={ this.handleUserChange } />
             }
-        </Section>
+
+            <UserHeader { ...this.state.user } onUserChange={ userChangeCallback } />
+
+            <div className='tab-row'>
+                <div className='container'>
+                    <Tabs>
+                        <li className='tab'>
+                            <Link to={ '/' + this.state.user.username } className='active'>Characters</Link>
+                        </li>
+                    </Tabs>
+                </div>
+            </div>
+
+            <Section className='margin-top--large'>
+                <div className='row'>
+                    { characters }
+                </div>
+
+                { characters.length == 0 &&
+                    <p className='caption center'>
+                        { this.state.user.name } has no characters.
+                    </p>
+                }
+
+                { editable &&
+                    <div className='center margin-bottom--large'>
+                        <a href='#character-form' className='margin-top--large btn center waves-effect waves-light modal-trigger'>New Character</a>
+                    </div>
+                }
+            </Section>
+        </DropzoneContainer>
     </main>`
