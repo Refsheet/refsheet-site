@@ -27,6 +27,9 @@
     $('.rich-text textarea').trigger 'autoresize'
 
   render: ->
+    if @props.onChange?
+      editable = true
+
     if @state.edit
       `<div className={ 'rich-text editing ' + this.props.className }>
           <textarea className='materialize-textarea' onChange={ this.handleMarkupChange } value={ this.state.markup } autoFocus />
@@ -38,9 +41,11 @@
 
     else if @state.markup != null && @state.markup != '' && @state.markup != undefined
       `<div className={ 'rich-text ' + this.props.className } onClick={ this.handleEditStart }>
-          <a className='edit-button right' onClick={ this.handleEditStart }>
-              <i className='material-icons'>edit</i>
-          </a>
+          { editable &&
+              <a className='edit-button right' onClick={ this.handleEditStart }>
+                  <i className='material-icons'>edit</i>
+              </a>
+          }
 
           <div dangerouslySetInnerHTML={{ __html: this.props.content }} />
       </div>`
