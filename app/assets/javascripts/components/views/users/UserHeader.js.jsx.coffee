@@ -35,10 +35,11 @@
             <div className='user-data'>
                 <h1 className='name'>{ this.props.name }</h1>
                 <div className='username'>@{ this.props.username }</div>
-                <RichText className='user-bio'
-                          content={ this.props.profile }
-                          markup={ this.props.profile_markup }
-                          onChange={ bioChangeCallback } />
+                <div className='user-bio'>
+                    <RichText content={ this.props.profile }
+                              markup={ this.props.profile_markup }
+                              onChange={ bioChangeCallback } />
+                </div>
             </div>
 
             <div className='user-actions'>
