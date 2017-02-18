@@ -52,7 +52,7 @@
       editPath = this.state.user.path
 
     characters = @state.user.characters.map (character) ->
-      `<div className='col m3 s12' key={ character.slug }>
+      `<div className='col m3 s6' key={ character.slug }>
           <CharacterLinkCard path={ character.link }
                              name={ character.name }
                              profileImageUrl={ character.profile_image_url } />

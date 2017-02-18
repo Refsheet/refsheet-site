@@ -69,3 +69,34 @@
   .user-actions
     text-align: right
     padding: 0
+
+  @media #{$small-and-down}
+    .container
+      flex-direction: column
+
+    .user-avatar
+      position: absolute
+      width: 60px
+      height: 60px
+
+      .image
+        width: 100%
+        height: 100%
+
+    .user-data
+      padding: 0
+
+    .user-actions
+      text-align: center
+
+      .btn
+        display: inline-block
+        width: auto
+
+      .user-badge
+        width: auto
+
+    .avatar-shift
+      margin-left: 60px
+      min-height: 60px
+      padding-left: 1rem

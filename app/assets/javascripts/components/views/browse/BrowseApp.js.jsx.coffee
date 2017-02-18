@@ -45,7 +45,7 @@
   render: ->
     if @state.results != null
       results = @state.results.map (character) ->
-        `<div className='col m3 s12' key={ character.slug }>
+        `<div className='col m3 s6' key={ character.slug }>
             <CharacterLinkCard path={ character.link }
                                name={ character.name }
                                profileImageUrl={ character.profile_image_url } />
