@@ -2,6 +2,18 @@
   componentDidMount: ->
     $('.user-bar .tooltipped').tooltip()
 
+  toggleMenu: ->
+    if $('.site-nav').is(':visible')
+      $('.site-nav').fadeOut(300)
+      $('.navbar-shroud').fadeOut(300)
+    else
+      $('.site-nav').fadeIn(300)
+      $('.navbar-shroud').fadeIn(300)
+
+  closeMenu: ->
+    $('.site-nav').fadeOut(300)
+    $('.navbar-shroud').fadeOut(300)
+
   render: ->
     if @props.currentUser?
       currentUser =
@@ -31,8 +43,13 @@
         </ul>`
 
     `<div className='navbar-fixed user-bar'>
+        <div className='navbar-shroud' onClick={ this.closeMenu } />
         <nav>
           <div className='container'>
+              <ul className='menu left hide-on-med-and-up'>
+                  <li><a onClick={ this.toggleMenu }><i className='material-icons'>menu</i></a></li>
+              </ul>
+
               <Link to='/' className='logo left'>
                   <img src='/assets/logos/RefsheetLogo_64.png' alt='Refsheet.net' width='32' height='32' />
                   <span className='site-name'>
@@ -40,7 +57,7 @@
                   </span>
               </Link>
 
-              <ul className='hide-on-small-and-down'>
+              <ul className='site-nav visible-on-med-and-up' onClick={ this.closeMenu }>
                   <li>
                       <a href='https://www.patreon.com/refsheet' className='patreon'>
                           Support on
