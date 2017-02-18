@@ -72,3 +72,37 @@
         max-height: 36px
         display: inline-block
         margin: 10px 0
+
+  .navbar-shroud
+    display: none
+
+  @media #{$small-and-down}
+    .logo
+      float: none !important
+      position: absolute
+      left: 50%
+      transform: translateX(-50%)
+
+    ul.menu
+      margin-left: -15px
+
+    .site-nav
+      display: none
+      position: fixed
+      top: 56px
+      left: 0
+      width: 100%
+      background-color: $card-bg-color
+      z-index: 10
+
+      li
+        display: block
+        float: none
+
+    .navbar-shroud
+      position: fixed
+      top: 56px
+      bottom: 0
+      left: 0
+      width: 100%
+      background-color: rgba(black, 0.5)
