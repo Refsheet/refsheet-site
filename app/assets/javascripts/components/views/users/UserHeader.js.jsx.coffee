@@ -33,8 +33,10 @@
                 </div>
             </div>
             <div className='user-data'>
-                <h1 className='name'>{ this.props.name }</h1>
-                <div className='username'>@{ this.props.username }</div>
+                <div className='avatar-shift'>
+                    <h1 className='name'>{ this.props.name }</h1>
+                    <div className='username'>@{ this.props.username }</div>
+                </div>
                 <div className='user-bio'>
                     <RichText content={ this.props.profile }
                               markup={ this.props.profile_markup }
