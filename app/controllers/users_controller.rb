@@ -8,7 +8,25 @@ class UsersController < ApplicationController
   end
 
   def show
-    render json: @user, serializer: UserSerializer
+    set_meta_tags(
+        twitter: {
+            card: 'photo',
+            image: {
+                _: @user.avatar.url(:medium)
+            }
+        },
+        og: {
+            image: @user.avatar.url(:medium)
+        },
+        title: @user.name,
+        description: @user.profile.presence || 'This user is a mystery!',
+        image_src: @user.avatar.url(:medium)
+    )
+
+    respond_to do |format|
+      format.html { render 'application/show' }
+      format.json { render json: @user, serializer: UserSerializer }
+    end
   end
 
   def create

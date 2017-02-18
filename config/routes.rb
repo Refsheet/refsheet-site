@@ -38,5 +38,6 @@ Rails.application.routes.draw do
   end
 
   get '/:user_id/:id', to: 'characters#show'
+  get '/:id', to: 'users#show'
   get '*page', to: 'application#show'
 end
