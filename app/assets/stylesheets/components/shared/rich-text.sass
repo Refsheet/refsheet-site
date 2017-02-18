@@ -1,6 +1,13 @@
 .rich-text
   a.edit-button
+    opacity: 0.0
     cursor: pointer
+    transition: opacity 0.3s
+
+  &:hover
+    a.edit-button
+      opacity: 1.0
+      transition: opacity 0.3s
 
   &.empty
     color: $muted-text-color
