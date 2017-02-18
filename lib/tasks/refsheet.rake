@@ -2,11 +2,11 @@ namespace :refsheet do
   namespace :image do
     desc 'Incrementally rebuild thumbnails. START=0 & BATCH_SIZE=10 & VERBOSE=false'
     task :reprocess => :environment do
-      batch_size = (ENV['BATCH_SIZE'] || ENV['batch_size'] || 10)
+      batch_size = (ENV['BATCH_SIZE'] || ENV['batch_size'] || 10).to_i
       verbose    = (ENV['VERBOSE'] || ENV['verbose'] || nil)
+      start      = (ENV['START'] || ENV['start'] || 0).to_i
 
       total = Image.count
-      start = 0
 
       while start < total
         puts "Spawning: bundle exec rake refsheet:image:reprocess_some START=#{start} BATCH_SIZE=#{batch_size} VERBOSE=#{verbose} RAILS_ENV=#{Rails.env}"
