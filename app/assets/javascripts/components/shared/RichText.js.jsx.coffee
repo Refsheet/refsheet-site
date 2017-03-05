@@ -57,9 +57,11 @@
         placeholderText = @props.placeholder || 'No content.'
 
       `<div className={ 'rich-text empty ' + this.props.className } onClick={ this.handleEditStart }>
-          <a className='edit-button right' onClick={ this.handleEditStart }>
-              <i className='material-icons'>edit</i>
-          </a>
+          { editable &&
+              <a className='edit-button right' onClick={ this.handleEditStart }>
+                  <i className='material-icons'>edit</i>
+              </a>
+          }
 
           <div>{ placeholderText }</div>
       </div>`
