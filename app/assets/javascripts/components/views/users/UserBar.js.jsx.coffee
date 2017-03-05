@@ -14,6 +14,7 @@
     $('.site-nav').fadeOut(300)
     $('.navbar-shroud').fadeOut(300)
 
+
   render: ->
     if @props.currentUser?
       currentUser =
@@ -57,7 +58,7 @@
                   </span>
               </Link>
 
-              <ul className='site-nav visible-on-med-and-up' onClick={ this.closeMenu }>
+              <ul className='site-nav visible-on-med-and-up'>
                   <li>
                       <a href='https://www.patreon.com/refsheet' className='patreon'>
                           Support on
