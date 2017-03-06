@@ -32,7 +32,7 @@ class UserSerializer < ActiveModel::Serializer
   end
 
   def is_admin
-    object.username.downcase == 'mauabata'
+    object.role? :admin
   end
 
   def is_patron
