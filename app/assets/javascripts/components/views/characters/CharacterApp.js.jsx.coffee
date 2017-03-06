@@ -288,7 +288,7 @@
             <SwatchPanel edit={ editable } swatchesPath={ this.state.character.path + '/swatches/' } swatches={ this.state.character.swatches } />
         </PageHeader>
 
-        <Section className='padded'>
+        <Section>
             <Row className='rowfix'>
                 <Column m={12}>
                     <div className='card-panel margin--none'>
