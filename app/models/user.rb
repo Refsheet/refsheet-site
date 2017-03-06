@@ -14,6 +14,8 @@
 
 class User < ApplicationRecord
   has_many :characters
+  has_many :permissions
+  has_many :roles, through: :permissions
 
   validates :username, presence: true,
             length: { minimum: 3, maximum: 50 },
@@ -65,5 +67,9 @@ class User < ApplicationRecord
 
   def self.lookup!(username)
     find_by!('LOWER(users.username) = ?', username.downcase)
+  end
+
+  def role?(role)
+    self.roles.exists?(name: role.to_s)
   end
 end

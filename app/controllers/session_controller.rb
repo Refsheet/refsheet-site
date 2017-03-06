@@ -4,7 +4,11 @@ class SessionController < ApplicationController
   end
 
   def create
-    @user = User.find_by('LOWER(users.username) = ?', params[:username].downcase)
+    if params[:username] =~ /@/
+      @user = User.find_by('LOWER(users.email) = ?', params[:username].downcase)
+    else
+      @user = User.find_by('LOWER(users.username) = ?', params[:username].downcase)
+    end
 
     if @user&.authenticate(params[:password])
       sign_in @user

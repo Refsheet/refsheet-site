@@ -1,0 +1,32 @@
+.container
+  .row
+    .col.s12.m6
+      .card.stat-card
+        .value= @users.count
+        .label Users
+        = material_icon 'perm_identity'
+
+    .col.s12.m6
+      .card.stat-card
+        .value= @characters.count
+        .label Characters
+        = material_icon 'attach_document'
+
+  .row
+    .col.s12.m6
+      %h2 New Characters
+      .carousel
+        - @characters.order('characters.created_at DESC').last(5).each do |character|
+          = link_to '#', class: 'carousel-item' do
+            = image_tag character.profile_image.image.url(:thumbnail)
+
+    .col.s12.m6
+      %h2 Updated Characters
+      .carousel
+        - @characters.order('characters.updated_at DESC').last(5).each do |character|
+          = link_to '#', class: 'carousel-item' do
+            = image_tag character.profile_image.image.url(:thumbnail)
+
+:coffeescript
+  $ ->
+    $('.carousel').carousel()
