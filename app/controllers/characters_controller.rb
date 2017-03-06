@@ -39,7 +39,7 @@ class CharactersController < ApplicationController
   end
 
   def update
-    head :unauthorized and return unless @character.user == current_user
+    head :unauthorized and return unless @character.user == current_user || current_user&.role?(:admin)
 
     if @character.update_attributes character_params
       render json: @character, serializer: CharacterSerializer
@@ -49,7 +49,7 @@ class CharactersController < ApplicationController
   end
 
   def destroy
-    head :unauthorized and return unless @character.user == current_user
+    head :unauthorized and return unless @character.user == current_user || current_user&.role?(:admin)
 
     if @character.destroy
       render json: @character, serializer: CharacterSerializer

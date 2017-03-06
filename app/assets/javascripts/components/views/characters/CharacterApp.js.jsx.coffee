@@ -175,7 +175,7 @@
     unless @state.character?
       return `<Loading />`
 
-    if @state.character.user_id == @props.currentUser?.username
+    if @state.character.user_id == @props.currentUser?.username || @props.currentUser?.is_admin
       dropzoneUpload = @handleDropzoneUpload
       editable = true
       profileChange = @handleProfileChange
