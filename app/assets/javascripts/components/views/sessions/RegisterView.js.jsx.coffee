@@ -40,9 +40,13 @@
   componentDidMount: ->
     Materialize.initializeForms()
     Materialize.updateTextFields()
+    $('body').addClass 'no-footer'
 
   componentDidUpdate: ->
     Materialize.updateTextFields()
+
+  componentWillUnmount: ->
+    $('body').removeClass 'no-footer'
 
   render: ->
     if @state.loading

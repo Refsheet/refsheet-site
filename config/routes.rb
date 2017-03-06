@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   get '/c/:id', to: 'shortcodes#show'
 
   # Placeholder Route
+  get 'login', to: 'application#show'
+  get 'register', to: 'application#show'
   get 'guilds', to: 'application#show'
   get 'marketplace', to: 'application#show'
   get 'artists', to: 'application#show'
@@ -31,6 +33,10 @@ Rails.application.routes.draw do
 
   namespace :webhooks do
     post :patreon, to: 'patreon#create'
+  end
+
+  namespace :admin do
+    root to: 'dashboard#show'
   end
 
   if Rails.env.development?

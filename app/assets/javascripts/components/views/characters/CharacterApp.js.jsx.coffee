@@ -258,6 +258,7 @@
                                 freezeName hideNotesForm>
                     <Attribute id='name' name='Character Name' value={ this.state.character.name } />
                     <Attribute id='slug' name='URL Slug' value={ this.state.character.slug } />
+                    <Attribute id='shortcode' name='Shortcode' value={ this.state.character.shortcode } />
                     <li>
                         <div className='attribute-data'>
                             <div className='key'>Delete</div>
