@@ -1,4 +1,4 @@
-def Admin::CharactersController < AdminController
+class Admin::CharactersController < AdminController
   before_action :get_character, only: [:show, :update, :destroy]
 
   def show; end
