@@ -9,14 +9,9 @@ class CharacterSerializer < ActiveModel::Serializer
              :user_avatar_url, :user_name
 
   has_many :swatches, serializer: SwatchSerializer
-  has_many :images, serializer: CharacterImageSerializer
   has_one  :featured_image, serializer: CharacterImageSerializer
   has_one  :profile_image, serializer: CharacterImageSerializer
   has_one  :color_scheme, serializer: ColorSchemeSerializer
-
-  def images
-    object.images.rank(:row_order)
-  end
 
   def swatches
     object.swatches.rank(:row_order)

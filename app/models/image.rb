@@ -18,8 +18,8 @@
 #  gravity            :string
 #
 
-# Should me larger than 854px in both dimensions,
-# should be no more than 20MB
+# Should me larger than 1280px in both dimensions,
+# should be no more than 25MB
 class Image < ApplicationRecord
   include HasGuid
   include RankedModel
@@ -63,6 +63,9 @@ class Image < ApplicationRecord
   ranks :row_order
 
   after_destroy :clean_up_character
+
+  default_scope { where(nsfw: [false, nil]) }
+  scope :with_nsfw, -> { unscoped }
 
   def gravity
     super || 'center'

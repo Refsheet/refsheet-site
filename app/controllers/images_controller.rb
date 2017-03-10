@@ -6,7 +6,7 @@ class ImagesController < ApplicationController
   respond_to :json
 
   def index
-    render json: @character.images.rank(:row_order), each_serializer: ImageSerializer
+    render json: image_scope, each_serializer: ImageSerializer
   end
 
   def show
@@ -87,5 +87,11 @@ class ImagesController < ApplicationController
 
   def image_params
     params.require(:image).permit(:image, :artist_id, :caption, :source_url, :thumbnail, :gravity)
+  end
+
+  def image_scope
+    scope = @character.images.rank(:row_order)
+    scope = scope.with_nsfw if nsfw_on?
+    scope
   end
 end

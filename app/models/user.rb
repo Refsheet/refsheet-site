@@ -45,6 +45,8 @@ class User < ApplicationRecord
                        content_type: { content_type: /image\/*/ },
                        size: { in: 0..25.megabytes }
 
+  serialize :settings, JSON
+
   def name
     super || username
   end
@@ -55,6 +57,10 @@ class User < ApplicationRecord
 
   def avatar_url
     self.avatar? ? self.avatar.url(:thumbnail) : GravatarImageTag.gravatar_url(self.email)
+  end
+
+  def settings
+    HashWithIndifferentAccess.new(super)
   end
 
   def profile_image_url
