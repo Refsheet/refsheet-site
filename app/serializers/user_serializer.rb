@@ -37,7 +37,7 @@ class UserSerializer < ActiveModel::Serializer
   end
 
   def is_patron
-    false
+    object.pledges.active.any?
   end
 
   def settings
