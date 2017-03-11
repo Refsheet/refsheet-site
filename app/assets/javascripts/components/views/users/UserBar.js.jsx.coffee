@@ -1,6 +1,13 @@
 @UserBar = React.createClass
+  __init: ->
+    console.log $('.user-bar .dropdown-button').dropdown
+      constrain_width: false
+
+  componentDidUpdate: ->
+    @__init()
+
   componentDidMount: ->
-    $('.user-bar .tooltipped').tooltip()
+    @__init()
 
   toggleMenu: ->
     if $('.site-nav').is(':visible')
@@ -14,9 +21,33 @@
     $('.site-nav').fadeOut(300)
     $('.navbar-shroud').fadeOut(300)
 
+  _handleNsfwToggle: ->
+    Materialize.toast "Not implemented, yet.", 3000, 'yellow'
+
 
   render: ->
     if @props.currentUser?
+      userMenu =
+        `<ul id='user-menu' className='dropdown-content cs-card-background--background-color'>
+            <li>
+                <Link to={'/' + this.props.currentUser.username}>
+                    <i className='material-icons left'>perm_identity</i>
+                    <span>{ this.props.currentUser.username }</span>
+                </Link>
+            </li>
+
+            <li className='divider' />
+
+            <li>
+                <a href='#' onClick={ this._handleNsfwToggle }>
+                    <i className='material-icons left'>{ this.props.currentUser.nsfw_ok ? 'remove_circle' : 'remove_circle_outline' }</i>
+                    <span>{ this.props.currentUser.nsfw_ok ? 'NSFW' : 'SFW' }</span>
+                </a>
+            </li>
+
+            {/* log out */}
+        </ul>`
+
       currentUser =
         `<ul className='right'>
             {/*<li>
@@ -26,9 +57,11 @@
             </li>*/}
 
             <li>
-                <Link to={ '/' + this.props.currentUser.username } className='avatar tooltipped' data-tooltip='Your Profile' data-position='left'>
+                <a className='dropdown-button avatar' data-activates='user-menu'>
                     <img src={ this.props.currentUser.avatar_url } className='circle' />
-                </Link>
+                </a>
+
+                { userMenu }
             </li>
         </ul>`
 
@@ -36,17 +69,17 @@
       currentUser =
         `<ul className='right'>
             <li>
-                <Link to='/register' activeClassName='teal-text text-lighten-2'>Sign Up</Link>
-            </li>
-            <li>
-                <Link to='/login' activeClassName='teal-text text-lighten-2'>Log In</Link>
+                <Link to='/login' activeClassName='teal-text text-lighten-2'>
+                    <i className='material-icons'>perm_identity</i>
+                </Link>
             </li>
         </ul>`
 
     `<div className='navbar-fixed user-bar'>
         <div className='navbar-shroud' onClick={ this.closeMenu } />
+
         <nav>
-          <div className='container'>
+          <div className='container-fluid'>
               <ul className='menu left hide-on-med-and-up'>
                   <li><a onClick={ this.toggleMenu }><i className='material-icons'>menu</i></a></li>
               </ul>
@@ -61,7 +94,6 @@
               <ul className='site-nav visible-on-med-and-up'>
                   <li>
                       <a href='https://www.patreon.com/refsheet' className='patreon'>
-                          Support on
                           <img src='/assets/third_party/patreon_white.png' alt='Patreon' />
                       </a>
                   </li>
