@@ -200,7 +200,9 @@
                     { imgActions }
                     
                     <LightboxCharacterBox character={ this.state.image.character }
-                                          postDate={ this.state.image.post_date } />
+                                          postDate={ this.state.image.post_date }
+                                          nsfw={ this.state.image.nsfw }
+                                          hidden={ this.state.image.hidden } />
 
                     <RichText className='image-caption'
                               onChange={ captionCallback }
@@ -209,8 +211,8 @@
                               placeholder='No caption.' />
                 </div>
                 
-                {/*<div className='comments'>
-                </div>*/}
+                <div className='comments'>
+                </div>
             </div>
         </div>`
     else

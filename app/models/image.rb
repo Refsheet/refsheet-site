@@ -16,6 +16,9 @@
 #  row_order          :integer
 #  guid               :string
 #  gravity            :string
+#  nsfw               :boolean
+#  hidden             :boolean
+#  gallery_id         :integer
 #
 
 # Should me larger than 1280px in both dimensions,
@@ -65,7 +68,7 @@ class Image < ApplicationRecord
   after_destroy :clean_up_character
 
   scope :sfw, -> { where(nsfw: [false, nil]) }
-  scope :public, -> { where(hidden: [false, nil]) }
+  scope :visible, -> { where(hidden: [false, nil]) }
 
   def gravity
     super || 'center'

@@ -100,7 +100,7 @@ class ImagesController < ApplicationController
 
     unless @character.managed_by? current_user
       scope = scope.sfw unless nsfw_on?
-      scope = scope.public
+      scope = scope.visible
     end
 
     scope
