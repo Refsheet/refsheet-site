@@ -47,18 +47,10 @@ describe Image, type: :model do
 
   it 'scopes sfw' do
     ch = create :character
-    i1 = create :image, character: ch
+    create :image, character: ch
     i2 = create :image, nsfw: true, character: ch
 
-    expect(ch.images).to include(i1)
-    expect(ch.images).to_not include(i2)
-    expect(Image.all).to_not include(i2)
-    expect(Image.with_nsfw).to include(i2)
-
-    Image.with_nsfw do
-      expect(ch.images.count).to eq 2
-    end
-
-    expect(ch.images.count).to eq 1
+    expect(Image.all).to include(i2)
+    expect(Image.sfw).to_not include(i2)
   end
 end

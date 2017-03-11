@@ -64,8 +64,8 @@ class Image < ApplicationRecord
 
   after_destroy :clean_up_character
 
-  default_scope { where(nsfw: [false, nil]) }
-  scope :with_nsfw, -> { unscoped }
+  scope :sfw, -> { where(nsfw: [false, nil]) }
+  scope :public, -> { where(hidden: [false, nil]) }
 
   def gravity
     super || 'center'
@@ -87,5 +87,9 @@ class Image < ApplicationRecord
   def clean_up_character
     Character.where(profile_image_id: self.id).update_all profile_image_id: nil
     Character.where(featured_image_id: self.id).update_all featured_image_id: nil
+  end
+
+  def managed_by?(user)
+    self.character.managed_by? user
   end
 end
