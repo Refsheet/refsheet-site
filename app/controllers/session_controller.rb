@@ -18,6 +18,14 @@ class SessionController < ApplicationController
     end
   end
 
+  def update
+    if params.include? :nsfw_ok
+      params[:nsfw_ok] == 'true' ? nsfw_on! : nsfw_off!
+    end
+
+    render json: current_user, serializer: UserSerializer
+  end
+
   def destroy
     sign_out
     head :ok

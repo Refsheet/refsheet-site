@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   get 'browse', to: 'application#show'
   get 'browse/users', to: 'application#show'
 
-  resource :session, only: [:show, :create, :destroy], controller: 'session'
+  resource :session, only: [:show, :create, :destroy, :update], controller: 'session'
 
   resources :characters, only: [:index]
 
