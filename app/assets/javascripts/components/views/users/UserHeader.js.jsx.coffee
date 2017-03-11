@@ -35,34 +35,27 @@
             <div className='user-data'>
                 <div className='avatar-shift'>
                     <h1 className='name'>{ this.props.name }</h1>
-                    <div className='username'>@{ this.props.username }</div>
+                    <div className='username'>
+                        @{ this.props.username }
+
+                        { this.props.is_admin &&
+                            <span className='user-badge admin-badge'>
+                                <i className='material-icons'>security</i>
+                            </span>
+                        }
+
+                        { this.props.is_patron &&
+                            <span className='user-badge patron-badge' title='Patron'>
+                                <img src='/assets/third_party/patreon_logo.png' alt='Patreon' />
+                            </span>
+                        }
+                    </div>
                 </div>
                 <div className='user-bio'>
                     <RichText content={ this.props.profile }
                               markup={ this.props.profile_markup }
                               onChange={ bioChangeCallback } />
                 </div>
-            </div>
-
-            <div className='user-actions'>
-                { editable &&
-                    <a className='btn waves-effect btn-small waves-light modal-trigger' href='#user-settings-modal'>
-                        Edit Account
-                    </a>
-                }
-
-                { this.props.is_admin &&
-                    <div className='user-badge indigo darken-1 white-text'>
-                        ADMIN
-                    </div>
-                }
-
-                { this.props.is_patron &&
-                    <div className='user-badge'>
-                        <img src='/assets/third_party/patreon_logo.png' alt='Patreon' />
-                        Proud Patron!
-                    </div>
-                }
             </div>
         </div>
     </div>`

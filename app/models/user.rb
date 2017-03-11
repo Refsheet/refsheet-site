@@ -21,6 +21,8 @@ class User < ApplicationRecord
   has_many :characters
   has_many :permissions
   has_many :roles, through: :permissions
+  has_one  :patron, class_name: Patreon::Patron
+  has_many :pledges, through: :patron
 
   validates :username, presence: true,
             length: { minimum: 3, maximum: 50 },
