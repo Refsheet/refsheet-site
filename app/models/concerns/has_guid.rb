@@ -58,7 +58,7 @@ module HasGuid
       end
 
       self.assign_attributes(guid_column_name => guid)
-    end while self.class.where(guid_scope).exists?(guid_column_name => self.send(guid_column_name))
+    end while self.class.unscoped.where(guid_scope).exists?(guid_column_name => self.send(guid_column_name))
     true
   end
 

@@ -8,6 +8,8 @@ class ImageSerializer < ActiveModel::Serializer
              :path,
              :post_date,
              :caption_html,
+             :nsfw,
+             :hidden,
              :small,
              :small_square,
              :medium,

@@ -68,6 +68,10 @@ class Character < ApplicationRecord
     super || Image.new
   end
 
+  def managed_by?(user)
+    self.user == user
+  end
+
   def self.lookup(slug)
     find_by('LOWER(characters.slug) = ?', slug.downcase)
   end

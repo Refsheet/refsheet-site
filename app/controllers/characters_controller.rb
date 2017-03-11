@@ -31,6 +31,7 @@ class CharactersController < ApplicationController
 
   def create
     @character = Character.new character_params.merge(user: current_user)
+
     if @character.save
       render json: @character
     else
@@ -39,7 +40,7 @@ class CharactersController < ApplicationController
   end
 
   def update
-    head :unauthorized and return unless @character.user == current_user || current_user&.role?(:admin)
+    head :unauthorized and return unless @character.managed_by? current_user
 
     if @character.update_attributes character_params
       render json: @character, serializer: CharacterSerializer
@@ -49,7 +50,7 @@ class CharactersController < ApplicationController
   end
 
   def destroy
-    head :unauthorized and return unless @character.user == current_user || current_user&.role?(:admin)
+    head :unauthorized and return unless @character.managed_by? current_user
 
     if @character.destroy
       render json: @character, serializer: CharacterSerializer

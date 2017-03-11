@@ -32,11 +32,13 @@ class ImagesController < ApplicationController
   end
 
   def full
-    not_authorized unless @image.character.user.id == current_user&.id
+    head :unauthorized and return unless @image.managed_by? current_user
     redirect_to @image.image.expiring_url(30, :original)
   end
 
   def create
+    head :unauthorized and return unless @character.managed_by? current_user
+
     @image = Image.new image_params.merge(character: @character)
 
     if @image.save
@@ -47,6 +49,8 @@ class ImagesController < ApplicationController
   end
 
   def update
+    head :unauthorized and return unless @image.managed_by? current_user
+
     if params[:image][:swap_target_image_id]
       target = Image.find_by!(guid: params[:image][:swap_target_image_id])
       tro = target.row_order
@@ -67,6 +71,8 @@ class ImagesController < ApplicationController
   end
 
   def destroy
+    head :unauthorized and return unless @image.managed_by? current_user
+
     @image.destroy
     render json: @image, serializer: ImageSerializer
   end
@@ -86,12 +92,17 @@ class ImagesController < ApplicationController
   end
 
   def image_params
-    params.require(:image).permit(:image, :artist_id, :caption, :source_url, :thumbnail, :gravity)
+    params.require(:image).permit(:image, :artist_id, :caption, :source_url, :thumbnail, :gravity, :nsfw, :hidden)
   end
 
   def image_scope
     scope = @character.images.rank(:row_order)
-    scope = scope.with_nsfw if nsfw_on?
+
+    unless @character.managed_by? current_user
+      scope = scope.sfw unless nsfw_on?
+      scope = scope.public
+    end
+
     scope
   end
 end
