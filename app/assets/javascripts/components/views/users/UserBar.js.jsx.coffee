@@ -22,7 +22,25 @@
     $('.navbar-shroud').fadeOut(300)
 
   _handleNsfwToggle: ->
-    Materialize.toast "Not implemented, yet.", 3000, 'yellow'
+    $.ajax
+      url: '/session'
+      type: 'PATCH'
+      data: nsfw_ok: !@props.currentUser.settings.nsfw_ok
+      success: (user) =>
+        $(document).trigger 'app:sign_in', user
+        Materialize.toast "NSFW mode is #{if user.settings.nsfw_ok then 'on' else 'off'}.", 3000, 'green'
+      error: (data) =>
+        console.error data
+        Materialize.toast "Unable to set NSFW mode!", 3000, 'red'
+
+  _handleSignOut: (e) ->
+    $.ajax
+      url: '/session'
+      type: 'DELETE'
+      success: =>
+        $(document).trigger 'app:sign_in', null
+        Materialize.toast "See you later!", 3000, 'green'
+    e.preventDefault()
 
 
   render: ->
@@ -40,12 +58,17 @@
 
             <li>
                 <a href='#' onClick={ this._handleNsfwToggle }>
-                    <i className='material-icons left'>{ this.props.currentUser.nsfw_ok ? 'remove_circle' : 'remove_circle_outline' }</i>
-                    <span>{ this.props.currentUser.nsfw_ok ? 'NSFW' : 'SFW' }</span>
+                    <i className='material-icons left'>{ this.props.currentUser.settings.nsfw_ok ? 'remove_circle' : 'remove_circle_outline' }</i>
+                    <span>{ this.props.currentUser.settings.nsfw_ok ? 'NSFW' : 'SFW' }</span>
                 </a>
             </li>
 
-            {/* log out */}
+            <li>
+                <a href='#' onClick={ this._handleSignOut }>
+                    <i className='material-icons left'>exit_to_app</i>
+                    <span>Sign Out</span>
+                </a>
+            </li>
         </ul>`
 
       currentUser =

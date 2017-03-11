@@ -24,14 +24,14 @@ module SessionHelper
   end
 
   def nsfw_on!
-    current_user&.settings[:nsfw_ok] = true
-    current_user&.save
+    s = current_user.settings.merge(nsfw_ok: true)
+    current_user.update_attributes settings: s
     session[:nsfw_ok] = true
   end
 
   def nsfw_off!
-    current_user&.settings[:nsfw_ok] = false
-    current_user&.save
+    s = current_user.settings.merge(nsfw_ok: false)
+    current_user.update_attributes settings: s
     session[:nsfw_ok] = false
   end
 end

@@ -11,7 +11,8 @@ class UserSerializer < ActiveModel::Serializer
              :profile,
              :profile_markup,
              :is_admin,
-             :is_patron
+             :is_patron,
+             :settings
 
   has_many :characters, serializer: ImageCharacterSerializer
 
@@ -37,5 +38,9 @@ class UserSerializer < ActiveModel::Serializer
 
   def is_patron
     false
+  end
+
+  def settings
+    object.settings.as_json
   end
 end

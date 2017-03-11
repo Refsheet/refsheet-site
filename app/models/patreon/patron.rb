@@ -26,4 +26,15 @@ class Patreon::Patron < ApplicationRecord
   has_many :pledges, class_name: Patreon::Pledge, foreign_key: :patreon_patron_id
   has_many :rewards, through: :pledges
   belongs_to :user
+
+  before_validation :match_user
+
+  def match_user
+    self.user = User.find_by('LOWER(users.email) = ?', self.email.downcase)
+  end
+
+  def match_user!
+    self.match_user
+    self.save!
+  end
 end
