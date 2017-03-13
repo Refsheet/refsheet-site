@@ -112,6 +112,10 @@ class CharactersController < ApplicationController
       scope.default_order
     end
 
+    # NSFW / Hidden
+    scope = scope.sfw unless nsfw_on?
+    scope.visible
+
     scope.search_for(query.join(' '))
   end
 end
