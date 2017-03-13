@@ -117,6 +117,10 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    carrierwave (1.0.0)
+      activemodel (>= 4.0.0)
+      activesupport (>= 4.0.0)
+      mime-types (>= 1.16)
     chartkick (2.2.1)
     climate_control (0.0.3)
       activesupport (>= 3.0)
@@ -147,6 +151,7 @@ GEM
     errbase (0.0.3)
     erubis (2.7.0)
     eventmachine (1.2.1)
+    excon (0.55.0)
     execjs (2.7.0)
     factory_girl (4.8.0)
       activesupport (>= 3.0.0)
@@ -156,8 +161,24 @@ GEM
     faker (1.7.1)
       i18n (~> 0.5)
     ffi (1.9.14)
+    fog-aws (1.2.1)
+      fog-core (~> 1.38)
+      fog-json (~> 1.0)
+      fog-xml (~> 0.1)
+      ipaddress (~> 0.8)
+    fog-core (1.43.0)
+      builder
+      excon (~> 0.49)
+      formatador (~> 0.2)
+    fog-json (1.0.2)
+      fog-core (~> 1.0)
+      multi_json (~> 1.10)
+    fog-xml (0.1.2)
+      fog-core
+      nokogiri (~> 1.5, >= 1.5.11)
     font-awesome-sass (4.7.0)
       sass (>= 3.2)
+    formatador (0.2.5)
     geocoder (1.4.1)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
@@ -170,6 +191,7 @@ GEM
     i18n (0.7.0)
     imagesLoaded_rails (4.1.0)
       railties (>= 3.1)
+    ipaddress (0.8.3)
     jmespath (1.3.1)
     jquery-masonry-rails (4.1.0)
     jquery-rails (4.2.1)
@@ -360,6 +382,8 @@ GEM
     simplecov-html (0.10.0)
     sinatra (1.0)
       rack (>= 1.0)
+    sitemap_generator (5.3.1)
+      builder (~> 3.0)
     slack-notifier (1.5.1)
     spring (2.0.0)
       activesupport (>= 4.2)
@@ -434,12 +458,14 @@ DEPENDENCIES
   breadcrumbs_on_rails
   bullet
   byebug
+  carrierwave
   chartkick
   coffee-rails (~> 4.2)
   database_cleaner
   dropzonejs-rails
   factory_girl_rails
   faker
+  fog-aws
   font-awesome-sass
   gravatar_image_tag
   haml
@@ -481,6 +507,7 @@ DEPENDENCIES
   shoulda-matchers (~> 2.8)
   simple_form
   simplecov
+  sitemap_generator
   slack-notifier
   spring
   spring-watcher-listen (~> 2.0.0)

@@ -53,10 +53,13 @@ gem 'will_paginate-materialize', github: 'harrybournis/will_paginate-materialize
 gem 'faker'
 gem 'slack-notifier'
 gem 'ranked-model'
+gem 'carrierwave'
+gem 'fog-aws'
 gem 'paperclip'
 gem 'react-rails-hot-loader'
 gem 'dropzonejs-rails'
 gem 'redcarpet'
+gem 'sitemap_generator'
 
 # == INTEGRATIONS
 
