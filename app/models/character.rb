@@ -56,6 +56,9 @@ class Character < ApplicationRecord
     SQL
   end
 
+  scope :sfw, -> { where(nsfw: [nil, false]) }
+  scope :visible, -> { where(hidden: [nil, false]) }
+
   def description
     ''
   end

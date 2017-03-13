@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170309232154) do
+ActiveRecord::Schema.define(version: 20170312232756) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,9 @@ ActiveRecord::Schema.define(version: 20170309232154) do
     t.text     "likes"
     t.text     "dislikes"
     t.integer  "color_scheme_id"
+    t.boolean  "nsfw"
+    t.boolean  "hidden"
+    t.boolean  "secret"
   end
 
   create_table "color_schemes", force: :cascade do |t|
