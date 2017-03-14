@@ -44,6 +44,10 @@
             Materialize.toast "Image uploaded!", 3000, 'green'
             ___this.props.onUpload(data) if ___this.props.onUpload?
 
+  componentWillUnmount: ->
+    if this.props.url?
+      Dropzone.forElement('.dropzone-container').destroy();
+
   render: ->
     if @state.uploading
       className = 'dropzone-container uploading'

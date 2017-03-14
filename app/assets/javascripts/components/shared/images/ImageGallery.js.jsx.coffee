@@ -62,7 +62,6 @@
           _this.handleImageSwap(sourceId, targetId)
 
   render: ->
-    console.log @state.images
     unless @state.images?
       return `<Spinner />`
 
