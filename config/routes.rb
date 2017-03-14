@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  constraints ShortcodeDomainConstraint do
+    get '*id', to: 'shortcodes#show'
+  end
+
   root 'application#show', page: :home
   get '/health', to: 'public#health'
 
