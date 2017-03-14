@@ -8,6 +8,7 @@
     error: null
     galleryTitle: null
     onGallerySelect: null
+    images: null
 
   componentDidMount: ->
     $.ajax
@@ -40,8 +41,6 @@
       @setState character: null
       $.get "/users/#{@props.params.userId}/characters/#{@props.params.characterId}.json", (data) =>
         @setState character: data
-
-
 
   setFeaturedImage: (imageId) ->
     $.ajax
@@ -169,10 +168,12 @@
     $('#image-gallery-modal').modal 'open'
 
   handleDropzoneUpload: (data) ->
-    c = @state.character
-    c.images.push data
-    console.log c.images
-    @setState character: c
+    i = @state.images
+    i.push data
+    @setState images: i
+
+  _handleGalleryLoad: (data) ->
+    @setState images: data
 
   render: ->
     if @state.error?
@@ -283,7 +284,7 @@
         }
 
         { editable &&
-            <ImageGalleryModal images={ this.state.character.images }
+            <ImageGalleryModal images={ this.state.images }
                                title={ this.state.galleryTitle }
                                onClick={ this.state.onGallerySelect } />
         }
@@ -331,8 +332,9 @@
         <Section>
             <ImageGallery editable={ editable }
                           imagesPath={ this.state.character.path + '/images/' }
-                          onImageClick={ this.props.onLightbox }
-                          images={ this.state.character.images } />
+                          images={ this.state.images }
+                          onImagesLoad={ this._handleGalleryLoad }
+                          onImageClick={ this.props.onLightbox } />
         </Section>
 
     </DropzoneContainer>`

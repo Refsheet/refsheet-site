@@ -28,9 +28,10 @@
       else
         $.get @props.imagesPath, (data) =>
           @setState images: data
+          @props.onImagesLoad(data) if @props.onImagesLoad
 
   componentDidUpdate: (newProps) ->
-    if newProps.images?.length != @state.images.length
+    if newProps.images && newProps.images.length != @state.images?.length
       @setState images: newProps.images
 
     if @props.imagesPath?
@@ -61,6 +62,7 @@
           _this.handleImageSwap(sourceId, targetId)
 
   render: ->
+    console.log @state.images
     unless @state.images?
       return `<Spinner />`
 
