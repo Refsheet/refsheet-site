@@ -30,7 +30,7 @@
           @setState images: data
 
   componentDidUpdate: (newProps) ->
-    if newProps.images.length != @state.images.length
+    if newProps.images?.length != @state.images.length
       @setState images: newProps.images
 
     if @props.imagesPath?

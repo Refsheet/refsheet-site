@@ -3,16 +3,22 @@
 @Routes = React.createClass
   componentDidMount: ->
     if @props.gaPropertyID
-      console.log 'Initialized GA Tracking: ' + @props.gaPropertyID
       ReactGA.initialize(@props.gaPropertyID)
 
-  logPageView: ->
+  _handleRouteUpdate: ->
     if @props.gaPropertyID
       ReactGA.set page: window.location.pathname
       ReactGA.pageview window.location.pathname
+    @_handleRouteUpdate()
+
+  _handleRouteUpdate: (offset = 0) ->
+    if $('html').scrollTop()
+      $('html').animate scrollTop: offset, 3000
+    else
+      $('body').animate scrollTop: offset, 3000
 
   render: ->
-    `<Router history={ browserHistory } onUpdate={ this.logPageView }>
+    `<Router history={ browserHistory } onUpdate={ this._handleRouteUpdate }>
         <Route path='/' component={ App }>
             <IndexRoute component={ Home } />
 

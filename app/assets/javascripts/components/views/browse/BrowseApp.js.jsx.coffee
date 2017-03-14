@@ -65,7 +65,7 @@
             <form className='search' onSubmit={ this.handleSearchSubmit }>
                 <div className="input-field">
                     <input id="search" type="search" required value={ this.state.query } onChange={ this.handleSearchChange } />
-                    <label for="search"><i className="material-icons">search</i></label>
+                    <label htmlFor="search"><i className="material-icons">search</i></label>
                 </div>
             </form>
         </Section>
