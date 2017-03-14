@@ -1,6 +1,6 @@
 @UserBar = React.createClass
   __init: ->
-    console.log $('.user-bar .dropdown-button').dropdown
+    $('.user-bar .dropdown-button').dropdown
       constrain_width: false
 
   componentDidUpdate: ->

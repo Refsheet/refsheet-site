@@ -1,4 +1,8 @@
 @UserApp = React.createClass
+  contextTypes:
+    router: React.PropTypes.object.isRequired
+
+
   getInitialState: ->
     user: null
     error: null
@@ -9,7 +13,7 @@
       url: '/session'
       type: 'DELETE'
       success: =>
-        @props.onLogin null
+        $(document).trigger 'app:sign_in', null
 
     e.preventDefault()
 
@@ -30,7 +34,7 @@
 
   goToCharacter: (character) ->
     $('#character-form').modal('close')
-    @props.history.push character.link
+    @context.router.push character.link
 
   render: ->
     if @state.error?

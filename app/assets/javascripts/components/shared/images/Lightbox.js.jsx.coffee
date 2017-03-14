@@ -1,4 +1,8 @@
 @Lightbox = React.createClass
+  contextTypes:
+    router: React.PropTypes.object.isRequired
+
+
   getInitialState: ->
     image: null
     error: null
@@ -88,10 +92,8 @@
 
   handleClose: (e) ->
     if @state.directLoad
-      console.log "Going to #{@state.image.character.link} now..."
-      @props.history.push @state.image.character.link
+      @context.router.push @state.image.character.link
     else
-      console.log "Going 'back' now..."
       window.history.back() if @state.image?
     @setState image: null
 

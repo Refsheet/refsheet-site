@@ -1,4 +1,8 @@
 @CharacterApp = React.createClass
+  contextTypes:
+    router: React.PropTypes.object.isRequired
+
+
   getInitialState: ->
     character: null
     error: null
@@ -37,6 +41,8 @@
       $.get "/users/#{@props.params.userId}/characters/#{@props.params.characterId}.json", (data) =>
         @setState character: data
 
+
+
   setFeaturedImage: (imageId) ->
     $.ajax
       url: @state.character.path
@@ -69,7 +75,7 @@
         console.log data
         $('#delete-form').modal('close')
         Materialize.toast "#{data.name} deleted. :(", 3000
-        @props.history.push '/' + data.user_id
+        @context.router.push '/' + data.user_id
 
       error: (error) =>
         Materialize.toast "I'm afraid I couldn't do that, Jim.", 3000, 'red'
