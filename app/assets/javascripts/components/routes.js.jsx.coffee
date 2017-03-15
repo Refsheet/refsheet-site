@@ -9,13 +9,6 @@
     if @props.gaPropertyID
       ReactGA.set page: window.location.pathname
       ReactGA.pageview window.location.pathname
-    @_handleRouteUpdate()
-
-  _handleRouteUpdate: (offset = 0) ->
-    if $('html').scrollTop()
-      $('html').animate scrollTop: offset, 3000
-    else
-      $('body').animate scrollTop: offset, 3000
 
   render: ->
     `<Router history={ browserHistory } onUpdate={ this._handleRouteUpdate }>

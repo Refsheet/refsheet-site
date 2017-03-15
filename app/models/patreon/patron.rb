@@ -30,7 +30,7 @@ class Patreon::Patron < ApplicationRecord
   before_validation :match_user
 
   def match_user
-    self.user = User.find_by('LOWER(users.email) = ?', self.email&.downcase)
+    self.user ||= User.find_by('LOWER(users.email) = ?', self.email&.downcase)
   end
 
   def match_user!
