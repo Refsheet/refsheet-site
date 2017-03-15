@@ -42,7 +42,10 @@ class Character < ApplicationRecord
   accepts_nested_attributes_for :color_scheme
 
   validates_presence_of :user
-  validates_uniqueness_of :shortcode
+  validates :shortcode,
+            unique: true,
+            format: { with: /\A\w+\z/, message: 'letters and numbers only' }
+
   validates :name,
             presence: true,
             format: { with: /[a-z]/i, message: 'must have at least one letter' }
@@ -58,6 +61,10 @@ class Character < ApplicationRecord
 
   scope :sfw, -> { where(nsfw: [nil, false]) }
   scope :visible, -> { where(hidden: [nil, false]) }
+
+  before_validation do
+    self.shortcode = self.shortcode&.downcase
+  end
 
   def description
     ''
