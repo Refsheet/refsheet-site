@@ -3,6 +3,7 @@ module HasGuid
 
   included do
     before_validation :generate_guid
+    before_validation :downcase_guid
     class_attribute :guid_column_name
     class_attribute :guid_options
 
@@ -67,10 +68,14 @@ module HasGuid
       self.errors[guid_column_name] << "can't be blank"
     end
 
-    if self.class.where(guid_scope).where.not(id: self.id).exists?(guid_column_name => self.send(guid_column_name))
+    if self.class.where(guid_scope).where.not(id: self.id).exists?(guid_column_name => self.send(guid_column_name).downcase)
       self.errors[guid_column_name] << 'has already been taken'
     end
 
     self.errors[guid_column_name].any?
+  end
+
+  def downcase_guid
+    self.assign_attributes(guid_column_name => self.send(guid_column_name).downcase)
   end
 end

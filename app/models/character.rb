@@ -42,9 +42,6 @@ class Character < ApplicationRecord
   accepts_nested_attributes_for :color_scheme
 
   validates_presence_of :user
-  validates :shortcode,
-            unique: true,
-            format: { with: /\A\w+\z/, message: 'letters and numbers only' }
 
   validates :name,
             presence: true,
