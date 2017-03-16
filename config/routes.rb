@@ -41,6 +41,12 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root to: 'dashboard#show'
+
+    resources :users, except: [:destroy]
+    resources :characters, except: [:destroy]
+    resources :images, except: [:destroy]
+    resources :pledges, only: [:index, :show]
+    resources :feedbacks, only: [:index, :show]
   end
 
   if Rails.env.development?

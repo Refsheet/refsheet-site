@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   include SessionHelper
+  include CollectionHelper
   
   before_action :set_default_meta
   protect_from_forgery with: :exception

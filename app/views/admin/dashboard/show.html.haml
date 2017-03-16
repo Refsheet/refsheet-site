@@ -1,25 +1,36 @@
 .content
   .row
-    %ul.stats
-      %li
-        .value= User.count
-        .label Users
+    .col.s6
+      %h2
+        = report_range_display
 
-      %li
-        .value= Character.count
-        .label Characters
 
-      %li
-        .value= Image.count
-        .label Images
+  .row
+    .col.s12
+      = line_chart @chart_data
 
-      %li
-        .value= Feedback.count
-        .label Feedbacks
+  .row
+    .col.s12
+      %ul.stats
+        %li
+          .value= report_count User
+          .label{ style: 'color: #1F94EE;' } Users
 
-      %li
-        .value= Patreon::Pledge.count
-        .label Pledges
+        %li
+          .value= report_count Character
+          .label{ style: 'color: #2BBBAD;' } Characters
+
+        %li
+          .value= report_count Image
+          .label{ style: 'color: #364755;' } Images
+
+        %li
+          .value= report_count Feedback
+          .label{ style: 'color: #C36F5E;' } Feedbacks
+
+        %li
+          .value= report_count Patreon::Pledge
+          .label{ style: 'color: #EE251F;' } Pledges
 
 
 :coffeescript
