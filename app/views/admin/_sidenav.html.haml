@@ -1,0 +1,20 @@
+%ul#slide-out.side-nav.fixed
+  %li
+    = link_to root_path, class: 'brand-logo z-depth-1' do
+      = image_tag 'logos/RefsheetLogo_64.png'
+      .site-name Refsheet
+
+  = nav_link_to :dashboard, 'Dashboard', admin_root_path
+
+  -#%li
+  -#  .divider
+  -#%li
+  -#  %a.subheader Account
+  -#%li
+  -#  %a{href: '#'}
+  -#    %i.material-icons settings
+  -#    Settings
+
+:coffeescript
+  $ ->
+    $('.button-collapse').sideNav()

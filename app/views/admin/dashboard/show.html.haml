@@ -1,31 +1,26 @@
-.container
+.content
   .row
-    .col.s12.m6
-      .card.stat-card
-        .value= @users.count
+    %ul.stats
+      %li
+        .value= User.count
         .label Users
-        = material_icon 'perm_identity'
 
-    .col.s12.m6
-      .card.stat-card
-        .value= @characters.count
+      %li
+        .value= Character.count
         .label Characters
-        = material_icon 'attach_document'
 
-  .row
-    .col.s12.m6
-      %h2 New Characters
-      .carousel
-        - @characters.order('characters.created_at DESC').last(5).each do |character|
-          = link_to '#', class: 'carousel-item' do
-            = image_tag character.profile_image.image.url(:thumbnail)
+      %li
+        .value= Image.count
+        .label Images
 
-    .col.s12.m6
-      %h2 Updated Characters
-      .carousel
-        - @characters.order('characters.updated_at DESC').last(5).each do |character|
-          = link_to '#', class: 'carousel-item' do
-            = image_tag character.profile_image.image.url(:thumbnail)
+      %li
+        .value= Feedback.count
+        .label Feedbacks
+
+      %li
+        .value= Patreon::Pledge.count
+        .label Pledges
+
 
 :coffeescript
   $ ->
