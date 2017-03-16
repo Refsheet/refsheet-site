@@ -183,8 +183,12 @@ GEM
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     gravatar_image_tag (1.2.0)
+    groupdate (3.0.2)
+      activesupport (>= 3)
     haml (4.0.7)
       tilt
+    highcharts-rails (5.0.7)
+      railties (>= 3.1)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     http_parser.rb (0.6.0)
@@ -468,7 +472,9 @@ DEPENDENCIES
   fog-aws
   font-awesome-sass
   gravatar_image_tag
+  groupdate
   haml
+  highcharts-rails
   imagesLoaded_rails
   jquery-masonry-rails
   jquery-rails

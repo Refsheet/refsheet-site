@@ -39,6 +39,7 @@ gem 'chartkick'
 gem 'breadcrumbs_on_rails'
 gem 'jquery-tmpl-rails'
 gem 'imagesLoaded_rails'
+gem 'highcharts-rails'
 
 # == UTILITY
 
@@ -60,6 +61,7 @@ gem 'react-rails-hot-loader'
 gem 'dropzonejs-rails'
 gem 'redcarpet'
 gem 'sitemap_generator'
+gem 'groupdate'
 
 # == INTEGRATIONS
 
