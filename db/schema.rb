@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170312232756) do
+ActiveRecord::Schema.define(version: 20170317182310) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,18 @@ ActiveRecord::Schema.define(version: 20170312232756) do
     t.string   "amount_currency", default: "USD", null: false
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+  end
+
+  create_table "changelogs", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "changed_character_id"
+    t.integer  "changed_user_id"
+    t.integer  "changed_image_id"
+    t.integer  "changed_swatch_id"
+    t.text     "reason"
+    t.json     "change_data"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
   create_table "characters", force: :cascade do |t|
