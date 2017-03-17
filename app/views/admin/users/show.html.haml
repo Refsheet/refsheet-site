@@ -1,0 +1,36 @@
+.content
+  .row
+    .col.s12.m4.l3
+      %ul.margin-top--none
+        %li
+          = image_tag @user.profile_image_url, class: 'materialboxed responsive-img z-depth-1'
+        %li.margin-top--small
+          .caption.margin-bottom--none= '@' + @user.username
+        %li.margin-bottom--small
+          = mail_to @user.email
+        %li
+          .muted
+            Joined -
+            = @user.created_at.strftime('%d %b %Y')
+        %li
+          .muted
+            - if @user.visits.empty?
+              Inactive
+            - else
+              Active -
+              = @user.visits.last&.started_at&.strftime('%d %b %Y, %H:%I')
+
+
+    .col.s12.m8.l9
+      .row
+        .col.s12
+          %h1= @user.name
+          = linkify(@user.profile).html_safe
+
+          - unless @user.profile.present?
+            .caption No user profile set.
+
+      .row
+        .col.s12
+          %h2 Characters
+          = render partial: 'admin/characters/table', locals: { characters: @user.characters }

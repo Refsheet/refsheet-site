@@ -21,6 +21,7 @@ class User < ApplicationRecord
   has_many :characters
   has_many :permissions
   has_many :roles, through: :permissions
+  has_many :visits
   has_one  :patron, class_name: Patreon::Patron
   has_many :pledges, through: :patron
 
