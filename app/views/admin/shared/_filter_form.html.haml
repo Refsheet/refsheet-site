@@ -1,0 +1,11 @@
+.row.filter-form
+  .col.s12.m6
+    .input-field
+      %i.material-icons.prefix sort
+      %select{id: 'sort', name: 'sort'}
+        %option{value: 'name'} Name
+        %option{value: 'created_at'} Created At
+
+:coffeescript
+  $ ->
+    $('.filter-form select').select()

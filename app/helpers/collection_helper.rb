@@ -38,11 +38,11 @@ module CollectionHelper
     scope
   end
 
-  def filter_scope(scope)
+  def filter_scope(scope, default_sort = 'created_at', default_order = 'desc')
     unpermitted_params = []
 
-    params[:sort]  ||= 'id'
-    params[:order] ||= 'asc'
+    params[:sort]  ||= default_sort
+    params[:order] ||= default_order
 
     params.keys.each do |key|
       relation, column = key.to_s.split('.')
