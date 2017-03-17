@@ -1,13 +1,18 @@
 .content
   .row
-    .col.s6
-      %h2
+    .col.s12.m3
+      = link_to url_for(start: (report_range.begin - 1.day).at_beginning_of_month.strftime('%D')), class: 'btn' do
+        = material_icon 'keyboard_arrow_left', class: 'left'
+        = (report_range.begin - 1.day).at_beginning_of_month.strftime('%B')
+
+    .col.s12.m6.center-align
+      %h1
         = report_range_display
 
-
-  .row
-    .col.s12
-      = line_chart @chart_data
+    .col.s12.m3.right-align
+      = link_to url_for(start: (report_range.end + 1.second).strftime('%B')), class: 'btn' do
+        = material_icon 'keyboard_arrow_right', class: 'right'
+        = (report_range.end + 1.second).strftime('%B')
 
   .row
     .col.s12
@@ -32,7 +37,21 @@
           .value= report_count Patreon::Pledge
           .label{ style: 'color: #EE251F;' } Pledges
 
+        %li
+          .value= report_count Visit, :started_at
+          .label{ style: 'color: #666666;' } Visitors
 
-:coffeescript
-  $ ->
-    $('.carousel').carousel()
+  .row
+    .col.s12
+      = line_chart @main_chart_data
+
+  .row
+    .col.s12.m6
+      = line_chart @left_chart_data
+
+    .col.s12.m6
+      = line_chart @right_chart_data
+
+  .row
+    .col.s12
+      = line_chart [{ name: 'Visitors', data: report_group(Visit, :started_at).count, color: '#666666' }]

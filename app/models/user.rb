@@ -54,6 +54,8 @@ class User < ApplicationRecord
 
   serialize :settings, JSON
 
+  scoped_search on: [:name, :username, :email]
+
   def name
     super || username
   end

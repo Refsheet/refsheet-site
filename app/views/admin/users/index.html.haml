@@ -1,0 +1,26 @@
+.content
+  .row
+    .col.s12.m8.l9
+      %h1 Users
+
+    .col.s12.m4.l3
+      = form_tag admin_users_path, class: 'search', method: :get do
+        .input-field.margin-top--none
+          = text_field_tag :q, params[:q], type: :search, id: 'search', placeholder: 'Search Users'
+          = label_tag :search, material_icon(:search)
+
+  %table.responsive-table.highlight
+    %thead
+      %tr
+        %th Username
+        %th Display Name
+        %th Registered
+        %th
+
+    %tbody
+      - @users.each do |user|
+        %tr
+          %td= link_to user.username, admin_user_path(user.username)
+          %td= user.name
+          %td= user.created_at.strftime('%d %b %Y')
+          %th.right-align= link_to material_icon('edit', class: 'right'), edit_admin_user_path(user.username)
