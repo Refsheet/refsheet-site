@@ -31,5 +31,9 @@ FactoryGirl.define do
     sequence :email do |n|
       "user#{n}@example.com"
     end
+
+    factory :admin do
+      roles {[ Role.find_or_initialize_by(name: 'admin') ]}
+    end
   end
 end

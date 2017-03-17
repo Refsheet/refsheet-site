@@ -22,6 +22,9 @@
 #  likes             :text
 #  dislikes          :text
 #  color_scheme_id   :integer
+#  nsfw              :boolean
+#  hidden            :boolean
+#  secret            :boolean
 #
 
 class Character < ApplicationRecord
@@ -85,5 +88,9 @@ class Character < ApplicationRecord
 
   def self.lookup!(slug)
     find_by!('LOWER(characters.slug) = ?', slug.downcase)
+  end
+
+  def self.find_by_shortcode!(shortcode)
+    find_by!('LOWER(characters.shortcode) = ?', shortcode.downcase)
   end
 end

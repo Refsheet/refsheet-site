@@ -22,6 +22,9 @@
 #  likes             :text
 #  dislikes          :text
 #  color_scheme_id   :integer
+#  nsfw              :boolean
+#  hidden            :boolean
+#  secret            :boolean
 #
 
 require 'rails_helper'
