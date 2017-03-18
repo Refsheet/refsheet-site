@@ -22,8 +22,14 @@ class Changelog < ApplicationRecord
   belongs_to :changed_swatch, class_name: Swatch, foreign_key: :changed_swatch_id
 
   validates_presence_of :user
+  validates_presence_of :change_data
 
   serialize :change_data, JSON
+
+  scope :for_user, -> (c) { where(changed_user_id: c.id) }
+  scope :for_image, -> (c) { where(changed_image_id: c.id) }
+  scope :for_swatch, -> (c) { where(changed_swatch_id: c.id) }
+  scope :for_character, -> (c) { where(changed_character_id: c.id) }
 
   def old_character
     rollback self.changed_character

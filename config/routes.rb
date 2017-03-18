@@ -47,6 +47,7 @@ Rails.application.routes.draw do
     resources :images, except: [:destroy]
     resources :pledges, only: [:index, :show]
     resources :feedbacks, only: [:index, :show]
+    resources :changelogs, only: [:index, :show]
   end
 
   if Rails.env.development?

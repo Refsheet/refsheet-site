@@ -18,7 +18,10 @@ class Admin::UsersController < AdminController
   end
 
   def update
-    @user.update_attributes(user_params)
+    if @user.update_attributes(user_params)
+      Changelog.create changelog_params
+    end
+    
     respond_with :admin, @user
   end
 
@@ -30,5 +33,14 @@ class Admin::UsersController < AdminController
 
   def user_params
     params.require(:user).permit!
+  end
+
+  def changelog_params
+    {
+        user: current_user,
+        reason: params[:reason],
+        change_data: @user.previous_changes,
+        changed_user: @user
+    }
   end
 end
