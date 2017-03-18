@@ -1,6 +1,10 @@
 class Admin::CharactersController < AdminController
   before_action :get_character, except: [:index]
 
+  before_action do
+    @search = { path: admin_characters_path }
+  end
+
   def index
     @characters = filter_scope Character.all
   end

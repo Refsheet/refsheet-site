@@ -1,6 +1,28 @@
 .admin nav
   background-color: $brand-dark
   padding-left: 300px
+  height: 56px
+  line-height: 56px
+
+  .page-title
+    font-size: 1.3rem
+    font-weight: 400
+    margin-left: 1.5rem
+    color: rgba(255, 255, 255, 0.8)
+
+  input[type=search]
+    cursor: pointer
+
+    & + label
+      left: auto
+      right: 1.5rem
+      transition: all 0.3s ease
+      pointer-events: none
+
+    &:active, &:focus
+      & + label
+        left: 1rem
+        right: auto
 
   @media #{$medium-and-down}
     padding-left: 0

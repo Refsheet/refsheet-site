@@ -1,6 +1,10 @@
 class Admin::UsersController < AdminController
   before_action :get_user, except: [:index, :new, :create]
 
+  before_action do
+    @search = { path: admin_users_path }
+  end
+
   def index
     @users = filter_scope User.all
   end
@@ -21,7 +25,7 @@ class Admin::UsersController < AdminController
     if @user.update_attributes(user_params)
       Changelog.create changelog_params
     end
-    
+
     respond_with :admin, @user
   end
 

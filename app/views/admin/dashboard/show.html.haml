@@ -6,7 +6,7 @@
 
     .col.s12.m6.center-align
       %h2
-        = report_range_display
+        = title report_range_display
 
     .col.s12.m3.right-align
       = link_to url_for(start: (report_range.end + 1.second).strftime('%Y-%m-%d')), class: 'btn' do
