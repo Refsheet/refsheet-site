@@ -1,9 +1,9 @@
 .content
   .row
-    .col.s12.m8.l9
+    .col.s12.m8
       %h1 Characters
 
-    .col.s12.m4.l3
+    .col.s12.m4
       = form_tag admin_characters_path, class: 'search', method: :get do
         .input-field.margin-top--none
           = text_field_tag :q, params[:q], type: :search, id: 'search', placeholder: 'Search Characters'

@@ -1,18 +1,16 @@
 .content
   .row
     .col.s12.m3
-      = link_to url_for(start: (report_range.begin - 1.day).at_beginning_of_month.strftime('%D')), class: 'btn' do
-        = material_icon 'keyboard_arrow_left', class: 'left'
-        = (report_range.begin - 1.day).at_beginning_of_month.strftime('%B')
+      = link_to url_for(start: (report_range.begin - 1.day).at_beginning_of_month.strftime('%Y-%m-%d')), class: 'btn' do
+        = material_icon 'keyboard_arrow_left'
 
     .col.s12.m6.center-align
-      %h1
+      %h2
         = report_range_display
 
     .col.s12.m3.right-align
-      = link_to url_for(start: (report_range.end + 1.second).strftime('%B')), class: 'btn' do
-        = material_icon 'keyboard_arrow_right', class: 'right'
-        = (report_range.end + 1.second).strftime('%B')
+      = link_to url_for(start: (report_range.end + 1.second).strftime('%Y-%m-%d')), class: 'btn' do
+        = material_icon 'keyboard_arrow_right'
 
   .row
     .col.s12

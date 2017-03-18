@@ -1,8 +1,8 @@
 module CollectionHelper
   def report_range
-    start  = (params[:start] || Time.zone.now.at_beginning_of_month).at_beginning_of_day
-    stop   = (params[:end]   || Time.zone.now.at_end_of_month).at_end_of_day
-    (start..stop)
+    start = params[:start].present? ? DateTime.parse(params[:start]) : Time.zone.now.at_beginning_of_month
+    stop  = params[:end].present?   ? DateTime.parse(params[:end])   : start.at_end_of_month
+    (start.at_beginning_of_day..stop.at_end_of_day)
   end
 
   def report_range_display
@@ -17,8 +17,8 @@ module CollectionHelper
     text += report_range.begin.strftime ' %d' unless full_month
     text += report_range.begin.strftime ', %Y' unless same_year
     text += ' -' unless full_month
-    text += ' %B' unless same_month
-    text += report_range.end.strftime(' %d, ') unless full_month
+    text += report_range.end.strftime ' %B'  unless same_month
+    text += report_range.end.strftime ' %d, '  unless full_month
     text +  report_range.end.strftime(' %Y')
   end
 

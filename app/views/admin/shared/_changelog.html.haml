@@ -1,0 +1,14 @@
+%ul.collection
+  - changes.each do |change|
+    %li.collection-item.avatar
+      = image_tag change.user.avatar_url, class: 'circle', alt: change.user.name
+
+      .title= link_to change.user.name, admin_user_path(change.user.username)
+      .muted
+        On
+        = change.created_at.strftime('%d %b %Y:')
+        = change.change_data.keys.to_sentence
+
+      = change.reason.presence || 'No reason!'
+
+      = link_to material_icon('keyboard_arrow_right'), admin_changelog_path(change), class: 'secondary-content'

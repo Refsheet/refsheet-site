@@ -13,7 +13,7 @@ class Admin::CharactersController < AdminController
       Changelog.create changelog_params
     end
 
-    respond_with :admin, @character
+    respond_with :admin, @character, location: admin_character_path(@character.shortcode)
   end
 
   private
@@ -30,7 +30,7 @@ class Admin::CharactersController < AdminController
     {
         user: current_user,
         reason: params[:reason],
-        changes: @character.previous_changes,
+        change_data: @character.previous_changes,
         changed_character: @character
     }
   end

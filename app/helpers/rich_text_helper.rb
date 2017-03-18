@@ -31,7 +31,7 @@ module RichTextHelper
       else
         chips.first
       end
-    end.gsub(/[\n\t]/,' ').squish
+    end.gsub(/[\n\t]/,' ').squish.html_safe
   end
 
   def character_chip(user, char, textless=false)
