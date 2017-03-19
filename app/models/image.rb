@@ -28,6 +28,7 @@ class Image < ApplicationRecord
   include RankedModel
 
   belongs_to :character, inverse_of: :images
+  has_one :user, through: :character
 
   SIZE = {
       thumbnail: 320,

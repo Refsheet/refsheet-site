@@ -1,6 +1,6 @@
-.content
-  %h1 Edit Character
+- title 'Edit Character'
 
+.content
   = simple_form_for [:admin, @character], url: admin_character_path(@character.shortcode) do |f|
     .row
       .col.s12.m6
