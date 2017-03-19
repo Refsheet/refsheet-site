@@ -93,7 +93,7 @@ module CollectionHelper
     end
 
     if params.include?(:q) or params.include?(:sort)
-      sort = params[:sort] ? "#{params[:sort].try(:downcase)} #{params[:order].try(:downcase)}".strip : ''
+      sort = params[:sort] ? "#{scope.table_name + '.' + params[:sort].try(:downcase)} #{params[:order].try(:downcase)}".strip : ''
 
       if scope.respond_to?(:search_for) && params[:q]
         scope = scope.search_for(params[:q])

@@ -13,9 +13,8 @@
         .muted
           Created:
           = character.created_at.strftime('%d %b %Y')
-          &bull;
-          Shortcode:
-          = character.shortcode
+          &bull; Shortcode: #{ character.shortcode }
+          &bull; User: #{ link_to character.user.username, admin_user_path(character.user.username) }
 
         = link_to material_icon('edit'), edit_admin_character_path(character.shortcode), class: 'secondary-content'
 
