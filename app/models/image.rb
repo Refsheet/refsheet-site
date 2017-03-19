@@ -68,6 +68,9 @@ class Image < ApplicationRecord
 
   after_destroy :clean_up_character
 
+  scoped_search on: [:caption, :image_file_name]
+  scoped_search in: :character, on: [:name, :species]
+
   scope :sfw, -> { where(nsfw: [false, nil]) }
   scope :visible, -> { where(hidden: [false, nil]) }
 

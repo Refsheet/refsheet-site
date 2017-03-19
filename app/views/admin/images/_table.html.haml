@@ -13,11 +13,9 @@
         %p
           = image.caption.presence || 'No Caption'
           .muted
-            Created:
-            = image.created_at.strftime('%d %b %Y')
-            &bull;
-            GUID:
-            = image.guid
+            Created: #{ image.created_at.strftime('%d %b %Y') }
+            &bull; GUID: #{ image.guid }
+            &bull; Character: #{ link_to image.character.name, admin_character_path(image.character.shortcode) }
 
         = link_to material_icon('edit'), edit_admin_image_path(image.guid), class: 'secondary-content'
 
