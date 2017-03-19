@@ -79,7 +79,7 @@ class Character < ApplicationRecord
   end
 
   def managed_by?(user)
-    self.user == user || user.role?(:admin)
+    self.user == user
   end
 
   def self.lookup(slug)
