@@ -7,6 +7,7 @@ class Admin::CharactersController < AdminController
 
   def index
     @characters = filter_scope Character.all
+    @characters = taper_group @characters if params[:sort].to_s == 'created_at'
   end
 
   def show; end

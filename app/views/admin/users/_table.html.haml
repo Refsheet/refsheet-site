@@ -1,13 +1,22 @@
-%ul.collection
-  - users.each do |user|
-    %li.collection-item.avatar
-      = image_tag user.profile_image_url, class: 'circle', alt: user.name
+- if users.is_a? Hash
+  - users.each do |group, items|
+    %h2.list-group-heading= group
+    = render partial: 'table', locals: { users: items }
 
-      .title= link_to user.name, admin_user_path(user.username)
-      .muted
-        Joined:
-        = user.created_at.strftime('%d %b %Y')
-        &bull;
-        @#{user.username}
+- else
+  %ul.collection
+    - users.each do |user|
+      %li.collection-item.avatar
+        = image_tag user.profile_image_url, class: 'circle', alt: user.name
 
-      = link_to material_icon('edit'), edit_admin_user_path(user.username), class: 'secondary-content'
+        .title= link_to user.name, admin_user_path(user.username)
+        .muted
+          Joined:
+          = user.created_at.strftime('%d %b %Y')
+          &bull;
+          @#{user.username}
+
+        = link_to material_icon('edit'), edit_admin_user_path(user.username), class: 'secondary-content'
+
+- if users.empty?
+  .caption.center Nothing to show here...

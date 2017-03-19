@@ -38,6 +38,23 @@ module CollectionHelper
     scope
   end
 
+  def taper_group(items, default_sort = 'created_at')
+    items.sort_by do |item|
+      item.send(default_sort)
+    end.reverse.group_by do |item|
+      case item.send(default_sort)
+        when -> (i) { i > Time.zone.today.at_beginning_of_day }
+          "Today"
+        when -> (i) { i.between? Time.zone.today.at_beginning_of_week.at_beginning_of_day, Time.zone.yesterday.at_end_of_day }
+          "This Week"
+        when -> (i) { i.between? Time.zone.today.at_beginning_of_month.at_beginning_of_day, (Time.zone.today.at_beginning_of_week.at_beginning_of_day - 1.second) }
+          "This Month"
+        else
+          "Older"
+      end
+    end
+  end
+
   def filter_scope(scope, default_sort = 'created_at', default_order = 'desc')
     unpermitted_params = []
 
