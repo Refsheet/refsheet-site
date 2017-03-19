@@ -1,0 +1,25 @@
+- if images.is_a? Hash
+  - images.each do |group, items|
+    %h2.list-group-heading= group
+    = render partial: 'table', locals: { images: items }
+
+- else
+  %ul.collection
+    - images.each do |image|
+      %li.collection-item.avatar
+        = image_tag image.image.url(:thumbnail), class: 'circle', alt: image.caption
+
+        .title= link_to image.image_file_name, admin_image_path(image.guid)
+        %p
+          = image.caption.presence || 'No Caption'
+          .muted
+            Created:
+            = image.created_at.strftime('%d %b %Y')
+            &bull;
+            GUID:
+            = image.guid
+
+        = link_to material_icon('edit'), edit_admin_image_path(image.guid), class: 'secondary-content'
+
+- if images.empty?
+  .caption.center Nothing to show here...

@@ -1,6 +1,6 @@
-.content
-  %h1 Edit User
+- title 'Edit User'
 
+.content
   = simple_form_for [:admin, @user], url: admin_user_path(@user.username) do |f|
     .row
       .col.s12.m6
