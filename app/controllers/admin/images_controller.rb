@@ -6,7 +6,7 @@ class Admin::ImagesController < AdminController
   end
 
   def index
-    @images = filter_scope Image.all
+    @scope = @images = filter_scope Image.all
     @images = taper_group @images if params[:sort].to_s == 'created_at'
   end
 

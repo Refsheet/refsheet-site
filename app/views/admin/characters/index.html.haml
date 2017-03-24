@@ -2,3 +2,6 @@
 
 .content
   = render partial: 'table', locals: { characters: @characters }
+
+  .center
+    = will_paginate @scope
