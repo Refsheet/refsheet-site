@@ -24,5 +24,8 @@ module RefsheetSite
     # -- all .rb files in that directory are automatically loaded.
 
     config.autoload_paths << Rails.root.join('lib')
+
+    config.time_zone = 'Central Time (US & Canada)'
+    config.active_record.default_timezone = :utc
   end
 end
