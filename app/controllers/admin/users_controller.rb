@@ -6,7 +6,7 @@ class Admin::UsersController < AdminController
   end
 
   def index
-    @users = filter_scope User.all
+    @scope = @users = filter_scope User.all
     @users = taper_group @users if params[:sort].to_s == 'created_at'
   end
 
