@@ -250,6 +250,8 @@ GEM
     nio4r (1.2.1)
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
+    non-stupid-digest-assets (1.0.6)
+      sprockets (>= 2.0)
     oauth (0.5.1)
     paperclip (5.1.0)
       activemodel (>= 4.2.0)
@@ -486,6 +488,7 @@ DEPENDENCIES
   listen (~> 3.0.5)
   materialize-sass!
   meta-tags
+  non-stupid-digest-assets
   paperclip
   paranoia
   pg (~> 0.18)

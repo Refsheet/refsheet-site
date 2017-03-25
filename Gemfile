@@ -14,6 +14,7 @@ gem 'responders'
 gem 'ahoy_matey'
 gem 'aws-sdk'
 gem 'resque'
+gem 'non-stupid-digest-assets'
 
 # == FRONT END
 
