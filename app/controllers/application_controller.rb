@@ -29,11 +29,11 @@ class ApplicationController < ActionController::Base
 
   def set_user_locale
     session[:locale]   = params[:locale] if params.include? :locale
-    session[:locale] ||= current_user.settings[:locale] if logged_in?
+    session[:locale] ||= current_user.settings[:locale] if signed_in?
     session[:locale] ||= I18n.default_locale
     I18n.locale = session[:locale]
 
-    Time.zone   = current_user.settings[:time_zone] if logged_in?
+    Time.zone   = current_user.settings[:time_zone] if signed_in?
     Time.zone ||= Application.config.time_zone
   end
 

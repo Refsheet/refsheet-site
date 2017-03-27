@@ -12,7 +12,7 @@ module SessionHelper
   end
 
   def signed_in?
-    session[:user_id].present?
+    current_user.present?
   end
 
   def current_user
