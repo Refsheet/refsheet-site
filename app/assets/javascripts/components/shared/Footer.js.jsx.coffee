@@ -13,7 +13,7 @@
                           <i className='fa fa-fw fa-twitter' />
                       </a>
                       <a href='https://www.patreon.com/refsheet'>
-                          <img src='/assets/third_party/patreon_white' alt='Patreon' />
+                          <img src='/assets/third_party/patreon_white.png' alt='Patreon' />
                       </a>
                   </div>
 
