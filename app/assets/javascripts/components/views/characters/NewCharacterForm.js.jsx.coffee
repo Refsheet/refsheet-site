@@ -16,6 +16,10 @@
       success: (data) =>
         Materialize.toast 'Character created!', 3000, 'teal'
         @props.onCreate data
+        ReactGA.event
+          category: 'Character'
+          action: 'Created Character'
+          value: data.id
 
       error: (errors) =>
         console.log errors

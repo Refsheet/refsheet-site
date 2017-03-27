@@ -1,4 +1,8 @@
 @RegisterView = React.createClass
+  contextTypes:
+    router: React.PropTypes.object.isRequired
+
+
   getInitialState: ->
     username: @props.location.query.username
     email: null
@@ -23,7 +27,12 @@
       success: (data) =>
         @props.onLogin data
         @setState loading: false, errors: {}
-        @props.history.push '/' + data.username
+        @context.router.push '/' + data.username
+
+        ReactGA.event
+          category: 'User'
+          action: 'Sign Up'
+          value: data.id
 
       error: (error) =>
         message = error.responseJSON?.errors
@@ -40,9 +49,13 @@
   componentDidMount: ->
     Materialize.initializeForms()
     Materialize.updateTextFields()
+    $('body').addClass 'no-footer'
 
   componentDidUpdate: ->
     Materialize.updateTextFields()
+
+  componentWillUnmount: ->
+    $('body').removeClass 'no-footer'
 
   render: ->
     if @state.loading

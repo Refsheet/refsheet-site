@@ -1,0 +1,51 @@
+.admin .side-nav
+  background-color: $card-bg-color
+  color: $page-text-color
+
+  .brand-logo
+    text-align: center
+    height: 56px
+    line-height: 56px
+    background-color: darken($card-bg-color, 5%)
+    margin-bottom: 0.5rem
+
+    img
+      max-height: 36px
+      margin: 10px 0
+      display: inline-block
+      vertical-align: middle
+
+    .site-name
+      display: inline-block
+      line-height: 56px
+      margin: 0 0 0 0.5rem
+      font-size: 1.5rem
+      color: rgba(255, 255, 255, 0.8)
+      font-weight: 300
+      vertical-align: middle
+
+  li a
+    color: $page-text-color
+
+    i.material-icons
+      color: darken($page-text-color, 15%)
+
+  .divider
+    background-color: lighten($card-bg-color, 10%)
+    margin: 0.5rem 0
+
+  .subheader
+    color: $page-text-color
+
+  li.active a,
+  a:hover
+    color: $brand-dark
+    background-color: darken($card-bg-color, 5%)
+
+    i.material-icons
+      color: $brand-darker
+
+  .userView
+    .background
+      background-color: darken($brand-darker, 30%)
+      background: linear-gradient(120deg, $brand-darker, $brand-darker 50%, $brand-dark 50%, $brand-dark 75%, $brand-primary 75%)

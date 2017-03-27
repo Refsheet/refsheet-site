@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170130233713) do
+ActiveRecord::Schema.define(version: 20170317182310) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,18 @@ ActiveRecord::Schema.define(version: 20170130233713) do
     t.datetime "updated_at",                      null: false
   end
 
+  create_table "changelogs", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "changed_character_id"
+    t.integer  "changed_user_id"
+    t.integer  "changed_image_id"
+    t.integer  "changed_swatch_id"
+    t.text     "reason"
+    t.json     "change_data"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
   create_table "characters", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "name"
@@ -69,6 +81,9 @@ ActiveRecord::Schema.define(version: 20170130233713) do
     t.text     "likes"
     t.text     "dislikes"
     t.integer  "color_scheme_id"
+    t.boolean  "nsfw"
+    t.boolean  "hidden"
+    t.boolean  "secret"
   end
 
   create_table "color_schemes", force: :cascade do |t|
@@ -106,6 +121,9 @@ ActiveRecord::Schema.define(version: 20170130233713) do
     t.integer  "row_order"
     t.string   "guid"
     t.string   "gravity"
+    t.boolean  "nsfw"
+    t.boolean  "hidden"
+    t.integer  "gallery_id"
     t.index ["guid"], name: "index_images_on_guid", using: :btree
   end
 
@@ -205,6 +223,17 @@ ActiveRecord::Schema.define(version: 20170130233713) do
     t.datetime "updated_at",                      null: false
   end
 
+  create_table "permissions", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "role_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+  end
+
   create_table "slots", force: :cascade do |t|
     t.integer  "item_id"
     t.integer  "extends_slot_id"
@@ -274,8 +303,13 @@ ActiveRecord::Schema.define(version: 20170130233713) do
     t.string   "email"
     t.string   "password_digest"
     t.text     "profile"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.json     "settings"
   end
 
   create_table "visits", force: :cascade do |t|

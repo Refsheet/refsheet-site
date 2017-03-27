@@ -1,0 +1,34 @@
+%ul#slide-out.side-nav.fixed
+  %li
+    = link_to root_path, class: 'brand-logo z-depth-1' do
+      = image_tag 'logos/RefsheetLogo_64.png'
+      .site-name Refsheet Admin
+
+  = nav_link_to :dashboard, 'Dashboard', admin_root_path
+  = nav_link_to :perm_identity, 'Users', admin_users_path
+  = nav_link_to :edit, 'Characters', admin_characters_path
+  = nav_link_to :image, 'Images', admin_images_path
+
+  %li
+    .divider
+
+  = nav_link_to :message, 'Feedback', admin_feedbacks_path
+  = nav_link_to :attach_money, 'Pledges', admin_pledges_path
+
+  %li
+    .divider
+
+  = nav_link_to :history, 'Changelog', admin_changelogs_path
+
+  -#%li
+  -#  .divider
+  -#%li
+  -#  %a.subheader Account
+  -#%li
+  -#  %a{href: '#'}
+  -#    %i.material-icons settings
+  -#    Settings
+
+:coffeescript
+  $ ->
+    $('.button-collapse').sideNav()

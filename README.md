@@ -16,7 +16,7 @@ World Wide Web. You might need to install a modem for this, see your
 workstation's hardware manufacturer for details.
 
 Oh yeah, install `postgres` or be prepared for pain. Also install
-`redis`, and `resque`.
+`redis-server`, and `resque`.
 
 ### Setup Steps
 

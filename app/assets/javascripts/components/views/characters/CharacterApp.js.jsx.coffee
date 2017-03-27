@@ -1,9 +1,14 @@
 @CharacterApp = React.createClass
+  contextTypes:
+    router: React.PropTypes.object.isRequired
+
+
   getInitialState: ->
     character: null
     error: null
     galleryTitle: null
     onGallerySelect: null
+    images: null
 
   componentDidMount: ->
     $.ajax
@@ -69,7 +74,7 @@
         console.log data
         $('#delete-form').modal('close')
         Materialize.toast "#{data.name} deleted. :(", 3000
-        @props.history.push '/' + data.user_id
+        @context.router.push '/' + data.user_id
 
       error: (error) =>
         Materialize.toast "I'm afraid I couldn't do that, Jim.", 3000, 'red'
@@ -163,10 +168,12 @@
     $('#image-gallery-modal').modal 'open'
 
   handleDropzoneUpload: (data) ->
-    c = @state.character
-    c.images.push data
-    console.log c.images
-    @setState character: c
+    i = @state.images
+    i.push data
+    @setState images: i
+
+  _handleGalleryLoad: (data) ->
+    @setState images: data
 
   render: ->
     if @state.error?
@@ -185,12 +192,12 @@
       headerImageEditCallback = @handleHeaderImageEdit
 
       for key, name of {
-        primary: 'Primary Accent'
-        accent1: 'Secondary Accent'
-        accent2: 'Third Accent'
+        primary: 'Primary Color'
+        accent1: 'Secondary Color'
+        accent2: 'Accent Color'
         text: 'Main Text'
-        'text-medium': 'Medium Text'
-        'text-light': 'Light Text'
+        'text-medium': 'Muted Text'
+        'text-light': 'Subtle Text'
         background: 'Page Background'
         'card-background': 'Card Background'
       }
@@ -258,6 +265,7 @@
                                 freezeName hideNotesForm>
                     <Attribute id='name' name='Character Name' value={ this.state.character.name } />
                     <Attribute id='slug' name='URL Slug' value={ this.state.character.slug } />
+                    <Attribute id='shortcode' name='Shortcode' value={ this.state.character.shortcode } />
                     <li>
                         <div className='attribute-data'>
                             <div className='key'>Delete</div>
@@ -276,7 +284,7 @@
         }
 
         { editable &&
-            <ImageGalleryModal images={ this.state.character.images }
+            <ImageGalleryModal images={ this.state.images }
                                title={ this.state.galleryTitle }
                                onClick={ this.state.onGallerySelect } />
         }
@@ -287,30 +295,36 @@
             <SwatchPanel edit={ editable } swatchesPath={ this.state.character.path + '/swatches/' } swatches={ this.state.character.swatches } />
         </PageHeader>
 
-        <Section className='padded pop-out margin-top--xlarge margin-bottom--xlarge'>
-            <Row>
+        <Section>
+            <Row className='rowfix'>
                 <Column m={12}>
-                    <h1>About { this.state.character.name }</h1>
-                    <RichText placeholder='No biography written.'
-                              onChange={ profileChange }
-                              content={ this.state.character.profile_html }
-                              markup={ this.state.character.profile } />
+                    <div className='card-panel margin--none'>
+                        <h1>About { this.state.character.name }</h1>
+                        <RichText placeholder='No biography written.'
+                                  onChange={ profileChange }
+                                  content={ this.state.character.profile_html }
+                                  markup={ this.state.character.profile } />
+                    </div>
                 </Column>
             </Row>
-            <Row className='margin-top--large'>
+            <Row className='rowfix'>
                 <Column m={6}>
-                    <h2>Likes</h2>
-                    <RichText placeholder='No likes specified.'
-                              onChange={ likesChange }
-                              content={ this.state.character.likes_html }
-                              markup={ this.state.character.likes } />
+                    <div className='card-panel margin--none'>
+                        <h2>Likes</h2>
+                        <RichText placeholder='No likes specified.'
+                                  onChange={ likesChange }
+                                  content={ this.state.character.likes_html }
+                                  markup={ this.state.character.likes } />
+                    </div>
                 </Column>
                 <Column m={6}>
-                    <h2>Dislikes</h2>
-                    <RichText placeholder='No dislikes specified.'
-                              onChange={ dislikesChange }
-                              content={ this.state.character.dislikes_html }
-                              markup={ this.state.character.dislikes } />
+                    <div className='card-panel margin--none'>
+                        <h2>Dislikes</h2>
+                        <RichText placeholder='No dislikes specified.'
+                                  onChange={ dislikesChange }
+                                  content={ this.state.character.dislikes_html }
+                                  markup={ this.state.character.dislikes } />
+                    </div>
                 </Column>
             </Row>
         </Section>
@@ -318,8 +332,9 @@
         <Section>
             <ImageGallery editable={ editable }
                           imagesPath={ this.state.character.path + '/images/' }
-                          onImageClick={ this.props.onLightbox }
-                          images={ this.state.character.images } />
+                          images={ this.state.images }
+                          onImagesLoad={ this._handleGalleryLoad }
+                          onImageClick={ this.props.onLightbox } />
         </Section>
 
     </DropzoneContainer>`

@@ -15,10 +15,11 @@
   handleImageClick: (e) ->
     id = $(e.target).closest('[data-gallery-image-id]').data('gallery-image-id')
 
-    if @props.onImageClick?
-      @props.onImageClick(id)
-    else
-      $(document).trigger 'app:lightbox', id
+    if id != undefined
+      if @props.onImageClick?
+        @props.onImageClick(id)
+      else
+        $(document).trigger 'app:lightbox', id
 
   componentDidMount: ->
     if @props.imagesPath?
@@ -27,9 +28,10 @@
       else
         $.get @props.imagesPath, (data) =>
           @setState images: data
+          @props.onImagesLoad(data) if @props.onImagesLoad
 
   componentDidUpdate: (newProps) ->
-    if newProps.images.length != @state.images.length
+    if newProps.images && newProps.images.length != @state.images?.length
       @setState images: newProps.images
 
     if @props.imagesPath?
@@ -54,8 +56,8 @@
 
           $source.css top: '', left: '0'
 
-          sourceId = $source.data 'image-id'
-          targetId = $target.data 'image-id'
+          sourceId = $source.data 'gallery-image-id'
+          targetId = $target.data 'gallery-image-id'
 
           _this.handleImageSwap(sourceId, targetId)
 
@@ -71,47 +73,49 @@
     imagesOverflow = overflow.map (image) =>
       `<div className='col m3 s6' key={ image.id }>
           <div className='image' data-gallery-image-id={ image.id }>
-              <img src={ image.small } alt={ image.caption } />
+              <img src={ image.small_square } alt={ image.caption } />
           </div>
       </div>`
 
     if first? or imagesOverflow.length > 0
       if first?
-        firstColWidth = 12
         firstImage =
           `<div className='image' data-gallery-image-id={ first.id }>
-              <img src={ first.url } alt={ first.caption } />
+              <img src={ first.large_square } alt={ first.caption } />
           </div>`
 
       if third?
         thirdImage =
           `<div className='image' data-gallery-image-id={ third.id }>
-              <img src={ third.medium } alt={ third.caption } />
+              <img src={ third.medium_square } alt={ third.caption } />
           </div>`
+      else
+        thirdImage = `<div className='image-placeholder' />`
 
       if second?
-        firstColWidth = 8
         secondImage =
           `<div className='image' data-gallery-image-id={ second.id }>
-              <img src={ second.medium } alt={ second.caption } />
+              <img src={ second.medium_square } alt={ second.caption } />
           </div>`
+      else
+        secondImage = `<div className='image-placeholder' />`
 
-        secondColumn =
-          `<Column m={4}>
-              <Row className='featured-side'>
-                  <Column m={12} s={6}>
-                      { secondImage }
-                  </Column>
-                  <Column m={12} s={6}>
-                      { thirdImage }
-                  </Column>
-              </Row>
-          </Column>`
+      secondColumn =
+        `<Column m={4}>
+            <Row className='featured-side'>
+                <Column m={12} s={6}>
+                    { secondImage }
+                </Column>
+                <Column m={12} s={6}>
+                    { thirdImage }
+                </Column>
+            </Row>
+        </Column>`
 
       `<div className='image-gallery' onClick={ this.handleImageClick }>
           { !this.props.noFeature &&
               <Row className='featured'>
-                  <Column m={ firstColWidth }>
+                  <Column m={8}>
                       { firstImage }
                   </Column>
                   { secondColumn }

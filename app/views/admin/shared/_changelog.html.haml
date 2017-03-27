@@ -1,0 +1,23 @@
+- if changes.is_a? Hash
+  - changes.each do |group, items|
+    %h2.list-group-heading= group
+    = render partial: 'admin/shared/changelog', locals: { changes: items }
+
+- else
+  %ul.collection
+    - changes.each do |change|
+      %li.collection-item.avatar
+        = image_tag change.user.avatar_url, class: 'circle', alt: change.user.name
+
+        .title= link_to change.user.name, admin_user_path(change.user.username)
+        .muted
+          On
+          = change.created_at.strftime('%d %b %Y:')
+          = change.change_data.keys.to_sentence
+
+        = change.reason.presence || 'No reason!'
+
+        = link_to material_icon('keyboard_arrow_right'), admin_changelog_path(change), class: 'secondary-content'
+
+- if changes.empty?
+  .caption.center Nothing to show here...

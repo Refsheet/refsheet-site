@@ -1,0 +1,93 @@
+= action_button :edit, edit_admin_character_path(@character.shortcode)
+
+.content
+  .row
+    .col.s12.m4.l3
+      = image_tag @character.profile_image.image.url(:medium_square), class: 'materialboxed responsive-img z-depth-1'
+      %h1.caption= title @character.name
+
+      %ul.attributes
+        %li
+          .label User
+          .value= link_to "@#{@character.user.username}", admin_user_path(@character.user.username)
+        %li
+          .label Slug
+          .value= @character.slug.presence || 'unspecified'
+        %li
+          .label Shortcode
+          .value= @character.shortcode.presence || 'unspecified'
+        %li
+          .label Created
+          .value= @character.created_at.strftime('%d %b %Y').presence || 'unspecified'
+        %li
+          .label NSFW?
+          .value= @character.nsfw? ? 'Yes' : 'No'
+        %li
+          .label Hidden?
+          .value= @character.hidden? ? 'Yes' : 'No'
+
+    .col.s12.m8.l9
+      .card.margin--none
+        %ul.tabs
+          %li.tab= link_to 'Attributes', '#attributes', class: 'active'
+          %li.tab= link_to 'Profile', '#profile'
+          %li.tab= link_to 'Changes', '#changelog'
+
+        %section.card-content#attributes
+          .row
+            .col.s12.m6
+              %ul.attributes.margin-top--none
+                %li
+                  .label Gender
+                  .value= @character.gender.presence || 'unspecified'
+                %li
+                  .label Species
+                  .value= @character.species.presence || 'unspecified'
+                %li
+                  .label Height
+                  .value= @character.height.presence || 'unspecified'
+                %li
+                  .label Weight
+                  .value= @character.weight.presence || 'unspecified'
+                %li
+                  .label Body Type
+                  .value= @character.body_type.presence || 'unspecified'
+
+            .col.s12.m6
+              %ul.attributes.margin-top--none
+                %li
+                  .label Personality
+                  .value= @character.personality.presence || 'unspecified'
+
+                %li
+                  .label Special Notes
+                  .value= @character.special_notes.presence || 'unspecified'
+
+        %section.card-content#profile
+          .row
+            .col.s12
+              = linkify(@character.profile)
+              - unless @character.profile.present?
+                .caption No character profile set.
+
+          .row
+            .col.s12.m6
+              %h2 Likes
+              = linkify(@character.likes)
+              - unless @character.likes.present?
+                .caption No character likes set.
+
+            .col.s12.m6
+              %h2 Dislikes
+              = linkify(@character.dislikes)
+              - unless @character.dislikes.present?
+                .caption No character dislikes set.
+
+        %section#changelog
+          .row
+            .col.s12
+              = render partial: 'admin/shared/changelog', locals: { changes: Changelog.for_character(@character).last(10).reverse}
+
+:coffeescript
+  $ ->
+    $('.tabs').tabs()

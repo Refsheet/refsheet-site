@@ -1,0 +1,37 @@
+- title 'Edit User'
+
+.content
+  = simple_form_for [:admin, @user], url: admin_user_path(@user.username) do |f|
+    .row
+      .col.s12.m6
+        = f.input :name
+        = f.input :email
+        = f.input :username
+
+      .col.s12.m6
+        = f.input :password
+        = f.input :password_confirmation
+
+    %h2 Profile
+
+    .row
+      .col.s12
+        = f.input :profile
+
+    %h2 Roles
+
+    .row
+      .col.s12
+        = f.association :roles, multiple: true
+
+    %h2 Save
+    .input-field
+      = text_area_tag :reason, nil, as: :text, class: 'materialize-textarea'
+      = label_tag :reason, 'Please describe your changes.'
+
+    = f.submit class: 'btn'
+
+:coffeescript
+  $ ->
+    Materialize.updateTextFields()
+    $('select').material_select()

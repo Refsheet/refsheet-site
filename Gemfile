@@ -15,6 +15,8 @@ gem 'responders'
 gem 'ahoy_matey'
 gem 'aws-sdk'
 gem 'resque'
+gem 'non-stupid-digest-assets'
+gem 'rollbar'
 
 # == FRONT END
 
@@ -40,6 +42,7 @@ gem 'chartkick'
 gem 'breadcrumbs_on_rails'
 gem 'jquery-tmpl-rails'
 gem 'imagesLoaded_rails'
+gem 'highcharts-rails'
 
 # == UTILITY
 
@@ -54,10 +57,14 @@ gem 'will_paginate-materialize', github: 'harrybournis/will_paginate-materialize
 gem 'faker'
 gem 'slack-notifier'
 gem 'ranked-model'
+gem 'carrierwave'
+gem 'fog-aws'
 gem 'paperclip'
 gem 'react-rails-hot-loader'
 gem 'dropzonejs-rails'
 gem 'redcarpet'
+gem 'sitemap_generator'
+gem 'groupdate'
 
 # == INTEGRATIONS
 

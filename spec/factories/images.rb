@@ -16,6 +16,9 @@
 #  row_order          :integer
 #  guid               :string
 #  gravity            :string
+#  nsfw               :boolean
+#  hidden             :boolean
+#  gallery_id         :integer
 #
 
 FactoryGirl.define do

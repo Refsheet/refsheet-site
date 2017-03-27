@@ -1,3 +1,8 @@
+# @prop url [String] REQUIRED
+# @prop clickable [Selector]
+# @prop method [String]
+# @prop paramName [String]
+#
 @DropzoneContainer = React.createClass
   getInitialState: ->
     uploading: false
@@ -9,10 +14,11 @@
 
       $('.dropzone-container').dropzone
         clickable: @props.clickable || null
-        url: this.props.url
+        url: @props.url
+        method: @props.method || 'POST'
         previewTemplate: ''
         headers: { "X-CSRF-Token" : $('meta[name="csrf-token"]').attr('content') }
-        paramName: 'image[image]'
+        paramName: @props.paramName || 'image[image]'
 
         addedfile: (file) =>
           @setState uploading: true
@@ -37,6 +43,10 @@
           @on 'success', (_, data) ->
             Materialize.toast "Image uploaded!", 3000, 'green'
             ___this.props.onUpload(data) if ___this.props.onUpload?
+
+  componentWillUnmount: ->
+    if this.props.url?
+      Dropzone.forElement('.dropzone-container').destroy();
 
   render: ->
     if @state.uploading

@@ -1,4 +1,8 @@
 @LoginView = React.createClass
+  contextTypes:
+    router: React.PropTypes.object.isRequired
+
+
   getInitialState: ->
     username: @props.location.query.username
     password: null
@@ -12,9 +16,9 @@
       data: { username: @state.username, password: @state.password }
       type: 'POST'
       success: (data) =>
-        @props.onLogin data
+        $(document).trigger 'app:sign_in', data
         @setState loading: false
-        @props.history.push '/' + data.username
+        @context.router.push '/' + data.username
 
       error: (error) =>
         message = error.responseJSON?.error
@@ -32,9 +36,13 @@
   componentDidMount: ->
     Materialize.initializeForms()
     Materialize.updateTextFields()
+    $('body').addClass 'no-footer'
 
   componentDidUpdate: ->
     Materialize.updateTextFields()
+
+  componentWillUnmount: ->
+    $('body').removeClass 'no-footer'
 
   render: ->
     if @state.loading

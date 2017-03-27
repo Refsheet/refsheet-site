@@ -1,0 +1,24 @@
+.navbar-fixed
+  %nav
+    .nav-wrappper
+      %a.button-collapse{href: '#', 'data-activates': 'slide-out'}
+        %i.material-icons menu
+
+      .left
+        .page-title
+          = @meta_tags[:title]
+
+      .right
+        - if @search
+          = form_tag @search[:path], class: 'search', method: :get do
+            .input-field
+              = text_field_tag :q, params[:q], type: :search, id: 'search', class: (params[:q].present? ? 'active' : '')
+              = label_tag :q, material_icon(:search)
+
+:coffeescript
+  $ ->
+    $('nav .search input[type=search]').change ->
+      if $(this).val() == ''
+        $(this).removeClass 'active'
+      else
+        $(this).addClass 'active'

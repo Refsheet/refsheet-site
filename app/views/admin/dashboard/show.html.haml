@@ -1,0 +1,55 @@
+.content
+  .row
+    .col.s12.m3
+      = link_to url_for(start: (report_range.begin - 1.day).at_beginning_of_month.strftime('%Y-%m-%d')), class: 'btn' do
+        = material_icon 'keyboard_arrow_left'
+
+    .col.s12.m6.center-align
+      %h2
+        = title report_range_display
+
+    .col.s12.m3.right-align
+      = link_to url_for(start: (report_range.end + 1.second).strftime('%Y-%m-%d')), class: 'btn' do
+        = material_icon 'keyboard_arrow_right'
+
+  .row
+    .col.s12
+      %ul.stats
+        %li
+          .value= report_count User
+          .label{ style: 'color: #1F94EE;' } Users
+
+        %li
+          .value= report_count Character
+          .label{ style: 'color: #2BBBAD;' } Characters
+
+        %li
+          .value= report_count Image
+          .label{ style: 'color: #364755;' } Images
+
+        %li
+          .value= report_count Feedback
+          .label{ style: 'color: #C36F5E;' } Feedbacks
+
+        %li
+          .value= report_count Patreon::Pledge
+          .label{ style: 'color: #EE251F;' } Pledges
+
+        %li
+          .value= report_count Visit, :started_at
+          .label{ style: 'color: #666666;' } Visitors
+
+  .row
+    .col.s12
+      = line_chart @main_chart_data
+
+  .row
+    .col.s12.m6
+      = line_chart @left_chart_data
+
+    .col.s12.m6
+      = line_chart @right_chart_data
+
+  .row
+    .col.s12
+      = line_chart [{ name: 'Visitors', data: report_group(Visit, :started_at).count, color: '#666666' }]

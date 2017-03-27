@@ -22,6 +22,9 @@
 #  likes             :text
 #  dislikes          :text
 #  color_scheme_id   :integer
+#  nsfw              :boolean
+#  hidden            :boolean
+#  secret            :boolean
 #
 
 class Character < ApplicationRecord
@@ -46,11 +49,28 @@ class Character < ApplicationRecord
 
   validates_presence_of :user
   validates_associated :transfers
+
   validates :name,
             presence: true,
             format: { with: /[a-z]/i, message: 'must have at least one letter' }
 
   before_validation :initiate_transfer, if: -> (c) { c.transfer_to_user.present? }
+
+  scope :default_order, -> do
+    order(<<-SQL)
+      CASE
+        WHEN characters.profile_image_id IS NULL THEN '1'
+        WHEN characters.profile_image_id IS NOT NULL THEN '0'
+      END, lower(characters.name) ASC
+    SQL
+  end
+
+  scope :sfw, -> { where(nsfw: [nil, false]) }
+  scope :visible, -> { where(hidden: [nil, false]) }
+
+  before_validation do
+    self.shortcode = self.shortcode&.downcase
+  end
 
   def description
     ''
@@ -64,12 +84,20 @@ class Character < ApplicationRecord
     super || Image.new
   end
 
+  def managed_by?(user)
+    self.user == user
+  end
+
   def self.lookup(slug)
     find_by('LOWER(characters.slug) = ?', slug.downcase)
   end
 
   def self.lookup!(slug)
     find_by!('LOWER(characters.slug) = ?', slug.downcase)
+  end
+
+  def self.find_by_shortcode!(shortcode)
+    find_by!('LOWER(characters.shortcode) = ?', shortcode.downcase)
   end
 
   def pending_transfer

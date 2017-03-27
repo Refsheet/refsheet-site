@@ -1,4 +1,34 @@
 .rich-text
+  position: relative
+  min-height: 2rem
+
+  a.edit-button
+    opacity: 0.0
+    cursor: pointer
+    transition: opacity 0.3s
+    background-color: rgba(black, 0.2)
+    color: white !important
+    display: block
+    position: absolute
+    top: 0
+    bottom: 0
+    width: 100%
+    border-bottom: 1px solid rgba(white, 0.2)
+    border-radius: 2px
+    padding: 0.5rem
+    margin: -0.5rem
+    text-align: right
+    min-height: 3rem
+
+  textarea
+    padding: 0
+    margin-bottom: 0.5rem
+
+  &:hover
+    a.edit-button
+      opacity: 1.0
+      transition: opacity 0.3s
+
   &.empty
     color: $muted-text-color
 
@@ -7,9 +37,6 @@
 
   p:last-child
     margin-bottom: 0
-
-  p
-    line-height: 2em
 
   h1
     font-size: 2rem

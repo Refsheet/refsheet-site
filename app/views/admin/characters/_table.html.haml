@@ -1,0 +1,22 @@
+- if characters.is_a? Hash
+  - characters.each do |group, items|
+    %h2.list-group-heading= group
+    = render partial: 'table', locals: { characters: items }
+
+- else
+  %ul.collection
+    - characters.each do |character|
+      %li.collection-item.avatar
+        = image_tag character.profile_image.image.url(:thumbnail), class: 'circle', alt: character.name
+
+        .title= link_to character.name, admin_character_path(character.shortcode)
+        .muted
+          Created:
+          = character.created_at.strftime('%d %b %Y')
+          &bull; Shortcode: #{ character.shortcode }
+          &bull; User: #{ link_to character.user.username, admin_user_path(character.user.username) }
+
+        = link_to material_icon('edit'), edit_admin_character_path(character.shortcode), class: 'secondary-content'
+
+- if characters.empty?
+  .caption.center Nothing to show here...

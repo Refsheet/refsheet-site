@@ -1,4 +1,8 @@
 @UserApp = React.createClass
+  contextTypes:
+    router: React.PropTypes.object.isRequired
+
+
   getInitialState: ->
     user: null
     error: null
@@ -9,7 +13,7 @@
       url: '/session'
       type: 'DELETE'
       success: =>
-        @props.onLogin null
+        $(document).trigger 'app:sign_in', null
 
     e.preventDefault()
 
@@ -30,7 +34,7 @@
 
   goToCharacter: (character) ->
     $('#character-form').modal('close')
-    @props.history.push character.link
+    @context.router.push character.link
 
   render: ->
     if @state.error?
@@ -49,39 +53,65 @@
 
       userChangeCallback = @handleUserChange
       editable = true
+      editPath = this.state.user.path
 
     characters = @state.user.characters.map (character) ->
-      `<div className='col m3 s12' key={ character.slug }>
+      `<div className='col m3 s6' key={ character.slug }>
           <CharacterLinkCard path={ character.link }
                              name={ character.name }
                              profileImageUrl={ character.profile_image_url } />
       </div>`
 
     `<main>
-        <Modal id='character-form'>
-            <h2>New Character</h2>
-            <p>It all starts with the basics. Give us a name and a species, and we'll set up a profile.</p>
-            <NewCharacterForm onCancel={ function(e) { $('#character-form').modal('close'); e.preventDefault() } }
-                              onCreate={ this.goToCharacter }
-                              newCharacterPath={ this.state.user.path + '/characters' }/>
-        </Modal>
+        <DropzoneContainer url={ editPath }
+                           method='PATCH'
+                           clickable='.user-avatar'
+                           paramName='user[avatar]'
+                           onUpload={ this.handleUserChange }>
 
-        { actionButtons }
-        
-        { editable &&
-            <UserSettingsModal user={ this.state.user }
-                               onChange={ this.handleUserChange } />
-        }
+            <Modal id='character-form'>
+                <h2>New Character</h2>
+                <p>It all starts with the basics. Give us a name and a species, and we'll set up a profile.</p>
+                <NewCharacterForm onCancel={ function(e) { $('#character-form').modal('close'); e.preventDefault() } }
+                                  onCreate={ this.goToCharacter }
+                                  newCharacterPath={ this.state.user.path + '/characters' }/>
+            </Modal>
 
-        <UserHeader { ...this.state.user } onUserChange={ userChangeCallback } />
+            { actionButtons }
 
-        <Section className='pop-out'>
-            <div className='row'>
-                { characters }
+            { editable &&
+                <UserSettingsModal user={ this.state.user }
+                                   onChange={ this.handleUserChange } />
+            }
+
+            <UserHeader { ...this.state.user } onUserChange={ userChangeCallback } />
+
+            <div className='tab-row'>
+                <div className='container'>
+                    <Tabs>
+                        <li className='tab'>
+                            <Link to={ '/' + this.state.user.username } className='active'>Characters</Link>
+                        </li>
+                    </Tabs>
+                </div>
             </div>
 
-            { characters.length == 0 &&
-                <p className='caption center'>{ this.state.user.name } has no characters.</p>
-            }
-        </Section>
+            <Section className='margin-top--large'>
+                <div className='row'>
+                    { characters }
+                </div>
+
+                { characters.length == 0 &&
+                    <p className='caption center'>
+                        { this.state.user.name } has no characters.
+                    </p>
+                }
+
+                { editable &&
+                    <div className='center margin-bottom--large'>
+                        <a href='#character-form' className='margin-top--large btn center waves-effect waves-light modal-trigger'>New Character</a>
+                    </div>
+                }
+            </Section>
+        </DropzoneContainer>
     </main>`
