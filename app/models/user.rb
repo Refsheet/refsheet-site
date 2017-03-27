@@ -70,7 +70,7 @@ class User < ApplicationRecord
   end
 
   def settings
-    HashWithIndifferentAccess.new(super)
+    HashWithIndifferentAccess.new(super || {})
   end
 
   def profile_image_url
