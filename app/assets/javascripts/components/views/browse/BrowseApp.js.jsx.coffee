@@ -25,12 +25,12 @@
     @setState o
 
     newPath = @props.location.pathname
-    newPath += '?q=' + o.query if o.query
+    newPath += '?' + $.param q: o.query if o.query
     window.history.replaceState {}, '', newPath
     $('input[type=search]').blur()
 
     $.ajax
-      url: '/search'
+      url: '/characters.json'
       data: q: o.query
       success: (data) =>
         @setState results: data || []
@@ -45,7 +45,7 @@
   render: ->
     if @state.results != null
       results = @state.results.map (character) ->
-        `<div className='col m3 s12' key={ character.slug }>
+        `<div className='col m3 s6' key={ character.slug }>
             <CharacterLinkCard path={ character.link }
                                name={ character.name }
                                profileImageUrl={ character.profile_image_url } />
@@ -57,12 +57,15 @@
                 <li className='tab'>
                     <Link activeClassName='active' to='/browse'>Characters</Link>
                 </li>
+                {/*<li className='tab'>
+                    <Link activeClassname='active' to='/browse/users'>Users</Link>
+                </li>*/}
             </ul>
 
             <form className='search' onSubmit={ this.handleSearchSubmit }>
                 <div className="input-field">
                     <input id="search" type="search" required value={ this.state.query } onChange={ this.handleSearchChange } />
-                    <label for="search"><i className="material-icons">search</i></label>
+                    <label htmlFor="search"><i className="material-icons">search</i></label>
                 </div>
             </form>
         </Section>

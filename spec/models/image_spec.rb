@@ -16,6 +16,9 @@
 #  row_order          :integer
 #  guid               :string
 #  gravity            :string
+#  nsfw               :boolean
+#  hidden             :boolean
+#  gallery_id         :integer
 #
 
 require 'rails_helper'
@@ -43,5 +46,14 @@ describe Image, type: :model do
     image.destroy
 
     expect(character.reload.featured_image_id).to be_nil
+  end
+
+  it 'scopes sfw' do
+    ch = create :character
+    create :image, character: ch
+    i2 = create :image, nsfw: true, character: ch
+
+    expect(Image.all).to include(i2)
+    expect(Image.sfw).to_not include(i2)
   end
 end

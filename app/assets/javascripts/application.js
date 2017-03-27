@@ -27,6 +27,9 @@
 //= require dropzone
 //= require react-ga.min
 //= require imagesloaded
+//= require chartkick
+//= require highcharts
+//= require highcharts-init
 //
 //= require components
 //= require cable

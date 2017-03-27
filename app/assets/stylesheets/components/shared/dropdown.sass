@@ -1,0 +1,32 @@
+body:not(.admin) ul.dropdown-content
+  background-color: $page-bg-color
+  position: absolute
+  left: auto !important
+  right: 1rem !important
+  top: 1rem !important
+
+  li:hover, li.divider
+    background-color: $lighten-color
+
+  li > a, li > span
+    color: $lighten-text-color
+    position: relative
+
+  li > a > span
+    padding-left: 2.5rem
+
+  li > a > i
+    position: absolute
+    left: 15px
+
+  li
+    line-height: initial
+
+    & > a
+      color: $page-text-color
+      line-height: 22px
+      text-transform: none
+      font-size: 0.9rem
+
+      &:hover
+        background-color: transparent

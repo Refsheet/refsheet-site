@@ -9,6 +9,7 @@
 /vendor/bundle
 
 /public/assets
+/public/sitemaps
 
 # Ignore all logfiles and tempfiles.
 /log/*

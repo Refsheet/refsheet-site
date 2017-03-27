@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   include SessionHelper
-  
+  include CollectionHelper
+
+  before_action :set_user_locale
   before_action :set_default_meta
   protect_from_forgery with: :exception
 
@@ -25,9 +27,19 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def set_user_locale
+    session[:locale]   = params[:locale] if params.include? :locale
+    session[:locale] ||= current_user.settings[:locale] if signed_in?
+    session[:locale] ||= I18n.default_locale
+    I18n.locale = session[:locale]
+
+    Time.zone   = current_user.settings[:time_zone] if signed_in?
+    Time.zone ||= Application.config.time_zone
+  end
+
   def set_default_meta
     site = 'Refsheet.net'
-    desc = 'A new, convenient way to organize your character designs and art.'
+    desc = 'Show off reference sheets for your characters to help art commissions and share your worlds!'
 
     set_meta_tags(
         site: site,

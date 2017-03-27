@@ -1,0 +1,7 @@
+- title 'Images'
+
+.content
+  = render partial: 'table', locals: { images: @images }
+
+  .center
+    = will_paginate @scope

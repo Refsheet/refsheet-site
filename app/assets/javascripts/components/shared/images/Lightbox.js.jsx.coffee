@@ -1,4 +1,8 @@
 @Lightbox = React.createClass
+  contextTypes:
+    router: React.PropTypes.object.isRequired
+
+
   getInitialState: ->
     image: null
     error: null
@@ -40,7 +44,7 @@
         $(document).trigger 'app:character:update', data
 
       error: (error) =>
-        console.log error
+        console.error error
         Materialize.toast 'Error?', 3000, 'red'
 
     e.preventDefault()
@@ -59,12 +63,37 @@
         Materialize.toast('Could not delete that for some reason.', 3000, 'red')
     e.preventDefault()
 
+  _handleNsfwToggle: (e) ->
+    $.ajax
+      url: @state.image.path
+      type: 'PATCH'
+      data: image: nsfw: !@state.image.nsfw
+      success: (data) =>
+        @setState image: data
+        Materialize.toast "Image marked #{(if data.nsfw then 'NSFW' else 'SFW')}.", 3000, 'green'
+      error: (data) =>
+        console.error data
+        Materialize.toast 'NSFW status for this image can not be changed.', 3000, 'red'
+    e.preventDefault()
+
+  _handleHiddenToggle: (e) ->
+    $.ajax
+      url: @state.image.path
+      type: 'PATCH'
+      data: image: hidden: !@state.image.hidden
+      success: (data) =>
+        @setState image: data
+        console.log data
+        Materialize.toast "Image is now #{(if data.hidden then 'hidden' else 'public')}.", 3000, 'green'
+      error: (data) =>
+        console.error data
+        Materialize.toast 'Hidden status for this image can not be changed.', 3000, 'red'
+    e.preventDefault()
+
   handleClose: (e) ->
     if @state.directLoad
-      console.log "Going to #{@state.image.character.link} now..."
-      @props.history.push @state.image.character.link
+      @context.router.push @state.image.character.link
     else
-      console.log "Going 'back' now..."
       window.history.back() if @state.image?
     @setState image: null
 
@@ -107,16 +136,31 @@
               <ul id='lightbox-image-actions' className='dropdown-content cs-card-background--background-color'>
                   <li><a href='#' onClick={ this.setFeaturedImage }>Set as Cover Image</a></li>
                   <li><a href='#' onClick={ this.setProfileImage }>Set as Profile Image</a></li>
+
                   <li className='divider' />
+
                   <li><a href='#image-gravity-modal' className='modal-trigger'>
                       <i className='material-icons left'>crop</i>
                       <span>Cropping...</span>
                   </a></li>
+
+                  <li><a href='#' onClick={ this._handleNsfwToggle }>
+                      <i className='material-icons left'>{ this.state.image.nsfw ? 'remove_circle' : 'remove_circle_outline' }</i>
+                      <span>{ this.state.image.nsfw ? 'Flagged as NSFW' : 'Flag as NSFW' }</span>
+                  </a></li>
+
+                  <li><a href='#' onClick={ this._handleHiddenToggle }>
+                      <i className='material-icons left'>{ this.state.image.hidden ? 'visibility_off' : 'visibility' }</i>
+                      <span>{ this.state.image.hidden ? 'Private' : 'Public' }</span>
+                  </a></li>
+
                   <li className='divider' />
+
                   <li><a href={ this.state.image.path + '/full' } target='_blank'>
                       <i className='material-icons left'>file_download</i>
                       <span>Download</span>
                   </a></li>
+
                   <li><a href='#lightbox-delete-form' className='modal-trigger'>
                       <i className='material-icons left'>delete</i>
                       <span>Delete...</span>
@@ -158,7 +202,9 @@
                     { imgActions }
                     
                     <LightboxCharacterBox character={ this.state.image.character }
-                                          postDate={ this.state.image.post_date } />
+                                          postDate={ this.state.image.post_date }
+                                          nsfw={ this.state.image.nsfw }
+                                          hidden={ this.state.image.hidden } />
 
                     <RichText className='image-caption'
                               onChange={ captionCallback }
@@ -167,8 +213,8 @@
                               placeholder='No caption.' />
                 </div>
                 
-                {/*<div className='comments'>
-                </div>*/}
+                <div className='comments'>
+                </div>
             </div>
         </div>`
     else

@@ -12,6 +12,35 @@
     background-color: rgba(black, 0.8)
     transition: background-color 0.3s ease
 
+.image-edit-overlay
+  position: absolute
+  display: block
+  top: 0
+  bottom: 0
+  width: 100%
+  background-color: rgba(black, 0.5)
+  text-align: center
+  opacity: 0.0
+  cursor: pointer
+  transition: opacity 0.3s ease
+
+  &.for-header
+    .content
+      margin-top: 150px
+
+  .content
+    margin-top: 50%
+    transform: translateY(-50%)
+    color: white !important
+
+  i.material-icons
+    font-size: 3rem
+    display: block
+
+  &:hover
+    opacity: 1.0
+    transition: opacity 0.3s ease
+
 .character-image:hover,
 .page-header .parallax-container:hover
   .image-edit-button

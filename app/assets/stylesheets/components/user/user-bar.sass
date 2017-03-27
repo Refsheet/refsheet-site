@@ -22,21 +22,86 @@
         transition: color 0.25s ease
         cursor: pointer
 
+      &.patreon
+        padding: 0 15px
+        height: 56px
+        vertical-align: middle
+        color: white
+
+        img
+          display: inline-block
+          max-height: 22px
+          margin: 17px 0 17px 0.5rem
+          vertical-align: middle
+
     .logo
-      padding-left: 0
+      padding: 0 15px
       height: 56px
-      padding-right: 15px
+      vertical-align: middle
+      text-transform: none
 
       img
-        max-height: 36px
         display: inline-block
-        margin: 10px 0
+        max-height: 32px
+        margin: 12px 0.1rem 12px 0
+        vertical-align: middle
+        float: left
+
+      .site-name
+        display: inline-block
+        line-height: 56px
+        margin: 0
+        font-size: 2rem
+        color: $brand-primary
+        font-weight: 300
+
+        .logo-r
+          display: none
+
+        .dot-net
+          padding-left: 1px
+          font-size: 1.3rem
+          color: $page-text-color
+
 
     .avatar
-      padding-right: 0
       height: 56px
 
       img
         max-height: 36px
         display: inline-block
         margin: 10px 0
+
+  .navbar-shroud
+    display: none
+
+  @media #{$small-and-down}
+    .logo
+      float: none !important
+      position: absolute
+      left: 50%
+      transform: translateX(-50%)
+
+    ul.menu
+      margin-left: -15px
+
+    .site-nav
+      display: none
+      position: fixed
+      top: 56px
+      left: 0
+      width: 100%
+      background-color: $card-bg-color
+      z-index: 10
+
+      li
+        display: block
+        float: none
+
+    .navbar-shroud
+      position: fixed
+      top: 56px
+      bottom: 0
+      left: 0
+      width: 100%
+      background-color: rgba(black, 0.5)

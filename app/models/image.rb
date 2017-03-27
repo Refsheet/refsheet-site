@@ -16,31 +16,46 @@
 #  row_order          :integer
 #  guid               :string
 #  gravity            :string
+#  nsfw               :boolean
+#  hidden             :boolean
+#  gallery_id         :integer
 #
 
-# Should me larger than 854px in both dimensions,
-# should be no more than 20MB
+# Should me larger than 1280px in both dimensions,
+# should be no more than 25MB
 class Image < ApplicationRecord
   include HasGuid
   include RankedModel
 
   belongs_to :character, inverse_of: :images
+  has_one :user, through: :character
+
+  SIZE = {
+      thumbnail: 320,
+      small: 427,
+      medium: 854,
+      large: 1280
+  }
 
   has_attached_file :image,
                     default_url: '/assets/default.png',
                     styles: {
-                        thumbnail: "320x320^",
-                        small: "427x427^",
-                        medium: "854x854^",
-                        large: "1280x>"
+                        thumbnail: '',
+                        small: "#{SIZE[:small]}x>",
+                        small_square: '',
+                        medium: "#{SIZE[:medium]}x>",
+                        medium_square: '',
+                        large: "#{SIZE[:large]}x>",
+                        large_square: ''
                     },
                     s3_permissions: {
                         original: :private
                     },
                     convert_options: {
-                       thumbnail: -> (i) { "-gravity #{i.gravity} -thumbnail 320x320^ -extent 320x320" },
-                       small: -> (i) { "-gravity #{i.gravity} -thumbnail 427x427^ -extent 427x427" },
-                       medium: -> (i) { "-gravity #{i.gravity} -thumbnail 854x854^ -extent 854x854" },
+                       thumbnail:     -> (i) { "-resize '#{SIZE[:thumbnail]}x#{SIZE[:thumbnail]}^' +repage -gravity '#{i.gravity}' -crop '#{SIZE[:thumbnail]}x#{SIZE[:thumbnail]}+0+0'" },
+                       small_square:  -> (i) { "-resize '#{SIZE[:small]}x#{SIZE[:small]}^' +repage -gravity '#{i.gravity}' -crop '#{SIZE[:small]}x#{SIZE[:small]}+0+0'" },
+                       medium_square: -> (i) { "-resize '#{SIZE[:medium]}x#{SIZE[:medium]}^' +repage -gravity '#{i.gravity}' -crop '#{SIZE[:medium]}x#{SIZE[:medium]}+0+0'" },
+                       large_square:  -> (i) { "-resize '#{SIZE[:large]}x#{SIZE[:large]}^' +repage -gravity '#{i.gravity}' -crop '#{SIZE[:large]}x#{SIZE[:large]}+0+0'" }
                     }
 
 
@@ -52,6 +67,12 @@ class Image < ApplicationRecord
   ranks :row_order
 
   after_destroy :clean_up_character
+
+  scoped_search on: [:caption, :image_file_name]
+  scoped_search in: :character, on: [:name, :species]
+
+  scope :sfw, -> { where(nsfw: [false, nil]) }
+  scope :visible, -> { where(hidden: [false, nil]) }
 
   def gravity
     super || 'center'
@@ -73,5 +94,9 @@ class Image < ApplicationRecord
   def clean_up_character
     Character.where(profile_image_id: self.id).update_all profile_image_id: nil
     Character.where(featured_image_id: self.id).update_all featured_image_id: nil
+  end
+
+  def managed_by?(user)
+    self.character.managed_by? user
   end
 end

@@ -28,13 +28,26 @@
 //  23. Collections
 //  24. Progress Bar
 
+// -1. Admin Page Colors
+// ==========================================================================
+
+$admin-page-text-color: #444
+$admin-page-bg-color: #eeeeee
+$admin-card-bg-color: #FFFFFF
+
 
 // 0. Main Page Colors
 // ==========================================================================
 
+$brand-primary: #2bbbad
+$brand-dark: darken($brand-primary, 10%)
+$brand-darker: darken($brand-primary, 15%)
+$brand-border: lighten($brand-primary, 20%)
+
 $page-bg-color: lighten(color('grey', 'darken-4'), 2%)
 $page-text-color: color('grey', 'lighten-1')
 $text-light-color: color('grey', 'darken-1')
+$text-strong-color: white
 $lighten-color: rgba(255,255,255,0.1)
 $lighten-text-color: rgba(255, 255, 255, 0.8)
 $muted-text-color: rgba(255, 255, 255, 0.5)
@@ -50,7 +63,7 @@ $primary-color-dark: darken($primary-color, 15%)
 $secondary-color: color("teal", "lighten-1")
 $success-color: color("green", "base")
 $error-color: color("red", "base")
-$link-color: color("light-blue", "darken-1")
+$link-color: $brand-primary
 
 
 // 2. Badges

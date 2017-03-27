@@ -76,6 +76,15 @@
     if @props.officialSuffix
       prefixClass += ' official'
 
+    gravity_crop = {
+      center: { objectPosition: 'center' }
+      north: { objectPosition: 'top' }
+      south: { objectPosition: 'bottom' }
+      east: { objectPosition: 'right' }
+      west: { objectPosition: 'left' }
+    }
+
+
     `<div className='character-card'>
         <div className='character-details'>
             <h1 className='name'>
@@ -88,19 +97,24 @@
             { description }
         </div>
 
-        <div className='user-icon'>
+        {/*<div className='user-icon'>
             <Link to={ '/' + this.state.character.user_id } className='tooltipped' data-tooltip={ this.state.character.user_name } data-position='bottom'>
                 <img className='circle' src={ this.state.character.user_avatar_url } />
             </Link>
-        </div>
+        </div>*/}
 
         <div className='character-image' onClick={ this.handleImageClick }>
             <div className='slant' />
-            <img src={ this.state.character.profile_image.medium } data-image-id={ this.state.character.profile_image.id } />
+            <img src={ this.state.character.profile_image.medium }
+                 data-image-id={ this.state.character.profile_image.id }
+                 style={ gravity_crop[this.state.character.profile_image.gravity] } />
 
             { editable &&
-                <a className='btn btn-small btn-icon image-edit-button' onClick={ this.handleProfileImageEdit }>
-                    <i className='material-icons'>edit</i>
+                <a className='image-edit-overlay' onClick={ this.handleProfileImageEdit }>
+                    <div className='content'>
+                        <i className='material-icons'>photo_camera</i>
+                        Change Image
+                    </div>
                 </a> }
         </div>
     </div>`
