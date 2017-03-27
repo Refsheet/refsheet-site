@@ -9,11 +9,13 @@
 #  changed_image_id     :integer
 #  changed_swatch_id    :integer
 #  reason               :text
-#  changes              :json
+#  change_data          :json
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #
 
+# TODO: Make this a more generic thing.
+#
 class Changelog < ApplicationRecord
   belongs_to :user
   belongs_to :changed_character, class_name: Character, foreign_key: :changed_character_id

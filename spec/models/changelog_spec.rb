@@ -9,7 +9,7 @@
 #  changed_image_id     :integer
 #  changed_swatch_id    :integer
 #  reason               :text
-#  changes              :json
+#  change_data          :json
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #
