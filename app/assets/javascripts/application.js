@@ -33,4 +33,5 @@
 //
 //= require components
 //= require cable
+//= require_tree ./admin
 //= require_tree .

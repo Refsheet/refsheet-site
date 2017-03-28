@@ -1,0 +1,3 @@
+$ ->
+  Materialize.updateTextFields()
+  Materialize.initializeForms()

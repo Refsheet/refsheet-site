@@ -1,0 +1,20 @@
+.row
+  .col.s12.m6
+    %ul.attributes.margin-top--none
+      %li
+        .label Destination
+        .value
+          - if transfer.invitation
+            = mail_to transfer.invitation.email
+          - else
+            = link_to transfer.destination.username, admin_user_path(transfer.destination.username)
+
+  .col.s12.m6
+    %ul.attributes.margin-top--none
+      %li
+        .label Created At
+        .value= transfer.created_at
+
+      %li
+        .label Status
+        .value= transfer.status
