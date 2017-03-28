@@ -10,4 +10,15 @@
     %meta{'http-equiv' => "X-Clacks-Overhead", content: "GNU Sir Terry Pratchett"}
 
   %body{class: [yield(:body_class), params[:controller].gsub(/[^a-z]+/, ' ')].join(' ')}
+    - if Rails.env.test?
+      :css
+        * {
+          transition-property: none !important;
+          transform: none !important;
+          animation: none !important;
+        }
+
+      :javascript
+        $.fx.off = true;
+
     = render 'body'
