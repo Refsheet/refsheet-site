@@ -92,6 +92,7 @@ group :development, :test do
   gem 'phantomjs', require: 'phantomjs/poltergeist'
   gem 'bullet'
   gem 'rspec-its'
+  gem 'timecop'
 end
 
 gem 'resque-web', require: 'resque_web'
