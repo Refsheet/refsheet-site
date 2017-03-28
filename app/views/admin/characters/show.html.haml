@@ -31,6 +31,7 @@
         %ul.tabs
           %li.tab= link_to 'Attributes', '#attributes', class: 'active'
           %li.tab= link_to 'Profile', '#profile'
+          %li.tab= link_to 'Transfers', '#transfers'
           %li.tab= link_to 'Changes', '#changelog'
 
         %section.card-content#attributes
@@ -83,10 +84,20 @@
               - unless @character.dislikes.present?
                 .caption No character dislikes set.
 
+        %section.card-content#transfers
+          - if @character.pending_transfer?
+            = render partial: 'admin/transfers/summary', locals: { transfer: @character.pending_transfer }
+
+          - else
+            = simple_form_for @character, url: admin_character_path(@character.shortcode) do |f|
+              .row
+                .col.s12.m6
+                  = f.input :transfer_to_user, hint: "Can be a username or email address."
+                .col.s12.m6
+                  = f.button :submit, 'Send Transfer', class: 'margin-top--medium'
+
         %section#changelog
-          .row
-            .col.s12
-              = render partial: 'admin/shared/changelog', locals: { changes: Changelog.for_character(@character).last(10).reverse}
+          = render partial: 'admin/shared/changelog', locals: { changes: Changelog.for_character(@character).last(10).reverse}
 
 :coffeescript
   $ ->
