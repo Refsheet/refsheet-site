@@ -41,7 +41,7 @@
     e.preventDefault()
 
   render: ->
-    if @state.transfer?.destination_username == @context.currentUser?.username
+    if @state.transfer && @state.transfer?.destination_username == @context.currentUser?.username
       `<div className='character-notice'>
           <div className='notice-text'>
               { this.state.transfer.sender_username } wishes to transfer this character to you.
