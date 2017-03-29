@@ -37,10 +37,17 @@
       window.history.replaceState {}, '', newState.character.link
 
   componentDidLoad: (character) ->
-    $(document).on 'app:image:delete', (imageId) =>
-      @setState character: null
-      $.get "/users/#{@props.params.userId}/characters/#{@props.params.characterId}.json", (data) =>
-        @setState character: data
+    $(document)
+      .on 'app:image:delete', (imageId) =>
+        @setState character: null
+        $.get "#{@state.character.path}.json", (data) =>
+          @setState character: data
+
+      .on 'app:character:reload', (newPath = @state.character.path, callback = null) =>
+        $.get "#{newPath}.json", (data) =>
+          @setState character: data
+          callback(data) if callback?
+
 
   setFeaturedImage: (imageId) ->
     $.ajax
@@ -190,6 +197,7 @@
       dislikesChange = @handleDislikesChange
       colorSchemeFields = []
       headerImageEditCallback = @handleHeaderImageEdit
+      dropzoneTriggerId = [ '#image-upload' ]
 
       for key, name of {
         primary: 'Primary Color'
@@ -214,8 +222,11 @@
 
     `<DropzoneContainer url={ this.state.character.path + '/images' }
                         onUpload={ dropzoneUpload }
-                        clickable={[ '#image-upload' ]}>
-        { this.state.character.color_scheme && <PageStylesheet { ...this.state.character.color_scheme.color_data } /> }
+                        clickable={ dropzoneTriggerId }>
+
+        { this.state.character.color_scheme &&
+            <PageStylesheet { ...this.state.character.color_scheme.color_data } />
+        }
 
         { editable &&
             <FixedActionButton clickToToggle className='teal lighten-1' tooltip='Menu' icon='menu'>
@@ -291,8 +302,11 @@
 
         <PageHeader backgroundImage={ (this.state.character.featured_image || {}).url }
                     onHeaderImageEdit={ headerImageEditCallback }>
+
+            <CharacterNotice transfer={ this.state.character.pending_transfer } />
             <CharacterCard edit={ editable } detailView={ true } character={ this.state.character } onLightbox={ this.props.onLightbox } />
             <SwatchPanel edit={ editable } swatchesPath={ this.state.character.path + '/swatches/' } swatches={ this.state.character.swatches } />
+
         </PageHeader>
 
         <Section>

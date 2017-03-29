@@ -9,6 +9,10 @@ module HasGuid
 
     validate :validate_guid
 
+    after_initialize do
+      generate_guid && self.save! if self.persisted? && self.send(guid_column_name).blank?
+    end
+
     self.guid_column_name = :guid
     self.guid_options = {}
   end

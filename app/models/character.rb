@@ -108,6 +108,10 @@ class Character < ApplicationRecord
     self.transfers.pending.any?
   end
 
+  def path
+    "/#{self.user.username}/#{self.slug}"
+  end
+
   private
 
   def initiate_transfer
