@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resource :session, only: [:show, :create, :destroy, :update], controller: 'session'
 
   resources :characters, only: [:index]
+  resources :transfers, only: [:update]
 
   resources :users, only: [:index, :show, :create, :update] do
     resources :characters, only: [:show, :update, :create, :destroy] do

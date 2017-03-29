@@ -17,6 +17,8 @@
 #
 
 class Transfer < ApplicationRecord
+  include HasGuid
+
   belongs_to :character
   belongs_to :item
   belongs_to :sender, class_name: User, foreign_key: :sender_user_id
@@ -29,8 +31,11 @@ class Transfer < ApplicationRecord
   validates_presence_of :destination, unless: -> (t) { t.invitation.present? }
   validates_presence_of :invitation, unless: -> (t) { t.destination.present? }
   validates_presence_of :character
+  validates_inclusion_of :status, in: %w(pending rejected claimed)
 
   before_validation :assign_sender
+
+  has_guid :guid
 
   state_machine :status, initial: :pending do
     before_transition :pending => :rejected, do: :reject_transfer

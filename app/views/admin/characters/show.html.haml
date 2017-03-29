@@ -4,7 +4,7 @@
   .row
     .col.s12.m4.l3
       = image_tag @character.profile_image.image.url(:medium_square), class: 'materialboxed responsive-img z-depth-1'
-      %h1.caption= title @character.name
+      %h1.caption= link_to title(@character.name), @character.path
 
       %ul.attributes
         %li

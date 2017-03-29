@@ -1,21 +1,30 @@
 @App = React.createClass
+  childContextTypes:
+    currentUser: React.PropTypes.object
+
+
   getInitialState: ->
     currentUser: null
     loading: true
+
+  getChildContext: ->
+    currentUser: @state.currentUser
+
 
   componentWillMount: ->
     $.get '/session', (data) =>
       @setState currentUser: data, loading: false
       ReactGA.set userId: data?.id
 
-
   componentDidMount: ->
     $(document).on 'app:sign_in', (e, user) =>
       @setState currentUser: user
       ReactGA.set userId: user?.id
 
+
   signInUser: (user) ->
     @setState currentUser: user
+
 
   render: ->
     if @state.loading
