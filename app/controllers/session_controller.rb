@@ -4,13 +4,13 @@ class SessionController < ApplicationController
   end
 
   def create
-    if params[:username] =~ /@/
-      @user = User.find_by('LOWER(users.email) = ?', params[:username].downcase)
+    if user_params[:username] =~ /@/
+      @user = User.find_by('LOWER(users.email) = ?', user_params[:username].downcase)
     else
-      @user = User.find_by('LOWER(users.username) = ?', params[:username].downcase)
+      @user = User.find_by('LOWER(users.username) = ?', user_params[:username].downcase)
     end
 
-    if @user&.authenticate(params[:password])
+    if @user&.authenticate(user_params[:password])
       sign_in @user
       render json: @user, serializer: UserSerializer
     else
@@ -29,5 +29,11 @@ class SessionController < ApplicationController
   def destroy
     sign_out
     head :ok
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:username, :password)
   end
 end
