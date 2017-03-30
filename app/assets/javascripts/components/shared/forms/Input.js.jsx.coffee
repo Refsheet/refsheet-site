@@ -40,16 +40,33 @@
     error = @props.error
     error = error[0] if error?.length
 
+    if @props.type == 'textarea'
+      inputField =
+        `<textarea id={ this.props.name }
+                   name={ this.props.name }
+                   disabled={ this.props.disabled }
+                   readOnly={ this.props.readOnly }
+                   placeholder={ this.props.placeholder }
+                   autoFocus={ this.props.autoFocus }
+                   onChange={ this._handleInputChange }
+                   value={ this.props.value || '' }
+                   className={ className + ' materialize-textarea' } />`
+
+    else
+      inputField =
+        `<input type={ this.props.type || 'text' }
+                id={ this.props.name }
+                name={ this.props.name }
+                className={ className }
+                disabled={ this.props.disabled }
+                readOnly={ this.props.readOnly }
+                placeholder={ this.props.placeholder }
+                autoFocus={ this.props.autoFocus }
+                onChange={ this._handleInputChange }
+                value={ this.state.value || '' } />`
+
     `<div className='input-field'>
-        <input type={ this.props.type || 'text' }
-               id={ this.props.name }
-               className={ className }
-               disabled={ this.props.disabled }
-               readOnly={ this.props.readOnly }
-               placeholder={ this.props.placeholder }
-               autoFocus={ this.props.autoFocus }
-               onChange={ this._handleInputChange }
-               value={ this.state.value } />
+        { inputField }
 
         { this.props.label &&
             <label htmlFor={ this.props.name }>

@@ -6,6 +6,7 @@ class UserSerializer < ActiveModel::Serializer
              :email,
              :avatar_url,
              :path,
+             :link,
              :name,
              :profile_image_url,
              :profile,
@@ -23,6 +24,10 @@ class UserSerializer < ActiveModel::Serializer
 
   def path
     "/users/#{object.username}/"
+  end
+
+  def link
+    "/#{object.username}"
   end
 
   def profile_markup

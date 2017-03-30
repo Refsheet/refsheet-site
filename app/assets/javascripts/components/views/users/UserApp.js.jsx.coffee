@@ -8,15 +8,6 @@
     error: null
     characterName: null
 
-  handleSignOut: (e) ->
-    $.ajax
-      url: '/session'
-      type: 'DELETE'
-      success: =>
-        $(document).trigger 'app:sign_in', null
-
-    e.preventDefault()
-
   handleUserChange: (user) ->
     @setState user: user
 
@@ -24,6 +15,9 @@
       @props.onLogin(user)
 
   componentDidMount: ->
+    $(document).trigger 'app:loading'
+    console.debug "Loading User"
+
     $.ajax
       url: '/users/' + @props.params.userId + '.json'
       success: (data) =>
@@ -31,6 +25,9 @@
 
       error: (error) =>
           @setState error: error
+
+      complete: ->
+        $(document).trigger 'app:loading:done'
 
   goToCharacter: (character) ->
     $('#character-form').modal('close')
@@ -41,13 +38,12 @@
       return `<NotFound />`
 
     unless @state.user?
-      return `<Loading />`
+      return `<main />`
 
     if @props.currentUser?.username == @state.user.username
       actionButtons =
         `<FixedActionButton clickToToggle={ true } className='teal lighten-1' tooltip='Menu' icon='menu'>
             <ActionButton className='green lighten-1 modal-trigger' tooltip='New Refsheet' href='#character-form' icon='note_add' />
-            <ActionButton className='grey' tooltip='Sign Out' onClick={ this.handleSignOut } icon='exit_to_app' />
             <ActionButton className='blue darken-1 modal-trigger' tooltip='User Settings' href='#user-settings-modal' icon='settings' />
         </FixedActionButton>`
 
