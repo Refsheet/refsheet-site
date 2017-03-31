@@ -60,6 +60,30 @@ module CollectionHelper
 
     params[:sort]  ||= default_sort
     params[:order] ||= default_order
+    search_query = ''
+
+    if (query = params[:q]).present?
+      search = []
+
+      query.split(/\s+/).each do |part|
+        if part =~ /\A(\w+):(\S+)\z/
+          cmd = $1.downcase.to_sym
+
+          case cmd
+            when :is
+              params[$2.downcase.to_sym] = 'true'
+            when :not
+              params[$2.downcase.to_sym] = 'false'
+            else
+              params[cmd] = $2
+          end
+        else
+          search << part
+        end
+      end
+
+      search_query = search.join(' ')
+    end
 
     params.keys.each do |key|
       relation, column = key.to_s.split('.')
@@ -67,6 +91,7 @@ module CollectionHelper
       negate = value[0] == '!'
       value.slice!(0) if negate
       value = [nil, ''] if value.blank? || value == '!'
+      value = nil if value.downcase == 'null'
 
       if column.nil?
         column   = relation
@@ -92,13 +117,13 @@ module CollectionHelper
       end
     end
 
-    if params.include?(:q) or params.include?(:sort)
+    if search_query.present? or params.include?(:sort)
       sort = params[:sort] ? "#{scope.table_name + '.' + params[:sort].try(:downcase)} #{params[:order].try(:downcase)}".strip : ''
 
-      if scope.respond_to?(:search_for) && params[:q]
-        scope = scope.search_for(params[:q])
+      if scope.respond_to?(:search_for) && search_query
+        scope = scope.search_for(search_query)
       else
-        unpermitted_params << 'q' if params[:q]
+        unpermitted_params << 'q' if search_query
       end
 
       scope = scope.order(sort)
