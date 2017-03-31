@@ -7,13 +7,7 @@
   .row
     - images.each do |image|
       .col.s6.m4.l3
-        .card
-          .card-image= link_to image_tag(image.image.url(:thumbnail), alt: image.caption), admin_image_path(image.guid)
-          .card-content
-            .truncate= link_to image.image_file_name, admin_image_path(image.guid)
-            .muted.truncate
-              #{ image.created_at.strftime('%d %b %Y') }
-              &bull; #{ link_to image.character.name, admin_character_path(image.character.shortcode) }
+        = render partial: 'card', locals: { image: image }
 
 - if images.empty?
   .caption.center Nothing to show here...
