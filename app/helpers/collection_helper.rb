@@ -105,7 +105,7 @@ module CollectionHelper
     end
 
     unless params[:page] == 'all' || !scope.respond_to?(:page)
-      scope = scope.paginate(page: params[:page] || 1, per_page: params[:per_page] || 25)
+      scope = scope.paginate(page: params[:page] || 1, per_page: params[:per_page] || 24)
     end
 
     raise ActionController::UnpermittedParameters.new(unpermitted_params) if unpermitted_params.any?
