@@ -30,17 +30,21 @@ describe Transfer, type: :model do
     ],
     validate_presence_of: [
       :sender,
-      :sender,
-      :destination,
       :destination,
       :invitation,
-      :invitation,
       :character,
-      :character,
-      :rejected_at,
-      :rejected_at,
-      :claimed_at,
-      :claimed_at
     ]
   )
+
+  context 'when rejected' do
+    let(:transfer) { build :transfer, status: :rejected }
+    subject { transfer }
+    it_is_expected_to validate_presence_of: :rejected_at
+  end
+
+  context 'when claimed' do
+    let(:transfer) { build :transfer, status: :claimed }
+    subject { transfer }
+    it_is_expected_to validate_presence_of: :claimed_at
+  end
 end

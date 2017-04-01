@@ -36,14 +36,9 @@ describe User, type: :model do
     ],
     validate_presence_of: [
       :username,
-      :username,
-      :email,
       :email
     ],
-    validate_confirmation_of: [
-      :password,
-      :password
-    ]
   )
+
   its(:settings) { is_expected.to be_a HashWithIndifferentAccess }
 end
