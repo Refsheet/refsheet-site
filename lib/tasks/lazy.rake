@@ -50,25 +50,27 @@ namespace :lazy do
         filename = "#{Rails.root}/spec/models/#{filename}_spec.rb"
 
         if File.exists? filename
-          puts "--- #{filename}"
-
           if true # write_out
-            temp = File.open filename + '.tmp'
+            temp = File.open filename + '.tmp', 'w'
             file = File.new(filename)
+            puts "--- #{filename}"
 
-            next if file.grep /it_is_expected_to/
+            next if file.grep(/it_is_expected_to/).any?
+            file.rewind
 
             file.each do |line|
               next if line =~ /add some examples to/
               temp << line.gsub("RSpec.describe", "describe")
 
               if line =~ /describe.*?type:\s+:model/
-                temp.push *lines
+                lines.each { |l| temp << l }
               end
             end
 
             file.close
             temp.close
+
+            puts File.readlines(filename + '.tmp').join
 
             FileUtils.mv filename + '.tmp', filename
           end
