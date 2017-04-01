@@ -9,13 +9,15 @@ feature 'Lightbox', js: true do
     visit image_path image
     expect(page).to have_content image.character.name
 
-    click_link 'more_vert'
-    expect(page).to have_content 'Delete'
+    within '.image-actions' do
+      page.find('#image-actions-menu').trigger(:click)
+      expect(page).to have_content 'Delete...'
+      page.find('#image-delete-link').trigger(:click)
+    end
 
-    click_link 'Delete'
     expect(page).to have_content 'Are you sure?'
+    page.find('#image-delete-confirm').trigger(:click)
 
-    click_link 'DELETE IMAGE'
     expect(page).to have_content 'deleted'
     expect(image.character.images.count).to eq 0
   end
@@ -24,7 +26,7 @@ feature 'Lightbox', js: true do
     visit image_path image
     expect(page).to have_content image.character.name
 
-    click_link 'more_vert'
+    page.find('#image-actions-menu').trigger(:click)
     expect(page).to have_content 'Set as Cover Image'
 
     click_link 'Set as Cover Image'
@@ -36,11 +38,33 @@ feature 'Lightbox', js: true do
     visit image_path image
     expect(page).to have_content image.character.name
 
-    click_link 'more_vert'
+    page.find('#image-actions-menu').trigger(:click)
     expect(page).to have_content 'Set as Profile Image'
 
     click_link 'Set as Profile Image'
     expect(page).to have_content 'Profile image changed!'
     expect(image.character.reload.profile_image_id).to eq image.id
+  end
+
+  xcontext 'image flags' do
+    scenario 'user set nsfw' do
+      visit image_path image
+      expect(page).to have_content image.character.name
+      page.find('#image-actions-menu').trigger(:click)
+      expect(page).to have_content 'Flag as NSFW'
+      click_link 'Flag as NSFW'
+      expect(page).to have_content 'flagged'
+      expect(image.reload.nsfw?).to be_truthy
+    end
+
+    scenario 'user set public' do
+      visit image_path image
+      expect(page).to have_content image.character.name
+      page.find('#image-actions-menu').trigger(:click)
+      expect(page).to have_content 'Public'
+      click_link 'Public'
+      expect(page).to have_content 'hidden'
+      expect(image.reload.hidden?).to be_truthy
+    end
   end
 end

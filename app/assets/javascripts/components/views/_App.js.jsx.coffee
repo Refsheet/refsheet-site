@@ -1,29 +1,32 @@
 @App = React.createClass
   childContextTypes:
     currentUser: React.PropTypes.object
+    session: React.PropTypes.object
 
 
   getInitialState: ->
-    currentUser: null
+    session: {}
     loading: true
 
   getChildContext: ->
-    currentUser: @state.currentUser
+    currentUser: @state.session.current_user
+    session: @state.session
 
 
   componentWillMount: ->
     $.get '/session', (data) =>
-      @setState currentUser: data, loading: false
-      ReactGA.set userId: data?.id
+      @setState session: data, loading: false
+      ReactGA.set userId: data.current_user?.id
 
   componentDidMount: ->
-    $(document).on 'app:sign_in', (e, user) =>
-      @setState currentUser: user
-      ReactGA.set userId: user?.id
+    $(document).on 'app:session:update', (e, session) =>
+      @setState session: session
+      ReactGA.set userId: session.current_user?.id
 
-
-  signInUser: (user) ->
-    @setState currentUser: user
+  _onLogin: (user) ->
+    s = @state.session
+    s.current_user = user
+    @setState session: s
 
 
   render: ->
@@ -35,17 +38,17 @@
     else
       childrenWithProps = React.Children.map this.props.children, (child) =>
         React.cloneElement child,
-          onLogin: @signInUser
-          currentUser: @state.currentUser
+          onLogin: @_onLogin
+          currentUser: @state.session.current_user
 
 
       `<div id='rootApp'>
-          <Lightbox currentUser={ this.state.currentUser } history={ this.props.history } />
+          <Lightbox currentUser={ this.state.session.current_user } history={ this.props.history } />
 
-          <FeedbackModal name={ this.state.currentUser && this.state.currentUser.name } />
+          <FeedbackModal name={ this.state.session.current_user && this.state.session.current_user.name } />
           <a className='btn modal-trigger feedback-btn blue-grey' href='#feedback-modal'>Feedback</a>
 
-          <UserBar currentUser={ this.state.currentUser } />
+          <UserBar session={ this.state.session } />
 
           { childrenWithProps }
 
