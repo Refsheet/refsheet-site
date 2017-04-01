@@ -19,6 +19,7 @@
 #  nsfw               :boolean
 #  hidden             :boolean
 #  gallery_id         :integer
+#  deleted_at         :datetime
 #
 
 require 'rails_helper'
