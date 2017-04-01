@@ -51,11 +51,11 @@ namespace :lazy do
 
         if File.exists? filename
           if true # write_out
-            temp = File.open filename + '.tmp', 'w'
             file = File.new(filename)
             puts "--- #{filename}"
 
             next if file.grep(/it_is_expected_to/).any?
+            temp = File.open filename + '.tmp', 'w'
             file.rewind
 
             file.each do |line|

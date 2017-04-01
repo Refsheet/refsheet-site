@@ -13,6 +13,10 @@
 
 require 'rails_helper'
 
-RSpec.describe Invitation, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Invitation, type: :model do
+  it_is_expected_to(
+    belong_to: :user,
+    have_many: :transfers,
+    validate_presence_of: :user
+  )
 end

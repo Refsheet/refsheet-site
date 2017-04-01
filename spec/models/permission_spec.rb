@@ -11,6 +11,15 @@
 
 require 'rails_helper'
 
-RSpec.describe Permission, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Permission, type: :model do
+  it_is_expected_to(
+    belong_to: [
+      :user,
+      :role
+    ],
+    validate_presence_of: [
+      :user,
+      :role
+    ]
+  )
 end

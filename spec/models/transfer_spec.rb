@@ -19,6 +19,28 @@
 
 require 'rails_helper'
 
-RSpec.describe Transfer, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Transfer, type: :model do
+  it_is_expected_to(
+    belong_to: [
+      :character,
+      :item,
+      :sender,
+      :destination,
+      :invitation
+    ],
+    validate_presence_of: [
+      :sender,
+      :sender,
+      :destination,
+      :destination,
+      :invitation,
+      :invitation,
+      :character,
+      :character,
+      :rejected_at,
+      :rejected_at,
+      :claimed_at,
+      :claimed_at
+    ]
+  )
 end

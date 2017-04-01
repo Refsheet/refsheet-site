@@ -9,6 +9,13 @@
 require 'rails_helper'
 
 describe Role, type: :model do
+  it_is_expected_to(
+    have_many: [
+      :permissions,
+      :users
+    ],
+    validate_presence_of: :name
+  )
   it { is_expected.to validate_presence_of :name }
   it { is_expected.to validate_uniqueness_of :name }
   it { is_expected.to allow_value('ab123_somesym').for :name }
