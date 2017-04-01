@@ -65,6 +65,7 @@ class Image < ApplicationRecord
 
   has_guid
   ranks :row_order
+  acts_as_paranoid
 
   after_destroy :clean_up_character
 

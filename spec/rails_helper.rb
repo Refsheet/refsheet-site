@@ -62,6 +62,6 @@ end
 
 Capybara.javascript_driver = :poltergeist
 Capybara.raise_server_errors = false
-Capybara.default_max_wait_time = 10.seconds
+Capybara.default_max_wait_time = 20.seconds
 
 DatabaseCleaner.strategy = :truncation
