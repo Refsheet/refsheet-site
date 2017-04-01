@@ -21,6 +21,8 @@
 
   render: ->
     children = React.Children.map @props.children, (child) =>
+      return child unless child.type == Attribute
+
       React.cloneElement child,
         onCommit: @props.onAttributeUpdate
         onDelete: @props.onAttributeDelete

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170317182310) do
+ActiveRecord::Schema.define(version: 20170401034812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -124,6 +124,7 @@ ActiveRecord::Schema.define(version: 20170317182310) do
     t.boolean  "nsfw"
     t.boolean  "hidden"
     t.integer  "gallery_id"
+    t.datetime "deleted_at"
     t.index ["guid"], name: "index_images_on_guid", using: :btree
   end
 
