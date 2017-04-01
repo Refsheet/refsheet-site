@@ -1,25 +1,69 @@
 require 'rails_helper'
 
-feature 'Login', js: true do
-  let(:user) { create :user, email: 'jdoe@example.com', username: 'john_doe', password: 'fishsticks', password_confirmation: 'fishsticks' }
+feature 'Log In', js: true do
+  let!(:user) { create :user, email: 'jdoe@example.com', username: 'john_doe', password: 'fishsticks', password_confirmation: 'fishsticks' }
 
-  scenario 'user successfully logs in' do
+  before(:each) do
     visit login_path
+  end
 
-    fill_in :username, with: 'john_Doe'
-    fill_in :password, with: 'fishsticks'
+  def try_login(valid=true)
     click_button 'Log In'
 
-    expect(page).to have_content user.name
+    if valid
+      expect(page).to have_content user.username
+    else
+      expect(page).to have_content 'Invalid username or password'
+    end
+  end
+
+  def enter(username, password)
+    fill_in :username, with: username
+    fill_in :password, with: password
+  end
+
+  scenario 'username missing' do
+    enter nil, 'fishsticks'
+    try_login false
+  end
+
+  scenario 'password invalid' do
+    enter 'john_doe', 'a;sdlkfj'
+    try_login false
+  end
+
+  scenario 'username invalid' do
+    enter 'johnasdf', 'fishsticks'
+    try_login false
+  end
+
+  scenario 'user successfully logs in' do
+    enter 'john_Doe', 'fishsticks'
+    try_login
   end
 
   scenario 'user successfully logs in with email' do
-    visit login_path
+    enter 'jdoe@EXAMPLE.com', 'fishsticks'
+    try_login
+  end
 
-    fill_in :username, with: 'jdoe@EXAMPLE.com'
-    fill_in :password, with: 'fishsticks'
-    click_button 'Log In'
+  xcontext 'admin' do
+    let!(:user) { create :user }
+    let!(:role) { create :role, name: :admin }
+    before { user.roles << role }
 
-    expect(page).to have_content user.name
+    scenario 'successfully logs in' do
+      enter user.username, 'fishsticks'
+      try_login
+      expect(page).to have_content 'Dashboard'
+    end
+
+    scenario 'rejected admin' do
+      visit admin_root_path
+      expect(page).to have_content 'not authorized'
+      enter user.username, 'fishsticks'
+      try_login
+      expect(page).to have_content 'Dashboard'
+    end
   end
 end

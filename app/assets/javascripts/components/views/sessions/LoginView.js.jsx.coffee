@@ -16,9 +16,9 @@
       data: { username: @state.username, password: @state.password }
       type: 'POST'
       success: (data) =>
-        $(document).trigger 'app:sign_in', data
+        $(document).trigger 'app:session:update', data
         @setState loading: false
-        @context.router.push '/' + data.username
+        @context.router.push '/' + data.current_user.username
 
       error: (error) =>
         message = error.responseJSON?.error
@@ -54,8 +54,8 @@
               <h1>Log In</h1>
     
               <form onSubmit={ this.handleFormSubmit } noValidate>
-                  <Input id='username' value={ this.state.username } onChange={ this.handleInputChange } label='Username' autoFocus />
-                  <Input id='password' value={ this.state.password } type='password' onChange={ this.handleInputChange } label='Password' />
+                  <Input id='username' name='username' value={ this.state.username } onChange={ this.handleInputChange } label='Username' autoFocus />
+                  <Input id='password' name='password' value={ this.state.password } type='password' onChange={ this.handleInputChange } label='Password' />
                   <div className='margin-top--medium'>
                       <button type='submit' className='btn'>Log In</button>
                       <Link to='/register' query={{ username: this.state.username }} className='btn grey darken-3 right'>Sign Up</Link>
