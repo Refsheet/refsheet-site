@@ -32,7 +32,7 @@ describe Transfer, type: :model do
       :sender,
       :destination,
       :invitation,
-      :character,
+      :character
     ]
   )
 
