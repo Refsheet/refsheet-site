@@ -73,7 +73,7 @@ describe Image, type: :model do
     expect(character.reload.featured_image_id).to be_nil
   end
 
-  xit 'scopes sfw' do
+  it 'scopes sfw' do
     ch = create :character
     create :image, character: ch
     i2 = create :image, nsfw: true, character: ch
