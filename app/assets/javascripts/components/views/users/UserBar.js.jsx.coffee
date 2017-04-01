@@ -37,8 +37,8 @@
     $.ajax
       url: '/session'
       type: 'DELETE'
-      success: =>
-        $(document).trigger 'app:session:update', null
+      success: (data) =>
+        $(document).trigger 'app:session:update', data
         Materialize.toast "See you later!", 3000, 'green'
     e.preventDefault()
 
