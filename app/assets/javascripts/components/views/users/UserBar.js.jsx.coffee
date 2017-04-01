@@ -25,10 +25,10 @@
     $.ajax
       url: '/session'
       type: 'PATCH'
-      data: nsfw_ok: !@props.currentUser.settings.nsfw_ok
-      success: (user) =>
-        $(document).trigger 'app:sign_in', user
-        Materialize.toast "NSFW mode is #{if user.settings.nsfw_ok then 'on' else 'off'}.", 3000, 'green'
+      data: nsfw_ok: !@props.session.nsfw_ok
+      success: (session) =>
+        $(document).trigger 'app:session:update', session
+        Materialize.toast "NSFW mode is #{if session.nsfw_ok then 'on' else 'off'}.", 3000, 'green'
       error: (data) =>
         console.error data
         Materialize.toast "Unable to set NSFW mode!", 3000, 'red'
@@ -38,33 +38,35 @@
       url: '/session'
       type: 'DELETE'
       success: =>
-        $(document).trigger 'app:sign_in', null
+        $(document).trigger 'app:session:update', null
         Materialize.toast "See you later!", 3000, 'green'
     e.preventDefault()
 
 
   render: ->
-    if @props.currentUser?
+    nsfwClassName = if @props.session.nsfw_ok then 'materialize-red darken-1' else ''
+
+    if @props.session.current_user?
       userMenu =
         `<ul id='user-menu' className='dropdown-content cs-card-background--background-color'>
             <li>
-                <Link to={'/' + this.props.currentUser.username}>
+                <Link to={'/' + this.props.session.current_user.username}>
                     <i className='material-icons left'>perm_identity</i>
-                    <span>{ this.props.currentUser.username }</span>
+                    <span>{ this.props.session.current_user.username }</span>
                 </Link>
             </li>
 
             <li className='divider' />
 
             <li>
-                <a href='#' onClick={ this._handleNsfwToggle }>
-                    <i className='material-icons left'>{ this.props.currentUser.settings.nsfw_ok ? 'remove_circle' : 'remove_circle_outline' }</i>
-                    <span>{ this.props.currentUser.settings.nsfw_ok ? 'NSFW' : 'SFW' }</span>
+                <a onClick={ this._handleNsfwToggle } className={ nsfwClassName }>
+                    <i className='material-icons left'>{ this.props.session.nsfw_ok ? 'remove_circle' : 'remove_circle_outline' }</i>
+                    <span>{ this.props.session.nsfw_ok ? 'NSFW' : 'SFW' }</span>
                 </a>
             </li>
 
             <li>
-                <a href='#' onClick={ this._handleSignOut }>
+                <a onClick={ this._handleSignOut }>
                     <i className='material-icons left'>exit_to_app</i>
                     <span>Sign Out</span>
                 </a>
@@ -80,8 +82,8 @@
             </li>*/}
 
             <li>
-                <a className='dropdown-button avatar' data-activates='user-menu'>
-                    <img src={ this.props.currentUser.avatar_url } className='circle' />
+                <a className={ 'dropdown-button avatar ' + nsfwClassName } data-activates='user-menu'>
+                    <img src={ this.props.session.current_user.avatar_url } className='circle' />
                 </a>
 
                 { userMenu }
@@ -89,12 +91,39 @@
         </ul>`
 
     else
+      userMenu =
+        `<ul id='user-menu' className='dropdown-content cs-card-background--background-color'>
+            <li>
+                <Link to='/login'>
+                    <i className='material-icons left'>person</i>
+                    <span>Sign In</span>
+                </Link>
+            </li>
+            <li>
+                <Link to='/register'>
+                    <i className='material-icons left'>create</i>
+                    <span>Register</span>
+                </Link>
+            </li>
+
+            <li className='divider' />
+
+            <li>
+                <a onClick={ this._handleNsfwToggle } className={ nsfwClassName }>
+                    <i className='material-icons left'>{ this.props.session.nsfw_ok ? 'remove_circle' : 'remove_circle_outline' }</i>
+                    <span>{ this.props.session.nsfw_ok ? 'NSFW' : 'SFW' }</span>
+                </a>
+            </li>
+        </ul>`
+
       currentUser =
         `<ul className='right'>
             <li>
-                <Link to='/login' activeClassName='teal-text text-lighten-2'>
+                <a className={ 'dropdown-button ' + nsfwClassName } data-activates='user-menu'>
                     <i className='material-icons'>perm_identity</i>
-                </Link>
+                </a>
+
+                { userMenu }
             </li>
         </ul>`
 
