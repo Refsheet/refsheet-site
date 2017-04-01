@@ -15,7 +15,7 @@
       ReactGA.set userId: session.current_user?.id
 
   onLogin: (user) ->
-    s = @session
+    s = @state.session
     s.current_user = user
     @setState session: s
 
