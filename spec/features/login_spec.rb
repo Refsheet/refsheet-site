@@ -5,6 +5,7 @@ feature 'Log In', js: true do
 
   before(:each) do
     visit login_path
+    expect(page).to have_content 'Log In'
   end
 
   def try_login(valid=true)

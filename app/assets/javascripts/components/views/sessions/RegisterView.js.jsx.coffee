@@ -68,6 +68,7 @@
 
               <form onSubmit={ this.handleFormSubmit } noValidate>
                   <Input id='username'
+                         name='username'
                          value={ this.state.username }
                          onChange={ this.handleInputChange }
                          label='Username'
@@ -75,6 +76,7 @@
                          error={ this.state.errors.username } />
 
                   <Input id='email'
+                         name='email'
                          type='email'
                          value={ this.state.email }
                          onChange={ this.handleInputChange }
@@ -82,6 +84,7 @@
                          error={ this.state.errors.email } />
 
                   <Input id='password'
+                         name='password'
                          value={ this.state.password }
                          type='password'
                          onChange={ this.handleInputChange }
@@ -89,6 +92,7 @@
                          error={ this.state.errors.password } />
 
                   <Input id='password_confirmation'
+                         name='password_confirmation'
                          value={ this.state.password_confirmation }
                          type='password'
                          onChange={ this.handleInputChange }
