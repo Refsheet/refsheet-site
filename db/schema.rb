@@ -296,6 +296,8 @@ ActiveRecord::Schema.define(version: 20170401034812) do
     t.string   "status"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.string   "guid"
+    t.index ["guid"], name: "index_transfers_on_guid", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
