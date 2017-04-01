@@ -15,6 +15,13 @@
 
 require 'rails_helper'
 
-RSpec.describe Swatch, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Swatch, type: :model do
+  it_is_expected_to(
+    belong_to: :character,
+    validate_presence_of: [
+      :name,
+      :color,
+      :character
+    ]
+  )
 end

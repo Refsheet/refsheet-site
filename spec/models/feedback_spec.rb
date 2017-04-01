@@ -17,6 +17,13 @@
 require 'rails_helper'
 
 describe Feedback, type: :model do
+  it_is_expected_to(
+    belong_to: [
+      :user,
+      :visit
+    ],
+    validate_presence_of: :comment
+  )
   it 'tells trello' do
     expect_any_instance_of(Trello::Card).to receive(:save).and_return(true)
 
