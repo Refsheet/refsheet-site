@@ -161,13 +161,13 @@
                       <span>Download</span>
                   </a></li>
 
-                  <li><a href='#lightbox-delete-form' className='modal-trigger'>
+                  <li><a href='#lightbox-delete-form' className='modal-trigger' id='image-delete-link'>
                       <i className='material-icons left'>delete</i>
                       <span>Delete...</span>
                   </a></li>
               </ul>
 
-              <a className='dropdown-button' href='#image-options' data-activates='lightbox-image-actions'>
+              <a className='dropdown-button' id='image-actions-menu' href='#image-options' data-activates='lightbox-image-actions'>
                   <i className='material-icons'>more_vert</i>
               </a>
           </div>`
@@ -229,7 +229,7 @@
                 <h2>Delete Image</h2>
                 <p>Are you sure? This can't be undone.</p>
                 <div className='actions margin-top--large'>
-                    <a href='#' className='btn red right' onClick={ this.handleDelete }>DELETE IMAGE</a>
+                    <a href='#' className='btn red right' onClick={ this.handleDelete } id='image-delete-confirm'>DELETE IMAGE</a>
                     <a href='#' className='btn' onClick={ function(e) { $('#lightbox-delete-form').modal('close'); e.preventDefault() } }>Cancel</a>
                 </div>
             </Modal>

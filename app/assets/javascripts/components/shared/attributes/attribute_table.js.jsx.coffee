@@ -21,24 +21,23 @@
 
   render: ->
     children = React.Children.map @props.children, (child) =>
-      if child?.type == Attribute
-        React.cloneElement child,
-          onCommit: @props.onAttributeUpdate
-          onDelete: @props.onAttributeDelete
-          editorActive: (@state.activeEditor == child.key)
-          sortable: @props.sortable
-          valueType: @props.valueType
-          defaultValue: @props.defaultValue
-          freezeName: @props.freezeName
-          hideNotesForm: @props.hideNotesForm
+      return child unless child?.type == Attribute
 
-          onEditStart: =>
-            @setState activeEditor: child.key
+      React.cloneElement child,
+        onCommit: @props.onAttributeUpdate
+        onDelete: @props.onAttributeDelete
+        editorActive: (@state.activeEditor == child.key)
+        sortable: @props.sortable
+        valueType: @props.valueType
+        defaultValue: @props.defaultValue
+        freezeName: @props.freezeName
+        hideNotesForm: @props.hideNotesForm
 
-          onEditStop: =>
-            @setState activeEditor: null
-      else
-        child
+        onEditStart: =>
+          @setState activeEditor: child.key
+          
+        onEditStop: =>
+          @setState activeEditor: null
 
     if @props.onAttributeCreate?
       newForm = `<AttributeForm onCommit={ this.props.onAttributeCreate } inactive={ this.state.activeEditor != null } valueType={ this.props.valueType } onFocus={ this.clearEditor } />`
