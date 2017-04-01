@@ -34,6 +34,8 @@ namespace :lazy do
           expectations[ex_name].push *name.collect(&:to_sym)
         end
 
+        next if expectations.empty?
+
         output = JSON.pretty_generate expectations
         output.gsub! /:/, ' =>'
         output.gsub! /"(\w+)"/, ':\1'
@@ -41,12 +43,36 @@ namespace :lazy do
 
         puts
         puts "=== #{model}:"
-        puts "it_is_expected_to(\n#{output.gsub /^\{\n|\n?}$/, ''}\n)"
+        lines =  "it_is_expected_to(\n#{output.gsub /^\{\n|\n?}$/, ''}\n)"
+        lines = lines.split("\n").collect { |l| "  #{l}\n" }
 
         filename = model.to_s.underscore.gsub '::', '/'
+        filename = "#{Rails.root}/spec/models/#{filename}_spec.rb"
 
-        puts
-        puts "- spec/models/#{filename}_spec.rb"
+        if File.exists? filename
+          puts "--- #{filename}"
+
+          if true # write_out
+            temp = File.open filename + '.tmp'
+            file = File.new(filename)
+
+            next if file.grep /it_is_expected_to/
+
+            file.each do |line|
+              next if line =~ /add some examples to/
+              temp << line.gsub("RSpec.describe", "describe")
+
+              if line =~ /describe.*?type:\s+:model/
+                temp.push *lines
+              end
+            end
+
+            file.close
+            temp.close
+
+            FileUtils.mv filename + '.tmp', filename
+          end
+        end
       end
     end
   end
