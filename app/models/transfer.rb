@@ -62,7 +62,7 @@ class Transfer < ApplicationRecord
   private
 
   def assign_sender
-    self.sender ||= self.character.user
+    self.sender ||= self.character&.user
   end
 
   def claim_transfer

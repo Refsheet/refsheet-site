@@ -16,7 +16,6 @@ require 'rails_helper'
 describe Invitation, type: :model do
   it_is_expected_to(
     belong_to: :user,
-    have_many: :transfers,
-    validate_presence_of: :user
+    have_many: :transfers
   )
 end
