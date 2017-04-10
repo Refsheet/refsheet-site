@@ -1,11 +1,8 @@
 @PageHeader = React.createClass
-  componentDidMount: ->
-    $('.parallax').parallax()
-
   render: ->
     `<section className='page-header'>
         <div className='parallax-container'>
-            <div className='parallax page-header-backdrop'>
+            <div className='page-header-backdrop'>
                 <img src={ this.props.backgroundImage } />
             </div>
 
