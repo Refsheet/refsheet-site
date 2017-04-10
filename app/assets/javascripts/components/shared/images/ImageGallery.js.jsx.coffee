@@ -30,7 +30,7 @@
           @setState images: data
           @props.onImagesLoad(data) if @props.onImagesLoad
 
-  componentDidUpdate: (newProps) ->
+  componentWillReceiveProps: (newProps) ->
     if newProps.images && newProps.images.length != @state.images?.length
       @setState images: newProps.images
 
