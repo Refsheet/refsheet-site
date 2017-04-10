@@ -50,6 +50,9 @@ class Character < ApplicationRecord
             presence: true,
             format: { with: /[a-z]/i, message: 'must have at least one letter' }
 
+  validate :validate_profile_image
+  validate :validate_featured_image
+
   scope :default_order, -> do
     order(<<-SQL)
       CASE
@@ -92,5 +95,21 @@ class Character < ApplicationRecord
 
   def self.find_by_shortcode!(shortcode)
     find_by!('LOWER(characters.shortcode) = ?', shortcode.downcase)
+  end
+
+  private
+
+  def validate_profile_image
+    unless self.profile_image.nil?
+      self.errors.add :profile_image, 'cannot be NSFW' if self.profile_image.nsfw?
+      false
+    end
+  end
+
+  def validate_featured_image
+    unless self.featured_image.nil?
+      self.errors.add :featured_image, 'cannot be NSFW' if self.featured_image.nsfw?
+      false
+    end
   end
 end
