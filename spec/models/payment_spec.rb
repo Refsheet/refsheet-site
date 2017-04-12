@@ -15,6 +15,10 @@
 
 require 'rails_helper'
 
-RSpec.describe Payment, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Payment, type: :model do
+  it_is_expected_to(
+    belong_to: :order,
+    have_many: :transactions,
+    validate_numericality_of: :amount_cents
+  )
 end

@@ -14,8 +14,9 @@
         username: @state.user.username
         password: null
 
-  _handleLogin: (user) ->
-    console.log "Navigating to #{user.link}"
+  _handleLogin: (session) ->
+    user = session.current_user
+    $(document).trigger 'app:session:update', session
     @context.router.push user.link
 
   componentDidMount: ->

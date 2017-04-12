@@ -19,6 +19,7 @@
 #  nsfw               :boolean
 #  hidden             :boolean
 #  gallery_id         :integer
+#  deleted_at         :datetime
 #
 
 # Should me larger than 1280px in both dimensions,
@@ -65,6 +66,7 @@ class Image < ApplicationRecord
 
   has_guid
   ranks :row_order
+  acts_as_paranoid
 
   after_destroy :clean_up_character
 

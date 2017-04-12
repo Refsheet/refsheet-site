@@ -14,6 +14,7 @@
 #  status              :string
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  guid                :string
 #
 
 class Transfer < ApplicationRecord
@@ -61,7 +62,7 @@ class Transfer < ApplicationRecord
   private
 
   def assign_sender
-    self.sender ||= self.character.user
+    self.sender ||= self.character&.user
   end
 
   def claim_transfer

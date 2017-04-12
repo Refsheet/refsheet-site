@@ -20,6 +20,12 @@
 
 require 'rails_helper'
 
-RSpec.describe TransactionResource, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe TransactionResource, type: :model do
+  it_is_expected_to(
+    belong_to: :txn,
+    validate_numericality_of: [
+      :amount_cents,
+      :transaction_fee_cents
+    ]
+  )
 end

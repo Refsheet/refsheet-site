@@ -30,6 +30,25 @@
 require 'rails_helper'
 
 describe Character, type: :model do
+  it_is_expected_to(
+    belong_to: [
+      :user,
+      :color_scheme,
+      :featured_image,
+      :profile_image
+    ],
+    have_many: [
+      :swatches,
+      :images,
+      :transfers
+    ],
+    validate_presence_of: [
+      :user,
+      :user,
+      :name,
+      :name
+    ]
+  )
   it 'transfers a character to registered user' do
     old_user = create :user
     new_user = create :user

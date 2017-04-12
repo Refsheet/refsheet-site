@@ -14,10 +14,37 @@
 #  status              :string
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  guid                :string
 #
 
 require 'rails_helper'
 
-RSpec.describe Transfer, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Transfer, type: :model do
+  it_is_expected_to(
+    belong_to: [
+      :character,
+      :item,
+      :sender,
+      :destination,
+      :invitation
+    ],
+    validate_presence_of: [
+      :sender,
+      :destination,
+      :invitation,
+      :character
+    ]
+  )
+
+  context 'when rejected' do
+    let(:transfer) { build :transfer, status: :rejected }
+    subject { transfer }
+    it_is_expected_to validate_presence_of: :rejected_at
+  end
+
+  context 'when claimed' do
+    let(:transfer) { build :transfer, status: :claimed }
+    subject { transfer }
+    it_is_expected_to validate_presence_of: :claimed_at
+  end
 end

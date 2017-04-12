@@ -1,26 +1,28 @@
 @App = React.createClass
   childContextTypes:
     currentUser: React.PropTypes.object
+    session: React.PropTypes.object
 
 
   getInitialState: ->
-    currentUser: null
-    loading: 1
+    session: {}
+    loading: true
 
   getChildContext: ->
-    currentUser: @state.currentUser
+    currentUser: @state.session.current_user
+    session: @state.session
 
 
   componentWillMount: ->
     $.get '/session', (data) =>
-      @setState currentUser: data, loading: (@state.loading - 1)
-      ReactGA.set userId: data?.id
+      @setState session: data, loading: false
+      ReactGA.set userId: data.current_user?.id
 
   componentDidMount: ->
     $(document)
-      .on 'app:sign_in', (e, user) =>
-        @setState currentUser: user
-        ReactGA.set userId: user?.id
+      .on 'app:session:update', (e, session) =>
+        @setState session: session
+        ReactGA.set userId: session.current_user?.id
 
       .on 'app:loading', =>
         val = @state.loading + 1
@@ -34,10 +36,10 @@
         @setState loading: val
         console.debug "Loading done: ", val
 
-
-  signInUser: (user) ->
-    console.warn "Deprecated: signInUser is very deprecated!!"
-    @setState currentUser: user
+  _onLogin: (user) ->
+    s = @state.session
+    s.current_user = user
+    @setState session: s
 
 
   render: ->
@@ -51,12 +53,12 @@
         { this.state.loading > 0 &&
             <LoadingOverlay /> }
 
-        <Lightbox currentUser={ this.state.currentUser } history={ this.props.history } />
+        <Lightbox currentUser={ this.state.session.current_user } history={ this.props.history } />
 
-        <FeedbackModal name={ this.state.currentUser && this.state.currentUser.name } />
-        <a className='btn modal-trigger feedback-btn blue-grey waves waves-light' href='#feedback-modal'>Feedback</a>
+        <FeedbackModal name={ this.state.session.current_user && this.state.session.current_user.name } />
+        <a className='btn modal-trigger feedback-btn blue-grey' href='#feedback-modal'>Feedback</a>
 
-        <UserBar currentUser={ this.state.currentUser } />
+        <UserBar session={ this.state.session } />
 
         { childrenWithProps }
 

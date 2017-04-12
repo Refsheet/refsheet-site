@@ -29,6 +29,6 @@ class Swatch < ApplicationRecord
   validates_format_of :color, with: /\A#?[a-f0-9]{6}\z/i, message: 'can only use hexadecimal color codes'
 
   before_validation do
-    color.prepend '#' unless color[0] == '#'
+    color.prepend '#' unless color.nil? || color[0] == '#'
   end
 end

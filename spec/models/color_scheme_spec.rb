@@ -13,6 +13,9 @@
 
 require 'rails_helper'
 
-RSpec.describe ColorScheme, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe ColorScheme, type: :model do
+  it_is_expected_to(
+    belong_to: :user,
+    have_many: :characters
+  )
 end
