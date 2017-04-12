@@ -13,6 +13,13 @@
 
 require 'rails_helper'
 
-RSpec.describe OrderItem, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe OrderItem, type: :model do
+  it_is_expected_to(
+    belong_to: [
+      :order,
+      :item,
+      :slot,
+      :auction
+    ]
+  )
 end

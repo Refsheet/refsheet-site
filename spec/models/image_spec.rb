@@ -19,11 +19,36 @@
 #  nsfw               :boolean
 #  hidden             :boolean
 #  gallery_id         :integer
+#  deleted_at         :datetime
 #
 
 require 'rails_helper'
 
 describe Image, type: :model do
+  it_is_expected_to(
+      belong_to: :character,
+      have_one: :user,
+      validate_presence_of: :image,
+      act_as_paranoid: true,
+      have_db_column: [
+          :guid, :gravity, :nsfw, :hidden
+      ],
+      respond_to: [
+          :source_url_display,
+          :regenerate_thumbnail!,
+          :clean_up_character,
+          :managed_by?
+      ],
+      not: {
+          belong_to: [
+              :gallery, :artist
+          ],
+          validate_presence_of: [
+              :caption, :character
+          ]
+      }
+  )
+
   describe '#source_url_display' do
     let(:url) { 'https://com.example.net/images/foo/bar?image=baz' }
     let(:image) { build :image, source_url: url }

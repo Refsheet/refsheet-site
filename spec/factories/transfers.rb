@@ -14,6 +14,7 @@
 #  status              :string
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  guid                :string
 #
 
 FactoryGirl.define do

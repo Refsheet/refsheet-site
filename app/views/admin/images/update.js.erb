@@ -1,0 +1,7 @@
+<% if @image.errors.any? %>
+  Materialize.toast("<%= escape_javascript @image.errors.full_messages.to_string %>", 3000, 'red');
+<% else %>
+  Materialize.toast("Image updated.", 3000, 'green');
+  $newCard = $("<%= escape_javascript render partial: 'card', locals: { image: @image } %>");
+  $('[data-image-id=<%= @image.guid %>]').replaceWith($newCard);
+<% end %>

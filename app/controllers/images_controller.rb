@@ -73,7 +73,7 @@ class ImagesController < ApplicationController
   def destroy
     head :unauthorized and return unless @image.managed_by? current_user
 
-    @image.destroy
+    @image.delete
     render json: @image, serializer: ImageSerializer
   end
 
