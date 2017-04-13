@@ -40,7 +40,7 @@ class Character < ApplicationRecord
   has_many :transfers
 
   has_guid :shortcode, type: :token
-  slugify :name, scope: :user
+  slugify :name, scope: :user_id
   scoped_search on: [:name, :species, :profile, :likes, :dislikes]
 
   accepts_nested_attributes_for :color_scheme

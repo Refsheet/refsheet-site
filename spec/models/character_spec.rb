@@ -49,6 +49,17 @@ describe Character, type: :model do
       :name
     ]
   )
+
+  it 'scopes slugs right' do
+    u1 = create :user
+    u2 = create :user
+    c1 = create :character, slug: 'fuubar', user: u1
+    c2 = build :character, slug: 'fuubar', user: u2
+
+    expect(c1.user_id).to_not eq c2.user_id
+    expect(c2).to be_valid
+  end
+
   it 'transfers a character to registered user' do
     old_user = create :user
     new_user = create :user
