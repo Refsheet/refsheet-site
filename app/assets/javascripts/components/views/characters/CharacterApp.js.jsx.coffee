@@ -57,8 +57,8 @@
         Materialize.toast 'Cover image changed!', 3000, 'green'
         @setState character: data
       error: (error) =>
-        console.log error
-        Materialize.toast 'Error?', 3000, 'red'
+        errors = error.responseJSON.errors
+        Materialize.toast errors.featured_image, 3000, 'red'
 
   setProfileImage: (imageId) ->
     $.ajax
@@ -69,8 +69,8 @@
         Materialize.toast 'Profile image changed!', 3000, 'green'
         @setState character: data
       error: (error) =>
-        console.log error
-        Materialize.toast 'Error?', 3000, 'red'
+        errors = error.responseJSON.errors
+        Materialize.toast errors.profile_image, 3000, 'red'
 
   handleProfileChange: (data, onSuccess, onError) ->
     $.ajax

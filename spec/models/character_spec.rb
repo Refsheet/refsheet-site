@@ -81,4 +81,62 @@ describe Character, type: :model do
     new_user.transfers_in.pending.first.claim!
     expect(character.reload.user).to eq new_user
   end
+
+  describe '#featured_image' do
+    let(:image) { create :image }
+    let(:character) { build :character, featured_image: image }
+    subject { character }
+
+    it { is_expected.to be_valid }
+
+    context 'when nsfw' do
+      let(:image) { create :image, :nsfw }
+      it { is_expected.to_not be_valid }
+      it { is_expected.to have(1).errors_on :featured_image }
+    end
+
+    context 'when nil' do
+      let(:image) { nil }
+      it { is_expected.to be_valid }
+    end
+
+    context 'after flag' do
+      before do
+        character.save
+        image.update_attributes(nsfw: true)
+        character.reload
+      end
+
+      its(:featured_image) { is_expected.to be_nil }
+    end
+  end
+
+  describe '#profile_image' do
+    let(:image) { create :image }
+    let(:character) { build :character, profile_image: image }
+    subject { character }
+
+    it { is_expected.to be_valid }
+
+    context 'when nsfw' do
+      let(:image) { create :image, :nsfw }
+      it { is_expected.to_not be_valid }
+      it { is_expected.to have(1).errors_on :profile_image }
+    end
+
+    context 'when nil' do
+      let(:image) { nil }
+      it { is_expected.to be_valid }
+    end
+
+    context 'after flag' do
+      before do
+        character.save
+        image.update_attributes(nsfw: true)
+        character.reload
+      end
+
+      its(:profile_image) { is_expected.to_not eq image }
+    end
+  end
 end
