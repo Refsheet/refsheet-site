@@ -54,6 +54,9 @@ class Character < ApplicationRecord
             presence: true,
             format: { with: /[a-z]/i, message: 'must have at least one letter' }
 
+  validate :validate_profile_image
+  validate :validate_featured_image
+
   before_validation :initiate_transfer, if: -> (c) { c.transfer_to_user.present? }
 
   scope :default_order, -> do
@@ -138,5 +141,19 @@ class Character < ApplicationRecord
     end
 
     self.transfers << transfer
+  end
+
+  def validate_profile_image
+    unless self.profile_image.nil?
+      self.errors.add :profile_image, 'cannot be NSFW' if self.profile_image.nsfw?
+      false
+    end
+  end
+
+  def validate_featured_image
+    unless self.featured_image.nil?
+      self.errors.add :featured_image, 'cannot be NSFW' if self.featured_image.nsfw?
+      false
+    end
   end
 end

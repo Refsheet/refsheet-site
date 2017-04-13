@@ -27,5 +27,9 @@ FactoryGirl.define do
     character
     caption { Faker::Lorem.sentence }
     image { File.new("app/assets/images/default.png") }
+
+    trait :nsfw do
+      nsfw true
+    end
   end
 end

@@ -68,12 +68,13 @@ class Image < ApplicationRecord
   ranks :row_order
   acts_as_paranoid
 
-  after_destroy :clean_up_character
+  after_save :clean_up_character
 
   scoped_search on: [:caption, :image_file_name]
   scoped_search in: :character, on: [:name, :species]
 
   scope :sfw, -> { where(nsfw: [false, nil]) }
+  scope :nsfw, -> { where(nsfw: true) }
   scope :visible, -> { where(hidden: [false, nil]) }
 
   def gravity
@@ -94,8 +95,10 @@ class Image < ApplicationRecord
   end
 
   def clean_up_character
-    Character.where(profile_image_id: self.id).update_all profile_image_id: nil
-    Character.where(featured_image_id: self.id).update_all featured_image_id: nil
+    if self.deleted? or self.nsfw?
+      Character.where(profile_image_id: self.id).update_all profile_image_id: nil
+      Character.where(featured_image_id: self.id).update_all featured_image_id: nil
+    end
   end
 
   def managed_by?(user)
