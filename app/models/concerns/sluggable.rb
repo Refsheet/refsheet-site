@@ -12,8 +12,6 @@ module Sluggable
     validates_format_of :slug,
                         with: /\A[a-z0-9-]+\z/i,
                         message: 'can only contain a-z, 0-9 and -'
-
-    validates_uniqueness_of :slug, scope: self.slug_options[:scope], case_sensitive: false
   end
 
   def to_param
@@ -24,6 +22,8 @@ module Sluggable
     def slugify(source_column, options = {})
       self.slug_source  = source_column
       self.slug_options = options
+
+      validates_uniqueness_of :slug, scope: self.slug_options[:scope], case_sensitive: false
     end
   end
 
