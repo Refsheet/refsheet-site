@@ -68,16 +68,28 @@
     e.preventDefault()
 
 
-  render: ->
-    children = React.Children.map @props.children, (child) =>
-      return child if child.type != Input
+  _processChildren: (children) ->
+    React.Children.map children, (child) =>
+      childProps = {}
 
-      React.cloneElement child,
-        key: child.props.name
-        value: @state.model[child.props.name]
-        error: @state.errors[child.props.name]
-        onChange: @_handleInputChange
-        modelName: @props.modelName
+      unless React.isValidElement(child)
+        return child
+
+      if child.type == Input
+        childProps =
+          key: child.props.name
+          value: @state.model[child.props.name]
+          error: @state.errors[child.props.name]
+          onChange: @_handleInputChange
+          modelName: @props.modelName
+
+      if child.props.children
+        childProps.children = @_processChildren(child.props.children)
+
+      React.cloneElement child, childProps
+
+  render: ->
+    children = @_processChildren(@props.children)
 
     `<form onSubmit={ this._handleFormSubmit }
            className={ this.props.className }>

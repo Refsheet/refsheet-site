@@ -55,7 +55,7 @@ Rails.application.routes.draw do
     mount ResqueWeb::Engine => '/resque_web'
   end
 
-  get '/:user_id/:id', to: 'characters#show'
-  get '/:id', to: 'users#show'
+  get '/:user_id/:id', to: 'characters#show', as: :character_profile
+  get '/:id', to: 'users#show', as: :user_profile
   get '*page', to: 'application#show'
 end

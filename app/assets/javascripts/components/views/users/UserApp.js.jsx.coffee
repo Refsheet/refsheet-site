@@ -1,6 +1,7 @@
 @UserApp = React.createClass
   contextTypes:
     router: React.PropTypes.object.isRequired
+    currentUser: React.PropTypes.object
 
 
   getInitialState: ->
@@ -40,11 +41,11 @@
     unless @state.user?
       return `<main />`
 
-    if @props.currentUser?.username == @state.user.username
+    if @context.currentUser?.username == @state.user.username
       actionButtons =
-        `<FixedActionButton clickToToggle={ true } className='teal lighten-1' tooltip='Menu' icon='menu'>
-            <ActionButton className='green lighten-1 modal-trigger' tooltip='New Refsheet' href='#character-form' icon='note_add' />
-            <ActionButton className='blue darken-1 modal-trigger' tooltip='User Settings' href='#user-settings-modal' icon='settings' />
+        `<FixedActionButton clickToToggle={ true } className='teal lighten-1' tooltip='Menu' icon='menu' id='user-actions'>
+            <ActionButton className='green lighten-1 modal-trigger' tooltip='New Refsheet' href='#character-form' icon='note_add' id='action-new-character' />
+            <ActionButton className='blue darken-1 modal-trigger' tooltip='User Settings' href='#user-settings-modal' icon='settings' id='action-settings' />
         </FixedActionButton>`
 
       userChangeCallback = @handleUserChange
@@ -70,6 +71,7 @@
                 <p>It all starts with the basics. Give us a name and a species, and we'll set up a profile.</p>
                 <NewCharacterForm onCancel={ function(e) { $('#character-form').modal('close'); e.preventDefault() } }
                                   onCreate={ this.goToCharacter }
+                                  className='margin-top--large'
                                   newCharacterPath={ this.state.user.path + '/characters' }/>
             </Modal>
 
