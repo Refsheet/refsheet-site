@@ -10,6 +10,7 @@
     autoFocus: React.PropTypes.bool
     className: React.PropTypes.string
     value: React.PropTypes.string
+    modelName: React.PropTypes.string
 
     error: React.PropTypes.oneOfType([
       React.PropTypes.string
@@ -27,10 +28,13 @@
     if newProps.value != @props.value
       @setState value: newProps.value
 
+    if newProps.error != @state.error
+      @setState error: newProps.error
+
 
   _handleInputChange: (e) ->
+    @setState error: null, value: e.target.value, dirty: true
     @props.onChange(@props.name, e.target.value) if @props.onChange
-    @setState value: e.target.value, dirty: true
 
 
   render: ->
@@ -40,9 +44,14 @@
     error = @props.error
     error = error[0] if error?.length
 
+    if @props.modelName
+      id = "#{@props.modelName}_#{@props.name}"
+    else
+      id = @props.name
+
     if @props.type == 'textarea'
       inputField =
-        `<textarea id={ this.props.name }
+        `<textarea id={ id }
                    name={ this.props.name }
                    disabled={ this.props.disabled }
                    readOnly={ this.props.readOnly }
@@ -55,7 +64,7 @@
     else
       inputField =
         `<input type={ this.props.type || 'text' }
-                id={ this.props.name }
+                id={ id }
                 name={ this.props.name }
                 className={ className }
                 disabled={ this.props.disabled }

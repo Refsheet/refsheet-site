@@ -1,25 +1,58 @@
 body:not(.admin)
-  input, textarea, select
-    z-index: 1
-    position: relative
+  form
+    @at-root
+      .btn-flat
+        color: $text-light-color
 
-    &:-webkit-autofill
-      &, &:focus, &:hover, &:active
-        box-shadow: 0 0 0 1000px $card-bg-color inset !important
-        border-bottom-color: color('yellow', 'darken-1') !important
-        -webkit-text-fill-color: $page-text-color !important
+      i.prefix
+        color: color('grey', 'darken-1')
 
-  .hint-text
-    top: auto !important
-    bottom: 0.3rem
-    font-size: 0.8rem
-    position: absolute
+      .select-wrapper span.caret
+        color: $page-text-color
 
-  label
-    width: 100%
-    bottom: 0
-    z-index: 0
+      .dropdown-content
+        background-color: $card-bg-color
+        color: $page-text-color
 
-    &.active
-      transform: translateY(0) !important
-      top: -1rem !important
+        li.optgroup
+          color: $text-light-color !important
+
+        li.selected, li:hover, li.active
+          background-color: darken($card-bg-color, 5%)
+
+    .full-width
+      width: 100%
+
+    .invalid input
+      @extend input.invalid
+
+    .help-block,
+    .error-block
+      display: block
+      font-size: 0.8rem
+      margin-bottom: 14px
+      padding-top: 3px
+      margin-top: -20px
+      color: $text-light-color
+
+      &.error-block
+        color: color('red', 'base')
+
+    label
+      abbr[title]
+        float: right
+        border-bottom: none
+        margin-left: 0.2rem
+        color: color('red', 'lighten-1')
+        display: none
+
+    input, textarea, select
+      &[disabled], &:disabled
+        color: $text-light-color !important
+        border-bottom-color: $text-light-color !important
+
+      &:-webkit-autofill
+        &, &:focus, &:hover, &:active
+          box-shadow: 0 0 0 1000px $card-bg-color inset !important
+          border-bottom-color: color('yellow', 'darken-1') !important
+          -webkit-text-fill-color: $page-text-color !important
