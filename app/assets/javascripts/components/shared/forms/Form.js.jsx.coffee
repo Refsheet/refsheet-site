@@ -16,11 +16,8 @@
     dirty: false
 
   componentWillReceiveProps: (newProps) ->
-    console.log newProps
-    @setState
-      model: newProps.model
-      errors: newProps.errors || {}
-      dirty: false
+    if newProps.model != @state.model
+      @setState model: newProps.model, errors: (newProps.errors || {}), dirty: false
 
 
   componentDidMount: ->
@@ -34,7 +31,9 @@
   _handleInputChange: (name, value) ->
     newModel = @state.model
     newModel[name] = value
-    @setState model: newModel, dirty: true
+    errors = @state.errors
+    errors[name] = null
+    @setState model: newModel, dirty: true, errors: errors
 
 
   _handleFormSubmit: (e) ->
@@ -50,11 +49,10 @@
       type: @props.method || 'POST'
       data: data
       success: (data) =>
+        @setState dirty: false, errors: {}
         @props.onChange(data) if @props.onChange
-        @setState model: data, dirty: false, errors: {}
 
       error: (data) =>
-        console.error data.responseText
         @props.onError(data) if @props.onError
 
         if data.responseJSON?.errors
@@ -79,6 +77,7 @@
         value: @state.model[child.props.name]
         error: @state.errors[child.props.name]
         onChange: @_handleInputChange
+        modelName: @props.modelName
 
     `<form onSubmit={ this._handleFormSubmit }
            className={ this.props.className }>

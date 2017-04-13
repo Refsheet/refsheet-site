@@ -17,10 +17,10 @@ feature 'Register', js: true do
   end
 
   def enter(values={})
-    fill_in :username, with: values[:username] || 'john_doe'
-    fill_in :email, with: values[:email] || 'john@example.com'
-    fill_in :password, with: values[:password] || 'fishsticks'
-    fill_in :password_confirmation, with: values[:password_confirmation] || 'fishsticks'
+    fill_in :user_username, with: values[:username] || 'john_doe'
+    fill_in :user_email, with: values[:email] || 'john@example.com'
+    fill_in :user_password, with: values[:password] || 'fishsticks'
+    fill_in :user_password_confirmation, with: values[:password_confirmation] || 'fishsticks'
 
     # dob = values[:dob] || 20.years.ago
     #

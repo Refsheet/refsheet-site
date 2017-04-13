@@ -2,6 +2,7 @@
   childContextTypes:
     currentUser: React.PropTypes.object
     session: React.PropTypes.object
+    setCurrentUser: React.PropTypes.func
 
 
   getInitialState: ->
@@ -11,6 +12,7 @@
   getChildContext: ->
     currentUser: @state.session.current_user
     session: @state.session
+    setCurrentUser: @_onLogin
 
 
   componentWillMount: ->
@@ -36,6 +38,7 @@
         @setState loading: val
         console.debug "Loading done: ", val
 
+
   _onLogin: (user) ->
     s = @state.session
     s.current_user = user
@@ -45,7 +48,7 @@
   render: ->
     childrenWithProps = React.Children.map this.props.children, (child) =>
       React.cloneElement child,
-        onLogin: @signInUser
+        onLogin: @_onLogin
         currentUser: @state.currentUser
 
 
@@ -55,12 +58,12 @@
 
         <Lightbox currentUser={ this.state.session.current_user } history={ this.props.history } />
 
-        <FeedbackModal name={ this.state.session.current_user && this.state.session.current_user.name } />
-        <a className='btn modal-trigger feedback-btn blue-grey' href='#feedback-modal'>Feedback</a>
-
         <UserBar session={ this.state.session } />
 
         { childrenWithProps }
 
         <Footer />
+
+        <FeedbackModal name={ this.state.session.current_user && this.state.session.current_user.name } />
+        <a className='btn modal-trigger feedback-btn blue-grey' href='#feedback-modal'>Feedback</a>
     </div>`
