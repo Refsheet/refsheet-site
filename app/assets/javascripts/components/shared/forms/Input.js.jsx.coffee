@@ -9,8 +9,12 @@
     readOnly: React.PropTypes.bool
     autoFocus: React.PropTypes.bool
     className: React.PropTypes.string
-    value: React.PropTypes.string
     modelName: React.PropTypes.string
+
+    value: React.PropTypes.oneOfType([
+      React.PropTypes.string
+      React.PropTypes.bool
+    ])
 
     error: React.PropTypes.oneOfType([
       React.PropTypes.string
@@ -25,7 +29,7 @@
 
 
   componentWillReceiveProps: (newProps) ->
-    if newProps.value != @props.value
+    if newProps.value != @state.value
       @setState value: newProps.value
 
     if newProps.error != @state.error
@@ -33,8 +37,14 @@
 
 
   _handleInputChange: (e) ->
-    @setState error: null, value: e.target.value, dirty: true
-    @props.onChange(@props.name, e.target.value) if @props.onChange
+    if @props.type in ['checkbox', 'radio']
+      value = e.target.checked
+      console.log e.target.checked
+    else
+      value = e.target.value
+
+    @setState error: null, value: value, dirty: true
+    @props.onChange(@props.name, value) if @props.onChange
 
 
   render: ->
@@ -49,36 +59,39 @@
     else
       id = @props.name
 
+    commonProps =
+      id: id
+      name: @props.name
+      disabled: @props.disabled
+      readOnly: @props.readOnly
+      placeholder: @props.placeholder
+      autoFocus: @props.autoFocus
+      onChange: @_handleInputChange
+      className: className
+
+
     if @props.type == 'textarea'
       inputField =
-        `<textarea id={ id }
-                   name={ this.props.name }
-                   disabled={ this.props.disabled }
-                   readOnly={ this.props.readOnly }
-                   placeholder={ this.props.placeholder }
-                   autoFocus={ this.props.autoFocus }
-                   onChange={ this._handleInputChange }
+        `<textarea {...commonProps}
                    value={ this.props.value || '' }
                    className={ className + ' materialize-textarea' } />`
 
+    else if @props.type in ['checkbox', 'radio']
+      inputField =
+        `<input {...commonProps}
+                type={ this.props.type }
+                checked={ this.state.value || false } />`
     else
       inputField =
-        `<input type={ this.props.type || 'text' }
-                id={ id }
-                name={ this.props.name }
-                className={ className }
-                disabled={ this.props.disabled }
-                readOnly={ this.props.readOnly }
-                placeholder={ this.props.placeholder }
-                autoFocus={ this.props.autoFocus }
-                onChange={ this._handleInputChange }
+        `<input {...commonProps}
+                type={ this.props.type || 'text' }
                 value={ this.state.value || '' } />`
 
     `<div className='input-field'>
         { inputField }
 
         { this.props.label &&
-            <label htmlFor={ this.props.name }>
+            <label htmlFor={ id }>
                 { this.props.label }
             </label> }
 

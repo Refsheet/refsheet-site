@@ -1,4 +1,6 @@
 .modal
+  $stripe-color: rgba(white, 0.05)
+
   max-height: 80vh
 
   .modal-body
@@ -7,18 +9,39 @@
     max-height: 80vh
 
   .modal-header
+    background-color: $stripe-color
+
     .modal-close
       color: rgba(255, 255, 255, 0.5)
       position: absolute
-      right: 0.5rem
-      top: 0.5rem
+      right: 0
+      top: 0
+      height: 2rem
+      line-height: 2rem
+      padding: 0.25rem 0.5rem
+      border-bottom-left-radius: 3px
+      background-color: rgba(color('red', 'base'), 0.3)
 
       &:hover
         color: white
+        background-color: rgba(color('red', 'base'), 0.6)
+
+      i.material-icons
+        font-size: 1rem
+        line-height: 1rem
+
+  .row.actions
+    margin: 1.5rem -1.5rem -1.5rem -1.5rem
+    padding: 1rem 0.75rem
+    background-color: $stripe-color
+
+    .col
+      margin-bottom: 0
 
   .modal-content
     overflow: auto
     flex-grow: 1
+    padding: 1.5rem
 
   .modal-footer
     padding: 4px 10px

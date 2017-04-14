@@ -11,13 +11,13 @@
 
 
   getInitialState: ->
-    model: @props.model
+    model: $.extend {}, @props.model
     errors: @props.errors || {}
     dirty: false
 
   componentWillReceiveProps: (newProps) ->
-    if newProps.model != @state.model
-      @setState model: newProps.model, errors: (newProps.errors || {}), dirty: false
+    if newProps.model != @props.model
+      @setState model: $.extend({}, newProps.model), errors: (newProps.errors || {}), dirty: false
 
 
   componentDidMount: ->
@@ -28,12 +28,26 @@
     Materialize.updateTextFields()
 
 
+  reset: ->
+    @setState model: $.extend({}, @props.model), dirty: false
+    @props.onDirty(false) if @props.onDirty
+
+
   _handleInputChange: (name, value) ->
     newModel = @state.model
     newModel[name] = value
     errors = @state.errors
     errors[name] = null
-    @setState model: newModel, dirty: true, errors: errors
+    dirty = false
+
+    for k, v of newModel
+      o = @props.model[k]
+
+      if v != o and !(v == false and typeof(o) == 'undefined')
+        dirty = true
+
+    @setState model: newModel, dirty: dirty, errors: errors
+    @props.onDirty(dirty) if @props.onDirty
 
 
   _handleFormSubmit: (e) ->
@@ -51,6 +65,7 @@
       success: (data) =>
         @setState dirty: false, errors: {}
         @props.onChange(data) if @props.onChange
+        @props.onDirty(false) if @props.onDirty
 
       error: (data) =>
         @props.onError(data) if @props.onError

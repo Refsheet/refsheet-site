@@ -1,6 +1,8 @@
 .row
-  &.rowfix
-    margin-bottom: 0
+  margin-bottom: 0
 
-    .col
-      margin-bottom: 20px
+  &.hidden
+    display: none
+
+  &:not(.no-margin) .col
+    margin-bottom: 20px

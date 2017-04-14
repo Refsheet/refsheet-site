@@ -1,6 +1,7 @@
 @CharacterApp = React.createClass
   contextTypes:
     router: React.PropTypes.object.isRequired
+    currentUser: React.PropTypes.object
 
 
   getInitialState: ->
@@ -128,7 +129,7 @@
     unless @state.character?
       return `<Loading />`
 
-    if @state.character.user_id == @props.currentUser?.username
+    if @state.character.user_id == @context.currentUser?.username
       editable = true
       dropzoneUpload = @handleDropzoneUpload
       profileChange = @handleProfileChange
