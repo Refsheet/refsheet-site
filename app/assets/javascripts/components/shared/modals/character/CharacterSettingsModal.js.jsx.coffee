@@ -11,10 +11,17 @@
     $('#character-settings-form').modal('close')
 
   _handleChange: (character) ->
+    if character.link != @props.character.link
+      window.history.replaceState {}, '', character.link
+
+    $(document).trigger 'app:character:update', character
+
+    @_handleSettingsClose()
     Materialize.toast 'Character saved!', 3000, 'green'
 
   _handleCancel: (e) ->
     @refs.form.reset()
+    @_handleSettingsClose()
     e.preventDefault()
 
   _handleDirty: (dirty) ->
@@ -23,7 +30,6 @@
 
   render: ->
     `<Modal id='character-settings-form'
-            bottomSheet
             title='Character Settings'
     >
         <Form action={ this.props.character.path }
