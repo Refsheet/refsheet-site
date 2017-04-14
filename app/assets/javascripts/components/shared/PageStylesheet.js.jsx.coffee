@@ -109,7 +109,7 @@
           }\n
         """
 
-    if props['accent1']
+    if @props['accent1']
       css += """
         input:active, textarea:active, input:focus, textarea:focus {
           border-bottom: 1px solid #{@state.colorData['accent1']} !important;

@@ -26,7 +26,7 @@ body:not(.admin)
     .invalid input
       @extend input.invalid
 
-    .help-block,
+    .hint-block,
     .error-block
       display: block
       font-size: 0.8rem
@@ -37,6 +37,11 @@ body:not(.admin)
 
       &.error-block
         color: color('red', 'base')
+
+
+    input[type=checkbox] + label,
+    input[type=radio] + label
+      margin-bottom: 20px
 
     label
       abbr[title]
