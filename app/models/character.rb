@@ -129,15 +129,21 @@ class Character < ApplicationRecord
       else
         transfer.invitation = Invitation.find_or_initialize_by email: transfer_to_user
       end
+
     else
       destination = User.lookup transfer_to_user
 
       if destination
         transfer.destination = destination
       else
-        self.errors.add :transfer_to_user, 'must be a valid username or email address, was: ' + transfer_to_user.inspect
+        self.errors.add :transfer_to_user, 'must be a valid username or email address'
         return false
       end
+    end
+
+    if transfer.destination == self.user
+      self.errors.add :transfer_to_user, 'you can not transfer to yourself'
+      return false
     end
 
     self.transfers << transfer
