@@ -161,6 +161,7 @@
 
                 <CharacterColorSchemeModal colorScheme={ this.state.character.color_scheme } characterPath={ this.state.character.path } />
                 <CharacterDeleteModal character={ this.state.character } />
+                <CharacterTransferModal character={ this.state.character } />
                 <CharacterSettingsModal character={ this.state.character } />
             </div>
         }

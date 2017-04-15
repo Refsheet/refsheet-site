@@ -68,8 +68,6 @@
         'nav, body #rootApp footer.page-footer'
         '.lightbox'
         '.modal'
-        '.modal-header'
-        '.modal-footer'
         '.dropdown-content'
         '.card-panel'
       ]
@@ -92,6 +90,9 @@
       '.cs-accent2--color': [
         '.attribute-table li:not(.attribute-form) .attribute-data .key'
         'section.pop-out h2'
+      ]
+      '.cs-accent2--background-color': [
+        '.btn-secondary'
       ]
     }
 

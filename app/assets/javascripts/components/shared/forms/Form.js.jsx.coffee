@@ -17,6 +17,7 @@
 
   componentWillReceiveProps: (newProps) ->
     if newProps.model != @props.model
+      console.debug "New props coming in."
       @setState model: $.extend({}, newProps.model), errors: (newProps.errors || {}), dirty: false
 
 
