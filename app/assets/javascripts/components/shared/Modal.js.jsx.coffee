@@ -6,6 +6,10 @@
   render: ->
     classes = ['modal']
     classes.push 'wide' if @props.wide
+    classes.push 'bottom-sheet' if @props.bottomSheet
+
+    containerClasses = ['modal-content']
+    containerClasses.push 'container' if @props.container
 
     actions = (@props.actions || []).map (action) ->
       `<a className={ 'modal-action waves-effect waves-light btn ' + action.className }
@@ -25,7 +29,7 @@
                     <h2>{ this.props.title }</h2>
                 </div> }
 
-            <div className='modal-content'>
+            <div className={ containerClasses.join(' ') }>
                 { this.props.children }
             </div>
 

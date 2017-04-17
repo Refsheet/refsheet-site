@@ -86,7 +86,7 @@
       nameTag =
         `<div className='key'>
             <Input type='text'
-                   id='name'
+                   name='name'
                    placeholder='Name'
                    error={ this.state.errors.name }
                    onChange={ this.handleChange }
@@ -97,7 +97,7 @@
       notesTag =
         `<div className='notes'>
             <Input type='text'
-                   id='notes'
+                   name='notes'
                    placeholder='Notes'
                    error={ this.state.errors.notes }
                    onChange={ this.handleChange }
@@ -115,7 +115,7 @@
                     { colorPicker }
 
                     <Input type='text'
-                           id='value'
+                           name='value'
                            onChange={ this.handleChange }
                            error={ this.state.errors.value }
                            value={ this.state.value } />

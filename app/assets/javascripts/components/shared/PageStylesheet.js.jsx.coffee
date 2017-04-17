@@ -10,8 +10,8 @@
     colorData: @props.colorData
 
   componentDidMount: ->
-    $(document).on 'app:color_scheme:update', (e, color_scheme) =>
-      @setState colorData: color_scheme.color_data
+    $(document).on 'app:color_scheme:update', (e, colorData) =>
+      @setState colorData: colorData
 
   componentWillUnmount: ->
     $(document).off 'app:color_scheme:update'
@@ -34,6 +34,7 @@
         '.chip, .icon-container'
         '.color-helper'
         '.dropdown-content li:hover'
+        '.cp-color-picker'
       ]
       '.cs-text--color': [
         'body'
@@ -110,7 +111,7 @@
           }\n
         """
 
-    if @props['accent1']
+    if @state.colorData['accent1']
       css += """
         input:active, textarea:active, input:focus, textarea:focus {
           border-bottom: 1px solid #{@state.colorData['accent1']} !important;

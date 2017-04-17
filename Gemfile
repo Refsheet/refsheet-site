@@ -74,6 +74,7 @@ gem 'ruby-trello'
 
 source 'https://rails-assets.org' do
   # gem 'rails-assets-highcharts'
+  gem 'rails-assets-tinyColorPicker'
 end
 
 # == NON PRODUCTION GEMS

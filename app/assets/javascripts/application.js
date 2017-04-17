@@ -30,6 +30,7 @@
 //= require chartkick
 //= require highcharts
 //= require highcharts-init
+//= require tinyColorPicker
 //
 //= require components
 //= require cable
