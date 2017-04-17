@@ -2,6 +2,8 @@
   componentDidMount: ->
     $('#' + @props.id).modal
       complete: @props.onClose
+      ready: ->
+        $(document).trigger 'materialize:modal:ready'
     
   render: ->
     classes = ['modal']

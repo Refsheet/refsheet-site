@@ -29,6 +29,8 @@
       luma < 100
 
     otherClasses = {
+      #== background
+
       '.cs-background--background-color': [
         'body'
         '.chip, .icon-container'
@@ -36,15 +38,24 @@
         '.dropdown-content li:hover'
         '.cp-color-picker'
       ]
+
+      #== text
+
       '.cs-text--color': [
         'body'
         'nav a'
       ]
+
+      #== text-light
+
       '.cs-text-light--color': [
         '.attribute-table .actions a'
         '.chip .icon-container'
         '::-moz-placeholder, ::placeholder, ::-webkit-placeholder'
       ]
+
+      #== text-medium
+
       '.cs-text-medium--color': [
         '.chip'
         'section.pop-out .caption'
@@ -57,9 +68,13 @@
         '.lightbox .image-actions a'
         'body #rootApp footer .footer-copyright'
       ]
+
       '.cs-text-medium--background-color': [
         '.btn.grey.darken-3'
       ]
+
+      #== card-background
+
       '.cs-card-background--background-color': [
         '.card'
         '.character-card'
@@ -72,12 +87,19 @@
         '.dropdown-content'
         '.card-panel'
       ]
+
+      #== primary
+
       '.cs-primary--color': [
         'h1'
         'a:not(.btn)'
       ]
+
+      #== accent1
+
       '.cs-accent1--background-color': [
         '.btn'
+        'ul.tabs .indicator'
       ]
       '.cs-accent1--color': [
         'h2'
@@ -88,6 +110,9 @@
       '.cs-accent1--border-color': [
         'blockquote'
       ]
+
+      #== accent2
+
       '.cs-accent2--color': [
         '.attribute-table li:not(.attribute-form) .attribute-data .key'
         'section.pop-out h2'
