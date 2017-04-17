@@ -77,6 +77,10 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-tinyColorPicker'
 end
 
+# == MAINTENANCE
+
+gem 'puma_worker_killer'
+
 # == NON PRODUCTION GEMS
 
 group :development, :test do
