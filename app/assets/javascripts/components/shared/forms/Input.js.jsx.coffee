@@ -10,6 +10,7 @@
     autoFocus: React.PropTypes.bool
     className: React.PropTypes.string
     modelName: React.PropTypes.string
+    default: React.PropTypes.string
 
     value: React.PropTypes.oneOfType([
       React.PropTypes.string
@@ -23,23 +24,40 @@
 
 
   getInitialState: ->
-    value: @props.value
+    value: @props.value || @props.default
     error: @props.error
     dirty: false
 
 
   componentWillReceiveProps: (newProps) ->
     if newProps.value != @state.value
-      @setState value: newProps.value
+      @setState value: (newProps.value || newProps.default)
 
     if newProps.error != @state.error
       @setState error: newProps.error
+
+  componentDidMount: ->
+    if @props.type == 'color'
+      tcp =
+        $(@refs.input).colorPicker
+          doRender: false
+          renderCallback: (e, toggle) =>
+            if typeof toggle == 'undefined'
+              @_handleInputChange target: value: e.text
+
+      window.tcp = tcp
+
+      $(@refs.input)
+        .blur ->
+          tcp.colorPicker.$UI.hide()
+
+        .focus ->
+          tcp.colorPicker.$UI.show()
 
 
   _handleInputChange: (e) ->
     if @props.type in ['checkbox', 'radio']
       value = e.target.checked
-      console.log e.target.checked
     else
       value = e.target.value
 
@@ -62,6 +80,7 @@
     commonProps =
       id: id
       name: @props.name
+      ref: 'input'
       disabled: @props.disabled
       readOnly: @props.readOnly
       placeholder: @props.placeholder
@@ -73,21 +92,36 @@
     if @props.type == 'textarea'
       inputField =
         `<textarea {...commonProps}
-                   value={ this.props.value || '' }
-                   className={ className + ' materialize-textarea' } />`
+                   value={ this.state.value || '' }
+                   className={ className + ' materialize-textarea' }
+        />`
 
     else if @props.type in ['checkbox', 'radio']
       inputField =
         `<input {...commonProps}
                 type={ this.props.type }
-                checked={ this.state.value || false } />`
+                checked={ this.state.value || false }
+        />`
+
+    else if @props.type == 'color'
+      inputField =
+        `<input {...commonProps}
+                value={ this.state.value || '#000000' }
+                type='text'
+        />`
+
+      icon =
+        `<i className='material-icons prefix shadow' style={{ color: this.state.value }}>palette</i>`
+
     else
       inputField =
         `<input {...commonProps}
                 type={ this.props.type || 'text' }
-                value={ this.state.value || '' } />`
+                value={ this.state.value || '' }
+        />`
 
     `<div className='input-field'>
+        { icon }
         { inputField }
 
         { this.props.label &&
