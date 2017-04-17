@@ -1,6 +1,7 @@
 @Input = React.createClass
   propTypes:
-    name: React.PropTypes.string.isRequired
+    name: React.PropTypes.string
+    id: React.PropTypes.string
     onChange: React.PropTypes.func
     type: React.PropTypes.string
     placeholder: React.PropTypes.string
@@ -11,6 +12,8 @@
     className: React.PropTypes.string
     modelName: React.PropTypes.string
     default: React.PropTypes.string
+    browserDefault: React.PropTypes.boolean
+    focusSelectAll: React.PropTypes.boolean
 
     value: React.PropTypes.oneOfType([
       React.PropTypes.string
@@ -54,6 +57,10 @@
         .focus ->
           tcp.colorPicker.$UI.show()
 
+    if @props.focusSelectAll
+      $(@refs.input).focus ->
+        $(this).select()
+
 
   _handleInputChange: (e) ->
     if @props.type in ['checkbox', 'radio']
@@ -68,11 +75,14 @@
   render: ->
     className  = @props.className
     className += ' invalid' if @props.error?
+    className += ' browser-default' if @props.browserDefault
 
     error = @props.error
     error = error[0] if error?.length
 
-    if @props.modelName
+    if @props.id
+      id = @props.id
+    else if @props.modelName
       id = "#{@props.modelName}_#{@props.name}"
     else
       id = @props.name
@@ -90,10 +100,11 @@
 
 
     if @props.type == 'textarea'
+      className += ' materialize-textarea' unless @props.browserDefault
       inputField =
         `<textarea {...commonProps}
                    value={ this.state.value || '' }
-                   className={ className + ' materialize-textarea' }
+                   className={ className }
         />`
 
     else if @props.type in ['checkbox', 'radio']

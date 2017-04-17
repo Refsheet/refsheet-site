@@ -6,36 +6,35 @@
 
   getInitialState: ->
     color_data: @props.colorScheme.color_data
+    dirty: false
 
-
-  _handleColorSchemeChange: (data, onSuccess, onError) ->
-    c = @props.colorScheme
-    c = { color_data: {} } unless c && c.color_data
-    c.color_data[data.id] = data.value
-
-    $.ajax
-      url: @props.characterPath
-      data: character: color_scheme_attributes: c
-      type: 'PATCH'
-      success: (data) =>
-        $(document).trigger 'app:color_scheme:update', data
-        onSuccess() if onSuccess
-      error: (error) =>
-        onError(error) if onError
-
-  _handleColorSchemeClear: (key, onSuccess, onError) ->
-    data = { id: key, value: null }
-    @handleColorSchemeChange(data)
 
   _handleColorSchemeClose: (e) ->
     $('#color-scheme-form').modal('close')
 
+  _handleLoad: (e, data) ->
+    obj = JSON.parse data
+
+    if typeof obj == "object"
+      @setState color_data: obj
+      @refs.form.setModel obj
+
   _handleChange: (data) ->
-    $(document).trigger 'app:color_scheme:update', data.color_scheme.color_data
-    Materialize.toast 'Color scheme saved.', 3000, 'green'
+    @setState color_data: data.color_scheme.color_data, =>
+      $(document).trigger 'app:color_scheme:update', data.color_scheme.color_data
+      Materialize.toast 'Color scheme saved.', 3000, 'green'
+      @_handleColorSchemeClose()
 
   _handleUpdate: (data) ->
+    @setState color_data: data
     $(document).trigger 'app:color_scheme:update', data
+
+  _handleDirty: (dirty) ->
+    @setState dirty: dirty
+
+  _handleCancel: ->
+    @refs.form.reset()
+    @_handleColorSchemeClose()
 
 
   render: ->
@@ -57,44 +56,76 @@
       if @props.colorScheme && @props.colorScheme.color_data
         value = @props.colorScheme.color_data[key]
 
-      colorSchemeFields.push `<Column s={6}>
+      colorSchemeFields.push `<Column s={6} m={4}>
           <Input name={ key }
                  type='color'
                  label={ name }
-                 default={ def }
-                 value={ value } />
+                 default={ def } />
       </Column>`
 
     `<Modal id='color-scheme-form'
             title='Page Color Scheme'>
 
         <Form action={ this.props.characterPath }
+              ref='form'
               model={ this.state.color_data }
-              modelName='character[color_scheme_attributes][color_data]'
+              modelName='character.color_scheme_attributes.color_data'
               method='PUT'
               onUpdate={ this._handleUpdate }
+              onDirty={ this._handleDirty }
               onChange={ this._handleChange }>
 
-            <Row>
-                <Column m={6}>
+            <Tabs>
+                <Tab name='Advanced' id='advanced' active>
                     <Row>
                         { colorSchemeFields }
                     </Row>
-                </Column>
+                </Tab>
+                <Tab name='Export' id='export'>
+                    <p>
+                        Copy and paste the following code to share this color scheme with other Profiles. If you have a
+                        code, paste it here and we'll load it.
+                    </p>
+                    <Input onChange={ this._handleLoad }
+                           type='textarea'
+                           ref='code'
+                           browserDefault
+                           focusSelectAll
+                           value={ JSON.stringify(this.state.color_data) } />
+                </Tab>
+            </Tabs>
 
+            <div className='divider' />
+
+            <Row className='margin-top--large' noMargin>
                 <Column m={6}>
                     <h1>Sample Text</h1>
                     <p>This is a sample, with <a href='#'>Links</a> and such.</p>
-
-                    <h2>Lorem Ipsum</h2>
                     <p>It is funny how many people read filler text all the way through, isn't it?</p>
+                </Column>
+                <Column m={6}>
+                    <h2>Lorem Ipsum</h2>
+                    <AttributeTable>
+                        <Attribute name='Name' value='Color Test' />
+                        <Attribute name='Personality' value='Very helpful!' />
+                    </AttributeTable>
                 </Column>
             </Row>
 
-            <Row className='actions'>
+            <Row className='actions' hidden={ this.state.dirty }>
                 <Column>
                     <div className='right'>
-                        <Submit />
+                        <a onClick={ this._handleColorSchemeClose } className='btn waves-effect waves-light'>Done</a>
+                    </div>
+                </Column>
+            </Row>
+
+            <Row className='actions' hidden={ !this.state.dirty }>
+                <Column>
+                    <a onClick={ this._handleCancel } className='btn btn-secondary waves-effect waves-light'>Cancel</a>
+
+                    <div className='right'>
+                        <Submit>Save Changes</Submit>
                     </div>
                 </Column>
             </Row>

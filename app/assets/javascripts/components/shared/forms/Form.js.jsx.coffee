@@ -32,6 +32,15 @@
     @setState model: $.extend({}, @props.model), dirty: false
     @props.onDirty(false) if @props.onDirty
 
+  submit: ->
+    @_handleFormSubmit()
+
+  setModel: (data, dirty=true, callback=null) ->
+    @setState { model: $.extend({}, data), dirty: dirty }, =>
+      @props.onDirty(dirty) if @props.onDirty
+      @props.onUpdate(data) if @props.onUpdate
+      callback() if callback
+
 
   _handleInputChange: (name, value) ->
     newModel = @state.model
@@ -55,7 +64,7 @@
     $(document).trigger 'app:loading'
 
     data = {}
-    data[@props.modelName] = @state.model
+    ObjectPath.set data, @props.modelName, @state.model
 
     console.debug "Form submit: ", (@props.method || 'POST'), @props.action, data
 
@@ -81,7 +90,7 @@
       complete: ->
         $(document).trigger 'app:loading:done'
 
-    e.preventDefault()
+    e.preventDefault() if e?
 
 
   _processChildren: (children) ->
@@ -92,12 +101,16 @@
         return child
 
       if child.type == Input
-        childProps =
-          key: child.props.name
-          value: @state.model[child.props.name]
-          error: @state.errors[child.props.name]
-          onChange: @_handleInputChange
-          modelName: @props.modelName
+        if child.props.name
+          childProps =
+            key: child.props.name
+            value: @state.model[child.props.name]
+            error: @state.errors[child.props.name]
+            onChange: @_handleInputChange
+            modelName: @props.modelName
+        else
+          childProps =
+            key: child.props.id
 
       if child.props.children
         childProps.children = @_processChildren(child.props.children)
