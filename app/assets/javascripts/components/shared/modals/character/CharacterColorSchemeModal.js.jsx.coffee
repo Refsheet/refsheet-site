@@ -5,7 +5,7 @@
 
 
   getInitialState: ->
-    color_data: @props.colorScheme.color_data
+    color_data: @props.colorScheme?.color_data || {}
     dirty: false
 
 
