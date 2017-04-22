@@ -52,11 +52,13 @@
             </Column>
         </Row>
 
-        <div className='actions margin-top--large'>
-            <a onClick={ this.props.onCancel } className='btn right grey darken-3'>
+        <Row className='actions margin-top--large'>
+            <a onClick={ this.props.onCancel } className='btn grey darken-3'>
                 <i className='material-icons'>cancel</i>
             </a>
 
-            <Submit>Create Character</Submit>
-        </div>
+            <div className='right'>
+                <Submit>Create Character</Submit>
+            </div>
+        </Row>
     </Form>`

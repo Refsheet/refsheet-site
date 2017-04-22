@@ -66,14 +66,15 @@
                            paramName='user[avatar]'
                            onUpload={ this.handleUserChange }>
 
-            <Modal id='character-form'>
-                <h2>New Character</h2>
-                <p>It all starts with the basics. Give us a name and a species, and we'll set up a profile.</p>
-                <NewCharacterForm onCancel={ function(e) { $('#character-form').modal('close'); e.preventDefault() } }
-                                  onCreate={ this.goToCharacter }
-                                  className='margin-top--large'
-                                  newCharacterPath={ this.state.user.path + '/characters' }/>
-            </Modal>
+            { editable &&
+                <Modal id='character-form' title='New Character'>
+                    <p>It all starts with the basics. Give us a name and a species, and we'll set up a profile.</p>
+                    <NewCharacterForm onCancel={ function(e) { $('#character-form').modal('close'); e.preventDefault() } }
+                                      onCreate={ this.goToCharacter }
+                                      className='margin-top--large'
+                                      newCharacterPath={ this.state.user.path + '/characters' }/>
+                </Modal>
+            }
 
             { actionButtons }
 
@@ -86,11 +87,11 @@
 
             <div className='tab-row'>
                 <div className='container'>
-                    <Tabs>
+                    <ul className='tabs'>
                         <li className='tab'>
                             <Link to={ '/' + this.state.user.username } className='active'>Characters</Link>
                         </li>
-                    </Tabs>
+                    </ul>
                 </div>
             </div>
 

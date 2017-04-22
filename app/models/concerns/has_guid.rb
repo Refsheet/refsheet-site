@@ -36,6 +36,11 @@ module HasGuid
     def has_guid(guid_column_name=:guid, options={})
       self.guid_column_name = guid_column_name
       self.guid_options = options
+
+      validates_format_of self.guid_column_name,
+                          with: /\A[^\s?&=.+]+\z/i,
+                          message: 'can not contain spaces, or: ? & = . +',
+                          allow_blank: true
     end
 
     # def find(id)
@@ -68,6 +73,8 @@ module HasGuid
 
       self.assign_attributes(guid_column_name => guid)
     end while self.class.unscoped.where(guid_scope).exists?(guid_column_name => self.send(guid_column_name))
+
+    Rails.logger.debug "GUID Generated: #{self.send(guid_column_name)}"
     true
   end
 
@@ -80,6 +87,7 @@ module HasGuid
       self.errors[guid_column_name] << 'has already been taken'
     end
 
+    Rails.logger.info "GUID Errors: #{self.errors[guid_column_name].inspect}"
     self.errors[guid_column_name].any?
   end
 

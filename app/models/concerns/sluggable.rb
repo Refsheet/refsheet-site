@@ -11,7 +11,8 @@ module Sluggable
 
     validates_format_of :slug,
                         with: /\A[a-z0-9-]+\z/i,
-                        message: 'can only contain a-z, 0-9 and -'
+                        message: 'can only contain a-z, 0-9 and -',
+                        allow_blank: true
   end
 
   def to_param
