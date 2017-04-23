@@ -1,9 +1,18 @@
 @Modal = React.createClass
   componentDidMount: ->
-    $('#' + @props.id).modal
+    $modal = $(@refs.modal)
+
+    $modal.modal
       complete: @props.onClose
       ready: ->
         $(document).trigger 'materialize:modal:ready'
+
+
+  _handleClose: (e) ->
+    $modal = $(@refs.modal)
+    $modal.modal 'close'
+    e.preventDefault()
+
     
   render: ->
     classes = ['modal']
@@ -22,11 +31,11 @@
           { action.name }
       </a>`
 
-    `<div className={ classes.join(' ') } id={ this.props.id }>
+    `<div ref='modal' className={ classes.join(' ') } id={ this.props.id }>
         <div className='modal-body'>
             { this.props.title &&
                 <div className='modal-header'>
-                    <a className='modal-close'>
+                    <a className='modal-close' onClick={ this._handleClose }>
                         <i className='material-icons'>close</i>
                     </a>
 

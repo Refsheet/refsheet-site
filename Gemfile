@@ -41,6 +41,7 @@ gem 'gravatar_image_tag'
 gem 'chartkick'
 gem 'breadcrumbs_on_rails'
 gem 'jquery-tmpl-rails'
+gem 'jquery-justified-gallery-rails'
 gem 'imagesLoaded_rails'
 gem 'highcharts-rails'
 
