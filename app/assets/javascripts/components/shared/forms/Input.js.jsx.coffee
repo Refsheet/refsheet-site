@@ -12,8 +12,8 @@
     className: React.PropTypes.string
     modelName: React.PropTypes.string
     default: React.PropTypes.string
-    browserDefault: React.PropTypes.boolean
-    focusSelectAll: React.PropTypes.boolean
+    browserDefault: React.PropTypes.bool
+    focusSelectAll: React.PropTypes.bool
 
     value: React.PropTypes.oneOfType([
       React.PropTypes.string

@@ -25,7 +25,6 @@
       g = rgb >> 8 & 0xff
       b = rgb >> 0 & 0xff
       luma = 0.2126 * r + 0.7152 * g + 0.0722 * b
-      console.log "Scheme luma: #{luma}"
       luma < 100
 
     otherClasses = {
@@ -67,6 +66,7 @@
         '.character-details .date'
         '.lightbox .image-actions a'
         'body #rootApp footer .footer-copyright'
+        '.source-url i'
       ]
 
       '.cs-text-medium--background-color': [

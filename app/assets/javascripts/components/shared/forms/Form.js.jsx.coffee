@@ -8,6 +8,7 @@
     onError: React.PropTypes.func
     errors: React.PropTypes.object
     className: React.PropTypes.string
+    changeEvent: React.PropTypes.string
 
 
   getInitialState: ->
@@ -76,6 +77,7 @@
         @setState dirty: false, errors: {}
         @props.onChange(data) if @props.onChange
         @props.onDirty(false) if @props.onDirty
+        $(document).trigger @props.changeEvent, data if @props.changeEvent
 
       error: (data) =>
         @props.onError(data) if @props.onError

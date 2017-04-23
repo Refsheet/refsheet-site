@@ -38,8 +38,7 @@
       west: { objectPosition: 'left' }
     }
 
-    `<Modal id='image-gravity-modal'>
-        <h2>Change Image Cropping</h2>
+    `<Modal id='image-gravity-modal' title='Change Image Cropping'>
         <p>Images can crop with a focus on the top, bottom, left, right or center. Ideally, the most important
             part of the image will be visible when cropped to a square or circle.</p>
 
@@ -52,12 +51,17 @@
             <a onClick={ this.handleGravityChange } className='btn g-center' data-gravity='center'><i className='material-icons'>close</i></a>
         </div>
 
-        <div className='actions'>
-            { this.state.loading
-                ? <a className='btn disabled'>Saving...</a>
-                : <a className='btn' onClick={ this.handleSave }>Save</a> }
-            <a className='btn grey right darken-3' onClick={ this.handleClose }>
-                <i className='material-icons'>cancel</i>
-            </a>
-        </div>
+        <Row className='actions'>
+            <Column>
+                <div className='right'>
+                    { this.state.loading
+                        ? <a className='btn disabled'>Saving...</a>
+                        : <a className='btn waves-effect waves-light' onClick={ this.handleSave }>Save</a> }
+                </div>
+
+                <a className='btn grey darken-3' onClick={ this.handleClose }>
+                    <i className='material-icons'>cancel</i>
+                </a>
+            </Column>
+        </Row>
     </Modal>`

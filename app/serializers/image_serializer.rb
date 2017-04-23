@@ -3,6 +3,7 @@ class ImageSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
   attributes :id,
+             :title,
              :caption,
              :url,
              :path,
@@ -68,6 +69,6 @@ class ImageSerializer < ActiveModel::Serializer
   end
 
   def caption_html
-    object.caption
+    linkify object.caption, markdown: false
   end
 end

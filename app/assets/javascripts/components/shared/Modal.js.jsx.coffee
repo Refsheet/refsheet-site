@@ -9,8 +9,10 @@
     classes = ['modal']
     classes.push 'wide' if @props.wide
     classes.push 'bottom-sheet' if @props.bottomSheet
+    classes.push @props.className if @props.className
 
-    containerClasses = ['modal-content']
+    containerClasses = []
+    containerClasses.push 'modal-content' unless @props.noContainer
     containerClasses.push 'container' if @props.container
 
     actions = (@props.actions || []).map (action) ->

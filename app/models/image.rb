@@ -81,13 +81,17 @@ class Image < ApplicationRecord
     super || 'center'
   end
 
+  def title
+    super || "Image of #{self.character.name}"
+  end
+
   def source_url_display
     return nil unless self.source_url.present?
     uri = URI.parse(self.source_url)
     path_part = uri.path.split('/').last
     filler = ('/' + path_part == uri.path ? '' : '.../')
 
-    "#{uri.host}/#{filler}#{path_part}"
+    "#{uri.host.gsub('www.','')}/#{filler}#{path_part}"
   end
 
   def regenerate_thumbnail!
