@@ -44,7 +44,7 @@
 
 
   render: ->
-    nsfwClassName = if @props.session.nsfw_ok then 'materialize-red darken-1' else ''
+    nsfwClassName = if @props.session.nsfw_ok then 'nsfw-on' else ''
 
     if @props.session.current_user?
       userMenu =

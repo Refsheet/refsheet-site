@@ -17,7 +17,12 @@
         liClasses = ['tab']
 
         `<li className={ liClasses.join(' ') }>
-            <a href={ '#' + child.props.id }>{ child.props.name }</a>
+            <a href={ '#' + child.props.id }>
+                { child.props.name }
+                { child.props.icon &&
+                    <i className='material-icons left'>{ child.props.icon }</i>
+                }
+            </a>
         </li>`
       else
         console.log "Children to Tabs should be a Tab, got #{child?.type}."

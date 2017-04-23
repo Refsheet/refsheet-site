@@ -1,11 +1,14 @@
 module RichTextHelper
   include GravatarImageTag
 
-  def linkify(text)
+  def linkify(text, options={})
     return if text.nil?
+
+    options.reverse_merge!({})
+
     text = $markdown.render(text)
 
-    text.gsub /@(@?)([a-z0-9_\/+-]+)/i do |_|
+    text = text.gsub /(?<!\\)@(@?)([a-z0-9_\/+-]+)/i do |_|
       chips = $2.split('+').collect do |chip|
         username, character = chip.split '/'
         textless = $1 == '@'
@@ -31,7 +34,11 @@ module RichTextHelper
       else
         chips.first
       end
-    end.gsub(/[\n\t]/,' ').squish.html_safe
+    end
+
+    text = text.gsub(/[\n\t]/, ' ')
+    text = text.gsub(/\\@/, '@')
+    text.squish.html_safe
   end
 
   def character_chip(user, char, textless=false)

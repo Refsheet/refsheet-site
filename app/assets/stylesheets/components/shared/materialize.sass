@@ -1,38 +1,41 @@
+$chip-size: 1.5em
+$chip-image-size: 1.5em
+$chip-image-diff: $chip-image-size - $chip-size
+
 .chip
   background-color: lighten($page-bg-color, 10%)
   color: $page-text-color
   vertical-align: middle
   margin: 0
   font-size: 0.9em
-  height: 2em
-  border-radius: 1em
-  line-height: 2em
+  height: $chip-size
+  border-radius: ($chip-size / 2)
+  line-height: $chip-size
   padding: 0 0.5em
 
+  img, .icon-container
+    display: inline-block
+    margin: ($chip-image-diff / -2) 0.5em ($chip-image-diff / -2) -0.5em
+    height: $chip-image-size
+    width: $chip-image-size
+    border-radius: ($chip-image-size / 2)
+
   img
-    margin: -0.5em 0.5em -0.5em -0.5em
-    height: 3em
-    width: 3em
     object-fit: cover
-    border-radius: 1.5em
 
   .icon-container
-    display: inline-block
-    margin: -0.5em 0.5em -0.5em -0.5em
-    height: 3em
-    width: 3em
     overflow: hidden
     vertical-align: middle
     background-color: $card-bg-color
-    border-radius: 1.5em
 
     i.material-icons
-      font-size: 3em
+      font-size: $chip-image-size
+      line-height: $chip-image-size
       position: relative
 
   &.textless
-    height: 3em
-    border-radius: 1.5em
+    height: $chip-image-size
+    border-radius: $chip-image-size
     padding: 0
 
     img, .icon-container
@@ -52,13 +55,13 @@
 
     &:first-child
       img, &
-        border-top-left-radius: 1.5em
-        border-bottom-left-radius: 1.5em
+        border-top-left-radius: ($chip-image-size / 2)
+        border-bottom-left-radius: ($chip-image-size / 2)
 
     &:last-child
       img, &
-        border-top-right-radius: 1.5em
-        border-bottom-right-radius: 1.5em
+        border-top-right-radius: ($chip-image-size / 2)
+        border-bottom-right-radius: ($chip-image-size / 2)
 
 code
   color: $secondary-color

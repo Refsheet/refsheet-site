@@ -20,7 +20,7 @@ class ImagesController < ApplicationController
         og: {
             image: @image.image.url(:medium)
         },
-        title: 'Image of ' + @image.character.name,
+        title: @image.title,
         description: @image.caption || 'This image has no caption!',
         image_src: @image.image.url(:medium)
     )
@@ -92,7 +92,7 @@ class ImagesController < ApplicationController
   end
 
   def image_params
-    params.require(:image).permit(:image, :artist_id, :caption, :source_url, :thumbnail, :gravity, :nsfw, :hidden)
+    params.require(:image).permit(:image, :artist_id, :caption, :source_url, :thumbnail, :gravity, :nsfw, :hidden, :title)
   end
 
   def image_scope
