@@ -45,26 +45,4 @@ feature 'Lightbox', js: true do
     expect(page).to have_content 'Profile image changed!'
     expect(image.character.reload.profile_image_id).to eq image.id
   end
-
-  xcontext 'image flags' do
-    scenario 'user set nsfw' do
-      visit image_path image
-      expect(page).to have_content image.character.name
-      page.find('#image-actions-menu').trigger(:click)
-      expect(page).to have_content 'Flag as NSFW'
-      click_link 'Flag as NSFW'
-      expect(page).to have_content 'flagged'
-      expect(image.reload.nsfw?).to be_truthy
-    end
-
-    scenario 'user set public' do
-      visit image_path image
-      expect(page).to have_content image.character.name
-      page.find('#image-actions-menu').trigger(:click)
-      expect(page).to have_content 'Public'
-      click_link 'Public'
-      expect(page).to have_content 'hidden'
-      expect(image.reload.hidden?).to be_truthy
-    end
-  end
 end
