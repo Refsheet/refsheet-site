@@ -31,6 +31,7 @@
 //= require highcharts
 //= require highcharts-init
 //= require tinyColorPicker
+//= require jquery.justifiedGallery
 //
 //= require components
 //= require cable

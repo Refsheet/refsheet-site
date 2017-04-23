@@ -1,6 +1,28 @@
 .image-gallery
   margin-bottom: -1.5rem
 
+  .gallery-feature
+    margin-bottom: 15px
+
+    &:after
+      content: ''
+      display: block
+      clear: both
+
+    .feature-main
+      display: inline-block
+      float: left
+
+    .feature-side
+      float: left
+      margin-left: 15px
+
+      .side-image
+        margin-bottom: 15px
+
+        &:last-child
+          margin-bottom: 0
+
   .image-placeholder
     background-color: rgba(black, 0.2)
     padding-bottom: 100%
@@ -22,21 +44,27 @@
     img
       opacity: 0.6
 
-  .row.featured,
-  .row.gallery-grid,
-  .row.featured-side
-    margin-bottom: 0
-
-  .image
+  .gallery-image
     @extend .z-depth-1
     background-color: black
     position: relative
-    padding-bottom: 100%
-    overflow: hidden
+    display: block
 
     img
-      position: absolute
-      top: 0
+      position: relative
+      display: block
       width: 100%
-      height: 100%
-      object-fit: cover
+
+  .justified-gallery
+    position: relative
+    margin: -15px
+
+    a.gallery-image
+      display: inline-block
+      position: absolute
+      overflow: hidden
+
+      img
+        position: relative
+        top: 50%
+        left: 50%
