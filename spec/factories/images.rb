@@ -20,6 +20,8 @@
 #  hidden             :boolean
 #  gallery_id         :integer
 #  deleted_at         :datetime
+#  title              :string
+#  background_color   :string
 #
 
 FactoryGirl.define do

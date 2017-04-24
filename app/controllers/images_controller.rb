@@ -93,7 +93,18 @@ class ImagesController < ApplicationController
   end
 
   def image_params
-    params.require(:image).permit(:image, :artist_id, :caption, :source_url, :thumbnail, :gravity, :nsfw, :hidden, :title)
+    params.require(:image).permit(
+        :image,
+        :artist_id,
+        :caption,
+        :source_url,
+        :thumbnail,
+        :gravity,
+        :nsfw,
+        :hidden,
+        :title,
+        :background_color
+    )
   end
 
   def image_scope

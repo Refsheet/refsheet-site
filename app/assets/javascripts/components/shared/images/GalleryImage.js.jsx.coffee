@@ -8,8 +8,16 @@
     onClick: React.PropTypes.func
 
 
+  getInitialState: ->
+    image: @props.image
+
+
+  load: (image) ->
+    @setState image: image, @_initialize
+
+
   _handleClick: (e) ->
-    @props.onClick(@props.image) if @props.onClick
+    @props.onClick(@state.image) if @props.onClick
     e.preventDefault()
 
   _initialize: ->
@@ -26,35 +34,44 @@
           top: 5
           left: 5
         helper: =>
-          $("<div class='card-panel'>#{@props.image.title}</div>")
+          $("<div class='card-panel'>#{@state.image.title}</div>")
 
       $image.droppable
         tolerance: 'pointer'
         drop: (event, ui) =>
           $source = ui.draggable
           sourceId = $source.data 'gallery-image-id'
-          _this.props.onSwap(sourceId, @props.image.id) if _this.props.onSwap
+          _this.props.onSwap(sourceId, @state.image.id) if _this.props.onSwap
 
 
   componentDidMount: ->
     @_initialize()
+
+    $(document).on 'app:image:update', (e, image) =>
+      return unless @state.image.id == image.id
+      @load(image)
+
+  componentWillReceiveProps: (newProps) ->
+    if newProps.image?
+      @load(newProps.image)
 
 
   render: ->
     classNames = ['gallery-image']
     classNames.push @props.className if @props.className
     classNames.push 'draggable' if @props.editable
-    classNames.push 'image-placeholder' unless @props.image
+    classNames.push 'image-placeholder' unless @state.image
 
-    if @props.image
-      imageSrc = @props.image[@props.size] || @props.image['medium']
-      image = `<img src={ imageSrc } alt={ this.props.image.title } title={ this.props.image.title } />`
+    if @state.image
+      imageSrc = @state.image[@props.size] || @state.image['medium']
+      image = `<img src={ imageSrc } alt={ this.state.image.title } title={ this.state.image.title } />`
 
     `<a ref='image'
         className={ classNames.join(' ') }
         onClick={ this._handleClick }
-        href={ this.props.image.path }
-        data-gallery-image-id={ this.props.image.id }
+        href={ this.state.image.path }
+        data-gallery-image-id={ this.state.image.id }
+        style={{ backgroundColor: this.state.image.background_color }}
     >
         { image }
     </a>`

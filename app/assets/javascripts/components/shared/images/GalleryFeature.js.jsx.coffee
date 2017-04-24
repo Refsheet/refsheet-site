@@ -12,8 +12,11 @@
     $(window).resize @_initialize
     @_initialize()
 
-  componentDidUpdate: ->
-    @_initialize()
+  componentDidRecieveProps: (newProps) ->
+    if @props.first?.id != newProps.first?.id ||
+       @props.second?.id != newProps.second?.id ||
+       @props.third?.id != newProps.third?.id
+      @_initialize()
 
   componentWillUnmount: ->
     $(window).off 'resize', @_initialize
@@ -31,7 +34,7 @@
         height(selector) / width(selector)
 
       g = 15
-      x0 = $(@refs.galleryFeature).width()
+      x0 = $(@refs.galleryFeature).width() - 5
       r1 = ratio '.feature-main'
       r2 = ratio '.side-image.top'
       r3 = ratio '.side-image.bottom'
@@ -39,7 +42,7 @@
       # Lots of magic. Ask Wolfram Alpha.
       t = g - g*r2 - g*r3 + r2*x0 + r3*x0
       b = r1 + r2 + r3
-      x1 = Math.floor(t / b)
+      x1 = t / b
       x2 = x0 - x1 - g
 
       $(@refs.featureMain).css

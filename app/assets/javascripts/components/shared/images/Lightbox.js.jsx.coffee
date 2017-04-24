@@ -88,18 +88,22 @@
             url: "/images/#{imageId}.json"
             success: (data) =>
               @setState image: data
-              window.history.pushState {}, '', data.path
+              window.history.pushState {}, "#{data.title} | Refsheet.net", data.path
 
             error: (error) =>
               @setState error: "Image #{error.statusText}"
         else
           @setState image: imageId, directLoad: true
+          window.history.replaceState {}, "#{imageId.title} | Refsheet.net", imageId.path
 
         $('#lightbox').modal('open')
 
   _handleChange: (image) ->
     Materialize.toast "Image saved!", 3000, 'green'
     @setState image: image
+
+  _handleUpdate: (image) ->
+    @setState image: image if image.background_color
 
   componentDidUpdate: ->
     $('.dropdown-button').dropdown
@@ -144,7 +148,7 @@
 
       lightbox =
         `<div className='lightbox'>
-            <div className='image-content'>
+            <div className='image-content' style={{backgroundColor: this.state.image.background_color}}>
                 <img src={ this.state.image.url } />
             </div>
 
@@ -183,11 +187,13 @@
                                   modelName='image'
                                   action={ this.state.image.path }
                                   onChange={ this._handleChange }
+                                  onUpdate={ this._handleUpdate }
                                   changeEvent='app:image:update'
                                   method='PATCH'
                             >
                                 <Input name='title' label='Title' />
-                                <Input name='source_url' label='Source URL' hint='This should, if applicable, credit the artist or creator.' />
+                                <Input name='source_url' label='Source URL' hint='This should credit the artist or creator.' />
+                                <Input name='background_color' type='color' icon='' label='Background Color' hint='Especially useful for transparent images!' />
 
                                 <Row noMargin>
                                     <Column s={6}>
