@@ -12,6 +12,7 @@
     .feature-main
       display: inline-block
       float: left
+      width: 100%
 
     .feature-side
       float: left
@@ -46,14 +47,18 @@
 
   .gallery-image
     @extend .z-depth-1
+    @extend .valign-wrapper
     background-color: black
     position: relative
     display: block
+    text-align: center
 
     img
+      @extend .valign
       position: relative
       display: block
-      width: 100%
+      margin: 0 auto
+      max-width: 100%
 
   .justified-gallery
     position: relative

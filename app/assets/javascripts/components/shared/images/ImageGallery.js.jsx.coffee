@@ -12,6 +12,7 @@
     images: @props.images || null
 
   load: (data) ->
+    console.debug "ImageGallery#load", data
     @setState images: data, @_initialize
     @props.onImagesLoad(data) if @props.onImagesLoad
 
@@ -20,6 +21,8 @@
     if @props.imagesPath? and !@props.images
       $.get @props.imagesPath, @load
 
+  componentWillUnmount: ->
+    $(@refs.gallery).justifiedGallery 'destroy'
 
   componentWillReceiveProps: (newProps) ->
     if newProps.images && newProps.images.length != @state.images?.length
@@ -27,7 +30,9 @@
 
 
   _handleImageSwap: (source, target) ->
-    console.log source, target
+    # Model.patch "/images/#{source}", (data) =>
+    #   Materialize.toast 'Image moved!', 3000, 'green'
+    #   @load data
 
     $(document).trigger 'app:loading'
     $.ajax
@@ -52,8 +57,8 @@
     $(@refs.gallery).justifiedGallery
       selector: '.gallery-image'
       margins: 15
-      rowHeight: 250
-      maxHeight: 350
+      rowHeight: if @props.noFeature then 150 else 250
+      maxRowHeight: if @props.noFeature then 150 else 350
       captions: false
 
 
@@ -66,13 +71,15 @@
 
     unless @props.noFeature
       [first, second, third, overflow...] = @state.images
+      imageSize = 'small'
     else
       overflow = @state.images
+      imageSize = 'small_square'
 
     imagesOverflow = overflow.map (image) =>
       `<GalleryImage key={ image.id }
                      image={ image }
-                     size='small'
+                     size={ imageSize }
                      onClick={ _this._handleImageClick }
                      onSwap={ _this._handleImageSwap }
                      editable={ editable } />`
