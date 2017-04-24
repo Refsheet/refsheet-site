@@ -12,8 +12,7 @@
     @props.onClick(@props.image) if @props.onClick
     e.preventDefault()
 
-
-  componentDidMount: ->
+  _initialize: ->
     $image = $(@refs.image)
 
     if @props.editable
@@ -22,18 +21,23 @@
       $image.draggable
         revert: true
         opacity: 0.6
+        appendTo: 'body'
+        cursorAt:
+          top: 5
+          left: 5
+        helper: =>
+          $("<div class='card-panel'>#{@props.image.title}</div>")
 
       $image.droppable
-        drop: (event, ui) ->
+        tolerance: 'pointer'
+        drop: (event, ui) =>
           $source = ui.draggable
-          $target = $(this)
-
-#          $source.css top: '', left: '0'
-
           sourceId = $source.data 'gallery-image-id'
-          targetId = $target.data 'gallery-image-id'
+          _this.props.onSwap(sourceId, @props.image.id) if _this.props.onSwap
 
-          _this.props.onSwap(sourceId, targetId) if _this.props.onSwap
+
+  componentDidMount: ->
+    @_initialize()
 
 
   render: ->
