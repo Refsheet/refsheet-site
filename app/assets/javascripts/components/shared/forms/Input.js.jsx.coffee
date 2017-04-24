@@ -14,6 +14,7 @@
     default: React.PropTypes.string
     browserDefault: React.PropTypes.bool
     focusSelectAll: React.PropTypes.bool
+    icon: React.PropTypes.string
 
     value: React.PropTypes.oneOfType([
       React.PropTypes.string
@@ -45,7 +46,7 @@
         $(@refs.input).colorPicker
           doRender: false
           renderCallback: (e, toggle) =>
-            if typeof toggle == 'undefined'
+            if typeof toggle == 'undefined' && e.text
               @_handleInputChange target: value: e.text
 
       window.tcp = tcp
@@ -121,8 +122,9 @@
                 type='text'
         />`
 
-      icon =
-        `<i className='material-icons prefix shadow' style={{ color: this.state.value }}>palette</i>`
+      if @props.icon != ''
+        icon =
+          `<i className='material-icons prefix shadow' style={{ color: this.state.value }}>{ this.props.icon || 'palette' }</i>`
 
     else
       inputField =
@@ -130,6 +132,10 @@
                 type={ this.props.type || 'text' }
                 value={ this.state.value || '' }
         />`
+
+    if @props.icon
+      icon =
+        `<i className='material-icons prefix'>{ this.props.icon }</i>`
 
     `<div className='input-field'>
         { icon }

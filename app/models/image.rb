@@ -20,6 +20,8 @@
 #  hidden             :boolean
 #  gallery_id         :integer
 #  deleted_at         :datetime
+#  title              :string
+#  background_color   :string
 #
 
 # Should me larger than 1280px in both dimensions,
@@ -64,6 +66,11 @@ class Image < ApplicationRecord
                        content_type: { content_type: /image\/*/ },
                        size: { in: 0..25.megabytes }
 
+  validates_format_of :background_color,
+                      with: /\A((rgb|hsl)a?\((\s*\d,){3}\s*\)|#?([a-f0-9]{3}|[a-f0-9]{6}|[a-f0-9]{8}))\z/i,
+                      message: 'must be RGB, HSL or Hex code',
+                      allow_blank: true
+
   has_guid
   ranks :row_order
   acts_as_paranoid
@@ -83,6 +90,10 @@ class Image < ApplicationRecord
 
   def title
     super || "Image of #{self.character.name}"
+  end
+
+  def background_color
+    super || '#000000'
   end
 
   def source_url_display

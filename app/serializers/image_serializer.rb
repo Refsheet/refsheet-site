@@ -9,6 +9,7 @@ class ImageSerializer < ActiveModel::Serializer
              :path,
              :post_date,
              :caption_html,
+             :background_color,
              :nsfw,
              :hidden,
              :small,
