@@ -12,7 +12,6 @@
     images: @props.images || null
 
   load: (data) ->
-    console.debug "ImageGallery#load", data
     @setState images: data, @_initialize
     @props.onImagesLoad(data) if @props.onImagesLoad
 
