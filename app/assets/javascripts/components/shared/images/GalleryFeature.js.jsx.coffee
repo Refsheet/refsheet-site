@@ -39,7 +39,7 @@
       # Lots of magic. Ask Wolfram Alpha.
       t = g - g*r2 - g*r3 + r2*x0 + r3*x0
       b = r1 + r2 + r3
-      x1 = t / b
+      x1 = Math.floor(t / b)
       x2 = x0 - x1 - g
 
       $(@refs.featureMain).css
