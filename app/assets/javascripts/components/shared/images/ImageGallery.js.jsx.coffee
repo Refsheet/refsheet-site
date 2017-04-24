@@ -11,78 +11,50 @@
   getInitialState: ->
     images: @props.images || null
 
+  load: (data) ->
+    @setState images: data, @_initialize
+    @props.onImagesLoad(data) if @props.onImagesLoad
+
 
   componentDidMount: ->
     if @props.imagesPath? and !@props.images
-      $.get @props.imagesPath, (data) =>
-        @setState images: data, =>
-          $(@refs.imageGallery).imagesLoaded @_initialize
-        @props.onImagesLoad(data) if @props.onImagesLoad
+      $.get @props.imagesPath, @load
+
 
   componentWillReceiveProps: (newProps) ->
     if newProps.images && newProps.images.length != @state.images?.length
-      @setState images: newProps.images, =>
-        $(@refs.imageGallery).imagesLoaded @_initialize
+      @load newProps.images
 
-
-  _initialize: ->
-    return if @props.noFeature
-
-    width = (selector) =>
-      $(@refs.imageGallery).find(selector).width()
-
-    height = (selector) =>
-      $(@refs.imageGallery).find(selector).height()
-
-    ratio = (selector) =>
-      height(selector) / width(selector)
-
-    g = 15
-    x0 = width '.gallery-feature'
-    r1 = ratio '.feature-main'
-    r2 = ratio '.side-image.top'
-    r3 = ratio '.side-image.bottom'
-
-    # Lots of magic. Ask Wolfram Alpha.
-    t = g - g*r2 - g*r3 + r2*x0 + r3*x0
-    b = r1 + r2 + r3
-    x1 = t / b
-    x2 = x0 - x1 - g
-
-    console.log
-      x0: x0
-      r1: r1
-      r2: r2
-      r3: r3
-      x1: x1
-      x2: x2
-
-    $(@refs.featureMain).css
-      width: x1
-
-    $(@refs.featureSide).css
-      width: x2
-
-    $(@refs.gallery).justifiedGallery
-      selector: '.gallery-image'
-      margins: 15
-      rowHeight: 200
 
   _handleImageSwap: (source, target) ->
+    console.log source, target
+
+    $(document).trigger 'app:loading'
     $.ajax
       url: '/images/' + source
       type: 'PATCH'
       data: { image: { swap_target_image_id: target } }
       success: (data) =>
         Materialize.toast 'Image moved!', 3000, 'green'
+        @load data
       error: (error) =>
         console.log error
+      complete: ->
+        $(document).trigger 'app:loading:done'
 
   _handleImageClick: (image) ->
     if @props.onImageClick?
       @props.onImageClick(image.id)
     else
       $(document).trigger 'app:lightbox', image
+
+  _initialize: ->
+    $(@refs.gallery).justifiedGallery
+      selector: '.gallery-image'
+      margins: 15
+      rowHeight: 250
+      maxHeight: 350
+      captions: false
 
 
   render: ->
@@ -97,43 +69,23 @@
     else
       overflow = @state.images
 
-    imagesOverflow = overflow.map (image) ->
+    imagesOverflow = overflow.map (image) =>
       `<GalleryImage key={ image.id }
                      image={ image }
                      size='small'
-                     onClick={ this._handleImageClick }
-                     onSwap={ this._handleImageSwap }
+                     onClick={ _this._handleImageClick }
+                     onSwap={ _this._handleImageSwap }
                      editable={ editable } />`
 
     if @state.images?.length
       `<div ref='imageGallery' className='image-gallery'>
           { !this.props.noFeature &&
-              <div ref='galleryFeature' className='gallery-feature'>
-                  <div ref='featureMain' className='feature-left'>
-                      <GalleryImage className='feature-main'
-                                    image={ first }
-                                    size='large'
-                                    onClick={ this._handleImageClick }
-                                    onSwap={ this._handleImageSwap }
-                                    editable={ editable } />
-                  </div>
-
-                  <div ref='featureSide' className='feature-side'>
-                      <GalleryImage className='side-image top'
-                                    image={ second }
-                                    size='medium'
-                                    onClick={ this._handleImageClick }
-                                    onSwap={ this._handleImageSwap }
-                                    editable={ editable } />
-
-                      <GalleryImage className='side-image bottom'
-                                    image={ third }
-                                    size='medium'
-                                    onClick={ this._handleImageClick }
-                                    onSwap={ this._handleImageSwap }
-                                    editable={ editable } />
-                  </div>
-              </div>
+              <GalleryFeature first={ first }
+                              second={ second }
+                              third={ third }
+                              onImageClick={ this._handleImageClick }
+                              onImageSwap={ this._handleImageSwap }
+                              editable={ editable } />
           }
 
           { imagesOverflow.length > 0 &&

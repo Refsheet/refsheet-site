@@ -26,14 +26,9 @@
       $image.droppable
         drop: (event, ui) ->
           $source = ui.draggable
-          $sourceParent = $source.parent()
           $target = $(this)
-          $targetParent = $target.parent()
 
-          $targetParent.append $source
-          $sourceParent.append $target
-
-          $source.css top: '', left: '0'
+#          $source.css top: '', left: '0'
 
           sourceId = $source.data 'gallery-image-id'
           targetId = $target.data 'gallery-image-id'
@@ -55,7 +50,7 @@
         className={ classNames.join(' ') }
         onClick={ this._handleClick }
         href={ this.props.image.path }
-        data-gallery-image-id={ this.props.id }
+        data-gallery-image-id={ this.props.image.id }
     >
         { image }
     </a>`
