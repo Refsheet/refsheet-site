@@ -58,7 +58,8 @@ class ImagesController < ApplicationController
       @image.row_order = tro
       target.save and @image.save
 
-      render json: @image, serializer: ImageSerializer
+      @character = @image.character
+      render json: image_scope, each_serializer: ImageSerializer
     elsif @image.update_attributes image_params
       if image_params.include? :gravity
         @image.regenerate_thumbnail!
