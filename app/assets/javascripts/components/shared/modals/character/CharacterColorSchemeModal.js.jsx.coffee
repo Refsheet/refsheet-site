@@ -49,6 +49,7 @@
       'text-light': ['Subtle Text', 'rgba(255,255,255,0.3)']
       background: ['Page Background', '#262626']
       'card-background': ['Card Background', '#212121']
+      'image-background': ['Image Background', '#000000']
     }
       name = attr[0]
       def = attr[1]

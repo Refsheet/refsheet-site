@@ -86,6 +86,7 @@
         '.modal'
         '.dropdown-content'
         '.card-panel'
+        '.material-tooltip'
       ]
 
       #== primary
