@@ -62,6 +62,16 @@ describe Image, type: :model do
       let(:url) { 'http://example.net/imageId' }
       it { is_expected.to eq 'example.net/imageId' }
     end
+
+    context 'missing protocol' do
+      let(:url) { 'example.net/images/foo' }
+      it { is_expected.to eq 'example.net/.../foo' }
+
+      context 'missing path' do
+        let(:url) { 'example.foo.net' }
+        it { is_expected.to eq 'example.foo.net' }
+      end
+    end
   end
 
   it 'cleans featured image' do
