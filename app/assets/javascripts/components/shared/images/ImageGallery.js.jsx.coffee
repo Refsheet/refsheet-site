@@ -53,6 +53,7 @@
       $(document).trigger 'app:lightbox', image
 
   _initialize: ->
+    console.debug "Initializing Justified Gallery..."
     $(@refs.gallery).justifiedGallery
       selector: '.gallery-image'
       margins: 15

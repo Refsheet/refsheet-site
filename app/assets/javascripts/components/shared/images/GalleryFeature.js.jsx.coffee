@@ -18,11 +18,16 @@
        @props.third?.id != newProps.third?.id
       @_initialize()
 
+  componentDidUpdate: ->
+    @_initialize()
+
   componentWillUnmount: ->
     $(window).off 'resize', @_initialize
 
 
   _initialize: ->
+    console.debug "[GalleryFeature] Initializing featured gallery..."
+
     $(@refs.galleryFeature).imagesLoaded =>
       select = (selector) =>
         $(@refs.galleryFeature).find(selector)
@@ -33,11 +38,13 @@
 
       ratio = (selector) =>
         if select(selector).data 'aspect-ratio'
-          select(selector).data('aspect-ratio')
+          end = select(selector).data('aspect-ratio')
+          console.debug "[GalleryFeature] Getting #{selector} AR from cache: #{end}"
         else
-          r = (height(selector) / width(selector)) || 1
-          select(selector).data('aspect-ratio', r)
-          r
+          end = (height(selector + ' img') / width(selector + ' img')) || 1
+          select(selector).data('aspect-ratio', end)
+          console.debug "[GalleryFeature] Setting #{selector} AR: #{end}"
+        end
 
       g = 15
       x0 = $(@refs.galleryFeature).width() - 5
@@ -69,9 +76,14 @@
 
 
   render: ->
+    firstId = this.props.first?.id || 'placeholder-first'
+    secondId = this.props.second?.id || 'placeholder-second'
+    thirdId = this.props.third?.id || 'placeholder-third'
+
     `<div ref='galleryFeature' className='gallery-feature'>
         <div ref='featureMain' className='feature-left'>
-            <GalleryImage className='feature-main'
+            <GalleryImage key={ firstId }
+                          className='feature-main'
                           image={ this.props.first }
                           size='large'
                           onClick={ this.props.onImageClick }
@@ -80,14 +92,16 @@
         </div>
 
         <div ref='featureSide' className='feature-side'>
-            <GalleryImage className='side-image top'
+            <GalleryImage key={ secondId }
+                          className='side-image top'
                           image={ this.props.second }
                           size='medium'
                           onClick={ this.props.onImageClick }
                           onSwap={ this.props.onImageSwap }
                           editable={ this.props.editable } />
 
-            <GalleryImage className='side-image bottom'
+            <GalleryImage key={ thirdId }
+                          className='side-image bottom'
                           image={ this.props.third }
                           size='medium'
                           onClick={ this.props.onImageClick }
