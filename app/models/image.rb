@@ -98,11 +98,12 @@ class Image < ApplicationRecord
 
   def source_url_display
     return nil unless self.source_url.present?
-    uri = URI.parse(self.source_url)
-    path_part = uri.path.split('/').last
-    filler = ('/' + path_part == uri.path ? '' : '.../')
-
-    "#{uri.host.gsub('www.','')}/#{filler}#{path_part}"
+    output = self.source_url
+    output.gsub! /^\w+:\/\//, ''
+    output.gsub! /\/.*\//, '/.../'
+    output.gsub! /\?[^?]+$/, ''
+    output.gsub! /#[^#]+$/, ''
+    output
   end
 
   def regenerate_thumbnail!
