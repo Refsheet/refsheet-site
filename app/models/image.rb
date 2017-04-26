@@ -93,7 +93,7 @@ class Image < ApplicationRecord
   end
 
   def background_color
-    super || '#000000'
+    super || self.character.color_scheme&.color_data['image-background'] || '#000000'
   end
 
   def source_url_display
