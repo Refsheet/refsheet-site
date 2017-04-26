@@ -57,7 +57,8 @@
         value = @props.colorScheme.color_data[key]
 
       colorSchemeFields.push `<Column s={6} m={4}>
-          <Input name={ key }
+          <Input key={ key }
+                 name={ key }
                  type='color'
                  label={ name }
                  default={ def } />

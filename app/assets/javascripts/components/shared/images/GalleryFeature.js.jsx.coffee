@@ -24,14 +24,20 @@
 
   _initialize: ->
     $(@refs.galleryFeature).imagesLoaded =>
+      select = (selector) =>
+        $(@refs.galleryFeature).find(selector)
       width = (selector) =>
-        $(@refs.galleryFeature).find(selector).width()
-
+        select(selector).width()
       height = (selector) =>
-        $(@refs.galleryFeature).find(selector).height()
+        select(selector).height()
 
       ratio = (selector) =>
-        height(selector) / width(selector)
+        if select(selector).data 'aspect-ratio'
+          select(selector).data('aspect-ratio')
+        else
+          r = (height(selector) / width(selector)) || 1
+          select(selector).data('aspect-ratio', r)
+          r
 
       g = 15
       x0 = $(@refs.galleryFeature).width() - 5
@@ -44,12 +50,22 @@
       b = r1 + r2 + r3
       x1 = t / b
       x2 = x0 - x1 - g
+      y1 = x1 * r1
+      y2 = x2 * r2
+      y3 = x2 * r3
 
       $(@refs.featureMain).css
         width: x1
+        height: y1
 
       $(@refs.featureSide).css
         width: x2
+
+      $(@refs.featureSide).children('.top').css
+        height: y2
+
+      $(@refs.featureSide).children('.bottom').css
+        height: y3
 
 
   render: ->

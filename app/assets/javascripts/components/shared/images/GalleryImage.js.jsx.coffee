@@ -21,6 +21,8 @@
     e.preventDefault()
 
   _initialize: ->
+    return unless @state.image
+
     $image = $(@refs.image)
 
     if @props.editable
@@ -60,18 +62,21 @@
     classNames = ['gallery-image']
     classNames.push @props.className if @props.className
     classNames.push 'draggable' if @props.editable
-    classNames.push 'image-placeholder' unless @state.image
 
     if @state.image
       imageSrc = @state.image[@props.size] || @state.image['medium']
-      image = `<img src={ imageSrc } alt={ this.state.image.title } title={ this.state.image.title } />`
 
-    `<a ref='image'
-        className={ classNames.join(' ') }
-        onClick={ this._handleClick }
-        href={ this.state.image.path }
-        data-gallery-image-id={ this.state.image.id }
-        style={{ backgroundColor: this.state.image.background_color }}
-    >
-        { image }
-    </a>`
+      `<a ref='image'
+          className={ classNames.join(' ') }
+          onClick={ this._handleClick }
+          href={ this.state.image.path }
+          data-gallery-image-id={ this.state.image.id }
+          style={{ backgroundColor: this.state.image.background_color }}
+      >
+          <img src={ imageSrc } alt={ this.state.image.title } title={ this.state.image.title } />
+      </a>`
+
+    else
+      classNames.push 'image-placeholder'
+
+      `<div className={ classNames.join(' ') } />`
