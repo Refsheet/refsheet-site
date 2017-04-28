@@ -93,7 +93,13 @@ class Image < ApplicationRecord
   end
 
   def background_color
-    super || self.character.color_scheme&.color_data['image-background'] || '#000000'
+    color = if super
+              super
+            elsif self.character.color_scheme
+              self.character.color_scheme.color_data['image-background']
+            end
+
+    color || '#000000'
   end
 
   def source_url_display
