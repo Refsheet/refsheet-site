@@ -51,7 +51,7 @@
                                profileImageUrl={ character.profile_image_url } />
         </div>`
 
-    `<main>
+    `<Main title='Browse'>
         <Section className='tab-row'>
             <ul className='tabs'>
                 <li className='tab'>
@@ -92,4 +92,4 @@
                 { results }
             </div>
         </Section>
-    </main>`
+    </Main>`

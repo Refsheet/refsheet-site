@@ -59,7 +59,7 @@
                              profileImageUrl={ character.profile_image_url } />
       </div>`
 
-    `<main>
+    `<Main title={[ this.state.user.name, 'Users' ]}>
         <DropzoneContainer url={ editPath }
                            method='PATCH'
                            clickable='.user-avatar'
@@ -113,4 +113,4 @@
                 }
             </Section>
         </DropzoneContainer>
-    </main>`
+    </Main>`

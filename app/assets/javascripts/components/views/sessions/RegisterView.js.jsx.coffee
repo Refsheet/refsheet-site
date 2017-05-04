@@ -28,49 +28,51 @@
     $('body').removeClass 'no-footer'
 
   render: ->
-    `<div className='modal-page-content'>
-        <div className='narrow-container'>
-            <h1>Sign Up</h1>
+    `<Main title='Register'>
+        <div className='modal-page-content'>
+            <div className='narrow-container'>
+                <h1>Sign Up</h1>
 
-            <Form
-                action='/users'
-                method='POST'
-                model={ this.state.user }
-                onChange={ this._handleChange }
-                modelName='user'
-            >
+                <Form
+                    action='/users'
+                    method='POST'
+                    model={ this.state.user }
+                    onChange={ this._handleChange }
+                    modelName='user'
+                >
 
-                <Input
-                    name='username'
-                    value={ this.state.username }
-                    label='Username'
-                    autoFocus
-                />
+                    <Input
+                        name='username'
+                        value={ this.state.username }
+                        label='Username'
+                        autoFocus
+                    />
 
-                <Input
-                    name='email'
-                    type='email'
-                    value={ this.state.email }
-                    label='Email'
-                />
+                    <Input
+                        name='email'
+                        type='email'
+                        value={ this.state.email }
+                        label='Email'
+                    />
 
-                <Input
-                    name='password'
-                    value={ this.state.password }
-                    type='password'
-                    label='Password'
-                />
+                    <Input
+                        name='password'
+                        value={ this.state.password }
+                        type='password'
+                        label='Password'
+                    />
 
-                <Input
-                    name='password_confirmation'
-                    value={ this.state.password_confirmation }
-                    type='password'
-                    label='Confirm Password'
-                />
+                    <Input
+                        name='password_confirmation'
+                        value={ this.state.password_confirmation }
+                        type='password'
+                        label='Confirm Password'
+                    />
 
-                <div className='form-actions margin-top--large'>
-                    <Submit>Sign Up</Submit>
-                </div>
-            </Form>
+                    <div className='form-actions margin-top--large'>
+                        <Submit>Sign Up</Submit>
+                    </div>
+                </Form>
+            </div>
         </div>
-    </div>`
+    </Main>`
