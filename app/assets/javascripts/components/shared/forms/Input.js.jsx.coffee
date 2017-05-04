@@ -77,6 +77,7 @@
     className  = @props.className
     className += ' invalid' if @props.error?
     className += ' browser-default' if @props.browserDefault
+    className += ' autofocus' if @props.autoFocus
 
     error = @props.error
     error = error[0] if error?.length

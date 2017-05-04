@@ -5,6 +5,7 @@
     $modal.modal
       complete: @props.onClose
       ready: ->
+        $(this).find('.autofocus').focus()
         $(document).trigger 'materialize:modal:ready'
 
 
