@@ -20,8 +20,8 @@
 
   render: ->
     if @state.image?
-      bgImgUrl = "url(#{@state.image?.character.featured_image_url})"
-      `<main style={{ backgroundImage: bgImgUrl }} />`
+      bgImgUrl = "url(#{@state.image.character.featured_image_url})"
+      `<Main title={[ this.state.image.title, 'Images' ]} style={{ backgroundImage: bgImgUrl }} />`
 
     else
       `<Loading />`

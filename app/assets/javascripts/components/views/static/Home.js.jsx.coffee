@@ -11,7 +11,7 @@
       { name: 'Markings', color: '#99b734' }
     ]
 
-    `<main>
+    `<Main>
         <Jumbotron backgroundImage='/assets/unsplash/typewriter.jpg'>
             <h1>Your characters, <strong>organized.</strong></h1>
             <p className='flow-text'>
@@ -157,4 +157,4 @@
             <h2>Ready to show off your characters?</h2>
             <Link to='/register' className='btn'>Sign Up</Link>
         </Section>
-    </main>`
+    </Main>`

@@ -139,81 +139,83 @@
       dropzoneTriggerId = [ '#image-upload' ]
 
 
-    `<DropzoneContainer url={ this.state.character.path + '/images' }
-                        onUpload={ dropzoneUpload }
-                        clickable={ dropzoneTriggerId }>
+    `<Main title={[ this.state.character.name, 'Characters' ]}>
+        <DropzoneContainer url={ this.state.character.path + '/images' }
+                           onUpload={ dropzoneUpload }
+                           clickable={ dropzoneTriggerId }>
 
-        { this.state.character.color_scheme &&
-            <PageStylesheet colorData={ this.state.character.color_scheme.color_data } />
-        }
+            { this.state.character.color_scheme &&
+                <PageStylesheet colorData={ this.state.character.color_scheme.color_data } />
+            }
 
-        { editable &&
-            <div className='edit-container'>
-                <FixedActionButton clickToToggle className='teal lighten-1' tooltip='Menu' icon='menu'>
-                    <ActionButton className='indigo lighten-1' tooltip='Upload Images' id='image-upload' icon='file_upload' />
-                    <ActionButton className='green lighten-1 modal-trigger' tooltip='Edit Page Colors' href='#color-scheme-form' icon='palette' />
-                    <ActionButton className='blue darken-1 modal-trigger' tooltip='Character Settings' href='#character-settings-form' icon='settings' />
-                </FixedActionButton>
+            { editable &&
+                <div className='edit-container'>
+                    <FixedActionButton clickToToggle className='teal lighten-1' tooltip='Menu' icon='menu'>
+                        <ActionButton className='indigo lighten-1' tooltip='Upload Images' id='image-upload' icon='file_upload' />
+                        <ActionButton className='green lighten-1 modal-trigger' tooltip='Edit Page Colors' href='#color-scheme-form' icon='palette' />
+                        <ActionButton className='blue darken-1 modal-trigger' tooltip='Character Settings' href='#character-settings-form' icon='settings' />
+                    </FixedActionButton>
 
-                <ImageGalleryModal images={ this.state.images }
-                                   title={ this.state.galleryTitle }
-                                   onClick={ this.state.onGallerySelect } />
+                    <ImageGalleryModal images={ this.state.images }
+                                       title={ this.state.galleryTitle }
+                                       onClick={ this.state.onGallerySelect } />
 
-                <CharacterColorSchemeModal colorScheme={ this.state.character.color_scheme } characterPath={ this.state.character.path } />
-                <CharacterDeleteModal character={ this.state.character } />
-                <CharacterTransferModal character={ this.state.character } />
-                <CharacterSettingsModal character={ this.state.character } />
-            </div>
-        }
+                    <CharacterColorSchemeModal colorScheme={ this.state.character.color_scheme } characterPath={ this.state.character.path } />
+                    <CharacterDeleteModal character={ this.state.character } />
+                    <CharacterTransferModal character={ this.state.character } />
+                    <CharacterSettingsModal character={ this.state.character } />
+                </div>
+            }
 
-        <PageHeader backgroundImage={ (this.state.character.featured_image || {}).url }
-                    onHeaderImageEdit={ headerImageEditCallback }>
+            <PageHeader backgroundImage={ (this.state.character.featured_image || {}).url }
+                        onHeaderImageEdit={ headerImageEditCallback }>
 
-            <CharacterNotice transfer={ this.state.character.pending_transfer } />
-            <CharacterCard edit={ editable } detailView={ true } character={ this.state.character } onLightbox={ this.props.onLightbox } />
-            <SwatchPanel edit={ editable } swatchesPath={ this.state.character.path + '/swatches/' } swatches={ this.state.character.swatches } />
+                <CharacterNotice transfer={ this.state.character.pending_transfer } />
+                <CharacterCard edit={ editable } detailView={ true } character={ this.state.character } onLightbox={ this.props.onLightbox } />
+                <SwatchPanel edit={ editable } swatchesPath={ this.state.character.path + '/swatches/' } swatches={ this.state.character.swatches } />
 
-        </PageHeader>
+            </PageHeader>
 
-        <Section>
-            <Row className='rowfix'>
-                <Column m={12}>
-                    <div className='card-panel margin--none'>
-                        <h1>About { this.state.character.name }</h1>
-                        <RichText placeholder='No biography written.'
-                                  onChange={ profileChange }
-                                  content={ this.state.character.profile_html }
-                                  markup={ this.state.character.profile } />
-                    </div>
-                </Column>
-            </Row>
-            <Row className='rowfix'>
-                <Column m={6}>
-                    <div className='card-panel margin--none'>
-                        <h2>Likes</h2>
-                        <RichText placeholder='No likes specified.'
-                                  onChange={ likesChange }
-                                  content={ this.state.character.likes_html }
-                                  markup={ this.state.character.likes } />
-                    </div>
-                </Column>
-                <Column m={6}>
-                    <div className='card-panel margin--none'>
-                        <h2>Dislikes</h2>
-                        <RichText placeholder='No dislikes specified.'
-                                  onChange={ dislikesChange }
-                                  content={ this.state.character.dislikes_html }
-                                  markup={ this.state.character.dislikes } />
-                    </div>
-                </Column>
-            </Row>
-        </Section>
+            <Section>
+                <Row className='rowfix'>
+                    <Column m={12}>
+                        <div className='card-panel margin--none'>
+                            <h1>About { this.state.character.name }</h1>
+                            <RichText placeholder='No biography written.'
+                                      onChange={ profileChange }
+                                      content={ this.state.character.profile_html }
+                                      markup={ this.state.character.profile } />
+                        </div>
+                    </Column>
+                </Row>
+                <Row className='rowfix'>
+                    <Column m={6}>
+                        <div className='card-panel margin--none'>
+                            <h2>Likes</h2>
+                            <RichText placeholder='No likes specified.'
+                                      onChange={ likesChange }
+                                      content={ this.state.character.likes_html }
+                                      markup={ this.state.character.likes } />
+                        </div>
+                    </Column>
+                    <Column m={6}>
+                        <div className='card-panel margin--none'>
+                            <h2>Dislikes</h2>
+                            <RichText placeholder='No dislikes specified.'
+                                      onChange={ dislikesChange }
+                                      content={ this.state.character.dislikes_html }
+                                      markup={ this.state.character.dislikes } />
+                        </div>
+                    </Column>
+                </Row>
+            </Section>
 
-        <Section>
-            <ImageGallery editable={ editable }
-                          imagesPath={ this.state.character.path + '/images/' }
-                          images={ this.state.images }
-                          onImagesLoad={ this._handleGalleryLoad } />
-        </Section>
+            <Section>
+                <ImageGallery editable={ editable }
+                              imagesPath={ this.state.character.path + '/images/' }
+                              images={ this.state.images }
+                              onImagesLoad={ this._handleGalleryLoad } />
+            </Section>
 
-    </DropzoneContainer>`
+        </DropzoneContainer>
+    </Main>`
