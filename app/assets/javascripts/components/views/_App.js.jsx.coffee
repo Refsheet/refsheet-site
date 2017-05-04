@@ -56,6 +56,7 @@
         { this.state.loading > 0 &&
             <LoadingOverlay /> }
 
+        <SessionModal />
         <Lightbox currentUser={ this.state.session.current_user } history={ this.props.history } />
 
         <UserBar session={ this.state.session } />

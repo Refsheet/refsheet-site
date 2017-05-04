@@ -56,6 +56,15 @@
                 </Link>
             </li>
 
+            { this.props.session.current_user.is_admin &&
+                <li>
+                    <a href='/admin'>
+                        <i className='material-icons left'>vpn_key</i>
+                        <span>Admin</span>
+                    </a>
+                </li>
+            }
+
             <li className='divider' />
 
             <li>
@@ -94,10 +103,10 @@
       userMenu =
         `<ul id='user-menu' className='dropdown-content cs-card-background--background-color'>
             <li>
-                <Link to='/login'>
+                <a href='#session-modal' className='modal-trigger'>
                     <i className='material-icons left'>person</i>
                     <span>Sign In</span>
-                </Link>
+                </a>
             </li>
             <li>
                 <Link to='/register'>
