@@ -30,6 +30,9 @@ describe Image, type: :model do
   it_is_expected_to(
       belong_to: :character,
       have_one: :user,
+      have_many: [
+          :favorites
+      ],
       validate_presence_of: :image,
       act_as_paranoid: true,
       have_db_column: [
