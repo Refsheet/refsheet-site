@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170505210323) do
+ActiveRecord::Schema.define(version: 20170505212717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -161,6 +161,8 @@ ActiveRecord::Schema.define(version: 20170505210323) do
     t.text     "comment"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.string   "guid"
+    t.index ["guid"], name: "index_media_comments_on_guid", using: :btree
     t.index ["media_id"], name: "index_media_comments_on_media_id", using: :btree
     t.index ["reply_to_comment_id"], name: "index_media_comments_on_reply_to_comment_id", using: :btree
     t.index ["user_id"], name: "index_media_comments_on_user_id", using: :btree
