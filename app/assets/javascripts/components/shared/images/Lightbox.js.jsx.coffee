@@ -64,10 +64,13 @@
     e.preventDefault()
 
   handleClose: (e) ->
+    return unless @state.image
+
     if @state.directLoad
       @context.router.push @state.image.character.link
     else
-      window.history.back() if @state.image?
+      window.history.back()
+
     @setState image: null
 
   componentDidMount: ->
@@ -88,13 +91,13 @@
             url: "/images/#{imageId}.json"
             success: (data) =>
               @setState image: data
-              window.history.pushState {}, "#{data.title} | Refsheet.net", data.path
+              window.history.pushState {}, "", data.path
 
             error: (error) =>
               @setState error: "Image #{error.statusText}"
         else
-          @setState image: imageId, directLoad: true
-          window.history.replaceState {}, "#{imageId.title} | Refsheet.net", imageId.path
+          @setState image: imageId, directLoad: imageId.directLoad
+          window.history.pushState {}, "", imageId.path
 
         $('#lightbox').modal('open')
 

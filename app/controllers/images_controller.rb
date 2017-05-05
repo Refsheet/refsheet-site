@@ -42,7 +42,7 @@ class ImagesController < ApplicationController
     @image = Image.new image_params.merge(character: @character)
 
     if @image.save
-      render json: @image, serializer: CharacterImageSerializer
+      render json: @image, serializer: ImageSerializer
     else
       render json: { errors: @image.errors }, status: :bad_request
     end

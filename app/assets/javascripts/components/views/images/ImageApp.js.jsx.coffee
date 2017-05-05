@@ -2,26 +2,29 @@
   getInitialState: ->
     image: null
 
-  componentWillMount: ->
-    $('body').addClass 'no-footer'
+  load: (data) ->
+    @setState image: data
+    data.directLoad = true
+    $(document).trigger 'app:lightbox', data
 
+  fetch: (imageId) ->
+    return unless imageId
     $.ajax
-      url: "/images/#{@props.params.imageId}.json"
-      success: (data) =>
-        @setState image: data
+      url: "/images/#{imageId}.json"
+      success: @load
 
-  componentWillUnmount: ->
-    $('body').removeClass 'no-footer'
+  componentWillMount: ->
+    @fetch @props.params.imageId
 
-  componentWillUpdate: (newProps, newState) ->
-    if newState.image? && !@state.image?
-      console.log 'Triggering LB event'
-      $(document).trigger 'app:lightbox', newState.image
+  componentWillReceiveProps: (newProps) ->
+    @fetch newProps.params.imageId
 
   render: ->
     if @state.image?
       bgImgUrl = "url(#{@state.image.character.featured_image_url})"
-      `<Main title={[ this.state.image.title, 'Images' ]} style={{ backgroundImage: bgImgUrl }} />`
+      `<Main title={[ this.state.image.title, 'Images' ]}
+             bodyClassName='no-footer'
+             style={{ backgroundImage: bgImgUrl }} />`
 
     else
       `<Loading />`

@@ -57,13 +57,14 @@
       if @props.colorScheme && @props.colorScheme.color_data
         value = @props.colorScheme.color_data[key]
 
-      colorSchemeFields.push `<Column s={6} m={4}>
-          <Input key={ key }
-                 name={ key }
-                 type='color'
-                 label={ name }
-                 default={ def } />
-      </Column>`
+      colorSchemeFields.push(
+        `<Column key={key} s={6} m={4}>
+            <Input name={ key }
+                   type='color'
+                   label={ name }
+                   default={ def } />
+        </Column>`
+      )
 
     `<Modal id='color-scheme-form'
             title='Page Color Scheme'>
