@@ -33,6 +33,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :media, only: [:show] do
+    resources :favorites, only: [:index, :create], controller: 'media/favorites'
+    resource :favorite, only: [:destroy], controller: 'media/favorites'
+    resources :comments, only: [:index, :create, :destroy], controller: 'media/comments'
+  end
+
   resources :feedbacks, only: [:create]
   resources :pledges, only: [:index]
 
