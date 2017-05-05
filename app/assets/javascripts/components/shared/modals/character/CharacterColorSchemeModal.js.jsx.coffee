@@ -1,7 +1,7 @@
 @CharacterColorSchemeModal = React.createClass
   propTypes:
-    colorScheme: React.PropTypes.object.isRequired
     characterPath: React.PropTypes.string.isRequired
+    colorScheme: React.PropTypes.object
 
 
   getInitialState: ->

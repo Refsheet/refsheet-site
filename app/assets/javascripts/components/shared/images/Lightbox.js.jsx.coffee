@@ -184,6 +184,10 @@
                         <p className='caption center'>Comments disabled.</p>
                     </Tab>
 
+                    <Tab id='image-favorites' name='Favorites' count={ 9 }>
+                        <p className='caption center'>Coming Soon.</p>
+                    </Tab>
+
                     { editable &&
                         <Tab id='image-settings' name='Settings'>
                             <Form model={ this.state.image }

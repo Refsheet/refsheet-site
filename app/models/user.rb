@@ -24,6 +24,8 @@ class User < ApplicationRecord
   has_many :permissions
   has_many :roles, through: :permissions
   has_many :visits
+  has_many :favorites, class_name: Media::Favorite
+  has_many :comments, class_name: Media::Comment
   has_one  :patron, class_name: Patreon::Patron
   has_one  :invitation
   has_many :pledges, through: :patron

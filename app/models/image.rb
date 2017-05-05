@@ -26,12 +26,15 @@
 
 # Should me larger than 1280px in both dimensions,
 # should be no more than 25MB
-class Image < ApplicationRecord
+# TODO - This will be refactored to be an STI class of Media
+class Image < ApplicationRecord # < Media
   include HasGuid
   include RankedModel
 
   belongs_to :character, inverse_of: :images
   has_one :user, through: :character
+  has_many :favorites, foreign_key: :media_id, class_name: Media::Favorite
+  has_many :comments, foreign_key: :media_id, class_name: Media::Comment
 
   SIZE = {
       thumbnail: 320,
@@ -76,6 +79,7 @@ class Image < ApplicationRecord
   acts_as_paranoid
 
   after_save :clean_up_character
+  after_destroy :clean_up_character
 
   scoped_search on: [:caption, :image_file_name]
   scoped_search in: :character, on: [:name, :species]
@@ -95,7 +99,7 @@ class Image < ApplicationRecord
   def background_color
     color = if super
               super
-            elsif self.character.color_scheme
+            elsif self.character&.color_scheme
               self.character.color_scheme.color_data['image-background']
             end
 

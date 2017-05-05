@@ -28,7 +28,8 @@ describe User, type: :model do
       :permissions,
       :roles,
       :visits,
-      :pledges
+      :pledges,
+      :favorites
     ],
     have_one: [
       :patron,
