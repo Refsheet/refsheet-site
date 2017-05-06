@@ -11,4 +11,10 @@ describe Media::Favorite, type: :model do
           :user
       ]
   )
+
+  it 'rejects doubles' do
+    c1 = create :media_favorite
+    c2 = build :media_favorite, media: c1.media, user: c1.user
+    expect(c2).to have(1).errors_on :media
+  end
 end
