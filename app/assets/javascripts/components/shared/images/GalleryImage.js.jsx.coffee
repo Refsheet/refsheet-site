@@ -1,4 +1,7 @@
 @GalleryImage = React.createClass
+  contextTypes:
+    currentUser: React.PropTypes.object
+
   propTypes:
     image: React.PropTypes.object
     editable: React.PropTypes.bool
@@ -15,9 +18,16 @@
   load: (image) ->
     @setState image: image, @_initialize
 
+  _handleFavorite: (fav) ->
+    o = @state.image
+    o.is_favorite = fav
+    @setState image: o
+    $(document).trigger 'app:image:update', o
 
   _handleClick: (e) ->
-    @props.onClick(@state.image) if @props.onClick
+    $target = $(e.target)
+    if $target.prop('tagName') == 'IMG'
+      @props.onClick(@state.image) if @props.onClick
     e.preventDefault()
 
   _initialize: ->
@@ -64,7 +74,7 @@
     classNames.push 'draggable' if @props.editable
 
     if @state.image
-      imageSrc = @state.image[@props.size] || @state.image['medium']
+      imageSrc = @state.image[@props.size] || @state.image['large']
 
       `<a ref='image'
           className={ classNames.join(' ') }
@@ -73,6 +83,10 @@
           data-gallery-image-id={ this.state.image.id }
           style={{ backgroundColor: this.state.image.background_color }}
       >
+          { this.context.currentUser &&
+              <FavoriteButton mediaId={ this.state.image.id } isFavorite={ this.state.image.is_favorite } />
+          }
+
           <img src={ imageSrc } alt={ this.state.image.title } title={ this.state.image.title } />
       </a>`
 

@@ -15,12 +15,18 @@
     tabs = React.Children.map @props.children, (child) =>
       if child?.type == Tab
         liClasses = ['tab']
+        liClasses.push 'no-name' unless child.props.name
 
         `<li className={ liClasses.join(' ') }>
             <a href={ '#' + child.props.id }>
-                { child.props.name }
                 { child.props.icon &&
-                    <i className='material-icons left'>{ child.props.icon }</i>
+                    <i className='material-icons'>{ child.props.icon }</i>
+                }
+
+                <span className='name'>{ child.props.name }</span>
+
+                { child.props.count > 0 &&
+                    <span className='count'>{ Number.format(child.props.count) }</span>
                 }
             </a>
         </li>`
