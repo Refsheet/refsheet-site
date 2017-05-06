@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   constraints ShortcodeDomainConstraint do
+    root to: redirect('https://refsheet.net')
     get '*id', to: 'shortcodes#show'
   end
 
