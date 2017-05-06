@@ -19,6 +19,8 @@ class ApplicationController < ActionController::Base
 
   force_ssl
 
+  serialization_scope :view_context
+
   protected
 
   def allow_http?

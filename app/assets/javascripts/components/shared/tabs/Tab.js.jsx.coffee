@@ -3,6 +3,7 @@
     id: React.PropTypes.string.isRequired
     name: React.PropTypes.string
     icon: React.PropTypes.string
+    count: React.PropTypes.number
     className: React.PropTypes.string
 
   render: ->

@@ -1,6 +1,7 @@
 @Lightbox = React.createClass
   contextTypes:
     router: React.PropTypes.object.isRequired
+    currentUser: React.PropTypes.object
 
 
   getInitialState: ->
@@ -77,6 +78,9 @@
     $('#lightbox').modal
       starting_top: '4%'
       ending_top: '10%'
+      ready: ->
+        $(this).find('.autofocus').focus()
+        $(document).trigger 'materialize:modal:ready'
       complete: (e) =>
         @handleClose(e)
 
@@ -115,8 +119,8 @@
   render: ->
     if @state.image?
       if @state.image.user_id == @props.currentUser?.username
-        imgActions =
-          `<div className='image-actions'>
+        imgActionMenu =
+          `<div className='image-action-menu'>
               <ul id='lightbox-image-actions' className='dropdown-content cs-card-background--background-color'>
                   <li><a href='#' onClick={ this.setFeaturedImage }>Set as Cover Image</a></li>
                   <li><a href='#' onClick={ this.setProfileImage }>Set as Profile Image</a></li>
@@ -149,6 +153,18 @@
         captionCallback = @handleCaptionChange
         editable = true
 
+      if @state.image.favorite_count
+        favorites = @state.image.favorites.map (fav) ->
+          `<Column key={ fav.user_id } s={3}>
+              <img src={ fav.user_avatar_url } className='responsive-img avatar' alt={ fav.user_id } style={{ display: 'block' }} />
+          </Column>`
+
+      else
+        favorites =
+          `<Column>
+              <p className='caption center'>Nothing here :(</p>
+          </Column>`
+
       lightbox =
         `<div className='lightbox'>
             <div className='image-content' style={{backgroundColor: this.state.image.background_color}}>
@@ -157,7 +173,13 @@
 
             <div className='image-details-container'>
                 <div className='image-details'>
-                    { imgActions }
+                    <div className='image-actions'>
+                        { this.context.currentUser &&
+                            <FavoriteButton mediaId={ this.state.image.id } isFavorite={ this.state.image.is_favorite } />
+                        }
+
+                        { imgActionMenu }
+                    </div>
                     
                     <LightboxCharacterBox character={ this.state.image.character }
                                           postDate={ this.state.image.post_date }
@@ -180,16 +202,16 @@
                 </div>
                 
                 <Tabs className='comments'>
-                    <Tab id='image-comments' name='Comments' count={ 0 }>
+                    <Tab id='image-comments' name='Comments' count={ this.state.image.comment_count }>
                         <p className='caption center'>Comments disabled.</p>
                     </Tab>
 
-                    <Tab id='image-favorites' name='Favorites' count={ 9 }>
-                        <p className='caption center'>Coming Soon.</p>
+                    <Tab id='image-favorites' name='Favorites' count={ this.state.image.favorite_count }>
+                        <Row>{ favorites }</Row>
                     </Tab>
 
                     { editable &&
-                        <Tab id='image-settings' name='Settings'>
+                        <Tab id='image-settings' icon='settings'>
                             <Form model={ this.state.image }
                                   modelName='image'
                                   action={ this.state.image.path }

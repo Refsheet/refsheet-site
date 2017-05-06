@@ -6,7 +6,7 @@ class ImagesController < ApplicationController
   respond_to :json
 
   def index
-    render json: image_scope, each_serializer: ImageSerializer
+    render json: image_scope.includes(:favorites), each_serializer: ImageSerializer
   end
 
   def show
