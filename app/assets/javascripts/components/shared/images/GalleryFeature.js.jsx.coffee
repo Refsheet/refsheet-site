@@ -39,11 +39,9 @@
       ratio = (selector) =>
         if select(selector).data 'aspect-ratio'
           end = select(selector).data('aspect-ratio')
-          console.debug "[GalleryFeature] Getting #{selector} AR from cache: #{end}"
         else
           end = (height(selector + ' img') / width(selector + ' img')) || 1
           select(selector).data('aspect-ratio', end)
-          console.debug "[GalleryFeature] Setting #{selector} AR: #{end}"
         end
 
       g = 15
