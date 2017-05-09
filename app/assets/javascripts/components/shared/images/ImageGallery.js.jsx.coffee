@@ -71,7 +71,7 @@
 
     unless @props.noFeature
       [first, second, third, overflow...] = @state.images
-      imageSize = 'small'
+      imageSize = 'medium'
     else
       overflow = @state.images
       imageSize = 'small_square'
