@@ -26,7 +26,7 @@
                 <span className='name'>{ child.props.name }</span>
 
                 { child.props.count > 0 &&
-                    <span className='count'>{ Number.format(child.props.count) }</span>
+                    <span className='count'>{ NumberUtils.format(child.props.count) }</span>
                 }
             </a>
         </li>`
