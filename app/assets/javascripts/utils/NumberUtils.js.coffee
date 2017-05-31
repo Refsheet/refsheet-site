@@ -1,4 +1,4 @@
-@Number =
+@NumberUtils =
   format: (i) ->
     n = Math.abs i
     switch
