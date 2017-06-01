@@ -12,7 +12,7 @@
   handleUserChange: (user) ->
     @setState user: user
 
-    if user.username == @props.currentUser.username
+    if user.username == @context.currentUser.username
       @props.onLogin(user)
 
   componentDidMount: ->
@@ -53,11 +53,9 @@
       editPath = this.state.user.path
 
     characters = @state.user.characters.map (character) ->
-      `<div className='col m3 s6' key={ character.slug }>
-          <CharacterLinkCard path={ character.link }
-                             name={ character.name }
-                             profileImageUrl={ character.profile_image_url } />
-      </div>`
+      `<Column s={6} m={4} key={ character.slug }>
+          <CharacterLinkCard {...StringUtils.camelizeKeys(character)} />
+      </Column>`
 
     `<Main title={[ this.state.user.name, 'Users' ]}>
         <DropzoneContainer url={ editPath }
@@ -85,32 +83,26 @@
 
             <UserHeader { ...this.state.user } onUserChange={ userChangeCallback } />
 
-            <div className='tab-row'>
-                <div className='container'>
-                    <ul className='tabs'>
-                        <li className='tab'>
-                            <Link to={ '/' + this.state.user.username } className='active'>Characters</Link>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <Section className='margin-top--large padding-bottom--none'>
+                <Row noPad>
+                    <Column m={3}>
+                        { editable &&
+                            <a href='#character-form' className='margin-bottom--large btn btn-block center waves-effect waves-light modal-trigger'>New Char</a>
+                        }
 
-            <Section className='margin-top--large'>
-                <div className='row'>
-                    { characters }
-                </div>
+                        <div className='caption center'>Character groups coming soon!</div>
+                    </Column>
 
-                { characters.length == 0 &&
-                    <p className='caption center'>
-                        { this.state.user.name } has no characters.
-                    </p>
-                }
+                    <Column m={9}>
+                        <Row>{ characters }</Row>
 
-                { editable &&
-                    <div className='center margin-bottom--large'>
-                        <a href='#character-form' className='margin-top--large btn center waves-effect waves-light modal-trigger'>New Character</a>
-                    </div>
-                }
+                        { characters.length == 0 &&
+                            <p className='caption center'>
+                                { this.state.user.name } has no characters.
+                            </p>
+                        }
+                    </Column>
+                </Row>
             </Section>
         </DropzoneContainer>
     </Main>`
