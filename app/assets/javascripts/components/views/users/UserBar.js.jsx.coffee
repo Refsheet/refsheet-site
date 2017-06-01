@@ -154,9 +154,9 @@
                       <Link to='/browse' activeClassName='teal-text text-lighten-2'>Browse</Link>
                   </li>
 
-                  <li>
+                  {/*<li>
                       <Link to='/support' activeClassName='teal-text text-lighten-2'>Support</Link>
-                  </li>
+                  </li>*/}
 
                   {/*<li>
                       <Link to='/guilds' activeClassName='teal-text text-lighten-2'>Guilds</Link>
