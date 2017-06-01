@@ -95,7 +95,7 @@ class CharactersController < ApplicationController
     order = nil
     query = []
 
-    params[:q].split(/\s+/).each do |q|
+    (params[:q] || '').split(/\s+/).each do |q|
       case q
         when /sort:(\w+)/i
           sort = $1.downcase

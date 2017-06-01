@@ -70,8 +70,14 @@ body:not(.admin)
         color: $text-light-color !important
         border-bottom-color: $text-light-color !important
 
+        @-webkit-keyframes autofill
+          to
+            color: #666
+            background: transparent
+
       &:-webkit-autofill
         &, &:focus, &:hover, &:active
-          box-shadow: 0 0 0 1000px $card-bg-color inset !important
-          border-bottom-color: color('yellow', 'darken-1') !important
+          -webkit-animation-name: autofill
+          -webkit-animation-fill-mode: both
           -webkit-text-fill-color: $page-text-color !important
+          border-bottom-color: color('yellow', 'darken-1') !important

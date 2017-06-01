@@ -59,7 +59,7 @@
         <SessionModal />
         <Lightbox currentUser={ this.state.session.current_user } history={ this.props.history } />
 
-        <UserBar session={ this.state.session } />
+        <UserBar session={ this.state.session } query={ this.props.location.query.q }/>
 
         { childrenWithProps }
 

@@ -1,7 +1,9 @@
 body:not(.admin) .search
-  flex: 0 0 300px
-  text-align: right
-  background-color: $page-bg-color
+  &.active
+    background-color: $lighten-color
+
+    .input-field input[type=search]
+      width: 200px
 
   .input-field
     margin: 0
@@ -9,23 +11,26 @@ body:not(.admin) .search
 
     label.active
       transform: none !important
-      top: 0.8rem !important
 
     input[type=search]
       margin: 0
       color: $page-text-color
       background-color: transparent
       border-bottom: none
+      width: 0
+      padding-left: 54px
 
       & + label
         width: auto
         z-index: 1
+        cursor: pointer
+        padding: 0 15px
+        left: 0
 
         & i
           color: darken($page-text-color, 10%) !important
 
 .search-results
-  padding: 0.5rem 0 1rem 0
-  font-size: 0.8rem
+  padding: 1rem 0
+  font-size: 0.9rem
   color: color('grey', 'darken-1')
-  text-align: right
