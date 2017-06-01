@@ -7,12 +7,20 @@
   .container
     height: 56px
 
+  #user-menu
+    top: 56px !important
+    right: 0 !important
+    display: none
+
   nav
     background-color: $card-bg-color
     height: 56px
 
     ul
       display: inline-block
+
+      li
+        position: relative
 
     form
       display: inline-block
@@ -35,6 +43,12 @@
         color: white
         transition: color 0.25s ease
         cursor: pointer
+
+
+      &.active
+        background-color: $lighten-color
+        @extend .z-depth-1
+        color: $secondary-color
 
       &.patreon
         padding: 0 15px
