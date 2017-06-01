@@ -64,7 +64,7 @@ class Character < ApplicationRecord
       CASE
         WHEN characters.profile_image_id IS NULL THEN '1'
         WHEN characters.profile_image_id IS NOT NULL THEN '0'
-      END, lower(characters.name) ASC
+      END ASC, characters.created_at DESC
     SQL
   end
 
