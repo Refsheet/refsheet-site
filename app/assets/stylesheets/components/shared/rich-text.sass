@@ -3,20 +3,23 @@
   min-height: 2rem
 
   a.edit-button
+    @extend .btn
     cursor: pointer
     display: block
     position: absolute
-    top: -0.5rem
-    right: -0.5rem
-    padding: 0.5rem
-    transition: background-color 0.3s
+    top: 0
+    right: 0
+    transition: opacity 0.3s
+    opacity: 0.3
+    background-color: black !important
+    padding: 0 0.75rem
 
     &:hover
-      background-color: rgba(black, 0.2)
+      opacity: 0.6
 
     i.material-icons
       font-size: 1.1rem
-      color: rgba(white, 0.5)
+      color: white
 
   textarea
     padding: 0

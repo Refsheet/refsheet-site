@@ -118,7 +118,7 @@
 
   render: ->
     if @state.image?
-      if @state.image.user_id == @props.currentUser?.username
+      if @state.image.user_id == @context.currentUser?.username
         imgActionMenu =
           `<div className='image-action-menu'>
               <ul id='lightbox-image-actions' className='dropdown-content cs-card-background--background-color'>
