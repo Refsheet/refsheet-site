@@ -1,6 +1,7 @@
 @Main = React.createClass
   propTypes:
     style: React.PropTypes.object
+    className: React.PropTypes.string
     bodyClassName: React.PropTypes.string
     title: React.PropTypes.oneOfType([
       React.PropTypes.string
@@ -20,6 +21,6 @@
 
 
   render: ->
-    `<main style={ this.props.style }>
+    `<main style={ this.props.style } className={ this.props.className }>
         { this.props.children }
     </main>`

@@ -140,38 +140,34 @@
         <div className='navbar-shroud' onClick={ this.closeMenu } />
 
         <nav>
-          <div className='container-fluid'>
+          <div className='container'>
               <ul className='menu left hide-on-med-and-up'>
                   <li><a onClick={ this.toggleMenu }><i className='material-icons'>menu</i></a></li>
               </ul>
 
               <Link to='/' className='logo left'>
                   <img src='/assets/logos/RefsheetLogo_64.png' alt='Refsheet.net' width='32' height='32' />
-                  <span className='site-name'>
-                      <span className='logo-r'>R</span>efsheet
-                  </span>
               </Link>
 
               <ul className='site-nav visible-on-med-and-up'>
                   <li>
-                      <a href='https://www.patreon.com/refsheet' className='patreon'>
-                          <img src='/assets/third_party/patreon_white.png' alt='Patreon' />
-                      </a>
+                      <Link to='/browse' activeClassName='teal-text text-lighten-2'>Browse</Link>
                   </li>
 
                   <li>
-                      <Link to='/browse' activeClassName='teal-text text-lighten-2'>Browse</Link>
+                      <Link to='/support' activeClassName='teal-text text-lighten-2'>Support</Link>
                   </li>
 
                   {/*<li>
                       <Link to='/guilds' activeClassName='teal-text text-lighten-2'>Guilds</Link>
-                  </li>
-                  <li>
-                      <Link to='/search' activeClassName='teal-text text-lighten-2'>Search</Link>
                   </li>*/}
               </ul>
 
-              { currentUser }
+              <div className='right'>
+                  <SearchBar query={ this.props.query } />
+
+                  { currentUser }
+              </div>
           </div>
         </nav>
     </div>`
