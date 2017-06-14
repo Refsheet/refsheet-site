@@ -64,13 +64,6 @@
 
     if @props.inactive
       className += ' inactive'
-      
-    if @props.valueType == 'color'
-      colorPicker =
-        `<div className='color-helper' onClick={ this.colorPickerClick } style={{ backgroundColor: this.state.value }}>
-            <input type='color' className='right'
-                   onInput={ this.colorPicker } />
-        </div>`
 
     unless @props.hideIcon
       iconTag =
@@ -112,9 +105,7 @@
                 { nameTag }
 
                 <div className='value'>
-                    { colorPicker }
-
-                    <Input type='text'
+                    <Input type={ this.props.valueType || 'text' }
                            name='value'
                            onChange={ this.handleChange }
                            error={ this.state.errors.value }
