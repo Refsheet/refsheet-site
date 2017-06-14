@@ -1,7 +1,15 @@
 class ImageCharacterSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
-  attributes :username, :name, :slug, :path, :profile_image_url, :featured_image_url, :link
+  attributes :username,
+             :name,
+             :species,
+             :gender,
+             :slug,
+             :path,
+             :profile_image_url,
+             :featured_image_url,
+             :link
 
   def username
     object.user.username
