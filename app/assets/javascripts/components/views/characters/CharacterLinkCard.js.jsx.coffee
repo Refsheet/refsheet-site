@@ -1,4 +1,6 @@
 @CharacterLinkCard = (props) ->
+  console.debug props
+
   `<div className='character-link-card'>
       <Link to={ props.link } className='image'>
           <img src={ props.profileImageUrl } />
