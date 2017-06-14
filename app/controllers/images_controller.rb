@@ -53,10 +53,8 @@ class ImagesController < ApplicationController
 
     if params[:image][:swap_target_image_id]
       target = Image.find_by!(guid: params[:image][:swap_target_image_id])
-      tro = target.row_order
-      target.row_order = @image.row_order
-      @image.row_order = tro
-      target.save and @image.save
+      @image.row_order = target.row_order - 1
+      @image.save
 
       @character = @image.character
       render json: image_scope, each_serializer: ImageSerializer

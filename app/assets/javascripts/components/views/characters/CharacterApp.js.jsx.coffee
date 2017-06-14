@@ -33,6 +33,7 @@
         $('#image-gallery-modal').modal 'open'
 
       .on 'app:character:reload app:image:delete', (e, newPath = @state.character.path, callback = null) =>
+        console.debug "[CharacterApp] Reloading character..."
         $.get "#{newPath}.json", (data) =>
           @setState character: data
           callback(data) if callback?
