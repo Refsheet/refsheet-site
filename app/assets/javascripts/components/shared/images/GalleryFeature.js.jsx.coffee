@@ -59,18 +59,30 @@
       y2 = x2 * r2
       y3 = x2 * r3
 
-      $(@refs.featureMain).css
-        width: x1
-        height: y1
+      $(@refs.featureMain)
+        .css
+          width: x1
+          height: y1
+        .children('.feature-main')
+          .addClass 'gf-entry'
 
       $(@refs.featureSide).css
         width: x2
 
-      $(@refs.featureSide).children('.top').css
-        height: y2
+      setTimeout =>
+        $(@refs.featureSide).children('.top')
+          .css
+            height: y2
+          .addClass 'gf-entry'
+      , 250
 
-      $(@refs.featureSide).children('.bottom').css
-        height: y3
+      setTimeout =>
+        $(@refs.featureSide).children('.bottom')
+          .css
+            height: y3
+          .addClass 'gf-entry'
+      , 500
+
 
 
   render: ->

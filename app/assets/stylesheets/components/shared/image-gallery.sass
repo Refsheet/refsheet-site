@@ -1,6 +1,9 @@
 .image-gallery
   margin-bottom: -1.5rem
 
+  a
+    transition: none
+
   .favorite-button
     position: absolute
     z-index: 1
@@ -9,6 +12,11 @@
     padding: 0.5rem 0.5rem 1rem 1rem
     color: rgba(white, 0.4)
     text-shadow: 0 0 2px rgba(black, 0.5)
+    opacity: 0.0
+    transition: opacity, color, 0.3s
+
+    .gallery-image:hover &
+      opacity: 1.0
 
     &:hover
       cursor: pointer
@@ -18,6 +26,15 @@
     margin-bottom: 15px
     margin-right: -5px
     white-space: nowrap
+
+    .gallery-image
+      opacity: 0.0
+      visibility: hidden
+      transition: opacity, 0.3s
+
+      &.gf-entry
+        visibility: visible
+        opacity: 1.0
 
     .feature-left
       display: inline-block
@@ -93,6 +110,13 @@
     a.gallery-image
       display: inline-block
       position: absolute
+      visibility: hidden
+      opacity: 0.0
+      transition: opacity, 0.3s
+
+      &.jg-entry
+        visibility: visible
+        opacity: 1.0
 
       img
         position: relative

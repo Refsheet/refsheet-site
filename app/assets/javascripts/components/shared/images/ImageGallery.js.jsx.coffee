@@ -11,22 +11,32 @@
   getInitialState: ->
     images: @props.images || null
 
-  load: (data) ->
+  load: (data, sendCallback=true) ->
+    console.debug '[ImageGallery] Loading: ', data
     @setState images: data, @_initialize
-    @props.onImagesLoad(data) if @props.onImagesLoad
+    @props.onImagesLoad(data) if @props.onImagesLoad and sendCallback
 
 
   componentDidMount: ->
     if @props.imagesPath? and !@props.images
+      console.debug '[ImageGallery] Fetching:', @props.imagesPath
       $.get @props.imagesPath, @load
+
+    $(window).resize @_resizeJg
 
   componentWillUnmount: ->
     $(@refs.gallery).justifiedGallery 'destroy'
+    $(window).off 'resize', @_resizeJg
 
   componentWillReceiveProps: (newProps) ->
-    if newProps.images && newProps.images.length != @state.images?.length
-      @load newProps.images
+    console.debug '[ImageGallery] Loading new props:', newProps.images
+    console.debug '[ImageGallery] Replacing old:', @state.images
 
+    if newProps.images
+      @load newProps.images, false
+
+  _resizeJg: ->
+    $(@refs.gallery).justifiedGallery @_getJgRowHeight()
 
   _handleImageSwap: (source, target) ->
     # Model.patch "/images/#{source}", (data) =>
@@ -52,14 +62,25 @@
     else
       $(document).trigger 'app:lightbox', image
 
+  _getJgRowHeight: ->
+    if @props.noFeature
+      rowHeight: 150
+      maxRowHeight: 150
+    else
+      coef = if $(window).width() < 900 then 1 else 0.7
+      rowHeight: $(window).width() * (coef * 0.25)
+      maxRowHeight: $(window).width() * (coef * 0.4)
+
   _initialize: ->
-    console.debug "Initializing Justified Gallery..."
-    $(@refs.gallery).justifiedGallery
+    console.debug '[ImageGallery] Initializing justified gallery.'
+
+    opts =
       selector: '.gallery-image'
       margins: 15
-      rowHeight: if @props.noFeature then 150 else 250
-      maxRowHeight: if @props.noFeature then 150 else 350
       captions: false
+
+    Object.assign opts, @_getJgRowHeight()
+    $(@refs.gallery).justifiedGallery opts
 
 
   render: ->
