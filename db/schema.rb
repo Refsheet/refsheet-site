@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170505212717) do
+ActiveRecord::Schema.define(version: 20170615223212) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,25 @@ ActiveRecord::Schema.define(version: 20170505212717) do
     t.json     "change_data"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+  end
+
+  create_table "character_groups", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.string   "slug"
+    t.integer  "row_order"
+    t.boolean  "hidden"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_character_groups_on_slug", using: :btree
+    t.index ["user_id"], name: "index_character_groups_on_user_id", using: :btree
+  end
+
+  create_table "character_groups_characters", id: false, force: :cascade do |t|
+    t.integer "character_group_id"
+    t.integer "character_id"
+    t.index ["character_group_id"], name: "index_character_groups_characters_on_character_group_id", using: :btree
+    t.index ["character_id"], name: "index_character_groups_characters_on_character_id", using: :btree
   end
 
   create_table "characters", force: :cascade do |t|

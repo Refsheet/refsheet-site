@@ -19,8 +19,13 @@
     @setState user: null
     $(document).trigger 'app:loading'
 
+    if window.location.hash
+      data = character_group_id: window.location.hash.substring 1
+
     $.ajax
       url: '/users/' + userId + '.json'
+      type: 'GET'
+      data: data
       success: (data) =>
         @setState user: data
       error: (error) =>
