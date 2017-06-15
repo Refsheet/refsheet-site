@@ -10,14 +10,22 @@
     galleryTitle: null
     onGallerySelect: null
     images: null
+    editable: true
 
-  componentDidMount: ->
+
+  load: (userId, characterId) ->
+    $(window).trigger 'app:loading'
     $.ajax
-      url: "/users/#{@props.params.userId}/characters/#{@props.params.characterId}.json",
+      url: "/users/#{userId}/characters/#{characterId}.json",
       success: (data) =>
         @setState character: data
       error: (error) =>
         @setState error: error
+      complete: ->
+        $(window).trigger 'app:loading:done'
+
+  componentDidMount: ->
+    @load(@props.params.userId, @props.params.characterId)
         
     $(document)
       .on 'app:character:update', (e, character) =>
@@ -48,6 +56,10 @@
   componentWillUpdate: (newProps, newState) ->
     if newState.character && @state.character && newState.character.link != @state.character.link
       window.history.replaceState {}, '', newState.character.link
+
+  componentWillReceiveProps: (newProps) ->
+    if newProps.params.userId != @props.params.userId or newProps.params.characterId != @props.params.characterId
+      @load(newProps.params.userId, newProps.params.characterId)
 
 
   setFeaturedImage: (imageId) ->
@@ -120,41 +132,57 @@
     i.push data
     @setState images: i
 
+
   _handleGalleryLoad: (data) ->
     @setState images: data
+
+  _toggleEditable: ->
+    @setState editable: !@state.editable
 
   render: ->
     if @state.error?
       return `<NotFound />`
 
     unless @state.character?
-      return `<Loading />`
+      return `<CharacterViewSilhouette />`
 
     if @state.character.user_id == @context.currentUser?.username
-      editable = true
-      dropzoneUpload = @handleDropzoneUpload
-      profileChange = @handleProfileChange
-      likesChange = @handleLikesChange
-      dislikesChange = @handleDislikesChange
-      headerImageEditCallback = @handleHeaderImageEdit
-      dropzoneTriggerId = [ '#image-upload' ]
+      showMenu = true
+
+      if @state.editable
+        editable = true
+        dropzoneUpload = @handleDropzoneUpload
+        profileChange = @handleProfileChange
+        likesChange = @handleLikesChange
+        dislikesChange = @handleDislikesChange
+        headerImageEditCallback = @handleHeaderImageEdit
+        dropzoneTriggerId = [ '#image-upload' ]
 
 
     `<Main title={[ this.state.character.name, 'Characters' ]}>
+        { this.state.character.color_scheme &&
+            <PageStylesheet colorData={ this.state.character.color_scheme.color_data } /> }
+
         <DropzoneContainer url={ this.state.character.path + '/images' }
                            onUpload={ dropzoneUpload }
                            clickable={ dropzoneTriggerId }>
 
-            { this.state.character.color_scheme &&
-                <PageStylesheet colorData={ this.state.character.color_scheme.color_data } />
-            }
+            {/*<CharacterEditMenu onEditClick={ this._toggleEditable }
+                                  images={ this.state.images }
+                                  galleryTitle={ this.state.galleryTitle } <-- THIS SHOULD NOT HAPPEN
+                                  onGallerySelect={ this.onGallerySelect }
+                                  character={ this.state.character } */}
 
-            { editable &&
+            { showMenu &&
                 <div className='edit-container'>
                     <FixedActionButton clickToToggle className='teal lighten-1' tooltip='Menu' icon='menu'>
                         <ActionButton className='indigo lighten-1' tooltip='Upload Images' id='image-upload' icon='file_upload' />
                         <ActionButton className='green lighten-1 modal-trigger' tooltip='Edit Page Colors' href='#color-scheme-form' icon='palette' />
                         <ActionButton className='blue darken-1 modal-trigger' tooltip='Character Settings' href='#character-settings-form' icon='settings' />
+
+                        { editable
+                            ? <ActionButton className='red lighten-1' tooltip='Lock Page' icon='lock' onClick={ this._toggleEditable } />
+                            : <ActionButton className='red lighten-1' tooltip='Edit Page' icon='edit' onClick={ this._toggleEditable } /> }
                     </FixedActionButton>
 
                     <ImageGalleryModal images={ this.state.images }
@@ -172,6 +200,14 @@
                         onHeaderImageEdit={ headerImageEditCallback }>
 
                 <CharacterNotice transfer={ this.state.character.pending_transfer } />
+
+                { showMenu &&
+                    <div className='button-group'>
+                        { editable
+                            ? <ActionButton className='red lighten-1' tooltip='Lock Page' icon='lock' onClick={ this._toggleEditable } />
+                            : <ActionButton className='red lighten-1' tooltip='Edit Page' icon='edit' onClick={ this._toggleEditable } /> }
+                    </div> }
+
                 <CharacterCard edit={ editable } detailView={ true } character={ this.state.character } onLightbox={ this.props.onLightbox } />
                 <SwatchPanel edit={ editable } swatchesPath={ this.state.character.path + '/swatches/' } swatches={ this.state.character.swatches } />
 

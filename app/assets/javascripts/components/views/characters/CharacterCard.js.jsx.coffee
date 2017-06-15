@@ -45,8 +45,9 @@
       `<div className='description'>
           <AttributeTable onAttributeUpdate={ attributeUpdate }
                           defaultValue='Unspecified'
-                          freezeName={ true }
-                          hideNotesForm={ true }>
+                          freezeName
+                          hideEmpty={ !this.props.edit }
+                          hideNotesForm>
 
               <Attribute id='gender' name='Gender' value={ this.state.character.gender } />
               <Attribute id='species' name='Species' value={ this.state.character.species } />

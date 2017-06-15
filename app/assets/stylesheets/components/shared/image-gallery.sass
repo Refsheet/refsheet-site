@@ -58,13 +58,10 @@
 
   .image-placeholder
     @extend .z-depth-0
-    background-color: rgba(black, 0.2)
+    background-color: rgba(black, 0.2) !important
     padding-bottom: 100%
     border: 1px dashed rgba(white, 0.2)
     width: 100%
-
-  .container > &
-    margin: 1.5rem 0
 
   .ui-draggable-dragging
     @extend .z-depth-3
@@ -81,6 +78,7 @@
 
   .gallery-image
     @extend .valign-wrapper
+    @extend .z-depth-1
     background-color: black
     position: relative
     display: block

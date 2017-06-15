@@ -1,9 +1,6 @@
 .page-header
   margin-bottom: 1.5rem
 
-  &:first-child
-    margin-top: -64px
-
   .page-header-backdrop
     background-color: black
     height: 500px
@@ -16,6 +13,15 @@
 
   .page-header-content
     margin-top: -200px
+
+    .button-group
+      position: relative
+      margin-right: 40px
+      float: right
+
+      .btn-floating
+        position: absolute
+        top: -55px
 
   @media #{$small-and-down}
     .page-header-backdrop

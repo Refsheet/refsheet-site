@@ -1,0 +1,43 @@
+.silhouette
+  .silhouette-image
+    background-color: rgba($primary-color, 0.1)
+
+  .silhouette-backdrop
+    background-color: rgba($secondary-color, 0.1)
+
+  .silhouette-text
+    background-color: rgba(white, 0.04)
+    background: linear-gradient(to right, rgba(white, 0.02) 15%, rgba(white, 0.04) 35%, rgba(white, 0.02) 50%)
+    background-position: 150% 0
+    background-size: 300% 100%
+    border-radius: 6px
+    animation: SilhouetteGradient 3s linear infinite
+
+    &:before
+      content: 'Loading'
+      display: inline
+      color: transparent
+
+  .silhouette-stagger
+    .silhouette-text
+      &:nth-child(1)
+        width: 75%
+      &:nth-child(2)
+        width: 80%
+      &:nth-child(3)
+        width: 46%
+      &:nth-child(4)
+        width: 67%
+
+  h1.silhouette-text
+    background-color: rgba($secondary-color, 0.05)
+
+  h2.silhouette-text
+    line-height: 2rem
+    background-color: rgba($primary-color, 0.05)
+
+@keyframes SilhouetteGradient
+  from
+    background-position: 150% 0
+  to
+    background-position: -150% 0
