@@ -11,6 +11,8 @@ class ImageCharacterSerializer < ActiveModel::Serializer
              :featured_image_url,
              :link
 
+  has_one :color_scheme, serializer: ColorSchemeSerializer
+
   def username
     object.user.username
   end
