@@ -19,6 +19,7 @@
 
 class User < ApplicationRecord
   has_many :characters
+  has_many :character_groups
   has_many :transfers_in, class_name: Transfer, foreign_key: :destination_user_id
   has_many :transfers_out, class_name: Transfer, foreign_key: :sender_user_id
   has_many :permissions

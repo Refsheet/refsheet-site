@@ -1,6 +1,4 @@
 @CharacterLinkCard = (props) ->
-  console.debug props
-
   colorData = props.colorScheme?.color_data || {}
 
   `<div className='character-link-card'>

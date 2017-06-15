@@ -155,7 +155,7 @@
                   </li>
 
                   {/*<li>
-                      <Link to='/support' activeClassName='teal-text text-lighten-2'>Support</Link>
+                      <Link to='/favorites' activeClassName='teal-text text-lighten-2'>Favorites</Link>
                   </li>*/}
 
                   {/*<li>

@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   resource :session, only: [:show, :create, :destroy, :update], controller: 'session'
 
   resources :characters, only: [:index]
+  resources :character_groups, only: [:create, :update, :destroy]
   resources :transfers, only: [:update]
 
   resources :users, only: [:index, :show, :create, :update] do
