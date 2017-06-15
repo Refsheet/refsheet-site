@@ -25,7 +25,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html { render 'application/show' }
-      format.json { render json: @user, serializer: UserSerializer, include: 'characters.color_scheme' }
+      format.json { render json: @user, serializer: UserSerializer, include: %w(characters.color_scheme character_groups) }
     end
   end
 

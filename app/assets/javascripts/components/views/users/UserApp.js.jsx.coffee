@@ -100,7 +100,7 @@
                             <a href='#character-form' className='margin-bottom--large btn btn-block center waves-effect waves-light modal-trigger'>New Char</a>
                         }
 
-                        <div className='caption center'>Character groups coming soon!</div>
+                        <UserCharacterGroups groups={ this.state.user.character_groups } />
                     </Column>
 
                     <Column m={9}>
