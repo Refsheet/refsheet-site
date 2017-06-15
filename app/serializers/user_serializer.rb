@@ -19,6 +19,9 @@ class UserSerializer < ActiveModel::Serializer
   has_many :characters,
            serializer: ImageCharacterSerializer
 
+  has_many :character_groups,
+           serializer: CharacterGroupSerializer
+
   def characters
     object.characters.default_order
   end
