@@ -51,6 +51,7 @@
         '.attribute-table .actions a'
         '.chip .icon-container'
         '::-moz-placeholder, ::placeholder, ::-webkit-placeholder'
+        '.character-meta'
       ]
 
       #== text-medium

@@ -15,20 +15,25 @@
     if user.username == @context.currentUser.username
       @props.onLogin(user)
 
-  componentDidMount: ->
+  load: (userId) ->
+    @setState user: null
     $(document).trigger 'app:loading'
-    console.debug "Loading User"
 
     $.ajax
-      url: '/users/' + @props.params.userId + '.json'
+      url: '/users/' + userId + '.json'
       success: (data) =>
         @setState user: data
-
       error: (error) =>
           @setState error: error
-
       complete: ->
         $(document).trigger 'app:loading:done'
+
+  componentDidMount: ->
+    @load @props.params.userId
+
+  componentWillReceiveProps: (newProps) ->
+    if newProps.params.userId isnt @props.params.userId
+      @load newProps.params.userId
 
   goToCharacter: (character) ->
     $('#character-form').modal('close')
