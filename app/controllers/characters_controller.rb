@@ -90,7 +90,7 @@ class CharactersController < ApplicationController
   end
 
   def filter_scope
-    scope = Character.all
+    scope = Character.includes(:color_scheme, :user, :profile_image, :featured_image)
     sort = nil
     order = nil
     query = []
