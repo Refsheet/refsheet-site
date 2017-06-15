@@ -25,6 +25,7 @@
     line-height: 56px
     padding: 0
     z-index: 1
+    flex-shrink: 0
 
     h2
       @extend .truncate
@@ -68,8 +69,13 @@
     flex-grow: 1
     padding: 1.5rem
 
+  .modal-stretch
+    overflow: auto
+    flex-grow: 1
+
   .modal-footer
     padding: 4px 10px
+    flex-shrink: 0
 
   @media #{$small-and-down}
     width: 100% !important
@@ -78,14 +84,26 @@
     max-height: 100vh
 
     .modal-body
-      max-height: 100vh
+      max-height: initial
       width: 100vw
+      overflow: auto
+      height: 100vh
+
+    .modal-header-wrap
+      height: 56px
+      flex-basis: 56px
+      flex-shrink: 0
 
     .modal-header
-      text-align: center
+      text-align: left
+      position: fixed
+      top: 0
+      width: 100%
+      background-color: $card-bg-color
 
       h2
         padding: 0 66px
+        font-size: 1.3rem
 
       .modal-close
         height: 56px
