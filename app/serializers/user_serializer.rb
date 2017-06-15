@@ -16,7 +16,9 @@ class UserSerializer < ActiveModel::Serializer
              :settings,
              :id
 
-  has_many :characters, serializer: ImageCharacterSerializer
+  has_many :characters,
+           serializer: ImageCharacterSerializer,
+           include_nested_associations: true
 
   def characters
     object.characters.default_order

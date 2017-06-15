@@ -26,6 +26,7 @@
 
   render: ->
     children = React.Children.map @props.children, (child) =>
+      return if @props.hideEmpty and not child.props.value
       return child unless child?.type == Attribute
 
       React.cloneElement child,
