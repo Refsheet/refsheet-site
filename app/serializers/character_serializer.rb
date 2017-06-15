@@ -6,7 +6,7 @@ class CharacterSerializer < ActiveModel::Serializer
   attributes :name, :slug, :shortcode, :profile, :path, :user_id, :gender,
              :species, :height, :weight, :body_type, :personality, :special_notes, :link,
              :special_notes_html, :profile_html, :likes, :likes_html, :dislikes, :dislikes_html,
-             :user_avatar_url, :user_name, :id
+             :user_avatar_url, :user_name, :id, :created_at
 
   has_many :swatches, serializer: SwatchSerializer
   has_one  :featured_image, serializer: CharacterImageSerializer
@@ -52,5 +52,9 @@ class CharacterSerializer < ActiveModel::Serializer
 
   def dislikes_html
     linkify object.dislikes
+  end
+
+  def created_at
+    object.created_at.strftime '%d %b %Y'
   end
 end
