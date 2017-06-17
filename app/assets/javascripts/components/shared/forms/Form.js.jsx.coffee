@@ -73,6 +73,7 @@
       url: @props.action
       type: @props.method || 'POST'
       data: data
+      dataType: 'json'
       success: (data) =>
         @setState dirty: false, errors: {}
         @props.onChange(data) if @props.onChange
@@ -122,7 +123,11 @@
   render: ->
     children = @_processChildren(@props.children)
 
+    classNames = []
+    classNames.push @props.className
+    classNames.push 'has-errors' if Object.keys(@state.errors)?.length
+
     `<form onSubmit={ this._handleFormSubmit }
-           className={ this.props.className }>
+           className={ classNames.join(' ') }>
         { children }
     </form>`

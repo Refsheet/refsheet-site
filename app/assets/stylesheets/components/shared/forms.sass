@@ -4,6 +4,14 @@ body:not(.admin)
       .btn-flat
         color: $text-light-color
 
+      .btn-link
+        @extend .z-depth-0
+        background-color: transparent !important
+        color: $link-color
+
+        &:hover, &:active
+          background-color: transparent
+
       i.prefix
         color: color('grey', 'darken-1')
 
@@ -22,6 +30,50 @@ body:not(.admin)
 
         li.selected, li:hover, li.active
           background-color: darken($card-bg-color, 5%)
+
+
+    &.inline
+      display: flex
+      height: 2.5rem
+
+      &.has-errors
+        height: auto
+
+      .input-field
+        margin-top: 0
+        height: auto
+
+      .error-block
+        margin-bottom: 0.25rem
+        margin-top: 0rem
+        line-height: initial
+
+      input
+        flex-grow: 1
+        margin-bottom: 0
+        line-height: 2.5rem
+        height: 2.5rem
+        border-bottom: none
+
+        &:focus
+          box-shadow: none
+          margin-bottom: 1px
+
+      button
+        margin-bottom: 0
+        border-top-left-radius: 0
+        border-bottom-left-radius: 0
+        padding: 0 0.75rem
+        height: auto
+        flex-shrink: 0
+
+        i.material-icons
+          font-size: 1.2rem
+          line-height: 2.5rem
+
+        &.btn-link
+          padding: 0 0 0 15px
+
 
     .browser-default
       border: 1px solid rgba(white, 0.1)
@@ -66,6 +118,9 @@ body:not(.admin)
         display: none
 
     input, textarea, select
+      &::placeholder
+        color: $muted-text-color
+
       &[disabled], &:disabled
         color: $text-light-color !important
         border-bottom-color: $text-light-color !important

@@ -94,13 +94,21 @@
             <UserHeader { ...this.state.user } onUserChange={ userChangeCallback } />
 
             <Section className='margin-top--large padding-bottom--none'>
+                {/*<UserCharacters characters={ this.state.user.characters }*/}
+                                {/*groups={ this.state.user.character_groups }*/}
+                                {/*userLink={ this.state.user.link }*/}
+                                {/*editable={ editable } />*/}
+
                 <Row noPad>
                     <Column m={3}>
                         { editable &&
                             <a href='#character-form' className='margin-bottom--large btn btn-block center waves-effect waves-light modal-trigger'>New Char</a>
                         }
 
-                        <UserCharacterGroups groups={ this.state.user.character_groups } />
+                        <UserCharacterGroups groups={ this.state.user.character_groups }
+                                             editable={ editable }
+                                             totalCount={ this.state.user.characters.length }
+                                             userLink={ this.state.user.link } />
                     </Column>
 
                     <Column m={9}>

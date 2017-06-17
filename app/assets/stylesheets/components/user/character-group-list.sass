@@ -1,0 +1,47 @@
+.character-group-list
+  li
+    display: flex
+    line-height: 2.5rem
+    vertical-align: middle
+    border-bottom: 1px solid $lighten-color
+    height: auto
+
+    &:after
+      content: ''
+      display: block
+      clear: both
+
+    &:last-child:not(.form)
+      border-bottom: none
+
+    a
+      display: inline-block
+      vertical-align: middle
+      height: 2.5rem
+
+    .name
+      @extend .truncate
+      flex-grow: 1
+
+    .count
+      font-size: 0.8rem
+      padding-left: 15px
+      color: $muted-text-color
+      flex-shrink: 0
+
+    .action
+      padding-left: 15px
+      flex-shrink: 0
+
+    i.material-icons
+      font-size: 1rem
+      line-height: 2.5rem
+
+      &.folder
+        color: $text-light-color
+        font-size: 1.2rem
+        flex-shrink: 0
+
+    &.active
+      i.material-icons.folder
+        color: $primary-color
