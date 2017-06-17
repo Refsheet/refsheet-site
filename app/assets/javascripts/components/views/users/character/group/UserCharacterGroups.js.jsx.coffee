@@ -22,7 +22,7 @@
       items: 'li.sortable-link'
       placeholder: 'drop-target'
       forcePlaceholderSize: true
-      stop: (_, el) =>
+      update: (_, el) =>
         $item = $(el.item[0])
         position = $item.parent().children('.sortable-link').index($item)
         @_handleSwap $item.data('group-id'), position
@@ -62,8 +62,9 @@
                 <UserCharacterGroupTrash /> }
         </ul>
 
-        <div className='hint'>
-            <div className='strong'>Hint:</div>
-            <div className='text'>Drag groups and characters to rearrange. Drag characters to add them to groups.</div>
-        </div>
+        { editable &&
+            <div className='hint'>
+                <div className='strong'>Hint:</div>
+                <div className='text'>Drag groups and characters to rearrange. Drag characters to add them to groups.</div>
+            </div> }
     </div>`

@@ -18,13 +18,17 @@
     $list.sortable
       items: 'li'
       placeholder: 'drop-target'
-      stop: (_, el) =>
+      tolerance: 'pointer'
+      cursorAt:
+        top: 15
+        left: 15
+      update: (e, el) =>
         $item = $(el.item[0])
         position = $item.parent().children().index($item)
         @_handleSwap $item.data('character-id'), position
 
   _handleSwap: (characterId, position) ->
-    character = (@props.characters.filter (c) -> c.slug == id)[0]
+    character = (@props.characters.filter (c) -> c.slug == characterId)[0]
 
     Model.put character.path, character: row_order_position: position, (data) =>
       @props.onSort data, position
@@ -33,7 +37,7 @@
   render: ->
     if @props.characters.length
       characters = @props.characters.map (character) ->
-        `<li className='col s6 m4' key={ character.slug } data-character-id={ character.slug }>
+        `<li className='character-drag col s6 m4' key={ character.slug } data-character-id={ character.slug }>
             <CharacterLinkCard {...StringUtils.camelizeKeys(character)} />
         </li>`
 
