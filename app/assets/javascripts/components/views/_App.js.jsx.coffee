@@ -3,16 +3,19 @@
     currentUser: React.PropTypes.object
     session: React.PropTypes.object
     setCurrentUser: React.PropTypes.func
+    eagerLoad: React.PropTypes.object
 
 
   getInitialState: ->
     session: @props.route.session || {}
-    loading: false
+    loading: 0
+    eagerLoad: @props.route.eagerLoad || {}
 
   getChildContext: ->
     currentUser: @state.session.current_user
     session: @state.session
     setCurrentUser: @_onLogin
+    eagerLoad: @state.eagerLoad
 
 
   componentWillMount: ->
@@ -23,6 +26,8 @@
         ReactGA.set userId: data.current_user?.id
 
   componentDidMount: ->
+    @setState eagerLoad: null
+
     $(document)
       .on 'app:session:update', (e, session) =>
         @setState session: session
@@ -32,13 +37,11 @@
         val = @state.loading + 1
         val = 1 if val <= 0
         @setState loading: val
-        console.debug "Loading: ", val
 
       .on 'app:loading:done', =>
         val = @state.loading - 1
         val = 0 if val < 0
         @setState loading: val
-        console.debug "Loading done: ", val
 
 
   _onLogin: (user) ->

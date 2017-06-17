@@ -2,6 +2,12 @@
   contextTypes:
     router: React.PropTypes.object.isRequired
     currentUser: React.PropTypes.object
+    eagerLoad: React.PropTypes.object
+
+  dataPath: '/users/:userId'
+
+  paramMap:
+    userId: 'username'
 
 
   getInitialState: ->
@@ -9,44 +15,23 @@
     error: null
     characterName: null
 
+
+  componentDidMount: ->
+    StateUtils.load @, 'user'
+
+  componentWillReceiveProps: (newProps) ->
+    StateUtils.reload @, 'user', newProps
+
+
+  goToCharacter: (character) ->
+    $('#character-form').modal('close')
+    @context.router.push character.link
+
   handleUserChange: (user) ->
     @setState user: user
 
     if user.username == @context.currentUser.username
       @props.onLogin(user)
-
-  load: (userId) ->
-    @setState user: null
-    $(document).trigger 'app:loading'
-
-    if window.location.hash
-      data = character_group_id: window.location.hash.substring 1
-
-    $.ajax
-      url: '/users/' + userId + '.json'
-      type: 'GET'
-      data: data
-      success: (data) =>
-        @setState user: data
-      error: (error) =>
-        @setState error: error
-      complete: ->
-        $(document).trigger 'app:loading:done'
-
-  componentDidMount: ->
-    if @props.route.user and @props.route.user.username.toUpperCase() is @props.params.userId.toUpperCase()
-      console.log "EAGER LOADED", @props.route.user
-      @setState user: @props.route.user
-    else
-      @load @props.params.userId
-
-  componentWillReceiveProps: (newProps) ->
-    if newProps.params.userId isnt @props.params.userId
-      @load newProps.params.userId
-
-  goToCharacter: (character) ->
-    $('#character-form').modal('close')
-    @context.router.push character.link
 
 
   #== Schnazzy Fancy Root-level permutation operations!
