@@ -6,25 +6,34 @@
 
   getInitialState: ->
     edit: false
+    dropOver: false
+
+  componentDidMount: ->
+    @_initialize()
+
+  componentDidUpdate: ->
+    @_initialize()
 
 
   _initialize: ->
-    $link = $(@refs.link)
+    return unless @props.editable
 
-    $link.draggable
-      revert: true
-      opacity: 0.6
-      appendTo: 'body'
-      cursorAt:
-        top: 5
-        left: 5
+    $link = $(@refs.link)
 
     $link.droppable
       tolerance: 'pointer'
+      accept: '.character-drag'
+      over: =>
+        @setState dropOver: true
+
+      out: =>
+        @setState dropOver: false
+
       drop: (event, ui) =>
         $source = ui.draggable
-        sourceId = $source.data 'group-id'
+        sourceId = $source.data 'character-id'
         @_handleDrop(sourceId)
+        @setState dropOver: false
 
 
   _handleEdit: (e) ->
@@ -35,8 +44,9 @@
     @setState edit: false
     @props.onChange data
 
-  _handleDrop: (groupId) ->
-    Materialize.toast groupId, 3000, 'yellow'
+  _handleDrop: (characterId) ->
+    Model.post @props.group.path + '/characters', id: characterId, (data) =>
+      @props.onChange data
 
 
   render: ->
@@ -47,7 +57,7 @@
     else
       editable = @props.editable
       active = window.location.hash.substring(1) == @props.group.slug
-      classNames = ['sortable-link']
+      classNames = ['sortable-link', 'character-group-drop']
       classNames.push 'active' if active
 
       if editable
@@ -55,8 +65,15 @@
       else
         count = @props.group.visible_characters_count
 
+      if @state.dropOver
+        folder = 'add'
+      else if active
+        folder = 'folder_open'
+      else
+        folder = 'folder'
+
       `<li className={ classNames.join(' ') } ref='link' data-group-id={ this.props.group.slug }>
-          <i className='material-icons left folder'>{ active ? 'folder_open' : 'folder' }</i>
+          <i className='material-icons left folder'>{ folder }</i>
 
           <Link to={ this.props.group.link } className='name'>
               { this.props.group.name }
