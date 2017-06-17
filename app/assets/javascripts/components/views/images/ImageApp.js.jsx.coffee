@@ -3,15 +3,13 @@
     image: null
 
   load: (data) ->
-    @setState image: data
-    data.directLoad = true
-    $(document).trigger 'app:lightbox', data
+    @setState image: data, ->
+      data.directLoad = true
+      $(document).trigger 'app:lightbox', data
 
   fetch: (imageId) ->
     return unless imageId
-    $.ajax
-      url: "/images/#{imageId}.json"
-      success: @load
+    Model.get "/images/#{imageId}.json", @load
 
   componentWillMount: ->
     if @props.route.image and @props.route.image.id is @props.params.imageId
@@ -21,7 +19,8 @@
       @fetch @props.params.imageId
 
   componentWillReceiveProps: (newProps) ->
-    @fetch newProps.params.imageId
+    if newProps.params.imageId and newProps.params.imageId isnt @state.image.id
+      @fetch newProps.params.imageId
 
   render: ->
     if @state.image?
