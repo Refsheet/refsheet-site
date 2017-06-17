@@ -10,6 +10,7 @@ class UserSerializer < ActiveModel::Serializer
              :profile_image_url,
              :profile,
              :profile_markup,
+             :characters_count,
              :is_admin,
              :is_patron,
              :settings
@@ -22,6 +23,10 @@ class UserSerializer < ActiveModel::Serializer
 
   def characters
     object.characters.rank(:row_order)
+  end
+
+  def characters_count
+    object.characters.count
   end
 
   def path

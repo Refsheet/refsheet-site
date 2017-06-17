@@ -36,7 +36,13 @@
 
   render: ->
     if @props.characters.length
-      characters = @props.characters.map (character) ->
+      if @props.activeGroupId
+        characterScope = @props.characters.filter (c) =>
+          c.group_ids.indexOf @props.activeGroupId
+      else
+        characterScope = @props.characters
+
+      characters = characterScope.map (character) ->
         `<li className='character-drag col s6 m4' key={ character.slug } data-character-id={ character.slug }>
             <CharacterLinkCard {...StringUtils.camelizeKeys(character)} />
         </li>`

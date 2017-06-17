@@ -13,14 +13,17 @@
   getInitialState: ->
     user: null
     error: null
+    activeGroupId: null
     characterName: null
 
 
   componentDidMount: ->
     StateUtils.load @, 'user'
+    @setState activeGroupId: window.location.hash.substring(1)
 
   componentWillReceiveProps: (newProps) ->
     StateUtils.reload @, 'user', newProps
+    @setState activeGroupId: window.location.hash.substring(1)
 
 
   goToCharacter: (character) ->
@@ -39,11 +42,19 @@
   _handleGroupChange: (group) ->
     StateUtils.updateItem @, 'user.character_groups', group, 'slug'
 
+  _handleGroupDelete: (groupId) ->
+    @context.router.push @state.user.link if groupId is @state.activeGroupId
+    StateUtils.removeItem @, 'user.character_groups', groupId, 'slug'
+
   _handleGroupSort: (group, position) ->
     StateUtils.sortItem @, 'user.character_groups', group, position, 'slug'
 
   _handleCharacterSort: (character, position) ->
     StateUtils.sortItem @, 'user.characters', character, position, 'slug'
+
+  _handleGroupCharacterDelete: (group) ->
+    @_handleGroupChange group
+    # TODO reload character view
 
 
   #== Render
@@ -101,14 +112,18 @@
 
                         <UserCharacterGroups groups={ this.state.user.character_groups }
                                              editable={ editable }
-                                             totalCount={ this.state.user.characters.length }
+                                             totalCount={ this.state.user.characters_count }
                                              onChange={ this._handleGroupChange }
                                              onSort={ this._handleGroupSort }
+                                             onGroupDelete={ this._handleGroupDelete }
+                                             onCharacterDelete={ this._handleGroupCharacterDelete }
+                                             activeGroupId={ this.state.activeGroupId }
                                              userLink={ this.state.user.link } />
                     </Column>
 
                     <Column m={9}>
                         <UserCharacters characters={ this.state.user.characters }
+                                        activeGroupId={ this.state.activeGroupId }
                                         onSort={ this._handleCharacterSort }
                                         editable={ editable } />
                     </Column>

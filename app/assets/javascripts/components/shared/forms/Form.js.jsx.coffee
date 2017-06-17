@@ -9,6 +9,7 @@
     errors: React.PropTypes.object
     className: React.PropTypes.string
     changeEvent: React.PropTypes.string
+    resetOnSubmit: React.PropTypes.bool
 
 
   getInitialState: ->
@@ -81,6 +82,7 @@
         @setState dirty: false, errors: {}
         @props.onChange(data) if @props.onChange
         @props.onDirty(false) if @props.onDirty
+        @reset() if @props.resetOnSubmit
         $(document).trigger @props.changeEvent, data if @props.changeEvent
 
       error: (data) =>

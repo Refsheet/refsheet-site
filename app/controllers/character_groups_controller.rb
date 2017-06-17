@@ -1,5 +1,5 @@
 class CharacterGroupsController < ApplicationController
-  before_action :get_character_group, only: [:update]
+  before_action :get_character_group, only: [:update, :destroy]
 
   respond_to :json
 

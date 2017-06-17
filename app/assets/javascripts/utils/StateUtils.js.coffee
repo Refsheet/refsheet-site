@@ -48,3 +48,6 @@
 
   sortItem: (context, path, item, position, primaryKey) ->
     context.setState HashUtils.deepSortCollectionItem context.state, path, item, position, primaryKey
+
+  removeItem: (context, path, item, primaryKey) ->
+    context.setState HashUtils.deepRemoveCollectionItem context.state, path, item, primaryKey
