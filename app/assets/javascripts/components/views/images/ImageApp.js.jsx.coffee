@@ -30,3 +30,10 @@
 
     else
       `<CharacterViewSilhouette />`
+
+
+      # BROKEN THINGS FOR TOMRROW
+
+      # Change eagerload to CONTEXT
+      # Loading screen broken?
+      # Character load on their own.

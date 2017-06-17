@@ -1,16 +1,15 @@
 { @Router, @browserHistory, @Route, @IndexRoute, @Link, @IndexLink } = ReactRouter
 
 @Routes = React.createClass
-  getInitialState: ->
-    eagerLoad: @props.eagerLoad || {}
+  propTypes:
+    gaPropertyID: React.PropTypes.string
+    eagerLoad: React.PropTypes.object
 
   componentDidMount: ->
     console.debug '[Routes] Initializing app with: ', @props
 
     if @props.gaPropertyID
       ReactGA.initialize(@props.gaPropertyID)
-
-    @setState eagerLoad: {}
 
   _handleRouteUpdate: ->
     if @props.gaPropertyID
@@ -19,7 +18,7 @@
 
   render: ->
     `<Router history={ browserHistory } onUpdate={ this._handleRouteUpdate }>
-        <Route path='/' component={ App } session={ this.state.eagerLoad.session }>
+        <Route path='/' component={ App } eagerLoad={ this.props.eagerLoad }>
             <IndexRoute component={ Home } />
 
             <Route path='login' component={ LoginView } />
@@ -30,10 +29,10 @@
                 <Route path='users' component={ UserIndexView } />
             </Route>
 
-            <Route path='images/:imageId' component={ ImageApp } image={ this.state.eagerLoad.image } />
+            <Route path='images/:imageId' component={ ImageApp } />
 
-            <Route path=':userId' component={ UserApp } user={ this.state.eagerLoad.user } />
-            <Route path=':userId/:characterId' component={ CharacterApp } character={ this.state.eagerLoad.character } />
+            <Route path=':userId' component={ UserApp } />
+            <Route path=':userId/:characterId' component={ CharacterApp } />
 
             <Route path='*' component={ NotFound } />
         </Route>

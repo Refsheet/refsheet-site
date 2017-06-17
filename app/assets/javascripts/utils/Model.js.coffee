@@ -1,5 +1,5 @@
 @Model =
-  fetch: (path, success, error) ->
+  get: (path, success, error) ->
     @request('GET', path, {}, success, error)
 
   post: (path, data, success, error) ->
@@ -19,6 +19,7 @@
       url: path
       type: type
       data: data
+      dataType: 'json'
       success: success
 
       error: (e) =>
