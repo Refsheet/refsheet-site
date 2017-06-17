@@ -20,7 +20,7 @@
       action = '/character_groups'
       icon = 'create_new_folder'
 
-    `<li className='form'>
+    `<li className='form fixed'>
         <Form action={ action }
               model={ this.state.model }
               className='inline'

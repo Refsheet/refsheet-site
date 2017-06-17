@@ -14,6 +14,21 @@
     &:last-child:not(.form)
       border-bottom: none
 
+    &.ui-sortable-helper
+      @extend .z-depth-3
+      border-bottom: none
+      background-color: rgba($card-bg-color, 0.8)
+
+      .folder, .action, .count
+        display: none
+
+      .name
+        padding: 0 15px
+
+    &.sortable-link
+      .folder
+        cursor: move
+
     a
       display: inline-block
       vertical-align: middle

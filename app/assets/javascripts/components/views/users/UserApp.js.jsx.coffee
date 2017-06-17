@@ -44,8 +44,20 @@
     $('#character-form').modal('close')
     @context.router.push character.link
 
+
+  #== Schnazzy Fancy Root-level permutation operations!
+
   _handleGroupChange: (group) ->
-    @setState user: HashUtils.deepUpdateCollectionItem @state.user, 'character_groups', group, 'slug'
+    StateUtils.updateItem @, 'user.character_groups', group, 'slug'
+
+  _handleGroupSort: (group, position) ->
+    StateUtils.sortItem @, 'user.character_groups', group, position, 'slug'
+
+  _handleCharacterSort: (character, position) ->
+    StateUtils.sortItem @, 'user.characters', character, position, 'slug'
+
+
+  #== Render
 
   render: ->
     if @state.error?
@@ -112,6 +124,7 @@
                                              editable={ editable }
                                              totalCount={ this.state.user.characters.length }
                                              onChange={ this._handleGroupChange }
+                                             onSort={ this._handleGroupSort }
                                              userLink={ this.state.user.link } />
                     </Column>
 
