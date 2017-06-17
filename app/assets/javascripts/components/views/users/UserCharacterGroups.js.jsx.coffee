@@ -4,15 +4,18 @@
     groups: React.PropTypes.array.isRequired
     editable: React.PropTypes.bool
     totalCount: React.PropTypes.number
+    onChange: React.PropTypes.func
+
 
   render: ->
-    editable = @props.editable
+    { onChange, editable } = @props
     dragging = false
 
     if @props.groups.length
       groups = @props.groups.map (group) ->
         `<UserCharacterGroupLink group={ group }
                                  editable={ editable }
+                                 onChange={ onChange }
                                  key={ group.slug } />`
 
     `<div>
@@ -26,7 +29,7 @@
             { groups }
 
             { editable &&
-                <UserCharacterGroupForm /> }
+                <UserCharacterGroupForm onChange={ this.props.onChange } /> }
 
             { dragging &&
                 <UserCharacterGroupTrash /> }
