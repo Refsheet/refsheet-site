@@ -28,7 +28,7 @@ class CharacterGroupsController < ApplicationController
 
   def get_character_group
     head :unauthorized and return false unless signed_in?
-    current_user.character_groups.find_by slug: params[:id].downcase
+    @character_group = current_user.character_groups.find_by! slug: params[:id].downcase
   end
 
   def group_params

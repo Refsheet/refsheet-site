@@ -1,34 +1,39 @@
 @UserCharacterGroups = React.createClass
   propTypes:
+    userLink: React.PropTypes.string.isRequired
     groups: React.PropTypes.array.isRequired
-
-  getInitialState: ->
-    model:
-      name: null
-      hidden: null
-      slug: null
+    editable: React.PropTypes.bool
+    totalCount: React.PropTypes.number
 
   render: ->
+    editable = @props.editable
+    dragging = false
+
     if @props.groups.length
       groups = @props.groups.map (group) ->
-        `<li key={ group.slug }>
-            <Link to={ group.link }>{ group.name }</Link>
-        </li>`
+        `<UserCharacterGroupLink group={ group }
+                                 editable={ editable }
+                                 key={ group.slug } />`
 
-    `<ul className='link-list'>
-        { groups }
+    `<div>
+        <ul className='character-group-list'>
+            <li className={ 'all' + (!window.location.hash ? ' active' : '') }>
+                <i className='material-icons left folder'>person</i>
+                <Link to={ this.props.userLink } className='name'>All Characters</Link>
+                <span className='count'>{ NumberUtils.format(this.props.totalCount) }</span>
+            </li>
 
-        <li>
-            <Form action='/character_groups.json'
-                  model={ this.state.model }
-                  modelName='character_group'
-                  method='POST'>
+            { groups }
 
-                <Input type='text'
-                       label='New Group Name'
-                       name='name' />
+            { editable &&
+                <UserCharacterGroupForm /> }
 
-                <Submit />
-            </Form>
-        </li>
-    </ul>`
+            { dragging &&
+                <UserCharacterGroupTrash /> }
+        </ul>
+
+        <div className='hint'>
+            <div className='strong'>Hint:</div>
+            <div className='text'>Drag groups and characters to rearrange. Drag characters to add them to groups.</div>
+        </div>
+    </div>`
