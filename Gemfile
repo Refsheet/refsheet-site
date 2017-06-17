@@ -67,6 +67,7 @@ gem 'dropzonejs-rails'
 gem 'redcarpet'
 gem 'sitemap_generator'
 gem 'groupdate'
+gem 'counter_culture'
 
 # == INTEGRATIONS
 

@@ -6,8 +6,8 @@
 
 
   getInitialState: ->
-    session: {}
-    loading: true
+    session: @props.route.session || {}
+    loading: false
 
   getChildContext: ->
     currentUser: @state.session.current_user
@@ -16,9 +16,11 @@
 
 
   componentWillMount: ->
-    $.get '/session', (data) =>
-      @setState session: data, loading: false
-      ReactGA.set userId: data.current_user?.id
+    unless @state.session.current_user
+      @setState loading: 1
+      $.get '/session', (data) =>
+        @setState session: data, loading: 0
+        ReactGA.set userId: data.current_user?.id
 
   componentDidMount: ->
     $(document)

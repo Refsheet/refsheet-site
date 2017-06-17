@@ -3,12 +3,10 @@ class CharacterGroupSerializer < ActiveModel::Serializer
              :slug,
              :hidden,
              :characters_count,
+             :visible_characters_count,
+             :hidden_characters_count,
              :link,
              :path
-
-  def characters_count
-    object.characters.visible.count
-  end
 
   def link
     "/#{object.user.username}##{object.slug}"
