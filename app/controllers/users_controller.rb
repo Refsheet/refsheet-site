@@ -23,8 +23,13 @@ class UsersController < ApplicationController
         image_src: @user.avatar.url(:medium)
     )
 
+    @user = User.includes(:characters => [:profile_image, :featured_image, :user, :color_scheme], :character_groups => [:user]).find(@user.id)
+
     respond_to do |format|
-      format.html { render 'application/show' }
+      format.html do
+        eager_load user: UserSerializer.new(@user).as_json
+        render 'application/show'
+      end
       format.json { render json: @user, serializer: UserSerializer, include: %w(characters.color_scheme character_groups) }
     end
   end

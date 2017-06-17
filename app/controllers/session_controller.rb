@@ -33,15 +33,6 @@ class SessionController < ApplicationController
 
   private
 
-  def session_hash
-    {
-        nsfw_ok: session[:nsfw_ok],
-        locale: session[:locale],
-        time_zone: session[:time_zone],
-        current_user: signed_in? ? UserSerializer.new(current_user).as_json : nil
-    }
-  end
-
   def user_params
     params.require(:user).permit(:username, :password)
   end

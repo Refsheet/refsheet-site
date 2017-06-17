@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
 
   before_action :set_user_locale
   before_action :set_default_meta
+  before_action :eager_load_session
   protect_from_forgery with: :exception
 
   def self.force_ssl(options = {})
@@ -37,6 +38,10 @@ class ApplicationController < ActionController::Base
 
     Time.zone   = current_user.settings[:time_zone] if signed_in?
     Time.zone ||= Application.config.time_zone
+  end
+
+  def eager_load_session
+    eager_load session: session_hash
   end
 
   def set_default_meta

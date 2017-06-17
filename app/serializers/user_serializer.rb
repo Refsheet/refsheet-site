@@ -3,7 +3,6 @@ class UserSerializer < ActiveModel::Serializer
   include GravatarImageTag::InstanceMethods
 
   attributes :username,
-             :email,
              :avatar_url,
              :path,
              :link,
@@ -13,8 +12,7 @@ class UserSerializer < ActiveModel::Serializer
              :profile_markup,
              :is_admin,
              :is_patron,
-             :settings,
-             :id
+             :settings
 
   has_many :characters,
            serializer: ImageCharacterSerializer
@@ -23,7 +21,7 @@ class UserSerializer < ActiveModel::Serializer
            serializer: CharacterGroupSerializer
 
   def characters
-    object.characters.default_order
+    object.characters.rank(:row_order)
   end
 
   def path

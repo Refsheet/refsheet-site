@@ -32,5 +32,9 @@ FactoryGirl.define do
     user
     name { Faker::Name.name }
     profile { Faker::Lorem.paragraph }
+
+    trait :hidden do
+      hidden true
+    end
   end
 end

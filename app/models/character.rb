@@ -30,6 +30,7 @@
 class Character < ApplicationRecord
   include HasGuid
   include Sluggable
+  include RankedModel
 
   belongs_to :user
   belongs_to :color_scheme, autosave: true
@@ -38,13 +39,13 @@ class Character < ApplicationRecord
   has_many :swatches
   has_many :images
   has_many :transfers
+  has_and_belongs_to_many :character_groups,
+                          after_add: :update_counter_cache,
+                          after_remove: :update_counter_cache
 
-  has_guid :shortcode, type: :token
-  slugify :name, scope: :user_id
-  scoped_search on: [:name, :species, :profile, :likes, :dislikes]
+  # counter_culture :user
 
   accepts_nested_attributes_for :color_scheme
-
   attr_accessor :transfer_to_user
 
   validates_presence_of :user
@@ -59,6 +60,13 @@ class Character < ApplicationRecord
 
   before_validation :initiate_transfer, if: -> (c) { c.transfer_to_user.present? }
 
+  before_destroy :decrement_counter_cache
+
+  has_guid :shortcode, type: :token
+  slugify :name, scope: :user_id
+  scoped_search on: [:name, :species, :profile, :likes, :dislikes]
+  ranks :row_order
+
   scope :default_order, -> do
     order(<<-SQL)
       CASE
@@ -70,6 +78,7 @@ class Character < ApplicationRecord
 
   scope :sfw, -> { where(nsfw: [nil, false]) }
   scope :visible, -> { where(hidden: [nil, false]) }
+  scope :hidden, -> { where hidden: true }
 
   before_validation do
     self.shortcode = self.shortcode&.downcase
@@ -160,6 +169,28 @@ class Character < ApplicationRecord
     unless self.featured_image.nil?
       self.errors.add :featured_image, 'cannot be NSFW' if self.featured_image.nsfw?
       false
+    end
+  end
+
+  def update_counter_cache(group)
+    counters = {
+        characters_count: group.characters.count,
+        visible_characters_count: group.characters.visible.count,
+        hidden_characters_count: group.characters.hidden.count
+    }
+
+    group.update_attributes counters
+  end
+
+  def decrement_counter_cache
+    self.character_groups.find_each do |g|
+      counters = {
+          characters_count: g.characters.where.not(id: self.id).count,
+          visible_characters_count: g.characters.visible.where.not(id: self.id).count,
+          hidden_characters_count: g.characters.hidden.where.not(id: self.id).count
+      }
+
+      g.update_attributes counters
     end
   end
 end

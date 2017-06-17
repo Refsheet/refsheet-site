@@ -29,12 +29,16 @@
       success: (data) =>
         @setState user: data
       error: (error) =>
-          @setState error: error
+        @setState error: error
       complete: ->
         $(document).trigger 'app:loading:done'
 
   componentDidMount: ->
-    @load @props.params.userId
+    if @props.route.user and @props.route.user.username.toUpperCase() is @props.params.userId.toUpperCase()
+      console.log "EAGER LOADED", @props.route.user
+      @setState user: @props.route.user
+    else
+      @load @props.params.userId
 
   componentWillReceiveProps: (newProps) ->
     if newProps.params.userId isnt @props.params.userId
@@ -77,11 +81,6 @@
       editable = true
       editPath = this.state.user.path
 
-    characters = @state.user.characters.map (character) ->
-      `<Column s={6} m={4} key={ character.slug }>
-          <CharacterLinkCard {...StringUtils.camelizeKeys(character)} />
-      </Column>`
-
     `<Main title={[ this.state.user.name, 'Users' ]}>
         <DropzoneContainer url={ editPath }
                            method='PATCH'
@@ -109,11 +108,6 @@
             <UserHeader { ...this.state.user } onUserChange={ userChangeCallback } />
 
             <Section className='margin-top--large padding-bottom--none'>
-                {/*<UserCharacters characters={ this.state.user.characters }*/}
-                                {/*groups={ this.state.user.character_groups }*/}
-                                {/*userLink={ this.state.user.link }*/}
-                                {/*editable={ editable } />*/}
-
                 <Row noPad>
                     <Column m={3}>
                         { editable &&
@@ -129,13 +123,9 @@
                     </Column>
 
                     <Column m={9}>
-                        <Row>{ characters }</Row>
-
-                        { characters.length == 0 &&
-                            <p className='caption center'>
-                                { this.state.user.name } has no characters.
-                            </p>
-                        }
+                        <UserCharacters characters={ this.state.user.characters }
+                                        onSort={ this._handleCharacterSort }
+                                        editable={ editable } />
                     </Column>
                 </Row>
             </Section>

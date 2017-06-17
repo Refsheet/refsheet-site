@@ -1,0 +1,15 @@
+.user-characters
+  .drop-target
+    @extend .col
+    @extend .s6
+    @extend .m4
+
+    &:after
+      content: ''
+      display: block
+      padding-bottom: 125%
+      background-color: $card-bg-color
+      height: 0
+      border-radius: 2px
+      border: 1px solid $lighten-color
+      margin: -1px

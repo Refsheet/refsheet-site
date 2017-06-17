@@ -1,3 +1,6 @@
 class UserIndexSerializer < ActiveModel::Serializer
-  attributes :name, :username
+  attributes :name,
+             :username,
+             :avatar_url,
+             :settings
 end

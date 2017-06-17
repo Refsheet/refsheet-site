@@ -44,4 +44,18 @@ module SessionHelper
 
     session[:nsfw_ok] = false
   end
+
+  def session_hash
+    {
+        nsfw_ok: session[:nsfw_ok],
+        locale: session[:locale],
+        time_zone: session[:time_zone],
+        current_user: signed_in? ? UserIndexSerializer.new(current_user).as_json : nil
+    }
+  end
+
+  def eager_load(object)
+    @eager_load ||= {}
+    @eager_load.merge! object
+  end
 end

@@ -1,9 +1,16 @@
 { @Router, @browserHistory, @Route, @IndexRoute, @Link, @IndexLink } = ReactRouter
 
 @Routes = React.createClass
+  getInitialState: ->
+    eagerLoad: @props.eagerLoad || {}
+
   componentDidMount: ->
+    console.debug '[Routes] Initializing app with: ', @props
+
     if @props.gaPropertyID
       ReactGA.initialize(@props.gaPropertyID)
+
+    @setState eagerLoad: {}
 
   _handleRouteUpdate: ->
     if @props.gaPropertyID
@@ -12,7 +19,7 @@
 
   render: ->
     `<Router history={ browserHistory } onUpdate={ this._handleRouteUpdate }>
-        <Route path='/' component={ App }>
+        <Route path='/' component={ App } session={ this.state.eagerLoad.session }>
             <IndexRoute component={ Home } />
 
             <Route path='login' component={ LoginView } />
@@ -25,7 +32,7 @@
 
             <Route path='images/:imageId' component={ ImageApp } />
 
-            <Route path=':userId' component={ UserApp } />
+            <Route path=':userId' component={ UserApp } user={ this.state.eagerLoad.user } />
             <Route path=':userId/:characterId' component={ CharacterApp }/>
 
             <Route path='*' component={ NotFound } />

@@ -50,6 +50,11 @@
       classNames = ['sortable-link']
       classNames.push 'active' if active
 
+      if editable
+        count = @props.group.characters_count
+      else
+        count = @props.group.visible_characters_count
+
       `<li className={ classNames.join(' ') } ref='link' data-group-id={ this.props.group.slug }>
           <i className='material-icons left folder'>{ active ? 'folder_open' : 'folder' }</i>
 
@@ -58,7 +63,7 @@
           </Link>
 
           <span className='count'>
-              { NumberUtils.format(this.props.group.characters_count) }
+              { NumberUtils.format(count) }
           </span>
 
           { editable &&

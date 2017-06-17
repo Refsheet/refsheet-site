@@ -150,4 +150,31 @@ describe Character, type: :model do
       its(:profile_image) { is_expected.to_not eq image }
     end
   end
+
+  it 'caches character group counter' do
+    user = create :user
+    group = create :character_group, user: user, name: 'Lol'
+    c1 = create :character, user: user
+    c2 = create :character, :hidden, user: user
+    group.characters << c1
+    group.characters << c2
+    group.reload
+
+    expect(group.characters.count).to eq 2
+    expect(group.characters_count).to eq 2
+    expect(group.visible_characters_count).to eq 1
+    expect(group.hidden_characters_count).to eq 1
+
+    c2.destroy
+    group.reload
+    expect(group.characters_count).to eq 1
+
+    c3 = create :character, user: user
+    c3.character_groups << group
+
+    group.reload
+    expect(group.characters_count).to eq 2
+    expect(group.visible_characters_count).to eq 2
+    expect(group.hidden_characters_count).to eq 0
+  end
 end
