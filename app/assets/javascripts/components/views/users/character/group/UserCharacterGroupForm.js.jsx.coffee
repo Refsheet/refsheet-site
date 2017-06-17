@@ -26,6 +26,7 @@
               className='inline'
               modelName='character_group'
               onChange={ this.props.onChange }
+              resetOnSubmit
               method={ method }>
 
             <i className='material-icons left folder'>{ icon }</i>

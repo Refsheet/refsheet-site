@@ -3,6 +3,7 @@
     group: React.PropTypes.object.isRequired
     editable: React.PropTypes.bool
     onChange: React.PropTypes.func
+    active: React.PropTypes.bool
 
   getInitialState: ->
     edit: false
@@ -50,13 +51,13 @@
 
 
   render: ->
+    { editable, active } = @props
+
     if @state.edit
       `<UserCharacterGroupForm group={ this.props.group }
                                onChange={ this._handleChange } />`
 
     else
-      editable = @props.editable
-      active = window.location.hash.substring(1) == @props.group.slug
       classNames = ['sortable-link', 'character-group-drop']
       classNames.push 'active' if active
 

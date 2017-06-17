@@ -6,9 +6,10 @@ class ImageCharacterSerializer < ActiveModel::Serializer
              :species,
              :gender,
              :slug,
-             :path,
              :profile_image_url,
              :featured_image_url,
+             :group_ids,
+             :path,
              :link
 
   has_one :color_scheme, serializer: ColorSchemeSerializer
@@ -19,6 +20,10 @@ class ImageCharacterSerializer < ActiveModel::Serializer
 
   def path
     user_character_path object.user, object
+  end
+
+  def group_ids
+    object.character_groups.collect(&:slug)
   end
 
   def profile_image_url
