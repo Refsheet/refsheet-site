@@ -2,6 +2,7 @@
 @UserCharacterGroupForm = React.createClass
   propTypes:
     group: React.PropTypes.object
+    onChange: React.PropTypes.func
 
   getInitialState: ->
     model:
@@ -24,6 +25,7 @@
               model={ this.state.model }
               className='inline'
               modelName='character_group'
+              onChange={ this.props.onChange }
               method={ method }>
 
             <i className='material-icons left folder'>{ icon }</i>

@@ -2,6 +2,7 @@
   propTypes: ->
     group: React.PropTypes.object.isRequired
     editable: React.PropTypes.bool
+    onChange: React.PropTypes.func
 
   getInitialState: ->
     edit: false
@@ -11,9 +12,14 @@
     @setState edit: true
     e.preventDefault()
 
+  _handleChange: (data) ->
+    @setState edit: false
+    @props.onChange data
+
   render: ->
     if @state.edit
-      `<UserCharacterGroupForm group={ this.props.group } />`
+      `<UserCharacterGroupForm group={ this.props.group }
+                               onChange={ this._handleChange } />`
 
     else
       editable = @props.editable

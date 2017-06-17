@@ -44,6 +44,9 @@
     $('#character-form').modal('close')
     @context.router.push character.link
 
+  _handleGroupChange: (group) ->
+    @setState user: HashUtils.deepUpdateCollectionItem @state.user, 'character_groups', group, 'slug'
+
   render: ->
     if @state.error?
       return `<NotFound />`
@@ -108,6 +111,7 @@
                         <UserCharacterGroups groups={ this.state.user.character_groups }
                                              editable={ editable }
                                              totalCount={ this.state.user.characters.length }
+                                             onChange={ this._handleGroupChange }
                                              userLink={ this.state.user.link } />
                     </Column>
 

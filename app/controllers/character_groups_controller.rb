@@ -5,23 +5,17 @@ class CharacterGroupsController < ApplicationController
 
   def create
     @character_group = CharacterGroup.create group_params
-    respond_with @character_group, location: nil, serializer: CharacterGroupSerializer
+    respond_with @character_group, location: nil, json: @character_group, serializer: CharacterGroupSerializer
   end
 
   def update
-    if params[:character_id]
-      @character_group.characters << current_user.characters.find_by!(slug: params[:character_id].downcase)
-      @character_group.save
-    else
-      @character_group.update_attributes group_params
-    end
-
-    respond_with @character_group, location: nil, serializer: CharacterGroupSerializer
+    @character_group.update_attributes group_params
+    respond_with @character_group, location: nil, json: @character_group, serializer: CharacterGroupSerializer
   end
 
   def destroy
     @character_group.destroy
-    respond_with @character_group, location: nil, serializer: CharacterGroupSerializer
+    respond_with @character_group, location: nil, json: @character_group, serializer: CharacterGroupSerializer
   end
 
   private

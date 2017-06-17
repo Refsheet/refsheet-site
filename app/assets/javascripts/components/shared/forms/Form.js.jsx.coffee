@@ -15,6 +15,7 @@
     model: $.extend {}, @props.model
     errors: @props.errors || {}
     dirty: false
+    invalid: Object.keys(@props.errors || {}).length
 
   componentWillReceiveProps: (newProps) ->
     if newProps.model != @props.model
@@ -44,19 +45,21 @@
 
 
   _handleInputChange: (name, value) ->
-    newModel = @state.model
+    newModel = $.extend {}, @state.model
     newModel[name] = value
-    errors = @state.errors
-    errors[name] = null
+    errors = $.extend {}, @state.errors
+    errors[name] = undefined
     dirty = false
+    invalid = false
 
     for k, v of newModel
       o = @props.model[k]
+      invalid = true if errors[k]
 
       if v != o and !(v == false and typeof(o) == 'undefined')
         dirty = true
 
-    @setState model: newModel, dirty: dirty, errors: errors
+    @setState model: newModel, dirty: dirty, invalid: invalid, errors: errors
     @props.onUpdate(newModel) if @props.onUpdate
     @props.onDirty(dirty) if @props.onDirty
 
@@ -84,7 +87,7 @@
         @props.onError(data) if @props.onError
 
         if data.responseJSON?.errors
-          @setState errors: data.responseJSON.errors
+          @setState errors: data.responseJSON.errors, invalid: true
         else if data.responseJSON?.error
           Materialize.toast data.responseJSON.error, 3000, 'red'
         else
@@ -125,7 +128,7 @@
 
     classNames = []
     classNames.push @props.className
-    classNames.push 'has-errors' if Object.keys(@state.errors)?.length
+    classNames.push 'has-errors' if @state.invalid
 
     `<form onSubmit={ this._handleFormSubmit }
            className={ classNames.join(' ') }>
