@@ -14,6 +14,8 @@
 
 
   load: (userId, characterId) ->
+#    StateUtils.load @, 'character', "/users/#{userId}/characters/#{characterId}.json"
+
     $(window).trigger 'app:loading'
     $.ajax
       url: "/users/#{userId}/characters/#{characterId}.json",
@@ -24,9 +26,14 @@
       complete: ->
         $(window).trigger 'app:loading:done'
 
+  componentWillMount: ->
+    if @props.route.character and @props.route.character.slug == @props.params.characterId
+      console.debug "EAGER LOADING:", @props.route.character
+      @setState character: @props.route.character
+    else
+      @load(@props.params.userId, @props.params.characterId)
+
   componentDidMount: ->
-    @load(@props.params.userId, @props.params.characterId)
-        
     $(document)
       .on 'app:character:update', (e, character) =>
         if @state.character.id == character.id

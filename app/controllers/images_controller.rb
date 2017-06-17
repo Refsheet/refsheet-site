@@ -6,7 +6,7 @@ class ImagesController < ApplicationController
   respond_to :json
 
   def index
-    render json: image_scope.includes(:favorites), each_serializer: ImageSerializer
+    render json: image_scope.includes(:favorites, :character), each_serializer: ImageSerializer
   end
 
   def show
@@ -26,7 +26,11 @@ class ImagesController < ApplicationController
     )
 
     respond_to do |format|
-      format.html { render 'application/show' }
+      format.html do
+        eager_load image: ImageSerializer.new(@image, scope: self).as_json
+        render 'application/show'
+      end
+
       format.json { render json: @image, serializer: ImageSerializer }
     end
   end

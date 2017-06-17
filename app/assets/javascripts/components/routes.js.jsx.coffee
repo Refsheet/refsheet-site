@@ -30,10 +30,10 @@
                 <Route path='users' component={ UserIndexView } />
             </Route>
 
-            <Route path='images/:imageId' component={ ImageApp } />
+            <Route path='images/:imageId' component={ ImageApp } image={ this.state.eagerLoad.image } />
 
             <Route path=':userId' component={ UserApp } user={ this.state.eagerLoad.user } />
-            <Route path=':userId/:characterId' component={ CharacterApp }/>
+            <Route path=':userId/:characterId' component={ CharacterApp } character={ this.state.eagerLoad.character } />
 
             <Route path='*' component={ NotFound } />
         </Route>
