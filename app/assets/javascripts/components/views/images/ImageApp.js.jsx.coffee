@@ -25,10 +25,9 @@
 
   render: ->
     if @state.image?
-      bgImgUrl = "url(#{@state.image.character.featured_image_url})"
-      `<Main title={[ this.state.image.title, 'Images' ]}
-             bodyClassName='no-footer'
-             style={{ backgroundImage: bgImgUrl }} />`
+      `<CharacterViewSilhouette title={[ this.state.image.title, 'Images' ]}
+                                coverImage={ this.state.image.character.featured_image_url }
+                                immediate />`
 
     else
-      `<Loading />`
+      `<CharacterViewSilhouette />`

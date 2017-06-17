@@ -1,7 +1,12 @@
-@CharacterViewSilhouette = ->
-  `<Main title='Character' className='silhouette' style={{ display: 'none' }} fadeEffect>
+@CharacterViewSilhouette = (props) ->
+  `<Main title={ props.title || 'Loading...' }
+         className='silhouette'
+         style={{ display: ( props.immediate ? 'block' : 'none' ) }}
+         fadeEffect={ !props.immediate }>
+
       <section className='page-header'>
-          <div className='page-header-backdrop silhouette-backdrop' />
+          <div className='page-header-backdrop silhouette-backdrop'
+               style={{ backgroundImage: 'url(' + props.coverImage + ')' }} />
 
           <div className='page-header-content'>
               <div className='container'>
