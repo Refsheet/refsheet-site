@@ -1,7 +1,7 @@
 @HashUtils =
   deepUpdateCollectionItem: (object, collectionPath, item, primaryKey) ->
     collection = ObjectPath.get object, collectionPath
-    [old, index] = @_findItem collection, item, primaryKey
+    [old, index] = @findItem collection, item, primaryKey
 
     if old
       collection[index] = item
@@ -12,7 +12,7 @@
 
   deepSortCollectionItem: (object, collectionPath, item, position, primaryKey) ->
     collection = ObjectPath.get object, collectionPath
-    [old, index] = @_findItem collection, item, primaryKey
+    [old, index] = @findItem collection, item, primaryKey
 
     if old
       collection.splice index, 1
@@ -22,7 +22,7 @@
 
   deepRemoveCollectionItem: (object, collectionPath, item, primaryKey) ->
     collection = ObjectPath.get object, collectionPath
-    [old, index] = @_findItem collection, item, primaryKey
+    [old, index] = @findItem collection, item, primaryKey
 
     if old
       collection.splice index, 1
@@ -36,10 +36,11 @@
     ObjectPath.set object, path, value
     object
 
-  _findItem: (collection, item, primaryKey='id') ->
+  findItem: (collection, item, primaryKey='id', callback) ->
     targetKey = if typeof item is 'object' then item[primaryKey] else item
     console.log "===TARGET KEY", targetKey, primaryKey, collection, collection.map (i) -> i[primaryKey]
     old = (collection.filter (i) -> i[primaryKey] == targetKey)[0]
     console.log "===FOUND", old
     index = collection.indexOf(old) if old
+    callback(old, index) if callback
     [old, index]

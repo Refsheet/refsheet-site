@@ -17,15 +17,20 @@
 
     $list.sortable
       items: 'li'
-      placeholder: 'drop-target'
+      placeholder: 'drop-target col s6 m4 xl3'
       tolerance: 'pointer'
       cursorAt:
         top: 15
         left: 15
       update: (e, el) =>
         $item = $(el.item[0])
-        position = $item.parent().children().index($item)
-        @_handleSwap $item.data('character-id'), position
+
+        if $item.hasClass 'dropped'
+          $item.removeClass 'dropped'
+          $list.sortable 'cancel'
+        else
+          position = $item.parent().children().index($item)
+          @_handleSwap $item.data('character-id'), position
 
   _handleSwap: (characterId, position) ->
     character = (@props.characters.filter (c) -> c.slug == characterId)[0]
@@ -38,12 +43,12 @@
     if @props.characters.length
       if @props.activeGroupId
         characterScope = @props.characters.filter (c) =>
-          c.group_ids.indexOf @props.activeGroupId
+          c.group_ids.indexOf(@props.activeGroupId) isnt -1
       else
         characterScope = @props.characters
 
       characters = characterScope.map (character) ->
-        `<li className='character-drag col s6 m4' key={ character.slug } data-character-id={ character.slug }>
+        `<li className='character-drag col s6 m4 xl3' key={ character.slug } data-character-id={ character.slug }>
             <CharacterLinkCard {...StringUtils.camelizeKeys(character)} />
         </li>`
 

@@ -24,14 +24,17 @@
     $link.droppable
       tolerance: 'pointer'
       accept: '.character-drag'
-      over: =>
+      over: (_, ui) =>
+        $(ui.draggable).siblings('.drop-target').hide()
         @setState dropOver: true
 
-      out: =>
+      out: (_, ui) =>
+        $(ui.draggable).siblings('.drop-target').show()
         @setState dropOver: false
 
       drop: (event, ui) =>
         $source = ui.draggable
+        $source.addClass 'dropped'
         sourceId = $source.data 'character-id'
         @_handleDrop(sourceId)
         @setState dropOver: false
@@ -47,7 +50,7 @@
 
   _handleDrop: (characterId) ->
     Model.post @props.group.path + '/characters', id: characterId, (data) =>
-      @props.onChange data
+      @props.onChange data, characterId
 
 
   render: ->
