@@ -28,6 +28,8 @@
       , (error) ->
         context.setState error: error
 
+      $(window).scrollTop 0
+
   reload: (context, path, newProps) ->
     fetch = false
 
@@ -41,13 +43,14 @@
 
     if fetch
       StateUtils.load context, path, newProps
+      $(window).scrollTop 0
 
 
-  updateItem: (context, path, item, primaryKey) ->
-    context.setState HashUtils.deepUpdateCollectionItem context.state, path, item, primaryKey
+  updateItem: (context, path, item, primaryKey, callback) ->
+    context.setState HashUtils.deepUpdateCollectionItem(context.state, path, item, primaryKey), callback
 
-  sortItem: (context, path, item, position, primaryKey) ->
-    context.setState HashUtils.deepSortCollectionItem context.state, path, item, position, primaryKey
+  sortItem: (context, path, item, position, primaryKey, callback) ->
+    context.setState HashUtils.deepSortCollectionItem(context.state, path, item, position, primaryKey), callback
 
-  removeItem: (context, path, item, primaryKey) ->
-    context.setState HashUtils.deepRemoveCollectionItem context.state, path, item, primaryKey
+  removeItem: (context, path, item, primaryKey, callback) ->
+    context.setState HashUtils.deepRemoveCollectionItem(context.state, path, item, primaryKey), callback

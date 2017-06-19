@@ -18,12 +18,12 @@
 
 
   componentDidMount: ->
-    StateUtils.load @, 'user'
-    @setState activeGroupId: window.location.hash.substring(1)
+    @setState activeGroupId: window.location.hash.substring(1), ->
+      StateUtils.load @, 'user'
 
   componentWillReceiveProps: (newProps) ->
-    StateUtils.reload @, 'user', newProps
-    @setState activeGroupId: window.location.hash.substring(1)
+    @setState activeGroupId: window.location.hash.substring(1), ->
+      StateUtils.reload @, 'user', newProps
 
 
   goToCharacter: (character) ->
@@ -39,8 +39,12 @@
 
   #== Schnazzy Fancy Root-level permutation operations!
 
-  _handleGroupChange: (group) ->
-    StateUtils.updateItem @, 'user.character_groups', group, 'slug'
+  _handleGroupChange: (group, character) ->
+    StateUtils.updateItem @, 'user.character_groups', group, 'slug', ->
+      if character
+        HashUtils.findItem @state.user.characters, character, 'slug', (c) =>
+          c.group_ids.push group.slug
+          StateUtils.updateItem @, 'user.characters', c, 'slug'
 
   _handleGroupDelete: (groupId) ->
     @context.router.push @state.user.link if groupId is @state.activeGroupId
@@ -54,7 +58,6 @@
 
   _handleGroupCharacterDelete: (group) ->
     @_handleGroupChange group
-    # TODO reload character view
 
 
   #== Render
@@ -104,10 +107,12 @@
             <UserHeader { ...this.state.user } onUserChange={ userChangeCallback } />
 
             <Section className='margin-top--large padding-bottom--none'>
-                <Row noPad>
-                    <Column m={3}>
+                <div className='sidebar-container'>
+                    <div className='sidebar'>
+
+
                         { editable &&
-                            <a href='#character-form' className='margin-bottom--large btn btn-block center waves-effect waves-light modal-trigger'>New Char</a>
+                            <a href='#character-form' className='margin-bottom--large btn btn-block center waves-effect waves-light modal-trigger'>New Character</a>
                         }
 
                         <UserCharacterGroups groups={ this.state.user.character_groups }
@@ -119,15 +124,15 @@
                                              onCharacterDelete={ this._handleGroupCharacterDelete }
                                              activeGroupId={ this.state.activeGroupId }
                                              userLink={ this.state.user.link } />
-                    </Column>
+                    </div>
 
-                    <Column m={9}>
+                    <div className='main-content'>
                         <UserCharacters characters={ this.state.user.characters }
                                         activeGroupId={ this.state.activeGroupId }
                                         onSort={ this._handleCharacterSort }
                                         editable={ editable } />
-                    </Column>
-                </Row>
+                    </div>
+                </div>
             </Section>
         </DropzoneContainer>
     </Main>`

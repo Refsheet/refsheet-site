@@ -1,0 +1,43 @@
+.sidebar-container
+  .sidebar
+    @extend .z-depth-2
+    overflow: auto
+    width: 250px
+    max-width: 80vw
+
+    @media #{$small-and-down}
+      position: fixed
+      top: 56px
+      left: 0
+      bottom: 0
+      background-color: $card-bg-color
+      padding: 1.5rem
+      z-index: 199
+      visibility: hidden
+      opacity: 0
+      transition: opacity, 0.3s
+
+      &.visible
+        visibility: visible
+        opacity: 1
+
+      &:after
+        content: ''
+        display: block
+        position: fixed
+        top: 0
+        left: 250px
+        right: 0
+        bottom: 0
+        background-color: rgba(black, 0.5)
+
+  @media #{$medium-and-up}
+    display: flex
+
+    .sidebar
+      box-shadow: none
+      flex: 0 0 200px
+      margin-right: 1.5rem
+
+    .main-content
+      flex-grow: 1

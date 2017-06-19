@@ -10,3 +10,8 @@
 
   &:not(.no-margin) .col
     margin-bottom: 20px
+
+  .col
+    &.xl3
+      @media #{$extra-large-and-up}
+        width: 25%
