@@ -1,4 +1,4 @@
-@UserHeader = React.createClass
+@User.Header = React.createClass
   componentDidMount: ->
     $('.parallax').parallax()
 

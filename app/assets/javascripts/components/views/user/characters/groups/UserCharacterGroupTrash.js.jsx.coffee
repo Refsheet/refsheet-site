@@ -14,10 +14,14 @@
     $trash.droppable
       tolerance: 'pointer'
       accept: '.character-drag, .sortable-link'
-      over: =>
+      over: (_, ui) =>
+        $source = $(ui.draggable)
+        $source.siblings('.drop-target').hide() if $source.hasClass('character-drag')
         @setState dropOver: true
 
-      out: =>
+      out: (_, ui) =>
+        $source = $(ui.draggable)
+        $source.siblings('.drop-target').show() if $source.hasClass('character-drag')
         @setState dropOver: false
 
       drop: (event, ui) =>
