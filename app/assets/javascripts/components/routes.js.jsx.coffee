@@ -31,7 +31,7 @@
 
             <Route path='images/:imageId' component={ ImageApp } />
 
-            <Route path=':userId' component={ UserApp } />
+            <Route path=':userId' component={ User.View } />
             <Route path=':userId/:characterId' component={ CharacterApp } />
 
             <Route path='*' component={ NotFound } />

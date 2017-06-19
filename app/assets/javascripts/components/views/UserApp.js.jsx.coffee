@@ -1,4 +1,6 @@
-@UserApp = React.createClass
+@User = {}
+
+@User.View = React.createClass
   contextTypes:
     router: React.PropTypes.object.isRequired
     currentUser: React.PropTypes.object
@@ -104,35 +106,22 @@
                                    onChange={ this.handleUserChange } />
             }
 
-            <UserHeader { ...this.state.user } onUserChange={ userChangeCallback } />
+            <User.Header { ...this.state.user }
+                         onUserChange={ userChangeCallback }
+            />
 
             <Section className='margin-top--large padding-bottom--none'>
-                <div className='sidebar-container'>
-                    <div className='sidebar'>
-
-
-                        { editable &&
-                            <a href='#character-form' className='margin-bottom--large btn btn-block center waves-effect waves-light modal-trigger'>New Character</a>
-                        }
-
-                        <UserCharacterGroups groups={ this.state.user.character_groups }
-                                             editable={ editable }
-                                             totalCount={ this.state.user.characters_count }
-                                             onChange={ this._handleGroupChange }
-                                             onSort={ this._handleGroupSort }
-                                             onGroupDelete={ this._handleGroupDelete }
-                                             onCharacterDelete={ this._handleGroupCharacterDelete }
-                                             activeGroupId={ this.state.activeGroupId }
-                                             userLink={ this.state.user.link } />
-                    </div>
-
-                    <div className='main-content'>
-                        <UserCharacters characters={ this.state.user.characters }
-                                        activeGroupId={ this.state.activeGroupId }
-                                        onSort={ this._handleCharacterSort }
-                                        editable={ editable } />
-                    </div>
-                </div>
+                <User.Characters groups={ this.state.user.character_groups }
+                                 characters={ this.state.user.characters }
+                                 editable={ editable }
+                                 userLink={ this.state.user.link }
+                                 activeGroupId={ this.state.activeGroupId }
+                                 onGroupChange={ this._handleGroupChange }
+                                 onGroupSort={ this._handleGroupSort }
+                                 onGroupDelete={ this._handleGroupDelete }
+                                 onCharacterDelete={ this._handleGroupCharacterDelete }
+                                 onCharacterSort={ this._handleCharacterSort }
+                />
             </Section>
         </DropzoneContainer>
     </Main>`
