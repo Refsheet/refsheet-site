@@ -2,13 +2,14 @@
 #
 # Table name: invitations
 #
-#  id         :integer          not null, primary key
-#  user_id    :integer
-#  email      :string
-#  seen_at    :datetime
-#  claimed_at :datetime
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id               :integer          not null, primary key
+#  user_id          :integer
+#  email            :string
+#  seen_at          :datetime
+#  claimed_at       :datetime
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  auth_code_digest :string
 #
 
 class Invitation < ApplicationRecord

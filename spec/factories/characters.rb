@@ -25,6 +25,7 @@
 #  nsfw              :boolean
 #  hidden            :boolean
 #  secret            :boolean
+#  row_order         :integer
 #
 
 FactoryGirl.define do
