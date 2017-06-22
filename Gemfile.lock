@@ -149,6 +149,8 @@ GEM
       activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
       after_commit_action (~> 1.0)
+    css_parser (1.5.0)
+      addressable
     database_cleaner (1.5.3)
     debug_inspector (0.0.2)
     diff-lcs (1.2.5)
@@ -202,6 +204,7 @@ GEM
       tilt
     highcharts-rails (5.0.7)
       railties (>= 3.1)
+    htmlentities (4.3.4)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     http_parser.rb (0.6.0)
@@ -292,6 +295,13 @@ GEM
       capybara (~> 2.1)
       cliver (~> 0.3.1)
       websocket-driver (>= 0.2.0)
+    premailer (1.10.4)
+      addressable
+      css_parser (>= 1.4.10)
+      htmlentities (>= 4.0.0)
+    premailer-rails (1.9.6)
+      actionmailer (>= 3, < 6)
+      premailer (~> 1.7, >= 1.7.9)
     public_suffix (2.0.4)
     puma (3.6.2)
     puma_worker_killer (0.0.7)
@@ -534,6 +544,7 @@ DEPENDENCIES
   pg (~> 0.18)
   phantomjs
   poltergeist
+  premailer-rails
   puma (~> 3.0)
   puma_worker_killer
   rack_session_access

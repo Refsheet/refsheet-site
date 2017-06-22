@@ -4,12 +4,24 @@
   propTypes:
     gaPropertyID: React.PropTypes.string
     eagerLoad: React.PropTypes.object
+    flash: React.PropTypes.object
 
   componentDidMount: ->
     console.debug '[Routes] Initializing app with: ', @props
 
     if @props.gaPropertyID
       ReactGA.initialize(@props.gaPropertyID)
+
+    if @props.flash
+      for level, message of @props.flash
+        color =
+          switch level
+            when 'error' then 'red'
+            when 'warn' then 'yellow darken-1'
+            when 'notice' then 'green'
+            else 'grey darken-2'
+
+        Materialize.toast message, 3000, color
 
   _handleRouteUpdate: ->
     if @props.gaPropertyID

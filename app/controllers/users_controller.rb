@@ -39,7 +39,7 @@ class UsersController < ApplicationController
 
     if @user.save
       sign_in @user
-      render json: @user, serializer: UserSerializer
+      render json: @user, serializer: UserIndexSerializer
     else
       Rails.logger.debug @user.errors.full_messages.inspect
       render json: { errors: @user.errors }, status: :bad_request

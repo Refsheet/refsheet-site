@@ -131,7 +131,7 @@ class Character < ApplicationRecord
     transfer_to_user = self.transfer_to_user.downcase
 
     if transfer_to_user =~ /@/
-      destination = User.find_by 'LOWER(users.email) = ?', transfer_to_user
+      destination = User.confirmed.find_by 'LOWER(users.email) = ?', transfer_to_user
 
       if destination
         transfer.destination = destination

@@ -31,6 +31,8 @@ class User < ApplicationRecord
   has_one  :invitation
   has_many :pledges, through: :patron
 
+  attr_accessor :skip_emails
+
   validates :username, presence: true,
             length: { minimum: 3, maximum: 50 },
             format: { with: /\A[a-z0-9][a-z0-9_]+[a-z0-9]\z/i, message: 'no special characters' },
@@ -62,15 +64,19 @@ class User < ApplicationRecord
   serialize :settings, JSON
 
   before_validation :downcase_email
-  after_create :claim_invitations
+  before_update :handle_email_change
+  after_update :send_email_change_notice, unless: -> (u) { u.skip_emails }
+  after_create :send_welcome_email, unless: -> (u) { u.skip_emails }
 
   scoped_search on: [:name, :username, :email]
+
+  scope :confirmed, -> { where.not confirmed_at: nil }
 
   def name
     super || username
   end
 
-  def email_to
+  def email_to(email=self.email)
     "#{name} <#{email}>"
   end
 
@@ -91,24 +97,67 @@ class User < ApplicationRecord
   end
 
   def self.lookup(username)
-    Rails.logger.info "Looking up #{username}..."
-    u = find_by('LOWER(users.username) = ?', username.downcase)
-    Rails.logger.info "Lookup done: #{u.inspect}"
-    u
+    column = username =~ /@/ ? 'email' : 'username'
+    find_by("LOWER(users.#{column}) = ?", username.downcase)
   end
 
   def self.lookup!(username)
-    find_by!('LOWER(users.username) = ?', username.downcase)
+    column = username =~ /@/ ? 'email' : 'username'
+    find_by!("LOWER(users.#{column}) = ?", username.downcase)
   end
 
   def role?(role)
     self.roles.exists?(name: role.to_s)
   end
 
+  #== Email Confirmation & Password Reset
+
+  def confirmed?
+    email_confirmed_at.present?
+  end
+
+  def confirm!
+    @permit_email_swap = true
+    email = self.unconfirmed_email || self.email
+    update! email_confirmed_at: Time.zone.now, email: email, auth_code_digest: nil, unconfirmed_email: nil
+    @permit_email_swap = false
+    claim_invitations
+  end
+
+  def auth_code?(cleartext)
+    return false unless auth_code_digest.present?
+    BCrypt::Password.new(auth_code_digest) == cleartext
+  end
+
+  def generate_auth_code!
+    auth_code = SecureRandom.base58
+    update! auth_code_digest: BCrypt::Password.create(auth_code)
+    auth_code
+  end
+
+  def send_welcome_email
+    UserMailer.welcome(id, generate_auth_code!).deliver_now
+  end
+
   private
 
   def downcase_email
     self.email&.downcase!
+  end
+
+  def handle_email_change
+    if !@permit_email_swap and changes.include? :email and changes[:email][0].present?
+      self.unconfirmed_email = self.changes[:email][1]
+      self.email = self.changes[:email][0]
+      @send_email_change_notice = true
+    end
+  end
+
+  def send_email_change_notice
+    if @send_email_change_notice
+      @send_email_change_notice = false
+      UserMailer.email_changed(id, generate_auth_code!).deliver_now
+    end
   end
 
   def claim_invitations

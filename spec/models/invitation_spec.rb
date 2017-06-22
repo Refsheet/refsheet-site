@@ -19,8 +19,16 @@ describe Invitation, type: :model do
     have_many: :transfers
   )
 
+  describe 'auth_code' do
+    let(:invitation) { create :invitation }
+    let!(:auth_code) { invitation.generate_auth_code! }
+    it { expect(invitation.auth_code_digest).to_not be_blank }
+    it { expect(invitation.auth_code? auth_code).to eq true }
+    it { expect(invitation.auth_code? 'foobar').to be false }
+  end
+
   describe 'mailers' do
-    let(:invitation) { build :invitation }
+    let(:invitation) { build :invitation, :send_emails }
 
     it 'sends transfer-invite mailer' do
       expect(UserMailer).to receive(:invitation_with_transfers).and_call_original

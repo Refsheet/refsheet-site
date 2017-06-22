@@ -44,10 +44,10 @@
         @setState loading: val
 
 
-  _onLogin: (user) ->
+  _onLogin: (user, callback) ->
     s = @state.session
     s.current_user = user
-    @setState session: s
+    @setState session: s, callback
 
 
   render: ->

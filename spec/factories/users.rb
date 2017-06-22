@@ -23,6 +23,7 @@ FactoryGirl.define do
     profile { Faker::Lorem.paragraph }
     password 'fishsticks'
     password_confirmation 'fishsticks'
+    skip_emails true
 
     sequence :username do |n|
       "user#{n}"
@@ -30,6 +31,10 @@ FactoryGirl.define do
 
     sequence :email do |n|
       "user#{n}@example.com"
+    end
+
+    trait :send_emails do
+      skip_emails false
     end
 
     factory :admin do
