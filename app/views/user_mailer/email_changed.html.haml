@@ -1,0 +1,8 @@
+%h1 Email Address Changed
+
+%p Oh, hello #{@user.name}!
+
+%p
+  It looks like you've changed your email address. To start using this new email address, please click the link below.
+
+= button 'Confirm Email Address', login_url(email: @user.unconfirmed_email, auth: @auth_code), primary: true

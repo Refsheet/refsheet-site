@@ -10,7 +10,6 @@ Rails.application.routes.draw do
   get '/c/:id', to: 'shortcodes#show'
 
   # Placeholder Route
-  get 'login', to: 'application#show'
   get 'register', to: 'application#show'
   get 'guilds', to: 'application#show'
   get 'marketplace', to: 'application#show'
@@ -19,6 +18,7 @@ Rails.application.routes.draw do
   get 'browse/users', to: 'application#show'
 
   resource :session, only: [:show, :create, :destroy, :update], controller: 'session'
+  get 'login', to: 'session#new'
 
   resources :characters, only: [:index]
 

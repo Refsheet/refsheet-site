@@ -4,7 +4,9 @@ class UserIndexSerializer < ActiveModel::Serializer
              :avatar_url,
              :is_admin,
              :is_patron,
-             :settings
+             :settings,
+             :link,
+             :path
 
   def is_admin
     object.role? :admin
@@ -12,5 +14,13 @@ class UserIndexSerializer < ActiveModel::Serializer
 
   def is_patron
     object.pledges.active.any?
+  end
+
+  def link
+    "/#{object.username}"
+  end
+
+  def path
+    "/users/#{object.username}"
   end
 end

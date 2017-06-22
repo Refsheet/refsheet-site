@@ -5,7 +5,7 @@
 
   getInitialState: ->
     user:
-      username: @props.location.query.username
+      username: @props.location.query?.username
       password: null
 
   _handleError: (user) ->

@@ -17,8 +17,8 @@
       category: 'User'
       action: 'Sign Up'
 
-    @context.setCurrentUser user
-    @context.router.push '/' + user.username
+    @context.setCurrentUser user, =>
+      @context.router.push '/' + user.username
 
 
   componentDidMount: ->

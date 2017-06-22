@@ -15,9 +15,11 @@ class Invitation < ApplicationRecord
   belongs_to :user
   has_many :transfers, autosave: true
 
+  attr_accessor :skip_emails
+
   validates_presence_of :user, if: -> (i) { i.claimed? }
 
-  after_create :send_email
+  after_create :send_email, unless: -> (i) { i.skip_emails }
   after_save :assign_transfers, if: -> (i) { i.claimed? }
 
   def claim!
@@ -29,14 +31,20 @@ class Invitation < ApplicationRecord
   end
 
   def auth_code?(cleartext)
-    auth_code == BCrypt::Password.create(cleartext)
+    return false unless auth_code_digest.present?
+    BCrypt::Password.new(auth_code_digest) == cleartext
+  end
+
+  def generate_auth_code!
+    auth_code = SecureRandom.base58
+    update! auth_code_digest: BCrypt::Password.create(auth_code)
+    auth_code
   end
 
   private
 
   def send_email
-    auth_code = SecureRandom.base58
-    update! auth_code_digest: BCrypt::Password.create(auth_code)
+    auth_code = generate_auth_code!
 
     if transfers.any?
       UserMailer.invitation_with_transfers(id, auth_code).deliver_now

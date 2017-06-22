@@ -42,4 +42,28 @@ describe User, type: :model do
   )
 
   its(:settings) { is_expected.to be_a HashWithIndifferentAccess }
+
+  describe 'mailers' do
+    let(:user) { build :user, :send_emails }
+
+    it 'sends welcome email' do
+      expect(UserMailer).to receive(:welcome).and_call_original
+      user.save!
+    end
+  end
+
+  it 'handles email changed' do
+    expect(UserMailer).to receive(:welcome).and_call_original
+    expect(UserMailer).to receive(:email_changed).and_call_original
+    user = create :user, :send_emails
+    old_email = user.email
+    new_email = 'test2@example.com'
+
+    user.update_attributes email: new_email
+    expect(user.email).to eq old_email
+    expect(user.unconfirmed_email).to eq new_email
+
+    user.confirm!
+    expect(user.email).to eq new_email
+  end
 end
