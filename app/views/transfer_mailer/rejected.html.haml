@@ -1,0 +1,9 @@
+%h1 Transfer Rejected
+
+%p Hey, #{@user.name}:
+
+%p
+  #{@transfer.destination.name} seems to have rejected the transfer of <em>#{@transfer.character.name}</em>.
+  This character is secure in your collection until you initiate another transfer.
+
+= render partial: 'character_summary', locals: { character: @transfer.character }

@@ -19,14 +19,13 @@
 
 FactoryGirl.define do
   factory :transfer do
-    character_id 1
-    item_id 1
-    sender_user_id 1
-    destination_user_id 1
-    invitation_id 1
-    seen_at "2017-01-30 17:18:58"
-    claimed_at "2017-01-30 17:18:58"
-    rejected_at "2017-01-30 17:18:58"
-    status "MyString"
+    character
+    sender { character.user }
+    destination { build :user }
+
+    trait :with_invitation do
+      destination nil
+      invitation { build :invitation }
+    end
   end
 end

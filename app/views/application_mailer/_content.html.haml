@@ -1,0 +1,32 @@
+%span.preheader= @preheader || message.subject
+
+%table.logo
+  %tr
+    %td.center-align
+      = image_tag asset_url('logos/RefsheetLogo_TypeTreatment.png'), alt: 'Refsheet'
+
+%table.main
+  %tr
+    %td.wrapper
+      %table{border: 0, cellpadding: 0, cellspacing: 0}
+        %tr
+          %td
+            = yield
+
+.footer
+  %table{border: 0, cellpadding: 0, cellspacing: 0}
+    %tr
+      %td.content-block
+        .apple-link{style: 'padding-bottom: 10px;'}
+          Refsheet.net is made with love by Eisert Development, LLC
+          %br/
+          3104 Pacific St N &bull; Suite 301 &bull; Minneapolis, MN 55411
+
+        .apple-link{style: 'padding-bottom: 10px;'}
+          Not a fan of emails form us?
+          = link_to 'Unsubscribe', '#'
+
+    - if @user
+      %tr
+        %td.content-block.powered-by
+          This message intended for #{@user.email}

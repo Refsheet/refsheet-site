@@ -65,6 +65,7 @@ Rails.application.routes.draw do
 
   if Rails.env.development?
     mount ResqueWeb::Engine => '/resque_web'
+    mount LetterOpenerWeb::Engine => '/letter_opener'
   end
 
   get '/:user_id/:id', to: 'characters#show', as: :character_profile

@@ -36,6 +36,31 @@ describe Transfer, type: :model do
     ]
   )
 
+  describe 'mailers' do
+    context 'when sending' do
+      let(:transfer) { build :transfer }
+
+      it 'sends incoming mailer' do
+        expect(TransferMailer).to receive(:incoming).and_call_original
+        transfer.save!
+      end
+    end
+
+    context 'when replying' do
+      let(:transfer) { create :transfer }
+
+      it 'sends rejected mailer' do
+        expect(TransferMailer).to receive(:rejected).and_call_original
+        transfer.reject!
+      end
+
+      it 'sends accepted mailer' do
+        expect(TransferMailer).to receive(:accepted).and_call_original
+        transfer.claim!
+      end
+    end
+  end
+
   context 'when rejected' do
     let(:transfer) { build :transfer, status: :rejected }
     subject { transfer }

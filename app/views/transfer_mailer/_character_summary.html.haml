@@ -1,0 +1,11 @@
+%table.character-summary
+  %tr
+    %td.quarter-width
+      = image_tag character.profile_image.image.url(:small_square)
+
+    %td.details{style: 'padding-left: 15px;'}
+      %h2.last= character.name
+      %p.muted= character.species || 'Species Unknown'
+
+      %strong= character.images.count
+      = 'Image'.pluralize character.images.count

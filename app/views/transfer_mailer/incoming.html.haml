@@ -1,0 +1,16 @@
+%h1 Character Transfer Request
+
+%p Hey, #{@user.name}:
+
+%p
+  #{@transfer.sender.name} would like to transfer <em>#{@transfer.character.name}</em> to you.
+  If you accept the transfer, this character will be added to your account, including all media attachments.
+
+= render partial: 'character_summary', locals: { character: @transfer.character }
+
+%hr/
+
+%p
+  Click the link below to check out the character, you'll be able to respond to the request there.
+
+= button 'View Character', character_profile_url(@transfer.character.user, @transfer.character), primary: true
