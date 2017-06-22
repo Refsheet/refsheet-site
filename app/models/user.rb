@@ -75,7 +75,7 @@ class User < ApplicationRecord
 
   scoped_search on: [:name, :username, :email]
 
-  scope :confirmed, -> { where.not confirmed_at: nil }
+  scope :confirmed, -> { where.not email_confirmed_at: nil }
 
   def name
     super || username
