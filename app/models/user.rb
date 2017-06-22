@@ -15,6 +15,11 @@
 #  avatar_file_size    :integer
 #  avatar_updated_at   :datetime
 #  settings            :json
+#  type                :string
+#  auth_code_digest    :string
+#  parent_user_id      :integer
+#  unconfirmed_email   :string
+#  email_confirmed_at  :datetime
 #
 
 class User < ApplicationRecord
