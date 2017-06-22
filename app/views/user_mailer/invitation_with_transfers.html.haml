@@ -1,0 +1,15 @@
+%h1 Invitation to Refsheet.net
+
+%p Good news, everyone!
+
+%p
+  [describe Refsheet here]
+
+- @invitation.transfers.each do |t|
+  = render partial: 'character_summary', locals: { character: t.character }
+
+%hr/
+
+All you need to do is create an account, then you can accept the transfers.
+
+= button 'Sign Up & Claim', register_url(email: @invitation.email, auth: @auth_code), primary: true

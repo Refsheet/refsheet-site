@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170617084303) do
+ActiveRecord::Schema.define(version: 20170622084544) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -158,8 +158,9 @@ ActiveRecord::Schema.define(version: 20170617084303) do
     t.string   "email"
     t.datetime "seen_at"
     t.datetime "claimed_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "auth_code_digest"
   end
 
   create_table "items", force: :cascade do |t|
@@ -214,6 +215,17 @@ ActiveRecord::Schema.define(version: 20170617084303) do
     t.string   "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "organization_memberships", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "organization_id"
+    t.boolean  "admin"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["admin"], name: "index_organization_memberships_on_admin", using: :btree
+    t.index ["organization_id"], name: "index_organization_memberships_on_organization_id", using: :btree
+    t.index ["user_id"], name: "index_organization_memberships_on_user_id", using: :btree
   end
 
   create_table "patreon_patrons", force: :cascade do |t|
@@ -361,6 +373,11 @@ ActiveRecord::Schema.define(version: 20170617084303) do
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.json     "settings"
+    t.string   "type"
+    t.string   "auth_code_digest"
+    t.integer  "parent_user_id"
+    t.index ["parent_user_id"], name: "index_users_on_parent_user_id", using: :btree
+    t.index ["type"], name: "index_users_on_type", using: :btree
   end
 
   create_table "visits", force: :cascade do |t|
