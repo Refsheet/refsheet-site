@@ -1,0 +1,290 @@
+!!!
+%html
+  %head
+    %meta{name: 'viewport', content: 'width=device-width'}/
+    %meta{'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8'}/
+    %title= message.subject
+
+    :sass
+      $brand-primary: #2BBBAD
+      $brand-hover: lighten($brand-primary, 10%)
+      $brand-dark: darken($brand-primary, 10%)
+      $brand-superlight: #EEE
+
+      //== Reset Things
+
+      img
+        border: none
+        -ms-interpolation-mode: bicubic
+        max-width: 100%
+
+      body
+        background-color: #F6F6F6
+        font-family: "Helvetica", "Arial", sans-serif
+        -webkit-font-smoothing: antialiased
+        font-size: 14px
+        line-height: 1.4
+        margin: 0
+        padding: 0
+        -ms-text-size-adjust: 100%
+        -webkit-text-size-adjust: 100%
+
+      table
+        border-collapse: separate
+        mso-table-lspace: 0
+        mso-table-rspace: 0
+        width: 100%
+
+        td
+          font-family: "Helvetica", "Arial", sans-serif
+          font-size: 14px
+          vertical-align: top
+
+      //== Layout Things
+
+      .body
+        background-color: #F6F6F6
+        width: 100%
+
+      .container
+        display: block
+        margin: 0 auto !important
+        max-width: 580px
+        padding: 10px
+        width: 580px
+
+      .content
+        box-sizing: border-box
+        display: block
+        margin: 0 auto
+        max-width: 580px
+        padding: 10px
+
+      .main
+        background-color: #FFFFFF
+        border-bottom-left-radius: 3px
+        border-bottom-right-radius: 3px
+        margin-bottom: 15px
+        width: 100%
+
+      .logo
+        background-color: $brand-primary
+        border-top-left-radius: 3px
+        border-top-right-radius: 3px
+        margin-bottom: 0
+        width: 100%
+
+        td
+          padding: 15px
+
+        img
+          display: block
+          margin: 0 auto
+
+      .wrapper
+        box-sizing: border-box
+        padding: 20px
+
+      .footer
+        clear: both
+        padding-top: 10px
+        text-align: center
+        width: 100%
+
+        td, p, span, a
+          color: #999999
+          font-size: 12px
+          text-align: center
+
+      //== Basic Things
+
+      h1, h2, h3, h4
+        color: $brand-dark
+        font-family: "Helvetica", "Arial", sans-serif
+        font-weight: 400
+        line-height: 1.4
+        margin: 0 0 30px 0
+
+      h1
+        font-size: 35px
+        font-weight: 200
+        text-align: center
+        text-transform: capitalize
+
+      p, ul, ol
+        font-family: "Helvetica", "Arial", sans-serif
+        font-size: 14px
+        font-weight: normal
+        margin: 0 0 15px 0
+
+        li
+          list-style-position: inside
+          margin-left: 5px
+
+      a
+        color: $brand-primary
+        text-decoration: underline
+
+      //== Button Things
+
+      .btn
+        box-sizing: border-box
+        width: 100%
+
+        & > tbody > tr > td
+          padding-bottom: 15px
+          padding-top: 15px
+
+        table
+          width: auto
+
+          td
+            background-color: #ffffff
+            border-radius: 5px
+            text-align: center
+
+        a
+          background-color: #ffffff
+          border: 1px solid $brand-primary
+          border-radius: 5px
+          box-sizing: border-box
+          color: $brand-primary
+          cursor: pointer
+          display: inline-block
+          font-size: 14px
+          font-weight: bold
+          margin: 0
+          padding: 12px 25px
+          text-decoration: none
+          text-transform: capitalize
+
+      .btn-primary
+        table td
+          background-color: $brand-primary
+
+        a
+          background-color: $brand-primary
+          border-color: $brand-primary
+          color: #FFFFFF
+
+      //== Useful Things
+
+      .last, .mb0
+        padding-bottom: 0 !important
+        margin-bottom: 0 !important
+
+      .first, .mt0
+        padding-bottom: 0 !important
+        margin-top: 0 !important
+
+      .align-center, .center-align
+        text-align: center !important
+
+      .align-right, .right-align
+        text-align: right !important
+
+      .align-left, .left-align
+        text-align: left !important
+
+      .clear
+        clear: both
+
+      .muted
+        color: #333333
+
+      .preheader
+        color: transparent
+        display: none
+        height: 0
+        width: 0
+        max-height: 0
+        max-width: 0
+        opacity: 0
+        overflow: hidden
+        mso-hide: all
+        visibility: hidden
+
+      .powered-by a
+        text-decoration: none
+
+      table td
+        &.quarter-width
+          width: 25%
+
+      hr
+        border: 0
+        border-bottom: 1px solid $brand-superlight
+        margin: 20px 0
+
+      //= Responsive Things
+
+      @media only screen and (max-width: 620px)
+        table.body
+          h1
+            font-size: 28px !important
+            margin-bottom: 10px !important
+
+          p, ul, ol, td, span, a
+            font-size: 16px !important
+
+          .wrapper, .article
+            padding: 10px !important
+
+          .content
+            padding: 0 !important
+
+          .container
+            padding: 0 !important
+            width: 100% !important
+
+          .main
+            border-left-width: 0 !important
+            border-right-width: 0 !important
+            border-radius: 0 !important
+
+          .btn
+            table, a
+              width: 100% !important
+
+            .img-responsive
+              height: auto !important
+              max-width: 100% !important
+              width: auto !important
+
+        table td
+          &.quarter-width
+            width: 33% !important
+
+      //== Unknown Mystery Things
+
+      @media all
+        .ExternalClass
+          width: 100%
+
+          p, span, font, td, div
+            line-height: 100%
+
+        .apple-link a
+          color: inherit !important
+          font-family: inherit !important
+          font-size: inherit !important
+          font-weight: inherit !important
+          line-height: inherit !important
+          text-decoration: none !important
+
+        .btn-primary
+          table td:hover
+            background-color: $brand-hover !important
+
+          a:hover
+            background-color: $brand-hover !important
+            border-color: $brand-hover !important
+
+  %body
+    %table.body{border: 0, cellpadding: 0, cellspacing: 0}
+      %tr
+        %td &nbsp;
+        %td.container
+          .content
+            = render 'content'
+        %td &nbsp;

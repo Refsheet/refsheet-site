@@ -101,6 +101,8 @@ group :development, :test do
   gem 'bullet'
   gem 'rspec-its'
   gem 'timecop'
+  gem 'letter_opener'
+  gem 'letter_opener_web'
 end
 
 gem 'resque-web', require: 'resque_web'
@@ -110,8 +112,6 @@ group :development do
   gem 'listen', '~> 3.0.5'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'letter_opener'
-  gem 'letter_opener_web'
   gem 'annotate'
 end
 

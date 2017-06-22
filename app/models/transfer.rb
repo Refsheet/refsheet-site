@@ -35,6 +35,7 @@ class Transfer < ApplicationRecord
   validates_inclusion_of :status, in: %w(pending rejected claimed)
 
   before_validation :assign_sender
+  after_create :notify_recipient
 
   has_guid :guid
 
@@ -65,14 +66,20 @@ class Transfer < ApplicationRecord
     self.sender ||= self.character&.user
   end
 
+  def notify_recipient
+    if self.invitation.nil?
+      TransferMailer.incoming(id).deliver_now
+    end
+  end
+
   def claim_transfer
     self.character.update_attributes user: self.destination
     self.claimed_at = DateTime.now
-    # TODO notify the sender
+    TransferMailer.accepted(id).deliver_now
   end
 
   def reject_transfer
     self.rejected_at = DateTime.now
-    # TODO notify the sender
+    TransferMailer.rejected(id).deliver_now
   end
 end

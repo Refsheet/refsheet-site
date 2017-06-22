@@ -1,0 +1,9 @@
+%h1 Transfer Complete!
+
+%p Hey, #{@user.name}:
+
+%p
+  #{@transfer.destination.name} has accepted <em>#{@transfer.character.name}</em> into their collection.
+  All media assets have been transferred to the new owner, but the character history will forever remember you.
+
+= render partial: 'character_summary', locals: { character: @transfer.character }

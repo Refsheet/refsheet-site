@@ -70,6 +70,10 @@ class User < ApplicationRecord
     super || username
   end
 
+  def email_to
+    "#{name} <#{email}>"
+  end
+
   def to_param
     username
   end
