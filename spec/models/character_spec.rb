@@ -86,7 +86,7 @@ describe Character, type: :model do
     expect(character.pending_transfer).to_not be_nil
     expect(character.pending_transfer.invitation).to_not be_nil
 
-    new_user = create :user, email: 'foo@bax.net'
+    new_user = create :user, :confirmed, email: 'foo@bax.net'
     expect(new_user.invitation).to be_claimed
     expect(new_user.transfers_in.pending).to have(1).items
 
