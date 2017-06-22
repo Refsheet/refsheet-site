@@ -12,8 +12,7 @@ class UserSerializer < ActiveModel::Serializer
              :profile_markup,
              :characters_count,
              :is_admin,
-             :is_patron,
-             :settings
+             :is_patron
 
   has_many :characters,
            serializer: ImageCharacterSerializer
