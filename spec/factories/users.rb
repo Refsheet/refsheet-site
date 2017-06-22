@@ -42,6 +42,12 @@ FactoryGirl.define do
       skip_emails false
     end
 
+    trait :confirmed do
+      after(:create) do |user|
+        user.confirm!
+      end
+    end
+
     factory :admin do
       roles {[ Role.find_or_initialize_by(name: 'admin') ]}
     end
