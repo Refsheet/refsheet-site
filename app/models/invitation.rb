@@ -21,18 +21,28 @@ class Invitation < ApplicationRecord
   after_save :assign_transfers, if: -> (i) { i.claimed? }
 
   def claim!
-    self.claimed_at = DateTime.now
-    self.save
+    update! claimed_at: DateTime.now
   end
 
   def claimed?
     self.claimed_at.present?
   end
 
+  def auth_code?(cleartext)
+    auth_code == BCrypt::Password.create(cleartext)
+  end
+
   private
 
   def send_email
-    # TODO Send Email
+    auth_code = SecureRandom.base58
+    update! auth_code_digest: BCrypt::Password.create(auth_code)
+
+    if transfers.any?
+      UserMailer.invitation_with_transfers(id, auth_code).deliver_now
+    else
+      UserMailer.invitation(id, auth_code).deliver_now
+    end
   end
 
   def assign_transfers

@@ -18,4 +18,26 @@ describe Invitation, type: :model do
     belong_to: :user,
     have_many: :transfers
   )
+
+  describe 'mailers' do
+    let(:invitation) { build :invitation }
+
+    it 'sends transfer-invite mailer' do
+      expect(UserMailer).to receive(:invitation_with_transfers).and_call_original
+      invitation.transfers << build(:transfer)
+      invitation.save!
+    end
+
+    it 'sends transfer-invite mailer (harness for multi email test)' do
+      expect(UserMailer).to receive(:invitation_with_transfers).and_call_original
+      invitation.transfers << build(:transfer)
+      invitation.transfers << build(:transfer)
+      invitation.save!
+    end
+
+    it 'sends generic invitation' do
+      expect(UserMailer).to receive(:invitation).and_call_original
+      invitation.save!
+    end
+  end
 end

@@ -13,9 +13,6 @@
 
 FactoryGirl.define do
   factory :invitation do
-    user_id 1
-    email "MyString"
-    seen_at "2017-01-30 17:19:45"
-    claimed_at "2017-01-30 17:19:45"
+    email { Faker::Internet.email }
   end
 end
