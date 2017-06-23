@@ -152,6 +152,7 @@ class User < ApplicationRecord
 
   def handle_email_change
     if !@permit_email_swap and changes.include? :email and changes[:email][0].present?
+      return if changes[:email][0].downcase == changes[:email][1].downcase
       self.unconfirmed_email = self.changes[:email][1]
       self.email = self.changes[:email][0]
       @send_email_change_notice = true
