@@ -4,7 +4,7 @@ class CharactersController < ApplicationController
 
   def index
     @characters = filter_scope
-    render json: @characters, each_serializer: ImageCharacterSerializer
+    render api_collection_response @characters, each_serializer: ImageCharacterSerializer, root: 'characters'
   end
 
   def show
@@ -122,5 +122,7 @@ class CharactersController < ApplicationController
     scope.visible
 
     scope.search_for(query.join(' '))
+
+    scope.paginate(page: params[:page], per_page: 24)
   end
 end

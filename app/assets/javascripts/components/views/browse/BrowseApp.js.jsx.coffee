@@ -1,26 +1,48 @@
 @BrowseApp = React.createClass
+  perPage: 24
+  scrollOffset: 100
+
   getInitialState: ->
-    searching: false
+    searching: true
     results: null
+    totalResults: null
+    page: null
+    lastPage: false
+
 
   componentDidMount: ->
     @doSearch(@props.location.query.q)
+
+    $(window).scroll =>
+      if !@state.lastPage and !@state.searching and $(window).scrollTop() + $(window).height() > $(document).height() - @scrollOffset
+        @_loadMore()
 
   componentWillReceiveProps: (newProps) ->
     if newProps.location.query.q != @props.location.query.q
       @doSearch(newProps.location.query.q)
 
-  doSearch: (query='') ->
-    $.ajax
-      url: '/characters.json'
-      data: q: query
-      success: (data) =>
-        @setState results: data || [], searching: false
+  _loadMore: ->
+    console.log "[BrowseApp] Loading more content: page #{@state.page + 1}"
+    @doSearch @props.location.query.q, @state.page + 1
 
-      error: (error) =>
-        console.error error
-        @setState results: [], searching: false
-        Materialize.toast error.responseText, 3000, 'red'
+  doSearch: (query='', page=1) ->
+    @setState searching: true, =>
+      $.ajax
+        url: '/characters.json'
+        data: q: query, page: page
+        success: (data) =>
+          results = []
+          results = results.concat @state.results if page > 1
+          results = results.concat data.characters
+          lastPage = data.characters.length < @perPage
+          totalResults = data.$meta.total
+          @setState { results, page, lastPage, totalResults, searching: false }
+          console.debug "[BrowseApp] Loaded #{data.characters.length} new records, #{results.length} total.", data.$meta
+
+        error: (error) =>
+          console.error error
+          @setState results: [], searching: false, page: null, lastPage: true, totalResults: 0
+          Materialize.toast error.responseText, 3000, 'red'
 
   render: ->
     if @props.location.query.q
@@ -37,15 +59,11 @@
     `<Main title={ title }>
         { this.state.results != null &&
             <Section className='search-results'>
-                Exactly { this.state.results.length } results
+                Exactly { this.state.totalResults } results
                 { this.props.location.query.q &&
                   <span> | <Link to='/browse'>Clear Search</Link></span>
                 }
             </Section>
-        }
-
-        { this.state.results == null &&
-            <Loading />
         }
 
         { this.state.results == 0 &&
@@ -56,5 +74,12 @@
             <div className='row'>
                 { results }
             </div>
+
+            { this.state.searching && <Loading /> }
+
+            { !this.state.searching && !this.state.lastPage &&
+                <div className='margin-top--large center'>
+                    <Button href='#' onClick={ this._loadMore } large block className='btn-flat grey darken-4 white-text'>Load More...</Button>
+                </div> }
         </Section>
     </Main>`
