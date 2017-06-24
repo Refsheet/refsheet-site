@@ -1,5 +1,5 @@
 @BrowseApp = React.createClass
-  perPage: 24
+  perPage: 16
   scrollOffset: 100
 
   getInitialState: ->
@@ -26,7 +26,12 @@
     @doSearch @props.location.query.q, @state.page + 1
 
   doSearch: (query='', page=1) ->
-    @setState searching: true, =>
+    if page > 1
+      s = searching: true
+    else
+      s = results: null, searching: true, page: null, lastPage: true, totalResults: 0
+
+    @setState s, =>
       $.ajax
         url: '/characters.json'
         data: q: query, page: page
@@ -57,14 +62,18 @@
         </div>`
 
     `<Main title={ title }>
-        { this.state.results != null &&
-            <Section className='search-results'>
-                Exactly { this.state.totalResults } results
-                { this.props.location.query.q &&
-                  <span> | <Link to='/browse'>Clear Search</Link></span>
-                }
-            </Section>
-        }
+        <Section className='search-results'>
+            { this.state.searching
+                ? <div>Searching...</div>
+                : this.state.results &&
+                    <div>
+                        Exactly { this.state.totalResults } results
+                        { this.props.location.query.q &&
+                            <span> | <Link to='/browse'>Clear Search</Link></span>
+                        }
+                    </div>
+            }
+        </Section>
 
         { this.state.results == 0 &&
             <p className='caption center'>No search results :(</p>
@@ -75,7 +84,7 @@
                 { results }
             </div>
 
-            { this.state.searching && <Loading /> }
+            { this.state.searching && <Loading className='margin-top--large' message={ false } /> }
 
             { !this.state.searching && !this.state.lastPage &&
                 <div className='margin-top--large center'>
