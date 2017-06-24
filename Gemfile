@@ -44,6 +44,7 @@ gem 'jquery-tmpl-rails'
 gem 'jquery-justified-gallery-rails'
 gem 'imagesLoaded_rails'
 gem 'highcharts-rails'
+gem 'js_cookie_rails'
 
 # == UTILITY
 
