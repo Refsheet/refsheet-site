@@ -7,7 +7,7 @@
 
 
   getInitialState: ->
-    session: @props.route.session || {}
+    session: @props.route.eagerLoad?.session || {}
     loading: 0
     eagerLoad: @props.route.eagerLoad || {}
 

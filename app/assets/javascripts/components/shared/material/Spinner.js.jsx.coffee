@@ -1,6 +1,4 @@
 @Spinner = (props) ->
-  return `<div className='caption center'>Loading...</div>`
-
   `<div className="preloader-wrapper big active">
       <div className="spinner-layer spinner-blue">
           <div className="circle-clipper left">
