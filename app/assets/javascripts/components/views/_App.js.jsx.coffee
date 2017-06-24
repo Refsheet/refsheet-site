@@ -71,5 +71,16 @@
         <Footer />
 
         <FeedbackModal name={ this.state.session.current_user && this.state.session.current_user.name } />
-        <a className='btn modal-trigger feedback-btn blue-grey' href='#feedback-modal'>Feedback</a>
+        <a className='btn modal-trigger feedback-btn' href='#feedback-modal'>Feedback</a>
+
+        <NagBar action={{ href: 'https://patreon.com/refsheet', text: 'To Patreon!' }} type='good'>
+            <div className='first-a-sincere-thank-you'>
+                <strong>Hey, friend!</strong> &mdash; We're growing really quickly! This makes me super happy, thank you!
+            </div>
+
+            <div className='now-for-some-shameless-begging margin-top--small'>
+                Did you know, Refsheet is currently funded entirely through Patreon by wonderful people like you? If
+                you can help out, for as little as <strong>$1/month</strong>, we can grow even faster!
+            </div>
+        </NagBar>
     </div>`
