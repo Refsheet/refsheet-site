@@ -11,10 +11,12 @@
 
 
   componentWillMount: ->
-    title = []
-    title.push @props.title if @props.title
-    title.push 'Refsheet.net'
-    document.title = [].concat.apply([], title).join ' - '
+    if @props.title
+      title = []
+      title.push @props.title if @props.title
+      title.push 'Refsheet.net'
+      document.title = [].concat.apply([], title).join ' - '
+
     $('body').addClass @props.bodyClassName
 
   componentDidMount: ->

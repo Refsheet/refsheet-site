@@ -29,6 +29,9 @@
       ReactGA.pageview window.location.pathname
 
   render: ->
+    staticPaths = ['privacy', 'terms', 'support'].map (path) ->
+      `<Route key={ path } path={ path } component={ Static.View } />`
+
     `<Router history={ browserHistory } onUpdate={ this._handleRouteUpdate }>
         <Route path='/' component={ App } eagerLoad={ this.props.eagerLoad }>
             <IndexRoute component={ Home } />
@@ -41,10 +44,17 @@
                 <Route path='users' component={ UserIndexView } />
             </Route>
 
-            <Route path='images/:imageId' component={ ImageApp } />
+            {/*== Static Routes */}
 
+            { staticPaths }
+
+            {/*== Profile Content */}
+
+            <Route path='images/:imageId' component={ ImageApp } />
             <Route path=':userId' component={ User.View } />
             <Route path=':userId/:characterId' component={ CharacterApp } />
+
+            {/*== Fallback */ }
 
             <Route path='*' component={ NotFound } />
         </Route>

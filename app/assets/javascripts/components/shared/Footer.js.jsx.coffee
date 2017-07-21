@@ -29,7 +29,7 @@
                   &copy;2017 // A Sitehive project
               </Column>
               <Column s='12' m='6' className='right-align'>
-                  Privacy | DMCA | Terms
+                  <Link to='/terms'>Terms</Link> | <Link to='/privacy'>Privacy</Link>
               </Column>
           </Row>
       </Section>
