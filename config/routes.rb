@@ -68,6 +68,14 @@ Rails.application.routes.draw do
     mount LetterOpenerWeb::Engine => '/letter_opener'
   end
 
+  #== Static Routes
+
+  %w(privacy terms support).each do |path|
+    get "/#{path}", to: 'static#show'
+  end
+
+  get '/static/:id', to: 'static#show', as: :static
+
   get '/:user_id/:id', to: 'characters#show', as: :character_profile
   get '/:id', to: 'users#show', as: :user_profile
   get '*page', to: 'application#show'

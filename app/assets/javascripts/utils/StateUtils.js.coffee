@@ -30,14 +30,14 @@
 
       $(window).scrollTop 0
 
-  reload: (context, path, newProps) ->
+  reload: (context, path, newProps, oldProps=context.props) ->
     fetch = false
 
     for k, p of context.paramMap
-      a = ObjectPath.get context.props.params, k
+      a = ObjectPath.get oldProps.params, k
       b = ObjectPath.get newProps.params, k
 
-      if a.toUpperCase() isnt b.toUpperCase()
+      if a and b and a.toUpperCase() isnt b.toUpperCase()
         fetch = true
         break
 

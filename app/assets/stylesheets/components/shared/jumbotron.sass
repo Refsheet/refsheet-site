@@ -31,8 +31,14 @@ section
   .row:last-child
     margin-bottom: 0
 
+  &.static-content
+    padding: 1.5rem 0
+
   h1
-    color: color('teal', 'lighten-3')
+    color: $secondary-color
+
+  h2
+    color: $primary-color
 
   &.pop-out
     @extend .z-depth-2
