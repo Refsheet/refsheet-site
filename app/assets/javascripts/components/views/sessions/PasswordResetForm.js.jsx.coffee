@@ -75,7 +75,7 @@
              modelName='user'
              model={ this.state.user }
       >
-          <p>Enter a new password and you should be good to go!</p>
+          <p className='margin-bottom--large'>Enter a new password and you should be good to go!</p>
 
           <Input name='password' type='password' label='Password' autoFocus />
           <Input name='password_confirmation' type='password' label='Password Confirmation' noMargin />

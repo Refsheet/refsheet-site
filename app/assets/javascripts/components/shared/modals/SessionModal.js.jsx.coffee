@@ -5,17 +5,22 @@
   close: ->
     $('#session-modal').modal 'close'
 
+  view: (view) ->
+    $(@refs.view).fadeOut 300, =>
+      @setState view: view, =>
+        $(@refs.view).fadeIn 300
+
   _handleHelpClick: (e) ->
-    @setState view: 'help'
+    @view 'help'
     e.preventDefault()
 
   _handleComplete: ->
-    @setState vuew: 'login'
+    @view 'login'
 
   render: ->
     view = switch @state.view
       when 'help'
-        `<PasswordResetForm onComplete={ this.close } />`
+        `<PasswordResetForm onComplete={ this.close } onSignInClick={ this._handleComplete } />`
 
       else
         `<LoginForm onLogin={ this.close }>
@@ -28,5 +33,7 @@
             title='Welcome back!'
             onClose={ this._handleComplete }
             className='narrow'>
-        { view }
+        <div ref='view'>
+            { view }
+        </div>
     </Modal>`
