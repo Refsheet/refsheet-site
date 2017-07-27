@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get 'browse/users', to: 'application#show'
 
   resource :session, only: [:show, :create, :destroy, :update], controller: 'session'
+  resource :password_resets, only: [:create, :update]
   get 'login', to: 'session#new'
 
   resources :characters, only: [:index]

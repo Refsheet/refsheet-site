@@ -8,6 +8,10 @@
         $(this).find('.autofocus').focus()
         $(document).trigger 'materialize:modal:ready'
 
+    if window.location.hash is "##{@props.id}"
+      history.replaceState '', document.title, window.location.pathname + window.location.search
+      $modal.modal 'open'
+
 
   _handleClose: (e) ->
     $modal = $(@refs.modal)

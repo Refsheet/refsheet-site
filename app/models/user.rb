@@ -103,12 +103,12 @@ class User < ApplicationRecord
 
   def self.lookup(username)
     column = username =~ /@/ ? 'email' : 'username'
-    find_by("LOWER(users.#{column}) = ?", username.downcase)
+    find_by("LOWER(users.#{column}) = ?", username&.downcase)
   end
 
   def self.lookup!(username)
     column = username =~ /@/ ? 'email' : 'username'
-    find_by!("LOWER(users.#{column}) = ?", username.downcase)
+    find_by!("LOWER(users.#{column}) = ?", username&.downcase)
   end
 
   def role?(role)
@@ -134,8 +134,13 @@ class User < ApplicationRecord
     BCrypt::Password.new(auth_code_digest) == cleartext
   end
 
-  def generate_auth_code!
-    auth_code = SecureRandom.base58
+  def generate_auth_code!(number=false)
+    auth_code = if number
+                  ("%06d" % SecureRandom.random_number(1e6))
+                else
+                  SecureRandom.base58
+                end
+
     update! auth_code_digest: BCrypt::Password.create(auth_code)
     auth_code
   end
