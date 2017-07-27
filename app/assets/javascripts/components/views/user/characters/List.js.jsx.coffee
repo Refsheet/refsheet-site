@@ -13,6 +13,7 @@
 
 
   _initialize: ->
+    return unless @props.editable
     $list = $(@refs.list)
 
     $list.sortable
