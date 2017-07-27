@@ -4,10 +4,15 @@ class SessionController < ApplicationController
       @user = User.lookup params[:email]
 
       if @user&.auth_code? params[:auth]
-        @user.confirm!
         sign_in @user
 
-        redirect_to user_profile_path(@user), flash: { notice: 'Email address confirmed!' }
+        if params[:auth] =~ /\A\d{6}\z/
+          redirect_to user_profile_path(@user, anchor: 'user-settings-modal'), flash: { notice: 'You have been signed in, don\'t forget to change your password.' }
+        else
+          @user.confirm!
+          redirect_to user_profile_path(@user), flash: { notice: 'Email address confirmed!' }
+        end
+
         return
       else
         flash.now[:error] = 'Invalid authentication code!'

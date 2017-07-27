@@ -80,4 +80,12 @@ feature 'Password Resets', js: true do
       expect(page).to have_no_content 'Welcome back'
     end
   end
+
+  scenario 'direct link' do
+    token = user.generate_auth_code! true
+    visit login_path email: user.email, auth: token
+    expect(page).to have_content user.username
+    expect(page).to have_content 'signed in'
+    expect(page).to have_content 'User Settings'
+  end
 end
