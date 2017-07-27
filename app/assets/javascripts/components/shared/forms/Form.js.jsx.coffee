@@ -133,6 +133,7 @@
     classNames.push 'has-errors' if @state.invalid
 
     `<form onSubmit={ this._handleFormSubmit }
-           className={ classNames.join(' ') }>
+           className={ classNames.join(' ') }
+           noValidate>
         { children }
     </form>`

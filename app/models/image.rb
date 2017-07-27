@@ -82,7 +82,7 @@ class Image < ApplicationRecord # < Media
   after_destroy :clean_up_character
 
   scoped_search on: [:caption, :image_file_name]
-  scoped_search in: :character, on: [:name, :species]
+  scoped_search relation: :character, on: [:name, :species]
 
   scope :sfw, -> { where(nsfw: [false, nil]) }
   scope :nsfw, -> { where(nsfw: true) }

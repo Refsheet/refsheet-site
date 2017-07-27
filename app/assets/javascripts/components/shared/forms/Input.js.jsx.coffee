@@ -78,6 +78,7 @@
     className += ' invalid' if @props.error?
     className += ' browser-default' if @props.browserDefault
     className += ' autofocus' if @props.autoFocus
+    className += ' margin-bottom--none' if @props.noMargin
 
     error = @props.error
     error = error[0] if error?.length
@@ -99,6 +100,7 @@
       autoFocus: @props.autoFocus
       onChange: @_handleInputChange
       className: className
+      noValidate: true
 
 
     if @props.type == 'textarea'

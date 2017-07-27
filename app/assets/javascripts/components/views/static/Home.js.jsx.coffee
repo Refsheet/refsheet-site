@@ -4,11 +4,11 @@
 
   render: ->
     demoSwatches = [
-      { name: 'Light Fur', color: '#fdf2d4' },
-      { name: 'Dark Fur', color: '#b5a67e' },
-      { name: 'Hair', color: '#402b2b', notes: 'Shades may vary.' },
-      { name: 'Eyes', color: '#2a3c1e' }
-      { name: 'Markings', color: '#99b734' }
+      { name: 'Light Fur', color: '#fdf2d4', id: 0 },
+      { name: 'Dark Fur', color: '#b5a67e', id: 1 },
+      { name: 'Hair', color: '#402b2b', notes: 'Shades may vary.', id: 2 },
+      { name: 'Eyes', color: '#2a3c1e', id: 3 }
+      { name: 'Markings', color: '#99b734', id: 4 }
     ]
 
     `<Main>

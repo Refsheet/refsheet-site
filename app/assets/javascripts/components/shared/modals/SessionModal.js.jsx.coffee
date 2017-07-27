@@ -1,42 +1,32 @@
 @SessionModal = React.createClass
   getInitialState: ->
-    user:
-      username: null
-      password: null
+    view: 'login'
 
-  _handleError: (user) ->
-    @setState
-      user:
-        username: @state.user.username
-        password: null
-
-  _handleLogin: (session) ->
-    user = session.current_user
-    $(document).trigger 'app:session:update', session
+  close: ->
     $('#session-modal').modal 'close'
 
+  _handleHelpClick: (e) ->
+    @setState view: 'help'
+    e.preventDefault()
+
+  _handleComplete: ->
+    @setState vuew: 'login'
 
   render: ->
+    view = switch @state.view
+      when 'help'
+        `<PasswordResetForm onComplete={ this.close } />`
+
+      else
+        `<LoginForm onLogin={ this.close }>
+            <div className='right-align'>
+                <a href='/login' onClick={ this._handleHelpClick }>Forgot password?</a>
+            </div>
+        </LoginForm>`
+
     `<Modal id='session-modal'
-            title='Log In'
+            title='Welcome back!'
+            onClose={ this._handleComplete }
             className='narrow'>
-        <Form action='/session'
-              method='POST'
-              modelName='user'
-              model={ this.state.user }
-              onChange={ this._handleLogin }>
-
-            <Input name='username' label='Username' autoFocus />
-            <Input name='password' type='password' label='Password' />
-
-            <Row className='actions'>
-                <Column>
-                    <Link to='/register' className='btn btn-secondary modal-close waves-effect waves-light'>Register</Link>
-
-                    <div className='right'>
-                        <Submit>Log In</Submit>
-                    </div>
-                </Column>
-            </Row>
-        </Form>
+        { view }
     </Modal>`
