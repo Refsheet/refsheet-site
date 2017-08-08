@@ -13,7 +13,7 @@
   _handleLogin: (session) ->
     user = session.current_user
     $(document).trigger 'app:session:update', session
-    @params.onLogin(session) if @params.onLogin
+    @props.onLogin(session) if @props.onLogin
 
   render: ->
     `<Form action='/session'
