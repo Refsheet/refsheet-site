@@ -135,6 +135,7 @@ class Image < ApplicationRecord # < Media
   private
 
   def adjust_source_url
+    return unless source_url.present?
     self.source_url = 'http://' + source_url unless source_url =~ /\A[a-z]+:\/\//i
   end
 end
