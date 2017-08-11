@@ -78,6 +78,7 @@ class Image < ApplicationRecord # < Media
   ranks :row_order
   acts_as_paranoid
 
+  before_validation :adjust_source_url
   after_save :clean_up_character
   after_destroy :clean_up_character
 
@@ -108,7 +109,7 @@ class Image < ApplicationRecord # < Media
 
   def source_url_display
     return nil unless self.source_url.present?
-    output = self.source_url
+    output = self.source_url.dup
     output.gsub! /^\w+:\/\//, ''
     output.gsub! /\/.*\//, '/.../'
     output.gsub! /\?[^?]+$/, ''
@@ -129,5 +130,11 @@ class Image < ApplicationRecord # < Media
 
   def managed_by?(user)
     self.character.managed_by? user
+  end
+
+  private
+
+  def adjust_source_url
+    self.source_url = 'http://' + source_url unless source_url =~ /\A[a-z]+:\/\//i
   end
 end
