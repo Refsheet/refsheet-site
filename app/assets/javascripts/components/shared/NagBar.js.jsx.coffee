@@ -1,4 +1,6 @@
 @NagBar = React.createClass
+  contextTypes:
+    environment: React.PropTypes.string
 
   _handleClear: (e) ->
     Cookies.set '_noNagPlease', 1
@@ -6,7 +8,8 @@
     e.preventDefault()
 
   render: ->
-    return null if Cookies.get '_noNagPlease'
+    return null if @context.environment is 'test' or Cookies.get '_noNagPlease'
+
     { children, action, type } = @props
 
     if action
