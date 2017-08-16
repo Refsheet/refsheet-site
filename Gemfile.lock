@@ -162,12 +162,8 @@ GEM
       unf (>= 0.0.5, < 1.0.0)
     dropzonejs-rails (0.7.3)
       rails (> 3.1)
-    em-websocket (0.5.1)
-      eventmachine (>= 0.12.9)
-      http_parser.rb (~> 0.6.0)
     errbase (0.0.3)
     erubis (2.7.0)
-    eventmachine (1.2.1)
     excon (0.55.0)
     execjs (2.7.0)
     factory_girl (4.8.0)
@@ -210,7 +206,6 @@ GEM
     htmlentities (4.3.4)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
-    http_parser.rb (0.6.0)
     i18n (0.7.0)
     imagesLoaded_rails (4.1.0)
       railties (>= 3.1)
@@ -354,10 +349,6 @@ GEM
     rb-fsevent (0.9.8)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
-    react-rails-hot-loader (0.7.0)
-      em-websocket
-      rails
-      react-rails
     redcarpet (3.4.0)
     redis (3.3.2)
     redis-namespace (1.5.2)
@@ -562,7 +553,6 @@ DEPENDENCIES
   rails-ujs
   ranked-model
   react-rails!
-  react-rails-hot-loader
   redcarpet
   redis (~> 3.0)
   responders
