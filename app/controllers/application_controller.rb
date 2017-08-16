@@ -1,11 +1,18 @@
 class ApplicationController < ActionController::Base
   include SessionHelper
   include CollectionHelper
+  include ResponseHelper
+
+
+  #== Global Hooks
 
   before_action :set_user_locale
   before_action :set_default_meta
   before_action :eager_load_session
   protect_from_forgery with: :exception
+
+
+  #== Force SSL
 
   def self.force_ssl(options = {})
     return unless Rails.env.production?
@@ -20,7 +27,17 @@ class ApplicationController < ActionController::Base
 
   force_ssl
 
+
+  #== Serialization Help
+
   serialization_scope :view_context
+
+
+  #== Error Handling
+
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found
+  rescue_from ActionController::UnknownFormat, with: :not_found
+  rescue_from ActionController::RoutingError, with: :not_found
 
   protected
 
@@ -28,19 +45,16 @@ class ApplicationController < ActionController::Base
     false
   end
 
-  def api_collection_response(collection, options={})
-    root = options.delete :root
-    results = ActiveModel::SerializableResource.new(collection, options).as_json
+  def not_found(e)
+    respond_to do |format|
+      format.html do
+        flash[:error] = e.message
+        render 'application/show', status: :not_found
+      end
 
-    { json: {
-        root => results,
-        '$meta' => {
-            page: params[:page] || 1,
-            total: collection.total_entries,
-            per_page: collection.per_page,
-            pages: collection.total_pages
-        }
-    }}
+      format.json { render json: { error: e.message }, status: :not_found }
+      format.any  { head :not_found }
+    end
   end
 
   private

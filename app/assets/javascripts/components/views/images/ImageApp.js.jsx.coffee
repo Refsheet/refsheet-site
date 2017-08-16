@@ -19,7 +19,7 @@
       @fetch @props.params.imageId
 
   componentWillReceiveProps: (newProps) ->
-    if newProps.params.imageId and newProps.params.imageId isnt @state.image.id
+    if newProps.params.imageId and @state.image and newProps.params.imageId isnt @state.image.id
       @fetch newProps.params.imageId
 
   render: ->
