@@ -1,0 +1,16 @@
+dependencies:
+  pre:
+    - if [ $CIRCLE_BRANCH = 'master' ]; then sudo apt-get install python-dev; fi
+    - if [ $CIRCLE_BRANCH = 'master' ]; then sudo pip install awsebcli; fi
+    - if [ $CIRCLE_BRANCH = 'master' ]; then sudo easy_install --upgrade six; fi
+
+test:
+  override:
+    - bundle exec rspec --format progress --format RspecJunitFormatter -o $CIRCLE_TEST_REPORTS/rspec.xml
+
+deployment:
+  staging:
+    branch: master
+    commands:
+      - bash ./bin/setup-eb.sh
+      - eb deploy inkedfur-staging

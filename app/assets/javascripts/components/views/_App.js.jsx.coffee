@@ -4,6 +4,7 @@
     session: React.PropTypes.object
     setCurrentUser: React.PropTypes.func
     eagerLoad: React.PropTypes.object
+    environment: React.PropTypes.string
 
 
   getInitialState: ->
@@ -16,6 +17,7 @@
     session: @state.session
     setCurrentUser: @_onLogin
     eagerLoad: @state.eagerLoad
+    environment: @props.route.environment
 
 
   componentWillMount: ->
