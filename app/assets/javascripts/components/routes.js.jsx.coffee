@@ -7,6 +7,8 @@
     flash: React.PropTypes.object
 
   componentDidMount: ->
+    console.log "Loading #{@props.environment} environment."
+
     if @props.gaPropertyID
       ReactGA.initialize(@props.gaPropertyID)
 
@@ -31,7 +33,7 @@
       `<Route key={ path } path={ path } component={ Static.View } />`
 
     `<Router history={ browserHistory } onUpdate={ this._handleRouteUpdate }>
-        <Route path='/' component={ App } eagerLoad={ this.props.eagerLoad } envrionment={ this.props.environment }>
+        <Route path='/' component={ App } eagerLoad={ this.props.eagerLoad } environment={ this.props.environment }>
             <IndexRoute component={ Home } />
 
             <Route path='login' component={ LoginView } />
