@@ -17,6 +17,7 @@ gem 'aws-sdk'
 gem 'resque'
 gem 'non-stupid-digest-assets'
 gem 'rollbar'
+gem 'active_elastic_job'
 
 # == FRONT END
 
