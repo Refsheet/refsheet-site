@@ -1,0 +1,2 @@
+class Forum < ApplicationRecord
+end
