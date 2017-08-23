@@ -75,13 +75,19 @@ class ApplicationController < ActionController::Base
 
   def set_default_meta
     site = 'Refsheet.net'
-    desc = 'Show off reference sheets for your characters to help art commissions and share your worlds!'
+    desc = 'Easily create and share reference sheets and art galleries for all your characters; perfect for artists, world builders, and role players.'
+
+    Rails.logger.info params.inspect
+
+    if params[:page] == :home
+      site += ': Your Characters, Organized.'
+    end
 
     set_meta_tags(
         site: site,
         description: desc,
         reverse: true,
-        separator: '|',
+        separator: '-',
         og: {
             title: :title,
             description: :description,

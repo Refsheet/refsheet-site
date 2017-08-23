@@ -8,7 +8,7 @@
 
 
   getInitialState: ->
-    session: @props.route.eagerLoad?.session || {}
+    session: @props.route.eagerLoad?.session || { fetch: true }
     loading: 0
     eagerLoad: @props.route.eagerLoad || {}
 
@@ -21,9 +21,8 @@
 
 
   componentWillMount: ->
-    unless @state.session.current_user
-      @setState loading: 1
-      $.get '/session', (data) =>
+    if @state.session.fetch
+      Model.get '/session', (data) =>
         @setState session: data, loading: 0
         ReactGA.set userId: data.current_user?.id
 

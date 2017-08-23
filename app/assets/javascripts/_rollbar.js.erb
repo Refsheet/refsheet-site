@@ -1,4 +1,4 @@
-<% unless Rails.env.text? %>
+<% if Rails.env.production? %>
 var _rollbarConfig = {
     accessToken: "a43b7825b82c453fb68aeec7da291508",
     captureUncaught: true,

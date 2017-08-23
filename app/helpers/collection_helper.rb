@@ -120,10 +120,10 @@ module CollectionHelper
     if search_query.present? or params.include?(:sort)
       sort = params[:sort] ? "#{scope.table_name + '.' + params[:sort].try(:downcase)} #{params[:order].try(:downcase)}".strip : ''
 
-      if scope.respond_to?(:search_for) && search_query
+      if scope.respond_to?(:search_for) && search_query.present?
         scope = scope.search_for(search_query)
       else
-        unpermitted_params << 'q' if search_query
+        unpermitted_params << 'q' if search_query.present?
       end
 
       scope = scope.order(sort)

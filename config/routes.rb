@@ -49,6 +49,18 @@ Rails.application.routes.draw do
   resources :feedbacks, only: [:create]
   resources :pledges, only: [:index]
 
+
+  #== Forums
+
+  resources :forums, only: [:index, :show] do
+    resources :threads, only: [:show, :create] do
+      resources :posts, only: [:create]
+    end
+  end
+
+
+  #== Webhooks
+
   namespace :webhooks do
     post :patreon, to: 'patreon#create'
   end

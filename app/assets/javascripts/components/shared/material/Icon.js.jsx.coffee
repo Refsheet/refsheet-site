@@ -1,3 +1,3 @@
 @Icon = (props) ->
-  { children } = props
-  `<i className='material-icons'>{ children }</i>`
+  { children, title } = props
+  `<i className='material-icons' title={ title }>{ children }</i>`

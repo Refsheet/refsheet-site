@@ -154,13 +154,17 @@
                       <Link to='/browse' activeClassName='teal-text text-lighten-2'>Browse</Link>
                   </li>
 
-                  {/*<li>
-                      <Link to='/favorites' activeClassName='teal-text text-lighten-2'>Favorites</Link>
-                  </li>*/}
+                  <li>
+                      <Link to='/forums' activeClassName='teal-text text-lighten-2'>Forums</Link>
+                  </li>
 
-                  {/*<li>
-                      <Link to='/guilds' activeClassName='teal-text text-lighten-2'>Guilds</Link>
-                  </li>*/}
+                  {/*<li>*/}
+                      {/*<Link to='/guilds' activeClassName='teal-text text-lighten-2'>Guilds</Link>*/}
+                  {/*</li>*/}
+
+                  {/*<li>*/}
+                      {/*<Link to='/marketplace'>Marketplace</Link>*/}
+                  {/*</li>*/}
               </ul>
 
               <div className='right'>

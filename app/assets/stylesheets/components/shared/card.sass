@@ -2,6 +2,51 @@
   @at-root
     .card-panel
       padding: 1.5rem
+      display: block
 
   &.card-light
     background-color: $page-bg-color
+
+  &.summary-card
+    .card-image
+      position: absolute
+      top: 1rem
+      left: 1rem
+      width: 3rem
+      text-align: center
+      color: $text-light-color
+
+      .material-icons
+        font-size: 3rem
+
+    .card-stacked
+      padding-left: 4rem
+
+    .card-title
+      @extend .truncate
+
+      line-height: initial
+      margin-bottom: 0.5rem
+      color: $brand-primary
+
+    .card-flags
+      margin-top: -0.25rem
+      margin-bottom: 0.5rem
+      font-size: 0.8rem
+      color: $text-light-color
+      line-height: 1rem
+      vertical-align: middle
+
+      .material-icons
+        font-size: inherit
+        margin-right: 0.25rem
+        width: auto
+        line-height: inherit
+        vertical-align: middle
+
+    .description
+      height: (1.5rem * 3)
+      overflow: hidden
+
+    .card-content
+      padding: 1rem
