@@ -6,6 +6,7 @@ class CreateForums < ActiveRecord::Migration[5.0]
       t.string :slug
       t.boolean :locked
       t.boolean :nsfw
+      t.boolean :no_rp
 
       t.timestamps
     end

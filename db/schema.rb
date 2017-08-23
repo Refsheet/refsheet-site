@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170622200642) do
+ActiveRecord::Schema.define(version: 20170822061138) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -128,6 +128,66 @@ ActiveRecord::Schema.define(version: 20170622200642) do
     t.integer  "visit_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+  end
+
+  create_table "forum_karmas", force: :cascade do |t|
+    t.integer  "karmic_id"
+    t.integer  "karmic_type"
+    t.integer  "user_id"
+    t.boolean  "discord"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["karmic_id"], name: "index_forum_karmas_on_karmic_id", using: :btree
+    t.index ["karmic_type"], name: "index_forum_karmas_on_karmic_type", using: :btree
+  end
+
+  create_table "forum_posts", force: :cascade do |t|
+    t.integer  "thread_id"
+    t.integer  "user_id"
+    t.integer  "character_id"
+    t.integer  "parent_post_id"
+    t.integer  "guid"
+    t.text     "content"
+    t.integer  "karma_total"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["character_id"], name: "index_forum_posts_on_character_id", using: :btree
+    t.index ["guid"], name: "index_forum_posts_on_guid", using: :btree
+    t.index ["parent_post_id"], name: "index_forum_posts_on_parent_post_id", using: :btree
+    t.index ["thread_id"], name: "index_forum_posts_on_thread_id", using: :btree
+    t.index ["user_id"], name: "index_forum_posts_on_user_id", using: :btree
+  end
+
+  create_table "forum_threads", force: :cascade do |t|
+    t.integer  "forum_id"
+    t.integer  "user_id"
+    t.integer  "character_id"
+    t.string   "topic"
+    t.string   "slug"
+    t.string   "shortcode"
+    t.text     "content"
+    t.boolean  "locked"
+    t.integer  "karma_total"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["character_id"], name: "index_forum_threads_on_character_id", using: :btree
+    t.index ["forum_id"], name: "index_forum_threads_on_forum_id", using: :btree
+    t.index ["karma_total"], name: "index_forum_threads_on_karma_total", using: :btree
+    t.index ["shortcode"], name: "index_forum_threads_on_shortcode", using: :btree
+    t.index ["slug"], name: "index_forum_threads_on_slug", using: :btree
+    t.index ["user_id"], name: "index_forum_threads_on_user_id", using: :btree
+  end
+
+  create_table "forums", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "slug"
+    t.boolean  "locked"
+    t.boolean  "nsfw"
+    t.boolean  "no_rp"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["slug"], name: "index_forums_on_slug", using: :btree
   end
 
   create_table "images", force: :cascade do |t|

@@ -44,6 +44,9 @@
                 <Route path='users' component={ UserIndexView } />
             </Route>
 
+            <Route path='forums' component={ Forums.Index } />
+            {/*<Route path='forums/:forumId' component={ Forum.Show } />*/}
+
             {/*== Static Routes */}
 
             { staticPaths }
