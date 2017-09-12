@@ -13,4 +13,4 @@ deployment:
     branch: master
     commands:
       - bash ./bin/setup-eb.sh
-      - eb deploy inkedfur-staging
+      - eb deploy refsheet-staging
