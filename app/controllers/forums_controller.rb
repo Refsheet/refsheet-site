@@ -4,14 +4,15 @@ class ForumsController < ApplicationController
 
     respond_to do |format|
       format.json do
-        render json: {}
+        render json: @forums, each_serializer: ForumsSerializer
       end
 
       format.html do
-        # Set Meta
         set_meta_tags(
             title: 'Forums'
         )
+
+        eager_load :forums, @forums, ForumsSerializer
 
         render 'application/show'
       end

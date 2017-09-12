@@ -54,8 +54,26 @@ module SessionHelper
     }
   end
 
-  def eager_load(object)
+  def eager_load(object_or_key, resource=nil, serializer=nil)
     @eager_load ||= {}
-    @eager_load.merge! object
+
+    if object_or_key.is_a? Hash
+      @eager_load.merge! object_or_key
+    else
+      raise ArgumentError.new 'A key is required if using key, resource params.' unless object_or_key && object_or_key.respond_to?(:to_sym)
+      raise ArgumentError.new 'A resource is required if using key, resource params.' unless resource
+
+      if serializer.nil?
+        value = resource
+      elsif resource.is_a? ActiveRecord::Relation
+        value = ActiveModel::SerializableResource.new(resource, each_serializer: serializer)
+      else
+        value = serializer.new(resource)
+      end
+
+      value = value.as_json if value.respond_to? :as_json
+
+      @eager_load.merge! object_or_key.to_sym => value
+    end
   end
 end
