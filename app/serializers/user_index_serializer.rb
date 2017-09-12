@@ -13,7 +13,7 @@ class UserIndexSerializer < ActiveModel::Serializer
   end
 
   def is_patron
-    object.pledges.active.any?
+    object.patron?
   end
 
   def link

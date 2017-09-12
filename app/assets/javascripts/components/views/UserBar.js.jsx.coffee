@@ -1,4 +1,8 @@
 @UserBar = React.createClass
+  contextTypes:
+    currentUser: React.PropTypes.object
+
+
   __init: ->
     $('.user-bar .dropdown-button').dropdown
       constrain_width: false
@@ -154,9 +158,11 @@
                       <Link to='/browse' activeClassName='teal-text text-lighten-2'>Browse</Link>
                   </li>
 
-                  <li>
-                      <Link to='/forums' activeClassName='teal-text text-lighten-2'>Forums</Link>
-                  </li>
+                  { (this.context.currentUser && this.context.currentUser.is_patron) &&
+                    <li>
+                        <Link to='/forums' activeClassName='teal-text text-lighten-2'>Forums</Link>
+                    </li>
+                  }
 
                   {/*<li>*/}
                       {/*<Link to='/guilds' activeClassName='teal-text text-lighten-2'>Guilds</Link>*/}
