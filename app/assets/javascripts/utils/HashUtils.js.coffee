@@ -38,9 +38,19 @@
 
   findItem: (collection, item, primaryKey='id', callback) ->
     targetKey = if typeof item is 'object' then item[primaryKey] else item
-    console.log "===TARGET KEY", targetKey, primaryKey, collection, collection.map (i) -> i[primaryKey]
     old = (collection.filter (i) -> i[primaryKey] == targetKey)[0]
-    console.log "===FOUND", old
     index = collection.indexOf(old) if old
     callback(old, index) if callback
     [old, index]
+
+  groupBy: (items, path) ->
+    final = {}
+
+    return final unless items
+
+    for item in items
+      key = ObjectPath.get item, path
+      final[key] ||= []
+      final[key].push item
+
+    final
