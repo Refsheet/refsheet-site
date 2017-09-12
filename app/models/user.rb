@@ -101,6 +101,9 @@ class User < ApplicationRecord
     self.avatar? ? self.avatar.url(:small_square) : GravatarImageTag.gravatar_url(self.email, size: 200)
   end
 
+
+  #== Lookups
+
   def self.lookup(username)
     column = username =~ /@/ ? 'email' : 'username'
     find_by("LOWER(users.#{column}) = ?", username&.downcase)
@@ -111,9 +114,21 @@ class User < ApplicationRecord
     find_by!("LOWER(users.#{column}) = ?", username&.downcase)
   end
 
+
+  #== Status Checks
+
   def role?(role)
     self.roles.exists?(name: role.to_s)
   end
+
+  def admin?
+    self.role? :admin
+  end
+
+  def patron?
+    self.admin? or self.pledges.active.any?
+  end
+
 
   #== Email Confirmation & Password Reset
 

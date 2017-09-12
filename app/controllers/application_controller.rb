@@ -28,6 +28,17 @@ class ApplicationController < ActionController::Base
   force_ssl
 
 
+  #== Action Locks
+
+  def self.in_beta!
+    before_filter do
+      unless signed_in? and current_user.patron?
+        raise ActionController::RoutingError.new 'This is available to Patrons only!'
+      end
+    end
+  end
+
+
   #== Serialization Help
 
   serialization_scope :view_context
@@ -48,8 +59,7 @@ class ApplicationController < ActionController::Base
   def not_found(e)
     respond_to do |format|
       format.html do
-        flash[:error] = e.message
-        render 'application/show', status: :not_found
+        redirect_to root_url, flash: { error: e.message }
       end
 
       format.json { render json: { error: e.message }, status: :not_found }
