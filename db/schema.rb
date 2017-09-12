@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170822061138) do
+ActiveRecord::Schema.define(version: 20170912183603) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -146,7 +146,7 @@ ActiveRecord::Schema.define(version: 20170822061138) do
     t.integer  "user_id"
     t.integer  "character_id"
     t.integer  "parent_post_id"
-    t.integer  "guid"
+    t.string   "guid"
     t.text     "content"
     t.integer  "karma_total"
     t.datetime "created_at",     null: false

@@ -20,7 +20,6 @@ describe Forum::Post, type: :model do
   it_is_expected_to(
       belong_to: [
           :thread,
-          :forum,
           :user,
           :character,
           :parent_post
@@ -29,11 +28,13 @@ describe Forum::Post, type: :model do
           :replies,
           :karmas
       ],
+      have_one: [
+          :forum
+      ],
       validate_presence_of: [
           :thread,
           :user,
-          :content,
-          :guid
+          :content
       ]
   )
 end

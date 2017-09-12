@@ -92,6 +92,6 @@ module HasGuid
   end
 
   def downcase_guid
-    self.assign_attributes(guid_column_name => self.send(guid_column_name).downcase)
+    self.assign_attributes(guid_column_name => self.send(guid_column_name).to_s.downcase)
   end
 end

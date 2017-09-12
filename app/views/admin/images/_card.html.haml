@@ -35,4 +35,8 @@
     .truncate= link_to image.image_file_name, admin_image_path(image.guid)
     .muted.truncate
       #{ image.created_at.strftime('%d %b %Y') }
-      &bull; #{ link_to image.character.name, admin_character_path(image.character.shortcode) }
+
+      - if image.character
+        &bull; #{ link_to image.character.name, admin_character_path(image.character.shortcode) }
+      - else
+        %span.red &bull; No character!
