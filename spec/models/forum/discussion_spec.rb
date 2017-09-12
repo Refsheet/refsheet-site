@@ -16,5 +16,24 @@
 #  updated_at   :datetime         not null
 #
 
-class Forum::Thread < ApplicationRecord
+require 'rails_helper'
+
+describe Forum::Discussion, type: :model do
+  it_is_expected_to(
+      belong_to: [
+          :forum,
+          :user,
+          :character
+      ],
+      have_many: [
+          :posts,
+          :karmas
+      ],
+      validate_presence_of: [
+          :topic,
+          :content,
+          :user,
+          :slug
+      ]
+  )
 end
