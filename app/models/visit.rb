@@ -34,4 +34,9 @@
 class Visit < ActiveRecord::Base
   has_many :ahoy_events, class_name: "Ahoy::Event"
   belongs_to :user, optional: true
+
+  def location
+    return unless country.present?
+    [city, region, country].join(', ')
+  end
 end
