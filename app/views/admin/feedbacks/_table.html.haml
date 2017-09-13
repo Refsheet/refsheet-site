@@ -22,7 +22,11 @@
           = link_to material_icon(:check), admin_feedback_path(feedback, done: true), method: :patch, class: (feedback.done? ? 'green' : 'grey') + '-text'
 
         .title= link_to feedback.name, admin_feedback_path(feedback)
-        .description= feedback.comment.truncate(120)
+        .description
+          = feedback.comment.truncate(120)
+          - if feedback.comment.blank?
+            %i.grey No comment.
+        .clearfix
 
 - if feedbacks.empty?
   .caption.center Nothing to show here...

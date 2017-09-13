@@ -22,12 +22,19 @@ class Feedback < ApplicationRecord
 
   before_save :post_to_trello
 
+  scoped_search on: [:name, :email, :comment]
+  scoped_search relation: :user, on: [:name, :username, :email]
+
   def name
     self.user&.name || super || 'Anonymous'
   end
 
   def email
     self.user&.email || super
+  end
+
+  def avatar_image_url
+    self.user&.avatar_url || GravatarImageTag.gravatar_url(email)
   end
 
   def trello_card
