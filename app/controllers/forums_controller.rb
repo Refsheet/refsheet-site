@@ -20,4 +20,25 @@ class ForumsController < ApplicationController
       end
     end
   end
+
+  def show
+    @forum = Forum.lookup! params[:id]
+
+    respond_to do |format|
+      format.json do
+        render json: @forum, serializer: ForumSerializer
+      end
+
+      format.html do
+        set_meta_tags(
+            title: @forum.name,
+            description: @forum.description
+        )
+
+        eager_load :forum, @forum, ForumSerializer
+
+        render 'application/show'
+      end
+    end
+  end
 end

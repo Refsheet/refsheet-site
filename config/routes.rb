@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   constraints ShortcodeDomainConstraint do
     root to: redirect('https://refsheet.net')
+    get '/c/:id', to: 'shortcodes#show'
+    get '/f/:id', to: 'forums#shortcode'
+    get '/i/:id', to: 'images#shortcode'
+    get '/t/:id', to: 'forum/threads#shortcode'
+    get '/u/:id', to: 'users#shortcode'
     get '*id', to: 'shortcodes#show'
   end
 
@@ -53,8 +58,8 @@ Rails.application.routes.draw do
   #== Forums
 
   resources :forums, only: [:index, :show] do
-    resources :threads, only: [:show, :create] do
-      resources :posts, only: [:create]
+    resources :threads, only: [:index, :show, :create], controller: 'forum/threads' do
+      resources :posts, only: [:index, :show, :create], controller: 'forum/posts'
     end
   end
 
@@ -74,6 +79,7 @@ Rails.application.routes.draw do
     resources :pledges, only: [:index, :show]
     resources :feedbacks, only: [:index, :show]
     resources :changelogs, only: [:index, :show]
+    resources :forums, only: [:index, :show, :update, :create]
   end
 
   if Rails.env.development?

@@ -23,4 +23,18 @@ class Forum < ApplicationRecord
   validates_presence_of :slug
 
   slugify :name
+
+  def group_name
+    'General'
+  end
+
+  #== Lookups
+
+  def self.lookup(slug)
+    self.find_by slug: slug
+  end
+
+  def self.lookup!(*args)
+    lookup(*args) or raise ActiveRecord::RecordNotFound.new "Couldn't find Forum with slug #{args[0]}.", Forum
+  end
 end
