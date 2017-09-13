@@ -1,0 +1,10 @@
+- title 'Forums'
+= action_button :add, '#form-modal', class: 'red modal-trigger', tooltip: 'New Forum'
+
+.content
+  = render partial: 'table', locals: { forums: @forums }
+
+  .center
+    = will_paginate @scope
+
+= render partial: 'form', locals: { forum: @forum }

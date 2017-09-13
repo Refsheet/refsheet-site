@@ -36,4 +36,8 @@ class Forum::Discussion < ApplicationRecord
 
   slugify :topic
   has_guid :shortcode, type: :shortcode
+
+  def content
+    super.to_md
+  end
 end
