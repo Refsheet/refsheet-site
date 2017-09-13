@@ -1,4 +1,4 @@
-class Forum::ThreadSerializer
+class Forum::ThreadSerializer < ActiveModel::Serializer
   attributes :topic,
              :content,
              :content_html
