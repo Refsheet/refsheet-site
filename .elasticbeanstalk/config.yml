@@ -1,0 +1,18 @@
+branch-defaults:
+  image-management:
+    environment: refsheet-staging
+  master:
+    environment: refsheet-staging
+  production:
+    environment: refsheet-prod
+environment-defaults:
+  refsheet-staging:
+    branch: null
+    repository: null
+global:
+  application_name: refsheet
+  default_ec2_keyname: kenku-dev-1
+  default_platform: Ruby 2.3 (Puma)
+  default_region: us-east-1
+  profile: eb-cli
+  sc: git
