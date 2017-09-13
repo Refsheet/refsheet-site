@@ -8,7 +8,6 @@
     e.preventDefault()
 
   render: ->
-    console.log @context.environment
     return null if @context.environment is 'test' or Cookies.get '_noNagPlease'
 
     { children, action, type } = @props

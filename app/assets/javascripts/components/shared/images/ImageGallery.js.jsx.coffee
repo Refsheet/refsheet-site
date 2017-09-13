@@ -68,10 +68,8 @@
       maxRowHeight: 150
     else
       coef = if $(window).width() < 900 then 1 else 0.7
-      {
-        rowHeight: $(window).width() * (coef * 0.25)
-        maxRowHeight: $(window).width() * (coef * 0.4)
-      }
+      rowHeight: $(window).width() * (coef * 0.25)
+      maxRowHeight: $(window).width() * (coef * 0.4)
 
   _initialize: ->
     console.debug '[ImageGallery] Initializing justified gallery.'
@@ -81,7 +79,7 @@
       margins: 15
       captions: false
 
-    Object.assign opts, @_getJgRowHeight()
+    opts = $.extend {}, opts, @_getJgRowHeight()
     $(@refs.gallery).justifiedGallery opts
 
 

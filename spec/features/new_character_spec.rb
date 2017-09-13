@@ -5,13 +5,9 @@ feature 'New Character', js: true do
   before { sign_in user }
 
   before(:each) do
-    visit user_profile_path user
-    page.find('#user-actions').click
-    sleep 0.3 # HACK - I SHOULD NOT HAVE TO DO THIS but whatever
-    expect(page).to have_selector '#action-new-character', visible: true
-    page.find('#action-new-character').click
-    sleep 0.3
-    expect(page).to have_selector '#character-form', visible: true
+    visit user_profile_path user, anchor: '#character-form'
+    evaluate_script "$('#character-form').modal('open');"
+    expect(page).to have_selector('#character-form', visible: true)
   end
 
   def try_create(expected_error=nil)
