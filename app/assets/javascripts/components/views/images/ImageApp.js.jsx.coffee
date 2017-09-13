@@ -12,14 +12,14 @@
     Model.get "/images/#{imageId}.json", @load
 
   componentWillMount: ->
-    if @props.route.image and @props.route.image.id is @props.params.imageId
+    if @props.route.image and (@props.route.image?.id is @props.params.imageId)
       console.debug "EAGER LOADING:", @props.route.image
       @load @props.route.image
     else
       @fetch @props.params.imageId
 
   componentWillReceiveProps: (newProps) ->
-    if newProps.params.imageId and @state.image and newProps.params.imageId isnt @state.image.id
+    if newProps.params.imageId and @state.image and (newProps.params.imageId isnt @state.image?.id)
       @fetch newProps.params.imageId
 
   render: ->
