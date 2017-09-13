@@ -34,6 +34,10 @@ class Feedback < ApplicationRecord
     Trello::Card.find self.trello_card_id if self.trello_card_id.present?
   end
 
+  def done?
+    false
+  end
+
   private
 
   def post_to_trello

@@ -1,0 +1,28 @@
+-##  id             :integer          not null, primary key
+-##  user_id        :integer
+-##  name           :string
+-##  email          :string
+-##  comment        :text
+-##  trello_card_id :string
+-##  source_url     :string
+-##  visit_id       :integer
+
+- if feedbacks.is_a? Hash
+  - feedbacks.each do |group, items|
+    %h2.list-group-heading= group
+    = render partial: 'table', locals: { feedbacks: items }
+
+- else
+  %ul.collection
+    - feedbacks.each do |feedback|
+      %li.collection-item
+        .right.right-align
+          .muted= feedback.created_at.strftime('%d %b %Y')
+          = link_to material_icon(:reply), "mailto:#{feedback.email}"
+          = link_to material_icon(:check), admin_feedback_path(feedback, done: true), method: :patch, class: (feedback.done? ? 'green' : 'grey') + '-text'
+
+        .title= link_to feedback.name, admin_feedback_path(feedback)
+        .description= feedback.comment.truncate(120)
+
+- if feedbacks.empty?
+  .caption.center Nothing to show here...
