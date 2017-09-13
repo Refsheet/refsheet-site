@@ -3,16 +3,18 @@ class Admin::ForumsController < AdminController
 
   add_breadcrumb 'Forums', :admin_forums_path
 
+  before_action do
+    @search = { path: admin_forums_path }
+  end
+
   def index
     @forums = @scope = filter_scope Forum
     @forums = @forums.group_by { |f| f.group_name }
     @forum = Forum.new
-    respond_with :admin, @forums
   end
 
   def show
     add_breadcrumb @forum.name, admin_forum_path(@forum)
-    respond_with :admin, @forum
   end
 
   def create
