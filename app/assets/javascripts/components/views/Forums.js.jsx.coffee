@@ -1,2 +1,2 @@
 @Forums = {}
-@Forums.Topics = {}
+@Forums.Threads = {}

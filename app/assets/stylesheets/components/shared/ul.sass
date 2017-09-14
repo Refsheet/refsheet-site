@@ -1,11 +1,22 @@
 ul
   &.message-list
-    border-left: 1px solid $lighten-color
-
     li
-      border-bottom: 1px solid $lighten-color
       padding: 0.5rem 1rem
       transition: background-color, 0.3s
+      border-left: 3px solid transparent
+
+      &.unread
+        border-left-color: $secondary-color
+
+        a
+          font-weight: bold
+
+      &.active
+        background-color: $page-bg-color
+        border-left-color: $primary-color
+
+        a
+          color: $primary-color
 
       &:last-child
         border-bottom: none

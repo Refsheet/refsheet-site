@@ -23,16 +23,31 @@
         `<Forums.Table key={ groupName } title={ groupName } forums={ forums } />`
       )
 
-    if forumTables.length == 0
+    if !@state.forums
+      forumTables =
+        `<Loading />`
+
+    else if forumTables.length == 0
       forumTables =
         `<p className='caption center'>Nothing to see here :(</p>`
 
-    `<Main title='Forums' loading={!this.state.forums}>
-        <Jumbotron>
-            <h1>Discuss & Socialize</h1>
-        </Jumbotron>
+    `<Main title='Forums' flex>
+        <Container flex>
+            <div className='sidebar'>
+                <Jumbotron className='short'>
+                    <h1>Discuss & Socialize</h1>
+                </Jumbotron>
 
-        <Container className='padding-top--large'>
-            { forumTables }
+                <Tabs>
+                    <Tab name='Following' />
+                    <Tab name='Recent' />
+                </Tabs>
+
+                <Forums.Threads.List />
+            </div>
+
+            <div className='content'>
+                { forumTables }
+            </div>
         </Container>
     </Main>`

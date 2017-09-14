@@ -16,25 +16,16 @@
   render: ->
     return null unless @state.forum
 
-    threads = [1..10].map (thread) ->
-      classNames = []
-      classNames.push 'active' if thread == 5
-
-      `<li className={ classNames.join(' ') } key={ thread }>
-          <Link to='/forums/support/update-9324' className='truncate strong'>The November update is here!</Link>
-          <div className='muted'>By Mau Abata &bull; 932 replies</div>
-      </li>`
-
     `<Main title={ this.state.forum.name } fadeEffect flex>
-        <Jumbotron>
-            <h1>{ this.state.forum.name }</h1>
-            <p className='flow-text'>{ this.state.forum.description }</p>
-        </Jumbotron>
-
         <Container flex>
-            <ul className='message-list sidebar'>
-                { threads }
-            </ul>
+            <div className='sidebar sidebar-flex'>
+                <Jumbotron className='short'>
+                    <h1>{ this.state.forum.name }</h1>
+                    <p>{ this.state.forum.description }</p>
+                </Jumbotron>
+
+                <Forums.Threads.List />
+            </div>
 
             <div className='content'>
                 { this.props.children ||
