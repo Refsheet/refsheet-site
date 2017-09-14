@@ -24,17 +24,24 @@ class Forum < ApplicationRecord
 
   slugify :name
 
+
+  #== Eventually move to a column / cache
+
   def group_name
     'General'
+  end
+
+  def thread_count
+    threads.count
   end
 
   #== Lookups
 
   def self.lookup(slug)
-    self.find_by slug: slug
+    self.find_by 'LOWER(forums.slug) = ?', slug&.to_s&.downcase
   end
 
   def self.lookup!(*args)
-    lookup(*args) or raise ActiveRecord::RecordNotFound.new "Couldn't find Forum with slug #{args[0]}.", Forum
+    self.lookup(*args) or raise ActiveRecord::RecordNotFound.new "Couldn't find Forum with slug #{args[0]}.", Forum
   end
 end

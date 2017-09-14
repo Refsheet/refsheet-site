@@ -134,6 +134,8 @@
 
     `<form onSubmit={ this._handleFormSubmit }
            className={ classNames.join(' ') }
+           action={ this.props.action }
+           method={ this.props.method }
            noValidate>
         { children }
     </form>`

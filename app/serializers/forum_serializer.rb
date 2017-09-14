@@ -13,7 +13,7 @@
 #  updated_at  :datetime         not null
 #
 
-class ForumsSerializer < ActiveModel::Serializer
+class ForumSerializer < ActiveModel::Serializer
   attributes :name,
              :description,
              :slug,
@@ -23,6 +23,8 @@ class ForumsSerializer < ActiveModel::Serializer
              :group_name,
              :thread_count,
              :path
+
+  has_many :threads, serializer: Forum::ThreadsSerializer
 
   def path
     "/forums/#{object.slug}"

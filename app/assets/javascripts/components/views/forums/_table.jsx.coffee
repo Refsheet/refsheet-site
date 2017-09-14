@@ -2,8 +2,8 @@
   { forums, title } = props
 
   forumCards = forums.map (forum) ->
-    `<Column m={4}>
-        <Forums.Card {...HashUtils.camelizeKeys(forum)} />
+    `<Column m={4} key={ forum.slug }>
+        <Forums.Card {...StringUtils.camelizeKeys(forum)} />
     </Column>`
 
   `<div className='collection-group'>
