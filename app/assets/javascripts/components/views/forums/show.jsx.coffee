@@ -17,12 +17,17 @@
     return null unless @state.forum
 
     `<Main title={ this.state.forum.name } fadeEffect flex>
+        <Jumbotron className='short'>
+            <h1>{ this.state.forum.name }</h1>
+            <p>{ this.state.forum.description }</p>
+        </Jumbotron>
+
         <Container flex>
             <div className='sidebar sidebar-flex'>
-                <Jumbotron className='short'>
-                    <h1>{ this.state.forum.name }</h1>
-                    <p>{ this.state.forum.description }</p>
-                </Jumbotron>
+                <Tabs>
+                    <Tab name='Recent' />
+                    <Tab name='Unread' />
+                </Tabs>
 
                 <Forums.Threads.List />
             </div>
