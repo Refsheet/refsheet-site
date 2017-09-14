@@ -1,0 +1,15 @@
+ul
+  &.message-list
+    border-left: 1px solid $lighten-color
+
+    li
+      border-bottom: 1px solid $lighten-color
+      padding: 0.5rem 1rem
+      transition: background-color, 0.3s
+
+      &:last-child
+        border-bottom: none
+
+      &:hover
+        background-color: $lighten-color
+        cursor: pointer

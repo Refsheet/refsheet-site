@@ -20,7 +20,7 @@
     # Build Table Children
     for groupName, forums of forumGroups
       forumTables.push(
-        `<Forums.Table title={ groupName } forums={ forums } />`
+        `<Forums.Table key={ groupName } title={ groupName } forums={ forums } />`
       )
 
     if forumTables.length == 0

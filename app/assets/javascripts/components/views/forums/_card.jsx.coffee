@@ -1,5 +1,5 @@
 @Forums.Card = (props) ->
-  { icon, title, description, threadCount, locked, nsfw, noRp } = props
+  { icon, name, description, threadCount, locked, nsfw, noRp, path } = props
 
   description ||= props.children
 
@@ -14,7 +14,7 @@
     flagIcons.push `<Icon title={ hint } key={ hint }>{ flagIcon }</Icon>`
 
 
-  `<Link to='/forums/customer-support' className='block'>
+  `<Link to={ path } className='block'>
       <div className='card summary-card'>
           <div className='card-image'>
               <Icon>{ icon || 'forum' }</Icon>
@@ -22,7 +22,7 @@
 
           <div className='card-stacked'>
               <div className='card-content'>
-                  <div className='card-title' title={ title }>{ title || 'Untitled' }</div>
+                  <div className='card-title' title={ name }>{ name || 'Untitled' }</div>
                   <div className='card-flags'>
                       { NumberUtils.format(threadCount || 0) } threads
                       { flags && <span> &bull; </span> }

@@ -39,23 +39,31 @@
             <Route path='login' component={ LoginView } />
             <Route path='register' component={ RegisterView } />
 
+
             <Route path='browse' component={ BrowseApp }>
                 <IndexRoute component={ CharacterIndexView } />
                 <Route path='users' component={ UserIndexView } />
             </Route>
 
+
             <Route path='forums' component={ Forums.Index } />
-            {/*<Route path='forums/:forumId' component={ Forum.Show } />*/}
+
+            <Route path='forums/:forumId' component={ Forums.Show }>
+                <Route path=':topicId' component={ Forums.Topics.Show } />
+            </Route>
+
 
             {/*== Static Routes */}
 
             { staticPaths }
+
 
             {/*== Profile Content */}
 
             <Route path='images/:imageId' component={ ImageApp } />
             <Route path=':userId' component={ User.View } />
             <Route path=':userId/:characterId' component={ CharacterApp } />
+
 
             {/*== Fallback */}
 

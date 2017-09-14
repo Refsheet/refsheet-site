@@ -5,6 +5,8 @@
     state = $.extend {}, context.state
     fetch = true
 
+    console.debug '[StateUtils] Loading with params:', props.params
+
     if elItem = ObjectPath.get eagerLoad, path
       for k, p of paramMap
         a = ObjectPath.get props.params, k

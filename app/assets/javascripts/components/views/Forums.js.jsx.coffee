@@ -1,1 +1,2 @@
 @Forums = {}
+@Forums.Topics = {}

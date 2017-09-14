@@ -4,6 +4,7 @@
     className: React.PropTypes.string
     bodyClassName: React.PropTypes.string
     fadeEffect: React.PropTypes.bool
+    slideEffect: React.PropTypes.bool
     title: React.PropTypes.oneOfType([
       React.PropTypes.string
       React.PropTypes.array
@@ -23,16 +24,21 @@
     if @props.fadeEffect
       $(@refs.main).fadeIn()
 
+    if @props.slideEffect
+      $(@refs.main).slideDown()
+
   componentWillUnmount: ->
     $('body').removeClass @props.bodyClassName
 
 
   render: ->
     style = @props.style || {}
+    classNames = [this.props.className]
+    classNames.push 'main-flex' if this.props.flex
 
-    if @props.fadeEffect
+    if @props.fadeEffect or @props.slideEffect
       style.display = 'none'
 
-    `<main style={ this.props.style } className={ this.props.className } ref='main'>
+    `<main style={ this.props.style } className={ classNames.join(' ') } ref='main'>
         { this.props.children }
     </main>`
