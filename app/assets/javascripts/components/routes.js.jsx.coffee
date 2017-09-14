@@ -49,7 +49,7 @@
             <Route path='forums' component={ Forums.Index } />
 
             <Route path='forums/:forumId' component={ Forums.Show }>
-                <Route path=':topicId' component={ Forums.Topics.Show } />
+                <Route path=':topicId' component={ Forums.Threads.Show } />
             </Route>
 
 

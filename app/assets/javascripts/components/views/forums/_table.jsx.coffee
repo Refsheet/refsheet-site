@@ -2,12 +2,12 @@
   { forums, title } = props
 
   forumCards = forums.map (forum) ->
-    `<Column m={4} key={ forum.slug }>
+    `<Column l={6} xl={4} key={ forum.slug }>
         <Forums.Card {...StringUtils.camelizeKeys(forum)} />
     </Column>`
 
   `<div className='collection-group'>
-      <h2 className='group-title'>{ title }</h2>
+      <h3 className='group-title margin-top--none'>{ title }</h3>
 
       <Row>
           { forumCards }
