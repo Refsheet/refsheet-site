@@ -11,6 +11,17 @@
   delete: (path, success, error) ->
     @request('DELETE', path, {}, success, error)
 
+  poll: (path, data, success) ->
+    console.debug "POLL #{path}", data
+
+    $.ajax
+      url: path
+      type: 'GET'
+      data: data
+      dataType: 'json'
+      success: success
+
+
   request: (type, path, data, success, error) ->
     $(document).trigger 'app:loading'
     console.debug "#{type} #{path}", data

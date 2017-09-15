@@ -7,6 +7,8 @@
 
   dataPath: '/forums/:forumId/:threadId'
 
+  poller: null
+
   paramMap:
     forumId: 'forum_id'
     threadId: 'id'
@@ -15,13 +17,32 @@
     thread: null
 
   componentWillMount: ->
-    StateUtils.load @, 'thread'
+    StateUtils.load @, 'thread', @props, (thread) =>
+      @_poll() if thread
+      console.log 'Starting poll.'
+
+  componentWillUnmount: ->
+    clearTimeout @poller
+    console.log 'Stopping poll.'
+
+  _poll: ->
+    @poller = setTimeout =>
+      Model.poll @state.thread.path, {}, (data) =>
+        if data.id == @state.thread.id
+          willScroll = @state.thread.posts.length < data.posts.length and (window.innerHeight + window.scrollY) >= document.body.offsetHeight
+
+          @setState thread: data, =>
+            window.scrollTo 0, document.body.scrollHeight if willScroll
+
+        @_poll()
+    , 3000
 
   componentWillReceiveProps: (newProps) ->
     StateUtils.reload @, 'thread', newProps
 
   _handleReply: (post) ->
-    StateUtils.updateItem @, 'thread.posts', post, 'id'
+    StateUtils.updateItem @, 'thread.posts', post, 'id', ->
+      window.scrollTo 0, document.body.scrollHeight
     @props.onReply(post) if @props.onReply
 
   render: ->

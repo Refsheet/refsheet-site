@@ -6,12 +6,25 @@
   paramMap:
     forumId: 'slug'
 
+  poller: null
+
   getInitialState: ->
     forum: null
     threadScope: 'recent'
 
   componentWillMount: ->
-    StateUtils.load @, 'forum'
+    StateUtils.load @, 'forum', @props, (forum) =>
+      @_poll() if forum
+
+  componentWillUnmount: ->
+    clearTimeout @poller
+
+  _poll: ->
+    @poller = setTimeout =>
+      Model.poll @state.forum.path, {}, (data) =>
+        @setState forum: data if data.id == @state.forum.id
+        @_poll()
+    , 15000
 
   componentWillReceiveProps: (newProps) ->
     StateUtils.reload @, 'forum', newProps
