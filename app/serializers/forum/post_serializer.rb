@@ -1,24 +1,26 @@
-class Forum::ThreadSerializer < ActiveModel::Serializer
+class Forum::PostSerializer < ActiveModel::Serializer
   include ActionView::Helpers::DateHelper
 
   attributes :id,
-             :forum_id,
-             :topic,
+             :thread_id,
              :created_at_human,
              :content,
              :content_html,
-             :path
+             :path,
+             :user
 
-  has_one :user, serializer: UserIndexSerializer
   has_one :character, serializer: ImageCharacterSerializer
-  has_many :posts, serializer: Forum::PostSerializer
 
-  def id
-    object.slug
+  def user
+    UserIndexSerializer.new(object.user).as_json
   end
 
-  def forum_id
-    object.forum.slug
+  def id
+    object.guid
+  end
+
+  def thread_id
+    object.thread.slug
   end
 
   def created_at_human
@@ -30,6 +32,6 @@ class Forum::ThreadSerializer < ActiveModel::Serializer
   end
 
   def path
-    "/forums/#{object.forum.slug}/#{object.slug}"
+    "/forums/#{object.forum.slug}/threads/#{object.thread.slug}/posts/#{object.guid}"
   end
 end

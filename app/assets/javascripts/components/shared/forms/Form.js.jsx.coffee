@@ -115,6 +115,7 @@
             value: @state.model[child.props.name]
             error: @state.errors[child.props.name]
             onChange: @_handleInputChange
+            onSubmit: @_handleFormSubmit
             modelName: @props.modelName
         else
           childProps =

@@ -20,7 +20,7 @@
         context.setState state
 
     if fetch
-      fetchUrl = dataPath.replace /(:[a-zA-Z]+)/, (m) ->
+      fetchUrl = dataPath.replace /(:[a-zA-Z]+)/g, (m) ->
         ObjectPath.get props.params, m.substring(1)
 
       Model.get fetchUrl, (data) ->

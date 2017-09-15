@@ -30,4 +30,8 @@ class Forum::Post < ApplicationRecord
   validates_presence_of :thread
 
   has_guid
+
+  def content
+    super.to_md
+  end
 end
