@@ -1,5 +1,5 @@
 @StateUtils =
-  load: (context, path, props=context.props) ->
+  load: (context, path, props=context.props, callback) ->
     { dataPath, paramMap } = context
     eagerLoad = context.context.eagerLoad
     state = $.extend {}, context.state
@@ -18,7 +18,8 @@
       unless fetch
         console.debug '[StateUtils] Eager Loading:', elItem
         ObjectPath.set state, path, elItem
-        context.setState state
+        context.setState state, ->
+          callback(elItem) if callback
 
     if fetch
       fetchUrl = dataPath.replace /(:[a-zA-Z]+)/g, (m) ->
@@ -26,10 +27,12 @@
 
       Model.get fetchUrl, (data) ->
         ObjectPath.set state, path, data
-        context.setState state
+        context.setState state, ->
+          callback(data) if callback
 
       , (error) ->
-        context.setState error: error
+        context.setState { error: error }, ->
+          callback() if callback
 
       $(window).scrollTop 0
 
@@ -47,6 +50,9 @@
     if fetch
       StateUtils.load context, path, newProps
       $(window).scrollTop 0
+
+  poll: (context, path, props=context.props) ->
+    #no-op
 
 
   updateItem: (context, path, item, primaryKey, callback) ->
