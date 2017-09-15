@@ -5,8 +5,14 @@ class MarkdownString < String
       autolink: true
   }
 
+  HTML_OPTIONS = {
+      escape_html: true,
+      hard_wrap: true,
+      prettify: true
+  }
+
   def self.html_renderer
-    renderer = Redcarpet::Render::HTML
+    renderer = Redcarpet::Render::HTML.new(HTML_OPTIONS)
     @@html_renderer ||= Redcarpet::Markdown.new(renderer, EXTENSIONS)
   end
 
