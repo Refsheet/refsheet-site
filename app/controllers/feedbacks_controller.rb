@@ -3,9 +3,8 @@ class FeedbacksController < ApplicationController
     @feedback = Feedback.new feedback_params
 
     if @feedback.save
-      head :created
+      render json: @feedback
     else
-      Rails.logger.info @feedback.inspect
       render json: { errors: @feedback.errors }, status: :bad_request
     end
   end

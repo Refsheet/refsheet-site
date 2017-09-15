@@ -1,6 +1,7 @@
 @Row = React.createClass
   propTypes:
     hidden: React.PropTypes.bool
+    oneColumn: React.PropTypes.bool
 
 
   componentWillReceiveProps: (newProps) ->
@@ -16,4 +17,12 @@
     className += ' no-margin' if @props.noMargin
     className += ' hidden' if @props.hidden
 
-    `<div ref='row' className={ 'row ' + className }>{ this.props.children }</div>`
+    if this.props.oneColumn
+      children =
+        `<Column>{ this.props.children }</Column>`
+    else
+      children = this.props.children
+
+    `<div ref='row' className={ 'row ' + className }>
+        { children }
+    </div>`

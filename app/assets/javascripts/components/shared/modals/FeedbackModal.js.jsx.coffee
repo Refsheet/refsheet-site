@@ -10,18 +10,17 @@
 
 
   _handleSubmit: (feedback) ->
-    $('#feedback-modal').modal('close')
+    @refs.modal.close()
     Materialize.toast 'Thanks for the feedback!', 3000, 'green'
-    @setState comment: null
+    @setState model: comment: null
 
   _handleClose: (e) ->
-    $('#feedback-modal').modal('close')
+    @refs.modal.close()
     e.preventDefault()
 
 
   render: ->
-    `<Modal id='feedback-modal'>
-        <h2>Feedback</h2>
+    `<Modal id='feedback-modal' ref='modal' title='Feedback'>
         <p>Something not quite right? Want a new feature? Let me know!</p>
 
         <Form onChange={ this._handleSubmit }
@@ -30,15 +29,13 @@
               model={ this.state.model }
               modelName='feedback' >
 
-            <Input type='text' name='name' label='Your Name' autoFocus={ !this.state.name } />
-            <Input type='textarea' name='comment' label='Comment' autoFocus={ !!this.state.name } />
+            <Input type='text' name='name' label='Your Name' autoFocus={ !this.state.model.name } />
+            <Input type='textarea' name='comment' label='Comment' autoFocus={ !!this.state.model.name } />
 
-            <div className='actions margin-top--large'>
-                <Submit />
-
-                <a className='btn grey right darken-3 waves waves-light' onClick={ this._handleClose }>
-                    <i className='material-icons'>cancel</i>
-                </a>
-            </div>
+            <Row className='actions right-align'>
+                <Column>
+                    <Submit>Send Feedback</Submit>
+                </Column>
+            </Row>
         </Form>
     </Modal>`

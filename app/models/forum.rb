@@ -22,7 +22,7 @@ class Forum < ApplicationRecord
   validates_presence_of :name
   validates_presence_of :slug
 
-  slugify :name
+  slugify :name, lookups: true
 
 
   #== Eventually move to a column / cache
@@ -33,15 +33,5 @@ class Forum < ApplicationRecord
 
   def thread_count
     threads.count
-  end
-
-  #== Lookups
-
-  def self.lookup(slug)
-    self.find_by 'LOWER(forums.slug) = ?', slug&.to_s&.downcase
-  end
-
-  def self.lookup!(*args)
-    self.lookup(*args) or raise ActiveRecord::RecordNotFound.new "Couldn't find Forum with slug #{args[0]}.", Forum
   end
 end

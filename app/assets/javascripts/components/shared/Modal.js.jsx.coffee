@@ -12,10 +12,12 @@
       history.replaceState '', document.title, window.location.pathname + window.location.search
       $modal.modal 'open'
 
-
-  _handleClose: (e) ->
+  close: ->
     $modal = $(@refs.modal)
     $modal.modal 'close'
+
+  _handleClose: (e) ->
+    @close()
     e.preventDefault()
 
     
