@@ -1,9 +1,14 @@
 class Forum::ThreadsSerializer < ActiveModel::Serializer
-  attributes :topic,
+  attributes :id,
+             :topic,
              :summary,
              :username,
              :poster_name
              :avatar_url
+
+  def id
+    object.slug
+  end
 
   def username
     object.user.username

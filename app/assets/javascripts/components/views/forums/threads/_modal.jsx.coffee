@@ -24,9 +24,10 @@
               model={ this.state.thread }
               modelName='thread'
               onChange={ this._handleCreate }
+              className='reply-box not-really-tho'
         >
             <Input name='topic' label='Topic' />
-            <Input name='content' label='Content' type='textarea' />
+            <Input name='content' placeholder='What would you like to say?' type='textarea' browserDefault />
 
             <Row className='actions right-align' oneColumn>
                 <Submit>Start Thread</Submit>

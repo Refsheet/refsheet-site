@@ -32,6 +32,27 @@ body:not(.admin)
           background-color: darken($card-bg-color, 5%)
 
 
+    &.reply-box
+      &:not(.not-really-tho)
+        .input-field
+          margin: 0
+
+      textarea
+        border: none
+        font: inherit
+        font-family: inherit !important
+        font-size: inherit !important
+        color: inherit
+        padding: 0.5rem
+        white-space: normal !important
+        background-color: rgba(0,0,0,0.1)
+        border-bottom: 1px solid $brand-primary
+        margin-bottom: 0.5rem
+
+        &:focus, &:active
+          outline: none
+          box-shadow: none
+
     &.inline
       display: flex
       height: 2.5rem

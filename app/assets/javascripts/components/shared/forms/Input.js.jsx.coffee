@@ -15,6 +15,7 @@
     browserDefault: React.PropTypes.bool
     focusSelectAll: React.PropTypes.bool
     icon: React.PropTypes.string
+    onSubmit: React.PropTypes.func
 
     value: React.PropTypes.oneOfType([
       React.PropTypes.string
@@ -72,6 +73,11 @@
     @setState error: null, value: value, dirty: true
     @props.onChange(@props.name, value) if @props.onChange
 
+  _handleKeyPress: (e) ->
+    switch
+      when e.ctrlKey && e.keyCode == 13
+        @props.onSubmit() if @props.onSubmit
+
 
   render: ->
     className  = @props.className
@@ -108,6 +114,7 @@
       inputField =
         `<textarea {...commonProps}
                    value={ this.state.value || '' }
+                   onKeyDown={ this._handleKeyPress }
                    className={ className }
         />`
 
