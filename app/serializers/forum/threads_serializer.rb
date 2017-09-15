@@ -3,8 +3,10 @@ class Forum::ThreadsSerializer < ActiveModel::Serializer
              :topic,
              :summary,
              :username,
-             :poster_name
-             :avatar_url
+             :user_name,
+             :avatar_url,
+             :posts_count,
+             :path
 
   def id
     object.slug
@@ -14,8 +16,12 @@ class Forum::ThreadsSerializer < ActiveModel::Serializer
     object.user.username
   end
 
-  def poster_name
+  def user_name
     object.user.name
+  end
+
+  def posts_count
+    object.posts.count
   end
 
   def avatar_url
@@ -24,5 +30,9 @@ class Forum::ThreadsSerializer < ActiveModel::Serializer
 
   def summary
     object.content.to_text&.truncate(240)
+  end
+
+  def path
+    "/forums/#{object.forum.slug}/#{object.slug}"
   end
 end

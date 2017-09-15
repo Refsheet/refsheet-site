@@ -2,6 +2,9 @@
   contextTypes:
     eagerLoad: React.PropTypes.object
 
+  propTypes:
+    onReply: React.PropTypes.func
+
   dataPath: '/forums/:forumId/:threadId'
 
   paramMap:
@@ -11,11 +14,15 @@
   getInitialState: ->
     thread: null
 
-  componentDidMount: ->
+  componentWillMount: ->
     StateUtils.load @, 'thread'
+
+  componentWillReceiveProps: (newProps) ->
+    StateUtils.reload @, 'thread', newProps
 
   _handleReply: (post) ->
     StateUtils.updateItem @, 'thread.posts', post, 'id'
+    @props.onReply(post) if @props.onReply
 
   render: ->
     return `<Loading />` unless @state.thread

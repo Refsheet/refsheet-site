@@ -21,6 +21,8 @@
 
 
   componentWillMount: ->
+    console.debug '[App] Mounting with eager loads:', @state.eagerLoad
+
     if @state.session.fetch
       Model.get '/session', (data) =>
         @setState session: data, loading: 0
@@ -28,6 +30,7 @@
 
   componentDidMount: ->
     @setState eagerLoad: null
+    console.debug '[App] Mount complete, clearing eager load.'
 
     $(document)
       .on 'app:session:update', (e, session) =>
