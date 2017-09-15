@@ -1,6 +1,8 @@
 @Forums.Threads.Show = React.createClass
   render: ->
     `<Main title='November Update!'>
+        <ActionButton icon='reply' href='#reply' tooltip='Reply to Thread' />
+
         <div className='card margin-top--none sp'>
             <div className='card-header padding-bottom--none'>
                 <div className='right muted right-align'>

@@ -1,3 +1,6 @@
 @Icon = (props) ->
-  { children, title } = props
-  `<i className='material-icons' title={ title }>{ children }</i>`
+  { children, title, className } = props
+  classNames = ['material-icons']
+  classNames.push className if className
+
+  `<i className={ classNames.join(' ') } title={ title }>{ children }</i>`

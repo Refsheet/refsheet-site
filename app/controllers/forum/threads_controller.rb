@@ -1,4 +1,4 @@
-class Forums::ThreadsController < ApplicationController
+class Forum::ThreadsController < ApplicationController
   before_action :get_forum
 
   def index
@@ -17,7 +17,7 @@ class Forums::ThreadsController < ApplicationController
       format.html do
         set_meta_tags(
             title: @thread.topic,
-            description: @thread.content.to_text.truncate(length: 120)
+            description: @thread.content.to_text.truncate(120)
         )
 
         eager_load :forum, @forum, ForumSerializer
@@ -30,7 +30,12 @@ class Forums::ThreadsController < ApplicationController
 
   def create
     @thread = Forum::Discussion.new thread_params
-    respond_with @thread, location: forum_thread_path(@forum, @thread), action: :show
+
+    if @thread.save
+      render json: @thread, serializer: Forum::ThreadSerializer
+    else
+      render json: { errors: @thread.errors }, status: :bad_request
+    end
   end
 
   private

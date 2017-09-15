@@ -10,6 +10,11 @@
           <div className='muted'>By Mau Abata &bull; 932 replies</div>
       </li>`
 
+    threads = []
+
     `<ul className='message-list margin--none'>
+        { threads.length == 0 &&
+            <EmptyList coffee /> }
+
         { threads }
     </ul>`

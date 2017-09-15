@@ -32,12 +32,12 @@
         `<p className='caption center'>Nothing to see here :(</p>`
 
     `<Main title='Forums' flex>
+        <Jumbotron className='short'>
+            <h1>Discuss & Socialize</h1>
+        </Jumbotron>
+
         <Container flex>
             <div className='sidebar'>
-                <Jumbotron className='short'>
-                    <h1>Discuss & Socialize</h1>
-                </Jumbotron>
-
                 <Tabs>
                     <Tab name='Following' />
                     <Tab name='Recent' />

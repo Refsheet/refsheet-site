@@ -34,7 +34,7 @@ class Forum::Discussion < ApplicationRecord
   validates_presence_of :slug
   validates_presence_of :content
 
-  slugify :topic
+  slugify :topic, lookups: true
   has_guid :shortcode, type: :shortcode
 
   def content

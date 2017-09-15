@@ -18,6 +18,6 @@ class Forum::ThreadsSerializer < ActiveModel::Serializer
   end
 
   def summary
-    content.to_text&.truncate(240)
+    object.content.to_text&.truncate(240)
   end
 end

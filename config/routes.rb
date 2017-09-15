@@ -61,6 +61,8 @@ Rails.application.routes.draw do
     resources :threads, only: [:index, :show, :create], controller: 'forum/threads' do
       resources :posts, only: [:index, :show, :create], controller: 'forum/posts'
     end
+
+    get ':id', to: 'forum/threads#show'
   end
 
 

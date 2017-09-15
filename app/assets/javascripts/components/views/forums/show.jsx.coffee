@@ -5,6 +5,7 @@
 
   getInitialState: ->
     forum: null
+    threadScope: 'recent'
 
   componentWillMount: ->
     StateUtils.load @, 'forum'
@@ -14,7 +15,7 @@
 
 
   render: ->
-    return null unless @state.forum
+    return `<Loading />` unless @state.forum
 
     `<Main title={ this.state.forum.name } fadeEffect flex>
         <Jumbotron className='short'>
@@ -24,18 +25,16 @@
 
         <Container flex>
             <div className='sidebar sidebar-flex'>
-                <Tabs>
-                    <Tab name='Recent' />
-                    <Tab name='Unread' />
-                </Tabs>
-
-                <Forums.Threads.List />
+                <Forums.Threads.List forumId={ this.state.forum.slug } />
             </div>
 
             <div className='content'>
                 { this.props.children ||
-                    <p className='caption center'>Forum Topics will go here soon :3</p>
+                    <EmptyList caption='Select a thread to start chatting.' />
                 }
             </div>
         </Container>
+
+        <FixedActionButton icon='add' href='#new-thread-modal' tooltip='New Thread' />
+        <Forums.Threads.Modal forumId={ this.state.forum.slug } />
     </Main>`
