@@ -6,6 +6,7 @@
     fetch = true
 
     console.debug '[StateUtils] Loading with params:', props.params
+    console.debug '[StateUtils] Eager Loading:', eagerLoad, context.context
 
     if elItem = ObjectPath.get eagerLoad, path
       for k, p of paramMap
