@@ -38,12 +38,7 @@
 
         <Container flex>
             <div className='sidebar'>
-                <Tabs>
-                    <Tab name='Following' />
-                    <Tab name='Recent' />
-                </Tabs>
-
-                <Forums.Threads.List />
+                <EmptyList coffee caption='Recent threads coming soon?' />
             </div>
 
             <div className='content'>
