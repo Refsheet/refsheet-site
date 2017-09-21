@@ -72,7 +72,8 @@ class Image < ApplicationRecord # < Media
   validates_format_of :background_color,
                       with: /\A((rgb|hsl)a?\((\s*\d,){3}\s*\)|#?([a-f0-9]{3}|[a-f0-9]{6}|[a-f0-9]{8}))\z/i,
                       message: 'must be RGB, HSL or Hex code',
-                      allow_blank: true
+                      allow_blank: true,
+                      if: -> { background_color_changed? }
 
   has_guid
   ranks :row_order
