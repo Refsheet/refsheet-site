@@ -41,7 +41,11 @@
           ___this.setState initialized: true
 
           @on 'error', (_, error) ->
-            Materialize.toast "Image #{error.errors.image}", 3000, 'red'
+            if error.errors?.image
+              Materialize.toast "Image #{error.errors.image}", 3000, 'red'
+            else
+              console.error JSON.stringify(error)
+              Materialize.toast "An unknown error has occurred :( Please find Mau and tell them this: #{JSON.stringify(error)}"
 
           @on 'success', (_, data) ->
             Materialize.toast "Image uploaded!", 3000, 'green'
