@@ -91,6 +91,18 @@ describe Image, type: :model do
     expect(image).to be_valid
   end
 
+  it 'does not validate color scheme fallthrough' do
+    image = create :image
+    image.update_column :background_color, 'a'
+    image.reload
+    image.background_color = nil
+    image.character.color_scheme = create :color_scheme
+    image.character.color_scheme.color_data['image-background'] = 'asdfasdfa92345'
+
+    expect(image).to be_valid
+    expect(image).to have(0).errors_on :background_color
+  end
+
   it 'cleans featured image' do
     character = create :character
     image = create :image, character: character

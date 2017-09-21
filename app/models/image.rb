@@ -70,7 +70,7 @@ class Image < ApplicationRecord # < Media
                        size: { in: 0..25.megabytes }
 
   validates_format_of :background_color,
-                      with: /\A((rgb|hsl)a?\((\s*\d,){3}\s*\)|#?([a-f0-9]{3}|[a-f0-9]{6}|[a-f0-9]{8}))\z/i,
+                      with: ColorScheme::COLOR_MATCH,
                       message: 'must be RGB, HSL or Hex code',
                       allow_blank: true,
                       if: -> { background_color_changed? }
@@ -102,7 +102,8 @@ class Image < ApplicationRecord # < Media
     color = if super
               super
             elsif self.character&.color_scheme
-              self.character.color_scheme.color_data['image-background']
+              c = self.character.color_scheme.color_data['image-background']
+              c.match(ColorScheme::COLOR_MATCH) ? c : nil
             end
 
     color || '#000000'
