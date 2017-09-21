@@ -49,7 +49,9 @@ describe Image, type: :model do
               :gallery, :artist
           ],
           validate_presence_of: [
-              :caption, :character
+              :caption,
+              :character,
+              :background_color
           ]
       }
   )
@@ -75,6 +77,18 @@ describe Image, type: :model do
         it { is_expected.to eq 'example.foo.net' }
       end
     end
+  end
+
+  it 'does a bad with background_image' do
+    image = create :image
+    image.update_column :background_color, 'sadflaksdfja43565'
+    image.reload
+    image.source_url = 'https://foo.com'
+    expect(image).to be_valid
+    image.background_color = 'asdfasdfa'
+    expect(image).to_not be_valid
+    image.background_color = '#cbe1f1'
+    expect(image).to be_valid
   end
 
   it 'cleans featured image' do
