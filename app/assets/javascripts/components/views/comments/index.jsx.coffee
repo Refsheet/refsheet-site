@@ -5,8 +5,9 @@
     currentUser: React.PropTypes.object
 
   propTypes:
-    imageId: React.PropTypes.string.isRequired
+    mediaId: React.PropTypes.string.isRequired
     comments: React.PropTypes.array
+    poll: React.PropTypes.bool
     onCommentChange: React.PropTypes.func
 
   getInitialState: ->
@@ -15,20 +16,19 @@
 
   _poll: ->
     @poller = setTimeout =>
-      Model.poll "/media/#{@props.imageId}/comments", {}, (data) =>
+      Model.poll "/media/#{@props.mediaId}/comments", {}, (data) =>
         data.map (comment) =>
           @props.onCommentChange comment if @props.onCommentChange
         @_poll()
     , 3000
 
   componentDidMount: ->
-    @_poll() if @props.onCommentChange
+    @_poll() if @props.onCommentChange and @props.poll
 
   componentWillUnmount: ->
     clearTimeout @poller
 
   _handleComment: (comment) ->
-    console.log comment
     @props.onCommentChange comment if @props.onCommentChange
 
   render: ->
@@ -51,7 +51,7 @@
 
         <div className='flex-fixed'>
             <Form className='reply-box'
-                  action={ '/media/' + this.props.imageId + '/comments' }
+                  action={ '/media/' + this.props.mediaId + '/comments' }
                   model={ this.state.model }
                   modelName='comment'
                   onChange={ this._handleComment }

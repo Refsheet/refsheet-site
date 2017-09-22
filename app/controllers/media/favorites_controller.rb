@@ -6,7 +6,7 @@ class Media::FavoritesController < ApplicationController
 
   def index
     @favorites = @media.favorites
-    respond_with @favorites, location: nil, serializer: Media::FavoriteSerializer
+    respond_with @favorites, location: nil, each_serializer: Media::FavoriteSerializer
   end
 
   def create
@@ -15,8 +15,9 @@ class Media::FavoritesController < ApplicationController
   end
 
   def destroy
+    id = @favorite.guid
     @favorite.destroy
-    respond_with @favorite, location: nil
+    render json: { id: id }
   end
 
   private
