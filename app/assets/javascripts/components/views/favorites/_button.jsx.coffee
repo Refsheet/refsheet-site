@@ -1,11 +1,28 @@
 @FavoriteButton = React.createClass
+  contextTypes:
+    currentUser: React.PropTypes.object
+
   propTypes:
     mediaId: React.PropTypes.string.isRequired
+    favorites: React.PropTypes.array
     isFavorite: React.PropTypes.bool
     onChange: React.PropTypes.func
+    onFavorite: React.PropTypes.func
+
+  _isFavFromProps: (props) ->
+    if typeof props.isFavorite == 'undefined'
+      return false unless props.favorites
+      (props.favorites.filter (fav) =>
+        fav.user_id == @context.currentUser.username
+      ).length > 0
+    else
+      props.isFavorite
 
   getInitialState: ->
-    isFavorite: @props.isFavorite
+    isFavorite: @_isFavFromProps(@props)
+
+  componentWillReceiveProps: (newProps) ->
+    @setState isFavorite: @_isFavFromProps(@props)
 
   _handleFavorite: (e) ->
     path = "/media/#{@props.mediaId}"
@@ -14,6 +31,7 @@
       $.post path + '/favorites', (data) =>
         @setState isFavorite: true
         @props.onChange(true) if @props.onChange
+        @props.onFavorite(data, true) if @props.onFavorite
     else
       $.ajax
         url: path + '/favorite'
@@ -21,6 +39,7 @@
         success: (data) =>
           @setState isFavorite: false
           @props.onChange(false) if @props.onChange
+          @props.onFavorite(data, false) if @props.onFavorite
     e.preventDefault()
 
 

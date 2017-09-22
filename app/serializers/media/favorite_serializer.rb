@@ -1,8 +1,13 @@
 class Media::FavoriteSerializer < ActiveModel::Serializer
-  attributes :media_id,
+  attributes :id,
+             :media_id,
              :user_id,
              :user_avatar_url,
              :created_at
+
+  def id
+    object.guid
+  end
 
   def media_id
     object.media.guid

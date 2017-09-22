@@ -115,11 +115,19 @@
   _handleComment: (comment) ->
     StateUtils.updateItem @, 'image.comments', comment, 'id'
 
+  _handleFavorite: (favorite, set=true) ->
+    if set
+      StateUtils.updateItem @, 'image.favorites', favorite, 'id'
+    else
+      StateUtils.removeItem @, 'image.favorites', favorite, 'id'
+
   componentDidUpdate: ->
     $('.dropdown-button').dropdown
       constrain_width: false
 
   render: ->
+    poll = true
+
     if @state.image?
       if @state.image.user_id == @context.currentUser?.username
         imgActionMenu =
@@ -156,18 +164,6 @@
         captionCallback = @handleCaptionChange
         editable = true
 
-      if @state.image.favorite_count
-        favorites = @state.image.favorites.map (fav) ->
-          `<Column key={ fav.user_id } s={3}>
-              <img src={ fav.user_avatar_url } className='responsive-img avatar' alt={ fav.user_id } style={{ display: 'block' }} />
-          </Column>`
-
-      else
-        favorites =
-          `<Column>
-              <p className='caption center'>Nothing here :(</p>
-          </Column>`
-
       lightbox =
         `<div className='lightbox'>
             <div className='image-content' style={{backgroundColor: this.state.image.background_color}}>
@@ -178,7 +174,9 @@
                 <div className='image-details'>
                     <div className='image-actions'>
                         { this.context.currentUser &&
-                            <FavoriteButton mediaId={ this.state.image.id } isFavorite={ this.state.image.is_favorite } />
+                            <FavoriteButton mediaId={ this.state.image.id }
+                                            favorites={ this.state.image.favorites }
+                                            onFavorite={ this._handleFavorite } />
                         }
 
                         { imgActionMenu }
@@ -206,11 +204,17 @@
                 
                 <Tabs className='comments'>
                     <Tab id='image-comments' name='Comments' className='padding--none flex-vertical' count={ this.state.image.comments.length }>
-                        <Comments.Index comments={ this.state.image.comments } imageId={ this.state.image.id } onCommentChange={ this._handleComment } />
+                        <Comments.Index comments={ this.state.image.comments }
+                                        mediaId={ this.state.image.id }
+                                        onCommentChange={ this._handleComment }
+                                        poll={ poll } />
                     </Tab>
 
-                    <Tab id='image-favorites' name='Favorites' count={ this.state.image.favorite_count }>
-                        <Row>{ favorites }</Row>
+                    <Tab id='image-favorites' name='Favorites' count={ this.state.image.favorites.length }>
+                        <Favorites.Index favorites={ this.state.image.favorites }
+                                         mediaId={ this.state.image.id }
+                                         onFavoriteChange={ this._handleFavorite }
+                                         poll={ poll } />
                     </Tab>
 
                     { editable &&

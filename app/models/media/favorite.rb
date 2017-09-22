@@ -19,6 +19,10 @@ class Media::Favorite < ApplicationRecord
   validates_presence_of :user
   validate :unique_favorite
 
+  def guid
+    Digest::MD5.hexdigest media_id.to_s + user_id.to_s
+  end
+
   private
 
   def unique_favorite
