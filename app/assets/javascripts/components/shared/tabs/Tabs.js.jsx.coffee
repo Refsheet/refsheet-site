@@ -31,7 +31,7 @@
             </a>
         </li>`
       else
-        console.log "Children to Tabs should be a Tab, got #{child?.type}."
+        console.warn "Children to Tabs should be a Tab, got #{child?.type}." unless typeof child?.type is 'undefined'
 
     `<div className='tabs-container'>
         <ul ref='tabs' className={ className }>

@@ -36,7 +36,7 @@
       `<div className='card flat with-avatar' key={ comment.id }>
           <img src={ comment.user.avatar_url } className='circle avatar' />
           <div className='card-content'>
-              <div className='muted right'>{ comment.created_at_human }</div>
+              <div className='muted right' title={ comment.created_at }>{ comment.created_at_human }</div>
               <Link to={ comment.user.link }>{ comment.user.name }</Link>
               <RichText content={ comment.comment } markup={ comment.comment } />
           </div>
@@ -49,16 +49,17 @@
                 <p className='caption padding--medium'>No comments yet!</p> }
         </div>
 
-        <div className='flex-fixed'>
-            <Form className='reply-box'
-                  action={ '/media/' + this.props.mediaId + '/comments' }
-                  model={ this.state.model }
-                  modelName='comment'
-                  onChange={ this._handleComment }
-                  resetOnSubmit
-            >
-                <Input type='textarea' name='comment' placeholder='Leave a comment...' noMargin browserDefault className='min-height overline block' />
-                <Submit className='btn-square btn-block'>Send Comment <Icon className='right'>send</Icon></Submit>
-            </Form>
-        </div>
+        { this.context.currentUser &&
+            <div className='flex-fixed'>
+                <Form className='reply-box'
+                      action={ '/media/' + this.props.mediaId + '/comments' }
+                      model={ this.state.model }
+                      modelName='comment'
+                      onChange={ this._handleComment }
+                      resetOnSubmit
+                >
+                    <Input type='textarea' name='comment' placeholder='Leave a comment...' noMargin browserDefault className='min-height overline block' />
+                    <Submit className='btn-square btn-block'>Send Comment <Icon className='right'>send</Icon></Submit>
+                </Form>
+            </div> }
     </div>`
