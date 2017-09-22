@@ -31,6 +31,7 @@ class Media::CommentSerializer < ActiveModel::Serializer
   def created_at_human
     t = time_ago_in_words(object.created_at).split(' ')
     return '<1 m' if t[0] =~ /\Aless/
+    t.shift if t[0] =~ /\Aabout/
     t[1] = t[1][0]
     t.join(' ')
   end
