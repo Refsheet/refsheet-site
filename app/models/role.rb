@@ -22,7 +22,7 @@ class Role < ApplicationRecord
 
   def self.id_for(role)
     @@id_cache ||= {}
-    @@id_cache[role] ||= find_by(name: role).id
+    @@id_cache[role] ||= find_by(name: role)&.id
   end
 
   private
