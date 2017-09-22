@@ -6,7 +6,7 @@ class ImagesController < ApplicationController
   respond_to :json
 
   def index
-    render json: image_scope.includes(:favorites, :character), each_serializer: ImageSerializer
+    render json: image_scope.includes(:favorites, :character, :comments), each_serializer: ImageSerializer
   end
 
   def show
@@ -31,7 +31,7 @@ class ImagesController < ApplicationController
         render 'application/show'
       end
 
-      format.json { render json: @image, serializer: ImageSerializer }
+      format.json { render json: @image, serializer: ImageSerializer, include: 'character,comments,comments.user,favorites' }
     end
   end
 
@@ -91,7 +91,7 @@ class ImagesController < ApplicationController
   end
 
   def get_image
-    @image = Image.find_by!(guid: params[:id])
+    @image = Image.includes(:comments => [:media, :reply_to, :user]).find_by!(guid: params[:id])
   end
 
   def image_params
