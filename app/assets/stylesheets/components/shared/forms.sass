@@ -103,7 +103,7 @@ body:not(.admin)
       padding: 0.5rem
       background-color: transparent
 
-    textarea.browser-default
+    textarea.browser-default.mono
       font-family: monospace
       font-size: 0.9rem
       white-space: pre
@@ -139,6 +139,13 @@ body:not(.admin)
         margin-left: 0.2rem
         color: color('red', 'lighten-1')
         display: none
+
+    textarea
+      resize: none
+
+      &.min-height
+        min-height: 3rem
+        height: auto
 
     input, textarea, select
       &::placeholder

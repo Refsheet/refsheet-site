@@ -122,7 +122,7 @@ class User < ApplicationRecord
   end
 
   def admin?
-    self.role? :admin
+    self.role_ids.include? Role.id_for Role::ADMIN
   end
 
   def patron?

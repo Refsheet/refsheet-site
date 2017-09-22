@@ -6,8 +6,8 @@ class Media::CommentsController < ApplicationController
   respond_to :json
 
   def index
-    @comments = @media.comments
-    respond_with @comments, location: nil, serializer: Media::CommentSerializer
+    @comments = @media.comments.includes(:media, :reply_to, :user, :replies)
+    respond_with @comments, location: nil, each_serializer: Media::CommentSerializer
   end
 
   def create

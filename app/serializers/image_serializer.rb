@@ -29,6 +29,7 @@ class ImageSerializer < ActiveModel::Serializer
 
   has_one :character, serializer: ImageCharacterSerializer
   has_many :favorites, serializer: Media::FavoriteSerializer
+  has_many :comments, serializer: Media::CommentSerializer
 
   def id
     object.guid

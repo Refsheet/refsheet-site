@@ -9,7 +9,7 @@ class UserIndexSerializer < ActiveModel::Serializer
              :path
 
   def is_admin
-    object.role? :admin
+    object.admin?
   end
 
   def is_patron

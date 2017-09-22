@@ -1,8 +1,13 @@
 .btn
   @extend .truncate
 
+  &.btn-square
+    @extend .z-depth-1
+    border-radius: 0
+
   &.btn-block
     display: block
+    width: 100%
 
   &.btn-secondary
     color: rgba(white, 0.8)

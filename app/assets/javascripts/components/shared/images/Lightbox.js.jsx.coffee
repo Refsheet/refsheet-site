@@ -112,6 +112,9 @@
   _handleUpdate: (image) ->
     @setState image: image if image.background_color
 
+  _handleComment: (comment) ->
+    StateUtils.updateItem @, 'image.comments', comment, 'id'
+
   componentDidUpdate: ->
     $('.dropdown-button').dropdown
       constrain_width: false
@@ -202,8 +205,8 @@
                 </div>
                 
                 <Tabs className='comments'>
-                    <Tab id='image-comments' name='Comments' count={ this.state.image.comment_count }>
-                        <p className='caption center'>Comments disabled.</p>
+                    <Tab id='image-comments' name='Comments' className='padding--none flex-vertical' count={ this.state.image.comments.length }>
+                        <Comments.Index comments={ this.state.image.comments } imageId={ this.state.image.id } onCommentChange={ this._handleComment } />
                     </Tab>
 
                     <Tab id='image-favorites' name='Favorites' count={ this.state.image.favorite_count }>
