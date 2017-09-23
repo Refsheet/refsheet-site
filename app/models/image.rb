@@ -103,7 +103,7 @@ class Image < ApplicationRecord # < Media
               super
             elsif self.character&.color_scheme
               c = self.character.color_scheme.color_data['image-background']
-              c.match(ColorScheme::COLOR_MATCH) ? c : nil
+              c&.match(ColorScheme::COLOR_MATCH) ? c : nil
             end
 
     color || '#000000'
