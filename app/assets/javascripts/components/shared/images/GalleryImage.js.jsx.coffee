@@ -5,6 +5,7 @@
   propTypes:
     image: React.PropTypes.object
     editable: React.PropTypes.bool
+    wrapperClassName: React.PropTypes.string
     className: React.PropTypes.string
     size: React.PropTypes.string
     onSwap: React.PropTypes.func
@@ -76,21 +77,31 @@
     if @state.image
       imageSrc = @state.image[@props.size] || @state.image['large']
 
-      `<a ref='image'
-          className={ classNames.join(' ') }
-          onClick={ this._handleClick }
-          href={ this.state.image.path }
-          data-gallery-image-id={ this.state.image.id }
-          style={{ backgroundColor: this.state.image.background_color }}
-      >
-          { this.context.currentUser &&
-              <FavoriteButton mediaId={ this.state.image.id } isFavorite={ this.state.image.is_favorite } />
-          }
+      contents =
+        `<a ref='image'
+            className={ classNames.join(' ') }
+            onClick={ this._handleClick }
+            href={ this.state.image.path }
+            data-gallery-image-id={ this.state.image.id }
+            style={{ backgroundColor: this.state.image.background_color }}
+        >
+            { this.context.currentUser &&
+                <FavoriteButton mediaId={ this.state.image.id } isFavorite={ this.state.image.is_favorite } />
+            }
 
-          <img src={ imageSrc } alt={ this.state.image.title } title={ this.state.image.title } />
-      </a>`
+            <img src={ imageSrc } alt={ this.state.image.title } title={ this.state.image.title } />
+        </a>`
 
     else
       classNames.push 'image-placeholder'
 
-      `<div className={ classNames.join(' ') } />`
+      contents =
+        `<div className={ classNames.join(' ') } />`
+
+    if @props.wrapperClassName
+      `<div className={ this.props.wrapperClassName }>
+          { contents }
+      </div>`
+
+    else
+      contents

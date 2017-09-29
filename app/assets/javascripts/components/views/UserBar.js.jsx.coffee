@@ -159,9 +159,15 @@
                   </li>
 
                   { (this.context.currentUser && this.context.currentUser.is_patron) &&
-                    <li>
-                        <Link to='/forums' activeClassName='teal-text text-lighten-2'>Forums</Link>
-                    </li>
+                      <li>
+                          <Link to='/forums' activeClassName='teal-text text-lighten-2'>Forums</Link>
+                      </li>
+                  }
+
+                  { (this.context.currentUser && this.context.currentUser.is_patron) &&
+                      <li>
+                          <Link to='/explore' activeClassName='teal-text text-lighten-2'>Explore</Link>
+                      </li>
                   }
 
                   {/*<li>*/}

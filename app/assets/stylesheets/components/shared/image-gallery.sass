@@ -1,6 +1,4 @@
 .image-gallery
-  margin-bottom: -1.5rem
-
   a
     transition: none
 
@@ -88,16 +86,18 @@
     overflow: hidden
 
     img
-      @extend .valign
-      position: relative
       display: block
       margin: 0 !important
-      top: 50%
-      left: 50%
-      transform: translate(-50%, -50%)
       max-width: 100%
       width: auto !important
       height: auto !important
+
+    &:not(.no-jg) img
+      @extend .valign
+      position: relative
+      top: 50%
+      left: 50%
+      transform: translate(-50%, -50%)
 
   .justified-gallery
     position: relative
@@ -113,8 +113,10 @@
       &.jg-entry
         visibility: visible
         opacity: 1.0
+        width: 0
+        height: 0
 
-      img
-        position: relative
-        top: 50%
-        left: 50%
+        img
+          position: relative
+          top: 50%
+          left: 50%

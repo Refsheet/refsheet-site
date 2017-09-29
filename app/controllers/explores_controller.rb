@@ -3,12 +3,13 @@ class ExploresController < ApplicationController
 
   def show
     @media = filter_scope Image
+                              .includes(:favorites, :character => [ :featured_image, :user, :profile_image, :character_groups, :color_scheme ])
 
     respond_to do |format|
-      format.json { render json: @media, each_serializer: CharacterImageSerializer }
+      format.json { render json: @media, each_serializer: ImageSerializer, include: 'character' }
       format.html do
         set_meta_tags(
-            title: 'Explore',
+            title: 'Explore Images',
             description: 'Explore recent artwork uploads across all of Refsheet.net!'
         )
 
@@ -19,13 +20,14 @@ class ExploresController < ApplicationController
 
   def popular
     @media = filter_scope Image
+                              .includes(:favorites, :character => [ :featured_image, :user, :profile_image, :character_groups, :color_scheme ])
                               .left_joins(:favorites)
                               .group(:id)
                               .where('media_favorites.created_at' => 1.week.ago..Time.zone.now),
                           'COUNT(media_favorites.id)'
 
     respond_to do |format|
-      format.json { render json: @media, each_serializer: CharacterImageSerializer }
+      format.json { render json: @media, each_serializer: ImageSerializer, include: 'character' }
       format.html do
         set_meta_tags(
             title: 'Popular Media',
@@ -38,13 +40,15 @@ class ExploresController < ApplicationController
   end
 
   def favorites
-    head :unauthorized unless signed_in?
+    return head :unauthorized unless signed_in?
 
-    @media = filter_scope current_user.favorite_media,
+    @media = filter_scope current_user
+                              .favorite_media
+                              .includes(:favorites, :character => [ :featured_image, :user, :profile_image, :character_groups, :color_scheme ]),
                           'media_favorites.created_at'
 
     respond_to do |format|
-      format.json { render json: @media, each_serializer: CharacterImageSerializer }
+      format.json { render json: @media, each_serializer: ImageSerializer, include: 'character' }
       format.html do
         set_meta_tags(
             title: 'Your Favorites',

@@ -45,6 +45,10 @@
                 <Route path='users' component={ UserIndexView } />
             </Route>
 
+            <Route path='explore' component={ Explore.Index }>
+                <Route path=':scope' />
+            </Route>
+
 
             <Route path='forums'>
                 <IndexRoute component={ Forums.Index } />
