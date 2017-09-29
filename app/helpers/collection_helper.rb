@@ -118,7 +118,15 @@ module CollectionHelper
     end
 
     if search_query.present? or params.include?(:sort)
-      sort = params[:sort] ? "#{scope.table_name + '.' + params[:sort].try(:downcase)} #{params[:order].try(:downcase)}".strip : ''
+      sort = if params[:sort]
+               if params[:sort] =~ /\A\w+\z/
+                 "#{scope.table_name + '.' + params[:sort].try(:downcase)} #{params[:order].try(:upcase)}".strip
+               else
+                 "#{params[:sort]} #{params[:order].try(:upcase)}".strip
+               end
+             else
+               ''
+             end
 
       if search_query.present?
         if scope.respond_to?(:search_for)
