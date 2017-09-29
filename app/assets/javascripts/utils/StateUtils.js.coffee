@@ -1,4 +1,11 @@
 @StateUtils =
+  page: (context, path, page, props=context.props) ->
+    page ||= (context.currentPage || 1) + 1
+
+    console.debug '[StateUtils] Loading page: ' + page
+    @fetch context, path, { page: page }, props
+
+
   load: (context, path, props=context.props, callback) ->
     { dataPath, paramMap } = context
     eagerLoad = context.context.eagerLoad
@@ -22,22 +29,26 @@
           callback(elItem) if callback
 
     if fetch
-      fetchUrl = dataPath.replace /(:[a-zA-Z]+)/g, (m) ->
-        param = ObjectPath.get props.params, m.substring(1)
-        param || ''
-
-      fetchUrl = fetchUrl.replace /\/\/+|\/\z/g, ''
-
-      Model.get fetchUrl, (data) ->
-        ObjectPath.set state, path, data
-        context.setState state, ->
-          callback(data) if callback
-
-      , (error) ->
-        context.setState { error: error }, ->
-          callback() if callback
-
+      @fetch context, path, {}, props, callback
       $(window).scrollTop 0
+
+
+  fetch: (context, path, data={}, props=context.props, callback) ->
+    fetchUrl = @getFetchUrl context, props
+    state = $.extend {}, context.state
+
+    Model.request 'GET', fetchUrl, data, (data) ->
+      if data.$meta
+        data = ObjectPath.get data, path
+
+      ObjectPath.set state, path, data
+      context.setState state, ->
+        callback(data) if callback
+
+    , (error) ->
+      context.setState { error: error }, ->
+        callback() if callback
+
 
   reload: (context, path, newProps, oldProps=context.props) ->
     fetch = false
@@ -54,6 +65,7 @@
       StateUtils.load context, path, newProps
       $(window).scrollTop 0
 
+
   poll: (context, path, props=context.props) ->
     #no-op
 
@@ -61,8 +73,26 @@
   updateItem: (context, path, item, primaryKey, callback) ->
     context.setState HashUtils.deepUpdateCollectionItem(context.state, path, item, primaryKey), callback
 
+  updateItems: (context, path, items, primaryKey, callback) ->
+    state = context.state
+
+    items.map (item) ->
+      state = HashUtils.deepUpdateCollectionItem(state, path, item, primaryKey)
+
+    context.setState state, callback
+
   sortItem: (context, path, item, position, primaryKey, callback) ->
     context.setState HashUtils.deepSortCollectionItem(context.state, path, item, position, primaryKey), callback
 
   removeItem: (context, path, item, primaryKey, callback) ->
     context.setState HashUtils.deepRemoveCollectionItem(context.state, path, item, primaryKey), callback
+
+
+  getFetchUrl: (stateLink, props) ->
+    { dataPath, paramMap } = stateLink
+
+    fetchUrl = dataPath.replace /(:[a-zA-Z]+)/g, (m) ->
+      param = ObjectPath.get props.params, m.substring(1)
+      param || ''
+
+    fetchUrl.replace /\/\/+|\/\z/g, ''

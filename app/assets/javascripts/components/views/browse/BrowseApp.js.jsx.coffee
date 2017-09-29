@@ -13,9 +13,12 @@
   componentDidMount: ->
     @doSearch(@props.location.query.q)
 
-    $(window).scroll =>
+    $(window).on 'scroll.browse', =>
       if !@state.lastPage and !@state.searching and $(window).scrollTop() + $(window).height() > $(document).height() - @scrollOffset
         @_loadMore()
+
+  componentWillUnmount: ->
+    $(window).off 'scroll.browse'
 
   componentWillReceiveProps: (newProps) ->
     if newProps.location.query.q != @props.location.query.q
