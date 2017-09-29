@@ -14,7 +14,7 @@
 class ColorScheme < ApplicationRecord
   include HasGuid
 
-  COLOR_MATCH = /\A((rgb|hsl)a?\((\s*\d,){3}\s*\)|#?([a-f0-9]{3}|[a-f0-9]{6}|[a-f0-9]{8}))\z/i
+  COLOR_MATCH = /\A((rgb|hsl)a?\((\s*\d,){3,4}\s*\)|#?([a-f0-9]{3}|[a-f0-9]{6}|[a-f0-9]{8}))\z/i
 
   belongs_to :user
   has_many :characters
