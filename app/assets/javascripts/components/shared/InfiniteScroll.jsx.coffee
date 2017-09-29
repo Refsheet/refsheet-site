@@ -28,7 +28,7 @@
         items = ObjectPath.get data, @props.stateLink.statePath
         meta  = data.$meta
 
-        lastPage = items.length < (@props.perPage || 16)
+        lastPage = items.length < (@props.perPage || 24)
         @setState page: meta.page, lastPage: lastPage, loading: false, =>
           @props.onLoad items
 
