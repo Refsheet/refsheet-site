@@ -12,15 +12,20 @@
 #  visit_id       :integer
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  done           :boolean
 #
 
 class Feedback < ApplicationRecord
   belongs_to :user
   belongs_to :visit
+  has_many :replies, class_name: Feedback::Reply
 
   validates_presence_of :comment
 
   before_save :post_to_trello
+
+  scope :active, -> { where.not done: true }
+  scope :done, -> { where done: true }
 
   scoped_search on: [:name, :email, :comment]
   scoped_search relation: :user, on: [:name, :username, :email]
@@ -39,10 +44,6 @@ class Feedback < ApplicationRecord
 
   def trello_card
     Trello::Card.find self.trello_card_id if self.trello_card_id.present?
-  end
-
-  def done?
-    false
   end
 
   private
