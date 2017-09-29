@@ -37,6 +37,7 @@
       @load newProps.images, false
 
   _resizeJg: ->
+    return if @props.noFeature and !@props.noSquare
     $(@refs.gallery).justifiedGallery @_getJgRowHeight()
 
   _handleImageSwap: (source, target) ->

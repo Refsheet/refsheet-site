@@ -19,7 +19,6 @@
     max-height: 80vh
 
   .modal-header
-    @extend .z-depth-1
     background-color: $stripe-color
     height: 56px
     line-height: 56px
@@ -34,7 +33,7 @@
       margin: 0
       padding: 0 1.5rem
       font-weight: 300
-      font-size: 1.8rem
+      font-size: 1.6rem
 
     .modal-close
       color: rgba(255, 255, 255, 0.5) !important
@@ -76,6 +75,7 @@
   .modal-footer
     padding: 4px 10px
     flex-shrink: 0
+    background-color: $stripe-color
 
   @media #{$small-and-down}
     width: 100% !important
@@ -99,7 +99,6 @@
       position: fixed
       top: 0
       width: 100%
-      background-color: $card-bg-color
 
       h2
         padding: 0 66px
