@@ -54,6 +54,15 @@ Rails.application.routes.draw do
   resources :feedbacks, only: [:create]
   resources :pledges, only: [:index]
 
+  #== Browsing
+
+  resource :explore, only: [:show] do
+    member do
+      get :favorites
+      get :popular
+    end
+  end
+
 
   #== Forums
 
