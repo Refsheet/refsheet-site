@@ -6,7 +6,7 @@ class ExploresController < ApplicationController
                               .includes(:favorites, :character => [ :featured_image, :user, :profile_image, :character_groups, :color_scheme ])
 
     respond_to do |format|
-      format.json { render json: @media, each_serializer: ImageSerializer, include: 'character' }
+      format.json { render api_collection_response @media, each_serializer: ImageSerializer, include: 'character', root: 'media' }
       format.html do
         set_meta_tags(
             title: 'Explore Images',
@@ -27,7 +27,7 @@ class ExploresController < ApplicationController
                           'COUNT(media_favorites.id)'
 
     respond_to do |format|
-      format.json { render json: @media, each_serializer: ImageSerializer, include: 'character' }
+      format.json { render api_collection_response @media, each_serializer: ImageSerializer, include: 'character', root: 'media' }
       format.html do
         set_meta_tags(
             title: 'Popular Media',
@@ -48,7 +48,7 @@ class ExploresController < ApplicationController
                           'media_favorites.created_at'
 
     respond_to do |format|
-      format.json { render json: @media, each_serializer: ImageSerializer, include: 'character' }
+      format.json { render api_collection_response @media, each_serializer: ImageSerializer, include: 'character', root: 'media' }
       format.html do
         set_meta_tags(
             title: 'Your Favorites',

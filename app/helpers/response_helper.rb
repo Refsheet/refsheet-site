@@ -1,6 +1,8 @@
 module ResponseHelper
   def api_collection_response(collection, options={})
     root = options.delete :root
+    options.merge! scope: view_context
+
     results = ActiveModel::SerializableResource.new(collection, options).as_json
 
     { json: {

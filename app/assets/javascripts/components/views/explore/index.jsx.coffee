@@ -5,6 +5,14 @@
   propTypes:
     media: React.PropTypes.object
 
+  # new syntax
+  stateLink:
+    dataPath: '/explore/:scope'
+    statePath: 'media'
+    paramMap:
+      scope: 'scope'
+
+  # old syntax
   dataPath: '/explore/:scope'
 
   paramMap:
@@ -19,19 +27,27 @@
   componentWillReceiveProps: (newProps) ->
     StateUtils.reload @, 'media', newProps
 
+  _append: (data) ->
+    StateUtils.updateItems @, 'media', data
+
   _renderImages: ->
     return `<Loading />` unless @state.media
 
-    `<ImageGallery images={ this.state.media } noFeature noSquare />`
+    `<div>
+        <ImageGallery images={ this.state.media } noFeature noSquare />
+        <InfiniteScroll onLoad={ this._append } stateLink={ this.stateLink } params={ this.props.params } />
+    </div>`
 
   render: ->
     switch @props.params.scope
       when 'favorites'
         title = 'Your Favorites'
         description = 'Everything you\'ve ever loved in one place (finally)!'
+
       when 'popular'
         title = 'Popular Media'
         description = 'See what\'s getting a lot of love this week on Refsheet.net!'
+
       else
         title = 'Explore Images'
         description = 'Explore recent artwork uploads across all of Refsheet.net!'
