@@ -90,6 +90,9 @@
         false
         
       .on 'app:lightbox', (e, imageId) =>
+        if typeof imageId == 'object' and not imageId.comments
+          imageId = imageId.id
+
         if typeof imageId != 'object'
           $.ajax
             url: "/images/#{imageId}.json"

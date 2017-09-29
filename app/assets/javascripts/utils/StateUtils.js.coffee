@@ -23,7 +23,10 @@
 
     if fetch
       fetchUrl = dataPath.replace /(:[a-zA-Z]+)/g, (m) ->
-        ObjectPath.get props.params, m.substring(1)
+        param = ObjectPath.get props.params, m.substring(1)
+        param || ''
+
+      fetchUrl = fetchUrl.replace /\/\/+|\/\z/g, ''
 
       Model.get fetchUrl, (data) ->
         ObjectPath.set state, path, data
@@ -43,7 +46,7 @@
       a = ObjectPath.get oldProps.params, k
       b = ObjectPath.get newProps.params, k
 
-      if a and b and a.toUpperCase() isnt b.toUpperCase()
+      if (a or b) and a?.toUpperCase() isnt b?.toUpperCase()
         fetch = true
         break
 

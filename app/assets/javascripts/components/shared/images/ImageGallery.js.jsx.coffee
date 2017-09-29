@@ -2,6 +2,7 @@
   propTypes:
     editable: React.PropTypes.bool
     noFeature: React.PropTypes.bool
+    noSquare: React.PropTypes.bool
     imagesPath: React.PropTypes.string
     images: React.PropTypes.array
     onImageClick: React.PropTypes.func
@@ -63,16 +64,12 @@
       $(document).trigger 'app:lightbox', image
 
   _getJgRowHeight: ->
-    if @props.noFeature
-      rowHeight: 150
-      maxRowHeight: 150
-    else
-      coef = if $(window).width() < 900 then 1 else 0.7
-      rowHeight: $(window).width() * (coef * 0.25)
-      maxRowHeight: $(window).width() * (coef * 0.4)
+    coef = if $(window).width() < 900 then 1 else 0.7
+    rowHeight: $(window).width() * (coef * 0.25)
+    maxRowHeight: $(window).width() * (coef * 0.4)
 
   _initialize: ->
-    console.debug '[ImageGallery] Initializing justified gallery.'
+    return if @props.noFeature and !@props.noSquare
 
     opts =
       selector: '.gallery-image'
@@ -84,16 +81,29 @@
 
 
   render: ->
+    galleryClassName = 'justified-gallery'
+    imageClassName = ''
+    wrapperClassName = ''
+    _this = @
+
     unless @state.images?
       return `<Spinner />`
 
     if @props.editable
       editable = true
 
-    unless @props.noFeature
+    if not @props.noFeature
       [first, second, third, overflow...] = @state.images
       imageSize = 'medium'
+
+    else if @props.noSquare
+      overflow = @state.images
+      imageSize = 'medium'
+
     else
+      galleryClassName = 'row'
+      wrapperClassName = 'col s6 m3'
+      imageClassName = 'no-jg'
       overflow = @state.images
       imageSize = 'small_square'
 
@@ -103,6 +113,8 @@
                      size={ imageSize }
                      onClick={ _this._handleImageClick }
                      onSwap={ _this._handleImageSwap }
+                     wrapperClassName={ wrapperClassName }
+                     className={ imageClassName }
                      editable={ editable } />`
 
     if @state.images?.length
@@ -117,7 +129,7 @@
           }
 
           { imagesOverflow.length > 0 &&
-              <div ref='gallery' className='justified-gallery'>
+              <div ref='gallery' className={ galleryClassName }>
                   { imagesOverflow }
               </div>
           }
