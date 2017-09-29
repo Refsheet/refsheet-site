@@ -14,7 +14,8 @@
 
 
   load: (userId, characterId) ->
-#    StateUtils.load @, 'character', "/users/#{userId}/characters/#{characterId}.json"
+    return unless userId and characterId
+    #    StateUtils.load @, 'character', "/users/#{userId}/characters/#{characterId}.json"
 
     $(window).trigger 'app:loading'
     $.ajax
