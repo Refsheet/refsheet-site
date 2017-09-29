@@ -91,7 +91,8 @@ module CollectionHelper
       negate = value[0] == '!'
       value.slice!(0) if negate
       value = [nil, ''] if value.blank? || value == '!'
-      value = nil if value.downcase == 'null'
+      value = [nil, false] if value.is_a? String and value.downcase == 'false'
+      value = nil if value.is_a? String and value.downcase == 'null'
 
       if column.nil?
         column   = relation
