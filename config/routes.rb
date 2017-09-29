@@ -88,9 +88,12 @@ Rails.application.routes.draw do
     resources :characters, except: [:destroy]
     resources :images, except: [:destroy]
     resources :pledges, only: [:index, :show]
-    resources :feedbacks, only: [:index, :show]
     resources :changelogs, only: [:index, :show]
     resources :forums, only: [:index, :show, :update, :create]
+
+    resources :feedbacks, only: [:index, :show, :update] do
+      resources :replies, only: [:create], controller: 'feedbacks/replies'
+    end
   end
 
   if Rails.env.development?

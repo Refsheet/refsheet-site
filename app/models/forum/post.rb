@@ -7,7 +7,7 @@
 #  user_id        :integer
 #  character_id   :integer
 #  parent_post_id :integer
-#  guid           :integer
+#  guid           :string
 #  content        :text
 #  karma_total    :integer
 #  created_at     :datetime         not null
