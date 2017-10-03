@@ -1,6 +1,7 @@
 @Explore.Index = React.createClass
   contextTypes:
     eagerLoad: React.PropTypes.object
+    currentUser: React.PropTypes.object
 
   propTypes:
     media: React.PropTypes.object
@@ -69,9 +70,18 @@
             <div className='tab-row pushpin' ref='tabRow'>
                 <div className='container'>
                     <ul className='tabs'>
-                        <li className={ !this.props.params.scope ? 'active tab' : 'tab' }><Link className={ !this.props.params.scope ? 'active' : '' } to='/explore'>Recent</Link></li>
-                        <li className={ this.props.params.scope == 'popular' ? 'active tab' : 'tab' }><Link className={ this.props.params.scope == 'popular' ? 'active' : '' } to='/explore/popular'>Popular</Link></li>
-                        <li className={ this.props.params.scope == 'favorites' ? 'active tab' : 'tab' }><Link className={ this.props.params.scope == 'favorites' ? 'active' : '' } to='/explore/favorites'>Favorites</Link></li>
+                        <li className={ !this.props.params.scope ? 'active tab' : 'tab' }>
+                            <Link className={ !this.props.params.scope ? 'active' : '' } to='/explore'>Recent</Link>
+                        </li>
+
+                        <li className={ this.props.params.scope == 'popular' ? 'active tab' : 'tab' }>
+                            <Link className={ this.props.params.scope == 'popular' ? 'active' : '' } to='/explore/popular'>Popular</Link>
+                        </li>
+
+                        { this.context.currentUser &&
+                            <li className={ this.props.params.scope == 'favorites' ? 'active tab' : 'tab' }>
+                                <Link className={ this.props.params.scope == 'favorites' ? 'active' : '' } to='/explore/favorites'>Favorites</Link>
+                            </li> }
                     </ul>
                 </div>
             </div>
