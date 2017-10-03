@@ -116,7 +116,10 @@
     @setState image: image if image.background_color
 
   _handleComment: (comment) ->
-    StateUtils.updateItem @, 'image.comments', comment, 'id'
+    if typeof comment.map != 'undefined'
+      StateUtils.updateItems @, 'image.comments', comment, 'id'
+    else
+      StateUtils.updateItem @, 'image.comments', comment, 'id'
 
   _handleFavorite: (favorite, set=true) ->
     if set

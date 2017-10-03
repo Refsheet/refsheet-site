@@ -1,8 +1,13 @@
 @Home = React.createClass
+  contextTypes:
+    currentUser: React.PropTypes.object
+
   componentDidMount: ->
     $('.materialboxed').materialbox()
 
   render: ->
+    return `<Dashboard.Show {...this.props} />` if @context.currentUser?.is_patron
+
     demoSwatches = [
       { name: 'Light Fur', color: '#fdf2d4', id: 0 },
       { name: 'Dark Fur', color: '#b5a67e', id: 1 },
@@ -11,7 +16,7 @@
       { name: 'Markings', color: '#99b734', id: 4 }
     ]
 
-    `<Main>
+    `<Main title='Refsheet.net: Your Characters, Organized.'>
         <Jumbotron backgroundImage='/assets/unsplash/typewriter.jpg'>
             <h1>Your characters, <strong>organized.</strong></h1>
             <p className='flow-text'>

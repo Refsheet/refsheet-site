@@ -23,7 +23,6 @@
 
 
   request: (type, path, data, success, error) ->
-    $(document).trigger 'app:loading'
     console.debug "#{type} #{path}", data
 
     $.ajax
@@ -41,6 +40,3 @@
           error(msg)
         else
           Materialize.toast msg.error, 3000, 'red' if msg.error
-
-      complete: =>
-        $(document).trigger 'app:loading:done'

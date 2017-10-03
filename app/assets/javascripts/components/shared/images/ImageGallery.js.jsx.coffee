@@ -10,11 +10,20 @@
 
 
   getInitialState: ->
+    append: false
     images: @props.images || null
 
   load: (data, sendCallback=true) ->
-    console.debug '[ImageGallery] Loading: ', data
-    @setState images: data, @_initialize
+    s = images: data
+
+    if @state.images > 0 && data.length > 0
+      new_ids = ArrayUtils.pluck(data, 'id')
+      old_ids = ArrayUtils.pluck(@state.images, 'id')
+
+      if ArrayUtils.diff(new_ids, old_ids).length == data.length
+        s.append = true
+
+    @setState s, @_initialize
     @props.onImagesLoad(data) if @props.onImagesLoad and sendCallback
 
 
@@ -22,6 +31,8 @@
     if @props.imagesPath? and !@props.images
       console.debug '[ImageGallery] Fetching:', @props.imagesPath
       $.get @props.imagesPath, @load
+    else
+      @_initialize()
 
     $(window).resize @_resizeJg
 
@@ -30,9 +41,6 @@
     $(window).off 'resize', @_resizeJg
 
   componentWillReceiveProps: (newProps) ->
-    console.debug '[ImageGallery] Loading new props:', newProps.images
-    console.debug '[ImageGallery] Replacing old:', @state.images
-
     if newProps.images
       @load newProps.images, false
 
@@ -72,6 +80,17 @@
   _initialize: ->
     return if @props.noFeature and !@props.noSquare
 
+    if @state.images.length == 0
+      console.debug '[ImageGallery] Empty, no init.'
+      return
+
+    if @state.append
+      console.debug '[ImageGallery] Init with norewind.'
+      $(@refs.gallery).justifiedGallery 'norewind'
+      return
+
+    console.debug '[ImageGallery] Initializing Justified Gallery...'
+
     opts =
       selector: '.gallery-image'
       margins: 15
@@ -79,6 +98,7 @@
 
     opts = $.extend {}, opts, @_getJgRowHeight()
     $(@refs.gallery).justifiedGallery opts
+    @setState append: true
 
 
   render: ->
