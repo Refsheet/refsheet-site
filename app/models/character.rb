@@ -37,8 +37,8 @@ class Character < ApplicationRecord
   belongs_to :color_scheme, autosave: true
   belongs_to :featured_image, class_name: Image
   belongs_to :profile_image, class_name: Image
-  has_many :swatches
-  has_many :images
+  has_many :swatches, dependent: :destroy
+  has_many :images, dependent: :destroy
   has_many :transfers
   has_and_belongs_to_many :character_groups,
                           after_add: :update_counter_cache,
@@ -67,6 +67,7 @@ class Character < ApplicationRecord
   slugify :name, scope: :user_id
   scoped_search on: [:name, :species, :profile, :likes, :dislikes]
   ranks :row_order
+  acts_as_paranoid
 
   scope :default_order, -> do
     order(<<-SQL)

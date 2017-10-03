@@ -13,13 +13,14 @@
 
   componentDidMount: ->
     $(window).on 'scroll.infinite-scroll', =>
-      if !@state.lastPage and !@state.loading and $(window).scrollTop() + $(window).height() > $(document).height() - (@props.scrollOffset || 100)
+      if !@state.lastPage and !@state.loading and ($(window).scrollTop() + $(window).height() > $(document).height() - (@props.scrollOffset || 100))
         @_fetch()
 
   componentWillUnmount: ->
     $(window).off 'scroll.infinite-scroll'
 
   _fetch: ->
+    console.log "Infinite fetch:", @props.stateLink, @props.params
     fetchUrl = StateUtils.getFetchUrl(@props.stateLink, @props.params)
     data = page: @state.page + 1
 
@@ -27,6 +28,8 @@
       Model.request 'GET', fetchUrl, data, (data) =>
         items = ObjectPath.get data, @props.stateLink.statePath
         meta  = data.$meta
+
+        console.log "Infinite done:", items, meta
 
         lastPage = items.length < (@props.perPage || 24)
         @setState page: meta.page, lastPage: lastPage, loading: false, =>

@@ -13,6 +13,8 @@ class ExploresController < ApplicationController
             description: 'Explore recent artwork uploads across all of Refsheet.net!'
         )
 
+        eager_load media: @media
+
         render 'application/show'
       end
     end
@@ -34,6 +36,8 @@ class ExploresController < ApplicationController
             description: 'See what\'s getting a lot of love this week on Refsheet.net!'
         )
 
+        eager_load media: @media
+
         render 'application/show'
       end
     end
@@ -54,6 +58,8 @@ class ExploresController < ApplicationController
             title: 'Your Favorites',
             description: 'Everything you\'ve ever loved in one place (finally)!'
         )
+
+        eager_load media: @media
 
         render 'application/show'
       end

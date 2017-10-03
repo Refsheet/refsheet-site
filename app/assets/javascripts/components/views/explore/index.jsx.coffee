@@ -33,7 +33,7 @@
   _renderImages: ->
     return `<Loading />` unless @state.media
 
-    `<div>
+    `<div key={ this.props.params.scope }>
         <ImageGallery images={ this.state.media } noFeature noSquare />
         <InfiniteScroll onLoad={ this._append } stateLink={ this.stateLink } params={ this.props.params } />
     </div>`

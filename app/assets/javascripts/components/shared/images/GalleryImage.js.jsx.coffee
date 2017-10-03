@@ -85,9 +85,24 @@
             data-gallery-image-id={ this.state.image.id }
             style={{ backgroundColor: this.state.image.background_color }}
         >
-            { this.context.currentUser &&
-                <FavoriteButton mediaId={ this.state.image.id } isFavorite={ this.state.image.is_favorite } />
-            }
+            <div className='overlay'>
+                <div className='interactions'>
+                    <div className='favs'>
+                        <Icon>{ this.state.image.is_favorite ? 'star' : 'star_outline' }</Icon>
+                        &nbsp;{ NumberUtils.format(this.state.image.favorite_count) }
+                    </div>
+                    &nbsp;
+                    <div className='favs'>
+                        <Icon>comment</Icon>
+                        &nbsp;{ NumberUtils.format(this.state.image.comment_count) }
+                    </div>
+                </div>
+
+                <div className='title'>
+                    <div className='truncate'>{ this.state.image.title }</div>
+                    <div className='muted truncate'>By: { this.state.image.character.name }</div>
+                </div>
+            </div>
 
             <img src={ imageSrc } alt={ this.state.image.title } title={ this.state.image.title } />
         </a>`

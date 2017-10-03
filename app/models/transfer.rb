@@ -20,7 +20,7 @@
 class Transfer < ApplicationRecord
   include HasGuid
 
-  belongs_to :character
+  belongs_to :character, -> { with_deleted }
   belongs_to :item
   belongs_to :sender, class_name: User, foreign_key: :sender_user_id
   belongs_to :destination, class_name: User, foreign_key: :destination_user_id

@@ -95,7 +95,7 @@ class Image < ApplicationRecord # < Media
   end
 
   def title
-    super || "Image of #{self.character.name}"
+    super || "Image of #{self.character&.name || 'Anonymous'}"
   end
 
   def background_color
