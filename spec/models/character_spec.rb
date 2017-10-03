@@ -26,6 +26,7 @@
 #  hidden            :boolean
 #  secret            :boolean
 #  row_order         :integer
+#  deleted_at        :datetime
 #
 
 require 'rails_helper'
