@@ -25,6 +25,8 @@
     StateUtils.load @, 'media'
 
   componentWillReceiveProps: (newProps) ->
+    if @props.params.scope != newProps.params.scope
+      @setState media: null
     StateUtils.reload @, 'media', newProps
 
   _append: (data) ->
