@@ -64,6 +64,7 @@ class ExploresController < ApplicationController
 
   def get_scope(scope=Image)
     scope = scope.includes(:favorites, :character => [ :featured_image, :user, :profile_image, :character_groups, :color_scheme ])
+    scope = scope.visible
     scope = scope.sfw unless nsfw_on?
     scope
   end

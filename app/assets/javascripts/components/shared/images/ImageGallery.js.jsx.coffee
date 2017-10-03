@@ -70,7 +70,11 @@
     if @props.onImageClick?
       @props.onImageClick(image.id)
     else
-      $(document).trigger 'app:lightbox', image
+      $(document).trigger 'app:lightbox', [ image, @_handleImageChange ]
+
+  _handleImageChange: (image) ->
+    console.debug '[ImageGallery] Lightbox changed image:', image
+    StateUtils.updateItem @, 'images', image, 'id'
 
   _getJgRowHeight: ->
     coef = if $(window).width() < 900 then 1 else 0.7
