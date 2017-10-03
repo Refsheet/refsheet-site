@@ -1,7 +1,6 @@
 class ExploresController < ApplicationController
   def show
-    @media = filter_scope Image
-                              .includes(:favorites, :character => [ :featured_image, :user, :profile_image, :character_groups, :color_scheme ])
+    @media = filter_scope get_scope
 
     respond_to do |format|
       format.json { render api_collection_response @media, each_serializer: ImageSerializer, include: 'character', root: 'media' }
@@ -19,8 +18,7 @@ class ExploresController < ApplicationController
   end
 
   def popular
-    @media = filter_scope Image
-                              .includes(:favorites, :character => [ :featured_image, :user, :profile_image, :character_groups, :color_scheme ])
+    @media = filter_scope get_scope
                               .left_joins(:favorites)
                               .group(:id)
                               .where('media_favorites.created_at' => 1.week.ago..Time.zone.now),
@@ -44,9 +42,7 @@ class ExploresController < ApplicationController
   def favorites
     return head :unauthorized unless signed_in?
 
-    @media = filter_scope current_user
-                              .favorite_media
-                              .includes(:favorites, :character => [ :featured_image, :user, :profile_image, :character_groups, :color_scheme ]),
+    @media = filter_scope get_scope(current_user.favorite_media),
                           'media_favorites.created_at'
 
     respond_to do |format|
@@ -62,5 +58,13 @@ class ExploresController < ApplicationController
         render 'application/show'
       end
     end
+  end
+
+  private
+
+  def get_scope(scope=Image)
+    scope = scope.includes(:favorites, :character => [ :featured_image, :user, :profile_image, :character_groups, :color_scheme ])
+    scope = scope.sfw unless nsfw_on?
+    scope
   end
 end
