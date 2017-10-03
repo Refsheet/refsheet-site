@@ -1,6 +1,4 @@
 class ExploresController < ApplicationController
-  in_beta!
-
   def show
     @media = filter_scope Image
                               .includes(:favorites, :character => [ :featured_image, :user, :profile_image, :character_groups, :color_scheme ])
