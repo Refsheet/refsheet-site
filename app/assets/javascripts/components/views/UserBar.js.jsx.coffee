@@ -164,11 +164,9 @@
                       </li>
                   }
 
-                  { (this.context.currentUser && this.context.currentUser.is_patron) &&
-                      <li>
-                          <Link to='/explore' activeClassName='teal-text text-lighten-2'>Explore</Link>
-                      </li>
-                  }
+                  <li>
+                      <Link to='/explore' activeClassName='teal-text text-lighten-2'>Explore</Link>
+                  </li>
 
                   {/*<li>*/}
                       {/*<Link to='/guilds' activeClassName='teal-text text-lighten-2'>Guilds</Link>*/}

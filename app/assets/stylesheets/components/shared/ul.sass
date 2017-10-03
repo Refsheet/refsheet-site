@@ -24,3 +24,13 @@ ul
       &:hover
         background-color: $lighten-color
         cursor: pointer
+
+  @at-root
+    .tab-row-container
+      height: 48px
+
+    .tab-row
+      &.pinned
+        @extend .z-depth-1
+        width: 100%
+        z-index: 995

@@ -24,6 +24,11 @@
   componentWillMount: ->
     StateUtils.load @, 'media'
 
+  componentDidMount: ->
+    $(@refs.tabRow).pushpin
+      top: $(@refs.tabRow).offset().top
+      offset: 56
+
   componentWillReceiveProps: (newProps) ->
     if @props.params.scope != newProps.params.scope
       @setState media: null
@@ -60,13 +65,15 @@
             <p>{ description }</p>
         </Jumbotron>
 
-        <div className='tab-row'>
-            <div className='container'>
-                <ul className='tabs'>
-                    <li className={ !this.props.params.scope ? 'active tab' : 'tab' }><Link className={ !this.props.params.scope ? 'active' : '' } to='/explore'>Recent</Link></li>
-                    <li className={ this.props.params.scope == 'popular' ? 'active tab' : 'tab' }><Link className={ this.props.params.scope == 'popular' ? 'active' : '' } to='/explore/popular'>Popular</Link></li>
-                    <li className={ this.props.params.scope == 'favorites' ? 'active tab' : 'tab' }><Link className={ this.props.params.scope == 'favorites' ? 'active' : '' } to='/explore/favorites'>Favorites</Link></li>
-                </ul>
+        <div className='tab-row-container'>
+            <div className='tab-row pushpin' ref='tabRow'>
+                <div className='container'>
+                    <ul className='tabs'>
+                        <li className={ !this.props.params.scope ? 'active tab' : 'tab' }><Link className={ !this.props.params.scope ? 'active' : '' } to='/explore'>Recent</Link></li>
+                        <li className={ this.props.params.scope == 'popular' ? 'active tab' : 'tab' }><Link className={ this.props.params.scope == 'popular' ? 'active' : '' } to='/explore/popular'>Popular</Link></li>
+                        <li className={ this.props.params.scope == 'favorites' ? 'active tab' : 'tab' }><Link className={ this.props.params.scope == 'favorites' ? 'active' : '' } to='/explore/favorites'>Favorites</Link></li>
+                    </ul>
+                </div>
             </div>
         </div>
 
