@@ -86,7 +86,8 @@ class Image < ApplicationRecord # < Media
   scoped_search on: [:caption, :image_file_name]
   scoped_search relation: :character, on: [:name, :species]
 
-  scope :sfw, -> { where(nsfw: [false, nil]) }
+  scope :unflagged, -> { where(nsfw: nil) }
+  scope :sfw, -> { where(nsfw: false) }
   scope :nsfw, -> { where(nsfw: true) }
   scope :visible, -> { where(hidden: [false, nil]) }
 

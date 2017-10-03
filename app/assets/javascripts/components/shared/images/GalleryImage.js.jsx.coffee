@@ -77,6 +77,8 @@
     if @state.image
       imageSrc = @state.image[@props.size] || @state.image['large']
 
+      showNsfwWarning = @state.image.nsfw and not @context.currentUser?.settings?.nsfw_ok
+
       contents =
         `<a ref='image'
             className={ classNames.join(' ') }
@@ -85,6 +87,12 @@
             data-gallery-image-id={ this.state.image.id }
             style={{ backgroundColor: this.state.image.background_color }}
         >
+            { showNsfwWarning &&
+              <div className='nsfw-cover'>
+                  <Icon>remove_circle_outline</Icon>
+                  <div className='caption'>NSFW</div>
+              </div> }
+
             <div className='overlay'>
                 <div className='interactions'>
                     <div className='favs'>

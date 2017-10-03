@@ -85,6 +85,26 @@
     width: 100%
     overflow: hidden
 
+    .nsfw-cover
+      background-color: $card-bg-color
+      text-align: center
+      position: absolute
+      top: 0
+      bottom: 0
+      width: 100%
+      z-index: 2
+
+      i.material-icons
+        font-size: 2.5rem
+        color: color('grey', 'lighten-3')
+        margin-bottom: 0.5rem
+        display: block
+
+      .caption, i.material-icons
+        position: relative
+        top: 50%
+        transform: translateY(-100%)
+
     .overlay
       position: absolute
       bottom: -3.5rem

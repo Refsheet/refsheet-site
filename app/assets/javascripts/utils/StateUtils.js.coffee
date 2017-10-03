@@ -30,6 +30,7 @@
 
     if fetch
       @fetch context, path, {}, props, callback
+      console.debug '[StateUtils] Scrolling up!'
       $(window).scrollTop 0
 
 
@@ -63,6 +64,7 @@
 
     if fetch
       StateUtils.load context, path, newProps
+      console.debug '[StateUtils] Scrolling up!'
       $(window).scrollTop 0
 
 

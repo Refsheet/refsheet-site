@@ -72,7 +72,7 @@
     else
       window.history.back()
 
-    @setState image: null
+    @setState image: null, onChange: null
 
   componentDidMount: ->
     $('#lightbox').modal
@@ -85,11 +85,9 @@
         @handleClose(e)
 
     $(document)
-      .on 'click', '[data-image-id]', (e) =>
-        $(document).trigger 'app:lightbox', $(e.target).closest('[data-image-id]').data('image-id')
-        false
-        
-      .on 'app:lightbox', (e, imageId) =>
+      .on 'app:lightbox', (e, imageId, onChange) =>
+        console.debug '[Lightbox] Launching from event with:', imageId, onChange
+
         if typeof imageId == 'object' and not imageId.comments
           imageId = imageId.id
 
@@ -97,35 +95,43 @@
           $.ajax
             url: "/images/#{imageId}.json"
             success: (data) =>
-              @setState image: data
+              @setState image: data, onChange: onChange
               window.history.pushState {}, "", data.path
 
             error: (error) =>
               @setState error: "Image #{error.statusText}"
         else
-          @setState image: imageId, directLoad: imageId.directLoad
+          @setState image: imageId, directLoad: imageId.directLoad, onChange: onChange
           window.history.pushState {}, "", imageId.path
 
         $('#lightbox').modal('open')
 
   _handleChange: (image) ->
     Materialize.toast "Image saved!", 3000, 'green'
-    @setState image: image
+    @setState image: image, @_callback
 
   _handleUpdate: (image) ->
-    @setState image: image if image.background_color
+    return unless image.background_color
+    image = HashUtils.set @state.image, 'background_color', image.background_color
+    @setState image: image
 
   _handleComment: (comment) ->
     if typeof comment.map != 'undefined'
-      StateUtils.updateItems @, 'image.comments', comment, 'id'
+      StateUtils.updateItems @, 'image.comments', comment, 'id', @_callback
     else
-      StateUtils.updateItem @, 'image.comments', comment, 'id'
+      StateUtils.updateItem @, 'image.comments', comment, 'id', @_callback
 
   _handleFavorite: (favorite, set=true) ->
     if set
-      StateUtils.updateItem @, 'image.favorites', favorite, 'id'
+      StateUtils.updateItem @, 'image.favorites', favorite, 'id', @_callback
     else
-      StateUtils.removeItem @, 'image.favorites', favorite, 'id'
+      StateUtils.removeItem @, 'image.favorites', favorite, 'id', @_callback
+
+  _callback: ->
+    image = HashUtils.set @state.image, 'comment_count', @state.image.comments.length
+    ObjectPath.set image, 'favorite_count', @state.image.favorites.length
+    console.debug '[Lightbox] Callback with', image
+    @state.onChange image if @state.onChange
 
   componentDidUpdate: ->
     $('.dropdown-button').dropdown
@@ -213,6 +219,7 @@
                         <Comments.Index comments={ this.state.image.comments }
                                         mediaId={ this.state.image.id }
                                         onCommentChange={ this._handleComment }
+                                        onCommentsChange={ this._handleComment }
                                         poll={ poll } />
                     </Tab>
 
@@ -257,7 +264,7 @@
         </div>`
     else
       lightbox =
-        `<div className='loader'>
+        `<div className='loader center padding--large'>
             {( this.state.error ? <h1>{ this.state.error }</h1> : <Spinner /> )}
         </div>`
 

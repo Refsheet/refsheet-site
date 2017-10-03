@@ -9,6 +9,7 @@
     comments: React.PropTypes.array
     poll: React.PropTypes.bool
     onCommentChange: React.PropTypes.func
+    onCommentsChange: React.PropTypes.func
 
   getInitialState: ->
     model:
@@ -17,13 +18,12 @@
   _poll: ->
     @poller = setTimeout =>
       Model.poll "/media/#{@props.mediaId}/comments", {}, (data) =>
-        data.map (comment) =>
-          @props.onCommentChange comment if @props.onCommentChange
+        @props.onCommentsChange(data) if @props.onCommentsChange
         @_poll()
     , 3000
 
   componentDidMount: ->
-    @_poll() if @props.onCommentChange and @props.poll
+    @_poll() if @props.onCommentsChange and @props.poll
 
   componentWillUnmount: ->
     clearTimeout @poller
