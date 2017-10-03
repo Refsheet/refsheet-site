@@ -22,7 +22,7 @@
   _fetch: ->
     console.log "Infinite fetch:", @props.stateLink, @props.params
     fetchUrl = StateUtils.getFetchUrl(@props.stateLink, @props.params)
-    data = page: @state.page + 1
+    data = page: parseInt(@state.page) + 1
 
     @setState loading: true, =>
       Model.request 'GET', fetchUrl, data, (data) =>
@@ -34,6 +34,10 @@
         lastPage = items.length < (@props.perPage || 24)
         @setState page: meta.page, lastPage: lastPage, loading: false, =>
           @props.onLoad items
+
+  _loadMore: (e) ->
+    @_fetch()
+    e.preventDefault()
 
   render: ->
     `<div className='infinite-scroll'>
