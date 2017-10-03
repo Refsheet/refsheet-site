@@ -95,4 +95,4 @@
       param = ObjectPath.get props.params, m.substring(1)
       param || ''
 
-    fetchUrl.replace /\/\/+|\/\z/g, ''
+    fetchUrl.replace /\/\/+|\/$/g, ''

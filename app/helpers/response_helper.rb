@@ -8,7 +8,7 @@ module ResponseHelper
     { json: {
         root => results,
         '$meta' => {
-            page: params[:page] || 1,
+            page: params[:page].to_i || 1,
             total: collection.total_entries,
             per_page: collection.per_page,
             pages: collection.total_pages

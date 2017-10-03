@@ -20,8 +20,7 @@
     $(window).off 'scroll.infinite-scroll'
 
   _fetch: ->
-    console.log "Infinite fetch:", @props.stateLink, @props.params
-    fetchUrl = StateUtils.getFetchUrl(@props.stateLink, @props.params)
+    fetchUrl = StateUtils.getFetchUrl(@props.stateLink, params: @props.params)
     data = page: parseInt(@state.page) + 1
 
     @setState loading: true, =>
@@ -44,6 +43,11 @@
         { !this.state.lastPage && !this.state.loading &&
             <div className='margin-top--large center'>
                 <Button href='#' onClick={ this._loadMore } large block className='btn-flat grey darken-4 white-text'>Load More...</Button>
+            </div> }
+
+        { this.state.loading &&
+            <div className='margin-top--large center'>
+                <Spinner small />
             </div> }
     </div>`
 
