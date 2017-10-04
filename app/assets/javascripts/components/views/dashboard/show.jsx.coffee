@@ -4,11 +4,11 @@
 
   render: ->
     `<Main title='Home' flex>
-        <Container flex>
+        <Container flex className='activity-feed'>
             <div className='sidebar transparent padding-top--large'>
                 <Dashboard.UserCard user={ this.context.currentUser } />
 
-                <ul className='character-group-list'>
+                <ul className='character-group-list margin-top--large'>
                     <li>
                         <Link to='/'>
                             <Icon className='left'>home</Icon> Activity Feed
@@ -25,6 +25,10 @@
 
             <div className='content'>
                 <Dashboard.Activity />
+            </div>
+
+            <div className='sidebar transparent padding-top--large'>
+                <p className='caption center'>What goes here?</p>
             </div>
         </Container>
     </Main>`

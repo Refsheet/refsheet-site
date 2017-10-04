@@ -3,7 +3,7 @@
     currentUser: React.PropTypes.object
 
   render: ->
-    `<div className='activity-feed'>
+    `<div>
         <div className='card sp with-avatar margin-bottom--large'>
             <img className='avatar circle' src={ this.context.currentUser.avatar_url } alt={ this.context.currentUser.name } />
 
