@@ -3,32 +3,40 @@
     currentUser: React.PropTypes.object
 
   render: ->
-    `<div>
-        <div className='card sp with-avatar margin-bottom--large'>
-            <img className='avatar circle' src={ this.context.currentUser.avatar_url } alt={ this.context.currentUser.name } />
+    fakeUrl = ->
+      i = [
+        'https://s3.amazonaws.com/refsheet-prod/images/images/000/000/006/%s/1483044380.wolnir_ych101.png?1492920243'
+        'https://s3.amazonaws.com/refsheet-prod/images/images/000/001/398/%s/MauPort_PostRes.png?1493006941'
+        'https://s3.amazonaws.com/refsheet-prod/images/images/000/001/399/%s/MauPort_Night_PostRes.png?1492919942'
+        'https://s3.amazonaws.com/refsheet-prod/images/images/000/001/545/%s/FiresightRedux_PostRes.png?1494397581'
+      ]
 
-            <div className='card-content'>
-                <div className='muted right'>1 day ago</div>
-                <Link to={ this.context.currentUser.link }>{ this.context.currentUser.name }</Link>
-                <div>Uploaded 3 new photos to <Link to='/c/mau'>Akhet</Link>:</div>
-            </div>
+      img = i[Math.floor(Math.random() * i.length)]
+      end = {}
 
-            <Row noMargin noGutter>
-                <Column s={4}><img src='https://s3.amazonaws.com/refsheet-prod/images/images/000/000/006/small_square/1483044380.wolnir_ych101.png?1492920243' className='responsive-img block' /></Column>
-                <Column s={4}><img src='https://s3.amazonaws.com/refsheet-prod/images/images/000/001/398/small_square/MauPort_PostRes.png?1493006941' className='responsive-img block' /></Column>
-                <Column s={4}><img src='https://s3.amazonaws.com/refsheet-prod/images/images/000/001/399/small_square/MauPort_Night_PostRes.png?1492919942' className='responsive-img block' /></Column>
-            </Row>
-        </div>
+      for s in ['medium', 'medium_square', 'small', 'small_square']
+        end[s] = img.replace '%s', s
+      end
 
-        <div className='card sp with-avatar'>
-            <img className='avatar circle' src={ this.context.currentUser.avatar_url } alt={ this.context.currentUser.name } />
+    fakeActivity = (count) =>
+      end = {
+        user: @context.currentUser
+        activityType: 'Image'
+        date: '2017-09-01 08:34'
+        dateHuman: '1 hour'
+        images: []
+      }
 
-            <div className='card-content'>
-                <div className='muted right'>1 day ago</div>
-                <Link to={ this.context.currentUser.link }>{ this.context.currentUser.name }</Link>
-                <div>Uploaded a new photo to <Link to='/c/mau'>Akhet</Link>:</div>
-            </div>
+      for i in [1..count]
+        end.images.push { caption: "Image #{i}", url: fakeUrl() }
+      end
 
-            <img src='https://s3.amazonaws.com/refsheet-prod/images/images/000/001/545/medium/FiresightRedux_PostRes.png?1494397581' className='responsive-img block' />
-        </div>
-    </div>`
+    activity = []
+
+    for i in [1..10]
+      activity.push fakeActivity(i)
+
+    out = activity.map (item, i) ->
+      `<Dashboard.ActivityCard {...item} key={i} />`
+
+    `<div>{ out }</div>`
