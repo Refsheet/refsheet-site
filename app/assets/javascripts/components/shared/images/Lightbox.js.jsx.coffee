@@ -111,9 +111,7 @@
     @setState image: image, @_callback
 
   _handleUpdate: (image) ->
-    return unless image.background_color
-    image = HashUtils.set @state.image, 'background_color', image.background_color
-    @setState image: image
+    @setState image: image if image.background_color
 
   _handleComment: (comment) ->
     if typeof comment.map != 'undefined'
