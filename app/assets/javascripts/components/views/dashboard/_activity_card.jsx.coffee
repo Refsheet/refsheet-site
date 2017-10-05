@@ -1,11 +1,14 @@
 @Dashboard.ActivityCard = React.createClass
   propTypes:
+    activityType: React.PropTypes.string.isRequired
+    activityMethod: React.PropTypes.string
+    activityField: React.PropTypes.string
+    activity: React.PropTypes.object
     user: React.PropTypes.object.isRequired
     character: React.PropTypes.object
+    timestamp: React.PropTypes.number.isRequired
+
     images: React.PropTypes.array
-    activityType: React.PropTypes.string.isRequired
-    dateHuman: React.PropTypes.string.isRequired
-    date: React.PropTypes.string.isRequired
 
   _getMessage: ->
     switch @props.activityType
@@ -84,7 +87,7 @@
         <img className='avatar circle' src={ identity.avatarUrl } alt={ identity.name } />
 
         <div className='card-content'>
-            <div className='muted right' title={ date }>{ dateHuman }</div>
+            <DateFormat className='muted right' timestamp={ this.props.timestamp } fuzzy short />
             <Link to={ identity.link }>{ identity.name }</Link>
 
             { this._getMessage() }
