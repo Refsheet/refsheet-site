@@ -22,8 +22,7 @@
       end = {
         user: @context.currentUser
         activityType: 'Image'
-        date: '2017-09-01 08:34'
-        dateHuman: '1 hour'
+        timestamp: Date.now()
         images: []
       }
 
