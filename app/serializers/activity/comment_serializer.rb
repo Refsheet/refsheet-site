@@ -11,6 +11,8 @@ class Activity::CommentSerializer < ActiveModel::Serializer
   end
 
   def media
+    return unless object.media
+
     case object.media_type
       when 'Image'
         Activity::ImageSerializer
