@@ -2,7 +2,17 @@
   contextTypes:
     currentUser: React.PropTypes.object
 
+  dataPath: '/account/activity'
+
+  getInitialState: ->
+    activity: null
+
+  componentDidMount: ->
+    StateUtils.load @, 'activity'
+
   render: ->
+    return `<Loading />` unless @state.activity
+
     fakeUrl = ->
       i = [
         'https://s3.amazonaws.com/refsheet-prod/images/images/000/000/006/%s/1483044380.wolnir_ych101.png?1492920243'
@@ -35,7 +45,7 @@
     for i in [1..10]
       activity.push fakeActivity(i)
 
-    out = activity.map (item, i) ->
-      `<Dashboard.ActivityCard {...item} key={i} />`
+    out = @state.activity.map (item, i) ->
+      `<Dashboard.ActivityCard {...StringUtils.camelizeKeys(item)} key={i} />`
 
     `<div>{ out }</div>`

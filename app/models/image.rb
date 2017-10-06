@@ -36,6 +36,9 @@ class Image < ApplicationRecord # < Media
   has_many :favorites, foreign_key: :media_id, class_name: Media::Favorite
   has_many :comments, foreign_key: :media_id, class_name: Media::Comment
 
+  # Requires this to eager load the news feed:
+  has_many :activities, as: :activity, dependent: :destroy
+
   SIZE = {
       thumbnail: 320,
       small: 427,
@@ -82,6 +85,7 @@ class Image < ApplicationRecord # < Media
   before_validation :adjust_source_url
   after_save :clean_up_character
   after_destroy :clean_up_character
+  after_create :log_activity
 
   scoped_search on: [:caption, :image_file_name]
   scoped_search relation: :character, on: [:name, :species]
@@ -140,5 +144,9 @@ class Image < ApplicationRecord # < Media
   def adjust_source_url
     return unless source_url.present?
     self.source_url = 'http://' + source_url unless source_url =~ /\A[a-z]+:\/\//i
+  end
+
+  def log_activity
+    Activity.create activity: self, user_id: self.character.user_id, character_id: self.character_id, created_at: self.created_at, activity_method: 'create'
   end
 end

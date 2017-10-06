@@ -10,10 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171003153856) do
+ActiveRecord::Schema.define(version: 20171005234649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "activities", force: :cascade do |t|
+    t.string   "guid"
+    t.integer  "user_id"
+    t.integer  "character_id"
+    t.string   "activity_type"
+    t.integer  "activity_id"
+    t.string   "activity_method"
+    t.string   "activity_field"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["activity_type"], name: "index_activities_on_activity_type", using: :btree
+    t.index ["character_id"], name: "index_activities_on_character_id", using: :btree
+    t.index ["user_id"], name: "index_activities_on_user_id", using: :btree
+  end
 
   create_table "ahoy_events", force: :cascade do |t|
     t.integer  "visit_id"
