@@ -11,26 +11,63 @@
 
 class InitializeActivities < ActiveRecord::Migration[5.0]
   def up
-    characters = Character
-                     .pluck(:id, :user_id, :created_at)
-                     .collect { |i| %w(activity_id user_id created_at).zip(i).to_h.merge(activity_type: 'Character', activity_method: 'create') }
+    Character.select(:id, :user_id, :created_at).find_in_batches do |batch|
+      puts "   --> Running #{batch.first.class.name} batch of #{batch.count}"
 
-    images = Image
-                 .joins(:character => :user)
-                 .pluck(:id, :character_id, 'users.id', :created_at)
-                 .collect { |i| %w(activity_id character_id user_id created_at).zip(i).to_h.merge(activity_type: 'Image', activity_method: 'create') }
+      activities = batch.collect { |i| {
+          activity_id: i.id,
+          user_id: i.user_id,
+          created_at: i.created_at,
+          activity_type: 'Character',
+          activity_method: 'create'
+      } }
 
-    discussions = Forum::Discussion
-                      .pluck(:id, :user_id, :created_at)
-                      .collect { |i| %w(activity_id user_id created_at).zip(i).to_h.merge(activity_type: 'Forum::Discussion', activity_method: 'create') }
+      Activity.create activities
+    end
 
-    comments = Media::Comment
-                   .pluck(:id, :user_id, :created_at)
-                   .collect { |i| %w(activity_id user_id created_at).zip(i).to_h.merge(activity_type: 'Media::Comment', activity_method: 'create') }
+    Image.joins(:character => :user).select(:id, :character_id, 'users.id AS user_id', :created_at).find_in_batches do |batch|
+      puts "   --> Running #{batch.first.class.name} batch of #{batch.count}"
 
-    activities = characters + images + discussions + comments
+      activities = batch.collect { |i| {
+          activity_id: i.id,
+          character_id: i.character_id,
+          user_id: i.user_id,
+          created_at: i.created_at,
+          activity_type: 'Image',
+          activity_method: 'create'
+      } }
 
-    Activity.create activities
+      Activity.create activities
+    end
+
+    Forum::Discussion.select(:id, :user_id, :created_at).find_in_batches do |batch|
+      puts "   --> Running #{batch.first.class.name} batch of #{batch.count}"
+
+      activities = batch.collect { |i| {
+          activity_id: i.id,
+          user_id: i.user_id,
+          created_at: i.created_at,
+          activity_type: 'Forum::Discussion',
+          activity_method: 'create'
+      } }
+
+      Activity.create activities
+    end
+
+
+    Media::Comment.select(:id, :user_id, :created_at).find_in_batches do |batch|
+      puts "   --> Running #{batch.first.class.name} batch of #{batch.count}"
+
+      activities = batch.collect { |i| {
+          activity_id: i.id,
+          user_id: i.user_id,
+          created_at: i.created_at,
+          activity_type: 'Media::Comment',
+          activity_method: 'create'
+      } }
+
+      Activity.create activities
+    end
   end
 
   def down

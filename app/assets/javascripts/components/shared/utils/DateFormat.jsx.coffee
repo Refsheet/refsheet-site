@@ -59,7 +59,9 @@
   ]
 
   date: ->
-    new Date @props.timestamp
+    ts = parseInt @props.timestamp
+    ts *= 1000 if ts < 10**11
+    new Date ts
 
   fullTime: ->
     date = @date()
