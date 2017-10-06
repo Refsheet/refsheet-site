@@ -2,9 +2,9 @@
   contextTypes:
     currentUser: React.PropTypes.object
 
-  dataPath: '/account/activity'
+  dataPath: '/account/activity?activity_type=Image'
   stateLink:
-    dataPath: '/account/activity'
+    dataPath: '/account/activity?activity_type=Image'
     statePath: 'activity'
 
   getInitialState: ->
@@ -24,7 +24,8 @@
 
       if last and HashUtils.compare(item, last, 'user.username', 'character.id', 'activity_type', 'activity_method') and last.timestamp - item.timestamp < 3600
         last.activities ||= [last.activity]
-        last.activities.push item.activity
+        unless HashUtils.itemExists last.activities, item.activity, 'id'
+          last.activities.push item.activity
       else
         grouped.push item
 

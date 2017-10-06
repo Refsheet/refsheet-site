@@ -101,7 +101,7 @@ module CollectionHelper
 
       table = relation.pluralize
 
-      if scope.connection.table_exists?(table) && scope.connection.column_exists?(table, column)
+      if scope.connection.data_source_exists?(table) && scope.connection.column_exists?(table, column)
         if table != scope.table_name
           if scope.reflect_on_association(relation)
             scope = scope.joins(relation.to_sym)

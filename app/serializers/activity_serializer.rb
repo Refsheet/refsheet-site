@@ -2,6 +2,7 @@ require_dependency Rails.root.join 'app/serializers/activity/image_serializer'
 require_dependency Rails.root.join 'app/serializers/activity/character_serializer'
 require_dependency Rails.root.join 'app/serializers/activity/discussion_serializer'
 require_dependency Rails.root.join 'app/serializers/activity/comment_serializer'
+require_dependency Rails.root.join 'app/serializers/activity/user_serializer'
 
 class ActivitySerializer < ActiveModel::Serializer
   attributes :id,
@@ -13,8 +14,8 @@ class ActivitySerializer < ActiveModel::Serializer
              :activity,
              :timestamp
 
-  has_one :user, serializer: UserIndexSerializer
-  has_one :character, serializer: ImageCharacterSerializer
+  has_one :user, serializer: Activity::UserSerializer
+  has_one :character, serializer: Activity::CharacterSerializer
 
   def id
     object.guid
@@ -32,7 +33,7 @@ class ActivitySerializer < ActiveModel::Serializer
         Activity::CommentSerializer
       else
         ActiveModel::Serializer
-    end.new object.activity
+    end.new object.activity, scope: scope
   end
 
   def timestamp

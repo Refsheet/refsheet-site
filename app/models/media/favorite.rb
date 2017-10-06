@@ -12,7 +12,7 @@
 class Media::Favorite < ApplicationRecord
   include NamespacedModel
 
-  belongs_to :media, class_name: Image
+  belongs_to :media, class_name: Image, counter_cache: :favorites_count, inverse_of: :favorites
   belongs_to :user
 
   validates_presence_of :media

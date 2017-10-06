@@ -16,6 +16,6 @@ class Activity::CommentSerializer < ActiveModel::Serializer
         Activity::ImageSerializer
       else
         ActiveModel::Serializer
-    end.new object.media
+    end.new object.media, scope: scope
   end
 end

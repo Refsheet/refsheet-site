@@ -37,9 +37,9 @@ class Activity < ApplicationRecord
   scope :eager_loaded, -> {
     includes(
         :user,
-        :character,
         :activity,
-        :activity_image,
+        character: [:user, :profile_image, :featured_image],
+        activity_image: [:character, :favorites],
         activity_comment: [:media],
         activity_discussion: [:forum],
         activity_character: [:user, :profile_image, :featured_image]
