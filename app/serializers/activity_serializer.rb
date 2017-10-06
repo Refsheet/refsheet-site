@@ -1,7 +1,7 @@
-require_dependency 'app/serializers/activity/image_serializer'
-require_dependency 'app/serializers/activity/character_serializer'
-require_dependency 'app/serializers/activity/discussion_serializer'
-require_dependency 'app/serializers/activity/comment_serializer'
+require_dependency Rails.root.join 'app/serializers/activity/image_serializer'
+require_dependency Rails.root.join 'app/serializers/activity/character_serializer'
+require_dependency Rails.root.join 'app/serializers/activity/discussion_serializer'
+require_dependency Rails.root.join 'app/serializers/activity/comment_serializer'
 
 class ActivitySerializer < ActiveModel::Serializer
   attributes :id,

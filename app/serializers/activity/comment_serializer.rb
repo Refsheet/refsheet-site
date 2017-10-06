@@ -1,4 +1,4 @@
-require_dependency 'app/serializers/activity/image_serializer'
+require_dependency Rails.root.join 'app/serializers/activity/image_serializer'
 
 class Activity::CommentSerializer < ActiveModel::Serializer
   attributes :id,
