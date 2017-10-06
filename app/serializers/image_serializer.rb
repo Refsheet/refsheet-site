@@ -24,8 +24,8 @@ class ImageSerializer < ActiveModel::Serializer
              :source_url,
              :source_url_display,
              :is_favorite,
-             :favorite_count,
-             :comment_count
+             :favorites_count,
+             :comments_count
 
   has_one :character, serializer: ImageCharacterSerializer
   has_many :favorites, serializer: Media::FavoriteSerializer
@@ -81,14 +81,6 @@ class ImageSerializer < ActiveModel::Serializer
 
   def is_favorite
     object.favorites.any? { |f| f.user == current_user } if signed_in?
-  end
-
-  def favorite_count
-    object.favorites.length
-  end
-
-  def comment_count
-    object.comments.count
   end
 
   def session

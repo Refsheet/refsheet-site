@@ -126,8 +126,8 @@
       StateUtils.removeItem @, 'image.favorites', favorite, 'id', @_callback
 
   _callback: ->
-    image = HashUtils.set @state.image, 'comment_count', @state.image.comments.length
-    ObjectPath.set image, 'favorite_count', @state.image.favorites.length
+    image = HashUtils.set @state.image, 'comments_count', @state.image.comments.length
+    ObjectPath.set image, 'favorites_count', @state.image.favorites.length
     console.debug '[Lightbox] Callback with', image
     @state.onChange image if @state.onChange
 

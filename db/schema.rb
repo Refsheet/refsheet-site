@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171005234649) do
+ActiveRecord::Schema.define(version: 20171006050638) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -237,6 +237,8 @@ ActiveRecord::Schema.define(version: 20171005234649) do
     t.datetime "deleted_at"
     t.string   "title"
     t.string   "background_color"
+    t.integer  "comments_count"
+    t.integer  "favorites_count"
     t.index ["guid"], name: "index_images_on_guid", using: :btree
   end
 

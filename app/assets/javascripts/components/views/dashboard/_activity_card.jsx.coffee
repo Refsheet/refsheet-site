@@ -18,11 +18,11 @@
 
       grid.push(
         `<Row noMargin noGutter key={ key }>
-            <Column s={8}><img src={ one.url.medium_square } alt={ one.name } className='responsive-img block' /></Column>
+            <Column s={8}><GalleryImage image={ one } size='medium_square' /></Column>
             <Column s={4}>
                 <Row noMargin noGutter>
-                  <Column><img src={ two.url.medium_square } alt={ two.name } className='responsive-img block' /></Column>
-                  <Column><img src={ three.url.medium_square } alt={ three.name } className='responsive-img block' /></Column>
+                  <Column><GalleryImage image={ two } size='medium_square' /></Column>
+                  <Column><GalleryImage image={ three } size='medium_square' /></Column>
                 </Row>
             </Column>
         </Row>`
@@ -36,8 +36,8 @@
 
       grid.push(
         `<Row noMargin noGutter key={ key }>
-            <Column s={6}><img src={ one.url.medium_square } alt={ one.name } className='responsive-img block' /></Column>
-            <Column s={6}><img src={ two.url.medium_square } alt={ two.name } className='responsive-img block' /></Column>
+            <Column s={6}><GalleryImage image={ one } size='medium_square' /></Column>
+            <Column s={6}><GalleryImage image={ two } size='medium_square' /></Column>
         </Row>`
       )
 
@@ -49,7 +49,7 @@
 
       grid.push(
         `<Row noMargin noGutter key={ key }>
-            <Column><img src={ one.url.medium } alt={ one.name } className='responsive-img block' /></Column>
+            <Column><GalleryImage image={ one } size='medium' /></Column>
         </Row>`
       )
 
@@ -58,6 +58,9 @@
   _getAttachment: ->
     switch @props.activityType
       when 'Image'
+        images = @props.activities || [@props.activity]
+        for i in images
+          i.character = @props.character
         @_buildImageGrid(@props.activities || [@props.activity])
 
   _getMessage: ->

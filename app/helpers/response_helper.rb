@@ -3,7 +3,7 @@ module ResponseHelper
     root = options.delete :root
     options.merge! scope: view_context
 
-    results = ActiveModel::SerializableResource.new(collection, options).as_json
+    results = ActiveModelSerializers::SerializableResource.new(collection, options).as_json
 
     { json: {
         root => results,

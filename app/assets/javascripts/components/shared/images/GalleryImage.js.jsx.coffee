@@ -28,7 +28,10 @@
   _handleClick: (e) ->
     $target = $(e.target)
     if $target.prop('tagName') == 'IMG'
-      @props.onClick(@state.image) if @props.onClick
+      if @props.onClick
+        @props.onClick(@state.image)
+      else
+        $(document).trigger 'app:lightbox', [ @state.image, @load ]
     e.preventDefault()
 
   _initialize: ->
@@ -75,7 +78,10 @@
     classNames.push 'draggable' if @props.editable
 
     if @state.image
-      imageSrc = @state.image[@props.size] || @state.image['large']
+      if typeof @state.image.url == 'object'
+        imageSrc = @state.image.url[@props.size] || @state.image.url['large']
+      else
+        imageSrc = @state.image[@props.size] || @state.image['large']
 
       showNsfwWarning = @state.image.nsfw and not @context.currentUser?.settings?.nsfw_ok
 
@@ -97,16 +103,16 @@
                 <div className='interactions'>
                     <div className='favs'>
                         <Icon>{ this.state.image.is_favorite ? 'star' : 'star_outline' }</Icon>
-                        &nbsp;{ NumberUtils.format(this.state.image.favorite_count) }
+                        &nbsp;{ NumberUtils.format(this.state.image.favorites_count) }
                     </div>
                     &nbsp;
                     <div className='favs'>
                         <Icon>comment</Icon>
-                        &nbsp;{ NumberUtils.format(this.state.image.comment_count) }
+                        &nbsp;{ NumberUtils.format(this.state.image.comments_count) }
                     </div>
                 </div>
 
-                <div className='title'>
+                <div className='image-title'>
                     <div className='truncate'>{ this.state.image.title }</div>
                     <div className='muted truncate'>By: { this.state.image.character.name }</div>
                 </div>

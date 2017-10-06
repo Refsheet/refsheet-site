@@ -36,6 +36,10 @@
     ObjectPath.set object, path, value
     object
 
+  itemExists: (collection, item, primaryKey='id') ->
+    targetKey = if typeof item is 'object' then item[primaryKey] else item
+    !!((collection.filter (i) -> i[primaryKey] == targetKey)[0])
+
   findItem: (collection, item, primaryKey='id', callback) ->
     targetKey = if typeof item is 'object' then item[primaryKey] else item
     old = (collection.filter (i) -> i[primaryKey] == targetKey)[0]
