@@ -22,6 +22,8 @@ class ActivitySerializer < ActiveModel::Serializer
   end
 
   def activity
+    return unless object.activity
+
     case object.activity_type
       when 'Image'
         Activity::ImageSerializer
