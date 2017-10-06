@@ -43,6 +43,13 @@
     callback(old, index) if callback
     [old, index]
 
+  compare: (a, b, keys...) ->
+    for k in keys
+      ca = ObjectPath.get a, k
+      cb = ObjectPath.get b, k
+      return false if ca isnt cb
+    true
+
   groupBy: (items, path) ->
     final = {}
 

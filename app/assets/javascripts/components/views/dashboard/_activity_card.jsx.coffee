@@ -4,18 +4,10 @@
     activityMethod: React.PropTypes.string
     activityField: React.PropTypes.string
     activity: React.PropTypes.object
+    activities: React.PropTypes.array
     user: React.PropTypes.object.isRequired
     character: React.PropTypes.object
     timestamp: React.PropTypes.number.isRequired
-
-  _getMessage: ->
-    switch @props.activityType
-      when 'Image'
-        images = [@props.image]
-        str = if images.length == 1 then 'a new photo' else "#{images.length} new photos"
-        `<div>Uploaded { str }:</div>`
-      else
-        `<div className='red-text'>Unsupported activity type: {this.props.activityType}.{this.props.activityMethod}</div>`
 
   _buildImageGrid: (images, grid=[]) ->
     key = images.length
@@ -66,11 +58,20 @@
   _getAttachment: ->
     switch @props.activityType
       when 'Image'
-        @_buildImageGrid [@props.activity]
+        @_buildImageGrid(@props.activities || [@props.activity])
+
+  _getMessage: ->
+    switch @props.activityType
+      when 'Image'
+        images = @props.activities || [@props.activity]
+        str = if images.length == 1 then 'a new photo' else "#{images.length} new photos"
+        `<div>Uploaded { str }:</div>`
+      else
+        `<div className='red-text'>Unsupported activity type: {this.props.activityType}.{this.props.activityMethod}</div>`
 
   _getIdentity: ->
-    if @props.character and false
-      avatarUrl = @props.character.profile_image.url.thumb_square
+    if @props.character
+      avatarUrl = @props.character.profile_image_url
       name = @props.character.name
       link = @props.character.link
 
@@ -89,7 +90,7 @@
         <img className='avatar circle' src={ identity.avatarUrl } alt={ identity.name } />
 
         <div className='card-content'>
-            <DateFormat className='muted right' timestamp={ this.props.timestamp } fuzzy short />
+            <DateFormat className='muted right' timestamp={ this.props.timestamp } fuzzy />
             <Link to={ identity.link }>{ identity.name }</Link>
 
             { this._getMessage() }

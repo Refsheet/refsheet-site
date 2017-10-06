@@ -3,6 +3,9 @@
     currentUser: React.PropTypes.object
 
   dataPath: '/account/activity'
+  stateLink:
+    dataPath: '/account/activity'
+    statePath: 'activity'
 
   getInitialState: ->
     activity: null
@@ -10,42 +13,32 @@
   componentDidMount: ->
     StateUtils.load @, 'activity'
 
+  _append: (activity) ->
+    StateUtils.updateItems @, 'activity', activity
+
+  _groupedActivity: ->
+    grouped = []
+
+    for item in @state.activity
+      last = grouped[grouped.length - 1]
+
+      if last and HashUtils.compare(item, last, 'user.username', 'character.id', 'activity_type', 'activity_method') and last.timestamp - item.timestamp < 3600
+        last.activities ||= [last.activity]
+        last.activities.push item.activity
+      else
+        grouped.push item
+
+    grouped
+
+
   render: ->
     return `<Loading />` unless @state.activity
 
-    fakeUrl = ->
-      i = [
-        'https://s3.amazonaws.com/refsheet-prod/images/images/000/000/006/%s/1483044380.wolnir_ych101.png?1492920243'
-        'https://s3.amazonaws.com/refsheet-prod/images/images/000/001/398/%s/MauPort_PostRes.png?1493006941'
-        'https://s3.amazonaws.com/refsheet-prod/images/images/000/001/399/%s/MauPort_Night_PostRes.png?1492919942'
-        'https://s3.amazonaws.com/refsheet-prod/images/images/000/001/545/%s/FiresightRedux_PostRes.png?1494397581'
-      ]
+    out = @_groupedActivity().map (item) ->
+      `<Dashboard.ActivityCard {...StringUtils.camelizeKeys(item)} key={item.id} />`
 
-      img = i[Math.floor(Math.random() * i.length)]
-      end = {}
+    `<div>
+        { out }
 
-      for s in ['medium', 'medium_square', 'small', 'small_square']
-        end[s] = img.replace '%s', s
-      end
-
-    fakeActivity = (count) =>
-      end = {
-        user: @context.currentUser
-        activityType: 'Image'
-        timestamp: Date.now()
-        images: []
-      }
-
-      for i in [1..count]
-        end.images.push { caption: "Image #{i}", url: fakeUrl() }
-      end
-
-    activity = []
-
-    for i in [1..10]
-      activity.push fakeActivity(i)
-
-    out = @state.activity.map (item, i) ->
-      `<Dashboard.ActivityCard {...StringUtils.camelizeKeys(item)} key={i} />`
-
-    `<div>{ out }</div>`
+        <InfiniteScroll onLoad={ this._append } stateLink={ this.stateLink } params={{}} />
+    </div>`
