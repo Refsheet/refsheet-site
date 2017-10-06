@@ -22,6 +22,14 @@ Rails.application.routes.draw do
   get 'browse', to: 'application#show'
   get 'browse/users', to: 'application#show'
 
+
+  #== Account Stuff
+
+  namespace :account do
+    get '/activity' => 'activities#index'
+  end
+
+
   resource :session, only: [:show, :create, :destroy, :update], controller: 'session'
   resource :password_resets, only: [:create, :update]
   get 'login', to: 'session#new'

@@ -45,6 +45,9 @@ class Character < ApplicationRecord
                           after_add: :update_counter_cache,
                           after_remove: :update_counter_cache
 
+  # Requires this to eager load the news feed:
+  has_many :activities, as: :activity, dependent: :destroy
+
   # counter_culture :user
 
   accepts_nested_attributes_for :color_scheme
@@ -61,6 +64,7 @@ class Character < ApplicationRecord
   validate :validate_featured_image
 
   before_validation :initiate_transfer, if: -> (c) { c.transfer_to_user.present? }
+  after_create :log_activity
 
   before_destroy :decrement_counter_cache
 
@@ -195,5 +199,9 @@ class Character < ApplicationRecord
 
       g.update_attributes counters
     end
+  end
+
+  def log_activity
+    Activity.create activity: self, user_id: self.user_id, created_at: self.created_at, activity_method: 'create'
   end
 end

@@ -8,13 +8,14 @@
     character: React.PropTypes.object
     timestamp: React.PropTypes.number.isRequired
 
-    images: React.PropTypes.array
-
   _getMessage: ->
     switch @props.activityType
       when 'Image'
-        str = if @props.images.length == 1 then 'a new photo' else "#{@props.images.length} new photos"
+        images = [@props.image]
+        str = if images.length == 1 then 'a new photo' else "#{images.length} new photos"
         `<div>Uploaded { str }:</div>`
+      else
+        `<div className='red-text'>Unsupported activity type: {this.props.activityType}.{this.props.activityMethod}</div>`
 
   _buildImageGrid: (images, grid=[]) ->
     key = images.length
@@ -63,11 +64,12 @@
     `<div className='image-grid'>{ grid }</div>`
 
   _getAttachment: ->
-    if @props.images?
-      @_buildImageGrid @props.images
+    switch @props.activityType
+      when 'Image'
+        @_buildImageGrid [@props.activity]
 
   _getIdentity: ->
-    if @props.character
+    if @props.character and false
       avatarUrl = @props.character.profile_image.url.thumb_square
       name = @props.character.name
       link = @props.character.link
