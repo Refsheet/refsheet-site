@@ -91,6 +91,7 @@
 
 
   getFetchUrl: (stateLink, props) ->
+    stateLink = stateLink() if typeof stateLink is 'function'
     { dataPath, paramMap } = stateLink
 
     fetchUrl = dataPath.replace /(:[a-zA-Z]+)/g, (m) ->
