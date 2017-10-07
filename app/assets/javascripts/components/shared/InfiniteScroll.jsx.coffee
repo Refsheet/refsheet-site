@@ -1,10 +1,14 @@
 @InfiniteScroll = React.createClass
   propTypes:
     onLoad: React.PropTypes.func.isRequired
-    stateLink: React.PropTypes.object.isRequired
     params: React.PropTypes.object.isRequired
     perPage: React.PropTypes.number
     scrollOffset: React.PropTypes.number
+
+    stateLink: React.PropTypes.oneOfType([
+      React.PropTypes.object
+      React.PropTypes.func
+    ]).isRequired
 
   getInitialState: ->
     page: 1
@@ -24,11 +28,12 @@
     data = page: parseInt(@state.page) + 1
 
     @setState loading: true, =>
-      Model.request 'GET', fetchUrl, data, (data) =>
-        items = ObjectPath.get data, @props.stateLink.statePath
-        meta  = data.$meta
+      Model.request 'GET', fetchUrl, data, (fetchData) =>
+        path = if typeof @props.stateLink is 'function' then @props.stateLink().statePath else @props.stateLink.statePath
+        items = ObjectPath.get fetchData, path
+        meta  = fetchData.$meta
 
-        console.log "Infinite done:", items, meta
+        console.debug "Infinite done:", items, meta
 
         lastPage = items.length < (@props.perPage || 24)
         @setState page: meta.page, lastPage: lastPage, loading: false, =>

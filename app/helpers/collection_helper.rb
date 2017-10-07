@@ -86,35 +86,44 @@ module CollectionHelper
     end
 
     params.keys.each do |key|
-      relation, column = key.to_s.split('.')
-      value = params[key].dup
-      negate = value[0] == '!'
-      value.slice!(0) if negate
-      value = [nil, ''] if value.blank? || value == '!'
-      value = [nil, false] if value.is_a? String and value.downcase == 'false'
-      value = nil if value.is_a? String and value.downcase == 'null'
+      case key.downcase
+        when 'since'
+          scope = scope.where('created_at > ?', Time.at(params[key].to_i))
 
-      if column.nil?
-        column   = relation
-        relation = scope.table_name
-      end
+        when 'before'
+          scope = scope.where('created_at < ?', Time.at(params[key].to_i))
 
-      table = relation.pluralize
-
-      if scope.connection.data_source_exists?(table) && scope.connection.column_exists?(table, column)
-        if table != scope.table_name
-          if scope.reflect_on_association(relation)
-            scope = scope.joins(relation.to_sym)
-          else
-            unpermitted_params << key
-          end
-        end
-
-        if negate
-          scope = scope.where.not("#{table}.#{column}" => value)
         else
-          scope = scope.where("#{table}.#{column}" => value)
-        end
+          relation, column = key.to_s.split('.')
+          value = params[key].dup
+          negate = value[0] == '!'
+          value.slice!(0) if negate
+          value = [nil, ''] if value.blank? || value == '!'
+          value = [nil, false] if value.is_a? String and value.downcase == 'false'
+          value = nil if value.is_a? String and value.downcase == 'null'
+
+          if column.nil?
+            column   = relation
+            relation = scope.table_name
+          end
+
+          table = relation.pluralize
+
+          if scope.connection.data_source_exists?(table) && scope.connection.column_exists?(table, column)
+            if table != scope.table_name
+              if scope.reflect_on_association(relation)
+                scope = scope.joins(relation.to_sym)
+              else
+                unpermitted_params << key
+              end
+            end
+
+            if negate
+              scope = scope.where.not("#{table}.#{column}" => value)
+            else
+              scope = scope.where("#{table}.#{column}" => value)
+            end
+          end
       end
     end
 

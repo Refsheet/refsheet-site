@@ -43,4 +43,12 @@ describe Activity, type: :model do
     expect(activities).to include dsc
     expect(activities).to include cmt
   end
+
+  it 'dependent destroy' do
+    chr = create :character
+    expect(Activity.first.activity).to eq chr
+    expect(Activity.count).to eq 1
+    chr.destroy
+    expect(Activity.count).to eq 0
+  end
 end

@@ -2,16 +2,19 @@
   contextTypes:
     currentUser: React.PropTypes.object
 
-  dataPath: '/account/activity?activity_type=Image'
-  stateLink:
-    dataPath: '/account/activity?activity_type=Image'
+  dataPath: '/account/activity'
+  stateLink: ->
+    dataPath: '/account/activity?after=' + @state.since
     statePath: 'activity'
 
   getInitialState: ->
     activity: null
+    since: null
 
   componentDidMount: ->
-    StateUtils.load @, 'activity'
+    StateUtils.load @, 'activity', @props.params, =>
+      console.log 'setting since'
+      @setState since: @state.activity[0]?.timestamp
 
   _append: (activity) ->
     StateUtils.updateItems @, 'activity', activity
