@@ -1,3 +1,5 @@
+require_dependency Rails.root.join 'app/serializers/activity/character_serializer'
+
 class Activity::ImageSerializer < ActiveModel::Serializer
   attributes :id,
              :url,
@@ -7,6 +9,8 @@ class Activity::ImageSerializer < ActiveModel::Serializer
              :comments_count,
              :favorites_count,
              :is_favorite
+
+  has_one :character, serializer: Activity::CharacterSerializer
 
   def id
     object.guid

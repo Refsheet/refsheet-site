@@ -2,19 +2,35 @@
   contextTypes:
     currentUser: React.PropTypes.object
 
+  timer: null
   dataPath: '/account/activity'
   stateLink: ->
-    dataPath: '/account/activity?after=' + @state.since
+    dataPath: '/account/activity?before=' + @state.since
     statePath: 'activity'
 
   getInitialState: ->
     activity: null
+    newActivity: null
     since: null
+    timer: null
 
   componentDidMount: ->
     StateUtils.load @, 'activity', @props.params, =>
-      console.log 'setting since'
       @setState since: @state.activity[0]?.timestamp
+      @_poll()
+
+  componentWillUnmount: ->
+    clearTimeout @timer if @timer
+
+  _poll: ->
+    @timer = setTimeout =>
+      Model.poll @dataPath, { since: @state.since }, (data) =>
+        @setState newActivity: data.activity, @_poll
+    , 15000
+
+  _prepend: ->
+    act = (@state.newActivity || []).concat @state.activity
+    @setState activity: act, since: act[0]?.timestamp, newActivity: null
 
   _append: (activity) ->
     StateUtils.updateItems @, 'activity', activity
@@ -42,6 +58,11 @@
       `<Dashboard.ActivityCard {...StringUtils.camelizeKeys(item)} key={item.id} />`
 
     `<div>
+        { this.state.newActivity && this.state.newActivity.length > 0 &&
+            <a className='btn block white-text margin-bottom--medium' onClick={ this._prepend }>
+                { this.state.newActivity.length } new { this.state.newActivity.length == 1 ? 'activity' : 'activities' }
+            </a> }
+
         { out }
 
         <InfiniteScroll onLoad={ this._append } stateLink={ this.stateLink } params={{}} />
