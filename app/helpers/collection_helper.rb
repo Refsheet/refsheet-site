@@ -88,10 +88,10 @@ module CollectionHelper
     params.keys.each do |key|
       case key.downcase
         when 'since'
-          scope = scope.where('created_at > ?', Time.at(params[key].to_i))
+          scope = scope.where('created_at > ?', Time.at(params[key].to_i + 1))
 
         when 'before'
-          scope = scope.where('created_at < ?', Time.at(params[key].to_i))
+          scope = scope.where('created_at <= ?', Time.at(params[key].to_i))
 
         else
           relation, column = key.to_s.split('.')

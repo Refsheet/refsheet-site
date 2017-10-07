@@ -55,20 +55,43 @@
 
     `<div className='image-grid'>{ grid }</div>`
 
+  _getActivities: ->
+    @props.activities || [ @props.activity ]
+
   _getAttachment: ->
     switch @props.activityType
       when 'Image'
-        images = @props.activities || [@props.activity]
+        images = @_getActivities()
         for i in images
           i.character = @props.character
-        @_buildImageGrid(@props.activities || [@props.activity])
+        @_buildImageGrid(@_getActivities())
+
+      when 'Media::Comment'
+        __this = @
+        comments = @_getActivities().map (comment) =>
+          `<Row key={ comment.id }>
+              <Column s={4}>
+                  <GalleryImage image={ comment.media } size='small_square' />
+              </Column>
+              <Column s={8}>
+                  <div className='chat-bubble receive'>{ comment.comment }</div>
+              </Column>
+          </Row>`
+
+        `<div className='card-content padding-top--none padding-bottom--none'>{ comments }</div>`
 
   _getMessage: ->
     switch @props.activityType
       when 'Image'
-        images = @props.activities || [@props.activity]
+        images = @_getActivities()
         str = if images.length == 1 then 'a new photo' else "#{images.length} new photos"
         `<div>Uploaded { str }:</div>`
+
+      when 'Media::Comment'
+        comments = @_getActivities()
+        str = if comments.length == 1 then `<Link to={ comments[0].media.link }>{ comments[0].media.title }</Link>` else "#{comments.length} photos"
+        `<div>Commented on { str }.</div>`
+
       else
         `<div className='red-text'>Unsupported activity type: {this.props.activityType}.{this.props.activityMethod}</div>`
 
