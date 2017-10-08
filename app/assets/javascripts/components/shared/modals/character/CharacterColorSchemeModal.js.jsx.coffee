@@ -61,6 +61,7 @@
         `<Column key={key} s={6} m={4}>
             <Input name={ key }
                    type='color'
+                   errorPath='color_scheme'
                    label={ name }
                    default={ def } />
         </Column>`

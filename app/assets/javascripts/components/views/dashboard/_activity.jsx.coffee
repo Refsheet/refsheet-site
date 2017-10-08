@@ -41,7 +41,11 @@
     for item in @state.activity
       last = grouped[grouped.length - 1]
 
-      if last and HashUtils.compare(item, last, 'user.username', 'character.id', 'activity_type', 'activity_method') and last.timestamp - item.timestamp < 3600
+      if item.activity and
+         last and
+         HashUtils.compare(item, last, 'user.username', 'character.id', 'activity_type', 'activity_method') and
+         last.timestamp - item.timestamp < 3600
+
         last.activities ||= [last.activity]
         unless HashUtils.itemExists last.activities, item.activity, 'id'
           last.activities.push item.activity

@@ -69,6 +69,7 @@ class CharactersController < ApplicationController
   end
 
   def get_character
+    return head 200 if params[:id] == 'undefined'
     @character = @user.characters.lookup! params[:id]
   end
 

@@ -14,6 +14,10 @@ class CharacterSerializer < ActiveModel::Serializer
   has_one  :color_scheme, serializer: ColorSchemeSerializer
   has_one  :pending_transfer, serializer: CharacterTransferSerializer
 
+  def id
+    object.slug
+  end
+
   def swatches
     object.swatches.rank(:row_order)
   end

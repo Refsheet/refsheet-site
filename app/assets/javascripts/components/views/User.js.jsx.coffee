@@ -73,7 +73,7 @@
 
     if @context.currentUser?.username == @state.user.username
       actionButtons =
-        `<FixedActionButton clickToToggle={ true } className='teal lighten-1' tooltip='Menu' icon='menu' id='user-actions'>
+        `<FixedActionButton clickToToggle={ true } className='red' tooltip='Menu' icon='menu' id='user-actions'>
             <ActionButton className='green lighten-1 modal-trigger' tooltip='New Refsheet' href='#character-form' icon='note_add' id='action-new-character' />
             <ActionButton className='blue darken-1 modal-trigger' tooltip='User Settings' href='#user-settings-modal' icon='settings' id='action-settings' />
         </FixedActionButton>`
