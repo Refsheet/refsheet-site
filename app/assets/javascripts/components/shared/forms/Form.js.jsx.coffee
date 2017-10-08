@@ -89,6 +89,7 @@
         @props.onError(data) if @props.onError
 
         if data.responseJSON?.errors
+          console.warn data.responseJSON.errors
           @setState errors: data.responseJSON.errors, invalid: true
         else if data.responseJSON?.error
           Materialize.toast data.responseJSON.error, 3000, 'red'
@@ -110,10 +111,11 @@
 
       if child.type == Input
         if child.props.name
+          errorKey = if child.props.errorPath then child.props.errorPath + '.' + child.props.name else child.props.name
           childProps =
             key: child.props.name
             value: @state.model[child.props.name]
-            error: @state.errors[child.props.name]
+            error: @state.errors[errorKey]
             onChange: @_handleInputChange
             onSubmit: @_handleFormSubmit
             modelName: @props.modelName

@@ -59,6 +59,8 @@
     @props.activities || [ @props.activity ]
 
   _getAttachment: ->
+    return unless @props.activity
+
     switch @props.activityType
       when 'Image'
         images = @_getActivities()
@@ -81,6 +83,8 @@
         `<div className='card-content padding-top--none padding-bottom--none'>{ comments }</div>`
 
   _getMessage: ->
+    return `<div className='red-text'>Activity item deleted :(</div>` unless @props.activity
+
     switch @props.activityType
       when 'Image'
         images = @_getActivities()

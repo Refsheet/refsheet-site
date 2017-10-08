@@ -13,7 +13,7 @@
     iconClass = ''
 
     if @props.large
-      largeClass = ' btn-large'
+      largeClass = ' btn-large red'
       iconClass = ' large'
 
     `<a className={ 'btn-floating tooltipped waves waves-light ' + this.props.className + largeClass }

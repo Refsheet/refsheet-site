@@ -1,6 +1,7 @@
 @CharacterApp = React.createClass
   contextTypes:
     router: React.PropTypes.object.isRequired
+    eagerLoad: React.PropTypes.object
     currentUser: React.PropTypes.object
 
 
@@ -12,27 +13,16 @@
     images: null
     editable: true
 
-
-  load: (userId, characterId) ->
-    return unless userId and characterId
-    #    StateUtils.load @, 'character', "/users/#{userId}/characters/#{characterId}.json"
-
-    $(window).trigger 'app:loading'
-    $.ajax
-      url: "/users/#{userId}/characters/#{characterId}.json",
-      success: (data) =>
-        @setState character: data
-      error: (error) =>
-        @setState error: error
-      complete: ->
-        $(window).trigger 'app:loading:done'
+  dataPath: '/users/:userId/characters/:characterId'
+  paramMap:
+    characterId: 'id'
+    userId: 'user_id'
 
   componentWillMount: ->
-    if @props.route.character and @props.route.character.slug == @props.params.characterId
-      console.debug "EAGER LOADING:", @props.route.character
-      @setState character: @props.route.character
-    else
-      @load(@props.params.userId, @props.params.characterId)
+    StateUtils.load @, 'character'
+
+  componentWillReceiveProps: (newProps) ->
+    StateUtils.reload @, 'character', newProps
 
   componentDidMount: ->
     $(document)
@@ -64,10 +54,6 @@
   componentWillUpdate: (newProps, newState) ->
     if newState.character && @state.character && newState.character.link != @state.character.link
       window.history.replaceState {}, '', newState.character.link
-
-  componentWillReceiveProps: (newProps) ->
-    if newProps.params.userId != @props.params.userId or newProps.params.characterId != @props.params.characterId
-      @load(newProps.params.userId, newProps.params.characterId)
 
 
   setFeaturedImage: (imageId) ->
@@ -183,7 +169,7 @@
 
             { showMenu &&
                 <div className='edit-container'>
-                    <FixedActionButton clickToToggle className='teal lighten-1' tooltip='Menu' icon='menu'>
+                    <FixedActionButton clickToToggle className='red' tooltip='Menu' icon='menu'>
                         <ActionButton className='indigo lighten-1' tooltip='Upload Images' id='image-upload' icon='file_upload' />
                         <ActionButton className='green lighten-1 modal-trigger' tooltip='Edit Page Colors' href='#color-scheme-form' icon='palette' />
                         <ActionButton className='blue darken-1 modal-trigger' tooltip='Character Settings' href='#character-settings-form' icon='settings' />
