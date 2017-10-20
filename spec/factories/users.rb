@@ -21,6 +21,11 @@
 #  unconfirmed_email   :string
 #  email_confirmed_at  :datetime
 #
+# Indexes
+#
+#  index_users_on_parent_user_id  (parent_user_id)
+#  index_users_on_type            (type)
+#
 
 FactoryGirl.define do
   factory :user do

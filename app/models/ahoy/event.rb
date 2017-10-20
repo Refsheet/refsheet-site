@@ -9,6 +9,12 @@
 #  properties :jsonb
 #  time       :datetime
 #
+# Indexes
+#
+#  index_ahoy_events_on_name_and_time      (name,time)
+#  index_ahoy_events_on_user_id_and_name   (user_id,name)
+#  index_ahoy_events_on_visit_id_and_name  (visit_id,name)
+#
 
 module Ahoy
   class Event < ActiveRecord::Base

@@ -8,6 +8,11 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+# Indexes
+#
+#  index_media_favorites_on_media_id  (media_id)
+#  index_media_favorites_on_user_id   (user_id)
+#
 
 class Media::Favorite < ApplicationRecord
   include NamespacedModel

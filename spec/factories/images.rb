@@ -22,6 +22,12 @@
 #  deleted_at         :datetime
 #  title              :string
 #  background_color   :string
+#  comments_count     :integer
+#  favorites_count    :integer
+#
+# Indexes
+#
+#  index_images_on_guid  (guid)
 #
 
 FactoryGirl.define do
