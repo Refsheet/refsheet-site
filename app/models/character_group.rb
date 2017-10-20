@@ -14,6 +14,11 @@
 #  visible_characters_count :integer          default("0"), not null
 #  hidden_characters_count  :integer          default("0"), not null
 #
+# Indexes
+#
+#  index_character_groups_on_slug     (slug)
+#  index_character_groups_on_user_id  (user_id)
+#
 
 class CharacterGroup < ApplicationRecord
   include Sluggable

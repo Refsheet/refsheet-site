@@ -13,6 +13,12 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
+# Indexes
+#
+#  index_activities_on_activity_type  (activity_type)
+#  index_activities_on_character_id   (character_id)
+#  index_activities_on_user_id        (user_id)
+#
 
 class Activity < ApplicationRecord
   include HasGuid

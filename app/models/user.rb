@@ -21,6 +21,11 @@
 #  unconfirmed_email   :string
 #  email_confirmed_at  :datetime
 #
+# Indexes
+#
+#  index_users_on_parent_user_id  (parent_user_id)
+#  index_users_on_type            (type)
+#
 
 class User < ApplicationRecord
   has_many :characters
@@ -33,6 +38,11 @@ class User < ApplicationRecord
   has_many :favorites, class_name: Media::Favorite
   has_many :favorite_media, through: :favorites, source: :media
   has_many :comments, class_name: Media::Comment
+  has_many :followers, class_name: User::Follower, inverse_of: :following, foreign_key: :following_id
+  has_many :following, class_name: User::Follower, inverse_of: :follower, foreign_key: :follower_id
+  has_many :follower_users, through: :following, source: :follower, class_name: User
+  has_many :followed_users, through: :following, source: :following, class_name: User
+
   has_one  :patron, class_name: Patreon::Patron
   has_one  :invitation
   has_many :pledges, through: :patron
@@ -103,6 +113,21 @@ class User < ApplicationRecord
   end
 
 
+  #== Following
+
+  def follow!(other_user)
+    self.following << User::Follower.new(following: other_user)
+  end
+
+  def following?(other_user)
+    self.following.exists? following: other_user
+  end
+
+  def followed_by?(other_user)
+    self.followers.exists? follower: other_user
+  end
+
+
   #== Lookups
 
   def self.lookup(username)
@@ -157,7 +182,7 @@ class User < ApplicationRecord
                   SecureRandom.base58
                 end
 
-    update! auth_code_digest: BCrypt::Password.create(auth_code)
+    update_columns auth_code_digest: BCrypt::Password.create(auth_code)
     auth_code
   end
 

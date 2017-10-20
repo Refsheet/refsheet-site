@@ -10,6 +10,11 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
+# Indexes
+#
+#  index_forum_karmas_on_karmic_id    (karmic_id)
+#  index_forum_karmas_on_karmic_type  (karmic_type)
+#
 
 class Forum::Karma < ApplicationRecord
   belongs_to :user

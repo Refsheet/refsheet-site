@@ -16,6 +16,10 @@
 #  updated_at          :datetime         not null
 #  guid                :string
 #
+# Indexes
+#
+#  index_transfers_on_guid  (guid)
+#
 
 require 'rails_helper'
 

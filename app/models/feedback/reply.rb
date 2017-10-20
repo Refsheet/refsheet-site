@@ -9,6 +9,11 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
+# Indexes
+#
+#  index_feedback_replies_on_feedback_id  (feedback_id)
+#  index_feedback_replies_on_user_id      (user_id)
+#
 
 class Feedback::Reply < ApplicationRecord
   belongs_to :feedback

@@ -30,6 +30,11 @@
 #  utm_campaign     :string
 #  started_at       :datetime
 #
+# Indexes
+#
+#  index_visits_on_user_id      (user_id)
+#  index_visits_on_visit_token  (visit_token) UNIQUE
+#
 
 class Visit < ActiveRecord::Base
   has_many :ahoy_events, class_name: "Ahoy::Event"
