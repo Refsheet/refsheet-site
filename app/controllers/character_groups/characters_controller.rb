@@ -15,7 +15,7 @@ class CharacterGroups::CharactersController < ApplicationController
   end
 
   def destroy
-    @group.characters.delete @character
+    @group.characters.destroy @character
     @group.save
     respond_with @group, location: nil, json: @group, serializer: CharacterGroupSerializer
   end
