@@ -15,6 +15,11 @@ class Order < ApplicationRecord
   has_many :line_items, class_name: OrderItem, inverse_of: :order
   has_many :items, through: :line_items
 
+  validates_presence_of :user
+  validates_associated :line_items
+
+
+  #== Attributes
 
   def email
     user&.email || super
@@ -36,7 +41,7 @@ class Order < ApplicationRecord
   end
 
   def payable?
-    self.total > 0
+    self.total > 0 and self.valid?
   end
 
 
