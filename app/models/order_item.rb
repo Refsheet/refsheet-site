@@ -20,8 +20,19 @@ class OrderItem < ApplicationRecord
   validates_presence_of :order
   validates_presence_of :item
 
+  validates_associated :item
+  validate :validate_item_ownership
+
   def complete!
     # todo persist totals
     item.sell! self.order
+  end
+
+  private
+
+  def validate_item_ownership
+    if self.item.seller == self.order.user
+      self.errors.add :item, 'cannot be an item you are selling'
+    end
   end
 end

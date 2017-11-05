@@ -54,7 +54,7 @@ class Marketplace::Items::CharacterListing < Item
   end
 
   def validate_not_already_selling
-    if self.character&.for_sale?
+    if self.class.where.not(id: self.id).exists? character_id: self.character_id
       self.errors.add :character_id, 'is already for sale'
     end
   end

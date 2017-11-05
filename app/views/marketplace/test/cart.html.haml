@@ -6,13 +6,17 @@
     %th{width: 150}
     %th.right-align{width: 150} Amount
 
-  - current_cart.items.each do |i|
+  - current_cart.line_items.each do |i|
     %tr
-      %td= i.id
-      %td= i.title
+      %td{width: 100}= i.id
+      %td
+        = i.item.title
+        - i.tap(&:valid?).errors.full_messages.each do |e|
+          .red-text.text-darken-1= e
+
       %th.right-align
         = link_to 'Remove', '#', class: 'red-text text-darken-2'
-      %td.right-align= i.amount.format
+      %td.right-align= i.item.amount.format
 
   %tr
     %td
@@ -32,3 +36,9 @@
                                          description: current_cart.description,
                                          email: current_cart.email,
                                          key: Rails.configuration.x.stripe['publishable_key'] } }
+
+  - elsif current_cart.invalid?
+    - current_cart.errors.full_messages.each do |e|
+      %tr
+        %td
+        %td.red-text.text-darkent-1.right-align{colspan: 3}= e
