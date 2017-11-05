@@ -40,6 +40,17 @@ describe Transfer, type: :model do
     ]
   )
 
+  it 'cannot claim with invite' do
+    transfer = create :transfer, destination: nil, invitation: Invitation.create(email: 'foo@example.com')
+    transfer.item = Marketplace::Items::CharacterListing.create!(seller: transfer.character.user, character: transfer.character, amount: 4500)
+    transfer.claim!
+    expect(transfer).to be_pending
+    expect(transfer).to be_sold
+    transfer.invitation.user = create :user
+    transfer.invitation.claim!
+    expect(transfer.reload).to be_claimed
+  end
+
   describe 'mailers' do
     context 'when sending' do
       let(:transfer) { build :transfer }

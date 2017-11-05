@@ -28,7 +28,7 @@ class Marketplace::TestController < MarketplaceController
   def create_payment
     stripe_params = params.permit(:stripeEmail, :stripeToken)
 
-    stripe_payment = StripePayment.new processor_id: stripe_params['stripeToken'],
+    stripe_payment = StripePayment.new card_token: stripe_params['stripeToken'],
                                        order: current_cart
 
     if stripe_payment.execute!
