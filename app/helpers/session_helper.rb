@@ -23,6 +23,30 @@ module SessionHelper
     end
   end
 
+
+  #== Marketplace
+
+  def current_cart
+    if session[:order_id]
+      @current_cart ||= Order.find_by id: session[:order_id]
+    else
+      Order.new user: current_user
+    end
+  end
+
+  def persist_cart!
+    return if current_cart.persisted?
+    session[:order_id] = current_cart.tap(&:save).id
+  end
+
+  def reset_cart!
+    session.delete :order_id
+    @current_cart = nil
+  end
+
+
+  #== NSFW
+
   def nsfw_on?
     signed_in? && !!session[:nsfw_ok]
   end
@@ -44,6 +68,9 @@ module SessionHelper
 
     session[:nsfw_ok] = false
   end
+
+
+  #== Serialization Helpers
 
   def session_hash
     {

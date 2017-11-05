@@ -11,11 +11,25 @@
 #  failure_reason  :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  type            :string
+#
+# Indexes
+#
+#  index_payments_on_type  (type)
 #
 
 class Payment < ApplicationRecord
   belongs_to :order
-  has_many :transactions
 
   monetize :amount_cents
+
+  validates_presence_of :order
+
+
+  #== Default Interface
+
+  def execute!
+    # This is to be overridden in children.
+    self.order.complete!
+  end
 end

@@ -15,6 +15,11 @@
 #  expires_at         :datetime
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  sold               :boolean
+#
+# Indexes
+#
+#  index_items_on_sold  (sold)
 #
 
 FactoryGirl.define do

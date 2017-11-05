@@ -74,6 +74,7 @@ gem 'premailer-rails'
 # == INTEGRATIONS
 
 gem 'ruby-trello'
+gem 'stripe'
 
 # == BOWER ASSETS
 
