@@ -1,93 +1,24 @@
-%main.padding-top--large
-  .container
-    %h1 Marketplace Test Page
+%h1 Buy
+%table{style: 'width: auto;'}
+  %tr
+    %th ID
+    %th Name
+    %th Published
+    %th Expires
+    %th Sold
+    %th.right-align Total
+    %th
 
-    - flash.each do |k, v|
-      %div{class: k}= v
-
-    %ul.tabs
-      %li.tab= link_to 'Sell', '#sell'
-      %li.tab= link_to 'Buy', '#buy'
-      %li.tab= link_to 'Cart', '#cart'
-
-    #sell
-      .row
-        - current_user.characters.each do |c|
-          .col.s6.m4.l3
-            .card.image-card
-              .card-image= image_tag c.profile_image.image.url(:thumbnail)
-              .card-content
-                .card-title= link_to c.name, user_character_path(c.user, c)
-                - if c.for_sale?
-                  %table
-                    %tr
-                      %td.padding--none
-                        %input.margin--none.green-text{disabled:true, value: c.marketplace_listing.amount.format}
-                      %td.padding--none
-                        = link_to 'Expire', '#', class: 'btn red darken-2'
-
-                - else
-                  = simple_form_for Marketplace::Items::CharacterListing.new(character: c), url: marketplace_test_listing_path, as: :item do |f|
-                    %table
-                      %tr
-                        %td.padding--none
-                          = f.hidden_field :character_id
-                          = f.input_field :amount, class: 'margin--none'
-                        %td.padding--none= f.submit 'Sell', class: 'btn'
-
-
-    #buy
-      %table{style: 'width: auto;'}
-        %tr
-          %th ID
-          %th Name
-          %th Published
-          %th Expires
-          %th Sold
-          %th.right-align Total
-          %th
-
-        - Item.market_order.each do |i|
-          %tr
-            %td= i.id
-            %td= i.title
-            %td= i.published_at
-            %td= i.expires_at
-            %td= i.sold
-            %td.right-align= i.amount.format
-            %td.right-align
-              - if i.in_cart? current_cart
-                = link_to 'In Cart', '#', class: 'btn-flat'
-              - else
-                = link_to 'Buy', marketplace_test_cart_path(item_id: i.id), method: :post, class: 'btn'
-
-    #cart
-      %table{style: 'width: auto;'}
-        %tr
-          %th ID
-          %th Name
-          %th.right-align Amount
-
-        - current_cart.items.each do |i|
-          %tr
-            %td= i.id
-            %td= i.title
-            %td.right-align= i.amount.format
-
-        %tr
-          %td
-          %th.right-align Total
-          %td.right-align= current_cart.total.format
-
-      - if current_cart.payable?
-        = simple_form_for Payment.new, url: marketplace_test_payment_path do |f|
-          %script.stripe-button{ src: 'https://checkout.stripe.com/checkout.js',
-                                 data: { amount: current_cart.total.cents,
-                                         currency: current_cart.total.currency,
-                                         description: current_cart.description,
-                                         email: current_cart.email,
-                                         key: Rails.configuration.x.stripe['publishable_key'] } }
-
-:coffeescript
-  $ ->
-    $('.tabs').tabs()
+  - @listings.each do |i|
+    %tr
+      %td= i.id
+      %td= i.title
+      %td= i.published_at
+      %td= i.expires_at
+      %td= i.sold
+      %td.right-align= i.amount.format
+      %td.right-align
+        - if i.in_cart? current_cart
+          = link_to 'In Cart', '#', class: 'btn-flat'
+        - else
+          = link_to 'Buy', marketplace_test_cart_path(item_id: i.id), method: :post, class: 'btn'

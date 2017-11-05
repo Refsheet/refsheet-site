@@ -87,6 +87,10 @@ Rails.application.routes.draw do
   namespace :marketplace do
     root to: 'test#show'
 
+    get :sell, to: 'test#sell'
+    get :cart, to: 'test#cart'
+    get :orders, to: 'test#orders'
+
     post :test_listing, to: 'test#create_listing'
     post :test_cart, to: 'test#create_cart'
     post :test_payment, to: 'test#create_payment'
