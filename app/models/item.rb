@@ -26,6 +26,8 @@ class Item < ApplicationRecord
   belongs_to :seller, class_name: User, foreign_key: :seller_user_id
 
   validates_presence_of :seller
+  validates_numericality_of :amount_cents, minimum: 100
+
   before_validation :set_defaults
 
   scope :active, -> { where 'items.published_at <= NOW() AND (items.expires_at IS NULL OR items.expires_at > NOW())' }

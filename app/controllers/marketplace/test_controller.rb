@@ -1,5 +1,17 @@
 class Marketplace::TestController < MarketplaceController
   def show
+    @listings = Item.market_order
+  end
+
+  def sell
+    @characters = current_user.characters
+  end
+
+  def cart
+  end
+
+  def orders
+    @orders = current_user.orders
   end
 
   def create_listing
@@ -10,7 +22,7 @@ class Marketplace::TestController < MarketplaceController
       redirect_to marketplace_root_path
     else
       flash.now[:error] = @listing.errors.full_messages.to_sentence
-      render 'show'
+      render 'sell'
     end
   end
 
@@ -18,7 +30,7 @@ class Marketplace::TestController < MarketplaceController
     persist_cart!
 
     if (@item = current_cart.add_item params[:item_id])
-      redirect_to marketplace_root_path
+      redirect_to marketplace_cart_path
     else
       flash.now[:error] = @item.errors.full_messages.to_sentence
       render 'show'
@@ -34,11 +46,11 @@ class Marketplace::TestController < MarketplaceController
     if stripe_payment.execute!
       reset_cart!
 
-      redirect_to marketplace_root_path, flash: {
+      redirect_to marketplace_orders_path, flash: {
           notice: 'Order complete.'
       }
     else
-      redirect_to marketplace_root_path, flash: {
+      redirect_to marketplace_cart_path, flash: {
           error: 'Unable to execute payment. See logs.'
       }
     end

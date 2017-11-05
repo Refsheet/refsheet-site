@@ -1,0 +1,34 @@
+%h1 Cart
+%table
+  %tr
+    %th ID
+    %th Name
+    %th{width: 150}
+    %th.right-align{width: 150} Amount
+
+  - current_cart.items.each do |i|
+    %tr
+      %td= i.id
+      %td= i.title
+      %th.right-align
+        = link_to 'Remove', '#', class: 'red-text text-darken-2'
+      %td.right-align= i.amount.format
+
+  %tr
+    %td
+    %td
+    %th.right-align.larger Total
+    %td.right-align.larger= current_cart.total.format
+
+  - if current_cart.payable?
+    %tr
+      %td
+      %td
+      %td.right-align{colspan: 2}
+        = simple_form_for Payment.new, url: marketplace_test_payment_path do |f|
+          %script.stripe-button{ src: 'https://checkout.stripe.com/checkout.js',
+                                 data: { amount: current_cart.total.cents,
+                                         currency: current_cart.total.currency,
+                                         description: current_cart.description,
+                                         email: current_cart.email,
+                                         key: Rails.configuration.x.stripe['publishable_key'] } }
