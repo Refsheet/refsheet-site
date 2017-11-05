@@ -173,6 +173,8 @@ GEM
       railties (>= 3.0.0)
     faker (1.7.1)
       i18n (~> 0.5)
+    faraday (0.13.1)
+      multipart-post (>= 1.2, < 3)
     ffi (1.9.14)
     fog-aws (1.2.1)
       fog-core (~> 1.38)
@@ -274,6 +276,7 @@ GEM
       railties (>= 3.0)
     mono_logger (1.1.0)
     multi_json (1.12.1)
+    multipart-post (2.0.0)
     netrc (0.11.0)
     nio4r (1.2.1)
     nokogiri (1.6.8.1)
@@ -452,6 +455,8 @@ GEM
     state_machines-activerecord (0.4.0)
       activerecord (>= 4.1, < 5.1)
       state_machines-activemodel (>= 0.3.0)
+    stripe (3.8.0)
+      faraday (~> 0.10)
     therubyracer (0.12.2)
       libv8 (~> 3.16.14.0)
       ref
@@ -576,6 +581,7 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   state_machines
   state_machines-activerecord
+  stripe
   therubyracer
   timecop
   turbolinks (~> 5)

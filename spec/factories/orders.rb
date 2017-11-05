@@ -7,6 +7,7 @@
 #  status     :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  email      :string
 #
 
 FactoryGirl.define do

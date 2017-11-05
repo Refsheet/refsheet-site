@@ -11,6 +11,11 @@
 #  failure_reason  :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  type            :string
+#
+# Indexes
+#
+#  index_payments_on_type  (type)
 #
 
 require 'rails_helper'

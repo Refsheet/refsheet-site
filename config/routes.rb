@@ -17,7 +17,6 @@ Rails.application.routes.draw do
   # Placeholder Route
   get 'register', to: 'application#show'
   get 'guilds', to: 'application#show'
-  get 'marketplace', to: 'application#show'
   get 'artists', to: 'application#show'
   get 'browse', to: 'application#show'
   get 'browse/users', to: 'application#show'
@@ -80,6 +79,17 @@ Rails.application.routes.draw do
     end
 
     get ':id', to: 'forum/threads#show'
+  end
+
+
+  #== Marketplace
+
+  namespace :marketplace do
+    root to: 'test#show'
+
+    post :test_listing, to: 'test#create_listing'
+    post :test_cart, to: 'test#create_cart'
+    post :test_payment, to: 'test#create_payment'
   end
 
 

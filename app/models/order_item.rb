@@ -16,4 +16,12 @@ class OrderItem < ApplicationRecord
   belongs_to :item
   belongs_to :slot
   belongs_to :auction
+
+  validates_presence_of :order
+  validates_presence_of :item
+
+  def complete!
+    # todo persist totals
+    item.sell! self.order
+  end
 end

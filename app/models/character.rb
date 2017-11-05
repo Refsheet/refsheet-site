@@ -45,6 +45,10 @@ class Character < ApplicationRecord
                           after_add: :update_counter_cache,
                           after_remove: :update_counter_cache
 
+  # Marketplace Associations
+  has_many :marketplace_listings, class_name: Marketplace::Items::CharacterListing
+  has_one :marketplace_listing, -> { for_sale }, class_name: Marketplace::Items::CharacterListing
+
   # Requires this to eager load the news feed:
   has_many :activities, as: :activity, dependent: :destroy
 
@@ -87,6 +91,8 @@ class Character < ApplicationRecord
   scope :visible, -> { where(hidden: [nil, false]) }
   scope :hidden, -> { where hidden: true }
 
+  scope :for_sale, -> { joins(:marketplace_listings).merge(Item.for_sale) }
+
   before_validation do
     self.shortcode = self.shortcode&.downcase
   end
@@ -119,6 +125,9 @@ class Character < ApplicationRecord
     find_by!('LOWER(characters.shortcode) = ?', shortcode.downcase)
   end
 
+
+  #== Marketplace
+
   def pending_transfer
     self.transfers.pending.last
   end
@@ -126,6 +135,13 @@ class Character < ApplicationRecord
   def pending_transfer?
     self.transfers.pending.any?
   end
+
+  def for_sale?
+    Marketplace::Items::CharacterListing.for_sale.exists? character: self
+  end
+
+
+  #== API Helpers
 
   def path
     "/#{self.user.username}/#{self.slug}"
