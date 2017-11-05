@@ -37,8 +37,8 @@ class Marketplace::Items::CharacterListing < Item
 
   def sell!(order)
     super
-
-    self.character.transfer_to order.email
+    transfer = self.character.initiate_transfer order.email, self
+    transfer.claim!
   end
 
   private

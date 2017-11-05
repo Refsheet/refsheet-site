@@ -140,6 +140,10 @@ class Character < ApplicationRecord
     Marketplace::Items::CharacterListing.for_sale.exists? character: self
   end
 
+  def initiate_transfer!(recipient, sale=nil)
+    initiate_transfer recipient, sale
+  end
+
 
   #== API Helpers
 
@@ -149,9 +153,9 @@ class Character < ApplicationRecord
 
   private
 
-  def initiate_transfer
-    transfer = Transfer.new character: self
-    transfer_to_user = self.transfer_to_user.downcase
+  def initiate_transfer(target=self.transfer_to_user, sale_item=nil)
+    transfer = Transfer.new character: self, item: sale_item
+    transfer_to_user = target.downcase
 
     if transfer_to_user =~ /@/
       destination = User.confirmed.find_by 'LOWER(users.email) = ?', transfer_to_user
@@ -179,6 +183,7 @@ class Character < ApplicationRecord
     end
 
     self.transfers << transfer
+    transfer
   end
 
   def validate_profile_image
