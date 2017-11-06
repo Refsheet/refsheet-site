@@ -29,6 +29,7 @@ class Marketplace::Items::CharacterListing < Item
   validates_presence_of :character
   validate :validate_character_ownership
   validate :validate_not_already_selling
+  validate :validate_no_transfers
 
   before_validation :_hack_character_assoc
 
@@ -38,7 +39,7 @@ class Marketplace::Items::CharacterListing < Item
 
   def sell!(order)
     super
-    transfer = self.character.initiate_transfer order.email, self
+    transfer = self.character.initiate_transfer! order.email, self
     transfer.claim!
   end
 
@@ -57,6 +58,12 @@ class Marketplace::Items::CharacterListing < Item
   def validate_not_already_selling
     if self.class.for_sale.where.not(id: self.id).exists? character_id: self.character_id
       self.errors.add :character_id, 'is already for sale'
+    end
+  end
+
+  def validate_no_transfers
+    if self.character&.pending_transfer?
+      self.errors.add :character_id, 'is currently pending transfer'
     end
   end
 end
