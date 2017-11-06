@@ -55,8 +55,13 @@ class Order < ApplicationRecord
   end
 
   def complete!
-    # TODO - persist totals
+    Rails.logger.tagged 'Order#complete!' do
+      Rails.logger.info "Finalizing order: #{self.inspect}"
+      # TODO - persist totals
 
-    self.line_items.collect(&:complete!).all?
+      self.line_items.collect(&:complete!).all?
+
+      Rails.logger.info "Order #{self.id} complete!"
+    end
   end
 end

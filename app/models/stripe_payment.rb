@@ -77,13 +77,18 @@ class StripePayment < Payment
     self.save or return false
 
     if charge.paid
+      Rails.logger.info 'STRIPE_COMPLETE: ' + self.inspect
       self.order.complete!
+    else
+      Rails.logger.info 'STRIPE_NOT_COMPLETE: ' + self.inspect
+      false
     end
-
-    charge.paid
   rescue Stripe::InvalidRequestError => e
     Rails.logger.error 'STRIPE_FAIL: ' + e.message
     Rails.logger.error e.inspect
+    false
+  rescue Stripe::CardError => e
+    self.failure_reason = e.message
     false
   end
 end

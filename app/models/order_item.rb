@@ -24,8 +24,11 @@ class OrderItem < ApplicationRecord
   validate :validate_item_ownership
 
   def complete!
-    # todo persist totals
-    item.sell! self.order
+    Rails.logger.tagged 'OrderItem#complete!' do
+      Rails.logger.info 'Selling item: ' + item.inspect
+      # todo persist totals
+      item.sell! self.order
+    end
   end
 
   private

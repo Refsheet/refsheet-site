@@ -155,34 +155,47 @@ class Character < ApplicationRecord
 
   def initiate_transfer(target=self.transfer_to_user, sale_item=nil)
     transfer = Transfer.new character: self, item: sale_item
-    transfer_to_user = target.downcase
 
-    if transfer_to_user =~ /@/
-      destination = User.confirmed.find_by 'LOWER(users.email) = ?', transfer_to_user
+    Rails.logger.tagged 'Character#initiate_transfer' do
+      transfer_to_user = target.downcase
+      Rails.logger.info 'Trasnferring to: ' + transfer_to_user.inspect
 
-      if destination
-        transfer.destination = destination
+      if transfer_to_user =~ /@/
+        # If this was a sale, sell to unconfirmed users to not lose the sale.
+        user_scope = User.all
+        user_scope = user_scope.confirmed unless sale_item
+        destination = user_scope.find_by 'LOWER(users.email) = ?', transfer_to_user
+
+        if destination
+          transfer.destination = destination
+          Rails.logger.info 'Sending to: ' + destination.inspect
+        else
+          transfer.invitation = Invitation.find_or_initialize_by email: transfer_to_user
+          Rails.logger.info 'Sending invite: ' + transfer.invitation.inspect
+        end
+
       else
-        transfer.invitation = Invitation.find_or_initialize_by email: transfer_to_user
+        destination = User.lookup transfer_to_user
+
+        if destination
+          transfer.destination = destination
+          Rails.logger.info 'Sending to: ' + destination.inspect
+        else
+          self.errors.add :transfer_to_user, 'must be a valid username or email address'
+          Rails.logger.error 'Sending failed: ' + transfer_to_user
+          return false
+        end
       end
 
-    else
-      destination = User.lookup transfer_to_user
-
-      if destination
-        transfer.destination = destination
-      else
-        self.errors.add :transfer_to_user, 'must be a valid username or email address'
+      if transfer.destination == self.user
+        self.errors.add :transfer_to_user, 'you can not transfer to yourself'
+        Rails.logger.error 'Sending to self, failure!'
         return false
       end
+
+      self.transfers << transfer
     end
 
-    if transfer.destination == self.user
-      self.errors.add :transfer_to_user, 'you can not transfer to yourself'
-      return false
-    end
-
-    self.transfers << transfer
     transfer
   end
 

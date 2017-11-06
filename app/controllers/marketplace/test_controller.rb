@@ -72,9 +72,9 @@ class Marketplace::TestController < MarketplaceController
   end
 
   def create_payment
-    stripe_params = params.permit(:stripeEmail, :stripeToken)
+    stripe_params = params.permit(:card_token)
 
-    stripe_payment = StripePayment.new card_token: stripe_params['stripeToken'],
+    stripe_payment = StripePayment.new card_token: stripe_params['card_token'],
                                        order: current_cart
 
     if stripe_payment.execute!
@@ -85,7 +85,7 @@ class Marketplace::TestController < MarketplaceController
       }
     else
       redirect_to marketplace_cart_path, flash: {
-          error: 'Unable to execute payment. See logs.'
+          error: stripe_payment&.failure_reason || 'Unable to execute payment. See logs.'
       }
     end
   end
