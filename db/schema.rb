@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171105234851) do
+ActiveRecord::Schema.define(version: 20171106090633) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -298,8 +298,12 @@ ActiveRecord::Schema.define(version: 20171105234851) do
     t.integer  "item_id"
     t.integer  "slot_id"
     t.integer  "auction_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.integer  "amount_cents"
+    t.string   "amount_currency",       default: "USD"
+    t.integer  "processor_fee_cents"
+    t.integer  "marketplace_fee_cents"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -366,16 +370,34 @@ ActiveRecord::Schema.define(version: 20171105234851) do
     t.datetime "updated_at",        null: false
   end
 
+  create_table "payment_transfers", force: :cascade do |t|
+    t.integer  "seller_id"
+    t.integer  "payment_id"
+    t.integer  "order_id"
+    t.string   "processor_id"
+    t.string   "type"
+    t.integer  "amount_cents",    default: 0,     null: false
+    t.string   "amount_currency", default: "USD", null: false
+    t.string   "status"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.index ["order_id"], name: "index_payment_transfers_on_order_id", using: :btree
+    t.index ["payment_id"], name: "index_payment_transfers_on_payment_id", using: :btree
+    t.index ["seller_id"], name: "index_payment_transfers_on_seller_id", using: :btree
+    t.index ["type"], name: "index_payment_transfers_on_type", using: :btree
+  end
+
   create_table "payments", force: :cascade do |t|
     t.integer  "order_id"
     t.string   "processor_id"
-    t.integer  "amount_cents",    default: 0,     null: false
-    t.string   "amount_currency", default: "USD", null: false
+    t.integer  "amount_cents",        default: 0,     null: false
+    t.string   "amount_currency",     default: "USD", null: false
     t.string   "state"
     t.string   "failure_reason"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "type"
+    t.integer  "processor_fee_cents"
     t.index ["type"], name: "index_payments_on_type", using: :btree
   end
 

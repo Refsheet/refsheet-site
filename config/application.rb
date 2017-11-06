@@ -17,7 +17,13 @@ require 'trello'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module RefsheetSite
+module Refsheet
+
+  #== Marketplace Constants
+
+  MARKETPLACE_FEE_PERCENT = 0.045
+  MARKETPLACE_FEE_AMOUNT  = 0
+
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

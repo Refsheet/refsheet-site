@@ -56,6 +56,7 @@ class Item < ApplicationRecord
     self.update_columns expires_at: Time.zone.now
   end
 
+
   private
 
   def set_defaults

@@ -15,6 +15,7 @@
               - if current_cart.items.count > 0
                 (#{current_cart.items.count})
           %li= link_to 'Orders', '/marketplace/orders'
+          %li= link_to 'Sales', '/marketplace/sales'
           %li= link_to 'Setup', '/marketplace/setup'
 
   - flash.each do |k, v|

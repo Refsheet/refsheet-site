@@ -25,13 +25,8 @@
 
 FactoryGirl.define do
   factory :item do
-    seller_user_id 1
-    character_id 1
-    type ""
-    description "MyText"
-    amount_cents 1
-    requires_character false
-    published_at "2017-01-30 17:20:49"
-    expires_at "2017-01-30 17:20:49"
+    seller
+    user { seller.user }
+    amount_cents 100
   end
 end

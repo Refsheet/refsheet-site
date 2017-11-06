@@ -1,0 +1,30 @@
+%h1 Sales
+%table
+  %tr
+    %th ID
+    %th Order ID
+    %th Date
+    %th Item
+    %th.right-align Amount
+    %th.right-align Processor Fee
+    %th.right-align Marketplace Fee
+    %th.right-align Total
+    %th
+
+  - OrderItem.joins(:order).includes(:item).where(orders: { status: 'complete' }, items: { seller_user_id: current_user.id }).each do |o|
+    %tr
+      %td= o.item.id
+      %td= o.order_id
+      %td= o.order.created_at  #-- should be completed at
+      %td= o.item.title
+      %td.right-align= o.amount&.format
+      %td.right-align= o.processor_fee&.format
+      %td.right-align= o.marketplace_fee&.format
+      %td.right-align= o.seller_amount&.format
+      %td.right-align
+        = link_to 'Refund', '#', class: 'red-text text-darken-2'
+
+%h2 Payments
+
+- Payment.joins(:order => :items).where(orders: { status: 'complete' }, items: { seller_user_id: current_user.id }).each do |p|
+  = debug p.inspect
