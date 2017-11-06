@@ -16,6 +16,7 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  sold               :boolean
+#  seller_id          :integer
 #
 # Indexes
 #
@@ -48,13 +49,13 @@ class Marketplace::Items::CharacterListing < Item
   end
 
   def validate_character_ownership
-    if self.character && self.seller != self.character.user
+    if self.character && self.user != self.character.user
       self.errors.add :character_id, 'must be one of your characters'
     end
   end
 
   def validate_not_already_selling
-    if self.class.where.not(id: self.id).exists? character_id: self.character_id
+    if self.class.for_sale.where.not(id: self.id).exists? character_id: self.character_id
       self.errors.add :character_id, 'is already for sale'
     end
   end

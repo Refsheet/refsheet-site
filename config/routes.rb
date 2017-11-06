@@ -90,10 +90,15 @@ Rails.application.routes.draw do
     get :sell, to: 'test#sell'
     get :cart, to: 'test#cart'
     get :orders, to: 'test#orders'
+    get :setup, to: 'test#setup'
 
     post :test_listing, to: 'test#create_listing'
     post :test_cart, to: 'test#create_cart'
     post :test_payment, to: 'test#create_payment'
+    post :test_setup, to: 'test#create_seller'
+
+    delete :test_listing, to: 'test#destroy_listing'
+    delete :test_cart, to: 'test#destroy_cart'
   end
 
 

@@ -49,7 +49,9 @@ class Order < ApplicationRecord
 
   def add_item(item)
     item = Item.find item unless item.kind_of? Item
-    self.line_items << OrderItem.new(item: item)
+    oi = OrderItem.new(item: item)
+    self.line_items << oi
+    oi
   end
 
   def complete!

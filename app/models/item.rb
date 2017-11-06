@@ -16,6 +16,7 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  sold               :boolean
+#  seller_id          :integer
 #
 # Indexes
 #
@@ -23,10 +24,11 @@
 #
 
 class Item < ApplicationRecord
-  belongs_to :seller, class_name: User, foreign_key: :seller_user_id
+  belongs_to :user, class_name: User, foreign_key: :seller_user_id
+  belongs_to :seller
 
+  validates_presence_of :user
   validates_presence_of :seller
-  validates_numericality_of :amount_cents, minimum: 100
 
   before_validation :set_defaults
 
@@ -36,15 +38,22 @@ class Item < ApplicationRecord
 
   scope :market_order, -> { order 'items.sold, items.expires_at ASC, items.published_at ASC' }
 
-  monetize :amount_cents
+  monetize :amount_cents, numericality: { greater_than_or_equal_to: 1, message: 'must be at least $1' }
 
   def in_cart?(cart)
     cart.items.include? self
   end
 
+  def expired?
+    (self.expires_at and self.expires_at < Time.zone.now) or self.sold?
+  end
+
   def sell!(order)
-    self.sold = true
-    self.save
+    self.update_columns sold: true
+  end
+
+  def expire!
+    self.update_columns expires_at: Time.zone.now
   end
 
   private
