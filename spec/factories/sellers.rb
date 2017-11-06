@@ -25,15 +25,6 @@
 
 FactoryGirl.define do
   factory :seller do
-    user_id 1
-    type ""
-    address_id 1
-    processor_id "MyString"
-    first_name "MyString"
-    last_name "MyString"
-    dob "2017-11-05 16:58:42"
-    tos_acceptance_date "2017-11-05 16:58:42"
-    tos_acceptance_ip "MyString"
-    default_currency "MyString"
+    user
   end
 end

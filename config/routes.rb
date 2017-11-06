@@ -90,6 +90,7 @@ Rails.application.routes.draw do
     get :sell, to: 'test#sell'
     get :cart, to: 'test#cart'
     get :orders, to: 'test#orders'
+    get :sales, to: 'test#sales'
     get :setup, to: 'test#setup'
 
     post :test_listing, to: 'test#create_listing'
