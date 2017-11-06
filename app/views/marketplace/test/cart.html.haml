@@ -3,6 +3,7 @@
   %tr
     %th ID
     %th Name
+    %th Seller
     %th{width: 150}
     %th.right-align{width: 150} Amount
 
@@ -13,12 +14,14 @@
         = i.item.title
         - i.tap(&:valid?).errors.full_messages.each do |e|
           .red-text.text-darken-1= e
+      %th= i.item.user.name
 
       %th.right-align
-        = link_to 'Remove', '#', class: 'red-text text-darken-2'
+        = link_to 'Remove', marketplace_test_cart_path(id: i.id), class: 'red-text text-darken-2', method: :delete
       %td.right-align= i.item.amount.format
 
   %tr
+    %td
     %td
     %td
     %th.right-align.larger Total
@@ -26,6 +29,7 @@
 
   - if current_cart.payable?
     %tr
+      %td
       %td
       %td
       %td.right-align{colspan: 2}
@@ -40,5 +44,6 @@
   - elsif current_cart.invalid?
     - current_cart.errors.full_messages.each do |e|
       %tr
+        %td
         %td
         %td.red-text.text-darkent-1.right-align{colspan: 3}= e

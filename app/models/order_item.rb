@@ -31,7 +31,7 @@ class OrderItem < ApplicationRecord
   private
 
   def validate_item_ownership
-    if self.item.seller == self.order.user
+    if self.item.user == self.order.user
       self.errors.add :item, 'cannot be an item you are selling'
     end
   end

@@ -16,6 +16,7 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  sold               :boolean
+#  seller_id          :integer
 #
 # Indexes
 #

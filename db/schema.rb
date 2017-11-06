@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171105101214) do
+ActiveRecord::Schema.define(version: 20171105234851) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -266,6 +266,7 @@ ActiveRecord::Schema.define(version: 20171105101214) do
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
     t.boolean  "sold"
+    t.integer  "seller_id"
     t.index ["sold"], name: "index_items_on_sold", using: :btree
   end
 
@@ -387,6 +388,24 @@ ActiveRecord::Schema.define(version: 20171105101214) do
 
   create_table "roles", force: :cascade do |t|
     t.string "name"
+  end
+
+  create_table "sellers", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "type"
+    t.integer  "address_id"
+    t.string   "processor_id"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.datetime "dob"
+    t.datetime "tos_acceptance_date"
+    t.string   "tos_acceptance_ip"
+    t.string   "default_currency"
+    t.string   "processor_type"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.index ["type"], name: "index_sellers_on_type", using: :btree
+    t.index ["user_id"], name: "index_sellers_on_user_id", using: :btree
   end
 
   create_table "slots", force: :cascade do |t|
