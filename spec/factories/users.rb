@@ -47,6 +47,10 @@ FactoryGirl.define do
       skip_emails false
     end
 
+    trait :is_seller do
+      seller
+    end
+
     trait :confirmed do
       after(:create) do |user|
         user.confirm!

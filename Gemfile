@@ -90,23 +90,24 @@ gem 'puma_worker_killer'
 # == NON PRODUCTION GEMS
 
 group :development, :test do
-  gem 'byebug', platform: :mri
-  gem 'factory_girl_rails'
-  gem 'rspec-rails'
-  gem 'rspec-expectations'
-  gem 'rspec-collection_matchers'
-  gem 'shoulda-matchers', '~> 2.8'
-  gem 'simplecov'
-  gem 'rack_session_access'
-  gem 'database_cleaner'
-  gem 'poltergeist'
-  gem 'phantomjs', require: 'phantomjs/poltergeist'
   gem 'bullet'
-  gem 'rspec-its'
-  gem 'timecop'
+  gem 'byebug', platform: :mri
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
   gem 'letter_opener'
   gem 'letter_opener_web'
+  gem 'phantomjs', require: 'phantomjs/poltergeist'
+  gem 'poltergeist'
+  gem 'rack_session_access'
+  gem 'rspec-collection_matchers'
+  gem 'rspec-expectations'
+  gem 'rspec-its'
+  gem 'rspec-rails'
+  gem 'rspec-retry'
   gem 'rspec_junit_formatter'
+  gem 'shoulda-matchers', '~> 2.8'
+  gem 'simplecov'
+  gem 'timecop'
 end
 
 gem 'resque-web', require: 'resque_web'

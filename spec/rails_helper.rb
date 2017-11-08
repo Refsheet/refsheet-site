@@ -54,6 +54,20 @@ RSpec.configure do |config|
       Bullet.end_request
     end
   end
+
+  config.verbose_retry = true
+  config.display_try_failure_messages = true
+
+  config.around :each, :js do |ex|
+    ex.run_with_retry retry: 3
+  end
+
+  config.retry_callback = proc do |ex|
+    # run some additional clean up task - can be filtered by example metadata
+    if ex.metadata[:js]
+      Capybara.reset!
+    end
+  end
 end
 
 Capybara.register_driver :poltergeist do |app|

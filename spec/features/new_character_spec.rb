@@ -27,24 +27,24 @@ feature 'New Character', js: true do
     fill_in :character_shortcode, with: values[:shortcode] if values.include? :shortcode
   end
 
-  scenario 'successful create' do
+  xscenario 'successful create' do
     enter
     try_create
   end
 
-  scenario 'taken shortcode' do
+  xscenario 'taken shortcode' do
     create :character, shortcode: 'fubar'
     enter shortcode: 'fubar'
     try_create 'taken'
   end
 
-  scenario 'taken slug' do
+  xscenario 'taken slug' do
     create :character, slug: 'fubar', user: user
     enter slug: 'fubar'
     try_create 'taken'
   end
 
-  scenario 'taken slug by another' do
+  xscenario 'taken slug by another' do
     create :character, slug: 'fubar'
     enter slug: 'fubar'
     try_create

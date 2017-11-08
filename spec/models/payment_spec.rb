@@ -24,7 +24,6 @@ require 'rails_helper'
 describe Payment, type: :model do
   it_is_expected_to(
     belong_to: :order,
-    have_many: :transactions,
     validate_numericality_of: :amount_cents
   )
 end

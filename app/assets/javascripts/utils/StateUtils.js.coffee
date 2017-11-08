@@ -6,7 +6,7 @@
     @fetch context, path, { page: page }, props
 
 
-  load: (context, path, props=context.props, callback) ->
+  load: (context, path, props=context.props, callback, options={}) ->
     { dataPath, paramMap } = context
     eagerLoad = context.context.eagerLoad
     state = $.extend {}, context.state
@@ -29,9 +29,10 @@
           callback(elItem) if callback
 
     if fetch
-      @fetch context, path, {}, props, callback
-      console.debug '[StateUtils] Scrolling up!'
-      $(window).scrollTop 0
+      @fetch context, path, options.urlParams, props, callback
+      unless options.noScroll
+        console.debug '[StateUtils] Scrolling up!'
+        $(window).scrollTop 0
 
 
   fetch: (context, path, data={}, props=context.props, callback) ->
