@@ -1,4 +1,4 @@
-@Dashboard.ActivityCard = React.createClass
+@Views.Account.ActivityCard = React.createClass
   propTypes:
     activityType: React.PropTypes.string.isRequired
     activityMethod: React.PropTypes.string
@@ -127,4 +127,6 @@
         </div>
 
         { this._getAttachment() }
+
+        <div className='clearfix' />
     </div>`

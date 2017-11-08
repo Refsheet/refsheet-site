@@ -4,7 +4,7 @@
 
   `<main className={ classNames.join(' ') }>
       <div className='container'>
-          <Spinner />
+          <Spinner small={ props.small } />
 
           { props.message !== false &&
               <h1>{ props.message || 'Loading...' }</h1>
