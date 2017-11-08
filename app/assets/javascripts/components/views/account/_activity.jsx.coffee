@@ -2,10 +2,13 @@
   contextTypes:
     currentUser: React.PropTypes.object
 
+  propTypes:
+    filter: React.PropTypes.string
+
   timer: null
   dataPath: '/account/activity'
   stateLink: ->
-    dataPath: '/account/activity?before=' + @state.since
+    dataPath: '/account/activity?filter=' + @props.filter + '&before=' + @state.since
     statePath: 'activity'
 
   getInitialState: ->
@@ -13,19 +16,30 @@
     newActivity: null
     since: null
     timer: null
+    lastUpdate: null
 
   componentDidMount: ->
     StateUtils.load @, 'activity', @props.params, =>
-      @setState since: @state.activity[0]?.timestamp
+      @setState since: @state.activity[0]?.timestamp, lastUpdate: Math.floor(Date.now() / 1000)
       @_poll()
+    , urlParams: filter: @props.filter
 
   componentWillUnmount: ->
     clearTimeout @timer if @timer
 
+  componentWillReceiveProps: (newProps) ->
+    if @props.filter isnt newProps.filter
+      clearTimeout @timer if @timer
+      @setState activity: null, =>
+        StateUtils.load @, 'activity', newProps.params, =>
+          @setState since: @state.activity[0]?.timestamp, lastUpdate: Math.floor(Date.now() / 1000)
+          @_poll()
+        , urlParams: filter: @props.filter
+
   _poll: ->
     @timer = setTimeout =>
-      Model.poll @dataPath, { since: @state.since }, (data) =>
-        @setState newActivity: data.activity, @_poll
+      Model.poll @dataPath, { since: @state.since, filter: @props.filter }, (data) =>
+        @setState newActivity: data.activity, lastUpdate: Math.floor(Date.now() / 1000), @_poll
     , 15000
 
   _prepend: ->
@@ -61,7 +75,12 @@
     out = @_groupedActivity().map (item) ->
       `<Views.Account.ActivityCard {...StringUtils.camelizeKeys(item)} key={item.id} />`
 
-    `<div>
+    `<div className='feed-item-stream'>
+        { this.state.lastUpdate &&
+            <div className='muted grey-text text-darken-3 right-align margin-bottom--small margin-top--small'>
+                Updated <DateFormat timestamp={ this.state.lastUpdate } fuzzy />
+            </div> }
+
         { this.state.newActivity && this.state.newActivity.length > 0 &&
             <a className='btn block white-text margin-bottom--medium' onClick={ this._prepend }>
                 { this.state.newActivity.length } new { this.state.newActivity.length == 1 ? 'activity' : 'activities' }

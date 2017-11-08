@@ -29,7 +29,7 @@
             { this.props.icon && <Icon className='left'>{ this.props.icon }</Icon> } { this.props.text }
         </Link>
 
-        { active &&
+        { active && this.props.children &&
             <ul className='subnav'>
                 { this.props.children }
             </ul> }
