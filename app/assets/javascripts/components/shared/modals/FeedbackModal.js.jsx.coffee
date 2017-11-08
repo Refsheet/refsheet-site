@@ -29,7 +29,11 @@
               model={ this.state.model }
               modelName='feedback' >
 
-            <Input type='text' name='name' label='Your Name' autoFocus={ !this.state.model.name } />
+            <Row>
+                <Column m={6}><Input type='text' name='name' label='Your Name' autoFocus={ !this.state.model.name } /></Column>
+                <Column m={6}><Input type='text' name='email' label='Your Email' /></Column>
+            </Row>
+
             <Input type='textarea' name='comment' label='Comment' autoFocus={ !!this.state.model.name } />
 
             <Row className='actions right-align'>

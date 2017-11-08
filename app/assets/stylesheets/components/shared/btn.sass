@@ -1,6 +1,10 @@
 .btn
   @extend .truncate
 
+  &.disabled, &:disabled
+    color: rgba(white, 0.4) !important
+    opacity: 0.8
+
   &.btn-square
     @extend .z-depth-1
     border-radius: 0
@@ -12,3 +16,6 @@
   &.btn-secondary
     color: rgba(white, 0.8)
     background-color: rgba(color('grey', 'darken-3'), 0.8)
+
+  &.btn-flat
+    color: rgba(white, 0.8)

@@ -1,4 +1,4 @@
-@Dashboard.Activity = React.createClass
+@Views.Account.Activity = React.createClass
   contextTypes:
     currentUser: React.PropTypes.object
 
@@ -56,10 +56,10 @@
 
 
   render: ->
-    return `<Loading />` unless @state.activity
+    return `<Spinner className='margin-top--large' small center />` unless @state.activity
 
     out = @_groupedActivity().map (item) ->
-      `<Dashboard.ActivityCard {...StringUtils.camelizeKeys(item)} key={item.id} />`
+      `<Views.Account.ActivityCard {...StringUtils.camelizeKeys(item)} key={item.id} />`
 
     `<div>
         { this.state.newActivity && this.state.newActivity.length > 0 &&

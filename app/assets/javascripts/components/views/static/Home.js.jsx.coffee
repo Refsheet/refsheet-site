@@ -6,7 +6,7 @@
     $('.materialboxed').materialbox()
 
   render: ->
-    return `<Dashboard.Show {...this.props} />` if @context.currentUser?.is_patron
+    return `<Views.Account.Show {...this.props} />` if @context.currentUser?.is_patron
 
     demoSwatches = [
       { name: 'Light Fur', color: '#fdf2d4', id: 0 },

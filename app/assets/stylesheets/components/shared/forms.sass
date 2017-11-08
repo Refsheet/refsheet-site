@@ -45,13 +45,17 @@ body:not(.admin)
         color: inherit
         padding: 0.5rem
         white-space: normal !important
-        background-color: rgba(0,0,0,0.1)
-        border-bottom: 1px solid $brand-primary
+        background-color: rgba(0,0,0,0.2)
+        border-bottom: 1px solid rgba(255,255,255,0.1)
         margin-bottom: 0.5rem
+
+        &:placeholder
+          color: rgba(white, 0.8)
 
         &:focus, &:active
           outline: none
           box-shadow: none
+          border-bottom: 1px solid $brand-primary
 
     &.inline
       display: flex
