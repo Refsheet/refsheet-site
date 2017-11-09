@@ -37,7 +37,7 @@
 #
 
 class Visit < ActiveRecord::Base
-  has_many :ahoy_events, class_name: "Ahoy::Event"
+  has_many :ahoy_events, class_name: "Ahoy::Event", inverse_of: :visit
   belongs_to :user, optional: true
 
   def location
