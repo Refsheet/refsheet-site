@@ -2,6 +2,7 @@ module SessionHelper
   def sign_in(user)
     session[:user_id] = user.id
     session[:nsfw_ok] = !!user.settings[:nsfw_ok]
+    ahoy.authenticate user
     @current_user = user
   end
 
