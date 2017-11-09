@@ -124,6 +124,10 @@ class User < ApplicationRecord
     self.following << User::Follower.new(following: other_user)
   end
 
+  def unfollow!(other_user)
+    User::Follower.where(follower: self, following: other_user).destroy_all
+  end
+
   def following?(other_user)
     self.following.exists? following: other_user
   end

@@ -101,16 +101,18 @@
 
   _getIdentity: ->
     if @props.character
-      avatarUrl = @props.character.profile_image_url
-      name = @props.character.name
-      link = @props.character.link
+      avatarUrl: @props.character.profile_image_url
+      name: @props.character.name
+      link: @props.character.link
+      username: @props.user.username
+      type: 'character'
 
     else
-      avatarUrl = @props.user.avatar_url
-      name = @props.user.name
-      link = @props.user.link
-
-    { avatarUrl, name, link }
+      avatarUrl: @props.user.avatar_url
+      name: @props.user.name
+      link: @props.user.link
+      username: @props.user.username
+      type: 'user'
 
   render: ->
     { date, dateHuman } = @props
@@ -121,7 +123,7 @@
 
         <div className='card-content'>
             <DateFormat className='muted right' timestamp={ this.props.timestamp } fuzzy />
-            <Link to={ identity.link }>{ identity.name }</Link>
+            <IdentityLink to={ identity } />
 
             { this._getMessage() }
         </div>
