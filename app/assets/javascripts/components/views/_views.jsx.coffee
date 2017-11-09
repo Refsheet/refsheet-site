@@ -1,5 +1,6 @@
 @Views =
-  Account: {}
+  Account:
+    Activities: {}
   Explore: {}
   User: {}
   Character: {}
