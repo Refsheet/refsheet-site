@@ -42,6 +42,12 @@ Rails.application.routes.draw do
   resources :transfers, only: [:update]
 
   resources :users, only: [:index, :show, :create, :update] do
+    collection do
+      get :suggested, to: 'follows#suggested'
+    end
+
+    resource :follow, only: [:show, :create, :destroy]
+
     resources :characters, only: [:show, :update, :create, :destroy] do
       resources :swatches, only: [:index, :create, :update, :destroy], shallow: true
       resources :images, only: [:index, :show, :create, :update, :destroy], shallow: true do
