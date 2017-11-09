@@ -36,6 +36,12 @@
           @_poll()
         , urlParams: filter: @props.filter
 
+  componentWillUpdate: (newProps, newState) ->
+    if newState.newActivity != @state.newActivity
+      document.title = document.title.replace /^\(\d+\)\s+/, ''
+      if newState.newActivity and newState.newActivity.length > 0
+        document.title = "(#{newState.newActivity.length}) " + document.title
+
   _poll: ->
     @timer = setTimeout =>
       Model.poll @dataPath, { since: @state.since, filter: @props.filter }, (data) =>
@@ -76,13 +82,8 @@
       `<Views.Account.ActivityCard {...StringUtils.camelizeKeys(item)} key={item.id} />`
 
     `<div className='feed-item-stream'>
-        { this.state.lastUpdate &&
-            <div className='muted grey-text text-darken-3 right-align margin-bottom--small margin-top--small'>
-                Updated <DateFormat timestamp={ this.state.lastUpdate } fuzzy />
-            </div> }
-
         { this.state.newActivity && this.state.newActivity.length > 0 &&
-            <a className='btn block white-text margin-bottom--medium' onClick={ this._prepend }>
+            <a className='btn btn-flat block margin-bottom--medium' onClick={ this._prepend }>
                 { this.state.newActivity.length } new { this.state.newActivity.length == 1 ? 'activity' : 'activities' }
             </a> }
 

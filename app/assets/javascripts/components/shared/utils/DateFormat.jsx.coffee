@@ -30,7 +30,6 @@
       @setState dateDisplay: @showDate()
 
   _fuzzyPoll: ->
-    console.debug 'fuzzy poll'
     t = setTimeout @_fuzzyPoll, 60000
     @setState dateDisplay: @fuzzyDate(), timer: t
 
