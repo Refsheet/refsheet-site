@@ -1,6 +1,6 @@
 class Account::ActivitiesController < AccountController
   def index
-    @activities = filter_scope Activity.eager_loaded
+    @activities = filter_scope Activity.feed_for(current_user).eager_loaded
 
     filters = {
         character: 'Character',

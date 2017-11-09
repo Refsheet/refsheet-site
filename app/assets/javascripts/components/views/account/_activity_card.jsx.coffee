@@ -9,96 +9,6 @@
     character: React.PropTypes.object
     timestamp: React.PropTypes.number.isRequired
 
-  _buildImageGrid: (images, grid=[]) ->
-    key = images.length
-
-    # 3 Block: 3, 5, 6
-    if (images.length > 4 && images.length < 7) || images.length == 3
-      [ one, two, three, images... ] = images
-
-      grid.push(
-        `<Row noMargin noGutter key={ key }>
-            <Column s={8}><GalleryImage image={ one } size='medium_square' /></Column>
-            <Column s={4}>
-                <Row noMargin noGutter>
-                  <Column><GalleryImage image={ two } size='medium_square' /></Column>
-                  <Column><GalleryImage image={ three } size='medium_square' /></Column>
-                </Row>
-            </Column>
-        </Row>`
-      )
-
-      @_buildImageGrid images, grid
-
-    # 2 Block: 2, 4, 7+
-    else if images.length == 2 || images.length == 4 || images.length >= 7
-      [ one, two, images... ] = images
-
-      grid.push(
-        `<Row noMargin noGutter key={ key }>
-            <Column s={6}><GalleryImage image={ one } size='medium_square' /></Column>
-            <Column s={6}><GalleryImage image={ two } size='medium_square' /></Column>
-        </Row>`
-      )
-
-      @_buildImageGrid images, grid
-
-    # Single: 1
-    else if images.length == 1
-      [ one ] = images
-
-      grid.push(
-        `<Row noMargin noGutter key={ key }>
-            <Column><GalleryImage image={ one } size='medium' /></Column>
-        </Row>`
-      )
-
-    `<div className='image-grid'>{ grid }</div>`
-
-  _getActivities: ->
-    @props.activities || [ @props.activity ]
-
-  _getAttachment: ->
-    return unless @props.activity
-
-    switch @props.activityType
-      when 'Image'
-        images = @_getActivities()
-        for i in images
-          i.character = @props.character
-        @_buildImageGrid(@_getActivities())
-
-      when 'Media::Comment'
-        __this = @
-        comments = @_getActivities().map (comment) =>
-          `<Row key={ comment.id }>
-              <Column s={4}>
-                  <GalleryImage image={ comment.media } size='small_square' />
-              </Column>
-              <Column s={8}>
-                  <div className='chat-bubble receive'>{ comment.comment }</div>
-              </Column>
-          </Row>`
-
-        `<div className='card-content padding-top--none padding-bottom--none'>{ comments }</div>`
-
-  _getMessage: ->
-    return `<div className='red-text'>Activity item deleted :(</div>` unless @props.activity
-
-    switch @props.activityType
-      when 'Image'
-        images = @_getActivities()
-        str = if images.length == 1 then 'a new photo' else "#{images.length} new photos"
-        `<div>Uploaded { str }:</div>`
-
-      when 'Media::Comment'
-        comments = @_getActivities()
-        str = if comments.length == 1 then `<Link to={ comments[0].media.link }>{ comments[0].media.title }</Link>` else "#{comments.length} photos"
-        `<div>Commented on { str }.</div>`
-
-      else
-        `<div className='red-text'>Unsupported activity type: {this.props.activityType}.{this.props.activityMethod}</div>`
-
   _getIdentity: ->
     if @props.character
       avatarUrl: @props.character.profile_image_url
@@ -114,6 +24,22 @@
       username: @props.user.username
       type: 'user'
 
+  _getActivities: ->
+    @props.activities || [ @props.activity ]
+
+  _getActivity: ->
+    return unless @props.activity
+
+    switch @props.activityType
+      when 'Image'
+        `<Views.Account.Activities.Image images={ this._getActivities() } character={ this.props.character } />`
+
+      when 'Media::Comment'
+        `<Views.Account.Activities.Comment comments={ this._getActivities() } />`
+
+      else
+        `<div className='red-text padding-bottom--medium'>Unsupported activity type: {this.props.activityType}.{this.props.activityMethod}</div>`
+
   render: ->
     { date, dateHuman } = @props
     identity = @_getIdentity()
@@ -121,14 +47,12 @@
     `<div className='card sp with-avatar margin-bottom--medium'>
         <img className='avatar circle' src={ identity.avatarUrl } alt={ identity.name } />
 
-        <div className='card-content'>
+        <div className='card-content padding-bottom--none'>
             <DateFormat className='muted right' timestamp={ this.props.timestamp } fuzzy />
             <IdentityLink to={ identity } />
 
-            { this._getMessage() }
+            { this._getActivity() }
         </div>
-
-        { this._getAttachment() }
 
         <div className='clearfix' />
     </div>`

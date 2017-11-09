@@ -19,6 +19,13 @@
   load: (image) ->
     @setState image: image, @_initialize
 
+  _handleFavoriteClick: (e) ->
+    action = if @state.image?.is_favorite then 'delete' else 'post'
+    Model.request action, '/media/' + @state.image.id + '/favorites', {}, (data) =>
+      @_handleFavorite !!data.media_id
+    e.preventDefault()
+
+
   _handleFavorite: (fav) ->
     o = @state.image
     o.is_favorite = fav
@@ -101,7 +108,7 @@
 
             <div className='overlay'>
                 <div className='interactions'>
-                    <div className='favs'>
+                    <div className='favs clickable' onClick={ this._handleFavoriteClick }>
                         <Icon>{ this.state.image.is_favorite ? 'star' : 'star_outline' }</Icon>
                         &nbsp;{ NumberUtils.format(this.state.image.favorites_count) }
                     </div>
