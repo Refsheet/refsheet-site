@@ -75,11 +75,11 @@
 
             <div className='card-content'>
                 { canFollow &&
-                    <a href='#' className='secondary-content right' style={{ color: followColor }} onClick={ this._handleFollowClick }>
+                    <a href='#' className='secondary-content right margin-left--large' style={{ color: followColor }} onClick={ this._handleFollowClick }>
                         <Icon>person_add</Icon>
                     </a> }
 
-                <Link to={ this.props.to.link } style={{ display: 'block' }}>{ this.props.to.name }</Link>
+                <Link to={ this.props.to.link } style={{ display: 'block', whiteSpace: 'nowrap' }}>{ this.props.to.name }</Link>
 
                 { mutual &&
                     <div className='followback'

@@ -95,11 +95,6 @@
                 <span className={ suffixClass }> { this.props.titleSuffix }</span>
             </h1>
 
-            <div className='character-meta'>
-                <Link to={ '/' + this.state.character.user_id }>@{ this.state.character.user_id }</Link>
-                , { this.state.character.created_at }
-            </div>
-
             { description }
         </div>
 
