@@ -27,7 +27,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html do
-        eager_load user: UserSerializer.new(@user).as_json
+        eager_load user: UserSerializer.new(@user, scope: view_context).as_json
         render 'application/show'
       end
       format.json { render json: @user, serializer: UserSerializer, include: %w(characters.color_scheme character_groups) }

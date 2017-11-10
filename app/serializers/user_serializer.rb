@@ -12,7 +12,8 @@ class UserSerializer < ActiveModel::Serializer
              :profile_markup,
              :characters_count,
              :is_admin,
-             :is_patron
+             :is_patron,
+             :followed
 
   has_many :characters,
            serializer: ImageCharacterSerializer
@@ -54,5 +55,9 @@ class UserSerializer < ActiveModel::Serializer
 
   def settings
     object.settings.as_json
+  end
+
+  def followed
+    scope.current_user&.following? object if scope&.respond_to? :current_user
   end
 end
