@@ -18,9 +18,9 @@
         type: 'character'
 
       `<Row key={ character.id } oneColumn>
-          <div className='character-card z-depth-0 margin-bottom--none' style={{ backgroundColor: '#111', overflow: 'visible' }}>
+          <div className='character-card z-depth-0 margin-bottom--none' style={{ backgroundColor: '#1a1a1a', overflow: 'visible' }}>
               <div className='character-details' style={{ minHeight: 'initial' }}>
-                  <h3 className='name'>
+                  <h3 className='name margin-top--none'>
                       <IdentityLink to={ identity } />
                   </h3>
 

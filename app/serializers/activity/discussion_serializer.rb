@@ -3,6 +3,7 @@ class Activity::DiscussionSerializer < ActiveModel::Serializer
              :forum,
              :topic,
              :content,
+             :content_text,
              :content_html,
              :path
 
@@ -15,6 +16,10 @@ class Activity::DiscussionSerializer < ActiveModel::Serializer
 
   def content_html
     object.content.to_html
+  end
+
+  def content_text
+    object.content.to_text
   end
 
   def path

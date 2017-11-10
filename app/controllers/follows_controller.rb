@@ -3,6 +3,8 @@ class FollowsController < ApplicationController
 
   def show
     render json: {
+        name: @user.name,
+        username: @user.username,
         followed: @user.followed_by?(current_user),
         follower: @user.following?(current_user),
         followers: @user.followers.count,
