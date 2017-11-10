@@ -53,6 +53,9 @@
       isYou = to.username == @context.currentUser?.username
       canFollow = !!@context.currentUser and not isYou
 
+      if to.type == 'character'
+        byline = `<div className='byline' style={{ lineHeight: '1rem', marginBottom: '2px', marginTop: '3px' }}>By: <Link to={ '/' + to.username }>{ user.name }</Link></div>`
+
 
     `<div className='identity-link-wrapper' style={{ position: 'relative', display: 'inline-block' }}>
         <div className='identity-card card with-avatar z-depth-2 sp'
@@ -66,66 +69,84 @@
                  left: 'calc(-48px - 2rem)',
                  zIndex: '899',
                  minWidth: '300px',
-                 backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                 backgroundColor: 'rgba(26, 26, 26, 1)',
                  display: 'none'
              }}
         >
-            { this.props.to.avatarUrl &&
-                <img src={ this.props.to.avatarUrl } alt={ this.props.to.name } className='avatar circle' /> }
+            { to.avatarUrl &&
+                <img src={ to.avatarUrl } alt={ to.name } className='avatar circle' /> }
 
             <div className='card-content'>
                 { canFollow &&
-                    <a href='#' className='secondary-content right margin-left--large' style={{ color: followColor }} onClick={ this._handleFollowClick }>
+                    <a href='#' className='secondary-content right' style={{ color: followColor, display: 'block' }} onClick={ this._handleFollowClick }>
                         <Icon>person_add</Icon>
                     </a> }
 
-                <Link to={ this.props.to.link } style={{ display: 'block', whiteSpace: 'nowrap' }}>{ this.props.to.name }</Link>
+                <Link to={ to.link } style={{ display: 'block', whiteSpace: 'nowrap', marginRight: '3rem' }}>{ to.name }</Link>
 
-                { mutual &&
-                    <div className='followback'
-                         style={{
-                             fontSize: '0.8rem',
-                             color: 'rgba(255,255,255,0.7)',
-                             textTransform: 'uppercase',
-                             display: 'inline-block'
-                         }}
-                    >
-                        { follower ? 'Follows ' + ( followed ? 'Back' : 'You' ) : 'Following' }
-                    </div> }
+                <div className='smaller' style={{ lineHeight: '1rem', verticalAlign: 'middle' }}>
+                    { byline }
 
-                { isYou &&
-                    <div className='followback'
-                         style={{
-                             fontSize: '0.8rem',
-                             color: 'rgba(255,255,255,0.7)',
-                             textTransform: 'uppercase',
-                             display: 'inline-block'
-                         }}
-                    >
-                        That's you!
-                    </div> }
+                    <span style={{ color: 'rgba(255,255,255,0.6)' }}>@{ to.username }</span>
 
-                { this.state.user &&
+                    { mutual &&
+                        <span className='followback'
+                              style={{
+                                  fontSize: '0.6rem',
+                                  lineHeight: '1rem',
+                                  verticalAlign: 'middle',
+                                  padding: '0 5px',
+                                  borderRadius: '3px',
+                                  backgroundColor: 'rgba(255,255,255, 0.05)',
+                                  marginLeft: '0.5rem',
+                                  color: 'rgba(255,255,255,0.6)',
+                                  textTransform: 'uppercase',
+                                  display: 'inline-block'
+                              }}
+                        >
+                            { follower ? 'Follows ' + ( followed ? 'Back' : 'You' ) : 'Following' }
+                        </span> }
+
+                    { isYou &&
+                        <span className='followback'
+                              style={{
+                                  fontSize: '0.6rem',
+                                  lineHeight: '1rem',
+                                  verticalAlign: 'middle',
+                                  padding: '0 5px',
+                                  borderRadius: '3px',
+                                  backgroundColor: 'rgba(255,255,255, 0.05)',
+                                  marginLeft: '0.5rem',
+                                  color: 'rgba(255,255,255,0.6)',
+                                  textTransform: 'uppercase',
+                                  display: 'inline-block'
+                              }}
+                        >
+                            That's you!
+                        </span> }
+                </div>
+
+                { user &&
                     <ul className='stats stats-compact margin-bottom--none margin-top--medium'>
                         <li>
-                            <div className='value'>{ NumberUtils.format(this.state.user.followers) }</div>
+                            <div className='value'>{ NumberUtils.format(user.followers) }</div>
                             <div className='label'>Followers</div>
                         </li>
                         <li>
-                            <div className='value'>{ NumberUtils.format(this.state.user.following) }</div>
+                            <div className='value'>{ NumberUtils.format(user.following) }</div>
                             <div className='label'>Following</div>
                         </li>
                     </ul> }
 
-                { !this.state.user &&
+                { !user &&
                     <div className='grey-text'>Loading...</div> }
             </div>
         </div>
 
-        <Link to={ this.props.to.link }
+        <Link to={ to.link }
               onMouseOver={ this._handleLinkMouseover }
               onMouseOut={ this._handleLinkMouseout }
         >
-            { this.props.to.name }
+            { to.name }
         </Link>
     </div>`

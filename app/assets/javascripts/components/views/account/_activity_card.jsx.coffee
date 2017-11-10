@@ -40,6 +40,9 @@
       when 'Character'
         `<Views.Account.Activities.Character characters={ this._getActivities() } username={ this.props.user.username } />`
 
+      when 'Forum::Discussion'
+        `<Views.Account.Activities.ForumDiscussion discussions={ this._getActivities() } />`
+
       else
         `<div className='red-text padding-bottom--medium'>Unsupported activity type: {this.props.activityType}.{this.props.activityMethod}</div>`
 
