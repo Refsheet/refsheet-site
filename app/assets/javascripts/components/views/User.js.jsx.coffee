@@ -33,10 +33,16 @@
     @context.router.push character.link
 
   handleUserChange: (user) ->
-    @setState user: user
+    @setState { user }
 
     if user.username == @context.currentUser.username
       @props.onLogin(user)
+
+
+  _handleUserFollow: (followed) ->
+    user = $.extend {}, @state.user
+    user.followed = followed
+    @setState { user }
 
 
   #== Schnazzy Fancy Root-level permutation operations!
@@ -107,6 +113,7 @@
             }
 
             <User.Header { ...this.state.user }
+                         onFollow={ this._handleUserFollow }
                          onUserChange={ userChangeCallback }
             />
 
