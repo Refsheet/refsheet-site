@@ -1,16 +1,42 @@
 @Advertisement = React.createClass
-  _handleImageLoad: (e) ->
-    ahoy.track 'advertisement.impression', advertisement_id: 0, image_file_name: e.target.src
 
-  render: ->
-    imageSrc = '/assets/sandbox/RefsheetAdBanner3.png?c=' + Math.floor(Date.now() / 1000)
+  dataPath: '/ads/next'
+
+  getInitialState: ->
+    campaign: null
+
+  componentDidMount: ->
+    StateUtils.load @, 'campaign'
+
+
+  _handleImageLoad: (e) ->
+    ahoy.track 'advertisement.impression',
+               advertisement_id: @state.campaign.id,
+               image_file_name: e.target.src,
+               active_slot_id: @state.campaign.active_slot_id
+
+  _handleLinkClick: (e) ->
+    ahoy.track 'advertisement.click',
+               advertisement_id: @state.campaign.id
+
+  _renderLink: ->
+    link = @state.campaign.link
 
     utmParams = {
       utm_source: 'refsheet.net',
-      utm_campaign: '2017-mauabata-0',
+      utm_campaign: @state.campaign.slug,
       utm_medium: 'paid-media'
       utm_content: 'newsfeed-sidebar'
     }
+
+    sep = if link.indexOf('?') then '&' else '?'
+    [link, $.param(utmParams)].join sep
+
+  render: ->
+    return null unless @state.campaign
+    { title, caption, link, image_url } = @state.campaign
+
+    imageSrc = image_url.medium + '?c=' + Math.floor(Date.now() / 1000)
 
     `<div className='sponsored-content center'
           style={{
@@ -31,13 +57,13 @@
 
         <img className='responsive-img'
              src={ imageSrc }
-             alt='Sponsored Content Test'
+             alt={ title }
              width='200px'
              height='150px'
              onLoad={ this._handleImageLoad }
         />
 
-        <a href='#'
+        <a href={ this._renderLink() }
            target='_blank'
            className='grey-text text-darken-2 block'
            style={{
@@ -45,9 +71,9 @@
                fontSize: '0.9rem',
                marginBottom: 5
            }}
-        >Advertise with us!</a>
+        >{ title }</a>
 
         <div className='sponsor-blurb grey-text text-darken-2'>
-            { "Help us and help yourself, place your ad in the box above to reach more people.".substring(0,90) }
+            { caption.substring(0,90) }
         </div>
     </div>`

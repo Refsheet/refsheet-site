@@ -24,5 +24,22 @@ module Ahoy
 
     belongs_to :visit
     belongs_to :user, optional: true
+
+
+    #== Tell Adverts to Cycle
+
+    after_commit do
+      if self.name =~ /\Aadvertisement\.(.*)\z/
+        ad = Advertisement::Campaign.find_by guid: self.properties[:advertisement_id]
+        return unless ad
+
+        case $1
+          when 'click'
+            ad.record_click
+          when 'impression'
+            ad.record_impression
+        end
+      end
+    end
   end
 end

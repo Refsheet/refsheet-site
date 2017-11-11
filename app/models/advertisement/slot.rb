@@ -38,6 +38,10 @@ class Advertisement::Slot < ApplicationRecord
     self.active.impression_order.first
   end
 
+  def self.next!
+    self.next or raise ActiveRecord::RecordNotFound.new 'No ad slots currently active.'
+  end
+
   # Expands available advertisement slots by +n+ slots.
   #
   def self.add(n)
