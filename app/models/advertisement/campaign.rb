@@ -34,6 +34,8 @@
 class Advertisement::Campaign < ApplicationRecord
   include HasGuid
 
+  attr_accessor :current_slot_id
+
   belongs_to :user
   has_many :active_slots, class_name: Advertisement::Slot, foreign_key: :active_campaign_id
   has_many :reserved_slots, class_name: Advertisement::Slot, foreign_key: :reserved_campaign_id
@@ -83,8 +85,37 @@ class Advertisement::Campaign < ApplicationRecord
   end
 
 
+  #== Hacked Relations
+
+  def impression_events
+    Ahoy::Event.where(name: 'advertisement.impression').where_properties(advertisement_id: self.guid)
+  end
+
+  def click_events
+    Ahoy::Event.where(name: 'advertisement.click').where_properties(advertisement_id: self.guid)
+  end
+
+
+  #== Utility
+
+  def slug
+    (self.created_at || Time.zone.now).strftime('%Y') + '-' + self.guid.to_s
+  end
+
+
+  #== Lifecycle
+
   def update_slot_counts
     self.update_attributes slots_filled: self.active_slots.count
+  end
+
+  def record_impression(slot_id)
+    self.update_attributes total_impressions: self.impression_events.count
+    self.active_slots.find_by(id: slot_id)&.set_impression
+  end
+
+  def record_click
+    self.update_attributes total_clicks: self.click_events.count
   end
 
   private

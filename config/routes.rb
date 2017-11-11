@@ -22,6 +22,11 @@ Rails.application.routes.draw do
   get 'browse/users', to: 'application#show'
 
 
+  #== Advertising
+
+  get '/ads/next', to: 'ads#next'
+
+
   #== Account Stuff
 
   namespace :account do
