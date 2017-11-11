@@ -80,7 +80,7 @@ class Advertisement::Campaign < ApplicationRecord
     end
 
     event :assign do
-      transition :pending => :assigned
+      transition :pending => :active
     end
   end
 
@@ -100,6 +100,12 @@ class Advertisement::Campaign < ApplicationRecord
 
   def slug
     (self.created_at || Time.zone.now).strftime('%Y') + '-' + self.guid.to_s
+  end
+
+  def ctr
+    (self.total_clicks || 0) / (self.total_impressions || 0)
+  rescue ZeroDivisionError
+    0
   end
 
 
@@ -122,5 +128,9 @@ class Advertisement::Campaign < ApplicationRecord
 
   def reserve_slot
     Advertisement::Slot.reserve self
+  end
+
+  def assign_slot
+    Advertisement::Slot.assign self
   end
 end

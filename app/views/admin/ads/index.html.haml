@@ -1,0 +1,53 @@
+- title 'ads'
+
+.content
+  %table
+    %tr
+      %th
+      %th Title
+      %th Caption
+      %th Slots
+      %th Impressions
+      %th Clicks
+      %th CTR
+      %th
+
+    - @ads.each do |ad|
+      %tr
+        %th= image_tag ad.image.url(:small)
+        %td= link_to ad.title, ad.link, target: '_blank'
+        %td= ad.caption
+        %td= (ad.slots_filled || 0).to_s + '/' + ad.slots_requested.to_s
+        %td= ad.total_impressions
+        %td= ad.total_clicks
+        %td= number_to_percentage ad.ctr
+        %td
+          - if ad.active?
+            (active)
+          - else
+            = link_to 'Assign', admin_ad_path(ad, assign: true), method: :put
+
+  %h2 slots
+  %table
+    %tr
+      %th
+      %th Active
+      %th Reserved
+      %th Last Impression
+      %th
+
+    - @slots.impression_order.each do |slot|
+      %tr
+        %td= slot.id
+        %td= slot.active_campaign&.title
+        %td= slot.reserved_campaign&.title
+        %td= slot.last_impression_at
+        %td
+
+  %h2 new ad
+  = simple_form_for @ad, url: admin_ads_path do |f|
+    = f.input :title
+    = f.input :caption
+    = f.input :link
+    = f.input :image
+    = f.submit class: 'btn'
