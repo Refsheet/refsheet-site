@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171106090633) do
+ActiveRecord::Schema.define(version: 20171111124829) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,42 @@ ActiveRecord::Schema.define(version: 20171106090633) do
     t.index ["activity_type"], name: "index_activities_on_activity_type", using: :btree
     t.index ["character_id"], name: "index_activities_on_character_id", using: :btree
     t.index ["user_id"], name: "index_activities_on_user_id", using: :btree
+  end
+
+  create_table "advertisement_campaigns", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.string   "caption"
+    t.string   "link"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.integer  "amount_cents",       default: 0,     null: false
+    t.string   "amount_currency",    default: "USD", null: false
+    t.integer  "slots_filled"
+    t.string   "guid"
+    t.string   "status"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.boolean  "recurring"
+    t.integer  "total_impressions"
+    t.integer  "total_clicks"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.integer  "slots_requested",    default: 1
+    t.index ["guid"], name: "index_advertisement_campaigns_on_guid", using: :btree
+    t.index ["user_id"], name: "index_advertisement_campaigns_on_user_id", using: :btree
+  end
+
+  create_table "advertisement_slots", force: :cascade do |t|
+    t.integer  "active_campaign_id"
+    t.integer  "reserved_campaign_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.datetime "last_impression_at"
+    t.index ["active_campaign_id"], name: "index_advertisement_slots_on_active_campaign_id", using: :btree
+    t.index ["reserved_campaign_id"], name: "index_advertisement_slots_on_reserved_campaign_id", using: :btree
   end
 
   create_table "ahoy_events", force: :cascade do |t|
