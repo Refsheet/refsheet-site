@@ -24,7 +24,7 @@ Rails.application.routes.draw do
 
   #== Advertising
 
-  get '/ads/next', to: 'ads#next'
+  get '/ads/next', to: 'advertisement_slots#next'
 
 
   #== Account Stuff
@@ -134,6 +134,10 @@ Rails.application.routes.draw do
 
     resources :feedbacks, only: [:index, :show, :update] do
       resources :replies, only: [:create], controller: 'feedbacks/replies'
+    end
+
+    resources :ads, only: [:index, :create, :update] do
+      resources :slots, only: [:index, :create, :destroy]
     end
   end
 
