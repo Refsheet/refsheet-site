@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     get '/l/:id', to: 'advertisement_slots#shortcode'
     get '/t/:id', to: 'forum/threads#shortcode'
     get '/u/:id', to: 'users#shortcode'
+    get '/~:id', to: 'users#shortcode'
     get '*id', to: 'shortcodes#show'
   end
 
@@ -148,13 +149,17 @@ Rails.application.routes.draw do
 
   #== Static Routes
 
-  %w(privacy terms support).each do |path|
+  %w(privacy terms support thanks).each do |path|
     get "/#{path}", to: 'static#show'
   end
 
   get '/static/:id', to: 'static#show', as: :static
 
   get '/:user_id/:id', to: 'characters#show', as: :character_profile
+
+  get '/~:id', to: 'users#show'
   get '/:id', to: 'users#show', as: :user_profile
+
   get '*page', to: 'application#show'
+  match '*not_found', to: 'application#not_found!', via: [:post, :put, :patch, :delete, :head, :options]
 end

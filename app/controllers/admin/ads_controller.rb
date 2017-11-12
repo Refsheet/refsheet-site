@@ -2,8 +2,8 @@ class Admin::AdsController < AdminController
   before_action :get_ad, only: [:edit, :update]
 
   def index
-    @ads = Advertisement::Campaign.all
-    @slots = Advertisement::Slot.all
+    @ads = Advertisement::Campaign.all.order(total_impressions: :desc)
+    @slots = Advertisement::Slot.all.impression_order
   end
 
   def edit

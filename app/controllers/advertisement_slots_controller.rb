@@ -14,6 +14,6 @@ class AdvertisementSlotsController < ApplicationController
     ahoy.track 'advertisement.click',
                advertisement_id: @ad.guid
 
-    redirect_to @ad.generateLink
+    redirect_to @ad.generate_link
   end
 end
