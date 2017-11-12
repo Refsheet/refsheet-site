@@ -33,7 +33,7 @@
               </div>
 
               <div className='character-image' onClick={ this.handleImageClick }>
-                  <div className='slant' style={{ backgroundColor: '#111' }} />
+                  <div className='slant' style={{ backgroundColor: '#1a1a1a' }} />
                   <img src={ character.profile_image_url } />
               </div>
           </div>
