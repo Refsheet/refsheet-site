@@ -22,7 +22,7 @@ gem 'active_elastic_job'
 # == FRONT END
 
 gem 'uglifier', '>= 1.3.0'
-gem 'sass-rails', '~> 5.0'
+gem 'sassc-rails'
 gem 'coffee-rails', '~> 4.2'
 gem 'haml'
 gem 'react-rails', github: 'reactjs/react-rails', branch: 'master'

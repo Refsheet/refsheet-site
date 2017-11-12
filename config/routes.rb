@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     get '/c/:id', to: 'shortcodes#show'
     get '/f/:id', to: 'forums#shortcode'
     get '/i/:id', to: 'images#shortcode'
+    get '/l/:id', to: 'advertisement_campaigns#shortcode'
     get '/t/:id', to: 'forum/threads#shortcode'
     get '/u/:id', to: 'users#shortcode'
     get '*id', to: 'shortcodes#show'
@@ -24,7 +25,7 @@ Rails.application.routes.draw do
 
   #== Advertising
 
-  get '/ads/next', to: 'advertisement_slots#next'
+  get '/our_friends/next', to: 'advertisement_slots#next'
 
 
   #== Account Stuff
@@ -136,9 +137,8 @@ Rails.application.routes.draw do
       resources :replies, only: [:create], controller: 'feedbacks/replies'
     end
 
-    resources :ads, only: [:index, :create, :update] do
-      resources :slots, only: [:index, :create, :destroy]
-    end
+    resources :ads, only: [:index, :edit, :new, :create, :update]
+    post :ad_slots, to: 'advertisements/slots#create'
   end
 
   if Rails.env.development?

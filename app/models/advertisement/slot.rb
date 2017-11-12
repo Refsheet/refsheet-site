@@ -27,9 +27,18 @@ class Advertisement::Slot < ApplicationRecord
 
   scope :impression_order, -> { order <<-SQL }
     CASE
+      WHEN active_campaign_id IS NOT NULL THEN 0
+      WHEN reserved_campaign_id IS NOT NULL THEN 1
+      ELSE 2
+    END ASC,
+ 
+    CASE
       WHEN last_impression_at IS NULL THEN 0
       ELSE 1
-    END ASC, last_impression_at ASC, id ASC
+    END ASC, 
+
+    last_impression_at ASC, 
+    id ASC
   SQL
 
   # Returns the next active slot, in round-robin order.

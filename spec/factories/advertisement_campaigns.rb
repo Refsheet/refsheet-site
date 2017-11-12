@@ -13,17 +13,17 @@
 #  image_updated_at   :datetime
 #  amount_cents       :integer          default("0"), not null
 #  amount_currency    :string           default("USD"), not null
-#  slots_filled       :integer
+#  slots_filled       :integer          default("0")
 #  guid               :string
 #  status             :string
 #  starts_at          :datetime
 #  ends_at            :datetime
-#  recurring          :boolean
-#  total_impressions  :integer
-#  total_clicks       :integer
+#  recurring          :boolean          default("false")
+#  total_impressions  :integer          default("0")
+#  total_clicks       :integer          default("0")
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
-#  slots_requested    :integer          default("1")
+#  slots_requested    :integer          default("0")
 #
 # Indexes
 #

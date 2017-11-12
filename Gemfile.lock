@@ -420,6 +420,17 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    sassc (1.11.4)
+      bundler
+      ffi (~> 1.9.6)
+      sass (>= 3.3.0)
+    sassc-rails (1.3.0)
+      railties (>= 4.0.0)
+      sass
+      sassc (~> 1.9)
+      sprockets (> 2.11)
+      sprockets-rails
+      tilt
     scoped_search (4.0.0)
       activerecord (>= 4.2.0)
     shoulda-matchers (2.8.0)
@@ -573,7 +584,7 @@ DEPENDENCIES
   rspec-retry
   rspec_junit_formatter
   ruby-trello
-  sass-rails (~> 5.0)
+  sassc-rails
   scoped_search
   shoulda-matchers (~> 2.8)
   simple_form

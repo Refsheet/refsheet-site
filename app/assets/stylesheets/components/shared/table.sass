@@ -1,0 +1,24 @@
+table
+  .card > &
+    td:first-child
+      padding-left: 1rem
+
+    td:last-child
+      padding-right: 1rem
+
+    td
+      vertical-align: top
+
+  body.admin &
+    thead
+      background-color: $secondary-color
+      color: white
+
+      th
+        border-radius: 0
+
+        &:first-child
+          border-top-left-radius: 2px
+
+        &:last-child
+          border-top-right-radius: 2px
