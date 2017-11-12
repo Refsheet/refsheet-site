@@ -7,4 +7,13 @@ class AdvertisementSlotsController < ApplicationController
 
     render json: @ad, serializer: Advertisement::CampaignSerializer
   end
+
+  def shortcode
+    @ad = Advertisement::Campaign.find_by! guid: params[:id]
+
+    ahoy.track 'advertisement.click',
+               advertisement_id: @ad.guid
+
+    redirect_to @ad.generateLink
+  end
 end

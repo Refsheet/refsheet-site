@@ -50,4 +50,16 @@ describe Advertisement::Campaign, type: :model do
       ],
       monetize: :amount_cents
   )
+
+  describe '#generate_link' do
+    let(:campaign) { create :advertisement_campaign, link: 'https://foo.com/bar?qux=baz' }
+    subject { campaign.generate_link }
+
+    it { is_expected.to match /bar\?qux=baz&utm_/ }
+
+    context 'when no params' do
+      let(:campaign) { create :advertisement_campaign, link: 'https://foo.com/bar' }
+      it { is_expected.to match /bar\?utm_/ }
+    end
+  end
 end

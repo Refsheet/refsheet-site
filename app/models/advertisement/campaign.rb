@@ -103,9 +103,22 @@ class Advertisement::Campaign < ApplicationRecord
   end
 
   def ctr
-    self.total_clicks.to_f / self.total_impressions.to_f
+    (self.total_clicks.to_f / self.total_impressions.to_f).round(3)
   rescue
     0
+  end
+
+  def generate_link
+    utm_params = {
+        utm_source: 'refsheet.net',
+        utm_campaign: self.slug,
+        utm_medium: 'paid-media',
+        utm_content: 'newsfeed-sidebar'
+    }
+
+    uri = URI(self.link)
+    uri.query = [uri.query, utm_params.to_param].compact.join('&')
+    uri.to_s
   end
 
 
