@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     get '/c/:id', to: 'shortcodes#show'
     get '/f/:id', to: 'forums#shortcode'
     get '/i/:id', to: 'images#shortcode'
-    get '/l/:id', to: 'advertisement_campaigns#shortcode'
+    get '/l/:id', to: 'advertisement_slots#shortcode'
     get '/t/:id', to: 'forum/threads#shortcode'
     get '/u/:id', to: 'users#shortcode'
     get '*id', to: 'shortcodes#show'
