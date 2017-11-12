@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171111124829) do
+ActiveRecord::Schema.define(version: 20171112001352) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,17 +41,17 @@ ActiveRecord::Schema.define(version: 20171111124829) do
     t.datetime "image_updated_at"
     t.integer  "amount_cents",       default: 0,     null: false
     t.string   "amount_currency",    default: "USD", null: false
-    t.integer  "slots_filled"
+    t.integer  "slots_filled",       default: 0
     t.string   "guid"
     t.string   "status"
     t.datetime "starts_at"
     t.datetime "ends_at"
-    t.boolean  "recurring"
-    t.integer  "total_impressions"
-    t.integer  "total_clicks"
+    t.boolean  "recurring",          default: false
+    t.integer  "total_impressions",  default: 0
+    t.integer  "total_clicks",       default: 0
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
-    t.integer  "slots_requested",    default: 1
+    t.integer  "slots_requested",    default: 0
     t.index ["guid"], name: "index_advertisement_campaigns_on_guid", using: :btree
     t.index ["user_id"], name: "index_advertisement_campaigns_on_user_id", using: :btree
   end

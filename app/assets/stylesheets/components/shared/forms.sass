@@ -1,6 +1,72 @@
 body:not(.admin)
   form
     @at-root
+      form.inline
+        display: flex
+        height: 2.5rem
+        width: 100%
+
+        &.pill
+          width: auto
+          border-radius: 2px
+
+          input
+            background-color: white
+            padding: 0 1rem
+            box-sizing: border-box
+            border: 1px solid white
+            border-right: none
+            border-radius: 2px 0 0 2px
+
+            &:focus, &:active
+              box-shadow: none
+              border-color: $brand-dark
+              border-right: none
+
+          button
+            background-color: $brand-dark
+            border-radius: 0 2px 2px 0
+            box-shadow: none
+            box-sizing: border-box
+
+        &.has-errors
+          height: auto
+
+        .input-field
+          margin-top: 0
+          height: auto
+          flex-grow: 1
+
+        .error-block
+          margin-bottom: 0.25rem
+          margin-top: 0rem
+          line-height: initial
+
+        input
+          flex-grow: 1
+          margin-bottom: 0
+          line-height: 2.5rem
+          height: 2.5rem
+          border-bottom: none
+
+          &:focus
+            box-shadow: none
+            margin-bottom: 1px
+
+        button
+          margin-bottom: 0
+          border-top-left-radius: 0
+          border-bottom-left-radius: 0
+          padding: 0 0.75rem
+          height: auto
+          flex-shrink: 0
+
+          i.material-icons
+            font-size: 1.2rem
+            line-height: 2.5rem
+
+          &.btn-link
+            padding: 0 0 0 15px
       .btn-flat
         color: $text-light-color
 
@@ -56,51 +122,6 @@ body:not(.admin)
           outline: none
           box-shadow: none
           border-bottom: 1px solid $brand-primary
-
-    &.inline
-      display: flex
-      height: 2.5rem
-      width: 100%
-
-      &.has-errors
-        height: auto
-
-      .input-field
-        margin-top: 0
-        height: auto
-        flex-grow: 1
-
-      .error-block
-        margin-bottom: 0.25rem
-        margin-top: 0rem
-        line-height: initial
-
-      input
-        flex-grow: 1
-        margin-bottom: 0
-        line-height: 2.5rem
-        height: 2.5rem
-        border-bottom: none
-
-        &:focus
-          box-shadow: none
-          margin-bottom: 1px
-
-      button
-        margin-bottom: 0
-        border-top-left-radius: 0
-        border-bottom-left-radius: 0
-        padding: 0 0.75rem
-        height: auto
-        flex-shrink: 0
-
-        i.material-icons
-          font-size: 1.2rem
-          line-height: 2.5rem
-
-        &.btn-link
-          padding: 0 0 0 15px
-
 
     .browser-default
       border: 1px solid rgba(white, 0.1)

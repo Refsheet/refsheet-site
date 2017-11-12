@@ -1,6 +1,6 @@
 @Advertisement = React.createClass
 
-  dataPath: '/ads/next'
+  dataPath: '/our_friends/next'
 
   getInitialState: ->
     campaign: null
@@ -13,7 +13,7 @@
     ahoy.track 'advertisement.impression',
                advertisement_id: @state.campaign.id,
                image_file_name: e.target.src,
-               active_slot_id: @state.campaign.active_slot_id
+               current_slot_id: @state.campaign.current_slot_id
 
   _handleLinkClick: (e) ->
     ahoy.track 'advertisement.click',
@@ -29,7 +29,7 @@
       utm_content: 'newsfeed-sidebar'
     }
 
-    sep = if link.indexOf('?') then '&' else '?'
+    sep = if link.indexOf('?') >= 0 then '&' else '?'
     [link, $.param(utmParams)].join sep
 
   render: ->
@@ -55,17 +55,23 @@
             From our Friends:
         </div>
 
-        <img className='responsive-img'
-             src={ imageSrc }
-             alt={ title }
-             width='200px'
-             height='150px'
-             onLoad={ this._handleImageLoad }
-        />
+        <a href={ this._renderLink() }
+           target='_blank'
+           onClick={ this._handleLinkClick }
+        >
+            <img className='responsive-img'
+                 src={ imageSrc }
+                 alt={ title }
+                 width='200px'
+                 height='150px'
+                 onLoad={ this._handleImageLoad }
+            />
+        </a>
 
         <a href={ this._renderLink() }
            target='_blank'
            className='grey-text text-darken-2 block'
+           onClick={ this._handleLinkClick }
            style={{
                textDecoration: 'underline',
                fontSize: '0.9rem',

@@ -29,15 +29,22 @@ module Ahoy
     #== Tell Adverts to Cycle
 
     after_commit do
-      if self.name =~ /\Aadvertisement\.(.*)\z/
-        ad = Advertisement::Campaign.find_by guid: self.properties[:advertisement_id]
-        return unless ad
+      Rails.logger.tagged 'Event after_commit' do
+        Rails.logger.info "Processing post-commit hook for #{self.name}: #{self.properties.inspect}"
 
-        case $1
-          when 'click'
-            ad.record_click
-          when 'impression'
-            ad.record_impression
+        if self.name =~ /\Aadvertisement\.(.*)\z/
+          Rails.logger.info "Processing ad event tracking for #{$1} action on #{self.properties['advertisement_id']}"
+
+          if (ad = Advertisement::Campaign.find_by guid: self.properties['advertisement_id'])
+            Rails.logger.info "Using ad: #{ad.title}"
+
+            case $1
+              when 'click'
+                ad.record_click
+              when 'impression'
+                ad.record_impression self.properties['current_slot_id']
+            end
+          end
         end
       end
     end

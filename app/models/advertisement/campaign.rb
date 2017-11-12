@@ -13,17 +13,17 @@
 #  image_updated_at   :datetime
 #  amount_cents       :integer          default("0"), not null
 #  amount_currency    :string           default("USD"), not null
-#  slots_filled       :integer
+#  slots_filled       :integer          default("0")
 #  guid               :string
 #  status             :string
 #  starts_at          :datetime
 #  ends_at            :datetime
-#  recurring          :boolean
-#  total_impressions  :integer
-#  total_clicks       :integer
+#  recurring          :boolean          default("false")
+#  total_impressions  :integer          default("0")
+#  total_clicks       :integer          default("0")
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
-#  slots_requested    :integer          default("1")
+#  slots_requested    :integer          default("0")
 #
 # Indexes
 #
@@ -103,8 +103,8 @@ class Advertisement::Campaign < ApplicationRecord
   end
 
   def ctr
-    (self.total_clicks || 0) / (self.total_impressions || 0)
-  rescue ZeroDivisionError
+    self.total_clicks.to_f / self.total_impressions.to_f
+  rescue
     0
   end
 
@@ -117,6 +117,7 @@ class Advertisement::Campaign < ApplicationRecord
 
   def record_impression(slot_id)
     self.update_attributes total_impressions: self.impression_events.count
+    Rails.logger.info "Updating slot #{slot_id}..."
     self.active_slots.find_by(id: slot_id)&.set_impression
   end
 
