@@ -19,18 +19,8 @@
     ahoy.track 'advertisement.click',
                advertisement_id: @state.campaign.id
 
-  _renderLink: ->
-    link = @state.campaign.link
-
-    utmParams = {
-      utm_source: 'refsheet.net',
-      utm_campaign: @state.campaign.slug,
-      utm_medium: 'paid-media'
-      utm_content: 'newsfeed-sidebar'
-    }
-
-    sep = if link.indexOf('?') >= 0 then '&' else '?'
-    [link, $.param(utmParams)].join sep
+  _generateLink: ->
+    'https://ref.st/l/' + @state.campaign.id
 
   render: ->
     return null unless @state.campaign
@@ -55,7 +45,7 @@
             From our Friends:
         </div>
 
-        <a href={ this._renderLink() }
+        <a href={ this._generateLink() }
            target='_blank'
            onClick={ this._handleLinkClick }
         >
@@ -68,7 +58,7 @@
             />
         </a>
 
-        <a href={ this._renderLink() }
+        <a href={ this._generateLink() }
            target='_blank'
            className='grey-text text-darken-2 block'
            onClick={ this._handleLinkClick }
