@@ -8,7 +8,7 @@
   %h2.margin-top--none Current Ad Rotation
 
   .row
-    - @slots.impression_order.each do |slot|
+    = @slots.each do |slot|
       .col.s6.m3
         .card{class: slot.active? ? '' : 'z-depth-0 grey-text' }
           .card-image
@@ -54,7 +54,7 @@
           %th{width: 50}
 
       %tbody
-        - @ads.order(total_impressions: :desc).each do |ad|
+        - @ads.each do |ad|
           %tr
             %td= image_tag ad.image.url(:small), class: 'resonpsive-img'
             %td
