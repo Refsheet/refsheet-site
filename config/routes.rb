@@ -142,10 +142,16 @@ Rails.application.routes.draw do
     post :ad_slots, to: 'advertisements/slots#create'
   end
 
+
+  #== Engines!
+
   if Rails.env.development?
     mount ResqueWeb::Engine => '/resque_web'
     mount LetterOpenerWeb::Engine => '/letter_opener'
   end
+
+  mount Ahoy::Engine => '/ahoy', as: :my_ahoy
+
 
   #== Static Routes
 
