@@ -7,11 +7,11 @@
 
     comments = @props.comments.map (comment) =>
       `<Row key={ comment.id }>
-          <Column s={4}>
+          <Column s={6} m={4}>
               <GalleryImage image={ comment.media } size='small_square' />
           </Column>
-          <Column s={8}>
-              <div className='chat-bubble receive'>{ comment.comment }</div>
+          <Column s={12} m={8}>
+              <div className='chat-bubble receive turn-up-for-what'>{ comment.comment }</div>
           </Column>
       </Row>`
 
