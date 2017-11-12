@@ -16,7 +16,7 @@ class ApplicationRecord < ActiveRecord::Base
   def hack_out_null_values
     self.class.columns.each do |col|
       if col.type == :text
-        self.assign_attributes col.name => self.attributes[col.name].gsub("\u0000", '')
+        self.assign_attributes col.name => self.attributes[col.name]&.gsub("\u0000", '')
       end
     end
   end
