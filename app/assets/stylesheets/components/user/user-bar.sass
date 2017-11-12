@@ -22,7 +22,8 @@
     height: 56px
 
     @media #{$small-and-down}
-      width: 100%
+      width: 100% !important
+      padding: 0 !important
 
   #user-menu
     top: 56px !important
@@ -35,6 +36,10 @@
 
     ul
       display: inline-block
+
+      @media #{$medium-and-up}
+        &.site-nav
+          display: inline-block !important
 
       li
         position: relative
