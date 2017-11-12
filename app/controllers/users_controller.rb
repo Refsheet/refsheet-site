@@ -7,6 +7,10 @@ class UsersController < ApplicationController
     respond_with @users.reverse, each_serializer: UserIndexSerializer
   end
 
+  def shortcode
+    redirect_to user_url(params[:id])
+  end
+
   def show
     set_meta_tags(
         twitter: {
