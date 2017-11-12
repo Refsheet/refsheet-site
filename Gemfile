@@ -18,6 +18,7 @@ gem 'resque'
 gem 'non-stupid-digest-assets'
 gem 'rollbar'
 gem 'active_elastic_job'
+gem 'sprockets_uglifier_with_source_maps'
 
 # == FRONT END
 

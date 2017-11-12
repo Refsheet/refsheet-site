@@ -106,6 +106,7 @@
             </li>
         </ul>`
 
+
       currentUser =
         `<ul className='right'>
             {/*<li>
