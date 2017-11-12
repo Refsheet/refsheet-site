@@ -33,7 +33,7 @@
             title='Welcome back!'
             onClose={ this._handleComplete }
             className='narrow'>
-        <div ref='view'>
+        <div ref='view' className='flex'>
             { view }
         </div>
     </Modal>`
