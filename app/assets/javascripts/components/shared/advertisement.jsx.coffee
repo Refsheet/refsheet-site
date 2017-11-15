@@ -28,48 +28,62 @@
 
     imageSrc = image_url.medium + '?c=' + Math.floor(Date.now() / 1000)
 
-    `<div className='sponsored-content center'
+    `<div className='sponsored-content'
           style={{
               boxSizing: 'border-box',
               overflow: 'hidden',
               fontSize: '0.8rem',
-              maxWidth: 220,
-              padding: '5px 10px 10px',
-              borderTop: '1px solid #333',
-              borderRadius: 10,
-              borderBottom: '1px solid #333',
-              margin: '0 auto'
+              padding: '0 0 1rem 0',
+              borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
           }}
     >
-        <div className='sponsor-blurb grey-text text-darken-2 margin-bottom--small'>
+        <div className='sponsor-blurb'
+             style={{
+                 fontSize: '0.9rem',
+                 color: 'rgba(255, 255, 255, 0.3)',
+                 paddingBottom: '0.2rem',
+                 marginBottom: '1rem',
+                 borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
+             }}
+        >
             From our Friends:
         </div>
 
-        <a href={ this._generateLink() }
-           target='_blank'
-           onClick={ this._handleLinkClick }
+        <div className='blurb-container'
+             style={{
+                 maxWidth: 220,
+                 margin: '0 auto',
+                 textAlign: 'center'
+             }}
         >
-            <img className='responsive-img'
-                 src={ imageSrc }
-                 alt={ title }
-                 width='200px'
-                 height='150px'
-                 onLoad={ this._handleImageLoad }
-            />
-        </a>
+            <a href={ this._generateLink() }
+               target='_blank'
+               onClick={ this._handleLinkClick }
 
-        <a href={ this._generateLink() }
-           target='_blank'
-           className='grey-text text-darken-2 block'
-           onClick={ this._handleLinkClick }
-           style={{
-               textDecoration: 'underline',
-               fontSize: '0.9rem',
-               marginBottom: 5
-           }}
-        >{ title }</a>
+            >
+                <img className='responsive-img'
+                     src={ imageSrc }
+                     alt={ title }
+                     width='200px'
+                     height='150px'
+                     onLoad={ this._handleImageLoad }
+                />
+            </a>
 
-        <div className='sponsor-blurb grey-text text-darken-2'>
-            { caption.substring(0,90) }
+            <a href={ this._generateLink() }
+               target='_blank'
+               className='grey-text text-darken-2 block'
+               onClick={ this._handleLinkClick }
+               style={{
+                   textDecoration: 'underline',
+                   fontSize: '0.9rem',
+                   marginBottom: '0.3rem',
+                   marginTop: '0.5rem'
+               }}
+            >{ title }</a>
+
+            <div className='sponsor-blurb grey-text text-darken-2'>
+                { caption.substring(0,90) }
+            </div>
         </div>
     </div>`
