@@ -45,6 +45,16 @@
     { user } = @state
     { to } = @props
 
+
+
+    if to.is_admin || user?.is_admin
+      imgShadow = '0 0 3px 1px #2480C8'
+      nameColor = '#2480C8'
+
+    else if to.is_patron || user?.is_patron
+      imgShadow = '0 0 3px 1px #F96854'
+      nameColor = '#F96854'
+
     if user
       { followed, follower } = user
 
@@ -74,7 +84,7 @@
              }}
         >
             { to.avatarUrl &&
-                <img src={ to.avatarUrl } alt={ to.name } className='avatar circle' /> }
+                <img src={ to.avatarUrl } alt={ to.name } className='avatar circle' style={{ boxShadow: imgShadow }} /> }
 
             <div className='card-content'>
                 { canFollow &&
@@ -82,7 +92,7 @@
                         <Icon>person_add</Icon>
                     </a> }
 
-                <Link to={ to.link } style={{ display: 'block', whiteSpace: 'nowrap', marginRight: '3rem' }}>{ to.name }</Link>
+                <Link to={ to.link } style={{ display: 'block', whiteSpace: 'nowrap', marginRight: '3rem', color: nameColor }}>{ to.name }</Link>
 
                 <div className='smaller' style={{ lineHeight: '1rem', verticalAlign: 'middle' }}>
                     { byline }

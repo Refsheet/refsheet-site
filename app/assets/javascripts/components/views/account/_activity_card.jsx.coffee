@@ -14,6 +14,8 @@
       avatarUrl: @props.character.profile_image_url
       name: @props.character.name
       link: @props.character.link
+      is_admin: @props.user.is_admin
+      is_patron: @props.user.is_patron
       username: @props.user.username
       type: 'character'
 
@@ -22,6 +24,8 @@
       name: @props.user.name
       link: @props.user.link
       username: @props.user.username
+      is_admin: @props.user.is_admin
+      is_patron: @props.user.is_patron
       type: 'user'
 
   _getActivities: ->
@@ -50,8 +54,16 @@
     { date, dateHuman } = @props
     identity = @_getIdentity()
 
+    if identity.is_admin
+      imgShadow = '0 0 3px 1px #2480C8'
+      nameColor = '#2480C8'
+
+    else if identity.is_patron
+      imgShadow = '0 0 3px 1px #F96854'
+      nameColor = '#F96854'
+
     `<div className='card sp with-avatar margin-bottom--medium'>
-        <img className='avatar circle' src={ identity.avatarUrl } alt={ identity.name } />
+        <img className='avatar circle' src={ identity.avatarUrl } alt={ identity.name } style={{ boxShadow: imgShadow }} />
 
         <div className='card-content padding-bottom--none'>
             <DateFormat className='muted right' timestamp={ this.props.timestamp } fuzzy />
