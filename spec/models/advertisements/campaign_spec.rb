@@ -47,8 +47,7 @@ describe Advertisement::Campaign, type: :model do
           :title,
           :caption,
           :link
-      ],
-      monetize: :amount_cents
+      ]
   )
 
   describe '#generate_link' do
