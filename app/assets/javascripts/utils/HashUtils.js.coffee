@@ -42,12 +42,12 @@
   itemExists: (collection, item, primaryKey='id') ->
     return unless collection and item
     targetKey = if typeof item is 'object' then item[primaryKey] else item
-    !!((collection.filter (i) -> i[primaryKey] == targetKey)[0])
+    !!((collection.filter (i) -> i?[primaryKey] == targetKey)[0])
 
   findItem: (collection, item, primaryKey='id', callback) ->
     return [] unless collection and item
     targetKey = if typeof item is 'object' then item[primaryKey] else item
-    old = (collection.filter (i) -> i[primaryKey] == targetKey)[0]
+    old = (collection.filter (i) -> i?[primaryKey] == targetKey)[0]
     index = collection.indexOf(old) if old
     callback(old, index) if callback
     [old, index]

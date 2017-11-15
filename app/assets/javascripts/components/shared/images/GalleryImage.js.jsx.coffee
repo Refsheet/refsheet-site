@@ -67,12 +67,18 @@
           _this.props.onSwap(sourceId, @state.image.id) if _this.props.onSwap
 
 
+  _updateEvent: (e, image) ->
+    return unless @state.image and image and @state.image.id == image.id
+    @load(image)
+
+
   componentDidMount: ->
     @_initialize()
 
-    $(document).on 'app:image:update', (e, image) =>
-      return unless @state.image.id == image.id
-      @load(image)
+    $(document).on 'app:image:update', @_updateEvent
+
+  componentWillUnmount: ->
+    $(document).off 'app:image:update', @_updateEvent
 
   componentWillReceiveProps: (newProps) ->
     if newProps.image?
