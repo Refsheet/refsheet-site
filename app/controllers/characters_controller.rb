@@ -25,7 +25,7 @@ class CharactersController < ApplicationController
 
     respond_to do |format|
       format.html do
-        eager_load character: CharacterSerializer.new(@character).as_json
+        eager_load character: CharacterSerializer.new(@character, scope: view_context).as_json
         render 'application/show'
       end
       format.json { render json: @character, serializer: CharacterSerializer }

@@ -35,6 +35,10 @@
   handleProfileImageEdit: ->
     $(document).trigger 'app:character:profileImage:edit'
 
+  _handleFollow: (f) ->
+    @setState HashUtils.set(@state, 'character.followed', f), ->
+      Materialize.toast "Character #{if f then 'followed!' else 'unfollowed.'}", 3000, 'green'
+
   render: ->
     if @props.edit
       attributeUpdate = @handleAttributeChange
@@ -85,15 +89,23 @@
       west: { objectPosition: 'left' }
     }
 
-
-    `<div className='character-card'>
+    `<div className='character-card' style={{ minHeight: 400 }}>
         <div className='character-details'>
-            <h1 className='name'>
-                <span className={ prefixClass }>{ this.props.titlePrefix } </span>
-                <span className='real-name'>{ this.state.character.name }</span>
-                { nickname }
-                <span className={ suffixClass }> { this.props.titleSuffix }</span>
-            </h1>
+            <div className='heading'>
+                <div className='right'>
+                    <Views.User.Follow followed={ this.state.character.followed }
+                                       username={ this.state.character.user_id }
+                                       onFollow={ this._handleFollow }
+                                       short />
+                </div>
+
+                <h1 className='name'>
+                    <span className={ prefixClass }>{ this.props.titlePrefix } </span>
+                    <span className='real-name'>{ this.state.character.name }</span>
+                    { nickname }
+                    <span className={ suffixClass }> { this.props.titleSuffix }</span>
+                </h1>
+            </div>
 
             { description }
         </div>
