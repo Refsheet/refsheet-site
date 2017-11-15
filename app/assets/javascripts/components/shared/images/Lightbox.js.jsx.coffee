@@ -106,9 +106,6 @@
 
         $('#lightbox').modal('open')
 
-      .on 'navigate.lightbox', =>
-        $('#lightbox').modal('close')
-
   _handleChange: (image) ->
     Materialize.toast "Image saved!", 3000, 'green'
     @setState image: image, @_callback
