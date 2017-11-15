@@ -11,7 +11,7 @@
   _handleFollowClick: (e) ->
     action = if @props.followed then 'delete' else 'post'
     Model.request action, '/users/' + @props.username + '/follow.json', {}, (user) =>
-      @props.onFollow user.followed if @props.onFollow
+      @props.onFollow user.followed, @props.username, user if @props.onFollow
     e.preventDefault()
 
   render: ->

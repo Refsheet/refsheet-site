@@ -16,6 +16,7 @@
             </div>
 
             <div className='sidebar aside transparent'>
+                <Views.Account.Suggestions />
                 <Advertisement />
             </div>
         </Container>
