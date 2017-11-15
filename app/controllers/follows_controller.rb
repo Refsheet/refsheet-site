@@ -15,7 +15,10 @@ class FollowsController < ApplicationController
   def suggested
     head :unauthorized unless signed_in?
 
-    render json: filter_scope(current_user.followers.suggested), each_serializer: UserIndexSerializer
+    scope = current_user.followers.suggested
+    scope = User.patrons if scope.none?
+
+    render json: filter_scope(scope), each_serializer: UserIndexSerializer
   end
 
   def create
