@@ -53,7 +53,7 @@ class Advertisement::Campaign < ApplicationRecord
             }
 
   has_attached_file :image,
-                    path: '/our_friends/:id_partition/:style/:hash.:extension',
+                    path: '/our_friends/:guid/:style.:extension',
                     hash_secret: 'totally-not-an-advertisement-i-swear',
                     styles: {
                         small: ['100x75>', :png],
