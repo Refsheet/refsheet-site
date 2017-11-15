@@ -4,4 +4,8 @@ Rails.application.configure do
       s3_protocol: :https,
       s3_credentials: Rails.configuration.x.amazon
   }
+
+  Paperclip.interpolates :guid do |attachment, _|
+    attachment.instance.guid
+  end
 end
