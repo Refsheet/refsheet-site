@@ -92,6 +92,7 @@ class User < ApplicationRecord
   scoped_search on: [:name, :username, :email]
 
   scope :confirmed, -> { where.not email_confirmed_at: nil }
+  scope :patrons, -> { joins(:patron).order('patreon_patrons.created_at DESC').where.not patreon_patrons: { id: nil } }
 
   def name
     super || username

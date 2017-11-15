@@ -29,6 +29,7 @@
       success: (data) =>
         @setState character: data
         onSuccess()
+
       error: (error) =>
         onError(error.JSONData?.errors['special_notes'])
 
