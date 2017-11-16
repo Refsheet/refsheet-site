@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   end
 
   def shortcode
-    redirect_to user_url(params[:id])
+    redirect_to user_profile_url(params[:id], hostname: 'refsheet.net')
   end
 
   def show
