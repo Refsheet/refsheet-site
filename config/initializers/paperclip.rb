@@ -9,8 +9,7 @@ Rails.application.configure do
   }
 
   if ENV['CLOUD_DOMAIN']
-    defaults.merge! s3_host_alias: ENV['CLOUD_DOMAIN'],
-                    url: ':s3_host_alias'
+    defaults.merge! url: ':s3_alias_url', s3_host_alias: ENV['CLOUD_DOMAIN']
   end
 
   config.paperclip_defaults = defaults
