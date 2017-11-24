@@ -14,7 +14,7 @@
       ___this = this
 
       $(@refs.dropzone).dropzone
-        clickable: @props.clickable || null
+        clickable: @props.clickable || undefined
         url: @props.url
         method: @props.method || 'POST'
         previewTemplate: ''

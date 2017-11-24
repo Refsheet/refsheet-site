@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171020005721) do
+ActiveRecord::Schema.define(version: 20171115093230) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,42 @@ ActiveRecord::Schema.define(version: 20171020005721) do
     t.index ["activity_type"], name: "index_activities_on_activity_type", using: :btree
     t.index ["character_id"], name: "index_activities_on_character_id", using: :btree
     t.index ["user_id"], name: "index_activities_on_user_id", using: :btree
+  end
+
+  create_table "advertisement_campaigns", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.string   "caption"
+    t.string   "link"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.integer  "amount_cents",       default: 0,     null: false
+    t.string   "amount_currency",    default: "USD", null: false
+    t.integer  "slots_filled",       default: 0
+    t.string   "guid"
+    t.string   "status"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.boolean  "recurring",          default: false
+    t.integer  "total_impressions",  default: 0
+    t.integer  "total_clicks",       default: 0
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.integer  "slots_requested",    default: 0
+    t.index ["guid"], name: "index_advertisement_campaigns_on_guid", using: :btree
+    t.index ["user_id"], name: "index_advertisement_campaigns_on_user_id", using: :btree
+  end
+
+  create_table "advertisement_slots", force: :cascade do |t|
+    t.integer  "active_campaign_id"
+    t.integer  "reserved_campaign_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.datetime "last_impression_at"
+    t.index ["active_campaign_id"], name: "index_advertisement_slots_on_active_campaign_id", using: :btree
+    t.index ["reserved_campaign_id"], name: "index_advertisement_slots_on_reserved_campaign_id", using: :btree
   end
 
   create_table "ahoy_events", force: :cascade do |t|
@@ -265,6 +301,9 @@ ActiveRecord::Schema.define(version: 20171020005721) do
     t.datetime "expires_at"
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
+    t.boolean  "sold"
+    t.integer  "seller_id"
+    t.index ["sold"], name: "index_items_on_sold", using: :btree
   end
 
   create_table "media_comments", force: :cascade do |t|
@@ -295,8 +334,12 @@ ActiveRecord::Schema.define(version: 20171020005721) do
     t.integer  "item_id"
     t.integer  "slot_id"
     t.integer  "auction_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.integer  "amount_cents"
+    t.string   "amount_currency",       default: "USD"
+    t.integer  "processor_fee_cents"
+    t.integer  "marketplace_fee_cents"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -304,6 +347,7 @@ ActiveRecord::Schema.define(version: 20171020005721) do
     t.string   "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "email"
   end
 
   create_table "organization_memberships", force: :cascade do |t|
@@ -362,15 +406,35 @@ ActiveRecord::Schema.define(version: 20171020005721) do
     t.datetime "updated_at",        null: false
   end
 
+  create_table "payment_transfers", force: :cascade do |t|
+    t.integer  "seller_id"
+    t.integer  "payment_id"
+    t.integer  "order_id"
+    t.string   "processor_id"
+    t.string   "type"
+    t.integer  "amount_cents",    default: 0,     null: false
+    t.string   "amount_currency", default: "USD", null: false
+    t.string   "status"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.index ["order_id"], name: "index_payment_transfers_on_order_id", using: :btree
+    t.index ["payment_id"], name: "index_payment_transfers_on_payment_id", using: :btree
+    t.index ["seller_id"], name: "index_payment_transfers_on_seller_id", using: :btree
+    t.index ["type"], name: "index_payment_transfers_on_type", using: :btree
+  end
+
   create_table "payments", force: :cascade do |t|
     t.integer  "order_id"
     t.string   "processor_id"
-    t.integer  "amount_cents",    default: 0,     null: false
-    t.string   "amount_currency", default: "USD", null: false
+    t.integer  "amount_cents",        default: 0,     null: false
+    t.string   "amount_currency",     default: "USD", null: false
     t.string   "state"
     t.string   "failure_reason"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.string   "type"
+    t.integer  "processor_fee_cents"
+    t.index ["type"], name: "index_payments_on_type", using: :btree
   end
 
   create_table "permissions", force: :cascade do |t|
@@ -382,6 +446,24 @@ ActiveRecord::Schema.define(version: 20171020005721) do
 
   create_table "roles", force: :cascade do |t|
     t.string "name"
+  end
+
+  create_table "sellers", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "type"
+    t.integer  "address_id"
+    t.string   "processor_id"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.datetime "dob"
+    t.datetime "tos_acceptance_date"
+    t.string   "tos_acceptance_ip"
+    t.string   "default_currency"
+    t.string   "processor_type"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.index ["type"], name: "index_sellers_on_type", using: :btree
+    t.index ["user_id"], name: "index_sellers_on_user_id", using: :btree
   end
 
   create_table "slots", force: :cascade do |t|

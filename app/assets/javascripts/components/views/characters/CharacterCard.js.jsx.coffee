@@ -29,11 +29,16 @@
       success: (data) =>
         @setState character: data
         onSuccess()
+
       error: (error) =>
         onError(error.JSONData?.errors['special_notes'])
 
   handleProfileImageEdit: ->
     $(document).trigger 'app:character:profileImage:edit'
+
+  _handleFollow: (f) ->
+    @setState HashUtils.set(@state, 'character.followed', f), ->
+      Materialize.toast "Character #{if f then 'followed!' else 'unfollowed.'}", 3000, 'green'
 
   render: ->
     if @props.edit
@@ -85,19 +90,22 @@
       west: { objectPosition: 'left' }
     }
 
-
-    `<div className='character-card'>
+    `<div className='character-card' style={{ minHeight: 400 }}>
         <div className='character-details'>
-            <h1 className='name'>
-                <span className={ prefixClass }>{ this.props.titlePrefix } </span>
-                <span className='real-name'>{ this.state.character.name }</span>
-                { nickname }
-                <span className={ suffixClass }> { this.props.titleSuffix }</span>
-            </h1>
+            <div className='heading'>
+                <div className='right'>
+                    <Views.User.Follow followed={ this.state.character.followed }
+                                       username={ this.state.character.user_id }
+                                       onFollow={ this._handleFollow }
+                                       short />
+                </div>
 
-            <div className='character-meta'>
-                <Link to={ '/' + this.state.character.user_id }>@{ this.state.character.user_id }</Link>
-                , { this.state.character.created_at }
+                <h1 className='name'>
+                    <span className={ prefixClass }>{ this.props.titlePrefix } </span>
+                    <span className='real-name'>{ this.state.character.name }</span>
+                    { nickname }
+                    <span className={ suffixClass }> { this.props.titleSuffix }</span>
+                </h1>
             </div>
 
             { description }

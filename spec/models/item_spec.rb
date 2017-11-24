@@ -15,6 +15,12 @@
 #  expires_at         :datetime
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  sold               :boolean
+#  seller_id          :integer
+#
+# Indexes
+#
+#  index_items_on_sold  (sold)
 #
 
 require 'rails_helper'

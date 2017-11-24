@@ -28,6 +28,8 @@
       ReactGA.set page: window.location.pathname
       ReactGA.pageview window.location.pathname
 
+    $(document).trigger 'navigate'
+
   render: ->
     staticPaths = ['privacy', 'terms', 'support'].map (path) ->
       `<Route key={ path } path={ path } component={ Static.View } />`

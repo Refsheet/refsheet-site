@@ -5,30 +5,22 @@
       .site-name Refsheet Admin
 
   = nav_link_to :dashboard, 'Dashboard', admin_root_path
-  = nav_link_to :perm_identity, 'Users', admin_users_path
-  = nav_link_to :edit, 'Characters', admin_characters_path
-  = nav_link_to :image, 'Images', admin_images_path
+  = nav_link_to :person, 'Users', admin_users_path
+  = nav_link_to :face, 'Characters', admin_characters_path
+  = nav_link_to :collections, 'Images', admin_images_path
   = nav_link_to :messages, 'Forums', admin_forums_path
 
   %li
     .divider
 
-  = nav_link_to :message, 'Feedback', admin_feedbacks_path
-  = nav_link_to :attach_money, 'Pledges', admin_pledges_path
+  = nav_link_to :mail, 'Feedback', admin_feedbacks_path
+  = nav_link_to :monetization_on, 'Pledges', admin_pledges_path
 
   %li
     .divider
 
+  = nav_link_to :open_in_new, 'Advertising', admin_ads_path
   = nav_link_to :history, 'Changelog', admin_changelogs_path
-
-  -#%li
-  -#  .divider
-  -#%li
-  -#  %a.subheader Account
-  -#%li
-  -#  %a{href: '#'}
-  -#    %i.material-icons settings
-  -#    Settings
 
 :coffeescript
   $ ->

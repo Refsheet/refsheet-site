@@ -58,6 +58,10 @@ class Invitation < ApplicationRecord
     self.transfers.find_each do |t|
       t.destination ||= self.user
       t.save
+
+      if t.sold?
+        t.claim!
+      end
     end
   end
 end

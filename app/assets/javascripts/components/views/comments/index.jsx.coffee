@@ -33,14 +33,20 @@
 
   render: ->
     comments = @props.comments.map (comment) ->
-      `<div className='card flat with-avatar' key={ comment.id }>
-          <img src={ comment.user.avatar_url } className='circle avatar' />
-          <div className='card-content'>
-              <div className='muted right' title={ comment.created_at }>{ comment.created_at_human }</div>
-              <Link to={ comment.user.link }>{ comment.user.name }</Link>
-              <RichText content={ comment.comment } markup={ comment.comment } />
-          </div>
-      </div>`
+      if comment.user
+        `<div className='card flat with-avatar' key={ comment.id }>
+            <img src={ comment.user.avatar_url } className='circle avatar' />
+            <div className='card-content'>
+                <div className='muted right' title={ comment.created_at }>{ comment.created_at_human }</div>
+                <Link to={ comment.user.link }>{ comment.user.name }</Link>
+                <RichText content={ comment.comment } markup={ comment.comment } />
+            </div>
+        </div>`
+
+      else
+        `<div className='card flat' key= { comment.id }>
+            <div className='card-content red-text text-darken-2'>User Deactivated</div>
+        </div>`
 
     `<div className='flex-vertical'>
         <div className='flex-content overflow' ref='commentBox'>

@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   include CollectionHelper
   include ResponseHelper
 
+  serialization_scope :view_context
+
 
   #== Global Hooks
 
@@ -48,7 +50,19 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
   rescue_from ActionController::UnknownFormat, with: :not_found
-  rescue_from ActionController::RoutingError, with: :not_found
+  rescue_from ActionController::InvalidAuthenticityToken, with: :bad_request
+  rescue_from ActionController::ParameterMissing, with: :bad_request
+
+  unless Rails.env.development?
+    rescue_from ActionController::RoutingError, with: :not_found
+  end
+
+
+  #== Published Base Routes
+
+  def not_found!
+    raise ActionController::RoutingError.new 'Whatever you just did, please do not.'
+  end
 
   protected
 
@@ -59,11 +73,24 @@ class ApplicationController < ActionController::Base
   def not_found(e)
     respond_to do |format|
       format.html do
-        redirect_to root_url, flash: { error: e.message }
+        eager_load error: e.message
+        render 'application/show', flash: { error: e.message }
       end
 
       format.json { render json: { error: e.message }, status: :not_found }
       format.any  { head :not_found }
+    end
+  end
+
+  def bad_request(e)
+    respond_to do |format|
+      format.html do
+        eager_load error: e.message
+        render 'application/show', flash: { error: e.message }
+      end
+
+      format.json { render json: { error: e.message }, status: :bad_request }
+      format.any  { head :bad_request }
     end
   end
 

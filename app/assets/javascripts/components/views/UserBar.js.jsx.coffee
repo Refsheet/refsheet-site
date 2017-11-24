@@ -13,17 +13,37 @@
   componentDidMount: ->
     @__init()
 
+    $(document)
+      .on 'navigate.navbar', =>
+        @closeMenu()
+      .on 'click.navbar', =>
+        @closeMenu()
+        @_handleUserMenuClose()
+
   toggleMenu: ->
     if $('.site-nav').is(':visible')
-      $('.site-nav').fadeOut(300)
-      $('.navbar-shroud').fadeOut(300)
+      $('.site-nav').fadeOut(150)
+      $('.navbar-shroud').fadeOut(150)
+
     else
       $('.site-nav').fadeIn(300)
       $('.navbar-shroud').fadeIn(300)
 
   closeMenu: ->
-    $('.site-nav').fadeOut(300)
-    $('.navbar-shroud').fadeOut(300)
+    $('.site-nav').fadeOut(150)
+    $('.navbar-shroud').fadeOut(150)
+
+  _handleUserMenuToggle: ->
+    $m = $ @refs.userMenu
+
+    if $m.is(':visible')
+      $m.slideUp 150
+    else
+      $m.slideDown 300
+
+  _handleUserMenuClose: ->
+    $m = $ @refs.userMenu
+    $m.slideUp 150
 
   _handleNsfwToggle: ->
     $.ajax
@@ -52,10 +72,10 @@
 
     if @props.session.current_user?
       userMenu =
-        `<ul id='user-menu' className='dropdown-content cs-card-background--background-color'>
+        `<ul className='dropdown-content-native cs-card-background--background-color' ref='userMenu'>
             <li>
                 <Link to={'/' + this.props.session.current_user.username}>
-                    <i className='material-icons left'>perm_identity</i>
+                    <i className='material-icons left'>person</i>
                     <span>{ this.props.session.current_user.username }</span>
                 </Link>
             </li>
@@ -74,7 +94,7 @@
             <li>
                 <a onClick={ this._handleNsfwToggle } className={ nsfwClassName }>
                     <i className='material-icons left'>{ this.props.session.nsfw_ok ? 'remove_circle' : 'remove_circle_outline' }</i>
-                    <span>{ this.props.session.nsfw_ok ? 'NSFW' : 'SFW' }</span>
+                    <span>{ this.props.session.nsfw_ok ? 'Hide NSFW' : 'Show NSFW' }</span>
                 </a>
             </li>
 
@@ -86,6 +106,7 @@
             </li>
         </ul>`
 
+
       currentUser =
         `<ul className='right'>
             {/*<li>
@@ -95,7 +116,7 @@
             </li>*/}
 
             <li>
-                <a className={ 'dropdown-button avatar ' + nsfwClassName } data-activates='user-menu'>
+                <a className={ 'dropdown-button-native avatar ' + nsfwClassName } onClick={ this._handleUserMenuToggle }>
                     <img src={ this.props.session.current_user.avatar_url } className='circle' />
                 </a>
 
@@ -105,7 +126,7 @@
 
     else
       userMenu =
-        `<ul id='user-menu' className='dropdown-content cs-card-background--background-color'>
+        `<ul className='dropdown-content-native cs-card-background--background-color' ref='userMenu'>
             <li>
                 <a href='#session-modal' className='modal-trigger'>
                     <i className='material-icons left'>person</i>
@@ -124,7 +145,7 @@
             <li>
                 <a onClick={ this._handleNsfwToggle } className={ nsfwClassName }>
                     <i className='material-icons left'>{ this.props.session.nsfw_ok ? 'remove_circle' : 'remove_circle_outline' }</i>
-                    <span>{ this.props.session.nsfw_ok ? 'NSFW' : 'SFW' }</span>
+                    <span>{ this.props.session.nsfw_ok ? 'Hide NSFW' : 'Show NSFW' }</span>
                 </a>
             </li>
         </ul>`
@@ -132,7 +153,7 @@
       currentUser =
         `<ul className='right'>
             <li>
-                <a className={ 'dropdown-button ' + nsfwClassName } data-activates='user-menu'>
+                <a className={ 'dropdown-button-native ' + nsfwClassName } onClick={ this._handleUserMenuToggle }>
                     <i className='material-icons'>perm_identity</i>
                 </a>
 

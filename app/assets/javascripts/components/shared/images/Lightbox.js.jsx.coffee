@@ -55,9 +55,11 @@
       url: @state.image.path
       type: 'DELETE'
       success: =>
-        @state.onDelete(@state.image.id) if @props.onDelete
+        id = @state.image.id
+
         Materialize.toast('Image deleted.', 3000, 'green')
-        $(document).trigger 'app:image:delete', @state.image.id
+        $(document).trigger 'app:image:delete', id
+        @state.onDelete(id) if @props.onDelete
         $('#lightbox-delete-form').modal('close')
         $('#lightbox').modal('close')
       error: =>
@@ -126,6 +128,7 @@
       StateUtils.removeItem @, 'image.favorites', favorite, 'id', @_callback
 
   _callback: ->
+    return unless @state.image
     image = HashUtils.set @state.image, 'comments_count', @state.image.comments.length
     ObjectPath.set image, 'favorites_count', @state.image.favorites.length
     console.debug '[Lightbox] Callback with', image

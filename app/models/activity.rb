@@ -40,6 +40,8 @@ class Activity < ApplicationRecord
   validates_presence_of :activity_method
   validates_inclusion_of :activity_method, in: %w(create update)
 
+  scope :feed_for, -> (user) { where(user: user).or where user: user.followed_users }
+
   scope :eager_loaded, -> {
     includes(
         :user,

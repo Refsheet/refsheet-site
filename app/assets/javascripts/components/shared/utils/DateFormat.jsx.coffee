@@ -30,7 +30,6 @@
       @setState dateDisplay: @showDate()
 
   _fuzzyPoll: ->
-    console.debug 'fuzzy poll'
     t = setTimeout @_fuzzyPoll, 60000
     @setState dateDisplay: @fuzzyDate(), timer: t
 
@@ -93,7 +92,7 @@
 
     switch
       when elapsed < msPerMinute
-        if @props.short then '<1m' else 'just now'
+        if @props.short then '<1m' else 'recently'
       when elapsed < msPerHour
         "#{@_p Math.round(elapsed / msPerMinute), 'minute'}#{ago}"
       when elapsed < msPerDay

@@ -10,6 +10,8 @@ class Role < ApplicationRecord
   has_many :permissions
   has_many :users, through: :permissions
 
+  @@id_cache = {}
+
   ADMIN = 'admin'
 
   validates :name, presence: true, uniqueness: true, format: { with: /\A\w+\z/, message: 'must be sym' }
@@ -21,7 +23,6 @@ class Role < ApplicationRecord
   end
 
   def self.id_for(role)
-    @@id_cache ||= {}
     @@id_cache[role] ||= find_by(name: role)&.id
   end
 

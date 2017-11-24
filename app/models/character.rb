@@ -45,6 +45,10 @@ class Character < ApplicationRecord
                           after_add: :update_counter_cache,
                           after_remove: :update_counter_cache
 
+  # Marketplace Associations
+  has_many :marketplace_listings, class_name: Marketplace::Items::CharacterListing
+  has_one :marketplace_listing, -> { for_sale }, class_name: Marketplace::Items::CharacterListing
+
   # Requires this to eager load the news feed:
   has_many :activities, as: :activity, dependent: :destroy
 
@@ -87,6 +91,8 @@ class Character < ApplicationRecord
   scope :visible, -> { where(hidden: [nil, false]) }
   scope :hidden, -> { where hidden: true }
 
+  scope :for_sale, -> { joins(:marketplace_listings).merge(Item.for_sale) }
+
   before_validation do
     self.shortcode = self.shortcode&.downcase
   end
@@ -119,6 +125,9 @@ class Character < ApplicationRecord
     find_by!('LOWER(characters.shortcode) = ?', shortcode.downcase)
   end
 
+
+  #== Marketplace
+
   def pending_transfer
     self.transfers.pending.last
   end
@@ -127,42 +136,67 @@ class Character < ApplicationRecord
     self.transfers.pending.any?
   end
 
+  def for_sale?
+    Marketplace::Items::CharacterListing.for_sale.exists? character: self
+  end
+
+  def initiate_transfer!(recipient, sale=nil)
+    initiate_transfer recipient, sale
+  end
+
+
+  #== API Helpers
+
   def path
     "/#{self.user.username}/#{self.slug}"
   end
 
   private
 
-  def initiate_transfer
-    transfer = Transfer.new character: self
-    transfer_to_user = self.transfer_to_user.downcase
+  def initiate_transfer(target=self.transfer_to_user, sale_item=nil)
+    transfer = Transfer.new character: self, item: sale_item
 
-    if transfer_to_user =~ /@/
-      destination = User.confirmed.find_by 'LOWER(users.email) = ?', transfer_to_user
+    Rails.logger.tagged 'Character#initiate_transfer' do
+      transfer_to_user = target.downcase
+      Rails.logger.info 'Trasnferring to: ' + transfer_to_user.inspect
 
-      if destination
-        transfer.destination = destination
+      if transfer_to_user =~ /@/
+        # If this was a sale, sell to unconfirmed users to not lose the sale.
+        user_scope = User.all
+        user_scope = user_scope.confirmed unless sale_item
+        destination = user_scope.find_by 'LOWER(users.email) = ?', transfer_to_user
+
+        if destination
+          transfer.destination = destination
+          Rails.logger.info 'Sending to: ' + destination.inspect
+        else
+          transfer.invitation = Invitation.find_or_initialize_by email: transfer_to_user
+          Rails.logger.info 'Sending invite: ' + transfer.invitation.inspect
+        end
+
       else
-        transfer.invitation = Invitation.find_or_initialize_by email: transfer_to_user
+        destination = User.lookup transfer_to_user
+
+        if destination
+          transfer.destination = destination
+          Rails.logger.info 'Sending to: ' + destination.inspect
+        else
+          self.errors.add :transfer_to_user, 'must be a valid username or email address'
+          Rails.logger.error 'Sending failed: ' + transfer_to_user
+          return false
+        end
       end
 
-    else
-      destination = User.lookup transfer_to_user
-
-      if destination
-        transfer.destination = destination
-      else
-        self.errors.add :transfer_to_user, 'must be a valid username or email address'
+      if transfer.destination == self.user
+        self.errors.add :transfer_to_user, 'you can not transfer to yourself'
+        Rails.logger.error 'Sending to self, failure!'
         return false
       end
+
+      self.transfers << transfer
     end
 
-    if transfer.destination == self.user
-      self.errors.add :transfer_to_user, 'you can not transfer to yourself'
-      return false
-    end
-
-    self.transfers << transfer
+    transfer
   end
 
   def validate_profile_image

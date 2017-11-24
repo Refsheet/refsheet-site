@@ -1,7 +1,7 @@
 module CollectionHelper
   def report_range
-    start = params[:start].present? ? DateTime.parse(params[:start]) : Time.zone.now.at_beginning_of_month
-    stop  = params[:end].present?   ? DateTime.parse(params[:end])   : start.at_end_of_month
+    start = DateTime.parse(params[:start]) rescue Time.zone.now.at_beginning_of_month
+    stop  = DateTime.parse(params[:end])   rescue start.at_end_of_month
     (start.at_beginning_of_day..stop.at_end_of_day)
   end
 

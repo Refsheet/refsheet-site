@@ -1,4 +1,14 @@
 .container
+  width: 90%
+
+  @media #{$medium-and-down}
+    width: 95%
+
+  @media #{$small-and-down}
+    width: 100%
+    padding-left: 1.5rem
+    padding-right: 1.5rem
+
   @at-root
     section.section-flex
       display: flex

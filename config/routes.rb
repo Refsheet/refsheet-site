@@ -4,8 +4,10 @@ Rails.application.routes.draw do
     get '/c/:id', to: 'shortcodes#show'
     get '/f/:id', to: 'forums#shortcode'
     get '/i/:id', to: 'images#shortcode'
+    get '/l/:id', to: 'advertisement_slots#shortcode'
     get '/t/:id', to: 'forum/threads#shortcode'
     get '/u/:id', to: 'users#shortcode'
+    get '/~:id', to: 'users#shortcode'
     get '*id', to: 'shortcodes#show'
   end
 
@@ -17,10 +19,14 @@ Rails.application.routes.draw do
   # Placeholder Route
   get 'register', to: 'application#show'
   get 'guilds', to: 'application#show'
-  get 'marketplace', to: 'application#show'
   get 'artists', to: 'application#show'
   get 'browse', to: 'application#show'
   get 'browse/users', to: 'application#show'
+
+
+  #== Advertising
+
+  get '/our_friends/next', to: 'advertisement_slots#next'
 
 
   #== Account Stuff
@@ -43,6 +49,12 @@ Rails.application.routes.draw do
   resources :transfers, only: [:update]
 
   resources :users, only: [:index, :show, :create, :update] do
+    collection do
+      get :suggested, to: 'follows#suggested'
+    end
+
+    resource :follow, only: [:show, :create, :destroy]
+
     resources :characters, only: [:show, :update, :create, :destroy] do
       resources :swatches, only: [:index, :create, :update, :destroy], shallow: true
       resources :images, only: [:index, :show, :create, :update, :destroy], shallow: true do
@@ -54,6 +66,8 @@ Rails.application.routes.draw do
   end
 
   resources :media, only: [:show] do
+    delete :favorites, to: 'media/favorites#destroy'
+
     resources :favorites, only: [:index, :create], controller: 'media/favorites'
     resource :favorite, only: [:destroy], controller: 'media/favorites'
     resources :comments, only: [:index, :create, :destroy], controller: 'media/comments'
@@ -83,6 +97,27 @@ Rails.application.routes.draw do
   end
 
 
+  #== Marketplace
+
+  namespace :marketplace do
+    root to: 'test#show'
+
+    get :sell, to: 'test#sell'
+    get :cart, to: 'test#cart'
+    get :orders, to: 'test#orders'
+    get :sales, to: 'test#sales'
+    get :setup, to: 'test#setup'
+
+    post :test_listing, to: 'test#create_listing'
+    post :test_cart, to: 'test#create_cart'
+    post :test_payment, to: 'test#create_payment'
+    post :test_setup, to: 'test#create_seller'
+
+    delete :test_listing, to: 'test#destroy_listing'
+    delete :test_cart, to: 'test#destroy_cart'
+  end
+
+
   #== Webhooks
 
   namespace :webhooks do
@@ -102,22 +137,35 @@ Rails.application.routes.draw do
     resources :feedbacks, only: [:index, :show, :update] do
       resources :replies, only: [:create], controller: 'feedbacks/replies'
     end
+
+    resources :ads, only: [:index, :edit, :new, :create, :update]
+    post :ad_slots, to: 'advertisements/slots#create'
   end
+
+
+  #== Engines!
 
   if Rails.env.development?
     mount ResqueWeb::Engine => '/resque_web'
     mount LetterOpenerWeb::Engine => '/letter_opener'
   end
 
+  mount Ahoy::Engine => '/ahoy', as: :my_ahoy
+
+
   #== Static Routes
 
-  %w(privacy terms support).each do |path|
+  %w(privacy terms support thanks).each do |path|
     get "/#{path}", to: 'static#show'
   end
 
   get '/static/:id', to: 'static#show', as: :static
 
   get '/:user_id/:id', to: 'characters#show', as: :character_profile
+
+  get '/~:id', to: 'users#show'
   get '/:id', to: 'users#show', as: :user_profile
+
   get '*page', to: 'application#show'
+  match '*not_found', to: 'application#not_found!', via: [:post, :put, :patch, :delete, :head, :options]
 end

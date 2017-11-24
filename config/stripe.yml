@@ -1,0 +1,12 @@
+test: &default
+  api_key: sk_test_6vvch0elyxCz4M9adopMcUCj
+  publishable_key: pk_test_dTUZMgk1BS6ARUKQ8GLmDqf3
+  connect_client_id: ca_Bi5uvozGua2wD0Qx6aCCLiC6a2mMdCl3
+
+development:
+  <<: *default
+
+production:
+  api_key: <%= ENV['STRIPE_API_KEY'] %>
+  publishable_key: <%= ENV['STRIPE_PUBLISHABLE_KEY'] %>
+  connect_client_id: <%= ENV['STRIPE_CONNECT_CLIENT_ID'] %>

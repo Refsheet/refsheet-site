@@ -1,0 +1,93 @@
+%h1 Cart
+%table
+  %tr
+    %th ID
+    %th Name
+    %th Seller
+    %th{width: 150}
+    %th.right-align{width: 150} Amount
+
+  - current_cart.line_items.each do |i|
+    %tr
+      %td{width: 100}= i.id
+      %td
+        = i.item.title
+        - i.tap(&:valid?).errors.full_messages.each do |e|
+          .red-text.text-darken-1= e
+      %th= i.item.user.name
+
+      %th.right-align
+        = link_to 'Remove', marketplace_test_cart_path(id: i.id), class: 'red-text text-darken-2', method: :delete
+      %td.right-align= i.item.amount.format
+
+  %tr
+    %td
+    %td
+    %td
+    %th.right-align.larger Total
+    %td.right-align.larger= current_cart.total.format
+
+  - if current_cart.payable?
+    %tr
+      %td
+      %td
+      %td
+      %td.right-align{colspan: 2}
+        = simple_form_for Payment.new, url: marketplace_test_payment_path, html: { class: 'card-panel' } do |f|
+          = hidden_field_tag :card_token, nil
+
+          .row.no-margin
+            .col.s12
+              = text_field_tag :card_number, nil, data: { stripe: 'number'}, placeholder: 'Card Number'
+            .col.s3
+              = text_field_tag :exp_month, nil, data: { stripe: 'exp-month' }, placeholder: 'MM'
+            .col.s3
+              = text_field_tag :exp_year, nil, data: { stripe: 'exp-year'}, placeholder: 'YY'
+            .col.s6
+              = text_field_tag :card_verification, nil, data: { stripe: 'cvv'}, placeholder: 'CVV'
+            .col.s12
+              = f.submit 'Pay Now', class: 'btn btn-block'
+
+
+  - elsif current_cart.invalid?
+    - current_cart.errors.full_messages.each do |e|
+      %tr
+        %td
+        %td
+        %td.red-text.text-darkent-1.right-align{colspan: 3}= e
+
+:coffeescript
+  Stripe.setPublishableKey('#{Rails.configuration.x.stripe['publishable_key']}')
+
+  $ ->
+    $('#new_payment').submit (e) ->
+      $form = $(this)
+      $form.find('input[type=submit]').prop 'disabled', true
+
+      Stripe.card.createToken $form, (status, response) ->
+        if response.error
+          Materialize.toast response.error.message, 3000, 'red'
+          $form.find('input[type=submit]').prop 'disabled', false
+
+        else
+          $('input#card_token').val response.id
+          $('[data-stripe]').remove()
+          $form[0].submit()
+
+      e.preventDefault()
+      false
+
+    $('input[data-stripe=number]').keyup ->
+      cc = $(this).val().replace(/[^\d]/g, '').substring(0,16)
+      $(this).val cc.match(/.{1,4}/g)?.join(' ')
+      $('input[data-stripe=exp-month]').focus() if cc.length == 16
+
+    $('input[data-stripe=exp-month]').keyup ->
+      cc = $(this).val().replace(/[^\d]/g, '').substring(0,2)
+      $(this).val cc
+      $('input[data-stripe=exp-year]').focus() if cc.length == 2
+
+    $('input[data-stripe=exp-year]').keyup ->
+      cc = $(this).val().replace(/[^\d]/g, '').substring(0,2)
+      $(this).val cc
+      $('input[data-stripe=cvv]').focus() if cc.length == 2
