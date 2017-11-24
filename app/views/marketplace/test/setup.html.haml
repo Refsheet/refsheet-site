@@ -1,0 +1,30 @@
+%h1 Seller Setup
+
+- if current_user.seller
+  %p You are a verified seller, you can now list items in the marketplace.
+  %p Stripe ID: #{current_user.seller.processor_id} (#{current_user.seller.processor_type})
+
+  %h2 Payout Preferences
+  %p Payouts are not currently enabled.
+
+- else
+  = simple_form_for @seller, url: marketplace_test_setup_path, as: :seller do |f|
+    .row
+      .col.s6= f.input :first_name
+      .col.s6= f.input :last_name
+
+    .row
+      .col.s6
+        = f.input :dob, as: :date, start_year: Date.today.year - 18,
+                        end_year: Date.today.year - 100,
+                        prompt: { year: 'Year', month: 'Month', day: 'Day' },
+                        order: [:month, :day, :year],
+                        input_html: { class: 'browser-default inline' }
+
+      .col.s6.right-align
+        %p
+          By signing up to be a seller, you agree to the
+          #{ link_to 'Stripe Connected Account Agreement', 'https://stripe.com/connect-account/legal', target: '_blank' },
+          which includes the #{ link_to 'Stripe Terms of Service', 'https://stripe.com/legal', target: '_blank' }
+
+        = f.submit 'Become Seller', class: 'btn'

@@ -17,6 +17,7 @@
     className += ' no-margin' if @props.noMargin
     className += ' hidden' if @props.hidden
     className += ' no-gutter' if @props.noGutter
+    className += ' tiny-gutter' if @props.tinyGutter
 
     if this.props.oneColumn
       children =

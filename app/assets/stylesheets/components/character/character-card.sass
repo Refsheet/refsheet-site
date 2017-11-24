@@ -83,40 +83,41 @@
       margin: 1rem 0 0.9rem 0
 
   @media #{$small-and-down}
-    margin-top: 75px
-    padding-top: 60px
-    height: auto
-    min-height: 0
-    overflow: visible !important
-
-    .character-meta
-      text-align: center
-
-    .character-image
-      position: absolute
-      border-radius: 75px
-      width: 150px
-      height: 150px
-      top: -75px
-      left: 50%
-      margin-left: -75px
-
-      .slant
-        display: none
-
-      img
-        width: 100%
-        height: 100%
-        max-height: none
-        object-fit: cover
-
-    .character-details
-      margin-right: 0
+    &:not(.compact-mobile)
+      margin-top: 75px
+      padding-top: 60px
       height: auto
       min-height: 0
+      overflow: visible !important
 
-      .name
+      .character-meta
         text-align: center
 
-      & > .actions
-        text-align: center
+      .character-image
+        position: absolute
+        border-radius: 75px
+        width: 150px
+        height: 150px
+        top: -75px
+        left: 50%
+        margin-left: -75px
+
+        .slant
+          display: none
+
+        img
+          width: 100%
+          height: 100%
+          max-height: none
+          object-fit: cover
+
+      .character-details
+        margin-right: 0
+        height: auto
+        min-height: 0
+
+        .name
+          text-align: center
+
+        & > .actions
+          text-align: center

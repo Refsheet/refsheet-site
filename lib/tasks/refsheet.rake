@@ -32,4 +32,58 @@ namespace :refsheet do
       end
     end
   end
+
+  desc 'Standard deploy process, needed because Rollbar and GH don\'t play along.'
+  task :deploy do
+    build = %x{ git log -n 1 --pretty=format:"%H" }
+
+    puts "Writing version #{build} out..."
+    File.write Rails.root.join('VERSION'), build
+
+    puts %x{ git commit -m "[ci-skip] Deploying build #{build}." -- VERSION }
+
+    puts "Deploying version #{build} to Beanstalks..."
+    puts %x{ eb deploy refsheet-staging }
+
+    puts "Done."
+  end
+
+  desc 'This is to be finished on the server, after we\'re built.'
+  task :post_deploy do
+    require 'rest_client'
+
+    build = File.read Rails.root.join 'VERSION'
+
+    puts "Telling rollbar!"
+
+    params = {
+        access_token: '99b1752b1b864396a50f5ecef1232b7a',
+        environment: 'production',
+        local_username: `whoami`,
+        revision: build
+    }
+
+    puts RestClient.post 'https://api.rollbar.com/api/1/deploy/', params
+
+    appFile = Dir[Rails.root.join('public/assets/application-*.js')].first
+    appFile =~ /application-(.*)\.js/
+
+    mapParams = {
+        access_token: '99b1752b1b864396a50f5ecef1232b7a',
+        version: build,
+        minified_url: 'https://refsheet.net/assets/application-' + $1 + '.js',
+        source_map: (File.new(Dir[Rails.root.join('public/assets/maps/application-*.js.map')].first) rescue nil)
+    }
+
+    Dir[Rails.root.join('public/assets/sources/application-*.js')].each do |source|
+      basename = source.gsub(/\A.*\/public/, '')
+      mapParams[basename] = File.new source
+    end
+
+    begin
+      puts RestClient.post 'https://api.rollbar.com/api/1/sourcemap', mapParams
+    rescue RestClient::UnprocessableEntity => e
+      puts e.response.body
+    end
+  end
 end

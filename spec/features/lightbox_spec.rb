@@ -5,6 +5,14 @@ feature 'Lightbox', js: true do
 
   before { sign_in image.character.user }
 
+  scenario 'direct visit image close' do
+    visit image_path image
+    expect(page).to have_content 'COMMENTS'
+
+    find('.modal-close').click
+    expect(page).to have_content image.character.profile[0,16]
+  end
+
   scenario 'user deletes image' do
     visit image_path image
     expect(page).to have_content image.character.name

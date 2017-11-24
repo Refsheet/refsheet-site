@@ -55,13 +55,29 @@ class Transfer < ApplicationRecord
       validates_presence_of :claimed_at
     end
 
+    # state :canceled
+
     event :claim do
-      transition :pending => :claimed
+      transition :pending => :claimed, if: :claimable?
+      transition :pending => same
     end
 
     event :reject do
-      transition :pending => :rejected
+      transition :pending => :rejected, unless: :sold?
+      transition :pending => same
     end
+
+    # event :cancel do
+    #   transition :pending => :canceled
+    # end
+  end
+
+  def claimable?
+    self.destination.present?
+  end
+
+  def sold?
+    self.item.present?
   end
 
   private
@@ -71,7 +87,7 @@ class Transfer < ApplicationRecord
   end
 
   def notify_recipient
-    if self.invitation.nil?
+    if self.invitation.nil? and self.item.nil?
       TransferMailer.incoming(id).deliver_now
     end
   end

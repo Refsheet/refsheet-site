@@ -1,14 +1,29 @@
 .user-bar
   height: 56px
 
+  .dropdown-content-native
+    @extend .dropdown-content
+    opacity: 1.0
+    top: 2rem
+    max-width: 400px
+    min-width: 150px
+    white-space: nowrap !important
+
+  .dropdown-button-native
+    @extend .dropdown-button
+
   .nsfw-on
     background-color: rgba(color('red', 'base'), 0.3)
+
+    &:hover
+      background-color: rgba(color('red', 'base'), 0.5) !important
 
   .container
     height: 56px
 
     @media #{$small-and-down}
-      width: 100%
+      width: 100% !important
+      padding: 0 !important
 
   #user-menu
     top: 56px !important
@@ -21,6 +36,11 @@
 
     ul
       display: inline-block
+
+      @media #{$medium-and-up}
+        &.site-nav
+          display: inline-block !important
+          opacity: 1 !important
 
       li
         position: relative
@@ -50,7 +70,6 @@
 
       &.active
         background-color: $lighten-color
-        @extend .z-depth-1
         color: $secondary-color
 
       &.patreon
@@ -103,6 +122,12 @@
         display: inline-block
         margin: 10px 0
 
+    .dropdown-button.active
+      color: white !important
+
+    .dropdown-content
+      z-index: 9999
+
   .navbar-shroud
     display: none
 
@@ -133,3 +158,6 @@
       left: 0
       width: 100%
       background-color: rgba(black, 0.5)
+
+    .dropdown-content
+      position: fixed !important

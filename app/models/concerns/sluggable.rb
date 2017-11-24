@@ -38,6 +38,10 @@ module Sluggable
     end
   end
 
+  def self.to_slug(*arg)
+    to_slug *arg
+  end
+
   private
 
   def generate_slug

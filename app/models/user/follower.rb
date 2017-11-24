@@ -18,6 +18,11 @@ class User::Follower < ApplicationRecord
   belongs_to :following, class_name: User
   belongs_to :follower, class_name: User
 
+  validates_presence_of :following
+  validates_presence_of :follower
+  validates_uniqueness_of :following, scope: :follower
+  validate :validate_not_following_self
+
   def self.suggested(follower=nil)
     follower ||= self.new.following || self.new.follower
     raise ArgumentError.new 'Follower cannot be new. Did you mean to call this from an association?' unless follower
@@ -39,5 +44,13 @@ class User::Follower < ApplicationRecord
         .select('users.*, ufi.mutuals AS mutuals')
         .joins("JOIN (#{f}) ufi ON ufi.following_id = users.id")
         .order('ufi.mutuals DESC')
+  end
+
+  private
+
+  def validate_not_following_self
+    if following == follower
+      self.errors.add :following, 'cannot be yourself.'
+    end
   end
 end

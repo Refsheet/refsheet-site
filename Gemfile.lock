@@ -173,6 +173,8 @@ GEM
       railties (>= 3.0.0)
     faker (1.7.1)
       i18n (~> 0.5)
+    faraday (0.13.1)
+      multipart-post (>= 1.2, < 3)
     ffi (1.9.14)
     fog-aws (1.2.1)
       fog-core (~> 1.38)
@@ -273,7 +275,8 @@ GEM
       money (~> 6.8.1)
       railties (>= 3.0)
     mono_logger (1.1.0)
-    multi_json (1.12.1)
+    multi_json (1.12.2)
+    multipart-post (2.0.0)
     netrc (0.11.0)
     nio4r (1.2.1)
     nokogiri (1.6.8.1)
@@ -310,6 +313,7 @@ GEM
     rack (2.0.1)
     rack-attack (5.0.1)
       rack
+    rack-cors (1.0.2)
     rack-test (0.6.3)
       rack (>= 1.0)
     rack_session_access (0.1.1)
@@ -374,7 +378,7 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
-    rollbar (2.14.1)
+    rollbar (2.15.5)
       multi_json
     rspec-collection_matchers (1.1.3)
       rspec-expectations (>= 2.99.0.beta1)
@@ -397,6 +401,8 @@ GEM
       rspec-expectations (~> 3.5.0)
       rspec-mocks (~> 3.5.0)
       rspec-support (~> 3.5.0)
+    rspec-retry (0.5.6)
+      rspec-core (> 3.3, < 3.8)
     rspec-support (3.5.0)
     rspec_junit_formatter (0.3.0)
       rspec-core (>= 2, < 4, != 2.12.0)
@@ -415,6 +421,17 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    sassc (1.11.4)
+      bundler
+      ffi (~> 1.9.6)
+      sass (>= 3.3.0)
+    sassc-rails (1.3.0)
+      railties (>= 4.0.0)
+      sass
+      sassc (~> 1.9)
+      sprockets (> 2.11)
+      sprockets-rails
+      tilt
     scoped_search (4.0.0)
       activerecord (>= 4.2.0)
     shoulda-matchers (2.8.0)
@@ -445,6 +462,9 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    sprockets_uglifier_with_source_maps (2.1.0)
+      sprockets-rails (~> 3.0)
+      uglifier (>= 2.5)
     state_machines (0.4.0)
     state_machines-activemodel (0.4.0)
       activemodel (>= 4.1, < 5.1)
@@ -452,6 +472,8 @@ GEM
     state_machines-activerecord (0.4.0)
       activerecord (>= 4.1, < 5.1)
       state_machines-activemodel (>= 0.3.0)
+    stripe (3.8.0)
+      faraday (~> 0.10)
     therubyracer (0.12.2)
       libv8 (~> 3.16.14.0)
       ref
@@ -547,6 +569,7 @@ DEPENDENCIES
   premailer-rails
   puma (~> 3.0)
   puma_worker_killer
+  rack-cors
   rack_session_access
   rails (~> 5.0.0, >= 5.0.0.1)
   rails-assets-tinyColorPicker!
@@ -563,9 +586,10 @@ DEPENDENCIES
   rspec-expectations
   rspec-its
   rspec-rails
+  rspec-retry
   rspec_junit_formatter
   ruby-trello
-  sass-rails (~> 5.0)
+  sassc-rails
   scoped_search
   shoulda-matchers (~> 2.8)
   simple_form
@@ -574,8 +598,10 @@ DEPENDENCIES
   slack-notifier
   spring
   spring-watcher-listen (~> 2.0.0)
+  sprockets_uglifier_with_source_maps
   state_machines
   state_machines-activerecord
+  stripe
   therubyracer
   timecop
   turbolinks (~> 5)

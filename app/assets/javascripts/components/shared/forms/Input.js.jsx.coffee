@@ -63,6 +63,11 @@
       $(@refs.input).focus ->
         $(this).select()
 
+  componentDidUpdate: (newProps, newState) ->
+    if @props.type == 'textarea' and @props.browserDefault and @state.value != newState.value
+      $(@refs.input).css height: 0
+      $(@refs.input).css height: @refs.input.scrollHeight + 10
+
 
   _handleInputChange: (e) ->
     if @props.type in ['checkbox', 'radio']
@@ -110,7 +115,9 @@
 
 
     if @props.type == 'textarea'
-      className += ' materialize-textarea' unless @props.browserDefault
+      unless @props.browserDefault
+        className += ' materialize-textarea'
+
       inputField =
         `<textarea {...commonProps}
                    value={ this.state.value || '' }
@@ -147,7 +154,10 @@
       icon =
         `<i className='material-icons prefix'>{ this.props.icon }</i>`
 
-    `<div className='input-field'>
+    wrapperClassNames = ['input-field']
+    wrapperClassNames.push 'margin-top--none' if @props.noMargin
+
+    `<div className={ wrapperClassNames.join(' ') }>
         { icon }
         { inputField }
 

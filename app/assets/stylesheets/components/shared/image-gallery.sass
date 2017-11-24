@@ -139,13 +139,17 @@
           text-align: right
           margin-bottom: 0.5rem
 
-          div
+          .favs
             display: inline-block
             margin-left: 0.5rem
             font-size: 0.7rem
+            color: inherit !important
+
+            &.clickable
+              cursor: pointer
 
             i.material-icons
-              font-size: 0.8rem
+              font-size: 0.8rem !important
               vertical-align: middle
               margin-top: -3px
               margin-right: 0.25rem
@@ -166,6 +170,7 @@
   .justified-gallery
     position: relative
     margin: -15px
+    width: auto
 
     a.gallery-image
       display: inline-block

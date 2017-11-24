@@ -19,6 +19,13 @@
   load: (image) ->
     @setState image: image, @_initialize
 
+  _handleFavoriteClick: (e) ->
+    action = if @state.image?.is_favorite then 'delete' else 'post'
+    Model.request action, '/media/' + @state.image.id + '/favorites', {}, (data) =>
+      @_handleFavorite !!data.media_id
+    e.preventDefault()
+
+
   _handleFavorite: (fav) ->
     o = @state.image
     o.is_favorite = fav
@@ -60,12 +67,18 @@
           _this.props.onSwap(sourceId, @state.image.id) if _this.props.onSwap
 
 
+  _updateEvent: (e, image) ->
+    return unless @state.image and image and @state.image.id == image.id
+    @load(image)
+
+
   componentDidMount: ->
     @_initialize()
 
-    $(document).on 'app:image:update', (e, image) =>
-      return unless @state.image.id == image.id
-      @load(image)
+    $(document).on 'app:image:update', @_updateEvent
+
+  componentWillUnmount: ->
+    $(document).off 'app:image:update', @_updateEvent
 
   componentWillReceiveProps: (newProps) ->
     if newProps.image?
@@ -101,7 +114,7 @@
 
             <div className='overlay'>
                 <div className='interactions'>
-                    <div className='favs'>
+                    <div className='favs clickable' onClick={ this._handleFavoriteClick }>
                         <Icon>{ this.state.image.is_favorite ? 'star' : 'star_outline' }</Icon>
                         &nbsp;{ NumberUtils.format(this.state.image.favorites_count) }
                     </div>

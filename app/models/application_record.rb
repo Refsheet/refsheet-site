@@ -1,6 +1,7 @@
 class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
 
+  before_validation :hack_out_null_values
   after_validation :log_validation_errors
 
   def pluck(*attrs)
@@ -10,6 +11,16 @@ class ApplicationRecord < ActiveRecord::Base
   end
 
   private
+
+  # Rollbar #496
+  def hack_out_null_values
+    self.class.columns.each do |col|
+      if col.type == :text
+        original = self.attributes[col.name]
+        self.assign_attributes col.name => original&.gsub("\u0000", '') if original.respond_to? :gsub
+      end
+    end
+  end
 
   def log_validation_errors
     Rails.logger.tagged self.class.name do
