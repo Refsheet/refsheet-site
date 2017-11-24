@@ -7,7 +7,7 @@ branch-defaults:
     environment: refsheet-prod
 environment-defaults:
   refsheet-staging:
-    branch: null
+    branch: master
     repository: refsheet
 global:
   application_name: refsheet
