@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 # == BACK END
 
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
+gem 'rack-cors'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.0'
 gem 'redis', '~> 3.0'
