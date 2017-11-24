@@ -1,0 +1,39 @@
+# -*- encoding: utf-8 -*-
+# stub: materialize-sass 0.97.8 ruby lib
+
+Gem::Specification.new do |s|
+  s.name = "materialize-sass".freeze
+  s.version = "0.97.8"
+
+  s.required_rubygems_version = Gem::Requirement.new(">= 0".freeze) if s.respond_to? :required_rubygems_version=
+  s.require_paths = ["lib".freeze]
+  s.authors = ["mkhairi".freeze]
+  s.date = "2017-11-24"
+  s.description = "Use materialzecss in your rails asset pipeline.".freeze
+  s.email = ["khairi@labs.my".freeze]
+  s.files = [".gitignore".freeze, "Gemfile".freeze, "LICENSE.txt".freeze, "README.md".freeze, "Rakefile".freeze, "app/assets/fonts/roboto/Roboto-Bold.eot".freeze, "app/assets/fonts/roboto/Roboto-Bold.ttf".freeze, "app/assets/fonts/roboto/Roboto-Bold.woff".freeze, "app/assets/fonts/roboto/Roboto-Bold.woff2".freeze, "app/assets/fonts/roboto/Roboto-Light.eot".freeze, "app/assets/fonts/roboto/Roboto-Light.ttf".freeze, "app/assets/fonts/roboto/Roboto-Light.woff".freeze, "app/assets/fonts/roboto/Roboto-Light.woff2".freeze, "app/assets/fonts/roboto/Roboto-Medium.eot".freeze, "app/assets/fonts/roboto/Roboto-Medium.ttf".freeze, "app/assets/fonts/roboto/Roboto-Medium.woff".freeze, "app/assets/fonts/roboto/Roboto-Medium.woff2".freeze, "app/assets/fonts/roboto/Roboto-Regular.eot".freeze, "app/assets/fonts/roboto/Roboto-Regular.ttf".freeze, "app/assets/fonts/roboto/Roboto-Regular.woff".freeze, "app/assets/fonts/roboto/Roboto-Regular.woff2".freeze, "app/assets/fonts/roboto/Roboto-Thin.eot".freeze, "app/assets/fonts/roboto/Roboto-Thin.ttf".freeze, "app/assets/fonts/roboto/Roboto-Thin.woff".freeze, "app/assets/fonts/roboto/Roboto-Thin.woff2".freeze, "app/assets/javascripts/materialize-sprockets.js".freeze, "app/assets/javascripts/materialize.js".freeze, "app/assets/javascripts/materialize/animation.js".freeze, "app/assets/javascripts/materialize/buttons.js".freeze, "app/assets/javascripts/materialize/cards.js".freeze, "app/assets/javascripts/materialize/carousel.js".freeze, "app/assets/javascripts/materialize/character_counter.js".freeze, "app/assets/javascripts/materialize/chips.js".freeze, "app/assets/javascripts/materialize/collapsible.js".freeze, "app/assets/javascripts/materialize/date_picker/picker.date.js".freeze, "app/assets/javascripts/materialize/date_picker/picker.js".freeze, "app/assets/javascripts/materialize/dropdown.js".freeze, "app/assets/javascripts/materialize/extras/nouislider.js".freeze, "app/assets/javascripts/materialize/extras/nouislider.min.js".freeze, "app/assets/javascripts/materialize/forms.js".freeze, "app/assets/javascripts/materialize/global.js".freeze, "app/assets/javascripts/materialize/hammer.min.js".freeze, "app/assets/javascripts/materialize/init.js".freeze, "app/assets/javascripts/materialize/initial.js".freeze, "app/assets/javascripts/materialize/jquery.easing.1.3.js".freeze, "app/assets/javascripts/materialize/jquery.hammer.js".freeze, "app/assets/javascripts/materialize/jquery.timeago.min.js".freeze, "app/assets/javascripts/materialize/materialbox.js".freeze, "app/assets/javascripts/materialize/modal.js".freeze, "app/assets/javascripts/materialize/parallax.js".freeze, "app/assets/javascripts/materialize/prism.js".freeze, "app/assets/javascripts/materialize/pushpin.js".freeze, "app/assets/javascripts/materialize/scrollFire.js".freeze, "app/assets/javascripts/materialize/scrollspy.js".freeze, "app/assets/javascripts/materialize/sideNav.js".freeze, "app/assets/javascripts/materialize/slider.js".freeze, "app/assets/javascripts/materialize/tabs.js".freeze, "app/assets/javascripts/materialize/toasts.js".freeze, "app/assets/javascripts/materialize/tooltip.js".freeze, "app/assets/javascripts/materialize/transitions.js".freeze, "app/assets/javascripts/materialize/velocity.min.js".freeze, "app/assets/javascripts/materialize/waves.js".freeze, "app/assets/stylesheets/materialize.scss".freeze, "app/assets/stylesheets/materialize/components/_buttons.scss".freeze, "app/assets/stylesheets/materialize/components/_cards.scss".freeze, "app/assets/stylesheets/materialize/components/_carousel.scss".freeze, "app/assets/stylesheets/materialize/components/_chips.scss".freeze, "app/assets/stylesheets/materialize/components/_collapsible.scss".freeze, "app/assets/stylesheets/materialize/components/_color.scss".freeze, "app/assets/stylesheets/materialize/components/_dropdown.scss".freeze, "app/assets/stylesheets/materialize/components/_global.scss".freeze, "app/assets/stylesheets/materialize/components/_grid.scss".freeze, "app/assets/stylesheets/materialize/components/_icons-material-design.scss".freeze, "app/assets/stylesheets/materialize/components/_materialbox.scss".freeze, "app/assets/stylesheets/materialize/components/_mixins.scss".freeze, "app/assets/stylesheets/materialize/components/_modal.scss".freeze, "app/assets/stylesheets/materialize/components/_navbar.scss".freeze, "app/assets/stylesheets/materialize/components/_normalize.scss".freeze, "app/assets/stylesheets/materialize/components/_prefixer.scss".freeze, "app/assets/stylesheets/materialize/components/_preloader.scss".freeze, "app/assets/stylesheets/materialize/components/_roboto.scss".freeze, "app/assets/stylesheets/materialize/components/_sideNav.scss".freeze, "app/assets/stylesheets/materialize/components/_slider.scss".freeze, "app/assets/stylesheets/materialize/components/_table_of_contents.scss".freeze, "app/assets/stylesheets/materialize/components/_tabs.scss".freeze, "app/assets/stylesheets/materialize/components/_toast.scss".freeze, "app/assets/stylesheets/materialize/components/_tooltip.scss".freeze, "app/assets/stylesheets/materialize/components/_typography.scss".freeze, "app/assets/stylesheets/materialize/components/_variables.scss".freeze, "app/assets/stylesheets/materialize/components/_waves.scss".freeze, "app/assets/stylesheets/materialize/components/date_picker/_default.date.scss".freeze, "app/assets/stylesheets/materialize/components/date_picker/_default.scss".freeze, "app/assets/stylesheets/materialize/components/date_picker/_default.time.scss".freeze, "app/assets/stylesheets/materialize/components/forms/_checkboxes.scss".freeze, "app/assets/stylesheets/materialize/components/forms/_file-input.scss".freeze, "app/assets/stylesheets/materialize/components/forms/_forms.scss".freeze, "app/assets/stylesheets/materialize/components/forms/_input-fields.scss".freeze, "app/assets/stylesheets/materialize/components/forms/_radio-buttons.scss".freeze, "app/assets/stylesheets/materialize/components/forms/_range.scss".freeze, "app/assets/stylesheets/materialize/components/forms/_select.scss".freeze, "app/assets/stylesheets/materialize/components/forms/_switches.scss".freeze, "app/assets/stylesheets/materialize/extras/nouislider.css".freeze, "lib/materialize-sass.rb".freeze, "lib/materialize-sass/engine.rb".freeze, "lib/materialize-sass/version.rb".freeze, "materialize-sass.gemspec".freeze]
+  s.homepage = "https://github.com/mkhairi/materialize-sass".freeze
+  s.licenses = ["MIT".freeze]
+  s.rubygems_version = "2.5.2".freeze
+  s.summary = "Materialzecss sass for rails.".freeze
+
+  s.installed_by_version = "2.5.2" if s.respond_to? :installed_by_version
+
+  if s.respond_to? :specification_version then
+    s.specification_version = 4
+
+    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
+      s.add_development_dependency(%q<bundler>.freeze, ["~> 1.7"])
+      s.add_development_dependency(%q<rake>.freeze, ["~> 10.0"])
+      s.add_runtime_dependency(%q<sass>.freeze, ["~> 3.3"])
+    else
+      s.add_dependency(%q<bundler>.freeze, ["~> 1.7"])
+      s.add_dependency(%q<rake>.freeze, ["~> 10.0"])
+      s.add_dependency(%q<sass>.freeze, ["~> 3.3"])
+    end
+  else
+    s.add_dependency(%q<bundler>.freeze, ["~> 1.7"])
+    s.add_dependency(%q<rake>.freeze, ["~> 10.0"])
+    s.add_dependency(%q<sass>.freeze, ["~> 3.3"])
+  end
+end
