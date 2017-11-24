@@ -8,7 +8,7 @@ branch-defaults:
 environment-defaults:
   refsheet-staging:
     branch: null
-    repository: null
+    repository: refsheet
 global:
   application_name: refsheet
   default_ec2_keyname: kenku-dev-1
