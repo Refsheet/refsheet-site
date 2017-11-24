@@ -2,10 +2,8 @@ Rails.application.configure do
   defaults = {
       storage: :s3,
       s3_protocol: :https,
-      s3_credentials: Rails.configuration.x.amazon
-      # s3_host_alias: Rails.configuration.x.amazon[:s3_host_alias],
-      # url: ':s3_alias_url',
-      # path: '/:class/:attachment/:id_partition/:style/:filename'
+      s3_credentials: Rails.configuration.x.amazon,
+      path: '/:class/:attachment/:id_partition/:style/:filename'
   }
 
   if ENV['CLOUD_DOMAIN']
