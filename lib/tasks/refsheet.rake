@@ -34,7 +34,10 @@ namespace :refsheet do
   end
 
   desc 'Standard deploy process, needed because Rollbar and GH don\'t play along.'
-  task :deploy do
+  task :deploy, [:env] do |_, args|
+    env = args.fetch(:env) { 'refsheet-staging' }
+
+    puts "Deploying to #{env}"
     build = %x{ git log -n 1 --pretty=format:"%H" }
 
     puts "Writing version #{build} out..."
