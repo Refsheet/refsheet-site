@@ -46,7 +46,7 @@ namespace :refsheet do
     puts %x{ git commit -m "[ci-skip] Deploying build #{build}." -- VERSION }
 
     puts "Deploying version #{build} to Beanstalks..."
-    puts %x{ eb deploy refsheet-staging }
+    puts %x{ eb deploy #{env} }
 
     puts "Done."
   end
