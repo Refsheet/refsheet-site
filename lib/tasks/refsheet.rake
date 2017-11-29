@@ -48,7 +48,7 @@ namespace :refsheet do
     puts %x{ git tag #{build} }
 
     puts "Deploying version #{build} to Beanstalks..."
-    puts %x{ eb deploy #{env} --label #{build} --message #{message} }
+    puts %x{ eb deploy #{env} --label #{build} --message #{message} --timeout 3600 }
 
     puts "Done."
   end
