@@ -1,4 +1,9 @@
 ---
+v1.0.0-5.000:
+- hash: 925ad3c
+  tags: []
+  message: Increase bundler timeout.
+---
 v1.0.0-4.000:
 - hash: 6cae668
   tags: []
