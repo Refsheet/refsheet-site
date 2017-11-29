@@ -42,12 +42,13 @@ namespace :refsheet do
 
     puts "Writing version #{build} out..."
     File.write Rails.root.join('VERSION'), build
+    message = Shellwords.escape %x{ git log -1 --oneline }
 
     puts %x{ git commit -m "[ci-skip] #{build}" -- VERSION CHANGELOG }
     puts %x{ git tag #{build} }
 
     puts "Deploying version #{build} to Beanstalks..."
-    puts %x{ eb deploy #{env} --label #{build} --message $(git log -1 --oneline) }
+    puts %x{ eb deploy #{env} --label #{build} --message #{message} }
 
     puts "Done."
   end
