@@ -1,4 +1,12 @@
 ---
+v1.0.0-6.001:
+- hash: 120b40c
+  tags: []
+  message: Update Bundler.
+- hash: 2e0f581
+  tags: []
+  message: Fuckin test for puma needs to stop timing out now.
+---
 v1.0.0-5.001: []
 ---
 v1.0.0-5.000:
