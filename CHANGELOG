@@ -1,0 +1,422 @@
+---
+v0.12.19-238: []
+---
+v0.12.19-238:
+- hash: 7f4944e
+  tags:
+  - ci-skip
+  message: Deploying build 2397eaea7fee21138957e53a98175bb53fdd7381.
+- hash: 2397eae
+  tags:
+  - ci-skip
+  message: Deploying build cd1f291b128de26d0259db3c909e0fb745483b80.
+- hash: cd1f291
+  tags:
+  - ci-skip
+  message: Deploying build 737c9ae57af263e2f8d5a452fce196c269ba024a.
+- hash: 737c9ae
+  tags: []
+  message: Reverting the bundle madness.
+- hash: 88ba5d4
+  tags:
+  - ci-skip
+  message: Deploying build b89975e1a799717f9559a0809b661ab3033bfd61.
+- hash: b89975e
+  tags: []
+  message: Some config twerks.
+- hash: b272180
+  tags:
+  - ci-skip
+  message: Deploying build a8ad66e8fb5972b2ca45a2dbfd758b896cb0e7e4.
+- hash: a8ad66e
+  tags: []
+  message: For real rake.
+- hash: fb5c2ab
+  tags:
+  - ci-skip
+  message: Deploying build 6d9815b716ed4674ef1fa30ae7b0446bb5233884.
+- hash: 6d9815b
+  tags: []
+  message: Rake task.
+- hash: c63ee57
+  tags: []
+  message: Upped client max size.
+- hash: df93a62
+  tags:
+  - ci-skip
+  message: Deploying build fc1c418131cb534d22f82bb2cdd259f1ac13be0f.
+- hash: fc1c418
+  tags:
+  - ci-skip
+  message: Deploying build 21795eea7ade162376a90aa383a962a4783f0b76.
+- hash: 21795ee
+  tags: []
+  message: asdf
+- hash: 42a9bdd
+  tags: []
+  message: Maybe access control?
+- hash: d45cf49
+  tags: []
+  message: asdf
+- hash: f035e09
+  tags: []
+  message: fdsa
+- hash: 6ab34c7
+  tags: []
+  message: asdf
+- hash: c3a9493
+  tags:
+  - ci-skip
+  message: Deploying build 8357cdd6c00436a603a3e431e39c45c8b6960f40.
+- hash: 8357cdd
+  tags: []
+  message: Fuck. Cors.
+- hash: f969272
+  tags:
+  - ci-skip
+  message: Deploying build 02597df542a8d49467750630b22c2ab53ac6bc28.
+- hash: '02597df'
+  tags: []
+  message: Fuck CORS 2.0 the electric boogaloo...
+- hash: 18861ac
+  tags: []
+  message: Fuck CORS.
+- hash: b84bb2c
+  tags:
+  - ci-skip
+  message: Deploying build 9cc68294439b7086b55576bc66ad65cfda69d3fd.
+- hash: 9cc6829
+  tags: []
+  message: Occams Razor.
+- hash: dfec530
+  tags:
+  - ci-skip
+  message: Deploying build 5f024837476769e5c4540b88226b9eaadbd8f18d.
+- hash: 5f02483
+  tags: []
+  message: Occams Razor.
+- hash: 39d6722
+  tags:
+  - ci-skip
+  message: Deploying build faa9560040f499769054aed8ee4a27461002a62f.
+- hash: faa9560
+  tags: []
+  message: Try a proxy!
+- hash: 0f02b65
+  tags:
+  - ci-skip
+  message: Deploying build b95b3ebca9b8109ad54dd69621c5afa1bcb5df88.
+- hash: b95b3eb
+  tags: []
+  message: Installed Rack CORS.
+- hash: a9db56f
+  tags:
+  - ci-skip
+  message: Deploying build b761a52ed9dde7e4fb874e70cddc57e95215988e.
+- hash: b761a52
+  tags: []
+  message: Try with path?
+- hash: 5a52e7f
+  tags:
+  - ci-skip
+  message: Deploying build c0c266836d95b0d75c83e230faac344fa22bd264.
+- hash: c0c2668
+  tags: []
+  message: Alias URL?
+- hash: 71e2584
+  tags:
+  - ci-skip
+  message: Deploying build 8a52bf338b4507095a276befcb8c50437f96a4f5.
+- hash: 8a52bf3
+  tags: []
+  message: Swap to s3 host alias.
+- hash: 4a81098
+  tags: []
+  message: Cloud front!
+- hash: 75fd252
+  tags:
+  - ci-skip
+  message: Deploying build d8cadb93a7e1f60f118182f5c1c80e4204748e6d.
+- hash: d8cadb9
+  tags: []
+  message: Fixed user shortcodes.
+- hash: 874463b
+  tags: []
+  message: Admins and Patrons begin to show in different colors.
+- hash: c0d27fb
+  tags: []
+  message: News feed suggestions! I really gotta CSS this better.
+- hash: 4bcb886
+  tags: []
+  message: Characer follow button.
+- hash: 6cd98c8
+  tags: []
+  message: Character follow button.
+- hash: '2404016'
+  tags: []
+  message: Various passes of bug fixen.
+- hash: fff3643
+  tags: []
+  message: Wrapping up campaign fix.
+- hash: cb84946
+  tags: []
+  message: Paperclip moved images to a better home for ads.
+- hash: 8c6c905
+  tags: []
+  message: Campaign spec fixed.
+- hash: 5108e8d
+  tags: []
+  message: Bugfix in lightbox, user bar, hash utils.
+- hash: 1d1e206
+  tags:
+  - ci-skip
+  message: Deploying build f56d342ce093aa265ae7da3b8a5e64645db694d6.
+- hash: f56d342
+  tags: []
+  message: We'll try it this way.
+- hash: edbdfa3
+  tags:
+  - ci-skip
+  message: Deploying build e6288af35301141f1afc06ad255eccfc6aec47ad.
+- hash: e6288af
+  tags: []
+  message: and.
+- hash: a14974c
+  tags:
+  - ci-skip
+  message: Deploying build 35116056af3b6f076cb1c3539a15a78e263d6a31.
+- hash: '3511605'
+  tags: []
+  message: "*BOOM.* Public."
+- hash: 35e4c2c
+  tags: []
+  message: Activity Feed mobile good enough for public.
+- hash: adf557e
+  tags:
+  - ci-skip
+  message: Deploying build d82accb379f1d8e3276f2d0875ef836cd6785631.
+- hash: d82accb
+  tags:
+  - ci-skip
+  message: Deploying build 026c4049bb67102d4a632d640d1c33bd5b6ac5eb.
+- hash: 026c404
+  tags: []
+  message: Whole lotta bugfixes.
+- hash: ad1c492
+  tags:
+  - ci-skip
+  message: Deploying build 1be5ca1e7aa676149b49bcb6b13ef097ce11a496.
+- hash: 1be5ca1
+  tags:
+  - ci-skip
+  message: Deploying build 02d3dc7ee402974db61d90895637a9033b7d6926.
+---
+v0.12.19-238:
+- hash: 7f4944e
+  tags:
+  - ci-skip
+  message: Deploying build 2397eaea7fee21138957e53a98175bb53fdd7381.
+- hash: 2397eae
+  tags:
+  - ci-skip
+  message: Deploying build cd1f291b128de26d0259db3c909e0fb745483b80.
+- hash: cd1f291
+  tags:
+  - ci-skip
+  message: Deploying build 737c9ae57af263e2f8d5a452fce196c269ba024a.
+- hash: 737c9ae
+  tags: []
+  message: Reverting the bundle madness.
+- hash: 88ba5d4
+  tags:
+  - ci-skip
+  message: Deploying build b89975e1a799717f9559a0809b661ab3033bfd61.
+- hash: b89975e
+  tags: []
+  message: Some config twerks.
+- hash: b272180
+  tags:
+  - ci-skip
+  message: Deploying build a8ad66e8fb5972b2ca45a2dbfd758b896cb0e7e4.
+- hash: a8ad66e
+  tags: []
+  message: For real rake.
+- hash: fb5c2ab
+  tags:
+  - ci-skip
+  message: Deploying build 6d9815b716ed4674ef1fa30ae7b0446bb5233884.
+- hash: 6d9815b
+  tags: []
+  message: Rake task.
+- hash: c63ee57
+  tags: []
+  message: Upped client max size.
+- hash: df93a62
+  tags:
+  - ci-skip
+  message: Deploying build fc1c418131cb534d22f82bb2cdd259f1ac13be0f.
+- hash: fc1c418
+  tags:
+  - ci-skip
+  message: Deploying build 21795eea7ade162376a90aa383a962a4783f0b76.
+- hash: 21795ee
+  tags: []
+  message: asdf
+- hash: 42a9bdd
+  tags: []
+  message: Maybe access control?
+- hash: d45cf49
+  tags: []
+  message: asdf
+- hash: f035e09
+  tags: []
+  message: fdsa
+- hash: 6ab34c7
+  tags: []
+  message: asdf
+- hash: c3a9493
+  tags:
+  - ci-skip
+  message: Deploying build 8357cdd6c00436a603a3e431e39c45c8b6960f40.
+- hash: 8357cdd
+  tags: []
+  message: Fuck. Cors.
+- hash: f969272
+  tags:
+  - ci-skip
+  message: Deploying build 02597df542a8d49467750630b22c2ab53ac6bc28.
+- hash: '02597df'
+  tags: []
+  message: Fuck CORS 2.0 the electric boogaloo...
+- hash: 18861ac
+  tags: []
+  message: Fuck CORS.
+- hash: b84bb2c
+  tags:
+  - ci-skip
+  message: Deploying build 9cc68294439b7086b55576bc66ad65cfda69d3fd.
+- hash: 9cc6829
+  tags: []
+  message: Occams Razor.
+- hash: dfec530
+  tags:
+  - ci-skip
+  message: Deploying build 5f024837476769e5c4540b88226b9eaadbd8f18d.
+- hash: 5f02483
+  tags: []
+  message: Occams Razor.
+- hash: 39d6722
+  tags:
+  - ci-skip
+  message: Deploying build faa9560040f499769054aed8ee4a27461002a62f.
+- hash: faa9560
+  tags: []
+  message: Try a proxy!
+- hash: 0f02b65
+  tags:
+  - ci-skip
+  message: Deploying build b95b3ebca9b8109ad54dd69621c5afa1bcb5df88.
+- hash: b95b3eb
+  tags: []
+  message: Installed Rack CORS.
+- hash: a9db56f
+  tags:
+  - ci-skip
+  message: Deploying build b761a52ed9dde7e4fb874e70cddc57e95215988e.
+- hash: b761a52
+  tags: []
+  message: Try with path?
+- hash: 5a52e7f
+  tags:
+  - ci-skip
+  message: Deploying build c0c266836d95b0d75c83e230faac344fa22bd264.
+- hash: c0c2668
+  tags: []
+  message: Alias URL?
+- hash: 71e2584
+  tags:
+  - ci-skip
+  message: Deploying build 8a52bf338b4507095a276befcb8c50437f96a4f5.
+- hash: 8a52bf3
+  tags: []
+  message: Swap to s3 host alias.
+- hash: 4a81098
+  tags: []
+  message: Cloud front!
+- hash: 75fd252
+  tags:
+  - ci-skip
+  message: Deploying build d8cadb93a7e1f60f118182f5c1c80e4204748e6d.
+- hash: d8cadb9
+  tags: []
+  message: Fixed user shortcodes.
+- hash: 874463b
+  tags: []
+  message: Admins and Patrons begin to show in different colors.
+- hash: c0d27fb
+  tags: []
+  message: News feed suggestions! I really gotta CSS this better.
+- hash: 4bcb886
+  tags: []
+  message: Characer follow button.
+- hash: 6cd98c8
+  tags: []
+  message: Character follow button.
+- hash: '2404016'
+  tags: []
+  message: Various passes of bug fixen.
+- hash: fff3643
+  tags: []
+  message: Wrapping up campaign fix.
+- hash: cb84946
+  tags: []
+  message: Paperclip moved images to a better home for ads.
+- hash: 8c6c905
+  tags: []
+  message: Campaign spec fixed.
+- hash: 5108e8d
+  tags: []
+  message: Bugfix in lightbox, user bar, hash utils.
+- hash: 1d1e206
+  tags:
+  - ci-skip
+  message: Deploying build f56d342ce093aa265ae7da3b8a5e64645db694d6.
+- hash: f56d342
+  tags: []
+  message: We'll try it this way.
+- hash: edbdfa3
+  tags:
+  - ci-skip
+  message: Deploying build e6288af35301141f1afc06ad255eccfc6aec47ad.
+- hash: e6288af
+  tags: []
+  message: and.
+- hash: a14974c
+  tags:
+  - ci-skip
+  message: Deploying build 35116056af3b6f076cb1c3539a15a78e263d6a31.
+- hash: '3511605'
+  tags: []
+  message: "*BOOM.* Public."
+- hash: 35e4c2c
+  tags: []
+  message: Activity Feed mobile good enough for public.
+- hash: adf557e
+  tags:
+  - ci-skip
+  message: Deploying build d82accb379f1d8e3276f2d0875ef836cd6785631.
+- hash: d82accb
+  tags:
+  - ci-skip
+  message: Deploying build 026c4049bb67102d4a632d640d1c33bd5b6ac5eb.
+- hash: 026c404
+  tags: []
+  message: Whole lotta bugfixes.
+- hash: ad1c492
+  tags:
+  - ci-skip
+  message: Deploying build 1be5ca1e7aa676149b49bcb6b13ef097ce11a496.
+- hash: 1be5ca1
+  tags:
+  - ci-skip
+  message: Deploying build 02d3dc7ee402974db61d90895637a9033b7d6926.
