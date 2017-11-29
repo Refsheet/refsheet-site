@@ -38,17 +38,90 @@ namespace :refsheet do
     env = args.fetch(:env) { 'refsheet-staging' }
 
     puts "Deploying to #{env}"
-    build = %x{ git log -n 1 --pretty=format:"%H" }
+    build = get_version
 
     puts "Writing version #{build} out..."
     File.write Rails.root.join('VERSION'), build
 
-    puts %x{ git commit -m "[ci-skip] Deploying build #{build}." -- VERSION }
+    puts %x{ git commit -m "[ci-skip] #{build}" -- VERSION CHANGELOG }
+    puts %x{ git tag #{build} }
 
     puts "Deploying version #{build} to Beanstalks..."
     puts %x{ eb deploy #{env} }
 
     puts "Done."
+  end
+
+  def get_version
+    version = %x{ git describe --tags --abbrev=0 }.chomp
+    semver = File.read(Rails.root.join('VERSION')).chomp
+
+    if semver =~ /\Av?(\d+(?:.\d+){0,2}(?:-\d+(?:\.\d+)?)?)\z/
+      s, p = $1.split('-')
+      semver = s.split('.').collect(&:to_i)
+      semver.fill 0, semver.length-1, 3-semver.length
+      semver.push p&.to_f
+    else
+      semver = [0, 0, 0, nil]
+    end
+
+    puts "Getting notable data since #{version.inspect} (#{semver.inspect})..."
+
+    log = %x{ git log '#{version}..HEAD' --pretty=oneline --abbrev-commit }.split("\n")
+
+    puts "Fetched #{log.count} commits."
+
+    data = log.collect do |l|
+      if (m = l.match(/\A(?<hash>[a-z0-9]+)\s+(?<tags>(\[.*?\]\s*)*)(?<message>.*)\z/))
+        h = m.names.zip(m.captures).to_h
+        h['tags'] = h['tags']&.split(/\]\s*\[/)&.map { |s| s.gsub(/\A\s*\[|\]\s*/, '') } || []
+        h.symbolize_keys
+      else
+        { hash: nil, tags: [], message: l }
+      end
+    end
+
+    in_minor = data.any? { |d| d[:tags].grep(/\Af(?:eature)?\z/).count > 0 }
+    in_rev = data.any? { |d| d[:tags].grep(/\Ab(?:ug)?\z/).count > 0 }
+
+    if data.length == 0
+      puts 'No commits found.'
+      semver[3] ||= 0
+      semver[3] += 0.001
+    elsif in_minor
+      puts 'Feature commit detected, adding minor revision.'
+      semver[1] += 1
+      semver[2] = 0
+      semver[3] = nil
+    elsif in_rev
+      puts 'Bug commit detected, increasing minor revision.'
+      semver[2] += 1
+      semver[3] = nil
+    else
+      puts 'No tagged commits of interest, logging build.'
+      semver[3] ||= 0
+      semver[3] += 1
+    end
+
+    semver_str = if semver[3].nil?
+      'v%d.%d.%d' % semver
+    else
+      'v%d.%d.%d-%0.3f' % semver
+    end
+
+    changelog = { semver_str => data.collect(&:stringify_keys) }.to_yaml
+
+    n = Rails.root.join('tmp/CHANGELOG')
+    o = Rails.root.join('CHANGELOG')
+
+    File.open n, 'a' do |n|
+      n << changelog
+      n << File.read(o)
+    end
+
+    File.rename n, o
+
+    semver_str
   end
 
   desc 'This is to be finished on the server, after we\'re built.'
