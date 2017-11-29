@@ -1,4 +1,9 @@
 ---
+v1.0.0-2.000:
+- hash: d8f586e
+  tags: []
+  message: Trying a beanstalk.
+---
 v1.0.0-1.000:
 - hash: 6a52269
   tags: []
