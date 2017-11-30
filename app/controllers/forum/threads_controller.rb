@@ -1,6 +1,4 @@
 class Forum::ThreadsController < ApplicationController
-  in_beta!
-
   before_action :get_forum
 
   def index

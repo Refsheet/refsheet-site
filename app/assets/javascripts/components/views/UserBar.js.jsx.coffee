@@ -176,18 +176,18 @@
 
               <ul className='site-nav visible-on-med-and-up'>
                   <li>
-                      <Link to='/browse' activeClassName='teal-text text-lighten-2'>Browse</Link>
+                      <Link to='/browse' activeClassName='teal-text text-lighten-2'>Characters</Link>
                   </li>
 
-                  { (this.context.currentUser && this.context.currentUser.is_patron) &&
+                  <li>
+                      <Link to='/explore' activeClassName='teal-text text-lighten-2'>Images</Link>
+                  </li>
+
+                  { (this.context.currentUser) &&
                       <li>
                           <Link to='/forums' activeClassName='teal-text text-lighten-2'>Forums</Link>
                       </li>
                   }
-
-                  <li>
-                      <Link to='/explore' activeClassName='teal-text text-lighten-2'>Explore</Link>
-                  </li>
 
                   {/*<li>*/}
                       {/*<Link to='/guilds' activeClassName='teal-text text-lighten-2'>Guilds</Link>*/}

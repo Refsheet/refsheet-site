@@ -1,6 +1,4 @@
 class Forum::PostsController < ApplicationController
-  in_beta!
-
   before_action :get_forum
   before_action :get_thread
 
