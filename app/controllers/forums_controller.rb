@@ -1,6 +1,4 @@
 class ForumsController < ApplicationController
-  in_beta!
-
   def index
     @forums = filter_scope Forum.all, 'name'
 
