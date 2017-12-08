@@ -1,5 +1,6 @@
 @Forums.Threads.Show = React.createClass
   contextTypes:
+    currentUser: React.PropTypes.object
     eagerLoad: React.PropTypes.object
 
   propTypes:
@@ -50,28 +51,31 @@
 
     posts = @state.thread.posts.map (post) ->
       `<div className='card sp with-avatar' key={ post.id }>
-          <img src={ post.user.avatar_url } className='circle avatar' />
+          <IdentityAvatar src={ post.user } />
+
           <div className='card-content'>
               <div className='muted right'>{ post.created_at_human }</div>
-              <Link to={ post.user.link }>{ post.user.name }</Link> { post.user.is_admin && <span className='muted'>&bull; Admin</span> }
+              <IdentityLink to={ post.user } />
               <RichText className='margin-top--small' content={ post.content_html } markup={ post.content } />
           </div>
       </div>`
 
     `<Main title={ this.state.thread.topic }>
-        <div className='card margin-top--none sp'>
-            <div className='card-header padding-bottom--none'>
+        <div className='card margin-top--none sp with-avatar'>
+            <IdentityAvatar src={ this.state.thread.user } />
+
+            <div className='card-content'>
                 <div className='right muted right-align'>
                     { this.state.thread.created_at_human }
                 </div>
 
                 <div className='author'>
-                    <img src={ this.state.thread.user.avatar_url } className='circle avatar left' />
-                    <Link to={ this.state.thread.user.link }>{ this.state.thread.user.name }</Link>
+                    <IdentityLink to={ this.state.thread.user } />
                     <div className='muted'>@{ this.state.thread.user.username } { this.state.thread.user.is_admin && <span>&bull; Admin</span> }</div>
                 </div>
             </div>
-            <div className='card-content'>
+
+            <div className='card-header'>
                 <h2 className='title'>{ this.state.thread.topic }</h2>
                 <RichText markup={ this.state.thread.content } content={ this.state.thread.content_html } />
             </div>
@@ -79,8 +83,9 @@
 
         { posts }
 
-        <Forums.Threads.Reply forumId={ this.props.params.forumId }
-                              threadId={ this.props.params.threadId }
-                              onPost={ this._handleReply }
-        />
+        { this.context.currentUser &&
+            <Forums.Threads.Reply forumId={ this.props.params.forumId }
+                                  threadId={ this.props.params.threadId }
+                                  onPost={ this._handleReply }
+            /> }
     </Main>`

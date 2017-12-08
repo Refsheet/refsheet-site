@@ -1,6 +1,8 @@
 require 'redcarpet/render_strip'
 
 class MarkdownString < String
+  include RichTextHelper
+
   EXTENSIONS = {
       autolink: true
   }
@@ -22,7 +24,7 @@ class MarkdownString < String
   end
 
   def to_html
-    self.class.html_renderer.render(self).html_safe
+    linkify self.class.html_renderer.render(self).html_safe
   end
 
   def to_text

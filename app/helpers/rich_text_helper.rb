@@ -53,7 +53,7 @@ module RichTextHelper
   def user_chip(user, textless=false)
     <<-HTML
       <a href='/#{user.username}' class='chip user-chip #{textless ? "textless" : ""}' data-user-id='#{user.username}'>
-        <img src='#{gravatar_image_url user.email}' alt='#{user.name}' />
+        <img src='#{user.avatar_url}' alt='#{user.name}' />
         #{textless ? '' : user.name}
       </a>
     HTML

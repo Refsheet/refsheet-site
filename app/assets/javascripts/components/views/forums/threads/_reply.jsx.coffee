@@ -25,7 +25,7 @@
            onChange={ this._handlePost }
            resetOnSubmit
     >
-        <img src={ this.context.currentUser.avatar_url } className='circle avatar left' />
+        <IdentityAvatar src={ this.context.currentUser } />
 
         <div className='card-content'>
             <Input type='textarea' browserDefault name='content' placeholder='Leave a reply...' />
