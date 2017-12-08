@@ -1,4 +1,11 @@
 ---
+v1.1.0:
+- hash: 5ca3db5
+  tags:
+  - f
+  message: Updated forums to display threads without mashing text. Also adding more
+    colored avatars. Also probably broke other parts of the site. *shrug.
+---
 v1.0.0-8.001:
 - hash: 783495e
   tags: []
