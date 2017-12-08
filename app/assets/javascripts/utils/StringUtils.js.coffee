@@ -16,3 +16,12 @@ class @StringUtils
       out[@camelize(k)] = v
 
     return out
+
+  @indifferentKeys: (object) =>
+    out = {}
+
+    for k,v of object
+      out[k] = v
+      out[@camelize(k)] = v
+
+    return out

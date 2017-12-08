@@ -7,7 +7,8 @@
       link: React.PropTypes.string.isRequired
       name: React.PropTypes.string.isRequired
       username: React.PropTypes.string.isRequired
-      type: React.PropTypes.string.isRequired
+      type: React.PropTypes.string
+      avatar_url: React.PropTypes.string
 
   timer: null
 
@@ -43,9 +44,9 @@
 
   render: ->
     { user } = @state
-    { to } = @props
+    to = StringUtils.indifferentKeys @props.to
 
-
+    to.type ||= 'user'
 
     if to.is_admin || user?.is_admin
       imgShadow = '0 0 3px 1px #2480C8'
@@ -84,7 +85,7 @@
              }}
         >
             { to.avatarUrl &&
-                <img src={ to.avatarUrl } alt={ to.name } className='avatar circle' style={{ boxShadow: imgShadow }} /> }
+                <img src={ to.avatarUrl } alt={ to.name } className='avatar circle' style={{ boxShadow: imgShadow }} height={48} width={48} /> }
 
             <div className='card-content'>
                 { canFollow &&
@@ -156,6 +157,7 @@
         <Link to={ to.link }
               onMouseOver={ this._handleLinkMouseover }
               onMouseOut={ this._handleLinkMouseout }
+              style={{ color: nameColor }}
         >
             { to.name }
         </Link>

@@ -2,7 +2,7 @@
   { forums, title } = props
 
   forumCards = forums.map (forum) ->
-    `<Column l={6} xl={4} key={ forum.slug }>
+    `<Column l={4} xl={3} key={ forum.slug }>
         <Forums.Card {...StringUtils.camelizeKeys(forum)} />
     </Column>`
 

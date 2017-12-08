@@ -1,6 +1,4 @@
 .card
-  overflow: hidden
-
   @at-root
     .card-panel
       padding: 1.5rem
@@ -48,29 +46,36 @@
 
   &.summary-card
     .card-image
-      position: absolute
-      top: 1rem
-      left: 1rem
-      width: 3rem
-      text-align: center
-      color: $text-light-color
+      margin: 0
+      padding: 1rem
+      background-color: darken($card-bg-color, 5%)
+      position: relative
 
       .material-icons
-        font-size: 3rem
+        font-size: 5rem
+        display: block
+        margin: 0
+        color: $brand-dark
 
-    .card-stacked
-      padding-left: 4rem
+      .notification
+        position: absolute
+        top: 1rem
+        right: 0
+        font-size: 0.8rem
+        background-color: color('red', 'darken-3')
+        color: white
+        border-radius: 2px 0 0 2px
+        padding: 0.25rem 1rem
 
     .card-title
       @extend .truncate
 
       line-height: initial
-      margin-bottom: 0.5rem
-      color: $brand-primary
+      color: $page-text-color
+      margin: 0 0 0.25rem 0
+      font-size: 1.3rem
 
     .card-flags
-      margin-top: -0.25rem
-      margin-bottom: 0.5rem
       font-size: 0.8rem
       color: $text-light-color
       line-height: 1rem
@@ -78,14 +83,15 @@
 
       .material-icons
         font-size: inherit
-        margin-right: 0.25rem
+        margin-left: 0.25rem
         width: auto
         line-height: inherit
         vertical-align: middle
 
     .description
-      height: (1.5rem * 3)
-      overflow: hidden
+      @extend .truncate
+      font-size: 0.9rem
+      margin-bottom: 0.5rem
 
     .card-content
       padding: 1rem

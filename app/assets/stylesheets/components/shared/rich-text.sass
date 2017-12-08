@@ -25,11 +25,14 @@
   &.empty
     color: $muted-text-color
 
+  p
+    margin-bottom: 1rem !important
+
   p:first-child
-    margin-top: 0
+    margin-top: 0 !important
 
   p:last-child
-    margin-bottom: 0
+    margin-bottom: 0 !important
 
   h1
     font-size: 2rem
@@ -42,3 +45,30 @@
     font-size: 1.5rem
     font-weight: 300
     color: white
+
+  h3
+    font-size: 1.3rem
+    color: $brand-dark
+
+  h4
+    font-size: 1.1rem
+
+  h5
+    font-size: 1rem
+    font-weight: bold
+
+  ul
+    li
+      position: relative
+      padding-left: 1.5rem
+
+      &:before
+        content: ''
+        width: 0.5rem
+        height: 0.5rem
+        background-color: $brand-primary
+        border-radius: 0.25rem
+        display: block
+        position: absolute
+        left: 0
+        top: 0.5rem
