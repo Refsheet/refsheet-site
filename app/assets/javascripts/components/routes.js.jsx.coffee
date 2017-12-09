@@ -64,6 +64,7 @@
             {/*== Static Routes */}
 
             { staticPaths }
+            <Route path='static/:pageId' component={ Static.View } />
 
 
             {/*== Profile Content */}

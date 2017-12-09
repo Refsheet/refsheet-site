@@ -1,0 +1,20 @@
+%section.static-content
+  .container.rich-text.margin-top--large
+    %h1= title 'Changelog'
+
+    - te = { 'f' => 'Feature', 'b' => 'Bug', 'p' => 'Patch' }
+
+    - f = File.open Rails.root.join 'CHANGELOG'
+    - i = 0
+    - YAML.load_documents f do |log|
+      - break if (i+=1) >= 10
+      - log.each do |version, notes|
+        %h2= version
+        %ul
+          - notes.select { |n| n['tags'].count > 0 }.each do |note|
+            %li
+              = note['message']
+              .muted
+                %code.margin-right--large= note['hash']
+                - note['tags'].each do |t|
+                  %span.chip= te[t] || t.humanize
