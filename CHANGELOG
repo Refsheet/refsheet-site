@@ -1,4 +1,22 @@
 ---
+v1.1.0-1.000:
+- hash: 534a4f8
+  tags: []
+  message: Added Changelog and Patron pages in about section.
+- hash: bf87cfe
+  tags: []
+  message: 'Forum UI supports Unread Count, and will display "Last Post At", which
+    is now the default order. #bump'
+- hash: 9fd276b
+  tags: []
+  message: Unread counts now included in forum serialization.
+- hash: 7a28bef
+  tags: []
+  message: Added in some really cool files that I totally forgot were things.
+- hash: 5c17a27
+  tags: []
+  message: Wrote a really fancy query to figure out how many threads you haven't read.
+---
 v1.1.0:
 - hash: 5ca3db5
   tags:
