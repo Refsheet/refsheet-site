@@ -1,4 +1,6 @@
 class ApplicationRecord < ActiveRecord::Base
+  include ApplicationHelper
+
   self.abstract_class = true
 
   before_validation :hack_out_null_values

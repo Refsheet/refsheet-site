@@ -45,4 +45,27 @@ describe Forum::Discussion, type: :model do
           :slug
       ]
   )
+
+  it '::with_unread_count' do
+    d = create :forum_discussion, topic: 'Subscribed'
+    d2 = create :forum_discussion, topic: 'NOT subscribed', forum: d.forum
+    p1 = create :forum_post, thread: d, created_at: 2.hours.ago
+    p2 = create :forum_post, thread: d, created_at: 1.minute.ago
+    s = create :forum_subscription, discussion: d, last_read_at: 1.hour.ago
+
+    da = Forum::Discussion.with_unread_count(s.user)
+    ds = da.first
+
+    expect(da.count(:all)).to eq 2
+    expect(da.last.topic).to eq d2.topic
+
+    expect(ds.posts.count).to eq 2
+    expect(ds.unread_posts_count).to eq 1
+    expect(ds.topic).to eq d.topic
+    expect(ds.last_read_cache).to be_truthy
+    expect(ds.posts.first.thread.last_read_cache).to be_truthy
+
+    expect(p1).to be_read_by(s.user)
+    expect(p2).to_not be_read_by(s.user)
+  end
 end

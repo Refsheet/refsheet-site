@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171115093230) do
+ActiveRecord::Schema.define(version: 20171208233123) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -219,6 +219,16 @@ ActiveRecord::Schema.define(version: 20171115093230) do
     t.index ["parent_post_id"], name: "index_forum_posts_on_parent_post_id", using: :btree
     t.index ["thread_id"], name: "index_forum_posts_on_thread_id", using: :btree
     t.index ["user_id"], name: "index_forum_posts_on_user_id", using: :btree
+  end
+
+  create_table "forum_subscriptions", force: :cascade do |t|
+    t.integer  "discussion_id"
+    t.integer  "user_id"
+    t.datetime "last_read_at"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["discussion_id"], name: "index_forum_subscriptions_on_discussion_id", using: :btree
+    t.index ["user_id"], name: "index_forum_subscriptions_on_user_id", using: :btree
   end
 
   create_table "forum_threads", force: :cascade do |t|
