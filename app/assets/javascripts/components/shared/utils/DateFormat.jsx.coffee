@@ -37,6 +37,7 @@
     if n < 10 then '0' + n else n
 
   _p: (i, word) ->
+    return "#{i}mo" if @props.short and word.substring(0,2) is 'mo'
     return "#{i}#{word.substring(0,1)}" if @props.short
 
     s = if i == 1 then '' else 's'
@@ -68,8 +69,8 @@
 
   showDate: ->
     date = @date()
-    month = @monthNames[@date.getMonth()]
-    month = @monthNames.substr(0,3) if @props.short
+    month = @monthNames[date.getMonth()]
+    month = month.substr(0,3) if @props.short
 
     hour = date.getHours() % 12
     hour = 12 if hour == 0
@@ -105,6 +106,8 @@
         "#{about}#{@_p Math.round(elapsed / msPerYear), 'year'}#{ago}"
 
   render: ->
+    return null unless @props.timestamp
+
     `<span className={ this.props.className } title={ this.fullTime() }>
         { this.state.dateDisplay }
     </span>`

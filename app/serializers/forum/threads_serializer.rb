@@ -6,6 +6,8 @@ class Forum::ThreadsSerializer < ActiveModel::Serializer
              :user_name,
              :avatar_url,
              :posts_count,
+             :unread_posts_count,
+             :last_post_at,
              :path
 
   def id
@@ -14,6 +16,10 @@ class Forum::ThreadsSerializer < ActiveModel::Serializer
 
   def username
     object.user.username
+  end
+
+  def last_post_at
+    object.last_post_at&.to_i || object.created_at.to_i
   end
 
   def user_name

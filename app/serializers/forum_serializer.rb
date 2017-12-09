@@ -22,9 +22,16 @@ class ForumSerializer < ActiveModel::Serializer
              :no_rp,
              :group_name,
              :thread_count,
-             :path
+             :path,
+             :threads
 
-  has_many :threads, serializer: Forum::ThreadsSerializer
+  # has_many :threads, serializer: Forum::ThreadsSerializer
+
+  def threads
+    object.threads.with_unread_count(scope.current_user).with_last_post_at.collect do |thread|
+      Forum::ThreadsSerializer.new thread, scope: scope
+    end
+  end
 
   def path
     "/forums/#{object.slug}"
