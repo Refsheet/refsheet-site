@@ -53,18 +53,31 @@ class Forum::Discussion < ApplicationRecord
   has_guid :shortcode, type: :shortcode
 
   scope :with_unread_count, -> (user) {
-    select(sanitize_sql_array [<<-SQL.squish, user.id]).
-        ( 
-            SELECT COUNT(*) FROM forum_posts
+    joins(sanitize_sql_array [<<-SQL.squish, user.id]).
+        LEFT OUTER JOIN ( 
+            SELECT COUNT(*) AS unread_posts_count, forum_posts.thread_id FROM forum_posts
             INNER JOIN forum_threads ON forum_posts.thread_id = forum_threads.id
             INNER JOIN forum_subscriptions ON forum_subscriptions.discussion_id = forum_threads.id
             WHERE forum_posts.created_at > forum_subscriptions.last_read_at
               AND forum_subscriptions.user_id = ?
-        ) AS unread_posts_count
+            GROUP BY forum_posts.thread_id
+        ) urc ON urc.thread_id = forum_threads.id
     SQL
+
     left_outer_joins(:subscriptions).
     where(forum_subscriptions: { user_id: [user&.id, nil] }).
-    select('forum_threads.*, forum_subscriptions.last_read_at AS last_read_cache')
+    select('forum_threads.*, forum_subscriptions.last_read_at AS last_read_cache, urc.unread_posts_count AS unread_posts_count')
+  }
+
+  scope :with_last_post_at, -> {
+    joins(<<-SQL.squish).
+        LEFT OUTER JOIN (
+            SELECT MAX(forum_posts.created_at) AS last_post_at, forum_posts.thread_id FROM forum_posts
+            GROUP BY forum_posts.thread_id
+        ) lpa ON lpa.thread_id = forum_threads.id
+    SQL
+
+    select('forum_threads.*, lpa.last_post_at AS last_post_at')
   }
 
   def content
