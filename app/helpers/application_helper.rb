@@ -1,5 +1,9 @@
 module ApplicationHelper
-  def with(item)
-    yield item if item
+  def with(item, fallback=nil)
+    if item
+      yield item
+    else
+      fallback
+    end
   end
 end

@@ -34,7 +34,7 @@ class Forum::Discussion < ApplicationRecord
   belongs_to :forum
   belongs_to :user
   belongs_to :character
-  has_many :posts, class_name: Forum::Post, foreign_key: :thread_id, inverse_of: :thread
+  has_many :posts, -> { order('forum_posts.created_at ASC') }, class_name: Forum::Post, foreign_key: :thread_id, inverse_of: :thread
   has_many :karmas, class_name: Forum::Karma, as: :karmic, foreign_key: :karmic_id
   has_many :subscriptions, class_name: Forum::Subscription, foreign_key: :discussion_id
 
@@ -63,7 +63,7 @@ class Forum::Discussion < ApplicationRecord
         ) AS unread_posts_count
     SQL
     left_outer_joins(:subscriptions).
-    where(forum_subscriptions: { user_id: [user.id, nil] }).
+    where(forum_subscriptions: { user_id: [user&.id, nil] }).
     select('forum_threads.*, forum_subscriptions.last_read_at AS last_read_cache')
   }
 
@@ -72,10 +72,18 @@ class Forum::Discussion < ApplicationRecord
   end
 
   def last_read_at(user)
-    if self.attributes.include? :last_read_cache
+    if self.attributes.include? 'last_read_cache'
       self.last_read_cache
     else
       self.subscriptions.find_by(user: user)&.last_read_at
+    end
+  end
+
+  def unread_posts_count
+    if self.attributes.include? 'unread_posts_count'
+      self.attributes['unread_posts_count']
+    else
+      nil
     end
   end
 

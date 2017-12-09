@@ -7,11 +7,21 @@ class Forum::ThreadSerializer < ActiveModel::Serializer
              :created_at_human,
              :content,
              :content_html,
-             :path
+             :unread_posts_count,
+             :path,
+             :posts
 
   has_one :user, serializer: UserIndexSerializer
   has_one :character, serializer: ImageCharacterSerializer
-  has_many :posts, serializer: Forum::PostSerializer
+
+  # Because for some reason it was reloading the parent otherwise, and that's not gucci.
+  #
+  def posts
+    object.posts.collect do |post|
+      post.thread = object
+      Forum::PostSerializer.new post, scope: scope, root: false
+    end
+  end
 
   def id
     object.slug
