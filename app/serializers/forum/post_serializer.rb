@@ -7,6 +7,7 @@ class Forum::PostSerializer < ActiveModel::Serializer
              :content,
              :content_html,
              :path,
+             :unread,
              :user
 
   has_one :character, serializer: ImageCharacterSerializer
@@ -29,6 +30,10 @@ class Forum::PostSerializer < ActiveModel::Serializer
 
   def content_html
     object.content.to_html
+  end
+
+  def unread
+    !object.read_by?
   end
 
   def path

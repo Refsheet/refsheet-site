@@ -2,12 +2,16 @@ class Forum::ThreadsController < ApplicationController
   before_action :get_forum
 
   def index
-    @threads = filter_scope @forum.threads, 'updated_at'
+    @threads = filter_scope @forum.threads.with_unread_count(current_user), 'updated_at'
     render json: @threads, each_serializer: Forum::ThreadsSerializer
   end
 
   def show
-    @thread = @forum.threads.lookup! params[:id]
+    @thread = @forum
+                  .threads
+                  .includes(:user, posts: [:user, :forum, :character])
+                  .with_unread_count(current_user)
+                  .lookup! params[:id]
 
     respond_to do |format|
       format.json do

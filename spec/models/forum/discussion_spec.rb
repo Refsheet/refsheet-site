@@ -54,6 +54,7 @@ describe Forum::Discussion, type: :model do
     s = create :forum_subscription, discussion: d, last_read_at: 1.hour.ago
 
     da = Forum::Discussion.with_unread_count(s.user)
+    dq = Forum::Discussion.with_unread_count(s.user).find(d.id)
     ds = da.first
 
     expect(da.count(:all)).to eq 2
@@ -62,10 +63,22 @@ describe Forum::Discussion, type: :model do
     expect(ds.posts.count).to eq 2
     expect(ds.unread_posts_count).to eq 1
     expect(ds.topic).to eq d.topic
-    expect(ds.last_read_cache).to be_truthy
-    expect(ds.posts.first.thread.last_read_cache).to be_truthy
 
+    # Last Read Cache
+    expect(ds.last_read_cache).to be_truthy
+    expect(dq.posts.first.thread.last_read_cache).to be_truthy
+
+    # Skip Cache
     expect(p1).to be_read_by(s.user)
     expect(p2).to_not be_read_by(s.user)
+
+    # Implied Cache
+    expect(ds.posts.first).to be_read_by
+    expect(ds.posts.last).to_not be_read_by
+
+    # Serializer Madness
+    ds.posts.collect do |post|
+      expect(post.thread.attributes).to include 'last_read_cache'
+    end
   end
 end

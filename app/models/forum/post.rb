@@ -43,8 +43,11 @@ class Forum::Post < ApplicationRecord
     super.to_md
   end
 
-  def read_by?(user)
-    with self.thread.last_read_at(user) do |last_read_at|
+  # If called without a user, it will assume you are using the ::with_unread_counts scope
+  # on the parent discussion association. If you are not, pass a user. Beware N+1
+  #
+  def read_by?(user=nil)
+    with self.thread.last_read_at(user), true do |last_read_at|
       created_at <= last_read_at
     end
   end
