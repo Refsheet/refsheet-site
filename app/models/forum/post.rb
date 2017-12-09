@@ -27,7 +27,7 @@ class Forum::Post < ApplicationRecord
 
   belongs_to :user
   belongs_to :character
-  belongs_to :thread, class_name: Forum::Discussion, foreign_key: :thread_id
+  belongs_to :thread, class_name: Forum::Discussion, foreign_key: :thread_id, inverse_of: :posts
   belongs_to :parent_post, class_name: Forum::Post, foreign_key: :parent_post_id
   has_many :replies, class_name: Forum::Post, foreign_key: :parent_post_id
   has_many :karmas, class_name: Forum::Karma, foreign_key: :karmic_id, as: :karmic
@@ -41,5 +41,11 @@ class Forum::Post < ApplicationRecord
 
   def content
     super.to_md
+  end
+
+  def read_by?(user)
+    with self.thread.last_read_at(user) do |last_read_at|
+      created_at <= last_read_at
+    end
   end
 end

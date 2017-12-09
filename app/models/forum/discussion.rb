@@ -34,8 +34,9 @@ class Forum::Discussion < ApplicationRecord
   belongs_to :forum
   belongs_to :user
   belongs_to :character
-  has_many :posts, class_name: Forum::Post, foreign_key: :thread_id
+  has_many :posts, class_name: Forum::Post, foreign_key: :thread_id, inverse_of: :thread
   has_many :karmas, class_name: Forum::Karma, as: :karmic, foreign_key: :karmic_id
+  has_many :subscriptions, class_name: Forum::Subscription, foreign_key: :discussion_id
 
   # Requires this to eager load the news feed:
   has_many :activities, as: :activity, dependent: :destroy
@@ -51,8 +52,31 @@ class Forum::Discussion < ApplicationRecord
   slugify :topic, lookups: true
   has_guid :shortcode, type: :shortcode
 
+  scope :with_unread_count, -> (user) {
+    select(sanitize_sql_array [<<-SQL.squish, user.id]).
+        ( 
+            SELECT COUNT(*) FROM forum_posts
+            INNER JOIN forum_threads ON forum_posts.thread_id = forum_threads.id
+            INNER JOIN forum_subscriptions ON forum_subscriptions.discussion_id = forum_threads.id
+            WHERE forum_posts.created_at > forum_subscriptions.last_read_at
+              AND forum_subscriptions.user_id = ?
+        ) AS unread_posts_count
+    SQL
+    left_outer_joins(:subscriptions).
+    where(forum_subscriptions: { user_id: [user.id, nil] }).
+    select('forum_threads.*, forum_subscriptions.last_read_at AS last_read_cache')
+  }
+
   def content
     super.to_md
+  end
+
+  def last_read_at(user)
+    if self.attributes.include? :last_read_cache
+      self.last_read_cache
+    else
+      self.subscriptions.find_by(user: user)&.last_read_at
+    end
   end
 
   private
