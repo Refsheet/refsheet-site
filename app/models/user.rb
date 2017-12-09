@@ -93,6 +93,7 @@ class User < ApplicationRecord
 
   scope :confirmed, -> { where.not email_confirmed_at: nil }
   scope :patrons, -> { joins(:patron).order('patreon_patrons.created_at DESC').where.not patreon_patrons: { id: nil } }
+  scope :with_role, -> (r) { joins(:roles).where(roles: { name: r }) }
 
   def name
     super || username
