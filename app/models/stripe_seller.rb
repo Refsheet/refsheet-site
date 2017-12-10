@@ -24,13 +24,15 @@
 #
 
 class StripeSeller < Seller
+  attr_accessor :personal_id_token
+
   validates_presence_of :dob
   validates_presence_of :first_name
   validates_presence_of :last_name
 
   validates_inclusion_of :processor_type, in: %w(standard custom)
 
-  before_create :create_stripe_account
+  after_commit :create_stripe_account
 
   def get_processor_account
     Stripe::Account.retrieve self.processor_id
@@ -44,17 +46,26 @@ class StripeSeller < Seller
         last_name: self.last_name
     }
 
+    tos_acceptance = {
+        date: self.tos_acceptance_date,
+        ip: self.tos_acceptance_ip
+    }
+
     options = {
         type: (self.processor_type || 'standard'),
         email: self.user.email,
         country: 'US',
         default_currency: self.default_currency,
-        legal_entity: legal_entity
+        legal_entity: legal_entity,
+        tos_acceptance: tos_acceptance,
+        personal_id_number: self.personal_id_token
     }
 
-    account = Stripe::Account.create options
-
-    self.processor_id = account.id
-    self.processor_type = account.type
+    if self.processor_id.nil?
+      account = Stripe::Account.create options
+      self.update_columns processor_id: account.id, processor_type: account.type
+    else
+      self.get_processor_account&.update options
+    end
   end
 end

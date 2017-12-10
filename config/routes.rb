@@ -112,6 +112,7 @@ Rails.application.routes.draw do
     post :test_cart, to: 'test#create_cart'
     post :test_payment, to: 'test#create_payment'
     post :test_setup, to: 'test#create_seller'
+    post :setup, to: 'test#create_bank_account'
 
     delete :test_listing, to: 'test#destroy_listing'
     delete :test_cart, to: 'test#destroy_cart'

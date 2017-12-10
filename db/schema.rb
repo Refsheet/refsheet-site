@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171208233123) do
+ActiveRecord::Schema.define(version: 20171210093934) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,23 @@ ActiveRecord::Schema.define(version: 20171208233123) do
     t.datetime "ends_at"
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
+  end
+
+  create_table "bank_accounts", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "account_holder_name"
+    t.string   "account_holder_type"
+    t.string   "bank_name"
+    t.string   "account_last_4"
+    t.string   "country",             default: "US"
+    t.string   "currency",            default: "USD"
+    t.string   "status"
+    t.string   "processor_id"
+    t.string   "type"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.index ["type"], name: "index_bank_accounts_on_type", using: :btree
+    t.index ["user_id"], name: "index_bank_accounts_on_user_id", using: :btree
   end
 
   create_table "bids", force: :cascade do |t|

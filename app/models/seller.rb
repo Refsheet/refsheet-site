@@ -29,6 +29,10 @@ class Seller < ApplicationRecord
   validates_presence_of :user
   validates_uniqueness_of :user_id
 
+  def name
+    [first_name, last_name].join(' ')
+  end
+
   # @override this.
   def get_processor_account
     nil
