@@ -110,4 +110,20 @@ class Marketplace::TestController < MarketplaceController
       render 'setup'
     end
   end
+
+  def create_bank_account
+    acct_params = params.permit(:bank_account_token)
+                        .merge(user: current_user)
+
+    @bank_account = StripeBankAccount.new acct_params
+
+    if @bank_account.save
+      redirect_to marketplace_setup_path, flash: {
+          notice: 'Bank account added.'
+      }
+    else
+      flash.now[:error] = @bank_account.errors.full_messages.to_sentence
+      render 'setup'
+    end
+  end
 end
