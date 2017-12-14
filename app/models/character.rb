@@ -91,6 +91,16 @@ class Character < ApplicationRecord
   scope :visible, -> { where(hidden: [nil, false]) }
   scope :hidden, -> { where hidden: true }
 
+  scope :visible_to, -> (user) {
+    if user
+      where <<-SQL.squish, user.id, false
+        characters.user_id = ? OR characters.hidden IS NULL OR characters.hidden = ?
+      SQL
+    else
+      visible
+    end
+  }
+
   scope :for_sale, -> { joins(:marketplace_listings).merge(Item.for_sale) }
 
   before_validation do

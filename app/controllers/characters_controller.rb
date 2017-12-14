@@ -120,7 +120,7 @@ class CharactersController < ApplicationController
 
     # NSFW / Hidden
     scope = scope.sfw unless nsfw_on?
-    scope = scope.visible
+    scope = scope.visible_to current_user
 
     scope = scope.search_for(query.join(' '))
     scope.paginate(page: params[:page], per_page: 16)

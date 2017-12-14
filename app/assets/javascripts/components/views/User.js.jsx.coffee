@@ -24,6 +24,10 @@
       StateUtils.load @, 'user'
 
   componentWillReceiveProps: (newProps) ->
+    if newProps.params.userId != @state.user?.username
+      StateUtils.reload @, 'user', newProps
+      return
+
     @setState activeGroupId: window.location.hash.substring(1), ->
       StateUtils.reload @, 'user', newProps
 
@@ -51,7 +55,11 @@
     StateUtils.updateItem @, 'user.character_groups', group, 'slug', ->
       if character
         HashUtils.findItem @state.user.characters, character, 'slug', (c) =>
-          c.group_ids.push group.slug
+          i = c.group_ids.indexOf group.slug
+          if i >= 0
+            c.group_ids.splice(i, 1)
+          else
+            c.group_ids.push group.slug
           StateUtils.updateItem @, 'user.characters', c, 'slug'
 
   _handleGroupDelete: (groupId) ->

@@ -6,7 +6,8 @@ class CharacterGroups::CharactersController < ApplicationController
 
   def create
     if @group.characters.include? @character
-      render json: { error: 'Group already has that character.' }, status: :bad_request
+      @group.characters.destroy @character
+      respond_with @group, location: nil, json: @group, serializer: CharacterGroupSerializer
     else
       @group.characters << @character
       @group.save
