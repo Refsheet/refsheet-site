@@ -168,5 +168,7 @@ Rails.application.routes.draw do
   get '/:id', to: 'users#show', as: :user_profile
 
   get '*page', to: 'application#show'
+
   match '*not_found', to: 'application#not_found!', via: [:post, :put, :patch, :delete, :head, :options]
+  post '/', to: 'application#not_found!'
 end
