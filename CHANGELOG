@@ -1,4 +1,21 @@
 ---
+v1.1.1:
+- hash: 26004fe
+  tags:
+  - b
+  message: Fixed text fields overlapping edit icon. Temporarily disabled character
+    ordering in groups. Extended character privacy settings to Browse, Explore and
+    Activity.
+- hash: 45b44ea
+  tags: []
+  message: Fixed the broken likes/dislikes boxen.
+- hash: 3f0712f
+  tags: []
+  message: Stripe Bank Account management added to Marketplace Prototype.
+- hash: c634088
+  tags: []
+  message: Stripe Bank Account management added to Marketplace Prototype.
+---
 v1.1.0-1.000:
 - hash: 534a4f8
   tags: []
