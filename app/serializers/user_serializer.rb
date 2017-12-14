@@ -22,7 +22,7 @@ class UserSerializer < ActiveModel::Serializer
            serializer: CharacterGroupSerializer
 
   def characters
-    object.characters.rank(:row_order)
+    object.characters.visible_to(scope.current_user).rank(:row_order)
   end
 
   def characters_count

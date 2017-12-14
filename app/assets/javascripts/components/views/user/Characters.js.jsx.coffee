@@ -15,6 +15,11 @@
   render: ->
     { groups, characters, editable, userLink, activeGroupId, onGroupChange, onGroupSort, onGroupDelete, onCharacterDelete, onCharacterSort } = @props
 
+    if activeGroupId
+      listEditable = false
+    else
+      listEditable = editable
+
     `<div className='sidebar-container'>
         <div className='sidebar'>
             { editable &&
@@ -39,7 +44,7 @@
             <User.Characters.List characters={ characters }
                                   activeGroupId={ activeGroupId }
                                   onSort={ onCharacterSort }
-                                  editable={ editable }
+                                  editable={ listEditable }
             />
         </div>
     </div>`

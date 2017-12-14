@@ -42,6 +42,22 @@ class Activity < ApplicationRecord
 
   scope :feed_for, -> (user) { where(user: user).or where user: user.followed_users }
 
+  scope :visible_to, -> (user) {
+    left_outer_joins(:character).
+    joins(<<-SQL.squish).
+      LEFT OUTER JOIN characters a_c ON a_c.id = activities.activity_id AND activities.activity_type = 'Character'
+      LEFT OUTER JOIN images a_i ON a_i.id = activities.activity_id AND activities.activity_type = 'Image'
+      LEFT OUTER JOIN characters a_i_c ON a_i_c.id = a_i.character_id AND activities.activity_type = 'Image'
+    SQL
+    where <<-SQL.squish, user&.id, user&.id, user&.id
+      ( characters.id IS NULL or characters.hidden != 't' OR characters.user_id = ? ) AND (
+        ( activities.activity_type = 'Character' AND ( a_c.hidden IS NULL or a_c.hidden = 'f' OR a_c.user_id = ? ) ) OR
+        ( activities.activity_type = 'Image' AND ( ( a_i.hidden IS NULL or a_i.hidden = 'f' AND a_i_c.hidden IS NULL or a_i_c.hidden = 'f' ) OR a_i_c.user_id = ? ) ) OR
+        ( activities.activity_type != 'Character' AND activities.activity_type != 'Image' )
+      )
+    SQL
+  }
+
   scope :eager_loaded, -> {
     includes(
         :user,

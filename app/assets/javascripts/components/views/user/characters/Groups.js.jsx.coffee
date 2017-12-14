@@ -95,6 +95,6 @@
         { editable &&
             <div className='hint'>
                 <div className='strong'>Hint:</div>
-                <div className='text'>Drag groups and characters to rearrange. Drag characters to add them to groups.</div>
+                <div className='text'>Drag groups and characters (on All Characters page) to rearrange. Drag characters to a group to add/remove.</div>
             </div> }
     </div>`

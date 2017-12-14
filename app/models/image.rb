@@ -101,6 +101,19 @@ class Image < ApplicationRecord # < Media
   scope :nsfw, -> { where(nsfw: true) }
   scope :visible, -> { where(hidden: [false, nil]) }
 
+  scope :visible_to, -> (user) {
+    if user
+      joins(:character).
+      where <<-SQL.squish, user.id, true, true
+        characters.user_id = ? OR ( characters.hidden != ? AND images.hidden != ? )
+      SQL
+    else
+      joins(:character).
+      where('characters.hidden != ?', true).
+      visible
+    end
+  }
+
   def gravity
     super || 'center'
   end
