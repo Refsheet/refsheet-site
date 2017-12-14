@@ -1,4 +1,11 @@
 ---
+v1.1.2:
+- hash: 94792e7
+  tags:
+  - b
+  message: Fixed character visibility persist, fixed bogus posts from some spammer
+    dude.
+---
 v1.1.1:
 - hash: 26004fe
   tags:
