@@ -47,7 +47,7 @@
   %p You are not yet a verified seller. Please update your information below.
 
 %h2 Edit Seller Account
-= simple_form_for @seller, url: marketplace_test_setup_path, as: :seller do |f|
+= simple_form_for @seller, url: marketplace_test_setup_path, as: :seller, method: :post, html: { id: 'edit_seller' } do |f|
   .row
     .col.s6= f.input :first_name
     .col.s6= f.input :last_name
@@ -91,7 +91,56 @@
         else
           $('input#bank_account_token').val response.id
           $('[data-stripe]').remove()
-          Materialize.toast 'Added bank account: ' + response.id
+          Materialize.toast 'Tokenized Bank Account: ' + response.id
           $form[0].submit()
 
       false
+
+    $('#edit_seller').submit (e) ->
+      e.preventDefault()
+
+      $form = $(this)
+      $form.find('input[type=submit]').prop 'disabled', true
+
+      Stripe.pii.createToken $form, (status, response) ->
+        console.log response
+
+        if response.error
+          Materialize.toast response.error.message, 3000, 'red'
+          $form.find('input[type=submit]').prop 'disabled', false
+
+        else
+          $('input#personal_id_token').val response.id
+          $('[data-stripe]').remove()
+          Materialize.toast 'Tokenized SSN: ' + response.id
+          $form[0].submit()
+
+      false
+
+    $('#personal_id_number')
+    .keydown (e) ->
+      joinstr = '-'
+      lastchars = @value.substr(0 - joinstr.length)
+      bksp = e.keyCode == 8 && lastchars == joinstr
+      console.log { bksp, lastchars, joinstr }
+
+      @value = @value.substr(0, @value.length - joinstr.length) if bksp
+
+    .keyup (e) ->
+      sizes = [3, 2, 4]
+      maxlen = sizes.reduce(((a,b) -> a+b), 0)
+      joinstr = '-'
+
+      val = @value.replace(/\D/g, '').substr(0, maxlen)
+      newVal = ''
+
+      for i of sizes
+        if val.length >= sizes[i]
+          newVal += val.substr(0, sizes[i])
+          newVal += joinstr if i < sizes.length - 1
+          val = val.substr(sizes[i])
+        else
+          break
+
+      newVal += val
+      @value = newVal
