@@ -1,4 +1,9 @@
 ---
+v1.1.2-1.000:
+- hash: 95a61cd
+  tags: []
+  message: CORS test.
+---
 v1.1.2:
 - hash: 94792e7
   tags:
