@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171210093934) do
+ActiveRecord::Schema.define(version: 20171218000438) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -176,6 +176,7 @@ ActiveRecord::Schema.define(version: 20171210093934) do
     t.boolean  "secret"
     t.integer  "row_order"
     t.datetime "deleted_at"
+    t.text     "custom_attributes"
   end
 
   create_table "color_schemes", force: :cascade do |t|

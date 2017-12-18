@@ -27,6 +27,7 @@
 #  secret            :boolean
 #  row_order         :integer
 #  deleted_at        :datetime
+#  custom_attributes :text
 #
 
 require 'rails_helper'
@@ -51,6 +52,13 @@ describe Character, type: :model do
       :name
     ]
   )
+
+  it 'serializes custom attributes' do
+    c = create :character, custom_attributes: [ { id: 'a', label: 'Apple', value: 'Pen, Pineapple' } ]
+    c.reload
+    expect(c.custom_attributes.count).to eq 1
+    expect(c.custom_attributes.first).to be_a Hash
+  end
 
   it 'scopes slugs right' do
     u1 = create :user
