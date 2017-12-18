@@ -65,7 +65,7 @@ class Changelog < ApplicationRecord
   def rollback_params
     self.change_data.collect do |attribute, change|
       [attribute, change.first]
-    end.to_h
+    end.to_h.reject { |k, _| [:updated_at, :created_at].include? k.to_sym }
   end
 
   def rollback(object)
