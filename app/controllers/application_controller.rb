@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
 
   serialization_scope :view_context
 
+  respond_to :json, :html
+
 
   #== Global Hooks
 

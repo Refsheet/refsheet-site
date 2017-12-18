@@ -8,7 +8,7 @@
 
   componentDidMount: ->
     if @props.onAttributeUpdate?
-      $('.attribute-table.sortable').sortable
+      $(@refs.table).sortable
         items: 'li:not(.attribute-form)'
         placeholder: 'drop-target'
         forcePlaceholderSize: true
@@ -50,6 +50,8 @@
         newForm =
           `<AttributeForm onCommit={ this.props.onAttributeCreate }
                           inactive={ this.state.activeEditor != null }
+                          hideNotes={ this.props.hideNotesForm }
+                          hideIcon={ this.props.hideIcon }
                           valueType={ this.props.valueType }
                           onFocus={ this.clearEditor } />`
       else
@@ -67,7 +69,7 @@
     if @props.sortable
       className += ' sortable'
 
-    `<ul className={ className }>
+    `<ul className={ className } ref='table'>
         { children }
         { newForm }
     </ul>`

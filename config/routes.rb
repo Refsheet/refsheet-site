@@ -56,6 +56,7 @@ Rails.application.routes.draw do
     resource :follow, only: [:show, :create, :destroy]
 
     resources :characters, only: [:show, :update, :create, :destroy] do
+      resources :attributes, only: [:create, :update, :destroy], controller: 'characters/attributes'
       resources :swatches, only: [:index, :create, :update, :destroy], shallow: true
       resources :images, only: [:index, :show, :create, :update, :destroy], shallow: true do
         member do

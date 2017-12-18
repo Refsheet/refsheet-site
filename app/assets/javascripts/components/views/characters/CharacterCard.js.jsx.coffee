@@ -39,6 +39,10 @@
   _handleFollow: (f) ->
     @setState HashUtils.set(@state, 'character.followed', f), ->
       Materialize.toast "Character #{if f then 'followed!' else 'unfollowed.'}", 3000, 'green'
+      
+  _handleChange: (char) ->
+    @props.onChange(char) if @props.onChange
+    @setState character: char
 
   render: ->
     if @props.edit
@@ -54,11 +58,14 @@
                           hideEmpty={ !this.props.edit }
                           hideNotesForm>
 
-              <Attribute id='gender' name='Gender' value={ this.state.character.gender } />
               <Attribute id='species' name='Species' value={ this.state.character.species } />
-              <Attribute id='height' name='Height / Weight' value={ this.state.character.height } />
-              <Attribute id='body_type' name='Body Type' value={ this.state.character.body_type } />
           </AttributeTable>
+          
+          <Views.Character.Attributes characterPath={ this.state.character.path }
+                                      attributes={ this.state.character.custom_attributes }
+                                      onChange={ this._handleChange }
+                                      editable={ editable }
+          />
 
           { (this.state.character.special_notes || editable) &&
               <div className='important-notes margin-top--large margin-bottom--medium'>

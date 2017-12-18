@@ -27,6 +27,7 @@
 #  secret            :boolean
 #  row_order         :integer
 #  deleted_at        :datetime
+#  custom_attributes :text
 #
 
 FactoryGirl.define do

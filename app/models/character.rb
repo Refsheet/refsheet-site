@@ -27,6 +27,7 @@
 #  secret            :boolean
 #  row_order         :integer
 #  deleted_at        :datetime
+#  custom_attributes :text
 #
 
 class Character < ApplicationRecord
@@ -68,6 +69,7 @@ class Character < ApplicationRecord
   validate :validate_featured_image
 
   before_validation :initiate_transfer, if: -> (c) { c.transfer_to_user.present? }
+  before_create :initialize_custom_attributes
   after_create :log_activity
 
   before_destroy :decrement_counter_cache
@@ -77,6 +79,8 @@ class Character < ApplicationRecord
   scoped_search on: [:name, :species, :profile, :likes, :dislikes]
   ranks :row_order
   acts_as_paranoid
+
+  serialize :custom_attributes
 
   scope :default_order, -> do
     order(<<-SQL)
@@ -247,5 +251,13 @@ class Character < ApplicationRecord
 
   def log_activity
     Activity.create activity: self, user_id: self.user_id, created_at: self.created_at, activity_method: 'create'
+  end
+
+  def initialize_custom_attributes
+    self.custom_attributes ||= [
+        { id: 'gender', name: 'Gender', value: nil },
+        { id: 'height', name: 'Height / Weight', value: nil },
+        { id: 'body-type', name: 'Body Type', value: nil }
+    ]
   end
 end
