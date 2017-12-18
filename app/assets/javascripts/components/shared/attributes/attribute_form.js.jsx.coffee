@@ -97,7 +97,7 @@
                    value={ this.state.notes } />
         </div>`
 
-    `<li className={ className }>
+    `<li className={ className } data-attribute-id={ this.props.id }>
         <form onSubmit={ this.commit }>
             { iconTag }
 
@@ -116,7 +116,7 @@
             </div>
 
             <div className='actions'>
-                <a className={ saveClassName } onClick={ this.commit }>
+                <a className={ saveClassName } onClick={ this.commit } href='#'>
                     <i className='material-icons'>save</i>
                 </a>
 

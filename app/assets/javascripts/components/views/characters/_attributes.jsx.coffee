@@ -29,6 +29,7 @@
                      onAttributeDelete={ deleteCallback }
                      onAttributeCreate={ updateCallback }
                      defaultValue='Unspecified'
+                     className='char-custom-attrs'
                      editable={ this.props.editable }
                      hideNotesForm
                      hideIcon

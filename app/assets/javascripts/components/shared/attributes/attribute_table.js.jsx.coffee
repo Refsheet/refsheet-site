@@ -65,9 +65,8 @@
           </li>`
 
     className = 'attribute-table'
-
-    if @props.sortable
-      className += ' sortable'
+    className += ' sortable' if @props.sortable
+    className += ' ' + @props.className if @props.className
 
     `<ul className={ className } ref='table'>
         { children }
