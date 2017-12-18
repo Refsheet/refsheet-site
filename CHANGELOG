@@ -1,4 +1,22 @@
 ---
+v1.2.0:
+- hash: 3adde5d
+  tags: []
+  message: Fix failing spec.
+- hash: '2843405'
+  tags: []
+  message: Update deploy task.
+- hash: d1859cd
+  tags: []
+  message: Attribute form specs included.
+- hash: dcb7f88
+  tags:
+  - f
+  message: New customizable attribute tables on character pages.
+- hash: a0681e9
+  tags: []
+  message: Minor CORS fix, hopefully.
+---
 v1.1.2-1.000:
 - hash: 95a61cd
   tags: []
