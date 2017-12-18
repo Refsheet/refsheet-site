@@ -5,6 +5,7 @@ class Characters::AttributesController < AccountController
     if attribute_params[:id].blank?
       Rails.logger.info 'Creating new attribute.'
       @character.custom_attributes.push attribute_params.merge(id: SecureRandom.hex).to_h.symbolize_keys
+
     elsif attribute_params[:rowOrderPosition].present?
       Rails.logger.info 'Sorting attribute.'
 
@@ -12,6 +13,7 @@ class Characters::AttributesController < AccountController
         el = @character.custom_attributes.slice! index
         @character.custom_attributes.insert index, el
       end
+
     else
       Rails.logger.info 'Updating attribute.'
       

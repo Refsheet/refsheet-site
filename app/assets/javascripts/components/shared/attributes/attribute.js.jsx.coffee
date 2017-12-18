@@ -37,13 +37,13 @@
 
     if @props.onDelete?
       trash =
-        `<a className='' onClick={ this.deleteAttribute }>
+        `<a className='attr-delete' onClick={ this.deleteAttribute } href='#'>
             <i className='material-icons'>delete</i>
         </a>`
 
     if @props.onCommit?
       edit =
-        `<a className='' onClick={ this.startEdit }>
+        `<a className='attr-start-edit' onClick={ this.startEdit } href='#'>
             <i className='material-icons'>edit</i>
         </a>`
 
