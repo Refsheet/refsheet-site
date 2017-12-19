@@ -19,10 +19,8 @@
 
 FactoryGirl.define do
   factory :forum do
-    name "MyString"
-    description "MyText"
-    slug "MyString"
-    locked false
-    nsfw false
+    name { Faker::LordOfTheRings.location }
+    description { Faker::Lorem.paragraph }
+    sequence(:slug) { |i| "forum-#{i}"}
   end
 end

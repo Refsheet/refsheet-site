@@ -53,7 +53,7 @@ class Forum::Discussion < ApplicationRecord
   has_guid :shortcode, type: :shortcode
 
   scope :with_unread_count, -> (user) {
-    joins(sanitize_sql_array [<<-SQL.squish, user.id]).
+    joins(sanitize_sql_array [<<-SQL.squish, user&.id]).
         LEFT OUTER JOIN ( 
             SELECT COUNT(*) AS unread_posts_count, forum_posts.thread_id FROM forum_posts
             INNER JOIN forum_threads ON forum_posts.thread_id = forum_threads.id
