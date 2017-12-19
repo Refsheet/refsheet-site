@@ -1,4 +1,10 @@
 ---
+v1.2.1:
+- hash: 43a74db
+  tags:
+  - b
+  message: Fixed forum links breaking if user is signed out.
+---
 v1.2.0:
 - hash: 3adde5d
   tags: []
