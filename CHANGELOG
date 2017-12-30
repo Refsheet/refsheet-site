@@ -1,4 +1,12 @@
 ---
+v1.2.1-1.000:
+- hash: b4dcb5d
+  tags: []
+  message: Assets optimized.
+- hash: fa0618a
+  tags: []
+  message: Optimized image sizes.
+---
 v1.2.1:
 - hash: 43a74db
   tags:
