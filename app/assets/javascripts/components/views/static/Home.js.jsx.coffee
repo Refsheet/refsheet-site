@@ -17,7 +17,7 @@
     ]
 
     `<Main title='Refsheet.net: Your Characters, Organized.'>
-        <Jumbotron backgroundImage='/assets/unsplash/typewriter.jpg'>
+        <Jumbotron backgroundImage='https://assets.refsheet.net/assets/unsplash/typewriter.jpg'>
             <h1>Your characters, <strong>organized.</strong></h1>
             <p className='flow-text'>
                 Let Refsheet help you commission, share, and socialize
@@ -36,7 +36,7 @@
                     <Column s={12} m={4}>
                         <div className='card card-light'>
                             <div className='card-image'>
-                                <img src='/assets/marketing/feature_profile.png' alt='Character Profiles' className='materialboxed' />
+                                <img src='https://assets.refsheet.net/assets/marketing/feature_profile.png' alt='Character Profiles' className='materialboxed' />
                             </div>
                             <div className='card-content'>
                                 <div className='card-title'>Character Profiles</div>
@@ -51,7 +51,7 @@
                     <Column s={12} m={4}>
                         <div className='card card-light'>
                             <div className='card-image'>
-                                <img src='/assets/marketing/feature_color_palette.png' alt='Color Palettes' className='materialboxed' />
+                                <img src='https://assets.refsheet.net/assets/marketing/feature_color_palette.png' alt='Color Palettes' className='materialboxed' />
                             </div>
                             <div className='card-content'>
                                 <div className='card-title'>Color Palettes</div>
@@ -66,7 +66,7 @@
                     <Column s={12} m={4}>
                         <div className='card card-light'>
                             <div className='card-image'>
-                                <img src='/assets/marketing/feature_gallery.png' alt='Art Galleries' className='materialboxed' />
+                                <img src='https://assets.refsheet.net/assets/marketing/feature_gallery.png' alt='Art Galleries' className='materialboxed' />
                             </div>
                             <div className='card-content'>
                                 <div className='card-title'>Art Galleries</div>
@@ -81,7 +81,7 @@
             </div>
         </Section>
 
-        <PageHeader backgroundImage='/assets/unsplash/bamboo.jpg'>
+        <PageHeader backgroundImage='https://assets.refsheet.net/assets/unsplash/bamboo.jpg'>
             <div className='character-card'>
                 <div className='character-details'>
                     <h1 className='real-name'>Beautiful Presentation</h1>
@@ -98,7 +98,7 @@
                 </div>
                 <div className='character-image'>
                     <div className='slant' />
-                    <img src='/assets/unsplash/yawn.jpg' />
+                    <img src='https://assets.refsheet.net/assets/unsplash/yawn.jpg' />
                 </div>
             </div>
         </PageHeader>
