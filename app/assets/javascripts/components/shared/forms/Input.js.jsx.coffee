@@ -155,7 +155,7 @@
         `<i className='material-icons prefix'>{ this.props.icon }</i>`
 
     wrapperClassNames = ['input-field']
-    wrapperClassNames.push 'margin-top--none' if @props.noMargin
+    wrapperClassNames.push 'margin-top--none' if @props.noMargin or !@props.label
 
     `<div className={ wrapperClassNames.join(' ') }>
         { icon }

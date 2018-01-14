@@ -41,6 +41,12 @@
             <Route path='login' component={ LoginView } />
             <Route path='register' component={ RegisterView } />
 
+            <Route path='account' title='Account' component={ Views.Account.Layout }>
+                <Route path='settings' title='Settings'>
+                    <IndexRoute title='Account Settings' component={ Views.Account.Settings.Show } />
+                </Route>
+            </Route>
+
 
             <Route path='browse' component={ BrowseApp }>
                 <IndexRoute component={ CharacterIndexView } />

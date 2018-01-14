@@ -13,7 +13,8 @@
 
         <li className='subheader'>Account</li>
 
-        <NavLink to='/account/settings' icon='settings' text='Settings' disabled>
-            <NavLink to='/account/settings' icon='settings' text='Settings' disabled />
+        <NavLink to='/account/settings' icon='settings' text='Settings'>
+            <NavLink to='/account/settings' text='Account' />
+            <NavLink to='/account/settings/support' text='Support' />
         </NavLink>
     </ul>`

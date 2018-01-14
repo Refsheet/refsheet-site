@@ -34,7 +34,33 @@
 //= require jquery.justifiedGallery
 //= require js.cookie
 //
+//= require_self
 //= require components
 //= require cable
 //= require_tree ./admin
 //= require_tree .
+
+window.namespace = function(ns_path, parent) {
+    var spaces, final, current;
+
+    if(!ns_path) return;
+    if(!parent) parent = window;
+
+    if(ns_path.unshift) {
+        spaces = ns_path;
+    } else {
+        spaces = ns_path.split('.');
+    }
+
+    current = spaces.shift();
+
+    if(typeof parent[current] === 'undefined') {
+        final = parent[current] = {};
+    }
+
+    if(spaces.length > 0) {
+        return namespace(spaces, parent[current]);
+    } else {
+        return final;
+    }
+};
