@@ -78,7 +78,7 @@ module SessionHelper
         nsfw_ok: session[:nsfw_ok],
         locale: session[:locale],
         time_zone: session[:time_zone],
-        current_user: signed_in? ? UserIndexSerializer.new(current_user).as_json : nil
+        current_user: signed_in? ? PrivateUserSerializer.new(current_user).as_json : nil
     }
   end
 

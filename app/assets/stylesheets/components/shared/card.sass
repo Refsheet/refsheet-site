@@ -38,6 +38,22 @@
 
   .card-header
     padding: 1rem
+    background-color: darken($card-bg-color, 1%)
+
+    h2
+      margin: 0
+      line-height: initial
+      height: auto
+      font-size: 1.2rem
+      font-weight: normal
+
+  .card-action
+    border-top: none
+    background-color: darken($card-bg-color, 1%)
+
+    button
+      @extend .z-depth-0
+      margin: -0.5rem 0
 
     .author
       img
