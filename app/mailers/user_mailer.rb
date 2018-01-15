@@ -57,4 +57,13 @@ class UserMailer < ApplicationMailer
     mail to: @user.email_to,
          subject: '[Refsheet.net] Thank you for your support!'
   end
+
+  def patron_link(patron, auth_code)
+    @patron = patron
+    @auth_code = auth_code
+    @preheader = 'Confirm your email address to link your Patreon account.'
+
+    mail to: @patron.email_to,
+         subject: '[Refsheet.net] Confirm Patreon Email'
+  end
 end

@@ -11,6 +11,9 @@ class PrivateUserSerializer < ActiveModel::Serializer
              :password_confirmation,
              :path
 
+  has_one :patron
+  has_many :pledges
+
   def password
   end
 

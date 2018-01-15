@@ -1,0 +1,9 @@
+%h1 Confirm Patreon Email
+
+%p Oh, hello #{@patron.full_name}!
+
+%p
+  Thank you for your support! To link this Patreon account to your Refsheet.net account,
+  please follow the link below.
+
+= button 'Link Patreon Account', link_account_support_patron_url(lookup_email: @patron.email, auth: @auth_code), primary: true

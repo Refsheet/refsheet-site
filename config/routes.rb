@@ -34,6 +34,14 @@ Rails.application.routes.draw do
   namespace :account do
     get '/activity' => 'activities#index'
     resource :settings, only: [:show, :update]
+
+    resource :support, only: [:show] do
+      resource :patron, only: [:update] do
+        member do
+          get :link
+        end
+      end
+    end
   end
 
 
