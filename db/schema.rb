@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171218000438) do
+ActiveRecord::Schema.define(version: 20180114013331) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -405,8 +405,10 @@ ActiveRecord::Schema.define(version: 20171218000438) do
     t.string   "vanity"
     t.string   "url"
     t.integer  "user_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "auth_code_digest"
+    t.integer  "pending_user_id"
   end
 
   create_table "patreon_pledges", force: :cascade do |t|

@@ -1,4 +1,4 @@
-{ @Router, @browserHistory, @Route, @IndexRoute, @Link, @IndexLink } = ReactRouter
+{ @Router, @browserHistory, @Route, @IndexRoute, @IndexRedirect, @Link, @IndexLink } = ReactRouter
 
 @Routes = React.createClass
   propTypes:
@@ -42,9 +42,9 @@
             <Route path='register' component={ RegisterView } />
 
             <Route path='account' title='Account' component={ Views.Account.Layout }>
-                <Route path='settings' title='Settings'>
-                    <IndexRoute title='Account Settings' component={ Views.Account.Settings.Show } />
-                </Route>
+                <IndexRedirect to='settings' />
+                <Route path='settings' title='Account Settings' component={ Views.Account.Settings.Show } />
+                <Route path='support' title='Support Settings' component={ Views.Account.Settings.Support } />
             </Route>
 
 
