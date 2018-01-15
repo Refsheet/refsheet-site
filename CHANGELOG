@@ -1,4 +1,15 @@
 ---
+v1.2.1-2.000:
+- hash: 31f0d43
+  tags: []
+  message: Self-service patron link complete.
+- hash: 8ff05f3
+  tags: []
+  message: Self-service patron link complete.
+- hash: 2a2ca7c
+  tags: []
+  message: User settings!
+---
 v1.2.1-1.000:
 - hash: b4dcb5d
   tags: []
