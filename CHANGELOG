@@ -1,4 +1,12 @@
 ---
+v1.2.1-3.000:
+- hash: e908bfa
+  tags: []
+  message: Fix feedback errors.
+- hash: ae4270c
+  tags: []
+  message: Moderation report model created.
+---
 v1.2.1-2.000:
 - hash: 31f0d43
   tags: []
