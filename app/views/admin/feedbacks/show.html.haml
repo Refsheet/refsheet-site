@@ -20,32 +20,34 @@
 
         .col.s12.m9
           = simple_format @feedback.comment
-          %hr
-          %ul.attributes.row
-            %li.col.s12.m4
-              .label IP
-              .value= @feedback.visit.ip || 'nil'
-            %li.col.s12.m4
-              .label Browser
-              .value= @feedback.visit.browser || 'nil'
-            %li.col.s12.m4
-              .label OS
-              .value= @feedback.visit.os || 'nil'
-            %li.col.s12.m4
-              .label Device
-              .value= @feedback.visit.device_type || 'nil'
-            %li.col.s12.m4
-              .label Resolution
-              .value= [@feedback.visit.screen_height, @feedback.visit.screen_width].join('x') || 'nil'
-            %li.col.s12.m4
-              .label Location
-              .value= @feedback.visit.location || 'nil'
-            %li.col.s12.m6
-              .label Landing Page
-              .value.truncate= link_to @feedback.visit.landing_page, @feedback.visit.landing_page, target: '_blank'
-            %li.col.s12.m6
-              .label Source URL
-              .value.truncate= @feedback.source_url.present? ? link_to(@feedback.source_url, @feedback.source_url, target: '_blank') : 'nil'
+
+          - if @feedback.visit
+            %hr
+            %ul.attributes.row
+              %li.col.s12.m4
+                .label IP
+                .value= @feedback.visit.ip || 'nil'
+              %li.col.s12.m4
+                .label Browser
+                .value= @feedback.visit.browser || 'nil'
+              %li.col.s12.m4
+                .label OS
+                .value= @feedback.visit.os || 'nil'
+              %li.col.s12.m4
+                .label Device
+                .value= @feedback.visit.device_type || 'nil'
+              %li.col.s12.m4
+                .label Resolution
+                .value= [@feedback.visit.screen_height, @feedback.visit.screen_width].join('x') || 'nil'
+              %li.col.s12.m4
+                .label Location
+                .value= @feedback.visit.location || 'nil'
+              %li.col.s12.m6
+                .label Landing Page
+                .value.truncate= link_to @feedback.visit.landing_page, @feedback.visit.landing_page, target: '_blank'
+              %li.col.s12.m6
+                .label Source URL
+                .value.truncate= @feedback.source_url.present? ? link_to(@feedback.source_url, @feedback.source_url, target: '_blank') : 'nil'
 
   .row.margin-top--large
     .col.s12.m3
