@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180114013331) do
+ActiveRecord::Schema.define(version: 20180116031414) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -355,6 +355,25 @@ ActiveRecord::Schema.define(version: 20180114013331) do
     t.datetime "updated_at", null: false
     t.index ["media_id"], name: "index_media_favorites_on_media_id", using: :btree
     t.index ["user_id"], name: "index_media_favorites_on_user_id", using: :btree
+  end
+
+  create_table "moderation_reports", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "sender_user_id"
+    t.integer  "moderatable_id"
+    t.string   "moderatable_type"
+    t.string   "violation_type"
+    t.text     "comment"
+    t.string   "dmca_source_url"
+    t.string   "status"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["moderatable_id"], name: "index_moderation_reports_on_moderatable_id", using: :btree
+    t.index ["moderatable_type"], name: "index_moderation_reports_on_moderatable_type", using: :btree
+    t.index ["sender_user_id"], name: "index_moderation_reports_on_sender_user_id", using: :btree
+    t.index ["status"], name: "index_moderation_reports_on_status", using: :btree
+    t.index ["user_id"], name: "index_moderation_reports_on_user_id", using: :btree
+    t.index ["violation_type"], name: "index_moderation_reports_on_violation_type", using: :btree
   end
 
   create_table "order_items", force: :cascade do |t|
