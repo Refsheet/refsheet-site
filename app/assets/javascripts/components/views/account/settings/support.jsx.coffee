@@ -21,7 +21,7 @@ class @Views.Account.Settings.Support extends React.Component
 
 
   render: ->
-    if !@state.user.is_patron
+    if @state.user.is_patron
       attributes = []
 
       for k, v of @state.user.patron
