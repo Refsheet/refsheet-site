@@ -1,4 +1,9 @@
 ---
+v1.2.2-3.001:
+- hash: 8c98e92
+  tags: []
+  message: This isn't the ES6 you're looking for.
+---
 v1.2.2-2.001:
 - hash: cc10eb1
   tags: []
