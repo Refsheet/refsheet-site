@@ -60,11 +60,11 @@ function onFetch(event) {
 }
 
 function onPush(event) {
-    let data = (event.data && JSON.parse(event.data.text())) || {}
-    let title = data.title || 'Notification from Refsheet.net';
-    let body = data.body;
-    let tag = data.tag || 'refsheet-notification';
-    let icon = 'https://assets.refsheet.net/assets/logos/RefsheetLogo_64.png';
+    var data = (event.data && JSON.parse(event.data.text())) || {}
+    var title = data.title || 'Notification from Refsheet.net';
+    var body = data.body;
+    var tag = data.tag || 'refsheet-notification';
+    var icon = 'https://assets.refsheet.net/assets/logos/RefsheetLogo_64.png';
 
     console.log('[WebPush]', 'Got Event:', event.data);
 
