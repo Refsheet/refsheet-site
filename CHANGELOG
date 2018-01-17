@@ -1,4 +1,9 @@
 ---
+v1.2.2-1.000:
+- hash: 98fcae4
+  tags: []
+  message: Experimental browser push notifications.
+---
 v1.2.2:
 - hash: c1c113f
   tags:
