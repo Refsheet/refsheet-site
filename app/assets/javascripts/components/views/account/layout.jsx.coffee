@@ -26,8 +26,8 @@ class @Views.Account.Layout extends React.Component
             </div>
 
             <div className='sidebar aside transparent'>
+                { typeof Advertisement != 'undefined' && <Advertisement /> }
                 <Views.Account.Suggestions />
-                <Advertisement />
             </div>
         </Container>
     </Main>`

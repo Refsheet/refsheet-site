@@ -48,6 +48,7 @@ gem 'jquery-justified-gallery-rails'
 gem 'imagesLoaded_rails'
 gem 'highcharts-rails'
 gem 'js_cookie_rails'
+gem 'serviceworker-rails'
 
 # == UTILITY
 
@@ -77,6 +78,7 @@ gem 'premailer-rails'
 
 gem 'ruby-trello'
 gem 'stripe'
+gem 'webpush'
 
 # == BOWER ASSETS
 

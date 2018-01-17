@@ -26,12 +26,12 @@ class @Views.Account.Settings.Support extends React.Component
 
       for k, v of @state.user.patron
         attributes.push \
-          `<Attribute name={ k } value={ v } />`
+          `<Attribute key={ k } name={ k } value={ v } />`
 
       for pledge in @state.user.pledges
         for k, v of pledge
           attributes.push \
-            `<Attribute name={ k } value={ v } />`
+            `<Attribute key={ k } name={ k } value={ v } />`
 
       patreonStatus =
         `<div className='card sp margin-bottom--none'>
