@@ -35,10 +35,13 @@
 //= require js.cookie
 //
 //= require_self
+//= require _rollbar
+//= require highcharts-init
 //= require components
 //= require cable
 //= require_tree ./admin
-//= require_tree .
+//= require_tree ./utils
+//= require serviceworker-companion
 
 window.namespace = function(ns_path, parent) {
     var spaces, final, current;

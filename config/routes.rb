@@ -35,6 +35,12 @@ Rails.application.routes.draw do
     get '/activity' => 'activities#index'
     resource :settings, only: [:show, :update]
 
+    resource :notifications, only: [:show, :update] do
+      member do
+        put :browser_push
+      end
+    end
+
     resource :support, only: [:show] do
       resource :patron, only: [:update] do
         member do

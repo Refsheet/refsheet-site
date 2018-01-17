@@ -45,6 +45,7 @@
                 <IndexRedirect to='settings' />
                 <Route path='settings' title='Account Settings' component={ Views.Account.Settings.Show } />
                 <Route path='support' title='Support Settings' component={ Views.Account.Settings.Support } />
+                <Route path='notifications' title='Notification Settings' component={ Views.Account.Settings.Notifications } />
             </Route>
 
 
