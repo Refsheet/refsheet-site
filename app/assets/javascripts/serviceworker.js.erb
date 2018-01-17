@@ -69,7 +69,7 @@ function onPush(event) {
     console.log('[WebPush]', 'Got Event:', event.data);
 
     event.waitUntil(
-        self.registration.showNotification(title, { body, icon, tag })
+        self.registration.showNotification(title, { body: body, icon: icon, tag: tag })
     )
 }
 
