@@ -1,4 +1,10 @@
 ---
+v1.2.2:
+- hash: c1c113f
+  tags:
+  - b
+  message: Fixed the "I have a Patron symbol but support says I do not" bug!
+---
 v1.2.1-3.000:
 - hash: e908bfa
   tags: []
