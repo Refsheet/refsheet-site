@@ -1,4 +1,12 @@
 ---
+v1.2.2-4.001:
+- hash: 7ef8eee
+  tags: []
+  message: Notifications for various browser events.
+- hash: a238be2
+  tags: []
+  message: ServiceWorker Click.
+---
 v1.2.2-3.001:
 - hash: 8c98e92
   tags: []
