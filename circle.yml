@@ -9,8 +9,15 @@ test:
     - bundle exec rspec --format progress --format RspecJunitFormatter -o $CIRCLE_TEST_REPORTS/rspec.xml
 
 deployment:
-  staging:
-    branch: master
+  production:
+    branch: production
     commands:
       - bash ./bin/setup-eb.sh
-      - eb deploy refsheet-staging
+      - bundle exec rake refsheet:deploy[refsheet-prod]
+      - bundle exec rake refsheet:deploy[refsheet-prod-worker]
+
+#  staging:
+#    branch: master
+#    commands:
+#      - bash ./bin/setup-eb.sh
+#      - eb deploy refsheet-staging
