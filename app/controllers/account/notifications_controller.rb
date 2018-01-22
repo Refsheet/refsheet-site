@@ -23,6 +23,6 @@ class Account::NotificationsController < AccountController
                          'Notifications have been enabled for Refsheet.net!',
                          href: account_notifications_url
 
-    head :no_content
+    render json: current_user, serializer: PrivateUserSerializer
   end
 end

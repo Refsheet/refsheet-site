@@ -3,6 +3,7 @@ namespace 'Views.Account.Settings'
 class @Views.Account.Settings.Notifications extends React.Component
   @contextTypes:
     currentUser: React.PropTypes.object.isRequired
+    setCurrentUser: React.PropTypes.func.isRequired
 
   constructor: (props) ->
     bp = typeof Notification isnt 'undefined' and Notification.permission is 'granted'
@@ -42,6 +43,7 @@ class @Views.Account.Settings.Notifications extends React.Component
       registration.pushManager.getSubscription().then (subscription) =>
         console.debug 'Got subscription:', subscription
         Model.put '/account/notifications/browser_push', subscription: subscription.toJSON(), (data) =>
+          @context.setCurrentUser data
           @setState browserGranted: true, callback
 
 
