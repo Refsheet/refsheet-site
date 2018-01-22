@@ -1,4 +1,6 @@
 class Account::NotificationsController < AccountController
+  in_beta!
+
   def show
 
   end

@@ -1,4 +1,7 @@
 @Views.Account.SideNav = React.createClass
+  contextTypes:
+    currentUser: React.PropTypes.object.isRequired
+
   render: ->
     `<ul className='side-nav fixed in-page margin-top--large'>
         <NavLink to='/' icon='home' text='Activity Feed'>
@@ -16,6 +19,8 @@
         <NavLink to='/account' icon='settings' text='Settings'>
             <NavLink to='/account/settings' text='Account' />
             <NavLink to='/account/support' text='Support' />
-            <NavLink to='/account/notifications' text='Notifications' />
+
+            { this.context.currentUser.is_patron &&
+                <NavLink to='/account/notifications' text='Notifications' /> }
         </NavLink>
     </ul>`

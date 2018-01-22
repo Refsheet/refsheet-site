@@ -46,6 +46,8 @@ class @Views.Account.Settings.Notifications extends React.Component
 
 
   render: ->
+    return unless @context.currentUser.is_patron
+
     browserSupported = typeof Notification isnt 'undefined'
     browserEnabled = @state.browserGranted
     canRegister = browserSupported and not browserEnabled
