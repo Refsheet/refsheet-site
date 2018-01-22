@@ -24,6 +24,8 @@ class Media::Favorite < ApplicationRecord
   validates_presence_of :user
   validate :unique_favorite
 
+  after_create :notify_user
+
   def guid
     Digest::MD5.hexdigest media_id.to_s + user_id.to_s
   end
@@ -36,5 +38,12 @@ class Media::Favorite < ApplicationRecord
       false
     end
     true
+  end
+
+  def notify_user
+    media.user.notify! "New image favorite!",
+                       "#{user.name} likes #{media.title}!",
+                       href: image_url(media),
+                       tag: 'rs-fav-' + guid
   end
 end

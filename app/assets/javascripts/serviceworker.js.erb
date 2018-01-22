@@ -1,4 +1,4 @@
-var CACHE_VERSION = 'v1';
+var CACHE_VERSION = 'v1.0.1';
 var CACHE_NAME = CACHE_VERSION + ':sw-cache-';
 
 function onInstall(event) {
@@ -98,10 +98,14 @@ function onClick(event) {
     event.waitUntil(clients.matchAll({
         type: "window"
     }).then(function(clientList) {
+        var search = href.replace(/#[^#]+$/, '');
+        console.log('Finding window for:', search);
+
         for (var i = 0; i < clientList.length; i++) {
             var client = clientList[i];
+            var url = client.url.replace(/#[^#]+$/, '');
 
-            if (client.url == href && 'focus' in client)
+            if (url == search && 'focus' in client)
                 return client.focus();
         }
         if (clients.openWindow)

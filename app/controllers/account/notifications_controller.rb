@@ -19,7 +19,7 @@ class Account::NotificationsController < AccountController
     current_user.save!
     current_user.notify! 'Notifications Enabled!',
                          'Notifications have been enabled for Refsheet.net!',
-                         account_notifications_url
+                         href: account_notifications_url
 
     head :no_content
   end
