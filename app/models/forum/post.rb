@@ -37,6 +37,8 @@ class Forum::Post < ApplicationRecord
   validates_presence_of :user
   validates_presence_of :thread
 
+  after_create :notify_user
+
   has_guid
 
   def content
@@ -50,5 +52,12 @@ class Forum::Post < ApplicationRecord
     with self.thread.last_read_at(user), true do |last_read_at|
       created_at <= last_read_at
     end
+  end
+
+  def notify_user
+    thread.user.notify! "New forum reply!",
+                        "#{user.name} on #{thread.topic}:\n\"#{content.to_text.truncate(120).chomp}\"",
+                        href: forum_thread_url(forum, thread.slug, anchor: guid),
+                        tag: 'rs-freply-' + guid
   end
 end

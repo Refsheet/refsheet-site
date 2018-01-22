@@ -105,11 +105,11 @@ Rails.application.routes.draw do
   #== Forums
 
   resources :forums, only: [:index, :show] do
+    get ':id', to: 'forum/threads#show', as: :thread
+
     resources :threads, only: [:index, :show, :create], controller: 'forum/threads' do
       resources :posts, only: [:index, :show, :create], controller: 'forum/posts'
     end
-
-    get ':id', to: 'forum/threads#show'
   end
 
 

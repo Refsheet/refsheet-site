@@ -36,6 +36,7 @@ class Media::Comment < ApplicationRecord
   validates_presence_of :comment
 
   after_create :log_activity
+  after_create :notify_user
 
   has_guid
 
@@ -47,5 +48,12 @@ class Media::Comment < ApplicationRecord
 
   def log_activity
     Activity.create activity: self, user_id: self.user_id, created_at: self.created_at, activity_method: 'create'
+  end
+
+  def notify_user
+    media.user.notify! "New image comment!",
+                       "#{user.name} on #{media.title}:\n\"#{comment.truncate(120).chomp}\"",
+                       href: image_url(media),
+                       tag: 'rs-comment-' + guid
   end
 end

@@ -202,14 +202,13 @@ class User < ApplicationRecord
     UserMailer.welcome(id, generate_auth_code!).deliver_now
   end
 
-  def notify!(title, body=nil, href=nil)
+  def notify!(title, body=nil, options={})
     return unless settings[:vapid]
 
     m = {
         title: title,
-        body: body,
-        href: href
-    }
+        body: body
+    }.merge options
 
     Webpush.payload_send message: m.to_json,
                          endpoint: settings[:vapid][:endpoint],
