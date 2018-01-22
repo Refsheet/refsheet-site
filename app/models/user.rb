@@ -28,6 +28,8 @@
 #
 
 class User < ApplicationRecord
+  include Rails.application.routes.url_helpers
+
   has_many :characters
   has_many :character_groups
   has_many :permissions
