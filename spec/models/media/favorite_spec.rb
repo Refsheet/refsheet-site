@@ -33,4 +33,9 @@ describe Media::Favorite, type: :model do
     c2 = build :media_favorite, media: c1.media, user: c1.user
     expect(c2).to have(1).errors_on :media
   end
+
+  it 'notifies without kaboom' do
+    expect_any_instance_of(User).to receive(:notify!).and_return(true)
+    expect(create :media_favorite).to be_valid
+  end
 end

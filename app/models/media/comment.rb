@@ -22,6 +22,7 @@
 class Media::Comment < ApplicationRecord
   include NamespacedModel
   include HasGuid
+  include Rails.application.routes.url_helpers
 
   belongs_to :media, class_name: Image, counter_cache: :comments_count, inverse_of: :comments
   belongs_to :user

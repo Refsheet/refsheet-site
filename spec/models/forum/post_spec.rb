@@ -45,4 +45,9 @@ describe Forum::Post, type: :model do
           :content
       ]
   )
+
+  it 'notifies without kaboom' do
+    expect_any_instance_of(User).to receive(:notify!).and_return(true)
+    expect(create :forum_post).to be_valid
+  end
 end
