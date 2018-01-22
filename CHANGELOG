@@ -1,4 +1,11 @@
 ---
+v1.2.2-7.002:
+- hash: 4571d2f
+  tags:
+  - p
+  message: 'Added browser push notifications for Patron preview, currently supports:
+    Comment, Favs, and Forum Replies. Thanks, guys <3'
+---
 v1.2.2-6.002:
 - hash: d0d3e8f
   tags: []
