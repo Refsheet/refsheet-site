@@ -60,20 +60,58 @@ function onFetch(event) {
 }
 
 function onPush(event) {
-    var data = (event.data && JSON.parse(event.data.text())) || {}
+    var data = (event.data && event.data.json()) || {}
     var title = data.title || 'Notification from Refsheet.net';
-    var body = data.body;
-    var tag = data.tag || 'refsheet-notification';
-    var icon = 'https://assets.refsheet.net/assets/logos/RefsheetLogo_64.png';
+
+    var args = {
+        body: data.body,
+        icon: 'https://assets.refsheet.net/assets/logos/RefsheetLogo_64.png',
+        tag: data.tag || 'refsheet-notification',
+        vibrate: [ 100, 100, 300, 100, 100],
+        actions: data.actions || [],
+        data: { href: data.href }
+    }
 
     console.log('[WebPush]', 'Got Event:', event.data);
 
+    var notification = self.registration.showNotification(title, args);
+
     event.waitUntil(
-        self.registration.showNotification(title, { body: body, icon: icon, tag: tag })
-    )
+        notification
+    );
+}
+
+function onClick(event) {
+    console.log('On notification click: ', event.notification.data);
+    event.notification.close();
+
+    var href;
+
+    if(!event.notification.data && !event.notification.data.href) {
+        return;
+    } else {
+        href = event.notification.data.href
+    }
+
+    // This looks to see if the current is already open and
+    // focuses if it is
+    event.waitUntil(clients.matchAll({
+        type: "window"
+    }).then(function(clientList) {
+        for (var i = 0; i < clientList.length; i++) {
+            var client = clientList[i];
+
+            if (client.url == href && 'focus' in client)
+                return client.focus();
+        }
+        if (clients.openWindow)
+            return clients.openWindow(href);
+    }));
 }
 
 self.addEventListener('install', onInstall);
 self.addEventListener('activate', onActivate);
 self.addEventListener('fetch', onFetch);
 self.addEventListener('push', onPush);
+
+self.addEventListener('notificationclick', onClick);
