@@ -1,4 +1,12 @@
 ---
+v1.2.2-5.001:
+- hash: 42efcbb
+  tags: []
+  message: Circle maybe?
+- hash: d65deee
+  tags: []
+  message: Spec fix?
+---
 v1.2.2-4.001:
 - hash: 7ef8eee
   tags: []
