@@ -1,4 +1,11 @@
 ---
+v1.2.3:
+- hash: f6ff848
+  tags:
+  - b
+  message: Added a possible? fix for the row order issue, but I'm not sure it'll completely
+    work.
+---
 v1.2.2-7.002:
 - hash: 4571d2f
   tags:
