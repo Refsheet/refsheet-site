@@ -1,4 +1,11 @@
 ---
+v1.2.4-1.001:
+- hash: 8903fb2
+  tags:
+  - p
+  message: Fixed the attributes form so it no longer hides when you're missing traits
+    on your character.
+---
 v1.2.4-0.001: []
 ---
 v1.2.4:
