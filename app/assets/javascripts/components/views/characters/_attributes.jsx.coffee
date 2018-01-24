@@ -16,11 +16,12 @@
       @props.onChange(data)
 
   render: ->
-    return null if !@props.attributes || @props.attributes.length <= 0
-
     if @props.editable
       updateCallback = @_handleAttributeUpdate
       deleteCallback = @_handleAttributeDelete
+
+    else
+      return null if !@props.attributes || @props.attributes.length <= 0
 
     attributes = @props.attributes.map (attr) ->
       `<Attribute key={ attr.id } {...attr} />`
