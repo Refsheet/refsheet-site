@@ -1,4 +1,11 @@
 ---
+v1.2.4:
+- hash: ed34944
+  tags:
+  - b
+  message: Fixed Nginx config to use try_files to re-serve the static app assets that
+    we all missed so much :3
+---
 v1.2.3:
 - hash: f6ff848
   tags:
