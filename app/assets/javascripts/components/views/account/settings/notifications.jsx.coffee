@@ -15,7 +15,8 @@ class @Views.Account.Settings.Notifications extends React.Component
 
   _enableBrowserNotifications: (e) =>
     e.preventDefault()
-    if typeof Notification is 'undefined'
+
+    if typeof Notification is 'undefined' or typeof window.requestNotifications is 'undefined'
       console.log '[Notifications] Not supported :('
       Materialize.toast "Your browser does not support Push notifications.", 3000, 'red'
 
@@ -26,12 +27,13 @@ class @Views.Account.Settings.Notifications extends React.Component
         Materialize.toast "Notification subscription updated.", 3000, 'green'
 
     else
-      Notification.requestPermission (permission) ->
-        return unless permission is 'granted'
-        console.log '[Notifications] Permission granted!'
+      requestNotifications =>
+        Notification.requestPermission (permission) ->
+          return unless permission is 'granted'
+          console.log '[Notifications] Permission granted!'
 
-        @_updatePushSubscription ->
-          Materialize.toast "Browser push notifications enabled!", 3000, 'green'
+          @_updatePushSubscription ->
+            Materialize.toast "Browser push notifications enabled!", 3000, 'green'
 
   _jiggleLever: (e) =>
     e.preventDefault()
@@ -39,12 +41,17 @@ class @Views.Account.Settings.Notifications extends React.Component
       Materialize.toast "Browser push notifications (re)enabled?", 3000, 'green'
 
   _updatePushSubscription: (callback) ->
-    navigator.serviceWorker.ready.then (registration) =>
-      registration.pushManager.getSubscription().then (subscription) =>
-        console.debug 'Got subscription:', subscription
-        Model.put '/account/notifications/browser_push', subscription: subscription.toJSON(), (data) =>
-          @context.setCurrentUser data
-          @setState browserGranted: true, callback
+    if typeof window.requestNotifications is 'undefined'
+      Materialize.toast "Your browser does not support Push notifications.", 3000, 'red'
+      return false
+
+    requestNotifications =>
+      navigator.serviceWorker.ready.then (registration) =>
+        registration.pushManager.getSubscription().then (subscription) =>
+          console.debug 'Got subscription:', subscription
+          Model.put '/account/notifications/browser_push', subscription: subscription.toJSON(), (data) =>
+            @context.setCurrentUser data
+            @setState browserGranted: true, callback
 
 
   render: ->
