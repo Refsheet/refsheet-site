@@ -20,7 +20,7 @@ class Swatch < ApplicationRecord
   belongs_to :character, inverse_of: :swatches
 
   has_guid
-  ranks :row_order
+  ranks :row_order, with_same: :character_id
 
   validates_presence_of :name
   validates_presence_of :color

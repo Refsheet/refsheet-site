@@ -85,7 +85,7 @@ class Image < ApplicationRecord # < Media
                       if: -> { background_color_changed? }
 
   has_guid
-  ranks :row_order
+  ranks :row_order, with_same: :character_id
   acts_as_paranoid
 
   before_validation :adjust_source_url

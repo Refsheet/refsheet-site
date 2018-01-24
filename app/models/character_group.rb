@@ -34,7 +34,7 @@ class CharacterGroup < ApplicationRecord
 
   slugify :name
 
-  ranks :row_order
+  ranks :row_order, with_same: :user_id
 
   default_scope -> { rank :row_order }
 

@@ -77,7 +77,7 @@ class Character < ApplicationRecord
   has_guid :shortcode, type: :token
   slugify :name, scope: :user_id
   scoped_search on: [:name, :species, :profile, :likes, :dislikes]
-  ranks :row_order
+  ranks :row_order, with_same: :user_id
   acts_as_paranoid
 
   serialize :custom_attributes
