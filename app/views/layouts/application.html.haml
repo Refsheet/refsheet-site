@@ -6,7 +6,7 @@
     = render 'favicon'
     %meta{name: 'viewport', content: 'width=device-width, initial-scale=1'}
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
-    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload', async: Rails.env.production?, defer: Rails.env.production?
     = javascript_include_tag 'https://js.stripe.com/v2/'
     %meta{'http-equiv' => 'X-Clacks-Overhead', content: 'GNU Sir Terry Pratchett'}
 

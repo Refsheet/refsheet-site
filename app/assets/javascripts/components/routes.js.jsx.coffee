@@ -9,6 +9,9 @@
   componentDidMount: ->
     console.log "Loading #{@props.environment} environment."
 
+    $ ->
+      $('#rootAppLoader').fadeOut(300)
+
     if @props.gaPropertyID
       ReactGA.initialize(@props.gaPropertyID)
 
