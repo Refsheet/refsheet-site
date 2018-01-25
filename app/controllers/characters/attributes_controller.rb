@@ -11,7 +11,7 @@ class Characters::AttributesController < AccountController
 
       with @character.custom_attributes.index { |i| i[:id].downcase == attribute_params[:id].downcase } do |index|
         el = @character.custom_attributes.slice! index
-        @character.custom_attributes.insert index, el
+        @character.custom_attributes.insert attribute_params[:rowOrderPosition].to_i, el
       end
 
     else
