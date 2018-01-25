@@ -1,4 +1,10 @@
 ---
+v1.2.4-3.001:
+- hash: b7bad03
+  tags:
+  - p
+  message: Working on deferred Javascript loads, and a splash screen.
+---
 v1.2.4-2.001:
 - hash: 220e492
   tags:
