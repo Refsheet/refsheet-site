@@ -1,4 +1,10 @@
 ---
+v1.2.4-2.001:
+- hash: 220e492
+  tags:
+  - p
+  message: Potentially disabled the immediate request for push notifications on mobile.
+---
 v1.2.4-1.001:
 - hash: 8903fb2
   tags:
