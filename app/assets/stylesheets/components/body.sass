@@ -110,7 +110,10 @@ body
     main
       position: relative
       flex: 1
-      display: flex
+
+      &.flex, &#loading-screen
+        display: flex
+        flex-direction: column
 
       background:
         position: center
