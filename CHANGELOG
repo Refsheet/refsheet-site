@@ -1,4 +1,10 @@
 ---
+v1.2.4-5.001:
+- hash: d440175
+  tags:
+  - p
+  message: Potential fix for attribute row order not persisting across reloads.
+---
 v1.2.4-4.001:
 - hash: 632223d
   tags: []
