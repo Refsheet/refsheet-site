@@ -73,6 +73,7 @@ gem 'sitemap_generator'
 gem 'groupdate'
 gem 'counter_culture'
 gem 'premailer-rails'
+gem 'semantic'
 
 # == INTEGRATIONS
 
