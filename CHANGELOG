@@ -1,4 +1,10 @@
 ---
+v1.2.5-pre.1:
+- hash: 
+  tags: []
+  message: 5f62a04 Thu Jan 25 03:19:01 2018 -0600 [p] Cleaned up the changelog and
+    versioning mechanism to make a bit more sense to the outside world.
+---
 v1.2.4-5.001:
 - hash: d440175
   tags:
