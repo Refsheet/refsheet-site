@@ -1,4 +1,12 @@
 ---
+v1.2.5-pre.4:
+- hash: 76c39f1
+  date: '2018-01-25'
+  tags:
+  - p
+  message: The first pass of the proper notification system has been included. Enabled
+    notifications for @-mentions in the forums.
+---
 v1.2.5-pre.3:
 - hash: b7b184b
   date: '2018-01-25'
