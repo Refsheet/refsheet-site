@@ -1,4 +1,10 @@
 ---
+v1.2.5-pre.3:
+- hash: b7b184b
+  date: '2018-01-25'
+  tags: []
+  message: Forgot to include the migration tho.
+---
 v1.2.5-pre.2:
 - hash: 98ff5dc
   date: '2018-01-25'
