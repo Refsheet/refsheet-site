@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180125224452) do
+ActiveRecord::Schema.define(version: 20180126012328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -232,6 +232,7 @@ ActiveRecord::Schema.define(version: 20180125224452) do
     t.integer  "karma_total"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.string   "content_html"
     t.index ["character_id"], name: "index_forum_posts_on_character_id", using: :btree
     t.index ["guid"], name: "index_forum_posts_on_guid", using: :btree
     t.index ["parent_post_id"], name: "index_forum_posts_on_parent_post_id", using: :btree
@@ -261,6 +262,7 @@ ActiveRecord::Schema.define(version: 20180125224452) do
     t.integer  "karma_total"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.string   "content_html"
     t.index ["character_id"], name: "index_forum_threads_on_character_id", using: :btree
     t.index ["forum_id"], name: "index_forum_threads_on_forum_id", using: :btree
     t.index ["karma_total"], name: "index_forum_threads_on_karma_total", using: :btree
@@ -374,6 +376,22 @@ ActiveRecord::Schema.define(version: 20180125224452) do
     t.index ["status"], name: "index_moderation_reports_on_status", using: :btree
     t.index ["user_id"], name: "index_moderation_reports_on_user_id", using: :btree
     t.index ["violation_type"], name: "index_moderation_reports_on_violation_type", using: :btree
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "character_id"
+    t.integer  "sender_user_id"
+    t.integer  "sender_character_id"
+    t.string   "type"
+    t.integer  "actionable_id"
+    t.string   "actionable_type"
+    t.datetime "read_at"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.index ["character_id"], name: "index_notifications_on_character_id", using: :btree
+    t.index ["type"], name: "index_notifications_on_type", using: :btree
+    t.index ["user_id"], name: "index_notifications_on_user_id", using: :btree
   end
 
   create_table "order_items", force: :cascade do |t|

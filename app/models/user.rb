@@ -145,6 +145,7 @@ class User < ApplicationRecord
   #== Lookups
 
   def self.lookup(username)
+    return lookup_list(username) if username.is_a? Array
     column = username =~ /@/ ? 'email' : 'username'
     find_by("LOWER(users.#{column}) = ?", username&.downcase)
   end
@@ -152,6 +153,12 @@ class User < ApplicationRecord
   def self.lookup!(username)
     column = username =~ /@/ ? 'email' : 'username'
     find_by!("LOWER(users.#{column}) = ?", username&.downcase)
+  end
+
+  def self.lookup_list(usernames)
+    usernames = usernames.collect { |u| u.to_s.downcase }
+    column = usernames.any? { |u| u =~ /@/ } ? 'email' : 'username'
+    where("LOWER(users.#{column}) IN (?)", usernames)
   end
 
 

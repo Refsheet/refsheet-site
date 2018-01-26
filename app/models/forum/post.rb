@@ -12,6 +12,7 @@
 #  karma_total    :integer
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  content_html   :string
 #
 # Indexes
 #
@@ -39,11 +40,17 @@ class Forum::Post < ApplicationRecord
   validates_presence_of :thread
 
   after_create :notify_user
+  after_create :notify_tagged
+  before_save :update_content_cache
 
   has_guid
 
   def content
     super.to_md
+  end
+
+  def content_html
+    super || content.to_html
   end
 
   # If called without a user, it will assume you are using the ::with_unread_counts scope
@@ -56,9 +63,22 @@ class Forum::Post < ApplicationRecord
   end
 
   def notify_user
-    thread.user.notify! "New forum reply!",
-                        "#{user.name} on #{thread.topic}:\n\"#{content.to_text.truncate(120).chomp}\"",
-                        href: forum_thread_url(forum, thread.slug, anchor: guid),
-                        tag: 'rs-freply-' + guid
+    Notifications::ForumReply.notify! thread.user, user, self
+  end
+
+  private
+
+  def update_content_cache
+    self.content_html = content.to_html
+  end
+
+  def notify_tagged
+    tags = content.extract_tags only_users: true
+    usernames = tags.collect { |t| t[:username].downcase }
+
+    User.lookup(usernames).each do |tagged_user|
+      next if tagged_user.id == thread.user.id
+      Notifications::ForumTag.notify! tagged_user, user, self
+    end
   end
 end

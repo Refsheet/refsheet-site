@@ -42,9 +42,6 @@ class Media::Favorite < ApplicationRecord
   end
 
   def notify_user
-    media.user.notify! "New image favorite!",
-                       "#{user.name} likes #{media.title}!",
-                       href: image_url(media),
-                       tag: 'rs-fav-' + guid
+    Notifications::ImageFavorite.notify! media.user, user, self
   end
 end
