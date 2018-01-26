@@ -1,4 +1,12 @@
 ---
+v1.2.5-pre.2:
+- hash: 98ff5dc
+  date: '2018-01-25'
+  tags:
+  - b
+  message: Fixed the image view to show all images even when you're signed in. Oh
+    boy, databases are fun.
+---
 v1.2.5-pre.1:
 - hash: 
   tags: []
