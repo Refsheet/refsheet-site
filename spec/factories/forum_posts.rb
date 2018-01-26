@@ -12,6 +12,7 @@
 #  karma_total    :integer
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  content_html   :string
 #
 # Indexes
 #

@@ -52,9 +52,6 @@ class Media::Comment < ApplicationRecord
   end
 
   def notify_user
-    media.user.notify! "New image comment!",
-                       "#{user.name} on #{media.title}:\n\"#{comment.truncate(120).chomp}\"",
-                       href: image_url(media),
-                       tag: 'rs-comment-' + guid
+    Notifications::ImageComment.notify! media.user, user, self
   end
 end

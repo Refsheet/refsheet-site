@@ -65,7 +65,7 @@ function onPush(event) {
 
     var args = {
         body: data.body,
-        icon: 'https://assets.refsheet.net/assets/logos/RefsheetLogo_64.png',
+        icon: data.image || 'https://assets.refsheet.net/assets/logos/RefsheetLogo_200.png',
         tag: data.tag || 'refsheet-notification',
         vibrate: [ 100, 100, 300, 100, 100],
         actions: data.actions || [],

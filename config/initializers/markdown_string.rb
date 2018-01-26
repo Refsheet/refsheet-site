@@ -31,6 +31,24 @@ class MarkdownString < String
     self.class.text_renderer.render self
   end
 
+  def extract_tags(options = {})
+    tags = _find_tags to_text
+
+    if options[:only_users] or options[:only_mentions] or options[:only_characters]
+      tags.reject! { |t| t[:textless] }
+    end
+
+    if options[:only_characters]
+      tags.select! { |t| t[:character].present? }
+    end
+
+    if options[:only_users]
+      tags.reject! { |t| t[:character].present? }
+    end
+
+    tags
+  end
+
   class ::String
     def to_md
       MarkdownString.new self
@@ -49,5 +67,26 @@ class MarkdownString < String
     def to_markdown
       nil
     end
+  end
+
+  private
+
+  def _find_tags(text)
+    tags = []
+
+    text.gsub /(?<!\\)@(@?)([a-z0-9_\/+-]+)/i do |_|
+      $2.split('+').collect do |chip|
+        username, character = chip.split '/'
+        textless = $1 == '@'
+
+        tags.push({
+            username: username,
+            character: character,
+            textless: textless
+        })
+      end
+    end
+
+    tags
   end
 end
