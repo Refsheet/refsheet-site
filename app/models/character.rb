@@ -23,7 +23,7 @@
 #  dislikes          :text
 #  color_scheme_id   :integer
 #  nsfw              :boolean
-#  hidden            :boolean
+#  hidden            :boolean          default("false")
 #  secret            :boolean
 #  row_order         :integer
 #  deleted_at        :datetime
@@ -92,13 +92,13 @@ class Character < ApplicationRecord
   end
 
   scope :sfw, -> { where(nsfw: [nil, false]) }
-  scope :visible, -> { where(hidden: [nil, false]) }
+  scope :visible, -> { where(hidden: false) }
   scope :hidden, -> { where hidden: true }
 
   scope :visible_to, -> (user) {
     if user
       where <<-SQL.squish, user.id, false
-        characters.user_id = ? OR characters.hidden IS NULL OR characters.hidden = ?
+        characters.user_id = ? OR characters.hidden = ?
       SQL
     else
       visible

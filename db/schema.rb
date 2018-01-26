@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180116031414) do
+ActiveRecord::Schema.define(version: 20180125224452) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -157,8 +157,8 @@ ActiveRecord::Schema.define(version: 20180116031414) do
     t.string   "slug"
     t.string   "shortcode"
     t.text     "profile"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.string   "gender"
     t.string   "species"
     t.string   "height"
@@ -172,7 +172,7 @@ ActiveRecord::Schema.define(version: 20180116031414) do
     t.text     "dislikes"
     t.integer  "color_scheme_id"
     t.boolean  "nsfw"
-    t.boolean  "hidden"
+    t.boolean  "hidden",            default: false
     t.boolean  "secret"
     t.integer  "row_order"
     t.datetime "deleted_at"
@@ -290,13 +290,13 @@ ActiveRecord::Schema.define(version: 20180116031414) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.integer  "row_order"
     t.string   "guid"
     t.string   "gravity"
     t.boolean  "nsfw"
-    t.boolean  "hidden"
+    t.boolean  "hidden",             default: false
     t.integer  "gallery_id"
     t.datetime "deleted_at"
     t.string   "title"

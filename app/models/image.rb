@@ -17,7 +17,7 @@
 #  guid               :string
 #  gravity            :string
 #  nsfw               :boolean
-#  hidden             :boolean
+#  hidden             :boolean          default("false")
 #  gallery_id         :integer
 #  deleted_at         :datetime
 #  title              :string
@@ -99,17 +99,19 @@ class Image < ApplicationRecord # < Media
   scope :unflagged, -> { where(nsfw: nil) }
   scope :sfw, -> { where(nsfw: [false, nil]) }
   scope :nsfw, -> { where(nsfw: true) }
-  scope :visible, -> { where(hidden: [false, nil]) }
+  scope :visible, -> { where(hidden: false) }
 
   scope :visible_to, -> (user) {
     if user
       joins(:character).
-      where <<-SQL.squish, user.id, true, true
-        characters.user_id = ? OR ( characters.hidden != ? AND images.hidden != ? )
+      where(<<-SQL.squish, user.id)
+        ( characters.user_id = ? ) OR (
+            characters.hidden = 'f' AND images.hidden = 'f'
+        )
       SQL
     else
       joins(:character).
-      where('characters.hidden != ?', true).
+      where(characters: { hidden: false }).
       visible
     end
   }

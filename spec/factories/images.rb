@@ -17,7 +17,7 @@
 #  guid               :string
 #  gravity            :string
 #  nsfw               :boolean
-#  hidden             :boolean
+#  hidden             :boolean          default("false")
 #  gallery_id         :integer
 #  deleted_at         :datetime
 #  title              :string

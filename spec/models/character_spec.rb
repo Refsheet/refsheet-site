@@ -23,7 +23,7 @@
 #  dislikes          :text
 #  color_scheme_id   :integer
 #  nsfw              :boolean
-#  hidden            :boolean
+#  hidden            :boolean          default("false")
 #  secret            :boolean
 #  row_order         :integer
 #  deleted_at        :datetime

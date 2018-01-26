@@ -80,7 +80,7 @@ namespace :refsheet do
     semver = Semantic::Version.new version_str
 
     puts "Getting notable data since #{version.inspect} (now v#{semver.to_s})..."
-    log = %x{ git log '#{version}..HEAD' --pretty=format:"%h %ad %s" --abbrev-commit }.split("\n")
+    log = %x{ git log '#{version}..HEAD' --pretty=format:"%h %ad %s" --abbrev-commit --date=short }.split("\n")
     puts "Fetched #{log.count} commits."
 
     # Parse changelog for tags of interest
