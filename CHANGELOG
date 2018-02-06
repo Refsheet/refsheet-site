@@ -1,4 +1,12 @@
 ---
+v1.2.5-pre.5:
+- hash: 8cf1ce4
+  date: '2018-02-05'
+  tags:
+  - p
+  message: 'Added an HTTPS image proxy to reroute images included in Markdown and
+    prevent mixed content warnings. Endpoint: ref.st/e'
+---
 v1.2.5-pre.4:
 - hash: 76c39f1
   date: '2018-01-25'
