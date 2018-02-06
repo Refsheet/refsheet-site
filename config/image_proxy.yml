@@ -1,0 +1,8 @@
+test: &default
+  secret: not-a-client-secret
+
+development:
+  <<: *default
+
+production:
+  secret: <%= ENV['IMAGE_PROXY_SECRET'] %>

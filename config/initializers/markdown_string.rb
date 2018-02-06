@@ -14,7 +14,7 @@ class MarkdownString < String
   }
 
   def self.html_renderer
-    renderer = Redcarpet::Render::HTML.new(HTML_OPTIONS)
+    renderer = MarkdownString::Render.new(HTML_OPTIONS)
     @@html_renderer ||= Redcarpet::Markdown.new(renderer, EXTENSIONS)
   end
 
@@ -47,6 +47,14 @@ class MarkdownString < String
     end
 
     tags
+  end
+
+  class Render < Redcarpet::Render::HTML
+    def image(link, title, alt_text)
+      url = ImageProxyController.generate(link)
+
+      %Q[<img src="#{url}" alt="#{alt_text}" title="#{title}" data-canonical-url="#{link}" />]
+    end
   end
 
   class ::String

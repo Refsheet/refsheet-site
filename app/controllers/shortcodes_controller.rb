@@ -1,17 +1,37 @@
 class ShortcodesController < ApplicationController
   def show
-    @character = Character.find_by(shortcode: params[:id].downcase)
+    if params[:id] =~ /\A~/
+      show_user params[:id].gsub /\A~/, ''
+    else
+      show_character params[:id]
+    end
+  end
+
+  def show_user(id)
+    @user = User.lookup(id.downcase)
+
+    if @user
+      redirect_to "https://refsheet.net/#{@user.username}"
+    else
+      failure
+    end
+  end
+
+  def show_character(id)
+    @character = Character.find_by(shortcode: id.downcase)
 
     if @character
-      redirect_to "https://refsheet.net/#{@character.user.username.downcase}/#{@character.slug.downcase}"
+      redirect_to "https://refsheet.net/#{@character.user.username}/#{@character.slug}"
     else
-      if request.domain == 'ref.st'
-        redirect_to "https://refsheet.net/c/#{params[:id]}"
-      else
-        Rack::Utils::SYMBOL_TO_STATUS_CODE[:teapot] = 418
-        Rack::Utils::HTTP_STATUS_CODES[418] = "I'm a Teapot"
-        render 'application/teapot', status: :teapot
-      end
+      failure
+    end
+  end
+
+  def failure
+    if request.domain == 'ref.st'
+      redirect_to "https://refsheet.net/c/#{params[:id]}"
+    else
+      render 'application/teapot', status: :teapot
     end
   end
 end
