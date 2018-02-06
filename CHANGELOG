@@ -1,4 +1,10 @@
 ---
+v1.2.5-pre.6:
+- hash: e22c411
+  date: '2018-02-05'
+  tags: []
+  message: Fixed the shortcode controller, perhaps.
+---
 v1.2.5-pre.5:
 - hash: 8cf1ce4
   date: '2018-02-05'
