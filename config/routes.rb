@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   constraints ShortcodeDomainConstraint do
     root to: redirect('https://refsheet.net')
     get '/c/:id', to: 'shortcodes#show'
+    get '/e/*url', to: 'image_proxy#get', as: :image_proxy
     get '/f/:id', to: 'forums#shortcode'
     get '/i/:id', to: 'images#shortcode'
     get '/l/:id', to: 'advertisement_slots#shortcode'
