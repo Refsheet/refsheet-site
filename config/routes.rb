@@ -8,7 +8,6 @@ Rails.application.routes.draw do
     get '/l/:id', to: 'advertisement_slots#shortcode'
     get '/t/:id', to: 'forum/threads#shortcode'
     get '/u/:id', to: 'users#shortcode'
-    get '/~:id', to: 'users#shortcode'
     get '*id', to: 'shortcodes#show'
   end
 
