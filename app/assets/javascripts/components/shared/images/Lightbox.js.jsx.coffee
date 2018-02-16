@@ -2,6 +2,7 @@
   contextTypes:
     router: React.PropTypes.object.isRequired
     currentUser: React.PropTypes.object
+    reportImage: React.PropTypes.func.isRequired
 
 
   getInitialState: ->
@@ -213,6 +214,13 @@
                                 { this.state.image.source_url_display }
                             </a>
                         </div> }
+
+                    <div className='source-url'>
+                        <i className='material-icons left'>report</i>
+                        <a href='#report-modal' onClick={ this.context.reportImage } data-image-id={ this.state.image.id }>
+                            Report Image
+                        </a>
+                    </div>
                 </div>
                 
                 <Tabs className='comments'>

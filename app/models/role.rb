@@ -13,6 +13,7 @@ class Role < ApplicationRecord
   @@id_cache = {}
 
   ADMIN = 'admin'
+  MODERATOR = 'moderator'
 
   validates :name, presence: true, uniqueness: true, format: { with: /\A\w+\z/, message: 'must be sym' }
   before_validation -> { name&.downcase! }

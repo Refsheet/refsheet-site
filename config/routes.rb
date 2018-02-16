@@ -89,6 +89,8 @@ Rails.application.routes.draw do
     resources :comments, only: [:index, :create, :destroy], controller: 'media/comments'
   end
 
+  resources :reports, only: [:create]
+
   resources :feedbacks, only: [:create]
   resources :pledges, only: [:index]
 

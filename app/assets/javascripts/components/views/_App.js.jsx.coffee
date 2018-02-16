@@ -5,11 +5,13 @@
     setCurrentUser: React.PropTypes.func
     eagerLoad: React.PropTypes.object
     environment: React.PropTypes.string
+    reportImage: React.PropTypes.func
 
 
   getInitialState: ->
     session: @props.route.eagerLoad?.session || { fetch: true }
     loading: 0
+    reportImageId: null
     eagerLoad: @props.route.eagerLoad || {}
 
   getChildContext: ->
@@ -18,6 +20,7 @@
     setCurrentUser: @_onLogin
     eagerLoad: @state.eagerLoad
     environment: @props.route.environment
+    reportImage: @_reportImage
 
 
   componentWillMount: ->
@@ -53,6 +56,15 @@
     s.current_user = user
     @setState session: s, callback
 
+  _reportImage: (e) ->
+    if e?.target
+      imageId = $(e.target).data('image-id')
+    else
+      imageId = e
+
+    console.debug "Reporting: #{imageId}"
+    @setState reportImageId: imageId
+
 
   render: ->
     childrenWithProps = React.Children.map this.props.children, (child) =>
@@ -66,6 +78,7 @@
             <LoadingOverlay /> }
 
         <SessionModal />
+        <Views.Images.ReportModal imageId={ this.state.reportImageId } />
         <Lightbox currentUser={ this.state.session.current_user } history={ this.props.history } />
 
         <UserBar session={ this.state.session } query={ this.props.location.query.q }/>
