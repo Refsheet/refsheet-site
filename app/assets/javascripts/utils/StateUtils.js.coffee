@@ -73,6 +73,9 @@
     #no-op
 
 
+  update: (context, path, value, callback) ->
+    context.setState HashUtils.set(context.state, path, value), callback
+    
   updateItem: (context, path, item, primaryKey, callback) ->
     context.setState HashUtils.deepUpdateCollectionItem(context.state, path, item, primaryKey), callback
 

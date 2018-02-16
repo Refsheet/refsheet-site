@@ -7,6 +7,7 @@
     placeholder: React.PropTypes.string
     label: React.PropTypes.string
     disabled: React.PropTypes.bool
+    selected: React.PropTypes.bool
     readOnly: React.PropTypes.bool
     autoFocus: React.PropTypes.bool
     className: React.PropTypes.string
@@ -29,7 +30,7 @@
 
 
   getInitialState: ->
-    value: @props.value || @props.default
+    value: if @props.type == 'radio' then ('') else (@props.value || @props.default)
     error: @props.error
     dirty: false
 
@@ -39,6 +40,7 @@
       @setState value: (newProps.value || newProps.default)
 
     if newProps.error != @state.error
+      console.log "Adding input errors: ", newProps
       @setState error: newProps.error
 
   componentDidMount: ->
@@ -70,10 +72,14 @@
 
 
   _handleInputChange: (e) ->
-    if @props.type in ['checkbox', 'radio']
+    if @props.type == 'checkbox'
       value = e.target.checked
+    else if @props.type == 'radio'
+      value = @props.default if e.target.checked
     else
       value = e.target.value
+
+    console.log "Change", @props.name, "to", value
 
     @setState error: null, value: value, dirty: true
     @props.onChange(@props.name, value) if @props.onChange
@@ -125,11 +131,19 @@
                    className={ className }
         />`
 
-    else if @props.type in ['checkbox', 'radio']
+    else if @props.type == 'checkbox'
       inputField =
         `<input {...commonProps}
                 type={ this.props.type }
                 checked={ this.state.value || false }
+        />`
+
+    else if @props.type == 'radio'
+      inputField =
+        `<input {...commonProps}
+                value={ this.props.default }
+                type={ this.props.type }
+                checked={ this.state.value == this.props.default }
         />`
 
     else if @props.type == 'color'

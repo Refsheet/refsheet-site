@@ -22,6 +22,8 @@
     if newProps.model != @props.model
       @setState model: $.extend({}, newProps.model), errors: (newProps.errors || {}), dirty: false
 
+  reload: ->
+    @setState model: $.extend({}, @props.model), errors: (@props.errors || {}), dirty: false
 
   componentDidMount: ->
     Materialize.initializeForms()
@@ -84,12 +86,14 @@
         @props.onDirty(false) if @props.onDirty
         @reset() if @props.resetOnSubmit
         $(document).trigger @props.changeEvent, data if @props.changeEvent
+        console.log "Complete:", data
 
       error: (data) =>
         @props.onError(data) if @props.onError
+        console.log "Error:", data
 
         if data.responseJSON?.errors
-          console.warn data.responseJSON.errors
+          console.warn "Error messages:", data.responseJSON.errors
           @setState errors: data.responseJSON.errors, invalid: true
         else if data.responseJSON?.error
           Materialize.toast data.responseJSON.error, 3000, 'red'
@@ -112,9 +116,10 @@
       if child.type == Input
         if child.props.name
           errorKey = if child.props.errorPath then child.props.errorPath + '.' + child.props.name else child.props.name
+          value = @state.model[child.props.name]
           childProps =
             key: child.props.name
-            value: @state.model[child.props.name]
+            value: value
             error: @state.errors[errorKey]
             onChange: @_handleInputChange
             onSubmit: @_handleFormSubmit
