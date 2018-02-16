@@ -1,4 +1,16 @@
 ---
+v1.2.5-pre.8:
+- hash: 0af9bd6
+  date: '2018-02-16'
+  tags:
+  - p
+  message: Image reporting mechanism has been implemented, as well as an addendum
+    to our Terms of Service (Section 2.2), which I highly suggest reading.
+- hash: 54abd50
+  date: '2018-02-15'
+  tags: []
+  message: Disable async in admin panel.
+---
 v1.2.5-pre.7:
 - hash: 6f24947
   date: '2018-02-12'
