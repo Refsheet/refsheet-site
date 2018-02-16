@@ -30,7 +30,7 @@ class ModerationReport < ApplicationRecord
       improper_flag: "This item was not flagged for proper maturity level.",
       offensive: "This item is offensive or violates community standards.",
       other: "Other, please specify in comment."
-  }.freeze
+  }.with_indifferent_access.freeze
 
   belongs_to :user
   belongs_to :sender, foreign_key: :sender_user_id, class_name: User

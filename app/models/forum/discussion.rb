@@ -104,6 +104,10 @@ class Forum::Discussion < ApplicationRecord
   private
 
   def log_activity
-    Activity.create activity: self, user_id: self.user_id, character_id: self.character_id, created_at: self.created_at, activity_method: 'create'
+    Activity.create activity: self,
+                    user_id: self.user_id,
+                    character_id: self.character_id,
+                    created_at: self.created_at,
+                    activity_method: 'create'
   end
 end
