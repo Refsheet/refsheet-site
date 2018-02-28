@@ -22,6 +22,7 @@
 #
 
 class Notification < ApplicationRecord
+  include HasGuid
   include Rails.application.routes.url_helpers
 
   MEDIUMS = {
@@ -41,8 +42,24 @@ class Notification < ApplicationRecord
 
   scope :unread, -> { where read_at: nil }
 
+  scope :eager_loaded, -> {
+    includes(
+        :user,
+        :actionable,
+        :sender_user,
+        character: [:user, :profile_image, :featured_image],
+        sender_character: [:user, :profile_image, :featured_image],
+        # activity_image: [:character, :favorites],
+        # activity_comment: [:media],
+        # activity_discussion: [:forum],
+        # activity_character: [:user, :profile_image, :featured_image]
+    )
+  }
+
   after_create :send_browser_push
   after_create :send_email
+
+  has_guid
 
 
   #== Class Things
@@ -100,7 +117,7 @@ class Notification < ApplicationRecord
     if actionable.respond_to? :guid
       "#{permission_key}-#{actionable.guid}"
     else
-      "#{permission_key}-#{SecureRandom.hex}"
+      "#{permission_key}-#{self.guid}"
     end
   end
 

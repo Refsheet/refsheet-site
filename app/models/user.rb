@@ -45,6 +45,7 @@ class User < ApplicationRecord
   has_many :favorites, class_name: Media::Favorite
   has_many :favorite_media, through: :favorites, source: :media
   has_many :comments, class_name: Media::Comment
+  has_many :notifications
 
   has_many :followers, class_name: User::Follower, inverse_of: :following, foreign_key: :following_id
   has_many :following, class_name: User::Follower, inverse_of: :follower, foreign_key: :follower_id
