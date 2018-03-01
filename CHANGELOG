@@ -1,4 +1,10 @@
 ---
+v1.2.5-pre.12:
+- hash: aeb682a
+  date: '2018-03-01'
+  tags: []
+  message: Potential fix for worker, take 2.
+---
 v1.2.5-pre.11:
 - hash: 400e694
   date: '2018-03-01'
