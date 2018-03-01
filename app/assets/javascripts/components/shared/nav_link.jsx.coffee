@@ -11,7 +11,7 @@
     activeClassName: React.PropTypes.string
 
   render: ->
-    active = @context.router.isActive @props.to
+    active = @context.router.isActive @props.to, @props.exact
 
     classNames = ['nav-link']
     classNames.push @props.className if @props.className
@@ -25,7 +25,7 @@
     activeClassNames.push @props.activeClassName if @props.activeClassName
 
     `<li className={ classNames.join(' ') }>
-        <Link to={this.props.to} activeClassName={ activeClassNames.join(' ') } className={ linkClassNames.join(' ') }>
+        <Link onlyActiveOnIndex={this.props.exact} to={this.props.to} activeClassName={ activeClassNames.join(' ') } className={ linkClassNames.join(' ') }>
             { this.props.icon && <Icon className='left'>{ this.props.icon }</Icon> } { this.props.text }
         </Link>
 

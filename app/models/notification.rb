@@ -13,10 +13,12 @@
 #  read_at             :datetime
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  guid                :string
 #
 # Indexes
 #
 #  index_notifications_on_character_id  (character_id)
+#  index_notifications_on_guid          (guid)
 #  index_notifications_on_type          (type)
 #  index_notifications_on_user_id       (user_id)
 #

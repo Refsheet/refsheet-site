@@ -35,10 +35,6 @@ Rails.application.routes.draw do
     get '/activity' => 'activities#index'
     resource :settings, only: [:show, :update]
 
-    scope :i do
-      resources :notifications, only: [:index]
-    end
-
     resource :notifications, only: [:show, :update] do
       member do
         put :browser_push
@@ -53,6 +49,8 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  resources :notifications, only: [:index], controller: 'account/notifications'
 
 
   resource :session, only: [:show, :create, :destroy, :update], controller: 'session'
