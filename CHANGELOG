@@ -1,4 +1,23 @@
 ---
+v1.2.5-pre.9:
+- hash: cd3fcac
+  date: '2018-02-28'
+  tags: []
+  message: Cleanup on the notification nav entries / disables.
+- hash: e8cc82e
+  date: '2018-02-28'
+  tags:
+  - p
+  message: Added in the first-draft of the notifications menu, enabling for Patrons.
+- hash: '6776366'
+  date: '2018-02-27'
+  tags: []
+  message: Forgotten files.
+- hash: 644d19c
+  date: '2018-02-27'
+  tags: []
+  message: Added notifications controller.
+---
 v1.2.5-pre.8:
 - hash: 0af9bd6
   date: '2018-02-16'
