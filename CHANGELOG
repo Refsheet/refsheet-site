@@ -1,4 +1,14 @@
 ---
+v1.2.5-pre.13:
+- hash: abd15e6
+  date: '2018-03-01'
+  tags: []
+  message: Bugfix for proxy?
+- hash: 896126f
+  date: '2018-03-01'
+  tags: []
+  message: Bugfix for inf scroll. I'll deal with that later.
+---
 v1.2.5-pre.12:
 - hash: aeb682a
   date: '2018-03-01'
