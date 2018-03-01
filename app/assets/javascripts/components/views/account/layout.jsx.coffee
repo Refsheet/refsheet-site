@@ -7,7 +7,6 @@ class @Views.Account.Layout extends React.Component
   _findTitle: (props=@props) ->
     if props.children and props.children.props
       c = @_findTitle(props.children.props)
-      console.log {c}
     c || props.route?.title
 
   render: ->
