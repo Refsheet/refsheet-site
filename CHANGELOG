@@ -1,4 +1,13 @@
 ---
+v1.2.5-pre.11:
+- hash: 400e694
+  date: '2018-03-01'
+  tags:
+  - p
+  message: Adjustment to image size rendering to pick a smaller or lager size depending
+    on final output. This should make the site slightly more friendly for those on
+    dialup or connecting via satellite from Horizon Lunar Colony.
+---
 v1.2.5-pre.10+build.1: []
 ---
 v1.2.5-pre.10:
