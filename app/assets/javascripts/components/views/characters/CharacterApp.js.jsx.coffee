@@ -241,7 +241,7 @@
                 </Row>
             </Section>
 
-            <Section>
+            <Section className='margin-bottom--large'>
                 <ImageGallery editable={ editable }
                               imagesPath={ this.state.character.path + '/images/' }
                               images={ this.state.images }

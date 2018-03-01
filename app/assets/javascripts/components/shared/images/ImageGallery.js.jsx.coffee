@@ -81,6 +81,20 @@
     rowHeight: $(window).width() * (coef * 0.25)
     maxRowHeight: $(window).width() * (coef * 0.4)
 
+  _getThumbnailPath: (currentPath, width, height, image) ->
+    currentSize = currentPath.match(/\d{3}\/\d{3}\/\d{3}\/(\w+)\//)[1]
+
+    max = Math.max(width, height)
+
+    if max <= 427
+      newSize = 'small'
+    else if max <= 854
+      newSize = 'medium'
+    else
+      newSize = 'large'
+
+    currentPath.replace /(\d{3}\/\d{3}\/\d{3}\/)\w+\//, '$1' + newSize + '/'
+
   _initialize: ->
     return if @props.noFeature and !@props.noSquare
 
@@ -99,6 +113,7 @@
       selector: '.gallery-image'
       margins: 15
       captions: false
+      thumbnailPath: @_getThumbnailPath
 
     opts = $.extend {}, opts, @_getJgRowHeight()
     $(@refs.gallery).justifiedGallery opts
