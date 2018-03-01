@@ -21,12 +21,10 @@
     loading: false
 
   componentWillReceiveProps: (newProps) ->
-    console.log newProps
     if newProps.count < newProps.perPage
       @setState lastPage: true
 
   componentDidMount: ->
-    console.log @props
     $(window).on 'scroll.infinite-scroll', =>
       if !@state.lastPage and !@state.loading and ($(window).scrollTop() + $(window).height() > $(document).height() - (@props.scrollOffset || 100))
         @_fetch()
