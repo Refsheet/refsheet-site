@@ -17,12 +17,14 @@
 
   getInitialState: ->
     page: 1
-    lastPage: @props.count > 0 and @props.count < @props.perPage
+    lastPage: false # @props.count > 0 and @props.count < @props.perPage
     loading: false
 
   componentWillReceiveProps: (newProps) ->
-    if newProps.count < newProps.perPage
-      @setState lastPage: true
+#    if newProps.count < newProps.perPage
+#      @setState lastPage: true
+#    else
+#      @setState lastPage: false
 
   componentDidMount: ->
     $(window).on 'scroll.infinite-scroll', =>
