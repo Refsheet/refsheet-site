@@ -28,13 +28,12 @@
 
     imageSrc = image_url.medium + '?c=' + Math.floor(Date.now() / 1000)
 
-    `<div className='sponsored-content'
+    `<div className='sponsored-content margin-bottom--large'
           style={{
               boxSizing: 'border-box',
               overflow: 'hidden',
               fontSize: '0.8rem',
-              padding: '0 0 1rem 0',
-              borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
+              padding: '0 0 1rem 0'
           }}
     >
         <div className='sponsor-blurb'

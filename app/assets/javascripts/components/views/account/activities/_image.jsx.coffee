@@ -1,7 +1,7 @@
 @Views.Account.Activities.Image = React.createClass
   propTypes:
     images: React.PropTypes.array.isRequired
-    character: React.PropTypes.object.isRequired
+    character: React.PropTypes.object
 
   _buildSingle: (key, one) ->
     `<Row noMargin tinyGutter key={ key }>

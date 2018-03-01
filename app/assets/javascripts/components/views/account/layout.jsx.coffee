@@ -5,14 +5,12 @@ class @Views.Account.Layout extends React.Component
     currentUser: React.PropTypes.object.isRequired
 
   _findTitle: (props=@props) ->
-    if props.children
+    if props.children and props.children.props
       c = @_findTitle(props.children.props)
-
+      console.log {c}
     c || props.route?.title
 
   render: ->
-    title = @props.children?.props.route.title ||  @props.route.title || 'Account'
-
     `<Main title={ this._findTitle() } flex className='with-sidebar'>
         <Container flex className='activity-feed'>
             <div className='sidebar'>

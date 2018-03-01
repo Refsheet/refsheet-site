@@ -11,14 +11,25 @@
     ])
 
 
+  _updateTitle: (title) ->
+    titles = []
+    titles.push title
+    titles.push 'Refsheet.net'
+    document.title = [].concat.apply([], titles).join ' - '
+
   componentWillMount: ->
     if @props.title
-      title = []
-      title.push @props.title if @props.title
-      title.push 'Refsheet.net'
-      document.title = [].concat.apply([], title).join ' - '
+      @_updateTitle @props.title
 
     $('body').addClass @props.bodyClassName
+
+  componentWillReceiveProps: (newProps) ->
+    if newProps.title
+      @_updateTitle newProps.title
+
+    if newProps.bodyClassName != @props.bodyClassName
+      $('body').removeClass @props.bodyClassName
+      $('body').addClass newProps.bodyClassName
 
   componentDidMount: ->
     if @props.fadeEffect

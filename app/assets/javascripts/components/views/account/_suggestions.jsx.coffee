@@ -5,7 +5,7 @@
   dataPath: '/users/suggested'
 
   componentDidMount: ->
-    StateUtils.load @, 'suggested', undefined, undefined, limit: 6
+    StateUtils.load @, 'suggested', undefined, undefined, urlParams: limit: 6
 
   _handleFollow: (f, id) ->
     HashUtils.findItem @state.suggested, id, (u) ->

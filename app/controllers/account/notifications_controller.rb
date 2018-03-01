@@ -5,18 +5,25 @@ class Account::NotificationsController < AccountController
     @notifications = filter_scope current_user.notifications.eager_loaded
 
     filters = {
-        character: 'Character',
-        image: 'Image',
-        forum: 'Forum::Discussion',
-        comment: 'Media::Comment',
-        marketplace: 'Item'
+        reply: 'ForumReply',
+        comment: 'ImageComment',
+        favorite: 'ImageFavorite',
+        tag: 'ForumTag'
     }
 
     if params[:filter] and (filter = filters[params[:filter].downcase.to_sym])
-      @notifications = @notifications.where('notifications.actionable_type' => filter)
+      @notifications = @notifications.where('notifications.type' => 'Notifications::' + filter)
     end
 
-    render api_collection_response @notifications, each_serializer: NotificationSerializer, root: 'notifications'
+    respond_to do |format|
+      format.html do
+        render 'application/show'
+      end
+
+      format.json do
+        render api_collection_response @notifications, each_serializer: NotificationSerializer, root: 'notifications'
+      end
+    end
   end
 
   def show

@@ -7,7 +7,9 @@
 #  sender_user_id   :integer
 #  moderatable_id   :integer
 #  moderatable_type :string
-#
+#  violation_type   :string
+#  comment          :text
+#  dmca_source_url  :string
 #  status           :string
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null

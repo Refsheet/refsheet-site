@@ -3,21 +3,6 @@
     currentUser: React.PropTypes.object
 
   render: ->
-    `<Main title='Home' flex className='with-sidebar'>
-        <Container flex className='activity-feed'>
-            <div className='sidebar'>
-                <Views.Account.UserCard user={ this.context.currentUser } />
-
-                <Views.Account.SideNav />
-            </div>
-
-            <div className='content'>
-                <Views.Account.Activity filter={ this.props.location.query.feed } />
-            </div>
-
-            <div className='sidebar aside transparent'>
-                { typeof Advertisement != 'undefined' && <Advertisement /> }
-                <Views.Account.Suggestions />
-            </div>
-        </Container>
-    </Main>`
+    `<Views.Account.Layout {...this.props}>
+        <Views.Account.Activity filter={ this.props.location.query.feed } />
+    </Views.Account.Layout>`

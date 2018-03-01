@@ -16,7 +16,7 @@
           { discussion.content_text.substr(0, 120) }
       </div>`
 
-    `<div className='activity'>
+    `<div className='activity padding-bottom--small'>
         <div className='headline margin-bottom--medium'>
             Started { str }.
         </div>

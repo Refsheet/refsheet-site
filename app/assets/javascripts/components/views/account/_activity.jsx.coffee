@@ -89,5 +89,8 @@
 
         { out }
 
-        <InfiniteScroll onLoad={ this._append } stateLink={ this.stateLink } params={{}} />
+        <InfiniteScroll onLoad={ this._append }
+                        stateLink={ this.stateLink }
+                        params={{}}
+                        count={ this.state.activity.length } />
     </div>`

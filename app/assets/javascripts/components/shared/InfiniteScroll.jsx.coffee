@@ -4,18 +4,29 @@
     params: React.PropTypes.object.isRequired
     perPage: React.PropTypes.number
     scrollOffset: React.PropTypes.number
+    count: React.PropTypes.number
 
     stateLink: React.PropTypes.oneOfType([
       React.PropTypes.object
       React.PropTypes.func
     ]).isRequired
 
+  getDefaultProps: ->
+    perPage: 24
+    count: 0
+
   getInitialState: ->
     page: 1
-    lastPage: false
+    lastPage: @props.count > 0 and @props.count < @props.perPage
     loading: false
 
+  componentWillReceiveProps: (newProps) ->
+    console.log newProps
+    if newProps.count < newProps.perPage
+      @setState lastPage: true
+
   componentDidMount: ->
+    console.log @props
     $(window).on 'scroll.infinite-scroll', =>
       if !@state.lastPage and !@state.loading and ($(window).scrollTop() + $(window).height() > $(document).height() - (@props.scrollOffset || 100))
         @_fetch()

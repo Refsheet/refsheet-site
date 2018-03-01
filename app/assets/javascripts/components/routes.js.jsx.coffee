@@ -39,7 +39,7 @@
 
     `<Router history={ browserHistory } onUpdate={ this._handleRouteUpdate }>
         <Route path='/' component={ App } eagerLoad={ this.props.eagerLoad } environment={ this.props.environment }>
-            <IndexRoute component={ Home } />
+            <IndexRoute component={ Home } title='Home' />
 
             <Route path='login' component={ LoginView } />
             <Route path='register' component={ RegisterView } />
@@ -51,6 +51,7 @@
                 <Route path='notifications' title='Notification Settings' component={ Views.Account.Settings.Notifications } />
             </Route>
 
+            <Route path='/notifications' title='Notifications' component={ Views.Account.Notifications.Show } />
 
             <Route path='browse' component={ BrowseApp }>
                 <IndexRoute component={ CharacterIndexView } />
