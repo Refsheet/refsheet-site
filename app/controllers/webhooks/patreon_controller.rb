@@ -17,8 +17,12 @@ class Webhooks::PatreonController < ApplicationController
     patron = Patreon::Patron.find_or_initialize_by(patreon_id: patron_params[:patreon_id])
     patron.update_attributes(patron_params)
 
-    reward = Patreon::Reward.find_or_initialize_by(patreon_id: reward_params[:patreon_id])
-    reward.update_attributes(reward_params)
+    if reward_params
+      reward = Patreon::Reward.find_or_initialize_by(patreon_id: reward_params[:patreon_id])
+      reward.update_attributes(reward_params)
+    else
+      reward = nil
+    end
 
     pledge_params.merge(
         patron: patron,
