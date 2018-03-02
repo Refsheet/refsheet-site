@@ -1,4 +1,12 @@
 ---
+v1.2.5-pre.16:
+- hash: 316098f
+  date: '2018-03-02'
+  tags:
+  - b
+  message: Bugfix for Patreon webhooks coming in for users that did not specify a
+    reward level with their pledge.
+---
 v1.2.5-pre.15:
 - hash: 80ca6e9
   date: '2018-03-02'
