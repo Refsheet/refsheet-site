@@ -1,4 +1,11 @@
 ---
+v1.2.5-pre.15:
+- hash: 80ca6e9
+  date: '2018-03-02'
+  tags: []
+  message: Finished moderation emails and automatic resolution of common claims. Still
+    need a comments section and a UI.
+---
 v1.2.5-pre.14:
 - hash: daf54ea
   date: '2018-03-01'
