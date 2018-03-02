@@ -26,12 +26,8 @@
 
 FactoryGirl.define do
   factory :moderation_report do
-    sender_user_id 1
-    moderatable_id 1
-    moderatable_type "MyString"
-    violation_type "MyString"
-    comment "MyText"
-    dmca_source_url "MyString"
-    status "MyString"
+    association(:sender, factory: :user)
+    association(:moderatable, factory: :image)
+    violation_type 'dmca'
   end
 end

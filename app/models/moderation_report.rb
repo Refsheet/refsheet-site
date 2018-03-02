@@ -51,10 +51,46 @@ class ModerationReport < ApplicationRecord
   end
 
   state_machine :status, initial: :pending do
+    before_transition any => :removed, do: [:auto_remove_item, :send_removal_notice]
+    before_transition any => :reflagged, do: [:auto_reflag_item, :send_reflag_notice]
+    before_transition any => :complete, do: [:send_generic_notice]
+
     state :assigned
     state :dismissed
     state :removed
+    state :reflagged
     state :complete
+
+    event :dismiss do
+      transition [:pending, :assigned] => :dismissed
+    end
+
+    # Remove the image and issue a moderation notice
+    # to the poster.
+    #
+    event :remove do
+      transition [:pending, :assigned] => :removed
+    end
+
+    # Automatically reflag the image as NSFW.
+    #
+    event :reflag do
+      transition [:pending, :assigned] => :reflagged
+    end
+
+    # Assume manual action was taken on the image.
+    #
+    event :complete do
+      transition [:pending, :assigned] => :complete
+    end
+
+    # Lazy mods are lazy
+    #
+    event :auto_resolve do
+      transition [:pending, :assigned] => :removed, if: -> (r) { r.violation_type.in? %w(dmca offensive) }
+      transition [:pending, :assigned] => :reflagged, if: -> (r) { r.violation_type == 'improper_flag' }
+      transition [:pending, :assigned] => :complete
+    end
   end
 
   def violation_message
@@ -71,11 +107,33 @@ class ModerationReport < ApplicationRecord
 
   def send_moderator_email
     User.with_role(Role::MODERATOR).each do |mod|
-      # ModeratorMailer.new_report(self, mod).deliver_now
+      ModeratorMailer.new_report(self, mod).deliver_now
     end
   end
 
-  def send_removed_email
-    # ModeratorMailer.item_removed(self).deliver_now if user
+  def send_removal_notice
+    ModeratorMailer.item_removed(self).deliver_now if user
+  end
+
+  def send_reflag_notice
+    ModeratorMailer.item_reflagged(self).deliver_now if user
+  end
+
+  def send_generic_notice
+    ModeratorMailer.item_moderated(self).deliver_now if user
+  end
+
+  def auto_remove_item
+    case moderatable_type
+      when 'Image'
+        moderatable.destroy
+    end
+  end
+
+  def auto_reflag_item
+    case moderatable_type
+      when 'Image'
+        moderatable.update_columns nsfw: true
+    end
   end
 end
