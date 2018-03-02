@@ -26,6 +26,89 @@
 
 require 'rails_helper'
 
-RSpec.describe ModerationReport, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe ModerationReport, type: :model do
+  let(:violation_type) { 'dmca' }
+  let(:image) { create :image }
+  let(:moderation_report) { create :moderation_report, violation_type: violation_type, moderatable: image }
+
+  it 'sends moderator mail' do
+    expect_live_mailer ModeratorMailer, :new_report
+    create :admin
+    create :moderation_report
+  end
+
+  context 'dmca' do
+    let(:violation_type) { 'dmca' }
+
+    describe '#remove!' do
+      it 'mails user' do
+        expect_live_mailer ModeratorMailer, :item_removed
+        moderation_report.remove!
+      end
+
+      it 'deletes image' do
+        moderation_report.remove!
+        expect(image.reload).to be_deleted
+      end
+    end
+
+    describe '#auto_resolve!' do
+      it 'mails user' do
+        expect_live_mailer ModeratorMailer, :item_removed
+        moderation_report.auto_resolve!
+      end
+
+      it 'deletes image' do
+        moderation_report.auto_resolve!
+        expect(image.reload).to be_deleted
+        expect(moderation_report).to be_removed
+      end
+    end
+  end
+
+  context 'offensive' do
+    let(:violation_type) { 'offensive' }
+
+    describe '#auto_resolve!' do
+      it 'mails user' do
+        expect_live_mailer ModeratorMailer, :item_removed
+        moderation_report.auto_resolve!
+      end
+
+      it 'deletes image' do
+        moderation_report.auto_resolve!
+        expect(image.reload).to be_deleted
+        expect(moderation_report).to be_removed
+      end
+    end
+  end
+
+  context 'improper_flag' do
+    let(:violation_type) { 'improper_flag' }
+
+    describe '#reflag!' do
+      it 'mails user' do
+        expect_live_mailer ModeratorMailer, :item_reflagged
+        moderation_report.reflag!
+      end
+
+      it 'deletes image' do
+        moderation_report.reflag!
+        expect(image.reload).to be_nsfw
+      end
+    end
+
+    describe '#auto_resolve!' do
+      it 'mails user' do
+        expect_live_mailer ModeratorMailer, :item_reflagged
+        moderation_report.auto_resolve!
+      end
+
+      it 'deletes image' do
+        moderation_report.auto_resolve!
+        expect(image.reload).to be_nsfw
+        expect(moderation_report).to be_reflagged
+      end
+    end
+  end
 end

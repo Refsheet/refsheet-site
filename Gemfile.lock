@@ -479,6 +479,7 @@ GEM
       state_machines-activemodel (>= 0.3.0)
     stripe (3.8.0)
       faraday (~> 0.10)
+    table_print (1.5.6)
     therubyracer (0.12.2)
       libv8 (~> 3.16.14.0)
       ref
@@ -612,6 +613,7 @@ DEPENDENCIES
   state_machines
   state_machines-activerecord
   stripe
+  table_print
   therubyracer
   timecop
   turbolinks (~> 5)

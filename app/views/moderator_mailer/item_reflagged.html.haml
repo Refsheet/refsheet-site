@@ -1,0 +1,29 @@
+%p
+  %strong #{@user.name},
+
+%p{style: 'color:green;'}
+  (Don't stress about this email, content flagging is still a complicated
+  procedure on site, and things slip up from time to time.)
+
+%p
+  Some of your content on Refsheet.net has been moderated to comply
+  with our <a href='https://refsheet.net/terms'>Terms of Service</a>:
+
+- case @report.moderatable_type
+- when 'Image'
+  %p
+    Your image, <em>#{@report.moderatable.title}</em>, has been reflagged by
+    a moderator as: #{@report.moderatable.nsfw? ? 'NSFW' : 'SFW'}.
+
+%p
+  We encourage users to upload all content of their characters, provided it
+  complies with our Terms, and is properly flagged.
+
+%p
+  If you feel this was made in error, please reach out to the moderation
+  team by emailing <a href='mailto:mau@refsheet.net'>mau@refsheet.net</a>.
+
+%p
+  %strong Thanks,
+  %br/
+  Refsheet.net Moderators

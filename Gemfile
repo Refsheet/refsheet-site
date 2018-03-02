@@ -91,6 +91,7 @@ end
 # == MAINTENANCE
 
 gem 'puma_worker_killer'
+gem 'table_print'
 
 # == NON PRODUCTION GEMS
 
