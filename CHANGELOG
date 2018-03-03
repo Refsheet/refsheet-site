@@ -1,4 +1,10 @@
 ---
+v1.2.5-pre.17:
+- hash: 5affb68
+  date: '2018-03-02'
+  tags: []
+  message: 'Fix for Patreon #2 perhaps.'
+---
 v1.2.5-pre.16+build.1: []
 ---
 v1.2.5-pre.16:
