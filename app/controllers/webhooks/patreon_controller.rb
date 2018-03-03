@@ -69,7 +69,8 @@ class Webhooks::PatreonController < ApplicationController
   end
 
   def reward_params
-    reward_id = params[:data][:relationships][:reward][:data][:id]
+    reward_id = params[:data][:relationships][:reward][:data][:id] rescue nil
+    return nil unless reward_id.present?
 
     reward = params[:included].find do |incl|
       incl[:type] = 'reward' && incl[:id] == reward_id
