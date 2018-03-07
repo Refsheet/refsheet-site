@@ -11,14 +11,20 @@ class NotificationSerializer < ActiveModel::Serializer
              :message,
              :href,
              :tag,
-             :user,
-             :character,
              :actionable_type,
              :actionable,
              :timestamp
 
   has_one :user, serializer: Activity::UserSerializer
   has_one :character, serializer: Activity::CharacterSerializer
+
+  def user
+    object.sender_user
+  end
+
+  def character
+    object.sender_character
+  end
 
   def id
     object.guid
@@ -32,8 +38,8 @@ class NotificationSerializer < ActiveModel::Serializer
         Activity::PostSerializer
       when 'Media::Comment'
         Activity::CommentSerializer
-      # when 'Media::Favorite'
-      #   Activity::FavoriteSerializer
+      when 'Media::Favorite'
+        Activity::FavoriteSerializer
       else
         ActiveModel::Serializer
     end.new object.actionable, scope: scope
