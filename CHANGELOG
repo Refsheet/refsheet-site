@@ -1,4 +1,10 @@
 ---
+v1.2.5-pre.18:
+- hash: 65e527a
+  date: '2018-03-07'
+  tags: []
+  message: NSFW flag now shown on all Image serializers.
+---
 v1.2.5-pre.17+build.1: []
 ---
 v1.2.5-pre.17:
