@@ -1,6 +1,6 @@
 require_dependency Rails.root.join 'app/serializers/activity/image_serializer'
 
-class Activity::CommentSerializer < ActiveModel::Serializer
+class Activity::FavoriteSerializer < ActiveModel::Serializer
   attributes :id,
              :media_type,
              :media

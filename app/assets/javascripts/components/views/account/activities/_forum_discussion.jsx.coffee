@@ -18,7 +18,7 @@
 
     `<div className='activity padding-bottom--small'>
         <div className='headline margin-bottom--medium'>
-            Started { str }.
+            Started { str }:
         </div>
 
         { discussions }

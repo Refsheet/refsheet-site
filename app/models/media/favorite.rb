@@ -27,6 +27,10 @@ class Media::Favorite < ApplicationRecord
 
   after_create :notify_user
 
+  def media_type
+    'Image'
+  end
+
   def guid
     Digest::MD5.hexdigest media_id.to_s + user_id.to_s
   end

@@ -37,4 +37,12 @@ class ApplicationRecord < ActiveRecord::Base
       end
     end
   end
+
+  def method_missing(symbol, *args)
+    if symbol.to_s =~ /^is_(\w+)$/
+      self.send($1 + '?', *args)
+    else
+      super
+    end
+  end
 end

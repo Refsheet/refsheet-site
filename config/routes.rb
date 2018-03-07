@@ -50,7 +50,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :notifications, only: [:index], controller: 'account/notifications'
+  resources :notifications, only: [:index, :update], controller: 'account/notifications' do
+    collection do
+      put :bulk_update
+    end
+  end
 
 
   resource :session, only: [:show, :create, :destroy, :update], controller: 'session'

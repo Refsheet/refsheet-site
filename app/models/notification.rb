@@ -76,7 +76,13 @@ class Notification < ApplicationRecord
   #== Global State Things
 
   def read!
-    self.update_columns read_at: Time.zone.now
+    self.read_at = Time.zone.now
+    self.save!
+  end
+
+  def unread!
+    self.read_at = nil
+    self.save!
   end
 
   def unread?
