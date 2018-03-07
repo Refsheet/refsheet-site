@@ -1,4 +1,11 @@
 ---
+v1.2.6:
+- hash: '8854051'
+  date: '2018-03-07'
+  tags:
+  - f
+  message: Completed the Notification Feed WIP for Patrons! Enjoy <3.
+---
 v1.2.5-pre.18:
 - hash: 65e527a
   date: '2018-03-07'
