@@ -2,9 +2,10 @@ require_dependency Rails.root.join 'app/serializers/activity/image_serializer'
 require_dependency Rails.root.join 'app/serializers/activity/character_serializer'
 require_dependency Rails.root.join 'app/serializers/activity/discussion_serializer'
 require_dependency Rails.root.join 'app/serializers/activity/comment_serializer'
+require_dependency Rails.root.join 'app/serializers/activity/favorite_serializer'
 require_dependency Rails.root.join 'app/serializers/activity/user_serializer'
 
-class NotificationSerializer < ActiveModel::Serializer
+class NotificationSerializer < ApplicationSerializer
   attributes :id,
              :type,
              :title,
@@ -13,7 +14,9 @@ class NotificationSerializer < ActiveModel::Serializer
              :tag,
              :actionable_type,
              :actionable,
-             :timestamp
+             :timestamp,
+             :is_read,
+             :path
 
   has_one :user, serializer: Activity::UserSerializer
   has_one :character, serializer: Activity::CharacterSerializer
@@ -47,5 +50,9 @@ class NotificationSerializer < ActiveModel::Serializer
 
   def timestamp
     object.created_at.to_i
+  end
+
+  def path
+    "/notifications/#{object.guid}"
   end
 end

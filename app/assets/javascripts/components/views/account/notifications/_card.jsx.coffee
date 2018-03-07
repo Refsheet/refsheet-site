@@ -8,9 +8,12 @@ namespace 'Views.Account.Notifications'
     user: React.PropTypes.object.isRequired
     character: React.PropTypes.object
     timestamp: React.PropTypes.number.isRequired
+    onReadChange: React.PropTypes.func.isRequired
+
+  getInitialState: ->
+    is_read: @props.is_read
 
   _getIdentity: ->
-    console.log @props
     if @props.character
       avatarUrl: @props.character.profile_image_url
       name: @props.character.name
@@ -29,24 +32,27 @@ namespace 'Views.Account.Notifications'
       is_patron: @props.user.is_patron
       type: 'user'
 
-  _getActionables: ->
-    @props.actionables || [ @props.actionable ]
+  _getActionables: (key) ->
+    out = @props.actionables || [ @props.actionable ]
+    if typeof key isnt 'undefined'
+      out = out.map (out) -> out[key]
+    out
 
   _getActionable: ->
-    return unless @props.actionable
+    return null unless @props.actionable
 
     switch @props.type
-#      when 'Notifications::ImageFavorite'
-#        `<Views.Account.Activities.Image images={ this._getActionables() } character={ this.props.character } />`
-#
+      when 'Notifications::ImageFavorite'
+        `<Views.Account.Activities.Image images={ this._getActionables('media') } action='Likes' />`
+
       when 'Notifications::ImageComment'
         `<Views.Account.Activities.Comment comments={ this._getActionables() } />`
-#
-#      when 'Notifications::ForumReply'
-#        `<Views.Account.Activities.ForumDiscussion characters={ this._getActionables() } username={ this.props.user.username } />`
-#
-#      when 'Notifications::ForumMention'
-#        `<Views.Account.Activities.ForumDiscussion characters={ this._getActionables() } username={ this.props.user.username } />`
+
+      when 'Notifications::ForumReply'
+        `<Views.Account.Activities.ForumPost posts={ this._getActionables() } />`
+
+      when 'Notifications::ForumTag'
+        `<Views.Account.Activities.ForumPost action="Mentioned you in" posts={ this._getActionables() } />`
 
       else
         `<div className='red-text padding-bottom--medium'>
@@ -55,8 +61,11 @@ namespace 'Views.Account.Notifications'
             <Link to={this.props.href}>{this.props.message}</Link>
         </div>`
 
+  componentWillReceiveProps: (newProps) ->
+    if newProps.is_read isnt @state.is_read
+      @setState is_read: newProps.is_read
+
   render: ->
-    { date, dateHuman } = @props
     identity = @_getIdentity()
 
     if identity.is_admin
@@ -67,11 +76,40 @@ namespace 'Views.Account.Notifications'
       imgShadow = '0 0 3px 1px #F96854'
       nameColor = '#F96854'
 
-    `<div className='card sp with-avatar margin-bottom--medium'>
+    classNames = ['card sp with-avatar margin-bottom--medium notification']
+
+    if @state.is_read
+      unreadLink = \
+        `<a href='#'
+            onClick={ this.props.onReadChange(false, this.props.path) }
+            className='right action-link done'
+            data-tooltip='Mark Unread'
+            title='Mark Unread'
+        >
+          <Icon>drafts</Icon>
+        </a>`
+
+    else
+      unreadLink = \
+        `<a href='#'
+            onClick={ this.props.onReadChange(true, this.props.path) }
+            className='right action-link'
+            data-tooltip='Mark Read'
+            title='Mark Read'
+        >
+          <Icon>done</Icon>
+        </a>`
+
+      classNames.push 'notification-unread'
+
+    `<div className={classNames.join(' ')}>
         <img className='avatar circle' src={ identity.avatarUrl } alt={ identity.name } style={{ boxShadow: imgShadow }} />
 
         <div className='card-content padding-bottom--none'>
-            <DateFormat className='muted right' timestamp={ this.props.timestamp } fuzzy />
+            <div className='muted right'>
+                <DateFormat timestamp={ this.props.timestamp } fuzzy />
+                { unreadLink }
+            </div>
             <IdentityLink to={ identity } />
 
             { this._getActionable() }

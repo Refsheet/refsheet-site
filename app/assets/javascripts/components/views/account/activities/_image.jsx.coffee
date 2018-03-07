@@ -2,10 +2,11 @@
   propTypes:
     images: React.PropTypes.array.isRequired
     character: React.PropTypes.object
+    action: React.PropTypes.string
 
   _buildSingle: (key, one) ->
     `<Row noMargin tinyGutter key={ key }>
-        <Column><GalleryImage image={ one } size='medium' /></Column>
+        <Column><GalleryImage image={ one } size='medium_square' /></Column>
     </Row>`
 
   _buildDouble: (key, one, two) ->
@@ -48,12 +49,14 @@
     grid
 
   render: ->
-    str = if @props.images.length == 1 then 'a new photo' else "#{@props.images.length} new photos"
+    str = if @props.images.length == 1 then 'an image' else "#{@props.images.length} images"
+    action = @props.action || 'Uploaded'
 
-    for i in @props.images
-      i.character = @props.character
+    if @props.character
+      for i in @props.images
+        i.character = @props.character
 
     `<div className='activity'>
-        <div className='headline margin-bottom--medium'>Uploaded { str }:</div>
+        <div className='headline margin-bottom--medium'>{ action } { str }:</div>
         <Row oneColumn>{ this._buildImageGrid(this.props.images) }</Row>
     </div>`

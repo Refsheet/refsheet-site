@@ -12,6 +12,7 @@
     @request('DELETE', path, {}, success, error)
 
   poll: (path, data, success) ->
+    return if window.location.hash == '#nopoll'
     console.debug "POLL #{path}", data
 
     $.ajax

@@ -76,18 +76,44 @@ namespace 'Views.Account.Notifications'
 
     grouped
 
+  _markRead: (read, path) -> (e) =>
+    e.preventDefault()
+    Model.put path, { read: read }, (data) =>
+      StateUtils.updateItem @, 'notifications', data, 'id'
+
+  _markAllRead: (read) -> (e) =>
+    e.preventDefault()
+    ids = @state.notifications.map (n) -> n.id
+
+    Model.put "/notifications/bulk_update", { read: read, ids: ids }, (data) =>
+      newNotes = @state.notifications.map (n) ->
+        note = $.extend {}, n
+        note.is_read = data.read
+        note
+      @setState notifications: newNotes
+
 
   render: ->
     return `<Spinner className='margin-top--large' small center />` unless @state.notifications
+    __this = this
 
     out = @_groupedActivity().map (item) ->
-      `<Views.Account.Notifications.Card {...StringUtils.camelizeKeys(item)} key={item.id} />`
+      `<Views.Account.Notifications.Card {...item} key={item.id} onReadChange={ __this._markRead } />`
 
     `<div className='feed-item-stream'>
-        { this.state.newActivity && this.state.newActivity.length > 0 &&
-            <a className='btn btn-flat block margin-bottom--medium' onClick={ this._prepend }>
-                { this.state.newActivity.length } new { this.state.newActivity.length == 1 ? 'notification' : 'notifications' }
-            </a> }
+        <div className='feed-header margin-bottom--medium'>
+            <a className='btn btn-flat right muted low-pad' onClick={ this._markAllRead(true) }>
+                Read All
+                <Icon className='right'>done_all</Icon>
+            </a>
+
+            { this.state.newActivity && this.state.newActivity.length > 0 &&
+                <a className='btn btn-flat' onClick={ this._prepend }>
+                    { this.state.newActivity.length } new { this.state.newActivity.length == 1 ? 'notification' : 'notifications' }
+                </a> }
+
+            <br className='clearfix' />
+        </div>
 
         { out }
 

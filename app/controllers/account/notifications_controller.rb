@@ -31,7 +31,25 @@ class Account::NotificationsController < AccountController
   end
 
   def update
+    if params[:id]
+      notification = current_user.notifications.find_by! guid: params[:id]
 
+      Rails.logger.info "READ: " + notification.read_at.inspect
+      if params.include? :read
+        read = params[:read] == 'true' ? Time.zone.now : nil
+        notification.update_attributes read_at: read
+      end
+      Rails.logger.info "POST: " + notification.read_at.inspect
+
+      render json: notification, serializer: NotificationSerializer
+    end
+  end
+
+  def bulk_update
+    read = params[:read] == 'true' ? Time.zone.now : nil
+    notifications = current_user.notifications.where guid: params[:ids]
+    notifications.update_all read_at: read
+    render json: { ids: notifications.pluck(:id), read: !read.nil? }
   end
 
   def browser_push
