@@ -8,7 +8,8 @@ class Activity::ImageSerializer < ActiveModel::Serializer
              :gravity,
              :comments_count,
              :favorites_count,
-             :is_favorite
+             :is_favorite,
+             :nsfw
 
   has_one :character, serializer: Activity::CharacterSerializer
 

@@ -3,9 +3,10 @@ class Activity::UserSerializer < ActiveModel::Serializer
              :name,
              :username,
              :avatar_url,
-             :settings,
              :link,
-             :path
+             :path,
+             :is_admin,
+             :is_patron
 
   def id
     object.username
@@ -17,5 +18,13 @@ class Activity::UserSerializer < ActiveModel::Serializer
 
   def path
     "/users/#{object.username}"
+  end
+
+  def is_admin
+    object.admin?
+  end
+
+  def is_patron
+    object.patron?
   end
 end

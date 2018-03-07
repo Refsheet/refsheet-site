@@ -10,6 +10,7 @@ namespace 'Views.Account.Notifications'
     timestamp: React.PropTypes.number.isRequired
 
   _getIdentity: ->
+    console.log @props
     if @props.character
       avatarUrl: @props.character.profile_image_url
       name: @props.character.name
