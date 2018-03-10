@@ -176,6 +176,10 @@
 
               <ul className='site-nav visible-on-med-and-up'>
                   <li>
+                      <Link to='/' activeClassName='teal-text text-lighten-2'>Home</Link>
+                  </li>
+
+                  <li>
                       <Link to='/browse' activeClassName='teal-text text-lighten-2'>Characters</Link>
                   </li>
 
