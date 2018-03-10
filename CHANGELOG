@@ -1,4 +1,12 @@
 ---
+v1.2.6-pre.1:
+- hash: 38816cb
+  date: '2018-03-09'
+  tags:
+  - b
+  message: Starting to unify Markdown rendering, and adjusted the color scheme to
+    pick up more tags on character pages.
+---
 v1.2.6:
 - hash: '8854051'
   date: '2018-03-07'
