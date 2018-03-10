@@ -5,5 +5,6 @@ $markdown = Redcarpet::Markdown.new(
     fenced_code_blocks: true,
     strikethrough: true,
     disable_indented_code_blocks: true,
-    underline: true
+    underline: true,
+    hard_wrap: true
 )

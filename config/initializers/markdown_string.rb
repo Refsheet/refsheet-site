@@ -4,12 +4,16 @@ class MarkdownString < String
   include RichTextHelper
 
   EXTENSIONS = {
-      autolink: true
+      autolink: true,
+      hard_wrap: true,
+      tables: true,
+      fenced_code_blocks: true,
+      strikethrough: true,
+      underline: true
   }
 
   HTML_OPTIONS = {
       escape_html: true,
-      hard_wrap: true,
       prettify: true
   }
 
@@ -74,6 +78,29 @@ class MarkdownString < String
 
     def to_markdown
       nil
+    end
+  end
+
+  class ::ActiveRecord::Base
+    class << self
+      def has_markdown_field(name, options={})
+        cache_column = options.fetch(:cache_column) { name.to_s + '_html' }
+        cache_present = column_names.include? cache_column
+
+        define_method(name) do
+          super().to_md
+        end
+
+        if cache_present
+          define_method(cache_column) do
+            super().html_safe
+          end
+
+          before_save do
+            assign_attributes cache_column => send(name).to_html
+          end
+        end
+      end
     end
   end
 

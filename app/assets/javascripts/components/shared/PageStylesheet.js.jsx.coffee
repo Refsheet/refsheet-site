@@ -96,6 +96,9 @@
         'h1'
         'a:not(.btn)'
       ]
+      '.cs-primary--background-color': [
+        'ul li:before'
+      ]
 
       #== accent1
 
@@ -118,6 +121,7 @@
       '.cs-accent2--color': [
         '.attribute-table li:not(.attribute-form) .attribute-data .key'
         'section.pop-out h2'
+        'h3'
       ]
       '.cs-accent2--background-color': [
         '.btn-secondary'
