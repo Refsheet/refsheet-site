@@ -44,14 +44,7 @@ class Forum::Post < ApplicationRecord
   before_save :update_content_cache
 
   has_guid
-
-  def content
-    super.to_md
-  end
-
-  def content_html
-    super || content.to_html
-  end
+  has_markdown_field :content
 
   # If called without a user, it will assume you are using the ::with_unread_counts scope
   # on the parent discussion association. If you are not, pass a user. Beware N+1

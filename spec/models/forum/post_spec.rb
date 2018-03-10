@@ -51,4 +51,14 @@ describe Forum::Post, type: :model do
     expect_any_instance_of(User).to receive(:notify!).and_return(true)
     expect(create :forum_post).to be_valid
   end
+
+  it 'markdown strings' do
+    post = create :forum_post
+    expect(post.content).to be_a MarkdownString
+  end
+
+  it 'markdown cache' do
+    post = create :forum_post, content: '# Hello!'
+    expect(post.content_html).to eq '<h1>Hello!</h1>'
+  end
 end
