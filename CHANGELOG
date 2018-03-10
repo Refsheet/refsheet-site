@@ -1,4 +1,10 @@
 ---
+v1.2.6-pre.2:
+- hash: 35431b9
+  date: '2018-03-10'
+  tags: []
+  message: Added a "Home" link to the menu thing.
+---
 v1.2.6-pre.1:
 - hash: 38816cb
   date: '2018-03-09'
