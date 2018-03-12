@@ -57,9 +57,14 @@ Rails.application.routes.draw do
   end
 
 
+  #== Login
+
   resource :session, only: [:show, :create, :destroy, :update], controller: 'session'
   resource :password_resets, only: [:create, :update]
   get 'login', to: 'session#new'
+
+
+  #== Front-End Legacy
 
   resources :characters, only: [:index]
 
@@ -148,6 +153,9 @@ Rails.application.routes.draw do
   namespace :webhooks do
     post :patreon, to: 'patreon#create'
   end
+
+
+  #== Admin
 
   namespace :admin do
     root to: 'dashboard#show'
