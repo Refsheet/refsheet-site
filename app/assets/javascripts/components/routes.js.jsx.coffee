@@ -82,7 +82,11 @@
 
             <Route path='images/:imageId' component={ ImageApp } />
             <Route path=':userId' component={ User.View } />
-            <Route path=':userId/:characterId' component={ Packs.application.CharacterController } />
+            <Route path=':userId/:characterId' component={ CharacterApp } />
+
+            <Route path='/v2'>
+                <Route path=':userId/:characterId' component={ Packs.application.CharacterController } />
+            </Route>
 
 
             {/*== Fallback */}
