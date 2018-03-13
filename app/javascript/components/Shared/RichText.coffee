@@ -20,13 +20,27 @@ export default class RichText extends Component
     @setState content: e.target.value
 
   render: ->
-    {contentHtml} = @props
-    {content} = @state
+    { contentHtml, title } = @props
+    { content } = @state
 
-    `<div className='rich-text'>
-      <div dangerouslySetInnerHTML={{__html: contentHtml}} />
-      <form onSubmit={this.handleSubmit}>
-        <textarea name='content' value={content} onChange={this.handleChange}/>
-        <button type='submit'>Save</button>
-      </form>
+    outerClassNames = []
+    headerClassNames = []
+    bodyClassNames = ['rich-text']
+
+    if @props.renderAsCard
+      outerClassNames.push 'card'
+      headerClassNames.push 'card-header'
+      bodyClassNames.push 'card-content'
+
+    `<div className={ outerClassNames.join(' ') }>
+      { title &&
+        <div className={ headerClassNames.join(' ') }>
+          <h2>{ title }</h2>
+        </div> }
+
+      <div className={ bodyClassNames.join(' ') }>
+        { content && content.length > 0
+            ? <div dangerouslySetInnerHTML={ { __html: contentHtml } }/>
+            : <p className='caption'>This section unintentionally left blank.</p> }
+      </div>
     </div>`
