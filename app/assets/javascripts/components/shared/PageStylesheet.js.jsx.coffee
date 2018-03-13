@@ -103,7 +103,7 @@
       #== accent1
 
       '.cs-accent1--background-color': [
-        '.btn'
+        '.btn:not(.btn-flat)'
         'ul.tabs .indicator'
       ]
       '.cs-accent1--color': [

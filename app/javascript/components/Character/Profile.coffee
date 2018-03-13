@@ -6,7 +6,7 @@ Profile = ({character, onChange}) ->
   profileSections = character.profile_sections.map (section) ->
     `<ProfileSection key={section.id} {...section} onChange={onChange} />`
 
-  `<section className='character-profile'>
+  `<section className='character-profile margin-bottom--large'>
     <div className='container'>
       <div className='row no-margin margin-bottom--large' style={{borderBottom: '1px solid rgba(255,255,255,0.3)'}}>
         <div className='col s12 m4'>
@@ -29,6 +29,10 @@ Profile = ({character, onChange}) ->
       />
 
       { profileSections }
+
+      <a href='#'
+         className='btn btn-flat block margin-top--large'
+         style={{border: '1px dashed #ffffff33'}}>Add Section</a>
     </div>
   </section>`
 
