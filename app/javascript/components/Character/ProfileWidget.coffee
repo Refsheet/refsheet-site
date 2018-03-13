@@ -2,13 +2,32 @@ import PropTypes from 'prop-types'
 import { camelize } from 'object-utils'
 import widgets, { SerializerWidget } from './Widgets'
 
-ProfileWidget = ({id, type, title, data, onChange}) ->
+ProfileWidget = ({id, type, title, data, onChange, editable}) ->
   Widget = widgets[type] || SerializerWidget
 
-  if title
+  if editable
     header = \
-      `<div className='card-header'>
-        <h3 className='margin--none'>{ title || 'Untitled ' + type + ' Widget' }</h3>
+      `<div className='muted card-header'>
+        <div className='right' style={{opacity: 0.3}}>
+          <a href='#' className='margin-right--medium'><Icon className='muted' style={{fontSize: '1rem', color: 'rgba(255,255,255,0.1) !important'}}>delete</Icon></a>
+          <a href='#'><Icon className='muted' style={{fontSize: '1rem', color: 'rgba(255,255,255,0.1) !important'}}>edit</Icon></a>
+        </div>
+        <div className='left' style={{opacity: 0.3}}>
+          <a href='#' className='margin-right--medium'><Icon className='muted' style={{fontSize: '1rem', color: 'rgba(255,255,255,0.1) !important'}}>reorder</Icon></a>
+          <a href='#'><Icon className='muted' style={{fontSize: '1rem', color: 'rgba(255,255,255,0.1) !important'}}>content_copy</Icon></a>
+        </div>
+
+        <div className='center'>
+          { title || type }
+        </div>
+      </div>`
+
+  else if title
+    header = \
+      `<div className='muted card-header'>
+        <div className='center'>
+          { title }
+        </div>
       </div>`
 
   `<div className='card profile-widget'>
@@ -22,5 +41,6 @@ ProfileWidget.propTypes =
   type: PropTypes.string.isRequired
   data: PropTypes.object.isRequired
   onChange: PropTypes.func
+  editable: PropTypes.bool
 
 export default ProfileWidget

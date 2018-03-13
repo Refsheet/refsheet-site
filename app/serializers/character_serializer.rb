@@ -10,10 +10,10 @@ class CharacterSerializer < ActiveModel::Serializer
              :custom_attributes, :profile_sections
 
   has_many :swatches, serializer: SwatchSerializer
-  has_one  :featured_image, serializer: CharacterImageSerializer
-  has_one  :profile_image, serializer: CharacterImageSerializer
-  has_one  :color_scheme, serializer: ColorSchemeSerializer
-  has_one  :pending_transfer, serializer: CharacterTransferSerializer
+  has_one :featured_image, serializer: CharacterImageSerializer
+  has_one :profile_image, serializer: CharacterImageSerializer
+  has_one :color_scheme, serializer: ColorSchemeSerializer
+  has_one :pending_transfer, serializer: CharacterTransferSerializer
   has_many :images, serializer: ImageSerializer
 
   def profile_sections
@@ -26,53 +26,68 @@ class CharacterSerializer < ActiveModel::Serializer
                     id: "ad47",
                     column_order: 1,
                     width: 3,
-                    widget: {
-                        id: "ffcc",
-                        type: 'RichText',
-                        data: {
-                            content: <<-MARKDOWN.squish,
+                    widgets: [
+                        {
+                            id: "ffcc",
+                            type: 'RichText',
+                            title: 'About Page Sections',
+                            data: {
+                                content: <<-MARKDOWN.squish,
                               # This is a Page Section!
                               
                               It's very fancy, you know.
-                            MARKDOWN
+                                MARKDOWN
 
-                            title: "About Page Sections",
-
-                            content_html: <<-HTML.squish
+                                content_html: <<-HTML.squish
                               <p>They're very fancy, you know.</p>
                               <ul>
                                 <li>This section is a Markdown section,</li>
                                 <li>And you can put whatever you want in it.</li>
                               </ul>
-                            HTML
+                                HTML
+                            }
+                        },
+                        {
+                            id: "ffcd",
+                            type: 'Image',
+                            title: 'This is a cat.',
+                            data: {
+                                image_src: 'https://loremflickr.com/640/480/fursuit',
+                                width: 640,
+                                height: 480
+                            }
                         }
-                    }
+                    ]
                 },
                 {
                     id: "cd52",
                     column_order: 6,
                     width: 6,
-                    widget: {
-                        id: "fa56",
-                        type: 'YouTube',
-                        data: {
-                            video_url: "https://www.youtube.com/watch?v=UbQgXeY_zi4"
+                    widgets: [
+                        {
+                            id: "fa56",
+                            type: 'YouTube',
+                            data: {
+                                video_url: "https://www.youtube.com/watch?v=UbQgXeY_zi4"
+                            }
                         }
-                    }
+                    ]
                 },
                 {
                     id: "ab12",
                     column_order: 3,
                     width: 3,
-                    widget: {
-                        id: "dac4",
-                        type: 'Image',
-                        data: {
-                            image_src: 'http://mypa.ws/paws.jpg',
-                            alt: 'Paws!',
-                            caption: "The Caracal has wonderful, very lovely little coffee beans."
+                    widgets: [
+                        {
+                            id: "dac4",
+                            type: 'Image',
+                            data: {
+                                image_src: 'http://mypa.ws/paws.jpg',
+                                alt: 'Paws!',
+                                caption: "The Caracal has wonderful, very lovely little coffee beans."
+                            }
                         }
-                    }
+                    ]
                 }
             ]
         }
@@ -82,7 +97,7 @@ class CharacterSerializer < ActiveModel::Serializer
   def id
     object.slug
   end
-  
+
   def custom_attributes
     object.custom_attributes&.as_json
   end
