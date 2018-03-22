@@ -1,30 +1,40 @@
 import { PropTypes } from 'prop-types'
+import JustifiedLayout from 'react-justified-layout'
+import Measure from 'react-measure'
+import Section from 'Shared/Section'
 
 Gallery = ({images}) ->
-  imageTiles = images.map (img) ->
-    `<div className='col s6 m3'>
-      <img src={img.small_square} className='responsive-img block black z-depth-1' />
-    </div>`
+  galleryTabs = [
+    { id: 'baz', title: 'Baz' }
+    { id: 'bar', title: 'Bar' }
+  ]
 
-  `<section id='gallery' className='margin-bottom--large'>
-    <div className='container'>
-      <div className='row no-margin margin-bottom--large' style={{borderBottom: '1px solid rgba(255,255,255,0.3)'}}>
-        <div className='col s12 m4'>
-          <h2 className='margin--none'>Main Gallery</h2>
-        </div>
-        <div className='col s12 m8 right-align'>
-          <ul className='tabs transparent margin-bottom--small right'>
-            <li className="tab"><a href="#">Scraps</a></li>
-            <li className='tab'><a href="#">WIPs</a></li>
-          </ul>
-        </div>
-      </div>
+  `<Section title='Main Gallery' id='gallery' tabs={galleryTabs} onTabClick={(id) => console.log(id)} measured>
+    <Measure bounds>
+      { renderGallery(images) }
+    </Measure>
+  </Section>`
 
-      <div className='row'>
-        { imageTiles }
-      </div>
-    </div>
-  </section>`
+
+renderGallery = (images) -> ({measureRef, contentRect}) ->
+  { bounds } = contentRect
+  { width } = bounds
+
+  imageTiles = images.map ({id, aspect_ratio: aspectRatio, small, width, height}) ->
+    style = { width, height }
+
+    `<img key={id}
+          aspectRatio={aspectRatio}
+          src={small} 
+          style={style}
+          className='responsive-img block black z-depth-1' />`
+
+  `<div className='gallery-sizer margin-top--medium' ref={measureRef}>
+    <JustifiedLayout containerWidth={ width } containerPadding={ 0 }>
+      { imageTiles }
+    </JustifiedLayout>
+  </div>`
+
 
 Gallery.propTypes =
   images: PropTypes.arrayOf(PropTypes.object)

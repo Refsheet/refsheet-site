@@ -25,7 +25,8 @@ class ImageSerializer < ActiveModel::Serializer
              :source_url_display,
              :is_favorite,
              :favorites_count,
-             :comments_count
+             :comments_count,
+             :aspect_ratio
 
   has_one :character, serializer: ImageCharacterSerializer
   has_many :favorites, serializer: Media::FavoriteSerializer

@@ -24,10 +24,8 @@ ProfileWidget = ({id, type, title, data, onChange, editable}) ->
 
   else if title
     header = \
-      `<div className='muted card-header'>
-        <div className='center'>
-          { title }
-        </div>
+      `<div className='card-header'>
+        { title }
       </div>`
 
   `<div className='card profile-widget'>
