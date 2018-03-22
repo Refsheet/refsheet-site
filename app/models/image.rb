@@ -24,6 +24,7 @@
 #  background_color   :string
 #  comments_count     :integer
 #  favorites_count    :integer
+#  image_meta         :text
 #
 # Indexes
 #
@@ -44,6 +45,8 @@ class Image < ApplicationRecord # < Media
 
   # Requires this to eager load the news feed:
   has_many :activities, as: :activity, dependent: :destroy
+
+  delegate :aspect_ratio, :width, :height, to: :image
 
   SIZE = {
       thumbnail: 320,
@@ -88,6 +91,7 @@ class Image < ApplicationRecord # < Media
   ranks :row_order, with_same: :character_id
   acts_as_paranoid
 
+  after_initialize :ensure_attachment_meta
   before_validation :adjust_source_url
   after_save :clean_up_character
   after_destroy :clean_up_character
@@ -168,6 +172,19 @@ class Image < ApplicationRecord # < Media
   end
 
   def log_activity
-    Activity.create activity: self, user_id: self.character.user_id, character_id: self.character_id, created_at: self.created_at, activity_method: 'create'
+    Activity.create activity: self,
+                    user_id: self.character.user_id,
+                    character_id: self.character_id,
+                    created_at: self.created_at,
+                    activity_method: 'create'
+  end
+
+  def ensure_attachment_meta
+    return unless self.image_meta.nil?
+    if self.image.respond_to? :reprocess_without_delay!
+      self.image.reprocess_without_delay!
+    else
+      self.image.reprocess!
+    end
   end
 end

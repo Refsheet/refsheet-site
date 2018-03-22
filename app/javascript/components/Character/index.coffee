@@ -37,7 +37,9 @@ export default class extends Component
 
     get(path: path, request: (r) => @request = r)
       .then (character) => @setState { character, loading: false }
-      .catch (error) => @setState { error, loading: false } if error
+      .catch (error) =>
+        throw error
+        @setState { error, loading: false } if error
 
   update: (data) =>
     { character } = @state
@@ -50,6 +52,7 @@ export default class extends Component
     put(path: path, params: character: changedData, request: (r) => @request = r)
       .then (character) => @setState { character, backgroundLoading: false }
       .catch (error) =>
+        console.error "ERROR CAUGHT: #{error}"
         return unless error
         Materialize.toast error.error || 'Unknown error.'
         @setState backgroundLoading: false
