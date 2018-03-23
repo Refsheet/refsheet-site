@@ -102,7 +102,7 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'capybara'
   gem 'capybara-selenium'
-  gem 'chromedriver-helper'
+  gem 'chromedriver-helper' unless ENV.key? 'CIRCLECI'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'letter_opener'
