@@ -31,12 +31,12 @@ jobs:
       - run:
           name: Start Selenium
           command: |
-            java -jar selenium-server-standalone-3.5.3.jar -log test-reports/selenium.log
+            java -jar selenium-server-standalone-3.5.3.jar -log junit/selenium.log
           background: true
 
       - run:
           name: Start ChromeDriver
-          command: chromedriver --verbose
+          command: chromedriver --verbose --whitelisted-ips=""
           background: true
 
       # Restore bundle cache
