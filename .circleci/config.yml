@@ -62,8 +62,7 @@ jobs:
           command: bin/rails db:schema:load --trace
 
   test:
-    docker:
-      <<: *docker
+    docker: *docker
 
     steps:
       # Run rspec in parallel
