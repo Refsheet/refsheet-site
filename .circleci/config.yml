@@ -18,6 +18,8 @@ jobs:
           POSTGRES_DB: refsheet-site-test
           POSTGRES_PASSWORD: "fishsticks"
 
+      - image: selenium/standalone-chrome:3.1.0
+
     steps:
       - checkout
 
