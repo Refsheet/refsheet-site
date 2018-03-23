@@ -21,10 +21,7 @@ jobs:
     steps:
       - checkout
 
-      - run:
-          title: Which ChromeDriver
-          command: which chromedriver; chromedriver -v
-
+      - run: which chromedriver; chromedriver -v
       - run: mkdir ~/junit
 
       # Restore bundle cache
@@ -66,6 +63,11 @@ jobs:
       - run:
           name: Database Setup
           command: bin/rails db:schema:load --trace
+
+      - run:
+          name: Start ChromeDriver
+          command: chromedriver --verbose
+          background: true
 
       # Run rspec in parallel
       - type: shell
