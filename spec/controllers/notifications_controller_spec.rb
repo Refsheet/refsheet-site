@@ -26,8 +26,6 @@ describe Account::NotificationsController, type: :controller do
         data = JSON.parse(response.body)
         expect(data.keys).to include "notifications"
 
-        puts data.inspect
-
         notification = data["notifications"].select { |n| n['actionable']['id'] == forum_post.guid }.first
         expect(notification).to_not be_nil
         expect(notification['title']).to match /mentioned you/
