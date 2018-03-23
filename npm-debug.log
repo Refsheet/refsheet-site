@@ -1,0 +1,353 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/node', '/usr/bin/npm', 'install', '-g', 'karma-cli' ]
+2 info using npm@3.10.10
+3 info using node@v6.12.2
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readGlobalPackageData
+7 silly fetchPackageMetaData karma-cli
+8 silly fetchNamedPackageData karma-cli
+9 silly mapToRegistry name karma-cli
+10 silly mapToRegistry using default registry
+11 silly mapToRegistry registry https://registry.npmjs.org/
+12 silly mapToRegistry data Result {
+12 silly mapToRegistry   raw: 'karma-cli',
+12 silly mapToRegistry   scope: null,
+12 silly mapToRegistry   escapedName: 'karma-cli',
+12 silly mapToRegistry   name: 'karma-cli',
+12 silly mapToRegistry   rawSpec: '',
+12 silly mapToRegistry   spec: 'latest',
+12 silly mapToRegistry   type: 'tag' }
+13 silly mapToRegistry uri https://registry.npmjs.org/karma-cli
+14 verbose request uri https://registry.npmjs.org/karma-cli
+15 verbose request no auth needed
+16 info attempt registry request try #1 at 2:00:01 AM
+17 verbose request id c0e29ef24781aa7d
+18 verbose etag "5a9fb848-435c"
+19 verbose lastModified Wed, 7 Mar 2018 10:00:40 GMT
+20 http request GET https://registry.npmjs.org/karma-cli
+21 http 304 https://registry.npmjs.org/karma-cli
+22 verbose headers { date: 'Fri, 23 Mar 2018 07:00:00 GMT',
+22 verbose headers   via: '1.1 varnish',
+22 verbose headers   'cache-control': 'max-age=300',
+22 verbose headers   etag: '"5a9fb848-435c"',
+22 verbose headers   age: '6620',
+22 verbose headers   connection: 'keep-alive',
+22 verbose headers   'x-served-by': 'cache-ord1725-ORD',
+22 verbose headers   'x-cache': 'HIT',
+22 verbose headers   'x-cache-hits': '2',
+22 verbose headers   'x-timer': 'S1521788400.320629,VS0,VE0',
+22 verbose headers   vary: 'Accept-Encoding, Accept' }
+23 silly get cb [ 304,
+23 silly get   { date: 'Fri, 23 Mar 2018 07:00:00 GMT',
+23 silly get     via: '1.1 varnish',
+23 silly get     'cache-control': 'max-age=300',
+23 silly get     etag: '"5a9fb848-435c"',
+23 silly get     age: '6620',
+23 silly get     connection: 'keep-alive',
+23 silly get     'x-served-by': 'cache-ord1725-ORD',
+23 silly get     'x-cache': 'HIT',
+23 silly get     'x-cache-hits': '2',
+23 silly get     'x-timer': 'S1521788400.320629,VS0,VE0',
+23 silly get     vary: 'Accept-Encoding, Accept' } ]
+24 verbose etag https://registry.npmjs.org/karma-cli from cache
+25 verbose get saving karma-cli to /home/weisert/.npm/registry.npmjs.org/karma-cli/.cache.json
+26 verbose correctMkdir /home/weisert/.npm correctMkdir not in flight; initializing
+27 silly install normalizeTree
+28 silly loadCurrentTree Finishing
+29 silly loadIdealTree Starting
+30 silly install loadIdealTree
+31 silly cloneCurrentTree Starting
+32 silly install cloneCurrentTreeToIdealTree
+33 silly cloneCurrentTree Finishing
+34 silly loadShrinkwrap Starting
+35 silly install loadShrinkwrap
+36 silly loadShrinkwrap Finishing
+37 silly loadAllDepsIntoIdealTree Starting
+38 silly install loadAllDepsIntoIdealTree
+39 silly resolveWithNewModule karma-cli@1.0.1 checking installable status
+40 silly cache add args [ 'karma-cli', null ]
+41 verbose cache add spec karma-cli
+42 silly cache add parsed spec Result {
+42 silly cache add   raw: 'karma-cli',
+42 silly cache add   scope: null,
+42 silly cache add   escapedName: 'karma-cli',
+42 silly cache add   name: 'karma-cli',
+42 silly cache add   rawSpec: '',
+42 silly cache add   spec: 'latest',
+42 silly cache add   type: 'tag' }
+43 silly addNamed karma-cli@latest
+44 verbose addNamed "latest" is being treated as a dist-tag for karma-cli
+45 info addNameTag [ 'karma-cli', 'latest' ]
+46 silly mapToRegistry name karma-cli
+47 silly mapToRegistry using default registry
+48 silly mapToRegistry registry https://registry.npmjs.org/
+49 silly mapToRegistry data Result {
+49 silly mapToRegistry   raw: 'karma-cli',
+49 silly mapToRegistry   scope: null,
+49 silly mapToRegistry   escapedName: 'karma-cli',
+49 silly mapToRegistry   name: 'karma-cli',
+49 silly mapToRegistry   rawSpec: '',
+49 silly mapToRegistry   spec: 'latest',
+49 silly mapToRegistry   type: 'tag' }
+50 silly mapToRegistry uri https://registry.npmjs.org/karma-cli
+51 verbose addNameTag registry:https://registry.npmjs.org/karma-cli not in flight; fetching
+52 verbose get https://registry.npmjs.org/karma-cli not expired, no request
+53 silly addNameTag next cb for karma-cli with tag latest
+54 silly addNamed karma-cli@1.0.1
+55 verbose addNamed "1.0.1" is a plain semver version for karma-cli
+56 silly cache afterAdd karma-cli@1.0.1
+57 verbose afterAdd /home/weisert/.npm/karma-cli/1.0.1/package/package.json not in flight; writing
+58 verbose correctMkdir /home/weisert/.npm correctMkdir not in flight; initializing
+59 verbose afterAdd /home/weisert/.npm/karma-cli/1.0.1/package/package.json written
+60 silly fetchNamedPackageData resolve
+61 silly mapToRegistry name resolve
+62 silly mapToRegistry using default registry
+63 silly mapToRegistry registry https://registry.npmjs.org/
+64 silly mapToRegistry data Result {
+64 silly mapToRegistry   raw: 'resolve',
+64 silly mapToRegistry   scope: null,
+64 silly mapToRegistry   escapedName: 'resolve',
+64 silly mapToRegistry   name: 'resolve',
+64 silly mapToRegistry   rawSpec: '',
+64 silly mapToRegistry   spec: 'latest',
+64 silly mapToRegistry   type: 'tag' }
+65 silly mapToRegistry uri https://registry.npmjs.org/resolve
+66 verbose request uri https://registry.npmjs.org/resolve
+67 verbose request no auth needed
+68 info attempt registry request try #1 at 2:00:01 AM
+69 verbose etag "5ab0f49c-fdd1"
+70 verbose lastModified Tue, 20 Mar 2018 11:46:36 GMT
+71 http request GET https://registry.npmjs.org/resolve
+72 http 304 https://registry.npmjs.org/resolve
+73 verbose headers { date: 'Fri, 23 Mar 2018 07:00:00 GMT',
+73 verbose headers   via: '1.1 varnish',
+73 verbose headers   'cache-control': 'max-age=300',
+73 verbose headers   etag: '"5ab0f49c-fdd1"',
+73 verbose headers   age: '11455',
+73 verbose headers   connection: 'keep-alive',
+73 verbose headers   'x-served-by': 'cache-ord1725-ORD',
+73 verbose headers   'x-cache': 'HIT',
+73 verbose headers   'x-cache-hits': '189',
+73 verbose headers   'x-timer': 'S1521788400.391751,VS0,VE0',
+73 verbose headers   vary: 'Accept-Encoding, Accept' }
+74 silly get cb [ 304,
+74 silly get   { date: 'Fri, 23 Mar 2018 07:00:00 GMT',
+74 silly get     via: '1.1 varnish',
+74 silly get     'cache-control': 'max-age=300',
+74 silly get     etag: '"5ab0f49c-fdd1"',
+74 silly get     age: '11455',
+74 silly get     connection: 'keep-alive',
+74 silly get     'x-served-by': 'cache-ord1725-ORD',
+74 silly get     'x-cache': 'HIT',
+74 silly get     'x-cache-hits': '189',
+74 silly get     'x-timer': 'S1521788400.391751,VS0,VE0',
+74 silly get     vary: 'Accept-Encoding, Accept' } ]
+75 verbose etag https://registry.npmjs.org/resolve from cache
+76 verbose get saving resolve to /home/weisert/.npm/registry.npmjs.org/resolve/.cache.json
+77 verbose correctMkdir /home/weisert/.npm correctMkdir not in flight; initializing
+78 silly resolveWithNewModule resolve@1.6.0 checking installable status
+79 silly cache add args [ 'resolve@^1.1.6', null ]
+80 verbose cache add spec resolve@^1.1.6
+81 silly cache add parsed spec Result {
+81 silly cache add   raw: 'resolve@^1.1.6',
+81 silly cache add   scope: null,
+81 silly cache add   escapedName: 'resolve',
+81 silly cache add   name: 'resolve',
+81 silly cache add   rawSpec: '^1.1.6',
+81 silly cache add   spec: '>=1.1.6 <2.0.0',
+81 silly cache add   type: 'range' }
+82 silly addNamed resolve@>=1.1.6 <2.0.0
+83 verbose addNamed ">=1.1.6 <2.0.0" is a valid semver range for resolve
+84 silly addNameRange { name: 'resolve', range: '>=1.1.6 <2.0.0', hasData: false }
+85 silly mapToRegistry name resolve
+86 silly mapToRegistry using default registry
+87 silly mapToRegistry registry https://registry.npmjs.org/
+88 silly mapToRegistry data Result {
+88 silly mapToRegistry   raw: 'resolve',
+88 silly mapToRegistry   scope: null,
+88 silly mapToRegistry   escapedName: 'resolve',
+88 silly mapToRegistry   name: 'resolve',
+88 silly mapToRegistry   rawSpec: '',
+88 silly mapToRegistry   spec: 'latest',
+88 silly mapToRegistry   type: 'tag' }
+89 silly mapToRegistry uri https://registry.npmjs.org/resolve
+90 verbose addNameRange registry:https://registry.npmjs.org/resolve not in flight; fetching
+91 verbose get https://registry.npmjs.org/resolve not expired, no request
+92 silly addNameRange number 2 { name: 'resolve', range: '>=1.1.6 <2.0.0', hasData: true }
+93 silly addNameRange versions [ 'resolve',
+93 silly addNameRange   [ '0.0.0',
+93 silly addNameRange     '0.0.1',
+93 silly addNameRange     '0.0.2',
+93 silly addNameRange     '0.0.3',
+93 silly addNameRange     '0.0.4',
+93 silly addNameRange     '0.1.0',
+93 silly addNameRange     '0.1.2',
+93 silly addNameRange     '0.1.3',
+93 silly addNameRange     '0.2.0',
+93 silly addNameRange     '0.2.1',
+93 silly addNameRange     '0.2.2',
+93 silly addNameRange     '0.2.3',
+93 silly addNameRange     '0.2.4',
+93 silly addNameRange     '0.2.5',
+93 silly addNameRange     '0.2.6',
+93 silly addNameRange     '0.2.7',
+93 silly addNameRange     '0.2.8',
+93 silly addNameRange     '0.3.0',
+93 silly addNameRange     '0.3.1',
+93 silly addNameRange     '0.4.0',
+93 silly addNameRange     '0.4.1',
+93 silly addNameRange     '0.4.2',
+93 silly addNameRange     '0.4.3',
+93 silly addNameRange     '0.5.0',
+93 silly addNameRange     '0.5.1',
+93 silly addNameRange     '0.6.0',
+93 silly addNameRange     '0.6.1',
+93 silly addNameRange     '0.6.2',
+93 silly addNameRange     '0.6.3',
+93 silly addNameRange     '0.7.0',
+93 silly addNameRange     '0.7.1',
+93 silly addNameRange     '0.7.2',
+93 silly addNameRange     '0.7.3',
+93 silly addNameRange     '0.7.4',
+93 silly addNameRange     '1.0.0',
+93 silly addNameRange     '1.1.0',
+93 silly addNameRange     '1.1.2',
+93 silly addNameRange     '1.1.3',
+93 silly addNameRange     '1.1.4',
+93 silly addNameRange     '1.1.5',
+93 silly addNameRange     '1.1.6',
+93 silly addNameRange     '1.1.7',
+93 silly addNameRange     '1.2.0',
+93 silly addNameRange     '1.3.0',
+93 silly addNameRange     '1.3.1',
+93 silly addNameRange     '1.2.1',
+93 silly addNameRange     '1.3.2',
+93 silly addNameRange     '1.3.3',
+93 silly addNameRange     '1.4.0',
+93 silly addNameRange     '1.5.0',
+93 silly addNameRange     '1.6.0' ] ]
+94 silly addNamed resolve@1.6.0
+95 verbose addNamed "1.6.0" is a plain semver version for resolve
+96 silly cache afterAdd resolve@1.6.0
+97 verbose afterAdd /home/weisert/.npm/resolve/1.6.0/package/package.json not in flight; writing
+98 verbose correctMkdir /home/weisert/.npm correctMkdir not in flight; initializing
+99 verbose afterAdd /home/weisert/.npm/resolve/1.6.0/package/package.json written
+100 silly fetchNamedPackageData path-parse
+101 silly mapToRegistry name path-parse
+102 silly mapToRegistry using default registry
+103 silly mapToRegistry registry https://registry.npmjs.org/
+104 silly mapToRegistry data Result {
+104 silly mapToRegistry   raw: 'path-parse',
+104 silly mapToRegistry   scope: null,
+104 silly mapToRegistry   escapedName: 'path-parse',
+104 silly mapToRegistry   name: 'path-parse',
+104 silly mapToRegistry   rawSpec: '',
+104 silly mapToRegistry   spec: 'latest',
+104 silly mapToRegistry   type: 'tag' }
+105 silly mapToRegistry uri https://registry.npmjs.org/path-parse
+106 verbose request uri https://registry.npmjs.org/path-parse
+107 verbose request no auth needed
+108 info attempt registry request try #1 at 2:00:01 AM
+109 verbose etag "58f400d7-1f68"
+110 verbose lastModified Sun, 16 Apr 2017 23:40:07 GMT
+111 http request GET https://registry.npmjs.org/path-parse
+112 http 304 https://registry.npmjs.org/path-parse
+113 verbose headers { date: 'Fri, 23 Mar 2018 07:00:00 GMT',
+113 verbose headers   via: '1.1 varnish',
+113 verbose headers   'cache-control': 'max-age=300',
+113 verbose headers   etag: '"58f400d7-1f68"',
+113 verbose headers   age: '1577',
+113 verbose headers   connection: 'keep-alive',
+113 verbose headers   'x-served-by': 'cache-ord1725-ORD',
+113 verbose headers   'x-cache': 'HIT',
+113 verbose headers   'x-cache-hits': '6',
+113 verbose headers   'x-timer': 'S1521788400.434892,VS0,VE0',
+113 verbose headers   vary: 'Accept-Encoding, Accept' }
+114 silly get cb [ 304,
+114 silly get   { date: 'Fri, 23 Mar 2018 07:00:00 GMT',
+114 silly get     via: '1.1 varnish',
+114 silly get     'cache-control': 'max-age=300',
+114 silly get     etag: '"58f400d7-1f68"',
+114 silly get     age: '1577',
+114 silly get     connection: 'keep-alive',
+114 silly get     'x-served-by': 'cache-ord1725-ORD',
+114 silly get     'x-cache': 'HIT',
+114 silly get     'x-cache-hits': '6',
+114 silly get     'x-timer': 'S1521788400.434892,VS0,VE0',
+114 silly get     vary: 'Accept-Encoding, Accept' } ]
+115 verbose etag https://registry.npmjs.org/path-parse from cache
+116 verbose get saving path-parse to /home/weisert/.npm/registry.npmjs.org/path-parse/.cache.json
+117 verbose correctMkdir /home/weisert/.npm correctMkdir not in flight; initializing
+118 silly resolveWithNewModule path-parse@1.0.5 checking installable status
+119 silly cache add args [ 'path-parse@^1.0.5', null ]
+120 verbose cache add spec path-parse@^1.0.5
+121 silly cache add parsed spec Result {
+121 silly cache add   raw: 'path-parse@^1.0.5',
+121 silly cache add   scope: null,
+121 silly cache add   escapedName: 'path-parse',
+121 silly cache add   name: 'path-parse',
+121 silly cache add   rawSpec: '^1.0.5',
+121 silly cache add   spec: '>=1.0.5 <2.0.0',
+121 silly cache add   type: 'range' }
+122 silly addNamed path-parse@>=1.0.5 <2.0.0
+123 verbose addNamed ">=1.0.5 <2.0.0" is a valid semver range for path-parse
+124 silly addNameRange { name: 'path-parse', range: '>=1.0.5 <2.0.0', hasData: false }
+125 silly mapToRegistry name path-parse
+126 silly mapToRegistry using default registry
+127 silly mapToRegistry registry https://registry.npmjs.org/
+128 silly mapToRegistry data Result {
+128 silly mapToRegistry   raw: 'path-parse',
+128 silly mapToRegistry   scope: null,
+128 silly mapToRegistry   escapedName: 'path-parse',
+128 silly mapToRegistry   name: 'path-parse',
+128 silly mapToRegistry   rawSpec: '',
+128 silly mapToRegistry   spec: 'latest',
+128 silly mapToRegistry   type: 'tag' }
+129 silly mapToRegistry uri https://registry.npmjs.org/path-parse
+130 verbose addNameRange registry:https://registry.npmjs.org/path-parse not in flight; fetching
+131 verbose get https://registry.npmjs.org/path-parse not expired, no request
+132 silly addNameRange number 2 { name: 'path-parse', range: '>=1.0.5 <2.0.0', hasData: true }
+133 silly addNameRange versions [ 'path-parse',
+133 silly addNameRange   [ '1.0.0', '1.0.1', '1.0.2', '1.0.3', '1.0.4', '1.0.5' ] ]
+134 silly addNamed path-parse@1.0.5
+135 verbose addNamed "1.0.5" is a plain semver version for path-parse
+136 silly cache afterAdd path-parse@1.0.5
+137 verbose afterAdd /home/weisert/.npm/path-parse/1.0.5/package/package.json not in flight; writing
+138 verbose correctMkdir /home/weisert/.npm correctMkdir not in flight; initializing
+139 verbose afterAdd /home/weisert/.npm/path-parse/1.0.5/package/package.json written
+140 silly loadAllDepsIntoIdealTree Finishing
+141 silly loadIdealTree Finishing
+142 silly currentTree lib
+143 silly idealTree lib
+143 silly idealTree └─┬ karma-cli@1.0.1
+143 silly idealTree   ├── path-parse@1.0.5
+143 silly idealTree   └── resolve@1.6.0
+144 silly generateActionsToTake Starting
+145 silly install generateActionsToTake
+146 warn checkPermissions Missing write access to /usr/lib/node_modules
+147 silly rollbackFailedOptional Starting
+148 silly rollbackFailedOptional Finishing
+149 silly runTopLevelLifecycles Finishing
+150 silly install printInstalled
+151 verbose stack Error: EACCES: permission denied, access '/usr/lib/node_modules'
+151 verbose stack     at Error (native)
+152 verbose cwd /home/weisert/RubymineProjects/refsheet-site
+153 error Linux 4.4.0-116-generic
+154 error argv "/usr/bin/node" "/usr/bin/npm" "install" "-g" "karma-cli"
+155 error node v6.12.2
+156 error npm  v3.10.10
+157 error path /usr/lib/node_modules
+158 error code EACCES
+159 error errno -13
+160 error syscall access
+161 error Error: EACCES: permission denied, access '/usr/lib/node_modules'
+161 error     at Error (native)
+161 error  { Error: EACCES: permission denied, access '/usr/lib/node_modules'
+161 error     at Error (native)
+161 error   errno: -13,
+161 error   code: 'EACCES',
+161 error   syscall: 'access',
+161 error   path: '/usr/lib/node_modules' }
+162 error Please try running this command again as root/Administrator.
+163 verbose exit [ -13, true ]
