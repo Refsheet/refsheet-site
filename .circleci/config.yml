@@ -61,10 +61,6 @@ jobs:
           name: Database Setup
           command: bin/rails db:schema:load --trace
 
-  test:
-    docker: *docker
-
-    steps:
       # Run rspec in parallel
       - type: shell
         command: |
@@ -82,12 +78,3 @@ jobs:
       # Save test results for timing analysis
       - store_test_results:
           path: test_results
-
-workflows:
-  version: 2
-  build_and_test:
-    jobs:
-      - build
-      - test:
-          requires:
-            - build
