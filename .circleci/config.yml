@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    docker:
+    docker: &docker
       - image: circleci/ruby:2.3-node
         environment:
           BUNDLE_JOBS: 3
@@ -20,11 +20,6 @@ jobs:
 
     steps:
       - checkout
-
-      # Which version of bundler?
-      - run:
-          name: Which bundler?
-          command: bundle -v
 
       # Restore bundle cache
       - restore_cache:
@@ -63,9 +58,14 @@ jobs:
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
       - run:
-          name: Database setup
+          name: Database Setup
           command: bin/rails db:schema:load --trace
 
+  test:
+    docker:
+      <<: *docker
+
+    steps:
       # Run rspec in parallel
       - type: shell
         command: |
@@ -73,8 +73,22 @@ jobs:
                             --format RspecJunitFormatter \
                             --out test_results/rspec.xml \
                             --format documentation \
+                            --color \
                             $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+
+      - type: shell
+        when: always
+        command: yarn karma start --single-run
 
       # Save test results for timing analysis
       - store_test_results:
           path: test_results
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test:
+        requires:
+          - build
