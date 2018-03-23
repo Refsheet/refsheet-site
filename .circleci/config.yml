@@ -31,7 +31,7 @@ jobs:
 
       - run:
           name: Bundle Install
-          command: bundle check || bundle install --path vendor/bundle --frozen --jobs=4 --retry=3
+          command: bundle check || bundle install --path vendor/bundle --frozen --jobs=4 --retry=3 --without=nocircle
 
       # Store bundle cache
       - save_cache:

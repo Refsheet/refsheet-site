@@ -102,7 +102,6 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'capybara'
   gem 'capybara-selenium'
-  gem 'chromedriver-helper' unless ENV.key? 'CIRCLECI'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'letter_opener'
@@ -117,6 +116,10 @@ group :development, :test do
   gem 'shoulda-matchers', '~> 2.8'
   gem 'simplecov'
   gem 'timecop'
+end
+
+group :nocircle do
+  gem 'chromedriver-helper'
 end
 
 gem 'resque-web', require: 'resque_web'
