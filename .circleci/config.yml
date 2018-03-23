@@ -11,6 +11,8 @@ jobs:
           PGUSER: refsheet-site-test
           RAILS_ENV: test
           NODE_ENV: test
+          JUNIT_REPORT_PATH: ~/junit
+          JUNIT_REPORT_NAME: karma.xml
 
       - image: circleci/postgres:9.5-alpine
         environment:
@@ -22,7 +24,7 @@ jobs:
       - checkout
 
       - run: which chromedriver; chromedriver -v
-      - run: mkdir ~/junit
+      - run: mkdir ~/junit; mkdir ~/artifacts
 
       - run:
           name: Download Selenium
@@ -31,7 +33,7 @@ jobs:
       - run:
           name: Start Selenium
           command: |
-            java -jar selenium-server-standalone-3.5.3.jar -log ~/junit/selenium.log
+            java -jar selenium-server-standalone-3.5.3.jar -log ~/artifacts/selenium.log
           background: true
 
       - run:
@@ -84,7 +86,7 @@ jobs:
         command: |
           bundle exec rspec --profile 10 \
                             --format RspecJunitFormatter \
-                            --out junit/rspec.xml \
+                            --out ~/junit/rspec.xml \
                             --format documentation \
                             --color \
                             $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
@@ -95,4 +97,7 @@ jobs:
 
       # Save test results for timing analysis
       - store_test_results:
-          path: junit
+          path: ~/junit
+
+      - store_artifacts:
+          path: ~/artifacts
