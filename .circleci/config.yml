@@ -74,7 +74,7 @@ jobs:
         command: |
           bundle exec rspec --profile 10 \
                             --format RspecJunitFormatter \
-                            --out test_results/rspec.xml \
+                            --out junit/rspec.xml \
                             --format documentation \
                             --color \
                             $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
@@ -85,4 +85,4 @@ jobs:
 
       # Save test results for timing analysis
       - store_test_results:
-          path: test_results
+          path: junit
