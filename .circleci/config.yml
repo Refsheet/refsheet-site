@@ -21,6 +21,8 @@ jobs:
     steps:
       - checkout
 
+      - run: mkdir ~/junit
+
       # Restore bundle cache
       - restore_cache:
           keys:
@@ -73,7 +75,7 @@ jobs:
 
       - type: shell
         when: always
-        command: yarn karma start --single-run
+        command: yarn karma start --single-run --reporters junit,progress
 
       # Save test results for timing analysis
       - store_test_results:

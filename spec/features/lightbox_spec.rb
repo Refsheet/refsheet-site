@@ -18,13 +18,13 @@ feature 'Lightbox', js: true do
     expect(page).to have_content image.character.name
 
     within '.image-actions' do
-      page.find('#image-actions-menu').trigger(:click)
+      page.find('#image-actions-menu').click
       expect(page).to have_content 'Delete...'
-      page.find('#image-delete-link').trigger(:click)
+      page.find('#image-delete-link').click
     end
 
     expect(page).to have_content 'Are you sure?'
-    page.find('#image-delete-confirm').trigger(:click)
+    page.find('#image-delete-confirm').click
 
     expect(page).to have_content 'deleted'
     expect(image.character.images.count).to eq 0
@@ -34,7 +34,7 @@ feature 'Lightbox', js: true do
     visit image_path image
     expect(page).to have_content image.character.name
 
-    page.find('#image-actions-menu').trigger(:click)
+    page.find('#image-actions-menu').click
     expect(page).to have_content 'Set as Cover Image'
 
     click_link 'Set as Cover Image'
@@ -46,7 +46,7 @@ feature 'Lightbox', js: true do
     visit image_path image
     expect(page).to have_content image.character.name
 
-    page.find('#image-actions-menu').trigger(:click)
+    page.find('#image-actions-menu').click
     expect(page).to have_content 'Set as Profile Image'
 
     click_link 'Set as Profile Image'
