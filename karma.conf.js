@@ -36,7 +36,7 @@ module.exports = function(config) {
       }
     },
 
-    reporters: ['progress'],
+    reporters: ['progress', 'mocha', 'junit'],
     port: 9876,
     colors: true,
 
@@ -45,6 +45,12 @@ module.exports = function(config) {
     browsers: ['PhantomJS'],
     singleRun: false,
     concurrency: Infinity,
+
+    junitReporter: {
+      outputDir: process.env.JUNIT_REPORT_PATH,
+      outputFile: process.env.JUNIT_REPORT_NAME,
+      userBrowserName: false
+    },
 
     webpackMiddleware: {
       stats: 'errors-only'

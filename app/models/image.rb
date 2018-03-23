@@ -180,7 +180,8 @@ class Image < ApplicationRecord # < Media
   end
 
   def ensure_attachment_meta
-    return unless self.image_meta.nil?
+    return unless self.has_attribute? :image_meta and self.image_meta.nil?
+
     if self.image.respond_to? :reprocess_without_delay!
       self.image.reprocess_without_delay!
     else
