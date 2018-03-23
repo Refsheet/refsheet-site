@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker: &docker
-      - image: circleci/ruby:2.3-node
+      - image: circleci/ruby:2.3-node-browsers
         environment:
           BUNDLE_JOBS: 3
           BUNDLE_RETRY: 3
@@ -17,8 +17,6 @@ jobs:
           POSTGRES_USER: refsheet-site-test
           POSTGRES_DB: refsheet-site-test
           POSTGRES_PASSWORD: "fishsticks"
-
-      - image: selenium/standalone-chrome:3.1.0
 
     steps:
       - checkout
