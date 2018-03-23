@@ -8,7 +8,7 @@ jobs:
           BUNDLE_RETRY: 3
           BUNDLE_PATH: vendor/bundle
           PGHOST: 127.0.0.1
-          PGUSER: circleci-demo-ruby
+          PGUSER: refsheet-site-test
           RAILS_ENV: test
           NODE_ENV: test
 
@@ -21,6 +21,10 @@ jobs:
     steps:
       - checkout
 
+      - run:
+          title: Which ChromeDriver
+          command: which chromedriver; chromedriver -v
+
       - run: mkdir ~/junit
 
       # Restore bundle cache
@@ -31,7 +35,7 @@ jobs:
 
       - run:
           name: Bundle Install
-          command: bundle check || bundle install --path vendor/bundle --frozen --jobs=4 --retry=3 --without=nocircle
+          command: bundle check || bundle install --path vendor/bundle --frozen --without=nocircle
 
       # Store bundle cache
       - save_cache:
