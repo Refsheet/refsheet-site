@@ -7,6 +7,7 @@ import PropTypes from 'prop-types'
 import { get, put } from 'resource'
 import _ from 'lodash'
 import { changes } from 'object-utils'
+import CharacterService from 'CharacterService'
 
 export default class extends Component
   @propTypes:
@@ -31,11 +32,9 @@ export default class extends Component
     @request?.cancel()
 
   fetch: ({userId, characterId}) =>
-    path = "/users/#{userId}/characters/#{characterId}.json"
-
     @setState loading: true, character: null
 
-    get(path: path, request: (r) => @request = r)
+    CharacterService.getCharacterByUrl(username: userId, slug: characterId)
       .then (character) => @setState { character, loading: false }
       .catch (error) =>
         throw error
