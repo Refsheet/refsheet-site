@@ -175,6 +175,14 @@ Rails.application.routes.draw do
     post :ad_slots, to: 'advertisements/slots#create'
   end
 
+  #== Back End
+
+  if Rails.env.development?
+    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
+  end
+
+  post "/graphql", to: "graphql#execute"
+
 
   #== Engines!
 
