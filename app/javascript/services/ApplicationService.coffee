@@ -1,7 +1,18 @@
 import { GraphQLClient } from 'graphql-request'
 
-endpoint = 'http://localhost:5000/graphql'
-defaultOptions = {}
+endpoint = 'http://dev.refsheet.net:5000/graphql'
+
+defaultOptions = ->
+  headers: {
+    'X-CSRF-Token': document.getElementsByName('csrf-token')[0].content
+    'Content-Type': 'application/json'
+    'Accept': 'application/json'
+    'X-Requested-With': 'XMLHttpRequest'
+  }
+  credentials: 'same-origin'
+
+export client = ->
+  new GraphQLClient endpoint, defaultOptions()
 
 export buildFields = (fields) ->
   fieldList = []
@@ -17,18 +28,14 @@ export buildFields = (fields) ->
 
   fieldList.join(' ')
 
-export buildQuery = (query, objectType=undefined, variables, fields...) ->
-  objectType ||= query.replace 'get', ''
-
+export buildQuery = (query, variables, fields...) ->
   queryVariables = Object.keys(variables).map((k) -> "$#{k}: #{variables[k]}").join(', ')
   interpolatedVariables = Object.keys(variables).map((k) -> "#{k}: $#{k}").join(', ')
 
   structure = [
     "query #{query}(#{queryVariables})"
-    "#{objectType}(#{interpolatedVariables})"
+    "#{query}(#{interpolatedVariables})"
     buildFields(fields)
   ]
 
   structure.join(' { ') + Array(structure.length).join(' }')
-
-export client = new GraphQLClient endpoint, defaultOptions
