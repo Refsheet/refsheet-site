@@ -207,6 +207,12 @@ GEM
     get_process_mem (0.2.1)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
+    graphiql-rails (1.4.10)
+      railties
+      sprockets-rails
+    graphql (1.7.13)
+    graphql-errors (0.2.0)
+      graphql (>= 1.6.0, < 2)
     gravatar_image_tag (1.2.0)
     groupdate (3.0.2)
       activesupport (>= 3)
@@ -572,6 +578,9 @@ DEPENDENCIES
   faker
   fog-aws
   font-awesome-sass
+  graphiql-rails
+  graphql
+  graphql-errors
   gravatar_image_tag
   groupdate
   haml

@@ -76,6 +76,8 @@ gem 'groupdate'
 gem 'counter_culture'
 gem 'premailer-rails'
 gem 'semantic'
+gem 'graphql'
+gem 'graphql-errors'
 
 # == INTEGRATIONS
 
@@ -133,3 +135,5 @@ group :development do
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem 'graphiql-rails', group: :development

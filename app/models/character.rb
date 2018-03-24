@@ -111,6 +111,10 @@ class Character < ApplicationRecord
     self.shortcode = self.shortcode&.downcase
   end
 
+  def username
+    self.user.username
+  end
+
   def description
     ''
   end
