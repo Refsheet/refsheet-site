@@ -8,6 +8,7 @@
     "enzyme-adapter-react-16": "^1.1.1",
     "get-video-id": "^3.0.0",
     "graphql-request": "^1.5.1",
+    "graphql-ruby-client": "^1.3.0",
     "justified-layout": "^2.1.1",
     "lodash": "^4.17.5",
     "prop-types": "^15.6.1",

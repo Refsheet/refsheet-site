@@ -111,6 +111,11 @@ class Character < ApplicationRecord
     self.shortcode = self.shortcode&.downcase
   end
 
+  after_update do
+    RefsheetSchema.subscriptions.trigger "characterChanged", { id: self.id }, self
+  end
+
+
   def username
     self.user.username
   end
