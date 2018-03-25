@@ -93,11 +93,15 @@ class MarkdownString < String
 
         if cache_present
           define_method(cache_column) do
-            super().html_safe
+            super()&.html_safe
           end
 
           before_save do
-            assign_attributes cache_column => send(name).to_html
+            assign_attributes cache_column => send(name)&.to_html
+          end
+        else
+          define_method(cache_column) do
+            send(name)&.to_html
           end
         end
       end
