@@ -59,11 +59,11 @@ class Image < ApplicationRecord # < Media
                     default_url: '/assets/default.png',
                     styles: {
                         thumbnail: '',
-                        small: "#{SIZE[:small]}x>",
+                        small: "#{SIZE[:small]}x#{SIZE[:small]}>",
                         small_square: '',
-                        medium: "#{SIZE[:medium]}x>",
+                        medium: "#{SIZE[:medium]}x#{SIZE[:medium]}>",
                         medium_square: '',
-                        large: "#{SIZE[:large]}x>",
+                        large: "#{SIZE[:large]}x#{SIZE[:large]}>",
                         large_square: ''
                     },
                     s3_permissions: {
@@ -90,6 +90,7 @@ class Image < ApplicationRecord # < Media
   has_guid
   ranks :row_order, with_same: :character_id
   acts_as_paranoid
+  has_markdown_field :caption
 
   after_initialize :ensure_attachment_meta
   before_validation :adjust_source_url
@@ -162,6 +163,10 @@ class Image < ApplicationRecord # < Media
 
   def managed_by?(user)
     self.character.managed_by? user
+  end
+
+  def geometry
+    Paperclip::Geometry.new width, height
   end
 
   private

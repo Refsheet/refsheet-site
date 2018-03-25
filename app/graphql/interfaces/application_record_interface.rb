@@ -3,7 +3,7 @@ Interfaces::ApplicationRecordInterface = GraphQL::InterfaceType.define do
 
   field :id, types.ID do
     resolve -> (obj, _args, _ctx) {
-      obj.attributes[:guid] || obj.attributes[:uuid] || obj.id
+      obj.attributes['guid'] || obj.attributes['uuid'] || obj.id
     }
   end
 

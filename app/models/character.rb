@@ -74,6 +74,10 @@ class Character < ApplicationRecord
 
   before_destroy :decrement_counter_cache
 
+  has_markdown_field :profile
+  has_markdown_field :likes
+  has_markdown_field :dislikes
+
   has_guid :shortcode, type: :token
   slugify :name, scope: :user_id
   scoped_search on: [:name, :species, :profile, :likes, :dislikes]
@@ -176,6 +180,8 @@ class Character < ApplicationRecord
 
   private
 
+  #== Todo: Migrate this to the CharacterTransferService
+  #
   def initiate_transfer(target=self.transfer_to_user, sale_item=nil)
     transfer = Transfer.new character: self, item: sale_item
 
@@ -259,7 +265,10 @@ class Character < ApplicationRecord
   end
 
   def log_activity
-    Activity.create activity: self, user_id: self.user_id, created_at: self.created_at, activity_method: 'create'
+    Activity.create activity: self,
+                    user_id: self.user_id,
+                    created_at: self.created_at,
+                    activity_method: 'create'
   end
 
   def initialize_custom_attributes

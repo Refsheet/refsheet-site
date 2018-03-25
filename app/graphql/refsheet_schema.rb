@@ -13,8 +13,8 @@ GraphQL::Errors.configure(RefsheetSchema) do
     GraphQL::ExecutionError.new ex.message
   end
 
-  rescue_from StandardError do |ex|
-    Rails.logger.error ex
-    GraphQL::ExecutionError.new ex.message
-  end
+  # rescue_from StandardError do |ex|
+  #   Rails.logger.error ex
+  #   GraphQL::ExecutionError.new ex.message
+  # end
 end
