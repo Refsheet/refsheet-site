@@ -4,14 +4,8 @@ fragment CharacterImages on Character {
         title
         nsfw
         hidden
-        caption
-        source_url
         background_color
         aspect_ratio
-        gravity
-        caption_html
-        source_url_display
-        created_at
         comments_count
         favorites_count
         is_favorite
@@ -19,36 +13,15 @@ fragment CharacterImages on Character {
         width
         height
         url {
-            thumbnail
             small
-            small_square
             medium
-            medium_square
-            large
-            large_square
         }
         size {
             small {
                 width
                 height
             }
-            small_square {
-                width
-                height
-            }
             medium {
-                width
-                height
-            }
-            medium_square {
-                width
-                height
-            }
-            large {
-                width
-                height
-            }
-            large_square {
                 width
                 height
             }
