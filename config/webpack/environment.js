@@ -1,6 +1,7 @@
 const { environment } = require('@rails/webpacker')
 const coffee = require('./loaders/coffee')
 const erb = require('./loaders/erb')
+const graphql = require('./loaders/graphql')
 
 // Export Defaults
 
@@ -15,6 +16,7 @@ environment.config.merge({output})
 
 environment.loaders.append('coffee', coffee)
 environment.loaders.append('erb', erb)
+environment.loaders.append('graphql', graphql)
 
 const babelLoader = environment.loaders.get('babel')
 babelLoader.test = /\.(coffee|js|jsx)(\.erb)?$/

@@ -9,6 +9,7 @@ default: &default
   # Additional paths webpack should lookup modules
   # ['app/assets', 'engine/foo/app/assets']
   resolved_paths: [
+    'app/javascript/graphql',
     'app/javascript/services',
     'app/javascript/components',
     'app/javascript/utils'

@@ -9,7 +9,10 @@ Gallery = ({images}) ->
     { id: 'bar', title: 'Bar' }
   ]
 
-  `<Section title='Main Gallery' id='gallery' tabs={galleryTabs} onTabClick={(id) => console.log(id)} measured>
+  `<Section title='Main Gallery'
+            id='gallery'
+            tabs={galleryTabs}
+            onTabClick={(id) => console.log(id)}>
     <Measure bounds>
       { renderGallery(images) }
     </Measure>
@@ -17,15 +20,14 @@ Gallery = ({images}) ->
 
 
 renderGallery = (images) -> ({measureRef, contentRect}) ->
-  { bounds } = contentRect
-  { width } = bounds
+  width = contentRect.bounds.width
 
-  imageTiles = images.map ({id, aspect_ratio: aspectRatio, small, width, height}) ->
-    style = { width, height }
+  imageTiles = images.map ({id, aspect_ratio: aspectRatio, url, size}) ->
+    style = size.small
 
     `<img key={id}
           aspectRatio={aspectRatio}
-          src={small} 
+          src={url.small}
           style={style}
           className='responsive-img block black z-depth-1' />`
 
@@ -37,6 +39,20 @@ renderGallery = (images) -> ({measureRef, contentRect}) ->
 
 
 Gallery.propTypes =
-  images: PropTypes.arrayOf(PropTypes.object)
+  images: PropTypes.arrayOf(
+    PropTypes.shape(
+      id: PropTypes.string.isRequired
+      aspect_ratio: PropTypes.number.isRequired
+      url: PropTypes.shape(
+        small: PropTypes.string.isRequired
+      ).isRequired
+      size: PropTypes.shape(
+        small: PropTypes.shape(
+          width: PropTypes.number.isRequired
+          height: PropTypes.number.isRequired
+        ).isRequired
+      ).isRequired
+    )
+  )
 
 export default Gallery

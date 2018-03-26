@@ -4,18 +4,17 @@ import Header from './Header'
 import Profile from './Profile'
 import Gallery from './Gallery'
 
-View = ({character, onChange}) ->
+View = ({character}) ->
   `<Main title={ character.name }>
     { character.color_scheme &&
       <PageStylesheet colorData={ character.color_scheme.color_data } /> }
 
-    <Header character={character} />
-    <Profile character={character} onChange={onChange}/>
+    {/*<Header character={character} />*/}
+    <Profile profileSections={character.profile_sections} />
     <Gallery images={character.images} />
   </Main>`
 
 View.propTypes =
   character: PropTypes.object.isRequired
-  onChange: PropTypes.func
 
 export default View

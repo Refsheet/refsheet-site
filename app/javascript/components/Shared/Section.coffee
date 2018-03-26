@@ -12,14 +12,27 @@ renderTab = (onTabClick) -> ({title, id, onClick}) ->
     <a href={"#" + id} onClick={actionHandler(onClick, id)}>{title}</a>
   </li>`
 
-Section = ({id, title, tabs, buttons, onTabClick, onButtonClick, children}) ->
-  `<section id={ id } className='margin-bottom--large'>
+Section = ({id, className, titleClassName, title, tabs, noContainer, onTabClick, children}) ->
+  classNames = ['margin-bottom--large']
+  classNames.push className if className
+
+  containerClasses = []
+  containerClasses.push 'container' unless noContainer
+
+  titleClassNames = ['section-title']
+  titleClassNames.push 'container' unless noContainer
+  titleClassNames.push titleClassName if titleClassName
+
+  `<section id={ id } className={ classNames.join(' ') }>
     { title &&
-      <div className='container' style={{borderBottom: '1px solid rgba(255,255,255,0.3)'}}>
+      <div className={ titleClassNames.join(' ') } style={{borderBottom: '1px solid rgba(255,255,255,0.3)'}}>
         <div className='row no-margin'>
           <div className='col s12 m4'>
-            <h2 className='margin--none'>{ title }</h2>
+            <h2 className='margin--none' style={{
+              lineHeight: '48px'
+            }}>{ title }</h2>
           </div>
+
           <div className='col s12 m8 right-align'>
             { tabs &&
               <ul className='tabs transparent right'>
@@ -29,7 +42,7 @@ Section = ({id, title, tabs, buttons, onTabClick, onButtonClick, children}) ->
         </div>
       </div> }
 
-    <div className='container'>
+    <div className={ containerClasses.join(' ') }>
       { children }
     </div>
   </section>`
@@ -42,12 +55,15 @@ actionType =
   )
 
 Section.propTypes =
-  id: PropTypes.string.isRequired
+  id: PropTypes.string
   children: PropTypes.node.isRequired
   title: PropTypes.string
   tabs: PropTypes.arrayOf(actionType)
   buttons: PropTypes.arrayOf(actionType)
   onTabClick: PropTypes.func
   onButtonClick: PropTypes.func
+  noContainer: PropTypes.bool
+  className: PropTypes.string
+  titleClassName: PropTypes.string
 
 export default Section
