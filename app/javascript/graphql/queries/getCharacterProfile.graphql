@@ -21,7 +21,6 @@ fragment DefaultCharacterFields on Character {
 
   profile_image {
     url {
-      small
       medium
     }
   }

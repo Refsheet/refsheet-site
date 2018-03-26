@@ -9,7 +9,7 @@ View = ({character}) ->
     { character.color_scheme &&
       <PageStylesheet colorData={ character.color_scheme.color_data } /> }
 
-    {/*<Header character={character} />*/}
+    <Header character={character} />
     <Profile profileSections={character.profile_sections} />
     <Gallery images={character.images} />
   </Main>`
