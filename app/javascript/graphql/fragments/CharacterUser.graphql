@@ -1,0 +1,20 @@
+fragment CharacterUser on Character {
+    user {
+        id
+        created_at
+        username
+        name
+        profile
+        profile_html
+        characters_count
+        is_admin
+        is_patron
+        avatar_url
+        profile_image_url
+        is_managed
+        is_followed
+        characters {
+            name
+        }
+    }
+}

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import ProfileWidget from './ProfileWidget'
 
-ProfileColumn = ({id, widgets, width, onChange, editable}) ->
+ProfileColumn = ({widgets, width, editable}) ->
   widgetCards = widgets.map (widget) ->
     `<ProfileWidget {...widget} key={widget.id} editable={editable} />`
 
@@ -15,7 +15,7 @@ ProfileColumn = ({id, widgets, width, onChange, editable}) ->
   </div>`
 
 ProfileColumn.propTypes =
-  id: PropTypes.string.isRequired
+  id: PropTypes.number.isRequired
   widgets: PropTypes.arrayOf(PropTypes.object).isRequired
   width: PropTypes.number.isRequired
   onChange: PropTypes.func

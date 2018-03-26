@@ -3,25 +3,28 @@ Types::CharacterType = GraphQL::ObjectType.define do
 
   interfaces [Interfaces::ApplicationRecordInterface]
 
-  field :slug, !types.String
-  field :username, !types.String
-  field :name, !types.String
-  field :shortcode, types.String
+  field :custom_attributes, types[Types::AttributeType]
+  field :dislikes, types.String
+  field :dislikes_html, types.String
+  field :featured_image, Types::ImageType
   field :hidden, types.Boolean
+  field :images, types[Types::ImageType]
+  field :likes, types.String
+  field :likes_html, types.String
+  field :name, !types.String
   field :nsfw, types.Boolean
-
+  field :profile, types.String
+  field :profile_html, types.String
+  field :profile_image, Types::ImageType
+  field :shortcode, types.String
+  field :slug, !types.String
   field :special_notes, types.String
   field :special_notes_html, types.String
   field :species, types.String
+  field :swatches, types[Types::SwatchType]
+  field :user, Types::UserType
+  field :username, !types.String
 
-  field :dislikes, types.String
-  field :dislikes_html, types.String
-  field :likes, types.String
-  field :likes_html, types.String
-  field :profile, types.String
-  field :profile_html, types.String
-
-  field :custom_attributes, types[Types::AttributeType]
   field :profile_sections, types[Types::ProfileSectionType] do
     resolve -> (obj, _args, _ctx) {
       profile_widget = OpenStruct.new type: 'RichText',
@@ -67,13 +70,6 @@ Types::CharacterType = GraphQL::ObjectType.define do
       ]
     }
   end
-
-  field :swatches, types[Types::SwatchType]
-  field :images, types[Types::ImageType]
-  field :featured_image, Types::ImageType
-  field :profile_image, Types::ImageType
-
-  field :user, Types::UserType
 
   # has_one :color_scheme, serializer: ColorSchemeSerializer
   # has_one :pending_transfer, serializer: CharacterTransferSerializer

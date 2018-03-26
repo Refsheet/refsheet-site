@@ -2,41 +2,25 @@ import { PropTypes } from 'prop-types'
 import { RichText } from 'Shared'
 import ProfileSection from './ProfileSection'
 
-Profile = ({character, onChange}) ->
-  profileSections = character.profile_sections.map (section) ->
-    `<ProfileSection key={section.id} {...section} onChange={onChange} />`
+Profile = ({profileSections}) ->
+  `<div id='profile'>
+    { renderProfileSections(profileSections) }
+  </div>`
 
-  `<section className='character-profile margin-bottom--large'>
-    <div className='container'>
-      <div className='row no-margin margin-bottom--large' style={{borderBottom: '1px solid rgba(255,255,255,0.3)'}}>
-        <div className='col s12 m4'>
-          <h2 className='margin--none'>{ "About " + character.name }</h2>
-        </div>
-        <div className='col s12 m8 right-align'>
-          <ul className='tabs transparent margin-bottom--small right'>
-            <li className="tab"><a href="#">Hide</a></li>
-          </ul>
-        </div>
-      </div>
+renderProfileSections = (profileSections) ->
+  profileSections.map (section, i) ->
+    next = profileSections[i+1]
+    push = next && !next.title
 
-      <RichText name='about'
-                content={character.about}
-                contentHtml={character.about_html}
-                editable
-                fixedTitle
-                renderAsCard
-                onChange={onChange}
-      />
+    classNames = []
+    classNames.push 'margin-bottom--none' if push
+    classNames.push 'margin-top--none' unless section.title
 
-      { profileSections }
-
-      <a href='#'
-         className='btn btn-flat block margin-top--large'
-         style={{border: '1px dashed #ffffff33'}}>Add Section</a>
-    </div>
-  </section>`
+    `<ProfileSection key={section.id} {...section} className={ classNames.join(' ') } />`
 
 Profile.propTypes =
-  character: PropTypes.object
+  profileSections: PropTypes.arrayOf(
+    PropTypes.object
+  )
 
 export default Profile

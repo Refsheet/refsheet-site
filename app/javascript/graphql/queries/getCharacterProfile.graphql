@@ -1,0 +1,40 @@
+#import 'fragments/CharacterFields.graphql'
+#import 'fragments/CharacterProfile.graphql'
+#import 'fragments/CharacterAttributes.graphql'
+#import 'fragments/CharacterSwatches.graphql'
+#import 'fragments/CharacterImages.graphql'
+#import 'fragments/CharacterUser.graphql'
+
+fragment DefaultCharacterFields on Character {
+  ...CharacterFields
+  ...CharacterAttributes
+  ...CharacterProfile
+  ...CharacterSwatches
+  ...CharacterImages
+  ...CharacterUser
+
+  featured_image {
+    url {
+      large
+    }
+  }
+
+  profile_image {
+    url {
+      small
+      medium
+    }
+  }
+}
+
+query getCharacterProfile($username: String!, $slug: String!) {
+  getCharacterByUrl(username: $username, slug: $slug) {
+    ...DefaultCharacterFields
+  }
+}
+
+query getCharacterProfileById($id: ID!) {
+  getCharacter(id: $id) {
+    ...DefaultCharacterFields
+  }
+}

@@ -1,0 +1,12 @@
+fragment CharacterFields on Character {
+    name
+    id
+    slug
+    username
+    shortcode
+    hidden
+    nsfw
+    special_notes
+    species
+    created_at
+}

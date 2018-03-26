@@ -1,42 +1,34 @@
 import PropTypes from 'prop-types'
 import ProfileColumn from './ProfileColumn'
+import Section from 'Shared/Section'
 import { Component } from 'react'
 
-#ProfileSection = ({columns, id}) ->
-export default class ProfileSection extends Component
-  @propTypes:
-    columns: PropTypes.array.isRequired
-    id: PropTypes.string.isRequired
-    onChange: PropTypes.func
-    editable: PropTypes.bool
+ProfileSection = ({title, columns, widgets, editable, className}) ->
+  classNames = ['margin-bottom--large']
+  classNames.push className if className
 
-  constructor: (props) ->
-    super props
-    @state =
-      editable: false
+  `<Section title={title} className={ classNames.join(' ') }>
+    <div className='row margin-top--medium'>
+      { renderSectionColumns(columns, widgets, editable) }
+    </div>
+  </Section>`
 
-  toggleLock: (e) =>
-    e.preventDefault()
-    @setState editable: !@state.editable
+renderSectionColumns = (columns, widgets, editable) ->
+  columns.map (width, id) ->
+    columnWidgets = widgets.filter (w) -> w.column == id
 
-  render: ->
-    { columns } = @props
-    { editable } = @state
+    `<ProfileColumn key={id}
+                    id={id}
+                    width={width}
+                    widgets={columnWidgets}
+                    editable={editable} />`
 
-    sectionColumns = columns.map (column) ->
-      `<ProfileColumn key={column.id} {...column} editable={editable} />`
+ProfileSection.prototype.propTypes =
+  columns: PropTypes.array.isRequired
+  id: PropTypes.string.isRequired
+  title: PropTypes.string
+  onChange: PropTypes.func
+  editable: PropTypes.bool
+  className: PropTypes.string
 
-    `<div className='row'>
-      <div className='col s12 right-align'>
-        <a href='#' onClick={this.toggleLock} className='btn btn-flat'>Edit Section</a>
-      </div>
-      { sectionColumns }
-    </div>`
-
-#ProfileSection.prototype.propTypes =
-#  columns: PropTypes.array.isRequired
-#  id: PropTypes.string.isRequired
-#  onChange: PropTypes.func
-#  editable: PropTypes.bool
-#
-#export default ProfileSection
+export default ProfileSection

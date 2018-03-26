@@ -1,0 +1,19 @@
+fragment CharacterProfile on Character {
+    profile_sections {
+        id
+        title
+        columns
+        widgets {
+            id
+            type
+            column
+            title
+            data {
+                ... on RichText {
+                    content
+                    content_html
+                }
+            }
+        }
+    }
+}

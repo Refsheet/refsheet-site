@@ -28,7 +28,7 @@ ProfileWidget = ({id, type, title, data, onChange, editable}) ->
         { title }
       </div>`
 
-  `<div className='card profile-widget'>
+  `<div className='card profile-widget margin--none'>
     { header }
 
     <Widget {...camelize(data)} onChange={onChange} />
