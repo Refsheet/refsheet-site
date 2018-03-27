@@ -50,8 +50,6 @@ class Feedback < ApplicationRecord
     Trello::Card.find self.trello_card_id if self.trello_card_id.present?
   end
 
-  private
-
   def post_to_freshdesk
     return if @skip_freshdesk
     fd = Freshdesk::Ticket.from_feedback(self)

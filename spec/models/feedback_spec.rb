@@ -30,7 +30,7 @@ describe Feedback, type: :model do
   it 'tells freshdesk', :webmock do
     Freshdesk.configure do |config|
       config.domain = "refsheet"
-      config.api_key = "xxx"
+      config.api_key = "x"
     end
 
     stub = stub_request(:post, Freshdesk.instance.endpoint_url + "/tickets").
