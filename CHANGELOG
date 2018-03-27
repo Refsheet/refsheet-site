@@ -1,4 +1,18 @@
 ---
+v1.2.6-pre.3:
+- hash: 25757d2
+  date: '2018-03-27'
+  tags: []
+  message: Speczen.
+- hash: 3d5ae4e
+  date: '2018-03-27'
+  tags: []
+  message: CF Pushin w/ Env tags.
+- hash: 4d48eb3
+  date: '2018-03-27'
+  tags: []
+  message: Bit o' freshdeskin.
+---
 v1.2.6-pre.2:
 - hash: 35431b9
   date: '2018-03-10'
