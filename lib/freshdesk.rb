@@ -18,8 +18,7 @@ class Freshdesk
   end
 
   def configure_client
-    raise ArgumentError.new "Domain and API Key must be set." unless @domain and @api_key
-
+    return unless @domain and @api_key
     @client ||= Her::API.new
 
     options = {
