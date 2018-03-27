@@ -24,6 +24,7 @@
 #  background_color   :string
 #  comments_count     :integer
 #  favorites_count    :integer
+#  image_meta         :text
 #
 # Indexes
 #
