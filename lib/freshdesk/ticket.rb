@@ -41,7 +41,8 @@ class Freshdesk::Ticket < Freshdesk::Base
         custom_fields: {
             cf_source_url: feedback.source_url || "",
             cf_browser: feedback.visit&.browser || "",
-            cf_operating_system: feedback.visit&.os || ""
+            cf_operating_system: feedback.visit&.os || "",
+            cf_environment: Rails.env
         }
     }
 
