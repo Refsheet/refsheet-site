@@ -20,6 +20,7 @@ gem 'non-stupid-digest-assets'
 gem 'rollbar'
 gem 'active_elastic_job'
 gem 'sprockets_uglifier_with_source_maps'
+gem 'faraday_middleware'
 
 # == FRONT END
 
@@ -80,6 +81,7 @@ gem 'semantic'
 gem 'ruby-trello'
 gem 'stripe'
 gem 'webpush'
+gem 'her'
 
 # == BOWER ASSETS
 
@@ -114,6 +116,7 @@ group :development, :test do
   gem 'shoulda-matchers', '~> 2.8'
   gem 'simplecov'
   gem 'timecop'
+  gem 'webmock'
 end
 
 gem 'resque-web', require: 'resque_web'
@@ -127,3 +130,4 @@ group :development do
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'httplog'

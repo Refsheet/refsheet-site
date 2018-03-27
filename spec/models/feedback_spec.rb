@@ -13,6 +13,7 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  done           :boolean
+#  freshdesk_id   :string
 #
 
 require 'rails_helper'
@@ -25,10 +26,19 @@ describe Feedback, type: :model do
     ],
     validate_presence_of: :comment
   )
-  it 'tells trello' do
-    expect_any_instance_of(Trello::Card).to receive(:save).and_return(true)
 
-    f = Feedback.new name: 'Mau', comment: 'Is testing again.'
-    f.save
+  it 'tells freshdesk', :webmock do
+    Freshdesk.configure do |config|
+      config.domain = "refsheet"
+      config.api_key = "xxx"
+    end
+
+    stub = stub_request(:post, Freshdesk.instance.endpoint_url + "/tickets").
+            to_return(status: 200, body: '{"id":"fd-test-1"}')
+
+    expect(Freshdesk::Ticket).to receive(:from_feedback).and_call_original
+    feedback = create :feedback, :freshdesk
+    expect(feedback.freshdesk_id).to eq "fd-test-1"
+    expect(stub).to have_been_requested
   end
 end
