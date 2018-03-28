@@ -42,3 +42,5 @@ class Freshdesk
     use_api Freshdesk.instance.client
   end
 end
+
+require 'freshdesk/ticket'
