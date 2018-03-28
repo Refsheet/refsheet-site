@@ -1,4 +1,10 @@
 ---
+v1.2.6-pre.4:
+- hash: 75c2d64
+  date: '2018-03-28'
+  tags: []
+  message: Eager load.
+---
 v1.2.6-pre.3:
 - hash: 25757d2
   date: '2018-03-27'
