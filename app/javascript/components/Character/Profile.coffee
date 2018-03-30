@@ -1,26 +1,42 @@
 import { PropTypes } from 'prop-types'
 import { RichText } from 'Shared'
 import ProfileSection from './ProfileSection'
+import c from 'classnames'
 
 Profile = ({profileSections}) ->
-  `<div id='profile' className='profile-scrollspy'>
+  `<div id='profile'>
     { renderProfileSections(profileSections) }
   </div>`
 
+groupProfileSections = (profileSections) ->
+  groups = {}
+  lastId = 'main'
+  for section in profileSections
+    lastId = section.id if section.title
+    groups[lastId] ||= []
+    groups[lastId].push section
+  groups
+
 renderProfileSections = (profileSections) ->
-  profileSections.map (section, i) ->
-    next = profileSections[i+1]
-    push = next && !next.title
+  groups = groupProfileSections(profileSections)
+  render = []
+  for id, sections of groups
+    renderedSections = sections.map (section, i) ->
+      classNames = c
+        'margin-bottom--none': sections.length > 0
+        'margin-top--none': i > 0
 
-    classNames = []
-    classNames.push 'margin-bottom--none' if push
-    classNames.push 'margin-top--none' unless section.title
+      `<ProfileSection key={section.id} {...section} className={ classNames } />`
 
-    `<ProfileSection key={section.id} {...section} className={ classNames.join(' ') } />`
+    render.push `<div id={id} key={id} className='profile-scrollspy'>{renderedSections}</div>`
+  render
 
 Profile.propTypes =
   profileSections: PropTypes.arrayOf(
-    PropTypes.object
+    PropTypes.shape(
+      id: PropTypes.string.isRequired
+      title: PropTypes.string
+    )
   )
 
 export default Profile

@@ -1,8 +1,10 @@
+import React from 'react'
 import PropTypes from 'prop-types'
+import Summary from './Summary'
 
 Header = ({character}) ->
   `<PageHeader backgroundImage={ (character.featured_image || {url:{}}).url.large }>
-    <CharacterCard detailView={ true } character={ character } />
+    <Summary character={ character } />
   </PageHeader>`
 
 Header.propTypes =
