@@ -4,6 +4,7 @@
 #import 'fragments/CharacterSwatches.graphql'
 #import 'fragments/CharacterImages.graphql'
 #import 'fragments/CharacterUser.graphql'
+#import 'fragments/CharacterTheme.graphql'
 
 fragment DefaultCharacterFields on Character {
   ...CharacterFields
@@ -12,6 +13,7 @@ fragment DefaultCharacterFields on Character {
   ...CharacterSwatches
   ...CharacterImages
   ...CharacterUser
+  ...CharacterTheme
 
   featured_image {
     url {
