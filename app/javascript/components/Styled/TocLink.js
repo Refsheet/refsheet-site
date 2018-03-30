@@ -12,18 +12,17 @@ const TocLink = ({to, children, className}) => (
 )
 
 export default styled(TocLink)`
-  color: ${props => props.theme.textLight};
+  color: ${props => props.theme.textLight} !important;
   margin-bottom: 0.5rem;
-  margin-left: 0.5rem;
   display: block;
 
   &:hover {
-    color: ${props => props.theme.textMuted} !important;
-    border-left-color: #{(props) => props.theme.accent2} !important;
+    color: ${props => props.theme.textMedium} !important;
+    border-left-color: ${props => props.theme.accent2} !important;
   }
 
   &.active {
-    color: ${props => props.theme.accent1};
-    border-left-color: #{(props) => props.theme.accent2} !important;
+    color: ${props => props.theme.accent1} !important;
+    border-left-color: ${props => props.theme.accent2} !important;
   }
 `

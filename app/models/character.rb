@@ -77,6 +77,7 @@ class Character < ApplicationRecord
   has_markdown_field :profile
   has_markdown_field :likes
   has_markdown_field :dislikes
+  has_markdown_field :special_notes
 
   has_guid :shortcode, type: :token
   slugify :name, scope: :user_id

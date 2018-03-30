@@ -15,10 +15,15 @@ class Sidebar extends Component
   componentDidMount: ->
     elem = document.querySelectorAll '.profile-scrollspy'
     @instance = M.ScrollSpy.init elem
-    console.log "Scrollspy with:", elem
 
   componentWillUnmount: ->
     @instance?.destroy()
+
+  renderSections: ->
+    @props.profileSections
+      .filter((s) -> s.title)
+      .map (s) ->
+        `<li key={s.id}><TocLink to={'#' + s.id}>{s.title}</TocLink></li>`
 
   renderSticky: ({style}) =>
     `<div style={{...style, top: this.stickyTop}}>
@@ -30,7 +35,7 @@ class Sidebar extends Component
       <ul className='table-of-contents'>
         <li><MutedHeader>Page Sections</MutedHeader></li>
         <li><TocLink to='#top'>Summary</TocLink></li>
-        <li><TocLink to='#profile'>About A CHAR</TocLink></li>
+        { this.renderSections() }
         <li><TocLink to='#gallery'>Image Gallery</TocLink></li>
       </ul>
     </div>`
@@ -41,5 +46,9 @@ class Sidebar extends Component
         { this.renderSticky }
       </Sticky>
     </div>`
+
+Sidebar.propTypes =
+  user: PropTypes.object.isRequired
+  profileSections: PropTypes.array
 
 export default Sidebar
