@@ -3,7 +3,7 @@ import { RichText } from 'Shared'
 import ProfileSection from './ProfileSection'
 
 Profile = ({profileSections}) ->
-  `<div id='profile'>
+  `<div id='profile' className='profile-scrollspy'>
     { renderProfileSections(profileSections) }
   </div>`
 

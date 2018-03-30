@@ -5,12 +5,13 @@ import Section from 'Shared/Section'
 
 Gallery = ({images}) ->
   galleryTabs = [
-    { id: 'baz', title: 'Baz' }
-    { id: 'bar', title: 'Bar' }
+    { id: 'baz', title: 'Scraps' }
+    { id: 'bar', title: 'Hidden' }
   ]
 
   `<Section title='Main Gallery'
             id='gallery'
+            className='profile-scrollspy'
             tabs={galleryTabs}
             onTabClick={(id) => console.log(id)}>
     <Measure bounds>

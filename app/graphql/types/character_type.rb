@@ -71,6 +71,7 @@ Types::CharacterType = GraphQL::ObjectType.define do
     }
   end
 
-  # has_one :color_scheme, serializer: ColorSchemeSerializer
+  field :theme, Types::ThemeType, property: :color_scheme
+
   # has_one :pending_transfer, serializer: CharacterTransferSerializer
 end

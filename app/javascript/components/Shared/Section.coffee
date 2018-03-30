@@ -1,5 +1,38 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Row, Col } from 'react-materialize'
+import c from 'classnames'
+import styled from 'styled-components'
+
+H2 = styled.h2"""
+  color: #{(props) -> props.theme.primary};
+  line-height: 48px;
+  margin: 0;
+"""
+
+Section = ({id, className, titleClassName, title, tabs, container, onTabClick, children}) ->
+  `<section id={ id } className={ c(className, {container}) }>
+    { title &&
+      <div className={ c(titleClassName, {container}) }>
+        <Row className='no-margin'>
+          <Col m={4}>
+            <H2>{ title }</H2>
+          </Col>
+
+          <Col m={8} className='right-align'>
+            { tabs &&
+              <ul className='tabs transparent right'>
+                { tabs.map(renderTab(onTabClick)) }
+              </ul> }
+          </Col>
+        </Row>
+      </div> }
+
+    <div className={ c({container}) }>
+      { children }
+    </div>
+  </section>`
+
 
 actionHandler = (onClick, id) -> (e) ->
   e.preventDefault()
@@ -12,40 +45,6 @@ renderTab = (onTabClick) -> ({title, id, onClick}) ->
     <a href={"#" + id} onClick={actionHandler(onClick, id)}>{title}</a>
   </li>`
 
-Section = ({id, className, titleClassName, title, tabs, noContainer, onTabClick, children}) ->
-  classNames = ['margin-bottom--large']
-  classNames.push className if className
-
-  containerClasses = []
-  containerClasses.push 'container' unless noContainer
-
-  titleClassNames = ['section-title']
-  titleClassNames.push 'container' unless noContainer
-  titleClassNames.push titleClassName if titleClassName
-
-  `<section id={ id } className={ classNames.join(' ') }>
-    { title &&
-      <div className={ titleClassNames.join(' ') } style={{borderBottom: '1px solid rgba(255,255,255,0.3)'}}>
-        <div className='row no-margin'>
-          <div className='col s12 m4'>
-            <h2 className='margin--none' style={{
-              lineHeight: '48px'
-            }}>{ title }</h2>
-          </div>
-
-          <div className='col s12 m8 right-align'>
-            { tabs &&
-              <ul className='tabs transparent right'>
-                { tabs.map(renderTab(onTabClick)) }
-              </ul> }
-          </div>
-        </div>
-      </div> }
-
-    <div className={ containerClasses.join(' ') }>
-      { children }
-    </div>
-  </section>`
 
 actionType =
   PropTypes.shape(
@@ -62,7 +61,7 @@ Section.propTypes =
   buttons: PropTypes.arrayOf(actionType)
   onTabClick: PropTypes.func
   onButtonClick: PropTypes.func
-  noContainer: PropTypes.bool
+  container: PropTypes.bool
   className: PropTypes.string
   titleClassName: PropTypes.string
 
