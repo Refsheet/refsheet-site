@@ -8,10 +8,17 @@ describe '<Section />', ->
     null
 
   subject ->
-    mount `<Section title={$title}/>`
+    mount `<Section title={$title} />`
 
-  it 'renders a container', ->
-    expect($subject).to.have.descendants('.container')
+  it 'renders without container', ->
+    expect($subject).to.not.have.descendants('.container')
+
+  context 'with container', ->
+    subject ->
+      mount `<Section container />`
+
+    it 'renders wit container', ->
+      expect($subject).to.have.descendants('.container')
 
   context 'with title', ->
     def 'title', ->

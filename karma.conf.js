@@ -17,16 +17,14 @@ module.exports = function(config) {
     frameworks: ['mocha'],
 
     files: [
-      'spec/javascript/specHelper.js',
-      'app/javascript/**/*.+(jsx?|coffee)'
+      'spec/javascript/specHelper.js'
     ],
 
     exclude: [
     ],
 
     preprocessors: {
-      'spec/javascript/specHelper.js': ['webpack'],
-      'app/javascript/**/*.+(jsx?|coffee)': ['webpack']
+      'spec/javascript/specHelper.js': ['webpack']
     },
 
     client: {
