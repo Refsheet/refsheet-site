@@ -120,8 +120,8 @@ group :development, :test do
   gem 'timecop'
 end
 
+gem 'chromedriver-helper'
 group :nocircle do
-  gem 'chromedriver-helper'
 end
 
 gem 'resque-web', require: 'resque_web'
