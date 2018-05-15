@@ -2,10 +2,12 @@ import ApolloClient from 'apollo-client'
 import { createHttpLink } from 'apollo-link-http'
 import { setContext } from 'apollo-link-context'
 import { InMemoryCache } from 'apollo-cache-inmemory'
+import fetch from 'node-fetch'
 
 const httpLink = createHttpLink({
   uri: '/graphql',
-  credentials: 'same-origin'
+  credentials: 'same-origin',
+  fetch
 })
 
 const authLink = setContext((_, { headers }) => {
