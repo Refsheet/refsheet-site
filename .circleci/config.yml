@@ -83,13 +83,25 @@ jobs:
 
       # Run rspec in parallel
       - type: shell
+        name: RSpec Non-Features
         command: |
           bundle exec rspec --profile 10 \
                             --format RspecJunitFormatter \
                             --out ~/junit/rspec.xml \
                             --format documentation \
                             --color \
+                            --exclude-pattern "spec/features/**/*"
                             $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+
+      - type: shell
+        name: RSpec Features
+        command: |
+          bundle exec rspec --profile 10 \
+                            --format RspecJunitFormatter \
+                            --out ~/junit/rspec.xml \
+                            --format documentation \
+                            --color \
+                            $(circleci tests glob "spec/features/**/*_spec.rb" | circleci tests split --split-by=timings)
 
       - type: shell
         when: always
