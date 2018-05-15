@@ -90,11 +90,12 @@ jobs:
                             --out ~/junit/rspec.xml \
                             --format documentation \
                             --color \
-                            --exclude-pattern "spec/features/**/*"
+                            --exclude-pattern "spec/features/**/*" \
                             $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
 
       - type: shell
         name: RSpec Features
+        when: always
         command: |
           bundle exec rspec --profile 10 \
                             --format RspecJunitFormatter \
