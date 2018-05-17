@@ -19,6 +19,8 @@
 /.sass-cache/
 /db/*.sqlite3
 
+TESTS-*.xml
+
 /.idea/
 /coverage/
 /public/system/
