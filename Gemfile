@@ -118,9 +118,9 @@ group :development, :test do
   gem 'shoulda-matchers', '~> 2.8'
   gem 'simplecov'
   gem 'timecop'
+  gem 'chromedriver-helper'
 end
 
-gem 'chromedriver-helper'
 group :nocircle do
 end
 
