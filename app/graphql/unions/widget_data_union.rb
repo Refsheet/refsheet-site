@@ -12,6 +12,7 @@ Unions::WidgetDataUnion = GraphQL::UnionType.define do
   }
 
   possible_types [
-      Types::Widgets::RichTextType
+      Types::Widgets::RichTextType,
+      Types::Widgets::JsonType
   ]
 end

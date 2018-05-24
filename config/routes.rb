@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get 'artists', to: 'application#show'
   get 'browse', to: 'application#show'
   get 'browse/users', to: 'application#show'
+  get 'moderate', to: 'application#show'
 
 
   #== Advertising

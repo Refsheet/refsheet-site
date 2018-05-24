@@ -1,8 +1,11 @@
 class Mutations::ApplicationMutation
-  @@before_actions = []
-
   def self.before_action(callback, options={})
-    @@before_actions.push callback: callback, options: options
+    @before_actions ||= []
+    @before_actions.push callback: callback, options: options
+  end
+
+  def self.before_actions
+    @before_actions || []
   end
 
   def self.action(name, &proc)
@@ -37,7 +40,10 @@ class Mutations::ApplicationMutation
   end
 
   def run_before_actions(action_name)
-    @@before_actions.each do |action|
+    Rails.logger.info "Processing by #{self.class.name}##{action_name} as GRAPHQL"
+    Rails.logger.info "  Parameters: #{params.as_json}"
+
+    self.class.before_actions.each do |action|
       callback = action[:callback]
       options = action[:options]
 
