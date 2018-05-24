@@ -13,10 +13,8 @@ definitions = {
 }
 
 apply = (otherTheme={}) ->
-  console.log "applying otherTheme", otherTheme
   final = {}
   for k, v of definitions
-    console.log {k,v,otk: otherTheme[k]}
     final[k] = otherTheme[k] || v[1]
   final
 

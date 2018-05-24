@@ -51,6 +51,8 @@
                 <Route path='notifications' title='Notification Settings' component={ Views.Account.Settings.Notifications } />
             </Route>
 
+            <Route path='moderate' component={ Packs.application.CharacterController } />
+
             <Route path='/notifications' title='Notifications' component={ Views.Account.Notifications.Show } />
 
             <Route path='browse' component={ BrowseApp }>

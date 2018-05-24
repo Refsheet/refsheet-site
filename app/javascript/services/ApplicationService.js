@@ -5,7 +5,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import fetch from 'node-fetch'
 
 const httpLink = createHttpLink({
-  uri: '/graphql',
+  uri: 'http://dev.refsheet.net:5000/graphql',
   credentials: 'same-origin',
   fetch
 })
@@ -19,15 +19,6 @@ const authLink = setContext((_, { headers }) => {
     }
   }
 })
-
-// defaultOptions = ->
-//   headers: {
-//     'X-CSRF-Token': document.getElementsByName('csrf-token')[0].content
-//     'Content-Type': 'application/json'
-//     'Accept': 'application/json'
-//     'X-Requested-With': 'XMLHttpRequest'
-//   }
-//   credentials: 'same-origin'
 
 const client = new ApolloClient({
   link: authLink.concat(httpLink),

@@ -1,10 +1,16 @@
 import React from 'react'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Character from 'Character'
+import Moderate from 'Moderate'
 
 const Router = () => (
   <BrowserRouter>
-    <Route path="/v2/:username/:slug" component={ Character } />
+    <Switch>
+      <Route path="/v2/:username/:slug" component={ Character } />
+      <Route path="/moderate" component={ Moderate } />
+
+      <Route path="*" component={ NotFound } />
+    </Switch>
   </BrowserRouter>
 )
 
