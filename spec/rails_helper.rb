@@ -13,6 +13,7 @@ require 'rspec/rails'
 require 'rack_session_access/capybara'
 require 'selenium/webdriver'
 require 'database_cleaner'
+require 'webmock/rspec'
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
@@ -22,7 +23,11 @@ ActiveRecord::Migration.maintain_test_schema!
 RSpec.configure do |config|
   config.use_transactional_fixtures = false
   config.infer_spec_type_from_file_location!
-  config.filter_rails_from_backtrace!
+  # config.filter_rails_from_backtrace!
+  config.full_backtrace = true
+
+  config.include WebMock::API
+  WebMock.allow_net_connect!
 
   config.include GraphqlHelper
 
@@ -62,6 +67,14 @@ RSpec.configure do |config|
 
   config.around :each, :js do |ex|
     ex.run_with_retry retry: 3
+  end
+
+  config.around :each, :webmock do |ex|
+    WebMock.enable!
+    WebMock.disable_net_connect!
+    ex.run
+    WebMock.disable!
+    WebMock.allow_net_connect!
   end
 
   config.retry_callback = proc do |ex|

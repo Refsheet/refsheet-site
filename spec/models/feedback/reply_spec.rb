@@ -2,12 +2,13 @@
 #
 # Table name: feedback_replies
 #
-#  id          :integer          not null, primary key
-#  feedback_id :integer
-#  user_id     :integer
-#  comment     :text
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id           :integer          not null, primary key
+#  feedback_id  :integer
+#  user_id      :integer
+#  comment      :text
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  freshdesk_id :string
 #
 # Indexes
 #

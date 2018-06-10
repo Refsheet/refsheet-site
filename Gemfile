@@ -21,6 +21,7 @@ gem 'rollbar'
 gem 'active_elastic_job'
 gem 'sprockets_uglifier_with_source_maps'
 gem 'webpacker'
+gem 'faraday_middleware'
 
 # == FRONT END
 
@@ -84,6 +85,7 @@ gem 'graphql-errors'
 gem 'ruby-trello'
 gem 'stripe'
 gem 'webpush'
+gem 'her'
 
 # == BOWER ASSETS
 
@@ -119,6 +121,7 @@ group :development, :test do
   gem 'simplecov'
   gem 'timecop'
   gem 'chromedriver-helper'
+  gem 'webmock'
 end
 
 group :nocircle do
@@ -135,5 +138,6 @@ group :development do
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'httplog'
 
 gem 'graphiql-rails', group: :development
