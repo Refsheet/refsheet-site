@@ -1,4 +1,10 @@
 ---
+v1.2.6-pre.11:
+- hash: d3b8123
+  date: '2018-06-10'
+  tags: []
+  message: asdf
+---
 v1.2.6-pre.10:
 - hash: 4898e75
   date: '2018-06-10'
