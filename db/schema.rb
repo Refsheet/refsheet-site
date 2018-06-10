@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180322024847) do
+ActiveRecord::Schema.define(version: 20180327092338) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -192,8 +192,9 @@ ActiveRecord::Schema.define(version: 20180322024847) do
     t.integer  "feedback_id"
     t.integer  "user_id"
     t.text     "comment"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "freshdesk_id"
     t.index ["feedback_id"], name: "index_feedback_replies_on_feedback_id", using: :btree
     t.index ["user_id"], name: "index_feedback_replies_on_user_id", using: :btree
   end
@@ -209,6 +210,7 @@ ActiveRecord::Schema.define(version: 20180322024847) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.boolean  "done"
+    t.string   "freshdesk_id"
   end
 
   create_table "forum_karmas", force: :cascade do |t|
