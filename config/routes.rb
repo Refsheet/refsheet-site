@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get 'artists', to: 'application#show'
   get 'browse', to: 'application#show'
   get 'browse/users', to: 'application#show'
+  get 'moderate', to: 'application#show'
 
 
   #== Advertising
@@ -57,9 +58,14 @@ Rails.application.routes.draw do
   end
 
 
+  #== Login
+
   resource :session, only: [:show, :create, :destroy, :update], controller: 'session'
   resource :password_resets, only: [:create, :update]
   get 'login', to: 'session#new'
+
+
+  #== Front-End Legacy
 
   resources :characters, only: [:index]
 
@@ -149,6 +155,9 @@ Rails.application.routes.draw do
     post :patreon, to: 'patreon#create'
   end
 
+
+  #== Admin
+
   namespace :admin do
     root to: 'dashboard#show'
 
@@ -166,6 +175,14 @@ Rails.application.routes.draw do
     resources :ads, only: [:index, :edit, :new, :create, :update]
     post :ad_slots, to: 'advertisements/slots#create'
   end
+
+  #== Back End
+
+  if Rails.env.development?
+    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
+  end
+
+  post "/graphql", to: "graphql#execute"
 
 
   #== Engines!

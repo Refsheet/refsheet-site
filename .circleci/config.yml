@@ -1,0 +1,116 @@
+version: 2
+jobs:
+  build:
+    docker: &docker
+      - image: circleci/ruby:2.3-node-browsers
+        environment:
+          BUNDLE_JOBS: 3
+          BUNDLE_RETRY: 3
+          BUNDLE_PATH: vendor/bundle
+          PGHOST: 127.0.0.1
+          PGUSER: refsheet-site-test
+          RAILS_ENV: test
+          NODE_ENV: test
+          JUNIT_REPORT_PATH: ~/junit
+          JUNIT_REPORT_NAME: karma.xml
+
+      - image: circleci/postgres:9.5-alpine
+        environment:
+          POSTGRES_USER: refsheet-site-test
+          POSTGRES_DB: refsheet-site-test
+          POSTGRES_PASSWORD: "fishsticks"
+
+    steps:
+      - checkout
+
+      - run: which chromedriver; chromedriver -v
+      - run: mkdir ~/junit; mkdir ~/artifacts
+
+      - run:
+          name: Download Selenium
+          command: |
+            curl -O http://selenium-release.storage.googleapis.com/3.5/selenium-server-standalone-3.5.3.jar
+      - run:
+          name: Start Selenium
+          command: |
+            java -jar selenium-server-standalone-3.5.3.jar -log ~/artifacts/selenium.log
+          background: true
+
+      - run:
+          name: Start ChromeDriver
+          command: chromedriver --verbose --whitelisted-ips=""
+          background: true
+
+      # Restore bundle cache
+      - restore_cache:
+          keys:
+            - refsheet-test-bundle-v2-{{ checksum "Gemfile.lock" }}
+            - refsheet-test-bundle-v2-
+
+      - run:
+          name: Bundle Install
+          command: bundle check || bundle install --path vendor/bundle --frozen --without=nocircle
+
+      # Store bundle cache
+      - save_cache:
+          key: refsheet-test-bundle-v2-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      # Only necessary if app uses webpacker or yarn in some other way
+      - restore_cache:
+          keys:
+            - refsheet-test-yarn-{{ checksum "yarn.lock" }}
+            - refsheet-test-yarn-
+
+      - run:
+          name: Yarn Install
+          command: yarn install --cache-folder ~/.cache/yarn
+
+      # Store yarn / webpacker cache
+      - save_cache:
+          key: refsheet-test-yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+
+      - run:
+          name: Database Setup
+          command: bin/rails db:schema:load --trace
+
+      # Run rspec in parallel
+      - type: shell
+        name: RSpec Non-Features
+        command: |
+          bundle exec rspec --profile 10 \
+                            --format RspecJunitFormatter \
+                            --out ~/junit/rspec.xml \
+                            --format documentation \
+                            --color \
+                            --exclude-pattern "spec/features/**/*" \
+                            $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+
+      - type: shell
+        name: RSpec Features
+        when: always
+        command: |
+          bundle exec rspec --profile 10 \
+                            --format RspecJunitFormatter \
+                            --out ~/junit/rspec.xml \
+                            --format documentation \
+                            --color \
+                            $(circleci tests glob "spec/features/**/*_spec.rb" | circleci tests split --split-by=timings)
+
+      - type: shell
+        when: always
+        command: yarn karma start --single-run --reporters junit,progress
+
+      # Save test results for timing analysis
+      - store_test_results:
+          path: ~/junit
+
+      - store_artifacts:
+          path: ~/artifacts

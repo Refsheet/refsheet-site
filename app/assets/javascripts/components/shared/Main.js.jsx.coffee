@@ -5,6 +5,7 @@
     bodyClassName: React.PropTypes.string
     fadeEffect: React.PropTypes.bool
     slideEffect: React.PropTypes.bool
+    id: React.PropTypes.string
     title: React.PropTypes.oneOfType([
       React.PropTypes.string
       React.PropTypes.array
@@ -50,6 +51,6 @@
     if @props.fadeEffect or @props.slideEffect
       style.display = 'none'
 
-    `<main style={ this.props.style } className={ classNames.join(' ') } ref='main'>
+    `<main style={ this.props.style } id={ this.props.id } className={ classNames.join(' ') } ref='main'>
         { this.props.children }
     </main>`

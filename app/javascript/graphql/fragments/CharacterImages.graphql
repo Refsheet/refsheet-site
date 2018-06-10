@@ -1,0 +1,30 @@
+fragment CharacterImages on Character {
+    images {
+        id
+        title
+        nsfw
+        hidden
+        background_color
+        aspect_ratio
+        comments_count
+        favorites_count
+        is_favorite
+        is_managed
+        width
+        height
+        url {
+            small
+            medium
+        }
+        size {
+            small {
+                width
+                height
+            }
+            medium {
+                width
+                height
+            }
+        }
+    }
+}
