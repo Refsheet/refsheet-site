@@ -1,4 +1,10 @@
 ---
+v1.2.6-pre.8:
+- hash: b9e533b
+  date: '2018-06-10'
+  tags: []
+  message: I meant this.
+---
 v1.2.6-pre.7:
 - hash: '048c9ce'
   date: '2018-06-10'
