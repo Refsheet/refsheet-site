@@ -1,0 +1,17 @@
+fragment CharacterTheme on Character {
+    theme {
+        id
+        name
+        colors {
+            primary
+            accent1
+            accent2
+            background
+            cardBackground
+            imageBackground
+            text
+            textLight
+            textMedium
+        }
+    }
+}

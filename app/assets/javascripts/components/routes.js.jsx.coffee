@@ -51,6 +51,8 @@
                 <Route path='notifications' title='Notification Settings' component={ Views.Account.Settings.Notifications } />
             </Route>
 
+            <Route path='moderate' component={ Packs.application.CharacterController } />
+
             <Route path='/notifications' title='Notifications' component={ Views.Account.Notifications.Show } />
 
             <Route path='browse' component={ BrowseApp }>
@@ -83,6 +85,10 @@
             <Route path='images/:imageId' component={ ImageApp } />
             <Route path=':userId' component={ User.View } />
             <Route path=':userId/:characterId' component={ CharacterApp } />
+
+            <Route path='/v2'>
+                <Route path=':userId/:characterId' component={ Packs.application.CharacterController } />
+            </Route>
 
 
             {/*== Fallback */}

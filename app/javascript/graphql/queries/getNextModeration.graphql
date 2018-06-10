@@ -1,0 +1,29 @@
+query getNextModeration {
+    getNextModeration {
+        id
+        user {
+            username
+        }
+        sender {
+            username
+        }
+        comment
+        violationType
+        violationMessage
+        dmcaSourceUrl
+        status
+        itemType
+        itemId
+        item {
+            ... on Image {
+                caption
+                hidden
+                nsfw
+                source_url
+                url {
+                    medium
+                }
+            }
+        }
+    }
+}

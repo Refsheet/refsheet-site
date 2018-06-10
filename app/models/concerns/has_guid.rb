@@ -74,7 +74,6 @@ module HasGuid
       self.assign_attributes(guid_column_name => guid)
     end while self.class.unscoped.where(guid_scope).exists?(guid_column_name => self.send(guid_column_name))
 
-    Rails.logger.debug "GUID Generated: #{self.send(guid_column_name)}"
     true
   end
 
@@ -87,8 +86,12 @@ module HasGuid
       self.errors[guid_column_name] << 'has already been taken'
     end
 
-    Rails.logger.info "GUID Errors: #{self.errors[guid_column_name].inspect}"
-    self.errors[guid_column_name].any?
+    if self.errors[guid_column_name].any?
+      Rails.logger.info "GUID Errors: #{self.errors[guid_column_name].inspect}"
+      return true
+    end
+
+    false
   end
 
   def downcase_guid

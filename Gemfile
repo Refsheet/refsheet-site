@@ -20,6 +20,7 @@ gem 'non-stupid-digest-assets'
 gem 'rollbar'
 gem 'active_elastic_job'
 gem 'sprockets_uglifier_with_source_maps'
+gem 'webpacker'
 gem 'faraday_middleware'
 
 # == FRONT END
@@ -68,6 +69,7 @@ gem 'carrierwave'
 gem 'fog-aws'
 gem 'aws-ses', '~> 0.4.4'
 gem 'paperclip'
+gem 'paperclip-meta'
 gem 'dropzonejs-rails'
 gem 'redcarpet'
 gem 'sitemap_generator'
@@ -75,6 +77,8 @@ gem 'groupdate'
 gem 'counter_culture'
 gem 'premailer-rails'
 gem 'semantic'
+gem 'graphql'
+gem 'graphql-errors'
 
 # == INTEGRATIONS
 
@@ -100,12 +104,12 @@ gem 'table_print'
 group :development, :test do
   gem 'bullet'
   gem 'byebug', platform: :mri
+  gem 'capybara'
+  gem 'capybara-selenium'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'letter_opener'
   gem 'letter_opener_web'
-  gem 'phantomjs', require: 'phantomjs/poltergeist'
-  gem 'poltergeist'
   gem 'rack_session_access'
   gem 'rspec-collection_matchers'
   gem 'rspec-expectations'
@@ -116,7 +120,11 @@ group :development, :test do
   gem 'shoulda-matchers', '~> 2.8'
   gem 'simplecov'
   gem 'timecop'
+  gem 'chromedriver-helper'
   gem 'webmock'
+end
+
+group :nocircle do
 end
 
 gem 'resque-web', require: 'resque_web'
@@ -131,3 +139,5 @@ end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'httplog'
+
+gem 'graphiql-rails', group: :development
