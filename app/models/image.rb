@@ -46,6 +46,8 @@ class Image < ApplicationRecord # < Media
   # Requires this to eager load the news feed:
   has_many :activities, as: :activity, dependent: :destroy
 
+  delegate :aspect_ratio, :width, :height, to: :image
+
   SIZE = {
       thumbnail: 320,
       small: 427,
@@ -57,11 +59,11 @@ class Image < ApplicationRecord # < Media
                     default_url: '/assets/default.png',
                     styles: {
                         thumbnail: '',
-                        small: "#{SIZE[:small]}x>",
+                        small: "#{SIZE[:small]}x#{SIZE[:small]}>",
                         small_square: '',
-                        medium: "#{SIZE[:medium]}x>",
+                        medium: "#{SIZE[:medium]}x#{SIZE[:medium]}>",
                         medium_square: '',
-                        large: "#{SIZE[:large]}x>",
+                        large: "#{SIZE[:large]}x#{SIZE[:large]}>",
                         large_square: ''
                     },
                     s3_permissions: {
@@ -88,7 +90,9 @@ class Image < ApplicationRecord # < Media
   has_guid
   ranks :row_order, with_same: :character_id
   acts_as_paranoid
+  has_markdown_field :caption
 
+  after_initialize :ensure_attachment_meta
   before_validation :adjust_source_url
   after_save :clean_up_character
   after_destroy :clean_up_character
@@ -161,6 +165,10 @@ class Image < ApplicationRecord # < Media
     self.character.managed_by? user
   end
 
+  def geometry
+    Paperclip::Geometry.new width, height
+  end
+
   private
 
   def adjust_source_url
@@ -169,6 +177,20 @@ class Image < ApplicationRecord # < Media
   end
 
   def log_activity
-    Activity.create activity: self, user_id: self.character.user_id, character_id: self.character_id, created_at: self.created_at, activity_method: 'create'
+    Activity.create activity: self,
+                    user_id: self.character.user_id,
+                    character_id: self.character_id,
+                    created_at: self.created_at,
+                    activity_method: 'create'
+  end
+
+  def ensure_attachment_meta
+    return unless self.has_attribute? :image_meta and self.image_meta.nil?
+
+    if self.image.respond_to? :reprocess_without_delay!
+      self.image.reprocess_without_delay!
+    else
+      self.image.reprocess!
+    end
   end
 end

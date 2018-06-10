@@ -88,6 +88,8 @@ class User < ApplicationRecord
 
   serialize :settings, JSON
 
+  has_markdown_field :profile
+
   before_validation :downcase_email
   before_update :handle_email_change
   after_update :send_email_change_notice, unless: -> (u) { u.skip_emails }
@@ -98,6 +100,15 @@ class User < ApplicationRecord
   scope :confirmed, -> { where.not email_confirmed_at: nil }
   scope :patrons, -> { joins(:patron).order('patreon_patrons.created_at DESC').where.not patreon_patrons: { id: nil } }
   scope :with_role, -> (r) { joins(:roles).where(roles: { name: [r, Role::ADMIN] }) }
+
+  #== TODO THINGS
+
+  def characters_count
+    characters.count
+  end
+
+
+  #== Other Stuff
 
   def name
     super || username

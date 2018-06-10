@@ -129,4 +129,10 @@ describe Image, type: :model do
     expect(Image.all).to include(i2)
     expect(Image.sfw).to_not include(i2)
   end
+
+  it 'has_markdown_field :caption' do
+    i = build :image, caption: nil
+    expect { i.caption_html }.to_not raise_error
+    expect(i.caption_html).to be_nil
+  end
 end

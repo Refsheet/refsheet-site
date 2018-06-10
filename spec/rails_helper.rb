@@ -11,7 +11,7 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'spec_helper'
 require 'rspec/rails'
 require 'rack_session_access/capybara'
-require 'capybara/poltergeist'
+require 'selenium/webdriver'
 require 'database_cleaner'
 require 'webmock/rspec'
 
@@ -28,6 +28,8 @@ RSpec.configure do |config|
 
   config.include WebMock::API
   WebMock.allow_net_connect!
+
+  config.include GraphqlHelper
 
   config.before(:each) do
     DatabaseCleaner.strategy = :transaction
@@ -83,12 +85,22 @@ RSpec.configure do |config|
   end
 end
 
-Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, :phantomjs => Phantomjs.path)
+Capybara.register_driver :chrome do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
 end
 
-Capybara.javascript_driver = :poltergeist
-Capybara.raise_server_errors = false
-Capybara.default_max_wait_time = 20.seconds
+Capybara.register_driver :headless_chrome do |app|
+  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+      chromeOptions: { args: %w(headless disable-gpu) }
+  )
+
+  Capybara::Selenium::Driver.new(app, browser: :chrome, desired_capabilities: capabilities)
+end
+
+Capybara.configure do |config|
+  config.javascript_driver = :headless_chrome
+  config.raise_server_errors = false
+  config.default_max_wait_time = 20.seconds
+end
 
 DatabaseCleaner.strategy = :truncation
