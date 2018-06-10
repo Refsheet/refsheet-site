@@ -1,4 +1,217 @@
 ---
+v1.2.6-pre.5:
+- hash: cb22ffc
+  date: '2018-06-10'
+  tags: []
+  message: Merge branch 'master' of github.com:eiwi1101/refsheet-site
+- hash: c138f0a
+  date: '2018-06-10'
+  tags: []
+  message: 'Merge pull request #52 from eiwi1101/e/webpacker'
+- hash: f2fdf2b
+  date: '2018-06-10'
+  tags: []
+  message: Master merge.
+- hash: 236225d
+  date: '2018-06-10'
+  tags: []
+  message: Master merge.
+- hash: 0e5c662
+  date: '2018-05-23'
+  tags: []
+  message: GraphQL Mutation test via Moderate module.
+- hash: 2f06188
+  date: '2018-05-23'
+  tags: []
+  message: Dockerized attempt.
+- hash: 7f1bbfa
+  date: '2018-05-17'
+  tags: []
+  message: ignoring that test thing
+- hash: fc6adbb
+  date: '2018-05-17'
+  tags: []
+  message: Speed up tests by going local.
+- hash: 4c4fb31
+  date: '2018-05-17'
+  tags: []
+  message: Added mutation pattern!
+- hash: 5f1b19b
+  date: '2018-05-15'
+  tags: []
+  message: Bugfix?
+- hash: '063800b'
+  date: '2018-05-15'
+  tags: []
+  message: Bugfix!
+- hash: c0db30b
+  date: '2018-05-15'
+  tags: []
+  message: CI Feature Split
+- hash: eff8b9f
+  date: '2018-05-15'
+  tags: []
+  message: Karma update also React provider.
+- hash: adafed5
+  date: '2018-04-06'
+  tags: []
+  message: Fixed broken migrations on setup.
+- hash: b1f7ff6
+  date: '2018-03-30'
+  tags: []
+  message: Moved the character header->summary into the new app, styled cleaned up
+    to be more global friendly.
+- hash: 8292bce
+  date: '2018-03-30'
+  tags: []
+  message: Character App styled components and two col cleanup. Also using Materialize
+    from like 3 sources now. Hoy-veh.
+- hash: 45e323b
+  date: '2018-03-25'
+  tags: []
+  message: Clean up Character query fragments.
+- hash: 88e1b0c
+  date: '2018-03-25'
+  tags: []
+  message: Profile GraphQL Zen.
+- hash: '099ed90'
+  date: '2018-03-25'
+  tags: []
+  message: Character GraphQL Schema! :D
+- hash: 2456b43
+  date: '2018-03-24'
+  tags: []
+  message: Subscription server scaffold.
+- hash: da723e9
+  date: '2018-03-24'
+  tags: []
+  message: Character service can pull data from GraphQL.
+- hash: b19c845
+  date: '2018-03-24'
+  tags: []
+  message: GraphQL and some Karma.
+- hash: f247c32
+  date: '2018-03-24'
+  tags: []
+  message: GraphQL and some Karma.
+- hash: 6e31609
+  date: '2018-03-23'
+  tags: []
+  message: Feffjaskdfjfuck.
+- hash: 2e9494f
+  date: '2018-03-23'
+  tags: []
+  message: Withsel.
+- hash: 7bc0a53
+  date: '2018-03-23'
+  tags: []
+  message: Withsel.
+- hash: 107bd66
+  date: '2018-03-23'
+  tags: []
+  message: Withsel.
+- hash: 2762f31
+  date: '2018-03-23'
+  tags: []
+  message: Test result storage and stuff.
+- hash: f5429b8
+  date: '2018-03-23'
+  tags: []
+  message: Spec fixin.
+- hash: cf44552
+  date: '2018-03-23'
+  tags: []
+  message: Maybe I need Chromedriver running?
+- hash: bde7e50
+  date: '2018-03-23'
+  tags: []
+  message: asdf
+- hash: e9be53a
+  date: '2018-03-23'
+  tags: []
+  message: BROWSERS!
+- hash: 0b776bf
+  date: '2018-03-23'
+  tags: []
+  message: CHROME!
+- hash: c3327ca
+  date: '2018-03-23'
+  tags: []
+  message: Fix bundle?
+- hash: ace3924
+  date: '2018-03-23'
+  tags: []
+  message: There there, Circle. Have a Chrome without chrome.
+- hash: 8ba3459
+  date: '2018-03-23'
+  tags: []
+  message: There there, Circle. Have a Chrome.
+- hash: 84a756d
+  date: '2018-03-23'
+  tags: []
+  message: Back to basics.
+- hash: 57137cd
+  date: '2018-03-23'
+  tags: []
+  message: Circle soothing 2.
+- hash: 04d53dc
+  date: '2018-03-23'
+  tags: []
+  message: Syntax?
+- hash: 3e395e5
+  date: '2018-03-23'
+  tags: []
+  message: Workflows?
+- hash: b202727
+  date: '2018-03-23'
+  tags: []
+  message: Postgres soothing.
+- hash: 7ccf3a8
+  date: '2018-03-23'
+  tags: []
+  message: Ruby 2.3
+- hash: 49af619
+  date: '2018-03-23'
+  tags: []
+  message: Soothing Circle 2.0
+- hash: ca31a36
+  date: '2018-03-23'
+  tags: []
+  message: Circle Soothing.
+- hash: 57ccdb7
+  date: '2018-03-23'
+  tags: []
+  message: Added Karma specs. Yaaaay mocha!
+- hash: '9751900'
+  date: '2018-03-21'
+  tags: []
+  message: Gallery does some useful things but I'm making a mess of my syntax. Again.
+- hash: e6a0345
+  date: '2018-03-13'
+  tags: []
+  message: Some slightly better profile mockups of the column mechanism, starting
+    to thread the Edit flag through.
+- hash: d8c7d27
+  date: '2018-03-12'
+  tags: []
+  message: Rendering some Widgets!
+- hash: cabd776
+  date: '2018-03-12'
+  tags: []
+  message: Some update magic going in.
+- hash: 6c080dd
+  date: '2018-03-11'
+  tags: []
+  message: Webpacker renders character.
+- hash: 44412ba
+  date: '2018-03-10'
+  tags: []
+  message: Webpacker replace for Character page. It's ALIIIIIVE!
+- hash: 5c140d9
+  date: '2018-03-10'
+  tags: []
+  message: Test webpacker install.
+---
 v1.2.6-pre.4:
 - hash: 75c2d64
   date: '2018-03-28'
