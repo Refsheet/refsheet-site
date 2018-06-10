@@ -154,6 +154,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
+    colorize (0.8.1)
     commonjs (0.2.7)
     concurrent-ruby (1.0.3)
     connection_pool (2.2.1)
@@ -161,6 +162,8 @@ GEM
       activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
       after_commit_action (~> 1.0)
+    crack (0.4.3)
+      safe_yaml (~> 1.0.0)
     css_parser (1.5.0)
       addressable
     database_cleaner (1.5.3)
@@ -184,6 +187,8 @@ GEM
       i18n (~> 0.5)
     faraday (0.13.1)
       multipart-post (>= 1.2, < 3)
+    faraday_middleware (0.11.0.1)
+      faraday (>= 0.7.4, < 1.0)
     ffi (1.9.14)
     fog-aws (1.2.1)
       fog-core (~> 1.38)
@@ -218,12 +223,21 @@ GEM
       activesupport (>= 3)
     haml (4.0.7)
       tilt
+    hashdiff (0.3.7)
+    her (0.10.0)
+      activemodel (>= 3.0.0, <= 6.0.0)
+      activesupport (>= 3.0.0, <= 6.0.0)
+      faraday (>= 0.8, < 1.0)
+      multi_json (~> 1.7)
     highcharts-rails (5.0.7)
       railties (>= 3.1)
     hkdf (0.3.0)
     htmlentities (4.3.4)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
+    httplog (1.0.0)
+      colorize
+      rack
     i18n (0.7.0)
     imagesLoaded_rails (4.1.0)
       railties (>= 3.1)
@@ -431,6 +445,7 @@ GEM
       oauth (>= 0.4.5)
       rest-client (>= 1.8.0)
     rubyzip (1.2.1)
+    safe_yaml (1.0.4)
     safely_block (0.1.1)
       errbase
     sass (3.4.23)
@@ -532,6 +547,10 @@ GEM
       activemodel (>= 5.0)
       debug_inspector
       railties (>= 5.0)
+    webmock (3.3.0)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+      hashdiff
     webpacker (3.3.0)
       activesupport (>= 4.2)
       rack-proxy (>= 0.6.1)
@@ -576,6 +595,7 @@ DEPENDENCIES
   dropzonejs-rails
   factory_girl_rails
   faker
+  faraday_middleware
   fog-aws
   font-awesome-sass
   graphiql-rails
@@ -584,7 +604,9 @@ DEPENDENCIES
   gravatar_image_tag
   groupdate
   haml
+  her
   highcharts-rails
+  httplog
   imagesLoaded_rails
   jquery-justified-gallery-rails
   jquery-masonry-rails
@@ -649,6 +671,7 @@ DEPENDENCIES
   tzinfo-data
   uglifier (>= 1.3.0)
   web-console
+  webmock
   webpacker
   webpush
   will_paginate
