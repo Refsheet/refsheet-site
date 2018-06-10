@@ -1,4 +1,19 @@
 ---
+v1.2.6-pre.10:
+- hash: 4898e75
+  date: '2018-06-10'
+  tags: []
+  message: Try... this.
+- hash: f64d998
+  date: '2018-06-10'
+  tags:
+  - ci-skip
+  message: v1.2.6-pre.8
+- hash: b9e533b
+  date: '2018-06-10'
+  tags: []
+  message: I meant this.
+---
 v1.2.6-pre.9:
 - hash: f64d998
   date: '2018-06-10'
