@@ -1,0 +1,31 @@
+dependencies:
+  override:
+    - yarn
+
+  pre:
+    - if [ $CIRCLE_BRANCH = 'production' ]; then sudo apt-get install python-dev; fi
+    - if [ $CIRCLE_BRANCH = 'production' ]; then sudo pip install awsebcli; fi
+    - if [ $CIRCLE_BRANCH = 'production' ]; then sudo easy_install --upgrade six; fi
+
+machine:
+  environment:
+    PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
+    NODE_ENV: test
+
+test:
+  override:
+    - yarn karma start --single-run
+    - bundle exec rspec --format progress --format RspecJunitFormatter -o $CIRCLE_TEST_REPORTS/rspec.xml
+
+deployment:
+  production:
+    branch: production
+    commands:
+      - bash ./bin/setup-eb.sh
+      - bundle exec rake refsheet:deploy[:prod]
+
+#  staging:
+#    branch: master
+#    commands:
+#      - bash ./bin/setup-eb.sh
+#      - eb deploy refsheet-staging

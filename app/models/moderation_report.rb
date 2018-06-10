@@ -93,6 +93,13 @@ class ModerationReport < ApplicationRecord
     end
   end
 
+  scope :pending, -> { where status: :pending }
+
+  def self.next
+    pending.order(created_at: :asc).first
+  end
+
+
   def violation_message
     VIOLATION_TYPES[violation_type]
   end

@@ -27,6 +27,10 @@ class Media::Favorite < ApplicationRecord
 
   after_create :notify_user
 
+  def self.by?(user)
+    exists? user: user
+  end
+
   def media_type
     'Image'
   end

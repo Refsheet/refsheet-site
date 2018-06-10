@@ -1,0 +1,5 @@
+mutation updateModeration($id: ID!, $resolution: String!) {
+    updateModeration(id: $id, resolution: $resolution) {
+        id status
+    }
+}

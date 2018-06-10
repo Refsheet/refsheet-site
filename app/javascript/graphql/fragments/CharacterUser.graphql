@@ -1,0 +1,10 @@
+fragment CharacterUser on Character {
+    user {
+        username
+        name
+        is_admin
+        is_patron
+        avatar_url
+        is_followed
+    }
+}

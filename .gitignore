@@ -23,6 +23,8 @@
 /.sass-cache/
 /db/*.sqlite3
 
+TESTS-*.xml
+
 /.idea/
 /coverage/
 /public/system/
@@ -38,3 +40,8 @@
 
 # OSX Garbage
 .DS_Store
+/public/packs
+/public/packs-test
+/node_modules
+yarn-debug.log*
+.yarn-integrity
