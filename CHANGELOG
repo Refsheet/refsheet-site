@@ -1,4 +1,10 @@
 ---
+v1.2.6-pre.7:
+- hash: '048c9ce'
+  date: '2018-06-10'
+  tags: []
+  message: Try again to upgrade AWS.
+---
 v1.2.6-pre.6:
 - hash: 1b8d5ef
   date: '2018-06-10'
