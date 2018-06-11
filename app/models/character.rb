@@ -117,7 +117,7 @@ class Character < ApplicationRecord
   end
 
   after_update do
-    RefsheetSchema.subscriptions.trigger "characterChanged", { id: self.id }, self
+    #RefsheetSchema.subscriptions.trigger "characterChanged", { id: self.id }, self
   end
 
 
