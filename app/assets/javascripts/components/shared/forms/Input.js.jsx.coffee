@@ -40,7 +40,6 @@
       @setState value: (newProps.value || newProps.default)
 
     if newProps.error != @state.error
-      console.log "Adding input errors: ", newProps
       @setState error: newProps.error
 
   componentDidMount: ->
@@ -78,8 +77,6 @@
       value = @props.default if e.target.checked
     else
       value = e.target.value
-
-    console.log "Change", @props.name, "to", value
 
     @setState error: null, value: value, dirty: true
     @props.onChange(@props.name, value) if @props.onChange
