@@ -1,4 +1,10 @@
 ---
+v1.2.6-pre.12:
+- hash: 2aef4c8
+  date: '2018-06-10'
+  tags: []
+  message: Self-elevating node install script.
+---
 v1.2.6-pre.11:
 - hash: d3b8123
   date: '2018-06-10'
