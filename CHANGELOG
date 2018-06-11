@@ -1,4 +1,10 @@
 ---
+v1.2.6-pre.15:
+- hash: dce2425
+  date: '2018-06-10'
+  tags: []
+  message: Stop this image meta nonsense. I don't need it now.
+---
 v1.2.6-pre.14:
 - hash: 9041ad5
   date: '2018-06-10'
