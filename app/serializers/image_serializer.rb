@@ -32,6 +32,14 @@ class ImageSerializer < ActiveModel::Serializer
   has_many :favorites, serializer: Media::FavoriteSerializer
   has_many :comments, serializer: Media::CommentSerializer
 
+  def aspect_ratio
+    if object.image_meta
+      object.aspect_ratio
+    else
+      1
+    end
+  end
+
   def id
     object.guid
   end
