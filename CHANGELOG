@@ -1,4 +1,10 @@
 ---
+v1.2.6-pre.17:
+- hash: b34baa5
+  date: '2018-06-12'
+  tags: []
+  message: GraphQL origin hackfixthing.
+---
 v1.2.6-pre.16:
 - hash: 17f48fd
   date: '2018-06-10'
