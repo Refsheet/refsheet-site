@@ -4,8 +4,14 @@ import { setContext } from 'apollo-link-context'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import fetch from 'node-fetch'
 
+const HOST = (
+    window &&
+    window.location &&
+    window.location.origin
+) || 'http://dev.refsheet.net:5000'
+
 const httpLink = createHttpLink({
-  uri: 'http://dev.refsheet.net:5000/graphql',
+  uri: `${HOST}/graphql`,
   credentials: 'same-origin',
   fetch
 })
