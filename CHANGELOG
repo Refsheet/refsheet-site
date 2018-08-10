@@ -1,4 +1,10 @@
 ---
+v1.2.6-pre.18:
+- hash: 6edeaa7
+  date: '2018-08-09'
+  tags: []
+  message: Image meta backfill tasks.
+---
 v1.2.6-pre.17:
 - hash: b34baa5
   date: '2018-06-12'
