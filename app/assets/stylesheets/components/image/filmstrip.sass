@@ -1,0 +1,32 @@
+$filmstrip-height: 100px
+$filmstrip-gap: -2px
+
+.filmstrip
+  overflow: hidden
+  width: 100%
+  background-color: rgba(black, 0.3)
+  height: $filmstrip-height
+  text-align: center
+  white-space: nowrap
+
+  img
+    display: inline-block
+    margin-right: $filmstrip-gap
+    height: $filmstrip-height !important
+    width: auto !important
+    max-width: $filmstrip-height * (4 / 3)
+    object-fit: cover
+    opacity: 0.6
+    transition: all 0.3s ease
+    border: 2px solid transparent
+
+    &:last-child
+      margin-right: 0
+
+    &.active
+      border: 2px solid $secondary-color
+      opacity: 1.0 !important
+
+    &:hover
+      cursor: pointer
+      opacity: 0.8
