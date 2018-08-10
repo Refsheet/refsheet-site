@@ -167,4 +167,33 @@ namespace :refsheet do
       puts e.response.body
     end
   end
+
+  desc 'Refreshes image meta on images without the field present.'
+  task :backfill_image_meta => :environment do
+    HttpLog.configure do |config|
+      config.enabled = false
+    end
+
+    Rails.logger.silence do
+      scope = Image.where(image_meta: nil)
+      count = scope.count
+
+      puts "Reprocessing #{count} images..."
+      progress = ProgressBar.create total: count,
+                                    format: '%c/%C [%w>:|%i] %E'
+
+      scope.find_each do |image|
+        image.recalculate_attachment_meta!
+        progress.increment
+      end
+
+      progress.stop
+      puts "DONE"
+    end
+  end
+
+  desc 'Clears image meta on all images.'
+  task :clear_image_meta => :environment do
+    Image.update_all image_meta: nil
+  end
 end
