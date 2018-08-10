@@ -9,11 +9,13 @@ import Sidebar from './Sidebar'
 import defaultTheme from 'themes/default'
 import { StickyContainer } from 'react-sticky'
 import { ThemedMain } from 'Styled/Global'
-# import Main from "legacy"
+import UploadModal from 'Image/UploadModal'
 
 View = ({character}) ->
   console.log {character}
   `<ThemedMain title={ character.name }>
+    <UploadModal />
+
     <div id='top' className='profile-scrollspy'>
       <Header character={character} />
     </div>
