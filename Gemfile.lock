@@ -438,6 +438,7 @@ GEM
     rspec-support (3.5.0)
     rspec_junit_formatter (0.3.0)
       rspec-core (>= 2, < 4, != 2.12.0)
+    ruby-progressbar (1.7.5)
     ruby-trello (1.6.0)
       activemodel (>= 3.2.0)
       addressable (~> 2.3)
@@ -648,6 +649,7 @@ DEPENDENCIES
   rspec-rails
   rspec-retry
   rspec_junit_formatter
+  ruby-progressbar
   ruby-trello
   sassc-rails
   scoped_search
