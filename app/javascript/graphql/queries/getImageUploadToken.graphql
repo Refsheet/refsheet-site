@@ -1,0 +1,13 @@
+query getImageUploadToken($characterId: ID!) {
+  getImageUploadToken(characterId: $characterId) {
+    key
+    acl
+    success_action_status
+    policy
+    x_amz_credential
+    x_amz_algorithm
+    x_amz_date
+    x_amz_signature
+    url
+  }
+}

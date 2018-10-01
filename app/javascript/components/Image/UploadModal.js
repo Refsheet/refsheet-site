@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import Dropzone from 'react-dropzone'
 import Filmstrip from './Filmstrip'
 import UploadForm from './UploadForm'
+import ImageHandler from 'ImageHandler'
 
 class UploadModal extends Component {
   constructor(props) {
@@ -60,6 +62,7 @@ class UploadModal extends Component {
   }
 
   setActiveImage(activeImageId) {
+    console.log("Setting active", activeImageId)
     this.setState({activeImageId})
   }
 
@@ -67,8 +70,19 @@ class UploadModal extends Component {
     return this.state.pendingImages.filter((i) => i.id === this.state.activeImageId)[0]
   }
 
+  removeImage(imageId) {
+    let { selectedIndex } = this.state
+    const pendingImages = this.state.pendingImages
+        .filter((i) => i.id !== imageId)
+
+    if (pendingImages.length <= selectedIndex)
+      selectedIndex = pendingImages.length - 1
+
+    this.setState({pendingImages, selectedIndex})
+  }
+
   selectNextImage() {
-    const currentIndex = this.state.pendingImages.indexOf(this.getActiveImage())
+    const currentIndex = this.state.pendingImages.indexOf(this.getActiveImage()) || 0
     let selectedIndex = 0
 
     if (currentIndex >= 0 && currentIndex !== (this.state.pendingImages.length - 1)) {
@@ -93,13 +107,21 @@ class UploadModal extends Component {
   handleUpload(image) {
     image.state = 'uploading'
     this.handleImageChange(image)
+
+    ImageHandler
+        .upload(image, this.props.characterId, this.handleImageChange)
+        .then((image) => {
+          Materialize.toast(image.title + ' uploaded!', 3000, 'green')
+          this.removeImage(image.id)
+        })
+
     this.selectNextImage()
   }
 
   renderPending(images) {
-    const imageArray = images.map((image, i) => {
+    const imageArray = images.map((image) => {
       const { state, progress } = image
-      return { src: image.preview, id: i, state, progress }
+      return { src: image.preview, id: image.id, state, progress }
     })
 
     return <Filmstrip
@@ -116,6 +138,8 @@ class UploadModal extends Component {
     return <div className='image-preview' style={{display: 'flex'}}>
       <div className='image-container' style={{backgroundColor: 'black', textAlign: 'center', flexGrow: 1, overflow: 'hidden'}}>
         <img src={image.preview} height={300} style={{display: 'inline-block', verticalAlign: 'middle'}}/>
+        { image.state === 'error' &&
+          <div className='upload-error red darken-4 white-text padding--small'><strong>Error:</strong> { image.errorMessage }</div> }
       </div>
 
       <UploadForm image={image} onChange={this.handleImageChange} onUpload={this.handleUpload} />
@@ -154,7 +178,7 @@ class UploadModal extends Component {
 }
 
 UploadModal.propTypes = {
-
+  characterId: PropTypes.string
 }
 
 export default UploadModal

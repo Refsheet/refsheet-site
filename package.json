@@ -39,7 +39,9 @@
     "redux": "^3.7.2",
     "smoothscroll": "^0.4.0",
     "styled-components": "^3.2.3",
-    "whatwg-fetch": "^2.0.4"
+    "superagent": "^4.0.0-beta.5",
+    "whatwg-fetch": "^2.0.4",
+    "xml-js": "^1.6.8"
   },
   "devDependencies": {
     "bdd-lazy-var": "^2.2.3",

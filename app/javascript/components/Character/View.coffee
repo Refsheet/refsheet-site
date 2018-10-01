@@ -14,7 +14,7 @@ import UploadModal from 'Image/UploadModal'
 View = ({character}) ->
   console.log {character}
   `<ThemedMain title={ character.name }>
-    <UploadModal />
+    <UploadModal characterId={ character.id } />
 
     <div id='top' className='profile-scrollspy'>
       <Header character={character} />

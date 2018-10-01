@@ -22,4 +22,25 @@ Types::QueryType = GraphQL::ObjectType.define do
       ModerationReport.next
     }
   end
+
+  field :getImageUploadToken, Types::ImageUploadTokenType do
+    argument :characterId, !types.ID
+
+    resolve -> (_obj, args, ctx) {
+      raise GraphQL::Error.new "Not authorized!" unless ctx[:current_user]
+
+      character = ctx[:current_user].characters.find(args[:characterId])
+
+      presigned_post = character.images.new.image_presigned_post
+
+      clean_keys = presigned_post
+          .fields
+          .transform_keys { |k| k.to_s.gsub(/^x-amz-/, 'x_amz_').to_sym }
+          .merge(
+              url: presigned_post.url
+          )
+
+      OpenStruct.new clean_keys
+    }
+  end
 end

@@ -37,6 +37,7 @@
 class Image < ApplicationRecord # < Media
   include HasGuid
   include RankedModel
+  include HasDirectUpload
 
   belongs_to :character, inverse_of: :images
   has_one :user, through: :character
@@ -80,6 +81,8 @@ class Image < ApplicationRecord # < Media
   validates_attachment :image, presence: true,
                        content_type: { content_type: /image\/*/ },
                        size: { in: 0..25.megabytes }
+
+  has_direct_upload :image
 
   validates_format_of :background_color,
                       with: ColorScheme::COLOR_MATCH,
