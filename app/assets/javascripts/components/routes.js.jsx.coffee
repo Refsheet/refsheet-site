@@ -34,6 +34,10 @@
     $(document).trigger 'navigate'
 
   render: ->
+    if !Packs
+      console.log "Pack sync: Skipping render, JS v2 not loaded."
+      return
+
     staticPaths = ['privacy', 'terms', 'support'].map (path) ->
       `<Route key={ path } path={ path } component={ Static.View } />`
 

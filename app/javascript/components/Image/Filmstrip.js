@@ -81,17 +81,17 @@ class Filmstrip extends Component {
   }
 }
 
-const imageType = {
+const imageType = PropTypes.shape({
   src: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  active: PropTypes.boolean,
+  active: PropTypes.bool,
   state: PropTypes.string.isRequired,
   progress: PropTypes.number
-}
+})
 
 Filmstrip.propTypes = {
   images: PropTypes.arrayOf(imageType),
-  autoHide: PropTypes.boolean,
+  autoHide: PropTypes.bool,
   onSelect: PropTypes.func
 }
 

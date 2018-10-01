@@ -10,3 +10,9 @@
 import 'whatwg-fetch'
 
 export { default as CharacterController } from 'App'
+
+(function() {
+  console.log("Pack loaded: Refsheet JS v2")
+  const event = new CustomEvent('jsload.pack')
+  window.dispatchEvent(event)
+})()
