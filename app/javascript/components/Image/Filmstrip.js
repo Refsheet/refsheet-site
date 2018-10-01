@@ -3,38 +3,15 @@ import {Component} from 'react'
 // TODO: Import React once we're done with the global nonsense.
 
 class Filmstrip extends Component {
-  static findDefaultActive(images) {
-    if(!images || images.length === 0) return
-    const markedActive = images.filter((i) => i.active)
-
-    if(markedActive.length === 0) {
-      return images[0].id
-    }
-
-    return markedActive[0].id
-  }
-
   constructor(props) {
     super(props)
-
-    this.state = {
-      activeImageId: Filmstrip.findDefaultActive(props.images)
-    }
 
     this.renderImage = this.renderImage.bind(this)
     this.imageClickHandler = this.imageClickHandler.bind(this)
   }
 
   select(id) {
-    this.setState({activeImageId: id})
     if(this.props.onSelect) this.props.onSelect(id)
-  }
-
-  componentWillReceiveProps(newProps) {
-    if(typeof this.state.activeImageId === 'undefined' && newProps.images.length > 0) {
-      const defaultActive = Filmstrip.findDefaultActive(newProps.images)
-      this.select(defaultActive)
-    }
   }
 
   componentDidUpdate() {
@@ -72,17 +49,21 @@ class Filmstrip extends Component {
     }
   }
 
-  renderImage({src, id}) {
-    const classNames = []
-    const active = this.state.activeImageId === id
+  renderImage({src, id, state, progress}) {
+    const classNames = ['filmstrip-image']
+    const active = this.props.activeImageId === id
     if(active) classNames.push('active')
 
-    return <img src={src}
-                key={id}
-                data-id={id}
-                onClick={this.imageClickHandler(id)}
-                ref={active ? 'activeImage' : null}
-                className={classNames.join(' ')} />
+    return <div className={classNames.join(' ')}>
+      <img src={src}
+           key={id}
+           data-id={id}
+           onClick={this.imageClickHandler(id)}
+           ref={active ? 'activeImage' : null} />
+
+      { state === 'uploading' &&
+        <div className='progress-overlay' style={{ width: `${progress}%` }} /> }
+    </div>
   }
 
   render() {
@@ -103,7 +84,9 @@ class Filmstrip extends Component {
 const imageType = {
   src: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  active: PropTypes.boolean
+  active: PropTypes.boolean,
+  state: PropTypes.string.isRequired,
+  progress: PropTypes.number
 }
 
 Filmstrip.propTypes = {
