@@ -76,7 +76,7 @@ window.namespace = function(ns_path, parent) {
     console.log("Pack sync: JS v2 detected in Legacy, mounting...")
   }
 
-  $(window).addEventListener('jsload.pack', function() {
+  window.addEventListener('jsload.pack', function() {
     console.log("Pack sync: JS v2 reported load, mounting...")
     ReactRailsUJS.mountComponents();
   });
