@@ -87,7 +87,8 @@ UploadForm.propTypes = {
     name: PropTypes.string.isRequired,
     title: PropTypes.string,
     nsfw: PropTypes.boolean,
-    folder: PropTypes.string
+    folder: PropTypes.string,
+    state: PropTypes.string
   }),
   onChange: PropTypes.func,
   onUpload: PropTypes.func

@@ -1,4 +1,6 @@
 Rails.application.configure do
+  Rails.configuration.x.amazon = HashWithIndifferentAccess.new(config_for(:aws))
+
   defaults = {
       storage: :s3,
       s3_protocol: :https,

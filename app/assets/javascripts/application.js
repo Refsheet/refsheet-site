@@ -72,12 +72,12 @@ window.namespace = function(ns_path, parent) {
 (function() {
   console.log("Pack loaded: Legacy Refsheet JS")
 
-  if(Packs) {
+  if(typeof Packs !== 'undefined') {
     console.log("Pack sync: JS v2 detected in Legacy, mounting...")
+  } else {
+    window.addEventListener('jsload.pack', function() {
+      console.log("Pack sync: JS v2 reported load, mounting...")
+      ReactRailsUJS.mountComponents();
+    });
   }
-
-  window.addEventListener('jsload.pack', function() {
-    console.log("Pack sync: JS v2 reported load, mounting...")
-    ReactRailsUJS.mountComponents();
-  });
 })();
