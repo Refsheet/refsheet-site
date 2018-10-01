@@ -1,4 +1,14 @@
 ---
+v1.2.6-pre.24:
+- hash: caf7c39
+  date: '2018-10-01'
+  tags: []
+  message: SITEMAP
+- hash: e01f50b
+  date: '2018-10-01'
+  tags: []
+  message: Fix sitemap error in robots.txt
+---
 v1.2.6-pre.23:
 - hash: '8659928'
   date: '2018-10-01'
