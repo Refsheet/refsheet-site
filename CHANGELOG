@@ -1,4 +1,10 @@
 ---
+v1.2.6-pre.23:
+- hash: '8659928'
+  date: '2018-10-01'
+  tags: []
+  message: SitemapUpdateJob
+---
 v1.2.6-pre.22:
 - hash: 91de8fc
   date: '2018-10-01'
