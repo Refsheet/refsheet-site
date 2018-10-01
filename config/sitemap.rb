@@ -28,3 +28,5 @@ SitemapGenerator::Sitemap.create do
     add image_path(image), images: [{ loc: image.image.url(:medium), title: image.caption }]
   end
 end
+
+SitemapGenerator::Sitemap.ping_search_engines('https://refsheet.net/sitemap')
