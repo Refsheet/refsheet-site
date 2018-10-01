@@ -4,4 +4,4 @@
 # User-agent: *
 # Disallow: /
 
-Sitemap: https://refsheet.net/sitemap
+Sitemap: https://refsheet.net/sitemap.xml.gz

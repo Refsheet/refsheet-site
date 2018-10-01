@@ -29,4 +29,4 @@ SitemapGenerator::Sitemap.create do
   end
 end
 
-SitemapGenerator::Sitemap.ping_search_engines('https://refsheet.net/sitemap')
+SitemapGenerator::Sitemap.ping_search_engines('https://refsheet.net/sitemap.xml.gz')
