@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     get '*id', to: 'shortcodes#show'
   end
 
+  get '/sitemap', to: redirect('http://refsheet-prod.s3.amazonaws.com/sitemaps/sitemap.xml.gz')
+
   root 'application#show', page: :home
   get '/health', to: 'public#health'
 
