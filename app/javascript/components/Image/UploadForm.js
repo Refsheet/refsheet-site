@@ -12,6 +12,7 @@ class UploadForm extends Component {
     super(props)
 
     this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleChange (e) {
@@ -24,12 +25,20 @@ class UploadForm extends Component {
 
     if (e.target.type === 'checkbox') {
       value = e.target.checked
-      console.log(value)
+      console.log("Checkbox changed to: " + value)
     }
 
     if (!onChange) return
     image[ e.target.name ] = value
     onChange(image)
+  }
+
+  handleSubmit (e) {
+    e.preventDefault()
+    console.log("BEGIN UPLOAD", this.props.image)
+    if(!this.props.onUpload) return
+
+    this.props.onUpload(this.props.image)
   }
 
   render () {
@@ -43,7 +52,9 @@ class UploadForm extends Component {
       [ 'wips', 'WIPs' ]
     ]
 
-    return <div className='image-form' style={ { flex: '0 1 300px', display: 'flex', height: 300, flexDirection: 'column' } }>
+    const uploading = image.state === 'uploading'
+
+    return <form onSubmit={this.handleSubmit} className='image-form' style={ { flex: '0 1 300px', display: 'flex', height: 300, flexDirection: 'column' } }>
       <div className='image-data padding--medium padding-bottom--none' style={ { flexGrow: 1 } }>
         <Row>
           <Input s={ 12 } onChange={ this.handleChange } value={ image.title } type='text' name='title' className='margin-bottom--none' label='Name'/>
@@ -58,15 +69,15 @@ class UploadForm extends Component {
       <div className='image-submit padding--medium padding-top--none' style={ { flexShrink: 0, flexGrow: 0 } }>
         <div className='center margin-bottom--large'>
           <Row>
-            <Input s={ 12 } onChange={ this.handleChange } value={ image.nsfw ? 1 : 0 } type='switch' name='nsfw' offLabel='SFW' onLabel='NSFW' />
+            <Input s={ 12 } onChange={ this.handleChange } checked={ image.nsfw } type='switch' name='nsfw' offLabel='SFW' onLabel='NSFW' />
           </Row>
         </div>
 
         <div className='right-align'>
-          <Button type='submit'>Upload</Button>
+          <Button type='submit' disabled={uploading}>{ uploading ? 'Uploading...' : 'Upload' }</Button>
         </div>
       </div>
-    </div>
+    </form>
   }
 }
 
@@ -78,7 +89,8 @@ UploadForm.propTypes = {
     nsfw: PropTypes.boolean,
     folder: PropTypes.string
   }),
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  onUpload: PropTypes.func
 }
 
 export default UploadForm

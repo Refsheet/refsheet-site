@@ -9,7 +9,7 @@ class UploadModal extends Component {
 
     this.state = {
       pendingImages: [],
-      activeImageId: undefined
+      activeImageId: null
     }
 
     this.counter = 0
@@ -17,6 +17,7 @@ class UploadModal extends Component {
     this.handleImageDrop = this.handleImageDrop.bind(this)
     this.setActiveImage = this.setActiveImage.bind(this)
     this.handleImageChange = this.handleImageChange.bind(this)
+    this.handleUpload = this.handleUpload.bind(this)
   }
 
   componentDidMount() {
@@ -24,25 +25,33 @@ class UploadModal extends Component {
   }
 
   handleImageDrop(acceptedFiles, rejectedFiles) {
+    let { activeImageId } = this.state
+
     acceptedFiles.forEach((file) => {
       const pending = this.state.pendingImages
+
+      console.log("PENDING", pending.length)
 
       const filename = file.name
           .replace(/\..*?$/, '')
           .replace(/[-_]+/g, ' ')
           .replace(/\s+/, ' ')
 
-      Object.assign(file, {
+      const image = {
         id: this.counter++,
         title: filename,
         folder: 'default',
         nsfw: false,
         state: 'pending',
-        progress: 0,
-      })
+        progress: 0
+      }
+
+      Object.assign(file, image)
+
+      if(!activeImageId && activeImageId !== 0) activeImageId = image.id
 
       pending.push(file)
-      this.setState({pendingImages: pending})
+      this.setState({pendingImages: pending, activeImageId})
     })
 
     rejectedFiles.forEach((file) => {
@@ -58,8 +67,18 @@ class UploadModal extends Component {
     return this.state.pendingImages.filter((i) => i.id === this.state.activeImageId)[0]
   }
 
+  selectNextImage() {
+    const currentIndex = this.state.pendingImages.indexOf(this.getActiveImage())
+    let selectedIndex = 0
+
+    if (currentIndex >= 0 && currentIndex !== (this.state.pendingImages.length - 1)) {
+      selectedIndex = currentIndex + 1
+    }
+
+    return this.setActiveImage(this.state.pendingImages[selectedIndex].id)
+  }
+
   handleImageChange(newImage) {
-    console.log(newImage)
     const newImages = this.state.pendingImages.map((image) => {
       if(image.id === newImage.id) {
         Object.assign(image, newImage)
@@ -71,14 +90,22 @@ class UploadModal extends Component {
     this.setState({pendingImages: newImages})
   }
 
+  handleUpload(image) {
+    image.state = 'uploading'
+    this.handleImageChange(image)
+    this.selectNextImage()
+  }
+
   renderPending(images) {
     const imageArray = images.map((image, i) => {
-      return { src: image.preview, id: i }
+      const { state, progress } = image
+      return { src: image.preview, id: i, state, progress }
     })
 
     return <Filmstrip
         images={imageArray}
         autoHide
+        activeImageId={this.state.activeImageId}
         onSelect={this.setActiveImage}
     />
   }
@@ -91,7 +118,7 @@ class UploadModal extends Component {
         <img src={image.preview} height={300} style={{display: 'inline-block', verticalAlign: 'middle'}}/>
       </div>
 
-      <UploadForm image={image} onChange={this.handleImageChange} />
+      <UploadForm image={image} onChange={this.handleImageChange} onUpload={this.handleUpload} />
     </div>
   }
 
@@ -103,7 +130,7 @@ class UploadModal extends Component {
     if(activeImage) {
       let status = 'Upload'
 
-      if(activeImage.status !== 'pending') {
+      if(activeImage.state === 'uploading') {
         status = `Uploading (${activeImage.progress}%)`
       }
 
