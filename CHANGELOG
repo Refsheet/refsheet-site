@@ -1,4 +1,22 @@
 ---
+v1.2.6-pre.19:
+- hash: d8cc312
+  date: '2018-09-30'
+  tags: []
+  message: Pack sync in place.
+- hash: 2c8a166
+  date: '2018-09-30'
+  tags: []
+  message: Uploader functionaliy smoothed out.
+- hash: 62621f3
+  date: '2018-08-14'
+  tags: []
+  message: ImageUploadFOrm
+- hash: 4fbf77d
+  date: '2018-08-10'
+  tags: []
+  message: Added upload modal with filmstrip.
+---
 v1.2.6-pre.18:
 - hash: 6edeaa7
   date: '2018-08-09'
