@@ -27,7 +27,7 @@ Types::QueryType = GraphQL::ObjectType.define do
     argument :characterId, !types.ID
 
     resolve -> (_obj, args, ctx) {
-      raise GraphQL::Error.new "Not authorized!" unless ctx[:current_user]
+      raise GraphQL::ExecutionError.new "Not authorized!" unless ctx[:current_user]
 
       character = ctx[:current_user].characters.find(args[:characterId])
 

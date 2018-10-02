@@ -66,6 +66,7 @@ gem 'graphql-errors'
 gem 'groupdate'
 gem 'paperclip'
 gem 'paperclip-meta'
+gem 'delayed_paperclip'
 gem 'paranoia'
 gem 'premailer-rails'
 gem 'ranked-model'
@@ -90,7 +91,7 @@ gem 'her'
 
 # == BOWER ASSETS
 
-source 'https://rails-assets.org' do
+source 'http://insecure.rails-assets.org' do
   # gem 'rails-assets-highcharts'
   gem 'rails-assets-tinyColorPicker'
 end

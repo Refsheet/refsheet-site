@@ -11,6 +11,16 @@ class Character extends Component
 
     @state =
       editable: false
+      uploadOpen: false
+
+  handleUploadModalOpen: () =>
+    @setState uploadOpen: true
+
+  handleUploadModalClose: () =>
+    @setState uploadOpen: false
+
+  refetch: () =>
+    @props.data.refetch()
 
   render: ->
     { data } = @props
@@ -21,7 +31,12 @@ class Character extends Component
       message = data.error.graphQLErrors.map((e) -> e.message).join(', ')
       `<Error message={message} />`
     else
-      `<View character={data.getCharacterByUrl} {...this.state} />`
+      `<View onUploadModalOpen={this.handleUploadModalOpen}
+             onUploadModalClose={this.handleUploadModalClose}
+             onChange={this.refetch}
+             character={data.getCharacterByUrl}
+             {...this.state}
+      />`
 
 export default graphql(
   getCharacterProfile

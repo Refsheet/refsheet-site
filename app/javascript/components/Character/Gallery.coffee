@@ -3,16 +3,21 @@ import JustifiedLayout from 'react-justified-layout'
 import Measure from 'react-measure'
 import Section from 'Shared/Section'
 
-Gallery = ({images}) ->
+Gallery = ({images, onUploadClick}) ->
   galleryTabs = [
     { id: 'baz', title: 'Scraps' }
     { id: 'bar', title: 'Hidden' }
+  ]
+
+  galleryActions = [
+    { icon: 'file_upload', title: 'Upload', onClick: onUploadClick }
   ]
 
   `<Section title='Main Gallery'
             id='gallery'
             className='profile-scrollspy'
             tabs={galleryTabs}
+            buttons={galleryActions}
             onTabClick={(id) => console.log(id)}>
     <Measure bounds>
       { renderGallery(images) }
@@ -55,5 +60,6 @@ Gallery.propTypes =
       ).isRequired
     )
   )
+  onUploadClick: PropTypes.func
 
 export default Gallery

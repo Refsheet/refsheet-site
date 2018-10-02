@@ -13,13 +13,16 @@ class Mutations::ImageMutations < Mutations::ApplicationMutation
   end
 
   def create
-    @character.images.create image_params
+    @character.images.create! image_params
   end
 
   private
 
   def image_params
     params.permit(:title, :nsfw)
+          .merge(
+              image_direct_upload_url: params[:location]
+          )
   end
 
   def get_character
