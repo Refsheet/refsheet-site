@@ -1,4 +1,14 @@
 ---
+v1.2.6-pre.27:
+- hash: 866428b
+  date: '2018-10-02'
+  tags: []
+  message: Gallery sticky thing.
+- hash: 4db33fd
+  date: '2018-10-02'
+  tags: []
+  message: Gallery moved to smarter component.
+---
 v1.2.6-pre.26:
 - hash: ddc7b31
   date: '2018-10-01'
