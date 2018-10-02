@@ -21,4 +21,8 @@ Rails.application.configure do
   Paperclip.interpolates :guid do |attachment, _|
     attachment.instance.guid
   end
+
+  config.delayed_paperclip_defaults = {
+      queue: :refsheet_application_queue
+  }
 end
