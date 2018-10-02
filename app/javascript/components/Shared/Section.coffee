@@ -10,7 +10,14 @@ H2 = styled.h2"""
   margin: 0;
 """
 
-Section = ({id, className, titleClassName, title, tabs, container, onTabClick, children}) ->
+Button = styled.a"""
+  background-color: #{(props) -> props.theme.cardBackground} !important;
+  display: inline-block;
+  margin: 6px 0 6px 1.5rem;
+  float: right;
+"""
+
+Section = ({id, className, titleClassName, title, tabs, container, onTabClick, buttons, children}) ->
   `<section id={ id } className={ c(className, {container}) }>
     { title &&
       <div className={ c(titleClassName, {container}) }>
@@ -20,8 +27,10 @@ Section = ({id, className, titleClassName, title, tabs, container, onTabClick, c
           </Col>
 
           <Col m={8} className='right-align'>
+            { buttons && buttons.map(renderAction) }
+
             { tabs &&
-              <ul className='tabs transparent right'>
+              <ul className='tabs transparent right' style={{ display: 'inline-block', width: 'auto' }}>
                 { tabs.map(renderTab(onTabClick)) }
               </ul> }
           </Col>
@@ -36,7 +45,7 @@ Section = ({id, className, titleClassName, title, tabs, container, onTabClick, c
 
 actionHandler = (onClick, id) -> (e) ->
   e.preventDefault()
-  onClick(id)
+  onClick(id) if onClick
 
 renderTab = (onTabClick) -> ({title, id, onClick}) ->
   onClick ||= onTabClick
@@ -45,9 +54,16 @@ renderTab = (onTabClick) -> ({title, id, onClick}) ->
     <a href={"#" + id} onClick={actionHandler(onClick, id)}>{title}</a>
   </li>`
 
+renderAction = ({title, id, onClick, icon}) ->
+  `<Button className='btn' onClick={actionHandler(onClick, id)}>
+    { icon && <Icon className='left'>{ icon }</Icon> }
+    { title }
+  </Button>`
+
 
 actionType =
   PropTypes.shape(
+    icon: PropTypes.string.isRequired
     title: PropTypes.string.isRequired
     id: PropTypes.string.isRequired
     onClick: PropTypes.func

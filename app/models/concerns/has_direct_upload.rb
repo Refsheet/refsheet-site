@@ -33,14 +33,14 @@ module HasDirectUpload
       after_commit do
         if reprocess_required[column]
           source = self.send(column.to_s + '_direct_upload_url').match url_format
-          return unless source
+          next unless source
 
           destination = self.send(column).path(:original).gsub /\A\//, ''
           source_path = source[:path]
 
           Rails.logger.info "\nMoving Upload:\n\t- #{source_path}\n\t+ #{destination}"
 
-          obj = Aws::S3::Object.new key: source_path, bucket_name: bucket_name
+          obj = s3obj key: source_path, bucket_name: bucket_name
 
           Rails.logger.info "\t* #{obj.inspect}"
           Rails.logger.info "\t* #{obj.content_length} bytes"
@@ -50,7 +50,7 @@ module HasDirectUpload
                       metadata: obj.metadata.to_h,
                       acl: 'authenticated-read'
 
-          new = Aws::S3::Object.new key: destination, bucket_name: bucket_name
+          new = s3obj key: destination, bucket_name: bucket_name
 
           Rails.logger.info "\t* #{new.inspect}"
           Rails.logger.info "\t* #{new.content_length} bytes"
@@ -116,5 +116,17 @@ module HasDirectUpload
             Rails.configuration.x.amazon[:secret_access_key]
         )
     )
+  end
+
+  def s3obj(options={})
+    opts = {
+        region: Rails.configuration.x.amazon[:s3_region],
+        credentials: Aws::Credentials.new(
+            Rails.configuration.x.amazon[:access_key_id],
+            Rails.configuration.x.amazon[:secret_access_key]
+        )
+    }.merge(options)
+
+    Aws::S3::Object.new(opts)
   end
 end

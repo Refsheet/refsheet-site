@@ -113,6 +113,7 @@ class UploadModal extends Component {
         .then((image) => {
           Materialize.toast(image.title + ' uploaded!', 3000, 'green')
           this.removeImage(image.id)
+          this.props.onUpload(image)
         })
 
     this.selectNextImage()
@@ -162,7 +163,7 @@ class UploadModal extends Component {
     }
 
     return (
-      <Modal id='upload-images' title={title} noContainer>
+      <Modal id='upload-images' title={title} noContainer onClose={this.props.onClose}>
         { this.state.pendingImages.length === 0 &&
         <Dropzone onDrop={this.handleImageDrop} accept='image/*'>
           <div className='modal-content'>
@@ -178,7 +179,8 @@ class UploadModal extends Component {
 }
 
 UploadModal.propTypes = {
-  characterId: PropTypes.string
+  characterId: PropTypes.string,
+  onUpload: PropTypes.func
 }
 
 export default UploadModal

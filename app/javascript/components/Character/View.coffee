@@ -11,10 +11,14 @@ import { StickyContainer } from 'react-sticky'
 import { ThemedMain } from 'Styled/Global'
 import UploadModal from 'Image/UploadModal'
 
-View = ({character}) ->
-  console.log {character}
+View = ({character, uploadOpen, onChange, onUploadModalOpen, onUploadModalClose}) ->
   `<ThemedMain title={ character.name }>
-    <UploadModal characterId={ character.id } />
+    { uploadOpen &&
+        <UploadModal
+            characterId={ character.id }
+            onClose={ onUploadModalClose }
+            onUpload={ onChange }
+        /> }
 
     <div id='top' className='profile-scrollspy'>
       <Header character={character} />
@@ -29,7 +33,7 @@ View = ({character}) ->
           <Col s={12} m={9} l={10}>
             <Profile profileSections={character.profile_sections} />
             {/*<Reference />*/}
-            <Gallery images={character.images} />
+            <Gallery images={character.images} onUploadClick={onUploadModalOpen} />
           </Col>
         </Row>
       </StickyContainer>
@@ -44,5 +48,8 @@ Themed = (props) ->
 
 View.propTypes =
   character: PropTypes.object.isRequired
+  onUploadModalOpen: PropTypes.func
+  onUploadModalClose: PropTypes.func
+  onUpload: PropTypes.func
 
 export default Themed

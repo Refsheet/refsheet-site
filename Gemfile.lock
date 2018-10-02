@@ -28,7 +28,7 @@ GIT
 
 GEM
   remote: https://rubygems.org/
-  remote: https://rails-assets.org/
+  remote: http://insecure.rails-assets.org/
   specs:
     actioncable (5.0.1)
       actionpack (= 5.0.1)
@@ -168,6 +168,9 @@ GEM
       addressable
     database_cleaner (1.5.3)
     debug_inspector (0.0.2)
+    delayed_paperclip (3.0.1)
+      activejob (>= 4.2)
+      paperclip (>= 3.3)
     diff-lcs (1.2.5)
     docile (1.1.5)
     domain_name (0.5.20161129)
@@ -593,6 +596,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   counter_culture
   database_cleaner
+  delayed_paperclip
   dropzonejs-rails
   factory_girl_rails
   faker
