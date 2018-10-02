@@ -2,6 +2,7 @@ import { PropTypes } from 'prop-types'
 import JustifiedLayout from 'react-justified-layout'
 import Measure from 'react-measure'
 import Section from 'Shared/Section'
+import Thumbnail from 'Image/Thumbnail'
 
 Gallery = ({images, onUploadClick}) ->
   galleryTabs = [
@@ -28,14 +29,10 @@ Gallery = ({images, onUploadClick}) ->
 renderGallery = (images) -> ({measureRef, contentRect}) ->
   width = contentRect.bounds.width
 
-  imageTiles = images.map ({id, aspect_ratio: aspectRatio, url, size}) ->
-    style = size.small
+  imageTiles = images.map (image) ->
+    {id, aspect_ratio} = image
 
-    `<img key={id}
-          aspectRatio={aspectRatio}
-          src={url.small}
-          style={style}
-          className='responsive-img block black z-depth-1' />`
+    `<Thumbnail key={id} aspectRatio={aspect_ratio || 1} image={image} />`
 
   `<div className='gallery-sizer margin-top--medium' ref={measureRef}>
     <JustifiedLayout containerWidth={ width } containerPadding={ 0 }>
