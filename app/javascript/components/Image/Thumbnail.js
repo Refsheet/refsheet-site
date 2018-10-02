@@ -2,8 +2,6 @@ import react from 'react'
 import PropTypes from 'prop-types'
 
 const Thumbnail = ({image, style}) => {
-  console.log(image)
-
   const { url, title, aspect_ratio } = image
   const { small: src } = url
 
