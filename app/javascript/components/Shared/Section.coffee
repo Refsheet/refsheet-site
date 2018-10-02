@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Row, Col } from 'react-materialize'
+import { Sticky, StickyContainer } from 'react-sticky'
 import c from 'classnames'
 import styled from 'styled-components'
 
@@ -17,30 +18,49 @@ Button = styled.a"""
   float: right;
 """
 
+SectionTitle = styled.div"""
+  background-color: #{(props) -> props.theme.background};
+"""
+
 Section = ({id, className, titleClassName, title, tabs, container, onTabClick, buttons, children}) ->
-  `<section id={ id } className={ c(className, {container}) }>
-    { title &&
-      <div className={ c(titleClassName, {container}) }>
-        <Row className='no-margin'>
-          <Col m={4}>
-            <H2>{ title }</H2>
-          </Col>
+  renderTitle = ({style, isSticky}) ->
+    if isSticky
+      style = `{
+        ...style,
+        zIndex: '990'
+      }`
 
-          <Col m={8} className='right-align'>
-            { buttons && buttons.map(renderAction) }
+      titleStyle = {
+        paddingTop: '0.5rem'
+        paddingBottom: '0.5rem'
+      }
 
-            { tabs &&
-              <ul className='tabs transparent right' style={{ display: 'inline-block', width: 'auto' }}>
-                { tabs.map(renderTab(onTabClick)) }
-              </ul> }
-          </Col>
-        </Row>
-      </div> }
+    `<div className={ c(titleClassName, {container}) } style={{...style, top: '56px'}}>
+      <SectionTitle className='row no-margin' style={titleStyle}>
+        <Col m={4}>
+          <H2>{ title }</H2>
+        </Col>
 
-    <div className={ c({container}) }>
-      { children }
-    </div>
-  </section>`
+        <Col m={8} className='right-align'>
+          { buttons && buttons.map(renderAction) }
+
+          { tabs &&
+          <ul className='tabs transparent right' style={{ display: 'inline-block', width: 'auto' }}>
+            { tabs.map(renderTab(onTabClick)) }
+          </ul> }
+        </Col>
+      </SectionTitle>
+    </div>`
+
+  `<StickyContainer>
+    <section id={ id } className={ c(className, {container}) }>
+      { title && <Sticky topOffset={-66}>{ renderTitle }</Sticky> }
+
+      <div className={ c({container}) }>
+        { children }
+      </div>
+    </section>
+  </StickyContainer>`
 
 
 actionHandler = (onClick, id) -> (e) ->

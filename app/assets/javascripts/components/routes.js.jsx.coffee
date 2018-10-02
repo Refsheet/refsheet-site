@@ -34,7 +34,7 @@
     $(document).trigger 'navigate'
 
   render: ->
-    if !Packs
+    if typeof Packs is 'undefined'
       console.log "Pack sync: Skipping render, JS v2 not loaded."
       return
 
