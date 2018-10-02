@@ -90,6 +90,12 @@ class Image < ApplicationRecord # < Media
   process_in_background :image,
                         url_with_processing: false
 
+  after_create do
+    if self.image_direct_upload_url.nil?
+      self.image.reprocess_without_delay!
+    end
+  end
+
   has_direct_upload :image
 
   validates_format_of :background_color,
