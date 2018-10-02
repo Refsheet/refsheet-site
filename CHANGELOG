@@ -1,4 +1,10 @@
 ---
+v1.2.6-pre.28:
+- hash: 90aeac9
+  date: '2018-10-02'
+  tags: []
+  message: Fix delayed.
+---
 v1.2.6-pre.27:
 - hash: 866428b
   date: '2018-10-02'
