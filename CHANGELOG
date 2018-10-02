@@ -1,4 +1,14 @@
 ---
+v1.2.6-pre.26:
+- hash: ddc7b31
+  date: '2018-10-01'
+  tags: []
+  message: Legacy upload format does not background process.
+- hash: 2479c6d
+  date: '2018-10-01'
+  tags: []
+  message: Delayed and post-processing.
+---
 v1.2.6-pre.25:
 - hash: fc9c859
   date: '2018-10-01'
