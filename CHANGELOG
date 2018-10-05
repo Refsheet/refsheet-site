@@ -1,4 +1,14 @@
 ---
+v1.2.6-pre.31:
+- hash: '9626693'
+  date: '2018-10-05'
+  tags: []
+  message: lock
+- hash: f357f05
+  date: '2018-10-05'
+  tags: []
+  message: Update JSON
+---
 v1.2.6-pre.30:
 - hash: de312f1
   date: '2018-10-04'
