@@ -1,4 +1,14 @@
 ---
+v1.2.6-pre.30:
+- hash: de312f1
+  date: '2018-10-04'
+  tags: []
+  message: Action cable origins.
+- hash: 0f0efb3
+  date: '2018-10-04'
+  tags: []
+  message: Add cable conf to beanstalk.
+---
 v1.2.6-pre.29:
 - hash: 8572da7
   date: '2018-10-04'
