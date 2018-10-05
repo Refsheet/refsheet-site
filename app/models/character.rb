@@ -37,8 +37,8 @@ class Character < ApplicationRecord
 
   belongs_to :user
   belongs_to :color_scheme, autosave: true
-  belongs_to :featured_image, class_name: Image
-  belongs_to :profile_image, class_name: Image
+  belongs_to :featured_image, class_name: "Image"
+  belongs_to :profile_image, class_name: "Image"
   has_many :swatches, dependent: :destroy
   has_many :images, dependent: :destroy
   has_many :transfers
@@ -47,8 +47,8 @@ class Character < ApplicationRecord
                           after_remove: :update_counter_cache
 
   # Marketplace Associations
-  has_many :marketplace_listings, class_name: Marketplace::Items::CharacterListing
-  has_one :marketplace_listing, -> { for_sale }, class_name: Marketplace::Items::CharacterListing
+  has_many :marketplace_listings, class_name: "Marketplace::Items::CharacterListing"
+  has_one :marketplace_listing, -> { for_sale }, class_name: "Marketplace::Items::CharacterListing"
 
   # Requires this to eager load the news feed:
   has_many :activities, as: :activity, dependent: :destroy

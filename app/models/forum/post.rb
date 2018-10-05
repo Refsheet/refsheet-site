@@ -29,11 +29,11 @@ class Forum::Post < ApplicationRecord
 
   belongs_to :user
   belongs_to :character
-  belongs_to :thread, class_name: Forum::Discussion, foreign_key: :thread_id, inverse_of: :posts
-  belongs_to :parent_post, class_name: Forum::Post, foreign_key: :parent_post_id
-  has_many :replies, class_name: Forum::Post, foreign_key: :parent_post_id
-  has_many :karmas, class_name: Forum::Karma, foreign_key: :karmic_id, as: :karmic
-  has_one :forum, through: :thread, class_name: Forum
+  belongs_to :thread, class_name: "Forum::Discussion", foreign_key: :thread_id, inverse_of: :posts
+  belongs_to :parent_post, class_name: "Forum::Post", foreign_key: :parent_post_id
+  has_many :replies, class_name: "Forum::Post", foreign_key: :parent_post_id
+  has_many :karmas, class_name: "Forum::Karma", foreign_key: :karmic_id, as: :karmic
+  has_one :forum, through: :thread, class_name: "Forum"
 
   validates_presence_of :content
   validates_presence_of :user

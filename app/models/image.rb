@@ -43,8 +43,8 @@ class Image < ApplicationRecord # < Media
 
   belongs_to :character, inverse_of: :images
   has_one :user, through: :character
-  has_many :favorites, foreign_key: :media_id, class_name: Media::Favorite, dependent: :destroy
-  has_many :comments, foreign_key: :media_id, class_name: Media::Comment, dependent: :destroy
+  has_many :favorites, foreign_key: :media_id, class_name: "Media::Favorite", dependent: :destroy
+  has_many :comments, foreign_key: :media_id, class_name: "Media::Comment", dependent: :destroy
 
   # Requires this to eager load the news feed:
   has_many :activities, as: :activity, dependent: :destroy

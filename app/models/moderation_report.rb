@@ -33,7 +33,7 @@ class ModerationReport < ApplicationRecord
   }.with_indifferent_access.freeze
 
   belongs_to :user
-  belongs_to :sender, foreign_key: :sender_user_id, class_name: User
+  belongs_to :sender, foreign_key: :sender_user_id, class_name: "User"
   belongs_to :moderatable, polymorphic: true
 
   validates_presence_of :violation_type

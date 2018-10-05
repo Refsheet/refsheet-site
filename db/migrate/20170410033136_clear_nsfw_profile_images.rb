@@ -1,7 +1,7 @@
 class ClearNsfwProfileImages < ActiveRecord::Migration[5.0]
   class ::Character < ActiveRecord::Base
-    belongs_to :profile_image, class_name: Image
-    belongs_to :featured_image, class_name: Image
+    belongs_to :profile_image, class_name: "Image"
+    belongs_to :featured_image, class_name: "Image"
     has_many :images
   end
 

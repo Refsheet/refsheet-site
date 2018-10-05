@@ -37,8 +37,8 @@ class Advertisement::Campaign < ApplicationRecord
   attr_accessor :current_slot_id
 
   belongs_to :user
-  has_many :active_slots, class_name: Advertisement::Slot, foreign_key: :active_campaign_id
-  has_many :reserved_slots, class_name: Advertisement::Slot, foreign_key: :reserved_campaign_id
+  has_many :active_slots, class_name: "Advertisement::Slot", foreign_key: :active_campaign_id
+  has_many :reserved_slots, class_name: "Advertisement::Slot", foreign_key: :reserved_campaign_id
 
   validates :title, presence: true,
             length: { maximum: 30 }

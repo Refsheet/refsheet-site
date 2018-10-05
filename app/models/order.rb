@@ -13,7 +13,7 @@
 class Order < ApplicationRecord
   belongs_to :user
   has_many :payments, inverse_of: :order
-  has_many :line_items, class_name: OrderItem, inverse_of: :order
+  has_many :line_items, class_name: "OrderItem", inverse_of: :order
   has_many :items, through: :line_items
 
   validates_presence_of :user

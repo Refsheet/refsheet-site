@@ -16,7 +16,7 @@
 #
 
 class Forum::Subscription < ApplicationRecord
-  belongs_to :discussion, class_name: Forum::Discussion, required: true
+  belongs_to :discussion, class_name: "Forum::Discussion", required: true
   belongs_to :user, required: true
 
   validates_presence_of :last_read_at
