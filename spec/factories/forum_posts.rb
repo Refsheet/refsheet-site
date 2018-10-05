@@ -23,7 +23,7 @@
 #  index_forum_posts_on_user_id         (user_id)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :forum_post, class: 'Forum::Post' do
     association :thread, factory: :forum_discussion
     user

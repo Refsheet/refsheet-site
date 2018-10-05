@@ -12,8 +12,6 @@ require 'spec_helper'
 require 'rspec/rails'
 require 'rack_session_access/capybara'
 require 'selenium/webdriver'
-require 'database_cleaner'
-require 'webmock/rspec'
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
@@ -26,30 +24,7 @@ RSpec.configure do |config|
   # config.filter_rails_from_backtrace!
   config.full_backtrace = true
 
-  config.include WebMock::API
-  WebMock.allow_net_connect!
-
   config.include GraphqlHelper
-
-  config.before(:each) do
-    DatabaseCleaner.strategy = :transaction
-  end
-
-  config.before(:each, type: :feature) do
-    is_rack = Capybara.current_driver == :rack_test
-
-    unless is_rack
-      DatabaseCleaner.strategy = :truncation
-    end
-  end
-
-  config.before(:each) do
-    DatabaseCleaner.start
-  end
-
-  config.append_after(:each) do
-    DatabaseCleaner.clean
-  end
 
   if Bullet.enable?
     config.before(:each) do
@@ -65,16 +40,10 @@ RSpec.configure do |config|
   config.verbose_retry = true
   config.display_try_failure_messages = true
 
-  config.around :each, :js do |ex|
-    ex.run_with_retry retry: 3
-  end
-
-  config.around :each, :webmock do |ex|
-    WebMock.enable!
-    WebMock.disable_net_connect!
-    ex.run
-    WebMock.disable!
-    WebMock.allow_net_connect!
+  if ENV['CIRCLECI']
+    config.around :each, :js do |ex|
+      ex.run_with_retry retry: 3
+    end
   end
 
   config.retry_callback = proc do |ex|

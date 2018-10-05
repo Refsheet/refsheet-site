@@ -19,7 +19,7 @@
 #  index_media_comments_on_user_id              (user_id)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :media_comment, class: 'Media::Comment' do
     association :media, factory: :image
     user

@@ -24,7 +24,7 @@
 #  pending_user_id  :integer
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :patreon_patron, class: 'Patreon::Patron' do
     patreon_id { 'notavalidid' }
     email { Faker::Internet.email }

@@ -11,7 +11,7 @@
 #  updated_at :datetime         not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :color_scheme do
     color_data {{ 'accent-1' => '#cbe1f1' }}
   end

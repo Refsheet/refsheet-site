@@ -16,10 +16,10 @@
 #  index_feedback_replies_on_user_id      (user_id)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :feedback_reply, class: 'Feedback::Reply' do
-    feedback ""
-    user ""
-    comment "MyText"
+    feedback { "" }
+    user { "" }
+    comment { "MyText" }
   end
 end

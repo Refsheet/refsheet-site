@@ -23,10 +23,10 @@
 #  index_items_on_sold  (sold)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :item do
     seller
     user { seller.user }
-    amount_cents 100
+    amount_cents { 100 }
   end
 end

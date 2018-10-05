@@ -12,11 +12,11 @@
 #  updated_at      :datetime         not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :bid do
-    auction_id 1
-    user_id 1
-    invitation_id 1
-    amount_cents 1
+    auction_id { 1 }
+    user_id { 1 }
+    invitation_id { 1 }
+    amount_cents { 1 }
   end
 end

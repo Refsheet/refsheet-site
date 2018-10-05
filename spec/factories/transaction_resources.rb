@@ -18,15 +18,15 @@
 #  updated_at               :datetime         not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :transaction_resource do
-    processor_id "MyString"
-    type ""
-    amount_cents 1
-    payment_mode "MyString"
-    status "MyString"
-    reason_code "MyString"
-    transaction_fee_cents 1
-    valid_until "2017-01-30 17:35:10"
+    processor_id { "MyString" }
+    type { "" }
+    amount_cents { 1 }
+    payment_mode { "MyString" }
+    status { "MyString" }
+    reason_code { "MyString" }
+    transaction_fee_cents { 1 }
+    valid_until { "2017-01-30 17:35:10" }
   end
 end

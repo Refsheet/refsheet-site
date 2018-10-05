@@ -76,4 +76,9 @@ describe User, type: :model do
     user.confirm!
     expect(user.email).to eq new_email
   end
+
+  it 'admin?' do
+    u = create :admin
+    expect(u).to be_admin
+  end
 end

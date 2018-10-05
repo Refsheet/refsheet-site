@@ -14,9 +14,9 @@
 #  index_user_followers_on_following_id  (following_id)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :user_follower, class: 'User::Follower' do
-    followee_id 1
-    follower_id 1
+    followee_id { 1 }
+    follower_id { 1 }
   end
 end

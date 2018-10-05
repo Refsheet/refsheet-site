@@ -24,10 +24,10 @@
 #  index_moderation_reports_on_violation_type    (violation_type)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :moderation_report do
     association(:sender, factory: :user)
     association(:moderatable, factory: :image)
-    violation_type 'dmca'
+    violation_type { 'dmca' }
   end
 end

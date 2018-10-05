@@ -15,10 +15,10 @@
 #  marketplace_fee_cents :integer
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :order_item do
     transient do
-      amount Money.new(200)
+      amount { Money.new(200) }
     end
 
     order

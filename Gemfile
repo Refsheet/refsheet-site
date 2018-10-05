@@ -10,7 +10,7 @@ gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.0'
 gem 'redis', '~> 3.0'
 gem 'bcrypt', '~> 3.1.7'
-gem 'execjs'
+gem 'therubyracer'
 gem 'money-rails'
 gem 'responders'
 gem 'ahoy_matey'
@@ -101,6 +101,7 @@ end
 
 gem 'puma_worker_killer'
 gem 'table_print'
+gem 'httplog', '~> 1.1.1'
 
 # == NON PRODUCTION GEMS
 
@@ -110,7 +111,7 @@ group :development, :test do
   gem 'capybara'
   gem 'capybara-selenium'
   gem 'database_cleaner'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'letter_opener'
   gem 'letter_opener_web'
   gem 'rack_session_access'
@@ -125,6 +126,8 @@ group :development, :test do
   gem 'timecop'
   gem 'chromedriver-helper'
   gem 'webmock'
+  gem 'rubocop'
+  gem 'rubocop-rspec'
 end
 
 group :nocircle do
@@ -138,9 +141,5 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'annotate'
+  gem 'graphiql-rails'
 end
-
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-gem 'httplog'
-
-gem 'graphiql-rails', group: :development

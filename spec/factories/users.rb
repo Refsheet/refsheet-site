@@ -27,13 +27,13 @@
 #  index_users_on_type            (type)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :user do
     name { Faker::Name.name }
     profile { Faker::Lorem.paragraph }
-    password 'fishsticks'
-    password_confirmation 'fishsticks'
-    skip_emails true
+    password { 'fishsticks' }
+    password_confirmation { 'fishsticks' }
+    skip_emails { true }
 
     sequence :username do |n|
       "user#{n}"
@@ -44,7 +44,7 @@ FactoryGirl.define do
     end
 
     trait :send_emails do
-      skip_emails false
+      skip_emails { false }
     end
 
     trait :is_seller do

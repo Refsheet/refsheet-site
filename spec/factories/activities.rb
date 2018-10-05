@@ -20,14 +20,14 @@
 #  index_activities_on_user_id        (user_id)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :activity do
-    guid "MyString"
-    user_id 1
-    character_id 1
-    activity_type "MyString"
-    activity_id 1
-    activity_method "MyString"
-    activity_field "MyString"
+    guid { "MyString" }
+    user_id { 1 }
+    character_id { 1 }
+    activity_type { "MyString" }
+    activity_id { 1 }
+    activity_method { "MyString" }
+    activity_field { "MyString" }
   end
 end

@@ -19,12 +19,12 @@
 #  index_payments_on_type  (type)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :payment do
-    order_id 1
-    processor_id "MyString"
-    amount_cents 1
-    state "MyString"
-    failure_reason "MyString"
+    order_id { 1 }
+    processor_id { "MyString" }
+    amount_cents { 1 }
+    state { "MyString" }
+    failure_reason { "MyString" }
   end
 end

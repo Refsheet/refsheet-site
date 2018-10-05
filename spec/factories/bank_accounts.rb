@@ -22,16 +22,16 @@
 #  index_bank_accounts_on_user_id  (user_id)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :bank_account do
-    user_id 1
-    account_holder_name "MyString"
-    account_holder_type "MyString"
-    bank_name "MyString"
-    account_last_4 "MyString"
-    country "MyString"
-    currency "MyString"
-    status "MyString"
-    processor_id "MyString"
+    user_id { 1 }
+    account_holder_name { "MyString" }
+    account_holder_type { "MyString" }
+    bank_name { "MyString" }
+    account_last_4 { "MyString" }
+    country { "MyString" }
+    currency { "MyString" }
+    status { "MyString" }
+    processor_id { "MyString" }
   end
 end

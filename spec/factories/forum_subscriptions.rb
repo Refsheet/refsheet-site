@@ -15,7 +15,7 @@
 #  index_forum_subscriptions_on_user_id        (user_id)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :forum_subscription, class: 'Forum::Subscription' do
     association :discussion, factory: :forum_discussion
     user

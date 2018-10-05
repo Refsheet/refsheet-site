@@ -33,14 +33,14 @@
 #  index_images_on_guid  (guid)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :image do
     character
     caption { Faker::Lorem.sentence }
     image { File.new("app/assets/images/default.png") }
 
     trait :nsfw do
-      nsfw true
+      nsfw { true }
     end
   end
 end
