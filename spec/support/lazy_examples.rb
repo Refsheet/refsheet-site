@@ -14,6 +14,20 @@ def it_is_expected_to(things={}, negate=false, title='is expected to')
           it(matcher.to_s.humanize.downcase) {
             is_expected.send to_or_not, self.send(matcher)
           }
+        elsif col.is_a? Array
+          (actual_col, options) = col
+          options ||= {}
+
+          it("#{matcher.to_s.humanize.downcase} #{actual_col}") {
+            start = self.send(matcher, actual_col)
+
+            chain = options.inject(start) { |o, option|
+              (key, values) = option
+              o.send(key, values)
+            }
+
+            is_expected.send to_or_not, chain
+          }
         else
           it("#{matcher.to_s.humanize.downcase} #{col}") {
             is_expected.send to_or_not, self.send(matcher, col)

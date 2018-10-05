@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181005180905) do
+ActiveRecord::Schema.define(version: 20181005182715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -217,6 +217,37 @@ ActiveRecord::Schema.define(version: 20181005180905) do
     t.string   "guid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "conversations", force: :cascade do |t|
+    t.integer  "sender_id"
+    t.integer  "recipient_id"
+    t.boolean  "approved"
+    t.string   "subject"
+    t.boolean  "muted"
+    t.string   "guid"
+    t.datetime "deleted_at"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["guid"], name: "index_conversations_on_guid", using: :btree
+    t.index ["recipient_id"], name: "index_conversations_on_recipient_id", using: :btree
+    t.index ["sender_id"], name: "index_conversations_on_sender_id", using: :btree
+  end
+
+  create_table "conversations_messages", force: :cascade do |t|
+    t.integer  "conversation_id"
+    t.integer  "user_id"
+    t.text     "message"
+    t.integer  "reply_to_id"
+    t.datetime "read_at"
+    t.datetime "deleted_at"
+    t.string   "guid"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["conversation_id"], name: "index_conversations_messages_on_conversation_id", using: :btree
+    t.index ["guid"], name: "index_conversations_messages_on_guid", using: :btree
+    t.index ["reply_to_id"], name: "index_conversations_messages_on_reply_to_id", using: :btree
+    t.index ["user_id"], name: "index_conversations_messages_on_user_id", using: :btree
   end
 
   create_table "feedback_replies", force: :cascade do |t|
