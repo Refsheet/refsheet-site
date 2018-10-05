@@ -47,6 +47,10 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
 
   config.action_cable.allowed_request_origins = %w(
+    https://prod.refsheet.net
+    https://staging.refsheet.net
+    https://green.refsheet.net
+    https://blue.refsheet.net
     https://refsheet.net
     https://websocket.org
   )
