@@ -34,8 +34,8 @@ class Notification < ApplicationRecord
 
   belongs_to :user
   belongs_to :character
-  belongs_to :sender_user, class_name: User
-  belongs_to :sender_character, class_name: Character
+  belongs_to :sender_user, class_name: "User"
+  belongs_to :sender_character, class_name: "Character"
   belongs_to :actionable, polymorphic: :true
 
   validates_presence_of :user

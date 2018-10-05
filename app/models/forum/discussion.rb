@@ -35,9 +35,9 @@ class Forum::Discussion < ApplicationRecord
   belongs_to :forum
   belongs_to :user
   belongs_to :character
-  has_many :posts, -> { order('forum_posts.created_at ASC') }, class_name: Forum::Post, foreign_key: :thread_id, inverse_of: :thread
-  has_many :karmas, class_name: Forum::Karma, as: :karmic, foreign_key: :karmic_id
-  has_many :subscriptions, class_name: Forum::Subscription, foreign_key: :discussion_id
+  has_many :posts, -> { order('forum_posts.created_at ASC') }, class_name: "Forum::Post", foreign_key: :thread_id, inverse_of: :thread
+  has_many :karmas, class_name: "Forum::Karma", as: :karmic, foreign_key: :karmic_id
+  has_many :subscriptions, class_name: "Forum::Subscription", foreign_key: :discussion_id
 
   # Requires this to eager load the news feed:
   has_many :activities, as: :activity, dependent: :destroy

@@ -16,8 +16,8 @@
 #
 
 class Advertisement::Slot < ApplicationRecord
-  belongs_to :active_campaign, class_name: Advertisement::Campaign
-  belongs_to :reserved_campaign, class_name: Advertisement::Campaign
+  belongs_to :active_campaign, class_name: "Advertisement::Campaign"
+  belongs_to :reserved_campaign, class_name: "Advertisement::Campaign"
 
   scope :active, -> { where.not active_campaign_id: nil }
   scope :reserved, -> { where.not reserved_campaign_id: nil }

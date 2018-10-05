@@ -18,10 +18,10 @@
 #
 class Changelog < ApplicationRecord
   belongs_to :user
-  belongs_to :changed_character, class_name: Character, foreign_key: :changed_character_id
-  belongs_to :changed_user, class_name: User, foreign_key: :changed_user_id
-  belongs_to :changed_image, class_name: Image, foreign_key: :changed_image_id
-  belongs_to :changed_swatch, class_name: Swatch, foreign_key: :changed_swatch_id
+  belongs_to :changed_character, class_name: "Character", foreign_key: :changed_character_id
+  belongs_to :changed_user, class_name: "User", foreign_key: :changed_user_id
+  belongs_to :changed_image, class_name: "Image", foreign_key: :changed_image_id
+  belongs_to :changed_swatch, class_name: "Swatch", foreign_key: :changed_swatch_id
 
   validates_presence_of :user
   validates_presence_of :change_data

@@ -20,8 +20,8 @@
 class Forum < ApplicationRecord
   include Sluggable
 
-  has_many :threads, class_name: Forum::Discussion
-  has_many :posts, class_name: Forum::Post, through: :threads
+  has_many :threads, class_name: "Forum::Discussion"
+  has_many :posts, class_name: "Forum::Post", through: :threads
 
   validates_presence_of :name
   validates_presence_of :slug

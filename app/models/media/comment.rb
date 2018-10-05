@@ -24,10 +24,10 @@ class Media::Comment < ApplicationRecord
   include HasGuid
   include Rails.application.routes.url_helpers
 
-  belongs_to :media, class_name: Image, counter_cache: :comments_count, inverse_of: :comments
+  belongs_to :media, class_name: "Image", counter_cache: :comments_count, inverse_of: :comments
   belongs_to :user
-  belongs_to :reply_to, class_name: Media::Comment, foreign_key: :reply_to_comment_id
-  has_many :replies, class_name: Media::Comment, foreign_key: :reply_to_comment_id
+  belongs_to :reply_to, class_name: "Media::Comment", foreign_key: :reply_to_comment_id
+  has_many :replies, class_name: "Media::Comment", foreign_key: :reply_to_comment_id
 
   # Requires this to eager load the news feed:
   has_many :activities, as: :activity, dependent: :destroy

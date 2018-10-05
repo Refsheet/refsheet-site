@@ -36,23 +36,23 @@ class User < ApplicationRecord
   has_many :roles, through: :permissions
   has_many :visits
 
-  has_many :transfers_in, class_name: Transfer, foreign_key: :destination_user_id
-  has_many :transfers_out, class_name: Transfer, foreign_key: :sender_user_id
+  has_many :transfers_in, class_name: "Transfer", foreign_key: :destination_user_id
+  has_many :transfers_out, class_name: "Transfer", foreign_key: :sender_user_id
   has_many :orders
   has_many :bank_accounts, inverse_of: :user
   has_one :seller, inverse_of: :user
 
-  has_many :favorites, class_name: Media::Favorite
+  has_many :favorites, class_name: "Media::Favorite"
   has_many :favorite_media, through: :favorites, source: :media
-  has_many :comments, class_name: Media::Comment
+  has_many :comments, class_name: "Media::Comment"
   has_many :notifications
 
-  has_many :followers, class_name: User::Follower, inverse_of: :following, foreign_key: :following_id
-  has_many :following, class_name: User::Follower, inverse_of: :follower, foreign_key: :follower_id
-  has_many :follower_users, through: :following, source: :follower, class_name: User
-  has_many :followed_users, through: :following, source: :following, class_name: User
+  has_many :followers, class_name: "User::Follower", inverse_of: :following, foreign_key: :following_id
+  has_many :following, class_name: "User::Follower", inverse_of: :follower, foreign_key: :follower_id
+  has_many :follower_users, through: :following, source: :follower, class_name: "User"
+  has_many :followed_users, through: :following, source: :following, class_name: "User"
 
-  has_one  :patron, class_name: Patreon::Patron
+  has_one  :patron, class_name: "Patreon::Patron"
   has_one  :invitation
   has_many :pledges, through: :patron
 
