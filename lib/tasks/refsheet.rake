@@ -35,6 +35,7 @@ namespace :refsheet do
 
   desc 'Standard deploy process, needed because Rollbar and GH don\'t play along.'
   task :deploy, [:env] do |_, args|
+    start = Time.now
     envs = args.fetch(:env) { 'refsheet-staging' }.split('+')
     envs = ['refsheet-prod', 'refsheet-prod-worker'] if envs[0] == ':prod'
 
@@ -67,11 +68,20 @@ namespace :refsheet do
 
     puts "Deploying version #{build} to Beanstalks..."
 
+    deptime = {}
+
     envs.each do |env|
       puts %x{ eb deploy #{env} --label #{build} --message #{message} --timeout 3600 }
+      puts "Environment done (time elapsed: #{Time.now.to_i - start.to_i}s)"
+      deptime[env] = Time.now.to_i - start.to_i
     end
 
-    puts "Done."
+    puts
+    puts "----------------------------"
+    puts "Done (time elapsed: #{Time.now.to_i - start.to_i}s)"
+    deptime.each do |k,v|
+      puts "- #{k} deployed in #{v}s"
+    end
   end
 
   def get_version
