@@ -36,7 +36,7 @@ namespace :refsheet do
   desc 'Standard deploy process, needed because Rollbar and GH don\'t play along.'
   task :deploy, [:env] do |_, args|
     start = Time.now
-    envs = args.fetch(:env) { 'refsheet-staging' }.split('+')
+    envs = args.fetch(:env) { 'refsheet-staging' }.split(/[,+]/)
     envs = ['refsheet-prod', 'refsheet-prod-worker'] if envs[0] == ':prod'
 
     puts "Deploying to #{envs}"
