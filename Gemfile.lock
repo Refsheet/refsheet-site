@@ -263,7 +263,7 @@ GEM
       railties (>= 3.2.16)
     js_cookie_rails (2.1.4)
       railties (>= 3.1)
-    json (1.8.3)
+    json (1.8.6)
     jsonapi (0.1.1.beta2)
       json (~> 1.8)
     jwt (2.1.0)
@@ -620,6 +620,7 @@ DEPENDENCIES
   jquery-turbolinks
   jquery-ui-rails
   js_cookie_rails
+  json (~> 1.8.6)
   letter_opener
   letter_opener_web
   listen (~> 3.0.5)
