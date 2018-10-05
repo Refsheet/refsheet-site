@@ -1,4 +1,10 @@
 ---
+v1.2.6-pre.36:
+- hash: 13a6ee2
+  date: '2018-10-05'
+  tags: []
+  message: OOPS
+---
 v1.2.6-pre.35:
 - hash: 1a5f748
   date: '2018-10-05'
