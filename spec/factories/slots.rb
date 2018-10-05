@@ -15,14 +15,14 @@
 #  updated_at         :datetime         not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :slot do
-    item_id 1
-    extends_slot_id 1
-    title "MyString"
-    description "MyText"
-    color "MyString"
-    amount_cents 1
-    requires_character false
+    item_id { 1 }
+    extends_slot_id { 1 }
+    title { "MyString" }
+    description { "MyText" }
+    color { "MyString" }
+    amount_cents { 1 }
+    requires_character { false }
   end
 end

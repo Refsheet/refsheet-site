@@ -26,7 +26,7 @@
 #  index_forum_threads_on_user_id       (user_id)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :forum_discussion, class: 'Forum::Discussion' do
     forum
     user

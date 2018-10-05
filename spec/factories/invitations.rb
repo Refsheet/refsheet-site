@@ -12,13 +12,13 @@
 #  auth_code_digest :string
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :invitation do
     email { Faker::Internet.email }
-    skip_emails true
+    skip_emails { true }
 
     trait :send_emails do
-      skip_emails false
+      skip_emails { false }
     end
   end
 end

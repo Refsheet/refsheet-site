@@ -20,11 +20,11 @@
 #  index_character_groups_on_user_id  (user_id)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :character_group do
-    name "MyString"
-    slug "MyString"
-    row_order 1
-    hidden false
+    name { "MyString" }
+    slug { "MyString" }
+    row_order { 1 }
+    hidden { false }
   end
 end

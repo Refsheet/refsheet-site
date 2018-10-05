@@ -31,14 +31,14 @@
 #  index_advertisement_campaigns_on_user_id  (user_id)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :advertisement_campaign, class: 'Advertisement::Campaign' do
     title { Faker::Book.title[0,30] }
     caption { Faker::Lorem.characters(70) }
     link { Faker::Internet.url }
     image_file_name { Rails.root.join 'spec/assets/advertisement_test.png' }
-    amount 5.00
-    slots_filled 1
-    recurring false
+    amount { 5.00 }
+    slots_filled { 1 }
+    recurring { false }
   end
 end

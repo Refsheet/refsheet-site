@@ -21,14 +21,14 @@
 #  index_transfers_on_guid  (guid)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :transfer do
     character
     sender { character.user }
     destination { build :user }
 
     trait :with_invitation do
-      destination nil
+      destination { nil }
       invitation { build :invitation }
     end
   end

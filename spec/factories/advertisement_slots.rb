@@ -15,7 +15,7 @@
 #  index_advertisement_slots_on_reserved_campaign_id  (reserved_campaign_id)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :advertisement_slot, class: 'Advertisement::Slot' do
     trait :active do
       association :active_campaign, factory: :advertisement_campaign

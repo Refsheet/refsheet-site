@@ -22,13 +22,13 @@
 #  index_payment_transfers_on_type        (type)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :payment_transfer do
-    seller_id 1
-    payment_id 1
-    order_id 1
-    processor_id "MyString"
-    amount ""
-    status "MyString"
+    seller_id { 1 }
+    payment_id { 1 }
+    order_id { 1 }
+    processor_id { "MyString" }
+    amount { "" }
+    status { "MyString" }
   end
 end

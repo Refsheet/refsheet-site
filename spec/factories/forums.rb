@@ -17,7 +17,7 @@
 #  index_forums_on_slug  (slug)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :forum do
     name { Faker::LordOfTheRings.location }
     description { Faker::Lorem.paragraph }

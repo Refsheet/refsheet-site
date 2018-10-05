@@ -14,7 +14,7 @@
 #  index_media_favorites_on_user_id   (user_id)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :media_favorite, class: 'Media::Favorite' do
     association :media, factory: :image
     user

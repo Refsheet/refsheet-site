@@ -16,14 +16,14 @@
 #  freshdesk_id   :string
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :feedback do
     user
     comment { Faker::Lorem.paragraph }
-    skip_freshdesk true
+    skip_freshdesk { true }
 
     trait :freshdesk do
-      skip_freshdesk false
+      skip_freshdesk { false }
     end
   end
 end

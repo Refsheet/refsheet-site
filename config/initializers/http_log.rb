@@ -17,12 +17,13 @@ HttpLog&.configure do |config|
   config.log_benchmark = true
 
   # ...or log all request as a single line by setting this to `true`
-  config.compact_log = false
+  config.compact_log = true
 
   # Prettify the output - see below
-  config.color = { color: :light_blue }
+  config.color = :blue
 
   # Limit logging based on URL patterns
   config.url_whitelist_pattern = /.*/
-  config.url_blacklist_pattern = nil
+  # Ignore Capybara Spam
+  config.url_blacklist_pattern = /95\d\d\/session/
 end

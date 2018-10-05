@@ -30,14 +30,14 @@
 #  custom_attributes :text
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :character do
     user
     name { Faker::Name.name }
     profile { Faker::Lorem.paragraph }
 
     trait :hidden do
-      hidden true
+      hidden { true }
     end
   end
 end

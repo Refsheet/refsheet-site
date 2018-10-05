@@ -15,13 +15,13 @@
 #  updated_at                :datetime         not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :auction do
-    item_id 1
-    slot_id 1
-    starting_bid_cents 1
-    minimum_increase_cents 1
-    starts_at "2017-01-30 17:36:10"
-    ends_at "2017-01-30 17:36:10"
+    item_id { 1 }
+    slot_id { 1 }
+    starting_bid_cents { 1 }
+    minimum_increase_cents { 1 }
+    starts_at { "2017-01-30 17:36:10" }
+    ends_at { "2017-01-30 17:36:10" }
   end
 end

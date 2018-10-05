@@ -11,10 +11,10 @@
 #  updated_at      :datetime         not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :transaction do
-    payment_id 1
-    processor_id "MyString"
-    amount_cents 1
+    payment_id { 1 }
+    processor_id { "MyString" }
+    amount_cents { 1 }
   end
 end

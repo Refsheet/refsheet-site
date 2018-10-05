@@ -10,12 +10,12 @@
 #  email      :string
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :order do
     transient do
-      total nil
-      payment_total nil
-      processor_fee_total nil
+      total { nil }
+      payment_total { nil }
+      processor_fee_total { nil }
     end
 
     user
