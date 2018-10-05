@@ -23,11 +23,8 @@
 
 FactoryBot.define do
   factory :conversations_message, class: 'Conversations::Message' do
-    conversation { "" }
-    user { "" }
-    message { "MyText" }
-    reply_to { "" }
-    read_at { "2018-10-05 13:27:15" }
-    deleted_at { "2018-10-05 13:27:15" }
+    conversation
+    user { conversation.sender }
+    message { "Hi" }
   end
 end

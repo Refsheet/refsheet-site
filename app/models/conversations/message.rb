@@ -40,6 +40,8 @@ class Conversations::Message < ApplicationRecord
 
   scoped_search on: [:message]
 
+  after_create :notify_conversation
+
   scope :unread, -> { where read_at: nil }
 
   def reply?
@@ -48,5 +50,11 @@ class Conversations::Message < ApplicationRecord
 
   def unread?
     self.read_at.nil?
+  end
+
+  private
+
+  def notify_conversation
+    self.conversation.notify_message(self)
   end
 end

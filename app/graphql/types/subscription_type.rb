@@ -5,4 +5,8 @@ Types::SubscriptionType = GraphQL::ObjectType.define do
     argument :id, !types.String
     description "Character information has changed"
   end
+
+  field :newMessage, !Types::MessageType do
+    description "New message published"
+  end
 end
