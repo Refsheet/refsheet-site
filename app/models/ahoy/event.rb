@@ -16,34 +16,32 @@
 #  index_ahoy_events_on_visit_id_and_name  (visit_id,name)
 #
 
-module Ahoy
-  class Event < ActiveRecord::Base
-    include Ahoy::Properties
+class Ahoy::Event < ActiveRecord::Base
+  include Ahoy::QueryMethods
 
-    self.table_name = "ahoy_events"
+  self.table_name = "ahoy_events"
 
-    belongs_to :visit
-    belongs_to :user, optional: true
+  belongs_to :visit
+  belongs_to :user, optional: true
 
 
-    #== Tell Adverts to Cycle
+  #== Tell Adverts to Cycle
 
-    after_commit do
-      Rails.logger.tagged 'Event after_commit' do
-        Rails.logger.info "Processing post-commit hook for #{self.name}: #{self.properties.inspect}"
+  after_commit do
+    Rails.logger.tagged 'Event after_commit' do
+      Rails.logger.info "Processing post-commit hook for #{self.name}: #{self.properties.inspect}"
 
-        if self.name =~ /\Aadvertisement\.(.*)\z/
-          Rails.logger.info "Processing ad event tracking for #{$1} action on #{self.properties['advertisement_id']}"
+      if self.name =~ /\Aadvertisement\.(.*)\z/
+        Rails.logger.info "Processing ad event tracking for #{$1} action on #{self.properties['advertisement_id']}"
 
-          if (ad = Advertisement::Campaign.find_by guid: self.properties['advertisement_id'])
-            Rails.logger.info "Using ad: #{ad.title}"
+        if (ad = Advertisement::Campaign.find_by guid: self.properties['advertisement_id'])
+          Rails.logger.info "Using ad: #{ad.title}"
 
-            case $1
-              when 'click'
-                ad.record_click
-              when 'impression'
-                ad.record_impression self.properties['current_slot_id']
-            end
+          case $1
+            when 'click'
+              ad.record_click
+            when 'impression'
+              ad.record_impression self.properties['current_slot_id']
           end
         end
       end
