@@ -1,4 +1,10 @@
 ---
+v1.2.7-pre.1:
+- hash: 8edac41
+  date: '2018-10-05'
+  tags: []
+  message: Update ahoy things.
+---
 v1.2.7+build.1: []
 ---
 v1.2.7:
