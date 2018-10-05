@@ -22,12 +22,7 @@
 
 FactoryBot.define do
   factory :conversation do
-    sender_id { "" }
-    recipient_id { "" }
-    approved { false }
-    subject { "MyString" }
-    muted { false }
-    guid { "MyString" }
-    deleted_at { "2018-10-05 13:21:46" }
+    sender { build :user }
+    recipient { build :user }
   end
 end

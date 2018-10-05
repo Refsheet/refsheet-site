@@ -59,7 +59,23 @@ class Conversation < ApplicationRecord
         self.new(sender: sender, recipient: recipient)
   end
 
+  def participants
+    [self.sender, self.recipient]
+  end
+
+  def participant_ids
+    [self.sender_id, self.recipient_id]
+  end
+
   def unread?
     self.messages.unread.any?
+  end
+
+  def notify_message(message)
+    notify_users = self.participant_ids.reject { |p| p == message.user_id }
+
+    notify_users.each do |user_id|
+      RefsheetSchema.subscriptions.trigger("newMessage", {}, message, scope: user_id)
+    end
   end
 end

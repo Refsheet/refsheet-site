@@ -43,4 +43,19 @@ Types::QueryType = GraphQL::ObjectType.define do
       OpenStruct.new clean_keys
     }
   end
+
+  field :getConversations, types[Types::ConversationType] do
+    resolve -> (_obj, _args, ctx) {
+      Conversation.for(ctx[:current_user])
+    }
+  end
+
+  field :getMessages, types[Types::MessageType] do
+    argument :conversationId, !types.ID
+
+    resolve -> (_obj, args, ctx) {
+      conversation = Conversation.for(ctx[:current_user]).find_by! guid: args[:conversationId]
+      conversation.messages
+    }
+  end
 end

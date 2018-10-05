@@ -39,4 +39,12 @@ describe Conversations::Message, type: :model do
         :message
     ]
   )
+
+  it 'notifies graphql sub' do
+    expect(RefsheetSchema.subscriptions)
+        .to receive(:trigger)
+        .with('newMessage', any_args)
+
+    create :conversations_message
+  end
 end
