@@ -62,4 +62,10 @@ Rails.application.configure do
     Bullet.enable = true
     Bullet.rails_logger = true
   end
+
+  config.action_cable.allowed_request_origins = %w(
+    http://localhost
+    http://dev.refsheet.net
+    https://websocket.org
+  )
 end
