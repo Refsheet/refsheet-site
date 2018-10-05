@@ -1,4 +1,14 @@
 ---
+v1.2.6-pre.35:
+- hash: 1a5f748
+  date: '2018-10-05'
+  tags: []
+  message: Rails 2.5 update 1.
+- hash: fb76bd2
+  date: '2018-10-05'
+  tags: []
+  message: Class name fixes. Forever strings. Update Bundle? cache.
+---
 v1.2.6-pre.34:
 - hash: 07cca67
   date: '2018-10-05'
