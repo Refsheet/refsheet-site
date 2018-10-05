@@ -22,6 +22,7 @@ gem 'active_elastic_job'
 gem 'sprockets_uglifier_with_source_maps'
 gem 'webpacker'
 gem 'faraday_middleware'
+gem 'json', '~> 1.8.6'
 
 # == FRONT END
 
