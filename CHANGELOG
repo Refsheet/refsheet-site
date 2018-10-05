@@ -1,4 +1,14 @@
 ---
+v1.2.7-pre.2:
+- hash: c3d20f4
+  date: '2018-10-05'
+  tags: []
+  message: FIXBUG
+- hash: 36fd66c
+  date: '2018-10-05'
+  tags: []
+  message: Add build timings to deploy.
+---
 v1.2.7-pre.1+build.1: []
 ---
 v1.2.7-pre.1:
