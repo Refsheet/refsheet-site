@@ -6,6 +6,7 @@ import { createStore } from 'redux'
 import rootReducer from 'reducers'
 import Router from './Router'
 import client from 'ApplicationService'
+import Chat from 'Chat'
 
 reactGuard(React, (error, componentInfo) => {
   const errorString = `Failed to render <${componentInfo.name} />!`
@@ -24,7 +25,10 @@ const App = () => {
   return (
     <ApolloProvider client={ client }>
       {/*<ReduxProvider store={ store }>*/}
-        <Router/>
+      <div>
+        <Chat />
+        <Router />
+      </div>
       {/*</ReduxProvider>*/}
     </ApolloProvider>
   )

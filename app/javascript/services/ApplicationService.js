@@ -1,8 +1,13 @@
 import ApolloClient from 'apollo-client'
+import { ApolloLink } from 'apollo-link'
 import { createHttpLink } from 'apollo-link-http'
 import { setContext } from 'apollo-link-context'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import fetch from 'node-fetch'
+import ActionCable from 'actioncable'
+import ActionCableLink from 'graphql-ruby-client/subscriptions/ActionCableLink'
+
+const cable = ActionCable.createConsumer()
 
 const HOST = (
     window &&
@@ -26,8 +31,20 @@ const authLink = setContext((_, { headers }) => {
   }
 })
 
+const hasSubscriptionOperation = ({ query: { definitions } }) => {
+  return definitions.some(
+      ({ kind, operation }) => kind === 'OperationDefinition' && operation === 'subscription'
+  )
+}
+
+const link = ApolloLink.split(
+    hasSubscriptionOperation,
+    new ActionCableLink({cable}),
+    httpLink
+)
+
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: authLink.concat(link),
   cache: new InMemoryCache()
 })
 
