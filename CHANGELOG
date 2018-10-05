@@ -1,4 +1,14 @@
 ---
+v1.2.6-pre.38:
+- hash: c96ce4e
+  date: '2018-10-05'
+  tags: []
+  message: Rename ahoy table because update borked it.
+- hash: f46f440
+  date: '2018-10-05'
+  tags: []
+  message: More prod origins.
+---
 v1.2.6-pre.37:
 - hash: 55ef889
   date: '2018-10-05'
