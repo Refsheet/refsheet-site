@@ -1,4 +1,11 @@
 ---
+v1.2.7:
+- hash: 73798b6
+  date: '2018-10-05'
+  tags:
+  - f
+  message: Upgrade to Ruby 2.5, support Websockets, and add begin development on Conversations.
+---
 v1.2.6-pre.38:
 - hash: c96ce4e
   date: '2018-10-05'
