@@ -36,7 +36,7 @@
   render: ->
     if typeof Packs is 'undefined'
       console.log "Pack sync: Skipping render, JS v2 not loaded."
-      return
+      return null
 
     staticPaths = ['privacy', 'terms', 'support'].map (path) ->
       `<Route key={ path } path={ path } component={ Static.View } />`

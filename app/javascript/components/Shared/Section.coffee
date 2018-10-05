@@ -83,9 +83,9 @@ renderAction = ({title, id, onClick, icon}) ->
 
 actionType =
   PropTypes.shape(
-    icon: PropTypes.string.isRequired
+    icon: PropTypes.string
     title: PropTypes.string.isRequired
-    id: PropTypes.string.isRequired
+    id: PropTypes.string
     onClick: PropTypes.func
   )
 
