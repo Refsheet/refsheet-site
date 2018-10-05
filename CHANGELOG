@@ -1,4 +1,10 @@
 ---
+v1.2.6-pre.32:
+- hash: 2842e95
+  date: '2018-10-05'
+  tags: []
+  message: Rearrange deploy things.
+---
 v1.2.6-pre.31+build.1: []
 ---
 v1.2.6-pre.31:
