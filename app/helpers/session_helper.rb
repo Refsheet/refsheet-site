@@ -19,7 +19,7 @@ module SessionHelper
   end
 
   def current_user
-    if (user_id = session[:user_id] || cookies.signed[:user_id])
+    if (user_id = session[:user_id] || (defined? :cookies and cookies.signed[:user_id]))
       @current_user ||= User.find_by id: user_id
     else
       nil
