@@ -1,4 +1,18 @@
 ---
+v1.2.7-pre.3:
+- hash: 0bd98af
+  date: '2018-10-06'
+  tags: []
+  message: CHAT SUBSCRIPTION DOES THING.
+- hash: 9d795ad
+  date: '2018-10-05'
+  tags: []
+  message: GRAPHQL DOES THE THING
+- hash: 10b3b0d
+  date: '2018-10-05'
+  tags: []
+  message: Added messages backend to GraphQL
+---
 v1.2.7-pre.2:
 - hash: c3d20f4
   date: '2018-10-05'
