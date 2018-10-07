@@ -1,4 +1,10 @@
 ---
+v1.2.7-pre.5:
+- hash: 37f6254
+  date: '2018-10-06'
+  tags: []
+  message: Bugfix.
+---
 v1.2.7-pre.4:
 - hash: 359b20b
   date: '2018-10-06'
