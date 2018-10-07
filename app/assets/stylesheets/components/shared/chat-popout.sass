@@ -1,0 +1,51 @@
+.chat-popout
+  @extend .card
+
+  position: fixed
+  z-index: 10001
+  bottom: 0
+  right: 0
+  min-height: 5px
+  min-width: 350px
+  margin: 0
+
+  .chat-title
+    @extend .card-header
+    padding: 0.5rem 1rem
+    font-weight: bold
+    background-color: $brand-darker
+    color: white
+    border-top-left-radius: 2px
+    position: relative
+
+    a.right
+      position: absolute
+      right: 0
+      top: 0
+      height: 100%
+      padding: 0.5rem
+      transition: background-color 0.3s ease
+
+      &:hover
+        background-color: $brand-primary
+
+  form
+    display: flex
+    margin-top: 0.5rem
+
+    input, button
+      display: block
+      flex: 0 1 auto
+      margin: 0 !important
+      height: auto !important
+      line-height: 35px
+      padding: 0.25rem 1rem
+      border: none
+
+    input
+      background-color: rgba(0,0,0,0.1)
+
+    button
+      padding: 0.25rem
+      border-radius: 0
+      width: 50px
