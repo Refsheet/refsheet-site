@@ -3,6 +3,7 @@ import { gql } from 'apollo-client-preset'
 import { Subscription, Mutation } from 'react-apollo'
 import { Icon } from 'react-materialize'
 import Conversations from './Conversations'
+import c from 'classnames'
 
 const MESSAGES_SUBSCRIPTION = gql`
     subscription onNewMessage {
@@ -65,12 +66,14 @@ class Chat extends Component {
       isOpen
     } = this.state
 
-    return (<div className='chat-popout'>
+    return (<div className={c('chat-popout', {open: isOpen})}>
       <div className='chat-title'>
         <a href='#' className='right white-text' onClick={this.handleOpenClose}>
           <Icon>{ isOpen ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }</Icon>
         </a>
-        Conversations
+        <a href='#' className='white-text' onClick={this.handleOpenClose}>
+          Conversations
+        </a>
       </div>
 
       { isOpen &&
