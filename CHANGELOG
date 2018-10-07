@@ -1,4 +1,10 @@
 ---
+v1.2.7-pre.7:
+- hash: dff38d1
+  date: '2018-10-07'
+  tags: []
+  message: Fake conversation list.
+---
 v1.2.7-pre.6:
 - hash: 3d41735
   date: '2018-10-07'
