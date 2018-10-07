@@ -117,8 +117,6 @@ class ApplicationController < ActionController::Base
     site = 'Refsheet.net'
     desc = 'Easily create and share reference sheets and art galleries for all your characters; perfect for artists, world builders, and role players.'
 
-    Rails.logger.info params.inspect
-
     if params[:page] == :home
       site += ': Your Characters, Organized.'
     end

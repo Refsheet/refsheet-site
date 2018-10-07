@@ -72,10 +72,10 @@ class Conversation < ApplicationRecord
   end
 
   def notify_message(message)
-    notify_users = self.participant_ids.reject { |p| p == message.user_id }
+    notify_users = self.participant_ids #.reject { |p| p == message.user_id }
 
     notify_users.each do |user_id|
-      RefsheetSchema.subscriptions.trigger("newMessage", {}, message, scope: user_id)
+      RefsheetSchema.subscriptions.trigger("newMessage", {}, message)
     end
   end
 end
