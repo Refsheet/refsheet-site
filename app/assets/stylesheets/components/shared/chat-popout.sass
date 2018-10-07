@@ -6,14 +6,20 @@
   bottom: 0
   right: 0
   min-height: 5px
-  min-width: 350px
   margin: 0
+  width: auto
+  max-width: 100%
+
+  &.open
+    width: 350px
+
+    .chat-title
+      background-color: $brand-darker
 
   .chat-title
     @extend .card-header
-    padding: 0.5rem 1rem
+    padding: 0.5rem 50px 0.5rem 1rem
     font-weight: bold
-    background-color: $brand-darker
     color: white
     border-top-left-radius: 2px
     position: relative
@@ -25,13 +31,50 @@
       height: 100%
       padding: 0.5rem
       transition: background-color 0.3s ease
+      margin-left: 1rem
 
       &:hover
-        background-color: $brand-primary
+        background-color: rgba(white, 0.1)
+
+  .chat-list
+    margin: 0
+
+    .chat-conversation
+      $avatar-size: 2.5rem
+
+      position: relative
+      height: $avatar-size + 1rem
+      padding: 0.5rem 0.5rem 0.5rem $avatar-size + 1.5rem
+
+      .time
+        @extend .muted
+        float: right
+        vertical-align: top
+        line-height: 1rem
+
+      .title
+        line-height: 1.25rem
+        vertical-align: top
+        margin-bottom: 0.25rem
+
+      .last-message
+        @extend .muted
+        white-space: nowrap
+        text-overflow: ellipsis
+        line-height: 1rem
+
+      img
+        position: absolute
+        width: $avatar-size
+        height: $avatar-size
+        border-radius: 30px
+        object-fit: cover
+        left: 0.5rem
+        top: 0.5rem
 
   form
     display: flex
-    margin-top: 0.5rem
+    margin: 0
 
     input, button
       display: block
