@@ -73,8 +73,6 @@
     data = {}
     ObjectPath.set data, @props.modelName, @state.model
 
-    console.debug "Form submit: ", (@props.method || 'POST'), @props.action, data
-
     $.ajax
       url: @props.action
       type: @props.method || 'POST'

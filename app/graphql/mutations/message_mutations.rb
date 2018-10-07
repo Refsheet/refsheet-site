@@ -2,13 +2,13 @@ class Mutations::MessageMutations < Mutations::ApplicationMutation
   action :create do
     type Types::MessageType
 
-    argument :recipient_id, !types.ID
+    argument :recipientId, !types.ID
     argument :message, types.String
   end
 
   def create
     sender = context.current_user
-    recipient = User.find(params[:recipient_id])
+    recipient = User.find(params[:recipientId])
 
     Conversation.transaction do
       @conversation = Conversation.with(sender, recipient).tap(&:save!)

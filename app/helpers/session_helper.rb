@@ -2,6 +2,7 @@ module SessionHelper
   def sign_in(user)
     session[:user_id] = user.id
     session[:nsfw_ok] = !!user.settings[:nsfw_ok]
+    cookies.signed[:user_id] = user.id
     ahoy.authenticate user
     @current_user = user
   end
@@ -9,6 +10,7 @@ module SessionHelper
   def sign_out
     session.delete :user_id
     session.delete :nsfw_ok
+    cookies.delete :user_id
     @current_user = nil
   end
 
@@ -17,8 +19,8 @@ module SessionHelper
   end
 
   def current_user
-    if session[:user_id]
-      @current_user ||= User.find_by id: session[:user_id]
+    if (user_id = session[:user_id] || cookies.signed[:user_id])
+      @current_user ||= User.find_by id: user_id
     else
       nil
     end
