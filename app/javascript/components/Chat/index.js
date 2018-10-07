@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { gql } from 'apollo-client-preset'
 import { Subscription, Mutation } from 'react-apollo'
-
+import { Icon } from 'react-materialize'
+import Conversations from './Conversations'
 
 const MESSAGES_SUBSCRIPTION = gql`
     subscription onNewMessage {
@@ -25,30 +26,68 @@ const MESSAGE_MUTATION = gql`
   }
 `
 
+class Chat extends Component {
+  constructor(props) {
+    super(props)
 
-const Chat = ({data}) => {
-  return (<div className='chat-popout'>
-    Messages: {JSON.stringify(data)}
-    <Mutation mutation={MESSAGE_MUTATION}>
-      { (send, {idata}) => (
-        <form onSubmit={
-          (e)=>{
-            e.preventDefault();
-            send({variables: {recipientId:1, message:e.target.elements["message"].value}})
-          }
-        }>
-          Data: { JSON.stringify(idata) }
-          <input name='message' className='browser-default' />
-          <input type='submit' value='>' />
-        </form>
-      )}
-    </Mutation>
-  </div>)
+    this.state = {
+      messages: [],
+      conversations: [],
+      isOpen: false
+    }
+
+    this.handleFormSubmit = this.handleFormSubmit.bind(this)
+    this.handleOpenClose = this.handleOpenClose.bind(this)
+  }
+
+  handleFormSubmit(e) {
+    e.preventDefault()
+
+    const variables = {
+      recipientId: 1,
+      message: e.target.elements["message"].value
+    }
+
+    this.props.send({variables})
+  }
+
+  handleOpenClose(e) {
+    e.preventDefault()
+    this.setState({isOpen: !this.state.isOpen})
+  }
+
+  render() {
+    const {
+      messages, sent
+    } = this.props
+
+    const {
+      isOpen
+    } = this.state
+
+    return (<div className='chat-popout'>
+      <div className='chat-title'>
+        <a href='#' className='right white-text' onClick={this.handleOpenClose}>
+          <Icon>{ isOpen ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }</Icon>
+        </a>
+        Conversations
+      </div>
+
+      { isOpen &&
+        <Conversations messages={messages} handleFormSubmit={this.handleFormSubmit} /> }
+    </div>)
+  }
 }
 
 const Wrapped = (props) => (
     <Subscription subscription={MESSAGES_SUBSCRIPTION}>
-      {(data,b,c,d) => (<Chat {...props} data={{data,b,c,d}} />) }
+      {(subscriptionData) => (
+          <Mutation mutation={MESSAGE_MUTATION}>
+            {(send, {mutationData}) => (
+                <Chat {...props} messages={subscriptionData} sent={mutationData} send={send} />
+            )}
+          </Mutation>
+      )}
     </Subscription>
 )
 
