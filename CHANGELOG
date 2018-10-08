@@ -1,4 +1,14 @@
 ---
+v1.2.7-pre.8:
+- hash: '8275924'
+  date: '2018-10-08'
+  tags: []
+  message: Chat list and messages update live! Thanks Subscriptions!
+- hash: 49ebc26
+  date: '2018-10-07'
+  tags: []
+  message: Conversations load from list kinda.
+---
 v1.2.7-pre.7:
 - hash: dff38d1
   date: '2018-10-07'
