@@ -1,10 +1,11 @@
 .chat-popout
   @extend .card
+  @extend .z-depth-3
 
   position: fixed
   z-index: 10001
   bottom: 0
-  right: 0
+  right: 1rem
   min-height: 5px
   margin: 0
   width: auto
@@ -22,6 +23,7 @@
     font-weight: bold
     color: white
     border-top-left-radius: 2px
+    border-top-right-radius: 2px
     position: relative
 
     a.right
@@ -38,39 +40,78 @@
 
   .chat-list
     margin: 0
+    overflow: auto
+    height: 300px
 
     .chat-conversation
       $avatar-size: 2.5rem
 
-      position: relative
-      height: $avatar-size + 1rem
-      padding: 0.5rem 0.5rem 0.5rem $avatar-size + 1.5rem
+      &.unread
+        background-color: rgba(white, 0.05)
 
-      .time
-        @extend .muted
-        float: right
-        vertical-align: top
-        line-height: 1rem
+        & > a
+          border-left: 0.2rem solid $brand-darker
+          padding-left: $avatar-size + 1.3rem
 
-      .title
-        line-height: 1.25rem
-        vertical-align: top
-        margin-bottom: 0.25rem
+          img
+            left: 0.3rem
 
-      .last-message
-        @extend .muted
-        white-space: nowrap
-        text-overflow: ellipsis
-        line-height: 1rem
+          .title
+            font-weight: bold
+            color: $brand-primary
 
-      img
-        position: absolute
-        width: $avatar-size
-        height: $avatar-size
-        border-radius: 30px
-        object-fit: cover
-        left: 0.5rem
-        top: 0.5rem
+          .last-message
+            color: white !important
+
+      & > a
+        display: block
+        position: relative
+        height: $avatar-size + 1rem
+        padding: 0.5rem 0.5rem 0.5rem $avatar-size + 1.5rem
+        transition: background-color 0.3s ease
+
+        &:hover
+          background-color: rgba(white, 0.1)
+
+        .time
+          float: right
+          vertical-align: top
+          line-height: 1.25rem
+          font-size: 0.8rem
+          display: inline-block
+          color: color('grey', 'darken-2')
+
+        .title
+          line-height: 1.25rem
+          vertical-align: top
+          margin-bottom: 0.25rem
+          color: $brand-darker
+
+          .unread-count
+            color: $text-light-color
+            font-weight: normal !important
+            font-size: 0.8rem
+            margin-left: 0.5rem
+            vertical-align: top
+            line-height: 1.25rem
+            display: inline-block
+
+        .last-message
+          font-size: 0.9rem
+          white-space: nowrap
+          text-overflow: ellipsis
+          line-height: 1rem
+          color: $page-text-color
+          overflow: hidden
+
+        img
+          position: absolute
+          width: $avatar-size
+          height: $avatar-size
+          border-radius: 30px
+          object-fit: cover
+          left: 0.5rem
+          top: 0.5rem
 
   form
     display: flex

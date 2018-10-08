@@ -67,6 +67,14 @@ class Conversation < ApplicationRecord
     [self.sender_id, self.recipient_id]
   end
 
+  def unread_count
+    messages.unread.count
+  end
+
+  def last_message
+    messages.order(created_at: :asc).last
+  end
+
   def unread?
     self.messages.unread.any?
   end
