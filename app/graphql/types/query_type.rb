@@ -46,8 +46,9 @@ Types::QueryType = GraphQL::ObjectType.define do
 
   field :getConversations, types[Types::ConversationType] do
     resolve -> (_obj, _args, ctx) {
-      Conversation.all
-      # Conversation.for(ctx[:current_user])
+      # scope = Conversation.all
+      scope = Conversation.for(ctx[:current_user])
+      scope.includes(:sender, :recipient)
     }
   end
 

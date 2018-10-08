@@ -45,4 +45,8 @@ class ApplicationRecord < ActiveRecord::Base
       super
     end
   end
+
+  def trigger!(*args)
+    RefsheetSchema.subscriptions.trigger(*args)
+  end
 end

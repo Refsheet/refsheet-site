@@ -12,6 +12,7 @@ class GraphqlChannel < ApplicationCable::Channel
 
     context = {
         current_user: current_user,
+        current_user_id: current_user.id,
         channel: self
     }
 

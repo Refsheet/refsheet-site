@@ -1,57 +1,22 @@
 import React, { Component } from 'react'
 import { gql } from 'apollo-client-preset'
-import { Subscription, Mutation } from 'react-apollo'
 import { Icon } from 'react-materialize'
 import Conversations from './Conversations'
+import Conversation from './Conversation'
 import c from 'classnames'
-
-const MESSAGES_SUBSCRIPTION = gql`
-    subscription onNewMessage {
-        newMessage {
-            id
-            message
-            user { name }
-            conversation { guid }
-        }
-    }
-`
-
-const MESSAGE_MUTATION = gql`
-  mutation sendMessage($recipientId: ID!, $message: String!) {
-      sendMessage(recipientId: $recipientId, message: $message) {
-          id
-          message
-          user { name }
-          conversation { guid }
-      }
-  }
-`
 
 class Chat extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      messages: [],
-      conversations: [],
       isOpen: false,
-      activeConversationId: null
+      activeConversationId: null,
+      activeConversationUsername: null
     }
 
-    this.handleFormSubmit = this.handleFormSubmit.bind(this)
     this.handleOpenClose = this.handleOpenClose.bind(this)
     this.handleConversationChange = this.handleConversationChange.bind(this)
-  }
-
-  handleFormSubmit(e) {
-    e.preventDefault()
-
-    const variables = {
-      recipientId: 1,
-      message: e.target.elements["message"].value
-    }
-
-    this.props.send({variables})
   }
 
   handleOpenClose(e) {
@@ -59,25 +24,37 @@ class Chat extends Component {
     this.setState({isOpen: !this.state.isOpen})
   }
 
-  handleConversationChange(id) {
-    this.setState({activeConversationId: id})
+  handleConversationChange({id, username}) {
+    let activeConversationId = null
+    let activeConversationUsername = null
+
+    if(typeof id !== 'undefined' && id !== null) {
+      activeConversationId = id
+    } else if(typeof username !== 'undefined' && username !== null) {
+      activeConversationUsername = username
+    }
+
+    this.setState({activeConversationId, activeConversationUsername})
   }
 
   render() {
     const {
-        messages,
-        sent
-    } = this.props
-
-    const {
         isOpen,
-        activeConversationId
+        activeConversationId,
+        activeConversationUsername
     } = this.state
 
-    let title = 'Conversations'
+    let title, body
 
     if(activeConversationId !== null) {
       title = 'Conversation ' + activeConversationId
+      body = <Conversation key={activeConversationId} id={activeConversationId} onClose={this.handleConversationChange} />
+    } else if(activeConversationUsername !== null) {
+      title = 'Conversation with ' + activeConversationUsername
+      body = <Conversation username={activeConversationUsername} onClose={this.handleConversationChange} />
+    } else {
+      title = 'Conversations'
+      body = <Conversations onConversationSelect={this.handleConversationChange} />
     }
 
     return (<div className={c('chat-popout', {open: isOpen})}>
@@ -90,22 +67,13 @@ class Chat extends Component {
         </a>
       </div>
 
-      { isOpen &&
-        <Conversations onConversationSelect={this.handleConversationChange} /> }
+      { isOpen && body }
     </div>)
   }
 }
 
-const Wrapped = (props) => (
-    <Subscription subscription={MESSAGES_SUBSCRIPTION}>
-      {(subscriptionData) => (
-          <Mutation mutation={MESSAGE_MUTATION}>
-            {(send, {mutationData}) => (
-                <Chat {...props} messages={subscriptionData} sent={mutationData} send={send} />
-            )}
-          </Mutation>
-      )}
-    </Subscription>
-)
+Chat.propTypes = {
 
-export default Wrapped
+}
+
+export default Chat

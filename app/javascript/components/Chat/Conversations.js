@@ -1,88 +1,139 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import c from 'classnames'
-import { format as n } from 'NumberUtils'
 import { Query } from 'react-apollo'
 import { gql } from 'apollo-client-preset'
+import _ from 'underscore'
 
-const CONVERSATIONS_QUERY = gql`
-  query getConversations {
-      getConversations {
-          id
-          unreadCount
-          lastMessage {
-              message
-          }
-      }
-  }
-`
+import ConversationLink from './ConversationLink'
+import NewConversation from './NewConversation'
 
-const Conversations = ({onConversationSelect, conversations, data}) => {
-  const renderConversation = ({id, unreadCount, lastMessage}) => {
-    const isUnread = unreadCount > 0
+class Conversations extends Component {
+  constructor(props) {
+    super(props)
 
-    const onClick = (e) => {
-      e.preventDefault()
-      onConversationSelect(id)
+    this.state = {
+      filter: null,
+      startNew: false
     }
 
-    return (
-        <li className={c('chat-conversation', {unread: isUnread})}>
-          <a href='#' onClick={onClick}>
-            <img src={'https://cloud.refsheet.net/images/images/000/065/797/medium/winterblack_alice_1.png?1528681529'} alt={'MauAbata'} />
-            <div className='time'>4:30pm</div>
-            <div className='title'>
-              Mau Abata
-
-              { isUnread && <span className='unread-count'>({ n(unreadCount) })</span> }
-            </div>
-            <div className='last-message'>{ lastMessage.message }</div>
-          </a>
-        </li>
-    )
+    this.handleNewConversationClick = this.handleNewConversationClick.bind(this)
+    this.handleNewConversationClose = this.handleNewConversationClose.bind(this)
   }
 
-  // const conversations = [
-  //   { id: 1, message: "hi", unreadCount: 0 },
-  //   { id: 2, message: "hi", unreadCount: 0 },
-  //   { id: 3, message: "hi", unreadCount: 3 },
-  //   { id: 4, message: "hi", unreadCount: 0 },
-  //   { id: 5, message: "hi", unreadCount: 0 },
-  //   { id: 6, message: "Hello! Hi! Hello! OMG Chat is totally a thing! OMG HI!", unreadCount: 134542 },
-  //   { id: 7, message: "hi", unreadCount: 0 },
-  //   { id: 8, message: "hi", unreadCount: 1 },
-  //   { id: 9, message: "hi", unreadCount: 0 },
-  //   { id: 0, message: "hi", unreadCount: 4 }
-  // ]
+  componentDidMount() {
+    if(this.props.onMount) this.props.onMount()
+  }
 
-  return (
-      <div className='chat-body conversations'>
-        <ul className='chat-list'>
-          { conversations && conversations.map(renderConversation) }
-        </ul>
-        {/*<form onSubmit={handleFormSubmit} autoComplete="off" className='reply-box'>*/}
-        {/*<textarea name='message' className='browser-default margin--none min-height overline block' placeholder='Send a message...' />*/}
-        {/*<button type='submit' value='Send' className='btn btn-square'>*/}
-        {/*<Icon>send</Icon>*/}
-        {/*</button>*/}
-        {/*</form>*/}
-      </div>
-  )
+  handleNewConversationClick(e) {
+    e.preventDefault()
+    this.setState({startNew: true})
+  }
+
+  handleNewConversationClose(username = null) {
+    this.setState({startNew: false})
+
+    if(username) {
+      this.props.onConversationSelect({username})
+    }
+  }
+
+  render() {
+    const {
+      conversations = [],
+      onConversationSelect
+    } = this.props
+
+    return (<div className='chat-body conversations'>
+      <ul className='chat-list'>
+        { _.sortBy(conversations, 'created_at').reverse().map((conversation) =>
+            <ConversationLink key={conversation.id} conversation={conversation} onClick={onConversationSelect} />) }
+      </ul>
+      { this.state.startNew
+          ? <NewConversation onClose={this.handleNewConversationClose} />
+          : <div className='btn btn-flat new-conversation' onClick={this.handleNewConversationClick}>
+              New Conversation
+            </div> }
+    </div>)
+  }
 }
 
-Conversations.propTypes = {
-  onConversationSelect: PropTypes.func.isRequired
+const CONVERSATIONS_QUERY = gql`
+    query getConversations {
+        getConversations {
+            id
+            guid
+            unreadCount
+            lastMessage {
+                message
+                created_at
+            }
+            user {
+                name 
+                username
+                avatar_url
+            }
+        }
+    }
+`
+const CONVERSATIONS_SUBSCRIPTION = gql`
+    subscription subscribeToConversations {
+        newConversation {
+            id
+            unreadCount
+            lastMessage {
+                message
+                created_at
+            }
+            user {
+                name
+                username
+                avatar_url
+            }
+        }
+    }
+`
+
+const renderConversations = (props) => ({loading, data, subscribeToMore}) => {
+  if (loading) {
+    return <span>Loading...</span>
+  } else if (!data) {
+    return <span>Error.</span>
+  } else {
+    const subscribe = () => {
+      subscribeToMore({
+        document: CONVERSATIONS_SUBSCRIPTION,
+        updateQuery: (prev, { subscriptionData }) => {
+          if (!subscriptionData.data) return prev;
+          const { newConversation } = subscriptionData.data
+
+          return Object.assign({}, prev, {
+            getConversations: [
+              ...prev.getConversations,
+              newConversation
+            ]
+          })
+        }
+      })
+    }
+
+    return <Conversations
+        {...props}
+        conversations={data.getConversations}
+        onMount={subscribe}
+    />
+  }
 }
+
 
 const Wrapped = (props) => (
     <Query query={CONVERSATIONS_QUERY}>
-      {({loading, data}) => (
-      loading
-          ? <span>Loading...</span>
-          : data ? <Conversations {...props} conversations={data.getConversations} loading={loading} />
-      : <span>Error.</span>)
-      }
+      {renderConversations(props)}
     </Query>
 )
+
+Wrapped.propTypes = {
+  onConversationSelect: PropTypes.func.isRequired,
+  onMount: PropTypes.func
+}
 
 export default Wrapped

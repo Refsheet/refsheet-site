@@ -7,6 +7,19 @@ Types::SubscriptionType = GraphQL::ObjectType.define do
   end
 
   field :newMessage, !Types::MessageType do
+    argument :conversationId, !types.ID
+    subscription_scope :current_user_id
     description "New message published"
+  end
+
+  field :convChanged, !Types::ConversationType do
+    argument :convId, !types.ID
+    subscription_scope :current_user_id
+    description "Conversation changed somehow"
+  end
+
+  field :newConversation, !Types::ConversationType do
+    subscription_scope :current_user_id
+    description "Conversation changed somehow"
   end
 end

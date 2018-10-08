@@ -80,10 +80,20 @@ class Conversation < ApplicationRecord
   end
 
   def notify_message(message)
-    notify_users = self.participant_ids #.reject { |p| p == message.user_id }
+    notify_users = self.participant_ids
 
     notify_users.each do |user_id|
-      RefsheetSchema.subscriptions.trigger("newMessage", {}, message)
+      trigger! "newMessage",
+               { conversationId: self.guid },
+               message,
+               scope: user_id
+
+      Rails.logger.info(self)
+
+      trigger! "convChanged",
+               { convId: self.guid },
+               self,
+               scope: user_id
     end
   end
 end

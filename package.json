@@ -18,6 +18,7 @@
     "justified-layout": "^2.1.1",
     "lodash": "^4.17.5",
     "materialize-css": "^1.0.0-beta",
+    "moment": "^2.22.2",
     "prop-types": "^15.6.1",
     "rails-erb-loader": "^5.4.1",
     "react": "^16.2.0",
@@ -41,6 +42,7 @@
     "smoothscroll": "^0.4.0",
     "styled-components": "^3.2.3",
     "superagent": "^4.0.0-beta.5",
+    "underscore": "^1.9.1",
     "whatwg-fetch": "^2.0.4",
     "xml-js": "^1.6.8"
   },
