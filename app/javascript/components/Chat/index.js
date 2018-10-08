@@ -34,11 +34,13 @@ class Chat extends Component {
     this.state = {
       messages: [],
       conversations: [],
-      isOpen: false
+      isOpen: false,
+      activeConversationId: null
     }
 
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
     this.handleOpenClose = this.handleOpenClose.bind(this)
+    this.handleConversationChange = this.handleConversationChange.bind(this)
   }
 
   handleFormSubmit(e) {
@@ -57,14 +59,26 @@ class Chat extends Component {
     this.setState({isOpen: !this.state.isOpen})
   }
 
+  handleConversationChange(id) {
+    this.setState({activeConversationId: id})
+  }
+
   render() {
     const {
-      messages, sent
+        messages,
+        sent
     } = this.props
 
     const {
-      isOpen
+        isOpen,
+        activeConversationId
     } = this.state
+
+    let title = 'Conversations'
+
+    if(activeConversationId !== null) {
+      title = 'Conversation ' + activeConversationId
+    }
 
     return (<div className={c('chat-popout', {open: isOpen})}>
       <div className='chat-title'>
@@ -72,12 +86,12 @@ class Chat extends Component {
           <Icon>{ isOpen ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }</Icon>
         </a>
         <a href='#' className='white-text' onClick={this.handleOpenClose}>
-          Conversations
+          { title }
         </a>
       </div>
 
       { isOpen &&
-        <Conversations messages={messages} handleFormSubmit={this.handleFormSubmit} /> }
+        <Conversations onConversationSelect={this.handleConversationChange} /> }
     </div>)
   }
 }
