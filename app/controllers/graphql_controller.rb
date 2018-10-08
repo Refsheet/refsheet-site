@@ -11,7 +11,8 @@ class GraphqlController < ApplicationController
     operation_name = params[:operationName]
 
     context = {
-      current_user: current_user
+      current_user: current_user,
+      current_user_id: current_user.id
     }
 
     result = RefsheetSchema.execute(query,
