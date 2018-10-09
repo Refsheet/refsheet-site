@@ -40,8 +40,8 @@ class Conversations::Message < ApplicationRecord
 
   scoped_search on: [:message]
 
-  after_create :notify_conversation
   after_create :update_bookmark
+  after_create :notify_conversation
 
   scope :unread, -> (user=nil) {
     if user.nil?
@@ -56,6 +56,7 @@ class Conversations::Message < ApplicationRecord
         .where(conversations_read_bookmarks: {
             id: [Conversations::ReadBookmark.unread_for(user), nil]
         })
+        .where('conversations_read_bookmarks.id IS NULL OR conversations_read_bookmarks.message_id < conversations_messages.id')
         .distinct
     end
   }
@@ -68,6 +69,20 @@ class Conversations::Message < ApplicationRecord
     return true unless user
     last_read_id = conversation.read_bookmarks.for(user)&.message_id || 0
     self.id > last_read_id
+  end
+
+  def read_at(user=nil)
+    if user.nil?
+      super()
+    else
+      last_read = conversation.read_bookmarks.for(user)
+
+      if last_read.nil? or last_read.message_id < self.id
+        nil
+      else
+        last_read.updated_at
+      end
+    end
   end
 
   private

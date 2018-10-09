@@ -87,6 +87,7 @@ describe Conversation, type: :model do
       it { expect(described_class.for(user2).unread(user2).count).to eq 1 }
       it { expect(msg.unread?(user1)).to be_falsey }
       it { expect(msg.unread?(user2)).to be_truthy }
+      it('uc2') { expect(convo.unread_count(user2)).to eq 1 }
     end
 
     describe 'marks read' do
@@ -97,6 +98,7 @@ describe Conversation, type: :model do
 
       it { expect(described_class.for(user2).unread(user2).count).to eq 0 }
       it { expect(described_class.for(user2).first.unread?(user2)).to be_falsey }
+      it { expect(convo.unread_count(user2)).to eq 0 }
     end
   end
 end

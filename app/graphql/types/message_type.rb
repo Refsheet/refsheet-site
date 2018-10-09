@@ -11,8 +11,14 @@ Types::MessageType = GraphQL::ObjectType.define do
   field :conversation, -> { Types::ConversationType }
 
   field :read_at, types.Int do
-    resolve -> (obj, _args, _ctx) {
-      obj.read_at&.to_i
+    resolve -> (obj, _args, ctx) {
+      obj.read_at(ctx[:current_user])&.to_i
+    }
+  end
+
+  field :unread, types.Boolean do
+    resolve -> (obj, _args, ctx) {
+      obj.unread? ctx[:current_user]
     }
   end
 

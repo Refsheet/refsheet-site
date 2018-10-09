@@ -8,6 +8,8 @@ import { Subscription } from 'react-apollo'
 const ConversationLink = ({ subscriptionData, conversation, onClick }) => {
   const data = subscriptionData.data || {}
 
+  console.debug({subscriptionData})
+
   const {
     guid,
     unreadCount,
