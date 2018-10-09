@@ -11,8 +11,7 @@ class Chat extends Component {
 
     this.state = {
       isOpen: false,
-      activeConversationId: null,
-      activeConversationUsername: null
+      activeConversationId: null
     }
 
     this.handleOpenClose = this.handleOpenClose.bind(this)
@@ -24,24 +23,14 @@ class Chat extends Component {
     this.setState({isOpen: !this.state.isOpen})
   }
 
-  handleConversationChange({id, username}) {
-    let activeConversationId = null
-    let activeConversationUsername = null
-
-    if(typeof id !== 'undefined' && id !== null) {
-      activeConversationId = id
-    } else if(typeof username !== 'undefined' && username !== null) {
-      activeConversationUsername = username
-    }
-
-    this.setState({activeConversationId, activeConversationUsername})
+  handleConversationChange({id}) {
+    this.setState({activeConversationId: id})
   }
 
   render() {
     const {
         isOpen,
-        activeConversationId,
-        activeConversationUsername
+        activeConversationId
     } = this.state
 
     let title, body
@@ -49,9 +38,6 @@ class Chat extends Component {
     if(activeConversationId !== null) {
       title = 'Conversation ' + activeConversationId
       body = <Conversation key={activeConversationId} id={activeConversationId} onClose={this.handleConversationChange} />
-    } else if(activeConversationUsername !== null) {
-      title = 'Conversation with ' + activeConversationUsername
-      body = <Conversation username={activeConversationUsername} onClose={this.handleConversationChange} />
     } else {
       title = 'Conversations'
       body = <Conversations onConversationSelect={this.handleConversationChange} />

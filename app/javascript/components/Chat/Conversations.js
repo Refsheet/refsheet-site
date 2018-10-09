@@ -45,11 +45,13 @@ class Conversations extends Component {
 
     return (<div className='chat-body conversations'>
       <ul className='chat-list'>
-        { _.sortBy(conversations, 'created_at').reverse().map((conversation) =>
+        { _.sortBy(
+            conversations, (c) => c.lastMessage && c.lastMessage.created_at
+        ).reverse().map((conversation) =>
             <ConversationLink key={conversation.id} conversation={conversation} onClick={onConversationSelect} />) }
       </ul>
       { this.state.startNew
-          ? <NewConversation onClose={this.handleNewConversationClose} />
+          ? <NewConversation onClose={this.handleNewConversationClose} onConversationStart={onConversationSelect} />
           : <div className='btn btn-flat new-conversation' onClick={this.handleNewConversationClick}>
               New Conversation
             </div> }

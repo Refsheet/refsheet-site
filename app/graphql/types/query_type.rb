@@ -3,6 +3,11 @@ Types::QueryType = GraphQL::ObjectType.define do
   # Add root-level fields here.
   # They will be entry points for queries on your schema.
 
+  field :findUser, Types::UserType do
+    argument :username, !types.String
+    resolve -> (_obj, args, _cts) { User.lookup! args[:username] }
+  end
+
   field :getCharacter, Types::CharacterType do
     argument :id, !types.ID
     resolve -> (_obj, args, _ctx) { Character.find(args[:id]) }
