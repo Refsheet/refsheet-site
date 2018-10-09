@@ -59,6 +59,10 @@ class Conversation < ApplicationRecord
         self.new(sender: sender, recipient: recipient)
   end
 
+  def self.counts_for(user)
+    OpenStruct.new unread: self.for(user).unread.count
+  end
+
   def participants
     [self.sender, self.recipient]
   end
@@ -88,11 +92,14 @@ class Conversation < ApplicationRecord
                message,
                scope: user_id
 
-      Rails.logger.info(self)
-
       trigger! "convChanged",
                { convId: self.guid },
                self,
+               scope: user_id
+
+      trigger! "chatCountsChanged",
+               {},
+               self.class.counts_for(User.find(user_id)),
                scope: user_id
     end
   end

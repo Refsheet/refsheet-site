@@ -65,4 +65,10 @@ Types::QueryType = GraphQL::ObjectType.define do
       conversation.messages
     }
   end
+
+  field :chatCounts, Types::ChatCountType do
+    resolve -> (_obj, _args, ctx) {
+      Conversation.counts_for(ctx[:current_user])
+    }
+  end
 end

@@ -22,4 +22,9 @@ Types::SubscriptionType = GraphQL::ObjectType.define do
     subscription_scope :current_user_id
     description "Conversation changed somehow"
   end
+
+  field :chatCountsChanged, Types::ChatCountType do
+    subscription_scope :current_user_id
+    description "Conversation counts changed"
+  end
 end
