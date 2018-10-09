@@ -29,8 +29,23 @@ class NewMessage extends Component {
     this.props.send({
       variables: {
         conversationId: this.props.conversationId,
+        recipientId: this.props.recipientId,
         message: this.state.message
       }
+    }).then(({data}) => {
+      const {
+        onConversationStart
+      } = this.props
+
+      const guid = (
+          data &&
+              data.sendMessage &&
+              data.sendMessage.conversation &&
+              data.sendMessage.conversation.guid
+      )
+
+      if(guid && onConversationStart)
+        onConversationStart({id: guid})
     })
 
     this.setState({message: ''})
@@ -71,12 +86,15 @@ class NewMessage extends Component {
 }
 
 const MESSAGE_MUTATION = gql`
-    mutation sendMessage($conversationId: ID!, $message: String!) {
-        sendMessage(conversationId: $conversationId, message: $message) {
+    mutation sendMessage($conversationId: ID, $recipientId: ID, $message: String!) {
+        sendMessage(conversationId: $conversationId, recipientId: $recipientId, message: $message) {
             guid
             message
             created_at
             read_at
+            conversation {
+                guid
+            }
         }
     }
 `
@@ -90,6 +108,7 @@ const Wrapped = (props) => (
 
 Wrapped.propTypes = {
   onClose: PropTypes.func.isRequired,
+  onConversationStart: PropTypes.func,
   conversationId: PropTypes.string.isRequired
 }
 

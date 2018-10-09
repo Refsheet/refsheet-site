@@ -171,13 +171,18 @@
     &:hover
       background-color: rgba(black, 0.2)
 
-  form
+  form, .chat-footer
     display: flex
     margin: 0
+    background-color: rgba(black, 0.05)
 
-    input, button
+    &.highlight
+      background-color: rgba($brand-darker, 0.8)
+      color: white
+
+    input, button, span, a.btn
       display: block
-      flex: 0 1 auto
+      flex: 1 1 auto
       margin: 0 !important
       height: auto !important
       line-height: 35px
@@ -185,16 +190,17 @@
       border: none !important
       outline: none !important
 
-    input
+    input, span
       background-color: rgba(0,0,0,0.1)
 
-    button
+    button, a.btn
       padding: 0.25rem
       border-radius: 0
-      width: 50px
+      width: 45px
       transition: background-color 0.3s ease
       color: white
       background-color: rgba(0,0,0,0.2)
+      flex: 0 0 45px
 
       &:not(:disabled):hover
         background-color: rgba(0,0,0,0.3)
