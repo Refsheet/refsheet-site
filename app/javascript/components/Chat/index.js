@@ -23,7 +23,10 @@ class Chat extends Component {
 
   handleOpenClose(e) {
     e.preventDefault()
-    this.setState({isOpen: !this.state.isOpen})
+    this.setState({
+      isOpen: !this.state.isOpen,
+      activeConversationId: null
+    })
   }
 
   handleConversationChange({id}) {
@@ -98,10 +101,12 @@ const Wrapped = (props) => {
         <Query query={CHAT_COUNT_QUERY}>
           {({data: queryData}) => {
             const counts = (
-                (queryData && queryData.chatCounts) ||
                 (subscriptionData && subscriptionData.chatCountsChanged) ||
+                (queryData && queryData.chatCounts) ||
                 { unread: 0 }
             )
+
+            console.log({subscriptionData})
 
             return <Chat {...props} unread={counts.unread} />
           }}
