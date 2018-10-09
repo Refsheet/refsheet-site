@@ -75,7 +75,7 @@ class Conversation < ApplicationRecord
 
   def self.counts_for(user)
     {
-        unread: self.for(user).unread.count
+        unread: self.for(user).unread(user).count
     }
   end
 
@@ -87,8 +87,8 @@ class Conversation < ApplicationRecord
     [self.sender_id, self.recipient_id]
   end
 
-  def unread_count
-    messages.unread.count
+  def unread_count(user=nil)
+    self.messages.unread(user).count
   end
 
   def last_message

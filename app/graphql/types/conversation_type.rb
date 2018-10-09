@@ -8,7 +8,12 @@ Types::ConversationType = GraphQL::ObjectType.define do
   field :recipient, !Types::UserType
   field :messages, types[!Types::MessageType]
 
-  field :unreadCount, types.Int, property: :unread_count
+  field :unreadCount, types.Int do
+    resolve -> (obj, _args, ctx) {
+      obj.unread_count(ctx[:current_user])
+    }
+  end
+
   field :lastMessage, Types::MessageType, property: :last_message
 
   field :user, Types::UserType do

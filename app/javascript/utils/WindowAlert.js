@@ -1,6 +1,6 @@
 import Favico from 'favico.js-slevomat'
 
-const CYCLE_ENABLED = false
+const CYCLE_ENABLED = true
 
 class WindowAlert {
   static getCounts() {
@@ -14,16 +14,21 @@ class WindowAlert {
   static updateFavicon() {
     if(!window.RS_ALERTS) return
 
-    const favico = new Favico({
-      animation: 'up'
-    })
+    if(!window.RS_FAVICO) {
+      window.RS_FAVICO = new Favico({
+        animation: 'up'
+      })
+    }
 
     const count = WindowAlert.getCounts()
 
     if(count > 0) {
-      favico.badge(count)
+      console.debug("Favicon set to " + count)
+      window.RS_FAVICO.badge(count)
     } else {
-      favico.reset()
+      console.debug("Favicon clearing badge")
+      window.RS_FAVICO.badge(count)
+      window.RS_FAVICO.reset()
     }
   }
 
