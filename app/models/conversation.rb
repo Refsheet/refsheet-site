@@ -60,7 +60,9 @@ class Conversation < ApplicationRecord
   end
 
   def self.counts_for(user)
-    OpenStruct.new unread: self.for(user).unread.count
+    {
+        unread: self.for(user).unread.count
+    }
   end
 
   def participants
