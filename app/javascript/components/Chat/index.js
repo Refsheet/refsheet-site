@@ -6,6 +6,7 @@ import Conversations from './Conversations'
 import Conversation from './Conversation'
 import c from 'classnames'
 import { format as f } from 'NumberUtils'
+import WindowAlert from 'WindowAlert'
 import { Query, Subscription } from 'react-apollo'
 
 class Chat extends Component {
@@ -19,6 +20,10 @@ class Chat extends Component {
 
     this.handleOpenClose = this.handleOpenClose.bind(this)
     this.handleConversationChange = this.handleConversationChange.bind(this)
+  }
+
+  componentWillUnmount() {
+    WindowAlert.clear('chat')
   }
 
   handleOpenClose(e) {
@@ -52,10 +57,12 @@ class Chat extends Component {
     let title, body, isUnread
 
     if(unread) {
-      title = `Conversations (${f(unread)} new)`
+      title = `Conversations (${f(unread)})`
       isUnread = true
+      WindowAlert.add('chat', `${f(unread)} New Messages`, unread)
     } else {
       title = 'Conversations'
+      WindowAlert.clear('chat')
     }
 
     if(activeConversationId !== null) {

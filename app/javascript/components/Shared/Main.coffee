@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import WindowAlert from 'WindowAlert'
 
 export default class Main extends Component
   @propTypes:
@@ -16,15 +17,9 @@ export default class Main extends Component
   constructor: (props) ->
     super props
 
-  _updateTitle: (title) ->
-    titles = []
-    titles.push title
-    titles.push 'Refsheet.net'
-    document.title = [].concat.apply([], titles).join ' - '
-
   componentWillMount: ->
     if @props.title
-      @_updateTitle @props.title
+      WindowAlert.addNow('main', @props.title)
 
 #    document.body.addClass @props.bodyClassName
 
