@@ -1,4 +1,10 @@
 ---
+v1.2.7-pre.10:
+- hash: ea5a2e2
+  date: '2018-10-09'
+  tags: []
+  message: Disable unread count because that somehow breaks other subs.
+---
 v1.2.7-pre.9:
 - hash: 50b1f68
   date: '2018-10-09'
