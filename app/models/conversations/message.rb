@@ -41,20 +41,42 @@ class Conversations::Message < ApplicationRecord
   scoped_search on: [:message]
 
   after_create :notify_conversation
+  after_create :update_bookmark
 
-  scope :unread, -> { where read_at: nil }
+  scope :unread, -> (user=nil) {
+    if user.nil?
+      all
+    else
+      joins(<<-SQL.squish)
+          INNER JOIN conversations ON conversations.id = conversations_messages.conversation_id
+          LEFT OUTER JOIN conversations_read_bookmarks
+            ON conversations_read_bookmarks.conversation_id = conversations.id
+              AND conversations_read_bookmarks.user_id = #{user.id}
+      SQL
+        .where(conversations_read_bookmarks: {
+            id: [Conversations::ReadBookmark.unread_for(user), nil]
+        })
+        .distinct
+    end
+  }
 
   def reply?
     self.reply_to_id.present?
   end
 
-  def unread?
-    self.read_at.nil?
+  def unread?(user=nil)
+    return true unless user
+    last_read_id = conversation.read_bookmarks.for(user)&.message_id || 0
+    self.id > last_read_id
   end
 
   private
 
   def notify_conversation
     self.conversation.notify_message(self)
+  end
+
+  def update_bookmark
+    self.conversation.read_by! self.user
   end
 end
