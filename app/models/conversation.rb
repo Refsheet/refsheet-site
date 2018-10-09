@@ -27,6 +27,7 @@ class Conversation < ApplicationRecord
   belongs_to :recipient, class_name: 'User', required: true
 
   has_many :messages, dependent: :destroy, class_name: 'Conversations::Message'
+  has_many :read_bookmarks, dependent: :destroy, class_name: 'Conversations::ReadBookmark'
 
   validates_uniqueness_of :sender_id, scope: :recipient_id
 
@@ -50,8 +51,21 @@ class Conversation < ApplicationRecord
     SQL
   end
 
-  scope :unread, -> do
-    joins(:messages).where(conversations_messages: { read_at: nil })
+  scope :unread, -> (for_user=nil) do
+    if for_user.nil?
+      all
+    else
+      joins(:messages)
+        .joins(<<-SQL.squish)
+            LEFT OUTER JOIN conversations_read_bookmarks
+              ON conversations_read_bookmarks.conversation_id = conversations.id
+                AND conversations_read_bookmarks.user_id = #{for_user.id}
+        SQL
+        .where(conversations_read_bookmarks: {
+            id: [Conversations::ReadBookmark.unread_for(for_user), nil]
+        })
+        .distinct
+    end
   end
 
   def self.with(sender, recipient)
@@ -81,8 +95,12 @@ class Conversation < ApplicationRecord
     messages.order(created_at: :asc).last
   end
 
-  def unread?
-    self.messages.unread.any?
+  def unread?(user=nil)
+    self.messages.unread(user).exists?
+  end
+
+  def read_by!(user)
+    self.read_bookmarks.for(user).update_attributes(message: self.messages.last)
   end
 
   def notify_message(message)

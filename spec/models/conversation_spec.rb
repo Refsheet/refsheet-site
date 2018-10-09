@@ -59,15 +59,44 @@ describe Conversation, type: :model do
   end
 
   describe '.unread' do
-    it 'counts on user scope' do
-      user1 = create :user
-      user2 = create :user
-      convo = described_class.with(user1, user2).tap(&:save!)
-      convo.messages.create!(user: user1, message: "Hi")
+    let(:user1) { create :user }
+    let(:user2) { create :user }
+    let(:convo) { described_class.with(user1, user2).tap(&:save!) }
 
-      expect(described_class.for(user1).unread.count).to eq 1
-      expect(described_class.for(user2).unread.count).to eq 1
-      expect(described_class.for(user1).first).to be_unread
+    let!(:message) { convo.messages.create!(user: user1, message: "Hi") }
+
+    describe 'automatically reads sender' do
+      it { expect(described_class.for(user1).unread(user1).count).to eq 0 }
+      it { expect(described_class.for(user1).first.unread?(user1)).to be_falsey }
+      it { expect(message.unread?(user1)).to be_falsey }
+    end
+
+
+    describe 'shows unread for recipient' do
+      it { expect(described_class.for(user2).unread(user2).count).to eq 1 }
+      it { expect(described_class.for(user2).first.unread?(user2)).to be_truthy }
+      it { expect(message.unread?(user2)).to be_truthy }
+    end
+
+    describe 'shows unread with message after bookmark' do
+      let!(:msg) do
+        convo.read_by! user2
+        convo.messages.create!(user: user1, message: "Hey")
+      end
+
+      it { expect(described_class.for(user2).unread(user2).count).to eq 1 }
+      it { expect(msg.unread?(user1)).to be_falsey }
+      it { expect(msg.unread?(user2)).to be_truthy }
+    end
+
+    describe 'marks read' do
+      before do
+        convo.read_by! user1
+        convo.read_by! user2
+      end
+
+      it { expect(described_class.for(user2).unread(user2).count).to eq 0 }
+      it { expect(described_class.for(user2).first.unread?(user2)).to be_falsey }
     end
   end
 end
