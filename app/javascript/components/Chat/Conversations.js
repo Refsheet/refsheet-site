@@ -44,7 +44,7 @@ class Conversations extends Component {
     } = this.props
 
     return (<div className='chat-body conversations'>
-      <ul className='chat-list'>
+      <ul className='chat-list padding--none'>
         { _.sortBy(
             conversations, (c) => c.lastMessage && c.lastMessage.created_at
         ).reverse().map((conversation) =>
