@@ -1,4 +1,30 @@
 ---
+v1.2.7-pre.9:
+- hash: 50b1f68
+  date: '2018-10-09'
+  tags: []
+  message: ixed conversation unread counts.
+- hash: ec16a56
+  date: '2018-10-09'
+  tags: []
+  message: Window alert thing.
+- hash: c071cc4
+  date: '2018-10-09'
+  tags: []
+  message: Unread counts are smart scoped.
+- hash: e247fa6
+  date: '2018-10-09'
+  tags: []
+  message: Every chat count actually counts.
+- hash: c7f00f5
+  date: '2018-10-09'
+  tags: []
+  message: Conversation counts.
+- hash: 11125aa
+  date: '2018-10-09'
+  tags: []
+  message: You can now send a new conversation!
+---
 v1.2.7-pre.8:
 - hash: '8275924'
   date: '2018-10-08'
