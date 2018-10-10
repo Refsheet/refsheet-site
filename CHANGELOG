@@ -1,4 +1,14 @@
 ---
+v1.2.8-pre.1:
+- hash: 33f1718
+  date: '2018-10-10'
+  tags: []
+  message: Chat is now moved to the public.
+- hash: a411967
+  date: '2018-10-10'
+  tags: []
+  message: Fixed signed out user GraphQL bug.
+---
 v1.2.8+build.1: []
 ---
 v1.2.8:
