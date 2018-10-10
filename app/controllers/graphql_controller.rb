@@ -12,7 +12,7 @@ class GraphqlController < ApplicationController
 
     context = {
       current_user: current_user,
-      current_user_id: current_user.id
+      current_user_id: current_user&.id
     }
 
     result = RefsheetSchema.execute(query,
