@@ -1,4 +1,10 @@
 ---
+v1.2.8-pre.2:
+- hash: 61c4cb8
+  date: '2018-10-10'
+  tags: []
+  message: ConversationS with an 'S'
+---
 v1.2.8-pre.1:
 - hash: 33f1718
   date: '2018-10-10'
