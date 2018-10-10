@@ -23,10 +23,8 @@ class WindowAlert {
     const count = WindowAlert.getCounts()
 
     if(count > 0) {
-      console.debug("Favicon set to " + count)
       window.RS_FAVICO.badge(count)
     } else {
-      console.debug("Favicon clearing badge")
       window.RS_FAVICO.badge(count)
       window.RS_FAVICO.reset()
     }

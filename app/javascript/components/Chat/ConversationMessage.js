@@ -9,10 +9,10 @@ const ConversationMessage = ({ message }) => {
     guid,
     message: body,
     created_at,
-    is_self
+    is_self,
+    unread
   } = message
 
-  const isUnread = body.match(/a/)
   let readIcon
 
   const timeDisplay = (full=false) => {
@@ -25,14 +25,14 @@ const ConversationMessage = ({ message }) => {
   }
 
   if(is_self) {
-    if(!isUnread) {
+    if(!unread) {
       readIcon = <Icon>check</Icon>
     } else if(typeof guid !== 'undefined') {
       readIcon = <Icon>check</Icon>
     }
   }
 
-  return (<li className={ c('chat-message', { unread: isUnread, self: is_self }) }>
+  return (<li className={ c('chat-message', { unread: unread, self: is_self }) }>
     <div className='message'>{ body }</div>
     <div className='time right' title={timeDisplay(true)}>
       { timeDisplay() }

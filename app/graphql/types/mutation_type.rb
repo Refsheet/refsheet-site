@@ -6,4 +6,5 @@ Types::MutationType = GraphQL::ObjectType.define do
   field :uploadImage, field: Mutations::ImageMutations::Create
 
   field :sendMessage, field: Mutations::MessageMutations::Create
+  field :updateConversation, field: Mutations::ConversationMutations::Update
 end
