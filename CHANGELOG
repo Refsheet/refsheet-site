@@ -1,4 +1,15 @@
 ---
+v1.2.8:
+- hash: 9d5892b
+  date: '2018-10-10'
+  tags:
+  - f
+  message: Conversations feature is ready for Patreon beta testing!
+- hash: 353516b
+  date: '2018-10-10'
+  tags: []
+  message: Chat unread marker.
+---
 v1.2.7-pre.10:
 - hash: ea5a2e2
   date: '2018-10-09'
