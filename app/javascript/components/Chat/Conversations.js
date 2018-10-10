@@ -97,9 +97,9 @@ const CONVERSATIONS_SUBSCRIPTION = gql`
 
 const renderConversations = (props) => ({loading, data, subscribeToMore}) => {
   if (loading) {
-    return <span>Loading...</span>
+    return <div className='chat-loading'>Loading...</div>
   } else if (!data) {
-    return <span>Error.</span>
+    return <div className='chat-loading error red-text'>Error.</div>
   } else {
     const subscribe = () => {
       subscribeToMore({

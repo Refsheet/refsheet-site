@@ -33,7 +33,7 @@ class ConversationLink extends Component {
 
     const handleClick = (e) => {
       e.preventDefault()
-      onClick({ id: guid })
+      onClick({ id: guid, name: user.name })
     }
 
     const usernameDisplay = `@${user.username}`
