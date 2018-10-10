@@ -117,10 +117,10 @@ class Conversation < ApplicationRecord
                self,
                scope: user_id
 
-      # trigger! "chatCountsChanged",
-      #          {},
-      #          self.class.counts_for(User.find_by(id: user_id)),
-      #          scope: user_id
+      trigger! "chatCountsChanged",
+               {},
+               self.class.counts_for(User.find_by(id: user_id)),
+               scope: user_id
     end
   end
 end

@@ -45,11 +45,34 @@
       &:hover
         background-color: rgba(white, 0.1)
 
+
+
+  .chat-more-pill
+    @extend .z-depth-2
+    position: absolute
+    font-size: 0.9rem
+    bottom: 50px
+    left: 50%
+    transform: translateX(-50%)
+    border-radius: 13px
+    height: 26px
+    background-color: $brand-darker
+    color: white
+    line-height: 20px
+    padding: 3px 1rem
+    cursor: pointer
+    opacity: 0.4
+    transition: opacity 0.3s ease
+
+    &:hover
+      opacity: 1.0
+
   .chat-list
     margin: 0
     overflow: auto
     height: 300px
     padding: 0.25rem 0
+    position: relative
 
     .chat-message
       background-color: rgba(white, 0.05)
@@ -88,11 +111,35 @@
         border-bottom-right-radius: 0
 
     .chat-end-of-messages
-      height: 0
-      padding: 0
-      margin: 0
       border: none
       clear: both
+
+      &:hover
+        background-color: transparent
+        cursor: initial
+
+      &:not(.more)
+        height: 0
+        padding: 0
+        margin: 0
+
+      &.more
+        font-size: 0.9rem
+        color: rgba($brand-primary, 0.8)
+        padding: 1rem 0.5rem 0.25rem 0.5rem
+        margin: 0 0 0.5rem 0
+        text-align: left
+        border-bottom: 1px solid rgba($brand-primary, 0.5)
+        font-variant: small-caps
+
+    .clearfix
+      display: block
+      clear: both
+
+      &:after
+        content: ""
+        clear: both
+        display: table
 
     .chat-conversation
       $avatar-size: 2.5rem

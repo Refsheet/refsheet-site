@@ -1,4 +1,6 @@
 class Mutations::ConversationMutations < Mutations::ApplicationMutation
+  before_action :get_conversation, only: [:update]
+
   action :create do
     type Types::ConversationType
 
@@ -19,7 +21,26 @@ class Mutations::ConversationMutations < Mutations::ApplicationMutation
     @conversation
   end
 
+  action :update do
+    type Types::ConversationType
+
+    argument :conversation_id, !types.ID
+    argument :read, types.Boolean
+  end
+
+  def update
+    if params[:read]
+      @conversation.read_by! context.current_user
+    end
+
+    @conversation
+  end
+
   private
+
+  def get_conversation
+    @conversation = Conversation.find_by! guid: params[:conversation_id]
+  end
 
   def conversation_params
     params.permit(:subject)

@@ -62,7 +62,8 @@ Types::QueryType = GraphQL::ObjectType.define do
 
     resolve -> (_obj, args, ctx) {
       conversation = Conversation.for(ctx[:current_user]).find_by! guid: args[:conversationId]
-      conversation.messages
+      scope = conversation.messages
+      scope.includes(:conversation)
     }
   end
 
