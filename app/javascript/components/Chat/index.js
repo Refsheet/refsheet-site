@@ -60,7 +60,7 @@ class Chat extends Component {
 
     const name = activeConversationName && activeConversationId
         ? `Conversation with ${activeConversationName}`
-        : 'Conversation'
+        : 'Conversations'
 
     if(unread) {
       title = `${name} (${f(unread)})`
