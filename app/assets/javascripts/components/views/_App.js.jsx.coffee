@@ -72,10 +72,13 @@
         onLogin: @_onLogin
         currentUser: @state.currentUser
 
+    currentUser = @state.session.current_user || {}
 
     `<div id='rootApp'>
         { this.state.loading > 0 &&
             <LoadingOverlay /> }
+
+        { currentUser.is_patron && <Packs.application.Chat /> }
 
         <SessionModal />
         <Views.Images.ReportModal imageId={ this.state.reportImageId } />

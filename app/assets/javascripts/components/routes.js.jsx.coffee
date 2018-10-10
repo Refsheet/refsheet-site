@@ -41,7 +41,7 @@
     staticPaths = ['privacy', 'terms', 'support'].map (path) ->
       `<Route key={ path } path={ path } component={ Static.View } />`
 
-    `<Router history={ browserHistory } onUpdate={ this._handleRouteUpdate }>
+    router = `<Router history={ browserHistory } onUpdate={ this._handleRouteUpdate }>
         <Route path='/' component={ App } eagerLoad={ this.props.eagerLoad } environment={ this.props.environment }>
             <IndexRoute component={ Home } title='Home' />
 
@@ -100,3 +100,5 @@
             <Route path='*' component={ NotFound } />
         </Route>
     </Router>`
+
+    `<Packs.application.V2Wrapper>{ router }</Packs.application.V2Wrapper>`

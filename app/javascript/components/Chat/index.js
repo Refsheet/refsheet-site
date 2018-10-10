@@ -30,24 +30,26 @@ class Chat extends Component {
     e.preventDefault()
     this.setState({
       isOpen: !this.state.isOpen,
-      activeConversationId: null
+      activeConversationId: null,
+      activeConversationName: null
     })
   }
 
-  handleConversationChange({id}) {
+  handleConversationChange({id, name}) {
     let activeConversationId = null
 
     if(typeof id !== 'undefined' && id !== null) {
       activeConversationId = id
     }
 
-    this.setState({activeConversationId})
+    this.setState({activeConversationId, activeConversationName: name})
   }
 
   render() {
     const {
         isOpen,
-        activeConversationId
+        activeConversationId,
+        activeConversationName
     } = this.state
 
     const {
@@ -56,12 +58,16 @@ class Chat extends Component {
 
     let title, body, isUnread
 
+    const name = activeConversationName && activeConversationId
+        ? `Conversation with ${activeConversationName}`
+        : 'Conversation'
+
     if(unread) {
-      title = `Conversations (${f(unread)})`
+      title = `${name} (${f(unread)})`
       isUnread = true
       WindowAlert.add('chat', `${f(unread)} New Messages`, unread)
     } else {
-      title = 'Conversations'
+      title = name
       WindowAlert.clear('chat')
     }
 
@@ -112,8 +118,6 @@ const Wrapped = (props) => {
                 (queryData && queryData.chatCounts) ||
                 { unread: 0 }
             )
-
-            console.log({subscriptionData})
 
             return <Chat {...props} unread={counts.unread} />
           }}
