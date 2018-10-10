@@ -1,4 +1,10 @@
 ---
+v1.2.8-pre.3:
+- hash: 8c4496c
+  date: '2018-10-10'
+  tags: []
+  message: Increase available Postgres pools.
+---
 v1.2.8-pre.2+build.1: []
 ---
 v1.2.8-pre.2:
