@@ -101,6 +101,11 @@ class Conversation < ApplicationRecord
 
   def read_by!(user)
     self.read_bookmarks.for(user).update_attributes(message: self.messages.last)
+
+    trigger! "chatCountsChanged",
+             {},
+             self.class.counts_for(user),
+             scope: user.id
   end
 
   def notify_message(message)
@@ -117,10 +122,12 @@ class Conversation < ApplicationRecord
                self,
                scope: user_id
 
-      trigger! "chatCountsChanged",
-               {},
-               self.class.counts_for(User.find_by(id: user_id)),
-               scope: user_id
+      if user_id != message.user_id
+        trigger! "chatCountsChanged",
+                 {},
+                 self.class.counts_for(User.find_by(id: user_id)),
+                 scope: user_id
+      end
     end
   end
 end
