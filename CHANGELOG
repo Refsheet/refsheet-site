@@ -1,4 +1,10 @@
 ---
+v1.2.8-pre.4:
+- hash: '2497575'
+  date: '2018-10-11'
+  tags: []
+  message: Add JSON LD for Emails.
+---
 v1.2.8-pre.3:
 - hash: 8c4496c
   date: '2018-10-10'
