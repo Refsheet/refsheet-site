@@ -68,11 +68,17 @@ const CONVERSATIONS_QUERY = gql`
             lastMessage {
                 message
                 created_at
+                is_self
+                user {
+                    name
+                }
             }
             user {
-                name 
+                name
                 username
                 avatar_url
+                is_admin
+                is_patron
             }
         }
     }
@@ -81,15 +87,22 @@ const CONVERSATIONS_SUBSCRIPTION = gql`
     subscription subscribeToConversations {
         newConversation {
             id
+            guid
             unreadCount
             lastMessage {
                 message
                 created_at
+                is_self
+                user {
+                    name
+                }
             }
             user {
                 name
                 username
                 avatar_url
+                is_admin
+                is_patron
             }
         }
     }
