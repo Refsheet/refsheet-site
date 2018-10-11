@@ -1,4 +1,12 @@
 ---
+v1.2.9:
+- hash: dc5e0ec
+  date: '2018-10-11'
+  tags:
+  - f
+  message: We're SppOOoOOoooooOoky! I've also added some metadata to our emails, so
+    Gmail can render fancy buttons.
+---
 v1.2.8-pre.4:
 - hash: '2497575'
   date: '2018-10-11'
