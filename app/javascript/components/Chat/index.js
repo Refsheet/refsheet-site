@@ -8,6 +8,7 @@ import c from 'classnames'
 import { format as f } from 'NumberUtils'
 import WindowAlert from 'WindowAlert'
 import { Query, Subscription } from 'react-apollo'
+import { userClasses } from '../../utils/UserUtils'
 
 class Chat extends Component {
   constructor(props) {
@@ -15,7 +16,9 @@ class Chat extends Component {
 
     this.state = {
       isOpen: false,
-      activeConversationId: null
+      activeConversationId: null,
+      activeConversationName: null,
+      activeConversationUser: null
     }
 
     this.handleOpenClose = this.handleOpenClose.bind(this)
@@ -31,25 +34,31 @@ class Chat extends Component {
     this.setState({
       isOpen: !this.state.isOpen,
       activeConversationId: null,
-      activeConversationName: null
+      activeConversationName: null,
+      activeConversationUser: null
     })
   }
 
-  handleConversationChange({id, name}) {
+  handleConversationChange({id, name, user}) {
     let activeConversationId = null
 
     if(typeof id !== 'undefined' && id !== null) {
       activeConversationId = id
     }
 
-    this.setState({activeConversationId, activeConversationName: name})
+    this.setState({
+      activeConversationId,
+      activeConversationName: name,
+      activeConversationUser: user
+    })
   }
 
   render() {
     const {
         isOpen,
         activeConversationId,
-        activeConversationName
+        activeConversationName,
+        activeConversationUser: user
     } = this.state
 
     const {
@@ -72,13 +81,15 @@ class Chat extends Component {
     }
 
     if(activeConversationId !== null) {
-      body = <Conversation key={activeConversationId} id={activeConversationId} onClose={this.handleConversationChange} />
+      body = <Conversation user={user} key={activeConversationId} id={activeConversationId} onClose={this.handleConversationChange} />
     } else {
       body = <Conversations onConversationSelect={this.handleConversationChange} />
     }
 
-    return (<div className={c('chat-popout', {open: isOpen, unread: isUnread})}>
-      <div className='chat-title'>
+    return (<div className={
+      c('chat-popout', {open: isOpen, unread: isUnread})
+    }>
+      <div className={c('chat-title', (!isUnread && userClasses(user, 'user-background-light')))}>
         <a href='#' className='right white-text' onClick={this.handleOpenClose}>
           <Icon>{ isOpen ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }</Icon>
         </a>

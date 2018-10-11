@@ -1,0 +1,31 @@
+$patron-color: #F96854
+$admin-color: #2480C8
+
+img.user-color
+  &.patron
+    box-shadow: 0 0 3px 1px $patron-color !important
+
+  &.admin
+    box-shadow: 0 0 3px 1px $admin-color !important
+
+
+.user-color
+  &.patron
+    color: $patron-color !important
+
+  &.admin
+    color: $admin-color !important
+
+.user-background
+  &.patron
+    background-color: rgba($patron-color, 0.1) !important
+
+  &.admin
+    background-color: rgba($admin-color, 0.1) !important
+
+.user-background-light
+  &.patron
+    background-color: rgba($patron-color, 0.5)
+
+  &.admin
+    background-color: rgba($admin-color, 0.5)

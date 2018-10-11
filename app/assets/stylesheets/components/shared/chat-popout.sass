@@ -92,6 +92,15 @@
       clear: both
       padding: 0.5rem 1rem
 
+      &.emote
+        background-color: transparent !important
+        color: $primary-color-dark
+        font-style: italic
+        padding: 0.5rem 0
+
+        &:not(.self)
+          color: $page-text-color
+
       &:after
         display: block
         clear: both
@@ -113,11 +122,13 @@
       &:not(.self)
         border-bottom-left-radius: 0
         float: left
+        margin-right: 1.5rem
 
       &.self
         background-color: rgba($brand-primary, 0.1)
         float: right
         border-bottom-right-radius: 0
+        margin-left: 1.5rem
 
     .chat-end-of-messages
       border: none
@@ -192,7 +203,7 @@
           line-height: 1.25rem
           vertical-align: top
           margin-bottom: 0.25rem
-          color: $brand-darker
+          color: $brand-primary
 
           .unread-count
             color: $text-light-color

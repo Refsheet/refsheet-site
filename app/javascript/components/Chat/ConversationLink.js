@@ -4,6 +4,8 @@ import c from 'classnames'
 import Moment from 'moment'
 import { gql } from 'apollo-client-preset/lib/index'
 import { Subscription } from 'react-apollo'
+import { formatBody } from './ConversationMessage'
+import { userClasses } from '../../utils/UserUtils'
 
 class ConversationLink extends Component {
   constructor(props) {
@@ -33,7 +35,7 @@ class ConversationLink extends Component {
 
     const handleClick = (e) => {
       e.preventDefault()
-      onClick({ id: guid, name: user.name })
+      onClick({ id: guid, name: user.name, user: user })
     }
 
     const usernameDisplay = `@${user.username}`
@@ -56,13 +58,14 @@ class ConversationLink extends Component {
         <img src={ user.avatar_url }
              alt={ usernameDisplay }
              title={ usernameDisplay }
+             className={ userClasses(user) }
         />
         <div className='time' title={ timeDisplay(true) }>{ timeDisplay() }</div>
         <div className='title'>
-          <span title={ usernameDisplay }>{ user.name }</span>
+          <span title={ usernameDisplay } className={ userClasses(user) }>{ user.name }</span>
           { isUnread && <span className='unread-count'>({ n(unreadCount) })</span> }
         </div>
-        <div className='last-message'>{ lastMessage.message }</div>
+        <div className='last-message'>{ formatBody(lastMessage, true) }</div>
       </a>
     </li>)
   }
@@ -76,11 +79,17 @@ const CONVERSATION_SUBSCRIPTION = gql`
             lastMessage {
                 message
                 created_at
+                is_self
+                user {
+                    name
+                }
             }
             user {
                 name
                 username
                 avatar_url
+                is_admin
+                is_patron
             }
         }
     }

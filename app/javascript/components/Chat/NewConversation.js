@@ -81,6 +81,8 @@ class NewConversation extends Component {
                 name
                 username
                 avatar_url
+                is_admin
+                is_patron
             }
         }
       `
@@ -102,6 +104,7 @@ class NewConversation extends Component {
               </div>
               <NewMessage
                   recipientId={user.id}
+                  recipient={user}
                   onClose={this.handleReset}
                   onConversationStart={this.props.onConversationStart}
               />

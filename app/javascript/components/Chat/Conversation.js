@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import { Mutation, Query } from 'react-apollo'
 import { gql } from 'apollo-client-preset'
@@ -7,6 +6,8 @@ import _ from 'underscore'
 import ConversationMessage from './ConversationMessage'
 import NewMessage from './NewMessage'
 import { Icon } from 'react-materialize'
+import { userClasses } from '../../utils/UserUtils'
+import c from 'classnames'
 
 class Conversation extends Component {
   constructor(props) {
@@ -104,7 +105,8 @@ class Conversation extends Component {
   render() {
     const {
       messages = [],
-      id: conversationId
+      id: conversationId,
+      user
     } = this.props
 
     this.unreadBookmark = null
@@ -131,7 +133,7 @@ class Conversation extends Component {
     )
 
     return (<div className='chat-body conversation'>
-      <ul className='message-list chat-list'
+      <ul className={c('message-list chat-list', userClasses(user, 'user-background'))}
           onScroll={this.handleScroll}
           ref={(r) => this.messageWindow = r}>
         { renderedMessages }
@@ -198,6 +200,7 @@ const MESSAGES_QUERY = gql`
             created_at
             is_self
             unread
+            user { name }
         }
     }
 `
@@ -210,6 +213,7 @@ const MESSAGES_SUBSCRIPTION = gql`
             created_at
             is_self
             unread
+            user { name }
         }
     }
 `

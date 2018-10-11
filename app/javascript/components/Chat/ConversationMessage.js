@@ -4,16 +4,31 @@ import c from 'classnames'
 import Moment from 'moment'
 import { Icon } from 'react-materialize'
 
+const EMOTE_PREFIX_REGEX = /^\/me\s+/
+
+export const formatBody = (message, prefixYou = false) => {
+  let { message: body = '' } = message
+  const { user: { name: userName }, is_self: isSelf } = message
+
+  if(body.match(EMOTE_PREFIX_REGEX)) {
+    return body.replace(EMOTE_PREFIX_REGEX, `${userName} `)
+  } else if(prefixYou && isSelf) {
+    return `You: ${body}`
+  } else {
+    return body
+  }
+}
+
 const ConversationMessage = ({ message }) => {
   const {
     guid,
-    message: body,
     created_at,
-    is_self,
-    unread
+    is_self: isSelf,
+    unread,
+    message: body
   } = message
 
-  let readIcon
+  let readIcon, isEmote
 
   const timeDisplay = (full=false) => {
     const m = Moment.unix(created_at)
@@ -24,7 +39,7 @@ const ConversationMessage = ({ message }) => {
     }
   }
 
-  if(is_self) {
+  if(isSelf) {
     if(!unread) {
       readIcon = <Icon>check</Icon>
     } else if(typeof guid !== 'undefined') {
@@ -32,8 +47,12 @@ const ConversationMessage = ({ message }) => {
     }
   }
 
-  return (<li className={ c('chat-message', { unread: unread, self: is_self }) }>
-    <div className='message'>{ body }</div>
+  if(body.match(EMOTE_PREFIX_REGEX)) {
+    isEmote = true
+  }
+
+  return (<li className={ c('chat-message', { unread: unread, self: isSelf, emote: isEmote }) }>
+    <div className='message'>{ formatBody(message) }</div>
     <div className='time right' title={timeDisplay(true)}>
       { timeDisplay() }
       { readIcon }

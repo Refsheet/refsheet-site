@@ -45,7 +45,11 @@ class NewMessage extends Component {
       )
 
       if(guid && onConversationStart)
-        onConversationStart({id: guid})
+        onConversationStart({
+          id: guid,
+          name: this.props.recipient.name,
+          user: this.props.recipient
+        })
     })
 
     this.setState({message: ''})
@@ -109,7 +113,11 @@ const Wrapped = (props) => (
 Wrapped.propTypes = {
   onClose: PropTypes.func.isRequired,
   onConversationStart: PropTypes.func,
-  conversationId: PropTypes.string.isRequired
+  conversationId: PropTypes.string.isRequired,
+  recipient: PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.string
+  }).isRequired
 }
 
 export default Wrapped
