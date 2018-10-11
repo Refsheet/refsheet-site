@@ -110,7 +110,7 @@
       currentUser =
         `<ul className='right'>
             {/*<li>
-                <Link to='/messages' activeClassName='teal-text text-lighten-2'>
+                <Link to='/messages' activeClassName='primary-text'>
                     <i className='material-icons'>message</i>
                 </Link>
             </li>*/}
@@ -171,30 +171,28 @@
               </ul>
 
               <Link to='/' className='logo left'>
-                  <img src='https://assets.refsheet.net/assets/logos/RefsheetLogo_64.png' alt='Refsheet.net' width='32' height='32' />
+                  <img src='/assets/logos/pumpkin2_64.png' alt='Refsheet.net' width='32' height='32' />
               </Link>
 
               <ul className='site-nav visible-on-med-and-up'>
                   <li>
-                      <Link to='/' activeClassName='teal-text text-lighten-2'>Home</Link>
+                      <Link to='/' activeClassName='primary-text'>Home</Link>
                   </li>
 
                   <li>
-                      <Link to='/browse' activeClassName='teal-text text-lighten-2'>Characters</Link>
+                      <Link to='/browse' activeClassName='primary-text'>Characters</Link>
                   </li>
 
                   <li>
-                      <Link to='/explore' activeClassName='teal-text text-lighten-2'>Images</Link>
+                      <Link to='/explore' activeClassName='primary-text'>Images</Link>
                   </li>
 
-                  { (this.context.currentUser) &&
-                      <li>
-                          <Link to='/forums' activeClassName='teal-text text-lighten-2'>Forums</Link>
-                      </li>
-                  }
+                  <li>
+                      <Link to='/forums' activeClassName='primary-text'>Forums</Link>
+                  </li>
 
                   {/*<li>*/}
-                      {/*<Link to='/guilds' activeClassName='teal-text text-lighten-2'>Guilds</Link>*/}
+                      {/*<Link to='/guilds' activeClassName='primary-text'>Guilds</Link>*/}
                   {/*</li>*/}
 
                   {/*<li>*/}
