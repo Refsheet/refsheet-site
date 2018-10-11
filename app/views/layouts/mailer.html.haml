@@ -5,8 +5,10 @@
     %meta{'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8'}/
     %title= message.subject
 
+    = content_for(:head_script)
+
     :sass
-      $brand-primary: #2BBBAD
+      $brand-primary: #f57c00
       $brand-hover: lighten($brand-primary, 10%)
       $brand-dark: darken($brand-primary, 10%)
       $brand-superlight: #EEE
