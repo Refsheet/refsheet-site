@@ -58,7 +58,7 @@ class ConversationLink extends Component {
         <img src={ user.avatar_url }
              alt={ usernameDisplay }
              title={ usernameDisplay }
-             className={ userClasses(user) }
+             className={ c('avatar', userClasses(user)) }
         />
         <div className='time' title={ timeDisplay(true) }>{ timeDisplay() }</div>
         <div className='title'>

@@ -1,21 +1,40 @@
 import React from 'react'
-import { format as n } from '../../utils/NumberUtils'
 import c from 'classnames'
 import Moment from 'moment'
 import { Icon } from 'react-materialize'
+import { Twemoji } from 'react-emoji-render'
 
 const EMOTE_PREFIX_REGEX = /^\/me\s+/
 
 export const formatBody = (message, prefixYou = false) => {
-  let { message: body = '' } = message
-  const { user: { name: userName }, is_self: isSelf } = message
+  let {
+    message: body = ''
+  } = message
+
+  const {
+    user: {
+      name: userName
+    },
+    is_self: isSelf
+  } = message
+
+  const RenderEmoji = ({children}) =>
+      <Twemoji text={children} onlyEmojiClassName={'only-emoji'} />
 
   if(body.match(EMOTE_PREFIX_REGEX)) {
-    return body.replace(EMOTE_PREFIX_REGEX, `${userName} `)
+    return <span>
+      <span className='emote-prefix'>{ userName } </span>
+      <RenderEmoji>{ body.replace(EMOTE_PREFIX_REGEX, '') }</RenderEmoji>
+    </span>
+
   } else if(prefixYou && isSelf) {
-    return `You: ${body}`
+    return <span>
+      <span className="self-title">You: </span>
+      <RenderEmoji>{body}</RenderEmoji>
+    </span>
+
   } else {
-    return body
+    return <RenderEmoji>{ body }</RenderEmoji>
   }
 }
 
