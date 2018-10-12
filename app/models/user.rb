@@ -34,7 +34,7 @@ class User < ApplicationRecord
   has_many :character_groups
   has_many :permissions
   has_many :roles, through: :permissions
-  has_many :visits
+  has_many :visits, class_name: "Ahoy::Visit"
 
   has_many :transfers_in, class_name: "Transfer", foreign_key: :destination_user_id
   has_many :transfers_out, class_name: "Transfer", foreign_key: :sender_user_id
