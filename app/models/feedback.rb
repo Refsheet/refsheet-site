@@ -18,7 +18,7 @@
 
 class Feedback < ApplicationRecord
   belongs_to :user
-  belongs_to :visit
+  belongs_to :visit, class_name: "Ahoy::Visit"
   has_many :replies, class_name: "Feedback::Reply"
 
   attr_accessor :skip_freshdesk

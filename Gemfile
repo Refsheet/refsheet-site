@@ -110,6 +110,8 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'capybara'
   gem 'capybara-selenium'
+  gem 'chromedriver-helper'
+  gem 'codecov'
   gem 'database_cleaner'
   gem 'factory_bot_rails'
   gem 'letter_opener'
@@ -121,13 +123,12 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rspec-retry'
   gem 'rspec_junit_formatter'
+  gem 'rubocop'
+  gem 'rubocop-rspec'
   gem 'shoulda-matchers', '~> 2.8'
   gem 'simplecov'
   gem 'timecop'
-  gem 'chromedriver-helper'
   gem 'webmock'
-  gem 'rubocop'
-  gem 'rubocop-rspec'
 end
 
 group :nocircle do
