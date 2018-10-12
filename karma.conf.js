@@ -24,7 +24,7 @@ module.exports = function(config) {
     ],
 
     preprocessors: {
-      'spec/javascript/specHelper.js': ['webpack']
+      'spec/javascript/specHelper.js': ['webpack', 'sourcemap']
     },
 
     client: {

@@ -41,10 +41,18 @@ describe Conversations::Message, type: :model do
   )
 
   it 'notifies graphql sub' do
-    expect(RefsheetSchema.subscriptions)
+    allow(RefsheetSchema.subscriptions)
         .to receive(:trigger)
-        .with('newMessage', any_args)
 
     create :conversations_message
+
+    expected_pubs = %w[newMessage convChanged chatCountsChanged]
+
+    expected_pubs.each do |pub|
+      expect(RefsheetSchema.subscriptions)
+          .to have_received(:trigger)
+          .with(pub, any_args)
+          .at_least(:once)
+    end
   end
 end

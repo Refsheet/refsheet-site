@@ -1,3 +1,5 @@
 const environment = require('./environment')
 
-module.exports = environment.toWebpackConfig()
+const config = environment.toWebpackConfig()
+config.devtool = 'inline-source-map'
+module.exports = config
