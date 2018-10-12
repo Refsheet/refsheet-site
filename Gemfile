@@ -111,7 +111,7 @@ group :development, :test do
   gem 'capybara'
   gem 'capybara-selenium'
   gem 'chromedriver-helper'
-  gem 'codecov'
+  gem 'codecov', require: false
   gem 'database_cleaner'
   gem 'factory_bot_rails'
   gem 'letter_opener'
