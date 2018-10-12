@@ -6,7 +6,6 @@ import _ from 'underscore'
 import ConversationMessage from './ConversationMessage'
 import NewMessage from './NewMessage'
 import { Icon } from 'react-materialize'
-import { userClasses } from '../../utils/UserUtils'
 import c from 'classnames'
 
 class Conversation extends Component {
@@ -105,8 +104,7 @@ class Conversation extends Component {
   render() {
     const {
       messages = [],
-      id: conversationId,
-      user
+      id: conversationId
     } = this.props
 
     this.unreadBookmark = null
@@ -133,7 +131,7 @@ class Conversation extends Component {
     )
 
     return (<div className='chat-body conversation'>
-      <ul className={c('message-list chat-list', userClasses(user, 'user-background'))}
+      <ul className={c('message-list chat-list')}
           onScroll={this.handleScroll}
           ref={(r) => this.messageWindow = r}>
         { renderedMessages }

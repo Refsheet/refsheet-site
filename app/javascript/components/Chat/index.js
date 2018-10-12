@@ -14,8 +14,10 @@ class Chat extends Component {
   constructor(props) {
     super(props)
 
+    const isOpen = window.location.hash.match(/^#chat\b/)
+
     this.state = {
-      isOpen: false,
+      isOpen,
       activeConversationId: null,
       activeConversationName: null,
       activeConversationUser: null
@@ -31,6 +33,13 @@ class Chat extends Component {
 
   handleOpenClose(e) {
     e.preventDefault()
+
+    if(!this.state.isOpen) {
+      window.location.hash = '#chat'
+    } else {
+      window.location.hash = ''
+    }
+
     this.setState({
       isOpen: !this.state.isOpen,
       activeConversationId: null,
@@ -44,6 +53,9 @@ class Chat extends Component {
 
     if(typeof id !== 'undefined' && id !== null) {
       activeConversationId = id
+      window.location.hash = `chat:${id}`
+    } else {
+      window.location.hash = 'chat'
     }
 
     this.setState({
