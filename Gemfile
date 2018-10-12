@@ -119,6 +119,7 @@ group :development, :test do
   gem 'rspec_junit_formatter'
   gem 'shoulda-matchers', '~> 2.8'
   gem 'simplecov'
+  gem 'codecov'
   gem 'timecop'
   gem 'chromedriver-helper'
   gem 'webmock'
