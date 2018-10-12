@@ -7,6 +7,7 @@ import ConversationMessage from './ConversationMessage'
 import NewMessage from './NewMessage'
 import { Icon } from 'react-materialize'
 import c from 'classnames'
+import Scrollbars from 'react-custom-scrollbars'
 
 class Conversation extends Component {
   constructor(props) {
@@ -131,6 +132,18 @@ class Conversation extends Component {
     )
 
     return (<div className='chat-body conversation'>
+      {/*<Scrollbars*/}
+        {/*style={{height: 300, width: 350}}*/}
+        {/*onScrollFrame={this.handleScroll}*/}
+        {/*renderView={(props) =>*/}
+            {/*<ul className={c('message-list chat-list')}*/}
+                {/*ref={(r) => this.messageWindow = r}*/}
+                {/*{...props}*/}
+            {/*/>*/}
+        {/*}*/}
+      {/*>*/}
+        {/*{ renderedMessages }*/}
+      {/*</Scrollbars>*/}
       <ul className={c('message-list chat-list')}
           onScroll={this.handleScroll}
           ref={(r) => this.messageWindow = r}>
