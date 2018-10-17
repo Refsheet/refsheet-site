@@ -14,7 +14,7 @@ jobs:
                 py-pip=9.0.0-r1
               pip install \
                 docker-compose==1.12.0 \
-                awscli==1.11.76
+                awscli==1.16.35
         - restore_cache:
             keys:
               - docker-{{ .Branch }}
