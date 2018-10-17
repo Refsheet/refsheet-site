@@ -76,10 +76,6 @@ jobs:
             done;
           no_output_timeout: 1m
 
-      - run:
-          name: Database Setup
-          command: bin/rails db:schema:load --trace
-
       # Upgrade production image to dev:
       - run:
         name: Bundle Install
@@ -90,9 +86,13 @@ jobs:
                     --frozen \
                     --without=nocircle
 
-    - run:
-        name: Yarn Install
-        command: yarn install
+      - run:
+          name: Yarn Install
+          command: yarn install
+
+      - run:
+          name: Database Setup
+          command: bin/rails db:schema:load --trace
 
       # Run rspec in parallel
       - type: shell
