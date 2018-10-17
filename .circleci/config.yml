@@ -223,5 +223,5 @@ workflows:
     jobs:
       - build
       - test_build:
-        requires:
-          - build
+          requires:
+            - build
