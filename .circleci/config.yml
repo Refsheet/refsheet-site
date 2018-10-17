@@ -39,6 +39,9 @@ jobs:
             key: docker-{{ .Branch }}-{{ epoch }}
             paths:
               - /caches/app.tar
+        - run: $(aws ecr get-login --no-include-email --region us-east-1)
+        - run: docker tag app:$AWS_CONTAINER_PATH:$CIRCLE_SHA1
+        - run: docker push $AWS_CONTAINER_PATH:$CIRCLE_SHA1
 
   test_build:
     docker:
@@ -203,20 +206,6 @@ jobs:
       - store_artifacts:
           path: ~/artifacts
 
-  push_image:
-    docker:
-      - image: docker:17.05.0-ce-git
-    steps:
-      - checkout
-      - setup_remote_docker
-
-      - run: env
-      - run: sh bin/setup-eb.sh
-      - run: $(aws ecr get-login --no-include-email --region us-east-1)
-      - run: docker build -t refsheet/core .
-      - run: docker tag refsheet/core:$AWS_CONTAINER_PATH:latest
-      - run: docker push $AWS_CONTAINER_PATH:latest
-
 workflows:
   version: 2
   build_and_test:
@@ -225,3 +214,4 @@ workflows:
       - test_build:
           requires:
             - build
+      - test_features
