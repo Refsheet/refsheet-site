@@ -115,6 +115,7 @@ jobs:
           path: ~/artifacts
 
   build_image:
+    machine: true
     steps:
       - checkout
       - setup_remote_docker
