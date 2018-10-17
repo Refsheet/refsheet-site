@@ -115,7 +115,8 @@ jobs:
           path: ~/artifacts
 
   push_image:
-    machine: true
+    docker:
+      - image: docker:17.05.0-ce-git
     steps:
       - checkout
       - setup_remote_docker
@@ -131,5 +132,5 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - test
+#      - test
       - push_image
