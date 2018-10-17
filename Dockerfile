@@ -1,18 +1,26 @@
-FROM ruby:2.3-alpine
+FROM ruby:2.5.1-alpine
+LABEL maintainer="Refsheet.net Team <nerds@refsheet.net>"
 
-RUN apk update && apk add build-base nodejs postgresql-dev git
+ENV BUNDLE_PATH=/bundle \
+    BUNDLE_BIN=/bundle/bin \
+    GEM_HOME=/bundle
+
+ENV PATH="${BUNDLE_BIN}:${PATH}"
+
+RUN apk update && apk add build-base nodejs postgresql-dev git yarn
 
 RUN mkdir /app
 WORKDIR /app
 
-COPY Gemfile Gemfile.lock ./
-RUN bundle install --binstubs
+COPY Gemfile* ./
+RUN bundle check || bundle install --binstubs="$BUNDLE_BIN"
 
-COPY . .
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
 
-LABEL maintainer="Refsheet.net Team <nerds@refsheet.net>"
+COPY . ./
 
-ENTRYPOINT bundle exec
-EXPOSE 5000
+ENTRYPOINT ["bundle", "exec"]
 
-CMD foreman start
+EXPOSE 3000
+CMD ['rails', 'server', '-b', '0.0.0.0']

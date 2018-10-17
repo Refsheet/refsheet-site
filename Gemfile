@@ -127,7 +127,6 @@ group :development, :test do
   gem 'rubocop-rspec'
   gem 'shoulda-matchers', '~> 2.8'
   gem 'simplecov'
-  gem 'codecov'
   gem 'timecop'
   gem 'webmock'
 end

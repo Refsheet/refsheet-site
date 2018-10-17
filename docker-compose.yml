@@ -14,41 +14,36 @@ services:
     volumes:
       - 'redis:/data'
 
-  website:
+  web:
     depends_on:
-      - 'postgres'
-      - 'redis'
+      - postgres
+      - redis
     build: .
     ports:
-      - '5000:5000'
+      - 3000:3000
     volumes:
-      - '.:/app'
+      - .:/app
+      - bundle:/bundle
+      - node_modules:/node_modules
     env_file:
-      - '.env'
+      - .env
+    command: rails server -p 3000 -b '0.0.0.0'
 
-#  sidekiq:
+#  worker:
 #    depends_on:
 #      - 'postgres'
 #      - 'redis'
+#      - 'cache'
 #    build: .
-#    command: sidekiq -C config/sidekiq.yml.erb
+#    command: rake resque:work QUEUE=*
 #    volumes:
 #      - '.:/app'
+#      - bundle:/bundle
 #    env_file:
 #      - '.env'
 
-  cable:
-    depends_on:
-      - 'redis'
-    build: .
-    command: puma -p 28080 cable/config.ru
-    ports:
-      - '28080:28080'
-    volumes:
-      - '.:/app'
-    env_file:
-      - '.env'
-
 volumes:
   redis:
+  bundle:
+  node_modules:
   postgres:
