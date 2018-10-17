@@ -1,24 +1,39 @@
-FROM ruby:2.5.1-alpine
+FROM starefossen/ruby-node:2-6-slim
 LABEL maintainer="Refsheet.net Team <nerds@refsheet.net>"
 
 ENV BUNDLE_PATH=/bundle \
     BUNDLE_BIN=/bundle/bin \
-    GEM_HOME=/bundle
+    GEM_HOME=/bundle \
+    RAILS_ENV=production \
+    NODE_ENV=production
 
 ENV PATH="${BUNDLE_BIN}:${PATH}"
 
-RUN apk update && apk add build-base nodejs postgresql-dev git yarn
+RUN apt-get update \
+ && apt-get install -y \
+    libpq-dev git build-essential \
+    postgresql-client libssl1.0-dev
 
-RUN mkdir /app
+RUN mkdir -p /app
 WORKDIR /app
 
+# Install Gems
 COPY Gemfile* ./
-RUN bundle check || bundle install --binstubs="$BUNDLE_BIN"
+RUN bundle check \
+ || bundle install \
+      --binstubs="$BUNDLE_BIN" \
+      --deployment \
+      --without="test development"
 
+# Install Node Modules
 COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+RUN bundle exec yarn install --frozen-lockfile
 
+# Copy Application Files
 COPY . ./
+
+# Precompile Assets
+RUN bundle exec rake assets:precompile
 
 ENTRYPOINT ["bundle", "exec"]
 

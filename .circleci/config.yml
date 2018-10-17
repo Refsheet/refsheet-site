@@ -44,6 +44,8 @@ jobs:
         - run: docker push $AWS_CONTAINER_PATH:$CIRCLE_SHA1
 
   test_build:
+    working_directory: /app
+
     docker:
       - image: $AWS_CONTAINER_PATH:$CIRCLE_SHA1
         aws_auth:
@@ -56,6 +58,8 @@ jobs:
           NODE_ENV: test
           JUNIT_REPORT_PATH: ~/junit
           JUNIT_REPORT_NAME: karma.xml
+          BUNDLE_PATH: /bundle
+          BUNDLE_BIN: /bundle/bin
 
       - image: circleci/postgres:9.5-alpine
         environment:
@@ -75,6 +79,20 @@ jobs:
       - run:
           name: Database Setup
           command: bin/rails db:schema:load --trace
+
+      # Upgrade production image to dev:
+      - run:
+        name: Bundle Install
+        command: bundle check \
+              || bundle install \
+                    --path="$BUNDLE_PATH" \
+                    --binstubs="$BUNDLE_BIN" \
+                    --frozen \
+                    --without=nocircle
+
+    - run:
+        name: Yarn Install
+        command: yarn install
 
       # Run rspec in parallel
       - type: shell

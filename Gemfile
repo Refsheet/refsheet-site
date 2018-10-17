@@ -82,6 +82,7 @@ gem 'state_machines'
 gem 'state_machines-activerecord'
 gem 'will_paginate'
 gem 'will_paginate-materialize', github: 'harrybournis/will_paginate-materialize'
+gem 'annotate'
 
 # == INTEGRATIONS
 
@@ -141,6 +142,5 @@ group :development do
   gem 'listen', '~> 3.0.5'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'annotate'
   gem 'graphiql-rails'
 end
