@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Icon } from 'react-materialize'
 import { Mutation } from 'react-apollo'
 import { gql } from 'apollo-client-preset'
+import ChatInput from './Input'
 
 class NewMessage extends Component {
   constructor(props) {
@@ -72,15 +73,25 @@ class NewMessage extends Component {
         <Icon>close</Icon>
       </button>
 
-      <input name='message'
-             type='text'
-             onChange={ this.handleMessageChange }
-             onKeyDown={ this.handleKeyPress }
-             value={ this.state.message }
-             placeholder='What say you?'
-             autoFocus
-             autoComplete='off'
+      <ChatInput
+        name='message'
+        onChange={ this.handleMessageChange }
+        onKeyDown={ this.handleKeyPress }
+        value={ this.state.message }
+        placeholder={ 'What say you?' }
+        autoFocus
+        autoComplete='off'
       />
+
+      {/*<input name='message'*/}
+             {/*type='text'*/}
+             {/*onChange={ this.handleMessageChange }*/}
+             {/*onKeyDown={ this.handleKeyPress }*/}
+             {/*value={ this.state.message }*/}
+             {/*placeholder='What say you?'*/}
+             {/*autoFocus*/}
+             {/*autoComplete='off'*/}
+      {/*/>*/}
 
       <button type='submit' disabled={this.state.message === ''}>
         <Icon>send</Icon>

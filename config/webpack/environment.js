@@ -21,7 +21,7 @@ environment.loaders.append('graphql', graphql)
 const babelLoader = environment.loaders.get('babel')
 babelLoader.test = /\.(coffee|js|jsx)(\.erb)?$/
 babelLoader.exclude = [
-    /node_modules\/(?!superagent)/
+    /node_modules\/(?!superagent|emojilib)/
 ]
 
 console.log(babelLoader)

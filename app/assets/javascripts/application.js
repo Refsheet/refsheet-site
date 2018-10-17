@@ -10,13 +10,14 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require_self
 //= require jquery
 //= require jquery.turbolinks
 //= require jquery_ujs
 //= require jquery-tmpl
 //= require jquery-ui
 //
-//= require react
+//... require react
 //= require react_ujs
 //= require react_router
 //= require react_router_ujs
@@ -34,7 +35,6 @@
 //= require jquery.justifiedGallery
 //= require js.cookie
 //
-//= require_self
 //= require _rollbar
 //= require highcharts-init
 //= require components
@@ -68,15 +68,31 @@ window.namespace = function(ns_path, parent) {
     }
 };
 
+function exportPackGlobals() {
+  var app = Packs.application
+  console.log("Pack sync: Trying export of globals from V2:", app)
+  if(!app) return
+
+  for(var globalVar of app.__globals) {
+    window[globalVar] = app[globalVar]
+    console.log("Pack sync: Exporting " + globalVar + " from V2:", window[globalVar])
+  }
+
+  window.React.PropTypes = window.PropTypes
+  window.React.createClass = window.createReactClass
+}
+
 // Wait for WebPack to catch up here...
 (function() {
   console.log("Pack loaded: Legacy Refsheet JS")
 
   if(typeof Packs !== 'undefined') {
     console.log("Pack sync: JS v2 detected in Legacy, mounting...")
+    exportPackGlobals()
   } else {
     window.addEventListener('jsload.pack', function() {
       console.log("Pack sync: JS v2 reported load, mounting...")
+      exportPackGlobals()
       ReactRailsUJS.mountComponents();
     });
   }

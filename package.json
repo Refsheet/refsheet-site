@@ -1,7 +1,9 @@
 {
   "license": "MIT",
   "dependencies": {
+    "@jukben/emoji-search": "^1.1.7",
     "@rails/webpacker": "^3.3.0",
+    "@webscopeio/react-textarea-autocomplete": "^2.3.5",
     "actioncable": "^5.2.1",
     "apollo-client-preset": "^1.0.8",
     "apollo-link-context": "^1.0.7",
@@ -10,6 +12,7 @@
     "classnames": "^2.2.5",
     "coffee-loader": "^0.9.0",
     "coffeescript": "1.12.7",
+    "create-react-class": "^15.6.3",
     "enzyme-adapter-react-16": "^1.1.1",
     "favico.js-slevomat": "^0.3.11",
     "get-video-id": "^3.0.0",
@@ -56,11 +59,13 @@
     "chai-enzyme": "1.0.0-beta.0",
     "enzyme": "^3.3.0",
     "karma": "^2.0.0",
+    "karma-babel-preprocessor": "^7.0.0",
     "karma-cli": "^1.0.1",
     "karma-junit-reporter": "^1.2.0",
     "karma-mocha": "^1.3.0",
     "karma-mocha-reporter": "^2.2.5",
     "karma-phantomjs-launcher": "^1.0.4",
+    "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^3.0.0",
     "mocha": "^5.0.5",
     "nock": "^9.2.3",
@@ -70,8 +75,6 @@
     "rosie": "^1.6.0",
     "sinon": "^4.4.8",
     "webpack-cli": "^2.0.11",
-    "karma-babel-preprocessor": "^7.0.0",
-    "karma-sourcemap-loader": "^0.3.7",
     "webpack-dev-server": "^2.11.1"
   }
 }
