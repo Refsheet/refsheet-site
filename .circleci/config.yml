@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  test:
     docker: &docker
       - image: circleci/ruby:2.3-node-browsers
         environment:
@@ -114,14 +114,22 @@ jobs:
       - store_artifacts:
           path: ~/artifacts
 
-  build_image:
+  push_image:
     machine: true
     steps:
       - checkout
       - setup_remote_docker
 
+      - run: env
       - run: sh bin/setup-eb.sh
       - run: $(aws ecr get-login --no-include-email --region us-east-1)
       - run: docker build -t refsheet/core .
       - run: docker tag refsheet/core:$AWS_CONTAINER_PATH:latest
       - run: docker push $AWS_CONTAINER_PATH:latest
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - test
+      - push_image
