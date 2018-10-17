@@ -40,7 +40,7 @@ jobs:
             paths:
               - /caches/app.tar
         - run: $(aws ecr get-login --no-include-email --region us-east-1)
-        - run: docker tag app:$AWS_CONTAINER_PATH:$CIRCLE_SHA1
+        - run: docker tag app:latest $AWS_CONTAINER_PATH:$CIRCLE_SHA1
         - run: docker push $AWS_CONTAINER_PATH:$CIRCLE_SHA1
 
   test_build:
