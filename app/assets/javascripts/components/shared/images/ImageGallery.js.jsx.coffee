@@ -1,129 +1,177 @@
 @ImageGallery = React.createClass
+  propTypes:
+    editable: React.PropTypes.bool
+    noFeature: React.PropTypes.bool
+    noSquare: React.PropTypes.bool
+    imagesPath: React.PropTypes.string
+    images: React.PropTypes.array
+    onImageClick: React.PropTypes.func
+    onImagesLoaded: React.PropTypes.func
+
+
   getInitialState: ->
+    append: false
     images: @props.images || null
 
-  handleImageSwap: (source, target) ->
+  load: (data, sendCallback=true) ->
+    s = images: data
+
+    if @state.images > 0 && data.length > 0
+      new_ids = ArrayUtils.pluck(data, 'id')
+      old_ids = ArrayUtils.pluck(@state.images, 'id')
+
+      if ArrayUtils.diff(new_ids, old_ids).length == data.length
+        s.append = true
+
+    @setState s, @_initialize
+    @props.onImagesLoad(data) if @props.onImagesLoad and sendCallback
+
+
+  componentDidMount: ->
+    if @props.imagesPath? and !@props.images
+      console.debug '[ImageGallery] Fetching:', @props.imagesPath
+      $.get @props.imagesPath, @load
+    else
+      @_initialize()
+
+    $(window).resize @_resizeJg
+
+  componentWillUnmount: ->
+    $(@refs.gallery).justifiedGallery 'destroy'
+    $(window).off 'resize', @_resizeJg
+
+  componentWillReceiveProps: (newProps) ->
+    if newProps.images
+      @load newProps.images, false
+
+  _resizeJg: ->
+    return if @props.noFeature and !@props.noSquare
+    $(@refs.gallery).justifiedGallery @_getJgRowHeight()
+
+  _handleImageSwap: (source, target) ->
+    # Model.patch "/images/#{source}", (data) =>
+    #   Materialize.toast 'Image moved!', 3000, 'green'
+    #   @load data
+
+    $(document).trigger 'app:loading'
     $.ajax
       url: '/images/' + source
       type: 'PATCH'
       data: { image: { swap_target_image_id: target } }
       success: (data) =>
         Materialize.toast 'Image moved!', 3000, 'green'
+        @load data
       error: (error) =>
         console.log error
+      complete: ->
+        $(document).trigger 'app:loading:done'
 
-  handleImageClick: (e) ->
-    id = $(e.target).closest('[data-gallery-image-id]').data('gallery-image-id')
+  _handleImageClick: (image) ->
+    if @props.onImageClick?
+      @props.onImageClick(image.id)
+    else
+      $(document).trigger 'app:lightbox', [ image, @_handleImageChange ]
 
-    if id != undefined
-      if @props.onImageClick?
-        @props.onImageClick(id)
-      else
-        $(document).trigger 'app:lightbox', id
+  _handleImageChange: (image) ->
+    console.debug '[ImageGallery] Lightbox changed image:', image
+    StateUtils.updateItem @, 'images', image, 'id'
 
-  componentDidMount: ->
-    if @props.imagesPath?
-      if @props.images?
-        @setupImageOrder()
-      else
-        $.get @props.imagesPath, (data) =>
-          @setState images: data
-          @props.onImagesLoad(data) if @props.onImagesLoad
+  _getJgRowHeight: ->
+    coef = if $(window).width() < 900 then 1 else 0.7
+    rowHeight: $(window).width() * (coef * 0.25)
+    maxRowHeight: $(window).width() * (coef * 0.4)
 
-  componentWillReceiveProps: (newProps) ->
-    if newProps.images && newProps.images.length != @state.images?.length
-      @setState images: newProps.images
+  _getThumbnailPath: (currentPath, width, height, image) ->
+    currentSize = currentPath.match(/\d{3}\/\d{3}\/\d{3}\/(\w+)\//)[1]
 
-    if @props.imagesPath?
-      @setupImageOrder()
+    max = Math.max(width, height)
 
-  setupImageOrder: ->
-    if @props.editable
-      _this = this
-      $('.image-gallery .image').draggable
-        revert: true
-        opacity: 0.6
+    if max <= 427
+      newSize = 'small'
+    else if max <= 854
+      newSize = 'medium'
+    else
+      newSize = 'large'
 
-      $('.image-gallery .image').droppable
-        drop: (event, ui) ->
-          $source = ui.draggable
-          $sourceParent = $source.parent()
-          $target = $(this)
-          $targetParent = $target.parent()
+    currentPath.replace /(\d{3}\/\d{3}\/\d{3}\/)\w+\//, '$1' + newSize + '/'
 
-          $targetParent.append $source
-          $sourceParent.append $target
+  _initialize: ->
+    return if @props.noFeature and !@props.noSquare
 
-          $source.css top: '', left: '0'
+    if @state.images.length == 0
+      console.debug '[ImageGallery] Empty, no init.'
+      return
 
-          sourceId = $source.data 'gallery-image-id'
-          targetId = $target.data 'gallery-image-id'
+    if @state.append
+      console.debug '[ImageGallery] Init with norewind.'
+      $(@refs.gallery).justifiedGallery 'norewind'
+      return
 
-          _this.handleImageSwap(sourceId, targetId)
+    console.debug '[ImageGallery] Initializing Justified Gallery...'
+
+    opts =
+      selector: '.gallery-image'
+      margins: 15
+      captions: false
+      thumbnailPath: @_getThumbnailPath
+
+    opts = $.extend {}, opts, @_getJgRowHeight()
+    $(@refs.gallery).justifiedGallery opts
+    @setState append: true
+
 
   render: ->
+    galleryClassName = 'justified-gallery'
+    imageClassName = ''
+    wrapperClassName = ''
+    _this = @
+
     unless @state.images?
       return `<Spinner />`
 
-    unless @props.noFeature
+    if @props.editable
+      editable = true
+
+    if not @props.noFeature
       [first, second, third, overflow...] = @state.images
-    else
+      imageSize = 'medium'
+
+    else if @props.noSquare
       overflow = @state.images
+      imageSize = 'medium'
+
+    else
+      galleryClassName = 'row'
+      wrapperClassName = 'col s6 m3'
+      imageClassName = 'no-jg'
+      overflow = @state.images
+      imageSize = 'small_square'
 
     imagesOverflow = overflow.map (image) =>
-      `<div className='col m3 s6' key={ image.id }>
-          <div className='image' data-gallery-image-id={ image.id }>
-              <img src={ image.small_square } alt={ image.caption } />
-          </div>
-      </div>`
+      `<GalleryImage key={ image.id }
+                     image={ image }
+                     size={ imageSize }
+                     onClick={ _this._handleImageClick }
+                     onSwap={ _this._handleImageSwap }
+                     wrapperClassName={ wrapperClassName }
+                     className={ imageClassName }
+                     editable={ editable } />`
 
-    if first? or imagesOverflow.length > 0
-      if first?
-        firstImage =
-          `<div className='image' data-gallery-image-id={ first.id }>
-              <img src={ first.large_square } alt={ first.caption } />
-          </div>`
-
-      if third?
-        thirdImage =
-          `<div className='image' data-gallery-image-id={ third.id }>
-              <img src={ third.medium_square } alt={ third.caption } />
-          </div>`
-      else
-        thirdImage = `<div className='image-placeholder' />`
-
-      if second?
-        secondImage =
-          `<div className='image' data-gallery-image-id={ second.id }>
-              <img src={ second.medium_square } alt={ second.caption } />
-          </div>`
-      else
-        secondImage = `<div className='image-placeholder' />`
-
-      secondColumn =
-        `<Column m={4}>
-            <Row className='featured-side'>
-                <Column m={12} s={6}>
-                    { secondImage }
-                </Column>
-                <Column m={12} s={6}>
-                    { thirdImage }
-                </Column>
-            </Row>
-        </Column>`
-
-      `<div className='image-gallery' onClick={ this.handleImageClick }>
+    if @state.images?.length
+      `<div ref='imageGallery' className='image-gallery'>
           { !this.props.noFeature &&
-              <Row className='featured'>
-                  <Column m={8}>
-                      { firstImage }
-                  </Column>
-                  { secondColumn }
-              </Row>
+              <GalleryFeature first={ first }
+                              second={ second }
+                              third={ third }
+                              onImageClick={ this._handleImageClick }
+                              onImageSwap={ this._handleImageSwap }
+                              editable={ editable } />
           }
 
           { imagesOverflow.length > 0 &&
-              <Row className='gallery-grid'>{ imagesOverflow }</Row>
+              <div ref='gallery' className={ galleryClassName }>
+                  { imagesOverflow }
+              </div>
           }
       </div>`
 

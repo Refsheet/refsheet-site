@@ -1,0 +1,18 @@
+%p Hey, #{@user.name}:
+
+= simple_format @reply.comment
+
+%p
+  Thanks,
+  %br/
+  %br/
+  %strong= @sender.name
+  %br/
+  %em Refsheet.net Admin
+
+%hr.mb0/
+%em.smaller.muted On #{@feedback.created_at.strftime('%d %b %Y')} you wrote...
+%br/
+%br/
+
+.muted= simple_format @feedback.comment

@@ -4,23 +4,30 @@ source 'https://rubygems.org'
 
 # == BACK END
 
-gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
+gem 'rails', '~> 5.0.0'
+gem 'rack-cors'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.0'
 gem 'redis', '~> 3.0'
 gem 'bcrypt', '~> 3.1.7'
 gem 'therubyracer'
+gem 'money-rails'
 gem 'responders'
 gem 'ahoy_matey'
 gem 'aws-sdk'
 gem 'resque'
 gem 'non-stupid-digest-assets'
 gem 'rollbar'
+gem 'active_elastic_job'
+gem 'sprockets_uglifier_with_source_maps'
+gem 'webpacker'
+gem 'faraday_middleware'
+gem 'json', '~> 1.8.6'
 
 # == FRONT END
 
 gem 'uglifier', '>= 1.3.0'
-gem 'sass-rails', '~> 5.0'
+gem 'sassc-rails'
 gem 'coffee-rails', '~> 4.2'
 gem 'haml'
 gem 'react-rails', github: 'reactjs/react-rails', branch: 'master'
@@ -40,57 +47,91 @@ gem 'gravatar_image_tag'
 gem 'chartkick'
 gem 'breadcrumbs_on_rails'
 gem 'jquery-tmpl-rails'
+gem 'jquery-justified-gallery-rails'
 gem 'imagesLoaded_rails'
 gem 'highcharts-rails'
+gem 'js_cookie_rails'
+gem 'serviceworker-rails'
 
 # == UTILITY
 
+gem 'active_model_serializers'
+gem 'aws-ses', '~> 0.4.4'
+gem 'carrierwave'
+gem 'counter_culture'
+gem 'dropzonejs-rails'
+gem 'faker'
+gem 'fog-aws'
+gem 'graphql'
+gem 'graphql-errors'
+gem 'groupdate'
+gem 'paperclip'
+gem 'paperclip-meta'
+gem 'delayed_paperclip'
+gem 'paranoia'
+gem 'premailer-rails'
+gem 'ranked-model'
+gem 'redcarpet'
+gem 'ruby-progressbar'
+gem 'scoped_search'
+gem 'semantic'
 gem 'simple_form'
+gem 'sitemap_generator'
+gem 'slack-notifier'
 gem 'state_machines'
 gem 'state_machines-activerecord'
-gem 'active_model_serializers'
-gem 'paranoia'
-gem 'scoped_search'
 gem 'will_paginate'
 gem 'will_paginate-materialize', github: 'harrybournis/will_paginate-materialize'
-gem 'faker'
-gem 'slack-notifier'
-gem 'ranked-model'
-gem 'carrierwave'
-gem 'fog-aws'
-gem 'paperclip'
-gem 'react-rails-hot-loader'
-gem 'dropzonejs-rails'
-gem 'redcarpet'
-gem 'sitemap_generator'
-gem 'groupdate'
 
 # == INTEGRATIONS
 
 gem 'ruby-trello'
+gem 'stripe'
+gem 'webpush'
+gem 'her'
 
 # == BOWER ASSETS
 
-source 'https://rails-assets.org' do
+source 'http://insecure.rails-assets.org' do
   # gem 'rails-assets-highcharts'
+  gem 'rails-assets-tinyColorPicker'
 end
+
+# == MAINTENANCE
+
+gem 'puma_worker_killer'
+gem 'table_print'
+gem 'httplog', '~> 1.1.1'
 
 # == NON PRODUCTION GEMS
 
 group :development, :test do
+  gem 'bullet'
   gem 'byebug', platform: :mri
-  gem 'factory_girl_rails'
-  gem 'rspec-rails'
-  gem 'rspec-expectations'
+  gem 'capybara'
+  gem 'capybara-selenium'
+  gem 'chromedriver-helper'
+  gem 'codecov', require: false
+  gem 'database_cleaner'
+  gem 'factory_bot_rails'
+  gem 'letter_opener'
+  gem 'letter_opener_web'
+  gem 'rack_session_access'
   gem 'rspec-collection_matchers'
+  gem 'rspec-expectations'
+  gem 'rspec-its'
+  gem 'rspec-rails'
+  gem 'rspec-retry'
+  gem 'rspec_junit_formatter'
+  gem 'rubocop'
+  gem 'rubocop-rspec'
   gem 'shoulda-matchers', '~> 2.8'
   gem 'simplecov'
-  gem 'rack_session_access'
-  gem 'database_cleaner'
-  gem 'poltergeist'
-  gem 'phantomjs', require: 'phantomjs/poltergeist'
-  gem 'bullet'
-  gem 'rspec-its'
+  gem 'timecop'
+  gem 'webmock'
+end
+
+group :nocircle do
 end
 
 gem 'resque-web', require: 'resque_web'
@@ -100,9 +141,6 @@ group :development do
   gem 'listen', '~> 3.0.5'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'letter_opener'
-  gem 'letter_opener_web'
   gem 'annotate'
+  gem 'graphiql-rails'
 end
-
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

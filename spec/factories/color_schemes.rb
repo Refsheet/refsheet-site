@@ -11,10 +11,8 @@
 #  updated_at :datetime         not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :color_scheme do
-    name "MyString"
-    user_id 1
-    color_data "MyText"
+    color_data {{ 'accent-1' => '#cbe1f1' }}
   end
 end

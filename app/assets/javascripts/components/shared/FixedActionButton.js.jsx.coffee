@@ -6,7 +6,7 @@
     children = React.Children.map @props.children, (child) =>
       `<li>{ React.cloneElement(child) }</li>`
       
-    className = 'fixed-action-btn waves waves-light'
+    className = 'fixed-action-btn'
     className += ' click-to-toggle' if @props.clickToToggle
 
     `<div className={ className }>

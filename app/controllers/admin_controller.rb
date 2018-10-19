@@ -7,7 +7,7 @@ class AdminController < ApplicationController
 
   def validate_admin
     unless current_user&.role? :admin
-      raise ActionController::RoutingError.new('Schrodinger\'s Controller')
+      redirect_to login_path next: url_for
     end
   end
 end

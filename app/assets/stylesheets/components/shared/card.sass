@@ -1,3 +1,131 @@
 .card
+  @at-root
+    .card-panel
+      padding: 1.5rem
+      display: block
+
   &.card-light
     background-color: $page-bg-color
+
+  &.notification
+    border-left: 5px solid transparent
+
+    &.notification-unread
+      border-left-color: $brand-dark
+
+  &.sp
+    .card-content
+      padding: 1rem
+
+    .title
+      font-size: 1.5rem
+      margin-top: 0
+      color: $secondary-color
+      font-weight: 300
+
+  &.flat
+    @extend .z-depth-0
+    margin: 0
+    border-bottom: 1px solid $lighten-color
+
+    .card-content
+      padding: 1rem
+
+  &.with-avatar
+    .avatar
+      position: absolute
+      top: 1rem
+      left: 1rem
+      width: 48px
+      height: 48px
+
+    .card-content
+      margin-left: calc(48px + 1rem)
+
+      .action-link
+        line-height: initial
+        margin-left: 1rem
+
+        &.done
+          color: $text-light-color
+
+        i.material-icons
+          font-size: 1.2rem
+          line-height: initial
+          vertical-align: middle
+
+  .card-header
+    padding: 1rem
+    background-color: darken($card-bg-color, 1%)
+
+    h2
+      margin: 0
+      line-height: initial
+      height: auto
+      font-size: 1.2rem
+      font-weight: normal
+
+  .card-action
+    border-top: none
+    background-color: darken($card-bg-color, 1%)
+
+    button, .btn
+      @extend .z-depth-0
+      margin: -0.5rem 0
+
+    .author
+      img
+        height: 40px
+        margin-right: 1rem
+
+  &.summary-card
+    .card-image
+      margin: 0
+      padding: 1rem
+      background-color: darken($card-bg-color, 5%)
+      position: relative
+
+      .material-icons
+        font-size: 5rem
+        display: block
+        margin: 0
+        color: $brand-dark
+
+      .notification
+        position: absolute
+        top: 1rem
+        right: 0
+        font-size: 0.8rem
+        background-color: color('red', 'darken-3')
+        color: white
+        border-radius: 2px 0 0 2px
+        padding: 0.25rem 1rem
+
+    .card-title
+      @extend .truncate
+
+      line-height: initial
+      color: $page-text-color
+      margin: 0 0 0.25rem 0
+      font-size: 1.3rem
+
+    .card-flags
+      font-size: 0.8rem
+      color: $text-light-color
+      line-height: 1rem
+      vertical-align: middle
+
+      .material-icons
+        font-size: inherit
+        margin-left: 0.25rem
+        width: auto
+        line-height: inherit
+        vertical-align: middle
+
+    .description
+      @extend .truncate
+      font-size: 0.9rem
+      margin-bottom: 0.5rem
+
+    .card-content
+      padding: 1rem

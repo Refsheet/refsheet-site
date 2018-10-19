@@ -9,17 +9,19 @@
 #  changed_image_id     :integer
 #  changed_swatch_id    :integer
 #  reason               :text
-#  changes              :json
+#  change_data          :json
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #
 
+# TODO: Make this a more generic thing.
+#
 class Changelog < ApplicationRecord
   belongs_to :user
-  belongs_to :changed_character, class_name: Character, foreign_key: :changed_character_id
-  belongs_to :changed_user, class_name: User, foreign_key: :changed_user_id
-  belongs_to :changed_image, class_name: Image, foreign_key: :changed_image_id
-  belongs_to :changed_swatch, class_name: Swatch, foreign_key: :changed_swatch_id
+  belongs_to :changed_character, class_name: "Character", foreign_key: :changed_character_id
+  belongs_to :changed_user, class_name: "User", foreign_key: :changed_user_id
+  belongs_to :changed_image, class_name: "Image", foreign_key: :changed_image_id
+  belongs_to :changed_swatch, class_name: "Swatch", foreign_key: :changed_swatch_id
 
   validates_presence_of :user
   validates_presence_of :change_data
@@ -63,7 +65,7 @@ class Changelog < ApplicationRecord
   def rollback_params
     self.change_data.collect do |attribute, change|
       [attribute, change.first]
-    end.to_h
+    end.to_h.reject { |k, _| [:updated_at, :created_at].include? k.to_sym }
   end
 
   def rollback(object)

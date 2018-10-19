@@ -1,0 +1,39 @@
+body .cp-color-picker
+  @extend .z-depth-2
+  background-color: $page-bg-color
+  color: $page-text-color
+  border-radius: 1px
+  padding: 1rem
+  z-index: 1999
+
+  .cp-xy-slider
+    width: 200px
+    height: 200px
+    margin-bottom: 0.75rem
+    position: absolute
+    top: 1rem
+    left: 1rem
+
+    &:active
+      cursor: none
+
+  .cp-xy-cursor
+    width: 12px
+    height: 12px
+    margin: -6px
+
+  .cp-z-slider
+    margin: 0 0 0 210px
+    height: 200px
+    width: 2rem
+
+  .cp-z-cursor
+    border-width: 5px
+    margin-top: -5px
+
+  .cp-alpha
+    clear: both
+    height: 2rem
+    margin: 210px 0 0 0
+    position: relative
+    background: linear-gradient(to right, black, rgba(black, 0.0))

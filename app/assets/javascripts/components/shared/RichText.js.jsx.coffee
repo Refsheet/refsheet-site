@@ -33,14 +33,14 @@
     if @state.edit
       `<div className={ 'rich-text editing ' + this.props.className }>
           <textarea className='materialize-textarea' onChange={ this.handleMarkupChange } value={ this.state.markup } autoFocus />
-          <button type='submit' className='btn' onClick={ this.handleSubmit }>Save Changes</button>
-          <a className='right btn grey darken-3' onClick={ this.handleEditStop }>
+          <button type='submit' className='btn right waves-effect waves-light' onClick={ this.handleSubmit }>Save Changes</button>
+          <a className='btn grey darken-3' onClick={ this.handleEditStop }>
               <i className='material-icons'>cancel</i>
           </a>
       </div>`
 
     else if @state.markup != null && @state.markup != '' && @state.markup != undefined
-      `<div className={ 'rich-text ' + this.props.className } onClick={ this.handleEditStart }>
+      `<div className={ 'rich-text ' + this.props.className }>
           { editable &&
               <a className='edit-button right' onClick={ this.handleEditStart }>
                   <i className='material-icons'>edit</i>

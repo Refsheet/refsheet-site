@@ -1,4 +1,6 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'from@example.com'
+  default from: 'Refsheet.net <mau@refsheet.net>'
+  add_template_helper(MailerHelper)
+
   layout 'mailer'
 end

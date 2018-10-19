@@ -4,8 +4,13 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
+/node_modules
+/public/packs
+/public/packs-test
+
 # Ignore bundler config.
 /.bundle
+/vendor/bundle
 
 /public/assets
 /public/sitemaps
@@ -18,12 +23,15 @@
 /.sass-cache/
 /db/*.sqlite3
 
+TESTS-*.xml
+
 /.idea/
 /coverage/
 /public/system/
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
+!.elasticbeanstalk/config.yml
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
 
@@ -32,3 +40,8 @@
 
 # OSX Garbage
 .DS_Store
+/public/packs
+/public/packs-test
+/node_modules
+yarn-debug.log*
+.yarn-integrity

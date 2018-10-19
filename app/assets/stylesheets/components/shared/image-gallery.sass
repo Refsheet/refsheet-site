@@ -1,14 +1,72 @@
 .image-gallery
-  margin-bottom: -1.5rem
+  a
+    transition: none !important
+
+  @at-root
+    .image-grid
+      background-color: black
+
+      .gallery-image img
+        margin: 0 auto !important
+
+  .favorite-button
+    position: absolute
+    z-index: 1
+    top: 0
+    right: 0
+    padding: 0.5rem 0.5rem 1rem 1rem
+    color: rgba(white, 0.4)
+    text-shadow: 0 0 2px rgba(black, 0.5)
+    opacity: 0.0
+    transition: opacity, color, 0.3s
+
+    .gallery-image:hover &
+      opacity: 1.0
+
+    &:hover
+      cursor: pointer
+      color: white
+
+  .gallery-feature
+    margin-bottom: 15px
+    margin-right: -5px
+    white-space: nowrap
+
+    .gallery-image
+      opacity: 0.0
+      visibility: hidden
+      transition: opacity, 0.3s
+
+      &.gf-entry
+        visibility: visible
+        opacity: 1.0
+
+    .feature-left
+      display: inline-block
+      vertical-align: top
+
+    .feature-main
+      display: inline-block
+      vertical-align: top
+      width: 100%
+
+    .feature-side
+      display: inline-block
+      vertical-align: top
+      margin-left: 15px
+
+      .side-image
+        margin-bottom: 15px
+
+        &:last-child
+          margin-bottom: 0
 
   .image-placeholder
-    background-color: rgba(black, 0.2)
+    @extend .z-depth-0
+    background-color: rgba(black, 0.2) !important
     padding-bottom: 100%
     border: 1px dashed rgba(white, 0.2)
-    margin-bottom: 1.5rem
-
-  .container > &
-    margin: 1.5rem 0
+    width: 100%
 
   .ui-draggable-dragging
     @extend .z-depth-3
@@ -23,22 +81,111 @@
     img
       opacity: 0.6
 
-  .row.featured,
-  .row.gallery-grid,
-  .row.featured-side
-    margin-bottom: 0
-
-  .image
+  .gallery-image
+    @extend .valign-wrapper
     @extend .z-depth-1
-    margin-bottom: 1.5rem
-    background-color: black
-    position: relative
-    padding-bottom: 100%
-    overflow: hidden
 
-    img
-      position: absolute
-      top: 0
-      width: 100%
+    &:not(.no-jg) img
+      @extend .valign
+      position: relative
+      top: 50%
+      left: 50%
+      transform: translate(-50%, -50%)
+
+  @at-root
+    .gallery-image
+      background-color: black
+      position: relative
+      display: block
+      text-align: center
       height: 100%
-      object-fit: cover
+      width: 100%
+      overflow: hidden
+
+      .nsfw-cover
+        background-color: $card-bg-color
+        text-align: center
+        position: absolute
+        top: 0
+        bottom: 0
+        width: 100%
+        z-index: 2
+
+        i.material-icons
+          font-size: 2.5rem
+          color: color('grey', 'lighten-3')
+          margin-bottom: 0.5rem
+          display: block
+
+        .caption, i.material-icons
+          position: relative
+          top: 50%
+          transform: translateY(-100%)
+
+      .overlay
+        position: absolute
+        bottom: -3.5rem
+        left: 0
+        right: 0
+        z-index: 2
+        background: linear-gradient(to top, rgba(black, 0.8) 3.5rem, transparent)
+        color: white
+        text-align: left
+        padding: 0.5rem
+        opacity: 0.7
+        transition: opacity, bottom, 0.3s
+
+        .interactions
+          text-align: right
+          margin-bottom: 0.5rem
+
+          .favs
+            display: inline-block
+            margin-left: 0.5rem
+            font-size: 0.7rem
+            color: inherit !important
+
+            &.clickable
+              cursor: pointer
+
+            i.material-icons
+              font-size: 0.8rem !important
+              vertical-align: middle
+              margin-top: -3px
+              margin-right: 0.25rem
+
+      &:hover
+        .overlay
+          opacity: 1.0
+          bottom: 0
+
+      img
+        display: block
+        margin: 0 !important
+        max-width: 100%
+        width: auto !important
+        height: auto !important
+        cursor: pointer
+
+  .justified-gallery
+    position: relative
+    margin: -15px
+    width: auto
+
+    a.gallery-image
+      display: inline-block
+      position: absolute
+      visibility: hidden
+      opacity: 0.0
+      transition: opacity, 0.3s
+
+      &.jg-entry
+        visibility: visible
+        opacity: 1.0
+        width: 0
+        height: 0
+
+        img
+          position: relative
+          top: 50%
+          left: 50%

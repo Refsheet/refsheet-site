@@ -11,7 +11,8 @@ module Sluggable
 
     validates_format_of :slug,
                         with: /\A[a-z0-9-]+\z/i,
-                        message: 'can only contain a-z, 0-9 and -'
+                        message: 'can only contain a-z, 0-9 and -',
+                        allow_blank: true
   end
 
   def to_param
@@ -24,7 +25,21 @@ module Sluggable
       self.slug_options = options
 
       validates_uniqueness_of :slug, scope: self.slug_options[:scope], case_sensitive: false
+
+      if options[:lookups]
+        define_singleton_method :lookup do |slug|
+          self.find_by 'LOWER(' + self.table_name + '.slug) = ?', slug&.to_s&.downcase
+        end
+
+        define_singleton_method :lookup! do |*args|
+          self.lookup(*args) or raise ActiveRecord::RecordNotFound.new "Couldn't find #{self.class.name} with slug #{args[0]}.", self.class
+        end
+      end
     end
+  end
+
+  def self.to_slug(*arg)
+    to_slug *arg
   end
 
   private

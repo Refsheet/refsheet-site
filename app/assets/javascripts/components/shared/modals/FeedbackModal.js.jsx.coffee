@@ -1,63 +1,45 @@
 @FeedbackModal = React.createClass
+  propTypes:
+    name: React.PropTypes.string
+
+
   getInitialState: ->
     model:
       name: @props.name
       comment: null
-    errors: {}
 
-  handleChange: (key, value) ->
-    o = @state.model
-    o[key] = value
-    @setState model: o, errors: {}
 
-  handleSubmit: (e) ->
-    $.ajax
-      url: '/feedbacks'
-      type: 'POST'
-      data: feedback: @state.model
-      success: =>
-        @setState model: { name: @props.name }, errors: {}
-        $('#feedback-modal').modal('close')
-        Materialize.toast 'Thanks for the feedback!', 3000, 'green'
-        Materialize.updateTextFields()
-      error: (error) =>
-        @setState errors: (error.responseJSON || {}).errors || {}
+  _handleSubmit: (feedback) ->
+    @refs.modal.close()
+    Materialize.toast 'Thanks for the feedback!', 3000, 'green'
+    @setState model: comment: null
+
+  _handleClose: (e) ->
+    @refs.modal.close()
     e.preventDefault()
 
-  handleClose: (e) ->
-    $('#feedback-modal').modal('close')
-    e.preventDefault()
-
-  componentDidMount: ->
-    Materialize.initializeForms()
-    Materialize.updateTextFields()
 
   render: ->
-    `<Modal id='feedback-modal'>
-        <h2>Feedback</h2>
+    `<Modal id='feedback-modal' ref='modal' title='Feedback'>
         <p>Something not quite right? Want a new feature? Let me know!</p>
 
-        <form onSubmit={ this.handleSubmit } className='margin-top--large'>
-            <Input type='text'
-                   autoFocus
-                   value={ this.state.model.name }
-                   label='Your Name'
-                   id='name'
-                   onChange={ this.handleChange }
-                   error={ this.state.errors.name } />
+        <Form onChange={ this._handleSubmit }
+              action='/feedbacks'
+              className='margin-top--large'
+              model={ this.state.model }
+              modelName='feedback' >
 
-            <Input type='textarea'
-                   value={ this.state.model.comment }
-                   label='Comment'
-                   id='comment'
-                   onChange={ this.handleChange }
-                   error={ this.state.errors.comment } />
+            <Row>
+                <Column m={6}><Input type='text' name='name' label='Your Name' autoFocus={ !this.state.model.name } /></Column>
+                <Column m={6}><Input type='text' name='email' label='Your Email' /></Column>
+            </Row>
 
-            <div className='actions margin-top--large'>
-                <button className='btn' type='submit'>Submit</button>
-                <a className='btn grey right darken-3' onClick={ this.handleClose }>
-                    <i className='material-icons'>cancel</i>
-                </a>
-            </div>
-        </form>
+            <Input type='textarea' name='comment' label='Comment' autoFocus={ !!this.state.model.name } />
+
+            <Row className='actions right-align'>
+                <Column>
+                    <Submit>Send Feedback</Submit>
+                </Column>
+            </Row>
+        </Form>
     </Modal>`

@@ -1,13 +1,14 @@
 @AttributeTable = React.createClass
   getInitialState: ->
     activeEditor: @props.activeEditor
+    appendMode: false
 
   clearEditor: ->
     @setState activeEditor: null
 
   componentDidMount: ->
     if @props.onAttributeUpdate?
-      $('.attribute-table.sortable').sortable
+      $(@refs.table).sortable
         items: 'li:not(.attribute-form)'
         placeholder: 'drop-target'
         forcePlaceholderSize: true
@@ -19,9 +20,14 @@
             id: $item.data 'attribute-id'
             rowOrderPosition: position
 
+  _triggerAppend: (e) ->
+    @setState appendMode: true
+    e.preventDefault()
+
   render: ->
     children = React.Children.map @props.children, (child) =>
-      return child unless child.type == Attribute
+      return if @props.hideEmpty and not child.props.value
+      return child unless child?.type == Attribute
 
       React.cloneElement child,
         onCommit: @props.onAttributeUpdate
@@ -34,20 +40,35 @@
         hideNotesForm: @props.hideNotesForm
 
         onEditStart: =>
-          @setState activeEditor: child.key
+          @setState activeEditor: child.key, appendMode: false
           
         onEditStop: =>
           @setState activeEditor: null
 
     if @props.onAttributeCreate?
-      newForm = `<AttributeForm onCommit={ this.props.onAttributeCreate } inactive={ this.state.activeEditor != null } valueType={ this.props.valueType } onFocus={ this.clearEditor } />`
+      if @state.appendMode
+        newForm =
+          `<AttributeForm onCommit={ this.props.onAttributeCreate }
+                          inactive={ this.state.activeEditor != null }
+                          hideNotes={ this.props.hideNotesForm }
+                          hideIcon={ this.props.hideIcon }
+                          valueType={ this.props.valueType }
+                          onFocus={ this.clearEditor } />`
+      else
+        newForm =
+          `<li className='attribute-form'>
+              <div className='full-row'>
+                  <a href='#' onClick={ this._triggerAppend } className='block'>
+                      <i className='material-icons'>add</i>
+                  </a>
+              </div>
+          </li>`
 
     className = 'attribute-table'
+    className += ' sortable' if @props.sortable
+    className += ' ' + @props.className if @props.className
 
-    if @props.sortable
-      className += ' sortable'
-
-    `<ul className={ className }>
+    `<ul className={ className } ref='table'>
         { children }
         { newForm }
     </ul>`

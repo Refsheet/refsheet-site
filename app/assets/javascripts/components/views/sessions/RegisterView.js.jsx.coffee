@@ -1,105 +1,78 @@
 @RegisterView = React.createClass
   contextTypes:
     router: React.PropTypes.object.isRequired
+    setCurrentUser: React.PropTypes.func.isRequired
 
 
   getInitialState: ->
-    username: @props.location.query.username
-    email: null
-    password: null
-    password_confirmation: null
-    loading: false
-    errors: {}
+    user:
+      username: @props.location.query.username
+      email: null
+      password: null
+      password_confirmation: null
 
-  handleFormSubmit: (e) ->
-    @setState loading: true
 
-    $.ajax
-      url: '/users',
-      data:
-        user:
-          username: @state.username
-          email: @state.email
-          password: @state.password
-          password_confirmation: @state.password_confirmation
-      type: 'POST'
+  _handleChange: (user) ->
+    ReactGA.event
+      category: 'User'
+      action: 'Sign Up'
 
-      success: (data) =>
-        @props.onLogin data
-        @setState loading: false, errors: {}
-        @context.router.push '/' + data.username
+    @context.setCurrentUser user, =>
+      @context.router.push '/' + user.username
 
-        ReactGA.event
-          category: 'User'
-          action: 'Sign Up'
-          value: data.id
-
-      error: (error) =>
-        message = error.responseJSON?.errors
-        @setState errors: (message || {}), password: null, password_confirmation: null, loading: false
-
-    e.preventDefault()
-
-  handleInputChange: (key, value) ->
-    obj = { errors: @state.errors }
-    obj[key] = value
-    obj.errors[key] = null
-    @setState obj
 
   componentDidMount: ->
-    Materialize.initializeForms()
-    Materialize.updateTextFields()
     $('body').addClass 'no-footer'
-
-  componentDidUpdate: ->
-    Materialize.updateTextFields()
 
   componentWillUnmount: ->
     $('body').removeClass 'no-footer'
 
   render: ->
-    if @state.loading
-      `<Loading message='Sign Up' />`
+    `<Main title='Register'>
+        <div className='modal-page-content'>
+            <div className='narrow-container'>
+                <h1>Sign Up</h1>
 
-    else
-      `<div className='modal-page-content'>
-          <div className='narrow-container'>
-              <h1>Sign Up</h1>
+                <Form
+                    action='/users'
+                    method='POST'
+                    model={ this.state.user }
+                    onChange={ this._handleChange }
+                    modelName='user'
+                >
 
-              <form onSubmit={ this.handleFormSubmit } noValidate>
-                  <Input id='username'
-                         name='username'
-                         value={ this.state.username }
-                         onChange={ this.handleInputChange }
-                         label='Username'
-                         autoFocus
-                         error={ this.state.errors.username } />
+                    <Input
+                        name='username'
+                        value={ this.state.username }
+                        label='Username'
+                        autoFocus
+                    />
 
-                  <Input id='email'
-                         name='email'
-                         type='email'
-                         value={ this.state.email }
-                         onChange={ this.handleInputChange }
-                         label='Email'
-                         error={ this.state.errors.email } />
+                    <Input
+                        name='email'
+                        type='email'
+                        value={ this.state.email }
+                        label='Email'
+                    />
 
-                  <Input id='password'
-                         name='password'
-                         value={ this.state.password }
-                         type='password'
-                         onChange={ this.handleInputChange }
-                         label='Password'
-                         error={ this.state.errors.password } />
+                    <Input
+                        name='password'
+                        value={ this.state.password }
+                        type='password'
+                        label='Password'
+                    />
 
-                  <Input id='password_confirmation'
-                         name='password_confirmation'
-                         value={ this.state.password_confirmation }
-                         type='password'
-                         onChange={ this.handleInputChange }
-                         label='Confirm Password'
-                         error={ this.state.errors.password_confirmation } />
+                    <Input
+                        name='password_confirmation'
+                        value={ this.state.password_confirmation }
+                        type='password'
+                        label='Confirm Password'
+                    />
 
-                  <button type='submit' className='btn margin-top--medium'>Sign Up</button>
-              </form>
-          </div>
-      </div>`
+                    <div className='form-actions margin-top--large'>
+                        <Submit>Sign Up</Submit>
+                    </div>
+                </Form>
+            </div>
+        </div>
+    </Main>`

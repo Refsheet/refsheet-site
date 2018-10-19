@@ -4,7 +4,7 @@ class CharactersController < ApplicationController
 
   def index
     @characters = filter_scope
-    render json: @characters, each_serializer: ImageCharacterSerializer
+    render api_collection_response @characters, each_serializer: ImageCharacterSerializer, root: 'characters'
   end
 
   def show
@@ -24,7 +24,10 @@ class CharactersController < ApplicationController
     )
 
     respond_to do |format|
-      format.html { render 'application/show' }
+      format.html do
+        eager_load character: CharacterSerializer.new(@character, scope: view_context).as_json
+        render 'application/show'
+      end
       format.json { render json: @character, serializer: CharacterSerializer }
     end
   end
@@ -66,13 +69,16 @@ class CharactersController < ApplicationController
   end
 
   def get_character
+    return head 200 if params[:id] == 'undefined'
     @character = @user.characters.lookup! params[:id]
   end
 
   def character_params
     p = params.require(:character).permit(:name, :nickname, :gender, :species, :height, :weight,
                                           :body_type, :personality, :special_notes, :profile, :likes, :dislikes, :slug,
-                                          :shortcode)
+                                          :shortcode, :transfer_to_user, :nsfw, :hidden,
+                                          :row_order_position
+    )
 
     if params[:character].include? :color_scheme_attributes
       p[:color_scheme_attributes] = { color_data: params[:character][:color_scheme_attributes][:color_data].permit!, id: @character.color_scheme_id }
@@ -90,12 +96,12 @@ class CharactersController < ApplicationController
   end
 
   def filter_scope
-    scope = Character.all
+    scope = Character.includes(:color_scheme, :user, :profile_image, :featured_image)
     sort = nil
     order = nil
     query = []
 
-    params[:q].split(/\s+/).each do |q|
+    (params[:q] || '').split(/\s+/).each do |q|
       case q
         when /sort:(\w+)/i
           sort = $1.downcase
@@ -114,8 +120,9 @@ class CharactersController < ApplicationController
 
     # NSFW / Hidden
     scope = scope.sfw unless nsfw_on?
-    scope.visible
+    scope = scope.visible_to current_user
 
-    scope.search_for(query.join(' '))
+    scope = scope.search_for(query.join(' '))
+    scope.paginate(page: params[:page], per_page: 16)
   end
 end

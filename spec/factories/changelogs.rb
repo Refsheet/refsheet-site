@@ -9,19 +9,19 @@
 #  changed_image_id     :integer
 #  changed_swatch_id    :integer
 #  reason               :text
-#  changes              :json
+#  change_data          :json
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :changelog do
-    user_id 1
-    changed_character_id 1
-    changed_user_id 1
-    changed_image_id 1
-    changed_swatch_id 1
-    reason "MyText"
-    changes ""
+    user_id { 1 }
+    changed_character_id { 1 }
+    changed_user_id { 1 }
+    changed_image_id { 1 }
+    changed_swatch_id { 1 }
+    reason { "MyText" }
+    changes { "" }
   end
 end

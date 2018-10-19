@@ -1,25 +1,193 @@
 body:not(.admin)
-  input, textarea, select
-    z-index: 1
-    position: relative
+  form
+    @at-root
+      form.inline
+        display: flex
+        height: 2.5rem
+        width: 100%
 
-    &:-webkit-autofill
-      &, &:focus, &:hover, &:active
-        box-shadow: 0 0 0 1000px $card-bg-color inset !important
-        border-bottom-color: color('yellow', 'darken-1') !important
-        -webkit-text-fill-color: $page-text-color !important
+        &.pill
+          width: auto
+          border-radius: 2px
 
-  .hint-text
-    top: auto !important
-    bottom: 0.3rem
-    font-size: 0.8rem
-    position: absolute
+          input
+            background-color: white
+            padding: 0 1rem
+            box-sizing: border-box
+            border: 1px solid white
+            border-right: none
+            border-radius: 2px 0 0 2px
 
-  label
-    width: 100%
-    bottom: 0
-    z-index: 0
+            &:focus, &:active
+              box-shadow: none
+              border-color: $brand-dark
+              border-right: none
 
-    &.active
-      transform: translateY(0) !important
-      top: -1rem !important
+          button
+            background-color: $brand-dark
+            border-radius: 0 2px 2px 0
+            box-shadow: none
+            box-sizing: border-box
+
+        &.has-errors
+          height: auto
+
+        .input-field
+          margin-top: 0
+          height: auto
+          flex-grow: 1
+
+        .error-block
+          margin-bottom: 0.25rem
+          margin-top: 0rem
+          line-height: initial
+
+        input
+          flex-grow: 1
+          margin-bottom: 0
+          line-height: 2.5rem
+          height: 2.5rem
+          border-bottom: none
+
+          &:focus
+            box-shadow: none
+            margin-bottom: 1px
+
+        button
+          margin-bottom: 0
+          border-top-left-radius: 0
+          border-bottom-left-radius: 0
+          padding: 0 0.75rem
+          height: auto
+          flex-shrink: 0
+
+          i.material-icons
+            font-size: 1.2rem
+            line-height: 2.5rem
+
+          &.btn-link
+            padding: 0 0 0 15px
+      .btn-flat
+        color: $text-light-color
+
+      .btn-link
+        @extend .z-depth-0
+        background-color: transparent !important
+        color: $link-color
+
+        &:hover, &:active
+          background-color: transparent
+
+      i.prefix
+        color: color('grey', 'darken-1')
+
+        &.shadow
+          text-shadow: 0 0 1px white
+
+      .select-wrapper span.caret
+        color: $page-text-color
+
+      .dropdown-content
+        background-color: $card-bg-color
+        color: $page-text-color
+
+        li.optgroup
+          color: $text-light-color !important
+
+        li.selected, li:hover, li.active
+          background-color: darken($card-bg-color, 5%)
+
+
+    &.reply-box
+      &:not(.not-really-tho)
+        .input-field
+          margin: 0
+
+      textarea
+        border: none
+        font: inherit
+        font-family: inherit !important
+        font-size: inherit !important
+        color: inherit
+        padding: 0.5rem
+        white-space: pre-wrap !important
+        background-color: rgba(0,0,0,0.2)
+        border-bottom: 1px solid rgba(255,255,255,0.1)
+        margin-bottom: 0.5rem
+
+        &:placeholder
+          color: rgba(white, 0.8)
+
+        &:focus, &:active
+          outline: none
+          box-shadow: none
+          border-bottom: 1px solid $brand-primary
+
+    .browser-default
+      border: 1px solid rgba(white, 0.1)
+      padding: 0.5rem
+      background-color: transparent
+
+    textarea.browser-default.mono
+      font-family: monospace
+      font-size: 0.9rem
+      white-space: pre
+      min-height: 6rem
+
+    .full-width
+      width: 100%
+
+    .invalid input
+      @extend input.invalid
+
+    .hint-block,
+    .error-block
+      display: block
+      font-size: 0.8rem
+      margin-bottom: 20px
+      padding-top: 3px
+      margin-top: -20px
+      color: $text-light-color
+
+      &.error-block
+        color: color('red', 'base')
+
+
+    input[type=checkbox] + label,
+    input[type=radio] + label
+      margin-bottom: 20px
+
+    label
+      abbr[title]
+        float: right
+        border-bottom: none
+        margin-left: 0.2rem
+        color: color('red', 'lighten-1')
+        display: none
+
+    textarea
+      resize: none
+
+      &.min-height
+        min-height: 3rem
+        height: auto
+
+    input, textarea, select
+      &::placeholder
+        color: $muted-text-color
+
+      &[disabled], &:disabled
+        color: $text-light-color !important
+        border-bottom-color: $text-light-color !important
+
+        @-webkit-keyframes autofill
+          to
+            color: #666
+            background: transparent
+
+      &:-webkit-autofill
+        &, &:focus, &:hover, &:active
+          -webkit-animation-name: autofill
+          -webkit-animation-fill-mode: both
+          -webkit-text-fill-color: $page-text-color !important
+          border-bottom-color: color('yellow', 'darken-1') !important

@@ -1,0 +1,37 @@
+.container
+  width: 90%
+
+  @media #{$medium-and-down}
+    width: 95%
+
+  @media #{$small-and-down}
+    width: 100%
+    padding-left: 1.5rem
+    padding-right: 1.5rem
+
+  @at-root
+    section.section-flex
+      display: flex
+      flex-direction: column
+      flex-grow: 1
+
+    main.main-flex
+      display: flex
+      flex-direction: column
+
+  &.container-flex
+    display: flex
+    flex-grow: 1
+
+    .sidebar
+      flex: 0 0 300px
+      margin: 0 !important
+      background-color: $card-bg-color
+
+      @media #{$small-and-down}
+        flex: none
+        display: none
+
+    .content
+      flex-grow: 1
+      padding: 1.5rem 0 0 1.5rem

@@ -2,26 +2,38 @@
   getInitialState: ->
     image: null
 
+  load: (data) ->
+    @setState image: data, ->
+      data.directLoad = true
+      $(document).trigger 'app:lightbox', data
+
+  fetch: (imageId) ->
+    return unless imageId
+    Model.get "/images/#{imageId}.json", @load
+
   componentWillMount: ->
-    $('body').addClass 'no-footer'
+    if @props.route.image and (@props.route.image?.id is @props.params.imageId)
+      console.debug "EAGER LOADING:", @props.route.image
+      @load @props.route.image
+    else
+      @fetch @props.params.imageId
 
-    $.ajax
-      url: "/images/#{@props.params.imageId}.json"
-      success: (data) =>
-        @setState image: data
-
-  componentWillUnmount: ->
-    $('body').removeClass 'no-footer'
-
-  componentWillUpdate: (newProps, newState) ->
-    if newState.image? && !@state.image?
-      console.log 'Triggering LB event'
-      $(document).trigger 'app:lightbox', newState.image
+  componentWillReceiveProps: (newProps) ->
+    if newProps.params.imageId and @state.image and (newProps.params.imageId isnt @state.image?.id)
+      @fetch newProps.params.imageId
 
   render: ->
     if @state.image?
-      bgImgUrl = "url(#{@state.image?.character.featured_image_url})"
-      `<main style={{ backgroundImage: bgImgUrl }} />`
+      `<CharacterViewSilhouette title={[ this.state.image.title, 'Images' ]}
+                                coverImage={ this.state.image.character.featured_image_url }
+                                immediate />`
 
     else
-      `<Loading />`
+      `<CharacterViewSilhouette />`
+
+
+      # BROKEN THINGS FOR TOMRROW
+
+      # Change eagerload to CONTEXT
+      # Loading screen broken?
+      # Character load on their own.

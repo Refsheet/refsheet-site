@@ -7,13 +7,14 @@
   getInitialState: ->
     uploading: false
     uploadPercent: 0
+    initialized: false
 
   componentDidMount: ->
     if this.props.url?
       ___this = this
 
-      $('.dropzone-container').dropzone
-        clickable: @props.clickable || null
+      $(@refs.dropzone).dropzone
+        clickable: @props.clickable || undefined
         url: @props.url
         method: @props.method || 'POST'
         previewTemplate: ''
@@ -37,16 +38,22 @@
           @setState uploading: false, uploadPercent: 0
 
         init: ->
+          ___this.setState initialized: true
+
           @on 'error', (_, error) ->
-            Materialize.toast "Image #{error.errors.image}", 3000, 'red'
+            if error.errors?.image
+              Materialize.toast "Image #{error.errors.image}", 3000, 'red'
+            else
+              console.error JSON.stringify(error)
+              Materialize.toast "An unknown error has occurred :( Please find Mau and tell them this: #{JSON.stringify(error)}"
 
           @on 'success', (_, data) ->
             Materialize.toast "Image uploaded!", 3000, 'green'
             ___this.props.onUpload(data) if ___this.props.onUpload?
 
   componentWillUnmount: ->
-    if this.props.url?
-      Dropzone.forElement('.dropzone-container').destroy();
+    if this.props.url? and @state.initialized
+      Dropzone.forElement(@refs.dropzone).destroy();
 
   render: ->
     if @state.uploading
@@ -73,7 +80,7 @@
             <div className='flow-text'>Images only, please.</div>
         </div>`
 
-    `<div className={ className }>
+    `<div className={ className } ref='dropzone'>
         <div className='dropzone-overlay valign-wrapper' data-dz-overlay>
             <div className='modal-page-content valign'>
                 { dropZoneContent }

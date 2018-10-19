@@ -1,0 +1,29 @@
+.character-notice
+  @extend .card
+  @extend .container
+  margin: 0
+  background-color: $brand-darker
+  color: white
+  display: flex
+  position: absolute
+  top: 30px
+  left: auto
+  right: auto
+
+  .notice-text
+    @extend .truncate
+    flex-grow: 1
+    line-height: 2.5rem
+    padding: 0.5rem 1rem
+
+  .notice-action
+    padding: 0.5rem
+
+    .btn-flat
+      color: $lighten-text-color
+
+  @media #{$small-and-down}
+    display: block
+
+    .notice-action
+      padding: 0.5rem 1rem

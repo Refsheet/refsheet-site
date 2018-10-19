@@ -21,4 +21,5 @@ production:
   password: <%= ENV['RDS_PASSWORD'] %>
   host: <%= ENV['RDS_HOSTNAME'] %>
   port: <%= ENV['RDS_PORT'] %>
+  pool: <%= ENV['DB_POOL'] || ENV['RAILS_MAX_THREADS'] || 10 %>
   timeout: 5000

@@ -3,26 +3,38 @@ class UserSerializer < ActiveModel::Serializer
   include GravatarImageTag::InstanceMethods
 
   attributes :username,
-             :email,
              :avatar_url,
              :path,
+             :link,
              :name,
              :profile_image_url,
              :profile,
              :profile_markup,
+             :characters_count,
              :is_admin,
              :is_patron,
-             :settings,
-             :id
+             :followed
 
-  has_many :characters, serializer: ImageCharacterSerializer
+  has_many :characters,
+           serializer: ImageCharacterSerializer
+
+  has_many :character_groups,
+           serializer: CharacterGroupSerializer
 
   def characters
-    object.characters.default_order
+    object.characters.visible_to(scope.current_user).rank(:row_order)
+  end
+
+  def characters_count
+    object.characters.count
   end
 
   def path
     "/users/#{object.username}/"
+  end
+
+  def link
+    "/#{object.username}"
   end
 
   def profile_markup
@@ -43,5 +55,9 @@ class UserSerializer < ActiveModel::Serializer
 
   def settings
     object.settings.as_json
+  end
+
+  def followed
+    scope.current_user&.following? object if scope&.respond_to? :current_user
   end
 end

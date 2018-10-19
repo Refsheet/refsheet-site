@@ -21,6 +21,12 @@
 
   render: ->
     `<Modal id='user-settings-modal'>
+        <div className='card-panel margin-bottom--large green darken-1 white-text'>
+            <div className='strong'>Notice!</div>
+            This window will be going away soon! Please use the Settings link in the left
+            menu of your user dashboard to change your account settings.
+        </div>
+
         <h2>User Settings</h2>
         <p>Be sure to save each row individually.</p>
 

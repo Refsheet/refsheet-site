@@ -6,7 +6,7 @@ class ImagesController < ApplicationController
   respond_to :json
 
   def index
-    render json: image_scope, each_serializer: ImageSerializer
+    render json: image_scope.includes(:favorites, :character, :comments), each_serializer: ImageSerializer
   end
 
   def show
@@ -20,14 +20,18 @@ class ImagesController < ApplicationController
         og: {
             image: @image.image.url(:medium)
         },
-        title: 'Image of ' + @image.character.name,
+        title: @image.title,
         description: @image.caption || 'This image has no caption!',
         image_src: @image.image.url(:medium)
     )
 
     respond_to do |format|
-      format.html { render 'application/show' }
-      format.json { render json: @image, serializer: ImageSerializer }
+      format.html do
+        eager_load image: ImageSerializer.new(@image, scope: self).as_json
+        render 'application/show'
+      end
+
+      format.json { render json: @image, serializer: ImageSerializer, include: 'character,comments,comments.user,favorites' }
     end
   end
 
@@ -42,7 +46,7 @@ class ImagesController < ApplicationController
     @image = Image.new image_params.merge(character: @character)
 
     if @image.save
-      render json: @image, serializer: CharacterImageSerializer
+      render json: @image, serializer: ImageSerializer
     else
       render json: { errors: @image.errors }, status: :bad_request
     end
@@ -53,12 +57,11 @@ class ImagesController < ApplicationController
 
     if params[:image][:swap_target_image_id]
       target = Image.find_by!(guid: params[:image][:swap_target_image_id])
-      tro = target.row_order
-      target.row_order = @image.row_order
-      @image.row_order = tro
-      target.save and @image.save
+      @image.row_order = target.row_order - 1
+      @image.save
 
-      render json: @image, serializer: ImageSerializer
+      @character = @image.character
+      render json: image_scope, each_serializer: ImageSerializer
     elsif @image.update_attributes image_params
       if image_params.include? :gravity
         @image.regenerate_thumbnail!
@@ -73,7 +76,7 @@ class ImagesController < ApplicationController
   def destroy
     head :unauthorized and return unless @image.managed_by? current_user
 
-    @image.delete
+    @image.destroy
     render json: @image, serializer: ImageSerializer
   end
 
@@ -88,11 +91,22 @@ class ImagesController < ApplicationController
   end
 
   def get_image
-    @image = Image.find_by!(guid: params[:id])
+    @image = Image.includes(:comments => [:media, :reply_to, :user]).find_by!(guid: params[:id])
   end
 
   def image_params
-    params.require(:image).permit(:image, :artist_id, :caption, :source_url, :thumbnail, :gravity, :nsfw, :hidden)
+    params.require(:image).permit(
+        :image,
+        :artist_id,
+        :caption,
+        :source_url,
+        :thumbnail,
+        :gravity,
+        :nsfw,
+        :hidden,
+        :title,
+        :background_color
+    )
   end
 
   def image_scope

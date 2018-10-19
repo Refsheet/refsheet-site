@@ -1,0 +1,75 @@
+- title "Feedback from #{@feedback.name}"
+
+.content
+  .card
+    .card-content
+      .row.no-margin
+        .col.s12.m3
+          .left
+            = image_tag @feedback.avatar_image_url, class: 'circle responsive-img', width: 36
+
+          .left.margin-left--medium
+            .strong
+              - if @feedback.user
+                = link_to @feedback.user.name, admin_user_path(@feedback.user), target: '_blank'
+                .muted (#{@feedback.user.email})
+              - else
+                = @feedback.name
+            .muted= time_ago_in_words(@feedback.created_at) + ' ago'
+          .clearfix
+
+        .col.s12.m9
+          = simple_format @feedback.comment
+
+          - if @feedback.visit
+            %hr
+            %ul.attributes.row
+              %li.col.s12.m4
+                .label IP
+                .value= @feedback.visit.ip || 'nil'
+              %li.col.s12.m4
+                .label Browser
+                .value= @feedback.visit.browser || 'nil'
+              %li.col.s12.m4
+                .label OS
+                .value= @feedback.visit.os || 'nil'
+              %li.col.s12.m4
+                .label Device
+                .value= @feedback.visit.device_type || 'nil'
+              %li.col.s12.m4
+                .label Resolution
+                .value= [@feedback.visit.screen_height, @feedback.visit.screen_width].join('x') || 'nil'
+              %li.col.s12.m4
+                .label Location
+                .value= @feedback.visit.location || 'nil'
+              %li.col.s12.m6
+                .label Landing Page
+                .value.truncate= link_to @feedback.visit.landing_page, @feedback.visit.landing_page, target: '_blank'
+              %li.col.s12.m6
+                .label Source URL
+                .value.truncate= @feedback.source_url.present? ? link_to(@feedback.source_url, @feedback.source_url, target: '_blank') : 'nil'
+
+  .row.margin-top--large
+    .col.s12.m3
+      - if @feedback.done?
+        %p.center.caption Feedback Done
+      - else
+        = link_to material_icon(:check, 'Done', class: 'left'), admin_feedback_path(@feedback, feedback: { done: true }), method: :put, class: 'btn btn-flat btn-block'
+
+    .col.s12.m9
+      - @feedback.replies.each do |reply|
+        .card.margin-bottom--large
+          .card-content
+            .strong= link_to reply.user.name, admin_user_path(reply.user)
+            = simple_format reply.comment
+
+      .card.margin-top--none
+        - if @feedback.email.present?
+          = simple_form_for @reply, url: admin_feedback_replies_path(@feedback), as: :reply, html: { class: 'reply-box' } do |f|
+            = f.input :comment, label: false,
+                      input_html: { placeholder: 'Send your reply...',
+                                    class: 'margin--none padding--medium',
+                                    style: 'display: block; box-sizing: border-box; min-height: 120px;' }
+
+            .card-action.right-align.padding--small
+              %button.btn{type: 'submit'}= material_icon(:send, 'Send Reply', class: 'right')

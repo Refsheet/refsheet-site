@@ -1,19 +1,23 @@
 @ActionButton = React.createClass
+  componentDidUpdate: ->
+    $(@refs.actionButton).tooltip(delay: 0, position: 'left')
+
   componentDidMount: ->
-    $('.tooltipped').tooltip(delay: 0, position: 'left')
+    $(@refs.actionButton).tooltip(delay: 0, position: 'left')
 
   componentWillUnmount: ->
-    $('.tooltipped').tooltip('remove')
+    $(@refs.actionButton).tooltip('remove')
 
   render: ->
     largeClass = ''
     iconClass = ''
 
     if @props.large
-      largeClass = ' btn-large'
+      largeClass = ' btn-large red'
       iconClass = ' large'
 
     `<a className={ 'btn-floating tooltipped waves waves-light ' + this.props.className + largeClass }
+        ref='actionButton'
         data-tooltip={ this.props.tooltip }
         href={ this.props.href }
         onClick={ this.props.onClick }

@@ -9,7 +9,7 @@
 #  changed_image_id     :integer
 #  changed_swatch_id    :integer
 #  reason               :text
-#  changes              :json
+#  change_data          :json
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #
@@ -17,6 +17,19 @@
 require 'rails_helper'
 
 describe Changelog, type: :model do
+  it_is_expected_to(
+    belong_to: [
+      :user,
+      :changed_character,
+      :changed_user,
+      :changed_image,
+      :changed_swatch
+    ],
+    validate_presence_of: [
+      :user,
+      :change_data
+    ]
+  )
   it { is_expected.to validate_presence_of :user }
   it { is_expected.to belong_to :user }
   it { is_expected.to belong_to :changed_character }

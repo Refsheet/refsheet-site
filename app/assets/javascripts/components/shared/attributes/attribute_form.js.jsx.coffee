@@ -64,13 +64,6 @@
 
     if @props.inactive
       className += ' inactive'
-      
-    if @props.valueType == 'color'
-      colorPicker =
-        `<div className='color-helper' onClick={ this.colorPickerClick } style={{ backgroundColor: this.state.value }}>
-            <input type='color' className='right'
-                   onInput={ this.colorPicker } />
-        </div>`
 
     unless @props.hideIcon
       iconTag =
@@ -86,7 +79,7 @@
       nameTag =
         `<div className='key'>
             <Input type='text'
-                   id='name'
+                   name='name'
                    placeholder='Name'
                    error={ this.state.errors.name }
                    onChange={ this.handleChange }
@@ -97,14 +90,14 @@
       notesTag =
         `<div className='notes'>
             <Input type='text'
-                   id='notes'
+                   name='notes'
                    placeholder='Notes'
                    error={ this.state.errors.notes }
                    onChange={ this.handleChange }
                    value={ this.state.notes } />
         </div>`
 
-    `<li className={ className }>
+    `<li className={ className } data-attribute-id={ this.props.id }>
         <form onSubmit={ this.commit }>
             { iconTag }
 
@@ -112,10 +105,8 @@
                 { nameTag }
 
                 <div className='value'>
-                    { colorPicker }
-
-                    <Input type='text'
-                           id='value'
+                    <Input type={ this.props.valueType || 'text' }
+                           name='value'
                            onChange={ this.handleChange }
                            error={ this.state.errors.value }
                            value={ this.state.value } />
@@ -125,7 +116,7 @@
             </div>
 
             <div className='actions'>
-                <a className={ saveClassName } onClick={ this.commit }>
+                <a className={ saveClassName } onClick={ this.commit } href='#'>
                     <i className='material-icons'>save</i>
                 </a>
 

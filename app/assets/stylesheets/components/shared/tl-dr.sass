@@ -1,0 +1,26 @@
+.tl-dr
+  margin-top: 3rem
+  padding-top: 2rem
+  position: relative
+  padding-left: 2rem
+  padding-bottom: 0.5rem
+  border-left: 3px solid $secondary-color
+
+  #privacy-policy &
+    margin-top: 0
+
+  &:before
+    content: 'TL;DR:'
+    position: absolute
+    top: 0
+    left: 1rem
+    color: $secondary-color
+    font-size: 1.2rem
+
+  #privacy-policy
+    .row
+      margin: 0
+
+  @media #{$small-and-down}
+    margin-top: 1rem
+    margin-bottom: 1.5rem

@@ -15,14 +15,25 @@
 #  avatar_file_size    :integer
 #  avatar_updated_at   :datetime
 #  settings            :json
+#  type                :string
+#  auth_code_digest    :string
+#  parent_user_id      :integer
+#  unconfirmed_email   :string
+#  email_confirmed_at  :datetime
+#
+# Indexes
+#
+#  index_users_on_parent_user_id  (parent_user_id)
+#  index_users_on_type            (type)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :user do
     name { Faker::Name.name }
     profile { Faker::Lorem.paragraph }
-    password 'fishsticks'
-    password_confirmation 'fishsticks'
+    password { 'fishsticks' }
+    password_confirmation { 'fishsticks' }
+    skip_emails { true }
 
     sequence :username do |n|
       "user#{n}"
@@ -30,6 +41,20 @@ FactoryGirl.define do
 
     sequence :email do |n|
       "user#{n}@example.com"
+    end
+
+    trait :send_emails do
+      skip_emails { false }
+    end
+
+    trait :is_seller do
+      seller
+    end
+
+    trait :confirmed do
+      after(:create) do |user|
+        user.confirm!
+      end
     end
 
     factory :admin do

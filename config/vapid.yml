@@ -1,0 +1,12 @@
+test: &default
+  subject: mailto:mau+vapiddev@refsheet.net
+  public_key: BGs4lU2BqFYzc2lLiquLSeRoNnhU1LPyv589iNzGWcG98t3ppfMCJBqWtNeVmzp6Nt4X15s3odjfo2JBWDdkhrc=
+  private_key: brqs3FAV9mejHX8Inz-hW4PAGixm_FoomkRdj21Eu4Y=
+
+development:
+  <<: *default
+
+production:
+  subject: https://refsheet.net
+  public_key: <%= ENV['VAPID_PUBLIC_KEY'] %>
+  private_key: <%= ENV['VAPID_PRIVATE_KEY'] %>

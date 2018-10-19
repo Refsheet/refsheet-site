@@ -3,7 +3,11 @@
   margin: 0 auto
   width: 95vw
   min-width: 600px
-  max-height: 80vh
+  max-height: initial
+  top: 66px !important
+
+  .modal-body
+    max-height: initial
 
 .lightbox
   display: flex
@@ -40,25 +44,53 @@
     top: 1rem
     right: 1rem
 
-    & > a
+    a
       color: $page-text-color
+
+    & > div
+      display: inline-block
+      margin-left: 0.5rem
 
   .image-details-container
     display: flex
     flex-direction: column
     position: relative
+    flex-basis: 300px
 
     .image-details
-      width: 300px
+      width: 100%
+      min-width: 300px
       padding: 1rem
+      background-color: rgba(white, 0.05)
+      margin-top: 1px
 
       .image-caption
         margin-top: 1rem
 
-    .comments
+      .source-url
+        margin-top: 1rem
+
+        i
+          color: rgba(white, 0.4)
+          line-height: 2rem
+
+        a
+          @extend .truncate
+          line-height: 2rem
+
+    .tabs-container
       flex-grow: 1
-      background-color: $page-bg-color
       overflow: auto
+      display: flex
+      flex-direction: column
+
+      .tabs
+        background-color: rgba(white, 0.05)
+
+      .tab-content
+        padding: 1rem
+        flex-grow: 1
+        overflow-y: auto
 
       .no-comment
         padding: 10px
@@ -72,8 +104,9 @@
       width: 300px
 
   .loader
-    @extend .valign
-    margin: 0 auto
+    width: auto
+    margin: 3rem auto
+    text-align: center
 
 @media #{$small-and-down}
   .lightbox-modal.modal
@@ -93,8 +126,11 @@
     margin: 0
     max-height: initial
 
-  .image-details
-    width: auto
+    .image-details
+      width: auto
+
+    .image-details-container
+      flex-basis: initial
 
   .image-content
     flex-grow: 0

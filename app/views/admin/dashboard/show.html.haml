@@ -53,3 +53,16 @@
   .row
     .col.s12
       = line_chart [{ name: 'Visitors', data: report_group(Visit, :started_at).count, color: '#666666' }]
+
+  - event_scope = Ahoy::Event.where(name: 'advertisement.impression').where.not('ahoy_events.visit_id' => nil)
+  %ul.stats
+    %li
+      .value= report_count event_scope, :time
+      .label{ style: 'color: #666666;' } Ad Impressions
+    %li
+      .value= event_scope.where(time: report_range).count('DISTINCT ahoy_events.visit_id')
+      .label{ style: 'color: #666666;' } Audience Reached
+
+  .row
+    .col.s12
+      = line_chart [{ name: 'Ad Impressions', data: report_group(event_scope, :time).count }, { name: 'Audience Reached', data: report_group(event_scope, :time).count('DISTINCT ahoy_events.visit_id') }]

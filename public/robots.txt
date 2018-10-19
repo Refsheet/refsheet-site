@@ -4,4 +4,4 @@
 # User-agent: *
 # Disallow: /
 
-Sitemap: http://s3.amazonaws.com/refsheet-prod/sitemaps/sitemap_index.xml.gz
+Sitemap: https://refsheet.net/sitemap.xml.gz
