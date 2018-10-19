@@ -1,0 +1,61 @@
+.container.activity-feed.container-flex
+  @at-root
+    main.with-sidebar
+      @media #{$medium-and-up}
+        background-color: $card-bg-color
+        background: linear-gradient(to right, $card-bg-color 50%, $page-bg-color 50%)
+
+        .sidebar
+          background-color: $card-bg-color
+
+        .content
+          background-color: $page-bg-color
+
+  .sidebar
+    width: auto
+    flex: 1 3 220px
+    padding-top: 1.5rem
+
+    &:not(.aside)
+      max-width: 250px
+      min-width: 200px
+
+    &.aside
+      flex: 1 3 200px
+      @extend .hide-on-med-and-down
+
+  .content
+    flex: 3 1 600px
+    min-width: 500px
+    max-width: 750px
+    padding: 1.5rem 1.5rem 0 1.5rem !important
+
+    .card
+      margin-top: 0
+      margin-bottom: 1rem
+
+  @media #{$small-and-down}
+    flex-direction: column
+
+    .content
+      width: 100%
+      flex: 3 1 auto
+      padding: 1.5rem 0 0 0 !important
+      min-width: initial
+      max-width: initial
+
+    .sidebar
+      flex: 1 3 auto
+      padding: 0
+
+    .card.with-avatar
+      .card-content
+        margin-left: 0
+
+        & > .identity-link-wrapper, .headline
+          margin-left: calc(40px + 1rem)
+
+      .avatar
+        height: 40px
+        width: 40px
+        float: left

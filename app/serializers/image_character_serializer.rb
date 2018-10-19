@@ -1,7 +1,23 @@
 class ImageCharacterSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
-  attributes :username, :name, :slug, :path, :profile_image_url, :featured_image_url, :link
+  attributes :id,
+             :username,
+             :name,
+             :species,
+             :gender,
+             :slug,
+             :profile_image_url,
+             :featured_image_url,
+             :group_ids,
+             :path,
+             :link
+
+  has_one :color_scheme, serializer: ColorSchemeSerializer
+
+  def id
+    object.slug
+  end
 
   def username
     object.user.username
@@ -9,6 +25,10 @@ class ImageCharacterSerializer < ActiveModel::Serializer
 
   def path
     user_character_path object.user, object
+  end
+
+  def group_ids
+    object.character_groups.collect(&:slug)
   end
 
   def profile_image_url

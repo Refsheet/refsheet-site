@@ -1,7 +1,7 @@
 module CollectionHelper
   def report_range
-    start = params[:start].present? ? DateTime.parse(params[:start]) : Time.zone.now.at_beginning_of_month
-    stop  = params[:end].present?   ? DateTime.parse(params[:end])   : start.at_end_of_month
+    start = DateTime.parse(params[:start]) rescue Time.zone.now.at_beginning_of_month
+    stop  = DateTime.parse(params[:end])   rescue start.at_end_of_month
     (start.at_beginning_of_day..stop.at_end_of_day)
   end
 
@@ -86,44 +86,64 @@ module CollectionHelper
     end
 
     params.keys.each do |key|
-      relation, column = key.to_s.split('.')
-      value = params[key].dup
-      negate = value[0] == '!'
-      value.slice!(0) if negate
-      value = [nil, ''] if value.blank? || value == '!'
-      value = nil if value.downcase == 'null'
+      case key.downcase
+        when 'since'
+          scope = scope.where('created_at > ?', Time.at(params[key].to_i + 1))
 
-      if column.nil?
-        column   = relation
-        relation = scope.table_name
-      end
+        when 'before'
+          scope = scope.where('created_at <= ?', Time.at(params[key].to_i))
 
-      table = relation.pluralize
-
-      if scope.connection.table_exists?(table) && scope.connection.column_exists?(table, column)
-        if table != scope.table_name
-          if scope.reflect_on_association(relation)
-            scope = scope.joins(relation.to_sym)
-          else
-            unpermitted_params << key
-          end
-        end
-
-        if negate
-          scope = scope.where.not("#{table}.#{column}" => value)
         else
-          scope = scope.where("#{table}.#{column}" => value)
-        end
+          relation, column = key.to_s.split('.')
+          value = params[key].dup
+          negate = value[0] == '!'
+          value.slice!(0) if negate
+          value = [nil, ''] if value.blank? || value == '!'
+          value = [nil, false] if value.is_a? String and value.downcase == 'false'
+          value = nil if value.is_a? String and value.downcase == 'null'
+
+          if column.nil?
+            column   = relation
+            relation = scope.table_name
+          end
+
+          table = relation.pluralize
+
+          if scope.connection.data_source_exists?(table) && scope.connection.column_exists?(table, column)
+            if table != scope.table_name
+              if scope.reflect_on_association(relation)
+                scope = scope.joins(relation.to_sym)
+              else
+                unpermitted_params << key
+              end
+            end
+
+            if negate
+              scope = scope.where.not("#{table}.#{column}" => value)
+            else
+              scope = scope.where("#{table}.#{column}" => value)
+            end
+          end
       end
     end
 
     if search_query.present? or params.include?(:sort)
-      sort = params[:sort] ? "#{scope.table_name + '.' + params[:sort].try(:downcase)} #{params[:order].try(:downcase)}".strip : ''
+      sort = if params[:sort]
+               if params[:sort] =~ /\A\w+\z/
+                 "#{scope.table_name + '.' + params[:sort].try(:downcase)} #{params[:order].try(:upcase)}".strip
+               else
+                 "#{params[:sort]} #{params[:order].try(:upcase)}".strip
+               end
+             else
+               ''
+             end
 
-      if scope.respond_to?(:search_for) && search_query
-        scope = scope.search_for(search_query)
-      else
-        unpermitted_params << 'q' if search_query
+      if search_query.present?
+        if scope.respond_to?(:search_for)
+          scope = scope.search_for(search_query)
+        else
+          unpermitted_params << 'q'
+        end
       end
 
       scope = scope.order(sort)

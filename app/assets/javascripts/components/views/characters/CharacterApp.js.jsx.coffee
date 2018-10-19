@@ -1,6 +1,8 @@
 @CharacterApp = React.createClass
   contextTypes:
     router: React.PropTypes.object.isRequired
+    eagerLoad: React.PropTypes.object
+    currentUser: React.PropTypes.object
 
 
   getInitialState: ->
@@ -9,16 +11,20 @@
     galleryTitle: null
     onGallerySelect: null
     images: null
+    editable: true
+
+  dataPath: '/users/:userId/characters/:characterId'
+  paramMap:
+    characterId: 'id'
+    userId: 'user_id'
+
+  componentWillMount: ->
+    StateUtils.load @, 'character'
+
+  componentWillReceiveProps: (newProps) ->
+    StateUtils.reload @, 'character', newProps
 
   componentDidMount: ->
-    $.ajax
-      url: "/users/#{@props.params.userId}/characters/#{@props.params.characterId}.json",
-      success: (data) =>
-        @setState character: data
-        @componentDidLoad(data)
-      error: (error) =>
-        @setState error: error
-        
     $(document)
       .on 'app:character:update', (e, character) =>
         if @state.character.id == character.id
@@ -32,15 +38,23 @@
             $('#image-gallery-modal').modal 'close'
         $('#image-gallery-modal').modal 'open'
 
+      .on 'app:character:reload app:image:delete', (e, newPath = @state.character.path, callback = null) =>
+        console.debug "[CharacterApp] Reloading character..."
+        $.get "#{newPath}.json", (data) =>
+          @setState character: data
+          callback(data) if callback?
+
+  componentWillUnmount: ->
+    $(document).off 'app:character:update'
+    $(document).off 'app:character:profileImage:edit'
+    $(document).off 'app:character:reload'
+    $(document).off 'app:image:delete'
+
+
   componentWillUpdate: (newProps, newState) ->
     if newState.character && @state.character && newState.character.link != @state.character.link
       window.history.replaceState {}, '', newState.character.link
 
-  componentDidLoad: (character) ->
-    $(document).on 'app:image:delete', (imageId) =>
-      @setState character: null
-      $.get "/users/#{@props.params.userId}/characters/#{@props.params.characterId}.json", (data) =>
-        @setState character: data
 
   setFeaturedImage: (imageId) ->
     $.ajax
@@ -65,24 +79,6 @@
       error: (error) =>
         errors = error.responseJSON.errors
         Materialize.toast errors.profile_image, 3000, 'red'
-
-  handleCharacterDelete: (e) ->
-    $.ajax
-      url: @state.character.path
-      type: 'DELETE'
-      success: (data) =>
-        console.log data
-        $('#delete-form').modal('close')
-        Materialize.toast "#{data.name} deleted. :(", 3000
-        @context.router.push '/' + data.user_id
-
-      error: (error) =>
-        Materialize.toast "I'm afraid I couldn't do that, Jim.", 3000, 'red'
-    e.preventDefault()
-
-  handleDeleteClose: (e) ->
-    $('#delete-form').modal('close')
-    e.preventDefault()
 
   handleProfileChange: (data, onSuccess, onError) ->
     $.ajax
@@ -117,48 +113,6 @@
       error: (error) =>
         onError(error)
 
-  handleColorSchemeChange: (data, onSuccess, onError) ->
-    c = @state.character.color_scheme
-    c = { color_data: {} } unless c && c.color_data
-    c.color_data[data.id] = data.value
-
-    $.ajax
-      url: @state.character.path
-      data: character: color_scheme_attributes: c
-      type: 'PATCH'
-      success: (data) =>
-        @setState character: data
-        onSuccess() if onSuccess
-      error: (error) =>
-        onError(error) if onError
-
-  handleColorSchemeClear: (key, onSuccess, onError) ->
-    data = { id: key, value: null }
-    @handleColorSchemeChange(data)
-
-  handleColorSchemeClose: (e) ->
-    $('#color-scheme-form').modal('close')
-
-  handleSettingsChange: (data, onSuccess, onError) ->
-    o = {}
-    o[data.id] = data.value
-
-    console.log data
-
-    $.ajax
-      url: @state.character.path
-      data: character: o
-      type: 'PATCH'
-      success: (data) =>
-        @setState character: data
-        onSuccess() if onSuccess
-      error: (error) =>
-        e = error.responseJSON.errors[data.id]
-        onError(value: e) if onError
-
-  handleSettingsClose: (e) ->
-    $('#character-settings-form').modal('close')
-
   handleHeaderImageEdit: ->
     @setState
       galleryTitle: 'Select Header Image'
@@ -172,170 +126,127 @@
     i.push data
     @setState images: i
 
+
   _handleGalleryLoad: (data) ->
     @setState images: data
+
+  _toggleEditable: ->
+    @setState editable: !@state.editable
 
   render: ->
     if @state.error?
       return `<NotFound />`
 
     unless @state.character?
-      return `<Loading />`
+      return `<CharacterViewSilhouette />`
 
-    if @state.character.user_id == @props.currentUser?.username
-      dropzoneUpload = @handleDropzoneUpload
-      editable = true
-      profileChange = @handleProfileChange
-      likesChange = @handleLikesChange
-      dislikesChange = @handleDislikesChange
-      colorSchemeFields = []
-      headerImageEditCallback = @handleHeaderImageEdit
+    if @state.character.user_id == @context.currentUser?.username
+      showMenu = true
 
-      for key, name of {
-        primary: 'Primary Color'
-        accent1: 'Secondary Color'
-        accent2: 'Accent Color'
-        text: 'Main Text'
-        'text-medium': 'Muted Text'
-        'text-light': 'Subtle Text'
-        background: 'Page Background'
-        'card-background': 'Card Background'
-      }
-        if @state.character.color_scheme && @state.character.color_scheme.color_data
-          value = @state.character.color_scheme.color_data[key]
+      if @state.editable
+        editable = true
+        dropzoneUpload = @handleDropzoneUpload
+        profileChange = @handleProfileChange
+        likesChange = @handleLikesChange
+        dislikesChange = @handleDislikesChange
+        headerImageEditCallback = @handleHeaderImageEdit
+        dropzoneTriggerId = [ '#image-upload' ]
 
-        colorSchemeFields.push `<Attribute key={ key }
-                                           id={ key }
-                                           name={ name }
-                                           value={ value }
-                                           iconColor={ value || '#000000' }
-                                           icon='palette'
-                                           placeholder='Not Set' />`
 
-    `<DropzoneContainer url={ this.state.character.path + '/images' }
-                        onUpload={ dropzoneUpload }
-                        clickable={[ '#image-upload' ]}>
-        { this.state.character.color_scheme && <PageStylesheet { ...this.state.character.color_scheme.color_data } /> }
+    `<Main title={[ this.state.character.name, 'Characters' ]}>
+        { this.state.character.color_scheme &&
+            <PageStylesheet colorData={ this.state.character.color_scheme.color_data } /> }
 
-        { editable &&
-            <FixedActionButton clickToToggle className='teal lighten-1' tooltip='Menu' icon='menu'>
-                <ActionButton className='indigo lighten-1' tooltip='Upload Images' id='image-upload' icon='file_upload' />
-                <ActionButton className='green lighten-1 modal-trigger' tooltip='Edit Page Colors' href='#color-scheme-form' icon='palette' />
-                <ActionButton className='blue darken-1 modal-trigger' tooltip='Character Settings' href='#character-settings-form' icon='settings' />
-            </FixedActionButton>
-        }
+        <DropzoneContainer url={ this.state.character.path + '/images' }
+                           onUpload={ dropzoneUpload }
+                           clickable={ dropzoneTriggerId }>
 
-        { editable &&
-            <Modal id='color-scheme-form'>
-                <h2>Page Color Scheme</h2>
-                <p>Be sure to save each row individually. Click the trash bin to revert the color to Refsheet's default.</p>
+            {/*<CharacterEditMenu onEditClick={ this._toggleEditable }
+                                  images={ this.state.images }
+                                  galleryTitle={ this.state.galleryTitle } <-- THIS SHOULD NOT HAPPEN
+                                  onGallerySelect={ this.onGallerySelect }
+                                  character={ this.state.character } */}
 
-                <AttributeTable valueType='color'
-                                onAttributeUpdate={ this.handleColorSchemeChange }
-                                onAttributeDelete={ this.handleColorSchemeClear }
-                                freezeName hideNotesForm>
-                    { colorSchemeFields }
-                </AttributeTable>
+            { showMenu &&
+                <div className='edit-container'>
+                    <FixedActionButton clickToToggle className='red' tooltip='Menu' icon='menu'>
+                        <ActionButton className='indigo lighten-1' tooltip='Upload Images' id='image-upload' icon='file_upload' />
+                        <ActionButton className='green lighten-1 modal-trigger' tooltip='Edit Page Colors' href='#color-scheme-form' icon='palette' />
+                        <ActionButton className='blue darken-1 modal-trigger' tooltip='Character Settings' href='#character-settings-form' icon='settings' />
 
-                <div className='actions margin-top--large'>
-                  <a className='btn' onClick={ this.handleColorSchemeClose }>Done</a>
+                        { editable
+                            ? <ActionButton className='red lighten-1' tooltip='Lock Page' icon='lock' onClick={ this._toggleEditable } />
+                            : <ActionButton className='red lighten-1' tooltip='Edit Page' icon='edit' onClick={ this._toggleEditable } /> }
+                    </FixedActionButton>
+
+                    <ImageGalleryModal images={ this.state.images }
+                                       title={ this.state.galleryTitle }
+                                       onClick={ this.state.onGallerySelect } />
+
+                    <CharacterColorSchemeModal colorScheme={ this.state.character.color_scheme } characterPath={ this.state.character.path } />
+                    <CharacterDeleteModal character={ this.state.character } />
+                    <CharacterTransferModal character={ this.state.character } />
+                    <CharacterSettingsModal character={ this.state.character } />
                 </div>
-            </Modal>
-        }
+            }
 
-        { editable &&
-            <Modal id='delete-form'>
-                <h2>Delete Character</h2>
-                <p>This action can not be undone! Are you sure?</p>
+            <PageHeader backgroundImage={ (this.state.character.featured_image || {}).url }
+                        onHeaderImageEdit={ headerImageEditCallback }>
 
-                <div className='actions margin-top--large'>
-                    <a className='btn red right' onClick={ this.handleCharacterDelete }>DELETE CHARACTER</a>
-                    <a className='btn' onClick={ this.handleDeleteClose }>Cancel</a>
-                </div>
-            </Modal>
-        }
+                <CharacterNotice transfer={ this.state.character.pending_transfer } />
 
-        { editable &&
-            <Modal id='character-settings-form'>
-                <h2>Character Settings</h2>
-                <p>Be sure to save each row individually. Do note that your URL slug is not case-sensitive, but changing it
-                might break existing links to your character.</p>
+                { showMenu &&
+                    <div className='button-group'>
+                        { editable
+                            ? <ActionButton className='red lighten-1' tooltip='Lock Page' icon='lock' onClick={ this._toggleEditable } />
+                            : <ActionButton className='red lighten-1' tooltip='Edit Page' icon='edit' onClick={ this._toggleEditable } /> }
+                    </div> }
 
-                <AttributeTable onAttributeUpdate={ this.handleSettingsChange }
-                                freezeName hideNotesForm>
-                    <Attribute id='name' name='Character Name' value={ this.state.character.name } />
-                    <Attribute id='slug' name='URL Slug' value={ this.state.character.slug } />
-                    <Attribute id='shortcode' name='Shortcode' value={ this.state.character.shortcode } />
-                    <li>
-                        <div className='attribute-data'>
-                            <div className='key'>Delete</div>
-                            <div className='value'>
-                                <a className='red-text btn-small modal-trigger' href='#delete-form'>Delete Character</a>
-                            </div>
+                <CharacterCard edit={ editable } detailView={ true } character={ this.state.character } onLightbox={ this.props.onLightbox } />
+                <SwatchPanel edit={ editable } swatchesPath={ this.state.character.path + '/swatches/' } swatches={ this.state.character.swatches } />
+
+            </PageHeader>
+
+            <Section>
+                <Row className='rowfix'>
+                    <Column m={12}>
+                        <div className='card-panel margin--none'>
+                            <h1>About { this.state.character.name }</h1>
+                            <RichText placeholder='No biography written.'
+                                      onChange={ profileChange }
+                                      content={ this.state.character.profile_html }
+                                      markup={ this.state.character.profile } />
                         </div>
-                        <div className='actions' />
-                    </li>
-                </AttributeTable>
+                    </Column>
+                </Row>
+                <Row className='rowfix'>
+                    <Column m={6}>
+                        <div className='card-panel margin--none'>
+                            <h2>Likes</h2>
+                            <RichText placeholder='No likes specified.'
+                                      onChange={ likesChange }
+                                      content={ this.state.character.likes_html }
+                                      markup={ this.state.character.likes } />
+                        </div>
+                    </Column>
+                    <Column m={6}>
+                        <div className='card-panel margin--none'>
+                            <h2>Dislikes</h2>
+                            <RichText placeholder='No dislikes specified.'
+                                      onChange={ dislikesChange }
+                                      content={ this.state.character.dislikes_html }
+                                      markup={ this.state.character.dislikes } />
+                        </div>
+                    </Column>
+                </Row>
+            </Section>
 
-                <div className='actions margin-top--large'>
-                    <a className='btn' onClick={ this.handleSettingsClose }>Done</a>
-                </div>
-            </Modal>
-        }
+            <Section className='margin-bottom--large'>
+                <ImageGallery editable={ editable }
+                              imagesPath={ this.state.character.path + '/images/' }
+                              images={ this.state.images }
+                              onImagesLoad={ this._handleGalleryLoad } />
+            </Section>
 
-        { editable &&
-            <ImageGalleryModal images={ this.state.images }
-                               hideNsfw={ true }
-                               title={ this.state.galleryTitle }
-                               onClick={ this.state.onGallerySelect } />
-        }
-
-        <PageHeader backgroundImage={ (this.state.character.featured_image || {}).url }
-                    onHeaderImageEdit={ headerImageEditCallback }>
-            <CharacterCard edit={ editable } detailView={ true } character={ this.state.character } onLightbox={ this.props.onLightbox } />
-            <SwatchPanel edit={ editable } swatchesPath={ this.state.character.path + '/swatches/' } swatches={ this.state.character.swatches } />
-        </PageHeader>
-
-        <Section>
-            <Row className='rowfix'>
-                <Column m={12}>
-                    <div className='card-panel margin--none'>
-                        <h1>About { this.state.character.name }</h1>
-                        <RichText placeholder='No biography written.'
-                                  onChange={ profileChange }
-                                  content={ this.state.character.profile_html }
-                                  markup={ this.state.character.profile } />
-                    </div>
-                </Column>
-            </Row>
-            <Row className='rowfix'>
-                <Column m={6}>
-                    <div className='card-panel margin--none'>
-                        <h2>Likes</h2>
-                        <RichText placeholder='No likes specified.'
-                                  onChange={ likesChange }
-                                  content={ this.state.character.likes_html }
-                                  markup={ this.state.character.likes } />
-                    </div>
-                </Column>
-                <Column m={6}>
-                    <div className='card-panel margin--none'>
-                        <h2>Dislikes</h2>
-                        <RichText placeholder='No dislikes specified.'
-                                  onChange={ dislikesChange }
-                                  content={ this.state.character.dislikes_html }
-                                  markup={ this.state.character.dislikes } />
-                    </div>
-                </Column>
-            </Row>
-        </Section>
-
-        <Section>
-            <ImageGallery editable={ editable }
-                          imagesPath={ this.state.character.path + '/images/' }
-                          images={ this.state.images }
-                          onImagesLoad={ this._handleGalleryLoad }
-                          onImageClick={ this.props.onLightbox } />
-        </Section>
-
-    </DropzoneContainer>`
+        </DropzoneContainer>
+    </Main>`

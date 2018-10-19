@@ -9,6 +9,14 @@ module HasGuid
 
     validate :validate_guid
 
+    after_initialize do
+      if self.persisted? and
+          self.has_attribute? guid_column_name and
+          self.send(guid_column_name).blank?
+        generate_guid && self.save!
+      end
+    end
+
     self.guid_column_name = :guid
     self.guid_options = {}
   end
@@ -28,6 +36,11 @@ module HasGuid
     def has_guid(guid_column_name=:guid, options={})
       self.guid_column_name = guid_column_name
       self.guid_options = options
+
+      validates_format_of self.guid_column_name,
+                          with: /\A[^\s?&=.+]+\z/i,
+                          message: 'can not contain spaces, or: ? & = . +',
+                          allow_blank: true
     end
 
     # def find(id)
@@ -60,6 +73,7 @@ module HasGuid
 
       self.assign_attributes(guid_column_name => guid)
     end while self.class.unscoped.where(guid_scope).exists?(guid_column_name => self.send(guid_column_name))
+
     true
   end
 
@@ -72,10 +86,15 @@ module HasGuid
       self.errors[guid_column_name] << 'has already been taken'
     end
 
-    self.errors[guid_column_name].any?
+    if self.errors[guid_column_name].any?
+      Rails.logger.info "GUID Errors: #{self.errors[guid_column_name].inspect}"
+      return true
+    end
+
+    false
   end
 
   def downcase_guid
-    self.assign_attributes(guid_column_name => self.send(guid_column_name).downcase)
+    self.assign_attributes(guid_column_name => self.send(guid_column_name).to_s.downcase)
   end
 end

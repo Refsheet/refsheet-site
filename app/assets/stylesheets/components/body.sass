@@ -2,6 +2,89 @@ body
   background-color: $page-bg-color
   color: $page-text-color
 
+  @at-root
+    .shaded-background
+      background-color: $brand-primary
+      background: linear-gradient(-45deg, darken($brand-darker, 25%), transparent), linear-gradient(45deg, darken($brand-darker, 20%), darken($brand-primary, 5%))
+      color: white
+
+    $spinner-width: 150px
+    $spinner-color: darken($brand-primary, 10%)
+
+    .loading-icon
+      perspective: 300px
+
+      @keyframes logo-flip
+        0%
+          transform: rotateY(0)
+          opacity: 1
+
+        50%
+          transform: rotateY(180deg)
+          opacity: 1
+
+        100%
+          transform: rotateY(360deg)
+          opacity: 1
+
+      img
+        animation: logo-flip 3s linear 0s infinite
+
+    .css-spinner
+      position: relative
+      width: $spinner-width
+      height: $spinner-width
+      padding: (($spinner-width - 100px) / 2)
+      margin: 0 auto
+
+      img
+        position: relative
+        z-index: 1
+        width: 50px
+        height: 50px
+        margin: 25px
+        display: none
+
+      &:before,
+      &:after
+        content: ""
+        display: block
+        position: absolute
+        border-width: 4px
+        border-style: solid
+        border-radius: 50%
+
+      &.spinner-3
+        @keyframes scale-2
+          0%
+            transform: scale(0)
+            opacity: 0
+
+          50%
+            transform: scale(0.7)
+            opacity: 1
+
+          100%
+            transform: scale(1)
+            opacity: 0
+
+        &:before
+          width: $spinner-width
+          height: $spinner-width
+          border-color: $spinner-color
+          top: 0
+          left: 0
+          animation: scale-2 1s linear 0s infinite
+
+        &:after
+          width: $spinner-width
+          height: $spinner-width
+          border-color: $spinner-color
+          top: 0
+          left: 0
+          opacity: 0
+          animation: scale-2 1s linear 0.5s infinite
+
   &.no-footer
     footer
       display: none
@@ -10,14 +93,27 @@ body
     background-color: $admin-page-bg-color
     color: $admin-page-text-color
 
-  #rootApp
+  #rootApp, #rootAppLoader
     display: flex
     min-height: 100vh
     flex-direction: column
 
+    &#rootAppLoader
+      position: fixed
+      width: 100%
+      top: 0
+      bottom: 0
+      left: 0
+      right: 0
+      z-index: 10000
+
     main
       position: relative
       flex: 1
+
+      &.flex, &#loading-screen
+        display: flex
+        flex-direction: column
 
       background:
         position: center

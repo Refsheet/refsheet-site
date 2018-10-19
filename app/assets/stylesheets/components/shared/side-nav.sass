@@ -1,45 +1,102 @@
-body:not(.admin) .side-nav
-  background-color: $card-bg-color
+.side-nav
+  &.in-page
+    @extend .z-depth-0
 
-  li > a
-    color: rgba(255, 255, 255, 0.8)
-    padding: 0 16px
-    height: 36px
-    line-height: 36px
+    position: relative
+    background-color: transparent
+    padding: 0
+    margin: 0
+    color: $text-light-color
+    width: auto
+    z-index: initial
+    height: auto
+    display: block !important
+    transform: initial !important
 
-    i.material-icons
-      margin-right: 16px
-      color: rgba($page-text-color, 0.6)
-      height: 36px
-      line-height: 36px
+    & > li.subheader
+      border-bottom: 1px solid rgba(white, 0.1)
+      margin-top: 1rem
+      padding-bottom: 0.2rem
+      margin-bottom: 0.25rem
+      color: rgba(white, 0.3)
+      font-size: 0.9rem
+      line-height: initial
 
-    &:hover
-      background-color: rgba(255, 255, 255, 0.15)
-      color: white
-      transition: color, background-color 0.25s ease
-      cursor: pointer
+    & > li
+      &.current, &.active
+        background-color: transparent
 
-  .user-view,
-  .character-view
-    @extend .userView
+      &.current > a, &.active > a, a.current, a.active
+        background-color: transparent !important
+        color: $brand-primary
+        font-weight: bold
 
-    .background
-      img
-        width: 100%
-        height: 100%
-        object-fit: cover
+        i.material-icons
+          color: rgba($brand-primary, 0.5) !important
 
-  .character-view
-    padding-top: 50px
+      & > a
+        color: $page-text-color
+        padding: 0
+        height: 2.5rem
+        line-height: 2.5rem
+        text-transform: uppercase
 
-    .background
-      height: 112.5px
+        &.disabled
+          opacity: 0.5
+          cursor: not-allowed
 
-    .circle
-      width: 125px
-      height: 125px
-      margin: 0 auto
-      object-fit: cover
+        .notify, .badge
+          right: 0
+          font-size: 0.9rem
+          padding-right: 0
+          text-align: right
+
+        i.material-icons
+          color: rgba(white, 0.3) !important
+          margin-right: 1rem
+          line-height: 2.5rem
+          height: 2.5rem
+
+        &:hover
+          background-color: transparent
+
+      ul.subnav
+        margin-bottom: 1rem
+
+        li, a
+          background-color: transparent
+          color: $page-text-color
+
+          &:hover
+            background-color: transparent
+
+        li.disabled
+          opacity: 0.5
+          cursor: not-allowed
+
+        a
+          padding: 0 0 0 calc(24px + 1rem)
+          line-height: 2rem
+          height: 2rem
+          position: relative
+          vertical-align: middle
+
+          &.active
+            font-weight: bold
+            color: $brand-primary
+
+            &:before
+              content: ''
+              position: absolute
+              left: 1.5rem
+              top: 0.75rem
+              height: 0.5rem
+              border-left: 0.5rem solid $brand-dark
+              border-top: 0.25rem solid transparent
+              border-bottom: 0.25rem solid transparent
+
+    .divider
+      background-color: rgba(white, 0.1)
 
 .side-nav-trigger
   @extend .z-depth-2

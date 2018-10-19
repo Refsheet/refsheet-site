@@ -1,18 +1,23 @@
 @Home = React.createClass
+  contextTypes:
+    currentUser: React.PropTypes.object
+
   componentDidMount: ->
     $('.materialboxed').materialbox()
 
   render: ->
+    return `<Views.Account.Show {...this.props} />` if @context.currentUser
+
     demoSwatches = [
-      { name: 'Light Fur', color: '#fdf2d4' },
-      { name: 'Dark Fur', color: '#b5a67e' },
-      { name: 'Hair', color: '#402b2b', notes: 'Shades may vary.' },
-      { name: 'Eyes', color: '#2a3c1e' }
-      { name: 'Markings', color: '#99b734' }
+      { name: 'Light Fur', color: '#fdf2d4', id: 0 },
+      { name: 'Dark Fur', color: '#b5a67e', id: 1 },
+      { name: 'Hair', color: '#402b2b', notes: 'Shades may vary.', id: 2 },
+      { name: 'Eyes', color: '#2a3c1e', id: 3 }
+      { name: 'Markings', color: '#99b734', id: 4 }
     ]
 
-    `<main>
-        <Jumbotron backgroundImage='/assets/unsplash/typewriter.jpg'>
+    `<Main title='Refsheet.net: Your Characters, Organized.'>
+        <Jumbotron backgroundImage='https://assets.refsheet.net/assets/unsplash/typewriter.jpg'>
             <h1>Your characters, <strong>organized.</strong></h1>
             <p className='flow-text'>
                 Let Refsheet help you commission, share, and socialize
@@ -31,7 +36,7 @@
                     <Column s={12} m={4}>
                         <div className='card card-light'>
                             <div className='card-image'>
-                                <img src='/assets/marketing/feature_profile.png' alt='Character Profiles' className='materialboxed' />
+                                <img src='https://assets.refsheet.net/assets/marketing/feature_profile.png' alt='Character Profiles' className='materialboxed' />
                             </div>
                             <div className='card-content'>
                                 <div className='card-title'>Character Profiles</div>
@@ -46,7 +51,7 @@
                     <Column s={12} m={4}>
                         <div className='card card-light'>
                             <div className='card-image'>
-                                <img src='/assets/marketing/feature_color_palette.png' alt='Color Palettes' className='materialboxed' />
+                                <img src='https://assets.refsheet.net/assets/marketing/feature_color_palette.png' alt='Color Palettes' className='materialboxed' />
                             </div>
                             <div className='card-content'>
                                 <div className='card-title'>Color Palettes</div>
@@ -61,7 +66,7 @@
                     <Column s={12} m={4}>
                         <div className='card card-light'>
                             <div className='card-image'>
-                                <img src='/assets/marketing/feature_gallery.png' alt='Art Galleries' className='materialboxed' />
+                                <img src='https://assets.refsheet.net/assets/marketing/feature_gallery.png' alt='Art Galleries' className='materialboxed' />
                             </div>
                             <div className='card-content'>
                                 <div className='card-title'>Art Galleries</div>
@@ -76,7 +81,7 @@
             </div>
         </Section>
 
-        <PageHeader backgroundImage='/assets/unsplash/bamboo.jpg'>
+        <PageHeader backgroundImage='https://assets.refsheet.net/assets/unsplash/bamboo.jpg'>
             <div className='character-card'>
                 <div className='character-details'>
                     <h1 className='real-name'>Beautiful Presentation</h1>
@@ -93,7 +98,7 @@
                 </div>
                 <div className='character-image'>
                     <div className='slant' />
-                    <img src='/assets/unsplash/yawn.jpg' />
+                    <img src='https://assets.refsheet.net/assets/unsplash/yawn.jpg' />
                 </div>
             </div>
         </PageHeader>
@@ -157,4 +162,4 @@
             <h2>Ready to show off your characters?</h2>
             <Link to='/register' className='btn'>Sign Up</Link>
         </Section>
-    </main>`
+    </Main>`

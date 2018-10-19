@@ -2,10 +2,18 @@
   background-color: $admin-card-bg-color
 
   &.flag-nsfw
-    border: 1px solid color('red', 'base')
+    box-shadow: 0 2px 2px 0 color('red', 'base'), 0 1px 5px 0 color('red', 'base'), 0 3px 1px -2px color('red', 'base')
+    .card-content
+      background-color: color('red', 'lighten-5')
+      &, a, .muted
+        color: color('red', 'base') !important
 
   &.flag-sfw
-    border: 1px solid color('green', 'lighten-1')
+    box-shadow: 0 2px 2px 0 color('green', 'base'), 0 1px 5px 0 color('green', 'base'), 0 3px 1px -2px color('green', 'base')
+    .card-content
+      background-color: color('green', 'lighten-5')
+      &, a, .muted
+        color: color('green', 'base') !important
 
   .image-flags
     opacity: 0.0

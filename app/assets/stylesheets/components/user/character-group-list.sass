@@ -1,0 +1,76 @@
+.character-group-list
+  margin-top: 0
+
+  li
+    display: flex
+    line-height: 2.5rem
+    vertical-align: middle
+    border-bottom: 1px solid $lighten-color
+    height: auto
+
+    &:after
+      content: ''
+      display: block
+      clear: both
+
+    &:last-child
+      border-bottom: none
+
+    &.ui-sortable-helper
+      @extend .z-depth-3
+      border-bottom: none
+      background-color: rgba($card-bg-color, 0.8)
+
+      .folder, .action, .count
+        display: none
+
+      .name
+        padding: 0 15px
+
+    &.ui-droppable-hover
+      .folder, .name
+        color: $primary-color !important
+
+      &.trash
+        .folder, .name
+          color: $primary-color !important
+
+    &.trash
+      .folder, .name
+        color: color('red', 'darken-2') !important
+
+    &.sortable-link
+      .folder
+        cursor: move
+
+    a
+      display: inline-block
+      vertical-align: middle
+      height: 2.5rem
+
+    .name
+      @extend .truncate
+      flex-grow: 1
+
+    .count
+      font-size: 0.8rem
+      padding-left: 15px
+      color: $muted-text-color
+      flex-shrink: 0
+
+    .action
+      padding-left: 15px
+      flex-shrink: 0
+
+    i.material-icons
+      font-size: 1rem
+      line-height: 2.5rem
+
+      &.folder
+        color: $text-light-color
+        font-size: 1.2rem
+        flex-shrink: 0
+
+    &.active
+      i.material-icons.folder
+        color: $primary-color

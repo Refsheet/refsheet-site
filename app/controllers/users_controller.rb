@@ -7,6 +7,10 @@ class UsersController < ApplicationController
     respond_with @users.reverse, each_serializer: UserIndexSerializer
   end
 
+  def shortcode
+    redirect_to user_profile_url(params[:id], hostname: 'refsheet.net')
+  end
+
   def show
     set_meta_tags(
         twitter: {
@@ -23,9 +27,14 @@ class UsersController < ApplicationController
         image_src: @user.avatar.url(:medium)
     )
 
+    @user = User.includes(:characters => [:profile_image, :featured_image, :user, :color_scheme, :character_groups], :character_groups => [:user]).find(@user.id)
+
     respond_to do |format|
-      format.html { render 'application/show' }
-      format.json { render json: @user, serializer: UserSerializer }
+      format.html do
+        eager_load user: UserSerializer.new(@user, scope: view_context).as_json
+        render 'application/show'
+      end
+      format.json { render json: @user, serializer: UserSerializer, include: %w(characters.color_scheme character_groups) }
     end
   end
 
@@ -34,7 +43,7 @@ class UsersController < ApplicationController
 
     if @user.save
       sign_in @user
-      render json: @user, serializer: UserSerializer
+      render json: @user, serializer: UserIndexSerializer
     else
       Rails.logger.debug @user.errors.full_messages.inspect
       render json: { errors: @user.errors }, status: :bad_request

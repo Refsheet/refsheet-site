@@ -1,6 +1,8 @@
 @Lightbox = React.createClass
   contextTypes:
     router: React.PropTypes.object.isRequired
+    currentUser: React.PropTypes.object
+    reportImage: React.PropTypes.func.isRequired
 
 
   getInitialState: ->
@@ -54,85 +56,96 @@
       url: @state.image.path
       type: 'DELETE'
       success: =>
-        @state.onDelete(@state.image.id) if @props.onDelete
+        id = @state.image.id
+
         Materialize.toast('Image deleted.', 3000, 'green')
-        $(document).trigger 'app:image:delete', @state.image.id
+        $(document).trigger 'app:image:delete', id
+        @state.onDelete(id) if @props.onDelete
         $('#lightbox-delete-form').modal('close')
         $('#lightbox').modal('close')
       error: =>
         Materialize.toast('Could not delete that for some reason.', 3000, 'red')
     e.preventDefault()
 
-  _handleNsfwToggle: (e) ->
-    $.ajax
-      url: @state.image.path
-      type: 'PATCH'
-      data: image: nsfw: !@state.image.nsfw
-      success: (data) =>
-        @setState image: data
-        Materialize.toast "Image marked #{(if data.nsfw then 'NSFW' else 'SFW')}.", 3000, 'green'
-      error: (data) =>
-        console.error data
-        Materialize.toast 'NSFW status for this image can not be changed.', 3000, 'red'
-    e.preventDefault()
-
-  _handleHiddenToggle: (e) ->
-    $.ajax
-      url: @state.image.path
-      type: 'PATCH'
-      data: image: hidden: !@state.image.hidden
-      success: (data) =>
-        @setState image: data
-        console.log data
-        Materialize.toast "Image is now #{(if data.hidden then 'hidden' else 'public')}.", 3000, 'green'
-      error: (data) =>
-        console.error data
-        Materialize.toast 'Hidden status for this image can not be changed.', 3000, 'red'
-    e.preventDefault()
-
   handleClose: (e) ->
+    return unless @state.image
+
     if @state.directLoad
       @context.router.push @state.image.character.link
     else
-      window.history.back() if @state.image?
-    @setState image: null
+      window.history.back()
+
+    @setState image: null, onChange: null
 
   componentDidMount: ->
     $('#lightbox').modal
       starting_top: '4%'
       ending_top: '10%'
+      ready: ->
+        $(this).find('.autofocus').focus()
+        $(document).trigger 'materialize:modal:ready'
       complete: (e) =>
         @handleClose(e)
 
     $(document)
-      .on 'click', '[data-image-id]', (e) =>
-        $(document).trigger 'app:lightbox', $(e.target).closest('[data-image-id]').data('image-id')
-        false
-        
-      .on 'app:lightbox', (e, imageId) =>
+      .on 'app:lightbox', (e, imageId, onChange) =>
+        console.debug '[Lightbox] Launching from event with:', imageId, onChange
+
+        if typeof imageId == 'object' and not imageId.comments
+          imageId = imageId.id
+
         if typeof imageId != 'object'
           $.ajax
             url: "/images/#{imageId}.json"
             success: (data) =>
-              @setState image: data
-              window.history.pushState {}, '', data.path
+              @setState image: data, onChange: onChange
+              window.history.pushState {}, "", data.path
 
             error: (error) =>
               @setState error: "Image #{error.statusText}"
         else
-          @setState image: imageId, directLoad: true
+          @setState image: imageId, directLoad: imageId.directLoad, onChange: onChange
+          window.history.pushState {}, "", imageId.path
 
         $('#lightbox').modal('open')
+
+  _handleChange: (image) ->
+    Materialize.toast "Image saved!", 3000, 'green'
+    @setState image: image, @_callback
+
+  _handleUpdate: (image) ->
+    @setState image: image if image.background_color
+
+  _handleComment: (comment) ->
+    if typeof comment.map != 'undefined'
+      StateUtils.updateItems @, 'image.comments', comment, 'id', @_callback
+    else
+      StateUtils.updateItem @, 'image.comments', comment, 'id', @_callback
+
+  _handleFavorite: (favorite, set=true) ->
+    if set
+      StateUtils.updateItem @, 'image.favorites', favorite, 'id', @_callback
+    else
+      StateUtils.removeItem @, 'image.favorites', favorite, 'id', @_callback
+
+  _callback: ->
+    return unless @state.image
+    image = HashUtils.set @state.image, 'comments_count', @state.image.comments.length
+    ObjectPath.set image, 'favorites_count', @state.image.favorites.length
+    console.debug '[Lightbox] Callback with', image
+    @state.onChange image if @state.onChange
 
   componentDidUpdate: ->
     $('.dropdown-button').dropdown
       constrain_width: false
 
   render: ->
+    poll = true
+
     if @state.image?
-      if @state.image.user_id == @props.currentUser?.username
-        imgActions =
-          `<div className='image-actions'>
+      if @state.image.user_id == @context.currentUser?.username
+        imgActionMenu =
+          `<div className='image-action-menu'>
               <ul id='lightbox-image-actions' className='dropdown-content cs-card-background--background-color'>
                   <li><a href='#' onClick={ this.setFeaturedImage }>Set as Cover Image</a></li>
                   <li><a href='#' onClick={ this.setProfileImage }>Set as Profile Image</a></li>
@@ -142,16 +155,6 @@
                   <li><a href='#image-gravity-modal' className='modal-trigger'>
                       <i className='material-icons left'>crop</i>
                       <span>Cropping...</span>
-                  </a></li>
-
-                  <li><a href='#' onClick={ this._handleNsfwToggle }>
-                      <i className='material-icons left'>{ this.state.image.nsfw ? 'remove_circle' : 'remove_circle_outline' }</i>
-                      <span>{ this.state.image.nsfw ? 'Flagged as NSFW' : 'Flag as NSFW' }</span>
-                  </a></li>
-
-                  <li><a href='#' onClick={ this._handleHiddenToggle }>
-                      <i className='material-icons left'>{ this.state.image.hidden ? 'visibility_off' : 'visibility' }</i>
-                      <span>{ this.state.image.hidden ? 'Private' : 'Public' }</span>
                   </a></li>
 
                   <li className='divider' />
@@ -175,31 +178,23 @@
         captionCallback = @handleCaptionChange
         editable = true
 
-        imgGravity =
-          `<div className='image-gravity'>
-              <select value={ this.state.image.gravity }
-                      onChange={ this.handleGravityChange }>
-                  <option name='north'>Top</option>
-                  <option name='center'>Center</option>
-                  <option name='south'>Bottom</option>
-                  <option name='west'>Left</option>
-                  <option name='east'>Right</option>
-              </select>
-          </div>`
-
       lightbox =
         `<div className='lightbox'>
-            <div className='image-content'>
+            <div className='image-content' style={{backgroundColor: this.state.image.background_color}}>
                 <img src={ this.state.image.url } />
-
-                <a href='#' className='close' onClick={ function(e) { $('#lightbox').modal('close'); e.preventDefault() } }>
-                    <i className='material-icons' data-close-lightbox>close</i>
-                </a>
             </div>
 
             <div className='image-details-container'>
                 <div className='image-details'>
-                    { imgActions }
+                    <div className='image-actions'>
+                        { this.context.currentUser &&
+                            <FavoriteButton mediaId={ this.state.image.id }
+                                            favorites={ this.state.image.favorites }
+                                            onFavorite={ this._handleFavorite } />
+                        }
+
+                        { imgActionMenu }
+                    </div>
                     
                     <LightboxCharacterBox character={ this.state.image.character }
                                           postDate={ this.state.image.post_date }
@@ -211,34 +206,101 @@
                               content={ this.state.image.caption_html }
                               markup={ this.state.image.caption }
                               placeholder='No caption.' />
+
+                    { this.state.image.source_url &&
+                        <div className='source-url'>
+                            <i className='material-icons left'>link</i>
+                            <a href={ this.state.image.source_url } target='_blank'>
+                                { this.state.image.source_url_display }
+                            </a>
+                        </div> }
+
+                    <div className='source-url'>
+                        <i className='material-icons left'>report</i>
+                        <a href='#report-modal' onClick={ this.context.reportImage } data-image-id={ this.state.image.id }>
+                            Report Image
+                        </a>
+                    </div>
                 </div>
                 
-                <div className='comments'>
-                </div>
+                <Tabs className='comments'>
+                    <Tab id='image-comments' name='Comments' className='padding--none flex-vertical' count={ this.state.image.comments.length }>
+                        <Comments.Index comments={ this.state.image.comments }
+                                        mediaId={ this.state.image.id }
+                                        onCommentChange={ this._handleComment }
+                                        onCommentsChange={ this._handleComment }
+                                        poll={ poll } />
+                    </Tab>
+
+                    <Tab id='image-favorites' name='Favorites' count={ this.state.image.favorites.length }>
+                        <Favorites.Index favorites={ this.state.image.favorites }
+                                         mediaId={ this.state.image.id }
+                                         onFavoriteChange={ this._handleFavorite }
+                                         poll={ poll } />
+                    </Tab>
+
+                    { editable &&
+                        <Tab id='image-settings' icon='settings'>
+                            <Form model={ this.state.image }
+                                  modelName='image'
+                                  action={ this.state.image.path }
+                                  onChange={ this._handleChange }
+                                  onUpdate={ this._handleUpdate }
+                                  changeEvent='app:image:update'
+                                  method='PATCH'
+                            >
+                                <Input name='title' label='Title' />
+                                <Input name='source_url' label='Source URL' hint='This should credit the artist or creator.' />
+                                <Input name='background_color' type='color' icon='' label='Background Color' hint='Especially useful for transparent images!' />
+
+                                <Row noMargin>
+                                    <Column s={6}>
+                                        <Input name='nsfw' type='checkbox' label='NSFW' />
+                                    </Column>
+                                    <Column s={6}>
+                                        <Input name='hidden' type='checkbox' label='Hidden' />
+                                    </Column>
+                                </Row>
+
+                                <div className='right margin-top--large'>
+                                    <Submit>Save Image</Submit>
+                                </div>
+                            </Form>
+                        </Tab>
+                    }
+                </Tabs>
             </div>
         </div>`
     else
       lightbox =
-        `<div className='loader'>
+        `<div className='loader center padding--large'>
             {( this.state.error ? <h1>{ this.state.error }</h1> : <Spinner /> )}
         </div>`
 
     `<div>
         { editable &&
-            <Modal id='lightbox-delete-form'>
-                <h2>Delete Image</h2>
+            <Modal id='lightbox-delete-form' title='Delete Image'>
                 <p>Are you sure? This can't be undone.</p>
-                <div className='actions margin-top--large'>
-                    <a href='#' className='btn red right' onClick={ this.handleDelete } id='image-delete-confirm'>DELETE IMAGE</a>
-                    <a href='#' className='btn' onClick={ function(e) { $('#lightbox-delete-form').modal('close'); e.preventDefault() } }>Cancel</a>
-                </div>
+                <Row className='actions margin-top--large'>
+                    <Column>
+                        <div className='right'>
+                            <a href='#' className='btn red right' onClick={ this.handleDelete } id='image-delete-confirm'>DELETE IMAGE</a>
+                        </div>
+
+                        <a href='#' className='btn' onClick={ function(e) { $('#lightbox-delete-form').modal('close'); e.preventDefault() } }>Cancel</a>
+                    </Column>
+                </Row>
             </Modal>
         }
 
         { editable && <ImageGravityModal image={ this.state.image } /> }
 
 
-        <div className='modal lightbox-modal' id='lightbox'>
+        <Modal className='lightbox-modal'
+               id='lightbox'
+               title={ this.state.image && this.state.image.title }
+               noContainer
+        >
             { lightbox }
-        </div>
+        </Modal>
     </div>`

@@ -1,0 +1,44 @@
+.nag-bar
+  @extend .z-depth-2
+  position: fixed
+  bottom: 0
+  left: 0
+  right: 0
+  z-index: 9999
+  padding: 1rem 0
+  font-size: 0.9rem
+
+  .container
+    padding-left: 3rem
+    position: relative
+
+    @media #{$medium-and-up}
+      display: flex
+
+      .nag-content
+        flex-grow: 1
+
+      .nag-action
+        flex-shrink: 0
+
+        .btn
+          margin-left: 1.5rem
+
+    @media #{$small-and-down}
+      .nag-action
+        .btn
+          width: 100%
+          margin-top: 1.5rem
+
+  .nag-clear
+    position: absolute
+    left: 0
+    top: -2px
+    color: white
+    opacity: 0.6
+
+    i.material-icons
+      font-size: 2rem
+
+    &:hover
+      opacity: 1.0

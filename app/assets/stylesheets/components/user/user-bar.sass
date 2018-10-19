@@ -1,9 +1,54 @@
 .user-bar
   height: 56px
 
+  .dropdown-content-native
+    @extend .dropdown-content
+    opacity: 1.0
+    top: 2rem
+    max-width: 400px
+    min-width: 150px
+    white-space: nowrap !important
+
+  .dropdown-button-native
+    @extend .dropdown-button
+
+  .nsfw-on
+    background-color: rgba(color('red', 'base'), 0.3)
+
+    &:hover
+      background-color: rgba(color('red', 'base'), 0.5) !important
+
+  .container
+    height: 56px
+
+    @media #{$small-and-down}
+      width: 100% !important
+      padding: 0 !important
+
+  #user-menu
+    top: 56px !important
+    right: 0 !important
+    display: none
+
   nav
     background-color: $card-bg-color
     height: 56px
+
+    ul
+      display: inline-block
+
+      @media #{$medium-and-up}
+        &.site-nav
+          display: inline-block !important
+          opacity: 1 !important
+
+      li
+        position: relative
+
+    form
+      display: inline-block
+      vertical-align: top
+      height: 56px
 
     a
       line-height: 56px
@@ -22,6 +67,11 @@
         transition: color 0.25s ease
         cursor: pointer
 
+
+      &.active
+        background-color: $lighten-color
+        color: $secondary-color
+
       &.patreon
         padding: 0 15px
         height: 56px
@@ -35,7 +85,7 @@
           vertical-align: middle
 
     .logo
-      padding: 0 15px
+      padding: 0 15px 0 0
       height: 56px
       vertical-align: middle
       text-transform: none
@@ -72,6 +122,12 @@
         display: inline-block
         margin: 10px 0
 
+    .dropdown-button.active
+      color: white !important
+
+    .dropdown-content
+      z-index: 9999
+
   .navbar-shroud
     display: none
 
@@ -81,9 +137,6 @@
       position: absolute
       left: 50%
       transform: translateX(-50%)
-
-    ul.menu
-      margin-left: -15px
 
     .site-nav
       display: none
@@ -105,3 +158,6 @@
       left: 0
       width: 100%
       background-color: rgba(black, 0.5)
+
+    .dropdown-content
+      position: fixed !important

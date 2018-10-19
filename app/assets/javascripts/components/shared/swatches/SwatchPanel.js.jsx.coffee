@@ -55,7 +55,7 @@
               key={ swatch.id }
               style={{backgroundColor: swatch.color}}
               data-tooltip={ swatch.name + ' - ' + swatch.color }
-              data-position='bottom' />`
+              data-position='top' />`
 
     swatchDetails = @state.swatches.map (swatch) ->
       `<Attribute key={ swatch.id }
@@ -77,7 +77,7 @@
             <div className={ 'collapsible-header swatch-container ' + activeClass }>
                 <div className='swatch-row'>
                     { swatches }
-                    <div className='swatch tooltipped' data-tooltip='More Details' data-position='bottom'>
+                    <div className='swatch tooltipped' data-tooltip='More Details' data-position='top'>
                         <i className='material-icons'>palette</i>
                     </div>
                 </div>

@@ -1,0 +1,21 @@
+%p
+  %strong #{@user.name},
+
+%p
+  Some of your content on Refsheet.net has been moderated to comply
+  with our <a href='https://refsheet.net/terms'>Terms of Service</a>:
+
+- case @report.moderatable_type
+- when 'Image'
+  %p
+    Your image, <em>#{@report.moderatable.title}</em>, has been adjusted by
+    a moderator.
+
+%p
+  If you feel this was made in error, please reach out to the moderation
+  team by emailing <a href='mailto:mau@refsheet.net'>mau@refsheet.net</a>.
+
+%p
+  %strong Thanks,
+  %br/
+  Refsheet.net Moderators

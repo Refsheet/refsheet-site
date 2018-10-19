@@ -1,16 +1,35 @@
 class SessionController < ApplicationController
+  def new
+    if params.include?(:email) && params.include?(:auth)
+      @user = User.lookup params[:email]
+
+      if @user&.auth_code? params[:auth]
+        sign_in @user
+
+        if params[:auth] =~ /\A\d{6}\z/
+          redirect_to user_profile_path(@user, anchor: 'user-settings-modal'), flash: { notice: 'You have been signed in, don\'t forget to change your password.' }
+        else
+          @user.confirm!
+          redirect_to user_profile_path(@user), flash: { notice: 'Email address confirmed!' }
+        end
+
+        return
+      else
+        flash.now[:error] = 'Invalid authentication code!'
+      end
+    end
+
+    render 'application/show'
+  end
+
   def show
     render json: session_hash
   end
 
   def create
-    if params[:username] =~ /@/
-      @user = User.find_by('LOWER(users.email) = ?', params[:username].downcase)
-    else
-      @user = User.find_by('LOWER(users.username) = ?', params[:username].downcase)
-    end
+    @user = User.lookup user_params[:username]
 
-    if @user&.authenticate(params[:password])
+    if @user&.authenticate(user_params[:password])
       sign_in @user
       render json: session_hash
     else
@@ -33,12 +52,7 @@ class SessionController < ApplicationController
 
   private
 
-  def session_hash
-    {
-        nsfw_ok: session[:nsfw_ok],
-        locale: session[:locale],
-        time_zone: session[:time_zone],
-        current_user: signed_in? ? UserSerializer.new(current_user).as_json : nil
-    }
+  def user_params
+    params.require(:user).permit(:username, :password, :auth)
   end
 end

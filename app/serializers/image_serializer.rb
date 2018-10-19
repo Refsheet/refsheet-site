@@ -1,13 +1,16 @@
 class ImageSerializer < ActiveModel::Serializer
   include RichTextHelper
+  include SessionHelper
   include Rails.application.routes.url_helpers
 
   attributes :id,
+             :title,
              :caption,
              :url,
              :path,
              :post_date,
              :caption_html,
+             :background_color,
              :nsfw,
              :hidden,
              :small,
@@ -19,9 +22,23 @@ class ImageSerializer < ActiveModel::Serializer
              :user_id,
              :gravity,
              :source_url,
-             :source_url_display
+             :source_url_display,
+             :is_favorite,
+             :favorites_count,
+             :comments_count,
+             :aspect_ratio
 
   has_one :character, serializer: ImageCharacterSerializer
+  has_many :favorites, serializer: Media::FavoriteSerializer
+  has_many :comments, serializer: Media::CommentSerializer
+
+  def aspect_ratio
+    if object.image_meta
+      object.aspect_ratio
+    else
+      1
+    end
+  end
 
   def id
     object.guid
@@ -68,6 +85,14 @@ class ImageSerializer < ActiveModel::Serializer
   end
 
   def caption_html
-    object.caption
+    linkify object.caption, markdown: false
+  end
+
+  def is_favorite
+    object.favorites.any? { |f| f.user == current_user } if signed_in?
+  end
+
+  def session
+    scope.session
   end
 end

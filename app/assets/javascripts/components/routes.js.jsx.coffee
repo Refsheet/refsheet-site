@@ -1,33 +1,104 @@
-{ @Router, @browserHistory, @Route, @IndexRoute, @Link, @IndexLink } = ReactRouter
+{ @Router, @browserHistory, @Route, @IndexRoute, @IndexRedirect, @Link, @IndexLink } = ReactRouter
 
 @Routes = React.createClass
+  propTypes:
+    gaPropertyID: React.PropTypes.string
+    eagerLoad: React.PropTypes.object
+    flash: React.PropTypes.object
+
   componentDidMount: ->
+    console.log "Loading #{@props.environment} environment."
+
+    $ ->
+      $('#rootAppLoader').fadeOut(300)
+
     if @props.gaPropertyID
       ReactGA.initialize(@props.gaPropertyID)
+
+    if @props.flash
+      for level, message of @props.flash
+        color =
+          switch level
+            when 'error' then 'red'
+            when 'warn' then 'yellow darken-1'
+            when 'notice' then 'green'
+            else 'grey darken-2'
+
+        Materialize.toast message, 3000, color
 
   _handleRouteUpdate: ->
     if @props.gaPropertyID
       ReactGA.set page: window.location.pathname
       ReactGA.pageview window.location.pathname
 
+    $(document).trigger 'navigate'
+
   render: ->
-    `<Router history={ browserHistory } onUpdate={ this._handleRouteUpdate }>
-        <Route path='/' component={ App }>
-            <IndexRoute component={ Home } />
+    if typeof Packs is 'undefined'
+      console.log "Pack sync: Skipping render, JS v2 not loaded."
+      return null
+
+    staticPaths = ['privacy', 'terms', 'support'].map (path) ->
+      `<Route key={ path } path={ path } component={ Static.View } />`
+
+    router = `<Router history={ browserHistory } onUpdate={ this._handleRouteUpdate }>
+        <Route path='/' component={ App } eagerLoad={ this.props.eagerLoad } environment={ this.props.environment }>
+            <IndexRoute component={ Home } title='Home' />
 
             <Route path='login' component={ LoginView } />
             <Route path='register' component={ RegisterView } />
+
+            <Route path='account' title='Account' component={ Views.Account.Layout }>
+                <IndexRedirect to='settings' />
+                <Route path='settings' title='Account Settings' component={ Views.Account.Settings.Show } />
+                <Route path='support' title='Support Settings' component={ Views.Account.Settings.Support } />
+                <Route path='notifications' title='Notification Settings' component={ Views.Account.Settings.Notifications } />
+            </Route>
+
+            <Route path='moderate' component={ Packs.application.CharacterController } />
+
+            <Route path='/notifications' title='Notifications' component={ Views.Account.Notifications.Show } />
 
             <Route path='browse' component={ BrowseApp }>
                 <IndexRoute component={ CharacterIndexView } />
                 <Route path='users' component={ UserIndexView } />
             </Route>
 
-            <Route path='images/:imageId' component={ ImageApp } />
+            <Route path='explore' component={ Explore.Index }>
+                <Route path=':scope' />
+            </Route>
 
-            <Route path=':userId' component={ UserApp } />
-            <Route path=':userId/:characterId' component={ CharacterApp }/>
+
+            <Route path='forums'>
+                <IndexRoute component={ Forums.Index } />
+
+                <Route path=':forumId' component={ Forums.Show }>
+                    <Route path=':threadId' component={ Forums.Threads.Show } />
+                </Route>
+            </Route>
+
+
+            {/*== Static Routes */}
+
+            { staticPaths }
+            <Route path='static/:pageId' component={ Static.View } />
+
+
+            {/*== Profile Content */}
+
+            <Route path='images/:imageId' component={ ImageApp } />
+            <Route path=':userId' component={ User.View } />
+            <Route path=':userId/:characterId' component={ CharacterApp } />
+
+            <Route path='/v2'>
+                <Route path=':userId/:characterId' component={ Packs.application.CharacterController } />
+            </Route>
+
+
+            {/*== Fallback */}
 
             <Route path='*' component={ NotFound } />
         </Route>
     </Router>`
+
+    `<Packs.application.V2Wrapper>{ router }</Packs.application.V2Wrapper>`

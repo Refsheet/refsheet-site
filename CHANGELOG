@@ -1,0 +1,1522 @@
+---
+v1.2.9-pre.2:
+- hash: b2987dd
+  date: '2018-10-12'
+  tags: []
+  message: Started new scroll idea but it'll take some time.
+- hash: f7a7677
+  date: '2018-10-12'
+  tags: []
+  message: 'OMG EMOJI :EGGPLANT:'
+---
+v1.2.9-pre.1:
+- hash: 7f29274
+  date: '2018-10-11'
+  tags: []
+  message: Chat features extended to have user classes applied.
+---
+v1.2.9:
+- hash: dc5e0ec
+  date: '2018-10-11'
+  tags:
+  - f
+  message: We're SppOOoOOoooooOoky! I've also added some metadata to our emails, so
+    Gmail can render fancy buttons.
+---
+v1.2.8-pre.4:
+- hash: '2497575'
+  date: '2018-10-11'
+  tags: []
+  message: Add JSON LD for Emails.
+---
+v1.2.8-pre.3:
+- hash: 8c4496c
+  date: '2018-10-10'
+  tags: []
+  message: Increase available Postgres pools.
+---
+v1.2.8-pre.2+build.1: []
+---
+v1.2.8-pre.2:
+- hash: 61c4cb8
+  date: '2018-10-10'
+  tags: []
+  message: ConversationS with an 'S'
+---
+v1.2.8-pre.1:
+- hash: 33f1718
+  date: '2018-10-10'
+  tags: []
+  message: Chat is now moved to the public.
+- hash: a411967
+  date: '2018-10-10'
+  tags: []
+  message: Fixed signed out user GraphQL bug.
+---
+v1.2.8+build.1: []
+---
+v1.2.8:
+- hash: 9d5892b
+  date: '2018-10-10'
+  tags:
+  - f
+  message: Conversations feature is ready for Patreon beta testing!
+- hash: 353516b
+  date: '2018-10-10'
+  tags: []
+  message: Chat unread marker.
+---
+v1.2.7-pre.10:
+- hash: ea5a2e2
+  date: '2018-10-09'
+  tags: []
+  message: Disable unread count because that somehow breaks other subs.
+---
+v1.2.7-pre.9:
+- hash: 50b1f68
+  date: '2018-10-09'
+  tags: []
+  message: ixed conversation unread counts.
+- hash: ec16a56
+  date: '2018-10-09'
+  tags: []
+  message: Window alert thing.
+- hash: c071cc4
+  date: '2018-10-09'
+  tags: []
+  message: Unread counts are smart scoped.
+- hash: e247fa6
+  date: '2018-10-09'
+  tags: []
+  message: Every chat count actually counts.
+- hash: c7f00f5
+  date: '2018-10-09'
+  tags: []
+  message: Conversation counts.
+- hash: 11125aa
+  date: '2018-10-09'
+  tags: []
+  message: You can now send a new conversation!
+---
+v1.2.7-pre.8:
+- hash: '8275924'
+  date: '2018-10-08'
+  tags: []
+  message: Chat list and messages update live! Thanks Subscriptions!
+- hash: 49ebc26
+  date: '2018-10-07'
+  tags: []
+  message: Conversations load from list kinda.
+---
+v1.2.7-pre.7:
+- hash: dff38d1
+  date: '2018-10-07'
+  tags: []
+  message: Fake conversation list.
+---
+v1.2.7-pre.6:
+- hash: 3d41735
+  date: '2018-10-07'
+  tags: []
+  message: Chat pretty.
+---
+v1.2.7-pre.5+build.1: []
+---
+v1.2.7-pre.5:
+- hash: 37f6254
+  date: '2018-10-06'
+  tags: []
+  message: Bugfix.
+---
+v1.2.7-pre.4:
+- hash: 359b20b
+  date: '2018-10-06'
+  tags: []
+  message: Hotfix.
+---
+v1.2.7-pre.3:
+- hash: 0bd98af
+  date: '2018-10-06'
+  tags: []
+  message: CHAT SUBSCRIPTION DOES THING.
+- hash: 9d795ad
+  date: '2018-10-05'
+  tags: []
+  message: GRAPHQL DOES THE THING
+- hash: 10b3b0d
+  date: '2018-10-05'
+  tags: []
+  message: Added messages backend to GraphQL
+---
+v1.2.7-pre.2:
+- hash: c3d20f4
+  date: '2018-10-05'
+  tags: []
+  message: FIXBUG
+- hash: 36fd66c
+  date: '2018-10-05'
+  tags: []
+  message: Add build timings to deploy.
+---
+v1.2.7-pre.1+build.1: []
+---
+v1.2.7-pre.1:
+- hash: 8edac41
+  date: '2018-10-05'
+  tags: []
+  message: Update ahoy things.
+---
+v1.2.7+build.1: []
+---
+v1.2.7:
+- hash: 73798b6
+  date: '2018-10-05'
+  tags:
+  - f
+  message: Upgrade to Ruby 2.5, support Websockets, and add begin development on Conversations.
+---
+v1.2.6-pre.38:
+- hash: c96ce4e
+  date: '2018-10-05'
+  tags: []
+  message: Rename ahoy table because update borked it.
+- hash: f46f440
+  date: '2018-10-05'
+  tags: []
+  message: More prod origins.
+---
+v1.2.6-pre.37:
+- hash: 55ef889
+  date: '2018-10-05'
+  tags: []
+  message: OOPS???
+---
+v1.2.6-pre.36:
+- hash: 13a6ee2
+  date: '2018-10-05'
+  tags: []
+  message: OOPS
+---
+v1.2.6-pre.35:
+- hash: 1a5f748
+  date: '2018-10-05'
+  tags: []
+  message: Rails 2.5 update 1.
+- hash: fb76bd2
+  date: '2018-10-05'
+  tags: []
+  message: Class name fixes. Forever strings. Update Bundle? cache.
+---
+v1.2.6-pre.34:
+- hash: 07cca67
+  date: '2018-10-05'
+  tags: []
+  message: YARN
+---
+v1.2.6-pre.33+build.1: []
+---
+v1.2.6-pre.33:
+- hash: 75f5b8b
+  date: '2018-10-05'
+  tags: []
+  message: df
+---
+v1.2.6-pre.32:
+- hash: 2842e95
+  date: '2018-10-05'
+  tags: []
+  message: Rearrange deploy things.
+---
+v1.2.6-pre.31+build.1: []
+---
+v1.2.6-pre.31:
+- hash: '9626693'
+  date: '2018-10-05'
+  tags: []
+  message: lock
+- hash: f357f05
+  date: '2018-10-05'
+  tags: []
+  message: Update JSON
+---
+v1.2.6-pre.30:
+- hash: de312f1
+  date: '2018-10-04'
+  tags: []
+  message: Action cable origins.
+- hash: 0f0efb3
+  date: '2018-10-04'
+  tags: []
+  message: Add cable conf to beanstalk.
+---
+v1.2.6-pre.29:
+- hash: 8572da7
+  date: '2018-10-04'
+  tags: []
+  message: Return null also thumbnail stuff.
+---
+v1.2.6-pre.28:
+- hash: 90aeac9
+  date: '2018-10-02'
+  tags: []
+  message: Fix delayed.
+---
+v1.2.6-pre.27:
+- hash: 866428b
+  date: '2018-10-02'
+  tags: []
+  message: Gallery sticky thing.
+- hash: 4db33fd
+  date: '2018-10-02'
+  tags: []
+  message: Gallery moved to smarter component.
+---
+v1.2.6-pre.26:
+- hash: ddc7b31
+  date: '2018-10-01'
+  tags: []
+  message: Legacy upload format does not background process.
+- hash: 2479c6d
+  date: '2018-10-01'
+  tags: []
+  message: Delayed and post-processing.
+---
+v1.2.6-pre.25:
+- hash: fc9c859
+  date: '2018-10-01'
+  tags: []
+  message: MORE SITEMAP
+---
+v1.2.6-pre.24:
+- hash: caf7c39
+  date: '2018-10-01'
+  tags: []
+  message: SITEMAP
+- hash: e01f50b
+  date: '2018-10-01'
+  tags: []
+  message: Fix sitemap error in robots.txt
+---
+v1.2.6-pre.23:
+- hash: '8659928'
+  date: '2018-10-01'
+  tags: []
+  message: SitemapUpdateJob
+---
+v1.2.6-pre.22:
+- hash: 91de8fc
+  date: '2018-10-01'
+  tags: []
+  message: UPLOADER GOES ALL THE WAY
+---
+v1.2.6-pre.21:
+- hash: 7713d3d
+  date: '2018-09-30'
+  tags: []
+  message: Speed up deploys.
+---
+v1.2.6-pre.20:
+- hash: 68c7071
+  date: '2018-09-30'
+  tags: []
+  message: FIX
+---
+v1.2.6-pre.19:
+- hash: d8cc312
+  date: '2018-09-30'
+  tags: []
+  message: Pack sync in place.
+- hash: 2c8a166
+  date: '2018-09-30'
+  tags: []
+  message: Uploader functionaliy smoothed out.
+- hash: 62621f3
+  date: '2018-08-14'
+  tags: []
+  message: ImageUploadFOrm
+- hash: 4fbf77d
+  date: '2018-08-10'
+  tags: []
+  message: Added upload modal with filmstrip.
+---
+v1.2.6-pre.18:
+- hash: 6edeaa7
+  date: '2018-08-09'
+  tags: []
+  message: Image meta backfill tasks.
+---
+v1.2.6-pre.17:
+- hash: b34baa5
+  date: '2018-06-12'
+  tags: []
+  message: GraphQL origin hackfixthing.
+---
+v1.2.6-pre.16:
+- hash: 17f48fd
+  date: '2018-06-10'
+  tags: []
+  message: No aspect ratio.
+---
+v1.2.6-pre.15+build.1: []
+---
+v1.2.6-pre.15:
+- hash: dce2425
+  date: '2018-06-10'
+  tags: []
+  message: Stop this image meta nonsense. I don't need it now.
+---
+v1.2.6-pre.14:
+- hash: 9041ad5
+  date: '2018-06-10'
+  tags: []
+  message: NoLOG
+- hash: 605b193
+  date: '2018-06-10'
+  tags: []
+  message: NO MOAR REEDIZ
+---
+v1.2.6-pre.13+build.1: []
+---
+v1.2.6-pre.13:
+- hash: efe8f4a
+  date: '2018-06-10'
+  tags: []
+  message: Try this then.
+---
+v1.2.6-pre.12:
+- hash: 2aef4c8
+  date: '2018-06-10'
+  tags: []
+  message: Self-elevating node install script.
+---
+v1.2.6-pre.11:
+- hash: d3b8123
+  date: '2018-06-10'
+  tags: []
+  message: asdf
+---
+v1.2.6-pre.10:
+- hash: 4898e75
+  date: '2018-06-10'
+  tags: []
+  message: Try... this.
+- hash: f64d998
+  date: '2018-06-10'
+  tags:
+  - ci-skip
+  message: v1.2.6-pre.8
+- hash: b9e533b
+  date: '2018-06-10'
+  tags: []
+  message: I meant this.
+---
+v1.2.6-pre.9:
+- hash: f64d998
+  date: '2018-06-10'
+  tags:
+  - ci-skip
+  message: v1.2.6-pre.8
+- hash: b9e533b
+  date: '2018-06-10'
+  tags: []
+  message: I meant this.
+---
+v1.2.6-pre.8:
+- hash: b9e533b
+  date: '2018-06-10'
+  tags: []
+  message: I meant this.
+---
+v1.2.6-pre.7:
+- hash: '048c9ce'
+  date: '2018-06-10'
+  tags: []
+  message: Try again to upgrade AWS.
+---
+v1.2.6-pre.6:
+- hash: 1b8d5ef
+  date: '2018-06-10'
+  tags: []
+  message: Upgrade AWS Node.
+---
+v1.2.6-pre.5:
+- hash: cb22ffc
+  date: '2018-06-10'
+  tags: []
+  message: Merge branch 'master' of github.com:eiwi1101/refsheet-site
+- hash: c138f0a
+  date: '2018-06-10'
+  tags: []
+  message: 'Merge pull request #52 from eiwi1101/e/webpacker'
+- hash: f2fdf2b
+  date: '2018-06-10'
+  tags: []
+  message: Master merge.
+- hash: 236225d
+  date: '2018-06-10'
+  tags: []
+  message: Master merge.
+- hash: 0e5c662
+  date: '2018-05-23'
+  tags: []
+  message: GraphQL Mutation test via Moderate module.
+- hash: 2f06188
+  date: '2018-05-23'
+  tags: []
+  message: Dockerized attempt.
+- hash: 7f1bbfa
+  date: '2018-05-17'
+  tags: []
+  message: ignoring that test thing
+- hash: fc6adbb
+  date: '2018-05-17'
+  tags: []
+  message: Speed up tests by going local.
+- hash: 4c4fb31
+  date: '2018-05-17'
+  tags: []
+  message: Added mutation pattern!
+- hash: 5f1b19b
+  date: '2018-05-15'
+  tags: []
+  message: Bugfix?
+- hash: '063800b'
+  date: '2018-05-15'
+  tags: []
+  message: Bugfix!
+- hash: c0db30b
+  date: '2018-05-15'
+  tags: []
+  message: CI Feature Split
+- hash: eff8b9f
+  date: '2018-05-15'
+  tags: []
+  message: Karma update also React provider.
+- hash: adafed5
+  date: '2018-04-06'
+  tags: []
+  message: Fixed broken migrations on setup.
+- hash: b1f7ff6
+  date: '2018-03-30'
+  tags: []
+  message: Moved the character header->summary into the new app, styled cleaned up
+    to be more global friendly.
+- hash: 8292bce
+  date: '2018-03-30'
+  tags: []
+  message: Character App styled components and two col cleanup. Also using Materialize
+    from like 3 sources now. Hoy-veh.
+- hash: 45e323b
+  date: '2018-03-25'
+  tags: []
+  message: Clean up Character query fragments.
+- hash: 88e1b0c
+  date: '2018-03-25'
+  tags: []
+  message: Profile GraphQL Zen.
+- hash: '099ed90'
+  date: '2018-03-25'
+  tags: []
+  message: Character GraphQL Schema! :D
+- hash: 2456b43
+  date: '2018-03-24'
+  tags: []
+  message: Subscription server scaffold.
+- hash: da723e9
+  date: '2018-03-24'
+  tags: []
+  message: Character service can pull data from GraphQL.
+- hash: b19c845
+  date: '2018-03-24'
+  tags: []
+  message: GraphQL and some Karma.
+- hash: f247c32
+  date: '2018-03-24'
+  tags: []
+  message: GraphQL and some Karma.
+- hash: 6e31609
+  date: '2018-03-23'
+  tags: []
+  message: Feffjaskdfjfuck.
+- hash: 2e9494f
+  date: '2018-03-23'
+  tags: []
+  message: Withsel.
+- hash: 7bc0a53
+  date: '2018-03-23'
+  tags: []
+  message: Withsel.
+- hash: 107bd66
+  date: '2018-03-23'
+  tags: []
+  message: Withsel.
+- hash: 2762f31
+  date: '2018-03-23'
+  tags: []
+  message: Test result storage and stuff.
+- hash: f5429b8
+  date: '2018-03-23'
+  tags: []
+  message: Spec fixin.
+- hash: cf44552
+  date: '2018-03-23'
+  tags: []
+  message: Maybe I need Chromedriver running?
+- hash: bde7e50
+  date: '2018-03-23'
+  tags: []
+  message: asdf
+- hash: e9be53a
+  date: '2018-03-23'
+  tags: []
+  message: BROWSERS!
+- hash: 0b776bf
+  date: '2018-03-23'
+  tags: []
+  message: CHROME!
+- hash: c3327ca
+  date: '2018-03-23'
+  tags: []
+  message: Fix bundle?
+- hash: ace3924
+  date: '2018-03-23'
+  tags: []
+  message: There there, Circle. Have a Chrome without chrome.
+- hash: 8ba3459
+  date: '2018-03-23'
+  tags: []
+  message: There there, Circle. Have a Chrome.
+- hash: 84a756d
+  date: '2018-03-23'
+  tags: []
+  message: Back to basics.
+- hash: 57137cd
+  date: '2018-03-23'
+  tags: []
+  message: Circle soothing 2.
+- hash: 04d53dc
+  date: '2018-03-23'
+  tags: []
+  message: Syntax?
+- hash: 3e395e5
+  date: '2018-03-23'
+  tags: []
+  message: Workflows?
+- hash: b202727
+  date: '2018-03-23'
+  tags: []
+  message: Postgres soothing.
+- hash: 7ccf3a8
+  date: '2018-03-23'
+  tags: []
+  message: Ruby 2.3
+- hash: 49af619
+  date: '2018-03-23'
+  tags: []
+  message: Soothing Circle 2.0
+- hash: ca31a36
+  date: '2018-03-23'
+  tags: []
+  message: Circle Soothing.
+- hash: 57ccdb7
+  date: '2018-03-23'
+  tags: []
+  message: Added Karma specs. Yaaaay mocha!
+- hash: '9751900'
+  date: '2018-03-21'
+  tags: []
+  message: Gallery does some useful things but I'm making a mess of my syntax. Again.
+- hash: e6a0345
+  date: '2018-03-13'
+  tags: []
+  message: Some slightly better profile mockups of the column mechanism, starting
+    to thread the Edit flag through.
+- hash: d8c7d27
+  date: '2018-03-12'
+  tags: []
+  message: Rendering some Widgets!
+- hash: cabd776
+  date: '2018-03-12'
+  tags: []
+  message: Some update magic going in.
+- hash: 6c080dd
+  date: '2018-03-11'
+  tags: []
+  message: Webpacker renders character.
+- hash: 44412ba
+  date: '2018-03-10'
+  tags: []
+  message: Webpacker replace for Character page. It's ALIIIIIVE!
+- hash: 5c140d9
+  date: '2018-03-10'
+  tags: []
+  message: Test webpacker install.
+---
+v1.2.6-pre.4:
+- hash: 75c2d64
+  date: '2018-03-28'
+  tags: []
+  message: Eager load.
+---
+v1.2.6-pre.3:
+- hash: 25757d2
+  date: '2018-03-27'
+  tags: []
+  message: Speczen.
+- hash: 3d5ae4e
+  date: '2018-03-27'
+  tags: []
+  message: CF Pushin w/ Env tags.
+- hash: 4d48eb3
+  date: '2018-03-27'
+  tags: []
+  message: Bit o' freshdeskin.
+---
+v1.2.6-pre.2:
+- hash: 35431b9
+  date: '2018-03-10'
+  tags: []
+  message: Added a "Home" link to the menu thing.
+---
+v1.2.6-pre.1:
+- hash: 38816cb
+  date: '2018-03-09'
+  tags:
+  - b
+  message: Starting to unify Markdown rendering, and adjusted the color scheme to
+    pick up more tags on character pages.
+---
+v1.2.6:
+- hash: '8854051'
+  date: '2018-03-07'
+  tags:
+  - f
+  message: Completed the Notification Feed WIP for Patrons! Enjoy <3.
+---
+v1.2.5-pre.18:
+- hash: 65e527a
+  date: '2018-03-07'
+  tags: []
+  message: NSFW flag now shown on all Image serializers.
+---
+v1.2.5-pre.17+build.1: []
+---
+v1.2.5-pre.17:
+- hash: 5affb68
+  date: '2018-03-02'
+  tags: []
+  message: 'Fix for Patreon #2 perhaps.'
+---
+v1.2.5-pre.16+build.1: []
+---
+v1.2.5-pre.16:
+- hash: 316098f
+  date: '2018-03-02'
+  tags:
+  - b
+  message: Bugfix for Patreon webhooks coming in for users that did not specify a
+    reward level with their pledge.
+---
+v1.2.5-pre.15:
+- hash: 80ca6e9
+  date: '2018-03-02'
+  tags: []
+  message: Finished moderation emails and automatic resolution of common claims. Still
+    need a comments section and a UI.
+---
+v1.2.5-pre.14:
+- hash: daf54ea
+  date: '2018-03-01'
+  tags: []
+  message: PUMAS ANNOY ME
+---
+v1.2.5-pre.13:
+- hash: abd15e6
+  date: '2018-03-01'
+  tags: []
+  message: Bugfix for proxy?
+- hash: 896126f
+  date: '2018-03-01'
+  tags: []
+  message: Bugfix for inf scroll. I'll deal with that later.
+---
+v1.2.5-pre.12:
+- hash: aeb682a
+  date: '2018-03-01'
+  tags: []
+  message: Potential fix for worker, take 2.
+---
+v1.2.5-pre.11:
+- hash: 400e694
+  date: '2018-03-01'
+  tags:
+  - p
+  message: Adjustment to image size rendering to pick a smaller or lager size depending
+    on final output. This should make the site slightly more friendly for those on
+    dialup or connecting via satellite from Horizon Lunar Colony.
+---
+v1.2.5-pre.10+build.1: []
+---
+v1.2.5-pre.10:
+- hash: '0150454'
+  date: '2018-02-28'
+  tags: []
+  message: 'Attempting to fix worker: take 1'
+---
+v1.2.5-pre.9:
+- hash: cd3fcac
+  date: '2018-02-28'
+  tags: []
+  message: Cleanup on the notification nav entries / disables.
+- hash: e8cc82e
+  date: '2018-02-28'
+  tags:
+  - p
+  message: Added in the first-draft of the notifications menu, enabling for Patrons.
+- hash: '6776366'
+  date: '2018-02-27'
+  tags: []
+  message: Forgotten files.
+- hash: 644d19c
+  date: '2018-02-27'
+  tags: []
+  message: Added notifications controller.
+---
+v1.2.5-pre.8:
+- hash: 0af9bd6
+  date: '2018-02-16'
+  tags:
+  - p
+  message: Image reporting mechanism has been implemented, as well as an addendum
+    to our Terms of Service (Section 2.2), which I highly suggest reading.
+- hash: 54abd50
+  date: '2018-02-15'
+  tags: []
+  message: Disable async in admin panel.
+---
+v1.2.5-pre.7:
+- hash: 6f24947
+  date: '2018-02-12'
+  tags: []
+  message: Added website schema.
+---
+v1.2.5-pre.6:
+- hash: e22c411
+  date: '2018-02-05'
+  tags: []
+  message: Fixed the shortcode controller, perhaps.
+---
+v1.2.5-pre.5:
+- hash: 8cf1ce4
+  date: '2018-02-05'
+  tags:
+  - p
+  message: 'Added an HTTPS image proxy to reroute images included in Markdown and
+    prevent mixed content warnings. Endpoint: ref.st/e'
+---
+v1.2.5-pre.4:
+- hash: 76c39f1
+  date: '2018-01-25'
+  tags:
+  - p
+  message: The first pass of the proper notification system has been included. Enabled
+    notifications for @-mentions in the forums.
+---
+v1.2.5-pre.3:
+- hash: b7b184b
+  date: '2018-01-25'
+  tags: []
+  message: Forgot to include the migration tho.
+---
+v1.2.5-pre.2:
+- hash: 98ff5dc
+  date: '2018-01-25'
+  tags:
+  - b
+  message: Fixed the image view to show all images even when you're signed in. Oh
+    boy, databases are fun.
+---
+v1.2.5-pre.1:
+- hash: 
+  tags: []
+  message: 5f62a04 Thu Jan 25 03:19:01 2018 -0600 [p] Cleaned up the changelog and
+    versioning mechanism to make a bit more sense to the outside world.
+---
+v1.2.4-5.001:
+- hash: d440175
+  tags:
+  - p
+  message: Potential fix for attribute row order not persisting across reloads.
+---
+v1.2.4-4.001:
+- hash: 632223d
+  tags: []
+  message: Static error screens!
+---
+v1.2.4-3.001:
+- hash: b7bad03
+  tags:
+  - p
+  message: Working on deferred Javascript loads, and a splash screen.
+---
+v1.2.4-2.001:
+- hash: 220e492
+  tags:
+  - p
+  message: Potentially disabled the immediate request for push notifications on mobile.
+---
+v1.2.4-1.001:
+- hash: 8903fb2
+  tags:
+  - p
+  message: Fixed the attributes form so it no longer hides when you're missing traits
+    on your character.
+---
+v1.2.4-0.001: []
+---
+v1.2.4:
+- hash: ed34944
+  tags:
+  - b
+  message: Fixed Nginx config to use try_files to re-serve the static app assets that
+    we all missed so much :3
+---
+v1.2.3:
+- hash: f6ff848
+  tags:
+  - b
+  message: Added a possible? fix for the row order issue, but I'm not sure it'll completely
+    work.
+---
+v1.2.2-7.002:
+- hash: 4571d2f
+  tags:
+  - p
+  message: 'Added browser push notifications for Patron preview, currently supports:
+    Comment, Favs, and Forum Replies. Thanks, guys <3'
+---
+v1.2.2-6.002:
+- hash: d0d3e8f
+  tags: []
+  message: Paywall on notifications.
+---
+v1.2.2-5.002: []
+---
+v1.2.2-5.001:
+- hash: 42efcbb
+  tags: []
+  message: Circle maybe?
+- hash: d65deee
+  tags: []
+  message: Spec fix?
+---
+v1.2.2-4.001:
+- hash: 7ef8eee
+  tags: []
+  message: Notifications for various browser events.
+- hash: a238be2
+  tags: []
+  message: ServiceWorker Click.
+---
+v1.2.2-3.001:
+- hash: 8c98e92
+  tags: []
+  message: This isn't the ES6 you're looking for.
+---
+v1.2.2-2.001:
+- hash: cc10eb1
+  tags: []
+  message: Var vs Let?
+---
+v1.2.2-1.001: []
+---
+v1.2.2-1.000:
+- hash: 98fcae4
+  tags: []
+  message: Experimental browser push notifications.
+---
+v1.2.2:
+- hash: c1c113f
+  tags:
+  - b
+  message: Fixed the "I have a Patron symbol but support says I do not" bug!
+---
+v1.2.1-3.000:
+- hash: e908bfa
+  tags: []
+  message: Fix feedback errors.
+- hash: ae4270c
+  tags: []
+  message: Moderation report model created.
+---
+v1.2.1-2.000:
+- hash: 31f0d43
+  tags: []
+  message: Self-service patron link complete.
+- hash: 8ff05f3
+  tags: []
+  message: Self-service patron link complete.
+- hash: 2a2ca7c
+  tags: []
+  message: User settings!
+---
+v1.2.1-1.000:
+- hash: b4dcb5d
+  tags: []
+  message: Assets optimized.
+- hash: fa0618a
+  tags: []
+  message: Optimized image sizes.
+---
+v1.2.1:
+- hash: 43a74db
+  tags:
+  - b
+  message: Fixed forum links breaking if user is signed out.
+---
+v1.2.0:
+- hash: 3adde5d
+  tags: []
+  message: Fix failing spec.
+- hash: '2843405'
+  tags: []
+  message: Update deploy task.
+- hash: d1859cd
+  tags: []
+  message: Attribute form specs included.
+- hash: dcb7f88
+  tags:
+  - f
+  message: New customizable attribute tables on character pages.
+- hash: a0681e9
+  tags: []
+  message: Minor CORS fix, hopefully.
+---
+v1.1.2-1.000:
+- hash: 95a61cd
+  tags: []
+  message: CORS test.
+---
+v1.1.2:
+- hash: 94792e7
+  tags:
+  - b
+  message: Fixed character visibility persist, fixed bogus posts from some spammer
+    dude.
+---
+v1.1.1:
+- hash: 26004fe
+  tags:
+  - b
+  message: Fixed text fields overlapping edit icon. Temporarily disabled character
+    ordering in groups. Extended character privacy settings to Browse, Explore and
+    Activity.
+- hash: 45b44ea
+  tags: []
+  message: Fixed the broken likes/dislikes boxen.
+- hash: 3f0712f
+  tags: []
+  message: Stripe Bank Account management added to Marketplace Prototype.
+- hash: c634088
+  tags: []
+  message: Stripe Bank Account management added to Marketplace Prototype.
+---
+v1.1.0-1.000:
+- hash: 534a4f8
+  tags: []
+  message: Added Changelog and Patron pages in about section.
+- hash: bf87cfe
+  tags: []
+  message: 'Forum UI supports Unread Count, and will display "Last Post At", which
+    is now the default order. #bump'
+- hash: 9fd276b
+  tags: []
+  message: Unread counts now included in forum serialization.
+- hash: 7a28bef
+  tags: []
+  message: Added in some really cool files that I totally forgot were things.
+- hash: 5c17a27
+  tags: []
+  message: Wrote a really fancy query to figure out how many threads you haven't read.
+---
+v1.1.0:
+- hash: 5ca3db5
+  tags:
+  - f
+  message: Updated forums to display threads without mashing text. Also adding more
+    colored avatars. Also probably broke other parts of the site. *shrug.
+---
+v1.0.0-8.001:
+- hash: 783495e
+  tags: []
+  message: Public Forums!
+---
+v1.0.0-7.001:
+- hash: e208386
+  tags: []
+  message: tpyo
+---
+v1.0.0-6.001:
+- hash: 120b40c
+  tags: []
+  message: Update Bundler.
+- hash: 2e0f581
+  tags: []
+  message: Fuckin test for puma needs to stop timing out now.
+---
+v1.0.0-5.001: []
+---
+v1.0.0-5.000:
+- hash: 925ad3c
+  tags: []
+  message: Increase bundler timeout.
+---
+v1.0.0-4.000:
+- hash: 6cae668
+  tags: []
+  message: Stop timing out, gosh.
+---
+v1.0.0-3.000:
+- hash: ebbb229
+  tags: []
+  message: Morebeans.
+---
+v1.0.0-2.000:
+- hash: d8f586e
+  tags: []
+  message: Trying a beanstalk.
+---
+v1.0.0-1.000:
+- hash: 6a52269
+  tags: []
+  message: Playing. With fire.
+---
+v0.12.19-239.001: []
+---
+v0.12.19-239.000000:
+- hash: 0f3fec1
+  tags:
+  - ci-skip
+  message: v0.12.19-238
+---
+v0.12.19-238: []
+---
+v0.12.19-238:
+- hash: 7f4944e
+  tags:
+  - ci-skip
+  message: Deploying build 2397eaea7fee21138957e53a98175bb53fdd7381.
+- hash: 2397eae
+  tags:
+  - ci-skip
+  message: Deploying build cd1f291b128de26d0259db3c909e0fb745483b80.
+- hash: cd1f291
+  tags:
+  - ci-skip
+  message: Deploying build 737c9ae57af263e2f8d5a452fce196c269ba024a.
+- hash: 737c9ae
+  tags: []
+  message: Reverting the bundle madness.
+- hash: 88ba5d4
+  tags:
+  - ci-skip
+  message: Deploying build b89975e1a799717f9559a0809b661ab3033bfd61.
+- hash: b89975e
+  tags: []
+  message: Some config twerks.
+- hash: b272180
+  tags:
+  - ci-skip
+  message: Deploying build a8ad66e8fb5972b2ca45a2dbfd758b896cb0e7e4.
+- hash: a8ad66e
+  tags: []
+  message: For real rake.
+- hash: fb5c2ab
+  tags:
+  - ci-skip
+  message: Deploying build 6d9815b716ed4674ef1fa30ae7b0446bb5233884.
+- hash: 6d9815b
+  tags: []
+  message: Rake task.
+- hash: c63ee57
+  tags: []
+  message: Upped client max size.
+- hash: df93a62
+  tags:
+  - ci-skip
+  message: Deploying build fc1c418131cb534d22f82bb2cdd259f1ac13be0f.
+- hash: fc1c418
+  tags:
+  - ci-skip
+  message: Deploying build 21795eea7ade162376a90aa383a962a4783f0b76.
+- hash: 21795ee
+  tags: []
+  message: asdf
+- hash: 42a9bdd
+  tags: []
+  message: Maybe access control?
+- hash: d45cf49
+  tags: []
+  message: asdf
+- hash: f035e09
+  tags: []
+  message: fdsa
+- hash: 6ab34c7
+  tags: []
+  message: asdf
+- hash: c3a9493
+  tags:
+  - ci-skip
+  message: Deploying build 8357cdd6c00436a603a3e431e39c45c8b6960f40.
+- hash: 8357cdd
+  tags: []
+  message: Fuck. Cors.
+- hash: f969272
+  tags:
+  - ci-skip
+  message: Deploying build 02597df542a8d49467750630b22c2ab53ac6bc28.
+- hash: '02597df'
+  tags: []
+  message: Fuck CORS 2.0 the electric boogaloo...
+- hash: 18861ac
+  tags: []
+  message: Fuck CORS.
+- hash: b84bb2c
+  tags:
+  - ci-skip
+  message: Deploying build 9cc68294439b7086b55576bc66ad65cfda69d3fd.
+- hash: 9cc6829
+  tags: []
+  message: Occams Razor.
+- hash: dfec530
+  tags:
+  - ci-skip
+  message: Deploying build 5f024837476769e5c4540b88226b9eaadbd8f18d.
+- hash: 5f02483
+  tags: []
+  message: Occams Razor.
+- hash: 39d6722
+  tags:
+  - ci-skip
+  message: Deploying build faa9560040f499769054aed8ee4a27461002a62f.
+- hash: faa9560
+  tags: []
+  message: Try a proxy!
+- hash: 0f02b65
+  tags:
+  - ci-skip
+  message: Deploying build b95b3ebca9b8109ad54dd69621c5afa1bcb5df88.
+- hash: b95b3eb
+  tags: []
+  message: Installed Rack CORS.
+- hash: a9db56f
+  tags:
+  - ci-skip
+  message: Deploying build b761a52ed9dde7e4fb874e70cddc57e95215988e.
+- hash: b761a52
+  tags: []
+  message: Try with path?
+- hash: 5a52e7f
+  tags:
+  - ci-skip
+  message: Deploying build c0c266836d95b0d75c83e230faac344fa22bd264.
+- hash: c0c2668
+  tags: []
+  message: Alias URL?
+- hash: 71e2584
+  tags:
+  - ci-skip
+  message: Deploying build 8a52bf338b4507095a276befcb8c50437f96a4f5.
+- hash: 8a52bf3
+  tags: []
+  message: Swap to s3 host alias.
+- hash: 4a81098
+  tags: []
+  message: Cloud front!
+- hash: 75fd252
+  tags:
+  - ci-skip
+  message: Deploying build d8cadb93a7e1f60f118182f5c1c80e4204748e6d.
+- hash: d8cadb9
+  tags: []
+  message: Fixed user shortcodes.
+- hash: 874463b
+  tags: []
+  message: Admins and Patrons begin to show in different colors.
+- hash: c0d27fb
+  tags: []
+  message: News feed suggestions! I really gotta CSS this better.
+- hash: 4bcb886
+  tags: []
+  message: Characer follow button.
+- hash: 6cd98c8
+  tags: []
+  message: Character follow button.
+- hash: '2404016'
+  tags: []
+  message: Various passes of bug fixen.
+- hash: fff3643
+  tags: []
+  message: Wrapping up campaign fix.
+- hash: cb84946
+  tags: []
+  message: Paperclip moved images to a better home for ads.
+- hash: 8c6c905
+  tags: []
+  message: Campaign spec fixed.
+- hash: 5108e8d
+  tags: []
+  message: Bugfix in lightbox, user bar, hash utils.
+- hash: 1d1e206
+  tags:
+  - ci-skip
+  message: Deploying build f56d342ce093aa265ae7da3b8a5e64645db694d6.
+- hash: f56d342
+  tags: []
+  message: We'll try it this way.
+- hash: edbdfa3
+  tags:
+  - ci-skip
+  message: Deploying build e6288af35301141f1afc06ad255eccfc6aec47ad.
+- hash: e6288af
+  tags: []
+  message: and.
+- hash: a14974c
+  tags:
+  - ci-skip
+  message: Deploying build 35116056af3b6f076cb1c3539a15a78e263d6a31.
+- hash: '3511605'
+  tags: []
+  message: "*BOOM.* Public."
+- hash: 35e4c2c
+  tags: []
+  message: Activity Feed mobile good enough for public.
+- hash: adf557e
+  tags:
+  - ci-skip
+  message: Deploying build d82accb379f1d8e3276f2d0875ef836cd6785631.
+- hash: d82accb
+  tags:
+  - ci-skip
+  message: Deploying build 026c4049bb67102d4a632d640d1c33bd5b6ac5eb.
+- hash: 026c404
+  tags: []
+  message: Whole lotta bugfixes.
+- hash: ad1c492
+  tags:
+  - ci-skip
+  message: Deploying build 1be5ca1e7aa676149b49bcb6b13ef097ce11a496.
+- hash: 1be5ca1
+  tags:
+  - ci-skip
+  message: Deploying build 02d3dc7ee402974db61d90895637a9033b7d6926.
+---
+v0.12.19-238:
+- hash: 7f4944e
+  tags:
+  - ci-skip
+  message: Deploying build 2397eaea7fee21138957e53a98175bb53fdd7381.
+- hash: 2397eae
+  tags:
+  - ci-skip
+  message: Deploying build cd1f291b128de26d0259db3c909e0fb745483b80.
+- hash: cd1f291
+  tags:
+  - ci-skip
+  message: Deploying build 737c9ae57af263e2f8d5a452fce196c269ba024a.
+- hash: 737c9ae
+  tags: []
+  message: Reverting the bundle madness.
+- hash: 88ba5d4
+  tags:
+  - ci-skip
+  message: Deploying build b89975e1a799717f9559a0809b661ab3033bfd61.
+- hash: b89975e
+  tags: []
+  message: Some config twerks.
+- hash: b272180
+  tags:
+  - ci-skip
+  message: Deploying build a8ad66e8fb5972b2ca45a2dbfd758b896cb0e7e4.
+- hash: a8ad66e
+  tags: []
+  message: For real rake.
+- hash: fb5c2ab
+  tags:
+  - ci-skip
+  message: Deploying build 6d9815b716ed4674ef1fa30ae7b0446bb5233884.
+- hash: 6d9815b
+  tags: []
+  message: Rake task.
+- hash: c63ee57
+  tags: []
+  message: Upped client max size.
+- hash: df93a62
+  tags:
+  - ci-skip
+  message: Deploying build fc1c418131cb534d22f82bb2cdd259f1ac13be0f.
+- hash: fc1c418
+  tags:
+  - ci-skip
+  message: Deploying build 21795eea7ade162376a90aa383a962a4783f0b76.
+- hash: 21795ee
+  tags: []
+  message: asdf
+- hash: 42a9bdd
+  tags: []
+  message: Maybe access control?
+- hash: d45cf49
+  tags: []
+  message: asdf
+- hash: f035e09
+  tags: []
+  message: fdsa
+- hash: 6ab34c7
+  tags: []
+  message: asdf
+- hash: c3a9493
+  tags:
+  - ci-skip
+  message: Deploying build 8357cdd6c00436a603a3e431e39c45c8b6960f40.
+- hash: 8357cdd
+  tags: []
+  message: Fuck. Cors.
+- hash: f969272
+  tags:
+  - ci-skip
+  message: Deploying build 02597df542a8d49467750630b22c2ab53ac6bc28.
+- hash: '02597df'
+  tags: []
+  message: Fuck CORS 2.0 the electric boogaloo...
+- hash: 18861ac
+  tags: []
+  message: Fuck CORS.
+- hash: b84bb2c
+  tags:
+  - ci-skip
+  message: Deploying build 9cc68294439b7086b55576bc66ad65cfda69d3fd.
+- hash: 9cc6829
+  tags: []
+  message: Occams Razor.
+- hash: dfec530
+  tags:
+  - ci-skip
+  message: Deploying build 5f024837476769e5c4540b88226b9eaadbd8f18d.
+- hash: 5f02483
+  tags: []
+  message: Occams Razor.
+- hash: 39d6722
+  tags:
+  - ci-skip
+  message: Deploying build faa9560040f499769054aed8ee4a27461002a62f.
+- hash: faa9560
+  tags: []
+  message: Try a proxy!
+- hash: 0f02b65
+  tags:
+  - ci-skip
+  message: Deploying build b95b3ebca9b8109ad54dd69621c5afa1bcb5df88.
+- hash: b95b3eb
+  tags: []
+  message: Installed Rack CORS.
+- hash: a9db56f
+  tags:
+  - ci-skip
+  message: Deploying build b761a52ed9dde7e4fb874e70cddc57e95215988e.
+- hash: b761a52
+  tags: []
+  message: Try with path?
+- hash: 5a52e7f
+  tags:
+  - ci-skip
+  message: Deploying build c0c266836d95b0d75c83e230faac344fa22bd264.
+- hash: c0c2668
+  tags: []
+  message: Alias URL?
+- hash: 71e2584
+  tags:
+  - ci-skip
+  message: Deploying build 8a52bf338b4507095a276befcb8c50437f96a4f5.
+- hash: 8a52bf3
+  tags: []
+  message: Swap to s3 host alias.
+- hash: 4a81098
+  tags: []
+  message: Cloud front!
+- hash: 75fd252
+  tags:
+  - ci-skip
+  message: Deploying build d8cadb93a7e1f60f118182f5c1c80e4204748e6d.
+- hash: d8cadb9
+  tags: []
+  message: Fixed user shortcodes.
+- hash: 874463b
+  tags: []
+  message: Admins and Patrons begin to show in different colors.
+- hash: c0d27fb
+  tags: []
+  message: News feed suggestions! I really gotta CSS this better.
+- hash: 4bcb886
+  tags: []
+  message: Characer follow button.
+- hash: 6cd98c8
+  tags: []
+  message: Character follow button.
+- hash: '2404016'
+  tags: []
+  message: Various passes of bug fixen.
+- hash: fff3643
+  tags: []
+  message: Wrapping up campaign fix.
+- hash: cb84946
+  tags: []
+  message: Paperclip moved images to a better home for ads.
+- hash: 8c6c905
+  tags: []
+  message: Campaign spec fixed.
+- hash: 5108e8d
+  tags: []
+  message: Bugfix in lightbox, user bar, hash utils.
+- hash: 1d1e206
+  tags:
+  - ci-skip
+  message: Deploying build f56d342ce093aa265ae7da3b8a5e64645db694d6.
+- hash: f56d342
+  tags: []
+  message: We'll try it this way.
+- hash: edbdfa3
+  tags:
+  - ci-skip
+  message: Deploying build e6288af35301141f1afc06ad255eccfc6aec47ad.
+- hash: e6288af
+  tags: []
+  message: and.
+- hash: a14974c
+  tags:
+  - ci-skip
+  message: Deploying build 35116056af3b6f076cb1c3539a15a78e263d6a31.
+- hash: '3511605'
+  tags: []
+  message: "*BOOM.* Public."
+- hash: 35e4c2c
+  tags: []
+  message: Activity Feed mobile good enough for public.
+- hash: adf557e
+  tags:
+  - ci-skip
+  message: Deploying build d82accb379f1d8e3276f2d0875ef836cd6785631.
+- hash: d82accb
+  tags:
+  - ci-skip
+  message: Deploying build 026c4049bb67102d4a632d640d1c33bd5b6ac5eb.
+- hash: 026c404
+  tags: []
+  message: Whole lotta bugfixes.
+- hash: ad1c492
+  tags:
+  - ci-skip
+  message: Deploying build 1be5ca1e7aa676149b49bcb6b13ef097ce11a496.
+- hash: 1be5ca1
+  tags:
+  - ci-skip
+  message: Deploying build 02d3dc7ee402974db61d90895637a9033b7d6926.

@@ -1,0 +1,146 @@
+%h1 Seller Setup
+
+- if current_user.seller
+  -#.right= debug current_user.seller.as_json
+  %p You are a verified seller, you can now list items in the marketplace.
+  %p Stripe ID: #{current_user.seller.processor_id} (#{current_user.seller.processor_type})
+
+
+  %h2 Payout Preferences
+  %table
+    %tr
+      %th Account Holder Name
+      %th Bank Name
+      %th Account #
+      %th Processor ID
+      %th
+    - current_user.bank_accounts.each do |acct|
+      %tr
+        %td= acct.account_holder_name
+        %td= acct.bank_name
+        %td= 'x' + acct.account_last_4
+        %td= acct.processor_id
+        %td.right-align.red Remove
+
+  - if current_user.bank_accounts.empty?
+    %h3 New Bank Account
+    = simple_form_for StripeBankAccount.new, url: marketplace_setup_path do |f|
+      = hidden_field_tag :bank_account_token
+
+      = text_field_tag :account_number, nil, data: { stripe: 'account_number'}, placeholder: 'Account Number'
+      = text_field_tag :routing_number, nil, data: { stripe: 'routing_number'}, placeholder: 'Routing Number'
+      = text_field_tag :account_holder_name, current_user.seller.name, data: { stripe: 'account_holder_name' }, placeholder: 'Account Holder Name'
+
+      %select.browser-default{name: :account_holder_type, data: { stripe: 'account_holder_type' }, class: 'browser_default'}
+        %option{value: 'individual'} Individual
+        %option{value: 'company'} Company
+
+      %select.browser-default{name: :country, data: { stripe: 'country' }, class: 'browser_default'}
+        %option{value: 'US'} United States
+
+      %select.browser-default{name: :currency, data: { stripe: 'currency' }, class: 'browser_default'}
+        %option{value: 'USD'} USD
+
+      = f.submit 'Add Bank Account', class: 'btn'
+
+- else
+  %p You are not yet a verified seller. Please update your information below.
+
+%h2 Edit Seller Account
+= simple_form_for @seller, url: marketplace_test_setup_path, as: :seller, method: :post, html: { id: 'edit_seller' } do |f|
+  .row
+    .col.s6= f.input :first_name
+    .col.s6= f.input :last_name
+
+  .row
+    .col.s6
+      = f.input :dob, as: :date, start_year: Date.today.year - 18,
+                      end_year: Date.today.year - 100,
+                      prompt: { year: 'Year', month: 'Month', day: 'Day' },
+                      order: [:month, :day, :year],
+                      input_html: { class: 'browser-default inline' }
+
+    .col.s6.right-align
+      %p We ask this kindly to validate your identity and kill fraud. This number never touches our servers.
+      = text_field_tag :personal_id_number, nil, data: { stripe: 'personal_id_number'}, placeholder: 'Social Security'
+
+      %p
+        By signing up to be a seller, you agree to the
+        #{ link_to 'Stripe Connected Account Agreement', 'https://stripe.com/connect-account/legal', target: '_blank' },
+        which includes the #{ link_to 'Stripe Terms of Service', 'https://stripe.com/legal', target: '_blank' }
+
+      = f.submit 'Become Seller', class: 'btn'
+
+:coffeescript
+  Stripe.setPublishableKey('#{Rails.configuration.x.stripe['publishable_key']}')
+
+  $ ->
+    $('#new_stripe_bank_account').submit (e) ->
+      e.preventDefault()
+
+      $form = $(this)
+      $form.find('input[type=submit]').prop 'disabled', true
+
+      Stripe.bankAccount.createToken $form, (status, response) ->
+        console.log response
+
+        if response.error
+          Materialize.toast response.error.message, 3000, 'red'
+          $form.find('input[type=submit]').prop 'disabled', false
+
+        else
+          $('input#bank_account_token').val response.id
+          $('[data-stripe]').remove()
+          Materialize.toast 'Tokenized Bank Account: ' + response.id
+          $form[0].submit()
+
+      false
+
+    $('#edit_seller').submit (e) ->
+      e.preventDefault()
+
+      $form = $(this)
+      $form.find('input[type=submit]').prop 'disabled', true
+
+      Stripe.pii.createToken $form, (status, response) ->
+        console.log response
+
+        if response.error
+          Materialize.toast response.error.message, 3000, 'red'
+          $form.find('input[type=submit]').prop 'disabled', false
+
+        else
+          $('input#personal_id_token').val response.id
+          $('[data-stripe]').remove()
+          Materialize.toast 'Tokenized SSN: ' + response.id
+          $form[0].submit()
+
+      false
+
+    $('#personal_id_number')
+    .keydown (e) ->
+      joinstr = '-'
+      lastchars = @value.substr(0 - joinstr.length)
+      bksp = e.keyCode == 8 && lastchars == joinstr
+      console.log { bksp, lastchars, joinstr }
+
+      @value = @value.substr(0, @value.length - joinstr.length) if bksp
+
+    .keyup (e) ->
+      sizes = [3, 2, 4]
+      maxlen = sizes.reduce(((a,b) -> a+b), 0)
+      joinstr = '-'
+
+      val = @value.replace(/\D/g, '').substr(0, maxlen)
+      newVal = ''
+
+      for i of sizes
+        if val.length >= sizes[i]
+          newVal += val.substr(0, sizes[i])
+          newVal += joinstr if i < sizes.length - 1
+          val = val.substr(sizes[i])
+        else
+          break
+
+      newVal += val
+      @value = newVal

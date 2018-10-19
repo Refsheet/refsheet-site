@@ -1,10 +1,18 @@
-<% unless Rails.env.text? %>
+<% if false && Rails.env.production? %>
 var _rollbarConfig = {
     accessToken: "a43b7825b82c453fb68aeec7da291508",
     captureUncaught: true,
     captureUnhandledRejections: true,
+    autoInstrument: true,
     payload: {
-        environment: "<%= Rails.env %>"
+        environment: "<%= Rails.env %>",
+        client: {
+            javascript: {
+                source_map_enabled: true,
+                code_version: "<%= Refsheet::VERSION %>",
+                guess_uncaught_frames: true
+            }
+        }
     }
 };
 // Rollbar Snippet

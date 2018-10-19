@@ -1,0 +1,40 @@
+ul
+  &.spaced
+    li:not(:last-child)
+      margin-bottom: 0.75rem
+
+  &.message-list
+    li
+      padding: 0.75rem 1rem 0.75rem 0.75rem
+      transition: background-color, 0.3s
+      border-left: 0.25rem solid transparent
+
+      &.unread
+        border-left-color: $lighten-color
+
+        a
+          font-weight: bold
+
+      &.active
+        background-color: $page-bg-color
+        border-left-color: $secondary-color
+
+        a
+          color: $secondary-color
+
+      &:last-child
+        border-bottom: none
+
+      &:hover
+        background-color: $lighten-color
+        cursor: pointer
+
+  @at-root
+    .tab-row-container
+      height: 48px
+
+    .tab-row
+      &.pinned
+        @extend .z-depth-1
+        width: 100%
+        z-index: 995

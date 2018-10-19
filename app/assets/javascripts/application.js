@@ -30,7 +30,54 @@
 //= require chartkick
 //= require highcharts
 //= require highcharts-init
+//= require tinyColorPicker
+//= require jquery.justifiedGallery
+//= require js.cookie
 //
+//= require_self
+//= require _rollbar
+//= require highcharts-init
 //= require components
 //= require cable
-//= require_tree .
+//= require_tree ./admin
+//= require_tree ./utils
+//= require serviceworker-companion
+
+window.namespace = function(ns_path, parent) {
+    var spaces, final, current;
+
+    if(!ns_path) return;
+    if(!parent) parent = window;
+
+    if(ns_path.unshift) {
+        spaces = ns_path;
+    } else {
+        spaces = ns_path.split('.');
+    }
+
+    current = spaces.shift();
+
+    if(typeof parent[current] === 'undefined') {
+        final = parent[current] = {};
+    }
+
+    if(spaces.length > 0) {
+        return namespace(spaces, parent[current]);
+    } else {
+        return final;
+    }
+};
+
+// Wait for WebPack to catch up here...
+(function() {
+  console.log("Pack loaded: Legacy Refsheet JS")
+
+  if(typeof Packs !== 'undefined') {
+    console.log("Pack sync: JS v2 detected in Legacy, mounting...")
+  } else {
+    window.addEventListener('jsload.pack', function() {
+      console.log("Pack sync: JS v2 reported load, mounting...")
+      ReactRailsUJS.mountComponents();
+    });
+  }
+})();

@@ -13,13 +13,13 @@
 #  updated_at   :datetime         not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :swatch do
-    character_id 1
-    name "MyString"
-    color "MyString"
-    notes "MyText"
-    row_order 1
-    guid "MyString"
+    character_id { 1 }
+    name { "MyString" }
+    color { "MyString" }
+    notes { "MyText" }
+    row_order { 1 }
+    guid { "MyString" }
   end
 end

@@ -4,10 +4,16 @@
     = display_meta_tags site: 'Refsheet.net'
     = csrf_meta_tags
     = render 'favicon'
-    %meta{name: "viewport", content: "width=device-width, initial-scale=1"}
-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
-    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
-    %meta{'http-equiv' => "X-Clacks-Overhead", content: "GNU Sir Terry Pratchett"}
+    %meta{name: 'viewport', content: 'width=device-width, initial-scale=1'}
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+
+    - async = Rails.env.production? && params[:controller] !~ /^admin/
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload', async: async, defer: async
+
+    -#= javascript_include_tag 'https://js.stripe.com/v2/'
+    %meta{'http-equiv' => 'X-Clacks-Overhead', content: 'GNU Sir Terry Pratchett'}
 
   %body{class: [yield(:body_class), params[:controller].gsub(/[^a-z]+/, ' ')].join(' ')}
     = render 'body'
+    .version{style: 'display: none;'}= Refsheet::VERSION

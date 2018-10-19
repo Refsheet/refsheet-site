@@ -23,14 +23,21 @@
 #  dislikes          :text
 #  color_scheme_id   :integer
 #  nsfw              :boolean
-#  hidden            :boolean
+#  hidden            :boolean          default("false")
 #  secret            :boolean
+#  row_order         :integer
+#  deleted_at        :datetime
+#  custom_attributes :text
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :character do
     user
     name { Faker::Name.name }
     profile { Faker::Lorem.paragraph }
+
+    trait :hidden do
+      hidden { true }
+    end
   end
 end

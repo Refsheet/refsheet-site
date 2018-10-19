@@ -36,27 +36,26 @@
       .input-field
         margin-top: 0
 
+        .prefix
+          line-height: 1.5rem
+          text-shadow: none !important
+          position: absolute
+          right: 0
+          text-align: right
+
+          & + input
+            padding-right: 2.5rem !important
+
       &.inactive
         opacity: 0.5
 
       input
         width: 100%
+        line-height: 1.5rem
+        height: 2.5rem
 
         &.invalid
           margin-bottom: 1.2rem
-
-      .color-helper
-        position: absolute
-        right: 10px
-        width: 25px
-        height: 25px
-        border-radius: 25px
-        z-index: 3
-        border: 1px solid rgba(255, 255, 255, 0.3)
-        cursor: crosshair
-
-        input
-          display: none
 
     &:not(.attribute-form)
       .attribute-data
@@ -64,8 +63,10 @@
           font-variant: small-caps
           color: $secondary-color
           white-space: nowrap
+          line-height: 1.5rem
 
         .value
+          line-height: 1.5rem
           .default-value
             color: rgba(255, 255, 255, 0.3)
 
@@ -74,6 +75,14 @@
 
     & > div
       position: relative
+
+  .full-row
+    text-align: center
+    flex-grow: 1
+
+    a.block
+      display: block
+      width: 100%
 
   .actions
     @extend .padding-left--small
@@ -92,13 +101,21 @@
         transition: color 0.25s ease
         cursor: pointer
 
+      i.material-icons
+        font-size: 1.1rem
+        line-height: 1.5rem
+        vertical-align: middle
+
   .icon
     vertical-align: middle
-    padding: 3px 0 0 0
+    padding: 0 !important
 
     .material-icons
       font-size: 2rem
       margin-right: 15px
+      line-height: 1.5rem
+      padding: 7px 0
+      vertical-align: middle
 
   @media #{$medium-and-up}
     .attribute-data
@@ -120,7 +137,6 @@
       input
         margin: -12px 0
         height: auto
-        padding: 9px 0
 
   @media #{$small-and-down}
     li

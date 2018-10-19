@@ -1,0 +1,25 @@
+%h1 Welcome to Refsheet.net!
+
+%p Hey, #{@user.name}!
+
+%p
+  We're so glad you can join us here on Refsheet. It is our hope to create the best place to store your character
+  creations, and share them with the world! Our platform is designed to highlight the artistic aspects of your
+  characters, making it easy to seek out and show off unique, commissioned work. We also make it super easy to
+  transfer and exchange characters between users.
+
+%p
+  It is important for us to know that this email address belongs to you, so we can get character transfers sent to
+  the right account. Click the link below to let us know it's you.
+
+= button 'Confirm Email Address', login_url(email: @user.email, auth: @auth_code), primary: true
+
+%hr/
+
+%p.last
+  If you have any feedback, or you run into trouble, you are welcome to use the "Feedback" button on the bottom-left
+  of the site, or contact us on our social media accounts:
+  = link_to 'Twitter', 'https://twitter.com/refsheet', target: '_blank'
+  and
+  = link_to 'Facebook', 'https://facebook.com/refsheet', target: '_blank'
+  are the two big accounts we use.

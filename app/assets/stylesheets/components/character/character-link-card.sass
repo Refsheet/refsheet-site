@@ -1,30 +1,55 @@
 .character-link-card
   @extend .z-depth-1
   width: 100%
-  padding-bottom: 125%
-  position: relative
   display: block
-  margin-bottom: 1.5rem
+  border-radius: 2px
+  overflow: hidden
+  position: relative
+  padding-bottom: 125%
+  height: 0
 
-  img
-    width: 100%
-    height: 100%
-    object-fit: cover
-    position: absolute
-    top: 0
-    left: 0
+  .image:hover
+    margin-top: 0
 
-  .character-name
-    position: absolute
+    & + .details
+      margin-top: 0
+      margin-bottom: -5rem
+
+  .image
+    padding-bottom: 125%
+    position: relative
+    display: block
+    margin-top: -3rem
+    transition: margin, 0.3s
+
+    img
+      width: 100%
+      height: 100%
+      object-fit: cover
+      position: absolute
+      left: 0
+      border-radius: 2px
+
+
+  .details
     bottom: 0
     width: 100%
+    background-color: $card-bg-color
     padding: 1rem
-    background-color: rgba(0, 0, 0, 0.5)
-    color: white
+    border-radius: 0 0 2px 2px
     text-align: center
-    opacity: 0.0
-    transition: opacity 0.3s ease
+    height: 5rem
+    margin-top: -2rem
+    position: relative
+    z-index: 1
+    transition: margin, 0.3s
 
-  &:hover
-    .character-name
-      opacity: 1.0
+    .name
+      @extend .truncate
+      display: block
+      font-size: 1.1rem
+      color: $secondary-color
+
+    .species
+      @extend .truncate
+      color: $text-light-color

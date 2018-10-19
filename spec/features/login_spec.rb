@@ -1,11 +1,13 @@
 require 'rails_helper'
 
 feature 'Log In', js: true do
+  let(:query) {{}}
+  let(:expect_redirect) { false }
   let!(:user) { create :user, email: 'jdoe@example.com', username: 'john_doe', password: 'fishsticks', password_confirmation: 'fishsticks' }
 
   before(:each) do
-    visit login_path
-    expect(page).to have_content 'Log In'
+    visit login_path query
+    expect(page).to have_content 'Log In' unless expect_redirect
   end
 
   def try_login(valid=true)
@@ -19,8 +21,8 @@ feature 'Log In', js: true do
   end
 
   def enter(username, password)
-    fill_in :username, with: username
-    fill_in :password, with: password
+    fill_in :user_username, with: username
+    fill_in :user_password, with: password
   end
 
   scenario 'username missing' do
@@ -46,6 +48,30 @@ feature 'Log In', js: true do
   scenario 'user successfully logs in with email' do
     enter 'jdoe@EXAMPLE.com', 'fishsticks'
     try_login
+  end
+
+  context 'with auth code' do
+    let(:token) { user.generate_auth_code! }
+    let(:query) {{ email: user.email, auth: token }}
+
+    context 'valid' do
+      let(:expect_redirect) { true }
+
+      scenario 'confirms email address' do
+        expect(page).to have_content 'Email address confirmed'
+        expect(page).to have_content user.username
+        expect(user.reload).to be_confirmed
+      end
+    end
+
+    context 'invalid' do
+      let(:query) {{ email: user.email, auth: token + 'nacho' }}
+
+      scenario 'fails auth confirm' do
+        expect(page).to have_content 'Invalid authentication code'
+        expect(page).to have_content 'Log In'
+      end
+    end
   end
 
   xcontext 'admin' do

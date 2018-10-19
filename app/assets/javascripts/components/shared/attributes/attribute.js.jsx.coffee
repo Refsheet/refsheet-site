@@ -37,13 +37,13 @@
 
     if @props.onDelete?
       trash =
-        `<a className='' onClick={ this.deleteAttribute }>
+        `<a className='attr-delete' onClick={ this.deleteAttribute } href='#'>
             <i className='material-icons'>delete</i>
         </a>`
 
     if @props.onCommit?
       edit =
-        `<a className='' onClick={ this.startEdit }>
+        `<a className='attr-start-edit' onClick={ this.startEdit } href='#'>
             <i className='material-icons'>edit</i>
         </a>`
 
@@ -63,14 +63,14 @@
     else
       unless @props.hideNotesForm
         notesTag =
-          `<div className='notes'>{ this.props.notes }</div>`
+          `<div className='notes' onClick={ this.handleAttributeClick }>{ this.props.notes }</div>`
 
-      `<li data-attribute-id={ this.props.id } onClick={ this.handleAttributeClick }>
+      `<li data-attribute-id={ this.props.id }>
           { icon }
 
           <div className='attribute-data'>
               <div className='key'>{ this.props.name }</div>
-              <div className='value'>{ this.props.value || defaultValue }</div>
+              <div className='value' onClick={ this.handleAttributeClick }>{ this.props.value || defaultValue }</div>
               { notesTag }
           </div>
 

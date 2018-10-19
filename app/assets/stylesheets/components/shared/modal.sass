@@ -1,5 +1,17 @@
 .modal
+  $stripe-color: rgba(white, 0.05)
+
   max-height: 80vh
+
+  &.narrow
+    width: 55%
+    max-width: 400px
+
+  .divider
+    margin: 1.5rem -1.5rem
+    background-color: rgba(white, 0.1)
+    height: 1px
+    width: auto
 
   .modal-body
     display: flex
@@ -7,18 +19,101 @@
     max-height: 80vh
 
   .modal-header
+    background-color: $stripe-color
+    height: 56px
+    line-height: 56px
+    padding: 0
+    z-index: 1
+    flex-shrink: 0
+
+    h2
+      @extend .truncate
+      color: rgba(white, 0.9) !important
+      line-height: 56px
+      margin: 0
+      padding: 0 1.5rem
+      font-weight: 300
+      font-size: 1.6rem
+
     .modal-close
-      color: rgba(255, 255, 255, 0.5)
+      color: rgba(255, 255, 255, 0.5) !important
       position: absolute
       right: 0.5rem
-      top: 0.5rem
+      top: 0
+      height: 1.5rem
+      line-height: 1.5rem
+      padding: 0 1rem
+      border-bottom-left-radius: 3px
+      border-bottom-right-radius: 3px
+      background-color: rgba(color('red', 'base'), 0.3)
 
       &:hover
         color: white
+        background-color: rgba(color('red', 'base'), 0.6)
+
+      i.material-icons
+        font-size: 1rem
+        line-height: 1.5rem
+
+  .row.actions
+    margin: 1.5rem -1.5rem -1.5rem -1.5rem
+    padding: 1rem 0.75rem
+    background-color: $stripe-color
+
+    .col
+      margin-bottom: 0
 
   .modal-content
+    overflow: auto
+    flex-grow: 1
+    padding: 1.5rem
+
+  .modal-stretch
     overflow: auto
     flex-grow: 1
 
   .modal-footer
     padding: 4px 10px
+    flex-shrink: 0
+    background-color: $stripe-color
+
+  @media #{$small-and-down}
+    width: 100% !important
+    max-width: initial !important
+    top: 0 !important
+    max-height: 100vh
+
+    .modal-body
+      max-height: initial
+      width: 100vw
+      overflow: auto
+      height: 100vh
+
+    .modal-header-wrap
+      height: 56px
+      flex-basis: 56px
+      flex-shrink: 0
+
+    .modal-header
+      text-align: left
+      position: fixed
+      top: 0
+      width: 100%
+
+      h2
+        padding: 0 66px
+        font-size: 1.3rem
+
+      .modal-close
+        height: 56px
+        left: 0
+        right: auto
+        width: 56px
+        padding: 0
+        text-align: center
+        border-radius: 0
+        background-color: transparent
+
+        i.material-icons
+          font-size: 2rem
+          line-height: 56px

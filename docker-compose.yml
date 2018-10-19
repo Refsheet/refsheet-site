@@ -1,0 +1,54 @@
+version: '2'
+
+services:
+  postgres:
+    image: 'postgres:10.3-alpine'
+    volumes:
+      - 'postgres:/var/lib/postgresql/data'
+    env_file:
+      - '.env'
+
+  redis:
+    image: 'redis:4.0-alpine'
+    command: redis-server --requirepass refsheet
+    volumes:
+      - 'redis:/data'
+
+  website:
+    depends_on:
+      - 'postgres'
+      - 'redis'
+    build: .
+    ports:
+      - '5000:5000'
+    volumes:
+      - '.:/app'
+    env_file:
+      - '.env'
+
+#  sidekiq:
+#    depends_on:
+#      - 'postgres'
+#      - 'redis'
+#    build: .
+#    command: sidekiq -C config/sidekiq.yml.erb
+#    volumes:
+#      - '.:/app'
+#    env_file:
+#      - '.env'
+
+  cable:
+    depends_on:
+      - 'redis'
+    build: .
+    command: puma -p 28080 cable/config.ru
+    ports:
+      - '28080:28080'
+    volumes:
+      - '.:/app'
+    env_file:
+      - '.env'
+
+volumes:
+  redis:
+  postgres:

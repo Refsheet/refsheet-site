@@ -1,0 +1,24 @@
+%h1 Sell
+.row
+  - @characters.each do |c|
+    .col.s6.m4.l3
+      .card.image-card
+        .card-image= image_tag c.profile_image.image.url(:thumbnail)
+        .card-content
+          .card-title= link_to c.name, user_character_path(c.user, c)
+          - if c.for_sale?
+            %table
+              %tr
+                %td.padding--none
+                  %input.margin--none.green-text{disabled:true, value: c.marketplace_listing.amount.format}
+                %td.padding--none
+                  = link_to 'Expire', marketplace_test_listing_path(id: c.marketplace_listing.id), class: 'btn red darken-2', method: :delete
+
+          - else
+            = simple_form_for Marketplace::Items::CharacterListing.new(character: c), url: marketplace_test_listing_path, as: :item do |f|
+              %table
+                %tr
+                  %td.padding--none
+                    = f.hidden_field :character_id
+                    = f.input_field :amount, class: 'margin--none'
+                  %td.padding--none= f.submit 'Sell', class: 'btn'

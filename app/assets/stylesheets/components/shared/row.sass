@@ -1,6 +1,34 @@
 .row
-  &.rowfix
-    margin-bottom: 0
+  margin-bottom: 0
 
-    .col
-      margin-bottom: 20px
+  @at-root
+    ul.row
+      margin-top: 0
+
+    .card.sp .row:not(.no-margin) > .col
+      margin-bottom: 1rem
+
+  &.hidden
+    display: none
+
+  &.tiny-gutter
+    margin: -0.25rem
+
+    & > .col
+      padding: 0.25rem
+      margin: 0 !important
+
+  &.no-gutter
+    margin-left: 0
+    margin-right: 0
+
+    & > .col
+      padding: 0
+
+  &:not(.no-margin) > .col
+    margin-bottom: 1rem
+
+  .col
+    &.xl3
+      @media #{$extra-large-and-up}
+        width: 25%
