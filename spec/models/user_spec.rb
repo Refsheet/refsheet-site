@@ -106,4 +106,26 @@ describe User, type: :model do
       expect(user.email_allowed? :notification_new_message).to eq true
     end
   end
+
+  describe '#get_settings' do
+    let(:user) { create :user }
+    subject { user.get_settings }
+
+    it { is_expected.to have_key :view }
+
+    it 'returns default settings' do
+      puts subject.inspect
+      view = subject[:view]
+
+      expect(view[:nsfw_ok]).to eq false
+    end
+
+    describe '#view' do
+      subject { user.get_settings[:view] }
+
+      it { is_expected.to have_key :nsfw_ok }
+      it { is_expected.to have_key :locale }
+      it { is_expected.to have_key :time_zone }
+    end
+  end
 end

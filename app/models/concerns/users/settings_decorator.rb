@@ -1,6 +1,8 @@
 module Users::SettingsDecorator
   extend ActiveSupport::Concern
 
+  SETTINGS_KEYS = [:view, :notifications, :email]
+
   included do
     has_settings do |s|
       s.key :view, defaults: {
@@ -21,5 +23,15 @@ module Users::SettingsDecorator
           opt_out_all: false
       }
     end
+  end
+
+  def get_settings
+    obj = self.to_settings_hash.deep_symbolize_keys
+    # TODO Remove this once the UI is patched to use the View key.
+    obj.merge(obj[:view])
+  end
+
+  def set_settings(settings)
+    not_implemented
   end
 end
