@@ -1,7 +1,19 @@
 module CollectionHelper
+  def parse(time)
+    Time.zone.strptime(time, '%Y-%m-%d') rescue nil
+  end
+
   def report_range
-    start = DateTime.parse(params[:start]) rescue Time.zone.now.at_beginning_of_month
-    stop  = DateTime.parse(params[:end])   rescue start.at_end_of_month
+    start = parse(params[:start])
+    stop  = parse(params[:end])
+
+    if start
+      stop ||= start.at_end_of_month
+    else
+      start = 1.month.ago
+      stop ||= Time.zone.today
+    end
+
     (start.at_beginning_of_day..stop.at_end_of_day)
   end
 
