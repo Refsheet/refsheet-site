@@ -36,8 +36,12 @@
           .label{ style: 'color: #EE251F;' } Pledges
 
         %li
-          .value= report_count Visit, :started_at
+          .value= report_count Ahoy::Visit, :started_at
           .label{ style: 'color: #666666;' } Visitors
+
+  .row
+    .col.s12
+      = line_chart [{ name: 'Visitors', data: report_group(Ahoy::Visit, :started_at).count, color: '#666666' }]
 
   .row
     .col.s12
@@ -50,11 +54,8 @@
     .col.s12.m6
       = line_chart @right_chart_data
 
-  .row
-    .col.s12
-      = line_chart [{ name: 'Visitors', data: report_group(Visit, :started_at).count, color: '#666666' }]
-
   - event_scope = Ahoy::Event.where(name: 'advertisement.impression').where.not('ahoy_events.visit_id' => nil)
+  - click_scope = Ahoy::Event.where(name: 'advertisement.click').where.not('ahoy_events.visit_id' => nil)
   %ul.stats
     %li
       .value= report_count event_scope, :time
@@ -62,7 +63,10 @@
     %li
       .value= event_scope.where(time: report_range).count('DISTINCT ahoy_events.visit_id')
       .label{ style: 'color: #666666;' } Audience Reached
+    %li
+      .value= report_count click_scope, :time
+      .label Clicks
 
   .row
     .col.s12
-      = line_chart [{ name: 'Ad Impressions', data: report_group(event_scope, :time).count }, { name: 'Audience Reached', data: report_group(event_scope, :time).count('DISTINCT ahoy_events.visit_id') }]
+      = line_chart [{ name: 'Ad Impressions', data: report_group(event_scope, :time).count },{ name: 'Ad Clicks', data: report_group(click_scope, :time).count }, { name: 'Audience Reached', data: report_group(event_scope, :time).count('DISTINCT ahoy_events.visit_id') }]
