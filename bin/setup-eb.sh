@@ -28,10 +28,11 @@ pwd
 mkdir ~/.aws
 touch ~/.aws/config
 chmod 600 ~/.aws/config
-echo "[default]" > ~/.aws/config
+echo "[profile eb-cli]" > ~/.aws/config
 
 echo "Using: $AWS_ACCESS_KEY_ID"
 echo "aws_access_key_id=$AWS_ACCESS_KEY_ID" >> ~/.aws/config
 echo "aws_secret_access_key=$AWS_SECRET_ACCESS_KEY" >> ~/.aws/config
+echo "region=us-east-1" >> ~/.aws/config
 
 echo "Beanstalk configured"
