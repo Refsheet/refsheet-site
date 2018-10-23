@@ -93,14 +93,14 @@
         <FeedbackModal name={ this.state.session.current_user && this.state.session.current_user.name } />
         <a className='btn modal-trigger feedback-btn' href='#feedback-modal'>Feedback</a>
 
-        <NagBar action={{ href: 'https://patreon.com/refsheet', text: 'To Patreon!' }} type='neutral'>
-            <div className='first-a-sincere-thank-you'>
-                <strong>Hey, friend!</strong> &mdash; We've been making a lot of changes lately, and that's a good thing!
-            </div>
+        {/*<NagBar action={{ href: 'https://patreon.com/refsheet', text: 'To Patreon!' }} type='neutral'>*/}
+            {/*<div className='first-a-sincere-thank-you'>*/}
+                {/*<strong>Hey, friend!</strong> &mdash; We've been making a lot of changes lately, and that's a good thing!*/}
+            {/*</div>*/}
 
-            <div className='now-for-some-shameless-begging margin-top--small'>
-                I can't make it happen without all your support. Thank you! In return, I'm giving all my supporters
-                early access to new features as I develop them. Why not become a Patron?
-            </div>
-        </NagBar>
+            {/*<div className='now-for-some-shameless-begging margin-top--small'>*/}
+                {/*I can't make it happen without all your support. Thank you! In return, I'm giving all my supporters*/}
+                {/*early access to new features as I develop them. Why not become a Patron?*/}
+            {/*</div>*/}
+        {/*</NagBar>*/}
     </div>`
