@@ -63,8 +63,9 @@ namespace :refsheet do
     message = Shellwords.escape %x{ git log -1 --oneline }
 
     puts %x{ git commit -m "[ci-skip] #{build}" -- VERSION CHANGELOG }
+    puts %x{ git push }
     puts %x{ git tag #{build} }
-    puts %x{ git push --tags }
+    puts %x{ git push origin #{build} }
 
     puts "Deploying version #{build} to Beanstalks..."
 
