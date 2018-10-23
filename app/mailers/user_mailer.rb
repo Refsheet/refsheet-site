@@ -28,6 +28,7 @@ class UserMailer < ApplicationMailer
     @auth_code = auth_code
     @preheader = 'Welcome to Refsheet.net! Please, confirm your email address so we know it is you!'
 
+    return unless allowed? @user, key: :system
     mail to: @user.email_to,
          subject: '[Refsheet.net] Confirm your email'
   end
@@ -37,6 +38,7 @@ class UserMailer < ApplicationMailer
     @auth_code = auth_code
     @preheader = 'Somebody (hopefully you) wants to reset a password on Refsheet.'
 
+    return unless allowed? @user, key: :system
     mail to: @user.email_to,
          subject: '[Refsheet.net] Password reset request'
   end
@@ -46,6 +48,7 @@ class UserMailer < ApplicationMailer
     @auth_code = auth_code
     @preheader = 'Confirm your new email address, please!'
 
+    return unless allowed? @user, key: :system
     mail to: @user.email_to(@user.unconfirmed_email),
          subject: '[Refsheet.net] Confirm email change'
   end
@@ -54,6 +57,7 @@ class UserMailer < ApplicationMailer
     @user = User.find user_id
     @preheader = 'Patreon just told me that you are now a supporter of Refsheet, and that is REALLY cool!'
 
+    return unless allowed? @user, key: :system
     mail to: @user.email_to,
          subject: '[Refsheet.net] Thank you for your support!'
   end
@@ -63,6 +67,7 @@ class UserMailer < ApplicationMailer
     @auth_code = auth_code
     @preheader = 'Confirm your email address to link your Patreon account.'
 
+    return unless allowed? @user, key: :system
     mail to: @patron.email_to,
          subject: '[Refsheet.net] Confirm Patreon Email'
   end
