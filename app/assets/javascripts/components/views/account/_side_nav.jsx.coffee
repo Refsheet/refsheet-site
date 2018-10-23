@@ -12,7 +12,7 @@
             <NavLink to='?feed=marketplace' text='Marketplace' disabled />
         </NavLink>
 
-        <NavLink to='/notifications' icon='notifications' text='Notifications' disabled={!this.context.currentUser.is_patron}>
+        <NavLink to='/notifications' icon='notifications' text='Notifications'>
             <NavLink to='/notifications?feed=comment' text='Comments' />
             <NavLink to='/notifications?feed=favorite' text='Favorites' />
             <NavLink to='/notifications?feed=tag' text='Mentions' />
@@ -24,6 +24,6 @@
         <NavLink to='/account' icon='settings' text='Settings'>
             <NavLink to='/account/settings' text='Account' />
             <NavLink to='/account/support' text='Support' />
-            <NavLink to='/account/notifications' text='Notifications' disabled={!this.context.currentUser.is_patron} />
+            <NavLink to='/account/notifications' text='Notifications' />
         </NavLink>
     </ul>`

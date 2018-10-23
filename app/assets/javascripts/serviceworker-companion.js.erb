@@ -12,6 +12,7 @@
 
   window.requestNotifications = function(callback) {
       if (!navigator.serviceWorker) {
+        console.error("No serviceworker found.")
           return false;
       }
 
@@ -27,4 +28,8 @@
 
       return true;
   }
+
+  console.log('[Companion]', 'Loaded serviceworker-companion')
+<% else %>
+console.log('[Companion]', 'Skipping serviceworker companion: Not configured.')
 <% end %>

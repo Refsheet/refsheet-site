@@ -27,6 +27,7 @@ class @Views.Account.Settings.Notifications extends React.Component
         Materialize.toast "Notification subscription updated.", 3000, 'green'
 
     else
+      console.log('Requesting permissions.')
       requestNotifications =>
         Notification.requestPermission (permission) ->
           return unless permission is 'granted'
@@ -54,14 +55,16 @@ class @Views.Account.Settings.Notifications extends React.Component
             @setState browserGranted: true, callback
 
 
-  render: ->
-    return unless @context.currentUser.is_patron
+  renderSubscriptions: ->
+    @context.currentUser.settings?.notifications?.vapid?.map (browser) =>
+      value = browser.auth
+      `<Attribute name='Browser' value={ value } />`
 
-    browserSupported = typeof Notification isnt 'undefined'
+  render: ->
+    browserSupported = typeof Notification isnt 'undefined' and 'serviceWorker' in navigator
     browserEnabled = @state.browserGranted
     canRegister = browserSupported and not browserEnabled
-    userRegistered = !!@context.currentUser.settings?.vapid
-    userAuth = @context.currentUser.settings?.vapid?.auth
+    userRegistered = @context.currentUser.settings?.notifications?.vapid?.length
 
     vapidSettings =
       `<div className='card sp margin-bottom--none'>
@@ -80,17 +83,18 @@ class @Views.Account.Settings.Notifications extends React.Component
                   <Attribute name='Supported' value={ browserSupported ? 'Yes' : 'No' } />
                   <Attribute name='Granted' value={ browserEnabled ? 'Yes' : 'No' } />
                   <Attribute name='Registered' value={ userRegistered ? 'Yes' : 'No' } />
-                  <Attribute name='Auth' value={ userAuth } />
+                  { this.renderSubscriptions() }
               </AttributeTable>
           </div>
 
-          <div className='card-action right-align'>
-              { canRegister &&
-                  <a href='#' className='btn' onClick={ this._enableBrowserNotifications }>Enable</a> }
+          { browserSupported &&
+            <div className='card-action right-align'>
+                { canRegister &&
+                    <a href='#' className='btn' onClick={ this._enableBrowserNotifications }>Enable</a> }
 
-              { !canRegister &&
-                  <a href='#' className='btn' onClick={ this._jiggleLever }>Fix It?</a> }
-          </div>
+                { !canRegister &&
+                    <a href='#' className='btn' onClick={ this._jiggleLever }>Fix It?</a> }
+            </div> }
       </div>`
 
     `<div>
