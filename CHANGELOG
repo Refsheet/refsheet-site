@@ -1,4 +1,123 @@
 ---
+v1.2.9-pre.4:
+- hash: 62ea90a
+  date: '2018-10-23'
+  tags: []
+  message: Bump version.
+- hash: 84c59a0
+  date: '2018-10-23'
+  tags: []
+  message: Fix the settings issues.
+- hash: 43f4499
+  date: '2018-10-23'
+  tags: []
+  message: 'Merge pull request #59 from eiwi1101/f/settings-ui'
+- hash: d0f22ff
+  date: '2018-10-23'
+  tags: []
+  message: Fix beanstalk setup script.
+- hash: 006f1a3
+  date: '2018-10-23'
+  tags: []
+  message: Merge branches 'f/settings-ui' and 'master' of github.com:eiwi1101/refsheet-site
+    into f/settings-ui
+- hash: 1c7496f
+  date: '2018-10-23'
+  tags: []
+  message: Useful admin controller.
+- hash: cf23f2d
+  date: '2018-10-23'
+  tags: []
+  message: Disable NagBar, add footer.
+- hash: c409bb0
+  date: '2018-10-23'
+  tags: []
+  message: Merge branch 'master' of github.com:eiwi1101/refsheet-site into f/email-prefs
+- hash: '4549001'
+  date: '2018-10-23'
+  tags: []
+  message: Setup EB
+- hash: 6be6e6f
+  date: '2018-10-23'
+  tags: []
+  message: 'Merge pull request #58 from eiwi1101/f/email-prefs'
+- hash: 32dde73
+  date: '2018-10-23'
+  tags: []
+  message: Add a deploy workflow.
+- hash: cd240a8
+  date: '2018-10-23'
+  tags: []
+  message: Add mailer allowed switches
+- hash: 24b01f0
+  date: '2018-10-23'
+  tags: []
+  message: Test
+- hash: e0c1240
+  date: '2018-10-23'
+  tags: []
+  message: Backfill user settings.
+- hash: a4bfe26
+  date: '2018-10-23'
+  tags: []
+  message: Fix spec.
+- hash: 3af394a
+  date: '2018-10-23'
+  tags: []
+  message: Change it.
+- hash: 879fb67
+  date: '2018-10-22'
+  tags: []
+  message: Broke it.
+- hash: 015531f
+  date: '2018-10-22'
+  tags: []
+  message: Migrate vapid settings and view settings.
+- hash: 729be17
+  date: '2018-10-22'
+  tags: []
+  message: Add user settings from fancy gem thing.
+- hash: ef9e04e
+  date: '2018-10-18'
+  tags: []
+  message: 'Merge pull request #56 from eiwi1101/production'
+- hash: ad460e4
+  date: '2018-10-18'
+  tags: []
+  message: Merge branch 'production' of github.com:eiwi1101/refsheet-site into production
+- hash: 7470b50
+  date: '2018-10-17'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+- hash: 8a2ac4e
+  date: '2018-10-12'
+  tags: []
+  message: Holy Paperclip Stubs!
+- hash: 57e8c26
+  date: '2018-10-12'
+  tags: []
+  message: Fix specs.
+- hash: a8b281b
+  date: '2018-10-12'
+  tags: []
+  message: SimpleCov require false.
+- hash: 37ba509
+  date: '2018-10-12'
+  tags: []
+  message: Codecov for CI
+- hash: d7c0bfa
+  date: '2018-10-12'
+  tags: []
+  message: Codecov for CI
+- hash: eb4961e
+  date: '2018-10-12'
+  tags: []
+  message: Update Gemfile
+- hash: 0d5c653
+  date: '2017-04-15'
+  tags: []
+  message: Fixed the character name issue!
+---
 v1.2.9-pre.2:
 - hash: b2987dd
   date: '2018-10-12'
