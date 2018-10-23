@@ -1,4 +1,14 @@
 ---
+v1.4.0-pre.2:
+- hash: abfe0cc
+  date: '2018-10-23'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+- hash: 29199b0
+  date: '2018-10-23'
+  tags: []
+  message: Added Sentry and fixed ci skip loop.
+---
 v1.4.0-pre.1+build.4: []
 ---
 v1.4.0-pre.1+build.3: []
