@@ -2,6 +2,7 @@
   "license": "MIT",
   "dependencies": {
     "@rails/webpacker": "^3.3.0",
+    "@sentry/browser": "^4.2.1",
     "actioncable": "^5.2.1",
     "apollo-client-preset": "^1.0.8",
     "apollo-link-context": "^1.0.7",

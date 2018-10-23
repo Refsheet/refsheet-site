@@ -8,6 +8,8 @@
 // layout file, like app/views/layouts/application.html.erb
 
 import 'whatwg-fetch'
+import * as Sentry from '@sentry/browser'
+import * as Refsheet from '../version.js.erb'
 
 export const __globals = [
   'React',
@@ -15,7 +17,9 @@ export const __globals = [
   'PropTypes',
   'createReactClass',
   'ReactDOM',
-  'Bowser'
+  'Bowser',
+  'Sentry',
+  'Refsheet'
 ]
 
 export { default as React } from 'react'
@@ -26,9 +30,16 @@ export { default as V2Wrapper } from 'App'
 export { default as Chat } from 'Chat'
 export { default as CharacterController } from 'App/Router'
 export { default as Bowser } from 'bowser'
+export { Sentry, Refsheet }
 
 (function() {
   console.log("Pack loaded: Refsheet JS v2")
   const event = new CustomEvent('jsload.pack')
   window.dispatchEvent(event)
 })()
+
+Sentry.init({
+  dsn: Refsheet.sentryDsn,
+  release: Refsheet.version,
+  stage: Refsheet.environment
+});
