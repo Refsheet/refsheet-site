@@ -1,16 +1,4 @@
 module Users::EmailPrefsDecorator
-  extend ActiveSupport::Concern
-
-  included do
-    has_settings do |s|
-      s.key :email, defaults: {
-          mailing_list: nil,
-          internal_blacklist: [],
-          opt_out_all: false
-      }
-    end
-  end
-
   def email_allowed?(key=:all)
     key = key.to_s.downcase.to_sym
     if email_prefs.opt_out_all || email_prefs.internal_blacklist.include?(key)
