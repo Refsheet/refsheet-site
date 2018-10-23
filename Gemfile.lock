@@ -275,6 +275,8 @@ GEM
     jwt (2.1.0)
     launchy (2.4.3)
       addressable (~> 2.3)
+    ledermann-rails-settings (2.4.3)
+      activerecord (>= 3.1)
     less (2.6.0)
       commonjs (~> 0.2.7)
     less-rails (2.8.0)
@@ -644,6 +646,7 @@ DEPENDENCIES
   jquery-ui-rails
   js_cookie_rails
   json (~> 1.8.6)
+  ledermann-rails-settings
   letter_opener
   letter_opener_web
   listen (~> 3.0.5)
