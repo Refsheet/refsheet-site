@@ -192,6 +192,9 @@ Rails.application.routes.draw do
   if Rails.env.development?
     mount ResqueWeb::Engine => '/resque_web'
     mount LetterOpenerWeb::Engine => '/letter_opener'
+
+    get :bad_request, to: 'application#bad_request!'
+    get :not_found, to: 'application#not_found!'
   end
 
   mount Ahoy::Engine => '/ahoy', as: :my_ahoy

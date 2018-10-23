@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   before_action :set_user_locale
   before_action :set_default_meta
   before_action :eager_load_session
+  before_action :set_raven_context
   protect_from_forgery with: :exception
 
 
@@ -65,6 +66,10 @@ class ApplicationController < ActionController::Base
 
   def not_found!
     raise ActionController::RoutingError.new 'Whatever you just did, please do not.'
+  end
+
+  def bad_request!
+    raise "This is a bad error."
   end
 
   protected
@@ -135,6 +140,15 @@ class ApplicationController < ActionController::Base
             title: :title,
             description: :description
         }
+    )
+  end
+
+  def set_raven_context
+    Raven.user_context(id: current_user&.id)
+
+    Raven.extra_context(
+        params: params.to_unsafe_h,
+        url: request.url
     )
   end
 end
