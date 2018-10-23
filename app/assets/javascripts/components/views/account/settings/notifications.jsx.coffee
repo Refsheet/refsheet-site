@@ -64,7 +64,7 @@ class @Views.Account.Settings.Notifications extends React.Component
   renderSubscriptions: ->
     @context.currentUser.settings?.notifications?.vapid?.map (browser) =>
       value = browser.nickname || browser.auth
-      `<Attribute name='Browser' value={ value } />`
+      `<Attribute key={ browser.auth } name='Browser' value={ value } />`
 
   render: ->
     browserSupported = (typeof Notification isnt 'undefined') and (navigator.serviceWorker)
