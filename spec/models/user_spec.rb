@@ -81,4 +81,28 @@ describe User, type: :model do
     u = create :admin
     expect(u).to be_admin
   end
+
+  describe Users::EmailPrefsDecorator do
+    let(:user) { create :user }
+
+    it 'blocks all emails' do
+      expect(user.email_allowed? :notification_new_message).to eq true
+      user.block_all_email!
+      expect(user.email_allowed? :notification_new_message).to eq false
+    end
+
+    it 'blocks some emails' do
+      expect(user.email_allowed? :notification_new_message).to eq true
+      user.block_email! :notification_new_message
+      expect(user.email_allowed? :notification_new_message).to eq false
+      expect(user.email_allowed? :notification_new_comment).to eq true
+    end
+
+    it 'whitelists some emails' do
+      user.block_email! :notification_new_message
+      expect(user.email_allowed? :notification_new_message).to eq false
+      user.allow_email! :notification_new_message
+      expect(user.email_allowed? :notification_new_message).to eq true
+    end
+  end
 end

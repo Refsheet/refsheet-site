@@ -30,6 +30,9 @@
 class User < ApplicationRecord
   include Rails.application.routes.url_helpers
 
+  include Users::SettingsDecorator
+  include Users::EmailPrefsDecorator
+
   has_many :characters
   has_many :character_groups
   has_many :permissions
@@ -86,8 +89,6 @@ class User < ApplicationRecord
                        content_type: { content_type: /image\/*/ },
                        size: { in: 0..25.megabytes }
 
-  serialize :settings, JSON
-
   has_markdown_field :profile
 
   before_validation :downcase_email
@@ -124,10 +125,6 @@ class User < ApplicationRecord
 
   def avatar_url
     self.avatar? ? self.avatar.url(:thumbnail) : GravatarImageTag.gravatar_url(self.email)
-  end
-
-  def settings
-    HashWithIndifferentAccess.new(super || {})
   end
 
   def profile_image_url
