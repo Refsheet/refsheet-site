@@ -28,12 +28,13 @@ class @Views.Account.Settings.Notifications extends React.Component
 
     else
       console.log('Requesting permissions.')
-      requestNotifications =>
+      __this = @
+      requestNotifications ->
         Notification.requestPermission (permission) ->
           return unless permission is 'granted'
           console.log '[Notifications] Permission granted!'
 
-          @_updatePushSubscription ->
+          __this._updatePushSubscription ->
             Materialize.toast "Browser push notifications enabled!", 3000, 'green'
 
   _jiggleLever: (e) =>
@@ -50,18 +51,23 @@ class @Views.Account.Settings.Notifications extends React.Component
       navigator.serviceWorker.ready.then (registration) =>
         registration.pushManager.getSubscription().then (subscription) =>
           console.debug 'Got subscription:', subscription
-          Model.put '/account/notifications/browser_push', subscription: subscription.toJSON(), (data) =>
+
+          browser = Bowser.getParser(window.navigator.userAgent).parsedResult
+          browserName = "#{browser.browser.name} #{browser.browser.version} on #{browser.os.name} #{browser.os.version} (#{browser.platform.type})"
+          console.debug browserName
+
+          Model.put '/account/notifications/browser_push', subscription: subscription.toJSON(), nickname: browserName, (data) =>
             @context.setCurrentUser data
             @setState browserGranted: true, callback
 
 
   renderSubscriptions: ->
     @context.currentUser.settings?.notifications?.vapid?.map (browser) =>
-      value = browser.auth
+      value = browser.nickname || browser.auth
       `<Attribute name='Browser' value={ value } />`
 
   render: ->
-    browserSupported = typeof Notification isnt 'undefined' and 'serviceWorker' in navigator
+    browserSupported = (typeof Notification isnt 'undefined') and (navigator.serviceWorker)
     browserEnabled = @state.browserGranted
     canRegister = browserSupported and not browserEnabled
     userRegistered = @context.currentUser.settings?.notifications?.vapid?.length

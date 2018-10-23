@@ -55,7 +55,8 @@ class Account::NotificationsController < AccountController
   def browser_push
     current_user.register_vapid! endpoint: params[:subscription][:endpoint],
                                  p256dh: params[:subscription][:keys][:p256dh],
-                                 auth: params[:subscription][:keys][:auth]
+                                 auth: params[:subscription][:keys][:auth],
+                                 nickname: params[:nickname]
 
     current_user.notify! 'Notifications Enabled!',
                          'Notifications have been enabled for Refsheet.net!',

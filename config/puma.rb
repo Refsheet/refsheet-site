@@ -13,7 +13,8 @@ port        ENV.fetch("PORT") { 3000 }
 
 # Specifies the `environment` that Puma will run in.
 #
-environment ENV.fetch("RAILS_ENV") { "development" }
+rails_env = ENV.fetch("RAILS_ENV") { "development" }
+environment rails_env
 
 # Specifies the number of `workers` to boot in clustered mode.
 # Workers are forked webserver processes. If using threads and workers together
@@ -21,7 +22,7 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 # Workers do not work on JRuby or Windows (both of which do not support
 # processes).
 #
-# workers ENV.fetch("WEB_CONCURRENCY") { 2 }
+workers ENV.fetch("WEB_CONCURRENCY") { 2 }
 
 # Use the `preload_app!` method when specifying a `workers` number.
 # This directive tells Puma to first boot the application and load code
@@ -30,7 +31,7 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 # you need to make sure to reconnect any threads in the `on_worker_boot`
 # block.
 #
-# preload_app!
+preload_app!
 
 # The code in the `on_worker_boot` will be called if you are using
 # clustered mode by specifying a number of `workers`. After each worker
@@ -39,12 +40,63 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 # or connections that may have been created at application boot, Ruby
 # cannot share connections between processes.
 #
-# on_worker_boot do
-#   ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
-# end
+on_worker_boot do
+  ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
+end
 
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
+
+if rails_env == 'development'
+  key_file = 'config/certs/localhost.key'
+  crt_file = 'config/certs/localhost.crt'
+
+  unless File.exist?(key_file) && File.exist?(crt_file)
+    def generate_root_cert(root_key)
+      root_ca = OpenSSL::X509::Certificate.new
+      root_ca.version = 2 # cf. RFC 5280 - to make it a "v3" certificate
+      root_ca.serial = 0x0
+      root_ca.subject = OpenSSL::X509::Name.parse "/C=BE/O=A1/OU=A/CN=dev.refsheet.net"
+      root_ca.issuer = root_ca.subject # root CA's are "self-signed"
+      root_ca.public_key = root_key.public_key
+      root_ca.not_before = Time.now
+      root_ca.not_after = root_ca.not_before + 2 * 365 * 24 * 60 * 60 # 2 years validity
+
+      ef = OpenSSL::X509::ExtensionFactory.new
+      ef.subject_certificate = root_ca
+      ef.issuer_certificate = root_ca
+      root_ca.add_extension(ef.create_extension("basicConstraints","CA:TRUE",true))
+      root_ca.add_extension(ef.create_extension("keyUsage","keyCertSign, cRLSign", true))
+      root_ca.add_extension(ef.create_extension("subjectKeyIdentifier","hash",false))
+      root_ca.add_extension(ef.create_extension("authorityKeyIdentifier","keyid:always",false))
+      root_ca.add_extension(ef.create_extension("subjectAltName","DNS:dev.refsheet.net,IP:192.168.17.134",false))
+
+      root_ca.sign(root_key, OpenSSL::Digest::SHA256.new)
+      root_ca
+    end
+
+    if File.exists?(key_file)
+      file = File.new(key_file, 'rb')
+      root_key = OpenSSL::PKey::RSA.new file.read
+    else
+      root_key = OpenSSL::PKey::RSA.new(2048)
+      file = File.new(key_file, "wb")
+      file.write(root_key)
+      file.close
+    end
+
+    root_cert = generate_root_cert(root_key)
+
+    file = File.new(crt_file, "wb")
+    file.write(root_cert)
+    file.close
+  end
+
+  ssl_bind '0.0.0.0', '8443', {
+      key: key_file,
+      cert: crt_file
+  }
+end
 
 before_fork do
   require 'puma_worker_killer'
