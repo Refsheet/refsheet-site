@@ -220,24 +220,6 @@ class User < ApplicationRecord
     UserMailer.welcome(id, generate_auth_code!).deliver_now
   end
 
-  def notify!(title, body=nil, options={})
-    return unless settings[:vapid]
-
-    m = {
-        title: title,
-        body: body
-    }.merge options
-
-    Webpush.payload_send message: m.to_json,
-                         endpoint: settings[:vapid][:endpoint],
-                         p256dh: settings[:vapid][:p256dh],
-                         auth: settings[:vapid][:auth],
-                         vapid: Rails.configuration.x.vapid.merge(expiration: 12.hours)
-  rescue => e
-    Rails.logger.warn e
-    false
-  end
-
   private
 
   def downcase_email

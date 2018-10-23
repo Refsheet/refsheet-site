@@ -139,11 +139,16 @@ class Notification < ApplicationRecord
 
   private
 
-  def user_allows? medium
-    all_blocked    = user.settings[:notifications_blocked] || {}
-    medium_blocked = all_blocked[medium] || {}
+  def user_allows?(medium)
+    permissions = user.settings(:notifications)[medium] || {}
 
-    !medium_blocked[medium]
+    if permissions.include? permission_key
+      permissions[permission_key]
+    else
+      new_perms = permissions.merge permission_key => true
+      user.settings(:notification).update_attributes medium: new_perms
+      true
+    end
   end
 
   def send_browser_push

@@ -35,4 +35,12 @@ class PrivateUserSerializer < ActiveModel::Serializer
   def path
     "/users/#{object.username}"
   end
+
+  def settings
+    {
+        view: object.settings(:view),
+        notifications: object.settings(:notifications),
+        emails: object.settings(:emails)
+    }
+  end
 end

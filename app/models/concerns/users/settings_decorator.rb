@@ -4,7 +4,9 @@ module Users::SettingsDecorator
   included do
     has_settings do |s|
       s.key :view, defaults: {
-          nsfw_ok: false
+          nsfw_ok: false,
+          locale: nil,
+          time_zone: nil
       }
     end
   end

@@ -49,9 +49,10 @@ describe User, type: :model do
       :username,
       :email
     ],
+    respond_to: [
+      :settings
+    ]
   )
-
-  its(:settings) { is_expected.to be_a HashWithIndifferentAccess }
 
   describe 'mailers' do
     let(:user) { build :user, :send_emails }
