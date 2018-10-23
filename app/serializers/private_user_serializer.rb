@@ -40,7 +40,7 @@ class PrivateUserSerializer < ActiveModel::Serializer
     {
         view: object.settings(:view),
         notifications: object.settings(:notifications),
-        emails: object.settings(:emails)
+        email: object.settings(:email)
     }
   end
 end
