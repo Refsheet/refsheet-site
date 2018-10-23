@@ -41,11 +41,11 @@
 
               <Column s={12} m={1}>
                 <ul className='right-align margin-top--none'>
-                  <li><a class="white-text" href="/?locale=en">English</a></li>
-                  <li><a class="grey-text" href="/?locale=de">Deutsch</a></li>
-                  <li><a class="grey-text" href="/?locale=es">Español</a></li>
-                  <li><a class="grey-text" href="/?locale=ru">Русский</a></li>
-                  <li><a class="grey-text" href="/?locale=ja">日本語</a></li>
+                  <li><a className="white-text" href="/?locale=en">English</a></li>
+                  <li><a className="grey-text" href="/?locale=de">Deutsch</a></li>
+                  <li><a className="grey-text" href="/?locale=es">Español</a></li>
+                  <li><a className="grey-text" href="/?locale=ru">Русский</a></li>
+                  <li><a className="grey-text" href="/?locale=ja">日本語</a></li>
                 </ul>
               </Column>
           </Row>

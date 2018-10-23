@@ -71,10 +71,10 @@ function exportPackGlobals() {
   var app = Packs.application
   console.log("Pack sync: Trying export of globals from V2:", app)
   if(!app) return
-  for(var globalVar of app.__globals) {
+  app.__globals.map(function(globalVar) {
     window[globalVar] = app[globalVar]
     console.log("Pack sync: Exporting " + globalVar + " from V2:", window[globalVar])
-  }
+  });
   window.React.PropTypes = window.PropTypes
   window.React.createClass = window.createReactClass
 }
