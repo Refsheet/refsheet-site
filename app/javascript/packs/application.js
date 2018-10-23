@@ -12,7 +12,7 @@ import 'whatwg-fetch'
 export { default as V2Wrapper } from 'App'
 export { default as Chat } from 'Chat'
 export { default as CharacterController } from 'App/Router'
-export { default as Browser } from 'browser'
+export { default as Bowser } from 'bowser'
 
 (function() {
   console.log("Pack loaded: Refsheet JS v2")

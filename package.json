@@ -7,7 +7,6 @@
     "apollo-link-context": "^1.0.7",
     "axios": "^0.18.0",
     "babel-preset-react": "^6.24.1",
-    "browser": "^0.2.6",
     "classnames": "^2.2.5",
     "coffee-loader": "^0.9.0",
     "coffeescript": "1.12.7",
@@ -57,11 +56,13 @@
     "chai-enzyme": "1.0.0-beta.0",
     "enzyme": "^3.3.0",
     "karma": "^2.0.0",
+    "karma-babel-preprocessor": "^7.0.0",
     "karma-cli": "^1.0.1",
     "karma-junit-reporter": "^1.2.0",
     "karma-mocha": "^1.3.0",
     "karma-mocha-reporter": "^2.2.5",
     "karma-phantomjs-launcher": "^1.0.4",
+    "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^3.0.0",
     "mocha": "^5.0.5",
     "nock": "^9.2.3",
@@ -71,8 +72,6 @@
     "rosie": "^1.6.0",
     "sinon": "^4.4.8",
     "webpack-cli": "^2.0.11",
-    "karma-babel-preprocessor": "^7.0.0",
-    "karma-sourcemap-loader": "^0.3.7",
     "webpack-dev-server": "^2.11.1"
   }
 }
