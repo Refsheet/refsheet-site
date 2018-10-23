@@ -4,6 +4,7 @@ class TransferMailer < ApplicationMailer
     @user = @transfer.destination
     @preheader = "#{@transfer.sender.name} would like to transfer #{@transfer.character.name} to you!"
 
+    return unless allowed? @user, key: :transfers
     mail to: @user.email_to,
          subject: "[Refsheet.net] Character transfer request from #{@transfer.sender.name}"
   end
@@ -13,6 +14,7 @@ class TransferMailer < ApplicationMailer
     @user = @transfer.sender
     @preheader = "#{@transfer.destination.name} has accepted your transfer of #{@transfer.character.name}."
 
+    return unless allowed? @user, key: :transfer_response
     mail to: @user.email_to,
          subject: "[Refsheet.net] #{@transfer.character.name} transferred to #{@transfer.destination.name}"
   end
@@ -22,6 +24,7 @@ class TransferMailer < ApplicationMailer
     @user = @transfer.sender
     @preheader = "#{@transfer.destination.name} does not seem to want #{@transfer.character.name}."
 
+    return unless allowed? @user, key: :transfer_response
     mail to: @user.email_to,
          subject: "[Refsheet.net] Transfer of #{@transfer.character.name} rejected by #{@transfer.destination.name}"
   end
