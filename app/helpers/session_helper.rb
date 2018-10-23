@@ -1,7 +1,7 @@
 module SessionHelper
   def sign_in(user)
     session[:user_id] = user.id
-    session[:nsfw_ok] = !!user.settings[:nsfw_ok]
+    session[:nsfw_ok] = !!user.settings(:view)[:nsfw_ok]
     cookies.signed[:user_id] = user.id
     ahoy.authenticate user
     @current_user = user
@@ -56,8 +56,7 @@ module SessionHelper
 
   def nsfw_on!
     if signed_in?
-      s = current_user.settings.merge(nsfw_ok: true)
-      current_user.update_attributes settings: s
+      current_user.settings(:view).update_attributes nsfw_ok: true
     end
 
     session[:nsfw_ok] = true
@@ -65,8 +64,7 @@ module SessionHelper
 
   def nsfw_off!
     if signed_in?
-      s = current_user.settings.merge(nsfw_ok: false)
-      current_user.update_attributes settings: s
+      current_user.settings(:view).update_attributes nsfw_ok: false
     end
 
     session[:nsfw_ok] = false
