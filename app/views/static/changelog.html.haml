@@ -5,7 +5,7 @@
 
   @changelog = {}
 
-  YAML.load_documents file do |log|
+  YAML.load_stream file do |log|
     break if (i+=1) >= (params[:show]&.to_i || 30)
 
     log = log.transform_keys { |k| k.gsub /^v/, '' }
@@ -26,7 +26,7 @@
     end
   end
 
-%section.static-content
+%section.static-content.padding-top--none
   .jumbotron.short
     .jumbotron-background
       .container.rich-text
