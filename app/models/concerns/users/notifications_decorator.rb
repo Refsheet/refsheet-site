@@ -1,16 +1,4 @@
 module Users::NotificationsDecorator
-  extend ActiveSupport::Concern
-
-  included do
-    has_settings do |s|
-      s.key :notifications, defaults: {
-          vapid_registrations: [],
-          browser_push: {},
-          email: {}
-      }
-    end
-  end
-
   def register_vapid!(endpoint:, p256dh:, auth:)
     vapid = current_user.settings(:notifications).vapid_registrations.dup
 
