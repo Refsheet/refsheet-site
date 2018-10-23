@@ -45,3 +45,7 @@ TESTS-*.xml
 /node_modules
 yarn-debug.log*
 .yarn-integrity
+
+# SSL Dev
+/config/certs/*
+!/config/certs/.keep

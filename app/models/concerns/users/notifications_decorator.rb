@@ -1,21 +1,22 @@
 module Users::NotificationsDecorator
-  def register_vapid!(endpoint:, p256dh:, auth:)
-    vapid = current_user.settings(:notifications).vapid_registrations.dup
+  def register_vapid!(endpoint:, p256dh:, auth:, nickname: nil)
+    vapid = settings(:notifications).vapid.dup
 
     auth = {
         endpoint: endpoint,
         p256dh: p256dh,
-        auth: auth
+        auth: auth,
+        nickname: nickname
     }
 
     vapid.reject! { |v| v[:endpoint] == auth[:endpoint] }
     vapid.push auth
 
-    current_user.settings(:notifications).update_attributes vapid_registrations: vapid
+    settings(:notifications).update_attributes vapid: vapid
   end
 
   def notify!(title, body=nil, options={})
-    vapid = settings(:notifications).vapid_registrations
+    vapid = settings(:notifications).vapid
     return unless vapid
 
     m = {
@@ -23,11 +24,14 @@ module Users::NotificationsDecorator
         body: body
     }.merge options
 
+    message = {
+        message: m.to_json,
+        vapid: Rails.configuration.x.vapid.merge(expiration: 12.hours)
+    }
+
     vapid.each do |browser|
-      Webpush.payload_send browser.merge(
-          message: m.to_json,
-          vapid: Rails.configuration.x.vapid.merge(expiration: 12.hours)
-      )
+      payload = browser.without(:nickname).merge(message)
+      Webpush.payload_send payload
     end
   rescue => e
     Rails.logger.warn e
