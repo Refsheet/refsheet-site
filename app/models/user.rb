@@ -32,6 +32,7 @@ class User < ApplicationRecord
 
   include Users::SettingsDecorator
   include Users::EmailPrefsDecorator
+  include Users::NotificationsDecorator
 
   has_many :characters
   has_many :character_groups
