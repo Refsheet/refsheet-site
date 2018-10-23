@@ -90,6 +90,7 @@ gem 'ruby-trello'
 gem 'stripe'
 gem 'webpush'
 gem 'her'
+gem 'sentry-raven'
 
 # == BOWER ASSETS
 

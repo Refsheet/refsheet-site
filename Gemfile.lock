@@ -499,6 +499,8 @@ GEM
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
     semantic (1.6.0)
+    sentry-raven (2.7.4)
+      faraday (>= 0.7.6, < 1.0)
     serviceworker-rails (0.5.5)
       railties (>= 3.1)
     shoulda-matchers (2.8.0)
@@ -687,6 +689,7 @@ DEPENDENCIES
   sassc-rails
   scoped_search
   semantic
+  sentry-raven
   serviceworker-rails
   shoulda-matchers (~> 2.8)
   simple_form
