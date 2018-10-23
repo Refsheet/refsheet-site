@@ -54,7 +54,7 @@ class UserSerializer < ActiveModel::Serializer
   end
 
   def settings
-    object.settings.as_json
+    object.settings(:view).as_json
   end
 
   def followed

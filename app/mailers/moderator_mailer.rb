@@ -3,6 +3,7 @@ class ModeratorMailer < ApplicationMailer
     @report = report
     @user = moderator
 
+    return unless allowed? @user, key: :moderation_report
     mail to: @user.email_to,
          subject: '[Refsheet.net] New Moderation Report'
   end
@@ -12,6 +13,7 @@ class ModeratorMailer < ApplicationMailer
     @user = report.user
     @preheader = 'Some of your content has been removed by a moderator action.'
 
+    return unless allowed? @user, key: :moderator_action
     mail to: @user.email_to,
          subject: '[Refsheet.net] Moderator Action: Content Removed'
   end
@@ -21,6 +23,7 @@ class ModeratorMailer < ApplicationMailer
     @user = report.user
     @preheader = 'Some of your content has been reflagged by a moderator.'
 
+    return unless allowed? @user, key: :moderator_action
     mail to: @user.email_to,
          subject: '[Refsheet.net] Moderator Action: Content Reflagged'
   end
@@ -30,6 +33,7 @@ class ModeratorMailer < ApplicationMailer
     @user = report.user
     @preheader = 'Some of your content has been modified by a moderator action.'
 
+    return unless allowed? @user, key: :moderator_action
     mail to: @user.email_to,
          subject: '[Refsheet.net] Moderator Action: Content Moderated'
   end
