@@ -67,7 +67,6 @@ class UserMailer < ApplicationMailer
     @auth_code = auth_code
     @preheader = 'Confirm your email address to link your Patreon account.'
 
-    return unless allowed? @user, key: :system
     mail to: @patron.email_to,
          subject: '[Refsheet.net] Confirm Patreon Email'
   end
