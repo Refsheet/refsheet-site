@@ -53,10 +53,6 @@ class UserSerializer < ActiveModel::Serializer
     object.pledges.active.any?
   end
 
-  def settings
-    object.settings(:view).as_json
-  end
-
   def followed
     scope.current_user&.following? object if scope&.respond_to? :current_user
   end

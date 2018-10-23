@@ -37,10 +37,6 @@ class PrivateUserSerializer < ActiveModel::Serializer
   end
 
   def settings
-    {
-        view: object.settings(:view),
-        notifications: object.settings(:notifications),
-        email: object.settings(:email)
-    }
+    object.get_settings
   end
 end
