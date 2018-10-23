@@ -1,4 +1,14 @@
 ---
+v1.4.0-pre.1:
+- hash: 1bd3abe
+  date: '2018-10-23'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+- hash: 205e539
+  date: '2018-10-23'
+  tags: []
+  message: Fixed notifications!
+---
 v1.4.0+build.3: []
 ---
 v1.4.0+build.2: []
