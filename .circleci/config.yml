@@ -113,3 +113,48 @@ jobs:
 
       - store_artifacts:
           path: ~/artifacts
+
+  deploy:
+    docker:
+      - image: circleci/ruby:2.3-node-browsers
+
+    steps:
+      - checkout
+
+      # Restore bundle cache
+      - restore_cache:
+          keys:
+            - refsheet-test-bundle-v2-{{ checksum "Gemfile.lock" }}
+            - refsheet-test-bundle-v2-
+
+      - restore_cache:
+          keys:
+            - refsheet-test-pip-{{ checksum "bin/setup-eb.sh" }}
+            - refsheet-test-pip-
+
+      - run:
+          name: Bundle Install
+          command: bundle check || bundle install --path vendor/bundle --frozen --without=nocircle
+
+
+      - run: bash ./bin/setup-eb.sh $CIRCLE_BRANCH
+
+      - save_cache:
+          key: refsheet-test-pip-{{ checksum "bin/setup-eb.sh" }}
+          paths:
+            - ~/.cache/pip
+
+      - run: bundle exec rake refsheet:deploy[refsheet-prod-green+refsheet-prod-worker]
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master

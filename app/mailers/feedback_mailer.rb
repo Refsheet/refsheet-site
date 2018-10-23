@@ -7,6 +7,7 @@ class FeedbackMailer < ApplicationMailer
 
     @preheader = "#{@sender.name} has replied to your feedback request sent on #{@feedback.created_at.strftime('%b %d, %Y')}"
 
+    return unless allowed? @user, key: :system
     mail to: @user.email_to,
          reply_to: @sender.email_to,
          subject: "[Refsheet.net] #{@sender.name} has replied to your feedback request."
