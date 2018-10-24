@@ -66,8 +66,8 @@ history.listen(() => {
             <Switch>
               <Route exact path='/' component={ Home } title='Home' />
 
-              <Route path='login' component={ LoginView } />
-              <Route path='register' component={ RegisterView } />
+              <Route path='/login' component={ LoginView } />
+              <Route path='/register' component={ RegisterView } />
 
               <Route path='/account' title='Account' render={(props) =>
                 <Views.Account.Layout {...props}>
@@ -80,18 +80,12 @@ history.listen(() => {
                 </Views.Account.Layout>
               } />
 
-              <Route path='moderate' component={ Packs.application.CharacterController } />
+              <Route path='/moderate' component={ Packs.application.CharacterController } />
 
               <Route path='/notifications' title='Notifications' component={ Views.Account.Notifications.Show } />
 
-              <Route path='browse' component={ BrowseApp }>
-                <Route exact path='/' component={ CharacterIndexView } />
-                <Route path='users' component={ UserIndexView } />
-              </Route>
-
-              <Route path='explore' component={ Explore.Index }>
-                <Route path=':scope' />
-              </Route>
+              <Route path='/browse' component={ BrowseApp } />
+              <Route path='/explore/:scope?' component={ Explore.Index } />
 
 
               <Route path='/forums'>
