@@ -1,4 +1,21 @@
 ---
+v1.4.0-pre.23:
+- hash: 78939bf
+  time: '1540404667'
+  tags: []
+  message: Better timestamps 2.
+  date: '2018-10-24'
+- hash: 87c14fa
+  time: '1540404553'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  date: '2018-10-24'
+- hash: 31f9388
+  time: '1540404550'
+  tags: []
+  message: Better timestamps?
+  date: '2018-10-24'
+---
 v1.4.0-pre.22:
 - hash: '037848b'
   date: '2018-10-24'
