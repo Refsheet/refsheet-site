@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.6:
+- hash: c94c680
+  date: '2018-10-24'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+- hash: cc06705
+  date: '2018-10-24'
+  tags: []
+  message: USE THE API MAU
+- hash: 1b604e1
+  date: '2018-10-24'
+  tags: []
+  message: Fail to deploy capture or something.
+---
 v1.4.0-pre.5:
 - hash: 60c448d
   date: '2018-10-23'
