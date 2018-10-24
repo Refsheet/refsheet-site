@@ -1,4 +1,14 @@
 ---
+v1.4.0-pre.11:
+- hash: 3b8bb68
+  date: '2018-10-24'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+- hash: a137593
+  date: '2018-10-24'
+  tags: []
+  message: Fix prepackage asset stuff? Fixes REFST-Y
+---
 v1.4.0-pre.10:
 - hash: f8a2c39
   date: '2018-10-24'
