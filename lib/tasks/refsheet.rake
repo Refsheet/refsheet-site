@@ -68,6 +68,8 @@ namespace :refsheet do
     puts %x{ git push origin #{build} }
     puts %x{ git add . }
 
+    puts %x{ git status }
+
     puts "Deploying version #{build} to Beanstalks..."
 
     deptime = {}
