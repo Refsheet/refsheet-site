@@ -84,6 +84,7 @@ gem 'state_machines'
 gem 'state_machines-activerecord'
 gem 'will_paginate'
 gem 'will_paginate-materialize', github: 'harrybournis/will_paginate-materialize'
+gem 'rest-client'
 
 # == INTEGRATIONS
 

@@ -672,6 +672,7 @@ DEPENDENCIES
   responders
   resque
   resque-web
+  rest-client
   rollbar
   rspec-collection_matchers
   rspec-expectations
