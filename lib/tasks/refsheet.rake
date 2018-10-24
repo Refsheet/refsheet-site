@@ -100,7 +100,7 @@ namespace :refsheet do
     data = log.collect do |l|
       if (m = l.match(/\A(?<sha>[a-f0-9]+)\s+(?<time>\d+)\s+(?<tags>(\[.*?\]\s*)*)(?<message>.*)\z/))
         h = m.names.zip(m.captures).to_h
-        h['hash'] = h['sha']?.first(8)
+        h['hash'] = h['sha']&.first(8)
         h['tags'] = h['tags']&.split(/\]\s*\[/)&.map { |s| s.gsub(/\A\s*\[|\]\s*/, '') } || []
         time = h['time'].to_i rescue 0
         h['date'] = Time.at(time).utc.strftime('%Y-%m-%d')
