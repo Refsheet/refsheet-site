@@ -1,4 +1,14 @@
 ---
+v1.4.0-pre.13:
+- hash: 277fcc7
+  date: '2018-10-24'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+- hash: b57ff35
+  date: '2018-10-24'
+  tags: []
+  message: Smarter ravens.
+---
 v1.4.0-pre.12:
 - hash: 8850a10
   date: '2018-10-24'
