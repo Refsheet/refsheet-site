@@ -155,7 +155,7 @@ namespace :refsheet do
     params = {
         commits: commits.collect{|c|{ id: c[:hash], message: c[:message], timestamp: c[:date] }},
         version: build,
-        ref: commits.last&.get(:hash),
+        ref: commits.last&.fetch(:hash),
         projects: ['refst']
     }
 
