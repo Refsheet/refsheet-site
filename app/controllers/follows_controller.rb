@@ -1,5 +1,6 @@
 class FollowsController < ApplicationController
   before_action :get_user, except: [:suggested]
+  before_action :authorize!, except: [:show]
 
   def show
     render json: {
@@ -13,8 +14,6 @@ class FollowsController < ApplicationController
   end
 
   def suggested
-    head :unauthorized unless signed_in?
-
     scope = current_user.followers.suggested
     scope = User.patrons if scope.none?
 
@@ -24,8 +23,6 @@ class FollowsController < ApplicationController
   end
 
   def create
-    head :unauthorized unless signed_in?
-
     if current_user.follow! @user
       @user.reload
       show
@@ -35,8 +32,6 @@ class FollowsController < ApplicationController
   end
 
   def destroy
-    head :unauthorized unless signed_in?
-
     if current_user.unfollow! @user
       @user.reload
       show
