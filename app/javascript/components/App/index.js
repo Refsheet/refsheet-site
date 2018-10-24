@@ -6,6 +6,7 @@ import { createStore } from 'redux'
 import rootReducer from 'reducers'
 import Router from './Router'
 import client from 'ApplicationService'
+import * as Sentry from '@sentry/browser'
 
 reactGuard(React, (error, componentInfo) => {
   const errorString = `Failed to render <${componentInfo.name} />!`
@@ -13,6 +14,10 @@ reactGuard(React, (error, componentInfo) => {
   if (console && console.error) {
     console.error(errorString, componentInfo)
     console.error(error.stack)
+
+    if(Sentry) {
+      Sentry.captureException(error)
+    }
   }
 
   return <span>{errorString}</span>
