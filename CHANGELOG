@@ -1,4 +1,14 @@
 ---
+v1.4.0-pre.9:
+- hash: d5811ef
+  date: '2018-10-24'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+- hash: 342899e
+  date: '2018-10-24'
+  tags: []
+  message: Better caching of assets / skipping precompile smarts.
+---
 v1.4.0-pre.8:
 - hash: fc4abfc
   date: '2018-10-24'
