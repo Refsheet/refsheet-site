@@ -7,6 +7,8 @@ jobs:
           BUNDLE_JOBS: 3
           BUNDLE_RETRY: 3
           BUNDLE_PATH: vendor/bundle
+          GEM_HOME: vendor/bundle
+          BUNDLE_APP_CONFIG: vendor/bundle
           PGHOST: 127.0.0.1
           PGUSER: refsheet-site-test
           RAILS_ENV: test

@@ -668,6 +668,7 @@ DEPENDENCIES
   rails (~> 5.0.0)
   rails-assets-tinyColorPicker!
   rails-ujs
+  rake (~> 12.3.1)
   ranked-model
   react-rails!
   redcarpet
