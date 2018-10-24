@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.28:
+- sha: 978a39a702535b935d62d4ce7c46d021c7132931
+  time: '1540412960'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 978a39a7
+  date: '2018-10-24'
+- sha: 428a70df757d3839a4112b392164218b6719fa4d
+  time: '1540412957'
+  tags: []
+  message: Adds more debugging info to REFST-Q
+  hash: 428a70df
+  date: '2018-10-24'
+---
 v1.4.0-pre.27:
 - sha: c67f35823a518a9430c87f1e6db4e446f4659bd4
   time: '1540411007'
