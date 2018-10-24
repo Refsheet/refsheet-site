@@ -150,7 +150,7 @@ namespace :refsheet do
     require 'rest_client'
 
     build = File.read Rails.root.join 'VERSION'
-    commits = JSON.parse Rails.root.join 'COMMITS' rescue [{}]
+    commits = (JSON.parse File.read Rails.root.join 'COMMITS' rescue nil) || [{}]
 
     puts "Telling Sentry!"
 
