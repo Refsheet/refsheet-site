@@ -146,37 +146,13 @@ namespace :refsheet do
 
     build = File.read Rails.root.join 'VERSION'
 
-    puts "Telling rollbar!"
+    puts "Telling Sentry!"
 
     params = {
-        access_token: '99b1752b1b864396a50f5ecef1232b7a',
-        environment: 'production',
-        local_username: `whoami`,
-        revision: build
+        version: build
     }
 
-    puts RestClient.post 'https://api.rollbar.com/api/1/deploy/', params
-
-    appFile = Dir[Rails.root.join('public/assets/application-*.js')].first
-    appFile =~ /application-(.*)\.js/
-
-    mapParams = {
-        access_token: '99b1752b1b864396a50f5ecef1232b7a',
-        version: build,
-        minified_url: 'https://refsheet.net/assets/application-' + $1 + '.js',
-        source_map: (File.new(Dir[Rails.root.join('public/assets/maps/application-*.js.map')].first) rescue nil)
-    }
-
-    Dir[Rails.root.join('public/assets/sources/application-*.js')].each do |source|
-      basename = source.gsub(/\A.*\/public/, '')
-      mapParams[basename] = File.new source
-    end
-
-    begin
-      puts RestClient.post 'https://api.rollbar.com/api/1/sourcemap', mapParams
-    rescue RestClient::UnprocessableEntity => e
-      puts e.response.body
-    end
+    puts RestClient.post 'https://sentry.io/api/hooks/release/builtin/1307540/5bd27b1f3e9bb8fd918d478c4bc563c715611936adb1f1672c3ea38d0b5c9637/', params
   end
 
   desc 'Refreshes image meta on images without the field present.'
