@@ -1,4 +1,26 @@
 ---
+v1.4.0-pre.5:
+- hash: 60c448d
+  date: '2018-10-23'
+  tags: []
+  message: Doing this with global variables I GUESS.
+- hash: cfb4d6b
+  date: '2018-10-23'
+  tags: []
+  message: OMG BUNDLE
+- hash: 2d60894
+  date: '2018-10-23'
+  tags: []
+  message: Deploy???
+- hash: edcf1c1
+  date: '2018-10-23'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+- hash: 50d846d
+  date: '2018-10-23'
+  tags: []
+  message: Fix???
+---
 v1.4.0-pre.4:
 - hash: 8bfa101
   date: '2018-10-23'
