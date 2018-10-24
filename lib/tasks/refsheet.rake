@@ -155,9 +155,29 @@ namespace :refsheet do
         projects: ['refst']
     }
 
+    deploy_params = {
+        environment: ENV['EB_ENV_NAME'],
+        name: ENV['EB_ENV_ID']
+    }
+
     begin
       puts RestClient.post 'https://sentry.io/api/0/organizations/refsheetnet/releases/',
                            params.to_json,
+                           {
+                               content_type: :json,
+                               accept: :json,
+                               authorization: "Bearer #{ENV['SENTRY_API_TOKEN']}"
+                           }
+    rescue RestClient::AlreadyReported => e
+      puts "Already told about this, it'd seem..."
+    rescue => e
+      Raven.capture_exception(e) rescue nil
+    end
+
+    begin
+      puts "Telling all about #{deploy_params}"
+      puts RestClient.post "https://sentry.io/api/0/organizations/refsheetnet/releases/#{build}/deploys",
+                           deploy_params.to_json,
                            {
                                content_type: :json,
                                accept: :json,
