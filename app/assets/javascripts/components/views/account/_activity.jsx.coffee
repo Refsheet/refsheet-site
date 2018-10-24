@@ -19,7 +19,8 @@
     lastUpdate: null
 
   componentDidMount: ->
-    StateUtils.load @, 'activity', @props.match.params, =>
+    console.log @props
+    StateUtils.load @, 'activity', @props.match?.params, =>
       @setState since: @state.activity[0]?.timestamp, lastUpdate: Math.floor(Date.now() / 1000)
       @_poll()
     , urlParams: filter: @props.filter
@@ -31,7 +32,7 @@
     if @props.filter isnt newProps.filter
       clearTimeout @timer if @timer
       @setState activity: null, =>
-        StateUtils.load @, 'activity', newProps.match.params, =>
+        StateUtils.load @, 'activity', newProps.match?.params, =>
           @setState since: @state.activity[0]?.timestamp, lastUpdate: Math.floor(Date.now() / 1000)
           @_poll()
         , urlParams: filter: @props.filter

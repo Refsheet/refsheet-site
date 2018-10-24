@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 class NavBar extends Component {
   render() {
@@ -14,33 +14,33 @@ class NavBar extends Component {
             <li><a onClick={ this.toggleMenu }><i className='material-icons'>menu</i></a></li>
           </ul>
 
-          <Link to='/' className='logo left'>
+          <NavLink to='/' className='logo left'>
             <img src='/assets/logos/pumpkin2_64.png' alt='Refsheet.net' width='32' height='32' />
-          </Link>
+          </NavLink>
 
           <ul className='site-nav visible-on-med-and-up'>
             <li>
-              <Link to='/' activeClassName='primary-text'>Home</Link>
+              <NavLink to='/' activeClassName='primary-text'>Home</NavLink>
             </li>
 
             <li>
-              <Link to='/browse' activeClassName='primary-text'>Characters</Link>
+              <NavLink to='/browse' activeClassName='primary-text'>Characters</NavLink>
             </li>
 
             <li>
-              <Link to='/explore' activeClassName='primary-text'>Images</Link>
+              <NavLink to='/explore' activeClassName='primary-text'>Images</NavLink>
             </li>
 
             <li>
-              <Link to='/forums' activeClassName='primary-text'>Forums</Link>
+              <NavLink to='/forums' activeClassName='primary-text'>Forums</NavLink>
             </li>
 
             {/*<li>*/}
-            {/*<Link to='/guilds' activeClassName='primary-text'>Guilds</Link>*/}
+            {/*<NavLink to='/guilds' activeClassName='primary-text'>Guilds</NavLink>*/}
             {/*</li>*/}
 
             {/*<li>*/}
-            {/*<Link to='/marketplace'>Marketplace</Link>*/}
+            {/*<NavLink to='/marketplace'>Marketplace</NavLink>*/}
             {/*</li>*/}
           </ul>
 
