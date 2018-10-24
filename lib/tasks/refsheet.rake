@@ -66,13 +66,14 @@ namespace :refsheet do
     puts %x{ git push }
     puts %x{ git tag #{build} }
     puts %x{ git push origin #{build} }
+    puts %x{ git add . }
 
     puts "Deploying version #{build} to Beanstalks..."
 
     deptime = {}
 
     envs.each do |env|
-      puts %x{ eb deploy #{env} --label #{build} --message #{message} --timeout 3600 }
+      puts %x{ eb deploy #{env} --label #{build} --message #{message} --timeout 3600 --staged }
       puts "Environment done (time elapsed: #{Time.now.to_i - start.to_i}s)"
       deptime[env] = Time.now.to_i - start.to_i
     end
