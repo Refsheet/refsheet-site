@@ -1,4 +1,30 @@
 ---
+v1.4.0-pre.3:
+- hash: 9893c42
+  date: '2018-10-23'
+  tags: []
+  message: Clear bundle cache.
+- hash: 89b86c2
+  date: '2018-10-23'
+  tags: []
+  message: Binstubs?
+- hash: 70ac596
+  date: '2018-10-23'
+  tags: []
+  message: Add some bundle configs.
+- hash: 93b3827
+  date: '2018-10-23'
+  tags: []
+  message: fix chrome spec?
+- hash: 044ad1b
+  date: '2018-10-23'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+- hash: 9ec165b
+  date: '2018-10-23'
+  tags: []
+  message: Add Sentry JS
+---
 v1.4.0-pre.2:
 - hash: abfe0cc
   date: '2018-10-23'
