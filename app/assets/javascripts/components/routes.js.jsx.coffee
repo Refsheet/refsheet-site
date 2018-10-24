@@ -57,7 +57,7 @@ history.listen(() => {
       return null
 
     staticPaths = ['privacy', 'terms', 'support'].map (path) ->
-      `<Route key={ path } path={ path } component={ Static.View } />`
+      `<Route key={ path } path={ '/' + path } component={ Static.View } />`
 
     router = `<Router history={ history } onUpdate={ this._handleRouteUpdate }>
       <Switch>
