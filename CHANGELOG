@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.25:
+- sha: 00e1f02786f97a70816deec064f7e0698f250293
+  time: '1540408197'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 00e1f027
+  date: '2018-10-24'
+- sha: 57e75175b197dd756765d464c4531c848d9bdfde
+  time: '1540408194'
+  tags: []
+  message: More breadcrumbles.
+  hash: 57e75175
+  date: '2018-10-24'
+---
 v1.4.0-pre.24:
 - sha: a439c24386b9bdbe63295c8b674b2e1c05c1945a
   time: '1540406848'
