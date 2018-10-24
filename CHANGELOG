@@ -1,4 +1,10 @@
 ---
+v1.4.0-pre.20:
+- hash: 0eb098a
+  date: '2018-10-24'
+  tags: []
+  message: Fetch
+---
 v1.4.0-pre.19:
 - hash: dd54e59
   date: '2018-10-24'
