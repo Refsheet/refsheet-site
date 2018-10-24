@@ -183,6 +183,19 @@ namespace :refsheet do
     rescue RestClient::AlreadyReported => e
       puts "Already told about this, it'd seem..."
     rescue => e
+      if e.respond_to? :response
+        Raven.breadcrumbs.record do |crumb|
+          crumb.data = {
+              response: e.response,
+              http_body: e.http_body,
+              http_code: e.http_code
+          }
+          crumb.category = 'rest-client'
+          crumb.timestamp = Time.now.to_i
+          crumb.message = e.message
+        end
+      end
+
       Raven.capture_exception(e) rescue nil
     end
 
@@ -196,6 +209,19 @@ namespace :refsheet do
                                authorization: "Bearer #{ENV['SENTRY_API_TOKEN']}"
                            }
     rescue => e
+      if e.respond_to? :response
+        Raven.breadcrumbs.record do |crumb|
+          crumb.data = {
+              response: e.response,
+              http_body: e.http_body,
+              http_code: e.http_code
+          }
+          crumb.category = 'rest-client'
+          crumb.timestamp = Time.now.to_i
+          crumb.message = e.message
+        end
+      end
+
       Raven.capture_exception(e) rescue nil
     end
   end
