@@ -66,7 +66,7 @@ namespace :refsheet do
     puts %x{ git push }
     puts %x{ git tag #{build} }
     puts %x{ git push origin #{build} }
-    puts %x{ git add . }
+    puts %x{ git add -f public/* }
 
     puts %x{ git status }
 
