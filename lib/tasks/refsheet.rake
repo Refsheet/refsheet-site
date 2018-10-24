@@ -66,7 +66,7 @@ namespace :refsheet do
     puts %x{ git push }
     puts %x{ git tag #{build} }
     puts %x{ git push origin #{build} }
-    puts %x{ git add -f public/* }
+    puts %x{ git add -f public/* COMMITS }
 
     puts %x{ git status }
 
@@ -150,23 +150,24 @@ namespace :refsheet do
     require 'rest_client'
 
     build = File.read Rails.root.join 'VERSION'
-    commits = (JSON.parse File.read Rails.root.join 'COMMITS' rescue nil) || [{}]
+    commits = (JSON.parse File.read Rails.root.join 'COMMITS' rescue nil) || []
 
     puts "Telling Sentry!"
 
     params = {
         commits: commits.collect{|c|{ id: c[:hash], message: c[:message], timestamp: c[:date] }},
         version: build,
-        ref: commits.last[:hash],
+        ref: commits.last&.get(:hash),
         projects: ['refst']
     }
 
     deploy_params = {
         environment: ENV['RAILS_ENV'] || ENV['RACK_ENV'] || 'production',
-        name: (ENV['EB_ENV_NAME'] || 'anon') + '-' + ENV['EB_ENV_ID']
+        name: (ENV['EB_ENV_NAME'] || 'anon') + '-' + ENV['EB_ENV_ID'].to_s
     }
 
     begin
+      puts "Reporting release #{params}"
       puts RestClient.post 'https://sentry.io/api/0/organizations/refsheetnet/releases/',
                            params.to_json,
                            {
