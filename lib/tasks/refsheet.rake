@@ -92,15 +92,16 @@ namespace :refsheet do
     semver = Semantic::Version.new version_str
 
     puts "Getting notable data since #{version.inspect} (now v#{semver.to_s})..."
-    log = %x{ git log '#{version}..HEAD' --pretty=format:"%h %ad %s" --abbrev-commit --date=short }.split("\n")
+    log = %x{ git log '#{version}..HEAD' --pretty=format:"%h %at %s" --abbrev-commit --date=short }.split("\n")
     puts "Fetched #{log.count} commits."
 
     # Parse changelog for tags of interest
 
     data = log.collect do |l|
-      if (m = l.match(/\A(?<hash>[a-f0-9]+)\s+(?<date>\d+-\d+-\d+)\s+(?<tags>(\[.*?\]\s*)*)(?<message>.*)\z/))
+      if (m = l.match(/\A(?<hash>[a-f0-9]+)\s+(?<time>\d+)\s+(?<tags>(\[.*?\]\s*)*)(?<message>.*)\z/))
         h = m.names.zip(m.captures).to_h
         h['tags'] = h['tags']&.split(/\]\s*\[/)&.map { |s| s.gsub(/\A\s*\[|\]\s*/, '') } || []
+        h['date'] = Time.at(h['time'].to_i rescue 0).utc.strftime('%Y-%m-%d')
         h.symbolize_keys
       else
         { hash: nil, tags: [], message: l }
@@ -151,7 +152,9 @@ namespace :refsheet do
     puts "Telling Sentry!"
 
     params = {
-        commits: commits.collect{|c|{ id: c[:hash], message: c[:message], timestamp: c[:date] }},
+        commits: commits.collect { |c|
+          { id: c[:hash], message: c[:message], timestamp: c[:time] }
+        },
         version: build,
         ref: commits.last&.fetch(:hash, nil),
         projects: ['refst']
