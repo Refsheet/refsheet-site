@@ -152,7 +152,7 @@ jobs:
 
       - restore_cache:
           keys:
-            - refsheet-assets-v1
+            - refsheet-assets-v1-
 
       - run:
           name: Bundle Install
@@ -169,12 +169,15 @@ jobs:
           paths:
             - ~/.cache/pip
 
-      - save_cache:
-          key: refsheet-assets-v1
-          paths:
-            - ~/tmp/cache/assets
-
       - run: bundle exec rake assets:precompile
+
+      - save_cache:
+          key: refsheet-assets-v1-{{ .Revision }}
+          paths:
+            - tmp/cache/assets
+            - public/assets
+            - public/packs
+
       - run: bundle exec rake refsheet:deploy[refsheet-prod-green+refsheet-prod-worker]
 
 workflows:
