@@ -104,18 +104,16 @@ history.listen(() => {
               {/*== Static Routes */}
 
               { staticPaths }
-              <Route path='static/:pageId' component={ Static.View } />
+              <Route path='/static/:pageId' component={ Static.View } />
 
 
               {/*== Profile Content */}
 
-              <Route path='images/:imageId' component={ ImageApp } />
-              <Route path=':userId' component={ User.View } />
-              <Route path=':userId/:characterId' component={ CharacterApp } />
+              <Route path='/images/:imageId' component={ ImageApp } />
+              <Route path='/:userId' component={ User.View } />
+              <Route path='/:userId/:characterId' component={ CharacterApp } />
 
-              <Route path='/v2'>
-                <Route path=':userId/:characterId' component={ Packs.application.CharacterController } />
-              </Route>
+              <Route path='/v2/:userId/:characterId' component={ Packs.application.CharacterController } />
 
 
               {/*== Fallback */}
