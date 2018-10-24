@@ -1,4 +1,23 @@
 ---
+v1.4.0-pre.19:
+- hash: dd54e59
+  date: '2018-10-24'
+  tags: []
+  message: Notifications are not in beta.
+- hash: '3326008'
+  date: '2018-10-24'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+- hash: f2abe21
+  date: '2018-10-24'
+  tags: []
+  message: Remove git status because it's useless.
+- hash: 479541b
+  date: '2018-10-24'
+  tags: []
+  message: Try also adding node_modules to the pack. Though... it should be cached
+    anyway???
+---
 v1.4.0-pre.18:
 - hash: ca2352e
   date: '2018-10-24'
