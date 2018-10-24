@@ -1,4 +1,22 @@
-{ @Router, @browserHistory, @Route, @IndexRoute, @IndexRedirect, @Link, @IndexLink } = ReactRouter
+{ @Router, @Redirect, @Switch, @Route, @Link } = ReactRouter
+
+
+# Backfill for Router V4 not parsing query strings.
+`const history = createBrowserHistory();
+  function addLocationQuery(history){
+  history.location = Object.assign(
+      history.location,
+      {
+        query: qs.parse(history.location.search)
+      }
+  )
+}
+
+addLocationQuery(history);
+
+history.listen(() => {
+  addLocationQuery(history)
+})`
 
 @Routes = React.createClass
   propTypes:
@@ -41,64 +59,74 @@
     staticPaths = ['privacy', 'terms', 'support'].map (path) ->
       `<Route key={ path } path={ path } component={ Static.View } />`
 
-    router = `<Router history={ browserHistory } onUpdate={ this._handleRouteUpdate }>
-        <Route path='/' component={ App } eagerLoad={ this.props.eagerLoad } environment={ this.props.environment }>
-            <IndexRoute component={ Home } title='Home' />
+    router = `<Router history={ history } onUpdate={ this._handleRouteUpdate }>
+      <Switch>
+        <Route path='/' render={(props) =>
+          <App {...props} eagerLoad={ this.props.eagerLoad } environment={ this.props.environment }>
+            <Switch>
+              <Route exact path='/' component={ Home } title='Home' />
 
-            <Route path='login' component={ LoginView } />
-            <Route path='register' component={ RegisterView } />
+              <Route path='login' component={ LoginView } />
+              <Route path='register' component={ RegisterView } />
 
-            <Route path='account' title='Account' component={ Views.Account.Layout }>
-                <IndexRedirect to='settings' />
+              <Route path='account' title='Account' component={ Views.Account.Layout }>
+                <Redirect from='/' to='settings' />
                 <Route path='settings' title='Account Settings' component={ Views.Account.Settings.Show } />
                 <Route path='support' title='Support Settings' component={ Views.Account.Settings.Support } />
                 <Route path='notifications' title='Notification Settings' component={ Views.Account.Settings.Notifications } />
-            </Route>
+              </Route>
 
-            <Route path='moderate' component={ Packs.application.CharacterController } />
+              <Route path='moderate' component={ Packs.application.CharacterController } />
 
-            <Route path='/notifications' title='Notifications' component={ Views.Account.Notifications.Show } />
+              <Route path='/notifications' title='Notifications' component={ Views.Account.Notifications.Show } />
 
-            <Route path='browse' component={ BrowseApp }>
-                <IndexRoute component={ CharacterIndexView } />
+              <Route path='browse' component={ BrowseApp }>
+                <Route exact path='/' component={ CharacterIndexView } />
                 <Route path='users' component={ UserIndexView } />
-            </Route>
+              </Route>
 
-            <Route path='explore' component={ Explore.Index }>
+              <Route path='explore' component={ Explore.Index }>
                 <Route path=':scope' />
-            </Route>
+              </Route>
 
 
-            <Route path='forums'>
-                <IndexRoute component={ Forums.Index } />
+              <Route path='/forums'>
+                <Switch>
+                  <Route exact path='/forums' component={ Forums.Index } />
 
-                <Route path=':forumId' component={ Forums.Show }>
-                    <Route path=':threadId' component={ Forums.Threads.Show } />
-                </Route>
-            </Route>
-
-
-            {/*== Static Routes */}
-
-            { staticPaths }
-            <Route path='static/:pageId' component={ Static.View } />
+                  <Route path='/forums/:forumId' render={(props) =>
+                    <Forums.Show {...props}>
+                      <Route path='/forums/:forumId/:threadId' component={ Forums.Threads.Show } />
+                    </Forums.Show>
+                  }/>
+                </Switch>
+              </Route>
 
 
-            {/*== Profile Content */}
+              {/*== Static Routes */}
 
-            <Route path='images/:imageId' component={ ImageApp } />
-            <Route path=':userId' component={ User.View } />
-            <Route path=':userId/:characterId' component={ CharacterApp } />
+              { staticPaths }
+              <Route path='static/:pageId' component={ Static.View } />
 
-            <Route path='/v2'>
+
+              {/*== Profile Content */}
+
+              <Route path='images/:imageId' component={ ImageApp } />
+              <Route path=':userId' component={ User.View } />
+              <Route path=':userId/:characterId' component={ CharacterApp } />
+
+              <Route path='/v2'>
                 <Route path=':userId/:characterId' component={ Packs.application.CharacterController } />
-            </Route>
+              </Route>
 
 
-            {/*== Fallback */}
+              {/*== Fallback */}
 
-            <Route path='*' component={ NotFound } />
+              <Route path='*' component={ NotFound } />
+            </Switch>
+          </App>}>
         </Route>
+      </Switch>
     </Router>`
 
     `<Packs.application.V2Wrapper>{ router }</Packs.application.V2Wrapper>`

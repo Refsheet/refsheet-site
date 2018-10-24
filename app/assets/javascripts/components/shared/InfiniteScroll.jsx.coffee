@@ -35,7 +35,7 @@
     $(window).off 'scroll.infinite-scroll'
 
   _fetch: ->
-    fetchUrl = StateUtils.getFetchUrl(@props.stateLink, params: @props.params)
+    fetchUrl = StateUtils.getFetchUrl(@props.stateLink, params: @props.match.params)
     data = page: parseInt(@state.page) + 1
 
     @setState loading: true, =>
