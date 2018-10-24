@@ -152,9 +152,13 @@ namespace :refsheet do
         version: build
     }
 
-    puts RestClient.post 'https://sentry.io/api/hooks/release/builtin/1307540/5bd27b1f3e9bb8fd918d478c4bc563c715611936adb1f1672c3ea38d0b5c9637/',
-                         params.to_json,
-                         { content_type: :json, accept: :json }
+    begin
+      puts RestClient.post 'https://sentry.io/api/hooks/release/builtin/1307540/5bd27b1f3e9bb8fd918d478c4bc563c715611936adb1f1672c3ea38d0b5c9637/',
+                           params.to_json,
+                           { content_type: :json, accept: :json }
+    rescue => e
+      Raven.capture_exception(e) rescue nil
+    end
   end
 
   desc 'Refreshes image meta on images without the field present.'
