@@ -31,7 +31,7 @@
       offset: 56
 
   componentWillReceiveProps: (newProps) ->
-    if @props.match.params.scope != newProps.match.params.scope
+    if @props.match?.params.scope != newProps.match?.params.scope
       @setState media: null
     StateUtils.reload @, 'media', newProps
 
@@ -41,13 +41,13 @@
   _renderImages: ->
     return `<Loading />` unless @state.media
 
-    `<div key={ this.props.match.params.scope }>
+    `<div key={ this.props.match && this.props.match.params.scope }>
         <ImageGallery images={ this.state.media } noFeature noSquare />
-        <InfiniteScroll onLoad={ this._append } stateLink={ this.stateLink } params={ this.props.match.params } />
+        <InfiniteScroll onLoad={ this._append } stateLink={ this.stateLink } params={ this.props.match && this.props.match.params } />
     </div>`
 
   render: ->
-    switch @props.match.params.scope
+    switch @props.match?.params.scope
       when 'favorites'
         title = 'Your Favorites'
         description = 'Everything you\'ve ever loved in one place (finally)!'

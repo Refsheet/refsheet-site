@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 
 class NavBar extends Component {
   render() {
@@ -14,13 +14,13 @@ class NavBar extends Component {
             <li><a onClick={ this.toggleMenu }><i className='material-icons'>menu</i></a></li>
           </ul>
 
-          <NavLink to='/' className='logo left'>
+          <Link to='/' className='logo left'>
             <img src='/assets/logos/pumpkin2_64.png' alt='Refsheet.net' width='32' height='32' />
-          </NavLink>
+          </Link>
 
           <ul className='site-nav visible-on-med-and-up'>
             <li>
-              <NavLink to='/' activeClassName='primary-text'>Home</NavLink>
+              <NavLink to='/' exact activeClassName='primary-text'>Home</NavLink>
             </li>
 
             <li>
