@@ -1,4 +1,19 @@
 ---
+v1.4.0-pre.27:
+- sha: c67f35823a518a9430c87f1e6db4e446f4659bd4
+  time: '1540411007'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: c67f3582
+  date: '2018-10-24'
+- sha: 6a3b96aa22cf5d6bc6dac1489ab653575ab0be0e
+  time: '1540411004'
+  tags: []
+  message: Authorize pattern in app controller with authorize! and unauthorized!.
+    Fixes REFST-1P
+  hash: 6a3b96aa
+  date: '2018-10-24'
+---
 v1.4.0-pre.26:
 - sha: f25645f31cf3fa18c9803df5008b0d742ad7edd7
   time: '1540409413'
