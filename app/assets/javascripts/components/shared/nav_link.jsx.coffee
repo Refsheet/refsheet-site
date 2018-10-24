@@ -12,9 +12,23 @@
 
   render: ->
     { to } = @props
-    active = @context.router.isActive @props.to, @props.exact
 
-    to = undefined if @props.disabled
+    to = '/' + to if to[0] is '?'
+
+    console.log(@context.router)
+
+    if to.match /\?/
+      currentPath = @context.router.route.match.path + (@context.router.route.location.search || '')
+    else
+      currentPath = @context.router.route.match.path
+
+    console.log currentPath, to
+
+    active = ReactRouter.matchPath to,
+      path: currentPath,
+      exact: true#, @props.exact
+
+    to = '' if @props.disabled
 
     classNames = ['nav-link']
     classNames.push @props.className if @props.className
@@ -27,8 +41,10 @@
     activeClassNames = ['active current']
     activeClassNames.push @props.activeClassName if @props.activeClassName
 
+    linkClassNames.push activeClassNames if active
+
     `<li className={ classNames.join(' ') }>
-        <Link onlyActiveOnIndex={ this.props.exact } to={ to } activeClassName={ activeClassNames.join(' ') } className={ linkClassNames.join(' ') }>
+        <Link to={ to } className={ linkClassNames.join(' ') }>
             { this.props.icon && <Icon className='left'>{ this.props.icon }</Icon> } { this.props.text }
         </Link>
 
