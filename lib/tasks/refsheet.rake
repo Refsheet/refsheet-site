@@ -101,7 +101,8 @@ namespace :refsheet do
       if (m = l.match(/\A(?<hash>[a-f0-9]+)\s+(?<time>\d+)\s+(?<tags>(\[.*?\]\s*)*)(?<message>.*)\z/))
         h = m.names.zip(m.captures).to_h
         h['tags'] = h['tags']&.split(/\]\s*\[/)&.map { |s| s.gsub(/\A\s*\[|\]\s*/, '') } || []
-        h['date'] = Time.at(h['time'].to_i rescue 0).utc.strftime('%Y-%m-%d')
+        time = h['time'].to_i rescue 0
+        h['date'] = Time.at(time).utc.strftime('%Y-%m-%d')
         h.symbolize_keys
       else
         { hash: nil, tags: [], message: l }
