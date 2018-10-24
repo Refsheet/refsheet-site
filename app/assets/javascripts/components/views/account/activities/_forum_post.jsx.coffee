@@ -17,7 +17,7 @@
             { post.forum.name }
           </Link></div>
 
-          <h3 className='margin-top--none margin-bottom--medium'><Link to={ post.path }>RE: { post.thread.topic }</Link></h3>
+          <h3 className='margin-top--none margin-bottom--medium'><Link to={ post.path || '' }>RE: { post.thread.topic }</Link></h3>
           { post.content_text.substr(0, 120) }
       </div>`
 
