@@ -159,7 +159,11 @@ namespace :refsheet do
     params = {
         commits: commits.collect { |c|
           time = c[:time]&.to_i rescue nil
-          { id: c[:sha], message: c[:message], timestamp: time }
+          {
+              id: c[:sha],
+              message: c[:message],
+              timestamp: Time.at(time).strftime('%FT%R%:z')
+          }
         },
         version: build,
         ref: commits.last&.fetch(:sha, nil),
