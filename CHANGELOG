@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.18:
+- hash: ca2352e
+  date: '2018-10-24'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+- hash: bfdaf60
+  date: '2018-10-24'
+  tags: []
+  message: Force commit log to be pushed up.
+- hash: c205c8c
+  date: '2018-10-24'
+  tags: []
+  message: Rack.
+---
 v1.4.0-pre.17:
 - hash: '02876a7'
   date: '2018-10-24'
