@@ -9,17 +9,19 @@
 
 
   getInitialState: ->
-    session: @props.route.eagerLoad?.session || { fetch: true }
-    loading: 0
-    reportImageId: null
-    eagerLoad: @props.route.eagerLoad || {}
+    console.log(@props)
+    return \
+      session: @props.eagerLoad?.session || { fetch: true }
+      loading: 0
+      reportImageId: null
+      eagerLoad: @props.eagerLoad || {}
 
   getChildContext: ->
     currentUser: @state.session.current_user
     session: @state.session
     setCurrentUser: @_onLogin
     eagerLoad: @state.eagerLoad
-    environment: @props.route.environment
+    environment: @props.environment
     reportImage: @_reportImage
 
 
@@ -84,7 +86,7 @@
         <Views.Images.ReportModal imageId={ this.state.reportImageId } />
         <Lightbox currentUser={ this.state.session.current_user } history={ this.props.history } />
 
-        <UserBar session={ this.state.session } query={ this.props.location.query.q }/>
+        <Packs.application.NavBar session={ this.state.session } query={ this.props.location.query.q }/>
 
         { childrenWithProps }
 

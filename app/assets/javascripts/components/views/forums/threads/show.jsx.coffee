@@ -84,8 +84,8 @@
         { posts }
 
         { this.context.currentUser &&
-            <Forums.Threads.Reply forumId={ this.props.params.forumId }
-                                  threadId={ this.props.params.threadId }
+            <Forums.Threads.Reply forumId={ this.props.match.params.forumId }
+                                  threadId={ this.props.match.params.threadId }
                                   onPost={ this._handleReply }
             /> }
     </Main>`

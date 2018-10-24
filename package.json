@@ -25,6 +25,7 @@
     "materialize-css": "^1.0.0-beta",
     "moment": "^2.22.2",
     "prop-types": "^15.6.1",
+    "query-string": "^6.2.0",
     "rails-erb-loader": "^5.4.1",
     "react": "^16.2.0",
     "react-apollo": "^2.1.0",

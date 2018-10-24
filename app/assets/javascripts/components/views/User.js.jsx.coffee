@@ -24,7 +24,7 @@
       StateUtils.load @, 'user'
 
   componentWillReceiveProps: (newProps) ->
-    if newProps.params.userId != @state.user?.username
+    if newProps.match.params.userId != @state.user?.username
       StateUtils.reload @, 'user', newProps
       return
 

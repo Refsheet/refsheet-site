@@ -12,12 +12,12 @@
     state = $.extend {}, context.state
     fetch = true
 
-    console.debug '[StateUtils] Loading with params:', props.params
+    console.debug '[StateUtils] Loading with params:', props.match.params
     console.debug '[StateUtils] Eager Loading:', eagerLoad, context.context
 
     if elItem = ObjectPath.get eagerLoad, path
       for k, p of paramMap
-        a = ObjectPath.get props.params, k
+        a = ObjectPath.get props.match.params, k
         b = ObjectPath.get elItem, p
         console.debug '[StateUtils] Comparing:', a, b
         fetch = false if a and b and a.toUpperCase() is b.toUpperCase()
@@ -56,8 +56,8 @@
     fetch = false
 
     for k, p of context.paramMap
-      a = ObjectPath.get oldProps.params, k
-      b = ObjectPath.get newProps.params, k
+      a = ObjectPath.get oldProps.match.params, k
+      b = ObjectPath.get newProps.match.params, k
 
       if (a or b) and a?.toUpperCase() isnt b?.toUpperCase()
         fetch = true
@@ -99,7 +99,7 @@
     { dataPath, paramMap } = stateLink
 
     fetchUrl = dataPath.replace /(:[a-zA-Z]+)/g, (m) ->
-      param = ObjectPath.get props.params, m.substring(1)
+      param = ObjectPath.get props.match.params, m.substring(1)
       param || ''
 
     fetchUrl.replace /\/\/+|\/$/g, ''
