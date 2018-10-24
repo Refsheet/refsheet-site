@@ -1,4 +1,10 @@
 ---
+v1.4.0-pre.21:
+- hash: a41efdc
+  date: '2018-10-24'
+  tags: []
+  message: Fetching.
+---
 v1.4.0-pre.20:
 - hash: 0eb098a
   date: '2018-10-24'
