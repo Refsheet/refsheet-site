@@ -109,6 +109,8 @@ namespace :refsheet do
       end
     end
 
+    File.write(Rails.root.join('COMMITS'), data.to_json)
+
     # Scan for major / minor tags
 
     in_minor = data.any? { |d| d[:tags].grep(/\Am(?:inor)?\z/).count > 0 }
@@ -148,18 +150,20 @@ namespace :refsheet do
     require 'rest_client'
 
     build = File.read Rails.root.join 'VERSION'
+    commits = JSON.parse Rails.root.join 'COMMITS' rescue [{}]
 
     puts "Telling Sentry!"
 
     params = {
-        commits: [{id: build, repository: 'refsheet-site'}],
+        commits: commits.collect{|c|{ id: c[:hash], message: c[:message], timestamp: c[:date] }},
         version: build,
+        ref: commits.last[:hash],
         projects: ['refst']
     }
 
     deploy_params = {
-        environment: ENV['EB_ENV_NAME'],
-        name: ENV['EB_ENV_ID']
+        environment: ENV['RAILS_ENV'],
+        name: (ENV['EB_ENV_NAME'] || 'anon') + '-' + ENV['EB_ENV_ID']
     }
 
     begin
@@ -178,7 +182,7 @@ namespace :refsheet do
 
     begin
       puts "Telling all about #{deploy_params}"
-      puts RestClient.post "https://sentry.io/api/0/organizations/refsheetnet/releases/#{build}/deploys",
+      puts RestClient.post "https://sentry.io/api/0/organizations/refsheetnet/releases/#{build}/deploys/",
                            deploy_params.to_json,
                            {
                                content_type: :json,
