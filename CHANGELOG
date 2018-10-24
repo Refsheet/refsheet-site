@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.26:
+- sha: f25645f31cf3fa18c9803df5008b0d742ad7edd7
+  time: '1540409413'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: f25645f3
+  date: '2018-10-24'
+- sha: 195cfc51997fce4143fd2ad61599f589b8861a92
+  time: '1540409403'
+  tags: []
+  message: Fix timestamp issues.
+  hash: 195cfc51
+  date: '2018-10-24'
+---
 v1.4.0-pre.25:
 - sha: 00e1f02786f97a70816deec064f7e0698f250293
   time: '1540408197'
