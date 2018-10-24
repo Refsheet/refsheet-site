@@ -1,6 +1,4 @@
 class Account::NotificationsController < AccountController
-  in_beta!
-
   def index
     @notifications = filter_scope current_user.notifications.eager_loaded
 
