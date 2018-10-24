@@ -1,4 +1,14 @@
 ---
+v1.4.0-pre.17:
+- hash: '02876a7'
+  date: '2018-10-24'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+- hash: aff2587
+  date: '2018-10-24'
+  tags: []
+  message: Clojure.
+---
 v1.4.0-pre.16:
 - hash: 7cf6e3d
   date: '2018-10-24'
