@@ -147,6 +147,8 @@ jobs:
           paths:
             - ~/.cache/pip
 
+      - run: bundle exec rake assets:precompile
+
       - run: bundle exec rake refsheet:deploy[refsheet-prod-green+refsheet-prod-worker]
 
 workflows:
