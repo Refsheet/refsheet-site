@@ -51,7 +51,7 @@ jobs:
 
       - run:
           name: Bundle Install
-          command: bundle check || bundle install --path vendor/bundle --frozen --without=nocircle
+          command: bundle check || bundle install --path vendor/bundle --frozen --without=nocircle --binstubs
 
       # Store bundle cache
       - save_cache:
