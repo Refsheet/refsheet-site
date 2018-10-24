@@ -1,4 +1,14 @@
 ---
+v1.4.0-pre.10:
+- hash: f8a2c39
+  date: '2018-10-24'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+- hash: 58b2f64
+  date: '2018-10-24'
+  tags: []
+  message: Better caching on Circle's end.
+---
 v1.4.0-pre.9:
 - hash: d5811ef
   date: '2018-10-24'
