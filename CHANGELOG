@@ -1,4 +1,14 @@
 ---
+v1.4.0-pre.7:
+- hash: 47182cb
+  date: '2018-10-24'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+- hash: 54ba4c3
+  date: '2018-10-24'
+  tags: []
+  message: Skip compilation.
+---
 v1.4.0-pre.6:
 - hash: c94c680
   date: '2018-10-24'
