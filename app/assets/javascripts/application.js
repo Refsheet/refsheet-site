@@ -34,7 +34,6 @@
 //= require jquery.justifiedGallery
 //= require js.cookie
 //
-//= require _rollbar
 //= require highcharts-init
 //= require components
 //= require cable
