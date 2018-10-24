@@ -1,4 +1,14 @@
 ---
+v1.4.0-pre.8:
+- hash: fc4abfc
+  date: '2018-10-24'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+- hash: 81cc889
+  date: '2018-10-24'
+  tags: []
+  message: Deploy staged.
+---
 v1.4.0-pre.7:
 - hash: 47182cb
   date: '2018-10-24'
