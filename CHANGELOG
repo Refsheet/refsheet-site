@@ -1,4 +1,14 @@
 ---
+v1.4.0-pre.14:
+- hash: 7f8f481
+  date: '2018-10-24'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+- hash: e4e29d6
+  date: '2018-10-24'
+  tags: []
+  message: Log status on CI
+---
 v1.4.0-pre.13:
 - hash: 277fcc7
   date: '2018-10-24'
