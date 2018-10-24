@@ -1,4 +1,14 @@
 ---
+v1.4.0-pre.16:
+- hash: 7cf6e3d
+  date: '2018-10-24'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+- hash: ab348b1
+  date: '2018-10-24'
+  tags: []
+  message: More sentry info?
+---
 v1.4.0-pre.15:
 - hash: e0e1424
   date: '2018-10-24'
