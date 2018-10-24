@@ -17,16 +17,21 @@
 
     console.log(@context.router)
 
-    if to.match /\?/
-      currentPath = @context.router.route.match.path + (@context.router.route.location.search || '')
-    else
+    if @props.noStrict
       currentPath = @context.router.route.match.path
+      console.log currentPath.indexOf(to)
+      active = currentPath.indexOf(to) is 0
+    else if to.match /\?/
+      currentPath = @context.router.route.location.pathname + (@context.router.route.location.search || '')
+    else
+      currentPath = @context.router.route.location.pathname
 
     console.log currentPath, to
 
-    active = ReactRouter.matchPath to,
-      path: currentPath,
-      exact: true#, @props.exact
+    if !@props.noStrict
+      active = ReactRouter.matchPath to,
+        path: currentPath,
+        exact: true
 
     to = '' if @props.disabled
 

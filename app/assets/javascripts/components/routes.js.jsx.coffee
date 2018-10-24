@@ -69,12 +69,16 @@ history.listen(() => {
               <Route path='login' component={ LoginView } />
               <Route path='register' component={ RegisterView } />
 
-              <Route path='account' title='Account' component={ Views.Account.Layout }>
-                <Redirect from='/' to='settings' />
-                <Route path='settings' title='Account Settings' component={ Views.Account.Settings.Show } />
-                <Route path='support' title='Support Settings' component={ Views.Account.Settings.Support } />
-                <Route path='notifications' title='Notification Settings' component={ Views.Account.Settings.Notifications } />
-              </Route>
+              <Route path='/account' title='Account' render={(props) =>
+                <Views.Account.Layout {...props}>
+                  <Switch>
+                    <Redirect exact from='/account' to='/account/settings' />
+                    <Route path='/account/settings' title='Account Settings' component={ Views.Account.Settings.Show } />
+                    <Route path='/account/support' title='Support Settings' component={ Views.Account.Settings.Support } />
+                    <Route path='/account/notifications' title='Notification Settings' component={ Views.Account.Settings.Notifications } />
+                  </Switch>
+                </Views.Account.Layout>
+              } />
 
               <Route path='moderate' component={ Packs.application.CharacterController } />
 
