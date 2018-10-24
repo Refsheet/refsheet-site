@@ -144,9 +144,7 @@ namespace :refsheet do
   end
 
   desc 'This is to be finished on the server, after we\'re built.'
-  task :post_deploy do
-    require 'rest_client'
-
+  task :post_deploy => :environment do
     build = File.read Rails.root.join 'VERSION'
     commits = ((JSON.parse File.read Rails.root.join 'COMMITS' rescue nil) || []).collect(&:with_indifferent_access)
 
