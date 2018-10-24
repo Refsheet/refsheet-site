@@ -120,6 +120,14 @@ jobs:
   deploy:
     docker:
       - image: circleci/ruby:2.3-node-browsers
+        environment:
+          BUNDLE_JOBS: 3
+          BUNDLE_RETRY: 3
+          BUNDLE_PATH: vendor/bundle
+          GEM_HOME: vendor/bundle
+          BUNDLE_APP_CONFIG: vendor/bundle
+          RAILS_ENV: production
+          NODE_ENV: production
 
     steps:
       - checkout
@@ -130,10 +138,21 @@ jobs:
             - refsheet-test-bundle-v2-{{ checksum "Gemfile.lock" }}
             - refsheet-test-bundle-v2-
 
+      # Only necessary if app uses webpacker or yarn in some other way
+      - restore_cache:
+          keys:
+            - refsheet-test-yarn-v1-{{ checksum "yarn.lock" }}
+            - refsheet-test-yarn-v1-
+            - refsheet-test-yarn
+
       - restore_cache:
           keys:
             - refsheet-test-pip-{{ checksum "bin/setup-eb.sh" }}
             - refsheet-test-pip-
+
+      - restore_cache:
+          keys:
+            - refsheet-assets-v1
 
       - run:
           name: Bundle Install
@@ -150,8 +169,12 @@ jobs:
           paths:
             - ~/.cache/pip
 
-      - run: bundle exec rake assets:precompile
+      - save_cache:
+          key: refsheet-assets-v1
+          paths:
+            - ~/tmp/cache/assets
 
+      - run: bundle exec rake assets:precompile
       - run: bundle exec rake refsheet:deploy[refsheet-prod-green+refsheet-prod-worker]
 
 workflows:
