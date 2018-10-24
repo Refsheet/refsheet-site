@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   include CollectionHelper
   include ResponseHelper
 
+  class Unauthorized < RuntimeError; end
+
   serialization_scope :view_context
 
   respond_to :json, :html
@@ -56,6 +58,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::UnknownFormat, with: :not_found
   rescue_from ActionController::InvalidAuthenticityToken, with: :bad_request
   rescue_from ActionController::ParameterMissing, with: :bad_request
+  rescue_from ApplicationController::Unauthorized, with: :unauthorized
 
   unless Rails.env.development?
     rescue_from ActionController::RoutingError, with: :not_found
@@ -63,6 +66,14 @@ class ApplicationController < ActionController::Base
 
 
   #== Published Base Routes
+
+  def authorize!(user=current_user)
+    unauthorized! unless user
+  end
+
+  def unauthorized!
+    raise ApplicationController::Unauthorized.new 'You are not authorized to do that.'
+  end
 
   def not_found!
     raise ActionController::RoutingError.new 'Whatever you just did, please do not.'
@@ -82,7 +93,7 @@ class ApplicationController < ActionController::Base
     respond_to do |format|
       format.html do
         eager_load error: e.message
-        render 'application/show', flash: { error: e.message }
+        render 'application/show', flash: { error: e.message }, status: :not_found
       end
 
       format.json { render json: { error: e.message }, status: :not_found }
@@ -94,11 +105,25 @@ class ApplicationController < ActionController::Base
     respond_to do |format|
       format.html do
         eager_load error: e.message
-        render 'application/show', flash: { error: e.message }
+        render 'application/show', flash: { error: e.message }, status: :bad_request
       end
 
       format.json { render json: { error: e.message }, status: :bad_request }
       format.any  { head :bad_request }
+    end
+  end
+
+  def unauthorized(e=nil)
+    message = e&.message || "You are not authorized to do that."
+
+    respond_to do |format|
+      format.html do
+        eager_load error: message
+        render 'application/show', flash: { error: message }, status: :unauthorized
+      end
+
+      format.json { render json: { error: message }, status: :unauthorized }
+      format.any  { head :unauthorized }
     end
   end
 
