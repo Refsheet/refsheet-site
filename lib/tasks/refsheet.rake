@@ -162,7 +162,7 @@ namespace :refsheet do
     }
 
     deploy_params = {
-        environment: ENV['RAILS_ENV'],
+        environment: ENV['RAILS_ENV'] || ENV['RACK_ENV'] || 'production',
         name: (ENV['EB_ENV_NAME'] || 'anon') + '-' + ENV['EB_ENV_ID']
     }
 
