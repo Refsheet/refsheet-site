@@ -148,14 +148,14 @@ namespace :refsheet do
     require 'rest_client'
 
     build = File.read Rails.root.join 'VERSION'
-    commits = (JSON.parse File.read Rails.root.join 'COMMITS' rescue nil) || []
+    commits = ((JSON.parse File.read Rails.root.join 'COMMITS' rescue nil) || []).collect(&:with_indifferent_access)
 
     puts "Telling Sentry!"
 
     params = {
         commits: commits.collect{|c|{ id: c[:hash], message: c[:message], timestamp: c[:date] }},
         version: build,
-        ref: commits.last&.fetch(:hash),
+        ref: commits.last&.fetch(:hash, nil),
         projects: ['refst']
     }
 
