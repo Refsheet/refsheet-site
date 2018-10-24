@@ -46,8 +46,8 @@ jobs:
       # Restore bundle cache
       - restore_cache:
           keys:
-            - refsheet-test-bundle-v2-{{ checksum "Gemfile.lock" }}
-            - refsheet-test-bundle-v2-
+            - refsheet-test-bundle-v3-{{ checksum "Gemfile.lock" }}
+            - refsheet-test-bundle-v3-
 
       - run:
           name: Bundle Install
@@ -55,15 +55,16 @@ jobs:
 
       # Store bundle cache
       - save_cache:
-          key: refsheet-test-bundle-v2-{{ checksum "Gemfile.lock" }}
+          key: refsheet-test-bundle-v3-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
 
       # Only necessary if app uses webpacker or yarn in some other way
       - restore_cache:
           keys:
-            - refsheet-test-yarn-{{ checksum "yarn.lock" }}
-            - refsheet-test-yarn-
+            - refsheet-test-yarn-v1-{{ checksum "yarn.lock" }}
+            - refsheet-test-yarn-v1-
+            - refsheet-test-yarn
 
       - run:
           name: Yarn Install
@@ -71,7 +72,7 @@ jobs:
 
       # Store yarn / webpacker cache
       - save_cache:
-          key: refsheet-test-yarn-{{ checksum "yarn.lock" }}
+          key: refsheet-test-yarn-v1-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
 
