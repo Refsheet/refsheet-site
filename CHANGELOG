@@ -1,4 +1,14 @@
 ---
+v1.4.0-pre.15:
+- hash: e0e1424
+  date: '2018-10-24'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+- hash: b7434a3
+  date: '2018-10-24'
+  tags: []
+  message: Smarter public. The smartiest.
+---
 v1.4.0-pre.14:
 - hash: 7f8f481
   date: '2018-10-24'
