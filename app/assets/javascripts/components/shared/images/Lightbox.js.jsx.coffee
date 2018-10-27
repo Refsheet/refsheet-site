@@ -52,6 +52,10 @@
     e.preventDefault()
 
   handleDelete: (e) ->
+    $el = $(e.target)
+    return if $el.hasClass('disabled')
+    $el.addClass('disabled')
+    $el.text('Deleting...')
     $.ajax
       url: @state.image.path
       type: 'DELETE'
@@ -60,7 +64,8 @@
 
         Materialize.toast('Image deleted.', 3000, 'green')
         $(document).trigger 'app:image:delete', id
-        @state.onDelete(id) if @props.onDelete
+        @state.onDelete(id) if @state.onDelete
+        @props.onDelete(id) if @props.onDelete
         $('#lightbox-delete-form').modal('close')
         $('#lightbox').modal('close')
       error: =>
@@ -88,8 +93,8 @@
         @handleClose(e)
 
     $(document)
-      .on 'app:lightbox', (e, imageId, onChange) =>
-        console.debug '[Lightbox] Launching from event with:', imageId, onChange
+      .on 'app:lightbox', (e, imageId, onChange, onDelete) =>
+        console.debug '[Lightbox] Launching from event with:', imageId, onChange, onDelete
 
         if typeof imageId == 'object' and not imageId.comments
           imageId = imageId.id
@@ -98,13 +103,13 @@
           $.ajax
             url: "/images/#{imageId}.json"
             success: (data) =>
-              @setState image: data, onChange: onChange
+              @setState image: data, onChange: onChange, onDelete: onDelete
               window.history.pushState {}, "", data.path
 
             error: (error) =>
               @setState error: "Image #{error.statusText}"
         else
-          @setState image: imageId, directLoad: imageId.directLoad, onChange: onChange
+          @setState image: imageId, directLoad: imageId.directLoad, onChange: onChange, onDelete: onDelete
           window.history.pushState {}, "", imageId.path
 
         $('#lightbox').modal('open')
