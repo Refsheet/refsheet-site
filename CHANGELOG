@@ -1,4 +1,24 @@
 ---
+v1.4.0-pre.29:
+- sha: b5d1f201a2d490a143f2276d6056078e870b142f
+  time: '1540665578'
+  tags: []
+  message: Actually fixes REFST-Q
+  hash: b5d1f201
+  date: '2018-10-27'
+- sha: 314d35f7da98aeb8b5dd2cf208b4247c14016437
+  time: '1540665107'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 314d35f7
+  date: '2018-10-27'
+- sha: 39ba771bd98b445d13bd6462866ca08132e5f298
+  time: '1540665101'
+  tags: []
+  message: Norewind was causing trouble in JG. Fixes REFST-Q
+  hash: 39ba771b
+  date: '2018-10-27'
+---
 v1.4.0-pre.28:
 - sha: 978a39a702535b935d62d4ce7c46d021c7132931
   time: '1540412960'
