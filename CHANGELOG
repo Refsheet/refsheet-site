@@ -1,4 +1,20 @@
 ---
+v1.4.0-pre.30:
+- sha: '089f44fb9a8765b73ed10f07b85e3ee96c00a368'
+  time: '1540666396'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: '089f44fb'
+  date: '2018-10-27'
+- sha: da4791ea983510a3a5846da5844b6452cae611cb
+  time: '1540666393'
+  tags:
+  - b
+  message: 'Fixed bugs: REFST-Q, Untracked issue preventing image deletes from updating
+    the gallery.'
+  hash: da4791ea
+  date: '2018-10-27'
+---
 v1.4.0-pre.29:
 - sha: b5d1f201a2d490a143f2276d6056078e870b142f
   time: '1540665578'
