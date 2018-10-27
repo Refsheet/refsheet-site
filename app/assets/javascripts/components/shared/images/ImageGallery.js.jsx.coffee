@@ -107,10 +107,10 @@
 
     if @state.append
       console.debug '[ImageGallery] Init with norewind.'
-        try
-          $(@refs.gallery).justifiedGallery 'norewind'
-        catch e
-          console.warn("Attempted to set norewind on an empty gallery.", e)
+      try
+        $(@refs.gallery).justifiedGallery 'norewind'
+      catch e
+        console.warn("Attempted to set norewind on an empty gallery.", e)
 
       return
 
