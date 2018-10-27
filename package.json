@@ -22,6 +22,7 @@
     "graphql-tag": "^2.8.0",
     "justified-layout": "^2.1.1",
     "lodash": "^4.17.5",
+    "magic-snowflakes": "^4.0.2",
     "materialize-css": "^1.0.0-beta",
     "moment": "^2.22.2",
     "prop-types": "^15.6.1",

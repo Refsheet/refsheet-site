@@ -48,14 +48,18 @@ export { Sentry }
 
 import Snowflakes from 'magic-snowflakes'
 
-document.addEventListener('DOMContentLoaded', () => {
-  if(window.location.hash === '#snow') {
-    Snowflakes({
-      color: '#80cbc4',
-      minOpacity: 0.1,
-      maxOpacity: 0.6,
-      zIndex: 1,
-      target: 'body'
-    })
-  }
-})
+try {
+  document && document.addEventListener('DOMContentLoaded', () => {
+    if(window.location.hash === '#snow') {
+      Snowflakes({
+        color: '#80cbc4',
+        minOpacity: 0.1,
+        maxOpacity: 0.6,
+        zIndex: 1,
+        target: 'body'
+      })
+    }
+  })
+} catch(e) {
+  // noop
+}
