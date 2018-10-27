@@ -1,4 +1,24 @@
 ---
+v1.4.0-pre.31:
+- sha: d6f66107f94c8456f7583f749720026b310d7b4b
+  time: '1540669609'
+  tags: []
+  message: Fix snowflakes breaking CI.
+  hash: d6f66107
+  date: '2018-10-27'
+- sha: ecdc9e9d684d43eeb062e90388b90bf7cd113029
+  time: '1540669091'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: ecdc9e9d
+  date: '2018-10-27'
+- sha: d12f1e64dbb94252b62587b0f33d152465e0646e
+  time: '1540669084'
+  tags: []
+  message: SNOWFLAKES!
+  hash: d12f1e64
+  date: '2018-10-27'
+---
 v1.4.0-pre.30:
 - sha: '089f44fb9a8765b73ed10f07b85e3ee96c00a368'
   time: '1540666396'
