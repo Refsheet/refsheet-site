@@ -11,13 +11,13 @@ import 'whatwg-fetch'
 import * as Sentry from '@sentry/browser'
 
 export const __globals = [
-  'React',
-  'ReactRouter',
-  'PropTypes',
-  'createReactClass',
-  'ReactDOM',
-  'Bowser',
-  'Sentry'
+    'React',
+    'ReactRouter',
+    'PropTypes',
+    'createReactClass',
+    'ReactDOM',
+    'Bowser',
+    'Sentry'
 ]
 
 export { default as React } from 'react'
@@ -43,3 +43,19 @@ export { Sentry }
     stage: Refsheet.environment
   })
 })();
+
+// HOLIDAY THEME
+
+import Snowflakes from 'magic-snowflakes'
+
+document.addEventListener('DOMContentLoaded', () => {
+  if(window.location.hash === '#snow') {
+    Snowflakes({
+      color: '#80cbc4',
+      minOpacity: 0.1,
+      maxOpacity: 0.6,
+      zIndex: 1,
+      target: 'body'
+    })
+  }
+})
