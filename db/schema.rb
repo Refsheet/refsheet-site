@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181023050804) do
+ActiveRecord::Schema.define(version: 20181028070840) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -716,6 +716,8 @@ ActiveRecord::Schema.define(version: 20181023050804) do
     t.integer  "parent_user_id"
     t.string   "unconfirmed_email"
     t.datetime "email_confirmed_at"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_users_on_deleted_at", using: :btree
     t.index ["parent_user_id"], name: "index_users_on_parent_user_id", using: :btree
     t.index ["type"], name: "index_users_on_type", using: :btree
   end

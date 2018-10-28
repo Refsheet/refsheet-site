@@ -25,8 +25,11 @@ export { default as PropTypes } from 'prop-types'
 export { default as createReactClass } from 'create-react-class'
 export { default as ReactDOM } from 'react-dom'
 export { default as V2Wrapper } from 'App'
+
 export { default as Chat } from 'Chat'
 export { default as CharacterController } from 'App/Router'
+export { default as DeleteUser } from 'Settings/Account/DeleteUser'
+
 export { default as Bowser } from 'bowser'
 export { Sentry }
 

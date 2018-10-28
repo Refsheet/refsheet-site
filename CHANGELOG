@@ -1,4 +1,52 @@
 ---
+v1.4.0-pre.35:
+- sha: 06a4e6f3db1833ec42f0cd6332d021cb863a2d76
+  time: '1540713395'
+  tags: []
+  message: 'Merge pull request #62 from eiwi1101/f/user-delete'
+  hash: 06a4e6f3
+  date: '2018-10-28'
+- sha: 8b15cfc6e47e11525f3621c3dcbb47917183a32a
+  time: '1540713370'
+  tags: []
+  message: WOW OKAY
+  hash: 8b15cfc6
+  date: '2018-10-28'
+---
+v1.4.0-pre.34:
+- sha: 830fe80c3781579d182b2181237031d44a3b1845
+  time: '1540712614'
+  tags: []
+  message: 'Merge pull request #61 from eiwi1101/f/user-delete'
+  hash: 830fe80c
+  date: '2018-10-28'
+- sha: a2009744698c88ae778f3ccd466208849a18be66
+  time: '1540711392'
+  tags: []
+  message: Unfortunately, you can now delete a user.
+  hash: a2009744
+  date: '2018-10-28'
+- sha: 2a570745bd3fe216fc05b707e56b5edbed00cc3f
+  time: '1540693128'
+  tags: []
+  message: Started user delete modal, shelving changes.
+  hash: 2a570745
+  date: '2018-10-28'
+---
+v1.4.0-pre.33:
+- sha: f0a7ed85d8958393a53c3218f2f99a531fa9487f
+  time: '1540695706'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: f0a7ed85
+  date: '2018-10-28'
+- sha: 9b695798abd490dbb9c8846e948ea78ee0df43a8
+  time: '1540695701'
+  tags: []
+  message: Fix bugs?!?
+  hash: 9b695798
+  date: '2018-10-28'
+---
 v1.4.0-pre.32:
 - sha: 1883bcd33617f4719289f6b0214168149578f53c
   time: '1540694798'
