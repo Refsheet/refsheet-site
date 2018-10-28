@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.37:
+- sha: 26930cf8d289b8c8469cbdd53639b2c01532043c
+  time: '1540740190'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 26930cf8
+  date: '2018-10-28'
+- sha: 7ed4f831f4de128422efff10528f7d3b284151fa
+  time: '1540740186'
+  tags: []
+  message: I shouldn't exclude ALL the ahoy.
+  hash: 7ed4f831
+  date: '2018-10-28'
+---
 v1.4.0-pre.36:
 - sha: '09ba5fbc0e7ea0d6a70ea1a323809ee417b27029'
   time: '1540715625'
