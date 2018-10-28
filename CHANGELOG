@@ -1,4 +1,24 @@
 ---
+v1.4.0-pre.34:
+- sha: 830fe80c3781579d182b2181237031d44a3b1845
+  time: '1540712614'
+  tags: []
+  message: 'Merge pull request #61 from eiwi1101/f/user-delete'
+  hash: 830fe80c
+  date: '2018-10-28'
+- sha: a2009744698c88ae778f3ccd466208849a18be66
+  time: '1540711392'
+  tags: []
+  message: Unfortunately, you can now delete a user.
+  hash: a2009744
+  date: '2018-10-28'
+- sha: 2a570745bd3fe216fc05b707e56b5edbed00cc3f
+  time: '1540693128'
+  tags: []
+  message: Started user delete modal, shelving changes.
+  hash: 2a570745
+  date: '2018-10-28'
+---
 v1.4.0-pre.33:
 - sha: f0a7ed85d8958393a53c3218f2f99a531fa9487f
   time: '1540695706'
