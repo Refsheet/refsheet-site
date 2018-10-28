@@ -92,4 +92,5 @@ class @Views.Account.Settings.Show extends React.Component
             </div>
         </Form>
 
+        <Packs.application.DeleteUser user={ this.state.user } />
     </div>`

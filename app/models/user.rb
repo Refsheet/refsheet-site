@@ -20,9 +20,11 @@
 #  parent_user_id      :integer
 #  unconfirmed_email   :string
 #  email_confirmed_at  :datetime
+#  deleted_at          :datetime
 #
 # Indexes
 #
+#  index_users_on_deleted_at      (deleted_at)
 #  index_users_on_parent_user_id  (parent_user_id)
 #  index_users_on_type            (type)
 #
@@ -34,30 +36,30 @@ class User < ApplicationRecord
   include Users::EmailPrefsDecorator
   include Users::NotificationsDecorator
 
-  has_many :characters
-  has_many :character_groups
-  has_many :permissions
+  has_many :characters, dependent: :destroy
+  has_many :character_groups, dependent: :destroy
+  has_many :permissions, dependent: :destroy
   has_many :roles, through: :permissions
-  has_many :visits, class_name: "Ahoy::Visit"
+  has_many :visits, class_name: "Ahoy::Visit", dependent: :nullify
 
-  has_many :transfers_in, class_name: "Transfer", foreign_key: :destination_user_id
-  has_many :transfers_out, class_name: "Transfer", foreign_key: :sender_user_id
+  has_many :transfers_in, class_name: "Transfer", foreign_key: :destination_user_id, dependent: :destroy
+  has_many :transfers_out, class_name: "Transfer", foreign_key: :sender_user_id, dependent: :destroy
   has_many :orders
-  has_many :bank_accounts, inverse_of: :user
-  has_one :seller, inverse_of: :user
+  has_many :bank_accounts, inverse_of: :user, dependent: :destroy
+  has_one :seller, inverse_of: :user, dependent: :destroy
 
-  has_many :favorites, class_name: "Media::Favorite"
+  has_many :favorites, class_name: "Media::Favorite", dependent: :destroy
   has_many :favorite_media, through: :favorites, source: :media
-  has_many :comments, class_name: "Media::Comment"
-  has_many :notifications
+  has_many :comments, class_name: "Media::Comment", dependent: :nullify
+  has_many :notifications, dependent: :delete_all
 
-  has_many :followers, class_name: "User::Follower", inverse_of: :following, foreign_key: :following_id
-  has_many :following, class_name: "User::Follower", inverse_of: :follower, foreign_key: :follower_id
+  has_many :followers, class_name: "User::Follower", inverse_of: :following, foreign_key: :following_id, dependent: :destroy
+  has_many :following, class_name: "User::Follower", inverse_of: :follower, foreign_key: :follower_id, dependent: :destroy
   has_many :follower_users, through: :following, source: :follower, class_name: "User"
   has_many :followed_users, through: :following, source: :following, class_name: "User"
 
-  has_one  :patron, class_name: "Patreon::Patron"
-  has_one  :invitation
+  has_one  :patron, class_name: "Patreon::Patron", dependent: :nullify
+  has_one  :invitation, dependent: :destroy
   has_many :pledges, through: :patron
 
   attr_accessor :skip_emails
@@ -73,6 +75,7 @@ class User < ApplicationRecord
             uniqueness: { case_sensitive: false }
 
   has_secure_password
+  acts_as_paranoid
 
   has_attached_file :avatar,
                     styles: {
