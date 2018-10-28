@@ -15,13 +15,13 @@ Interfaces::ApplicationRecordInterface = GraphQL::InterfaceType.define do
 
   field :updated_at, types.Int do
     resolve -> (obj, _args, _ctx) {
-      obj.updated_at&.to_i if obj.respond_to? :created_at
+      obj.updated_at&.to_i if obj.respond_to? :updated_at
     }
   end
 
   field :deleted_at, types.Int do
     resolve -> (obj, _args, _ctx) {
-      obj.deleted_at&.to_i if obj.respond_to? :created_at
+      obj.deleted_at&.to_i if obj.respond_to? :deleted_at
     }
   end
 end
