@@ -1,4 +1,24 @@
 ---
+v1.4.0-pre.32:
+- sha: 1883bcd33617f4719289f6b0214168149578f53c
+  time: '1540694798'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 1883bcd3
+  date: '2018-10-28'
+- sha: 7cc212045dfd2d2b9c0289286feab850a4f5eece
+  time: '1540694783'
+  tags: []
+  message: Fix chown deploy bug.
+  hash: 7cc21204
+  date: '2018-10-28'
+- sha: 31c2538d2d424bc728044cd1da3194e126bb48fe
+  time: '1540694410'
+  tags: []
+  message: Fixed Ahoy making a new visit on health checks omg that was painful.
+  hash: 31c2538d
+  date: '2018-10-28'
+---
 v1.4.0-pre.31:
 - sha: d6f66107f94c8456f7583f749720026b310d7b4b
   time: '1540669609'
