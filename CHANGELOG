@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.35:
+- sha: 06a4e6f3db1833ec42f0cd6332d021cb863a2d76
+  time: '1540713395'
+  tags: []
+  message: 'Merge pull request #62 from eiwi1101/f/user-delete'
+  hash: 06a4e6f3
+  date: '2018-10-28'
+- sha: 8b15cfc6e47e11525f3621c3dcbb47917183a32a
+  time: '1540713370'
+  tags: []
+  message: WOW OKAY
+  hash: 8b15cfc6
+  date: '2018-10-28'
+---
 v1.4.0-pre.34:
 - sha: 830fe80c3781579d182b2181237031d44a3b1845
   time: '1540712614'
