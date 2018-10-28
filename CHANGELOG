@@ -1,4 +1,24 @@
 ---
+v1.4.0-pre.36:
+- sha: '09ba5fbc0e7ea0d6a70ea1a323809ee417b27029'
+  time: '1540715625'
+  tags: []
+  message: Spec.
+  hash: '09ba5fbc'
+  date: '2018-10-28'
+- sha: eaa15281ad0b7431c2bebd0b2b8dca5ee452da5a
+  time: '1540714608'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: eaa15281
+  date: '2018-10-28'
+- sha: 5cd59c2daa53da346211debd1221b8a2c8830271
+  time: '1540714603'
+  tags: []
+  message: Improved /health endpoint. Again.
+  hash: 5cd59c2d
+  date: '2018-10-28'
+---
 v1.4.0-pre.35:
 - sha: 06a4e6f3db1833ec42f0cd6332d021cb863a2d76
   time: '1540713395'
