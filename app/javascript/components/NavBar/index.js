@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { NavLink, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import SearchBar from './SearchBar'
+import SiteNav from './SiteNav'
 
 class NavBar extends Component {
   render() {
@@ -20,31 +21,7 @@ class NavBar extends Component {
             <img src='/assets/logos/pumpkin2_64.png' alt='Refsheet.net' width='32' height='32' />
           </Link>
 
-          <ul className='site-nav visible-on-med-and-up'>
-            <li>
-              <NavLink to='/' exact activeClassName='primary-text'>Home</NavLink>
-            </li>
-
-            <li>
-              <NavLink to='/browse' activeClassName='primary-text'>Characters</NavLink>
-            </li>
-
-            <li>
-              <NavLink to='/explore' activeClassName='primary-text'>Images</NavLink>
-            </li>
-
-            <li>
-              <NavLink to='/forums' activeClassName='primary-text'>Forums</NavLink>
-            </li>
-
-            {/*<li>*/}
-            {/*<NavLink to='/guilds' activeClassName='primary-text'>Guilds</NavLink>*/}
-            {/*</li>*/}
-
-            {/*<li>*/}
-            {/*<NavLink to='/marketplace'>Marketplace</NavLink>*/}
-            {/*</li>*/}
-          </ul>
+          <SiteNav />
 
           <div className='right'>
             <SearchBar query={ this.props.query } />
