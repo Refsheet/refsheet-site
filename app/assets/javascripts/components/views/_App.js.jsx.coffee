@@ -86,7 +86,11 @@
         <Views.Images.ReportModal imageId={ this.state.reportImageId } />
         <Lightbox currentUser={ this.state.session.current_user } history={ this.props.history } />
 
-        <Packs.application.NavBar session={ this.state.session } query={ this.props.location.query.q }/>
+        <Packs.application.NavBar
+            session={ this.state.session }
+            query={ this.props.location.query.q }
+            onUserChange={ this._onLogin }
+        />
 
         { childrenWithProps }
 

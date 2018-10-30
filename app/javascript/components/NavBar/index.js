@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { NavLink, Link } from 'react-router-dom'
+import SearchBar from './SearchBar'
 
 class NavBar extends Component {
   render() {
@@ -56,7 +58,7 @@ class NavBar extends Component {
 }
 
 NavBar.propTypes = {
-
+  query: PropTypes.string
 }
 
 export default NavBar

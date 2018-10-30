@@ -15,18 +15,13 @@
 
     to = '/' + to if to[0] is '?'
 
-    console.log(@context.router)
-
     if @props.noStrict
       currentPath = @context.router.route.match.path
-      console.log currentPath.indexOf(to)
       active = currentPath.indexOf(to) is 0
     else if to.match /\?/
       currentPath = @context.router.route.location.pathname + (@context.router.route.location.search || '')
     else
       currentPath = @context.router.route.location.pathname
-
-    console.log currentPath, to
 
     if !@props.noStrict
       active = ReactRouter.matchPath to,
