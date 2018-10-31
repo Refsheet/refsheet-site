@@ -3,12 +3,19 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import SearchBar from './SearchBar'
 import SiteNav from './SiteNav'
+import UserNav from './UserNav'
 
 class NavBar extends Component {
   render() {
-    const currentUser = null
+    const {
+      query,
+      session: {
+        nsfw_ok: nsfwOk,
+        current_user: user
+      }
+    } = this.props
 
-    return (<div className='navbar-fixed user-bar'>
+    return (<div className='NavBar navbar-fixed user-bar'>
       <div className='navbar-shroud' onClick={ this.closeMenu } />
 
       <nav>
@@ -24,9 +31,9 @@ class NavBar extends Component {
           <SiteNav />
 
           <div className='right'>
-            <SearchBar query={ this.props.query } />
+            <SearchBar query={ query } />
 
-            { currentUser }
+            <UserNav nsfwOk={nsfwOk} user={user} />
           </div>
         </div>
       </nav>
@@ -35,7 +42,12 @@ class NavBar extends Component {
 }
 
 NavBar.propTypes = {
-  query: PropTypes.string
+  query: PropTypes.string,
+  session: PropTypes.shape({
+    current_user: PropTypes.object,
+    nsfw_ok: PropTypes.bool
+  }),
+  onUserChange: PropTypes.func
 }
 
 export default NavBar

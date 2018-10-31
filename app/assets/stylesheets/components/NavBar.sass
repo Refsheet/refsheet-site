@@ -1,0 +1,60 @@
+.NavBar
+  $menu-width: 200px
+  $navbar-z: 9999
+  $dropdown-z: $navbar-z + 10
+  $dropdown-item-padding: 10px
+
+  .dropdown-menu
+    @extend .z-depth-2
+
+    position: absolute
+    top: $navbar-height
+    right: 0
+    left: auto
+    min-width: $menu-width
+    background-color: $card-bg-color
+    z-index: $dropdown-z
+    border-radius: $button-radius
+    padding: $dropdown-item-padding 0
+
+    &:before
+      content: ''
+      display: block
+      border-bottom: 0.5rem solid $card-bg-color
+      border-left: 0.5rem solid transparent
+      border-right: 0.5rem solid transparent
+      position: absolute
+      right: 1.5rem
+      top: -0.5rem
+
+    li
+      display: block
+      width: 100%
+      height: auto
+      line-height: initial
+      float: none
+
+      &:after
+        content: ''
+        clear: both
+        display: block
+
+      &.divider
+        background-color: $lighten-color
+        margin: $dropdown-item-padding 0
+        height: 1px
+        line-height: 1px
+
+      a
+        padding: $dropdown-item-padding 1rem
+        text-transform: initial
+        float: none
+        line-height: inherit
+
+        i.material-icons
+          height: auto
+          line-height: inherit
+          margin-top: -4px
+
+        & > span
+          padding: $dropdown-item-padding 0
