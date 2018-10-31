@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import SearchBar from './SearchBar'
 import SiteNav from './SiteNav'
 import UserNav from './UserNav'
+import SessionNav from './SessionNav'
 
 class NavBar extends Component {
   render() {
@@ -33,7 +34,9 @@ class NavBar extends Component {
           <div className='right'>
             <SearchBar query={ query } />
 
-            <UserNav nsfwOk={nsfwOk} user={user} />
+            { user
+              ? <UserNav nsfwOk={nsfwOk} user={user} />
+              : <SessionNav nsfwOk={nsfwOk} /> }
           </div>
         </div>
       </nav>
