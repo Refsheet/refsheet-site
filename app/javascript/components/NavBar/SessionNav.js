@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import DropdownLink from './DropdownLink'
+import { Link } from 'react-router-dom'
 
-const SessionNav = ({nsfwOk}) => {
+const SessionNav = ({nsfwOk, onLoginClick, onNsfwClick}) => {
   const nsfwClassName = nsfwOk ? 'nsfw' : 'no-nsfw'
 
   return (
@@ -25,7 +26,7 @@ const SessionNav = ({nsfwOk}) => {
             <li className='divider' />
 
             <li>
-              <a onClick={ this._handleNsfwToggle } className={ nsfwClassName }>
+              <a onClick={ onNsfwClick } className={ nsfwClassName }>
                 <i className='material-icons left'>{ nsfwOk ? 'remove_circle' : 'remove_circle_outline' }</i>
                 <span>{ nsfwOk ? 'Hide NSFW' : 'Show NSFW' }</span>
               </a>
@@ -37,7 +38,9 @@ const SessionNav = ({nsfwOk}) => {
 }
 
 SessionNav.propTypes = {
-  nsfwOk: PropTypes.bool
+  nsfwOk: PropTypes.bool,
+  onLoginClick: PropTypes.func.isRequired,
+  onNsfwClick: PropTypes.func.isRequired
 }
 
 export default SessionNav
