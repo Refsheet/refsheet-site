@@ -59,51 +59,44 @@ class Conversations extends Component {
   }
 }
 
-const CONVERSATIONS_QUERY = gql`
-    query getConversations {
-        getConversations {
-            id
-            guid
-            unreadCount
-            lastMessage {
-                message
-                created_at
-                is_self
-                user {
-                    name
-                }
-            }
+const CONVERSATIONS_FIELDS = gql`
+    fragment ConversationsFields on Conversation {
+        id
+        guid
+        unreadCount
+        lastMessage {
+            message
+            created_at
+            is_self
             user {
                 name
-                username
-                avatar_url
-                is_admin
-                is_patron
             }
+        }
+        user {
+            name
+            username
+            avatar_url
+            is_admin
+            is_patron
+        }
+    }
+`
+
+const CONVERSATIONS_QUERY = gql`
+    ${CONVERSATIONS_FIELDS}
+    
+    query getConversations {
+        getConversations {
+            ...ConversationsFields
         }
     }
 `
 const CONVERSATIONS_SUBSCRIPTION = gql`
+    ${CONVERSATIONS_FIELDS}
+    
     subscription subscribeToConversations {
         newConversation {
-            id
-            guid
-            unreadCount
-            lastMessage {
-                message
-                created_at
-                is_self
-                user {
-                    name
-                }
-            }
-            user {
-                name
-                username
-                avatar_url
-                is_admin
-                is_patron
-            }
+            ...ConversationsFields
         }
     }
 `
