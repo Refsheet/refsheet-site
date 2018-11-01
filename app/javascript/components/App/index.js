@@ -24,8 +24,9 @@ reactGuard(React, (error, componentInfo) => {
   return <span>{errorString}</span>
 })
 
-const App = ({children: propChildren}) => {
-  const store = createStore(rootReducer, defaultState)
+const App = ({children: propChildren, state}) => {
+  const store = createStore(rootReducer, {...defaultState, ...state})
+  console.log("Initialized with state:", store.getState())
 
   const children = propChildren || <Router />
 

@@ -71,8 +71,8 @@ class NavBar extends Component {
     const {
       query,
       session: {
-        nsfw_ok: nsfwOk,
-        current_user: user
+        nsfwOk,
+        currentUser
       }
     } = this.props
 
@@ -95,12 +95,12 @@ class NavBar extends Component {
               <div className='right'>
                 <SearchBar query={ query } />
 
-                { user
+                { currentUser
                   ? <UserNav
                         onNsfwClick={this.handleNsfwClick}
                         onLogoutClick={this.handleLogoutClick}
                         nsfwOk={nsfwOk}
-                        user={user}
+                        user={currentUser}
                     />
                   : <SessionNav
                         onNsfwClick={this.handleNsfwClick}
@@ -118,8 +118,8 @@ class NavBar extends Component {
 NavBar.propTypes = {
   query: PropTypes.string,
   session: PropTypes.shape({
-    current_user: PropTypes.object,
-    nsfw_ok: PropTypes.bool
+    currentUser: PropTypes.object,
+    nsfwOk: PropTypes.bool
   }),
   setCurrentUser: PropTypes.func
 }

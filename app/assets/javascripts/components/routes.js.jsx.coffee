@@ -124,4 +124,12 @@ history.listen(() => {
       </Switch>
     </Router>`
 
-    `<Packs.application.V2Wrapper>{ router }</Packs.application.V2Wrapper>`
+    session = @props.eagerLoad?.session || {}
+
+    defaultState = {
+      session: StringUtils.camelizeKeys(session)
+    }
+
+    `<Packs.application.V2Wrapper state={defaultState}>
+      { router }
+    </Packs.application.V2Wrapper>`
