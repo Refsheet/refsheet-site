@@ -1,45 +1,48 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+import DropdownLink from './DropdownLink'
 
 const UserMenu = ({user, nsfwOk, onNsfwClick, onLogoutClick}) => {
   const nsfwClassName = nsfwOk ? 'nsfw' : 'no-nsfw'
 
   return (
-      <ul className='dropdown-menu'>
-        <li>
-          <Link to={'/' + user.username}>
-            <i className='material-icons left'>person</i>
-            <span>{ user.name }</span><br />
-            <span className='muted'>@{ user.username }</span>
-          </Link>
-        </li>
+      <DropdownLink imageSrc={ user.avatar_url } className={nsfwClassName}>
+        <ul className='dropdown-menu'>
+          <li>
+            <Link to={'/' + user.username}>
+              <i className='material-icons left'>person</i>
+              <span>{ user.name }</span><br />
+              <span className='muted'>@{ user.username }</span>
+            </Link>
+          </li>
 
-        { user.is_admin &&
-        <li>
-          <a href='/admin'>
-            <i className='material-icons left'>vpn_key</i>
-            <span>Admin</span>
-          </a>
-        </li>
-        }
+          { user.is_admin &&
+          <li>
+            <a href='/admin'>
+              <i className='material-icons left'>vpn_key</i>
+              <span>Admin</span>
+            </a>
+          </li>
+          }
 
-        <li className='divider' />
+          <li className='divider' />
 
-        <li>
-          <a onClick={ onNsfwClick } className={ nsfwClassName }>
-            <i className='material-icons left'>{ nsfwOk ? 'remove_circle' : 'remove_circle_outline' }</i>
-            <span>{ nsfwOk ? 'Hide NSFW' : 'Show NSFW' }</span>
-          </a>
-        </li>
+          <li>
+            <a onClick={ onNsfwClick } className={ nsfwClassName }>
+              <i className='material-icons left'>{ nsfwOk ? 'remove_circle' : 'remove_circle_outline' }</i>
+              <span>{ nsfwOk ? 'Hide NSFW' : 'Show NSFW' }</span>
+            </a>
+          </li>
 
-        <li>
-          <a onClick={ onLogoutClick }>
-            <i className='material-icons left'>exit_to_app</i>
-            <span>Sign Out</span>
-          </a>
-        </li>
-      </ul>
+          <li>
+            <a onClick={ onLogoutClick }>
+              <i className='material-icons left'>exit_to_app</i>
+              <span>Sign Out</span>
+            </a>
+          </li>
+        </ul>
+      </DropdownLink>
   )
 }
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import c from 'classnames'
+import { format as f } from 'NumberUtils'
 import { Icon } from 'react-materialize'
 
 class DropdownLink extends Component {
@@ -41,7 +42,8 @@ class DropdownLink extends Component {
       imageSrc,
       className,
       text = "?",
-      icon
+      icon,
+      count
     } = this.props
 
     const { visible } = this.state
@@ -64,6 +66,8 @@ class DropdownLink extends Component {
                     ? <Icon>{ icon }</Icon>
                     : <span>{ text }</span>
             }
+
+            { !!count && count > 0 && <span className='count'>{f(count)}</span> }
           </a>
 
           { visible && this.props.children }
