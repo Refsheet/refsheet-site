@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import UserMenu from './UserMenu'
 import DropdownLink from './DropdownLink'
 import { NavLink } from 'react-router-dom'
+import NotificationMenu from './NotificationMenu'
+import MessageMenu from './MessageMenu'
 
 class UserNav extends Component {
   constructor (props) {
@@ -10,27 +12,13 @@ class UserNav extends Component {
   }
 
   render () {
-    const {
-      user,
-      nsfwOk
-    } = this.props
-
-    const nsfwClassName = nsfwOk ? 'nsfw' : 'no-nsfw'
+    const notifications = [1,2,3,4,5,6,7,8,9,0].map(id=>({id}))
 
     return (
         <ul className='right'>
-          <li>
-            <NavLink to='/messages' activeClassName='primary-text'>
-              <i className='material-icons'>message</i>
-            </NavLink>
-          </li>
-
-          <DropdownLink icon='notifications' count={1}>
-          </DropdownLink>
-
-          <DropdownLink imageSrc={ user.avatar_url } className={nsfwClassName}>
-            <UserMenu {...this.props} />
-          </DropdownLink>
+          <MessageMenu />
+          <NotificationMenu notifications={notifications}/>
+          <UserMenu {...this.props} />
         </ul>
     )
   }
