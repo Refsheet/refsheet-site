@@ -87,7 +87,6 @@
         <Lightbox currentUser={ this.state.session.current_user } history={ this.props.history } />
 
         <Packs.application.NavBar
-            session={ this.state.session }
             query={ this.props.location.query.q }
             onUserChange={ this._onLogin }
         />
