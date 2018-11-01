@@ -7,6 +7,7 @@ import rootReducer from 'reducers'
 import Router from './Router'
 import client from 'ApplicationService'
 import * as Sentry from '@sentry/browser'
+import defaultState from './defaultState.json'
 
 reactGuard(React, (error, componentInfo) => {
   const errorString = `Failed to render <${componentInfo.name} />!`
@@ -24,15 +25,15 @@ reactGuard(React, (error, componentInfo) => {
 })
 
 const App = ({children: propChildren}) => {
-  // const store = createStore(rootReducer)
+  const store = createStore(rootReducer, defaultState)
 
   const children = propChildren || <Router />
 
   return (
-    <ApolloProvider client={ client }>
-      {/*<ReduxProvider store={ store }>*/}
-      { children }
-      {/*</ReduxProvider>*/}
+    <ApolloProvider client={ client } store={store}>
+      <ReduxProvider store={ store }>
+        { children }
+      </ReduxProvider>
     </ApolloProvider>
   )
 }
