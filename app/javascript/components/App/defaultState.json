@@ -1,6 +1,11 @@
 {
   "session": {
     "currentUser": null,
-    "nsfwOk": false
+    "nsfwOk": false,
+    "timeZone": null,
+    "locale": null
+  },
+  "conversations": {
+    "openConversations": []
   }
 }

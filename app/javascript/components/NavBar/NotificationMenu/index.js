@@ -1,11 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import DropdownLink from './DropdownLink'
-import NotificationItem from './Dropdown/NotificationItem'
+import DropdownLink from '../DropdownLink'
+import NotificationItem from '../Dropdown/NotificationItem'
 import { Link } from 'react-router-dom'
 import Scrollbars from 'Shared/Scrollbars'
+import subscription from './subscription'
 
-const NotificationMenu = ({notifications=[]}) => {
+const NotificationMenu = ({notifications=[], loading=false}) => {
   const renderNotification = (n) => (
       <NotificationItem key={n.id} {...n} />
   )
@@ -16,6 +17,7 @@ const NotificationMenu = ({notifications=[]}) => {
           <Scrollbars>
             <ul>
               {notifications.map(renderNotification)}
+              {loading && <li className='empty-item'>Loading...</li>}
               {notifications.length > 0 || <li className='empty-item'>No new notifications.</li>}
             </ul>
           </Scrollbars>
@@ -26,7 +28,9 @@ const NotificationMenu = ({notifications=[]}) => {
 }
 
 NotificationMenu.propTypes = {
-  notifications: PropTypes.array.isRequired
+  notifications: PropTypes.array
 }
 
-export default NotificationMenu
+export { NotificationMenu }
+
+export default subscription(NotificationMenu)

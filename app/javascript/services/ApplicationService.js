@@ -57,10 +57,12 @@ const defaultOptions = {
   }
 }
 
-const client = new ApolloClient({
+export const client = new ApolloClient({
   link: authLink.concat(link),
   cache: new InMemoryCache(),
   defaultOptions
 })
+
+export { default as subscribe } from './buildSubscriptionRender'
 
 export default client
