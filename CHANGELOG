@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.38:
+- sha: cfdbeedc6a03fcaa65ee9e8d0581e69dd6f8fe11
+  time: '1541154648'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: cfdbeedc
+  date: '2018-11-02'
+- sha: e8d3761f3880109229803a7929327c785b99f7a9
+  time: '1541154643'
+  tags: []
+  message: ReactGA on all page views.
+  hash: e8d3761f
+  date: '2018-11-02'
+---
 v1.4.0-pre.37:
 - sha: 26930cf8d289b8c8469cbdd53639b2c01532043c
   time: '1540740190'
