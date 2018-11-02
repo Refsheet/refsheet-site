@@ -29,7 +29,7 @@ export const formatBody = (message, prefixYou = false) => {
 
   } else if(prefixYou && isSelf) {
     return <span>
-      <span className="self-title">You: </span>
+      <span className="self-title muted smaller">You: </span>
       <RenderEmoji>{body}</RenderEmoji>
     </span>
 
