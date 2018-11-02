@@ -1,26 +1,26 @@
 import { gql } from 'apollo-client-preset'
 import { subscribe } from 'ApplicationService'
-import FIELDS from 'graphql/fragments/ConversationsFields.graphql'
+import FIELDS from 'graphql/fragments/NotificationsFields.graphql'
 
 const QUERY = gql`
     ${FIELDS}
     query getConversations {
-        getConversations {
-            ...ConversationsFields
+        getNotifications {
+            ...NotificationsFields
         }
     }
 `
 const SUBSCRIPTION = gql`
     ${FIELDS}
-    subscription subscribeToConversations {
-        newConversation {
-            ...ConversationsFields
+    subscription subscribeToNotifications {
+        newNotification {
+            ...NotificationsFields
         }
     }
 `
 
 const mapDataToProps = (data) => ({
-  notifications: data.getConversations
+  notifications: data.getNotifications
 })
 
 const updateQuery = (prev, data) => {
@@ -28,8 +28,8 @@ const updateQuery = (prev, data) => {
 
   return {
       ...prev,
-      getConversations: [
-        ...prev.getConversations,
+      getNotifications: [
+        ...prev.getNotifications,
         newConversation
       ]
   }

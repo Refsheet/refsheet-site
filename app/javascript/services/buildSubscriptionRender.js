@@ -12,7 +12,7 @@ export default function buildSubscriptionRender(args) {
     updateQuery = defaultUpdateQuery
   } = args
 
-  const render = ({Component, ...props}) => ({loading, data, subscribeToMore}) => {
+  const render = ({Component, ...props}) => ({loading, data, subscribeToMore, ...more}) => {
     const subscribe = () => {
       if(loading || !data) return null
 
@@ -27,13 +27,13 @@ export default function buildSubscriptionRender(args) {
     }
 
     const mapped = (data && mapDataToProps && mapDataToProps(data)) || {}
-    const wrappedProps = {...props, loading, subscribe, ...mapped}
+    const wrappedProps = {...props, loading, subscribe, ...mapped, ...more}
 
     const oldUpdate = Component.prototype.componentWillUpdate
 
     Component.prototype.componentWillUpdate = function(newProps, newState) {
       if (!this._subscribed && !newProps.loading && this.props.loading) {
-        console.log("Data found, subscribing for: " + Component.name)
+        console.debug("Data found, subscribing for: " + Component.name)
         newProps.subscribe()
         this._subscribed = true
       }
@@ -58,7 +58,6 @@ export default function buildSubscriptionRender(args) {
   }
 
   return (Component) => {
-    console.log({Component})
     return (props) => <Wrapped {...props} Component={Component} />
   }
 }
