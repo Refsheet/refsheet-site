@@ -32,6 +32,8 @@ history.listen(() => {
 
     if @props.gaPropertyID
       ReactGA.initialize(@props.gaPropertyID)
+      ReactGA.set page: window.location.pathname
+      ReactGA.pageview window.location.pathname
 
     if @props.flash
       for level, message of @props.flash
