@@ -9,4 +9,5 @@ fragment NotificationsFields on Notification {
     tag
     read_at
     created_at
+    is_unread
 }
