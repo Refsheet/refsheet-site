@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.39:
+- sha: f24fe58ac20bad1388e2cd5482d2b72060a27877
+  time: '1541197621'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: f24fe58a
+  date: '2018-11-02'
+- sha: 1ce6110999c61762d30a67b5a81715ec6a3dc7b7
+  time: '1541197612'
+  tags: []
+  message: Fixed broken checkboxes / radio buttons.
+  hash: 1ce61109
+  date: '2018-11-02'
+---
 v1.4.0-pre.38:
 - sha: cfdbeedc6a03fcaa65ee9e8d0581e69dd6f8fe11
   time: '1541154648'
