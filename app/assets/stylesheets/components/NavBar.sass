@@ -71,6 +71,12 @@
       line-height: initial
       float: none
 
+      &.unread
+        background: linear-gradient(to right, rgba($primary-color, 0.8), rgba($primary-color, 0.8) 0.25rem, rgba($primary-color, 0.05) 0.25rem)
+        .message
+          font-weight: bold
+          color: white
+
       &.notification-item a
         display: flex
         height: 4.5rem
