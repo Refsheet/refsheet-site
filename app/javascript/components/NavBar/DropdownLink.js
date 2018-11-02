@@ -34,7 +34,11 @@ class DropdownLink extends Component {
   handleMenuToggle(e) {
     e.preventDefault()
     const visible = !this.state.visible
-    this.setState({visible})
+    this.setState({visible}, () => {
+      if (visible && this.props.onOpen) {
+        this.props.onOpen()
+      }
+    })
   }
 
   render () {
@@ -76,6 +80,8 @@ class DropdownLink extends Component {
   }
 }
 
-DropdownLink.propTypes = {}
+DropdownLink.propTypes = {
+  onOpen: PropTypes.func
+}
 
 export default DropdownLink
