@@ -183,6 +183,8 @@
         captionCallback = @handleCaptionChange
         editable = true
 
+      console.log(this.state.image)
+
       lightbox =
         `<div className='lightbox'>
             <div className='image-content' style={{backgroundColor: this.state.image.background_color}}>
