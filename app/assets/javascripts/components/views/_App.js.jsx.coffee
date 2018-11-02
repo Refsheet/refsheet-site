@@ -9,12 +9,12 @@
 
 
   getInitialState: ->
-    console.log(@props)
-    return \
+    return {
       session: @props.eagerLoad?.session || { fetch: true }
       loading: 0
       reportImageId: null
       eagerLoad: @props.eagerLoad || {}
+    }
 
   getChildContext: ->
     currentUser: @state.session.current_user
