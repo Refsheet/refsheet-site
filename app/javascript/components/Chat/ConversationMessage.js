@@ -38,6 +38,19 @@ export const formatBody = (message, prefixYou = false) => {
   }
 }
 
+export const timeDisplay = (created_at, full = false) => {
+  const m = Moment.unix(created_at)
+  if (full) {
+    return m.format('llll')
+  } else if (m.isSame(Moment(), 'day')) {
+    return m.format('h:mm A')
+  } else if (m.isSame(Moment(), 'week')) {
+    return m.format('ddd')
+  } else {
+    return m.format('l')
+  }
+}
+
 const ConversationMessage = ({ message }) => {
   const {
     guid,
@@ -48,15 +61,6 @@ const ConversationMessage = ({ message }) => {
   } = message
 
   let readIcon, isEmote
-
-  const timeDisplay = (full=false) => {
-    const m = Moment.unix(created_at)
-    if (full) {
-      return m.format('llll')
-    } else {
-      return m.format('h:mm A')
-    }
-  }
 
   if(isSelf) {
     if(!unread) {
@@ -72,8 +76,8 @@ const ConversationMessage = ({ message }) => {
 
   return (<li className={ c('chat-message', { unread: unread, self: isSelf, emote: isEmote }) }>
     <div className='message'>{ formatBody(message) }</div>
-    <div className='time right' title={timeDisplay(true)}>
-      { timeDisplay() }
+    <div className='time right' title={timeDisplay(created_at, true)}>
+      { timeDisplay(created_at) }
       { readIcon }
       </div>
   </li>)

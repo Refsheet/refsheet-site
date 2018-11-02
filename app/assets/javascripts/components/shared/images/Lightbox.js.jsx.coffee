@@ -71,7 +71,7 @@
     return unless @state.image
 
     if @state.directLoad
-      @context.router.push @state.image.character.link
+      @context.router.history.push @state.image.character.link
     else
       window.history.back()
 

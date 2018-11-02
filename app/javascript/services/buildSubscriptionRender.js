@@ -27,7 +27,7 @@ export default function buildSubscriptionRender(args) {
     }
 
     const mapped = (data && mapDataToProps && mapDataToProps(data)) || {}
-    const wrappedProps = {...props, loading, subscribe, ...mapped, ...more}
+    const wrappedProps = {...props, loading, subscribe, data, ...mapped, ...more}
 
     const oldUpdate = Component.prototype.componentWillUpdate
 

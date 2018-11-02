@@ -21,8 +21,10 @@ class ConversationMenu extends Component {
       loading=false
     } = this.props
 
+    const unreadCount = conversations.filter(c => c.is_unread).length
+
     return (
-        <DropdownLink icon='message' count={conversations.length}>
+        <DropdownLink icon='message' count={unreadCount}>
           <div className='dropdown-menu wide'>
             <Scrollbars>
               <ul>

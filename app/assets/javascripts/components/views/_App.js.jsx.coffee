@@ -6,6 +6,7 @@
     eagerLoad: React.PropTypes.object
     environment: React.PropTypes.string
     reportImage: React.PropTypes.func
+#    router: React.PropTypes.object
 
 
   getInitialState: ->
@@ -23,6 +24,7 @@
     eagerLoad: @state.eagerLoad
     environment: @props.environment
     reportImage: @_reportImage
+#    router: history: @props.history
 
 
   componentWillMount: ->

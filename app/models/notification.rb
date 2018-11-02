@@ -124,6 +124,10 @@ class Notification < ApplicationRecord
     nil
   end
 
+  def link
+    nil
+  end
+
   def tag
     if actionable.respond_to? :guid
       "#{permission_key}-#{actionable.guid}"

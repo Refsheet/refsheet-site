@@ -27,15 +27,15 @@ class Notifications::ImageFavorite < Notification
   delegate :media, to: :actionable
 
   def title
-    "New image favorite!"
-  end
-
-  def message
     "#{sender.name} likes #{media.title}!"
   end
 
   def href
     image_url(media)
+  end
+
+  def link
+    image_path(media)
   end
 
   protected

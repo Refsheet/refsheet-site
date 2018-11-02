@@ -28,8 +28,10 @@ const NotificationMenu = ({notifications=[], loading=false, error, subscribe, ..
     }
   }
 
+  const unreadCount = notifications.filter(n => n.is_unread).length
+
   return (
-      <DropdownLink icon='notifications' count={notifications.length}>
+      <DropdownLink icon='notifications' count={unreadCount}>
         <div className='dropdown-menu wide'>
           <Scrollbars>
             <ul>
