@@ -34,7 +34,7 @@
 
   goToCharacter: (character) ->
     $('#character-form').modal('close')
-    @context.router.push character.link
+    @context.router.history.push character.link
 
   handleUserChange: (user) ->
     @setState { user }
@@ -63,7 +63,7 @@
           StateUtils.updateItem @, 'user.characters', c, 'slug'
 
   _handleGroupDelete: (groupId) ->
-    @context.router.push @state.user.link if groupId is @state.activeGroupId
+    @context.router.history.push @state.user.link if groupId is @state.activeGroupId
     StateUtils.removeItem @, 'user.character_groups', groupId, 'slug'
 
   _handleGroupSort: (group, position) ->

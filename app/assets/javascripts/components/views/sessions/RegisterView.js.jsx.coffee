@@ -18,7 +18,7 @@
       action: 'Sign Up'
 
     @context.setCurrentUser user, =>
-      @context.router.push '/' + user.username
+      @context.router.history.push '/'
 
 
   componentDidMount: ->

@@ -38,6 +38,10 @@ class Notifications::ForumReply < Notification
     forum_thread_url forum, thread.slug, anchor: actionable.guid
   end
 
+  def link
+    forum_thread_path forum, thread.slug, anchor: actionable.guid
+  end
+
   protected
 
   def permission_key

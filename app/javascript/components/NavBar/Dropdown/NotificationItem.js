@@ -1,19 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import c from 'classnames'
+import { Link } from 'react-router-dom'
+import { timeDisplay } from 'Chat/ConversationMessage'
 
-const NotificationItem = ({}) => {
+const NotificationItem = ({link = '#', icon, thumbnail, title, created_at, is_unread}) => {
   return (
-      <li className='notification-item'>
-        <a href={'#'}>
-          <img src={'https://placehold.it/250'} className='avatar' />
+      <li className={c('notification-item', {unread: is_unread})}>
+        <Link to={link}>
+          { icon && <img src={icon} className='avatar' /> }
           <div className='body'>
             <div className='message'>
-              <strong>Mau Abata</strong> commented on <strong>Image of Shabti</strong>.
+              { title || '???' }
             </div>
-            <div className='time muted'>19h</div>
+            <div className='time muted' title={timeDisplay(created_at, true)}>
+              {timeDisplay(created_at || 0)}
+            </div>
           </div>
-          <img src={'https://placehold.it/320'} className='subject' />
-        </a>
+          { thumbnail && <img src={thumbnail} className='subject' /> }
+        </Link>
       </li>
   )
 }
