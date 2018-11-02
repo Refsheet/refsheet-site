@@ -6,12 +6,10 @@ import { Link } from 'react-router-dom'
 import Scrollbars from 'Shared/Scrollbars'
 import subscription from './subscription'
 
-const NotificationMenu = ({notifications=[], loading=false, error, subscribe, ...more}) => {
+const NotificationMenu = ({notifications=[], loading=false, error, subscribe, refetch}) => {
   const renderNotification = (n) => (
       <NotificationItem key={n.id} {...n} />
   )
-
-  console.log({notifications, loading, error, more})
 
   if (!loading && !error)
     subscribe()
@@ -30,8 +28,12 @@ const NotificationMenu = ({notifications=[], loading=false, error, subscribe, ..
 
   const unreadCount = notifications.filter(n => n.is_unread).length
 
+  const tryRefetch = () => {
+    if(refetch) refetch()
+  }
+
   return (
-      <DropdownLink icon='notifications' count={unreadCount}>
+      <DropdownLink icon='notifications' count={unreadCount} onOpen={tryRefetch}>
         <div className='dropdown-menu wide'>
           <Scrollbars>
             <ul>
