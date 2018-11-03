@@ -8,6 +8,7 @@ import NewMessage from './NewMessage'
 import { Icon } from 'react-materialize'
 import c from 'classnames'
 import Scrollbars from 'react-custom-scrollbars'
+import { userClasses } from '../../utils/UserUtils'
 
 class Conversation extends Component {
   constructor(props) {
@@ -131,19 +132,23 @@ class Conversation extends Component {
         <li key='EOF' className='chat-end-of-messages clearfix' ref={(r) => this.endOfMessages = r} />
     )
 
+    const {
+      isUnread,
+      user,
+      title,
+      isOpen
+    } = {}
+
     return (<div className='chat-body conversation'>
-      {/*<Scrollbars*/}
-        {/*style={{height: 300, width: 350}}*/}
-        {/*onScrollFrame={this.handleScroll}*/}
-        {/*renderView={(props) =>*/}
-            {/*<ul className={c('message-list chat-list')}*/}
-                {/*ref={(r) => this.messageWindow = r}*/}
-                {/*{...props}*/}
-            {/*/>*/}
-        {/*}*/}
-      {/*>*/}
-        {/*{ renderedMessages }*/}
-      {/*</Scrollbars>*/}
+      <div className={c('chat-title', (!isUnread && userClasses(user, 'user-background-light')))}>
+        <a href='#' className='right white-text' onClick={this.handleOpenClose}>
+          <Icon>{ isOpen ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }</Icon>
+        </a>
+        <a href='#' className='white-text' onClick={this.handleOpenClose}>
+          Conversation With null
+        </a>
+      </div>
+
       <ul className={c('message-list chat-list')}
           onScroll={this.handleScroll}
           ref={(r) => this.messageWindow = r}>

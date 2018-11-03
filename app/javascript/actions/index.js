@@ -13,3 +13,11 @@ export function setNsfwMode(nsfwOk=false) {
     nsfwOk
   }
 }
+
+export const OPEN_CONVERSATION = 'OPEN_CONVERSATION'
+export function openConversation(conversationId) {
+  return {
+    type: OPEN_CONVERSATION,
+    conversationId
+  }
+}

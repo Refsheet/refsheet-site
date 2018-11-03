@@ -11,6 +11,26 @@
   width: auto
   max-width: 100%
 
+  @at-root
+    .chat-tray
+      position: fixed
+      z-index: 10001
+      bottom: 0
+      right: 0
+      overflow: hidden
+      white-space: nowrap
+      direction: rtl
+
+      .chat-popout
+        @extend .z-depth-3
+        display: inline-block
+        position: relative
+        width: 325px
+        right: 0
+        white-space: normal
+        direction: initial
+        margin: 1rem 1rem 0 1rem
+
   &.unread
     .chat-title
       background-color: $brand-darker
