@@ -4,8 +4,6 @@ import { Scrollbars as CustomScrollbars } from 'react-custom-scrollbars'
 import { withTheme } from 'styled-components'
 
 const Scrollbars = ({children, theme, ...otherProps}) => {
-  console.log({theme, otherProps})
-
   const renderThumb = ({style, ...props}) =>
       <div {...props} style={{
         ...style,

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { timeDisplay } from 'Chat/ConversationMessage'
 import { Icon } from 'react-materialize'
 
-const NotificationItem = ({link = '#', icon, thumbnail, title, created_at, is_unread, floatTime}) => {
+const NotificationItem = ({link = '#', icon, thumbnail, title, created_at, is_unread, floatTime, onClick}) => {
   const time = <div
       className={c('time muted', {right: floatTime})}
       title={timeDisplay(created_at, true)}
@@ -15,7 +15,7 @@ const NotificationItem = ({link = '#', icon, thumbnail, title, created_at, is_un
 
   return (
       <li className={c('notification-item', {unread: is_unread, fullbody: floatTime})}>
-        <Link to={link}>
+        <Link to={link} onClick={onClick}>
           { icon && <img src={icon} className='avatar' /> }
           <div className='body'>
             { floatTime && time }

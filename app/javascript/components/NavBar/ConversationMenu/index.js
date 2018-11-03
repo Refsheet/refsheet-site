@@ -5,16 +5,29 @@ import NotificationItem from '../Dropdown/NotificationItem'
 import { Link } from 'react-router-dom'
 import Scrollbars from 'Shared/Scrollbars'
 import subscription from './subscription'
-import { formatBody } from '../../Chat/ConversationMessage'
+import { formatBody } from 'Chat/ConversationMessage'
+import { connect } from 'react-redux'
+import { openConversation } from 'actions'
 
 class ConversationMenu extends Component {
-  componentWillUpdate(newProps) {
+  constructor(props) {
+    super(props)
 
+    this.renderConversation = this.renderConversation.bind(this)
   }
 
   renderConversation(c) {
-    console.log({conversation: c})
+    const {
+      openConversation
+    } = this.props
+
+    const click = (e) => {
+      e.preventDefault()
+      openConversation(c.guid)
+    }
+
     return <NotificationItem
+        onClick={ click }
         key={ c.id }
         icon={c.user.avatar_url}
         created_at={c.lastMessage ? c.lastMessage.created_at : c.created_at}
@@ -67,6 +80,17 @@ ConversationMenu.propTypes = {
   conversations: PropTypes.array
 }
 
-export { ConversationMenu }
+const mapStateToProps = ({conversations}, props) => ({
+  openConversations: conversations.openConversations,
+  ...props
+})
 
-export default subscription(ConversationMenu)
+const mapDispatchToProps = {
+  openConversation
+}
+
+const connected = connect(mapStateToProps, mapDispatchToProps)(ConversationMenu)
+
+export { connected as ConversationMenu }
+
+export default subscription(connected)
