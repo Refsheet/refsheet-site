@@ -35,6 +35,12 @@ const NotificationMenu = ({notifications=[], loading=false, error, subscribe, re
   return (
       <DropdownLink icon='notifications' count={unreadCount} onOpen={tryRefetch}>
         <div className='dropdown-menu wide'>
+          <div className='title'>
+            <div className='right'>
+              <a href={'#'}>Mark All Read</a>
+            </div>
+            <strong>Notifications</strong>
+          </div>
           <Scrollbars>
             <ul>
               {renderContent()}

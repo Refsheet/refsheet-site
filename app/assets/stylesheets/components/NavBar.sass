@@ -61,8 +61,27 @@
       height: auto
       line-height: initial
       text-transform: initial
-      background-color: rgba($primary-color, 0.1)
+      border-top: 1px solid $lighten-color
+      color: $primary-color
       padding: $dropdown-item-padding
+
+    .title
+      padding: 0 0.5rem 0.5rem 0.5rem
+      border-bottom: 1px solid $lighten-color
+      line-height: initial
+      font-size: 0.9rem
+
+      a
+        text-transform: initial
+        padding: 0
+        margin: 0
+        display: inline-block
+        color: $primary-color
+        line-height: initial
+        font-size: 0.8rem
+
+        &:hover
+          background-color: transparent
 
     li
       display: block
@@ -71,55 +90,98 @@
       line-height: initial
       float: none
 
+      &.fullbody
+        .muted.time
+          margin-top: 0 !important
+
+        .message
+          line-height: 1.2rem !important
+          max-height: 3.6rem !important
+
+
       &.unread
         background: linear-gradient(to right, rgba($primary-color, 0.8), rgba($primary-color, 0.8) 0.25rem, rgba($primary-color, 0.05) 0.25rem)
         .message
           font-weight: bold
           color: white
 
-      &.notification-item a
+      &.notification-item
         display: flex
-        height: 4.5rem
-        padding: 0
 
-        img
+        &:hover
+          background-color: rgba(white, 0.05)
+
+          .menu
+            opacity: 1.0
+
+        .menu
           flex-shrink: 0
           flex-grow: 0
+          opacity: 0.3
+          transition: opacity 0.3s
 
-        img.avatar
-          @extend .circle
-          margin: 0.5rem
-          height: 3.5rem
-          width: 3.5rem
-          max-height: initial
+          a
+            padding: 0.75rem 1rem 0.5rem 0
+            transition: color 0.3s
 
-        img.subject
-          margin: 0.5rem
-          height: 3.5rem
-          width: auto
+            &:hover
+              color: $primary-color
+              background-color: transparent
 
-        .body
-          padding: 0.5rem 0
-          overflow: hidden
+            i.material-icons
+              font-size: 1rem
+
+        & > a
+          display: flex
+          height: 4.5rem
+          padding: 0
           flex-grow: 1
 
-          &:first-child
-            padding-left: 0.5rem
+          &:hover
+            background-color: transparent
 
-          &:last-child
-            padding-right: 0.5rem
+          img
+            flex-shrink: 0
+            flex-grow: 0
 
-          .message
-            line-height: 1.1rem
-            max-height: 2.2rem
+          img.avatar
+            @extend .circle
+            margin: 0.5rem
+            height: 3.5rem
+            width: 3.5rem
+            max-height: initial
+
+          img.subject
+            margin: 0.5rem
+            height: 3.5rem
+            width: auto
+
+          .body
+            padding: 0.5rem 0
             overflow: hidden
+            flex-grow: 1
 
-          .muted
-            margin-top: 0.3rem
-            overflow: hidden
-            height: 1rem
-            line-height: 1rem
-            color: $lighten-color
+            &:first-child
+              padding-left: 0.5rem
+
+            &:last-child
+              padding-right: 0.5rem
+
+            .message
+              line-height: 1.1rem
+              max-height: 2.2rem
+              overflow: hidden
+
+              .self-title
+                color: $text-light-color
+
+            .muted
+              margin-top: 0.3rem
+              overflow: hidden
+              height: 1rem
+              line-height: 1rem
+              color: $text-light-color !important
+              font-size: 0.8rem
 
       &.empty-item
         padding: 0.5rem 1rem

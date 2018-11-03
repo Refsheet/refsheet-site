@@ -23,6 +23,7 @@ class ConversationMenu extends Component {
           {formatBody(c.lastMessage, true)}
         </span>}
         is_unread={c.unreadCount > 0}
+        floatTime
         { ...c }
     />
   }
@@ -38,6 +39,12 @@ class ConversationMenu extends Component {
     return (
         <DropdownLink icon='message' count={unreadCount}>
           <div className='dropdown-menu wide'>
+            <div className='title'>
+              <div className='right'>
+                <a href={'#'}>Mark All Read</a>
+              </div>
+              <strong>Conversations</strong>
+            </div>
             <Scrollbars>
               <ul>
                 {conversations.map(this.renderConversation)}
@@ -45,7 +52,11 @@ class ConversationMenu extends Component {
                 {conversations.length > 0 || <li className='empty-item'>No new conversations.</li>}
               </ul>
             </Scrollbars>
-            {conversations.length > 0 && <Link to='/conversations' className='cap-link'>See More...</Link>}
+            {conversations.length > 0 &&
+              <Link to='/conversations' className='cap-link'>
+                New Conversation
+              </Link>
+            }
           </div>
         </DropdownLink>
     )
