@@ -1,11 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import UserMenu from './UserMenu'
+import CartMenu from './CartMenu'
+import TransferMenu from './TransferMenu'
 import NotificationMenu from './NotificationMenu'
 import ConversationMenu from './ConversationMenu'
 
 const UserNav = (props) => (
   <ul className='right'>
+    <CartMenu />
+    <TransferMenu />
     <ConversationMenu />
     <NotificationMenu />
     <UserMenu {...props} />

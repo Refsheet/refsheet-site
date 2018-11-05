@@ -44,17 +44,22 @@ class ConversationMenu extends Component {
   render() {
     const {
       conversations=[],
-      loading=false
+      loading=false,
+      refetch
     } = this.props
 
     const unreadCount = conversations.filter(c => c.unreadCount > 0).length
 
+    const tryRefetch = () => {
+      if(refetch) refetch()
+    }
+
     return (
-        <DropdownLink icon='message' count={unreadCount}>
+        <DropdownLink icon='message' count={unreadCount} onOpen={tryRefetch}>
           <div className='dropdown-menu wide'>
             <div className='title'>
               <div className='right'>
-                <a href={'#'}>Mark All Read</a>
+                { unreadCount > 0 && <a href={'#'}>Mark All Read</a> }
               </div>
               <strong>Conversations</strong>
             </div>
@@ -65,7 +70,7 @@ class ConversationMenu extends Component {
                 {conversations.length > 0 || <li className='empty-item'>No new conversations.</li>}
               </ul>
             </Scrollbars>
-            {conversations.length > 0 &&
+            { false &&
               <Link to='/conversations' className='cap-link'>
                 New Conversation
               </Link>
