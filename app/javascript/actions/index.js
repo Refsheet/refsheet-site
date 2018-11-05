@@ -21,3 +21,11 @@ export function openConversation(conversationId) {
     conversationId
   }
 }
+
+export const CLOSE_CONVERSATION = 'CLOSE_CONVERSATION'
+export function closeConversation(conversationId) {
+  return {
+    type: CLOSE_CONVERSATION,
+    conversationId
+  }
+}

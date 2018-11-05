@@ -18,8 +18,8 @@ const NotificationItem = ({link = '#', icon, thumbnail, title, created_at, is_un
         <Link to={link} onClick={onClick}>
           { icon && <img src={icon} className='avatar' /> }
           <div className='body'>
-            { floatTime && time }
             <div className='message'>
+              { floatTime && time }
               { title || '???' }
             </div>
             { floatTime || time }
