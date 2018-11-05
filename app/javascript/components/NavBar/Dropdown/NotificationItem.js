@@ -5,13 +5,33 @@ import { Link } from 'react-router-dom'
 import { timeDisplay } from 'Chat/ConversationMessage'
 import { Icon } from 'react-materialize'
 
-const NotificationItem = ({link = '#', icon, thumbnail, title, created_at, is_unread, floatTime, onClick}) => {
+const NotificationItem = (props) => {
+  const {
+    link = '#',
+    icon,
+    thumbnail,
+    title,
+    created_at,
+    is_unread,
+    floatTime,
+    onClick,
+    onMoreClick,
+    onDismiss
+  } = props
+
   const time = <div
       className={c('time muted', {right: floatTime})}
       title={timeDisplay(created_at, true)}
   >
     { timeDisplay(created_at || 0) }
   </div>
+
+  const more = (e) => e.preventDefault()
+
+  const dismiss = (e) => {
+    e.preventDefault()
+    return onDismiss && onDismiss()
+  }
 
   return (
       <li className={c('notification-item', {unread: is_unread, fullbody: floatTime})}>
@@ -27,8 +47,8 @@ const NotificationItem = ({link = '#', icon, thumbnail, title, created_at, is_un
           { thumbnail && <img src={thumbnail} className='subject' /> }
         </Link>
         <div className='menu'>
-          <a href={'#'}><Icon>check</Icon></a>
-          <a href={'#'}><Icon>more_vert</Icon></a>
+          { onDismiss && <a href={'#'} onClick={dismiss}><Icon>check</Icon></a> }
+          { onMoreClick && <a href={'#'} onClick={more}><Icon>more_vert</Icon></a> }
         </div>
       </li>
   )
