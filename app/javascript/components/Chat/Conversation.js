@@ -9,6 +9,8 @@ import { Icon } from 'react-materialize'
 import c from 'classnames'
 import Scrollbars from 'react-custom-scrollbars'
 import { userClasses } from '../../utils/UserUtils'
+import { closeConversation } from '../../actions'
+import { connect } from 'react-redux'
 
 class Conversation extends Component {
   constructor(props) {
@@ -21,12 +23,14 @@ class Conversation extends Component {
 
     this.state = {
       isAtBottom: false,
-      lastReadMessage: 0
+      lastReadMessage: 0,
+      isOpen: true
     }
 
     this.handleConversationClose = this.handleConversationClose.bind(this)
     this.handleScroll = this.handleScroll.bind(this)
     this.scrollToBottom = this.scrollToBottom.bind(this)
+    this.handleOpenClose = this.handleOpenClose.bind(this)
   }
 
   componentDidMount() {
@@ -100,7 +104,13 @@ class Conversation extends Component {
   }
 
   handleConversationClose() {
-    this.props.onClose({})
+    this.props.onClose(this.props.id)
+  }
+
+  handleOpenClose(e) {
+    e.preventDefault()
+    const isOpen = !this.state.isOpen
+    this.setState({isOpen})
   }
 
   render() {
@@ -108,6 +118,10 @@ class Conversation extends Component {
       messages = [],
       id: conversationId
     } = this.props
+
+    const {
+      isOpen
+    } = this.state
 
     this.unreadBookmark = null
 
@@ -135,8 +149,7 @@ class Conversation extends Component {
     const {
       isUnread,
       user,
-      title,
-      isOpen
+      title
     } = {}
 
     return (<div className='chat-body conversation'>
@@ -149,21 +162,23 @@ class Conversation extends Component {
         </a>
       </div>
 
-      <ul className={c('message-list chat-list')}
-          onScroll={this.handleScroll}
-          ref={(r) => this.messageWindow = r}>
-        { renderedMessages }
-      </ul>
+      { isOpen && <div className='body'>
+        <ul className={c('message-list chat-list')}
+            onScroll={this.handleScroll}
+            ref={(r) => this.messageWindow = r}>
+          { renderedMessages }
+        </ul>
 
-      { this.state.isAtBottom ||
-        <div className='chat-more-pill' onClick={(e) => this.scrollToBottom(false, true)}>
-          <Icon>keyboard_arrow_down</Icon>
-        </div> }
+        { this.state.isAtBottom ||
+          <div className='chat-more-pill' onClick={(e) => this.scrollToBottom(false, true)}>
+            <Icon>keyboard_arrow_down</Icon>
+          </div> }
 
-      <NewMessage
-          onClose={this.handleConversationClose}
-          conversationId={conversationId}
-      />
+        <NewMessage
+            onClose={this.handleConversationClose}
+            conversationId={conversationId}
+        />
+      </div> }
     </div>)
   }
 }
@@ -254,4 +269,10 @@ Wrapped.propTypes = {
   onMount: PropTypes.func
 }
 
-export default Wrapped
+const mapStateToProps = (state, props) => props
+
+const mapDispatchToProps = {
+  onClose: closeConversation
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wrapped)
