@@ -20,9 +20,11 @@
 #  parent_user_id      :integer
 #  unconfirmed_email   :string
 #  email_confirmed_at  :datetime
+#  deleted_at          :datetime
 #
 # Indexes
 #
+#  index_users_on_deleted_at      (deleted_at)
 #  index_users_on_parent_user_id  (parent_user_id)
 #  index_users_on_type            (type)
 #
@@ -126,6 +128,35 @@ describe User, type: :model do
       it { is_expected.to have_key :nsfw_ok }
       it { is_expected.to have_key :locale }
       it { is_expected.to have_key :time_zone }
+    end
+  end
+
+  describe '#destroy' do
+    let(:user) { create :admin, :confirmed }
+    let!(:character) { create :character, user: user }
+    let!(:image) { create :image, character: character }
+
+    subject { user.destroy }
+
+    it 'destroys images' do
+      image_id = image.id
+      subject
+      expect(Image.find_by id: image_id).to be_nil
+      expect(Image.with_deleted.find_by id: image_id).to eq image
+    end
+
+    it 'destroys characters' do
+      character_id = character.id
+      subject
+      expect(Character.find_by id: character_id).to be_nil
+      expect(Character.with_deleted.find_by id: character_id).to eq character
+    end
+
+    it 'necros this thread' do
+      user_id = user.id
+      subject
+      expect(User.find_by id: user_id).to be_nil
+      expect(User.with_deleted.find_by id: user_id).to eq user
     end
   end
 end

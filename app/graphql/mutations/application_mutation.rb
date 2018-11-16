@@ -1,4 +1,6 @@
 class Mutations::ApplicationMutation
+  include Helpers::SessionHelper
+
   def self.before_action(callback, options={})
     @before_actions ||= []
     @before_actions.push callback: callback, options: options
