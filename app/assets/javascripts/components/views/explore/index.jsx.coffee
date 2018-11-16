@@ -31,7 +31,7 @@
       offset: 56
 
   componentWillReceiveProps: (newProps) ->
-    if @props.params.scope != newProps.params.scope
+    if @props.match?.params.scope != newProps.match?.params.scope
       @setState media: null
     StateUtils.reload @, 'media', newProps
 
@@ -41,13 +41,13 @@
   _renderImages: ->
     return `<Loading />` unless @state.media
 
-    `<div key={ this.props.params.scope }>
+    `<div key={ this.props.match && this.props.match.params.scope }>
         <ImageGallery images={ this.state.media } noFeature noSquare />
-        <InfiniteScroll onLoad={ this._append } stateLink={ this.stateLink } params={ this.props.params } />
+        <InfiniteScroll onLoad={ this._append } stateLink={ this.stateLink } params={ this.props.match && this.props.match.params } />
     </div>`
 
   render: ->
-    switch @props.params.scope
+    switch @props.match?.params.scope
       when 'favorites'
         title = 'Your Favorites'
         description = 'Everything you\'ve ever loved in one place (finally)!'
@@ -70,17 +70,17 @@
             <div className='tab-row pushpin' ref='tabRow'>
                 <div className='container'>
                     <ul className='tabs'>
-                        <li className={ !this.props.params.scope ? 'active tab' : 'tab' }>
-                            <Link className={ !this.props.params.scope ? 'active' : '' } to='/explore'>Recent</Link>
+                        <li className={ !this.props.match.params.scope ? 'active tab' : 'tab' }>
+                            <Link className={ !this.props.match.params.scope ? 'active' : '' } to='/explore'>Recent</Link>
                         </li>
 
-                        <li className={ this.props.params.scope == 'popular' ? 'active tab' : 'tab' }>
-                            <Link className={ this.props.params.scope == 'popular' ? 'active' : '' } to='/explore/popular'>Popular</Link>
+                        <li className={ this.props.match.params.scope == 'popular' ? 'active tab' : 'tab' }>
+                            <Link className={ this.props.match.params.scope == 'popular' ? 'active' : '' } to='/explore/popular'>Popular</Link>
                         </li>
 
                         { this.context.currentUser &&
-                            <li className={ this.props.params.scope == 'favorites' ? 'active tab' : 'tab' }>
-                                <Link className={ this.props.params.scope == 'favorites' ? 'active' : '' } to='/explore/favorites'>Favorites</Link>
+                            <li className={ this.props.match.params.scope == 'favorites' ? 'active tab' : 'tab' }>
+                                <Link className={ this.props.match.params.scope == 'favorites' ? 'active' : '' } to='/explore/favorites'>Favorites</Link>
                             </li> }
                     </ul>
                 </div>

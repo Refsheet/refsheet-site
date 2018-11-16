@@ -7,6 +7,9 @@ import rootReducer from 'reducers'
 import Router from './Router'
 import client from 'ApplicationService'
 import * as Sentry from '@sentry/browser'
+import defaultState from './defaultState.json'
+import { ThemeProvider } from 'styled-components'
+import { base as defaultTheme } from 'themes/default'
 
 reactGuard(React, (error, componentInfo) => {
   const errorString = `Failed to render <${componentInfo.name} />!`
@@ -23,17 +26,22 @@ reactGuard(React, (error, componentInfo) => {
   return <span>{errorString}</span>
 })
 
-const App = ({children: propChildren}) => {
-  // const store = createStore(rootReducer)
+const App = ({children: propChildren, state}) => {
+  const store = createStore(rootReducer, {...defaultState, ...state})
+  console.log("Initialized with state:", store.getState())
 
   const children = propChildren || <Router />
 
+  const theme = defaultTheme
+
   return (
-    <ApolloProvider client={ client }>
-      {/*<ReduxProvider store={ store }>*/}
-      { children }
-      {/*</ReduxProvider>*/}
-    </ApolloProvider>
+      <ThemeProvider theme={ theme }>
+        <ApolloProvider client={ client } store={store}>
+          <ReduxProvider store={ store }>
+            { children }
+          </ReduxProvider>
+        </ApolloProvider>
+      </ThemeProvider>
   )
 }
 

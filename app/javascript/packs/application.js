@@ -9,29 +9,41 @@
 
 import 'whatwg-fetch'
 import * as Sentry from '@sentry/browser'
+import * as ReactRouter from 'react-router-dom'
+import { setCurrentUser } from 'actions'
 
 export const __globals = [
-    'React',
-    'ReactRouter',
-    'PropTypes',
-    'createReactClass',
-    'ReactDOM',
-    'Bowser',
-    'Sentry'
+  'React',
+  'ReactRouter',
+  'PropTypes',
+  'createReactClass',
+  'ReactDOM',
+  'Bowser',
+  'Sentry',
+  'qs',
+  'createBrowserHistory',
+  'connect',
+  'setCurrentUser'
 ]
 
 export { default as React } from 'react'
 export { default as PropTypes } from 'prop-types'
 export { default as createReactClass } from 'create-react-class'
 export { default as ReactDOM } from 'react-dom'
-export { default as V2Wrapper } from 'App'
-
-export { default as Chat } from 'Chat'
-export { default as CharacterController } from 'App/Router'
-export { default as DeleteUser } from 'Settings/Account/DeleteUser'
-
 export { default as Bowser } from 'bowser'
+export { default as qs } from 'query-string'
+export { default as createBrowserHistory } from 'history/createBrowserHistory'
+export { connect } from 'react-redux'
+export { ReactRouter }
 export { Sentry }
+export { setCurrentUser }
+
+// NOT GLOBAL
+export { default as V2Wrapper } from 'App'
+export { default as Chat } from 'Chat/ConversationTray'
+export { default as CharacterController } from 'App/Router'
+export { default as NavBar } from 'NavBar'
+export { default as DeleteUser } from 'Settings/Account/DeleteUser'
 
 (function() {
   console.log("Pack loaded: Refsheet JS v2")

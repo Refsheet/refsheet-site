@@ -11,7 +11,7 @@ feature 'Register', js: true do
 
     if expected_error == nil
       expect(page).to have_content '@john_doe'
-      expect(page).to have_content 'NEW CHARACTER'
+      expect(page).to have_content 'ACTIVITY FEED'
     else
       expect(page).to have_content expected_error
     end

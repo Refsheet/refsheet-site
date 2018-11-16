@@ -36,6 +36,7 @@
 
   render: ->
     return `<Loading />` unless @state.forum
+    console.log(this.props)
 
     childrenWithProps = React.Children.map this.props.children, (child) =>
       React.cloneElement child,
@@ -49,9 +50,9 @@
 
         <Container flex>
             <div className='sidebar sidebar-flex'>
-                <Forums.Threads.List forumId={ this.props.params.forumId }
+                <Forums.Threads.List forumId={ this.props.match.params.forumId }
                                      threads={ this.state.forum.threads }
-                                     activeThreadId={ this.props.params.threadId } />
+                                     activeThreadId={ this.props.match.params.threadId } />
             </div>
 
             <div className='content'>

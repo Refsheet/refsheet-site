@@ -58,6 +58,9 @@ class Notification < ApplicationRecord
     )
   }
 
+  scope :default_sort, -> { order created_at: :desc }
+  scope :for, -> (user) { where user: user }
+
   after_create :send_browser_push
   after_create :send_email
 
@@ -118,6 +121,10 @@ class Notification < ApplicationRecord
   end
 
   def href
+    nil
+  end
+
+  def link
     nil
   end
 

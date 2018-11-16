@@ -15,7 +15,7 @@
     Materialize.toast "Thread created! Hope it's a good one :)", 3000, 'green'
     @refs.modal.close()
     console.log thread
-    @context.router.push thread.path
+    @context.router.history.push thread.path
 
   render: ->
     `<Modal id='new-thread-modal' title='New Thread' ref='modal'>

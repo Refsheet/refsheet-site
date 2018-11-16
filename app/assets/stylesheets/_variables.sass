@@ -40,9 +40,10 @@ $admin-card-bg-color: #FFFFFF
 // ==========================================================================
 
 //$brand-primary: #2bbbad
-$brand-primary: #f57c00
-$brand-dark: darken($brand-primary, 10%)
-$brand-darker: darken($brand-primary, 15%)
+$brand-primary: color('orange', 'darken-1')
+$brand-dark: color('orange', 'darken-2')
+$brand-darker: color('orange', 'darken-3')
+$brand-darkest: color('orange', 'darken-4')
 $brand-border: lighten($brand-primary, 20%)
 
 $page-bg-color: lighten(color('grey', 'darken-4'), 2%)
@@ -83,7 +84,8 @@ $badge-bg-color: $secondary-color
 
 // Shared styles
 $button-border: none
-$button-background-focus: lighten($secondary-color, 4%)
+$button-background: desaturate($brand-darkest, 15%)
+$button-background-focus: lighten($button-background, 4%)
 $button-font-size: 1.3rem
 $button-height: 36px
 $button-padding: 0 2rem
@@ -94,7 +96,7 @@ $button-disabled-background: #DFDFDF
 $button-disabled-color: #9F9F9F
 
 // Raised buttons
-$button-raised-background: $secondary-color
+$button-raised-background: $button-background
 $button-raised-background-hover: lighten($button-raised-background, 5%)
 $button-raised-color: #fff
 

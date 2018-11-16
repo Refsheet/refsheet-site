@@ -38,8 +38,14 @@ class SessionController < ApplicationController
   end
 
   def update
+    # Legacy
     if params.include? :nsfw_ok
       params[:nsfw_ok] == 'true' ? nsfw_on! : nsfw_off!
+    end
+
+    # V2 Javascript
+    if params.include? :nsfwOk
+      params[:nsfwOk] ? nsfw_on! : nsfw_off!
     end
 
     render json: session_hash

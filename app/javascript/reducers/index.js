@@ -1,5 +1,19 @@
 import { combineReducers } from 'redux'
+import session from './session'
+import conversations from './conversations'
+
+export function createReducer(initialState, handlers) {
+  return function reducer(state = initialState, action) {
+    if (handlers.hasOwnProperty(action.type)) {
+      console.log({action})
+      return handlers[action.type](state, action)
+    } else {
+      return state
+    }
+  }
+}
 
 export default combineReducers({
-  // TODO: Add Reducers Here
+  session,
+  conversations
 })

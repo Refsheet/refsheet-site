@@ -15,12 +15,12 @@
 
 
   componentDidMount: ->
-    props = params: pageId: ( @props.params.pageId || @props.location.pathname.replace(/^\//, '') )
+    props = match: params: pageId: ( @props.match?.params.pageId || @props.location.pathname.replace(/^\//, '') )
     StateUtils.load @, 'page', props
 
   componentWillReceiveProps: (newProps) ->
-    return if (newProps.location.pathname and newProps.location.pathname is @props.location.pathname) or (newProps.params.pageId and newProps.params.pageId is @props.params.pageId)
-    props = params: pageId: ( newProps.params.pageId || newProps.location.pathname.replace(/^\//, '') )
+    return if (newProps.location.pathname and newProps.location.pathname is @props.location.pathname) or (newProps.match?.params.pageId and newProps.match?.params.pageId is @props.match?.params.pageId)
+    props = match: params: pageId: ( newProps.match?.params.pageId || newProps.location.pathname.replace(/^\//, '') )
     StateUtils.reload @, 'page', props, params: pageId: @state.page?.id
 
   #== Render

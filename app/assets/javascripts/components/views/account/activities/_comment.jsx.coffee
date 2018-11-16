@@ -3,7 +3,7 @@
     comments: React.PropTypes.array.isRequired
 
   render: ->
-    str = if @props.comments.length == 1 then `<Link to={ this.props.comments[0].media.link }>{ this.props.comments[0].media.title }</Link>` else "#{@props.comments.length} photos"
+    str = if @props.comments.length == 1 then `<Link to={ this.props.comments[0].media.link || '' }>{ this.props.comments[0].media.title }</Link>` else "#{@props.comments.length} photos"
 
     comments = @props.comments.map (comment) =>
       `<Row key={ comment.id }>
