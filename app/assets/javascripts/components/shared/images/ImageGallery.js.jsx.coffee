@@ -37,7 +37,9 @@
     $(window).resize @_resizeJg
 
   componentWillUnmount: ->
-    $(@refs.gallery).justifiedGallery 'destroy'
+    if @refs.gallery
+      $(@refs.gallery).justifiedGallery 'destroy'
+
     $(window).off 'resize', @_resizeJg
 
   componentWillReceiveProps: (newProps) ->
@@ -46,7 +48,8 @@
 
   _resizeJg: ->
     return if @props.noFeature and !@props.noSquare
-    $(@refs.gallery).justifiedGallery @_getJgRowHeight()
+    if @refs.gallery
+      $(@refs.gallery).justifiedGallery @_getJgRowHeight()
 
   _handleImageSwap: (source, target) ->
     # Model.patch "/images/#{source}", (data) =>
@@ -70,11 +73,15 @@
     if @props.onImageClick?
       @props.onImageClick(image.id)
     else
-      $(document).trigger 'app:lightbox', [ image, @_handleImageChange ]
+      $(document).trigger 'app:lightbox', [ image, @_handleImageChange, @_handleImageDelete ]
 
   _handleImageChange: (image) ->
     console.debug '[ImageGallery] Lightbox changed image:', image
     StateUtils.updateItem @, 'images', image, 'id'
+
+  _handleImageDelete: (id) ->
+    console.debug '[ImageGallery] Lightbox deleted image:', id
+    StateUtils.removeItem @, 'images', id, 'id'
 
   _getJgRowHeight: ->
     coef = if $(window).width() < 900 then 1 else 0.7
@@ -98,13 +105,17 @@
   _initialize: ->
     return if @props.noFeature and !@props.noSquare
 
-    if @state.images.length == 0
+    if @state.images.length == 0 || !@refs.gallery
       console.debug '[ImageGallery] Empty, no init.'
       return
 
     if @state.append
       console.debug '[ImageGallery] Init with norewind.'
-      $(@refs.gallery).justifiedGallery 'norewind'
+      try
+        $(@refs.gallery).justifiedGallery 'norewind'
+      catch e
+        console.warn("Attempted to set norewind on an empty gallery.", e)
+
       return
 
     console.debug '[ImageGallery] Initializing Justified Gallery...'

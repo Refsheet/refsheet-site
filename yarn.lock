@@ -6103,6 +6103,10 @@ macaddress@^0.2.8:
   version "0.2.8"
   resolved "https://registry.yarnpkg.com/macaddress/-/macaddress-0.2.8.tgz#5904dc537c39ec6dbefeae902327135fa8511f12"
 
+magic-snowflakes@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/magic-snowflakes/-/magic-snowflakes-4.0.2.tgz#74bea851244d9857736974591456e8dfe2ea8e9e"
+
 mailcomposer@4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/mailcomposer/-/mailcomposer-4.0.1.tgz#0e1c44b2a07cf740ee17dc149ba009f19cadfeb4"
