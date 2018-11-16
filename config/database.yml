@@ -4,6 +4,7 @@ development:
   username: refsheet-site-dev
   password: fishsticks
   timeout: 5000
+  pool: 15
   host: localhost
 
 test:
@@ -12,6 +13,7 @@ test:
   username: refsheet-site-test
   password: fishsticks
   timeout: 5000
+  pool: 15
   host: localhost
 
 production:
