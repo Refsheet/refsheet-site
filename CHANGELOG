@@ -1,4 +1,265 @@
 ---
+v1.4.0-pre.40:
+- sha: 06df4a63683810a76d4ac093f7973c718778f76a
+  time: '1542369548'
+  tags: []
+  message: 'Merge pull request #63 from eiwi1101/f/new-navbar'
+  hash: 06df4a63
+  date: '2018-11-16'
+- sha: 8af79d65c68f6521036cb67eaaea198901903232
+  time: '1542369234'
+  tags: []
+  message: Why do some node modules require compilation uguugghghhhhhh do it for me.
+  hash: 8af79d65
+  date: '2018-11-16'
+- sha: 4bf7746eb65787a8ebb43efa427f2399d08e4f57
+  time: '1542368682'
+  tags: []
+  message: Yarn?
+  hash: 4bf7746e
+  date: '2018-11-16'
+- sha: 29df1765e2c50f8fe82a437d901eb9689bb60192
+  time: '1542368349'
+  tags: []
+  message: Merge remote-tracking branch 'origin/f/new-navbar' into f/new-navbar
+  hash: 29df1765
+  date: '2018-11-16'
+- sha: dca72ae234b59ace44cfd5f38ddffec3bb08c6fc
+  time: '1542368334'
+  tags: []
+  message: POSSIBLY fix the karma?
+  hash: dca72ae2
+  date: '2018-11-16'
+- sha: cfc22b30d805e78aaf24cde1ae014056c2db61ba
+  time: '1542367533'
+  tags: []
+  message: Merge branch 'master' into f/new-navbar
+  hash: cfc22b30
+  date: '2018-11-16'
+- sha: fbc9e42a8799dea3e9ef28dbce585f2a2ad3d55e
+  time: '1542366862'
+  tags: []
+  message: Clear all use of restrict component in new js.
+  hash: fbc9e42a
+  date: '2018-11-16'
+- sha: 69a4ea5dcdb90fe3b3f0dd5724c5ab3344a4c541
+  time: '1542366719'
+  tags: []
+  message: Restrict component.
+  hash: 69a4ea5d
+  date: '2018-11-16'
+- sha: c831eefb25ef46288b521d0a0ee817558f778923
+  time: '1542365911'
+  tags: []
+  message: Increase dev pools.
+  hash: c831eefb
+  date: '2018-11-16'
+- sha: '084635e183421ad7f7763c7e6cacefb9b4247c94'
+  time: '1542365723'
+  tags: []
+  message: Redirects! Are a thing!
+  hash: '084635e1'
+  date: '2018-11-16'
+- sha: 2149771d563419f2b844f82b2ef6d5dbde49989e
+  time: '1542364043'
+  tags: []
+  message: Deprecated currentUser on App state in favor of Redux.
+  hash: 2149771d
+  date: '2018-11-16'
+- sha: 8b2dde24bf03148c36e607dce1663aa9d85f1892
+  time: '1542363139'
+  tags: []
+  message: SESSION BRIDGE WORKS Somehow. This is getting very messy.
+  hash: 8b2dde24
+  date: '2018-11-16'
+- sha: 4916a8dbd5385894d5b911fbf01c03a3159277d2
+  time: '1542360770'
+  tags: []
+  message: SessionService and NSFW toggle okay.
+  hash: 4916a8db
+  date: '2018-11-16'
+- sha: 17e08afbd69403b2a6145349d5ca5588cf078886
+  time: '1542340916'
+  tags: []
+  message: Collection type added.
+  hash: 17e08afb
+  date: '2018-11-16'
+- sha: 29ac3815c895037191bb6d57756d93341de10cc3
+  time: '1541395254'
+  tags: []
+  message: Added other items to navbar.
+  hash: 29ac3815
+  date: '2018-11-05'
+- sha: cc719f45eeb7911af1fd254184a41030ad47f157
+  time: '1541387364'
+  tags: []
+  message: Chat open close!
+  hash: cc719f45
+  date: '2018-11-05'
+- sha: c79e3ff18350471be0bbda9b191a0a4b10b54c8d
+  time: '1541224491'
+  tags: []
+  message: Okay the conversation tray is very, very very very dirty for even being
+    new code.
+  hash: c79e3ff1
+  date: '2018-11-03'
+- sha: a5de7e41b5e14486b66d6747941a7edc9b95d067
+  time: '1541208376'
+  tags: []
+  message: Conversation menu style complete.
+  hash: a5de7e41
+  date: '2018-11-03'
+- sha: 80efd0ea5693be694fa8d2980e67f7cae7e09639
+  time: '1541196235'
+  tags: []
+  message: Notifications refetch on open.
+  hash: 80efd0ea
+  date: '2018-11-02'
+- sha: aca5e20bb11b83a26e3c2b33005532bfa875d698
+  time: '1541160405'
+  tags: []
+  message: Conversation menu looks less awful.
+  hash: aca5e20b
+  date: '2018-11-02'
+- sha: 14bc4c68a7f81d0376eb5ad8e752bdd2ebe6557c
+  time: '1541158923'
+  tags: []
+  message: NI Unread styles.
+  hash: 14bc4c68
+  date: '2018-11-02'
+- sha: fb526b38f91db6fec97dacfebe8adb656e1a1bfe
+  time: '1541158556'
+  tags: []
+  message: Notifications, for the most part, now have a menu.
+  hash: fb526b38
+  date: '2018-11-02'
+- sha: 964a23f7eac0a4dee76d54e95b4ec2d4de03e401
+  time: '1541156278'
+  tags: []
+  message: Add Notifications gql
+  hash: 964a23f7
+  date: '2018-11-02'
+- sha: 9631910b3e2caaed3be179eb2bf3239c36a67ca9
+  time: '1541154027'
+  tags: []
+  message: Initial ReactGA hit.
+  hash: 9631910b
+  date: '2018-11-02'
+- sha: 36c9ef12cbb9f6bbfdc78e1b71168fbc7445a20e
+  time: '1541138420'
+  tags: []
+  message: I don't know anymore.
+  hash: 36c9ef12
+  date: '2018-11-02'
+- sha: 83f8f12822ffa8ec3ded2a6ecf07f749de1fabb6
+  time: '1541115430'
+  tags: []
+  message: Subscription boilerplate kinda does the right thing.
+  hash: 83f8f128
+  date: '2018-11-01'
+- sha: d7c25cc854e2e137736a5369d63c5e851ba2be07
+  time: '1541108690'
+  tags: []
+  message: SCROLLBARS
+  hash: d7c25cc8
+  date: '2018-11-01'
+- sha: 2b475aa06777d8753393469696fc2654f2a32537
+  time: '1541066867'
+  tags: []
+  message: NotificationMenu is a thing.
+  hash: 2b475aa0
+  date: '2018-11-01'
+- sha: 1c15046f0bffce42f605a7a166a8212cd0340b7b
+  time: '1541063539'
+  tags: []
+  message: User menu gets state from Redux!
+  hash: 1c15046f
+  date: '2018-11-01'
+- sha: 3b369f152108e7312b9c9a79f96c1a76f494abb6
+  time: '1541050547'
+  tags: []
+  message: Attached Redux.
+  hash: 3b369f15
+  date: '2018-11-01'
+- sha: 312b189bebe9ebb2ca51d04003d52508d6c302f8
+  time: '1541026623'
+  tags: []
+  message: Session Nav added to top menu.
+  hash: 312b189b
+  date: '2018-10-31'
+- sha: 0f7031f2a93c7a874ede6d11b1f1c11e22b6fe06
+  time: '1541025088'
+  tags: []
+  message: Migrated UserBar to the New Thing
+  hash: 0f7031f2
+  date: '2018-10-31'
+- sha: 1a1a61e1d983a91f49a7fd2d7050db6305d39a69
+  time: '1540938227'
+  tags: []
+  message: SiteNav modularized, old search bar removed.
+  hash: 1a1a61e1
+  date: '2018-10-30'
+- sha: 57c3fa90de9df64ccd8269f0463e6840f43251c9
+  time: '1540937893'
+  tags: []
+  message: Search bar has been migrated to V2 pack.
+  hash: 57c3fa90
+  date: '2018-10-30'
+- sha: 650a67da3e1aca1281b9a51b45b24b45c79802d0
+  time: '1540426776'
+  tags: []
+  message: Button styles!
+  hash: 650a67da
+  date: '2018-10-25'
+- sha: fb21b303c3541129e5ef5a07567872ebd9b06ca7
+  time: '1540424932'
+  tags: []
+  message: Routed static / terms.
+  hash: fb21b303
+  date: '2018-10-24'
+- sha: dbfe5e2537352106b18343ce5c350d755f2c8745
+  time: '1540424679'
+  tags: []
+  message: Characters / images routed.
+  hash: dbfe5e25
+  date: '2018-10-24'
+- sha: 73f3f106dfbe4ac0ac148442780d5d6bfed55811
+  time: '1540424586'
+  tags: []
+  message: Images routed.
+  hash: 73f3f106
+  date: '2018-10-24'
+- sha: 88cf39b48f2b0bbd0d20a53f10433b0ee7954342
+  time: '1540424383'
+  tags: []
+  message: Browse / Explore routed.
+  hash: 88cf39b4
+  date: '2018-10-24'
+- sha: 2d9e2bbd30bc8bc72950e1050cf44270c015cce0
+  time: '1540423956'
+  tags: []
+  message: Home routed.
+  hash: 2d9e2bbd
+  date: '2018-10-24'
+- sha: 131613dd7e2ce927c5b75f2f041a7d4d05a4dada
+  time: '1540423039'
+  tags: []
+  message: Fix notifications feed.
+  hash: 131613dd
+  date: '2018-10-24'
+- sha: 5ba3e6b8137feb9d49df975a7616741ba195f62e
+  time: '1540420458'
+  tags: []
+  message: Sidenav on home routed.
+  hash: 5ba3e6b8
+  date: '2018-10-24'
+- sha: 21bf762d565bce601d38b881d1f61d4740a85264
+  time: '1540417488'
+  tags: []
+  message: New Router, Forums routed.
+  hash: 21bf762d
+  date: '2018-10-24'
+---
 v1.4.0-pre.39:
 - sha: f24fe58ac20bad1388e2cd5482d2b72060a27877
   time: '1541197621'
