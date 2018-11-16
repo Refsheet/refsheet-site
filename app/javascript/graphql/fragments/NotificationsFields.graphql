@@ -1,0 +1,13 @@
+fragment NotificationsFields on Notification {
+    id
+    type
+    title
+    message
+    icon
+    href
+    link
+    tag
+    read_at
+    created_at
+    is_unread
+}

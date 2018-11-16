@@ -5,6 +5,7 @@
     router: React.PropTypes.object.isRequired
     currentUser: React.PropTypes.object
     eagerLoad: React.PropTypes.object
+    setCurrentUser: React.PropTypes.func.isRequired
 
   dataPath: '/users/:userId'
 
@@ -24,7 +25,7 @@
       StateUtils.load @, 'user'
 
   componentWillReceiveProps: (newProps) ->
-    if newProps.params.userId != @state.user?.username
+    if newProps.match?.params.userId != @state.user?.username
       StateUtils.reload @, 'user', newProps
       return
 
@@ -34,13 +35,13 @@
 
   goToCharacter: (character) ->
     $('#character-form').modal('close')
-    @context.router.push character.link
+    @context.router.history.push character.link
 
   handleUserChange: (user) ->
     @setState { user }
 
     if user.username == @context.currentUser.username
-      @props.onLogin(user)
+      @context.setCurrentUser(user)
 
 
   _handleUserFollow: (followed) ->
@@ -63,7 +64,7 @@
           StateUtils.updateItem @, 'user.characters', c, 'slug'
 
   _handleGroupDelete: (groupId) ->
-    @context.router.push @state.user.link if groupId is @state.activeGroupId
+    @context.router.history.push @state.user.link if groupId is @state.activeGroupId
     StateUtils.removeItem @, 'user.character_groups', groupId, 'slug'
 
   _handleGroupSort: (group, position) ->

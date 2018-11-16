@@ -1,0 +1,20 @@
+fragment TransfersFields on Conversation {
+    id
+    guid
+    unreadCount
+    lastMessage {
+        message
+        created_at
+        is_self
+        user {
+            name
+        }
+    }
+    user {
+        name
+        username
+        avatar_url
+        is_admin
+        is_patron
+    }
+}

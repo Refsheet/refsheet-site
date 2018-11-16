@@ -18,8 +18,8 @@
 //= require jquery-ui
 //
 //= require react_ujs
-//= require react_router
-//= require react_router_ujs
+// xrequire react_router
+// xrequire react_router_ujs
 //
 //= require materialize-sprockets
 //= require masonry.pkgd
@@ -72,7 +72,6 @@ function exportPackGlobals() {
   if(!app) return
   app.__globals.map(function(globalVar) {
     window[globalVar] = app[globalVar]
-    console.log("Pack sync: Exporting " + globalVar + " from V2:", window[globalVar])
   });
   window.React.PropTypes = window.PropTypes
   window.React.createClass = window.createReactClass
@@ -91,5 +90,8 @@ function exportPackGlobals() {
       exportPackGlobals()
       ReactRailsUJS.mountComponents();
     });
+    window.React = {
+      createComponent: function(){}
+    }
   }
 })();

@@ -17,6 +17,18 @@ class @StringUtils
 
     return out
 
+  @unCamelize: (string) =>
+    return string
+      .replace /([a-z])([A-Z])/g, (a, $0, $1) =>  $0 + "_" + $1.toLowerCase()
+
+  @unCamelizeKeys: (object) =>
+    out = {}
+
+    for k,v of object
+      out[@unCamelize(k)] = v
+
+    return out
+
   @indifferentKeys: (object) =>
     out = {}
 

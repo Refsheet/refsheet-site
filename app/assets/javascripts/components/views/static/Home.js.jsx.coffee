@@ -1,12 +1,9 @@
-@Home = React.createClass
-  contextTypes:
-    currentUser: React.PropTypes.object
-
+Home = React.createClass
   componentDidMount: ->
     $('.materialboxed').materialbox()
 
   render: ->
-    return `<Views.Account.Show {...this.props} />` if @context.currentUser
+    return `<Views.Account.Show {...this.props} />` if @props.currentUser
 
     demoSwatches = [
       { name: 'Light Fur', color: '#fdf2d4', id: 0 },
@@ -163,3 +160,6 @@
             <Link to='/register' className='btn'>Sign Up</Link>
         </Section>
     </Main>`
+
+mapStateToProps = (state) => currentUser: state.session.currentUser
+@Home = connect(mapStateToProps)(Home)

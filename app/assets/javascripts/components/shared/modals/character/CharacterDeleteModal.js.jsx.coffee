@@ -13,7 +13,7 @@
       success: (data) =>
         $('#delete-form').modal('close')
         Materialize.toast "#{data.name} deleted. :(", 3000
-        @context.router.push '/' + data.user_id
+        @context.router.history.push '/' + data.user_id
 
       error: (error) =>
         Materialize.toast "I'm afraid I couldn't do that, Jim.", 3000, 'red'

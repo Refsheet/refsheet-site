@@ -21,7 +21,7 @@ namespace 'Views.Account.Notifications'
     lastUpdate: null
 
   componentDidMount: ->
-    StateUtils.load @, 'notifications', @props.params, =>
+    StateUtils.load @, 'notifications', @props.match?.params, =>
       @setState since: @state.notifications[0]?.timestamp, lastUpdate: Math.floor(Date.now() / 1000)
       @_poll()
     , urlParams: filter: @props.filter
@@ -33,7 +33,7 @@ namespace 'Views.Account.Notifications'
     if @props.filter isnt newProps.filter
       clearTimeout @timer if @timer
       @setState notifications: null, =>
-        StateUtils.load @, 'notifications', newProps.params, =>
+        StateUtils.load @, 'notifications', newProps.match?.params, =>
           @setState since: @state.notifications[0]?.timestamp, lastUpdate: Math.floor(Date.now() / 1000)
           @_poll()
         , urlParams: filter: @props.filter

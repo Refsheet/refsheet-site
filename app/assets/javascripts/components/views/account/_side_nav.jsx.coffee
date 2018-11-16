@@ -21,7 +21,7 @@
 
         <li className='subheader'>Account</li>
 
-        <NavLink to='/account' icon='settings' text='Settings'>
+        <NavLink to='/account' noStrict icon='settings' text='Settings'>
             <NavLink to='/account/settings' text='Account' />
             <NavLink to='/account/support' text='Support' />
             <NavLink to='/account/notifications' text='Notifications' />

@@ -1,4 +1,4 @@
-@App = React.createClass
+@LegacyApp = React.createClass
   childContextTypes:
     currentUser: React.PropTypes.object
     session: React.PropTypes.object
@@ -9,27 +9,19 @@
 
 
   getInitialState: ->
-    session: @props.route.eagerLoad?.session || { fetch: true }
-    loading: 0
-    reportImageId: null
-    eagerLoad: @props.route.eagerLoad || {}
+    return {
+      loading: 0
+      reportImageId: null
+      eagerLoad: @props.eagerLoad || {}
+    }
 
   getChildContext: ->
-    currentUser: @state.session.current_user
-    session: @state.session
+    currentUser: @props.session.currentUser
+    session: StringUtils.unCamelizeKeys @props.session
     setCurrentUser: @_onLogin
     eagerLoad: @state.eagerLoad
-    environment: @props.route.environment
+    environment: @props.environment
     reportImage: @_reportImage
-
-
-  componentWillMount: ->
-    console.debug '[App] Mounting with eager loads:', @state.eagerLoad
-
-    if @state.session.fetch
-      Model.get '/session', (data) =>
-        @setState session: data, loading: 0
-        ReactGA.set userId: data.current_user?.id
 
   componentDidMount: ->
     @setState eagerLoad: null
@@ -37,8 +29,9 @@
 
     $(document)
       .on 'app:session:update', (e, session) =>
-        @setState session: session
+        console.log("Event login (deprecated!): ", session)
         ReactGA.set userId: session.current_user?.id
+        @props.setCurrentUser session.current_user
 
       .on 'app:loading', =>
         val = @state.loading + 1
@@ -52,9 +45,8 @@
 
 
   _onLogin: (user, callback) ->
-    s = @state.session
-    s.current_user = user
-    @setState session: s, callback
+    @props.setCurrentUser user
+    ReactGA.set userId: user?.id
 
   _reportImage: (e) ->
     if e?.target
@@ -65,33 +57,30 @@
     console.debug "Reporting: #{imageId}"
     @setState reportImageId: imageId
 
-
   render: ->
-    childrenWithProps = React.Children.map this.props.children, (child) =>
-      React.cloneElement child,
-        onLogin: @_onLogin
-        currentUser: @state.currentUser
-
-    currentUser = @state.session.current_user || {}
+    currentUser = @props.session.currentUser || {}
 
     `<div id='rootApp'>
         { this.state.loading > 0 &&
             <LoadingOverlay /> }
 
-        { currentUser.is_patron && <Packs.application.Chat /> }
+        <Packs.application.Chat />
 
         <SessionModal />
         <Views.Images.ReportModal imageId={ this.state.reportImageId } />
-        <Lightbox currentUser={ this.state.session.current_user } history={ this.props.history } />
+        <Lightbox currentUser={ currentUser } history={ this.props.history } />
 
-        <UserBar session={ this.state.session } query={ this.props.location.query.q }/>
+        <Packs.application.NavBar
+            query={ this.props.location.query.q }
+            onUserChange={ this._onLogin }
+        />
 
-        { childrenWithProps }
+        { this.props.children }
 
         <Footer />
 
-        <FeedbackModal name={ this.state.session.current_user && this.state.session.current_user.name } />
-        <a className='btn modal-trigger feedback-btn' href='#feedback-modal'>Feedback</a>
+        {/*<FeedbackModal name={ currentUser && currenUser.name } />*/}
+        {/*<a className='btn modal-trigger feedback-btn' href='#feedback-modal'>Feedback</a>*/}
 
         {/*<NagBar action={{ href: 'https://patreon.com/refsheet', text: 'To Patreon!' }} type='neutral'>*/}
             {/*<div className='first-a-sincere-thank-you'>*/}
@@ -104,3 +93,14 @@
             {/*</div>*/}
         {/*</NagBar>*/}
     </div>`
+
+# HACK : Redux bridge for session
+console.log("Bridging redux to session.")
+
+mapStateToProps = (state) ->
+  session: state.session
+
+mapDispatchToProps =
+  setCurrentUser: setCurrentUser
+
+@App = connect(mapStateToProps, mapDispatchToProps)(@LegacyApp)
