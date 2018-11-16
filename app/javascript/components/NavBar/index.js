@@ -11,6 +11,7 @@ import {
   setCurrentUser,
   setNsfwMode
 } from 'actions'
+import SessionService from "../../services/SessionService";
 
 class NavBar extends Component {
   constructor(props) {
@@ -49,12 +50,22 @@ class NavBar extends Component {
 
   handleLogoutClick(e) {
     e.preventDefault()
-    this.props.setCurrentUser(null)
+    SessionService
+      .logout()
+      .then(() => {
+        this.props.setCurrentUser(null)
+      })
   }
 
   handleNsfwClick(e) {
     e.preventDefault()
-    console.log("NSFW")
+    const { nsfwOk } = this.props.session
+
+    SessionService
+      .set({nsfwOk: !nsfwOk})
+      .then((data) => {
+        this.props.setNsfwMode(data.body.nsfw_ok)
+      })
   }
 
   handleMenuToggle(e) {
@@ -121,7 +132,8 @@ NavBar.propTypes = {
     currentUser: PropTypes.object,
     nsfwOk: PropTypes.bool
   }),
-  setCurrentUser: PropTypes.func
+  setCurrentUser: PropTypes.func,
+  setNsfwMode: PropTypes.func
 }
 
 const mapStateToProps = ({session}, props) => ({
