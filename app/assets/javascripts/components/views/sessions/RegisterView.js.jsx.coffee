@@ -2,6 +2,7 @@
   contextTypes:
     router: React.PropTypes.object.isRequired
     setCurrentUser: React.PropTypes.func.isRequired
+    currentUser: React.PropTypes.object
 
 
   getInitialState: ->
@@ -17,7 +18,10 @@
       category: 'User'
       action: 'Sign Up'
 
-    @context.setCurrentUser user, =>
+    @context.setCurrentUser user
+
+  componentDidUpdate: (oldProps) ->
+    if @context.currentUser
       @context.router.history.push '/'
 
 
