@@ -10,6 +10,7 @@
 import 'whatwg-fetch'
 import * as Sentry from '@sentry/browser'
 import * as ReactRouter from 'react-router-dom'
+import { setCurrentUser } from 'actions'
 
 export const __globals = [
   'React',
@@ -19,8 +20,10 @@ export const __globals = [
   'ReactDOM',
   'Bowser',
   'Sentry',
-    'qs',
-    'createBrowserHistory'
+  'qs',
+  'createBrowserHistory',
+  'connect',
+  'setCurrentUser'
 ]
 
 export { default as React } from 'react'
@@ -30,8 +33,10 @@ export { default as ReactDOM } from 'react-dom'
 export { default as Bowser } from 'bowser'
 export { default as qs } from 'query-string'
 export { default as createBrowserHistory } from 'history/createBrowserHistory'
+export { connect } from 'react-redux'
 export { ReactRouter }
 export { Sentry }
+export { setCurrentUser }
 
 // NOT GLOBAL
 export { default as V2Wrapper } from 'App'

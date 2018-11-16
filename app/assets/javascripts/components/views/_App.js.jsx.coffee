@@ -1,4 +1,4 @@
-@App = React.createClass
+@LegacyApp = React.createClass
   childContextTypes:
     currentUser: React.PropTypes.object
     session: React.PropTypes.object
@@ -6,7 +6,6 @@
     eagerLoad: React.PropTypes.object
     environment: React.PropTypes.string
     reportImage: React.PropTypes.func
-#    router: React.PropTypes.object
 
 
   getInitialState: ->
@@ -24,7 +23,6 @@
     eagerLoad: @state.eagerLoad
     environment: @props.environment
     reportImage: @_reportImage
-#    router: history: @props.history
 
 
   componentWillMount: ->
@@ -41,8 +39,9 @@
 
     $(document)
       .on 'app:session:update', (e, session) =>
-        @setState session: session
+        console.log("Event login (deprecated!): ", session)
         ReactGA.set userId: session.current_user?.id
+        @props.setCurrentUser session.current_user
 
       .on 'app:loading', =>
         val = @state.loading + 1
@@ -58,7 +57,8 @@
   _onLogin: (user, callback) ->
     s = @state.session
     s.current_user = user
-    @setState session: s, callback
+    @props.setCurrentUser user
+    ReactGA.set userId: s.current_user?.id
 
   _reportImage: (e) ->
     if e?.target
@@ -69,6 +69,11 @@
     console.debug "Reporting: #{imageId}"
     @setState reportImageId: imageId
 
+  componentWillReceiveProps: (newProps) ->
+    if (newProps.session != @state.session)
+      session = StringUtils.unCamelizeKeys newProps.session
+      console.log("Redux session bridge: ", session)
+      @setState session: session
 
   render: ->
     childrenWithProps = React.Children.map this.props.children, (child) =>
@@ -111,3 +116,14 @@
             {/*</div>*/}
         {/*</NagBar>*/}
     </div>`
+
+# HACK : Redux bridge for session
+console.log("Bridging redux to session.")
+
+mapStateToProps = (state) ->
+  session: state.session
+
+mapDispatchToProps =
+  setCurrentUser: setCurrentUser
+
+@App = connect(mapStateToProps, mapDispatchToProps)(@LegacyApp)
