@@ -5,13 +5,16 @@ import CartMenu from './CartMenu'
 import TransferMenu from './TransferMenu'
 import NotificationMenu from './NotificationMenu'
 import ConversationMenu from './ConversationMenu'
+import Restrict from "../Shared/Restrict";
 
 const UserNav = (props) => (
   <ul className='right'>
     <CartMenu />
     <TransferMenu />
-    <ConversationMenu />
-    <NotificationMenu />
+    <Restrict patron>
+      <ConversationMenu />
+      <NotificationMenu />
+    </Restrict>
     <UserMenu {...props} />
   </ul>
 )
