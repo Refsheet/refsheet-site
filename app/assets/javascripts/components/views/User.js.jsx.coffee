@@ -5,6 +5,7 @@
     router: React.PropTypes.object.isRequired
     currentUser: React.PropTypes.object
     eagerLoad: React.PropTypes.object
+    setCurrentUser: React.PropTypes.func.isRequired
 
   dataPath: '/users/:userId'
 
@@ -40,7 +41,7 @@
     @setState { user }
 
     if user.username == @context.currentUser.username
-      @props.onLogin(user)
+      @context.setCurrentUser(user)
 
 
   _handleUserFollow: (followed) ->
