@@ -49,11 +49,9 @@ Types::QueryType = GraphQL::ObjectType.define do
     }
   end
 
-  field :getNotifications, types[Types::NotificationType] do
+  field :getNotifications, Types::NotificationsCollectionType do
     resolve -> (_obj, _args, ctx) {
-      scope = Notification.for(ctx[:current_user])
-      scope = scope.default_sort
-      scope.eager_loaded
+      Notification.for(ctx[:current_user])
     }
   end
 
