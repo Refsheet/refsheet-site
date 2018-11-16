@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import DropdownLink from './DropdownLink'
+import Restrict from "../Shared/Restrict";
 
 const UserMenu = ({user, nsfwOk, onNsfwClick, onLogoutClick}) => {
   const nsfwClassName = nsfwOk ? 'nsfw' : 'no-nsfw'
@@ -17,14 +18,14 @@ const UserMenu = ({user, nsfwOk, onNsfwClick, onLogoutClick}) => {
             </Link>
           </li>
 
-          { user.is_admin &&
-          <li>
-            <a href='/admin'>
-              <i className='material-icons left'>vpn_key</i>
-              <span>Admin</span>
-            </a>
-          </li>
-          }
+          <Restrict admin>
+            <li>
+              <a href='/admin'>
+                <i className='material-icons left'>vpn_key</i>
+                <span>Admin</span>
+              </a>
+            </li>
+          </Restrict>
 
           <li className='divider' />
 
@@ -49,8 +50,7 @@ const UserMenu = ({user, nsfwOk, onNsfwClick, onLogoutClick}) => {
 UserMenu.propTypes = {
   nsfwOk: PropTypes.bool,
   user: PropTypes.shape({
-    username: PropTypes.string.isRequired,
-    is_admin: PropTypes.bool
+    username: PropTypes.string.isRequired
   }),
   onNsfwClick: PropTypes.func.isRequired,
   onLogoutClick: PropTypes.func.isRequired
