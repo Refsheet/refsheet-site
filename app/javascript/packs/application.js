@@ -43,6 +43,7 @@ export { default as V2Wrapper } from 'App'
 export { default as Chat } from 'Chat/ConversationTray'
 export { default as CharacterController } from 'App/Router'
 export { default as NavBar } from 'NavBar'
+export { default as DeleteUser } from 'Settings/Account/DeleteUser'
 
 (function() {
   console.log("Pack loaded: Refsheet JS v2")
@@ -57,3 +58,23 @@ export { default as NavBar } from 'NavBar'
     stage: Refsheet.environment
   })
 })();
+
+// HOLIDAY THEME
+
+import Snowflakes from 'magic-snowflakes'
+
+try {
+  document && document.addEventListener('DOMContentLoaded', () => {
+    if(window.location.hash === '#snow') {
+      Snowflakes({
+        color: '#80cbc4',
+        minOpacity: 0.1,
+        maxOpacity: 0.6,
+        zIndex: 1,
+        target: 'body'
+      })
+    }
+  })
+} catch(e) {
+  // noop
+}
