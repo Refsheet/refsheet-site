@@ -1,4 +1,204 @@
 ---
+v1.4.0-pre.39:
+- sha: f24fe58ac20bad1388e2cd5482d2b72060a27877
+  time: '1541197621'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: f24fe58a
+  date: '2018-11-02'
+- sha: 1ce6110999c61762d30a67b5a81715ec6a3dc7b7
+  time: '1541197612'
+  tags: []
+  message: Fixed broken checkboxes / radio buttons.
+  hash: 1ce61109
+  date: '2018-11-02'
+---
+v1.4.0-pre.38:
+- sha: cfdbeedc6a03fcaa65ee9e8d0581e69dd6f8fe11
+  time: '1541154648'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: cfdbeedc
+  date: '2018-11-02'
+- sha: e8d3761f3880109229803a7929327c785b99f7a9
+  time: '1541154643'
+  tags: []
+  message: ReactGA on all page views.
+  hash: e8d3761f
+  date: '2018-11-02'
+---
+v1.4.0-pre.37:
+- sha: 26930cf8d289b8c8469cbdd53639b2c01532043c
+  time: '1540740190'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 26930cf8
+  date: '2018-10-28'
+- sha: 7ed4f831f4de128422efff10528f7d3b284151fa
+  time: '1540740186'
+  tags: []
+  message: I shouldn't exclude ALL the ahoy.
+  hash: 7ed4f831
+  date: '2018-10-28'
+---
+v1.4.0-pre.36:
+- sha: '09ba5fbc0e7ea0d6a70ea1a323809ee417b27029'
+  time: '1540715625'
+  tags: []
+  message: Spec.
+  hash: '09ba5fbc'
+  date: '2018-10-28'
+- sha: eaa15281ad0b7431c2bebd0b2b8dca5ee452da5a
+  time: '1540714608'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: eaa15281
+  date: '2018-10-28'
+- sha: 5cd59c2daa53da346211debd1221b8a2c8830271
+  time: '1540714603'
+  tags: []
+  message: Improved /health endpoint. Again.
+  hash: 5cd59c2d
+  date: '2018-10-28'
+---
+v1.4.0-pre.35:
+- sha: 06a4e6f3db1833ec42f0cd6332d021cb863a2d76
+  time: '1540713395'
+  tags: []
+  message: 'Merge pull request #62 from eiwi1101/f/user-delete'
+  hash: 06a4e6f3
+  date: '2018-10-28'
+- sha: 8b15cfc6e47e11525f3621c3dcbb47917183a32a
+  time: '1540713370'
+  tags: []
+  message: WOW OKAY
+  hash: 8b15cfc6
+  date: '2018-10-28'
+---
+v1.4.0-pre.34:
+- sha: 830fe80c3781579d182b2181237031d44a3b1845
+  time: '1540712614'
+  tags: []
+  message: 'Merge pull request #61 from eiwi1101/f/user-delete'
+  hash: 830fe80c
+  date: '2018-10-28'
+- sha: a2009744698c88ae778f3ccd466208849a18be66
+  time: '1540711392'
+  tags: []
+  message: Unfortunately, you can now delete a user.
+  hash: a2009744
+  date: '2018-10-28'
+- sha: 2a570745bd3fe216fc05b707e56b5edbed00cc3f
+  time: '1540693128'
+  tags: []
+  message: Started user delete modal, shelving changes.
+  hash: 2a570745
+  date: '2018-10-28'
+---
+v1.4.0-pre.33:
+- sha: f0a7ed85d8958393a53c3218f2f99a531fa9487f
+  time: '1540695706'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: f0a7ed85
+  date: '2018-10-28'
+- sha: 9b695798abd490dbb9c8846e948ea78ee0df43a8
+  time: '1540695701'
+  tags: []
+  message: Fix bugs?!?
+  hash: 9b695798
+  date: '2018-10-28'
+---
+v1.4.0-pre.32:
+- sha: 1883bcd33617f4719289f6b0214168149578f53c
+  time: '1540694798'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 1883bcd3
+  date: '2018-10-28'
+- sha: 7cc212045dfd2d2b9c0289286feab850a4f5eece
+  time: '1540694783'
+  tags: []
+  message: Fix chown deploy bug.
+  hash: 7cc21204
+  date: '2018-10-28'
+- sha: 31c2538d2d424bc728044cd1da3194e126bb48fe
+  time: '1540694410'
+  tags: []
+  message: Fixed Ahoy making a new visit on health checks omg that was painful.
+  hash: 31c2538d
+  date: '2018-10-28'
+---
+v1.4.0-pre.31:
+- sha: d6f66107f94c8456f7583f749720026b310d7b4b
+  time: '1540669609'
+  tags: []
+  message: Fix snowflakes breaking CI.
+  hash: d6f66107
+  date: '2018-10-27'
+- sha: ecdc9e9d684d43eeb062e90388b90bf7cd113029
+  time: '1540669091'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: ecdc9e9d
+  date: '2018-10-27'
+- sha: d12f1e64dbb94252b62587b0f33d152465e0646e
+  time: '1540669084'
+  tags: []
+  message: SNOWFLAKES!
+  hash: d12f1e64
+  date: '2018-10-27'
+---
+v1.4.0-pre.30:
+- sha: '089f44fb9a8765b73ed10f07b85e3ee96c00a368'
+  time: '1540666396'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: '089f44fb'
+  date: '2018-10-27'
+- sha: da4791ea983510a3a5846da5844b6452cae611cb
+  time: '1540666393'
+  tags:
+  - b
+  message: 'Fixed bugs: REFST-Q, Untracked issue preventing image deletes from updating
+    the gallery.'
+  hash: da4791ea
+  date: '2018-10-27'
+---
+v1.4.0-pre.29:
+- sha: b5d1f201a2d490a143f2276d6056078e870b142f
+  time: '1540665578'
+  tags: []
+  message: Actually fixes REFST-Q
+  hash: b5d1f201
+  date: '2018-10-27'
+- sha: 314d35f7da98aeb8b5dd2cf208b4247c14016437
+  time: '1540665107'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 314d35f7
+  date: '2018-10-27'
+- sha: 39ba771bd98b445d13bd6462866ca08132e5f298
+  time: '1540665101'
+  tags: []
+  message: Norewind was causing trouble in JG. Fixes REFST-Q
+  hash: 39ba771b
+  date: '2018-10-27'
+---
+v1.4.0-pre.28:
+- sha: 978a39a702535b935d62d4ce7c46d021c7132931
+  time: '1540412960'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 978a39a7
+  date: '2018-10-24'
+- sha: 428a70df757d3839a4112b392164218b6719fa4d
+  time: '1540412957'
+  tags: []
+  message: Adds more debugging info to REFST-Q
+  hash: 428a70df
+  date: '2018-10-24'
+---
 v1.4.0-pre.27:
 - sha: c67f35823a518a9430c87f1e6db4e446f4659bd4
   time: '1540411007'
