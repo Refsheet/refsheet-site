@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import Scrollbars from 'Shared/Scrollbars'
 import subscription from './subscription'
 
-const NotificationMenu = ({notifications=[], loading=false, error, subscribe, refetch}) => {
+const NotificationMenu = ({notifications=[], unreadCount, loading=false, error, subscribe, refetch}) => {
   const renderNotification = (n) => (
       <NotificationItem key={n.id} {...n} />
   )
@@ -25,8 +25,6 @@ const NotificationMenu = ({notifications=[], loading=false, error, subscribe, re
       return <li className='empty-item'>No new notifications.</li>
     }
   }
-
-  const unreadCount = notifications.filter(n => n.is_unread).length
 
   const tryRefetch = () => {
     if(refetch) refetch()
@@ -53,7 +51,8 @@ const NotificationMenu = ({notifications=[], loading=false, error, subscribe, re
 }
 
 NotificationMenu.propTypes = {
-  notifications: PropTypes.array
+  notifications: PropTypes.array,
+  unreadCount: PropTypes.number
 }
 
 export { NotificationMenu }

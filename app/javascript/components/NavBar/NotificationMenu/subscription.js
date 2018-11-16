@@ -6,7 +6,10 @@ const QUERY = gql`
     ${FIELDS}
     query getConversations {
         getNotifications {
-            ...NotificationsFields
+            unreadCount,
+            notifications {
+                ...NotificationsFields
+            }
         }
     }
 `
@@ -19,19 +22,23 @@ const SUBSCRIPTION = gql`
     }
 `
 
-const mapDataToProps = (data) => ({
-  notifications: data.getNotifications
+const mapDataToProps = ({getNotifications = {}}) => ({
+  notifications: getNotifications.notifications,
+  unreadCount: getNotifications.unreadCount
 })
 
 const updateQuery = (prev, data) => {
-  const { newConversation } = data
+  const { newNotification } = data
 
   return {
       ...prev,
-      getNotifications: [
+      getNotifications: {
         ...prev.getNotifications,
-        newConversation
-      ]
+        notifications: [
+          ...prev.getNotifications.notifications,
+          newNotification
+        ]
+      }
   }
 }
 
