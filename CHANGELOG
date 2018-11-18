@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.42:
+- sha: 60b16cd026b46a95c7a1f4008b526c405c76ca4c
+  time: '1542577082'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 60b16cd0
+  date: '2018-11-18'
+- sha: d6ed1b28be447bd928c4ccd9410a1459ca46b64c
+  time: '1542577069'
+  tags: []
+  message: Fix notification delete on deleted item.
+  hash: d6ed1b28
+  date: '2018-11-18'
+---
 v1.4.0-pre.41:
 - sha: 86105971d57752170c0fbdc6c6a63c658f674a21
   time: '1542574907'
