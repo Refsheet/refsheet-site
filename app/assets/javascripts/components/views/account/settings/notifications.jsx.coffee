@@ -63,6 +63,7 @@ class @Views.Account.Settings.Notifications extends React.Component
 
   renderSubscriptions: ->
     @context.currentUser.settings?.notifications?.vapid?.map (browser) =>
+      return null if !browser
       value = browser.nickname || browser.auth
       `<Attribute key={ browser.auth } name='Browser' value={ value } />`
 
