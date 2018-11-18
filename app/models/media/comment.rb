@@ -31,6 +31,7 @@ class Media::Comment < ApplicationRecord
 
   # Requires this to eager load the news feed:
   has_many :activities, as: :activity, dependent: :destroy
+  has_many :notifications, as: :actionable, inverse_of: :actionable, dependent: :destroy
 
   validates_presence_of :media
   validates_presence_of :user
