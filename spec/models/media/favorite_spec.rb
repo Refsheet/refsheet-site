@@ -38,4 +38,13 @@ describe Media::Favorite, type: :model do
     expect_any_instance_of(User).to receive(:notify!).and_return(true)
     expect(create :media_favorite).to be_valid
   end
+
+  it 'deletes notification' do
+    f = create :media_favorite
+    n = Notification.where(actionable_id: f.id)
+    expect(n.count).to be > 0
+    f.media.destroy
+    expect(n.count).to eq 0
+    expect { f.reload }.to raise_exception
+  end
 end

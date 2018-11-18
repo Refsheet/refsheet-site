@@ -20,6 +20,7 @@ class Media::Favorite < ApplicationRecord
 
   belongs_to :media, class_name: "Image", counter_cache: :favorites_count, inverse_of: :favorites
   belongs_to :user
+  has_many :notifications, as: :actionable, inverse_of: :actionable, dependent: :destroy
 
   validates_presence_of :media
   validates_presence_of :user
