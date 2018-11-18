@@ -1,4 +1,12 @@
 ---
+v1.4.0-pre.41:
+- sha: 86105971d57752170c0fbdc6c6a63c658f674a21
+  time: '1542574907'
+  tags: []
+  message: Some browsers just be null like that.
+  hash: '86105971'
+  date: '2018-11-18'
+---
 v1.4.0-pre.40:
 - sha: 06df4a63683810a76d4ac093f7973c718778f76a
   time: '1542369548'
