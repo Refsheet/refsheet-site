@@ -1,9 +1,7 @@
 class GraphqlController < ApplicationController
   include GraphqlHelper
 
-  skip_before_filter :verify_authenticity_token, if: -> {
-    request.local?
-  }
+  skip_before_filter :verify_authenticity_token
 
   def execute
     variables = ensure_hash(params[:variables])
