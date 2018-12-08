@@ -1,3 +1,9 @@
+def paginate_scope(scope, args)
+  page = args[:page] || 1
+  per_page = args[:per_page] || 30
+  scope.paginate(page: page, per_page: per_page)
+end
+
 Types::QueryType = GraphQL::ObjectType.define do
   name "Query"
   # Add root-level fields here.
@@ -19,6 +25,15 @@ Types::QueryType = GraphQL::ObjectType.define do
 
     resolve -> (_obj, args, _ctx) {
       User.lookup!(args[:username]).characters.lookup!(args[:slug])
+    }
+  end
+
+  field :searchForCharacter, Types::CharactersCollectionType do
+    argument :query, !types.String
+    argument :page, types.Int
+
+    resolve -> (_obj, args, _ctx) {
+      paginate_scope Character.search_for(args[:query]), args
     }
   end
 
