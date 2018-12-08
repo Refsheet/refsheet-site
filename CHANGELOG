@@ -1,4 +1,36 @@
 ---
+v1.4.0-pre.43:
+- sha: 89bc0de40d5cc532fb52979b75db11976b70f89c
+  time: '1544159718'
+  tags: []
+  message: Just deploy
+  hash: 89bc0de4
+  date: '2018-12-07'
+- sha: 075fcf2dc1d334475eecc0e5aeae0c59caa50cea
+  time: '1544159696'
+  tags: []
+  message: Really this is the worst.
+  hash: 075fcf2d
+  date: '2018-12-07'
+- sha: ab61c669ae82c671cd3d70d3b5c1b3cb053bed85
+  time: '1544159276'
+  tags: []
+  message: FUCKING YARN.
+  hash: ab61c669
+  date: '2018-12-07'
+- sha: a12cbd2275c05aa8c84e1901e04527eb2ec387a5
+  time: '1544158732'
+  tags: []
+  message: Fucking Circle.
+  hash: a12cbd22
+  date: '2018-12-07'
+- sha: 963c7b72e554d9c6f93c4070205f68a25c94718d
+  time: '1544157309'
+  tags: []
+  message: Graphql should not require csrf token.
+  hash: 963c7b72
+  date: '2018-12-07'
+---
 v1.4.0-pre.42:
 - sha: 60b16cd026b46a95c7a1f4008b526c405c76ca4c
   time: '1542577082'
