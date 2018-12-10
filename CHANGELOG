@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.44:
+- sha: a3eeeead3c1ab42ee330a1ac08c61ff5f46ab006
+  time: '1544265683'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: a3eeeead
+  date: '2018-12-08'
+- sha: '00239d93ee72e60ffe372f8a505364a7b453bc98'
+  time: '1544265677'
+  tags: []
+  message: Add SearchForCharacter endpoint to graphql.
+  hash: '00239d93'
+  date: '2018-12-08'
+---
 v1.4.0-pre.43:
 - sha: 89bc0de40d5cc532fb52979b75db11976b70f89c
   time: '1544159718'
