@@ -60,12 +60,7 @@ class NavBar extends Component {
   handleNsfwClick(e) {
     e.preventDefault()
     const { nsfwOk } = this.props.session
-
-    SessionService
-      .set({nsfwOk: !nsfwOk})
-      .then((data) => {
-        this.props.setNsfwMode(data.body.nsfw_ok)
-      })
+    this.props.setNsfwMode(!nsfwOk)
   }
 
   handleMenuToggle(e) {
@@ -146,4 +141,8 @@ const mapDispatchToProps = {
   setNsfwMode
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar)
+const options = {
+  pure: false
+}
+
+export default connect(mapStateToProps, mapDispatchToProps, null, options)(NavBar)

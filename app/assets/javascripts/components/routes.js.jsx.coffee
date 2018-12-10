@@ -27,6 +27,9 @@ history.listen(() => {
   componentDidMount: ->
     console.log "Loading #{@props.environment} environment."
 
+    this.unlisten = history.listen =>
+      this._handleRouteUpdate()
+
     $ ->
       $('#rootAppLoader').fadeOut(300)
 
