@@ -94,7 +94,7 @@ class Character < ApplicationRecord
     end
     unless a.is_a? Array
       e = RuntimeError.new("Cannot deserialize custom_attributes: " + a.inspect)
-      Raven.notify e
+      Raven.capture_exception e
       return []
     end
     a
