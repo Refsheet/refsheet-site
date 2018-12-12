@@ -87,6 +87,19 @@ class Character < ApplicationRecord
 
   serialize :custom_attributes
 
+  def custom_attributes
+    a = super
+    if a.is_a? String
+      Raven.capture { a = YAML.load(a) }
+    end
+    unless a.is_a? Array
+      e = RuntimeError.new("Cannot deserialize custom_attributes: " + a.inspect)
+      Raven.notify e
+      return []
+    end
+    a
+  end
+
   scope :default_order, -> do
     order(<<-SQL)
       CASE
