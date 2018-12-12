@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.45:
+- sha: 5c9ca02339de1e0cef61542091c4e633df42dd30
+  time: '1544407020'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 5c9ca023
+  date: '2018-12-10'
+- sha: 5513d8f598be69da02a30de18717e03e41d22ed7
+  time: '1544407008'
+  tags: []
+  message: Gallery boobies and also some good nav fixes / things.
+  hash: 5513d8f5
+  date: '2018-12-10'
+---
 v1.4.0-pre.44:
 - sha: a3eeeead3c1ab42ee330a1ac08c61ff5f46ab006
   time: '1544265683'
