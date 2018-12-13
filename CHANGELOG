@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.48:
+- sha: e162834d29173a90ddf6bb76aa77bc9289a75f17
+  time: '1544682872'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: e162834d
+  date: '2018-12-13'
+- sha: 35c203f1d85fbdd60c7031ddf7ddca97fe20c140
+  time: '1544682862'
+  tags: []
+  message: Add CORS to Graphql endpoint.
+  hash: 35c203f1
+  date: '2018-12-13'
+---
 v1.4.0-pre.47:
 - sha: c93ce95e7b80d6337c253962ffa17e9d8bd890d6
   time: '1544675674'
