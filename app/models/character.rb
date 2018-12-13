@@ -293,6 +293,6 @@ class Character < ApplicationRecord
         { id: 'gender', name: 'Gender', value: nil },
         { id: 'height', name: 'Height / Weight', value: nil },
         { id: 'body-type', name: 'Body Type', value: nil }
-    ] if !self.custom_attributes || self.custom_attribues.count == 0
+    ] if !self.custom_attributes || self.custom_attributes.count == 0
   end
 end
