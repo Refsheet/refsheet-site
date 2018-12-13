@@ -1,4 +1,24 @@
 ---
+v1.4.0-pre.47:
+- sha: c93ce95e7b80d6337c253962ffa17e9d8bd890d6
+  time: '1544675674'
+  tags: []
+  message: Typo.
+  hash: c93ce95e
+  date: '2018-12-13'
+- sha: c23903bb7fc7838c12f69efd7ce3668848703b33
+  time: '1544667774'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: c23903bb
+  date: '2018-12-13'
+- sha: 196fe201a75cdb4bc7e80e9be08cc26fe1747431
+  time: '1544667764'
+  tags: []
+  message: Custom attributes are somehow broken???
+  hash: 196fe201
+  date: '2018-12-13'
+---
 v1.4.0-pre.46:
 - sha: 57e221f03eb63d79cf9386e5363ada05ab13240d
   time: '1544574364'
