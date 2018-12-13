@@ -5,14 +5,24 @@ if defined? Rack::Cors
   Rails.configuration.middleware.insert_before 0, Rack::Cors do
     allow do
       origins %w[
-                https://refsheet.net
-                 http://refsheet.net
-                https://www.refsheet.net
-                 http://www.refsheet.net
-                https://ref.st
-                 http://ref.st
-            ]
+          https://refsheet.net
+          http://refsheet.net
+          https://www.refsheet.net
+          http://www.refsheet.net
+          https://ref.st
+          http://ref.st
+          https://extension.refsheet.net
+          http://extension.refsheet.net
+      ]
       resource '/assets/*'
+    end
+
+    allow do
+      origins %w[
+          https://extension.refsheet.net
+          http://extension.refsheet.net
+      ]
+      resource '/graphql', headers: :any, methods: [:get, :post, :options]
     end
   end
 end
