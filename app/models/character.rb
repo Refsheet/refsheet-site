@@ -89,12 +89,15 @@ class Character < ApplicationRecord
 
   def custom_attributes
     a = super
+    if a.nil?
+      return []
+    end
     if a.is_a? String
       Raven.capture { a = YAML.load(a) }
     end
     unless a.is_a? Array
       e = RuntimeError.new("Cannot deserialize custom_attributes: " + a.inspect)
-      Raven.capture_exception e
+      Raven.capture_exception e unless a.nil?
       return []
     end
     a
@@ -286,10 +289,10 @@ class Character < ApplicationRecord
   end
 
   def initialize_custom_attributes
-    self.custom_attributes ||= [
+    self.custom_attributes = [
         { id: 'gender', name: 'Gender', value: nil },
         { id: 'height', name: 'Height / Weight', value: nil },
         { id: 'body-type', name: 'Body Type', value: nil }
-    ]
+    ] if !self.custom_attributes || self.custom_attribues.count == 0
   end
 end
