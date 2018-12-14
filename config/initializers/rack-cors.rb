@@ -1,11 +1,17 @@
 ## Configure Rack CORS Middleware, so that CloudFront can serve our assets.
 ## See https://github.com/cyu/rack-cors
 
-def _cors(*urls)
-  urls.collect { |url| [
+def _cors(*urls, ports: [])
+  out = urls.collect { |url| [
       'https://' + url,
       'http://' + url
-  ] }.flatten
+  ]}.flatten
+
+  out | ports.collect { |port| [
+      out.collect { |url| [
+          url + ":#{port}"
+      ]}
+  ]}.flatten
 end
 
 CORS_PROD = _cors(
@@ -21,7 +27,8 @@ CORS_EXT = _cors(
 CORS_DEV = _cors(
     'dev.refsheet.net',
     '127.0.0.1',
-    'localhost'
+    'localhost',
+    ports: [3000, 5000]
 )
 
 if defined? Rack::Cors
