@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.49:
+- sha: bc9cfa61bef3c2e838e28a16372c43e69f61dc15
+  time: '1544745195'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: bc9cfa61
+  date: '2018-12-13'
+- sha: 7b289a05191df4a21192c1fc401157fbf593b2e9
+  time: '1544745191'
+  tags: []
+  message: Add extension to CORS.
+  hash: 7b289a05
+  date: '2018-12-13'
+---
 v1.4.0-pre.48:
 - sha: e162834d29173a90ddf6bb76aa77bc9289a75f17
   time: '1544682872'
