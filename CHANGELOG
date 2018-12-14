@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.50:
+- sha: 1f2d4c44185dc3311a61b7ba0b78d7220e8d158c
+  time: '1544748135'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 1f2d4c44
+  date: '2018-12-14'
+- sha: e8c4ca31849cae6ea619910572dbbbfaa6803faf
+  time: '1544748131'
+  tags: []
+  message: This is a lot of CORS.
+  hash: e8c4ca31
+  date: '2018-12-14'
+---
 v1.4.0-pre.49:
 - sha: bc9cfa61bef3c2e838e28a16372c43e69f61dc15
   time: '1544745195'
