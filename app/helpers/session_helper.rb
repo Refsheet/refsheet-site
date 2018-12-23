@@ -1,9 +1,11 @@
 module SessionHelper
-  def sign_in(user)
+  def sign_in(user, remember: true)
+    puts remember.inspect
     session[:user_id] = user.id
     session[:nsfw_ok] = !!user.settings(:view)[:nsfw_ok]
     cookies.signed[:user_id] = user.id
     ahoy.authenticate user
+    remember(user) if remember
     @current_user = user
   end
 
@@ -19,6 +21,10 @@ module SessionHelper
   end
 
   def current_user
+    if cookies[:session_token]
+      get_remembered_user
+    end
+
     if (user_id = session[:user_id] || (defined? cookies and cookies.signed[:user_id]))
       @current_user ||= User.find_by id: user_id
     else
@@ -71,12 +77,43 @@ module SessionHelper
   end
 
 
+  #== Remember Me
+
+  def remember(user)
+    session = user.sessions.create
+    cookies.permanent.signed[:session_id] = session.session_guid
+    cookies.permanent.signed[:session_token] = session.session_token
+    cookies.permanent.signed[:user_id] = session.user_id
+  end
+
+  def get_remembered_user
+    if cookies[:session_id] && cookies[:user_id]
+      session = UserSession.find_by(session_guid: cookies[:session_id])
+
+      if session &&
+          session.user_id == cookies[:user_id] &&
+          session.authenticate(cookies[:session_token])
+
+        sign_in(session.user, remember: false)
+        return session.user
+      end
+    end
+  end
+
+  def forget
+    cookies.delete(:session_id)
+    cookies.delete(:session_token)
+    cookies.delete(:user_id)
+  end
+
+
   #== Serialization Helpers
 
   def session_hash
     {
         nsfw_ok: session[:nsfw_ok],
         locale: session[:locale],
+        session_id: cookies.permanent[:session_id],
         time_zone: session[:time_zone],
         current_user: signed_in? ? PrivateUserSerializer.new(current_user).as_json : nil
     }
