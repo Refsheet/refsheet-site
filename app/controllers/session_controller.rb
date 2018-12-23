@@ -30,7 +30,7 @@ class SessionController < ApplicationController
     @user = User.lookup user_params[:username]
 
     if @user&.authenticate(user_params[:password])
-      sign_in @user
+      sign_in @user, remember: bool(params[:remember])
       render json: session_hash
     else
       render json: { error: 'Invalid username or password.' }, status: :unauthorized
@@ -40,12 +40,12 @@ class SessionController < ApplicationController
   def update
     # Legacy
     if params.include? :nsfw_ok
-      params[:nsfw_ok] == 'true' ? nsfw_on! : nsfw_off!
+      bool(params[:nsfw_ok]) ? nsfw_on! : nsfw_off!
     end
 
     # V2 Javascript
     if params.include? :nsfwOk
-      params[:nsfwOk] ? nsfw_on! : nsfw_off!
+      bool(params[:nsfwOk]) ? nsfw_on! : nsfw_off!
     end
 
     render json: session_hash

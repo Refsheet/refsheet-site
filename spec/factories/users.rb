@@ -34,7 +34,7 @@ FactoryBot.define do
     name { Faker::Name.name }
     profile { Faker::Lorem.paragraph }
     password { 'fishsticks' }
-    password_confirmation { 'fishsticks' }
+    password_confirmation { password }
     skip_emails { true }
 
     sequence :username do |n|
