@@ -1,18 +1,17 @@
 module SessionHelper
   def sign_in(user, remember: true)
-    puts remember.inspect
-    session[:user_id] = user.id
+    session[UserSession::COOKIE_USER_ID_NAME] = user.id
     session[:nsfw_ok] = !!user.settings(:view)[:nsfw_ok]
-    cookies.signed[:user_id] = user.id
+    cookies.signed[UserSession::COOKIE_USER_ID_NAME] = user.id
     ahoy.authenticate user
     remember(user) if remember
     @current_user = user
   end
 
   def sign_out
-    session.delete :user_id
+    session.delete UserSession::COOKIE_USER_ID_NAME
     session.delete :nsfw_ok
-    cookies.delete :user_id
+    forget
     @current_user = nil
   end
 
@@ -21,11 +20,12 @@ module SessionHelper
   end
 
   def current_user
-    if cookies[:session_token]
+    if cookies[UserSession::COOKIE_SESSION_TOKEN_NAME]
       get_remembered_user
     end
 
-    if (user_id = session[:user_id] || (defined? cookies and cookies.signed[:user_id]))
+    if (user_id = session[UserSession::COOKIE_USER_ID_NAME] ||
+        (defined? cookies and cookies.signed[UserSession::COOKIE_USER_ID_NAME]))
       @current_user ||= User.find_by id: user_id
     else
       nil
@@ -81,18 +81,18 @@ module SessionHelper
 
   def remember(user)
     session = user.sessions.create
-    cookies.permanent.signed[:session_id] = session.session_guid
-    cookies.permanent.signed[:session_token] = session.session_token
-    cookies.permanent.signed[:user_id] = session.user_id
+    cookies.permanent.signed[UserSession::COOKIE_SESSION_ID_NAME] = session.session_guid
+    cookies.permanent.signed[UserSession::COOKIE_SESSION_TOKEN_NAME] = session.session_token
+    cookies.permanent.signed[UserSession::COOKIE_USER_ID_NAME] = session.user_id
   end
 
   def get_remembered_user
-    if cookies[:session_id] && cookies[:user_id]
-      session = UserSession.find_by(session_guid: cookies[:session_id])
+    if cookies[UserSession::COOKIE_SESSION_ID_NAME] && cookies[UserSession::COOKIE_USER_ID_NAME]
+      session = UserSession.find_by(session_guid: cookies[UserSession::COOKIE_SESSION_ID_NAME])
 
       if session &&
-          session.user_id == cookies[:user_id] &&
-          session.authenticate(cookies[:session_token])
+          session.user_id == cookies[UserSession::COOKIE_USER_ID_NAME] &&
+          session.authenticate(cookies[UserSession::COOKIE_SESSION_TOKEN_NAME])
 
         sign_in(session.user, remember: false)
         return session.user
@@ -101,9 +101,9 @@ module SessionHelper
   end
 
   def forget
-    cookies.delete(:session_id)
-    cookies.delete(:session_token)
-    cookies.delete(:user_id)
+    cookies.delete(UserSession::COOKIE_SESSION_ID_NAME)
+    cookies.delete(UserSession::COOKIE_SESSION_TOKEN_NAME)
+    cookies.delete(UserSession::COOKIE_USER_ID_NAME)
   end
 
 
@@ -113,7 +113,7 @@ module SessionHelper
     {
         nsfw_ok: session[:nsfw_ok],
         locale: session[:locale],
-        session_id: cookies.permanent[:session_id],
+        session_id: cookies[UserSession::COOKIE_SESSION_ID_NAME],
         time_zone: session[:time_zone],
         current_user: signed_in? ? PrivateUserSerializer.new(current_user).as_json : nil
     }
