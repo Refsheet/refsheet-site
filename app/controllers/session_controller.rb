@@ -59,6 +59,7 @@ class SessionController < ApplicationController
   private
 
   def user_params
+    params[:remember] = params[:user].delete(:remember) unless params.include? :remember
     params.require(:user).permit(:username, :password, :auth)
   end
 end
