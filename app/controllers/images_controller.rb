@@ -113,7 +113,6 @@ class ImagesController < ApplicationController
     scope = @character.images.rank(:row_order)
 
     unless @character.managed_by? current_user
-      scope = scope.sfw unless nsfw_on?
       scope = scope.visible
     end
 

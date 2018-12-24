@@ -1,8 +1,8 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
+import { withRouter } from 'react-router'
 
-const SiteNav = ({}) => {
+const SiteNav = () => {
   return (
       <ul className='site-nav visible-on-med-and-up'>
         <li>
@@ -34,4 +34,4 @@ const SiteNav = ({}) => {
 
 SiteNav.propTypes = {}
 
-export default SiteNav
+export default withRouter(SiteNav)

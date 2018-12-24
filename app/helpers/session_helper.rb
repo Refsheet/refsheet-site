@@ -57,7 +57,7 @@ module SessionHelper
   #== NSFW
 
   def nsfw_on?
-    signed_in? && !!session[:nsfw_ok]
+    !!session[:nsfw_ok]
   end
 
   def nsfw_on!
