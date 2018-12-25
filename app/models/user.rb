@@ -41,6 +41,7 @@ class User < ApplicationRecord
   has_many :permissions, dependent: :destroy
   has_many :roles, through: :permissions
   has_many :visits, class_name: "Ahoy::Visit", dependent: :nullify
+  has_many :sessions, class_name: 'UserSession', dependent: :destroy
 
   has_many :transfers_in, class_name: "Transfer", foreign_key: :destination_user_id, dependent: :destroy
   has_many :transfers_out, class_name: "Transfer", foreign_key: :sender_user_id, dependent: :destroy

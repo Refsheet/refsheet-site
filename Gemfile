@@ -127,6 +127,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rspec-retry'
   gem 'rspec_junit_formatter'
+  gem 'rails-controller-testing'
   gem 'rubocop'
   gem 'rubocop-rspec'
   gem 'shoulda-matchers', '~> 2.8'
