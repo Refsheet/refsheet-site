@@ -9,8 +9,8 @@ describe SessionController do
       post :create, params: user_params.merge(remember: false)
       expect(response).to be_success
       expect(assigns(:current_user)).to eq user
-      expect(cookies.signed[:user_id]).to eq user.id
-      expect(cookies.signed[:session_id]).to eq nil
+      expect(cookies.signed[UserSession::COOKIE_USER_ID_NAME]).to eq user.id
+      expect(cookies.signed[UserSession::COOKIE_SESSION_ID_NAME]).to eq nil
     end
 
     it 'signs in with remembering' do
@@ -19,8 +19,8 @@ describe SessionController do
       expect(assigns(:current_user)).to eq user
 
       session = user.sessions.first
-      expect(cookies.signed[:user_id]).to eq user.id
-      expect(cookies.signed[:session_id]).to eq session.session_guid
+      expect(cookies.signed[UserSession::COOKIE_USER_ID_NAME]).to eq user.id
+      expect(cookies.signed[UserSession::COOKIE_SESSION_ID_NAME]).to eq session.session_guid
     end
   end
 end
