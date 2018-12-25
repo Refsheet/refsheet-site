@@ -176,4 +176,9 @@ class ApplicationController < ActionController::Base
         url: request.url
     )
   end
+
+  def bool(string)
+    return if string.nil?
+    %w(true 1 yes on t).include?(string.downcase)
+  end
 end

@@ -3,6 +3,7 @@
     user:
       username: null
       password: null
+      remember: true
 
   _handleError: (user) ->
     @setState
@@ -26,6 +27,8 @@
         <Input name='password' type='password' label='Password' />
 
         { this.props.children }
+
+        <Input type="checkbox" name="remember" label="Keep me signed in" />
 
         <Row className='actions'>
             <Column>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181028070840) do
+ActiveRecord::Schema.define(version: 20181223064404) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -698,6 +698,18 @@ ActiveRecord::Schema.define(version: 20181028070840) do
     t.index ["following_id"], name: "index_user_followers_on_following_id", using: :btree
   end
 
+  create_table "user_sessions", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "ahoy_visit_id"
+    t.string   "session_guid"
+    t.string   "session_token_digest"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.index ["ahoy_visit_id"], name: "index_user_sessions_on_ahoy_visit_id", using: :btree
+    t.index ["session_guid"], name: "index_user_sessions_on_session_guid", using: :btree
+    t.index ["user_id"], name: "index_user_sessions_on_user_id", using: :btree
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "username"
@@ -725,4 +737,6 @@ ActiveRecord::Schema.define(version: 20181028070840) do
   add_foreign_key "conversations_read_bookmarks", "conversations"
   add_foreign_key "conversations_read_bookmarks", "conversations_messages", column: "message_id"
   add_foreign_key "conversations_read_bookmarks", "users"
+  add_foreign_key "user_sessions", "ahoy_visits"
+  add_foreign_key "user_sessions", "users"
 end
