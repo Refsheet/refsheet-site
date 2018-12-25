@@ -1,4 +1,24 @@
 ---
+v1.4.0-pre.52:
+- sha: d619a481aafcb4124a8f3c3dc0ff15ec828cc43b
+  time: '1545705392'
+  tags: []
+  message: Fix cookie definition issue.
+  hash: d619a481
+  date: '2018-12-25'
+- sha: 20b9510826075571ad8a8daba71e405130ac8af0
+  time: '1545705292'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 20b95108
+  date: '2018-12-25'
+- sha: 82bf06302fe5e90afa82fb4b222f76e0ebff3f6a
+  time: '1545705216'
+  tags: []
+  message: Fix domain.
+  hash: 82bf0630
+  date: '2018-12-25'
+---
 v1.4.0-pre.51:
 - sha: ec3b73fdfafb0113112f841ee9d046a7cf08af82
   time: '1545702285'
