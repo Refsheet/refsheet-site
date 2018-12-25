@@ -1,4 +1,44 @@
 ---
+v1.4.0-pre.51:
+- sha: ec3b73fdfafb0113112f841ee9d046a7cf08af82
+  time: '1545702285'
+  tags: []
+  message: 'Merge pull request #64 from eiwi1101/session-cookies'
+  hash: ec3b73fd
+  date: '2018-12-25'
+- sha: 9dc9cf80320c71a69238333bb5d96bbca9c3d050
+  time: '1545700783'
+  tags: []
+  message: Fix spec
+  hash: 9dc9cf80
+  date: '2018-12-25'
+- sha: b2f88a4b786c93eff3d1aca2a2e5531a440aea7f
+  time: '1545696091'
+  tags: []
+  message: Merge Master
+  hash: b2f88a4b
+  date: '2018-12-25'
+- sha: 7feb1ecb479938a49c15851b80e8103463068202
+  time: '1545695194'
+  tags: []
+  message: Merge branches 'master' and 'session-cookies' of https://github.com/eiwi1101/refsheet-site
+    into session-cookies
+  hash: 7feb1ecb
+  date: '2018-12-24'
+- sha: a2ba999ee42fe5a5a6fd03825849c968ab2bd65d
+  time: '1545694654'
+  tags: []
+  message: Finished specs and implement login flow for remembering sessions.
+  hash: a2ba999e
+  date: '2018-12-24'
+- sha: 0d00bfa8c05e0c8e77a3151ba994f406e5d58ec7
+  time: '1545601914'
+  tags: []
+  message: Added long cookie implementation, and a basic test. Need to test the session
+    restore later.
+  hash: 0d00bfa8
+  date: '2018-12-23'
+---
 v1.4.0-pre.50:
 - sha: 1f2d4c44185dc3311a61b7ba0b78d7220e8d158c
   time: '1544748135'
