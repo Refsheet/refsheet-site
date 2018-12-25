@@ -20,7 +20,7 @@ module SessionHelper
   end
 
   def current_user
-    if cookies[UserSession::COOKIE_SESSION_TOKEN_NAME]
+    if defined? cookies and cookies[UserSession::COOKIE_SESSION_TOKEN_NAME]
       get_remembered_user
     end
 
