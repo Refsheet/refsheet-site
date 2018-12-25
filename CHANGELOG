@@ -1,4 +1,200 @@
 ---
+v1.4.0-pre.51:
+- sha: ec3b73fdfafb0113112f841ee9d046a7cf08af82
+  time: '1545702285'
+  tags: []
+  message: 'Merge pull request #64 from eiwi1101/session-cookies'
+  hash: ec3b73fd
+  date: '2018-12-25'
+- sha: 9dc9cf80320c71a69238333bb5d96bbca9c3d050
+  time: '1545700783'
+  tags: []
+  message: Fix spec
+  hash: 9dc9cf80
+  date: '2018-12-25'
+- sha: b2f88a4b786c93eff3d1aca2a2e5531a440aea7f
+  time: '1545696091'
+  tags: []
+  message: Merge Master
+  hash: b2f88a4b
+  date: '2018-12-25'
+- sha: 7feb1ecb479938a49c15851b80e8103463068202
+  time: '1545695194'
+  tags: []
+  message: Merge branches 'master' and 'session-cookies' of https://github.com/eiwi1101/refsheet-site
+    into session-cookies
+  hash: 7feb1ecb
+  date: '2018-12-24'
+- sha: a2ba999ee42fe5a5a6fd03825849c968ab2bd65d
+  time: '1545694654'
+  tags: []
+  message: Finished specs and implement login flow for remembering sessions.
+  hash: a2ba999e
+  date: '2018-12-24'
+- sha: 0d00bfa8c05e0c8e77a3151ba994f406e5d58ec7
+  time: '1545601914'
+  tags: []
+  message: Added long cookie implementation, and a basic test. Need to test the session
+    restore later.
+  hash: 0d00bfa8
+  date: '2018-12-23'
+---
+v1.4.0-pre.50:
+- sha: 1f2d4c44185dc3311a61b7ba0b78d7220e8d158c
+  time: '1544748135'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 1f2d4c44
+  date: '2018-12-14'
+- sha: e8c4ca31849cae6ea619910572dbbbfaa6803faf
+  time: '1544748131'
+  tags: []
+  message: This is a lot of CORS.
+  hash: e8c4ca31
+  date: '2018-12-14'
+---
+v1.4.0-pre.49:
+- sha: bc9cfa61bef3c2e838e28a16372c43e69f61dc15
+  time: '1544745195'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: bc9cfa61
+  date: '2018-12-13'
+- sha: 7b289a05191df4a21192c1fc401157fbf593b2e9
+  time: '1544745191'
+  tags: []
+  message: Add extension to CORS.
+  hash: 7b289a05
+  date: '2018-12-13'
+---
+v1.4.0-pre.48:
+- sha: e162834d29173a90ddf6bb76aa77bc9289a75f17
+  time: '1544682872'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: e162834d
+  date: '2018-12-13'
+- sha: 35c203f1d85fbdd60c7031ddf7ddca97fe20c140
+  time: '1544682862'
+  tags: []
+  message: Add CORS to Graphql endpoint.
+  hash: 35c203f1
+  date: '2018-12-13'
+---
+v1.4.0-pre.47:
+- sha: c93ce95e7b80d6337c253962ffa17e9d8bd890d6
+  time: '1544675674'
+  tags: []
+  message: Typo.
+  hash: c93ce95e
+  date: '2018-12-13'
+- sha: c23903bb7fc7838c12f69efd7ce3668848703b33
+  time: '1544667774'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: c23903bb
+  date: '2018-12-13'
+- sha: 196fe201a75cdb4bc7e80e9be08cc26fe1747431
+  time: '1544667764'
+  tags: []
+  message: Custom attributes are somehow broken???
+  hash: 196fe201
+  date: '2018-12-13'
+---
+v1.4.0-pre.46:
+- sha: 57e221f03eb63d79cf9386e5363ada05ab13240d
+  time: '1544574364'
+  tags: []
+  message: Fix raven.
+  hash: 57e221f0
+  date: '2018-12-12'
+- sha: 92394f38359299a8eacec91bc846e7267e3311c3
+  time: '1544573369'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 92394f38
+  date: '2018-12-12'
+- sha: 39c2699797ead7329abb6e1bb53b2d7ec5b38092
+  time: '1544573361'
+  tags: []
+  message: Custom attributes are somehow broken???
+  hash: 39c26997
+  date: '2018-12-12'
+---
+v1.4.0-pre.45:
+- sha: 5c9ca02339de1e0cef61542091c4e633df42dd30
+  time: '1544407020'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 5c9ca023
+  date: '2018-12-10'
+- sha: 5513d8f598be69da02a30de18717e03e41d22ed7
+  time: '1544407008'
+  tags: []
+  message: Gallery boobies and also some good nav fixes / things.
+  hash: 5513d8f5
+  date: '2018-12-10'
+---
+v1.4.0-pre.44:
+- sha: a3eeeead3c1ab42ee330a1ac08c61ff5f46ab006
+  time: '1544265683'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: a3eeeead
+  date: '2018-12-08'
+- sha: '00239d93ee72e60ffe372f8a505364a7b453bc98'
+  time: '1544265677'
+  tags: []
+  message: Add SearchForCharacter endpoint to graphql.
+  hash: '00239d93'
+  date: '2018-12-08'
+---
+v1.4.0-pre.43:
+- sha: 89bc0de40d5cc532fb52979b75db11976b70f89c
+  time: '1544159718'
+  tags: []
+  message: Just deploy
+  hash: 89bc0de4
+  date: '2018-12-07'
+- sha: 075fcf2dc1d334475eecc0e5aeae0c59caa50cea
+  time: '1544159696'
+  tags: []
+  message: Really this is the worst.
+  hash: 075fcf2d
+  date: '2018-12-07'
+- sha: ab61c669ae82c671cd3d70d3b5c1b3cb053bed85
+  time: '1544159276'
+  tags: []
+  message: FUCKING YARN.
+  hash: ab61c669
+  date: '2018-12-07'
+- sha: a12cbd2275c05aa8c84e1901e04527eb2ec387a5
+  time: '1544158732'
+  tags: []
+  message: Fucking Circle.
+  hash: a12cbd22
+  date: '2018-12-07'
+- sha: 963c7b72e554d9c6f93c4070205f68a25c94718d
+  time: '1544157309'
+  tags: []
+  message: Graphql should not require csrf token.
+  hash: 963c7b72
+  date: '2018-12-07'
+---
+v1.4.0-pre.42:
+- sha: 60b16cd026b46a95c7a1f4008b526c405c76ca4c
+  time: '1542577082'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 60b16cd0
+  date: '2018-11-18'
+- sha: d6ed1b28be447bd928c4ccd9410a1459ca46b64c
+  time: '1542577069'
+  tags: []
+  message: Fix notification delete on deleted item.
+  hash: d6ed1b28
+  date: '2018-11-18'
+---
 v1.4.0-pre.41:
 - sha: 86105971d57752170c0fbdc6c6a63c658f674a21
   time: '1542574907'
