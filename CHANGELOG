@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.53:
+- sha: e3c551fc762efb9825f211e1b3aa83b0267289cf
+  time: '1545706117'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: e3c551fc
+  date: '2018-12-25'
+- sha: 1f7560764455148bc49bebd4b72b0d451da6de99
+  time: '1545706091'
+  tags: []
+  message: Cast string to s on session update.
+  hash: 1f756076
+  date: '2018-12-25'
+---
 v1.4.0-pre.52:
 - sha: d619a481aafcb4124a8f3c3dc0ff15ec828cc43b
   time: '1545705392'
