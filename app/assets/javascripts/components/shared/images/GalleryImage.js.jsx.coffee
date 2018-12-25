@@ -1,6 +1,7 @@
-@GalleryImage = React.createClass
+gallery_image = React.createClass
   contextTypes:
     currentUser: React.PropTypes.object
+    session: React.PropTypes.object
 
   propTypes:
     image: React.PropTypes.object
@@ -39,10 +40,14 @@
         @props.onClick(@state.image)
       else
         $(document).trigger 'app:lightbox', [ @state.image, @load ]
+    else if @state.image.nsfw and not @props.session.nsfwOk
+      @props.dispatch({type: "SET_NSFW_MODE", nsfwOk: true})
+
     e.preventDefault()
 
   _initialize: ->
     return unless @state.image
+    console.log @props
 
     $image = $(@refs.image)
 
@@ -96,7 +101,7 @@
       else
         imageSrc = @state.image[@props.size] || @state.image['large']
 
-      showNsfwWarning = @state.image.nsfw and not @context.currentUser?.settings?.nsfw_ok
+      showNsfwWarning = @state.image.nsfw and not @context.session?.nsfw_ok
 
       contents =
         `<a ref='image'
@@ -109,7 +114,7 @@
             { showNsfwWarning &&
               <div className='nsfw-cover'>
                   <Icon>remove_circle_outline</Icon>
-                  <div className='caption'>NSFW</div>
+                  <div className='caption'>Click to show NSFW content.</div>
               </div> }
 
             <div className='overlay'>
@@ -147,3 +152,8 @@
 
     else
       contents
+
+mapStateToProps = (state) ->
+  session: state.session
+
+@GalleryImage = connect(mapStateToProps)(gallery_image)
