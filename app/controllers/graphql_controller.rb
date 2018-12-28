@@ -12,7 +12,8 @@ class GraphqlController < ApplicationController
       current_user: current_user,
       current_user_id: current_user&.id,
       sign_out: method(:sign_out),
-      sign_in: method(:sign_in)
+      sign_in: method(:sign_in),
+      session: session_hash
     }
 
     result = RefsheetSchema.execute(query,

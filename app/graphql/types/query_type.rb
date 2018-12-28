@@ -93,4 +93,10 @@ Types::QueryType = GraphQL::ObjectType.define do
       Conversation.counts_for(ctx[:current_user])
     }
   end
+
+  field :getSession, Types::SessionType do
+    resolve -> (_obj, _args, ctx) {
+      ctx[:session]
+    }
+  end
 end
