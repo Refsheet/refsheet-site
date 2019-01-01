@@ -12,6 +12,20 @@ module Helpers::SessionHelper
   end
 
   def session_hash
+    {
+        nsfw_ok: session[:nsfw_ok],
+        locale: session[:locale],
+        session_id: cookies.signed[UserSession::COOKIE_SESSION_ID_NAME],
+        time_zone: session[:time_zone],
+        current_user: current_user
+    }
+  end
+
+  def session
     context[:session].call
+  end
+
+  def cookies
+    context[:cookies].call
   end
 end

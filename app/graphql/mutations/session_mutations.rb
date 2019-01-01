@@ -1,4 +1,12 @@
 class Mutations::SessionMutations < Mutations::ApplicationMutation
+  action :show do
+    type Types::SessionType
+  end
+
+  def show
+    session_hash
+  end
+
   action :delete do
     type Types::SessionType
   end
