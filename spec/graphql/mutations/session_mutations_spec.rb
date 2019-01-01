@@ -11,7 +11,8 @@ describe Mutations::SessionMutations do
   let(:sign_in) { double('SignInMethod') }
 
   let(:context) {{
-      session: method(:session),
+      session: double(call: double(:[] => nil)),
+      cookies: double(call: double(signed: double(:[] => nil))),
       sign_in: sign_in
   }}
 
