@@ -113,7 +113,7 @@ module SessionHelper
     {
         nsfw_ok: session[:nsfw_ok],
         locale: session[:locale],
-        session_id: cookies[UserSession::COOKIE_SESSION_ID_NAME],
+        session_id: cookies.signed[UserSession::COOKIE_SESSION_ID_NAME],
         time_zone: session[:time_zone],
         current_user: signed_in? ? PrivateUserSerializer.new(current_user).as_json : nil
     }
