@@ -1,4 +1,24 @@
 ---
+v1.4.0-pre.56:
+- sha: cc0a73b8f86cf4932fa1d5fff81c0c8658993d42
+  time: '1546384904'
+  tags: []
+  message: Fix that strange session thing.
+  hash: cc0a73b8
+  date: '2019-01-01'
+- sha: 590842f0a88c4d672f6f30dd095767fce5de23ae
+  time: '1546384437'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 590842f0
+  date: '2019-01-01'
+- sha: cfde5e5c2d4fbc1fd3c857324981afc915921a5d
+  time: '1546383993'
+  tags: []
+  message: Fixed the user things for real.
+  hash: cfde5e5c
+  date: '2019-01-01'
+---
 v1.4.0-pre.55:
 - sha: bd44d96969d6251a174dcf9a0d8ecc99c974a013
   time: '1546377638'
