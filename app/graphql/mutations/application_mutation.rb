@@ -1,5 +1,6 @@
 class Mutations::ApplicationMutation
   include Helpers::SessionHelper
+  include ParamsHelper
 
   def self.before_action(callback, options={})
     @before_actions ||= []

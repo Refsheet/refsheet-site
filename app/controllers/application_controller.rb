@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   include SessionHelper
   include CollectionHelper
   include ResponseHelper
+  include ParamsHelper
 
   class Unauthorized < RuntimeError; end
 
@@ -175,10 +176,5 @@ class ApplicationController < ActionController::Base
         params: params.to_unsafe_h,
         url: request.url
     )
-  end
-
-  def bool(string)
-    return if string.nil?
-    %w(true 1 yes on t).include?(string.to_s.downcase)
   end
 end

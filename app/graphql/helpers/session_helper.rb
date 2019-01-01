@@ -7,7 +7,11 @@ module Helpers::SessionHelper
     context[:sign_out].call
   end
 
-  def sign_in(user)
-    context[:sign_in].call(user)
+  def sign_in(user, remember: false)
+    context[:sign_in].call(user, remember: remember)
+  end
+
+  def session_hash
+    context[:session].call
   end
 end
