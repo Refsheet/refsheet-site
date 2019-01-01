@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.55:
+- sha: bd44d96969d6251a174dcf9a0d8ecc99c974a013
+  time: '1546377638'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: bd44d969
+  date: '2019-01-01'
+- sha: f5153f1ba77b4246363e8c9e45c2245bccb4b002
+  time: '1546377594'
+  tags: []
+  message: Added in session mutation??
+  hash: f5153f1b
+  date: '2019-01-01'
+---
 v1.4.0-pre.54:
 - sha: 570b40b1ba586c67f736a3ad616c4263bd35b76f
   time: '1545978538'
