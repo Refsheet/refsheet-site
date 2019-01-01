@@ -1,4 +1,24 @@
 ---
+v1.4.0-pre.54:
+- sha: 570b40b1ba586c67f736a3ad616c4263bd35b76f
+  time: '1545978538'
+  tags: []
+  message: Fix bool.
+  hash: 570b40b1
+  date: '2018-12-28'
+- sha: f388699cf50a20034fca97e34e273d062256fef5
+  time: '1545973193'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: f388699c
+  date: '2018-12-28'
+- sha: a95d16265318a94646ee95cb1f5b66a5cf713f65
+  time: '1545972596'
+  tags: []
+  message: Add Get Session mutation.
+  hash: a95d1626
+  date: '2018-12-28'
+---
 v1.4.0-pre.53:
 - sha: e3c551fc762efb9825f211e1b3aa83b0267289cf
   time: '1545706117'
