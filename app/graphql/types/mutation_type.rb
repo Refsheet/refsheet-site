@@ -16,4 +16,7 @@ Types::MutationType = GraphQL::ObjectType.define do
 
   # Moderation
   field :updateModeration, field: Mutations::ModerationMutations::Update
+
+  # Session
+  field :createSession, field: Mutations::SessionMutations::Create
 end

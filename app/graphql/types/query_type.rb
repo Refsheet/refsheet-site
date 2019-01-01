@@ -96,7 +96,7 @@ Types::QueryType = GraphQL::ObjectType.define do
 
   field :getSession, Types::SessionType do
     resolve -> (_obj, _args, ctx) {
-      ctx[:session]
+      ctx[:session].call
     }
   end
 end
