@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.58:
+- sha: b79237d9dbf96f2b4c258f5f2453ff4fcca39d0f
+  time: '1546388665'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: b79237d9
+  date: '2019-01-02'
+- sha: 66a51ed66ba0519b63355612671f9ec025e555de
+  time: '1546388662'
+  tags: []
+  message: Credentials header.
+  hash: 66a51ed6
+  date: '2019-01-02'
+---
 v1.4.0-pre.57:
 - sha: 6d373bcd7ec5a43a7a670df985aa03d71f26711b
   time: '1546386417'
