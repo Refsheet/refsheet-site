@@ -1,6 +1,6 @@
 module Helpers::SessionHelper
   def current_user
-    context[:current_user]
+    context[:current_user].call
   end
 
   def sign_out

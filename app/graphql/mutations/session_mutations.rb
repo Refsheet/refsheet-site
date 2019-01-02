@@ -7,12 +7,13 @@ class Mutations::SessionMutations < Mutations::ApplicationMutation
     session_hash
   end
 
-  action :delete do
+  action :destroy do
     type Types::SessionType
   end
 
-  def delete
+  def destroy
     sign_out
+    Rails.logger.info session_hash.inspect
     session_hash
   end
 
@@ -29,6 +30,7 @@ class Mutations::SessionMutations < Mutations::ApplicationMutation
 
     if @user&.authenticate(params[:password])
       sign_in @user, remember: bool(params[:remember])
+      Rails.logger.info session_hash.inspect
       return session_hash
     end
 
