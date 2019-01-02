@@ -31,6 +31,9 @@ module SessionHelper
 
     if (user_id = session[UserSession::COOKIE_USER_ID_NAME] ||
         (defined? cookies and cookies.signed[UserSession::COOKIE_USER_ID_NAME]))
+      Rails.logger.info("Getting user #{user_id} from session or legacy cookie.")
+      Rails.logger.info("SESSION: " + session.to_hash.inspect)
+      Rails.logger.info("COOKIES: " + cookies.to_h.inspect)
       @current_user ||= User.find_by id: user_id
     else
       nil
@@ -110,7 +113,7 @@ module SessionHelper
       if session &&
           session.user_id == cookies[UserSession::COOKIE_USER_ID_NAME] &&
           session.authenticate(cookies[UserSession::COOKIE_SESSION_TOKEN_NAME])
-
+        Rails.logger.info("Authenticating user #{session.user_id} from stored session cookie.")
         sign_in(session.user, remember: false)
         return session.user
       end

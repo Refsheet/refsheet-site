@@ -9,7 +9,7 @@ class GraphqlController < ApplicationController
     operation_name = params[:operationName]
 
     context = {
-      current_user: current_user,
+      current_user: method(:current_user),
       current_user_id: current_user&.id,
       sign_out: method(:sign_out),
       sign_in: method(:sign_in),
