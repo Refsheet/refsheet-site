@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.57:
+- sha: 6d373bcd7ec5a43a7a670df985aa03d71f26711b
+  time: '1546386417'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 6d373bcd
+  date: '2019-01-01'
+- sha: 1b1c808018bf30eccdcff8495d5979b942c1b4c9
+  time: '1546386414'
+  tags: []
+  message: 'Set domain: all for cookies.'
+  hash: 1b1c8080
+  date: '2019-01-01'
+---
 v1.4.0-pre.56:
 - sha: cc0a73b8f86cf4932fa1d5fff81c0c8658993d42
   time: '1546384904'
