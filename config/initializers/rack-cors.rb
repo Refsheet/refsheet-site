@@ -40,7 +40,7 @@ if defined? Rack::Cors
 
     allow do
       origins CORS_PROD | CORS_EXT | CORS_DEV
-      resource '/graphql', headers: :any, methods: [:get, :post, :options]
+      resource '/graphql', headers: :any, methods: [:get, :post, :options], credentials: true
     end
   end
 end
