@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.61:
+- sha: dfb8ee384d7dba9a46800e5220f60f7ec67a39a8
+  time: '1546636249'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: dfb8ee38
+  date: '2019-01-04'
+- sha: 59072bbb3cd0d3031e3d9c2c1341025ee2c27e11
+  time: '1546636196'
+  tags: []
+  message: Backend support for Watermarking.
+  hash: 59072bbb
+  date: '2019-01-04'
+---
 v1.4.0-pre.60:
 - sha: d38f3729d10586062d9d3ef0a7c757279b8b33a9
   time: '1546629832'
