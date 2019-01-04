@@ -1,4 +1,24 @@
 ---
+v1.4.0-pre.59:
+- sha: 4d0ea59732add8f6f312cdab52f7d1e5e6ec9814
+  time: '1546628727'
+  tags: []
+  message: Fix spec or something.
+  hash: 4d0ea597
+  date: '2019-01-04'
+- sha: 525f7ad4e3c5a457b478af11e4eb597ce7b11c0e
+  time: '1546440363'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 525f7ad4
+  date: '2019-01-02'
+- sha: eb49f180634d15b5357ced67a396e11e6f22ec79
+  time: '1546440351'
+  tags: []
+  message: Fix for logout or something IDEK.
+  hash: eb49f180
+  date: '2019-01-02'
+---
 v1.4.0-pre.58:
 - sha: b79237d9dbf96f2b4c258f5f2453ff4fcca39d0f
   time: '1546388665'
