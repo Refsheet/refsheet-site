@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181223064404) do
+ActiveRecord::Schema.define(version: 20190104202354) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -261,6 +261,26 @@ ActiveRecord::Schema.define(version: 20181223064404) do
     t.index ["user_id"], name: "index_conversations_read_bookmarks_on_user_id", using: :btree
   end
 
+  create_table "custom_watermarks", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.integer  "images_count"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.string   "gravity"
+    t.integer  "opacity"
+    t.boolean  "repeat_x"
+    t.boolean  "repeat_y"
+    t.string   "guid"
+    t.datetime "deleted_at"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["guid"], name: "index_custom_watermarks_on_guid", using: :btree
+    t.index ["user_id"], name: "index_custom_watermarks_on_user_id", using: :btree
+  end
+
   create_table "feedback_replies", force: :cascade do |t|
     t.integer  "feedback_id"
     t.integer  "user_id"
@@ -383,6 +403,11 @@ ActiveRecord::Schema.define(version: 20181223064404) do
     t.text     "image_meta"
     t.boolean  "image_processing",        default: false
     t.string   "image_direct_upload_url"
+    t.boolean  "watermark"
+    t.integer  "custom_watermark_id"
+    t.boolean  "annotation"
+    t.string   "custom_annotation"
+    t.index ["custom_watermark_id"], name: "index_images_on_custom_watermark_id", using: :btree
     t.index ["guid"], name: "index_images_on_guid", using: :btree
   end
 
@@ -737,6 +762,7 @@ ActiveRecord::Schema.define(version: 20181223064404) do
   add_foreign_key "conversations_read_bookmarks", "conversations"
   add_foreign_key "conversations_read_bookmarks", "conversations_messages", column: "message_id"
   add_foreign_key "conversations_read_bookmarks", "users"
+  add_foreign_key "images", "custom_watermarks"
   add_foreign_key "user_sessions", "ahoy_visits"
   add_foreign_key "user_sessions", "users"
 end
