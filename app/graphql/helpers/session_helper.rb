@@ -1,14 +1,14 @@
 module Helpers::SessionHelper
   def current_user
-    context[:current_user].call
+    context[:current_user]&.call
   end
 
   def sign_out
-    context[:sign_out].call
+    context[:sign_out]&.call
   end
 
   def sign_in(user, remember: false)
-    context[:sign_in].call(user, remember: remember)
+    context[:sign_in]&.call(user, remember: remember)
   end
 
   def session_hash
@@ -22,10 +22,10 @@ module Helpers::SessionHelper
   end
 
   def session
-    context[:session].call
+    context[:session]&.call
   end
 
   def cookies
-    context[:cookies].call
+    context[:cookies]&.call
   end
 end
