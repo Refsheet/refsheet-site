@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.60:
+- sha: d38f3729d10586062d9d3ef0a7c757279b8b33a9
+  time: '1546629832'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: d38f3729
+  date: '2019-01-04'
+- sha: 5a5f72317b2f76046b00853c4abbabfbfd405370
+  time: '1546629829'
+  tags: []
+  message: Fix the broken cookie thing.
+  hash: 5a5f7231
+  date: '2019-01-04'
+---
 v1.4.0-pre.59:
 - sha: 4d0ea59732add8f6f312cdab52f7d1e5e6ec9814
   time: '1546628727'
