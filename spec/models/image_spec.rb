@@ -27,10 +27,15 @@
 #  image_meta              :text
 #  image_processing        :boolean          default("false")
 #  image_direct_upload_url :string
+#  watermark               :boolean
+#  custom_watermark_id     :integer
+#  annotation              :boolean
+#  custom_annotation       :string
 #
 # Indexes
 #
-#  index_images_on_guid  (guid)
+#  index_images_on_custom_watermark_id  (custom_watermark_id)
+#  index_images_on_guid                 (guid)
 #
 
 require 'rails_helper'
@@ -136,5 +141,14 @@ describe Image, type: :model do
     i = build :image, caption: nil
     expect { i.caption_html }.to_not raise_error
     expect(i.caption_html).to be_nil
+  end
+
+  xit 'watermarks', paperclip: true do
+    image = create :image, image: asset('fox.jpg'), watermark: true, annotation: false
+    wait_until { Image.find(image.id).processed? }
+    url = "public" + image.reload.image.url(:medium).gsub(/\?.*$/, '')
+    puts url
+    launch = %x{launchy #{url}}
+    expect(launch).to eq ""
   end
 end

@@ -27,10 +27,15 @@
 #  image_meta              :text
 #  image_processing        :boolean          default("false")
 #  image_direct_upload_url :string
+#  watermark               :boolean
+#  custom_watermark_id     :integer
+#  annotation              :boolean
+#  custom_annotation       :string
 #
 # Indexes
 #
-#  index_images_on_guid  (guid)
+#  index_images_on_custom_watermark_id  (custom_watermark_id)
+#  index_images_on_guid                 (guid)
 #
 
 FactoryBot.define do

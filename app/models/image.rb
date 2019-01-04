@@ -27,10 +27,15 @@
 #  image_meta              :text
 #  image_processing        :boolean          default("false")
 #  image_direct_upload_url :string
+#  watermark               :boolean
+#  custom_watermark_id     :integer
+#  annotation              :boolean
+#  custom_annotation       :string
 #
 # Indexes
 #
-#  index_images_on_guid  (guid)
+#  index_images_on_custom_watermark_id  (custom_watermark_id)
+#  index_images_on_guid                 (guid)
 #
 
 # Should me larger than 1280px in both dimensions,
@@ -60,23 +65,24 @@ class Image < ApplicationRecord # < Media
 
   has_attached_file :image,
                     default_url: '/assets/default.png',
+                    processors: [:upload_processor],
                     styles: {
-                        thumbnail: '',
+                        thumbnail: "#{SIZE[:thumbnail]}x#{SIZE[:thumbnail]}^",
                         small: "#{SIZE[:small]}x#{SIZE[:small]}>",
-                        small_square: '',
+                        small_square: "#{SIZE[:small]}x#{SIZE[:small]}^",
                         medium: "#{SIZE[:medium]}x#{SIZE[:medium]}>",
-                        medium_square: '',
+                        medium_square: "#{SIZE[:medium]}x#{SIZE[:medium]}^",
                         large: "#{SIZE[:large]}x#{SIZE[:large]}>",
-                        large_square: ''
+                        large_square: "#{SIZE[:large]}x#{SIZE[:large]}^"
                     },
                     s3_permissions: {
                         original: :private
                     },
                     convert_options: {
-                       thumbnail:     -> (i) { "-resize '#{SIZE[:thumbnail]}x#{SIZE[:thumbnail]}^' +repage -gravity '#{i.gravity}' -crop '#{SIZE[:thumbnail]}x#{SIZE[:thumbnail]}+0+0'" },
-                       small_square:  -> (i) { "-resize '#{SIZE[:small]}x#{SIZE[:small]}^' +repage -gravity '#{i.gravity}' -crop '#{SIZE[:small]}x#{SIZE[:small]}+0+0'" },
-                       medium_square: -> (i) { "-resize '#{SIZE[:medium]}x#{SIZE[:medium]}^' +repage -gravity '#{i.gravity}' -crop '#{SIZE[:medium]}x#{SIZE[:medium]}+0+0'" },
-                       large_square:  -> (i) { "-resize '#{SIZE[:large]}x#{SIZE[:large]}^' +repage -gravity '#{i.gravity}' -crop '#{SIZE[:large]}x#{SIZE[:large]}+0+0'" }
+                       thumbnail:     -> (i) { "+repage -gravity '#{i.gravity}' -crop '#{SIZE[:thumbnail]}x#{SIZE[:thumbnail]}+0+0'" },
+                       small_square:  -> (i) { "+repage -gravity '#{i.gravity}' -crop '#{SIZE[:small]}x#{SIZE[:small]}+0+0'" },
+                       medium_square: -> (i) { "+repage -gravity '#{i.gravity}' -crop '#{SIZE[:medium]}x#{SIZE[:medium]}+0+0'" },
+                       large_square:  -> (i) { "+repage -gravity '#{i.gravity}' -crop '#{SIZE[:large]}x#{SIZE[:large]}+0+0'" }
                     }
 
 
@@ -139,6 +145,10 @@ class Image < ApplicationRecord # < Media
 
   def gravity
     super || 'center'
+  end
+
+  def processed?
+    !self.image_processing?
   end
 
   def title
