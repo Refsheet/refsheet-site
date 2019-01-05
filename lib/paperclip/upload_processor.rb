@@ -1,3 +1,5 @@
+require_dependency Rails.root.join("lib/paperclip/watermark_helper.rb")
+
 module Paperclip
   class UploadProcessor < Processor
     include WatermarkHelper
@@ -14,7 +16,7 @@ module Paperclip
       @whiny = options[:whiny].nil? ? true : options[:whiny]
       @format = options[:format]
 
-      @instance = attachment.instance
+      @ainstance = attachment.instance
       @options = options
 
       @overlay = options[:overlay].nil? ? true : false
