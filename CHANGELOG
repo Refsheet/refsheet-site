@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.63:
+- sha: 82a972952897b94b65c6492125dfc8ea8e5d4960
+  time: '1546660657'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 82a97295
+  date: '2019-01-05'
+- sha: 6febe0728d36bb40d49b8473ccc26b816b086a84
+  time: '1546660645'
+  tags: []
+  message: Report graphQL exceptions to Raven.
+  hash: 6febe072
+  date: '2019-01-05'
+---
 v1.4.0-pre.62:
 - sha: 7816bd6ba174219751cf40c85a6c7330f4f6b8cf
   time: '1546658846'
