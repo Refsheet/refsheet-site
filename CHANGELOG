@@ -1,4 +1,24 @@
 ---
+v1.4.0-pre.62:
+- sha: 7816bd6ba174219751cf40c85a6c7330f4f6b8cf
+  time: '1546658846'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 7816bd6b
+  date: '2019-01-05'
+- sha: 1c6ac4f440b4f82c2a1db76d89a6aeca179ffd9c
+  time: '1546658839'
+  tags: []
+  message: This is so broken omg.
+  hash: 1c6ac4f4
+  date: '2019-01-05'
+- sha: dc6a048e5a601f548551a89d23e9d7f86b390285
+  time: '1546658784'
+  tags: []
+  message: This is so broken omg.
+  hash: dc6a048e
+  date: '2019-01-05'
+---
 v1.4.0-pre.61:
 - sha: dfb8ee384d7dba9a46800e5220f60f7ec67a39a8
   time: '1546636249'
