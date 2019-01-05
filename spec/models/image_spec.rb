@@ -143,7 +143,7 @@ describe Image, type: :model do
     expect(i.caption_html).to be_nil
   end
 
-  xit 'watermarks', paperclip: true do
+  it 'watermarks', paperclip: true do
     image = create :image, image: asset('fox.jpg'), watermark: true, annotation: false
     wait_until { Image.find(image.id).processed? }
     url = "public" + image.reload.image.url(:medium).gsub(/\?.*$/, '')
