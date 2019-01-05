@@ -22,6 +22,7 @@ GraphQL::Errors.configure(RefsheetSchema) do
   rescue_from StandardError do |e|
     Rails.logger.error e
     Rails.logger.error e.backtrace.join("\n")
+    Raven.capture_exception(e)
     GraphQL::ExecutionError.new e.message
   end
 end
