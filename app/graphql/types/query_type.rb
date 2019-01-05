@@ -47,9 +47,9 @@ Types::QueryType = GraphQL::ObjectType.define do
     argument :characterId, !types.ID
 
     resolve -> (_obj, args, ctx) {
-      raise GraphQL::ExecutionError.new "Not authorized!" unless ctx[:current_user]
+      raise GraphQL::ExecutionError.new "Not authorized!" unless ctx[:current_user].call
 
-      character = ctx[:current_user].characters.find(args[:characterId])
+      character = ctx[:current_user].call.characters.find(args[:characterId])
 
       presigned_post = character.images.new.image_presigned_post
 
@@ -66,14 +66,14 @@ Types::QueryType = GraphQL::ObjectType.define do
 
   field :getNotifications, Types::NotificationsCollectionType do
     resolve -> (_obj, _args, ctx) {
-      Notification.for(ctx[:current_user])
+      Notification.for(ctx[:current_user].call)
     }
   end
 
   field :getConversations, types[Types::ConversationType] do
     resolve -> (_obj, _args, ctx) {
       # scope = Conversation.all
-      scope = Conversation.for(ctx[:current_user])
+      scope = Conversation.for(ctx[:current_user].call)
       scope.includes(:sender, :recipient)
     }
   end
@@ -82,7 +82,7 @@ Types::QueryType = GraphQL::ObjectType.define do
     argument :conversationId, !types.ID
 
     resolve -> (_obj, args, ctx) {
-      conversation = Conversation.for(ctx[:current_user]).find_by! guid: args[:conversationId]
+      conversation = Conversation.for(ctx[:current_user].call).find_by! guid: args[:conversationId]
       scope = conversation.messages
       scope.includes(:conversation, :user)
     }
@@ -90,7 +90,7 @@ Types::QueryType = GraphQL::ObjectType.define do
 
   field :chatCounts, Types::ChatCountType do
     resolve -> (_obj, _args, ctx) {
-      Conversation.counts_for(ctx[:current_user])
+      Conversation.counts_for(ctx[:current_user].call)
     }
   end
 
