@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.64:
+- sha: 2e8cd22c9c2f115ebd78b275396ac10264d2c71e
+  time: '1546662222'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 2e8cd22c
+  date: '2019-01-05'
+- sha: 229665a2ed7367e2b435574fbfeacecfa40c720f
+  time: '1546662192'
+  tags: []
+  message: Try and fix broken current user contexts.
+  hash: 229665a2
+  date: '2019-01-05'
+---
 v1.4.0-pre.63:
 - sha: 82a972952897b94b65c6492125dfc8ea8e5d4960
   time: '1546660657'
