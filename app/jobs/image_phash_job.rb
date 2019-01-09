@@ -1,5 +1,17 @@
 class ImagePhashJob < ApplicationJob
   def perform(image)
+    Raven.breadcrumbs.record do |crumb|
+      crumb.category = :worker
+      crumb.level = :info
+
+      crumb.data = {
+          job: "ImagePhashJob",
+          image_id: image.id,
+          image_guid: image.guid,
+          image_file_name: image.image_file_name
+      }
+    end
+
     Rails.logger.tagged 'ImagePhashJob' do
       extension = File.extname(image.image_file_name)
       basename = File.basename(image.image_file_name)
@@ -9,8 +21,9 @@ class ImagePhashJob < ApplicationJob
         local = image.image.copy_to_local_file(nil, tempfile.path)
         phash = Phashion::Image.new(tempfile.path)
         hash = phash.fingerprint
-        Rails.logger.info("Calculated pHash of #{image.guid} (#{image.image_file_name}): #{hash}")
-        image.update_attributes(image_phash: hash.to_s(2))
+        bits = "%064b" % hash
+        Rails.logger.info("Calculated pHash of #{image.guid} (#{image.image_file_name}): #{bits}")
+        image.update_attributes(image_phash: bits)
       ensure
         tempfile.close
         tempfile.unlink
