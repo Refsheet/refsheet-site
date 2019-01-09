@@ -31,6 +31,7 @@
 #  custom_watermark_id     :integer
 #  annotation              :boolean
 #  custom_annotation       :string
+#  image_phash             :integer
 #
 # Indexes
 #
@@ -119,6 +120,7 @@ class Image < ApplicationRecord # < Media
   after_save :clean_up_character
   after_destroy :clean_up_character
   after_create :log_activity
+  after_post_process :schedule_phash_job
 
   scoped_search on: [:caption, :image_file_name]
   scoped_search relation: :character, on: [:name, :species]
@@ -127,6 +129,13 @@ class Image < ApplicationRecord # < Media
   scope :sfw, -> { where(nsfw: [false, nil]) }
   scope :nsfw, -> { where(nsfw: true) }
   scope :visible, -> { where(hidden: false) }
+
+  scope :similar_to, -> (image) {
+    target_hash = image.image_phash
+    where(<<-SQL.squish, image.id, target_hash)
+      images.id != ? AND hamming(images.image_phash::bit(64), ?::bit(64)) >= 0.7
+    SQL
+  }
 
   scope :visible_to, -> (user) {
     if user
@@ -218,5 +227,13 @@ class Image < ApplicationRecord # < Media
                     character_id: self.character_id,
                     created_at: self.created_at,
                     activity_method: 'create'
+  end
+
+  def schedule_phash_job
+    Rails.logger.info("Schedule?")
+    if self.image_updated_at_changed?
+      Rails.logger.info("Scheduling pHash update.")
+      ImagePhashJob.perform_later(self)
+    end
   end
 end
