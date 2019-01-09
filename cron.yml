@@ -3,3 +3,7 @@ cron:
   - name: SitemapUpdateJob
     url: /periodic_tasks
     schedule: 0 13 * * *
+
+  - name: ImageBackfillJob
+    url: /periodic_tasks
+    schedule: 25 * * * *

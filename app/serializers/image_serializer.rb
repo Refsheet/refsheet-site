@@ -99,6 +99,6 @@ class ImageSerializer < ActiveModel::Serializer
   end
 
   def image_phash
-    object.image_phash&.to_s(2)
+    object.image_phash
   end
 end
