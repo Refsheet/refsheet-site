@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.68:
+- sha: ad87c92c703b7edda20af4dd3d189f9d6bb61269
+  time: '1547023530'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: ad87c92c
+  date: '2019-01-09'
+- sha: 726fac6800da4ab8f0491c204798af35d948a000
+  time: '1547023521'
+  tags: []
+  message: Please Phashion.
+  hash: 726fac68
+  date: '2019-01-09'
+---
 v1.4.0-pre.67:
 - sha: c66a8a5fbda035b547e3860307e553b032a7c7f4
   time: '1547022471'
