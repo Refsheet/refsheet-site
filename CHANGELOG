@@ -1,4 +1,36 @@
 ---
+v1.4.0-pre.67:
+- sha: c66a8a5fbda035b547e3860307e553b032a7c7f4
+  time: '1547022471'
+  tags: []
+  message: Let's try a different Docker image.
+  hash: c66a8a5f
+  date: '2019-01-09'
+- sha: 4fff09a8843830a99114ff98fdeb0aec34248e8a
+  time: '1547021438'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 4fff09a8
+  date: '2019-01-09'
+- sha: c9f7fba6dbca3284c92ddba34c17f1052172ccf2
+  time: '1547021412'
+  tags: []
+  message: Add image backfill job to cron.
+  hash: c9f7fba6
+  date: '2019-01-09'
+- sha: a39b7f6ba0e99668a379ce48951f70180e2f14fb
+  time: '1547020035'
+  tags: []
+  message: Migrate and add phash to serializer.
+  hash: a39b7f6b
+  date: '2019-01-09'
+- sha: '094ca134d0348b19f08cf91aa781dab54b203cbb'
+  time: '1547014285'
+  tags: []
+  message: Added phash support.
+  hash: '094ca134'
+  date: '2019-01-09'
+---
 v1.4.0-pre.66:
 - sha: df876e8c5b331f56fcd2f775287711bd77d1abb2
   time: '1546997717'
