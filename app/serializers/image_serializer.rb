@@ -27,7 +27,8 @@ class ImageSerializer < ActiveModel::Serializer
              :favorites_count,
              :comments_count,
              :aspect_ratio,
-             :watermark
+             :watermark,
+             :image_phash
 
   has_one :character, serializer: ImageCharacterSerializer
   has_many :favorites, serializer: Media::FavoriteSerializer
@@ -95,5 +96,9 @@ class ImageSerializer < ActiveModel::Serializer
 
   def session
     scope.session
+  end
+
+  def image_phash
+    object.image_phash&.to_s(2)
   end
 end

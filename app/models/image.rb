@@ -31,7 +31,7 @@
 #  custom_watermark_id     :integer
 #  annotation              :boolean
 #  custom_annotation       :string
-#  image_phash             :integer
+#  image_phash             :bit(64)
 #
 # Indexes
 #
