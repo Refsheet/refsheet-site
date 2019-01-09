@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190104202354) do
+ActiveRecord::Schema.define(version: 20190109040948) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_similarity"
 
   create_table "activities", force: :cascade do |t|
     t.string   "guid"
@@ -387,13 +388,13 @@ ActiveRecord::Schema.define(version: 20190104202354) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
     t.integer  "row_order"
     t.string   "guid"
     t.string   "gravity"
     t.boolean  "nsfw"
-    t.boolean  "hidden",                  default: false
+    t.boolean  "hidden",                             default: false
     t.integer  "gallery_id"
     t.datetime "deleted_at"
     t.string   "title"
@@ -401,12 +402,13 @@ ActiveRecord::Schema.define(version: 20190104202354) do
     t.integer  "comments_count"
     t.integer  "favorites_count"
     t.text     "image_meta"
-    t.boolean  "image_processing",        default: false
+    t.boolean  "image_processing",                   default: false
     t.string   "image_direct_upload_url"
     t.boolean  "watermark"
     t.integer  "custom_watermark_id"
     t.boolean  "annotation"
     t.string   "custom_annotation"
+    t.bit      "image_phash",             limit: 64
     t.index ["custom_watermark_id"], name: "index_images_on_custom_watermark_id", using: :btree
     t.index ["guid"], name: "index_images_on_guid", using: :btree
   end

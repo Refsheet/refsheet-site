@@ -31,6 +31,7 @@
 #  custom_watermark_id     :integer
 #  annotation              :boolean
 #  custom_annotation       :string
+#  image_phash             :integer
 #
 # Indexes
 #
@@ -141,6 +142,34 @@ describe Image, type: :model do
     i = build :image, caption: nil
     expect { i.caption_html }.to_not raise_error
     expect(i.caption_html).to be_nil
+  end
+
+  it 'schedules phash job', paperclip: true do
+    a = ActiveJob::Base.queue_adapter = :test
+
+    expect {
+      image = create :image, image: asset('fox.jpg')
+    }.to enqueue_job(ImagePhashJob)
+
+    ActiveJob::Base.queue_adapter = a
+  end
+
+  describe ".similar_to", paperclip: true do
+    let!(:a) { create :image, image: asset('fox.jpg') }
+    let!(:b) { create :image, image: asset('fox.jpg') }
+
+    before {
+      ImagePhashJob.perform_now(a)
+      ImagePhashJob.perform_now(b)
+    }
+
+    it 'does not include self in results' do
+      expect(Image.similar_to(a)).to_not include a
+    end
+
+    it 'includes other similar images' do
+      expect(Image.similar_to(a)).to include b
+    end
   end
 
   it 'watermarks', paperclip: true do
