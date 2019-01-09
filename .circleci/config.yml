@@ -16,7 +16,7 @@ jobs:
           JUNIT_REPORT_PATH: ~/junit
           JUNIT_REPORT_NAME: karma.xml
 
-      - image: circleci/postgres:9.5-alpine
+      - image: littlebobbytables/postgres-pg_similarity
         environment:
           POSTGRES_USER: refsheet-site-test
           POSTGRES_DB: refsheet-site-test
