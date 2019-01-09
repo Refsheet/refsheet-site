@@ -16,7 +16,7 @@ module Paperclip
       @whiny = options[:whiny].nil? ? true : options[:whiny]
       @format = options[:format]
 
-      @ainstance = attachment.instance
+      @attachment = attachment
       @options = options
 
       @overlay = options[:overlay].nil? ? true : false
@@ -35,38 +35,44 @@ module Paperclip
       not @convert_options.blank?
     end
 
+    def image
+      @attachment.instance || Image.new
+    end
+
     # Performs the conversion of the +file+ into a watermark. Returns the Tempfile
     # that contains the new image.
 
     def make
-      # Rails.logger.info "watermark make method"
-      dst = Tempfile.new([@basename, '.' + @format.to_s])
-      dst.binmode
+      Rails.logger.tagged "UploadProcessor", image.guid.inspect do
+        # Rails.logger.info "watermark make method"
+        dst = Tempfile.new([@basename, '.' + @format.to_s])
+        dst.binmode
 
-      command = "convert"
-      params  = %W['#{fromfile}']
-      params += transformation_command
-      params << "-quality 100"
+        command = "convert"
+        params  = %W['#{fromfile}']
+        params += transformation_command
+        params << "-quality 100"
 
-      if watermark?
-        params += watermark_command
+        if watermark?
+          params += watermark_command
+        end
+
+        if annotate?
+          params += annotation_command
+        end
+
+        params << "'#{tofile(dst)}'"
+
+        Rails.logger.info 'params:' + params.to_s
+
+        begin
+          Paperclip.run(command, params.join(' '))
+        rescue ArgumentError, Cocaine::CommandLineError
+          raise Paperclip::Error.new("There was an error processing the watermark for #{@basename}") if @whiny
+        end
+
+        dst
       end
-
-      if annotate?
-        params += annotation_command
-      end
-
-      params << "'#{tofile(dst)}'"
-
-      Rails.logger.info 'params:' + params.to_s
-
-      begin
-        Paperclip.run(command, params.join(' '))
-      rescue ArgumentError, Cocaine::CommandLineError
-        raise Paperclip::Error.new("There was an error processing the watermark for #{@basename}") if @whiny
-      end
-
-      dst
     end
 
 
