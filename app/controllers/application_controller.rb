@@ -176,5 +176,16 @@ class ApplicationController < ActionController::Base
         params: params.to_unsafe_h,
         url: request.url
     )
+
+    Raven.breadcrumbs.record do |crumb|
+      crumb.category = "Request"
+      crumb.level = :info
+
+      crumb.data = {
+          controller: params[:controller],
+          action: params[:action],
+          url: request.url
+      }
+    end
   end
 end
