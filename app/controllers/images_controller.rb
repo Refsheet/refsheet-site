@@ -1,7 +1,7 @@
 class ImagesController < ApplicationController
-  before_action :get_user, except: [:show, :full, :update, :destroy]
-  before_action :get_character, except: [:show, :full, :update, :destroy]
-  before_action :get_image, only: [:show, :full, :update, :destroy]
+  before_action :get_user, except: [:show, :full, :update, :destroy, :refresh]
+  before_action :get_character, except: [:show, :full, :update, :destroy, :refresh]
+  before_action :get_image, only: [:show, :full, :update, :destroy, :refresh]
 
   respond_to :json
 
@@ -63,7 +63,7 @@ class ImagesController < ApplicationController
       @character = @image.character
       render json: image_scope, each_serializer: ImageSerializer
     elsif @image.update_attributes image_params
-      if image_params.include? :gravity
+      if image_params.include? :gravity or @image.watermark_changed?
         @image.regenerate_thumbnail!
       end
 
@@ -78,6 +78,17 @@ class ImagesController < ApplicationController
 
     @image.destroy
     render json: @image, serializer: ImageSerializer
+  end
+
+  def refresh
+    head :unauthorized and return unless @image.managed_by? current_user
+
+    @image.image.reprocess_without_delay!
+
+    respond_to do |format|
+      format.html { redirect_to @image.image.url(params[:size] || :large) }
+      format.json { render json: @image, serializer: ImageSerializer }
+    end
   end
 
   private
@@ -105,7 +116,8 @@ class ImagesController < ApplicationController
         :nsfw,
         :hidden,
         :title,
-        :background_color
+        :background_color,
+        :watermark
     )
   end
 

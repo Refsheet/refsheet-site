@@ -90,6 +90,7 @@ Rails.application.routes.draw do
       resources :images, only: [:index, :show, :create, :update, :destroy], shallow: true do
         member do
           get :full
+          get :refresh
         end
       end
     end

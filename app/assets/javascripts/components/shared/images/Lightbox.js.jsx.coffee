@@ -269,6 +269,12 @@
                                     </Column>
                                 </Row>
 
+                                <Row noMargin>
+                                    <Column s={6}>
+                                        <Input name='watermark' type='checkbox' label='Watermark' />
+                                    </Column>
+                                </Row>
+
                                 <div className='right margin-top--large'>
                                     <Submit>Save Image</Submit>
                                 </div>

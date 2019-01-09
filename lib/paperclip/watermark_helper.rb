@@ -1,14 +1,14 @@
 module Paperclip::WatermarkHelper
   DEFAULT_WATERMARK_OPACITY = 0.25
-  DEFAULT_WATERMARK_PATH = "lib/assets/watermarks/RefsheetLogo_White_200.png"
+  DEFAULT_WATERMARK_PATH = Rails.root.join("lib/assets/watermarks/RefsheetLogo_White_200.png")
   DEFAULT_WATERMARK_GRAVITY = "Center"
 
   def watermark?
-    @instance&.watermark
+    image.watermark
   end
 
   def annotate?
-    watermark? and @instance&.annotation
+    watermark? and image.annotation
   end
 
   def watermark_path
@@ -26,7 +26,7 @@ module Paperclip::WatermarkHelper
   end
 
   def annotation_text
-    character = @instance&.character
+    character = image.character
     character ? "ref.st/" + character.shortcode : "Refsheet.net"
   end
 
