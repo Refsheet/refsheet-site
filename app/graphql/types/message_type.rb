@@ -12,19 +12,19 @@ Types::MessageType = GraphQL::ObjectType.define do
 
   field :read_at, types.Int do
     resolve -> (obj, _args, ctx) {
-      obj.read_at(ctx[:current_user])&.to_i
+      obj.read_at(ctx[:current_user].call)&.to_i
     }
   end
 
   field :unread, types.Boolean do
     resolve -> (obj, _args, ctx) {
-      obj.unread? ctx[:current_user]
+      obj.unread? ctx[:current_user].call
     }
   end
 
   field :is_self, types.Boolean do
     resolve -> (obj, _args, ctx) {
-      obj.user_id == ctx[:current_user].id
+      obj.user_id == ctx[:current_user].call.id
     }
   end
 end

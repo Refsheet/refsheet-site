@@ -22,13 +22,13 @@ Types::ImageType = GraphQL::ObjectType.define do
 
   field :is_favorite, types.Boolean do
     resolve -> (obj, _args, ctx) {
-      obj.favorites.by? ctx[:current_user]
+      obj.favorites.by? ctx[:current_user].call
     }
   end
 
   field :is_managed, types.Boolean do
     resolve -> (obj, _args, ctx) {
-      obj.managed_by? ctx[:current_user]
+      obj.managed_by? ctx[:current_user].call
     }
   end
 
