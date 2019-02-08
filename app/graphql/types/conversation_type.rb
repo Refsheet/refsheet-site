@@ -10,7 +10,7 @@ Types::ConversationType = GraphQL::ObjectType.define do
 
   field :unreadCount, types.Int do
     resolve -> (obj, _args, ctx) {
-      obj.unread_count(ctx[:current_user])
+      obj.unread_count(ctx[:current_user].call)
     }
   end
 
@@ -18,7 +18,7 @@ Types::ConversationType = GraphQL::ObjectType.define do
 
   field :user, Types::UserType do
     resolve -> (obj, _args, ctx) {
-      if obj.sender == ctx[:current_user]
+      if obj.sender == ctx[:current_user].call
         obj.recipient
       else
         obj.sender

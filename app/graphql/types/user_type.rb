@@ -15,19 +15,19 @@ Types::UserType = GraphQL::ObjectType.define do
 
   field :is_managed, types.Boolean do
     resolve -> (obj, _args, ctx) {
-      obj == ctx[:current_user]
+      obj == ctx[:current_user].call
     }
   end
 
   field :is_followed, types.Boolean do
     resolve -> (obj, _args, ctx) {
-      obj.followed_by? ctx[:current_user]
+      obj.followed_by? ctx[:current_user].call
     }
   end
 
   field :characters, types[Types::CharacterType] do
     resolve -> (obj, _args, ctx) {
-      obj.characters.visible_to(ctx[:current_user]).rank(:row_order)
+      obj.characters.visible_to(ctx[:current_user].call).rank(:row_order)
     }
   end
 
