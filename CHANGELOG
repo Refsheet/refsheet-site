@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.69:
+- sha: 6ed90f06109993adec8479de6949da8e266d34bd
+  time: '1547069988'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 6ed90f06
+  date: '2019-01-09'
+- sha: 1665d9e16945d5e34fde3ebf88c6b24edfb494b6
+  time: '1547069979'
+  tags: []
+  message: Add some additional metadata to Raven.
+  hash: 1665d9e1
+  date: '2019-01-09'
+---
 v1.4.0-pre.68:
 - sha: ad87c92c703b7edda20af4dd3d189f9d6bb61269
   time: '1547023530'
