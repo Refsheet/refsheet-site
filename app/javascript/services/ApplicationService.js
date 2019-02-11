@@ -13,7 +13,7 @@ const HOST = (
     window &&
     window.location &&
     window.location.origin
-) || 'http://dev.refsheet.net:5000'
+) || 'http://dev1.refsheet.net:5000'
 
 const httpLink = createHttpLink({
   uri: `${HOST}/graphql`,
