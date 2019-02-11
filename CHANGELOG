@@ -1,4 +1,24 @@
 ---
+v1.4.0-pre.71:
+- sha: 5bf26db4a051398e7066c2b447d2f5fcd47c662b
+  time: '1549606848'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 5bf26db4
+  date: '2019-02-08'
+- sha: 827a6e7e967bac4c762eb178dafc74c3ef4b2629
+  time: '1549605237'
+  tags: []
+  message: Fixed sidebar render bug on V2 profiles.
+  hash: 827a6e7e
+  date: '2019-02-08'
+- sha: 75a6e55e89b96d62992fc3ed3ebf594beba85c6e
+  time: '1549600501'
+  tags: []
+  message: Fix context calls to current_user
+  hash: 75a6e55e
+  date: '2019-02-08'
+---
 v1.4.0-pre.70:
 - sha: 0f1fe1fd44315f169886f92eededdf1eb082a209
   time: '1549600133'
