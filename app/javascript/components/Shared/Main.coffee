@@ -25,7 +25,7 @@ export default class Main extends Component
 
   componentWillReceiveProps: (newProps) ->
     if newProps.title
-      @_updateTitle newProps.title
+      WindowAlert.addNow('main', @props.title)
 
 #    if newProps.bodyClassName != @props.bodyClassName
 #      document.body.removeClass @props.bodyClassName

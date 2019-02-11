@@ -19,13 +19,13 @@
     document.title = [].concat.apply([], titles).join ' - '
 
   componentWillMount: ->
-    if @props.title
+    if @props.title && @_updateTitle
       @_updateTitle @props.title
 
     $('body').addClass @props.bodyClassName
 
   componentWillReceiveProps: (newProps) ->
-    if newProps.title
+    if newProps.title && @_updateTitle
       @_updateTitle newProps.title
 
     if newProps.bodyClassName != @props.bodyClassName
