@@ -46,6 +46,10 @@ class Character < ApplicationRecord
                           after_add: :update_counter_cache,
                           after_remove: :update_counter_cache
 
+  # Profile Associations
+  has_many :profile_sections, class_name: "Characters::ProfileSection"
+  has_many :profile_widgets, class_name: "Characters::ProfileWidget"
+
   # Marketplace Associations
   has_many :marketplace_listings, class_name: "Marketplace::Items::CharacterListing"
   has_one :marketplace_listing, -> { for_sale }, class_name: "Marketplace::Items::CharacterListing"

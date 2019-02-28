@@ -27,47 +27,51 @@ Types::CharacterType = GraphQL::ObjectType.define do
 
   field :profile_sections, types[Types::ProfileSectionType] do
     resolve -> (obj, _args, _ctx) {
-      profile_widget = OpenStruct.new type: 'RichText',
+      if obj.profile_sections.any?
+        obj.profile_sections
+      else
+        profile_widget = OpenStruct.new type: 'RichText',
+                                        id: SecureRandom.hex,
+                                        column: 0,
+                                        title: nil,
+                                        data: {content: obj.profile, content_html: obj.profile_html}
+
+        profile_section = {
+            id: SecureRandom.hex,
+            title: "About #{obj.name}",
+            columns: [12],
+            widgets: [
+                profile_widget
+            ]
+        }
+
+        likes_widget = OpenStruct.new type: 'RichText',
                                       id: SecureRandom.hex,
                                       column: 0,
-                                      title: nil,
-                                      data: {content: obj.profile, content_html: obj.profile_html}
+                                      title: 'Likes',
+                                      data: {content: obj.likes, content_html: obj.likes_html}
 
-      profile_section = {
-          id: SecureRandom.hex,
-          title: "About #{obj.name}",
-          columns: [12],
-          widgets: [
-              profile_widget
-          ]
-      }
+        dislikes_widget = OpenStruct.new type: 'RichText',
+                                         id: SecureRandom.hex,
+                                         column: 1,
+                                         title: 'Dislikes',
+                                         data: {content: obj.dislikes, content_html: obj.dislikes_html}
 
-      likes_widget = OpenStruct.new type: 'RichText',
-                                    id: SecureRandom.hex,
-                                    column: 0,
-                                    title: 'Likes',
-                                    data: {content: obj.likes, content_html: obj.likes_html}
+        like_dislike_section = {
+            id: SecureRandom.hex,
+            title: nil,
+            columns: [6, 6],
+            widgets: [
+                likes_widget,
+                dislikes_widget
+            ]
+        }
 
-      dislikes_widget = OpenStruct.new type: 'RichText',
-                                       id: SecureRandom.hex,
-                                       column: 1,
-                                       title: 'Dislikes',
-                                       data: {content: obj.dislikes, content_html: obj.dislikes_html}
-
-      like_dislike_section = {
-          id: SecureRandom.hex,
-          title: nil,
-          columns: [6, 6],
-          widgets: [
-              likes_widget,
-              dislikes_widget
-          ]
-      }
-
-      [
-          OpenStruct.new(profile_section),
-          OpenStruct.new(like_dislike_section)
-      ]
+        [
+            OpenStruct.new(profile_section),
+            OpenStruct.new(like_dislike_section)
+        ]
+      end
     }
   end
 

@@ -20,4 +20,9 @@ Types::MutationType = GraphQL::ObjectType.define do
   # Session
   field :createSession, field: Mutations::SessionMutations::Create
   field :destroySession, field: Mutations::SessionMutations::Destroy
+
+  #== Character Profiles
+
+  # Profile Section
+  field :updateProfileSection, field: Mutations::ProfileSectionMutations::Update
 end

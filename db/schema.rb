@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190109040948) do
+ActiveRecord::Schema.define(version: 20190228084426) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -209,6 +209,36 @@ ActiveRecord::Schema.define(version: 20190109040948) do
     t.integer  "row_order"
     t.datetime "deleted_at"
     t.text     "custom_attributes"
+  end
+
+  create_table "characters_profile_sections", force: :cascade do |t|
+    t.string   "guid"
+    t.integer  "character_id"
+    t.integer  "row_order"
+    t.string   "title"
+    t.string   "column_widths"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["character_id"], name: "index_characters_profile_sections_on_character_id", using: :btree
+    t.index ["guid"], name: "index_characters_profile_sections_on_guid", using: :btree
+    t.index ["row_order"], name: "index_characters_profile_sections_on_row_order", using: :btree
+  end
+
+  create_table "characters_profile_widgets", force: :cascade do |t|
+    t.string   "guid"
+    t.integer  "character_id"
+    t.integer  "profile_section_id"
+    t.integer  "column"
+    t.integer  "row_order"
+    t.string   "widget_type"
+    t.string   "title"
+    t.text     "data"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["character_id"], name: "index_characters_profile_widgets_on_character_id", using: :btree
+    t.index ["guid"], name: "index_characters_profile_widgets_on_guid", using: :btree
+    t.index ["profile_section_id"], name: "index_characters_profile_widgets_on_profile_section_id", using: :btree
+    t.index ["row_order"], name: "index_characters_profile_widgets_on_row_order", using: :btree
   end
 
   create_table "color_schemes", force: :cascade do |t|
@@ -761,6 +791,8 @@ ActiveRecord::Schema.define(version: 20190109040948) do
     t.index ["type"], name: "index_users_on_type", using: :btree
   end
 
+  add_foreign_key "characters_profile_widgets", "characters"
+  add_foreign_key "characters_profile_widgets", "characters_profile_sections", column: "profile_section_id"
   add_foreign_key "conversations_read_bookmarks", "conversations"
   add_foreign_key "conversations_read_bookmarks", "conversations_messages", column: "message_id"
   add_foreign_key "conversations_read_bookmarks", "users"

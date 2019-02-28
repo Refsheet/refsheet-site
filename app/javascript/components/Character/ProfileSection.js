@@ -14,14 +14,9 @@ class ProfileSection extends Component {
   }
 
   handleTitleChange(title) {
-    console.log({
-      id: this.props.id,
-      title: title,
-      type: "TITLE_CHANGE"
-    })
-
     this.props.updateSection({
       variables: {
+        id: this.props.id,
         title
       }
     })
@@ -67,8 +62,8 @@ ProfileSection.prototype.propTypes = {
 };
 
 const UPDATE_SECTION_MUTATION = gql`
-  mutation updateProfileSection($profileSectionId: ID, $title: String) {
-      updateProfileSection(profileSectionId: $profileSectionId, title: $title) {
+  mutation updateProfileSection($id: ID!, $title: String) {
+      updateProfileSection(id: $id, title: $title) {
           title
       }
   }
