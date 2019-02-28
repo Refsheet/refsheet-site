@@ -6,9 +6,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ProfileWidget from './ProfileWidget';
+import { camelize } from 'object-utils';
 
 const ProfileColumn = function({widgets, width, editable}) {
-  const widgetCards = widgets.map(widget => <ProfileWidget {...widget} key={widget.id} editable={editable} />);
+  const widgetCards = widgets.map(widget => <ProfileWidget {...camelize(widget)} key={widget.id} editable={editable} />);
 
   return <div className={`col s12 m${width}`}>
     { widgetCards }

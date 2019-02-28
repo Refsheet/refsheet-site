@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import { camelize } from 'object-utils'
 import widgets, { SerializerWidget } from './Widgets'
 
-const ProfileWidget = function({id, type, title, data, onChange, editable}) {
+const ProfileWidget = function({id, widgetType, title, data, onChange, editable}) {
   let header
-  const Widget = widgets[type] || SerializerWidget;
+  const Widget = widgets[widgetType] || SerializerWidget;
 
   if (editable) {
     header =
@@ -20,7 +20,7 @@ const ProfileWidget = function({id, type, title, data, onChange, editable}) {
         </div>
 
         <div className='center'>
-          { title || type }
+          { title || widgetType }
         </div>
       </div>;
 
@@ -40,7 +40,7 @@ const ProfileWidget = function({id, type, title, data, onChange, editable}) {
 
 ProfileWidget.propTypes = {
   id: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
+  widgetType: PropTypes.string.isRequired,
   data: PropTypes.object.isRequired,
   onChange: PropTypes.func,
   editable: PropTypes.bool

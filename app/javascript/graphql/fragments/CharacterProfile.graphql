@@ -5,7 +5,7 @@ fragment CharacterProfile on Character {
         columns
         widgets {
             id
-            type
+            widget_type
             column
             title
             data {

@@ -1,0 +1,25 @@
+# == Schema Information
+#
+# Table name: characters_profile_sections
+#
+#  id            :integer          not null, primary key
+#  guid          :string
+#  character_id  :integer
+#  row_order     :integer
+#  title         :string
+#  column_widths :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+# Indexes
+#
+#  index_characters_profile_sections_on_character_id  (character_id)
+#  index_characters_profile_sections_on_guid          (guid)
+#  index_characters_profile_sections_on_row_order     (row_order)
+#
+
+require 'rails_helper'
+
+RSpec.describe Characters::ProfileSection, type: :model do
+  pending "add some examples to (or delete) #{__FILE__}"
+end
