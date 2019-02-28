@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.73:
+- sha: a0a7e1b19d872a8d8a3c20d0e652c75056daae2e
+  time: '1551335112'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: a0a7e1b1
+  date: '2019-02-28'
+- sha: 52fe18fbda682baa753c993b44830e0b61036962
+  time: '1551335101'
+  tags: []
+  message: Editable section header does proper thing.
+  hash: 52fe18fb
+  date: '2019-02-28'
+---
 v1.4.0-pre.72:
 - sha: 9e45d68a5b30cf629a176b03ad7b65dd80e03160
   time: '1549921414'
