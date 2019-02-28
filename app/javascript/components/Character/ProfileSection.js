@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import ProfileColumn from './ProfileColumn';
 import Section from 'Shared/Section';
 import c from 'classnames';
+import {Mutation} from "react-apollo";
+import { gql } from 'apollo-client-preset'
 
 class ProfileSection extends Component {
   constructor(props) {
@@ -17,6 +19,16 @@ class ProfileSection extends Component {
       title: title,
       type: "TITLE_CHANGE"
     })
+
+    this.props.updateSection({
+      variables: {
+        title
+      }
+    })
+      .then((data) => {
+        console.log(data)
+      })
+      .catch((error) => console.error(error))
   }
 
   renderSectionColumns(columns, widgets, editable) {
@@ -33,6 +45,7 @@ class ProfileSection extends Component {
 
   render() {
     const {id, title, columns, widgets, editable, className} = this.props
+    console.log(this.props)
 
     return (
       <Section title={title} className={ c('margin-bottom--large', className) } editable={editable} onTitleChange={this.handleTitleChange}>
@@ -53,4 +66,20 @@ ProfileSection.prototype.propTypes = {
   className: PropTypes.string
 };
 
-export default ProfileSection;
+const UPDATE_SECTION_MUTATION = gql`
+  mutation updateProfileSection($profileSectionId: ID, $title: String) {
+      updateProfileSection(profileSectionId: $profileSectionId, title: $title) {
+          title
+      }
+  }
+`
+
+const Wrapped = (props) => (
+  <Mutation mutation={UPDATE_SECTION_MUTATION}>
+    {(updateSection, {mutationData}) => (
+      <ProfileSection {...props} updateSection={updateSection} mutationData={mutationData} />
+    )}
+  </Mutation>
+)
+
+export default Wrapped;

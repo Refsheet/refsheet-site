@@ -59,6 +59,7 @@ class EditableHeader extends Component {
     }
 
     this.handleEditClick = this.handleEditClick.bind(this)
+    this.handleInputChange = this.handleInputChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -83,6 +84,11 @@ class EditableHeader extends Component {
   handleEditClick(e) {
     e.preventDefault()
     this.unlock()
+  }
+
+  handleInputChange(e) {
+    e.preventDefault()
+    this.setState({value: e.target.value})
   }
 
   handleSubmit(e) {
@@ -113,7 +119,7 @@ class EditableHeader extends Component {
         <form className={'editable-container'} onSubmit={this.handleSubmit}>
           <InputContainer>
             <ComponentRef className={'input-value'}>
-              <InputField type={'text'} value={this.state.value} style={{font: 'inherit'}} autoFocus />
+              <InputField type={'text'} value={this.state.value} style={{font: 'inherit'}} onChange={this.handleInputChange} autoFocus />
             </ComponentRef>
             <InputButton className={'editable-button'} title={'edit'} type={'submit'}>
               <i className={'material-icons'}>save</i>
