@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.72:
+- sha: 9e45d68a5b30cf629a176b03ad7b65dd80e03160
+  time: '1549921414'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 9e45d68a
+  date: '2019-02-11'
+- sha: e1021285a36602391ea88bffbe3efe1b498fa1dd
+  time: '1549921107'
+  tags: []
+  message: Plenty of changes to V2 profiles.
+  hash: e1021285
+  date: '2019-02-11'
+---
 v1.4.0-pre.71:
 - sha: 5bf26db4a051398e7066c2b447d2f5fcd47c662b
   time: '1549606848'
