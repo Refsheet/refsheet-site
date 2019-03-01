@@ -60,6 +60,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::InvalidAuthenticityToken, with: :bad_request
   rescue_from ActionController::ParameterMissing, with: :bad_request
   rescue_from ApplicationController::Unauthorized, with: :unauthorized
+  rescue_from ActiveRecord::ConnectionTimeoutError, with: :thread_dump
 
   unless Rails.env.development?
     rescue_from ActionController::RoutingError, with: :not_found
@@ -187,5 +188,27 @@ class ApplicationController < ActionController::Base
           url: request.url
       }
     end
+  end
+
+  def thread_dump(e)
+    Rails.logger.error "listing #{Thread.list.count} threads:"
+
+    thread_data = {
+        thread_count: Thread.list.count
+    }
+
+    Thread.list.each_with_index do |t,i|
+      Rails.logger.error "---- thread #{i}: #{t.inspect}"
+      Rails.logger.error t.backtrace.take(5)
+
+      thread_data["thread_#{i}"] = {
+          thread: t.inspect,
+          backtrace: t.backtrace.take(5)
+      }
+    end
+
+    Raven.capture_exception(e, {
+        extra: thread_data
+    })
   end
 end
