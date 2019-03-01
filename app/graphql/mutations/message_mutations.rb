@@ -12,7 +12,7 @@ class Mutations::MessageMutations < Mutations::ApplicationMutation
       if params[:conversationId]
         @conversation = Conversation.find_by!(guid: params[:conversationId])
       else
-        sender = context.current_user
+        sender = context.current_user.call
         recipient = User.find(params[:recipientId])
 
         @conversation = Conversation.with(sender, recipient).tap(&:save!)
@@ -28,6 +28,6 @@ class Mutations::MessageMutations < Mutations::ApplicationMutation
 
   def message_params
     params.permit(:message)
-          .merge(user: context.current_user)
+          .merge(user: context.current_user.call)
   end
 end

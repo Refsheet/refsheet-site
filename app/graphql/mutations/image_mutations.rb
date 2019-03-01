@@ -26,6 +26,6 @@ class Mutations::ImageMutations < Mutations::ApplicationMutation
   end
 
   def get_character
-    @character = context.current_user.characters.find(params[:characterId])
+    @character = context.current_user.call.characters.find(params[:characterId])
   end
 end

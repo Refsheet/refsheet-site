@@ -22,7 +22,7 @@ class Mutations::ModerationMutations < Mutations::ApplicationMutation
   private
 
   def get_moderation
-    # authorize! context.current_user&.role? Role::MODERATOR
+    # authorize! context.current_user.call&.role? Role::MODERATOR
     @moderation = ModerationReport.find params[:id]
   end
 end

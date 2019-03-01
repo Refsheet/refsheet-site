@@ -18,7 +18,7 @@ class Mutations::CharacterMutations < Mutations::ApplicationMutation
 
   def get_character
     @character = Character.find_by! shortcode: params[:id]
-    authorize! @character.managed_by? context.current_user
+    authorize! @character.managed_by? context.current_user.call
   end
 
   def update_params

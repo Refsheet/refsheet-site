@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import M from 'materialize-css';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import TocLink from 'Styled/TocLink';
+import { Icon } from 'react-materialize';
 import { MutedHeader } from 'Styled/Muted';
 import { SidebarLink } from 'Styled/Sidebar'
 import { Sticky, StickyContainer } from 'react-sticky';
@@ -51,6 +51,15 @@ class Sidebar extends Component {
 
       <div className={'margin-bottom--large'}>
         <MutedHeader className={'margin-bottom--small'}>Manage</MutedHeader>
+        <div className={'notice'}>
+          <Icon>warning</Icon>
+          <strong>Profile Conversion Required</strong>
+          <p>
+            This character profile must be converted to use the new Profile layout. This will cause the old profile view
+            to become out of sync.
+          </p>
+          <a className={'btn'}>Convert Now</a>
+        </div>
         { this.props.editable || <SidebarLink to='#edit' onClick={this.toggleEditable} icon='edit'>Edit</SidebarLink> }
         { this.props.editable && <SidebarLink to='#edit' onClick={this.toggleEditable} icon='lock'>Stop Editing</SidebarLink> }
         <SidebarLink to='#' icon='settings'>Settings</SidebarLink>
