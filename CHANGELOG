@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.74:
+- sha: 22723d9ede6525a9b1b264e48fab0ce81a62ae00
+  time: '1551381993'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 22723d9e
+  date: '2019-02-28'
+- sha: 585c90ffa006ea9d3536dd5a44923b9a937cbef1
+  time: '1551381979'
+  tags: []
+  message: Data-ified V2 profile sections/widgets.
+  hash: 585c90ff
+  date: '2019-02-28'
+---
 v1.4.0-pre.73:
 - sha: a0a7e1b19d872a8d8a3c20d0e652c75056daae2e
   time: '1551335112'
