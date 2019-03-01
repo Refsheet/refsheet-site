@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.76:
+- sha: d89b4c2f44b7e8fe2fddb8c77abfc65377a9a393
+  time: '1551418271'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: d89b4c2f
+  date: '2019-03-01'
+- sha: 5dbbbb0f6fe5559894ff8aa8e1435d2bbbffc2dc
+  time: '1551418267'
+  tags: []
+  message: Fix widget_type rename in fake v2s.
+  hash: 5dbbbb0f
+  date: '2019-03-01'
+---
 v1.4.0-pre.75:
 - sha: fa052a20437cdb4565eb67828bcb026419cc9450
   time: '1551413039'
