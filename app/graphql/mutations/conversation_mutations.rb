@@ -9,7 +9,7 @@ class Mutations::ConversationMutations < Mutations::ApplicationMutation
   end
 
   def create
-    sender = context.current_user
+    sender = context.current_user.call
     recipient = User.find(params[:recipient_id])
 
     @conversation = Conversation.with(sender, recipient)
@@ -30,7 +30,7 @@ class Mutations::ConversationMutations < Mutations::ApplicationMutation
 
   def update
     if params[:read]
-      @conversation.read_by! context.current_user
+      @conversation.read_by! context.current_user.call
     end
 
     @conversation
