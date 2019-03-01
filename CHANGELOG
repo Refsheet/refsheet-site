@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.75:
+- sha: fa052a20437cdb4565eb67828bcb026419cc9450
+  time: '1551413039'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: fa052a20
+  date: '2019-03-01'
+- sha: 7f2539cc6cc468e19cb6eb49b0ff2cfbb6bf6305
+  time: '1551408880'
+  tags: []
+  message: Logging cleanup and thread dump.
+  hash: 7f2539cc
+  date: '2019-03-01'
+---
 v1.4.0-pre.74:
 - sha: 22723d9ede6525a9b1b264e48fab0ce81a62ae00
   time: '1551381993'
