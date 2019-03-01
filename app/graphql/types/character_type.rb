@@ -30,7 +30,7 @@ Types::CharacterType = GraphQL::ObjectType.define do
       if obj.profile_sections.any?
         obj.profile_sections
       else
-        profile_widget = OpenStruct.new type: 'RichText',
+        profile_widget = OpenStruct.new widget_type: 'RichText',
                                         id: SecureRandom.hex,
                                         column: 0,
                                         title: nil,
@@ -45,13 +45,13 @@ Types::CharacterType = GraphQL::ObjectType.define do
             ]
         }
 
-        likes_widget = OpenStruct.new type: 'RichText',
+        likes_widget = OpenStruct.new widget_type: 'RichText',
                                       id: SecureRandom.hex,
                                       column: 0,
                                       title: 'Likes',
                                       data: {content: obj.likes, content_html: obj.likes_html}
 
-        dislikes_widget = OpenStruct.new type: 'RichText',
+        dislikes_widget = OpenStruct.new widget_type: 'RichText',
                                          id: SecureRandom.hex,
                                          column: 1,
                                          title: 'Dislikes',
