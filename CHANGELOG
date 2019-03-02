@@ -1,4 +1,24 @@
 ---
+v1.4.0-pre.80:
+- sha: 9525bd979fa152fe9641b18ad72a5fa6aaee831c
+  time: '1551569978'
+  tags: []
+  message: Fix check for spec.
+  hash: 9525bd97
+  date: '2019-03-02'
+- sha: 12a86fdfe3adeceea0602492185b9c3426afcb9a
+  time: '1551569351'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 12a86fdf
+  date: '2019-03-02'
+- sha: 91f2c567532b7d2931f2626d5a95cd8cc289e71a
+  time: '1551569348'
+  tags: []
+  message: Conversation blocking is a thing.
+  hash: 91f2c567
+  date: '2019-03-02'
+---
 v1.4.0-pre.79:
 - sha: 5a888fcec23cf7b721728c4b4c7ab181440114d3
   time: '1551567501'
