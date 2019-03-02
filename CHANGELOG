@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.78:
+- sha: 596ba5f10848c4f20360ba26c3abd39c6b63d2ec
+  time: '1551561265'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 596ba5f1
+  date: '2019-03-02'
+- sha: 27baa42b6f6528b062a1b8e2b90b0bfcb3df573f
+  time: '1551561259'
+  tags: []
+  message: Fixed subscriptions!!!
+  hash: 27baa42b
+  date: '2019-03-02'
+---
 v1.4.0-pre.77:
 - sha: a45c6b8af9dcf0bdbc1e4924c590ba42996145f9
   time: '1551488089'
