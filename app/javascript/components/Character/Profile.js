@@ -10,9 +10,9 @@ import { RichText } from 'Shared';
 import ProfileSection from './ProfileSection';
 import c from 'classnames';
 
-const Profile = ({profileSections, editable}) =>
+const Profile = ({profileSections, editable, refetch}) =>
   <div id='profile'>
-    { renderProfileSections(profileSections, editable) }
+    { renderProfileSections(profileSections, editable, refetch) }
   </div>
 ;
 
@@ -27,7 +27,7 @@ const groupProfileSections = function(profileSections) {
   return groups;
 };
 
-var renderProfileSections = function(profileSections, editable) {
+const renderProfileSections = function(profileSections, editable, refetch) {
   const groups = groupProfileSections(profileSections);
   const render = [];
   for (let id in groups) {
@@ -38,7 +38,7 @@ var renderProfileSections = function(profileSections, editable) {
         'margin-top--none': i > 0
       });
 
-      return <ProfileSection key={section.id} {...section} className={ classNames } editable={editable} />;
+      return <ProfileSection key={section.id} {...section} className={ classNames } editable={editable} refetch={refetch} />;
     });
 
     render.push(<div id={id} key={id} className='profile-scrollspy'>{renderedSections}</div>);

@@ -8,6 +8,7 @@ import { SidebarLink } from 'Styled/Sidebar'
 import { Sticky, StickyContainer } from 'react-sticky';
 import UserCard from 'User/UserCard'
 import { connect } from 'react-redux'
+import ProfileConvertButton from "./ProfileConvertButton";
 
 class Sidebar extends Component {
   constructor(props) {
@@ -43,6 +44,8 @@ class Sidebar extends Component {
   }
 
   renderSticky({style}) {
+    const conversionRequired = this.props.characterVersion === 1
+
     return <div style={{...style, top: this.stickyTop}}>
       <div className='margin-bottom--large'>
         <MutedHeader>Created By</MutedHeader>
@@ -51,17 +54,21 @@ class Sidebar extends Component {
 
       <div className={'margin-bottom--large'}>
         <MutedHeader className={'margin-bottom--small'}>Manage</MutedHeader>
-        <div className={'notice'}>
-          <Icon>warning</Icon>
-          <strong>Profile Conversion Required</strong>
-          <p>
+        { conversionRequired && <div className={'notice'}>
+          <div className={'strong red-text text-darken-1'}>
+            <Icon className={'left red-text text-darken-1'}>warning</Icon>
+            <strong>Profile Conversion Required!</strong>
+          </div>
+          <br className={'clearfix'} />
+          <p className={'margin-top--none'}>
             This character profile must be converted to use the new Profile layout. This will cause the old profile view
             to become out of sync.
           </p>
-          <a className={'btn'}>Convert Now</a>
-        </div>
-        { this.props.editable || <SidebarLink to='#edit' onClick={this.toggleEditable} icon='edit'>Edit</SidebarLink> }
-        { this.props.editable && <SidebarLink to='#edit' onClick={this.toggleEditable} icon='lock'>Stop Editing</SidebarLink> }
+          <ProfileConvertButton id={this.props.characterId} onConvert={this.props.refetch} />
+        </div> }
+
+        { !conversionRequired && this.props.editable || <SidebarLink to='#edit' onClick={this.toggleEditable} icon='edit'>Edit</SidebarLink> }
+        { !conversionRequired && this.props.editable && <SidebarLink to='#edit' onClick={this.toggleEditable} icon='lock'>Stop Editing</SidebarLink> }
         <SidebarLink to='#' icon='settings'>Settings</SidebarLink>
         <SidebarLink to='#' icon='palette'>Color Scheme</SidebarLink>
         <SidebarLink to='#' icon='archive'>Archive</SidebarLink>
@@ -89,7 +96,9 @@ Sidebar.propTypes = {
   user: PropTypes.object.isRequired,
   profileSections: PropTypes.array,
   onEditableChange: PropTypes.func.isRequired,
-  editable: PropTypes.boolean
+  editable: PropTypes.boolean,
+  characterVersion: PropTypes.number,
+  refetch: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({

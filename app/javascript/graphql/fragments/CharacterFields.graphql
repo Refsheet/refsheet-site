@@ -10,4 +10,5 @@ fragment CharacterFields on Character {
     special_notes_html
     species
     created_at
+    version
 }

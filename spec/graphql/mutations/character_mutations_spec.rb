@@ -23,7 +23,7 @@ describe Mutations::CharacterMutations do
   end
 
   context 'when authorized' do
-    let(:context) {{ current_user: user }}
+    let(:context) {{ current_user: -> { user } }}
 
     it 'updates name' do
       expect(subject[:errors]).to be_nil
