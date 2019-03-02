@@ -26,3 +26,18 @@ GraphQL::Errors.configure(RefsheetSchema) do
     GraphQL::ExecutionError.new e.message
   end
 end
+
+class ActionCable::Connection::Subscriptions
+  def execute_command(data)
+    case data['command']
+    when 'subscribe'   then add data
+    when 'unsubscribe' then remove data
+    when 'message'     then perform_action data
+    else
+      logger.error "Received unrecognized command in #{data.inspect}"
+    end
+  rescue Exception => e
+    raise e
+    logger.error "Could not execute command from #{data.inspect}) [#{e.class} - #{e.message}]: #{e.backtrace.first(5).join(" | ")}"
+  end
+end

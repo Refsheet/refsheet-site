@@ -3,29 +3,34 @@ module ApplicationCable
     identified_by :current_user
 
     def connect
-      self.current_user = find_verified_user
+      Rails.logger.tagged "Action Cable Connect" do
+        self.current_user = find_verified_user
+      end
     end
 
     protected
 
     def find_verified_user
-      user = nil
-
       if defined?(cookies)
+        session_token = cookies.signed[UserSession::COOKIE_SESSION_TOKEN_NAME]
+        insecure_user_id = cookies.signed[UserSession::COOKIE_USER_ID_NAME]
         Rails.logger.info("Cookies: #{cookies.to_h.inspect}")
+      else
+        return reject_unauthorized_connection
       end
 
-      session_token = defined?(cookies) && cookies.signed[UserSession::COOKIE_SESSION_TOKEN_NAME]
-      insecure_user_id = defined?(cookies) && cookies.signed[UserSession::COOKIE_USER_ID_NAME]
+      Rails.logger.warn("#{UserSession::COOKIE_SESSION_TOKEN_NAME.inspect}: #{session_token.inspect}, " +
+                        "#{UserSession::COOKIE_USER_ID_NAME.inspect}: #{insecure_user_id.inspect}")
 
-      if session_token
+      if !session_token.nil?
         Rails.logger.info("Looking up user by session_token: #{session_token.inspect}")
         user = get_remembered_user(session_token, insecure_user_id)
-      elsif insecure_user_id
+      elsif !insecure_user_id.nil?
         Rails.logger.info("Looking up user by insecure_user_id: #{insecure_user_id.inspect}")
         user = User.find_by id: user_id
       else
-        Rails.logger.warn("Session Token and IUID is nil!")
+        Rails.logger.warn("Session Token and IUID is nil: #{session_token.inspect}, #{insecure_user_id.inspect}")
+        return reject_unauthorized_connection
       end
 
       Rails.logger.info("possible user: #{user}")
