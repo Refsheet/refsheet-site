@@ -1,4 +1,24 @@
 ---
+v1.4.0-pre.77:
+- sha: a45c6b8af9dcf0bdbc1e4924c590ba42996145f9
+  time: '1551488089'
+  tags: []
+  message: V2 convert button added.
+  hash: a45c6b8a
+  date: '2019-03-02'
+- sha: 1ce511343b03a0cdb01537501f01a05324237c66
+  time: '1551472851'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 1ce51134
+  date: '2019-03-01'
+- sha: 4bf755e84affd27060cefa9981863032a076e2d9
+  time: '1551472338'
+  tags: []
+  message: Fix chat!
+  hash: 4bf755e8
+  date: '2019-03-01'
+---
 v1.4.0-pre.76:
 - sha: d89b4c2f44b7e8fe2fddb8c77abfc65377a9a393
   time: '1551418271'
