@@ -14,6 +14,16 @@ class Mutations::CharacterMutations < Mutations::ApplicationMutation
     @character
   end
 
+  action :convert do
+    type Types::CharacterType
+    argument :id, !types.ID
+  end
+
+  def convert
+    ConvertProfileV2Job.perform_now(@character)
+    @character
+  end
+
   private
 
   def get_character

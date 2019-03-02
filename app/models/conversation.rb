@@ -26,10 +26,14 @@ class Conversation < ApplicationRecord
   belongs_to :sender, class_name: 'User', required: true
   belongs_to :recipient, class_name: 'User', required: true
 
+  # belongs_to :sender_character, class_name: 'Character', required: -> { self.character_conversation? }
+  # belongs_to :recipient_character, class_name: 'Character', required: -> { self.character_conversation? }
+
   has_many :messages, dependent: :destroy, class_name: 'Conversations::Message'
   has_many :read_bookmarks, dependent: :destroy, class_name: 'Conversations::ReadBookmark'
 
-  validates_uniqueness_of :sender_id, scope: :recipient_id
+  validates_uniqueness_of :sender_id, scope: :recipient_id, unless: -> { self.character_conversation? }
+  # validates_uniqueness_of :sender_character_id, scope: :recipient_character_id, if: -> { self.character_conversation? }
 
   acts_as_paranoid
   has_guid
@@ -38,10 +42,18 @@ class Conversation < ApplicationRecord
   scoped_search relation: :recipient, on: [:username, :name]
   scoped_search relation: :messages, on: [:message]
 
-  scope :for, -> (user) do
-    where(<<-SQL.squish, user.id, user.id)
-      conversations.sender_id = ? OR conversations.recipient_id = ?
-    SQL
+  scope :for, -> (user_or_character) do
+    if user_or_character.is_a? User
+      where(<<-SQL.squish, user_or_character.id, user_or_character.id)
+        conversations.sender_id = ? OR conversations.recipient_id = ?
+      SQL
+      # AND conversatoins.character_conversation = FALSE
+    else
+      where(<<-SQL.squish, user_or_character.id, user_or_character.id)
+        conversations.sender_character_id = ? OR conversations.recipient_character_id = ?
+      SQL
+      # AND conversatoins.character_conversation = TRUE
+    end
   end
 
   scope :between, -> (sender, recipient) do
@@ -77,6 +89,10 @@ class Conversation < ApplicationRecord
     {
         unread: self.for(user).unread(user).count
     }
+  end
+
+  def character_conversation?
+    false
   end
 
   def participants

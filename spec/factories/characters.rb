@@ -28,6 +28,7 @@
 #  row_order         :integer
 #  deleted_at        :datetime
 #  custom_attributes :text
+#  version           :integer          default("1")
 #
 
 FactoryBot.define do

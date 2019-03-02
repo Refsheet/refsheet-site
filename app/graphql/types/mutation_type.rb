@@ -4,9 +4,6 @@ Types::MutationType = GraphQL::ObjectType.define do
   # User Mutations
   field :deleteUser, field: Mutations::UserMutations::Delete
 
-  # Character Mutations
-  field :updateCharacter, field: Mutations::CharacterMutations::Update
-
   # Images
   field :uploadImage, field: Mutations::ImageMutations::Create
 
@@ -22,6 +19,10 @@ Types::MutationType = GraphQL::ObjectType.define do
   field :destroySession, field: Mutations::SessionMutations::Destroy
 
   #== Character Profiles
+
+  # Character Mutations
+  field :updateCharacter, field: Mutations::CharacterMutations::Update
+  field :convertCharacter, field: Mutations::CharacterMutations::Convert
 
   # Profile Section
   field :updateProfileSection, field: Mutations::ProfileSectionMutations::Update

@@ -22,6 +22,7 @@ class ProfileSection extends Component {
     })
       .then((data) => {
         console.log(data)
+        this.props.refetch()
       })
       .catch((error) => console.error(error))
   }

@@ -23,7 +23,7 @@ describe Mutations::ImageMutations do
   end
 
   context 'when authorized' do
-    let(:context) {{ current_user: user }}
+    let(:context) {{ current_user: -> { user } }}
 
     it 'uploads image' do
       expect { subject }.to change { character.images.count }

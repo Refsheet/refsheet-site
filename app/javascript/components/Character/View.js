@@ -51,10 +51,13 @@ class View extends Component {
                   profileSections={character.profile_sections}
                   editable={this.state.editable}
                   onEditableChange={this.handleEditableChange}
+                  characterVersion={character.version}
+                  characterId={character.shortcode}
+                  refetch={this.props.onChange}
                 />
               </Col>
               <Col s={12} m={9} l={10}>
-                <Profile profileSections={character.profile_sections} editable={this.state.editable} />
+                <Profile profileSections={character.profile_sections} editable={this.state.editable} refetch={this.props.onChange} />
                 {/*<Reference />*/}
                 <Gallery images={character.images} onUploadClick={onUploadModalOpen} />
               </Col>

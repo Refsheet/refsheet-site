@@ -24,10 +24,11 @@ Types::CharacterType = GraphQL::ObjectType.define do
   field :swatches, types[Types::SwatchType]
   field :user, Types::UserType
   field :username, !types.String
+  field :version, types.Int
 
   field :profile_sections, types[Types::ProfileSectionType] do
     resolve -> (obj, _args, _ctx) {
-      if obj.profile_sections.any?
+      if obj.version == 2
         obj.profile_sections
       else
         profile_widget = OpenStruct.new widget_type: 'RichText',

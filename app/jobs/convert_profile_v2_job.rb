@@ -1,7 +1,7 @@
 class ConvertProfileV2Job < ApplicationJob
   def perform(character)
     Rails.logger.tagged "ConvertProfileV2Job" do
-      raise "Already done!" if character.profile_sections.any?
+      raise "Already done!" if character.version == 2
 
       profile_widget = character.profile_widgets.new(
           widget_type: 'RichText',
@@ -55,6 +55,8 @@ class ConvertProfileV2Job < ApplicationJob
 
       profile_section.save!
       like_dislike_section.save!
+
+      character.update_attributes(version: 2)
     end
   end
 end
