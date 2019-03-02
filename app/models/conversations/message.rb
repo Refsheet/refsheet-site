@@ -88,7 +88,7 @@ class Conversations::Message < ApplicationRecord
   end
 
   def recipient
-    self.conversation.recipient_for(self.user)
+    self.conversation&.recipient_for(self.user)
   end
 
   private
