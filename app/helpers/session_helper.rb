@@ -26,7 +26,7 @@ module SessionHelper
 
   def current_user
     if defined? cookies and cookies[UserSession::COOKIE_SESSION_TOKEN_NAME]
-      get_remembered_user
+      @current_user ||= get_remembered_user
     end
 
     if (user_id = session[UserSession::COOKIE_USER_ID_NAME] ||
@@ -35,6 +35,10 @@ module SessionHelper
     else
       nil
     end
+  end
+
+  def current_user_id
+    current_user&.id
   end
 
 
@@ -104,12 +108,12 @@ module SessionHelper
   end
 
   def get_remembered_user
-    if cookies[UserSession::COOKIE_SESSION_ID_NAME] && cookies[UserSession::COOKIE_USER_ID_NAME]
-      session = UserSession.find_by(session_guid: cookies[UserSession::COOKIE_SESSION_ID_NAME])
+    if cookies.signed[UserSession::COOKIE_SESSION_ID_NAME] && cookies.signed[UserSession::COOKIE_USER_ID_NAME]
+      session = UserSession.find_by(session_guid: cookies.signed[UserSession::COOKIE_SESSION_ID_NAME])
 
       if session &&
-          session.user_id == cookies[UserSession::COOKIE_USER_ID_NAME] &&
-          session.authenticate(cookies[UserSession::COOKIE_SESSION_TOKEN_NAME])
+          session.user_id == cookies.signed[UserSession::COOKIE_USER_ID_NAME] &&
+          session.authenticate(cookies.signed[UserSession::COOKIE_SESSION_TOKEN_NAME])
         Rails.logger.info("Authenticating user #{session.user_id} from stored session cookie.")
         sign_in(session.user, remember: false)
         return session.user

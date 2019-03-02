@@ -11,8 +11,8 @@ class GraphqlChannel < ApplicationCable::Channel
     operation_name = data["operationName"]
 
     context = {
-        current_user: current_user.call,
-        current_user_id: current_user.call.id,
+        current_user: method(:current_user),
+        current_user_id: current_user&.id,
         channel: self
     }
 
