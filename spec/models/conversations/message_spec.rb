@@ -55,4 +55,20 @@ describe Conversations::Message, type: :model do
           .at_least(:once)
     end
   end
+
+  it 'fails to send to blocked user' do
+    msg = create :conversations_message
+    con = msg.conversation
+    u1 = con.sender
+    u2 = con.recipient
+
+    u2.follow! u1
+    expect(u1).to be_followed_by u2
+    u1.block! u2
+    expect(u1).to_not be_followed_by u2
+
+    message = con.messages.create(user: u2, message: "OwO")
+    expect(message).to_not be_valid
+    expect(message).to have(1).errors_on(:conversation)
+  end
 end

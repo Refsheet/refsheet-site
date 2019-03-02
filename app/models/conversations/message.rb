@@ -34,12 +34,14 @@ class Conversations::Message < ApplicationRecord
            inverse_of: :reply_to
 
   validates_presence_of :message
+  validate :check_blocked
 
   acts_as_paranoid
   has_guid
 
   scoped_search on: [:message]
 
+  before_create :handle_slash_commands
   after_create :update_bookmark
   after_create :notify_conversation
 
@@ -85,7 +87,21 @@ class Conversations::Message < ApplicationRecord
     end
   end
 
+  def recipient
+    self.conversation.recipient_for(self.user)
+  end
+
   private
+
+  def handle_slash_commands
+    if self.message[0] == '/'
+      case self.message
+      when "/block"
+        self.user.block! self.recipient
+        self.message = "<Conversation terminated.>"
+      end
+    end
+  end
 
   def notify_conversation
     self.conversation.notify_message(self)
@@ -93,5 +109,11 @@ class Conversations::Message < ApplicationRecord
 
   def update_bookmark
     self.conversation.read_by! self.user
+  end
+
+  def check_blocked
+    if recipient&.blocked? self.user
+      errors.add(:conversation, "cannot receive messages right now")
+    end
   end
 end

@@ -58,6 +58,7 @@ class User < ApplicationRecord
   has_many :following, class_name: "User::Follower", inverse_of: :follower, foreign_key: :follower_id, dependent: :destroy
   has_many :follower_users, through: :following, source: :follower, class_name: "User"
   has_many :followed_users, through: :following, source: :following, class_name: "User"
+  has_many :blocked_users
 
   has_one  :patron, class_name: "Patreon::Patron", dependent: :nullify
   has_one  :invitation, dependent: :destroy
@@ -153,6 +154,18 @@ class User < ApplicationRecord
 
   def followed_by?(other_user)
     self.followers.exists? follower: other_user
+  end
+
+  def blocked?(user)
+    self.blocked_users.exists?(blocked_user: user)
+  end
+
+  def block!(user)
+    self.blocked_users.create(blocked_user: user)
+
+    if followed_by? user
+      self.followers.where(follower: user).destroy_all
+    end
   end
 
 

@@ -99,6 +99,10 @@ class Conversation < ApplicationRecord
     [self.sender, self.recipient]
   end
 
+  def recipient_for(user)
+    (participants - [user]).first
+  end
+
   def participant_ids
     [self.sender_id, self.recipient_id]
   end
