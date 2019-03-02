@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190301222717) do
+ActiveRecord::Schema.define(version: 20190302230719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -147,6 +147,15 @@ ActiveRecord::Schema.define(version: 20190301222717) do
     t.string   "amount_currency", default: "USD", null: false
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+  end
+
+  create_table "blocked_users", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "blocked_user_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["blocked_user_id"], name: "index_blocked_users_on_blocked_user_id", using: :btree
+    t.index ["user_id"], name: "index_blocked_users_on_user_id", using: :btree
   end
 
   create_table "changelogs", force: :cascade do |t|
@@ -792,6 +801,8 @@ ActiveRecord::Schema.define(version: 20190301222717) do
     t.index ["type"], name: "index_users_on_type", using: :btree
   end
 
+  add_foreign_key "blocked_users", "users"
+  add_foreign_key "blocked_users", "users", column: "blocked_user_id"
   add_foreign_key "characters_profile_widgets", "characters"
   add_foreign_key "characters_profile_widgets", "characters_profile_sections", column: "profile_section_id"
   add_foreign_key "conversations_read_bookmarks", "conversations"

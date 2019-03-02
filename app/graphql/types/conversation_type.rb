@@ -18,11 +18,16 @@ Types::ConversationType = GraphQL::ObjectType.define do
 
   field :user, Types::UserType do
     resolve -> (obj, _args, ctx) {
-      if obj.sender == ctx[:current_user].call
-        obj.recipient
-      else
-        obj.sender
-      end
+      obj.recipient_for(ctx[:current_user].call)
+    }
+  end
+
+  field :blocked, types.Boolean do
+    resolve -> (obj, _args, ctx) {
+      cu = ctx[:current_user].call
+      ru = obj.recipient_for(cu)
+
+      cu.blocked?(ru) || ru.blocked?(cu)
     }
   end
 end
