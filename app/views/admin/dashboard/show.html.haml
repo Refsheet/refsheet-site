@@ -1,3 +1,5 @@
+- options = { discrete: false }
+
 .content
   .row
     .col.s12.m3
@@ -41,18 +43,18 @@
 
   .row
     .col.s12
-      = line_chart [{ name: 'Visitors', data: report_group(Ahoy::Visit, :started_at).count, color: '#666666' }]
+      = line_chart [{ name: 'Visitors', data: report_group(Ahoy::Visit, :started_at).count, color: '#666666' }], options
 
   .row
     .col.s12
-      = line_chart @main_chart_data
+      = line_chart @main_chart_data, options
 
   .row
     .col.s12.m6
-      = line_chart @left_chart_data
+      = line_chart @left_chart_data, options
 
     .col.s12.m6
-      = line_chart @right_chart_data
+      = line_chart @right_chart_data, options
 
   - event_scope = Ahoy::Event.where(name: 'advertisement.impression').where.not('ahoy_events.visit_id' => nil)
   - click_scope = Ahoy::Event.where(name: 'advertisement.click').where.not('ahoy_events.visit_id' => nil)
@@ -69,4 +71,7 @@
 
   .row
     .col.s12
-      = line_chart [{ name: 'Ad Impressions', data: report_group(event_scope, :time).count },{ name: 'Ad Clicks', data: report_group(click_scope, :time).count }, { name: 'Audience Reached', data: report_group(event_scope, :time).count('DISTINCT ahoy_events.visit_id') }]
+      - impressions = { name: 'Ad Impressions', data: report_group(event_scope, :time).count }
+      - clicks = { name: 'Ad Clicks', data: report_group(click_scope, :time).count }
+      - audience = { name: 'Audience Reached', data: report_group(event_scope, :time).count('DISTINCT ahoy_events.visit_id') }
+      = line_chart [impressions, clicks, audience], options

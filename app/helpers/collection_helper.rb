@@ -4,17 +4,36 @@ module CollectionHelper
   end
 
   def report_range
-    start = parse(params[:start])
-    stop  = parse(params[:end])
+    if params[:last]
+      dur, unit = params[:last].split('-')
+      if unit.nil?
+        unit = dur
+        dur = 1
+      end
 
-    if start
-      stop ||= start.at_end_of_month
+      begin
+        if %w(second minute hour day week month year).include? unit
+          Rails.logger.debug("Filtering for the last #{dur} #{unit}(s)")
+          start = dur.to_i.send(unit).ago
+          Rails.logger.debug("Starting at: #{start}")
+        end
+      rescue => e
+        flash.now[:error] = e.message
+      end
+      stop = Time.zone.now
     else
-      start = 1.month.ago
-      stop ||= Time.zone.today
+      start = parse(params[:start])&.at_beginning_of_day
+      stop  = parse(params[:end])&.at_end_of_day
     end
 
-    (start.at_beginning_of_day..stop.at_end_of_day)
+    if start
+      stop ||= start.at_end_of_month.at_end_of_day
+    else
+      start = 1.month.ago.at_beginning_of_day
+      stop ||= Time.zone.today.at_end_of_day
+    end
+
+    (start..stop)
   end
 
   def report_range_display
@@ -43,8 +62,9 @@ module CollectionHelper
     group  = (params[:interval]&.downcase || 'day')
     scope = scope.where(filter_param => report_range)
 
-    if %w(hour day week month year).include? group
-      scope = scope.group_by_period(group, filter_param, range: report_range, default_value: 0, format: "%b %d")
+    if %w(minute hour day week month year).include? group
+      scope = scope.group_by_period(group, filter_param, range: report_range, default_value: 0, format: "%B %d, %Y
+%H:%M")
     end
 
     scope
