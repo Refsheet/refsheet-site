@@ -1,4 +1,30 @@
 ---
+v1.4.0-pre.82:
+- sha: eb23a5b82e6f5721c885a4fa39045cc3d6ca192d
+  time: '1551648770'
+  tags: []
+  message: Fix nil delegations.
+  hash: eb23a5b8
+  date: '2019-03-03'
+- sha: b87aa4ea44336e0f5692b4f2c7b86b709dbb09c0
+  time: '1551648288'
+  tags: []
+  message: Some admin dash improves.
+  hash: b87aa4ea
+  date: '2019-03-03'
+- sha: eb13bf9dd98952d964591c9573adb32e26f0a61f
+  time: '1551647777'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: eb13bf9d
+  date: '2019-03-03'
+- sha: a3e1c5f46c74296003fc744a136e730385a7cb67
+  time: '1551647774'
+  tags: []
+  message: Some admin dash improves.
+  hash: a3e1c5f4
+  date: '2019-03-03'
+---
 v1.4.0-pre.81:
 - sha: b6ccb5518ddc08ef801b8ea2e26509d07732166a
   time: '1551599486'
