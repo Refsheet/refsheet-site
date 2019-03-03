@@ -116,8 +116,11 @@ class Conversation extends Component {
   render() {
     const {
       messages = [],
-      id: conversationId
+      id: conversationId,
+      user
     } = this.props
+
+    console.log(this.props)
 
     const {
       isOpen
@@ -146,19 +149,13 @@ class Conversation extends Component {
         <li key='EOF' className='chat-end-of-messages clearfix' ref={(r) => this.endOfMessages = r} />
     )
 
-    const {
-      isUnread,
-      user,
-      title
-    } = {}
-
     return (<div className='chat-body conversation'>
-      <div className={c('chat-title', (!isUnread && userClasses(user, 'user-background-light')))}>
+      <div className={c('chat-title', (isRead && userClasses(user, 'user-background-light')))}>
         <a href='#' className='right white-text' onClick={this.handleOpenClose}>
           <Icon>{ isOpen ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }</Icon>
         </a>
         <a href='#' className='white-text' onClick={this.handleOpenClose}>
-          Conversation With null
+          Conversation With {user.name}
         </a>
       </div>
 
@@ -199,10 +196,13 @@ const renderConversation = (props) => ({loading, data, error, subscribeToMore}) 
           const { newMessage } = subscriptionData.data
 
           return Object.assign({}, prev, {
-            getMessages: [
-              ...prev.getMessages,
-              newMessage
-            ]
+            getConversation: {
+              ...prev.getConversation,
+              messages: [
+                ...prev.getConversation.messages,
+                newMessage
+              ]
+            }
           })
         }
       })
@@ -211,8 +211,8 @@ const renderConversation = (props) => ({loading, data, error, subscribeToMore}) 
     return <Mutation mutation={UPDATE_CONVERSATION_MUTATION}>
       { (updateConversation, { mutationData }) =>
           <Conversation
-              { ...props }
-              messages={ data.getMessages }
+              { ...data.getConversation }
+              {...props}
               onMount={ subscribe }
               updateConversation={updateConversation}
               mutationData={mutationData}
@@ -222,19 +222,6 @@ const renderConversation = (props) => ({loading, data, error, subscribeToMore}) 
   }
 }
 
-const MESSAGES_QUERY = gql`
-    query getMessages($conversationId: ID!) {
-        getMessages(conversationId: $conversationId) {
-            id
-            guid
-            message
-            created_at
-            is_self
-            unread
-            user { name }
-        }
-    }
-`
 const MESSAGES_SUBSCRIPTION = gql`
     subscription onNewMessage($conversationId: ID!) {
         newMessage(conversationId: $conversationId) {
@@ -258,8 +245,34 @@ const UPDATE_CONVERSATION_MUTATION = gql`
   }
 `
 
+const GET_CONVERSATION_QUERY = gql`
+  query getConversation($conversationId: ID!) {
+    getConversation(conversationId: $conversationId) {
+      id
+      guid
+      unreadCount
+      user {
+          name
+          username
+          avatar_url
+          is_admin
+          is_patron 
+      }
+      messages {
+        id
+        guid
+        message
+        created_at
+        is_self
+        unread
+        user { name }
+      }
+    }
+  }
+`
+
 const Wrapped = (props) => (
-    <Query query={MESSAGES_QUERY} variables={{conversationId: props.id, conversationUsername: props.username}}>
+    <Query query={GET_CONVERSATION_QUERY} variables={{conversationId: props.id, conversationUsername: props.username}}>
         {renderConversation(props)}
     </Query>
 )

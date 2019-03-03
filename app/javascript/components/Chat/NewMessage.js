@@ -125,7 +125,7 @@ Wrapped.propTypes = {
   recipient: PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.string
-  }).isRequired
+  })
 }
 
 export default Wrapped

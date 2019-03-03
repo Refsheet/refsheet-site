@@ -78,6 +78,14 @@ Types::QueryType = GraphQL::ObjectType.define do
     }
   end
 
+  field :getConversation, Types::ConversationType do
+    argument :conversationId, !types.ID
+    resolve -> (_obj, args, ctx) {
+      scope = Conversation.for(ctx[:current_user].call)
+      scope.find_by!(guid: args[:conversationId])
+    }
+  end
+
   field :getMessages, types[Types::MessageType] do
     argument :conversationId, !types.ID
 
