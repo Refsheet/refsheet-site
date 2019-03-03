@@ -36,6 +36,16 @@ module CollectionHelper
     (start..stop)
   end
 
+  def report_sum(data)
+    if params[:sum]
+      sum = 0
+      data.map { |k, v| { k => (sum += v) } }.reduce({}, :merge)
+    else
+      data
+    end
+  end
+
+
   def report_range_display
     same_month = report_range.begin.month == report_range.end.month
     same_year  = report_range.begin.year  == report_range.end.year

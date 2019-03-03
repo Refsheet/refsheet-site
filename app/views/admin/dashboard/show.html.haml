@@ -43,7 +43,7 @@
 
   .row
     .col.s12
-      = line_chart [{ name: 'Visitors', data: report_group(Ahoy::Visit, :started_at).count, color: '#666666' }], options
+      = line_chart [{ name: 'Visitors', data: report_sum(report_group(Ahoy::Visit, :started_at).count), color: '#666666' }], options
 
   .row
     .col.s12
@@ -71,7 +71,7 @@
 
   .row
     .col.s12
-      - impressions = { name: 'Ad Impressions', data: report_group(event_scope, :time).count }
-      - clicks = { name: 'Ad Clicks', data: report_group(click_scope, :time).count }
-      - audience = { name: 'Audience Reached', data: report_group(event_scope, :time).count('DISTINCT ahoy_events.visit_id') }
+      - impressions = { name: 'Ad Impressions', data: report_sum(report_group(event_scope, :time).count) }
+      - clicks = { name: 'Ad Clicks', data: report_sum(report_group(click_scope, :time).count) }
+      - audience = { name: 'Audience Reached', data: report_sum(report_group(event_scope, :time).count('DISTINCT ahoy_events.visit_id')) }
       = line_chart [impressions, clicks, audience], options
