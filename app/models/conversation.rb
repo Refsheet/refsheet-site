@@ -100,7 +100,11 @@ class Conversation < ApplicationRecord
   end
 
   def recipient_for(user)
-    (participants - [user]).first
+    if participants[0] == participants[1]
+      participants[1]
+    else
+      (participants - [user]).first
+    end
   end
 
   def participant_ids

@@ -168,6 +168,10 @@ class User < ApplicationRecord
     end
   end
 
+  def unblock!(user)
+    self.blocked_users.where(blocked_user: user).delete_all
+  end
+
 
   #== Lookups
 

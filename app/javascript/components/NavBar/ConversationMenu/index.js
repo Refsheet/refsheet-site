@@ -14,6 +14,7 @@ class ConversationMenu extends Component {
     super(props)
 
     this.renderConversation = this.renderConversation.bind(this)
+    this.handleNewConversationClick = this.handleNewConversationClick.bind(this)
   }
 
   renderConversation(c) {
@@ -41,6 +42,11 @@ class ConversationMenu extends Component {
     />
   }
 
+  handleNewConversationClick(e) {
+    e.preventDefault()
+    this.props.openConversation()
+  }
+
   render() {
     const {
       conversations=[],
@@ -59,7 +65,7 @@ class ConversationMenu extends Component {
           <div className='dropdown-menu wide'>
             <div className='title'>
               <div className='right'>
-                { unreadCount > 0 && <a href={'#'}>Mark All Read</a> }
+                <a href={'#'} onClick={this.handleNewConversationClick}>New Conversation</a>
               </div>
               <strong>Conversations</strong>
             </div>
