@@ -41,7 +41,7 @@ class Conversations::Message < ApplicationRecord
 
   scoped_search on: [:message]
 
-  before_create :handle_slash_commands
+  before_validation :handle_slash_commands
   after_create :update_bookmark
   after_create :notify_conversation
 
@@ -99,6 +99,9 @@ class Conversations::Message < ApplicationRecord
       when "/block"
         self.user.block! self.recipient
         self.message = "<Conversation terminated.>"
+      when "/unblock"
+        self.user.unblock! self.recipient
+        self.message = "<Conversation resumed.>"
       end
     end
   end

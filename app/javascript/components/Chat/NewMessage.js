@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Icon } from 'react-materialize'
 import { Mutation } from 'react-apollo'
 import { gql } from 'apollo-client-preset'
+import * as M from "materialize-css";
 
 class NewMessage extends Component {
   constructor(props) {
@@ -32,24 +33,31 @@ class NewMessage extends Component {
         recipientId: this.props.recipientId,
         message: this.state.message
       }
-    }).then(({data}) => {
+    }).then(({data, errors}) => {
       const {
         onConversationStart
       } = this.props
 
       const guid = (
-          data &&
-              data.sendMessage &&
-              data.sendMessage.conversation &&
-              data.sendMessage.conversation.guid
+        data &&
+        data.sendMessage &&
+        data.sendMessage.conversation &&
+        data.sendMessage.conversation.guid
       )
 
-      if(guid && onConversationStart)
+      if (guid && onConversationStart) {
         onConversationStart({
           id: guid,
           name: this.props.recipient.name,
           user: this.props.recipient
         })
+      }
+
+      if (errors) {
+        errors.map((error) => {
+          M.toast({ html: error.message, classes: 'red' });
+        })
+      }
     })
 
     this.setState({message: ''})
