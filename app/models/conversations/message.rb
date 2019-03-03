@@ -94,6 +94,8 @@ class Conversations::Message < ApplicationRecord
   private
 
   def handle_slash_commands
+    return if self.message.nil?
+
     if self.message[0] == '/'
       case self.message
       when "/block"
