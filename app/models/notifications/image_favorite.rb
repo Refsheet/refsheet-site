@@ -24,7 +24,7 @@
 #
 
 class Notifications::ImageFavorite < Notification
-  delegate :media, to: :actionable
+  delegate :media, to: :actionable, allow_nil: true
 
   def title
     "#{sender.name} likes #{media.title}!"

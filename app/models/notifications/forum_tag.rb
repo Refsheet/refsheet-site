@@ -24,7 +24,7 @@
 #
 
 class Notifications::ForumTag < Notification
-  delegate :forum, :thread, to: :actionable
+  delegate :forum, :thread, to: :actionable, allow_nil: true
 
   def title
     "#{sender.name} mentioned you in a forum post"

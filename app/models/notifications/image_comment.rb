@@ -24,7 +24,7 @@
 #
 
 class Notifications::ImageComment < Notification
-  delegate :media, :comment, to: :actionable
+  delegate :media, :comment, to: :actionable, allow_nil: true
 
   def title
     "#{sender.name} commented on #{media.title}"
