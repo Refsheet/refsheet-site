@@ -37,7 +37,6 @@
 //= require highcharts-init
 //= require components
 //= require cable
-//= require_tree ./admin
 //= require_tree ./utils
 //= require serviceworker-companion
 
