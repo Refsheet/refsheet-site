@@ -1,4 +1,30 @@
 ---
+v1.4.0-pre.81:
+- sha: b6ccb5518ddc08ef801b8ea2e26509d07732166a
+  time: '1551599486'
+  tags: []
+  message: Fix message speccy buggo.
+  hash: b6ccb551
+  date: '2019-03-03'
+- sha: ca64b627b17969fe93523b2f6548173eabf58fea
+  time: '1551586762'
+  tags: []
+  message: Conversation displays proper metadata.
+  hash: ca64b627
+  date: '2019-03-03'
+- sha: d0ffbc53661198a5b40496e2d8cb25c6505ff728
+  time: '1551585045'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: d0ffbc53
+  date: '2019-03-03'
+- sha: ab2deb86cedc565caf944dc3b1d7845df8913355
+  time: '1551585041'
+  tags: []
+  message: Chat is FUNCTIONAL.
+  hash: ab2deb86
+  date: '2019-03-03'
+---
 v1.4.0-pre.80:
 - sha: 9525bd979fa152fe9641b18ad72a5fa6aaee831c
   time: '1551569978'
