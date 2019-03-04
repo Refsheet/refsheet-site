@@ -1,4 +1,6 @@
 class ForumsController < ApplicationController
+  around_action :use_read_replica, only: [:index, :show]
+
   def index
     @forums = filter_scope Forum.all, 'name'
 

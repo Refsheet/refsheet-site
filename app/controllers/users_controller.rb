@@ -1,8 +1,10 @@
 class UsersController < ApplicationController
   before_action :get_user, only: [:show, :update]
+  around_action :use_read_replica, only: [:show]
   respond_to :json
 
   def index
+    not_allowed!
     @users = User.all
     respond_with @users.reverse, each_serializer: UserIndexSerializer
   end
