@@ -1,4 +1,6 @@
 class Account::NotificationsController < AccountController
+  around_action :use_read_replica, only: [:index]
+
   def index
     @notifications = filter_scope current_user.notifications.eager_loaded
 

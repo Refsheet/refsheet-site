@@ -1,4 +1,6 @@
 class Account::ActivitiesController < AccountController
+  around_action :use_read_replica, only: [:index]
+
   def index
     @activities = filter_scope Activity.feed_for(current_user).eager_loaded
 
