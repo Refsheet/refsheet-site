@@ -1,0 +1,16 @@
+octopus:
+  replicated: true
+  fully_replicated: false
+  environments:
+    - production
+
+  production:
+    read_1:
+      adapter: <%= ENV['RDS_READ_1_DB_ADAPTER'] || 'postgresql' %>
+      database: <%= ENV['RDS_READ_1_DB_NAME'] %>
+      username: <%= ENV['RDS_READ_1_USERNAME'] %>
+      password: <%= ENV['RDS_READ_1_PASSWORD'] %>
+      host: <%= ENV['RDS_READ_1_HOSTNAME'] %>
+      port: <%= ENV['RDS_READ_1_PORT'] || 5432 %>
+      pool: <%= ENV['RDS_READ_1_DB_POOL'] || ENV['RAILS_MAX_THREADS'] || 10 %>
+      timeout: 5000

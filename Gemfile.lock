@@ -92,6 +92,9 @@ GEM
     annotate (2.6.5)
       activerecord (>= 2.3.0)
       rake (>= 0.8.7)
+    ar-octopus (0.10.1)
+      activerecord (>= 4.2.0)
+      activesupport (>= 4.2.0)
     archive-zip (0.7.0)
       io-like (~> 0.3.0)
     arel (7.1.4)
@@ -607,6 +610,7 @@ DEPENDENCIES
   active_model_serializers
   ahoy_matey
   annotate
+  ar-octopus
   autoprefixer-rails
   aws-sdk
   aws-ses (~> 0.4.4)

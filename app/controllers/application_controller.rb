@@ -20,6 +20,8 @@ class ApplicationController < ActionController::Base
   before_action :set_raven_context
   protect_from_forgery with: :exception
 
+  around_action :tag_logs
+
 
   #== Force SSL
 
@@ -129,6 +131,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def use_read_replica(&block)
+    replica = :read_1
+    Rails.logger.tagged("db_replica:#{replica}") do
+      Octopus.using(replica, &block)
+    end
+  end
+
   private
 
   def set_user_locale
@@ -210,5 +219,9 @@ class ApplicationController < ActionController::Base
     Raven.capture_exception(e, {
         extra: thread_data
     })
+  end
+
+  def tag_logs(&block)
+    Rails.logger.tagged("#{params[:controller]}##{params[:action]}", &block)
   end
 end
