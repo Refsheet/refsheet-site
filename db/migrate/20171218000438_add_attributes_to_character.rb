@@ -1,5 +1,6 @@
 class AddAttributesToCharacter < ActiveRecord::Migration[5.0]
-  class ::Character < ApplicationRecord
+  class ::CharacterForMigration < ApplicationRecord
+    self.table_name = 'characters'
     serialize :custom_attributes
   end
 
@@ -8,7 +9,7 @@ class AddAttributesToCharacter < ActiveRecord::Migration[5.0]
 
     reversible do |dir|
       dir.up do
-        ::Character.find_each do |c|
+        ::CharacterForMigration.find_each do |c|
           puts '- Updating ' + c.id.to_s + ' ' + c.name
 
           #  height            :string
