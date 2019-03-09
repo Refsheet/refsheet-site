@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.85:
+- sha: 47ac1352719663f8d6c3532c4ffd9fb552a5e4a4
+  time: '1551668078'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 47ac1352
+  date: '2019-03-04'
+- sha: 350370d1e00473a82cc66267a928dcd71e0ebb05
+  time: '1551668067'
+  tags: []
+  message: Fix migration???
+  hash: 350370d1
+  date: '2019-03-04'
+---
 v1.4.0-pre.84:
 - sha: c2e26e81c1dab8201c62a5a2d392a9f492fae0d2
   time: '1551664930'
