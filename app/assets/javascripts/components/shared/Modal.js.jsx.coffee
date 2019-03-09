@@ -7,6 +7,7 @@
       ready: ->
         $(this).find('.autofocus').focus()
         $(document).trigger 'materialize:modal:ready'
+        $('.modal-overlay').appendTo('#rootApp')
 
     if window.location.hash is "##{@props.id}"
       history.replaceState '', document.title, window.location.pathname + window.location.search

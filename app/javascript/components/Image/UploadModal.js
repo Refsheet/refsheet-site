@@ -4,61 +4,42 @@ import Dropzone from 'react-dropzone'
 import Filmstrip from './Filmstrip'
 import UploadForm from './UploadForm'
 import ImageHandler from 'ImageHandler'
+import {clearUpload, modifyUpload} from "../../actions";
+import {connect} from "react-redux";
 
 class UploadModal extends Component {
-  constructor(props) {
-    super(props)
+  constructor(props, context) {
+    super(props, context)
+    let activeImageId = null
 
-    this.state = {
-      pendingImages: [],
-      activeImageId: null
+    if (this.props.files.length > 0) {
+      activeImageId = this.props.files[0].id
     }
 
-    this.counter = 0
+    this.state = {
+      activeImageId
+    }
 
-    this.handleImageDrop = this.handleImageDrop.bind(this)
+    console.log("CONTEXT", this.context)
+
     this.setActiveImage = this.setActiveImage.bind(this)
     this.handleImageChange = this.handleImageChange.bind(this)
     this.handleUpload = this.handleUpload.bind(this)
+    this.handleUploadClick = this.handleUploadClick.bind(this)
+    this.handleImageClear = this.handleImageClear.bind(this)
   }
 
   componentDidMount() {
     $('#upload-images').modal('open')
   }
 
-  handleImageDrop(acceptedFiles, rejectedFiles) {
-    let { activeImageId } = this.state
-
-    acceptedFiles.forEach((file) => {
-      const pending = this.state.pendingImages
-
-      console.log("PENDING", pending.length)
-
-      const filename = file.name
-          .replace(/\..*?$/, '')
-          .replace(/[-_]+/g, ' ')
-          .replace(/\s+/, ' ')
-
-      const image = {
-        id: this.counter++,
-        title: filename,
-        folder: 'default',
-        nsfw: false,
-        state: 'pending',
-        progress: 0
-      }
-
-      Object.assign(file, image)
-
-      if(!activeImageId && activeImageId !== 0) activeImageId = image.id
-
-      pending.push(file)
-      this.setState({pendingImages: pending, activeImageId})
-    })
-
-    rejectedFiles.forEach((file) => {
-      Materialize.toast(file.name + ' is invalid.', 3000, 'red')
-    })
+  componentDidUpdate(prevProps) {
+    if (this.props.files.length > prevProps.files.length && this.state.activeImageId === null) {
+      const activeImageId = this.props.files[0].id
+      this.setState({activeImageId})
+    } else if (this.props.files.length < prevProps.files.length) {
+      this.selectNextImage()
+    }
   }
 
   setActiveImage(activeImageId) {
@@ -67,41 +48,42 @@ class UploadModal extends Component {
   }
 
   getActiveImage() {
-    return this.state.pendingImages.filter((i) => i.id === this.state.activeImageId)[0]
-  }
-
-  removeImage(imageId) {
-    let { selectedIndex } = this.state
-    const pendingImages = this.state.pendingImages
-        .filter((i) => i.id !== imageId)
-
-    if (pendingImages.length <= selectedIndex)
-      selectedIndex = pendingImages.length - 1
-
-    this.setState({pendingImages, selectedIndex})
+    return this.props.files.filter((i) => i.id === this.state.activeImageId)[0]
   }
 
   selectNextImage() {
-    const currentIndex = this.state.pendingImages.indexOf(this.getActiveImage()) || 0
+    if (this.props.files.length === 0) {
+      console.log("Clearing active image.")
+      return this.setActiveImage(null)
+    }
+
+    const currentIndex = this.props.files.indexOf(this.getActiveImage()) || 0
     let selectedIndex = 0
 
-    if (currentIndex >= 0 && currentIndex !== (this.state.pendingImages.length - 1)) {
+    if (currentIndex >= 0 && currentIndex !== (this.props.files.length - 1)) {
       selectedIndex = currentIndex + 1
     }
 
-    return this.setActiveImage(this.state.pendingImages[selectedIndex].id)
+    return this.setActiveImage(this.props.files[selectedIndex].id)
   }
 
   handleImageChange(newImage) {
-    const newImages = this.state.pendingImages.map((image) => {
-      if(image.id === newImage.id) {
-        Object.assign(image, newImage)
-      }
+    this.props.modifyUpload(newImage);
+  }
 
-      return image
-    })
+  handleImageClear(imageId) {
+    this.props.clearUpload(imageId)
+    this.selectNextImage()
+  }
 
-    this.setState({pendingImages: newImages})
+  handleUploadClick(e) {
+    e.preventDefault()
+
+    const dz = this.context.getDropzone && this.context.getDropzone()
+
+    if (dz) {
+      dz.open()
+    }
   }
 
   handleUpload(image) {
@@ -112,7 +94,7 @@ class UploadModal extends Component {
         .upload(image, this.props.characterId, this.handleImageChange)
         .then((image) => {
           Materialize.toast(image.title + ' uploaded!', 3000, 'green')
-          this.removeImage(image.id)
+          this.props.clearUpload(image.id)
           this.props.onUpload(image)
         })
 
@@ -143,7 +125,19 @@ class UploadModal extends Component {
           <div className='upload-error red darken-4 white-text padding--small'><strong>Error:</strong> { image.errorMessage }</div> }
       </div>
 
-      <UploadForm image={image} onChange={this.handleImageChange} onUpload={this.handleUpload} />
+      <UploadForm image={image} onChange={this.handleImageChange} onUpload={this.handleUpload} onClear={this.handleImageClear} />
+    </div>
+  }
+
+  renderPlaceholder() {
+    if (this.props.files.length !== 0) {
+      return null
+    }
+
+    return <div className={'modal-content'} style={{textAlign: 'center'}}>
+      <i className={'material-icons'} style={{fontSize: '3rem'}}>cloud_upload</i>
+      <p className={'caption'}>Drag & Drop to upload files.</p>
+      <button className={'btn'} type={'button'} onClick={this.handleUploadClick}>Select Files</button>
     </div>
   }
 
@@ -164,15 +158,9 @@ class UploadModal extends Component {
 
     return (
       <Modal id='upload-images' title={title} noContainer onClose={this.props.onClose}>
-        { this.state.pendingImages.length === 0 &&
-        <Dropzone onDrop={this.handleImageDrop} accept='image/*'>
-          <div className='modal-content'>
-            <p>Click here or drag and drop images to upload.</p>
-          </div>
-        </Dropzone> }
-
         { this.renderCurrent(activeImage) }
-        { this.renderPending(this.state.pendingImages) }
+        { this.renderPending(this.props.files) }
+        { this.renderPlaceholder() }
       </Modal>
     )
   }
@@ -183,4 +171,17 @@ UploadModal.propTypes = {
   onUpload: PropTypes.func
 }
 
-export default UploadModal
+UploadModal.contextTypes = {
+  getDropzone: PropTypes.func
+}
+
+const mapStateToProps = ({uploads}) => ({
+  files: uploads.files
+})
+
+const mapDispatchToProps = {
+  clearUpload,
+  modifyUpload
+}
+
+export default connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(UploadModal)

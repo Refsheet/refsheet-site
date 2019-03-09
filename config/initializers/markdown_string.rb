@@ -3,18 +3,28 @@ require 'redcarpet/render_strip'
 class MarkdownString < String
   include RichTextHelper
 
+  USER_TAG_REGEX = /(?:^|\s)@(@?)([a-z0-9_\/+-]+)/i
+
   EXTENSIONS = {
       autolink: true,
       hard_wrap: true,
       tables: true,
       fenced_code_blocks: true,
       strikethrough: true,
-      underline: true
+      underline: true,
+      lax_spacing: true,
+      highlight: true
   }
 
   HTML_OPTIONS = {
-      escape_html: true,
-      prettify: true
+      filter_html: false,
+      with_toc_data: true,
+      hard_wrap: true,
+      prettify: true,
+      link_attributes: {
+          target: "_blank",
+          rel: "external nofollow"
+      }
   }
 
   def self.html_renderer
@@ -28,7 +38,7 @@ class MarkdownString < String
   end
 
   def to_html
-    linkify self.class.html_renderer.render(self).html_safe
+    self.class.html_renderer.render(self).html_safe
   end
 
   def to_text
@@ -54,6 +64,10 @@ class MarkdownString < String
   end
 
   class Render < Redcarpet::Render::HTML
+    def preprocess(text)
+      linkify(text)
+    end
+
     def image(link, title, alt_text)
       url = ImageProxyController.generate(link)
 
@@ -113,7 +127,7 @@ class MarkdownString < String
   def _find_tags(text)
     tags = []
 
-    text.gsub /(?<!\\)@(@?)([a-z0-9_\/+-]+)/i do |_|
+    text.gsub USER_TAG_REGEX do |_|
       $2.split('+').collect do |chip|
         username, character = chip.split '/'
         textless = $1 == '@'
