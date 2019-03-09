@@ -7,5 +7,8 @@
   },
   "conversations": {
     "openConversations": []
+  },
+  "uploads": {
+    "files": []
   }
 }

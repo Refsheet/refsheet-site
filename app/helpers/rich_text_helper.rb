@@ -8,7 +8,7 @@ module RichTextHelper
 
     text = $markdown.render(text)
 
-    text = text.gsub /(?<!\\)@(@?)([a-z0-9_\/+-]+)/i do |_|
+    text = text.gsub MarkdownString::USER_TAG_REGEX do |_|
       chips = $2.split('+').collect do |chip|
         username, character = chip.split '/'
         textless = $1 == '@'

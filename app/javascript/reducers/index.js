@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 import session from './session'
 import conversations from './conversations'
+import uploads from './uploads'
 
 export function createReducer(initialState, handlers) {
   return function reducer(state = initialState, action) {
@@ -15,5 +16,6 @@ export function createReducer(initialState, handlers) {
 
 export default combineReducers({
   session,
-  conversations
+  conversations,
+  uploads
 })
