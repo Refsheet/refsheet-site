@@ -26,3 +26,15 @@ Rails.application.configure do
       queue: :refsheet_application_queue
   }
 end
+
+class DelayedPaperclip::ProcessJob < ActiveJob::Base
+  def perform(instance_klass, instance_id, attachment_name)
+    DelayedPaperclip.process_job(instance_klass, instance_id, attachment_name.to_sym)
+
+    begin
+      instance_klass.constantize.unscoped.find(instance_id).send(:delayed_complete)
+    rescue => e
+      Rails.logger.error(e)
+    end
+  end
+end

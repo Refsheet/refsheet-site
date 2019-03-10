@@ -16,6 +16,7 @@ Types::ImageType = GraphQL::ObjectType.define do
   field :gravity, types.String
   field :favorites_count, types.Int
   field :comments_count, types.Int
+  field :image_processing, types.Boolean
 
   field :url, Types::ImageUrlType, property: :image
   field :size, Types::ImageSizeType, property: :image

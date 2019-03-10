@@ -8,6 +8,7 @@ fragment CharacterImages on Character {
         aspect_ratio
         comments_count
         favorites_count
+        image_processing
         is_favorite
         is_managed
         width

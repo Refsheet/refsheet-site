@@ -27,4 +27,9 @@ Types::SubscriptionType = GraphQL::ObjectType.define do
     subscription_scope :current_user_id
     description "Conversation counts changed"
   end
+
+  field :imageProcessingComplete, Types::ImageType do
+    argument :imageId, !types.ID
+    description "Image processing complete"
+  end
 end

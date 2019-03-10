@@ -120,7 +120,6 @@ class Image < ApplicationRecord # < Media
   after_save :clean_up_character
   after_destroy :clean_up_character
   after_create :log_activity
-  after_post_process :schedule_phash_job
 
   scoped_search on: [:caption, :image_file_name]
   scoped_search relation: :character, on: [:name, :species]
@@ -229,11 +228,23 @@ class Image < ApplicationRecord # < Media
                     activity_method: 'create'
   end
 
+  def delayed_complete
+    schedule_phash_job
+    send_processing_notification
+  end
+
   def schedule_phash_job
     Rails.logger.info("Schedule?")
     if self.image_updated_at_changed?
       Rails.logger.info("Scheduling pHash update.")
       ImagePhashJob.perform_later(self)
     end
+  end
+
+  def send_processing_notification
+    Rails.logger.info("Post-processing complete, sending push notification.")
+    trigger! "imageProcessingComplete",
+             { imageId: self.guid },
+             self
   end
 end
