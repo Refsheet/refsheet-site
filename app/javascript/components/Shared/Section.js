@@ -53,7 +53,7 @@ const Section = function ({id, className, titleClassName, title, tabs, container
           {buttons && buttons.map(renderAction)}
 
           {tabs &&
-          <ul className='tabs transparent right' style={{display: 'inline-block', width: 'auto'}}>
+          <ul key={'-tabs'} className='tabs transparent right' style={{display: 'inline-block', width: 'auto'}}>
             {tabs.map(renderTab(onTabClick))}
           </ul>}
         </Col>
@@ -80,7 +80,7 @@ const actionHandler = (onClick, id) => function (e) {
   }
 }
 
-var renderTab = onTabClick => function ({title, id, onClick}) {
+const renderTab = onTabClick => function ({title, id, onClick}) {
   if (!onClick) {
     onClick = onTabClick;
   }
@@ -90,11 +90,14 @@ var renderTab = onTabClick => function ({title, id, onClick}) {
   </li>;
 };
 
-var renderAction = ({title, id, onClick, icon}) =>
-  <Button className='btn' onClick={actionHandler(onClick, id)}>
-    {icon && <Icon className='left'>{icon}</Icon>}
-    {title}
-  </Button>
+const renderAction = ({title, id, onClick, icon}, i) => {
+  return (
+    <Button className='btn' onClick={actionHandler(onClick, id)} key={i}>
+      {icon && <Icon className='left'>{icon}</Icon>}
+      {title}
+    </Button>
+  )
+}
 ;
 
 
@@ -117,7 +120,7 @@ Section.propTypes = {
   container: PropTypes.bool,
   className: PropTypes.string,
   titleClassName: PropTypes.string,
-  editable: PropTypes.boolean,
+  editable: PropTypes.bool,
   onTitleChange: PropTypes.func
 };
 

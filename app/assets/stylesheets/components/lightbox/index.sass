@@ -1,0 +1,84 @@
+.lightbox-wrapper.v2
+  position: fixed
+  top: 0
+  right: 0
+  left: 0
+  bottom: 0
+  background-color: rgba(0, 0, 0, 0.5)
+  z-index: $z-lightbox
+  text-align: center
+  display: table-cell
+  vertical-align: middle
+
+  @at-root
+    body.lightbox-open
+      overflow: hidden
+
+  .lightbox.v2
+    @extend .z-depth-2
+    margin: 1.5rem
+    display: inline-flex
+    text-align: left
+    background-color: $card-bg-color
+    border-radius: 2px
+    min-height: 300px
+    max-height: calc(100vh - 3rem)
+
+    .close
+      position: absolute
+      top: 0
+      right: 0
+      padding: 1rem
+      z-index: 2
+      opacity: 0.8
+      color: white
+      transition: opacity 0.3s ease
+
+      &:hover
+        opacity: 1.0
+
+    .lightbox-content
+      display: inline-flex
+
+    .image-content
+      overflow: visible
+
+      &:hover .image-nav
+        opacity: 0.6
+
+      .image-nav
+        position: absolute
+        top: 0
+        bottom: 0
+        padding: 1.5rem
+        background-color: rgba(0,0,0,0.6)
+        color: white
+        opacity: 0
+        transition: opacity 0.3s ease
+
+        i.material-icons
+          vertical-align: middle
+          position: relative
+          top: 50%
+          transform: translateY(-50%)
+          font-size: 3rem
+
+        &:hover
+          opacity: 1.0
+
+        &.image-prev
+          left: 0
+
+        &.image-next
+          right: 0
+
+      @media #{$medium-and-up}
+        img
+          max-width: calc(100vw - 3rem - 300px)
+          max-height: calc(100vh - 3rem)
+
+    .image-details-container
+      flex-shrink: 0
+      flex-grow: 0
+      width: 300px
+      word-wrap: break-word

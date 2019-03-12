@@ -21,7 +21,6 @@ class Character extends Component
     @setState uploadOpen: false
 
   componentWillReceiveProps: (newProps) =>
-    console.log({newProps})
     if newProps.files.length > @props.files.length
       @setState uploadOpen: true
 

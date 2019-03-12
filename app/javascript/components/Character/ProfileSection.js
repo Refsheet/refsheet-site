@@ -41,7 +41,6 @@ class ProfileSection extends Component {
 
   render() {
     const {id, title, columns, widgets, editable, className} = this.props
-    console.log(this.props)
 
     return (
       <Section title={title} className={ c('margin-bottom--large', className) } editable={editable} onTitleChange={this.handleTitleChange}>
@@ -53,7 +52,7 @@ class ProfileSection extends Component {
   }
 }
 
-ProfileSection.prototype.propTypes = {
+ProfileSection.propTypes = {
   columns: PropTypes.array.isRequired,
   id: PropTypes.string.isRequired,
   title: PropTypes.string,

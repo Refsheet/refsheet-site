@@ -53,3 +53,17 @@ export function modifyUpload(file) {
     file
   }
 }
+
+export const OPEN_LIGHTBOX = 'OPEN_LIGHTBOX'
+export function openLightbox(mediaId, gallery) {
+  return {
+    type: OPEN_LIGHTBOX,
+    mediaId,
+    gallery
+  }
+}
+
+export const CLOSE_LIGHTBOX = 'CLOSE_LIGHTBOX'
+export function closeLightbox() {
+  return { type: CLOSE_LIGHTBOX }
+}

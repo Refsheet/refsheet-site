@@ -11,6 +11,7 @@ import defaultState from './defaultState.json'
 import { ThemeProvider } from 'styled-components'
 import { base as defaultTheme } from 'themes/default'
 import DropzoneProvider from '../Dropzone'
+import Lightbox from '../Lightbox'
 
 reactGuard(React, (error, componentInfo) => {
   const errorString = `Failed to render <${componentInfo.name} />!`

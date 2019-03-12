@@ -54,7 +54,7 @@ class Filmstrip extends Component {
     const active = this.props.activeImageId === id
     if(active) classNames.push('active')
 
-    return <div className={classNames.join(' ')}>
+    return <div className={classNames.join(' ')} key={id}>
       <img src={src}
            key={id}
            data-id={id}

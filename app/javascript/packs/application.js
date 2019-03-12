@@ -23,7 +23,8 @@ export const __globals = [
   'qs',
   'createBrowserHistory',
   'connect',
-  'setCurrentUser'
+  'setCurrentUser',
+  'NewLightbox'
 ]
 
 export { default as React } from 'react'
@@ -44,6 +45,7 @@ export { default as Chat } from 'Chat/ConversationTray'
 export { default as CharacterController } from 'App/Router'
 export { default as NavBar } from 'NavBar'
 export { default as DeleteUser } from 'Settings/Account/DeleteUser'
+export { default as NewLightbox } from 'Lightbox'
 
 (function() {
   console.log("Pack loaded: Refsheet JS v2")

@@ -132,7 +132,7 @@ class EditableHeader extends Component {
 }
 
 EditableHeader.propTypes = {
-  editable: PropTypes.boolean,
+  editable: PropTypes.bool,
   onValueChange: PropTypes.func,
   children: PropTypes.string
 }
