@@ -103,4 +103,12 @@ Types::QueryType = GraphQL::ObjectType.define do
   end
 
   field :getSession, Types::SessionType, field: Mutations::SessionMutations::Show
+
+  field :getMedia, Types::ImageType do
+    argument :mediaId, !types.ID
+
+    resolve -> (_obj, args, _ctx) {
+      Image.find_by!(guid: args[:mediaId])
+    }
+  end
 end

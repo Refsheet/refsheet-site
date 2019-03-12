@@ -27,7 +27,7 @@ class RichTextWidget extends Component {
 
 RichTextWidget.propTypes = {
   content: PropTypes.string,
-  contentHtml: PropTypes.string.isRequired
+  contentHtml: PropTypes.string
 }
 
 export default RichTextWidget

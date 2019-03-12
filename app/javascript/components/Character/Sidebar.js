@@ -75,10 +75,10 @@ class Sidebar extends Component {
       </div>
 
       <ul className='table-of-contents'>
-        <li><MutedHeader>Page Sections</MutedHeader></li>
-        <li><TocLink to='#top'>Summary</TocLink></li>
+        <li key={'-page-sections'}><MutedHeader>Page Sections</MutedHeader></li>
+        <li key={'-summary'}><TocLink to='#top'>Summary</TocLink></li>
         { this.renderSections() }
-        <li><TocLink to='#gallery'>Image Gallery</TocLink></li>
+        <li key={'-gallery'}><TocLink to='#gallery'>Image Gallery</TocLink></li>
       </ul>
     </div>;
   }
@@ -96,7 +96,7 @@ Sidebar.propTypes = {
   user: PropTypes.object.isRequired,
   profileSections: PropTypes.array,
   onEditableChange: PropTypes.func.isRequired,
-  editable: PropTypes.boolean,
+  editable: PropTypes.bool,
   characterVersion: PropTypes.number,
   refetch: PropTypes.func
 };

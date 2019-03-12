@@ -1,77 +1,139 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import gql from "graphql-tag";
+import imageProcessingComplete from './imageProcessingComplete.graphql'
 import {Subscription} from "react-apollo";
+import {Icon} from 'react-materialize'
+import {connect} from "react-redux";
+import {openLightbox} from "../../actions";
 
-const Thumbnail = ({image, style}) => {
-  const { url, title, aspect_ratio, image_processing } = image
-  const { medium: src } = url
+class Thumbnail extends Component {
+  constructor(props) {
+    super(props)
+  }
 
-  const renderImage = () => {
+  handleClick(e) {
+    e.preventDefault()
+
+    const {
+      image: {
+        id
+      },
+      openLightbox,
+      gallery
+    } = this.props
+
+    openLightbox(id, gallery)
+  }
+
+  handleFavoriteClick(e) {
+    e.preventDefault()
+    e.stopPropagation()
+
+    const {
+      image: {
+        id
+      }
+    } = this.props
+
+    console.log("Favorite " + id)
+  }
+
+  renderNotification(icon, title, message, className) {
+    return (
+      <div className={'message center-align ' + className}>
+        <i className={'material-icons'}>{icon}</i>
+        <div className='caption margin-top--large'>{title}</div>
+        <div className='muted margin-top--medium'>{message}</div>
+      </div>
+    )
+  }
+
+  renderImage() {
+    const {
+      session: {
+        nsfwOk
+      },
+      image: {
+        image_processing,
+        aspect_ratio,
+        id,
+        path,
+        background_color,
+        nsfw,
+        favorites_count,
+        comments_count,
+        is_favorite,
+        title,
+        url: {
+          medium: src
+        }
+      }
+    } = this.props
+
     if (image_processing) {
-      return (<div className='message center-align'>
-        <i className={'material-icons'}>hourglass_empty</i>
-        <div className='caption margin-top--large'>Image processing...</div>
-        <div className='muted margin-top--medium'>
-          Thumbnails are being generated for this image, and should be available soon.
-          You might need to reload this page.
-        </div>
-      </div>)
-
+      return this.renderNotification(
+        'hourglass_empty',
+        'Image processing...',
+        'Thumbnails are being generated for this image, and should be available soon. ' +
+        'You might need to reload this page.')
     } else if (!aspect_ratio) {
-      console.log({image})
+      return this.renderNotification(
+        'warning',
+        'Invalid image :(',
+        `Something's not quite right. This might be a bug. Report Image #${id}.`,
+        'red-text'
+      )
+    }
 
-      return (<div className='message center-align'>
-        <i className={'material-icons'} style={'font-size: 3rem'}>warning</i>
-        <div className='caption margin-top--medium red-text'>Invalid image :(</div>
-        <div className='muted margin-top--medium'>
-          Something's not quite right. This might be a bug. Report Image #{image.id}.
+    const showNsfwWarning = nsfw && !nsfwOk
+
+    return (
+      <a onClick={ this.handleClick.bind(this) }
+         href={ path }
+         data-gallery-image-id={ id }
+         style={{ backgroundColor: background_color }}
+      >
+        { showNsfwWarning && <div className='nsfw-cover'>
+          <Icon>remove_circle_outline</Icon>
+          <div className='caption'>Click to show NSFW content.</div>
+        </div> }
+
+        <div className='overlay'>
+          <div className='interactions'>
+            <div className='favs clickable' onClick={ this.handleFavoriteClick.bind(this) }>
+              <Icon>{ is_favorite ? 'star' : 'star_outline' }</Icon>
+              &nbsp;{ NumberUtils.format(favorites_count) }
+            </div>
+            &nbsp;
+            <div className='favs'>
+              <Icon>comment</Icon>
+              &nbsp;{ NumberUtils.format(comments_count) }
+            </div>
+          </div>
+
+          <div className='image-title'>
+            <div className='truncate'>{ title }</div>
+            {/*<div className='muted truncate'>By: { characterName }</div>*/}
+          </div>
         </div>
-      </div>)
 
-    } else {
-      return (<img src={ src } className='responsive-img block' alt={ title }/>)
-    }
+        <img src={ src } alt={ title } title={ title } />
+      </a>
+    )
   }
 
-  return (<div style={style} className='image-thumbnail black z-depth-1'>
-    { renderImage() }
-  </div>)
+  render() {
+    const {
+      style
+    } = this.props
+
+    return (
+      <div style={style} className='gallery-image image-thumbnail black z-depth-1'>
+        { this.renderImage() }
+      </div>
+    )
+  }
 }
-
-const IMAGE_SUBSCRIPTION = gql`
-  subscription onImageProcessingComplete($imageId: ID!) {
-    imageProcessingComplete(imageId: $imageId) {
-      id
-      title
-      nsfw
-      hidden
-      background_color
-      aspect_ratio
-      comments_count
-      favorites_count
-      image_processing
-      is_favorite
-      is_managed
-      width
-      height
-      url {
-          small
-          medium
-      }
-      size {
-          small {
-              width
-              height
-          }
-          medium {
-              width
-              height
-          }
-      }
-    }
-  }
-`
 
 Thumbnail.propTypes = {
   image: PropTypes.shape({
@@ -85,12 +147,12 @@ Thumbnail.propTypes = {
       }).isRequired
     }).isRequired,
     image_processing: PropTypes.bool
-  })
+  }),
+  gallery: PropTypes.arrayOf(PropTypes.string)
 }
 
 const renderSubscribed = (props) => ({data, loading, error}) => {
   let image = props.image
-  console.log({loading, data, error})
 
   if (!loading && data && data.imageProcessingComplete) {
     image = data.imageProcessingComplete
@@ -101,7 +163,7 @@ const renderSubscribed = (props) => ({data, loading, error}) => {
 
 const Subscribed = (props) => {
   if(props.image.image_processing) {
-    return <Subscription subscription={IMAGE_SUBSCRIPTION} variables={{ imageId: props.image.id }}>
+    return <Subscription subscription={imageProcessingComplete} variables={{ imageId: props.image.id }}>
       {renderSubscribed(props)}
     </Subscription>
   } else {
@@ -109,4 +171,12 @@ const Subscribed = (props) => {
   }
 }
 
-export default Subscribed
+const mapDispatchToProps = {
+  openLightbox
+}
+
+const mapStateToProps = ({session}) => ({
+  session
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Subscribed)

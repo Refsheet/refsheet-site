@@ -29,10 +29,13 @@ Gallery = ({images, onUploadClick}) ->
 renderGallery = (images) -> ({measureRef, contentRect}) ->
   width = contentRect.bounds.width
 
+  gallery = images.map (i) ->
+    i.id
+
   imageTiles = images.map (image) ->
     {id, aspect_ratio} = image
 
-    `<Thumbnail key={id} aspectRatio={aspect_ratio || 1} image={image} />`
+    `<Thumbnail key={id} aspectRatio={aspect_ratio || 1} image={image} gallery={gallery} />`
 
   `<div className='gallery-sizer margin-top--medium' ref={measureRef}>
     <JustifiedLayout containerWidth={ width } containerPadding={ 0 }>

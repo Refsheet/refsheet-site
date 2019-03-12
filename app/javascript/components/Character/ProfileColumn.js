@@ -15,7 +15,7 @@ const ProfileColumn = function({widgets, width, editable}) {
     { widgetCards }
 
     { editable &&
-    <a className='btn btn-flat block margin-top--medium' style={{border: '1px dashed #ffffff33'}}>
+    <a key={'new'} className='btn btn-flat block margin-top--medium' style={{border: '1px dashed #ffffff33'}}>
       Add Widget
     </a> }
   </div>;

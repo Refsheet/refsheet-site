@@ -98,7 +98,7 @@ UploadForm.propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     title: PropTypes.string,
-    nsfw: PropTypes.boolean,
+    nsfw: PropTypes.bool,
     folder: PropTypes.string,
     state: PropTypes.string
   }),

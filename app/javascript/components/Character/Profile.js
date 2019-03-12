@@ -64,7 +64,7 @@ Profile.propTypes = {
       title: PropTypes.string
     })
   ),
-  editable: PropTypes.boolean
+  editable: PropTypes.bool
 };
 
 export default Profile;

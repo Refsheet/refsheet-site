@@ -65,6 +65,7 @@
             <LoadingOverlay /> }
 
         <Packs.application.Chat />
+        <Packs.application.NewLightbox />
 
         <SessionModal />
         <Views.Images.ReportModal imageId={ this.state.reportImageId } />

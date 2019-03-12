@@ -1,0 +1,8 @@
+query getMedia($mediaId: ID!) {
+    getMedia(mediaId: $mediaId) {
+      title
+      url {
+        large
+      }
+    }
+  }

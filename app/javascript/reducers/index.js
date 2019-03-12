@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 import session from './session'
 import conversations from './conversations'
 import uploads from './uploads'
+import lightbox from './lightbox'
 
 export function createReducer(initialState, handlers) {
   return function reducer(state = initialState, action) {
@@ -17,5 +18,6 @@ export function createReducer(initialState, handlers) {
 export default combineReducers({
   session,
   conversations,
-  uploads
+  uploads,
+  lightbox
 })
