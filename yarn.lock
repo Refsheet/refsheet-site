@@ -16,6 +16,12 @@
     esutils "^2.0.2"
     js-tokens "^3.0.0"
 
+"@babel/runtime@^7.3.1":
+  version "7.3.4"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.3.4.tgz#73d12ba819e365fcf7fd152aed56d6df97d21c83"
+  dependencies:
+    regenerator-runtime "^0.12.0"
+
 "@rails/webpacker@^3.3.0":
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/@rails/webpacker/-/webpacker-3.3.0.tgz#4ce1e67d57e615dfacde33d2b27fbd46a2111cba"
@@ -4449,6 +4455,12 @@ html-entities@^1.2.0:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/html-entities/-/html-entities-1.2.1.tgz#0df29351f0721163515dfb9e5543e5f6eed5162f"
 
+html-parse-stringify2@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/html-parse-stringify2/-/html-parse-stringify2-2.0.1.tgz#dc5670b7292ca158b7bc916c9a6735ac8872834a"
+  dependencies:
+    void-elements "^2.0.1"
+
 html@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/html/-/html-1.0.0.tgz#a544fa9ea5492bfb3a2cca8210a10be7b5af1f61"
@@ -8281,6 +8293,13 @@ react-guard@^0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/react-guard/-/react-guard-0.5.0.tgz#4878b1fa3006327901f7fe2efb02b569182ccb77"
 
+react-i18next@^10.4.1:
+  version "10.4.1"
+  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-10.4.1.tgz#e3d4d4f629f101cc85db067345b500fd93139134"
+  dependencies:
+    "@babel/runtime" "^7.3.1"
+    html-parse-stringify2 "2.0.1"
+
 react-is@^16.8.1:
   version "16.8.4"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.4.tgz#90f336a68c3a29a096a3d648ab80e87ec61482a2"
@@ -8291,6 +8310,10 @@ react-justified-layout@^0.1.0:
   dependencies:
     lodash "^4.9.0"
     prop-types "^15.6.0"
+
+react-load-image@^0.1.7:
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/react-load-image/-/react-load-image-0.1.7.tgz#508243c8a80f0af2007ac9099430230e6ba4a2d4"
 
 react-materialize@^2.1.2:
   version "2.1.2"
@@ -8307,6 +8330,10 @@ react-measure@^2.0.2:
     get-node-dimensions "^1.2.0"
     prop-types "^15.5.10"
     resize-observer-polyfill "^1.4.2"
+
+react-moment@^0.8.4:
+  version "0.8.4"
+  resolved "https://registry.yarnpkg.com/react-moment/-/react-moment-0.8.4.tgz#18eb59e1541c8b216353e23c21e9db50e42e2edb"
 
 react-progressive-image@^0.3.0:
   version "0.3.0"
@@ -8606,6 +8633,10 @@ regenerator-runtime@^0.10.0, regenerator-runtime@^0.10.5:
 regenerator-runtime@^0.11.0:
   version "0.11.1"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.11.1.tgz#be05ad7f9bf7d22e056f9726cee5017fbf19e2e9"
+
+regenerator-runtime@^0.12.0:
+  version "0.12.1"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.12.1.tgz#fa1a71544764c036f8c49b13a08b2594c9f8a0de"
 
 regenerator-transform@^0.10.0:
   version "0.10.1"
@@ -10417,7 +10448,7 @@ vm-browserify@0.0.4, vm-browserify@~0.0.1:
   dependencies:
     indexof "0.0.1"
 
-void-elements@^2.0.0:
+void-elements@^2.0.0, void-elements@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-2.0.1.tgz#c066afb582bb1cb4128d60ea92392e94d5e9dbec"
 

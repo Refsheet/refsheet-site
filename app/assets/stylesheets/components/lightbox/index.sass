@@ -1,4 +1,6 @@
 .lightbox-wrapper.v2
+  $width-break-lg: 900px
+
   position: fixed
   top: 0
   right: 0
@@ -42,6 +44,19 @@
 
     .image-content
       overflow: visible
+      min-width: 600px
+      text-align: center
+
+      .imageloader
+        width: 100%
+
+      .image-status
+        max-width: 300px
+        margin: 0 auto
+        text-align: center
+
+        i.material-icons
+          font-size: 3rem
 
       &:hover .image-nav
         opacity: 0.6

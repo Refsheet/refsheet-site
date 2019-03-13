@@ -1,8 +1,19 @@
 query getMedia($mediaId: ID!) {
     getMedia(mediaId: $mediaId) {
       title
+      created_at
       url {
         large
+      }
+
+      character {
+        name
+        path
+        profile_image {
+            url {
+                thumbnail
+            }
+        }
       }
     }
   }
