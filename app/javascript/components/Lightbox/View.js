@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Icon } from 'react-materialize'
+import ImageLoader from 'react-load-image'
+import { Loading, Error } from './Status'
+import CharacterBox from "./CharacterBox";
 
 class View extends Component {
   constructor(props) {
@@ -23,6 +26,8 @@ class View extends Component {
       url: {
         large: imageSrc
       },
+      created_at,
+      character,
       nextMediaId,
       prevMediaId
     } = this.props
@@ -38,13 +43,18 @@ class View extends Component {
             <Icon>keyboard_arrow_right</Icon>
           </a> }
 
-          <img src={imageSrc} alt={title} title={title} />
+          <ImageLoader src={imageSrc}>
+            <img alt={title} title={title} />
+            <Error />
+            <Loading />
+          </ImageLoader>
         </div>
 
         <div className={'image-details-container'}>
           <div className='image-details'>
-            { JSON.stringify(this.props) }
+            <CharacterBox {...character} createdAt={created_at} />
           </div>
+          { JSON.stringify(this.props) }
         </div>
       </div>
     )

@@ -18,9 +18,11 @@
 #
 
 class UserSession < ApplicationRecord
-  COOKIE_SESSION_TOKEN_NAME = "_rst_st"
-  COOKIE_SESSION_ID_NAME = "_rst_sid"
-  COOKIE_USER_ID_NAME = "user_id"
+  COOKIE_SUFFIX = Rails.env.production? ? '' : '-' + Rails.env
+
+  COOKIE_SESSION_TOKEN_NAME = "_rst_st" + COOKIE_SUFFIX
+  COOKIE_SESSION_ID_NAME = "_rst_sid" + COOKIE_SUFFIX
+  COOKIE_USER_ID_NAME = "user_id" + COOKIE_SUFFIX
 
   include HasGuid
 

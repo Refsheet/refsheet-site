@@ -26,6 +26,12 @@ Types::CharacterType = GraphQL::ObjectType.define do
   field :username, !types.String
   field :version, types.Int
 
+  field :path, !types.String do
+    resolve -> (obj, _args, _ctx) {
+      "/#{obj.username}/#{obj.slug}"
+    }
+  end
+
   field :profile_sections, types[Types::ProfileSectionType] do
     resolve -> (obj, _args, _ctx) {
       if obj.version == 2
