@@ -5,6 +5,8 @@ import {Icon} from 'react-materialize';
 import {Query} from "react-apollo";
 import getMedia from './getMedia.graphql'
 import View from "./View";
+import Silhouette from "./Silhouette";
+import {Error, Loading} from "./Status";
 
 class Lightbox extends Component {
   constructor(props) {
@@ -135,17 +137,17 @@ class Lightbox extends Component {
 
     if (loading) {
       return (
-        <div className={'lightbox-error v2'}>
-          Loading...
-        </div>
+        <Silhouette>
+          <Loading />
+        </Silhouette>
       )
     }
 
     if (error || !data || !data.getMedia) {
       return (
-        <div className={'lightbox-error red-text'}>
-          Error: { error }
-        </div>
+        <Silhouette>
+          <Error error={error} />
+        </Silhouette>
       )
     }
 

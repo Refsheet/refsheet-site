@@ -4,6 +4,7 @@ import { Icon } from 'react-materialize'
 import ImageLoader from 'react-load-image'
 import { Loading, Error } from './Status'
 import CharacterBox from "./CharacterBox";
+import ImageMeta from "./ImageMeta";
 
 class View extends Component {
   constructor(props) {
@@ -53,8 +54,8 @@ class View extends Component {
         <div className={'image-details-container'}>
           <div className='image-details'>
             <CharacterBox {...character} createdAt={created_at} />
+            <ImageMeta {...this.props} />
           </div>
-          { JSON.stringify(this.props) }
         </div>
       </div>
     )

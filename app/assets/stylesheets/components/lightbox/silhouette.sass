@@ -1,0 +1,29 @@
+.lightbox-content.silhouette
+  .character-box
+    .character-avatar
+      background-color: rgba(white, 0.05)
+
+    .character-details
+      .name, .date
+        background-color: rgba(white, 0.1)
+        background: linear-gradient(to right, rgba(white, 0.05) 15%, rgba(white, 0.1) 35%, rgba(white, 0.05) 50%)
+        background-position: 150% 0
+        background-size: 300% 100%
+        border-radius: 4px
+        animation: SilhouetteGradient 3s linear infinite
+
+      .name
+        width: 75%
+        height: 20px
+        margin: 3px 0
+
+      .date
+        width: 40%
+        height: 15px
+        margin-top: 6px
+
+@keyframes SilhouetteGradient
+  from
+    background-position: 150% 0
+  to
+    background-position: -150% 0
