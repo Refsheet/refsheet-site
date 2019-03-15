@@ -49,6 +49,8 @@ RSpec.configure do |config|
   end
 end
 
+Chromedriver.set_version "73.0.3683.68"
+
 Capybara.register_driver :chrome do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome)
 end
