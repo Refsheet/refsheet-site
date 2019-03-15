@@ -8,9 +8,10 @@ export const Loading = () => (
   </div>
 )
 
-export const Error = () => (
+export const Error = ({error}) => (
   <div className={'image-status loading'}>
     <Icon>warning</Icon>
     <h2>Error!</h2>
+    { error && <div className={'muted margin-top--large'}>{ error }</div> }
   </div>
 )

@@ -2,6 +2,12 @@ query getMedia($mediaId: ID!) {
     getMedia(mediaId: $mediaId) {
       title
       created_at
+
+      caption
+      caption_html
+      source_url
+      source_url_display
+
       url {
         large
       }
