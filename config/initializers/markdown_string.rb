@@ -64,6 +64,8 @@ class MarkdownString < String
   end
 
   class Render < Redcarpet::Render::HTML
+    include RichTextHelper
+
     def preprocess(text)
       linkify(text)
     end
