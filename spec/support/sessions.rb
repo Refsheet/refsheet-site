@@ -1,8 +1,8 @@
 def sign_in(user)
   if defined? page
-    page.set_rack_session user_id: user.id
+    page.set_rack_session UserSession::COOKIE_USER_ID_NAME => user.id
   elsif defined? session
-    session[:user_id] = user.id
+    session[UserSession::COOKIE_USER_ID_NAME] = user.id
   else
     raise "Session access not supported."
   end
