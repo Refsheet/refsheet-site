@@ -56,7 +56,7 @@ RSpec.configure do |config|
       .to_a
 
     if errors.present?
-      Rails.logger.warn(errors.join("\n"))
+      puts(errors.join("\n"))
     end
   end
 end

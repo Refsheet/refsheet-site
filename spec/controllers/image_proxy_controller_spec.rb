@@ -36,8 +36,10 @@ describe ImageProxyController, type: :controller do
   end
 
   it 'properly renders markdown strings' do
+    user = create :user, username: 'FancyUser', name: 'Fancy Pants User'
+
     str = <<-MARKDOWN.squish
-      ![](http://mypa.ws/paws.jpg)
+      @FancyUser: ![](http://mypa.ws/paws.jpg)
     MARKDOWN
 
     html = str.to_md.to_html
@@ -45,5 +47,9 @@ describe ImageProxyController, type: :controller do
     puts html
     expect(html).to match %r{src="https://ref\.st/e/.*\?key=[a-f0-9]+"}
     expect(html).to match %r{data-canonical-url="http://mypa\.ws/paws\.jpg"}
+    # Does not interfere with tag processing
+    expect(html).to match %r{href=['"]/FancyUser['"]}
+    expect(html).to match %r{>\s*Fancy Pants User\s*</a>}
+    expect(html).to match %r{alt=['"]Fancy Pants User['"]}
   end
 end
