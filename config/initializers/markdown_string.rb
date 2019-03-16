@@ -64,10 +64,15 @@ class MarkdownString < String
   end
 
   class Render < Redcarpet::Render::HTML
-    include RichTextHelper
+    class Helper
+      include RichTextHelper
+      def preprocess(text)
+        linkify(text)
+      end
+    end
 
     def preprocess(text)
-      linkify(text)
+      Helper.new.preprocess(text)
     end
 
     def image(link, title, alt_text)

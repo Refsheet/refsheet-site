@@ -59,6 +59,6 @@ describe Forum::Post, type: :model do
 
   it 'markdown cache' do
     post = create :forum_post, content: '# Hello!'
-    expect(post.content_html).to eq '<h1>Hello!</h1>'
+    expect(post.content_html).to eq "<h1>Hello!</h1>\n"
   end
 end
