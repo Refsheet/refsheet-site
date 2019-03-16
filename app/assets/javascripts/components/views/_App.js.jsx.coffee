@@ -64,8 +64,8 @@
         { this.state.loading > 0 &&
             <LoadingOverlay /> }
 
-        <Packs.application.Chat />
-        <Packs.application.NewLightbox />
+        { Packs.application.Chat && <Packs.application.Chat /> }
+        { Packs.application.NewLightbox && <Packs.application.NewLightbox /> }
 
         <SessionModal />
         <Views.Images.ReportModal imageId={ this.state.reportImageId } />

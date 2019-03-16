@@ -47,7 +47,21 @@ RSpec.configure do |config|
       Capybara.reset!
     end
   end
+
+  # Capybara - Javascript Logs
+  config.after(:each, js: true) do |spec|
+    errors = page.driver.browser.manage.logs.get(:browser)
+      .select { |e| e.level == "SEVERE" && e.message.present? }
+      .map(&:message)
+      .to_a
+
+    if errors.present?
+      Rails.logger.warn(errors.join("\n"))
+    end
+  end
 end
+
+class JavascriptError < StandardError; end
 
 Chromedriver.set_version "73.0.3683.68"
 
@@ -57,7 +71,7 @@ end
 
 Capybara.register_driver :headless_chrome do |app|
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-      chromeOptions: { args: %w(headless disable-gpu no-sandbox) }
+      chromeOptions: { args: %w(disable-gpu no-sandbox) }
   )
 
   Capybara::Selenium::Driver.new(app, browser: :chrome, desired_capabilities: capabilities)
@@ -66,7 +80,7 @@ end
 Capybara.configure do |config|
   config.javascript_driver = :headless_chrome
   config.raise_server_errors = false
-  config.default_max_wait_time = 20.seconds
+  config.default_max_wait_time = 7.seconds
 end
 
 DatabaseCleaner.strategy = :truncation
