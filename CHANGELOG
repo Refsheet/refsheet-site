@@ -1,4 +1,91 @@
 ---
+v1.4.0-pre.86:
+- sha: d861983a96acf45a3bd0dbb412dc88469e885ae7
+  time: '1552772565'
+  tags: []
+  message: Fix password reset unmount issue.
+  hash: d861983a
+  date: '2019-03-16'
+- sha: 8c049e530a12ecb713a1ae66c0dac273ba32b857
+  time: '1552771686'
+  tags: []
+  message: Fix spec 3?
+  hash: 8c049e53
+  date: '2019-03-16'
+- sha: a129b7642e035178891d2ffa97677e0c307a3e66
+  time: '1552771081'
+  tags: []
+  message: Fix Spec 2 the electric boogaloo.
+  hash: a129b764
+  date: '2019-03-16'
+- sha: eb4fbc3139767c9203daa95b64a4764e0b4a742d
+  time: '1552770711'
+  tags: []
+  message: Fix spec??
+  hash: eb4fbc31
+  date: '2019-03-16'
+- sha: cce472076f45adfe27026d255cb316fd0340267d
+  time: '1552761716'
+  tags: []
+  message: Fixed specs???
+  hash: cce47207
+  date: '2019-03-16'
+- sha: 21066c219d8e30e6ce38eb44bcd97ae0e14189c0
+  time: '1552708237'
+  tags: []
+  message: Fix specs? Which I know is a curse but whatev.
+  hash: 21066c21
+  date: '2019-03-16'
+- sha: fa213ef549337cda9a1593b35027e4a8cab50fb4
+  time: '1552685684'
+  tags: []
+  message: Set chromedriver version to 73.
+  hash: fa213ef5
+  date: '2019-03-15'
+- sha: 8da5717f32d195f77bebcad4c11236b992d1bf9d
+  time: '1552684833'
+  tags: []
+  message: Fix linkify in MarkdownString
+  hash: 8da5717f
+  date: '2019-03-15'
+- sha: d34c0bdfccd14cc6330a2e3af5be4a74c7728fc4
+  time: '1552624183'
+  tags: []
+  message: Lightbox meta and silhouette.
+  hash: d34c0bdf
+  date: '2019-03-15'
+- sha: 353ff105e178858f44c3345a3aa0076fb365b8fc
+  time: '1552446871'
+  tags: []
+  message: Lightbox with character details and loader.
+  hash: 353ff105
+  date: '2019-03-13'
+- sha: f1ed0f5d54d89494e3d8b38b0eef3f64625cf80d
+  time: '1552378554'
+  tags: []
+  message: New lightbox with gallery nav.
+  hash: f1ed0f5d
+  date: '2019-03-12'
+- sha: dcece36f35ec6210a0443b6908a7c7e5223a1541
+  time: '1552178109'
+  tags: []
+  message: Paperclip processing callback hell has been solved.
+  hash: dcece36f
+  date: '2019-03-10'
+- sha: 395671156a5baf233e92f9be56a344f3846df56f
+  time: '1552170468'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: '39567115'
+  date: '2019-03-09'
+- sha: 624c5622d077b6baab5587ecd05fd954ffe52fd9
+  time: '1552170463'
+  tags: []
+  message: New uploader uses global dropzone. Which is totally gon break the old DZ
+    btw.
+  hash: 624c5622
+  date: '2019-03-09'
+---
 v1.4.0-pre.85:
 - sha: 47ac1352719663f8d6c3532c4ffd9fb552a5e4a4
   time: '1551668078'
