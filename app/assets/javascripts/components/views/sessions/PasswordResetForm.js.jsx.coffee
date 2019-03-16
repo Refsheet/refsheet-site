@@ -13,7 +13,6 @@
 
   _handleUpdate: (data) ->
     $(@refs.updateForm).fadeOut 300, =>
-      $(document).trigger 'app:session:update', data
       @setState token: true, userPath: data.current_user.path
 
   _handlePasswordChange: (data) ->
