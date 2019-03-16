@@ -1,9 +1,7 @@
 require 'redcarpet/render_strip'
 
 class MarkdownString < String
-  include RichTextHelper
-
-  USER_TAG_REGEX = /(?:^|\s)@(@?)([a-z0-9_\/+-]+)/i
+  USER_TAG_REGEX = /(?:^|\s|>)@(@?)([a-z0-9_\/+-]+)/i
 
   EXTENSIONS = {
       autolink: true,
@@ -66,13 +64,13 @@ class MarkdownString < String
   class Render < Redcarpet::Render::HTML
     class Helper
       include RichTextHelper
-      def preprocess(text)
-        linkify(text)
+      def process(text)
+        linkify(text, no_markdown: true)
       end
     end
 
     def preprocess(text)
-      Helper.new.preprocess(text)
+      Helper.new.process(text)
     end
 
     def image(link, title, alt_text)

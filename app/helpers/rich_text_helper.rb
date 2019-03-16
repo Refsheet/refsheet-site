@@ -6,7 +6,9 @@ module RichTextHelper
 
     options.reverse_merge!({})
 
-    text = $markdown.render(text)
+    unless options[:no_markdown]
+      text = $markdown.render(text)
+    end
 
     text = text.gsub MarkdownString::USER_TAG_REGEX do |_|
       chips = $2.split('+').collect do |chip|
