@@ -13,13 +13,13 @@ describe 'Session' do
       end
 
       it 'stores short user cookie' do
-        cookie = cookies.get_cookie("user_id")
+        cookie = cookies.get_cookie(UserSession::COOKIE_USER_ID_NAME)
         expect(cookie.value).to_not match /^\d+$/
         expect(cookie.expires).to_not be_present
 
         Timecop.travel(1.year.from_now) do
           cookies.expire_all!
-          future_cookie = cookies.get_cookie("user_id")
+          future_cookie = cookies.get_cookie(UserSession::COOKIE_USER_ID_NAME)
           expect(future_cookie).to be_nil
         end
       end
@@ -41,14 +41,14 @@ describe 'Session' do
       end
 
       it 'stores long user cookie' do
-        cookie = cookies.get_cookie("user_id")
+        cookie = cookies.get_cookie(UserSession::COOKIE_USER_ID_NAME)
         expect(cookie.value).to_not match /^\d+$/
         expect(cookie.expires).to be_present
         expect(cookie.expires).to be > 10.years.from_now
 
         Timecop.travel(1.year.from_now) do
           cookies.expire_all!
-          future_cookie = cookies.get_cookie("user_id")
+          future_cookie = cookies.get_cookie(UserSession::COOKIE_USER_ID_NAME)
           expect(future_cookie.value).to eq cookie.value
         end
       end
