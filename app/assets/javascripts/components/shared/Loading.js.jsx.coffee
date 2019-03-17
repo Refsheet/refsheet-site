@@ -1,4 +1,4 @@
-@Status = (props) ->
+@Loading = (props) ->
   classNames = ['modal-page-content']
   classNames.push props.className if props.className
 
