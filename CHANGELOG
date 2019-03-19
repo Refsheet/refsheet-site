@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.95:
+- sha: 16f4202bcc8a40abfeb37bb3a0ff3ff4a054e667
+  time: '1552979864'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 16f4202b
+  date: '2019-03-19'
+- sha: e8dfd5c9f4917f230c19b094f3eba33c73a31cad
+  time: '1552979861'
+  tags: []
+  message: Jquery after UJS?
+  hash: e8dfd5c9
+  date: '2019-03-19'
+---
 v1.4.0-pre.94:
 - sha: 73006febb5755e9921d374af094ec0b761306092
   time: '1552978933'
