@@ -17,7 +17,6 @@
 // xrequire react_router_ujs
 //
 //= require jquery2
-//= require jquery.turbolinks
 //= require jquery_ujs
 //= require jquery-tmpl
 //= require jquery-ui
