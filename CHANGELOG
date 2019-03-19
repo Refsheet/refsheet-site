@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.96:
+- sha: d4539280bf5090acfbffb9dcc26c1b863c7d8e53
+  time: '1552980556'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: d4539280
+  date: '2019-03-19'
+- sha: f9708aa4dbbd67524a638d341cab3d91f9502f0f
+  time: '1552980551'
+  tags: []
+  message: Undefined guard.
+  hash: f9708aa4
+  date: '2019-03-19'
+---
 v1.4.0-pre.95:
 - sha: 16f4202bcc8a40abfeb37bb3a0ff3ff4a054e667
   time: '1552979864'
