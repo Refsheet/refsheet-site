@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.92:
+- sha: 8ce429748d6c5a01bc08857c2a4bf18c76e82759
+  time: '1552975889'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 8ce42974
+  date: '2019-03-19'
+- sha: 6ed2dc81c552b17f6a9005fe93abbcd69ffd3156
+  time: '1552975883'
+  tags: []
+  message: Explicit React-rails-UJS mounting.
+  hash: 6ed2dc81
+  date: '2019-03-19'
+---
 v1.4.0-pre.91:
 - sha: 7069f179f8fce8782bec72d3dd94c3dfd89e5581
   time: '1552972786'
