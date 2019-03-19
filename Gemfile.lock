@@ -25,6 +25,15 @@ GIT
     materialize-sass (0.97.8)
       sass (~> 3.3)
 
+GIT
+  remote: git://github.com/tawan/active-elastic-job.git
+  revision: ec51c5d9dedc4a1b47f2db41f26d5fceb251e979
+  branch: master
+  specs:
+    active_elastic_job (2.0.1)
+      aws-sdk-sqs (~> 1)
+      rails (>= 4.2)
+
 GEM
   remote: https://rubygems.org/
   remote: http://insecure.rails-assets.org/
@@ -52,9 +61,6 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
-    active_elastic_job (2.0.1)
-      aws-sdk (~> 2)
-      rails (>= 4.2)
     active_model_serializers (0.10.9)
       actionpack (>= 4.1, < 6)
       activemodel (>= 4.1, < 6)
@@ -102,13 +108,22 @@ GEM
     autoprefixer-rails (9.5.0)
       execjs
     aws-eventstream (1.0.2)
-    aws-sdk (2.11.242)
-      aws-sdk-resources (= 2.11.242)
-    aws-sdk-core (2.11.242)
-      aws-sigv4 (~> 1.0)
+    aws-partitions (1.144.0)
+    aws-sdk-core (3.48.0)
+      aws-eventstream (~> 1.0, >= 1.0.2)
+      aws-partitions (~> 1.0)
+      aws-sigv4 (~> 1.1)
       jmespath (~> 1.0)
-    aws-sdk-resources (2.11.242)
-      aws-sdk-core (= 2.11.242)
+    aws-sdk-kms (1.15.0)
+      aws-sdk-core (~> 3, >= 3.48.0)
+      aws-sigv4 (~> 1.1)
+    aws-sdk-s3 (1.33.0)
+      aws-sdk-core (~> 3, >= 3.48.0)
+      aws-sdk-kms (~> 1)
+      aws-sigv4 (~> 1.0)
+    aws-sdk-sqs (1.12.0)
+      aws-sdk-core (~> 3, >= 3.48.0)
+      aws-sigv4 (~> 1.1)
     aws-ses (0.4.4)
       builder
       mail (> 2.2.5)
@@ -624,13 +639,14 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_elastic_job
+  active_elastic_job!
   active_model_serializers
   ahoy_matey
   annotate
   ar-octopus
   autoprefixer-rails
-  aws-sdk
+  aws-sdk-s3
+  aws-sdk-sqs
   aws-ses (~> 0.4.4)
   bcrypt (~> 3.1.7)
   breadcrumbs_on_rails
