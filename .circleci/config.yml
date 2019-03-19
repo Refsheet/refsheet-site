@@ -25,6 +25,7 @@ jobs:
     steps:
       - checkout
 
+      - run: gem install bundler -v '2.0.1'
       - run: which chromedriver; chromedriver -v
       - run: mkdir ~/junit; mkdir ~/artifacts
 
