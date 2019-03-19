@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.87:
+- sha: b2add7b5b25655d6670372dcf265295ae83719ee
+  time: '1552804592'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: b2add7b5
+  date: '2019-03-17'
+- sha: f82dc45f1a8b5fe29d9a650b14cfbb6d47841ff7
+  time: '1552804572'
+  tags: []
+  message: Overzealous refactor.
+  hash: f82dc45f
+  date: '2019-03-17'
+---
 v1.4.0-pre.86:
 - sha: d861983a96acf45a3bd0dbb412dc88469e885ae7
   time: '1552772565'
