@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.90:
+- sha: abb0f1158df494240aca1de9e8cbd31e930ca5bb
+  time: '1552970265'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: abb0f115
+  date: '2019-03-19'
+- sha: b7b2d6bf55909ec9d2d674a34631b95120668f8b
+  time: '1552970234'
+  tags: []
+  message: Update LITERALLY EVERYTHING>
+  hash: b7b2d6bf
+  date: '2019-03-19'
+---
 v1.4.0-pre.89:
 - sha: 7aefcb9528be83826804ea47ec6d5cb572d35b66
   time: '1552968677'
