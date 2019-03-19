@@ -1,4 +1,36 @@
 ---
+v1.4.0-pre.88:
+- sha: f6f6124f4498eeff0659c92e9640c6e686e7eddc
+  time: '1552967123'
+  tags: []
+  message: Bundl
+  hash: f6f6124f
+  date: '2019-03-19'
+- sha: aac388b5426abbeb61bcaf29e1404d4ebb9ff219
+  time: '1552966612'
+  tags: []
+  message: Bundl
+  hash: aac388b5
+  date: '2019-03-19'
+- sha: e339208c54a93c221253ed8daba36404c99ab3c7
+  time: '1552966487'
+  tags: []
+  message: Bundl
+  hash: e339208c
+  date: '2019-03-19'
+- sha: 2ed9f321e38d90dfe24831e531b2a76cf52c6841
+  time: '1552966217'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 2ed9f321
+  date: '2019-03-19'
+- sha: 854be7adc69b6c6d57a54d81657d6458486441aa
+  time: '1552966213'
+  tags: []
+  message: Upgrade attempts.
+  hash: 854be7ad
+  date: '2019-03-19'
+---
 v1.4.0-pre.87:
 - sha: b2add7b5b25655d6670372dcf265295ae83719ee
   time: '1552804592'
