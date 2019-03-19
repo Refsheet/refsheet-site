@@ -86,6 +86,13 @@ function exportPackGlobals() {
     exportPackGlobals()
     if (typeof ReactRailsUJS !== 'undefined') {
       ReactRailsUJS.mountComponents();
+    } else {
+      window.addEventListener('DOMContentLoaded', function() {
+        if (typeof ReactRailsUJS !== 'undefined')
+          ReactRailsUJS.mountComponents()
+        else
+          console.error("ReactRailsUJS still undefined after DOMContentLoaded.")
+      })
     }
   } else {
     window.addEventListener('jsload.pack', function() {
