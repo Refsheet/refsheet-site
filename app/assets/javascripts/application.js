@@ -11,7 +11,7 @@
 // about supported directives.
 //
 //= require_self
-//= require jquery
+//= require jquery2
 //= require jquery.turbolinks
 //= require jquery_ujs
 //= require jquery-tmpl
@@ -83,7 +83,6 @@ function exportPackGlobals() {
   if(typeof Packs !== 'undefined') {
     console.log("Pack sync: JS v2 detected in Legacy, mounting...")
     exportPackGlobals()
-    ReactRailsUJS.mountComponents();
   } else {
     window.addEventListener('jsload.pack', function() {
       console.log("Pack sync: JS v2 reported load, mounting...")
