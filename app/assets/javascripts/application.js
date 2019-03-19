@@ -11,15 +11,16 @@
 // about supported directives.
 //
 //= require_self
+//
+//= require react_ujs
+// xrequire react_router
+// xrequire react_router_ujs
+//
 //= require jquery2
 //= require jquery.turbolinks
 //= require jquery_ujs
 //= require jquery-tmpl
 //= require jquery-ui
-//
-//= require react_ujs
-// xrequire react_router
-// xrequire react_router_ujs
 //
 //= require materialize-sprockets
 //= require masonry.pkgd
