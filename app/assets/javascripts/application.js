@@ -83,11 +83,12 @@ function exportPackGlobals() {
   if(typeof Packs !== 'undefined') {
     console.log("Pack sync: JS v2 detected in Legacy, mounting...")
     exportPackGlobals()
+    ReactRailsUJS && ReactRailsUJS.mountComponents();
   } else {
     window.addEventListener('jsload.pack', function() {
       console.log("Pack sync: JS v2 reported load, mounting...")
       exportPackGlobals()
-      ReactRailsUJS.mountComponents();
+      ReactRailsUJS && ReactRailsUJS.mountComponents();
     });
     window.React = {
       createComponent: function(){}
