@@ -5,7 +5,11 @@
       window.Refsheet = {
         environment: "#{ j Rails.env }",
         version: "#{ j Refsheet::VERSION }",
-        sentryDsn: "#{ j ENV['SENTRY_JS_DSN'] }"
+        sentryDsn: "#{ j ENV['SENTRY_JS_DSN'] }",
+        instance: {
+          id: "#{ j ENV['EB_ENV_ID'] }",
+          name: "#{ j ENV['EB_ENV_NAME'] }"
+        }
       }
 
     = display_meta_tags site: 'Refsheet.net'
