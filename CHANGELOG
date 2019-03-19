@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.93:
+- sha: 1f339c0f2f3dc620ded7f1a85f41abbb3389c26c
+  time: '1552977203'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 1f339c0f
+  date: '2019-03-19'
+- sha: 0f02d4d71136c10e0146ba840c826fdf5eeb1c74
+  time: '1552977200'
+  tags: []
+  message: Roll back to jquery2
+  hash: 0f02d4d7
+  date: '2019-03-19'
+---
 v1.4.0-pre.92:
 - sha: 8ce429748d6c5a01bc08857c2a4bf18c76e82759
   time: '1552975889'
