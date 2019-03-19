@@ -4,12 +4,12 @@ source 'https://rubygems.org'
 
 # == BACK END
 
-gem 'rails', '~> 5.0.0'
+gem 'rails', '~> 5.0.7'
 gem 'rake', '~> 12.3.1'
 gem 'rack-cors'
-gem 'pg', '~> 0.18'
+gem 'pg', '~> 0.21'
 gem 'puma', '~> 3.0'
-gem 'redis', '~> 3.0'
+gem 'redis', '~> 3.3.5'
 gem 'bcrypt', '~> 3.1.7'
 gem 'execjs'
 gem 'money-rails'
@@ -23,7 +23,7 @@ gem 'active_elastic_job'
 gem 'sprockets_uglifier_with_source_maps'
 gem 'webpacker'
 gem 'faraday_middleware'
-gem 'json', '~> 1.8.6'
+gem 'json', '~> 2.1.0'
 gem 'ar-octopus'
 
 # == FRONT END
