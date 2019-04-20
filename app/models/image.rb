@@ -97,11 +97,13 @@ class Image < ApplicationRecord # < Media
   process_in_background :image,
                         url_with_processing: false
 
-  after_create do
-    if self.image_direct_upload_url.nil?
-      self.image.reprocess_without_delay!
-    end
-  end
+  # TODO - this will make it look like images are broken
+  #        but it's just moving processing to the background server
+  # after_create do
+  #   if self.image_direct_upload_url.nil?
+  #     self.image.reprocess_without_delay!
+  #   end
+  # end
 
   has_direct_upload :image
 
