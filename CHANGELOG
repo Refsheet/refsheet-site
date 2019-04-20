@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.99:
+- sha: 72d3e6bd325f183636b28c9933b9c02e5202db8f
+  time: '1555718849'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 72d3e6bd
+  date: '2019-04-20'
+- sha: 0de0d7b642157a7d23377e252978745a02e680f6
+  time: '1555718770'
+  tags: []
+  message: Rich text widgets can save now.
+  hash: 0de0d7b6
+  date: '2019-04-20'
+---
 v1.4.0-pre.98:
 - sha: b5b16fde03fae908997e4419ff825723dcafac47
   time: '1552983710'
