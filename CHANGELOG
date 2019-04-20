@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.100:
+- sha: d0c2a106d261e2d283112874e63c010f39f671f9
+  time: '1555720361'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: d0c2a106
+  date: '2019-04-20'
+- sha: 595fad5cfc80dbcfa80c5587afd8eea501459c72
+  time: '1555720356'
+  tags: []
+  message: Move image processing to background workers.
+  hash: 595fad5c
+  date: '2019-04-20'
+---
 v1.4.0-pre.99:
 - sha: 72d3e6bd325f183636b28c9933b9c02e5202db8f
   time: '1555718849'
