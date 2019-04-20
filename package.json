@@ -1,6 +1,7 @@
 {
   "license": "MIT",
   "dependencies": {
+    "@opuscapita/react-markdown": "^2.3.9",
     "@rails/webpacker": "^3.3.0",
     "@sentry/browser": "^4.2.1",
     "actioncable": "^5.2.1",

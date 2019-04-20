@@ -1,5 +1,5 @@
 .card
-  z-index: 100
+  /*z-index: 100*/
   @at-root
     .card-panel
       padding: 1.5rem
@@ -58,10 +58,32 @@
   .card-header
     padding: 1rem
     background-color: darken($card-bg-color, 1%)
+    height: 3rem
+    line-height: 1rem
+
+    .btn-group
+      margin: -1rem
+
+      .btn
+        color: $text-light-color
+        padding: 0 1rem
+        height: 3rem
+        border-radius: 0
+        box-shadow: none
+        line-height: 3rem
+
+        i.material-icons
+          transition: color 0.3s ease
+
+        &:hover
+          color: white
+
+          i.material-icons
+            color: white !important
 
     h2
       margin: 0
-      line-height: initial
+      line-height: 1rem
       height: auto
       font-size: 1.2rem
       font-weight: normal

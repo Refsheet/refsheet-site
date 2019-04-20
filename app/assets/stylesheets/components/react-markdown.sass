@@ -1,0 +1,138 @@
+.react-markdown--slate-editor
+  border: none
+
+  .react-markdown--toolbar
+    border-bottom: 1px solid $darken-color
+    background-color: rgba(0,0,0,0.1)
+
+    .fa.fa-header:before
+      content: "\f1dc"
+
+    .caret
+      width: 0
+      height: 0
+      margin-left: 0.25rem
+      border-left: 4px solid transparent
+      border-right: 4px solid transparent
+      border-top: 5px solid $muted-text-color
+      top: 50%
+      transform: translateY(-50%)
+      position: relative
+      display: inline-block
+
+    .btn
+      background-color: transparent
+      padding: 0 0.5rem
+      min-width: 2.5rem
+      text-align: center
+      line-height: 2.5rem
+      border-radius: 0
+
+      &.btn.btn:disabled
+        background-color: transparent !important
+        color: rgba(255,255,255,0.1) !important
+        cursor: not-allowed
+
+        i.fa
+          color: rgba(255,255,255,0.1) !important
+
+        .caret
+          border-top-color: rgba(255,255,255,0.1)
+
+      i.fa
+        color: $muted-text-color
+        font-size: 1rem
+
+      &:hover
+        box-shadow: none
+        border: none
+        background-color: rgba(0,0,0,0.2)
+        color: $lighten-text-color
+
+        i.fa
+          color: $lighten-text-color
+
+        .caret
+          border-top-color: $lighten-text-color
+
+    .dropdown-menu
+      display: none
+
+    .dropdown.open
+      .btn
+        box-shadow: none
+        border: none
+        background-color: rgba(0,0,0,0.2)
+        color: $lighten-text-color
+
+        i.fa
+          color: $lighten-text-color
+
+        .caret
+          border-top-color: $lighten-text-color
+
+      .dropdown-menu
+        display: block
+        position: absolute
+        top: 1.5rem
+        z-index: 100
+        background-color: $card-bg-color
+
+        li
+          background-color: rgba(0,0,0,0.2)
+
+        li > a
+          padding: 0.5rem 1rem
+          display: block
+          color: $muted-text-color
+
+          &:hover
+            color: $lighten-text-color
+            background-color: rgba(0,0,0,0.2)
+
+    .btn-group
+      &:not(:last-child)
+        border-right: 1px solid $darken-color
+
+  .react-markdown--slate-content
+    padding: 1rem
+
+    .oc-md-hl-header
+      font-size: 1.2rem
+
+    .oc-md-hl-url
+      color: $link-color
+
+  .react-markdown--autocomplete-widget
+    @extend .card
+    @extend .z-depth-2
+    margin: 0
+    position: absolute
+    border: none
+    z-index: 9999 !important
+
+    fieldset
+      border: none
+      margin: 0
+      padding: 0
+
+    .react-markdown--autocomplete-widget__item
+      padding: 0.5rem 1rem
+      font-size: 0.9rem
+
+      &:hover
+        background-color: rgba(0,0,0,0.2)
+
+      &.selected
+        background-color: rgba($brand-primary,0.2)
+
+      .pull-right
+        float: right
+
+      &.user-token
+        .name
+          font-weight: bold
+          margin-right: 0.25rem
+
+        .username
+          color: $muted-text-color
