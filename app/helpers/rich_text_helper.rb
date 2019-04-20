@@ -30,7 +30,7 @@ module RichTextHelper
       end
 
       if chips.many?
-        <<-HTML
+        <<-HTML.squish
           <span class='chip-group'>#{ chips.join }</span>
         HTML
       else
@@ -38,13 +38,18 @@ module RichTextHelper
       end
     end
 
-    text = text.gsub(/[\n\t]/, ' ')
     text = text.gsub(/\\@/, '@')
-    text.squish.html_safe
+
+    if !options[:no_markdown]
+      text = text.gsub(/[\n\t]/, ' ')
+      text.squish.html_safe
+    else
+      text.html_safe
+    end
   end
 
   def character_chip(user, char, textless=false)
-    <<-HTML
+    <<-HTML.squish
       <a href='/#{user.username}/#{char.slug}' class='chip character-chip #{textless ? "textless" : ""}' data-user-id='#{user.username}' data-character-id='#{char.slug}'>
         <img src='#{char.profile_image.image.url(:thumbnail)}' alt='#{char.name}' />
         #{textless ? '' : char.name}
@@ -53,7 +58,7 @@ module RichTextHelper
   end
 
   def user_chip(user, textless=false)
-    <<-HTML
+    <<-HTML.squish
       <a href='/#{user.username}' class='chip user-chip #{textless ? "textless" : ""}' data-user-id='#{user.username}'>
         <img src='#{user.avatar_url}' alt='#{user.name}' />
         #{textless ? '' : user.name}
@@ -62,7 +67,7 @@ module RichTextHelper
   end
 
   def missing_chip(orig, textless=false)
-    <<-HTML
+    <<-HTML.squish
       <span class='chip missing-chip #{textless ? "textless" : ""}'>
         <span class='icon-container'><i class='material-icons'>help</i></span>
         #{textless ? '' : orig}

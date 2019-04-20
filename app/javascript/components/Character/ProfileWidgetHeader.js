@@ -27,14 +27,14 @@ class ProfileWidgetHeader extends Component {
 
     if (editable) {
       return (
-        <div className='muted card-header'>
+        <div className='muted card-header fix-height'>
           <div className='right' style={{opacity: 0.3}}>
-            <a href='#' className='margin-right--medium'><Icon className='muted' style={{fontSize: '1rem', color: 'rgba(255,255,255,0.1) !important'}}>delete</Icon></a>
+            {/*<a href='#' className='margin-right--medium'><Icon className='muted' style={{fontSize: '1rem', color: 'rgba(255,255,255,0.1) !important'}}>delete</Icon></a>*/}
             <a href='#' onClick={this.handleEditClick.bind(this)}><Icon className='muted' style={{fontSize: '1rem', color: 'rgba(255,255,255,0.1) !important'}}>edit</Icon></a>
           </div>
           <div className='left' style={{opacity: 0.3}}>
-            <a href='#' className='margin-right--medium'><Icon className='muted' style={{fontSize: '1rem', color: 'rgba(255,255,255,0.1) !important'}}>reorder</Icon></a>
-            <a href='#'><Icon className='muted' style={{fontSize: '1rem', color: 'rgba(255,255,255,0.1) !important'}}>content_copy</Icon></a>
+            {/*<a href='#' className='margin-right--medium'><Icon className='muted' style={{fontSize: '1rem', color: 'rgba(255,255,255,0.1) !important'}}>reorder</Icon></a>*/}
+            {/*<a href='#'><Icon className='muted' style={{fontSize: '1rem', color: 'rgba(255,255,255,0.1) !important'}}>content_copy</Icon></a>*/}
           </div>
 
           <div className='center'>
@@ -59,7 +59,7 @@ class ProfileWidgetHeader extends Component {
     const {widgetType, title} = this.props
 
     return (
-      <div className={'muted card-header'}>
+      <div className={'muted card-header fix-height'}>
         <div className='right btn-group'>
           <a href='#' className={'btn'} onClick={this.handleSaveClick.bind(this)}>
             <Icon className='muted left' style={{fontSize: '1rem', color: 'rgba(255,255,255,0.1) !important'}}>save</Icon> Save

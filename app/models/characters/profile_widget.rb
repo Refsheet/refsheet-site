@@ -23,6 +23,10 @@
 #
 
 class Characters::ProfileWidget < ApplicationRecord
+  module Types
+    RICH_TEXT = 'RichText'
+  end
+
   include HasGuid
 
   belongs_to :character
@@ -36,4 +40,27 @@ class Characters::ProfileWidget < ApplicationRecord
   has_guid
 
   serialize :data
+
+  before_validation :assign_default_data
+  before_save :serialize_rich_text_widget, if: -> (w) { w.widget_type == Types::RICH_TEXT }
+
+  private
+
+  def assign_default_data
+    if data.nil?
+      self.data = {}
+    elsif ! data.kind_of? Hash
+      self.data = {value: self.data}
+    end
+  end
+
+  def serialize_rich_text_widget
+    content = data[:content]&.to_md
+
+    Rails.logger.info(content.inspect)
+    Rails.logger.info(content)
+
+    self.data[:content_html] = content&.to_html
+  end
+
 end

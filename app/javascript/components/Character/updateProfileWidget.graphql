@@ -1,0 +1,15 @@
+mutation updateProfileWidget($id: ID!, $title: String, $data: String) {
+    updateProfileWidget(id: $id, title: $title, data: $data) {
+        id
+        title
+        id
+        widget_type
+        column
+        data {
+            ... on RichText {
+                content
+                content_html
+            }
+        }
+    }
+}

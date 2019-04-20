@@ -58,8 +58,13 @@
   .card-header
     padding: 1rem
     background-color: darken($card-bg-color, 1%)
-    height: 3rem
-    line-height: 1rem
+
+    &.fix-height
+      height: 3rem
+      line-height: 1rem
+
+      h2
+        line-height: 1rem
 
     .btn-group
       margin: -1rem
@@ -83,7 +88,6 @@
 
     h2
       margin: 0
-      line-height: 1rem
       height: auto
       font-size: 1.2rem
       font-weight: normal
