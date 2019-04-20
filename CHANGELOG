@@ -1,4 +1,24 @@
 ---
+v1.4.0-pre.101:
+- sha: eee83713eaf4ac93d439529eaa0dd2ef7497f9a7
+  time: '1555723715'
+  tags: []
+  message: Port
+  hash: eee83713
+  date: '2019-04-20'
+- sha: ff0687b98d6b72922605633f6912c8601938c844
+  time: '1555723704'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: ff0687b9
+  date: '2019-04-20'
+- sha: bc2e0a2dbe358651d419c1282088a5212f1c5a67
+  time: '1555723698'
+  tags: []
+  message: Switch action cable to Redis in prod.
+  hash: bc2e0a2d
+  date: '2019-04-20'
+---
 v1.4.0-pre.100:
 - sha: d0c2a106d261e2d283112874e63c010f39f671f9
   time: '1555720361'
