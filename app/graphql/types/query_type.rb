@@ -111,4 +111,9 @@ Types::QueryType = GraphQL::ObjectType.define do
       Image.find_by!(guid: args[:mediaId])
     }
   end
+
+  #== AUTOCOMPLETE
+
+  field :searchForUser, field: Mutations::UserMutations::Search
+  field :searchForCharacter, field: Mutations::CharacterMutations::Search
 end

@@ -1,4 +1,15 @@
 class Mutations::UserMutations < Mutations::ApplicationMutation
+  action :search do
+    type types[Types::UserType]
+
+    argument :username, type: types.String
+  end
+
+  def search
+    q = params[:username].downcase + '%'
+    User.where('LOWER(users.username) LIKE ? OR LOWER(users.name) LIKE ?', q, q).limit(10).order(:username)
+  end
+
   action :delete do
     type Types::UserType
 
