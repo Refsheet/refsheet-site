@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import { camelize } from 'object-utils'
 import widgets, { SerializerWidget } from './Widgets'
 import ProfileWidgetHeader from "./ProfileWidgetHeader";
+import {Mutation} from "react-apollo";
+import updateProfileWidget from './updateProfileWidget.graphql'
 
 class ProfileWidget extends Component {
   constructor(props) {
@@ -28,11 +30,21 @@ class ProfileWidget extends Component {
 
   handleSave() {
     const payload = {
-      data: this.state.widgetData,
+      id: this.props.id,
+      data: JSON.stringify(this.state.widgetData),
       title: this.state.headerData.title
     }
 
     console.log("EMITTING WIDGET DATA:", {payload})
+
+    this.props.update({variables: payload})
+      .then((data) => {
+        const { updateProfileWidget: widgetData } = data
+
+        this.props.onChange && this.props.onChange(widgetData)
+        this.handleEditStop()
+      })
+      .catch((error) => console.error(error))
   }
 
   handleWidgetChange(widgetData) {
@@ -40,7 +52,7 @@ class ProfileWidget extends Component {
   }
 
   render() {
-    const {id, widgetType, title, data, onChange, editable} = this.props
+    const {widgetType, title, data, editable} = this.props
     const Widget = widgets[widgetType] || SerializerWidget;
 
     return (
@@ -70,7 +82,14 @@ ProfileWidget.propTypes = {
   widgetType: PropTypes.string.isRequired,
   data: PropTypes.object.isRequired,
   onChange: PropTypes.func,
-  editable: PropTypes.bool
+  editable: PropTypes.bool,
+  update: PropTypes.func.isRequired
 }
 
-export default ProfileWidget
+const Mutated = (props) => (
+  <Mutation mutation={updateProfileWidget}>
+    {(update, {data}) => <ProfileWidget {...props} mutationData={data} update={update} />}
+  </Mutation>
+)
+
+export default Mutated

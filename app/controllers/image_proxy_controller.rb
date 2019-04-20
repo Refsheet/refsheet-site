@@ -7,11 +7,20 @@ class ImageProxyController < ApplicationController
   end
 
   def self.generate(url)
+    if Rails.env.development?
+      return url
+    end
+
     encoded = generate_parts url
-    Rails.application.routes.url_helpers.image_proxy_url host: 'ref.st',
-                                                         protocol: :https,
-                                                         url: encoded.token,
-                                                         key: encoded.key
+
+    url_options = {
+        host: 'ref.st',
+        protocol: :https,
+        url: encoded.token,
+        key: encoded.key
+    }
+
+    Rails.application.routes.url_helpers.image_proxy_url url_options
   end
 
   def self.generate_parts(url)

@@ -65,7 +65,13 @@ class MarkdownString < String
     class Helper
       include RichTextHelper
       def process(text)
-        linkify(text, no_markdown: true)
+        # Add mention tokens
+        text = linkify(text, no_markdown: true)
+
+        # correct numbered list format
+        text = text.gsub(/^(\s*)(\d+)\)(\s+)/, '\1\2.\3')
+
+        text
       end
     end
 
