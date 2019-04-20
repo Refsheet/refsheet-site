@@ -1,4 +1,18 @@
 ---
+v1.4.0-pre.98:
+- sha: b5b16fde03fae908997e4419ff825723dcafac47
+  time: '1552983710'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: b5b16fde
+  date: '2019-03-19'
+- sha: c531f2265ee3f02926697a608a6aa11e32d760c3
+  time: '1552983707'
+  tags: []
+  message: Remove async/defer.
+  hash: c531f226
+  date: '2019-03-19'
+---
 v1.4.0-pre.97:
 - sha: 9564caf773e8e4e439a9956d05bdcf06974c1a7d
   time: '1552981779'
