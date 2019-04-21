@@ -8,7 +8,7 @@
 #  order_id        :integer
 #  processor_id    :string
 #  type            :string
-#  amount_cents    :integer          default("0"), not null
+#  amount_cents    :integer          default(0), not null
 #  amount_currency :string           default("USD"), not null
 #  status          :string
 #  created_at      :datetime         not null

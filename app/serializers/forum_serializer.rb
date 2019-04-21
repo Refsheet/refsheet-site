@@ -12,6 +12,10 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
+# Indexes
+#
+#  index_forums_on_slug  (slug)
+#
 
 class ForumSerializer < ActiveModel::Serializer
   attributes :name,

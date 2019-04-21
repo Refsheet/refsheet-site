@@ -13,10 +13,12 @@
 #  data               :text
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  deleted_at         :datetime
 #
 # Indexes
 #
 #  index_characters_profile_widgets_on_character_id        (character_id)
+#  index_characters_profile_widgets_on_deleted_at          (deleted_at)
 #  index_characters_profile_widgets_on_guid                (guid)
 #  index_characters_profile_widgets_on_profile_section_id  (profile_section_id)
 #  index_characters_profile_widgets_on_row_order           (row_order)

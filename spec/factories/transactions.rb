@@ -5,7 +5,7 @@
 #  id              :integer          not null, primary key
 #  payment_id      :integer
 #  processor_id    :string
-#  amount_cents    :integer          default("0"), not null
+#  amount_cents    :integer          default(0), not null
 #  amount_currency :string           default("USD"), not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
