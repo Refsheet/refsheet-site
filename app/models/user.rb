@@ -207,6 +207,14 @@ class User < ApplicationRecord
     self.admin? or self.pledges.active.any?
   end
 
+  # TODO - migrate
+  def support_pledge_amount
+    0
+  end
+
+  def supporter_level
+    SupporterLevel.new(self.support_pledge_amount)
+  end
 
   #== Email Confirmation & Password Reset
 
@@ -240,6 +248,28 @@ class User < ApplicationRecord
 
   def send_welcome_email
     UserMailer.welcome(id, generate_auth_code!).deliver_now
+  end
+
+  class SupporterLevel
+    APPRENTICE = 1
+    SILVER = 5
+    GOLD = 10
+
+    def initialize(amount)
+      @amount = amount
+    end
+
+    def apprentice?
+      @amount >= APPRENTICE
+    end
+
+    def silver?
+      @amount >= SILVER
+    end
+
+    def gold?
+      @amount >= GOLD
+    end
   end
 
   private
