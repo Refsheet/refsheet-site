@@ -16,11 +16,11 @@ const Profile = ({profileSections, editable, refetch}) =>
   </div>
 ;
 
-const groupProfileSections = function(profileSections) {
+const groupProfileSections = function(profileSections, editable) {
   const groups = {};
   let lastId = 'main';
   for (let section of Array.from(profileSections)) {
-    if (section.title) { lastId = section.id; }
+    if (section.title || editable) { lastId = section.id; }
     if (!groups[lastId]) { groups[lastId] = []; }
     groups[lastId].push(section);
   }
@@ -28,8 +28,9 @@ const groupProfileSections = function(profileSections) {
 };
 
 const renderProfileSections = function(profileSections, editable, refetch) {
-  const groups = groupProfileSections(profileSections);
+  const groups = groupProfileSections(profileSections, editable);
   const render = [];
+
   for (let id in groups) {
     var sections = groups[id];
     const renderedSections = sections.map(function(section, i) {
@@ -45,7 +46,7 @@ const renderProfileSections = function(profileSections, editable, refetch) {
 
     if (editable) {
       render.push(
-        <a key={'new'}
+        <a key={'new-' + id}
            className='btn btn-flat block margin-top--medium margin-bottom--large'
            style={{border: '1px dashed #ffffff33'}}>
           Add Section
@@ -53,6 +54,8 @@ const renderProfileSections = function(profileSections, editable, refetch) {
       )
     }
   }
+
+  console.log({render})
 
   return render;
 };

@@ -12,10 +12,7 @@ class ProfileWidget extends Component {
 
     this.state = {
       editing: false,
-      widgetData: props.data,
-      headerData: {
-        title: props.title
-      }
+      widgetData: props.data
     }
 
   }
@@ -28,11 +25,11 @@ class ProfileWidget extends Component {
     this.setState({editing: false})
   }
 
-  handleSave() {
+  handleSave(title) {
     const payload = {
       id: this.props.id,
       data: JSON.stringify(this.state.widgetData),
-      title: this.state.headerData.title
+      title: title
     }
 
     console.log("EMITTING WIDGET DATA:", {payload})
