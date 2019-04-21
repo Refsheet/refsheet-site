@@ -15,14 +15,16 @@ class Summary extends Component {
     this.state = {
       attributes: props.character.custom_attributes,
       name: props.character.name,
-      species: props.character.species
+      species: props.character.species,
+      special_notes: props.character.special_notes,
+      special_notes_html: props.character.special_notes_html
     }
   }
 
-  handleNameChange(name) {
+  updateCharacter(variables, done) {
     this.props.update({
       variables: {
-        name,
+        ...variables,
         id: this.props.character.shortcode
       }
     })
@@ -31,29 +33,33 @@ class Summary extends Component {
           console.error(errors)
           errors.map((e) => M.toast({html: e.message, classes: 'red', duration: 3000}))
         } else {
-          this.setState({name: data.updateCharacter.name})
+          done(data.updateCharacter)
         }
       })
       .catch(console.error)
   }
 
-  handleSpeciesChange(attribute, done) {
-    this.props.update({
-      variables: {
-        species: attribute.value,
-        id: this.props.character.shortcode
-      }
+  handleNameChange(name) {
+    this.updateCharacter({name}, (data) => {
+      this.setState({name: data.name})
     })
-      .then(({data, errors}) => {
-        if (errors) {
-          console.error(errors)
-          errors.map((e) => M.toast({html: e.message, classes: 'red', duration: 3000}))
-        } else {
-          done()
-          this.setState({species: data.updateCharacter.species})
-        }
+  }
+
+  handleSpeciesChange(attribute, done) {
+    this.updateCharacter({species: attribute.value}, (data) => {
+      done()
+      this.setState({species: data.species})
+    })
+  }
+
+  handleNotesChange(notes, done) {
+    this.updateCharacter({special_notes: notes}, (data) => {
+      done()
+      this.setState({
+        special_notes: data.special_notes,
+        special_notes_html: data.special_notes_html
       })
-      .catch(console.error)
+    })
   }
 
   handleAttributesChange({custom_attributes: attributes}) {
@@ -101,8 +107,9 @@ class Summary extends Component {
               <H2>Important Notes</H2>
 
               <RichText
-                content={ character.special_notes_html }
-                markup={ character.special_notes }
+                content={ this.state.special_notes_html }
+                markup={ this.state.special_notes }
+                onChange={editable ? this.handleNotesChange.bind(this) : undefined}
               />
             </div> }
           </div>

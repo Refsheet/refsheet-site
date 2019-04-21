@@ -8,6 +8,7 @@ class Mutations::CharacterMutations < Mutations::ApplicationMutation
 
     argument :name, types.String
     argument :species, types.String
+    argument :special_notes, types.String
   end
 
   def update
@@ -46,6 +47,10 @@ class Mutations::CharacterMutations < Mutations::ApplicationMutation
   end
 
   def update_params
-    params.permit(:name, :species)
+    params.permit(
+        :name,
+        :species,
+        :special_notes
+    )
   end
 end

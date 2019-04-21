@@ -1,7 +1,9 @@
-mutation updateCharacter($id: ID!, $name: String, $species: String) {
-    updateCharacter(id: $id, name: $name, species: $species) {
+mutation updateCharacter($id: ID!, $name: String, $species: String, $special_notes: String) {
+    updateCharacter(id: $id, name: $name, species: $species, special_notes: $special_notes) {
         slug
         name
         species
+        special_notes
+        special_notes_html
     }
 }
