@@ -1,6 +1,18 @@
 mutation createWidget($characterId: ID!, $sectionId: ID!, $columnId: ID!, $type: String!) {
-    createWidget(characterId: $characterId, sectionId: $sectionId, columnId: $columnId, type: $type) {
+    createProfileWidget(characterId: $characterId, sectionId: $sectionId, columnId: $columnId, type: $type) {
         id
-        type
+        widget_type
+        column
+        title
+        data {
+            ... on RichText {
+                content
+                content_html
+            }
+
+            ... on Youtube {
+                url
+            }
+        }
     }
 }

@@ -12,7 +12,8 @@ class ProfileSection extends Component {
     super(props)
 
     this.state = {
-      newWidget: null
+      newWidget: null,
+      provisionalWidgets: []
     }
 
     this.handleTitleChange = this.handleTitleChange.bind(this)
@@ -49,6 +50,16 @@ class ProfileSection extends Component {
     }
   }
 
+  handleNewWidget(widget) {
+    this.setState({
+      provisionalWidgets: [
+        ...this.state.provisionalWidgets,
+        widget
+      ],
+      newWidget: null
+    })
+  }
+
   renderSectionColumns(columns, widgets, editable) {
     const _this = this
     return columns.map(function(width, id) {
@@ -67,16 +78,23 @@ class ProfileSection extends Component {
   render() {
     const {id, title, columns, widgets, editable, className} = this.props
 
+    const allWidgets = [
+      ...widgets,
+      ...this.state.provisionalWidgets
+    ]
+
     return (
       <Section title={title} className={ c('margin-bottom--large', className) } editable={editable} onTitleChange={this.handleTitleChange}>
         { this.state.newWidget && <NewWidgetModal
+          characterId={this.props.characterId}
           sectionId={this.state.newWidget.sectionId}
           columnId={this.state.newWidget.columnId}
           onClose={this.handleNewWidgetClose.bind(this)}
+          onCreate={this.handleNewWidget.bind(this)}
         /> }
 
         <div className='row margin-top--medium'>
-          { this.renderSectionColumns(columns, widgets, editable) }
+          { this.renderSectionColumns(columns, allWidgets, editable) }
         </div>
       </Section>
     )
@@ -86,6 +104,7 @@ class ProfileSection extends Component {
 ProfileSection.propTypes = {
   columns: PropTypes.array.isRequired,
   id: PropTypes.string.isRequired,
+  characterId: PropTypes.string.isRequired,
   title: PropTypes.string,
   onChange: PropTypes.func,
   editable: PropTypes.bool,
