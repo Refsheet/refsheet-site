@@ -13,6 +13,8 @@ class NewMessage extends Component {
       message: ''
     }
 
+    this.nonce = 0
+
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleMessageChange = this.handleMessageChange.bind(this)
     this.handleClose = this.handleClose.bind(this)
@@ -27,11 +29,26 @@ class NewMessage extends Component {
   handleSubmit(e) {
     e.preventDefault()
 
+    const { nonce } = this
+    this.nonce += 1
+
+    if (this.props.onCreate) {
+      const ctime = (new Date()).getTime() / 1000
+
+      this.props.onCreate({
+        message: this.state.message,
+        nonce: nonce,
+        status: 'preflight',
+        created_at: ctime
+      })
+    }
+
     this.props.send({
       variables: {
         conversationId: this.props.conversationId,
         recipientId: this.props.recipientId,
-        message: this.state.message
+        message: this.state.message,
+        nonce: nonce
       }
     }).then(({data, errors}) => {
       const {
@@ -45,6 +62,12 @@ class NewMessage extends Component {
         data.sendMessage.conversation.guid
       )
 
+      const messageGuid = (
+        data &&
+        data.sendMessage &&
+        data.sendMessage.guid
+      )
+
       if (guid && onConversationStart) {
         onConversationStart({
           id: guid,
@@ -56,6 +79,32 @@ class NewMessage extends Component {
       if (errors) {
         errors.map((error) => {
           M.toast({ html: error.message, classes: 'red' });
+        })
+
+        if (this.props.onCreate) {
+          this.props.onCreate({
+            nonce: nonce,
+            status: 'error',
+            error: error.message
+          })
+        }
+      } else if (messageGuid) {
+        if (this.props.onCreate) {
+          this.props.onCreate({
+            nonce: nonce,
+            status: 'delivered',
+            guid: messageGuid
+          })
+        }
+      }
+    }).catch((error) => {
+      console.error(error)
+
+      if (this.props.onCreate) {
+        this.props.onCreate({
+          nonce: nonce,
+          status: 'error',
+          error: error
         })
       }
     })
@@ -121,6 +170,7 @@ const Wrapped = (props) => (
 Wrapped.propTypes = {
   onClose: PropTypes.func.isRequired,
   onConversationStart: PropTypes.func,
+  onCreate: PropTypes.func,
   conversationId: PropTypes.string.isRequired,
   recipient: PropTypes.shape({
     id: PropTypes.string,

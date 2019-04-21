@@ -24,7 +24,8 @@ class Conversation extends Component {
     this.state = {
       isAtBottom: false,
       lastReadMessage: 0,
-      isOpen: true
+      isOpen: true,
+      pendingMessages: []
     }
 
     this.handleConversationClose = this.handleConversationClose.bind(this)
@@ -113,14 +114,38 @@ class Conversation extends Component {
     this.setState({isOpen})
   }
 
+  handlePendingMessage(message) {
+    const { nonce } = message
+    const messages = [...this.state.pendingMessages]
+    const i = messages.map(e => e.nonce).indexOf(nonce)
+
+    if (i !== -1) {
+      messages[i] = {
+        ...messages[i],
+        ...message
+      }
+
+      this.setState({
+        pendingMessages: messages
+      })
+    } else {
+      this.setState({
+        pendingMessages: [
+          ...messages,
+          message
+        ]
+      })
+    }
+
+    console.log("PENDING", this.state.pendingMessages, messages)
+  }
+
   render() {
     const {
       messages = [],
       id: conversationId,
       user
     } = this.props
-
-    console.log(this.props)
 
     const {
       isOpen
@@ -131,7 +156,16 @@ class Conversation extends Component {
     let isRead = true
     const renderedMessages = []
 
-    _.sortBy(messages, 'created_at').map((message) => {
+    const allMessages = [
+      ...messages,
+      ...this.state.pendingMessages
+    ]
+
+    const postedGuids = []
+
+    _.sortBy(allMessages, 'created_at').map((message) => {
+      if (message.guid && postedGuids.indexOf(message.guid) !== -1) return
+
       if(message.unread && message.id > this.state.lastReadMessage && isRead) {
         renderedMessages.push(
             <li key='EOM' className='chat-end-of-messages more' ref={(r) => this.unreadBookmark = r}>
@@ -142,7 +176,8 @@ class Conversation extends Component {
         isRead = false
       }
 
-      renderedMessages.push(<ConversationMessage key={message.guid} message={message} />)
+      renderedMessages.push(<ConversationMessage key={message.guid || message.nonce} message={message} />)
+      if (message.guid) postedGuids.push(message.guid)
     })
 
     renderedMessages.push(
@@ -173,6 +208,7 @@ class Conversation extends Component {
 
         <NewMessage
             onClose={this.handleConversationClose}
+            onCreate={this.handlePendingMessage.bind(this)}
             conversationId={conversationId}
         />
       </div> }
