@@ -14,7 +14,8 @@ class Summary extends Component {
     // TODO: Finish migrating Attributes. Until then, they're stored as a local state.
     this.state = {
       attributes: props.character.custom_attributes,
-      name: props.character.name
+      name: props.character.name,
+      species: props.character.species
     }
   }
 
@@ -31,6 +32,25 @@ class Summary extends Component {
           errors.map((e) => M.toast({html: e.message, classes: 'red', duration: 3000}))
         } else {
           this.setState({name: data.updateCharacter.name})
+        }
+      })
+      .catch(console.error)
+  }
+
+  handleSpeciesChange(attribute, done) {
+    this.props.update({
+      variables: {
+        species: attribute.value,
+        id: this.props.character.shortcode
+      }
+    })
+      .then(({data, errors}) => {
+        if (errors) {
+          console.error(errors)
+          errors.map((e) => M.toast({html: e.message, classes: 'red', duration: 3000}))
+        } else {
+          done()
+          this.setState({species: data.updateCharacter.species})
         }
       })
       .catch(console.error)
@@ -66,8 +86,8 @@ class Summary extends Component {
           </div>
 
           <div className='details'>
-            <AttributeTable defaultValue='Unspecified' freezeName hideNotesForm>
-              <Attribute id='species' name='Species' value={ character.species } />
+            <AttributeTable defaultValue='Unspecified' freezeName hideNotesForm onAttributeUpdate={editable ? this.handleSpeciesChange.bind(this) : undefined}>
+              <Attribute id='species' name='Species' value={ this.state.species } />
             </AttributeTable>
 
             <Views.Character.Attributes
