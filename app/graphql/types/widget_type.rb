@@ -5,6 +5,7 @@ Types::WidgetType = GraphQL::ObjectType.define do
   field :widget_type, !types.String
   field :column, !types.Int
   field :title, types.String
+  field :row_order, types.Int
 
   field :data, Unions::WidgetDataUnion do
     resolve -> (obj, _args, _ctx) {

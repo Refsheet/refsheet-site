@@ -38,7 +38,7 @@ class Characters::ProfileWidget < ApplicationRecord
                             greater_than_or_equal_to: 0
 
   has_guid
-
+  ranks :row_order, with_same: [:profile_section_id, :column]
   serialize :data
 
   before_validation :assign_default_data
