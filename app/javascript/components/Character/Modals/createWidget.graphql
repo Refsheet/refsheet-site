@@ -4,6 +4,7 @@ mutation createWidget($characterId: ID!, $sectionId: ID!, $columnId: ID!, $type:
         widget_type
         column
         title
+        row_order
         data {
             ... on RichText {
                 content
