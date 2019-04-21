@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Dropzone from 'react-dropzone'
 import Filmstrip from './Filmstrip'
 import UploadForm from './UploadForm'
 import ImageHandler from 'ImageHandler'
@@ -19,8 +18,6 @@ class UploadModal extends Component {
     this.state = {
       activeImageId
     }
-
-    console.log("CONTEXT", this.context)
 
     this.setActiveImage = this.setActiveImage.bind(this)
     this.handleImageChange = this.handleImageChange.bind(this)
