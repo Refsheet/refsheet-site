@@ -1,4 +1,24 @@
 ---
+v1.4.0-pre.102:
+- sha: 02ed7b75c75be3656d48c43917e63ccbc13b2597
+  time: '1555795215'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 02ed7b75
+  date: '2019-04-20'
+- sha: 0c745e22e8123152094ee4fae0b4e5620456425c
+  time: '1555795208'
+  tags: []
+  message: Character / user autocomplete pulls from GraphQL.
+  hash: 0c745e22
+  date: '2019-04-20'
+- sha: 1253c8084b79a2cc6881db80a4de1609800c4d75
+  time: '1555792816'
+  tags: []
+  message: You can now actually save RichText widgets!
+  hash: 1253c808
+  date: '2019-04-20'
+---
 v1.4.0-pre.101:
 - sha: eee83713eaf4ac93d439529eaa0dd2ef7497f9a7
   time: '1555723715'
