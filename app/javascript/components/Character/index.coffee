@@ -31,7 +31,7 @@ class Character extends Component
     { data } = @props
 
     if data.loading
-      `<div>Loading...</div>`
+      `<Loading />`
     else if data.error
       message = data.error.graphQLErrors.map((e) -> e.message).join(', ')
       `<Error message={message} />`

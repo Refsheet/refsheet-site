@@ -7,10 +7,11 @@ class Mutations::CharacterMutations < Mutations::ApplicationMutation
     argument :id, !types.ID
 
     argument :name, types.String
+    argument :species, types.String
   end
 
   def update
-    @character.update_attributes update_params
+    @character.update_attributes! update_params
     @character
   end
 
@@ -45,6 +46,6 @@ class Mutations::CharacterMutations < Mutations::ApplicationMutation
   end
 
   def update_params
-    params.permit(:name)
+    params.permit(:name, :species)
   end
 end
