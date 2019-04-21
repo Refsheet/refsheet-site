@@ -39,7 +39,7 @@ class View extends Component {
         />}
 
         <div id='top' className='profile-scrollspy'>
-          <Header character={character}/>
+          <Header character={character} editable={this.state.editable} />
         </div>
 
         <Container>

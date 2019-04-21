@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import c from 'classnames'
 
 const InputField = styled.input`
   font: inherit !important;
@@ -101,13 +102,13 @@ class EditableHeader extends Component {
 
     if(!this.props.editable) {
       return (
-        <ComponentRef>{this.props.children}</ComponentRef>
+        <ComponentRef className={this.props.className}>{this.props.children}</ComponentRef>
       )
     } else if(this.state.locked) {
       return (
         <div className={'editable-container'}>
           <InputContainer>
-            <ComponentRef className={'input-placeholder'}>{this.props.children || <span className={'muted-color'}>{ this.props.default || '?'}</span>}</ComponentRef>
+            <ComponentRef className={c('input-placeholder', this.props.className)}>{this.props.children || <span className={'muted-color'}>{ this.props.default || '?'}</span>}</ComponentRef>
             <InputButton className={'editable-button inactive'} title={'edit'} onClick={this.handleEditClick}>
               <i className={'material-icons'}>edit</i>
             </InputButton>
@@ -118,7 +119,7 @@ class EditableHeader extends Component {
       return (
         <form className={'editable-container'} onSubmit={this.handleSubmit}>
           <InputContainer>
-            <ComponentRef className={'input-value'}>
+            <ComponentRef className={c('input-value', this.props.className)}>
               <InputField type={'text'} value={this.state.value} style={{font: 'inherit'}} onChange={this.handleInputChange} autoFocus />
             </ComponentRef>
             <InputButton className={'editable-button'} title={'edit'} type={'submit'}>

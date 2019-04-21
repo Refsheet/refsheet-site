@@ -55,8 +55,6 @@ const renderProfileSections = function(profileSections, editable, refetch) {
     }
   }
 
-  console.log({render})
-
   return render;
 };
 
