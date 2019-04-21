@@ -17,7 +17,7 @@
 #  guid                    :string
 #  gravity                 :string
 #  nsfw                    :boolean
-#  hidden                  :boolean          default("false")
+#  hidden                  :boolean          default(FALSE)
 #  gallery_id              :integer
 #  deleted_at              :datetime
 #  title                   :string
@@ -25,7 +25,7 @@
 #  comments_count          :integer
 #  favorites_count         :integer
 #  image_meta              :text
-#  image_processing        :boolean          default("false")
+#  image_processing        :boolean          default(FALSE)
 #  image_direct_upload_url :string
 #  watermark               :boolean
 #  custom_watermark_id     :integer

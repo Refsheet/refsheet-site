@@ -10,9 +10,9 @@
 #  hidden                   :boolean
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
-#  characters_count         :integer          default("0"), not null
-#  visible_characters_count :integer          default("0"), not null
-#  hidden_characters_count  :integer          default("0"), not null
+#  characters_count         :integer          default(0), not null
+#  visible_characters_count :integer          default(0), not null
+#  hidden_characters_count  :integer          default(0), not null
 #
 # Indexes
 #

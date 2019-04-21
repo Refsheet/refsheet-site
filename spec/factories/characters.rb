@@ -23,12 +23,12 @@
 #  dislikes          :text
 #  color_scheme_id   :integer
 #  nsfw              :boolean
-#  hidden            :boolean          default("false")
+#  hidden            :boolean          default(FALSE)
 #  secret            :boolean
 #  row_order         :integer
 #  deleted_at        :datetime
 #  custom_attributes :text
-#  version           :integer          default("1")
+#  version           :integer          default(1)
 #
 
 FactoryBot.define do

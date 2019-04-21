@@ -8,7 +8,7 @@
 #  title              :string
 #  description        :text
 #  color              :string
-#  amount_cents       :integer          default("0"), not null
+#  amount_cents       :integer          default(0), not null
 #  amount_currency    :string           default("USD"), not null
 #  requires_character :boolean
 #  created_at         :datetime         not null

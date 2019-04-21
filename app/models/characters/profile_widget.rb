@@ -13,10 +13,12 @@
 #  data               :text
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  deleted_at         :datetime
 #
 # Indexes
 #
 #  index_characters_profile_widgets_on_character_id        (character_id)
+#  index_characters_profile_widgets_on_deleted_at          (deleted_at)
 #  index_characters_profile_widgets_on_guid                (guid)
 #  index_characters_profile_widgets_on_profile_section_id  (profile_section_id)
 #  index_characters_profile_widgets_on_row_order           (row_order)
@@ -40,6 +42,7 @@ class Characters::ProfileWidget < ApplicationRecord
   has_guid
   ranks :row_order, with_same: [:profile_section_id, :column]
   serialize :data
+  acts_as_paranoid
 
   before_validation :assign_default_data
   before_save :serialize_rich_text_widget, if: -> (w) { w.widget_type == Types::RICH_TEXT }
