@@ -30,6 +30,7 @@ class Characters::ProfileWidget < ApplicationRecord
   end
 
   include HasGuid
+  include RankedModel
 
   belongs_to :character
   belongs_to :profile_section, class_name: 'Characters::ProfileSection'
@@ -46,6 +47,17 @@ class Characters::ProfileWidget < ApplicationRecord
 
   before_validation :assign_default_data
   before_save :serialize_rich_text_widget, if: -> (w) { w.widget_type == Types::RICH_TEXT }
+
+  def character
+    c = super
+
+    unless c
+      c = self.profile_section.character
+      self.character = c
+    end
+
+    c
+  end
 
   private
 

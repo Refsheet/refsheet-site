@@ -32,6 +32,13 @@ class ProfileWidgetHeader extends Component {
     this.setState({title})
   }
 
+  handleMove(direction) {
+    return (e) => {
+      e.preventDefault()
+      this.props.onMove(direction)
+    }
+  }
+
   renderLocked() {
     const {widgetType, title, editable} = this.props
 
@@ -40,11 +47,11 @@ class ProfileWidgetHeader extends Component {
         <div className='muted card-header fix-height'>
           <div className='right' style={{opacity: 0.3}}>
             {/*<a href='#' className='margin-right--medium'><Icon className='muted' style={{fontSize: '1rem', color: 'rgba(255,255,255,0.1) !important'}}>delete</Icon></a>*/}
-            <a href='#' onClick={this.handleEditClick.bind(this)}><Icon className='muted' style={{fontSize: '1rem', color: 'rgba(255,255,255,0.1) !important'}}>edit</Icon></a>
+            <a href='#' onClick={this.handleEditClick.bind(this)} title={'Edit Widget'}><Icon className='muted' style={{fontSize: '1rem', color: 'rgba(255,255,255,0.1) !important'}}>edit</Icon></a>
           </div>
           <div className='left' style={{opacity: 0.3}}>
-            {/*<a href='#' className='margin-right--medium'><Icon className='muted' style={{fontSize: '1rem', color: 'rgba(255,255,255,0.1) !important'}}>reorder</Icon></a>*/}
-            {/*<a href='#'><Icon className='muted' style={{fontSize: '1rem', color: 'rgba(255,255,255,0.1) !important'}}>content_copy</Icon></a>*/}
+            <a href='#' onClick={this.handleMove('up').bind(this)} title={'Move Up'} className='margin-right--medium'><Icon className='muted' style={{fontSize: '1rem', color: 'rgba(255,255,255,0.1) !important'}}>keyboard_arrow_up</Icon></a>
+            <a href='#' onClick={this.handleMove('down').bind(this)} title={'Move Down'} className='margin-right--medium'><Icon className='muted' style={{fontSize: '1rem', color: 'rgba(255,255,255,0.1) !important'}}>keyboard_arrow_down</Icon></a>
           </div>
 
           <div className='center'>
@@ -94,7 +101,8 @@ ProfileWidgetHeader.propTypes = {
   editing: PropTypes.bool,
   onEditStart: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
-  onEditStop: PropTypes.func.isRequired
+  onEditStop: PropTypes.func.isRequired,
+  onMove: PropTypes.func.isRequired
 }
 
 export default ProfileWidgetHeader

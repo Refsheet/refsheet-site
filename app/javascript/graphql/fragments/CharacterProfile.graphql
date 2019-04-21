@@ -8,6 +8,7 @@ fragment CharacterProfile on Character {
             widget_type
             column
             title
+            row_order
             data {
                 ... on RichText {
                     content

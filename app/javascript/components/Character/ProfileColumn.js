@@ -9,7 +9,9 @@ import ProfileWidget from './ProfileWidget';
 import { camelize } from 'object-utils';
 
 const ProfileColumn = function({widgets, width, editable, onNewClick}) {
-  const widgetCards = widgets.map(widget => <ProfileWidget {...camelize(widget)} key={widget.id} editable={editable} />);
+  const widgetCards = widgets
+    .sort((a, b) => (a.row_order || 0)- (b.row_order|| 0))
+    .map(widget => <ProfileWidget {...camelize(widget)} key={widget.id} editable={editable} />);
 
   return <div className={`col s12 m${width}`}>
     { widgetCards }

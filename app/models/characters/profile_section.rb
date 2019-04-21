@@ -22,7 +22,7 @@ class Characters::ProfileSection < ApplicationRecord
   include HasGuid
 
   belongs_to :character
-  has_many :widgets, class_name: 'Characters::ProfileWidget'
+  has_many :widgets, -> { rank(:row_order) }, class_name: 'Characters::ProfileWidget'
 
   validates_format_of :column_widths, with: /\A\d+(,\d+)*\z/, message: 'numbers and commas only'
   validate :check_column_sums

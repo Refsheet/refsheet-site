@@ -1,10 +1,11 @@
-mutation updateProfileWidget($id: ID!, $title: String, $data: String) {
-    updateProfileWidget(id: $id, title: $title, data: $data) {
+mutation updateProfileWidget($id: ID!, $title: String, $data: String, $row_order_position: String) {
+    updateProfileWidget(id: $id, title: $title, data: $data, row_order_position: $row_order_position) {
         id
         title
         id
         widget_type
         column
+        row_order
         data {
             ... on RichText {
                 content

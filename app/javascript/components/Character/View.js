@@ -12,7 +12,6 @@ import {ThemedMain} from 'Styled/Global';
 import UploadModal from 'Image/UploadModal';
 import SettingsModal from "./Modals/SettingsModal";
 import ColorModal from "./Modals/ColorModal";
-import NewWidgetModal from "./Modals/NewWidgetModal";
 
 class View extends Component {
   constructor(props) {
