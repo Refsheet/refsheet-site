@@ -21,6 +21,16 @@ class Sidebar extends Component {
     this.stickyTop = 75;
   }
 
+  handleSettingsClick(e) {
+    e.preventDefault()
+    this.props.onSettingsClick && this.props.onSettingsClick()
+  }
+
+  handleColorClick(e) {
+    e.preventDefault()
+    this.props.onColorClick && this.props.onColorClick()
+  }
+
   componentDidMount() {
     const elem = document.querySelectorAll('.profile-scrollspy');
     this.instance = M.ScrollSpy.init(elem);
@@ -69,9 +79,9 @@ class Sidebar extends Component {
 
         { !conversionRequired && this.props.editable || <SidebarLink to='#edit' onClick={this.toggleEditable} icon='edit'>Edit</SidebarLink> }
         { !conversionRequired && this.props.editable && <SidebarLink to='#edit' onClick={this.toggleEditable} icon='lock'>Stop Editing</SidebarLink> }
-        <SidebarLink to='#' icon='settings'>Settings</SidebarLink>
-        <SidebarLink to='#' icon='palette'>Color Scheme</SidebarLink>
-        <SidebarLink to='#' icon='archive'>Archive</SidebarLink>
+        <SidebarLink to='#settings' icon='settings' onClick={this.handleSettingsClick.bind(this)}>Settings</SidebarLink>
+        <SidebarLink to='#color' icon='palette' onClick={this.handleColorClick.bind(this)}>Color Scheme</SidebarLink>
+        {/*<SidebarLink to='#' icon='archive'>Archive</SidebarLink>*/}
       </div>
 
       <ul className='table-of-contents'>
@@ -98,7 +108,9 @@ Sidebar.propTypes = {
   onEditableChange: PropTypes.func.isRequired,
   editable: PropTypes.bool,
   characterVersion: PropTypes.number,
-  refetch: PropTypes.func
+  refetch: PropTypes.func,
+  onColorClick: PropTypes.func,
+  onSettingsClick: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({

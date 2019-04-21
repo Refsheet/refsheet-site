@@ -13,6 +13,9 @@
       history.replaceState '', document.title, window.location.pathname + window.location.search
       $modal.modal 'open'
 
+    if @props.autoOpen
+      $modal.modal 'open'
+
   close: ->
     $modal = $(@refs.modal)
     $modal.modal 'close'

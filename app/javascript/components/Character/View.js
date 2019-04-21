@@ -10,13 +10,18 @@ import defaultTheme from 'themes/default';
 import {StickyContainer} from 'react-sticky';
 import {ThemedMain} from 'Styled/Global';
 import UploadModal from 'Image/UploadModal';
+import SettingsModal from "./Modals/SettingsModal";
+import ColorModal from "./Modals/ColorModal";
+import NewWidgetModal from "./Modals/NewWidgetModal";
 
 class View extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      editable: false
+      editable: false,
+      settingsOpen: false,
+      colorOpen: false
     }
 
     this.handleEditableChange = this.handleEditableChange.bind(this)
@@ -26,17 +31,36 @@ class View extends Component {
     this.setState({editable})
   }
 
+  handleModalOpen(modal) {
+    return () => {
+      let state = {}
+      state[modal + "Open"] = true
+      this.setState(state)
+    }
+  }
+
+  handleModalClose(modal) {
+    return () => {
+      let state = {}
+      state[modal + 'Open'] = false
+      this.setState(state)
+    }
+  }
+
   render() {
     const {character, uploadOpen, onChange, onUploadModalOpen, onUploadModalClose} = this.props
+    const {settingsOpen, colorOpen} = this.state
 
     return (
       <ThemedMain title={character.name}>
-        {uploadOpen &&
-        <UploadModal
+        {uploadOpen && <UploadModal
           characterId={character.id}
           onClose={onUploadModalClose}
           onUpload={onChange}
-        />}
+        /> }
+
+        { settingsOpen && <SettingsModal onClose={this.handleModalClose('settings').bind(this)} /> }
+        { colorOpen && <ColorModal onClose={this.handleModalClose('color').bind(this)} /> }
 
         <div id='top' className='profile-scrollspy'>
           <Header character={character} editable={this.state.editable} />
@@ -54,10 +78,17 @@ class View extends Component {
                   characterVersion={character.version}
                   characterId={character.shortcode}
                   refetch={this.props.onChange}
+                  onSettingsClick={this.handleModalOpen('settings').bind(this)}
+                  onColorClick={this.handleModalOpen('color').bind(this)}
                 />
               </Col>
               <Col s={12} m={9} l={10}>
-                <Profile profileSections={character.profile_sections} editable={this.state.editable} refetch={this.props.onChange} />
+                <Profile
+                  profileSections={character.profile_sections}
+                  editable={this.state.editable}
+                  refetch={this.props.onChange}
+                />
+
                 {/*<Reference />*/}
                 <Gallery images={character.images} onUploadClick={onUploadModalOpen} />
               </Col>

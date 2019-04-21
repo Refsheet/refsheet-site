@@ -5,10 +5,15 @@ import Section from 'Shared/Section';
 import c from 'classnames';
 import {Mutation} from "react-apollo";
 import { gql } from 'apollo-client-preset'
+import NewWidgetModal from "./Modals/NewWidgetModal";
 
 class ProfileSection extends Component {
   constructor(props) {
     super(props)
+
+    this.state = {
+      newWidget: null
+    }
 
     this.handleTitleChange = this.handleTitleChange.bind(this)
   }
@@ -27,7 +32,25 @@ class ProfileSection extends Component {
       .catch((error) => console.error(error))
   }
 
+  handleNewWidgetClose() {
+    this.setState({newWidget: null})
+  }
+
+  handleNewWidgetClick(column) {
+    return (e) => {
+      e.preventDefault()
+
+      this.setState({
+        newWidget: {
+          sectionId: this.props.id,
+          columnId: column
+        }
+      })
+    }
+  }
+
   renderSectionColumns(columns, widgets, editable) {
+    const _this = this
     return columns.map(function(width, id) {
       const columnWidgets = widgets.filter(w => w.column === id)
 
@@ -35,7 +58,9 @@ class ProfileSection extends Component {
                             id={id}
                             width={width}
                             widgets={columnWidgets}
-                            editable={editable} />
+                            editable={editable}
+                            onNewClick={_this.handleNewWidgetClick(id).bind(_this)}
+      />
     })
   }
 
@@ -44,6 +69,12 @@ class ProfileSection extends Component {
 
     return (
       <Section title={title} className={ c('margin-bottom--large', className) } editable={editable} onTitleChange={this.handleTitleChange}>
+        { this.state.newWidget && <NewWidgetModal
+          sectionId={this.state.newWidget.sectionId}
+          columnId={this.state.newWidget.columnId}
+          onClose={this.handleNewWidgetClose.bind(this)}
+        /> }
+
         <div className='row margin-top--medium'>
           { this.renderSectionColumns(columns, widgets, editable) }
         </div>

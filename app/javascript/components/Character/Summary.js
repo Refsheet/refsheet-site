@@ -6,6 +6,7 @@ import EditableHeader from "../Shared/EditableHeader";
 import {Mutation} from "react-apollo";
 import updateCharacter from './updateCharacter.graphql'
 import * as M from "materialize-css";
+import WindowAlert from "../../utils/WindowAlert";
 
 class Summary extends Component {
   constructor(props) {
@@ -42,6 +43,7 @@ class Summary extends Component {
   handleNameChange(name) {
     this.updateCharacter({name}, (data) => {
       this.setState({name: data.name})
+      WindowAlert.add('main', data.name)
     })
   }
 
