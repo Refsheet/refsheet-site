@@ -2,10 +2,11 @@ import ApolloClient from 'apollo-client'
 import { ApolloLink } from 'apollo-link'
 import { createHttpLink } from 'apollo-link-http'
 import { setContext } from 'apollo-link-context'
-import { InMemoryCache } from 'apollo-cache-inmemory'
+import { InMemoryCache, IntrospectionFragmentMatcher } from 'apollo-cache-inmemory'
 import fetch from 'node-fetch'
 import ActionCable from 'actioncable'
 import ActionCableLink from 'graphql-ruby-client/subscriptions/ActionCableLink'
+import introspectionQueryResultData from '../config/fragmentTypes.json'
 
 const cable = ActionCable.createConsumer()
 
@@ -14,6 +15,10 @@ const HOST = (
     window.location &&
     window.location.origin
 ) || 'http://dev1.refsheet.net:5000'
+
+const fragmentMatcher = new IntrospectionFragmentMatcher({
+  introspectionQueryResultData
+})
 
 const httpLink = createHttpLink({
   uri: `${HOST}/graphql`,
@@ -57,9 +62,13 @@ const defaultOptions = {
   }
 }
 
+const cache = new InMemoryCache({
+  fragmentMatcher
+})
+
 export const client = new ApolloClient({
   link: authLink.concat(link),
-  cache: new InMemoryCache(),
+  cache: cache,
   defaultOptions
 })
 

@@ -16,6 +16,9 @@
     if @props.autoOpen
       $modal.modal 'open'
 
+  componentWillUnmount: ->
+    @close()
+
   close: ->
     $modal = $(@refs.modal)
     $modal.modal 'close'

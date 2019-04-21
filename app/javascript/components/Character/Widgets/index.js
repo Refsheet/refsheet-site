@@ -1,18 +1,18 @@
 import SerializerWidget from './SerializerWidget'
 import RichTextWidget from './RichTextWidget'
 import ImageWidget from './ImageWidget'
-import YouTubeWidget from './YouTubeWidget'
+import YoutubeWidget from './YoutubeWidget'
 
 export {
   SerializerWidget,
   RichTextWidget,
   ImageWidget,
-  YouTubeWidget
+  YoutubeWidget
 }
 
 export default {
   'Serializer': SerializerWidget,
   'RichText': RichTextWidget,
   'Image': ImageWidget,
-  'YouTube': YouTubeWidget
+  'Youtube': YoutubeWidget
 }

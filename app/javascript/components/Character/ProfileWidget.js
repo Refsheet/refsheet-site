@@ -32,10 +32,8 @@ class ProfileWidget extends Component {
       title: title
     }
 
-    console.log("EMITTING WIDGET DATA:", {payload})
-
     this.props.update({variables: payload})
-      .then((data) => {
+      .then(({data}) => {
         const { updateProfileWidget: widgetData } = data
 
         this.props.onChange && this.props.onChange(widgetData)
@@ -53,7 +51,7 @@ class ProfileWidget extends Component {
     const Widget = widgets[widgetType] || SerializerWidget;
 
     return (
-      <div className='card profile-widget margin--none'>
+      <div className='card profile-widget margin-top--none margin-bottom--large margin-bottom-last--none'>
         <ProfileWidgetHeader
           widgetType={widgetType}
           title={title}

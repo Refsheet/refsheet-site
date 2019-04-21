@@ -13,6 +13,10 @@ fragment CharacterProfile on Character {
                     content
                     content_html
                 }
+
+                ... on Youtube {
+                    url
+                }
             }
         }
     }

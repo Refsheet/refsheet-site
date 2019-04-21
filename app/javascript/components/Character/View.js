@@ -87,6 +87,7 @@ class View extends Component {
                   profileSections={character.profile_sections}
                   editable={this.state.editable}
                   refetch={this.props.onChange}
+                  characterId={this.props.character.shortcode}
                 />
 
                 {/*<Reference />*/}

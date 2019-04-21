@@ -6,6 +6,8 @@ Unions::WidgetDataUnion = GraphQL::UnionType.define do
     case obj[:_data_type]
       when 'RichText'
         Types::Widgets::RichTextType
+      when 'Youtube'
+        Types::Widgets::YoutubeType
       else
         Types::Widgets::JsonType
     end
@@ -13,6 +15,7 @@ Unions::WidgetDataUnion = GraphQL::UnionType.define do
 
   possible_types [
       Types::Widgets::RichTextType,
-      Types::Widgets::JsonType
+      Types::Widgets::JsonType,
+      Types::Widgets::YoutubeType
   ]
 end

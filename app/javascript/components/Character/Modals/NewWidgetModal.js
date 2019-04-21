@@ -14,6 +14,7 @@ class NewWidgetModal extends Component {
       e.preventDefault()
       this.props.createWidget({
         variables: {
+          characterId: this.props.characterId,
           sectionId: this.props.sectionId,
           columnId: this.props.columnId,
           type: type
@@ -25,6 +26,7 @@ class NewWidgetModal extends Component {
             errors.map((e) => M.toast({html: e.message, classes: 'red', duration: 3000}))
           } else {
             console.log({data})
+            this.props.onCreate(data.createProfileWidget)
           }
         })
         .catch(console.error)
@@ -67,7 +69,8 @@ NewWidgetModal.propTypes = {
   sectionId: PropTypes.number.isRequired,
   columnId: PropTypes.number.isRequired,
   onClose: PropTypes.func,
-  createWidget: PropTypes.func.isRequired
+  createWidget: PropTypes.func.isRequired,
+  onCreate: PropTypes.func.isRequired
 }
 
 const Mutated = (props) => (

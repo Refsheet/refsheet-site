@@ -10,6 +10,10 @@ mutation updateProfileWidget($id: ID!, $title: String, $data: String) {
                 content
                 content_html
             }
+
+            ... on Youtube {
+                url
+            }
         }
     }
 }

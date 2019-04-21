@@ -10,9 +10,9 @@ import { RichText } from 'Shared';
 import ProfileSection from './ProfileSection';
 import c from 'classnames';
 
-const Profile = ({profileSections, editable, refetch}) =>
+const Profile = ({profileSections, editable, refetch, characterId}) =>
   <div id='profile'>
-    { renderProfileSections(profileSections, editable, refetch) }
+    { renderProfileSections(profileSections, editable, refetch, characterId) }
   </div>
 ;
 
@@ -27,7 +27,7 @@ const groupProfileSections = function(profileSections, editable) {
   return groups;
 };
 
-const renderProfileSections = function(profileSections, editable, refetch) {
+const renderProfileSections = function(profileSections, editable, refetch, characterId) {
   const groups = groupProfileSections(profileSections, editable);
   const render = [];
 
@@ -39,7 +39,7 @@ const renderProfileSections = function(profileSections, editable, refetch) {
         'margin-top--none': i > 0
       });
 
-      return <ProfileSection key={section.id} {...section} className={ classNames } editable={editable} refetch={refetch} />;
+      return <ProfileSection key={section.id} {...section} className={ classNames } editable={editable} refetch={refetch} characterId={characterId} />;
     });
 
     render.push(<div id={id} key={id} className='profile-scrollspy'>{renderedSections}</div>);
@@ -65,7 +65,8 @@ Profile.propTypes = {
       title: PropTypes.string
     })
   ),
-  editable: PropTypes.bool
+  editable: PropTypes.bool,
+  characterId: PropTypes.string.isRequired
 };
 
 export default Profile;

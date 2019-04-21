@@ -7,9 +7,15 @@ $sizes: (xsmall: 3px, small: 7px, medium: 15px, large: 30px, xlarge: 60px, none:
   .padding--#{$size}
     padding: $value !important
 
+  .margin-last--#{$size}:last-child
+    margin: $value !important
+
 @each $size, $value in $sizes
   @each $side in top, left, bottom, right
     .margin-#{$side}--#{$size}
+      margin-#{$side}: $value !important
+
+    .margin-#{$side}-last--#{$size}:last-child
       margin-#{$side}: $value !important
 
     .padding-#{$side}--#{$size}
