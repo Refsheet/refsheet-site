@@ -26,6 +26,8 @@ class Mutations::ProfileWidgetMutations < Mutations::ApplicationMutation
   end
 
   def create
+    authorize_premium_feature! params[:type]
+
     @section = @character.profile_sections.find(params[:sectionId])
 
     @widget = @section.widgets.create(
@@ -57,5 +59,10 @@ class Mutations::ProfileWidgetMutations < Mutations::ApplicationMutation
   def get_character
     @character = Character.find_by!(shortcode: params[:characterId])
     authorize! @character.managed_by? current_user
+  end
+
+  def authorize_premium_feature!(type)
+    required_level = Characters::ProfileWidget.premium_level(type)
+    current_user.supporter_level.authorize! required_level
   end
 end

@@ -27,6 +27,11 @@
 class Characters::ProfileWidget < ApplicationRecord
   module Types
     RICH_TEXT = 'RichText'
+    YOUTUBE = 'Youtube'
+
+    PREMIUM_LEVELS = {
+        YOUTUBE => User::SupporterLevel::GOLD
+    }
   end
 
   include HasGuid
@@ -57,6 +62,10 @@ class Characters::ProfileWidget < ApplicationRecord
     end
 
     c
+  end
+
+  def self.premium_level(type)
+    Types::PREMIUM_LEVELS[type] || 0
   end
 
   private

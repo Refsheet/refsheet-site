@@ -213,7 +213,7 @@ class User < ApplicationRecord
   end
 
   def supporter_level
-    SupporterLevel.new(self.support_pledge_amount)
+    SupporterLevel.new(self.support_pledge_amount, admin?)
   end
 
   #== Email Confirmation & Password Reset
@@ -255,8 +255,18 @@ class User < ApplicationRecord
     SILVER = 5
     GOLD = 10
 
-    def initialize(amount)
-      @amount = amount
+    def initialize(amount, admin)
+      if admin
+        @amount = 999
+      else
+        @amount = amount
+      end
+    end
+
+    def authorize!(level)
+      unless @amount >= level
+        raise NotAuthorizedError, "Your account does not meet the supporter requirement for this feature."
+      end
     end
 
     def apprentice?
@@ -270,6 +280,8 @@ class User < ApplicationRecord
     def gold?
       @amount >= GOLD
     end
+
+    class NotAuthorizedError < StandardError; end
   end
 
   private

@@ -73,8 +73,6 @@ class ProfileWidgetHeader extends Component {
   }
 
   renderUnlocked() {
-    const {widgetType, title} = this.props
-
     return (
       <div className={'muted card-header fix-height'}>
         <div className='right btn-group'>
