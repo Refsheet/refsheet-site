@@ -1,4 +1,20 @@
 ---
+v1.5.0:
+- sha: 7578f87006b380bd6480159986bb391a6b751e34
+  time: '1555830290'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 7578f870
+  date: '2019-04-21'
+- sha: e40d5f5aba8e711ba4d116853d7bbc80fbf6788d
+  time: '1555830284'
+  tags:
+  - m
+  message: Chat improvements to make it feel more responsive and show any errors that
+    might have come up when sending.
+  hash: e40d5f5a
+  date: '2019-04-21'
+---
 v1.4.0-pre.102:
 - sha: 02ed7b75c75be3656d48c43917e63ccbc13b2597
   time: '1555795215'
