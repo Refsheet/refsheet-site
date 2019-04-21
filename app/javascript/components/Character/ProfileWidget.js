@@ -5,6 +5,7 @@ import widgets, { SerializerWidget } from './Widgets'
 import ProfileWidgetHeader from "./ProfileWidgetHeader";
 import {Mutation} from "react-apollo";
 import updateProfileWidget from './updateProfileWidget.graphql'
+import * as M from "materialize-css";
 
 class ProfileWidget extends Component {
   constructor(props) {
@@ -25,6 +26,25 @@ class ProfileWidget extends Component {
     this.setState({editing: false})
   }
 
+  handleMove(direction) {
+    const payload = {
+      id: this.props.id,
+      row_order_position: direction
+    }
+
+    this.props.update({variables: payload})
+      .then(({data, errors}) => {
+        if (errors) {
+          console.error(errors)
+          errors.map((e) => M.toast({html: e.message, classes: 'red', duration: 3000}))
+        } else {
+          const { updateProfileWidget: widgetData } = data
+          this.props.onChange && this.props.onChange(widgetData)
+        }
+      })
+      .catch((error) => console.error(error))
+  }
+
   handleSave(title) {
     const payload = {
       id: this.props.id,
@@ -33,11 +53,16 @@ class ProfileWidget extends Component {
     }
 
     this.props.update({variables: payload})
-      .then(({data}) => {
-        const { updateProfileWidget: widgetData } = data
+      .then(({data, errors}) => {
+        if (errors) {
+          console.error(errors)
+          errors.map((e) => M.toast({html: e.message, classes: 'red', duration: 3000}))
+        } else {
+          const {updateProfileWidget: widgetData} = data
 
-        this.props.onChange && this.props.onChange(widgetData)
-        this.handleEditStop()
+          this.props.onChange && this.props.onChange(widgetData)
+          this.handleEditStop()
+        }
       })
       .catch((error) => console.error(error))
   }
@@ -60,6 +85,7 @@ class ProfileWidget extends Component {
           onEditStart={this.handleEditStart.bind(this)}
           onEditStop={this.handleEditStop.bind(this)}
           onSave={this.handleSave.bind(this)}
+          onMove={this.handleMove.bind(this)}
         />
 
         <Widget

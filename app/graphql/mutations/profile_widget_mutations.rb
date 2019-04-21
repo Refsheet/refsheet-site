@@ -8,6 +8,7 @@ class Mutations::ProfileWidgetMutations < Mutations::ApplicationMutation
     argument :id, !types.ID
     argument :title, types.String
     argument :data, types.String
+    argument :row_order_position, types.String
   end
 
   def update
@@ -37,11 +38,11 @@ class Mutations::ProfileWidgetMutations < Mutations::ApplicationMutation
   private
 
   def widget_params
-    p = params.permit(:title, :data)
+    p = params.permit(:title, :data, :row_order_position)
 
     begin
-      p[:data] = JSON.parse(p[:data])
-    rescue JSONError => e
+      p[:data] = JSON.parse(p[:data]) if p[:data]
+    rescue JSON::ParserError => e
       Rails.logger.warn(e)
     end
 
