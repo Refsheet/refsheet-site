@@ -66,19 +66,33 @@
       h2
         line-height: 1rem
 
+      input
+        display: inline-block
+        width: auto
+        margin: -1rem 0
+        border: none
+        border-bottom: 1px solid rgba(white, 0.1)
+        height: calc(3rem - 1px)
+        line-height: calc(3rem - 1px)
+        text-align: center
+
     .btn-group
       margin: -1rem
 
       .btn
-        color: $text-light-color
         padding: 0 1rem
         height: 3rem
         border-radius: 0
         box-shadow: none
         line-height: 3rem
+        color: white
+        vertical-align: middle
 
         i.material-icons
           transition: color 0.3s ease
+          color: inherit
+          line-height: 3rem
+          vertical-align: middle
 
         &:hover
           color: white

@@ -46,7 +46,7 @@ const Section = function ({id, className, titleClassName, title, tabs, container
     return <div className={c(titleClassName, {container})} style={{...style, top: '56px'}}>
       <SectionTitle className='row no-margin' style={titleStyle}>
         <Col m={4}>
-          <EditableHeader component={H2} editable={editable} onValueChange={onTitleChange}>{title}</EditableHeader>
+          <EditableHeader component={H2} editable={editable} onValueChange={onTitleChange} default={'(No Title)'}>{title}</EditableHeader>
         </Col>
 
         <Col m={8} className='right-align'>
@@ -63,7 +63,7 @@ const Section = function ({id, className, titleClassName, title, tabs, container
 
   return <StickyContainer>
     <section id={id} className={c(className, {container})}>
-      {title && <Sticky topOffset={-66}>{renderTitle}</Sticky>}
+      {(title || editable) && <Sticky topOffset={-66}>{renderTitle}</Sticky>}
 
       <div className={c({container})}>
         {children}

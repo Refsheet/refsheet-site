@@ -4,6 +4,10 @@ import PropTypes from 'prop-types'
 class ProfileWidgetHeader extends Component {
   constructor(props) {
     super(props)
+
+    this.state = {
+      title: props.title
+    }
   }
 
   handleEditClick(e) {
@@ -13,13 +17,19 @@ class ProfileWidgetHeader extends Component {
 
   handleCancelClick(e) {
     e.preventDefault()
+    this.setState({title: this.props.title})
     this.props.onEditStop()
   }
 
   handleSaveClick(e) {
     e.preventDefault()
-    this.props.onSave()
-    // this.props.onEditStop()
+    this.props.onSave(this.state.title)
+  }
+
+  handleTitleChange(e) {
+    e.preventDefault()
+    const title = e.target.value
+    this.setState({title})
   }
 
   renderLocked() {
@@ -67,7 +77,7 @@ class ProfileWidgetHeader extends Component {
         </div>
 
         <div className={'center'}>
-          { title || widgetType }
+          <input value={this.state.title} onChange={this.handleTitleChange.bind(this)} />
         </div>
       </div>
     )

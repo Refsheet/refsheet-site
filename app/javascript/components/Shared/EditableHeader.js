@@ -107,7 +107,7 @@ class EditableHeader extends Component {
       return (
         <div className={'editable-container'}>
           <InputContainer>
-            <ComponentRef className={'input-placeholder'}>{this.props.children}</ComponentRef>
+            <ComponentRef className={'input-placeholder'}>{this.props.children || <span className={'muted-color'}>{ this.props.default || '?'}</span>}</ComponentRef>
             <InputButton className={'editable-button inactive'} title={'edit'} onClick={this.handleEditClick}>
               <i className={'material-icons'}>edit</i>
             </InputButton>
