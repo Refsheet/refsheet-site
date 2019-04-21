@@ -52,18 +52,38 @@ export const timeDisplay = (created_at, full = false) => {
 }
 
 const ConversationMessage = ({ message }) => {
+  if (message.status) {
+    // Provisional message
+    message.is_self = true
+    message.user = {}
+  }
+
   const {
     guid,
     created_at,
     is_self: isSelf,
     unread,
-    message: body
+    message: body,
+    status
   } = message
 
   let readIcon, isEmote
 
   if(isSelf) {
-    if(!unread) {
+    if (status) {
+      switch (status) {
+        case "preflight":
+        case "delivered":
+          readIcon = <Icon title={"Sending..."}>access_time</Icon>
+          break;
+        case "error":
+          readIcon = <Icon title={message.error}>warning</Icon>
+          break;
+        default:
+          console.log("WHAT", status)
+          readIcon = <Icon>check</Icon>
+      }
+    } else if(!unread) {
       readIcon = <Icon>check</Icon>
     } else if(typeof guid !== 'undefined') {
       readIcon = <Icon>check</Icon>
@@ -74,11 +94,11 @@ const ConversationMessage = ({ message }) => {
     isEmote = true
   }
 
-  return (<li className={ c('chat-message', { unread: unread, self: isSelf, emote: isEmote }) }>
-    <div className='message'>{ formatBody(message) }</div>
+  return (<li className={ c('chat-message', { unread: unread, self: isSelf, emote: isEmote, error: message.error }) }>
+    <div className='message' title={message.guid || message.error}>{ formatBody(message) }</div>
     <div className='time right' title={timeDisplay(created_at, true)}>
       { timeDisplay(created_at) }
-      { readIcon }
+      &nbsp;{ readIcon }
       </div>
   </li>)
 }
