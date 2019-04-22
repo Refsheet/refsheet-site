@@ -173,13 +173,13 @@ describe Image, type: :model do
     end
   end
 
-  it 'watermarks', paperclip: true do
-    image = create :image, image: asset('fox.jpg'), watermark: true, annotation: false
-    wait_until { Image.find(image.id).processed? }
-    url = "public" + image.reload.image.url(:medium).gsub(/\?.*$/, '')
-    puts url
-    # launch = %x{launchy #{url}}
-    # expect(launch).to eq ""
-    expect(image).to be_processed
-  end
+  # it 'watermarks', paperclip: true do
+  #   image = create :image, image: asset('fox.jpg'), watermark: true, annotation: false
+  #   wait_until { Image.find(image.id).processed? }
+  #   url = "public" + image.reload.image.url(:medium).gsub(/\?.*$/, '')
+  #   puts url
+  #   # launch = %x{launchy #{url}}
+  #   # expect(launch).to eq ""
+  #   expect(image).to be_processed
+  # end
 end
