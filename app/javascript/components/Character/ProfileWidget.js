@@ -5,6 +5,7 @@ import widgets, { SerializerWidget } from './Widgets'
 import ProfileWidgetHeader from "./ProfileWidgetHeader";
 import {Mutation} from "react-apollo";
 import updateProfileWidget from './updateProfileWidget.graphql'
+import deleteProfileWidget from './deleteProfileWidget.graphql'
 import * as M from "materialize-css";
 
 class ProfileWidget extends Component {
@@ -15,7 +16,6 @@ class ProfileWidget extends Component {
       editing: false,
       widgetData: props.data
     }
-
   }
 
   handleEditStart() {
@@ -26,10 +26,35 @@ class ProfileWidget extends Component {
     this.setState({editing: false})
   }
 
+  handleDelete() {
+    const payload = {
+      id: this.props.id
+    }
+
+    this.props.deleteWidget({variables: payload})
+      .then(({data, errors}) => {
+        if (errors) {
+          console.error(errors)
+          errors.map((e) => M.toast({html: e.message, classes: 'red', duration: 3000}))
+        } else {
+          const { deleteProfileWidget: widgetData } = data
+          this.props.onDelete && this.props.onDelete(widgetData.id)
+        }
+      })
+      .catch((error) => console.error(error))
+  }
+
   handleMove(direction) {
     const payload = {
-      id: this.props.id,
-      row_order_position: direction
+      id: this.props.id
+    }
+
+    if (direction === 'up' || direction === 'down') {
+      payload['row_order_position'] = direction
+    } else if (direction === 'left') {
+      payload['column'] = this.props.column - 1
+    } else if (direction === 'right') {
+      payload['column'] = this.props.column + 1
     }
 
     this.props.update({variables: payload})
@@ -72,7 +97,7 @@ class ProfileWidget extends Component {
   }
 
   render() {
-    const {widgetType, title, data, editable} = this.props
+    const {widgetType, title, data, editable, lastColumn, firstColumn, first, last} = this.props
     const Widget = widgets[widgetType] || SerializerWidget;
 
     return (
@@ -86,6 +111,11 @@ class ProfileWidget extends Component {
           onEditStop={this.handleEditStop.bind(this)}
           onSave={this.handleSave.bind(this)}
           onMove={this.handleMove.bind(this)}
+          onDelete={this.handleDelete.bind(this)}
+          lastColumn={lastColumn}
+          firstColumn={firstColumn}
+          first={first}
+          last={last}
         />
 
         <Widget
@@ -104,13 +134,24 @@ ProfileWidget.propTypes = {
   data: PropTypes.object.isRequired,
   onChange: PropTypes.func,
   editable: PropTypes.bool,
-  update: PropTypes.func.isRequired
+  update: PropTypes.func.isRequired,
+  deleteWidget: PropTypes.func.isRequired,
+  lastColumn: PropTypes.bool,
+  firstColumn: PropTypes.bool,
+  first: PropTypes.bool,
+  last: PropTypes.bool
 }
 
 const Mutated = (props) => (
   <Mutation mutation={updateProfileWidget}>
-    {(update, {data}) => <ProfileWidget {...props} mutationData={data} update={update} />}
+    {(update) => <ProfileWidget {...props} update={update} />}
   </Mutation>
 )
 
-export default Mutated
+const DeleteMutation = (props) => (
+  <Mutation mutation={deleteProfileWidget}>
+    {(deleteWidget) => <Mutated {...props} deleteWidget={deleteWidget} />}
+  </Mutation>
+)
+
+export default DeleteMutation

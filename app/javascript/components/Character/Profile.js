@@ -39,7 +39,7 @@ const renderProfileSections = function(profileSections, editable, refetch, chara
         'margin-top--none': i > 0
       });
 
-      return <ProfileSection key={section.id} {...section} className={ classNames } editable={editable} refetch={refetch} characterId={characterId} />;
+      return <ProfileSection key={section.id} {...section} className={ classNames } editable={editable} refetch={refetch} characterId={characterId} onChange={refetch} />;
     });
 
     render.push(<div id={id} key={id} className='profile-scrollspy'>{renderedSections}</div>);

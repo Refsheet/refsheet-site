@@ -8,10 +8,19 @@ import PropTypes from 'prop-types';
 import ProfileWidget from './ProfileWidget';
 import { camelize } from 'object-utils';
 
-const ProfileColumn = function({widgets, width, editable, onNewClick}) {
+const ProfileColumn = function({id, widgets, width, editable, onNewClick, onWidgetDelete, last}) {
   const widgetCards = widgets
     .sort((a, b) => (a.row_order || 0)- (b.row_order|| 0))
-    .map(widget => <ProfileWidget {...camelize(widget)} key={widget.id} editable={editable} />);
+    .map((widget, i) => <ProfileWidget
+      {...camelize(widget)}
+      key={widget.id}
+      editable={editable}
+      onDelete={onWidgetDelete}
+      firstColumn={id === 0}
+      lastColumn={last}
+      first={i === 0}
+      last={i >= widgets.length - 1}
+    />);
 
   return <div className={`col s12 m${width}`}>
     { widgetCards }
@@ -28,7 +37,9 @@ ProfileColumn.propTypes = {
   width: PropTypes.number.isRequired,
   onChange: PropTypes.func,
   editable: PropTypes.bool,
-  onNewClick: PropTypes.func
+  onNewClick: PropTypes.func,
+  onWidgetDelete: PropTypes.func,
+  last: PropTypes.bool
 };
 
 export default ProfileColumn;
