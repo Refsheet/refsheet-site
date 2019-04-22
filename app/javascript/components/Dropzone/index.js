@@ -48,7 +48,17 @@ class Dropzone extends Component {
     this.setState({dropzoneActive: false})
 
     rejectedFiles.forEach((file) => {
-      Materialize.toast(file.name + ' is invalid.', 3000, 'red')
+      console.warn("File invalid:", file)
+
+      if (file.getAsString) {
+        file.getAsString((str) => {
+          console.warn("Did you mean to upload:", str)
+        })
+      }
+
+      if (file.name) {
+        Materialize.toast(file.name + ' is invalid.', 3000, 'red')
+      }
     })
   }
 
