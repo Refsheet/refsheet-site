@@ -40,7 +40,7 @@ class CharacterSerializer < ActiveModel::Serializer
              :species, :height, :weight, :body_type, :personality, :special_notes, :link,
              :special_notes_html, :profile_html, :likes, :likes_html, :dislikes, :dislikes_html,
              :user_avatar_url, :user_name, :id, :created_at, :followed, :hidden, :nsfw,
-             :custom_attributes, :profile_sections
+             :custom_attributes, :profile_sections, :version
 
   has_many :swatches, serializer: SwatchSerializer
   has_one :featured_image, serializer: CharacterImageSerializer

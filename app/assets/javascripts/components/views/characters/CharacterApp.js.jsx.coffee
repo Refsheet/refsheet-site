@@ -140,6 +140,9 @@
     unless @state.character?
       return `<CharacterViewSilhouette />`
 
+    if @state.character.version == 2
+      return `<Packs.application.CharacterController />`
+
     if @state.character.user_id == @context.currentUser?.username
       showMenu = true
 
