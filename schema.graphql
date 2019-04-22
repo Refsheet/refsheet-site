@@ -179,6 +179,7 @@ type Moderation implements ApplicationRecord {
 
 type Mutation {
     convertCharacter(id: ID!): Character
+    createProfileSection(characterId: ID!, createAfterSectionId: ID): ProfileSection
     createProfileWidget(characterId: ID!, columnId: ID!, sectionId: ID!, type: String!): Widget
     createSession(password: String!, remember: Boolean, username: String!): Session
     deleteProfileWidget(id: ID!): Widget
@@ -217,6 +218,7 @@ type NotificationCollection {
 type ProfileSection {
     columns: [Int]!
     id: ID!
+    row_order: Int
     title: String
     widgets: [Widget]
 }
