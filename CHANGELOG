@@ -1,4 +1,24 @@
 ---
+v1.5.0-pre.2:
+- sha: fe87ccbafc6dcb7e27a4ad36b11ecb4bee2580cd
+  time: '1555899201'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: fe87ccba
+  date: '2019-04-22'
+- sha: c2a23ef7497cd021db79d42cabf52b4a91e0338d
+  time: '1555899191'
+  tags: []
+  message: Fixed edit permissions and added standard GQL schema file.
+  hash: c2a23ef7
+  date: '2019-04-22'
+- sha: f98da8ff42044032c0f3c67c242bf2eb99e5d2e6
+  time: '1555896576'
+  tags: []
+  message: Clean rejections on dropzone data invalid.
+  hash: f98da8ff
+  date: '2019-04-22'
+---
 v1.5.0-pre.1:
 - sha: 2607dc7b0a633401c2999aac67e9c1789af8953d
   time: '1555895902'
