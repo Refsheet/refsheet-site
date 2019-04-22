@@ -1,0 +1,17 @@
+fragment WidgetFields on Widget {
+    id
+    widget_type
+    column
+    title
+    row_order
+    data {
+        ... on RichText {
+            content
+            content_html
+        }
+
+        ... on Youtube {
+            url
+        }
+    }
+}
