@@ -1,4 +1,97 @@
 ---
+v1.5.0-pre.1:
+- sha: 2607dc7b0a633401c2999aac67e9c1789af8953d
+  time: '1555895902'
+  tags: []
+  message: Fix broken spec.
+  hash: 2607dc7b
+  date: '2019-04-22'
+- sha: 508d3e69443275ace5b48cac35d84174f33950b8
+  time: '1555895749'
+  tags: []
+  message: Automatically route characters to V2.
+  hash: 508d3e69
+  date: '2019-04-22'
+- sha: a1b3e0a0756a3f28426be0f197e1c3c36316fd78
+  time: '1555895327'
+  tags: []
+  message: Improved movement controls for widgets, and added delete methods.
+  hash: a1b3e0a0
+  date: '2019-04-22'
+- sha: 17a299d99414b85ef3a4dc7225396504e0edb9f8
+  time: '1555890591'
+  tags: []
+  message: Locked out supporter levels.
+  hash: 17a299d9
+  date: '2019-04-21'
+- sha: 1fb23cba806c4e12d541c44e537606846b57af3e
+  time: '1555888881'
+  tags: []
+  message: Allow moving Widgets up and down.
+  hash: 1fb23cba
+  date: '2019-04-21'
+- sha: e3d8ea9499b67a0c935c2c72635109852d0bd0e3
+  time: '1555887168'
+  tags: []
+  message: Migrate also profile widgets are paranoid
+  hash: e3d8ea94
+  date: '2019-04-21'
+- sha: 0d6acdb00ec21f4f8fdf88145489bdd8e779e9e7
+  time: '1555886883'
+  tags: []
+  message: Add testing back to Circle.
+  hash: 0d6acdb0
+  date: '2019-04-21'
+- sha: a5a43d2a6636e285c4d2b03764d1089575e74968
+  time: '1555886846'
+  tags: []
+  message: Add fragment config.
+  hash: a5a43d2a
+  date: '2019-04-21'
+- sha: 5b11f9bd631873bc480c57775cef0e19c61bea5a
+  time: '1555886685'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 5b11f9bd
+  date: '2019-04-21'
+- sha: eb89d7eca932cc53c7958a4bc7eee8077ef69572
+  time: '1555886650'
+  tags: []
+  message: Added Youtube widget and cleaned up widget editing.
+  hash: eb89d7ec
+  date: '2019-04-21'
+- sha: b2941c194aa6d1732e19e603b8e9e30a4f17cb81
+  time: '1555878176'
+  tags: []
+  message: Added some new modals to character page, and a MVP of the create widget
+    modal.
+  hash: b2941c19
+  date: '2019-04-21'
+- sha: 41bf6ff705470631d2e75ada328b6966dcc592f8
+  time: '1555870390'
+  tags: []
+  message: Allow changing Special Notes
+  hash: 41bf6ff7
+  date: '2019-04-21'
+- sha: 0ceb51eff36865b4c34b7120113c199a1b120f20
+  time: '1555838060'
+  tags: []
+  message: Added species modification ability.
+  hash: 0ceb51ef
+  date: '2019-04-21'
+- sha: 32d35871eef730d2e47834eeee3c9adda86c1699
+  time: '1555837526'
+  tags: []
+  message: Added the ability to change the character name.
+  hash: 32d35871
+  date: '2019-04-21'
+- sha: 5347d677bb398c20c018f0f1a521905b66f32884
+  time: '1555832129'
+  tags: []
+  message: Better editable headers on profile.
+  hash: 5347d677
+  date: '2019-04-21'
+---
 v1.5.0:
 - sha: 7578f87006b380bd6480159986bb391a6b751e34
   time: '1555830290'
