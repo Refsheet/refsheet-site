@@ -7,6 +7,7 @@ const Router = () => (
   <BrowserRouter>
     <Switch>
       <Route path="/v2/:username/:slug" component={ Character } />
+      <Route path={"/:username/:slug"} component={ Character } />
       <Route path="/moderate" component={ Moderate } />
 
       <Route path="*" component={ NotFound } />
