@@ -1,5 +1,5 @@
 class Mutations::ProfileSectionMutations < Mutations::ApplicationMutation
-  before_action :get_profile_section, only: [:update]
+  before_action :get_profile_section, only: [:update, :delete]
   before_action :get_character, only: [:create]
 
   action :create do
@@ -26,6 +26,7 @@ class Mutations::ProfileSectionMutations < Mutations::ApplicationMutation
 
     argument :id, !types.ID
     argument :title, types.String
+    argument :row_order_position, types.String
   end
 
   def update
@@ -33,10 +34,21 @@ class Mutations::ProfileSectionMutations < Mutations::ApplicationMutation
     @profile_section
   end
 
+  action :delete do
+    type Types::ProfileSectionType
+
+    argument :id, !types.ID
+  end
+
+  def delete
+    @profile_section.destroy
+    @profile_section
+  end
+
   private
 
   def profile_section_params
-    params.permit(:title)
+    params.permit(:title, :row_order_position)
   end
 
   def get_character

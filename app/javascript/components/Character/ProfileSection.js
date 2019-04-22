@@ -6,6 +6,8 @@ import c from 'classnames';
 import {Mutation} from "react-apollo";
 import { gql } from 'apollo-client-preset'
 import NewWidgetModal from "./Modals/NewWidgetModal";
+import deleteProfileSection from './deleteProfileSection.graphql'
+import * as M from "materialize-css";
 
 class ProfileSection extends Component {
   constructor(props) {
@@ -60,6 +62,43 @@ class ProfileSection extends Component {
     this.props.onChange()
   }
 
+  handleDelete() {
+    this.props.deleteSection({
+      variables: {
+        id: this.props.id
+      }
+    })
+      .then(({data, errors}) => {
+        if (errors) {
+          console.error(errors)
+          errors.map((e) => M.toast({html: e.message, classes: 'red', duration: 3000}))
+        } else {
+          console.log({data});
+          this.props.refetch()
+        }
+      })
+      .catch(console.error)
+  }
+
+  handleMove(direction) {
+    this.props.updateSection({
+      variables: {
+        id: this.props.id,
+        row_order_position: direction
+      }
+    })
+      .then(({data, errors}) => {
+        if (errors) {
+          console.error(errors)
+          errors.map((e) => M.toast({html: e.message, classes: 'red', duration: 3000}))
+        } else {
+          console.log({data});
+          this.props.refetch()
+        }
+      })
+      .catch(console.error)
+  }
+
   renderSectionColumns(columns, widgets, editable) {
     const _this = this
     return columns.map(function(width, id) {
@@ -78,10 +117,35 @@ class ProfileSection extends Component {
   }
 
   render() {
-    const {title, columns, widgets, editable, className} = this.props
+    const {title, columns, widgets, editable, className, first, last} = this.props
 
     return (
-      <Section title={title} className={ c('margin-bottom--large', className) } editable={editable} onTitleChange={this.handleTitleChange}>
+      <Section
+        title={title}
+        className={ c('margin-bottom--large', className) }
+        editable={editable}
+        onTitleChange={this.handleTitleChange}
+        buttons={[
+          {
+            icon: 'keyboard_arrow_up',
+            hide: (!editable || first),
+            id: 'up',
+            onClick: this.handleMove.bind(this)
+          },
+          {
+            icon: 'keyboard_arrow_down',
+            hide: (!editable || last),
+            id: 'down',
+            onClick: this.handleMove.bind(this)
+          },
+          {
+            icon: 'delete',
+            title: 'Delete',
+            hide: !editable,
+            onClick: this.handleDelete.bind(this)
+          }
+        ]}
+      >
         { this.state.newWidget && <NewWidgetModal
           characterId={this.props.characterId}
           sectionId={this.state.newWidget.sectionId}
@@ -105,12 +169,15 @@ ProfileSection.propTypes = {
   title: PropTypes.string,
   onChange: PropTypes.func,
   editable: PropTypes.bool,
-  className: PropTypes.string
+  className: PropTypes.string,
+  deleteSection: PropTypes.func,
+  first: PropTypes.bool,
+  last: PropTypes.bool
 };
 
 const UPDATE_SECTION_MUTATION = gql`
-  mutation updateProfileSection($id: ID!, $title: String) {
-      updateProfileSection(id: $id, title: $title) {
+  mutation updateProfileSection($id: ID!, $title: String, $row_order_position: String) {
+      updateProfileSection(id: $id, title: $title, row_order_position: $row_order_position) {
           title
       }
   }
@@ -119,7 +186,9 @@ const UPDATE_SECTION_MUTATION = gql`
 const Wrapped = (props) => (
   <Mutation mutation={UPDATE_SECTION_MUTATION}>
     {(updateSection, {mutationData}) => (
-      <ProfileSection {...props} updateSection={updateSection} mutationData={mutationData} />
+      <Mutation mutation={deleteProfileSection}>
+        {(deleteSection) => <ProfileSection {...props} deleteSection={ deleteSection } updateSection={updateSection} mutationData={mutationData} /> }
+      </Mutation>
     )}
   </Mutation>
 )
