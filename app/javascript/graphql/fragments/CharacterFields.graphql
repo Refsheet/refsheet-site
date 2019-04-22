@@ -11,4 +11,5 @@ fragment CharacterFields on Character {
     species
     created_at
     version
+    can_edit
 }

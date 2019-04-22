@@ -32,6 +32,12 @@ Types::CharacterType = GraphQL::ObjectType.define do
     }
   end
 
+  field :can_edit, types.Boolean do
+    resolve -> (obj, _args, ctx) {
+      obj.managed_by? ctx[:current_user].call
+    }
+  end
+
   field :profile_sections, types[Types::ProfileSectionType] do
     resolve -> (obj, _args, _ctx) {
       if obj.version == 2
