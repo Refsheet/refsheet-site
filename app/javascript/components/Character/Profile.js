@@ -39,7 +39,7 @@ class Profile extends Component {
     const sorted = profileSections
       .sort((a, b) => (a.row_order || 0) - (b.row_order || 0))
 
-    for (let section of sorted) {
+    sorted.map((section, i) => {
       if (section.title || editable) { lastId = section.id; }
 
       if (!groups[lastId]) {
@@ -47,8 +47,14 @@ class Profile extends Component {
         groups[lastId] = [];
       }
 
-      groups[lastId].push(section);
-    }
+      groups[lastId].push({
+        ...section,
+        first: (i === 0),
+        last: (i >= profileSections.length - 1)
+      });
+    })
+
+    console.log({groups})
 
     return [groups, groupOrder];
   };

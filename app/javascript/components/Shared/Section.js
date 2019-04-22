@@ -21,7 +21,6 @@ const Button = styled.a`
   background-color: ${props => props.theme.cardBackground} !important;
   display: inline-block;
   margin: 6px 0 6px 1.5rem;
-  float: right;
 `
 
 const SectionTitle = styled.div`
@@ -50,12 +49,11 @@ const Section = function ({id, className, titleClassName, title, tabs, container
         </Col>
 
         <Col m={8} className='right-align'>
-          {buttons && buttons.map(renderAction)}
+          {tabs && <ul key={'-tabs'} className='tabs transparent' style={{display: 'inline-block', width: 'auto', verticalAlign: 'middle'}}>
+            { tabs.map(renderTab(onTabClick)) }
+          </ul> }
 
-          {tabs &&
-          <ul key={'-tabs'} className='tabs transparent right' style={{display: 'inline-block', width: 'auto'}}>
-            {tabs.map(renderTab(onTabClick))}
-          </ul>}
+          {buttons && buttons.map(renderAction)}
         </Col>
       </SectionTitle>
     </div>
@@ -90,10 +88,12 @@ const renderTab = onTabClick => function ({title, id, onClick}) {
   </li>;
 };
 
-const renderAction = ({title, id, onClick, icon}, i) => {
+const renderAction = ({title, id, onClick, icon, hide}, i) => {
+  if (hide) return null;
+
   return (
-    <Button className='btn' onClick={actionHandler(onClick, id)} key={i}>
-      {icon && <Icon className='left'>{icon}</Icon>}
+    <Button className='btn btn-flat' onClick={actionHandler(onClick, id)} key={i}>
+      {icon && <Icon className={ title ? 'left' : '' }>{icon}</Icon>}
       {title}
     </Button>
   )
@@ -104,7 +104,7 @@ const renderAction = ({title, id, onClick, icon}, i) => {
 const actionType =
   PropTypes.shape({
     icon: PropTypes.string,
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
     id: PropTypes.string,
     onClick: PropTypes.func
   });

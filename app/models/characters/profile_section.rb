@@ -10,10 +10,12 @@
 #  column_widths :string
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  deleted_at    :datetime
 #
 # Indexes
 #
 #  index_characters_profile_sections_on_character_id  (character_id)
+#  index_characters_profile_sections_on_deleted_at    (deleted_at)
 #  index_characters_profile_sections_on_guid          (guid)
 #  index_characters_profile_sections_on_row_order     (row_order)
 #
@@ -32,6 +34,7 @@ class Characters::ProfileSection < ApplicationRecord
 
   has_guid
   ranks :row_order, with_same: [:character_id]
+  acts_as_paranoid
 
   def columns
     self.column_widths&.split(',').collect(&:to_i)
