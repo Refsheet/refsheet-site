@@ -1,0 +1,330 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+    mutation: Mutation
+    subscription: Subscription
+}
+
+interface ApplicationRecord {
+    created_at: Int
+    deleted_at: Int
+    id: ID
+    updated_at: Int
+}
+
+"Various data attached to a particular moderation item"
+union ModerationItem = Image
+
+"Various data attached to a particular widget"
+union WidgetData = Json | RichText | Youtube
+
+type Attribute {
+    id: String!
+    name: String!
+    value: String
+}
+
+type Character implements ApplicationRecord {
+    can_edit: Boolean
+    created_at: Int
+    custom_attributes: [Attribute]
+    deleted_at: Int
+    dislikes: String
+    dislikes_html: String
+    featured_image: Image
+    hidden: Boolean
+    id: ID
+    images: [Image]
+    likes: String
+    likes_html: String
+    name: String!
+    nsfw: Boolean
+    path: String!
+    profile: String
+    profile_html: String
+    profile_image: Image
+    profile_sections: [ProfileSection]
+    shortcode: String
+    slug: String!
+    special_notes: String
+    special_notes_html: String
+    species: String
+    swatches: [Swatch]
+    theme: Theme
+    updated_at: Int
+    user: User
+    username: String!
+    version: Int
+}
+
+type ChatCount {
+    unread: Int
+}
+
+type Conversation implements ApplicationRecord {
+    blocked: Boolean
+    created_at: Int
+    deleted_at: Int
+    guid: String!
+    id: ID!
+    lastMessage: Message
+    messages: [Message!]
+    recipient: User!
+    sender: User!
+    unreadCount: Int
+    updated_at: Int
+    user: User
+}
+
+type Geometry {
+    height: Int!
+    width: Int!
+}
+
+type Image implements ApplicationRecord {
+    aspect_ratio: Float
+    background_color: String
+    caption: String
+    caption_html: String
+    character: Character
+    comments_count: Int
+    created_at: Int
+    deleted_at: Int
+    favorites_count: Int
+    gravity: String
+    height: Int
+    hidden: Boolean
+    id: ID
+    image_processing: Boolean
+    is_favorite: Boolean
+    is_managed: Boolean
+    nsfw: Boolean
+    size: ImageSize
+    source_url: String
+    source_url_display: String
+    title: String
+    updated_at: Int
+    url: ImageUrl
+    width: Int
+}
+
+type ImageSize {
+    large: Geometry
+    large_square: Geometry
+    medium: Geometry
+    medium_square: Geometry
+    small: Geometry
+    small_square: Geometry
+    thumbnail: Geometry
+}
+
+type ImageUploadToken {
+    acl: String
+    key: String
+    policy: String
+    success_action_status: String
+    url: String
+    x_amz_algorithm: String
+    x_amz_credential: String
+    x_amz_date: String
+    x_amz_signature: String
+}
+
+type ImageUrl {
+    large: String
+    large_square: String
+    medium: String
+    medium_square: String
+    small: String
+    small_square: String
+    thumbnail: String
+}
+
+type Json {
+    json: String
+}
+
+type Message implements ApplicationRecord {
+    conversation: Conversation
+    created_at: Int
+    deleted_at: Int
+    guid: String!
+    id: ID!
+    is_self: Boolean
+    message: String
+    read_at: Int
+    replyTo: Message
+    unread: Boolean
+    updated_at: Int
+    user: User!
+}
+
+type Moderation implements ApplicationRecord {
+    comment: String
+    created_at: Int
+    deleted_at: Int
+    dmcaSourceUrl: String
+    id: ID
+    item: ModerationItem
+    itemId: ID
+    itemType: String
+    sender: User
+    status: String
+    updated_at: Int
+    user: User
+    violationMessage: String
+    violationType: String
+}
+
+type Mutation {
+    convertCharacter(id: ID!): Character
+    createProfileWidget(characterId: ID!, columnId: ID!, sectionId: ID!, type: String!): Widget
+    createSession(password: String!, remember: Boolean, username: String!): Session
+    deleteProfileWidget(id: ID!): Widget
+    deleteUser(password: String!, username: String!): User
+    destroySession: Session
+    sendMessage(conversationId: ID, message: String!, recipientId: ID): Message
+    updateCharacter(id: ID!, name: String, special_notes: String, species: String): Character
+    updateConversation(conversation_id: ID!, read: Boolean): Conversation
+    updateModeration(id: ID!, resolution: String!): Moderation
+    updateProfileSection(id: ID!, title: String): ProfileSection
+    updateProfileWidget(column: Int, data: String, id: ID!, row_order_position: String, title: String): Widget
+    uploadImage(characterId: String!, folder: String, key: String, location: String, nsfw: Boolean, title: String): Image
+}
+
+type Notification implements ApplicationRecord {
+    created_at: Int
+    deleted_at: Int
+    href: String
+    icon: String
+    id: ID
+    is_unread: Boolean
+    link: String
+    message: String
+    read_at: Int
+    tag: String
+    title: String
+    type: String
+    updated_at: Int
+}
+
+type NotificationCollection {
+    notifications: [Notification]
+    unreadCount: Int
+}
+
+type ProfileSection {
+    columns: [Int]!
+    id: ID!
+    title: String
+    widgets: [Widget]
+}
+
+type Query {
+    chatCounts: ChatCount
+    findUser(username: String!): User
+    getCharacter(id: ID!): Character
+    getCharacterByUrl(slug: String!, username: String!): Character
+    getConversation(conversationId: ID!): Conversation
+    getConversations: [Conversation]
+    getImageUploadToken(characterId: ID!): ImageUploadToken
+    getMedia(mediaId: ID!): Image
+    getMessages(conversationId: ID!): [Message]
+    getNextModeration: Moderation
+    getNotifications: NotificationCollection
+    getSession: Session
+    searchForCharacter(slug: String, username: String): [Character]
+    searchForUser(username: String): [User]
+}
+
+type RichText {
+    content: String
+    content_html: String
+}
+
+type Session {
+    currentUser: User
+    locale: String
+    nsfwOk: Boolean
+    sessionId: String
+    timeZone: String
+}
+
+type Subscription {
+    "Character information has changed"
+    characterChanged(id: String!): Character!
+    "Conversation counts changed"
+    chatCountsChanged: ChatCount
+    "Conversation changed somehow"
+    convChanged(convId: ID!): Conversation!
+    "Image processing complete"
+    imageProcessingComplete(imageId: ID!): Image
+    "Conversation changed somehow"
+    newConversation: Conversation!
+    "New message published"
+    newMessage(conversationId: ID!): Message!
+}
+
+type Swatch implements ApplicationRecord {
+    color: String
+    created_at: Int
+    deleted_at: Int
+    id: ID
+    name: String
+    notes: String
+    updated_at: Int
+}
+
+type Theme implements ApplicationRecord {
+    colors: ThemeColorData
+    created_at: Int
+    deleted_at: Int
+    id: ID
+    name: String
+    updated_at: Int
+}
+
+type ThemeColorData {
+    accent1: String
+    accent2: String
+    background: String
+    cardBackground: String
+    imageBackground: String
+    primary: String
+    text: String
+    textLight: String
+    textMedium: String
+}
+
+type User implements ApplicationRecord {
+    avatar_url: String
+    characters: [Character]
+    characters_count: String
+    created_at: Int
+    deleted_at: Int
+    id: ID
+    is_admin: Boolean
+    is_followed: Boolean
+    is_managed: Boolean
+    is_patron: Boolean
+    name: String
+    profile: String
+    profile_html: String
+    profile_image_url: String
+    updated_at: Int
+    username: String
+}
+
+type Widget {
+    column: Int!
+    data: WidgetData
+    id: ID!
+    row_order: Int
+    title: String
+    widget_type: String!
+}
+
+type Youtube {
+    url: String
+}

@@ -54,6 +54,7 @@ class Sidebar extends Component {
   }
 
   renderSticky({style}) {
+    const canEdit = this.props.canEdit
     const conversionRequired = this.props.characterVersion === 1
 
     return <div style={{...style, top: this.stickyTop}}>
@@ -62,7 +63,7 @@ class Sidebar extends Component {
         <UserCard user={this.props.user} smaller />
       </div>
 
-      <div className={'margin-bottom--large'}>
+      { canEdit && <div className={'margin-bottom--large'}>
         <MutedHeader className={'margin-bottom--small'}>Manage</MutedHeader>
         { conversionRequired && <div className={'notice'}>
           <div className={'strong red-text text-darken-1'}>
@@ -82,7 +83,7 @@ class Sidebar extends Component {
         <SidebarLink to='#settings' icon='settings' onClick={this.handleSettingsClick.bind(this)}>Settings</SidebarLink>
         <SidebarLink to='#color' icon='palette' onClick={this.handleColorClick.bind(this)}>Color Scheme</SidebarLink>
         {/*<SidebarLink to='#' icon='archive'>Archive</SidebarLink>*/}
-      </div>
+      </div> }
 
       <ul className='table-of-contents'>
         <li key={'-page-sections'}><MutedHeader>Page Sections</MutedHeader></li>
@@ -110,7 +111,8 @@ Sidebar.propTypes = {
   characterVersion: PropTypes.number,
   refetch: PropTypes.func,
   onColorClick: PropTypes.func,
-  onSettingsClick: PropTypes.func
+  onSettingsClick: PropTypes.func,
+  canEdit: PropTypes.bool
 };
 
 const mapStateToProps = (state) => ({

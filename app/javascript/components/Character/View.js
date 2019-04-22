@@ -83,6 +83,7 @@ class View extends Component {
                   refetch={this.props.onChange}
                   onSettingsClick={this.handleModalOpen('settings').bind(this)}
                   onColorClick={this.handleModalOpen('color').bind(this)}
+                  canEdit={character.can_edit}
                 />
               </Col>
               <Col s={12} m={9} l={10}>
