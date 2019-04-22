@@ -1,19 +1,7 @@
+#import 'graphql/fragments/WidgetFields.graphql'
+
 mutation createWidget($characterId: ID!, $sectionId: ID!, $columnId: ID!, $type: String!) {
     createProfileWidget(characterId: $characterId, sectionId: $sectionId, columnId: $columnId, type: $type) {
-        id
-        widget_type
-        column
-        title
-        row_order
-        data {
-            ... on RichText {
-                content
-                content_html
-            }
-
-            ... on Youtube {
-                url
-            }
-        }
+        ... WidgetFields
     }
 }
