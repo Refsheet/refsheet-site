@@ -12,8 +12,7 @@ class ProfileSection extends Component {
     super(props)
 
     this.state = {
-      newWidget: null,
-      provisionalWidgets: []
+      newWidget: null
     }
 
     this.handleTitleChange = this.handleTitleChange.bind(this)
@@ -51,13 +50,14 @@ class ProfileSection extends Component {
   }
 
   handleNewWidget(widget) {
+    this.props.onChange()
     this.setState({
-      provisionalWidgets: [
-        ...this.state.provisionalWidgets,
-        widget
-      ],
       newWidget: null
     })
+  }
+
+  handleDeletedWidget(widgetId) {
+    this.props.onChange()
   }
 
   renderSectionColumns(columns, widgets, editable) {
@@ -70,18 +70,15 @@ class ProfileSection extends Component {
                             width={width}
                             widgets={columnWidgets}
                             editable={editable}
+                            last={id >= columns.length - 1}
                             onNewClick={_this.handleNewWidgetClick(id).bind(_this)}
+                            onWidgetDelete={_this.handleDeletedWidget.bind(_this)}
       />
     })
   }
 
   render() {
-    const {id, title, columns, widgets, editable, className} = this.props
-
-    const allWidgets = [
-      ...widgets,
-      ...this.state.provisionalWidgets
-    ]
+    const {title, columns, widgets, editable, className} = this.props
 
     return (
       <Section title={title} className={ c('margin-bottom--large', className) } editable={editable} onTitleChange={this.handleTitleChange}>
@@ -94,7 +91,7 @@ class ProfileSection extends Component {
         /> }
 
         <div className='row margin-top--medium'>
-          { this.renderSectionColumns(columns, allWidgets, editable) }
+          { this.renderSectionColumns(columns, widgets, editable) }
         </div>
       </Section>
     )

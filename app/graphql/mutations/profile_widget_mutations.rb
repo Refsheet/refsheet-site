@@ -1,5 +1,5 @@
 class Mutations::ProfileWidgetMutations < Mutations::ApplicationMutation
-  before_action :get_widget, only: [:update]
+  before_action :get_widget, only: [:update, :delete]
   before_action :get_character, only: [:create]
 
   action :update do
@@ -9,6 +9,7 @@ class Mutations::ProfileWidgetMutations < Mutations::ApplicationMutation
     argument :title, types.String
     argument :data, types.String
     argument :row_order_position, types.String
+    argument :column, types.Int
   end
 
   def update
@@ -37,10 +38,21 @@ class Mutations::ProfileWidgetMutations < Mutations::ApplicationMutation
     )
   end
 
+  action :delete do
+    type Types::WidgetType
+
+    argument :id, !types.ID
+  end
+
+  def delete
+    @widget.destroy
+    @widget
+  end
+
   private
 
   def widget_params
-    p = params.permit(:title, :data, :row_order_position)
+    p = params.permit(:title, :data, :row_order_position, :column)
 
     begin
       p[:data] = JSON.parse(p[:data]) if p[:data]

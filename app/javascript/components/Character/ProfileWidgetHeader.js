@@ -21,6 +21,11 @@ class ProfileWidgetHeader extends Component {
     this.props.onEditStop()
   }
 
+  handleDeleteClick(e) {
+    e.preventDefault()
+    this.props.onDelete()
+  }
+
   handleSaveClick(e) {
     e.preventDefault()
     this.props.onSave(this.state.title)
@@ -40,18 +45,20 @@ class ProfileWidgetHeader extends Component {
   }
 
   renderLocked() {
-    const {widgetType, title, editable} = this.props
+    const {widgetType, title, editable, lastColumn, firstColumn, first, last} = this.props
 
     if (editable) {
       return (
         <div className='muted card-header fix-height'>
           <div className='right' style={{opacity: 0.3}}>
-            {/*<a href='#' className='margin-right--medium'><Icon className='muted' style={{fontSize: '1rem', color: 'rgba(255,255,255,0.1) !important'}}>delete</Icon></a>*/}
+            <a href='#' onClick={this.handleDeleteClick.bind(this)} title={'Delete Widget'} className='margin-right--medium'><Icon className='muted' style={{fontSize: '1rem', color: 'rgba(255,255,255,0.1) !important'}}>delete</Icon></a>
             <a href='#' onClick={this.handleEditClick.bind(this)} title={'Edit Widget'}><Icon className='muted' style={{fontSize: '1rem', color: 'rgba(255,255,255,0.1) !important'}}>edit</Icon></a>
           </div>
           <div className='left' style={{opacity: 0.3}}>
-            <a href='#' onClick={this.handleMove('up').bind(this)} title={'Move Up'} className='margin-right--medium'><Icon className='muted' style={{fontSize: '1rem', color: 'rgba(255,255,255,0.1) !important'}}>keyboard_arrow_up</Icon></a>
-            <a href='#' onClick={this.handleMove('down').bind(this)} title={'Move Down'} className='margin-right--medium'><Icon className='muted' style={{fontSize: '1rem', color: 'rgba(255,255,255,0.1) !important'}}>keyboard_arrow_down</Icon></a>
+            { firstColumn || <a href='#' onClick={this.handleMove('left').bind(this)} title={'Move Left'} className='margin-right--medium'><Icon className='muted' style={{fontSize: '1rem', color: 'rgba(255,255,255,0.1) !important'}}>keyboard_arrow_left</Icon></a> }
+            { first || <a href='#' onClick={this.handleMove('up').bind(this)} title={'Move Up'} className='margin-right--medium'><Icon className='muted' style={{fontSize: '1rem', color: 'rgba(255,255,255,0.1) !important'}}>keyboard_arrow_up</Icon></a> }
+            { last || <a href='#' onClick={this.handleMove('down').bind(this)} title={'Move Down'} className='margin-right--medium'><Icon className='muted' style={{fontSize: '1rem', color: 'rgba(255,255,255,0.1) !important'}}>keyboard_arrow_down</Icon></a> }
+            { lastColumn || <a href='#' onClick={this.handleMove('right').bind(this)} title={'Move Left'} className='margin-right--medium'><Icon className='muted' style={{fontSize: '1rem', color: 'rgba(255,255,255,0.1) !important'}}>keyboard_arrow_right</Icon></a> }
           </div>
 
           <div className='center'>
@@ -100,7 +107,12 @@ ProfileWidgetHeader.propTypes = {
   onEditStart: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
   onEditStop: PropTypes.func.isRequired,
-  onMove: PropTypes.func.isRequired
+  onMove: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  lastColumn: PropTypes.bool,
+  firstColumn: PropTypes.bool,
+  first: PropTypes.bool,
+  last: PropTypes.bool
 }
 
 export default ProfileWidgetHeader

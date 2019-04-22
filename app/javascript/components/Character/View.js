@@ -28,6 +28,10 @@ class View extends Component {
 
   handleEditableChange(editable) {
     this.setState({editable})
+
+    if (!editable) {
+      this.props.onChange()
+    }
   }
 
   handleModalOpen(modal) {
