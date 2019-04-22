@@ -5,6 +5,7 @@ fragment CharacterProfile on Character {
         id
         title
         columns
+        row_order
         widgets {
             ... WidgetFields
         }

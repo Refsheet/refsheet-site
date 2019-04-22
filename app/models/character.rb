@@ -48,7 +48,7 @@ class Character < ApplicationRecord
                           after_remove: :update_counter_cache
 
   # Profile Associations
-  has_many :profile_sections, class_name: "Characters::ProfileSection"
+  has_many :profile_sections, -> { rank(:row_order) }, class_name: "Characters::ProfileSection"
   has_many :profile_widgets, class_name: "Characters::ProfileWidget"
 
   # Marketplace Associations

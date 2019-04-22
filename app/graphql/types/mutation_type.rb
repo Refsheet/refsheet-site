@@ -26,6 +26,7 @@ Types::MutationType = GraphQL::ObjectType.define do
 
   # Profile Section
   field :updateProfileSection, field: Mutations::ProfileSectionMutations::Update
+  field :createProfileSection, field: Mutations::ProfileSectionMutations::Create
 
   # Profile Widget
   field :updateProfileWidget, field: Mutations::ProfileWidgetMutations::Update

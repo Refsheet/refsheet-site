@@ -43,9 +43,12 @@ class Sidebar extends Component {
   }
 
   renderSections() {
-    return this.props.profileSections
+    const sections = this.props.profileSections
       .filter(s => s.title)
-      .map(s => <li key={s.id}><TocLink to={`#${s.id}`}>{s.title}</TocLink></li>);
+      .sort((a, b) => (a.row_order || 0) - (b.row_order || 0))
+
+    return sections
+        .map(s => <li key={s.id}><TocLink to={`#s:${s.id}`}>{s.title}</TocLink></li>);
   }
 
   toggleEditable(e) {

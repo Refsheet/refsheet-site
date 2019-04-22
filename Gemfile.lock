@@ -424,7 +424,7 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rainbow (3.0.0)
     rake (12.3.2)
-    ranked-model (0.4.3)
+    ranked-model (0.4.4)
       activerecord (>= 4.1.16)
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)

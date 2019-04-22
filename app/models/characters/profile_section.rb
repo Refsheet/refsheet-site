@@ -20,6 +20,7 @@
 
 class Characters::ProfileSection < ApplicationRecord
   include HasGuid
+  include RankedModel
 
   belongs_to :character
   has_many :widgets, -> { rank(:row_order) }, class_name: 'Characters::ProfileWidget'
@@ -27,7 +28,10 @@ class Characters::ProfileSection < ApplicationRecord
   validates_format_of :column_widths, with: /\A\d+(,\d+)*\z/, message: 'numbers and commas only'
   validate :check_column_sums
 
+  before_validation :assign_default_columns
+
   has_guid
+  ranks :row_order, with_same: [:character_id]
 
   def columns
     self.column_widths&.split(',').collect(&:to_i)
@@ -38,6 +42,10 @@ class Characters::ProfileSection < ApplicationRecord
   end
 
   private
+
+  def assign_default_columns
+    self.column_widths ||= '12'
+  end
 
   def check_column_sums
     if columns&.sum != 12
