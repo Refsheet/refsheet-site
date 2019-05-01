@@ -93,6 +93,12 @@ class CharactersController < ApplicationController
       p[:featured_image] = @character.images.find_by!(guid: params[:character][:featured_image_guid])
     end
 
+    if params[:character].include? :create_v2 and params[:character][:create_v2] == "true"
+      if current_user.patron?
+        p[:version] = 2
+      end
+    end
+
     p
   end
 

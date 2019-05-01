@@ -188,4 +188,20 @@ describe Character, type: :model do
     expect(group.visible_characters_count).to eq 2
     expect(group.hidden_characters_count).to eq 0
   end
+
+  describe '#profile_sections' do
+    it 'creates default when v2' do
+      expect_any_instance_of(Character).to receive(:create_default_sections).and_call_original
+      c = create :character, version: 2, name: "15667"
+      expect(c.profile_sections.count).to eq 1
+      expect(c.profile_sections.last).to be_persisted
+      expect(c.profile_sections.last.title).to eq "About 15667"
+    end
+
+    it 'does not create section when v1' do
+      expect_any_instance_of(Character).to_not receive(:create_default_sections)
+      c = create :character
+      expect(c.profile_sections.count).to eq 0
+    end
+  end
 end
