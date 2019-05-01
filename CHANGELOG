@@ -1,4 +1,18 @@
 ---
+v1.5.0-pre.4:
+- sha: 21f6fc681294ec884cdd0dec062fffb863d03400
+  time: '1556687548'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 21f6fc68
+  date: '2019-05-01'
+- sha: b3da6678c63df4660947395999fbe6c01ea0fcf9
+  time: '1556687473'
+  tags: []
+  message: Patrons can now create V2 profiles!
+  hash: b3da6678
+  date: '2019-05-01'
+---
 v1.5.0-pre.3:
 - sha: 6b03d05e4f83b967b0ad6fc0793e930837cff614
   time: '1555959498'
