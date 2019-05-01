@@ -67,14 +67,14 @@ class Character < ApplicationRecord
   validates_associated :transfers
 
   validates :name,
-            presence: true,
-            format: { with: /[a-z]/i, message: 'must have at least one letter' }
+            presence: true
 
   validate :validate_profile_image
   validate :validate_featured_image
 
   before_validation :initiate_transfer, if: -> (c) { c.transfer_to_user.present? }
   before_create :initialize_custom_attributes
+  after_create :create_default_sections, if: -> (c) { c.version == 2 }
   after_create :log_activity
 
   before_destroy :decrement_counter_cache
@@ -299,5 +299,13 @@ class Character < ApplicationRecord
         { id: 'height', name: 'Height / Weight', value: nil },
         { id: 'body-type', name: 'Body Type', value: nil }
     ] if !self.custom_attributes || self.custom_attributes.count == 0
+  end
+
+  def create_default_sections
+    section = Characters::ProfileSection.new(title: "About #{self.name}")
+    widget = Characters::ProfileWidget.new(widget_type: 'RichText', column: 0)
+
+    self.profile_sections << section
+    section.widgets << widget
   end
 end

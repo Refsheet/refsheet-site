@@ -79,3 +79,19 @@ a.block
 .center-by-margin
   display: block
   margin: 0 auto
+
+.beta-feature
+  position: relative
+
+  &:after
+    content: 'BETA'
+    opacity: 0.6
+    background-color: $patron-color
+    color: white
+    font-size: 0.6rem
+    pointer-events: none
+    position: absolute
+    top: 0
+    right: 0
+    padding: 0px 3px
+    border-radius: 3px

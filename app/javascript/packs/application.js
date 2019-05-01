@@ -24,7 +24,8 @@ export const __globals = [
   'createBrowserHistory',
   'connect',
   'setCurrentUser',
-  'NewLightbox'
+  'NewLightbox',
+  'Restrict'
 ]
 
 export { default as React } from 'react'
@@ -46,6 +47,7 @@ export { default as CharacterController } from 'App/Router'
 export { default as NavBar } from 'NavBar'
 export { default as DeleteUser } from 'Settings/Account/DeleteUser'
 export { default as NewLightbox } from 'Lightbox'
+export { default as Restrict } from 'Shared/Restrict'
 
 (function() {
   console.log("Pack loaded: Refsheet JS v2")
