@@ -1,4 +1,30 @@
 ---
+v1.5.0-pre.3:
+- sha: 6b03d05e4f83b967b0ad6fc0793e930837cff614
+  time: '1555959498'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 6b03d05e
+  date: '2019-04-22'
+- sha: 22daed79f1b43e1b294cec91516d3647330d25be
+  time: '1555959489'
+  tags: []
+  message: Delete and reorder profile sections.
+  hash: 22daed79
+  date: '2019-04-22'
+- sha: 997ba85fc4fd49b3418319a37626991aef67d50a
+  time: '1555955865'
+  tags: []
+  message: Create profile sections and render in the proper order.
+  hash: 997ba85f
+  date: '2019-04-22'
+- sha: ef7ff905dfe43c80b1314e5792f70f2b03d7deb9
+  time: '1555951200'
+  tags: []
+  message: Abstract widget fields to fragment.
+  hash: ef7ff905
+  date: '2019-04-22'
+---
 v1.5.0-pre.2:
 - sha: fe87ccbafc6dcb7e27a4ad36b11ecb4bee2580cd
   time: '1555899201'
