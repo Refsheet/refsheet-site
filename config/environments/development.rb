@@ -3,7 +3,8 @@ Rails.application.configure do
   config.webpacker.check_yarn_integrity = false
 
   # Settings specified here will take precedence over those in config/application.rb.
-  config.logger = ActiveSupport::Logger.new(STDOUT)
+  config.logger = Refsheet::Logger.new(STDOUT)
+  config.log_tags = [:request_id]
 
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
