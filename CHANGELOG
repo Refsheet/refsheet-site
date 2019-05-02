@@ -1,4 +1,18 @@
 ---
+v1.5.0-pre.6:
+- sha: c2beb6d698661c0a629c87ed2d0d0199ddf9e188
+  time: '1556839625'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: c2beb6d6
+  date: '2019-05-02'
+- sha: 0fc7f98f7a84a4f26eb84ca9d5952e650cd7a1e4
+  time: '1556839614'
+  tags: []
+  message: Use Stackdriver Trace.
+  hash: 0fc7f98f
+  date: '2019-05-02'
+---
 v1.5.0-pre.5:
 - sha: fc3b47de79b8271b8dbac68596cfd051ab69ee6c
   time: '1556838624'
