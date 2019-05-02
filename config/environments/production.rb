@@ -6,6 +6,9 @@ Rails.application.configure do
   config.google_cloud.logging.log_name = "refsheet-prod"
   config.google_cloud.logging.resource = "global"
 
+  # Gcloud Trace
+  config.google_cloud.use_trace = true
+
   # Verifies that versions and hashed value of the package contents in the project's package.json
   config.webpacker.check_yarn_integrity = false
 

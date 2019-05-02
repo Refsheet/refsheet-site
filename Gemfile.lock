@@ -251,6 +251,11 @@ GEM
       google-gax (~> 1.3)
       googleapis-common-protos-types (>= 1.0.2)
       stackdriver-core (~> 1.3)
+    google-cloud-trace (0.34.2)
+      concurrent-ruby (~> 1.1)
+      google-cloud-core (~> 1.2)
+      google-gax (~> 1.3)
+      stackdriver-core (~> 1.3)
     google-gax (1.5.0)
       google-protobuf (~> 3.2)
       googleapis-common-protos (>= 1.3.5, < 2.0)
@@ -716,6 +721,7 @@ DEPENDENCIES
   fog-aws
   font-awesome-sass
   google-cloud-logging
+  google-cloud-trace
   graphiql-rails
   graphql
   graphql-errors

@@ -1,4 +1,15 @@
 Rails.application.configure do
+  # # Test gcloud logging
+  # config.google_cloud.project_id = "refsheet-239409"
+  # config.google_cloud.keyfile = "refsheet-prod.json"
+  # config.google_cloud.use_logging = false
+  # config.google_cloud.logging.log_name = "refsheet-dev"
+  # config.google_cloud.logging.resource = "global"
+  #
+  # # Gcloud Trace
+  # config.google_cloud.use_trace = true
+  # config.google_cloud.trace.capture_stack
+
   # Verifies that versions and hashed value of the package contents in the project's package.json
   config.webpacker.check_yarn_integrity = false
 
