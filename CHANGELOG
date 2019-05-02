@@ -1,4 +1,18 @@
 ---
+v1.5.0-pre.5:
+- sha: fc3b47de79b8271b8dbac68596cfd051ab69ee6c
+  time: '1556838624'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: fc3b47de
+  date: '2019-05-02'
+- sha: 6fbabf85c951743adce13cb4434285bc44a40698
+  time: '1556838615'
+  tags: []
+  message: Log to Google Cloud
+  hash: 6fbabf85
+  date: '2019-05-02'
+---
 v1.5.0-pre.4:
 - sha: 21f6fc681294ec884cdd0dec062fffb863d03400
   time: '1556687548'
