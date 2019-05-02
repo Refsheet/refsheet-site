@@ -28,6 +28,12 @@ module Refsheet
         @gcloud_logger = extend_gcloud
       end
 
+      def tagged(*tags)
+        Google::Cloud::Trace.in_span tags.flatten.join(", ") do |span|
+          super
+        end
+      end
+
       def call(severity, time, progname, data)
         data[:message] = data.delete(:msg)
 

@@ -31,6 +31,7 @@ gem 'rainbow'
 
 # == Google Cloud
 gem 'google-cloud-logging'
+gem 'google-cloud-trace'
 
 # == FRONT END
 
