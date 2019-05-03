@@ -54,7 +54,6 @@ RUN bundle exec rake assets:precompile RAILS_ENV=production
 
 # Execute Order 66
 
-ENTRYPOINT bundle exec
 EXPOSE 3000
 
-CMD ["puma", "-C", "config/puma.rb"]
+CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
