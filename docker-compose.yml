@@ -20,22 +20,11 @@ services:
       - 'redis'
     build: .
     ports:
-      - '5000:5000'
+      - '3000:3000'
     volumes:
       - '.:/app'
     env_file:
       - '.env'
-
-#  sidekiq:
-#    depends_on:
-#      - 'postgres'
-#      - 'redis'
-#    build: .
-#    command: sidekiq -C config/sidekiq.yml.erb
-#    volumes:
-#      - '.:/app'
-#    env_file:
-#      - '.env'
 
   cable:
     depends_on:
