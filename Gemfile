@@ -26,12 +26,12 @@ gem 'webpacker'
 gem 'faraday_middleware'
 gem 'json', '~> 2.1.0'
 gem 'ar-octopus'
-gem 'ougai'
-gem 'rainbow'
-
-# == Google Cloud
-gem 'google-cloud-logging'
-gem 'google-cloud-trace'
+# gem 'ougai'
+# gem 'rainbow'
+#
+# # == Google Cloud
+# gem 'google-cloud-logging'
+# gem 'google-cloud-trace'
 
 # == FRONT END
 
@@ -112,7 +112,7 @@ end
 
 # == MAINTENANCE
 
-gem 'puma_worker_killer'
+gem 'puma_worker_killer', require: false
 gem 'table_print'
 gem 'httplog', '~> 1.1.1'
 

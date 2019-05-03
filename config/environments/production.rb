@@ -1,13 +1,13 @@
 Rails.application.configure do
-  # Test gcloud logging
-  config.google_cloud.project_id = "refsheet-239409"
-  config.google_cloud.keyfile = "refsheet-prod.json"
-  config.google_cloud.use_logging = false
-  config.google_cloud.logging.log_name = "refsheet-prod"
-  config.google_cloud.logging.resource = "global"
-
-  # Gcloud Trace
-  config.google_cloud.use_trace = true
+  # # Test gcloud logging
+  # config.google_cloud.project_id = "refsheet-239409"
+  # config.google_cloud.keyfile = "refsheet-prod.json"
+  # config.google_cloud.use_logging = false
+  # config.google_cloud.logging.log_name = "refsheet-prod"
+  # config.google_cloud.logging.resource = "global"
+  #
+  # # Gcloud Trace
+  # config.google_cloud.use_trace = true
 
   # Verifies that versions and hashed value of the package contents in the project's package.json
   config.webpacker.check_yarn_integrity = false
@@ -107,12 +107,12 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
   # if ENV["RAILS_LOG_TO_STDOUT"].present?
-  #   logger           = ActiveSupport::Logger.new(STDOUT)
-  #   logger.formatter = config.log_formatter
-  #   config.logger = ActiveSupport::TaggedLogging.new(logger)
+    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger.formatter = config.log_formatter
+    config.logger = ActiveSupport::TaggedLogging.new(logger)
   # end
 
-  config.logger = Refsheet::Logger.new(STDOUT)
+  # config.logger = Refsheet::Logger.new(STDOUT)
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
