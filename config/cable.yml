@@ -6,5 +6,5 @@ test:
 
 production:
   adapter: redis
-  url: redis://refsheet-prod-redis.g5lbhu.0001.use1.cache.amazonaws.com:6379
+  url: <%= "redis://:#{ URI.encode((ENV['REDIS_PASS'] || ''), /\W/) }@" + (ENV['REDIS_HOST'] || '127.0.0.1') + ":" + (ENV['REDIS_PORT'] || '6379') %>
   channel_prefix: refsheet_prod_cable
