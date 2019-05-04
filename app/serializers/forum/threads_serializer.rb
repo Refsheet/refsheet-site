@@ -15,7 +15,7 @@ class Forum::ThreadsSerializer < ActiveModel::Serializer
   end
 
   def username
-    object.user.username
+    object.user&.username || '!deleted-account'
   end
 
   def last_post_at
@@ -23,7 +23,7 @@ class Forum::ThreadsSerializer < ActiveModel::Serializer
   end
 
   def user_name
-    object.user.name
+    object.user&.name || '<Deleted Account>'
   end
 
   def posts_count
@@ -31,7 +31,7 @@ class Forum::ThreadsSerializer < ActiveModel::Serializer
   end
 
   def avatar_url
-    object.user.avatar_url
+    object.user&.avatar_url
   end
 
   def summary
