@@ -1,4 +1,67 @@
 ---
+v1.5.0-pre.101:
+- sha: 66cc0503aaa91f27839e2f411f503f6f9895cb2d
+  time: '1556996668'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 66cc0503
+  date: '2019-05-04'
+- sha: 511906a6a0859788ef8dad21b077b37c8dd08009
+  time: '1556996651'
+  tags: []
+  message: DO WE HAVE FIX?
+  hash: 511906a6
+  date: '2019-05-04'
+- sha: 8d6181ab158bb63fb39e87a692379717eb47cc49
+  time: '1556993630'
+  tags:
+  - ci skip
+  message: v1.5.0-pre.8
+  hash: 8d6181ab
+  date: '2019-05-04'
+- sha: 4f8cb1b3323717f8dc0ad759aca86bcc09b5b7bb
+  time: '1556992877'
+  tags: []
+  message: Fix gcloud.
+  hash: 4f8cb1b3
+  date: '2019-05-04'
+- sha: c0c202dbcdc6395a85cc6b380df0ac8bc0523c04
+  time: '1556992008'
+  tags: []
+  message: Actually remove logger.
+  hash: c0c202db
+  date: '2019-05-04'
+- sha: f338173ea4e547eb4c64403a536a554983256f2b
+  time: '1556990823'
+  tags: []
+  message: Fix forum issue.
+  hash: f338173e
+  date: '2019-05-04'
+- sha: e60e73522f3e19c4d634d788c54d683697c471bf
+  time: '1556990103'
+  tags: []
+  message: Fix error.
+  hash: e60e7352
+  date: '2019-05-04'
+- sha: 6f2af5babc0f22d4bf77c74544ff4aa5dd8e887a
+  time: '1556990040'
+  tags: []
+  message: Revert "[ci skip] v1.5.0-pre.4"
+  hash: 6f2af5ba
+  date: '2019-05-04'
+- sha: ba320a99fc813823cb0db19c96db5bdbb5d45fb6
+  time: '1556850579'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: ba320a99
+  date: '2019-05-03'
+- sha: 04dd38adb6f3e4c8cca5a1f851cad171ee28e2ff
+  time: '1556850559'
+  tags: []
+  message: Dockerized and also ignoring beanstalk errors.
+  hash: 04dd38ad
+  date: '2019-05-03'
+---
 v1.5.0-pre.8:
 - sha: 4f8cb1b3323717f8dc0ad759aca86bcc09b5b7bb
   time: '1556992877'
