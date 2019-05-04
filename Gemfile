@@ -26,12 +26,6 @@ gem 'webpacker'
 gem 'faraday_middleware'
 gem 'json', '~> 2.1.0'
 gem 'ar-octopus'
-gem 'ougai'
-gem 'rainbow'
-
-# == Google Cloud
-gem 'google-cloud-logging'
-gem 'google-cloud-trace'
 
 # == FRONT END
 

@@ -11,8 +11,6 @@ require "action_view/railtie"
 require "action_cable/engine"
 require "sprockets/railtie"
 require 'trello'
-require 'google/cloud/logging/rails'
-require 'google/cloud/trace/rails'
 # require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
