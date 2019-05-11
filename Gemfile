@@ -106,7 +106,7 @@ end
 
 # == MAINTENANCE
 
-gem 'puma_worker_killer'
+gem 'puma_worker_killer', require: false
 gem 'table_print'
 gem 'httplog', '~> 1.1.1'
 
