@@ -15,7 +15,7 @@ Rails.application.configure do
 
   # Settings specified here will take precedence over those in config/application.rb.
   # config.logger = Refsheet::Logger.new(STDOUT)
-  config.logger = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
+  config.logger = ActiveSupport::Logger.new(STDOUT)
   config.log_tags = [:request_id]
 
   # In the development environment your application's code is reloaded on
