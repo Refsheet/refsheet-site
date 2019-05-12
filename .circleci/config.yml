@@ -10,7 +10,7 @@ jobs:
           GEM_HOME: vendor/bundle
           BUNDLE_APP_CONFIG: vendor/bundle
           PGHOST: 127.0.0.1
-          PGUSER: refsheet-site-test
+          PGUSER: refsheet
           RAILS_ENV: test
           NODE_ENV: test
           JUNIT_REPORT_PATH: ~/junit
@@ -18,7 +18,7 @@ jobs:
 
       - image: littlebobbytables/postgres-pg_similarity
         environment:
-          POSTGRES_USER: refsheet-site-test
+          POSTGRES_USER: refsheet
           POSTGRES_DB: refsheet-site-test
           POSTGRES_PASSWORD: "fishsticks"
 

@@ -2,7 +2,7 @@ version: '2'
 
 services:
   postgres:
-    image: 'postgres:10.3-alpine'
+    image: 'littlebobbytables/postgres-pg_similarity'
     volumes:
       - 'postgres:/var/lib/postgresql/data'
     env_file:
@@ -18,9 +18,12 @@ services:
     depends_on:
       - 'postgres'
       - 'redis'
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: bash -c "rm -f /app/tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0 -p 5000"
     ports:
-      - '3000:3000'
+      - '5000:5000'
     volumes:
       - '.:/app'
     env_file:
@@ -29,7 +32,9 @@ services:
   cable:
     depends_on:
       - 'redis'
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     command: puma -p 28080 cable/config.ru
     ports:
       - '28080:28080'

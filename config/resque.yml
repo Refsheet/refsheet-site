@@ -1,0 +1,13 @@
+default: &default
+  host: <%= ENV['REDIS_HOST'] || '127.0.0.1' %>
+  port: <%= ENV['REDIS_PORT'] || '6379' %>
+  password: <%= ENV['REDIS_PASS'] || '' %>
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default
