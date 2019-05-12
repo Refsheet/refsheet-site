@@ -8,20 +8,16 @@ class Mutations::MessageMutations < Mutations::ApplicationMutation
   end
 
   def create
-    Conversation.transaction do
-      if params[:conversationId]
-        @conversation = Conversation.find_by!(guid: params[:conversationId])
-      else
-        sender = context.current_user.call
-        recipient = User.find(params[:recipientId])
+    if params[:conversationId]
+      @conversation = Conversation.find_by!(guid: params[:conversationId])
+    else
+      sender = context.current_user.call
+      recipient = User.find(params[:recipientId])
 
-        @conversation = Conversation.with(sender, recipient).tap(&:save!)
-      end
-
-      @message = @conversation.messages.create! message_params
+      @conversation = Conversation.with(sender, recipient).tap(&:save!)
     end
 
-    @message
+    @message = @conversation.messages.create! message_params
   end
 
   private
