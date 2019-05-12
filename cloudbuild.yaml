@@ -4,27 +4,28 @@ steps:
     args: ['-c', 'docker pull gcr.io/$PROJECT_ID/refsheet-site:latest || exit 0']
 
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/refsheet-site', '--cache-from', 'gcr.io/$PROJECT_ID/refsheet-site:latest', '.' ]
+    args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID', '--cache-from', 'gcr.io/$PROJECT_ID/refsheet-site:latest', '.' ]
 
   # Push Build
   - name: 'gcr.io/cloud-builders/docker'
-    args: ["push", "gcr.io/$PROJECT_ID/refsheet-site"]
+    args: ["push", "gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID"]
 
   # Deploy Web
   - name: 'gcr.io/cloud-builders/kubectl'
-    args: ['set', 'image', 'deployment', 'refsheet-prod', "refsheet-prod=gcr.io/$PROJECT_ID/refsheet-site:latest"]
+    args: ['set', 'image', 'deployment', 'refsheet-prod', "refsheet-prod=gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID"]
     env:
       - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
       - 'CLOUDSDK_CONTAINER_CLUSTER=refsheet-prod'
 
   # Deploy Worker
   - name: 'gcr.io/cloud-builders/kubectl'
-    args: ['set', 'image', 'deployment', 'refsheet-prod-worker', "refsheet-prod-worker=gcr.io/$PROJECT_ID/refsheet-site:latest"]
+    args: ['set', 'image', 'deployment', 'refsheet-prod-worker', "refsheet-prod-worker=gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID"]
     env:
       - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
       - 'CLOUDSDK_CONTAINER_CLUSTER=refsheet-prod'
 
 images:
   - 'gcr.io/$PROJECT_ID/refsheet-site:latest'
+  - 'gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID'
 
 timeout: 3600s
