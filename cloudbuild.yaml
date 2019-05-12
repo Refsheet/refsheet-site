@@ -23,4 +23,4 @@ steps:
 images:
   - 'gcr.io/$PROJECT_ID/refsheet-site'
 
-timeout: 3600
+timeout: 3600s
