@@ -64,4 +64,4 @@ ENV RAILS_ENV production
 ENV NODE_ENV production
 ENV PORT 3000
 
-CMD foreman start --formation "$FORMATION"
+CMD foreman start --formation "$FORMATION" --env ""

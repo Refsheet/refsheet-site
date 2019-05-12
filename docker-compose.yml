@@ -21,13 +21,14 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    command: bash -c "rm -f /app/tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0 -p 5000"
     ports:
       - '5000:5000'
     volumes:
       - '.:/app'
     env_file:
       - '.env'
+    environment:
+      FORMATION: web=1 webpacker=1
 
   worker:
     depends_on:
@@ -43,19 +44,20 @@ services:
     environment:
       FORMATION: worker=1
 
-  cable:
-    depends_on:
-      - 'redis'
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
-    command: bundle exec puma -p 28080 cable/config.ru
-    ports:
-      - '28080:28080'
-    volumes:
-      - '.:/app'
-    env_file:
-      - '.env'
+#  cable:
+#    depends_on:
+#      - 'redis'
+#    build:
+#      context: .
+#      dockerfile: Dockerfile.dev
+#    ports:
+#      - '28080:28080'
+#    volumes:
+#      - '.:/app'
+#    env_file:
+#      - '.env'
+#    environment:
+#      FORMATION: cable=1
 
 volumes:
   redis:

@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-prod
+spec:
+  ports:
+    - port: 6379
+      name: redis-prod
+  clusterIP: None
+  selector:
+    app: redis-prod
+---
+apiVersion: apps/v1beta2
+kind: StatefulSet
+metadata:
+  name: redis-prod
+spec:
+  selector:
+    matchLabels:
+      app: redis-prod
+  serviceName: redis-prod
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: redis-prod
+    spec:
+      containers:
+        - name: redis-prod
+          image: redis:3.2-alpine
+          imagePullPolicy: Always
+          args: ["--requirepass", "$(REDIS_PASS)"]
+          ports:
+            - containerPort: 6379
+              name: redis-prod
+          env:
+            - name: REDIS_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: refsheet-prod-secret
+                  key: REDIS_PASS
