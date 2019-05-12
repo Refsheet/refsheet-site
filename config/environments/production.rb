@@ -79,12 +79,16 @@ Rails.application.configure do
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 
-  # == EMAIL SETTINGS
+  if ENV['GOOGLE_CLOUD']
+    config.active_job.queue_adapter      = :resque
+    config.action_mailer.delivery_method = :smtp
+    # TODO - GCLOUD Find a way to deliver mail through Google cloud
+    # Also uh, eventually queue jobs to Google???
+  else
+    config.active_job.queue_adapter      = :active_elastic_job
+    config.action_mailer.delivery_method = :ses
+  end
 
-  config.action_mailer.delivery_method = :ses
-
-  # Use a real queuing backend for Active Job (and separate queues per environment)
-  config.active_job.queue_adapter     = :active_elastic_job
   # config.active_job.queue_name_prefix = "refsheet-site_#{Rails.env}"
   config.action_mailer.perform_caching = false
 

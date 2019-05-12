@@ -17,3 +17,4 @@ data:
   REDIS_PORT: "6379"
   S3_BUCKET_NAME: refsheet-prod
   S3_REGION: us-east-1
+  GOOGLE_CLOUD: "1"

@@ -10,7 +10,7 @@ Rails.application.configure do
   channel = ""
 
   if resque_config['password'].present?
-    password = ":%s@" % resque_config['password']
+    password = ":%s@" % URI.encode(resque_config['password'])
   end
 
   redis_path = "redis://%s%s:%s%s" % [
@@ -20,7 +20,11 @@ Rails.application.configure do
       channel
   ]
 
-  Rails.logger.info "Connecting to Redis on: #{redis_path}"
+  if password.present?
+    Rails.logger.info("Connecting to Redis with password: " + redis_path.gsub(password, ":********@"))
+  else
+    Rails.logger.info("Connecting to Redis: " + redis_path)
+  end
 
   Resque.redis = redis_path
 end
