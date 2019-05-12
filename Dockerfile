@@ -59,4 +59,9 @@ RUN bundle exec rake assets:precompile RAILS_ENV=production
 
 EXPOSE 3000
 
+ENV RACK_ENV production
+ENV RAILS_ENV production
+ENV NODE_ENV production
+ENV PORT 3000
+
 CMD foreman start --formation "$FORMATION"
