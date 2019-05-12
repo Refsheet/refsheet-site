@@ -121,7 +121,6 @@ class Image < ApplicationRecord # < Media
   before_validation :adjust_source_url
   after_save :clean_up_character
   after_destroy :clean_up_character
-  after_create :log_activity
 
   scoped_search on: [:caption, :image_file_name]
   scoped_search relation: :character, on: [:name, :species]
@@ -233,6 +232,7 @@ class Image < ApplicationRecord # < Media
   def delayed_complete
     schedule_phash_job
     send_processing_notification
+    log_activity
   end
 
   def schedule_phash_job
