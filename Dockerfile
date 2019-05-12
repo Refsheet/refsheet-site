@@ -17,7 +17,8 @@ RUN apt-get update && \
         libpng-dev \
         curl \
         git && \
-    gem install bundler -v 2.0.1
+    gem install bundler -v 2.0.1 && \
+    gem install foreman
 
 
 # Install Node
@@ -31,7 +32,7 @@ RUN apt-get install -y nodejs
 COPY Gemfile      /app/Gemfile
 COPY Gemfile.lock /app/Gemfile.lock
 
-RUN bundle install --binstubs
+RUN bundle install --binstubs --deployment
 
 
 # Yarn
@@ -56,4 +57,4 @@ RUN bundle exec rake assets:precompile RAILS_ENV=production
 
 EXPOSE 3000
 
-CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
+CMD bundle exec foreman start --formation "$FORMATION"

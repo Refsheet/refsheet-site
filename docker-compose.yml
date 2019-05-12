@@ -35,7 +35,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    command: puma -p 28080 cable/config.ru
+    command: bundle exec puma -p 28080 cable/config.ru
     ports:
       - '28080:28080'
     volumes:
