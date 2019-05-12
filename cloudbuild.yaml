@@ -6,9 +6,6 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/refsheet-site', '--cache-from', 'gcr.io/$PROJECT_ID/refsheet-site:latest', '.' ]
 
-  - name: 'circleci/ruby:2.3-node-browsers'
-    args: ['bundle', 'exec', 'rspec']
-
   # Push Build
   - name: 'gcr.io/cloud-builders/docker'
     args: ["push", "gcr.io/$PROJECT_ID/refsheet-site"]
