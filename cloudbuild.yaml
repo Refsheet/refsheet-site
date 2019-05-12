@@ -1,6 +1,10 @@
 steps:
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/refsheet-site', '.' ]
+    entrypoint: 'bash'
+    args: ['-c', 'docker pull gcr.io/$PROJECT_ID/refsheet-site:latest || exit 0']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/refsheet-site', '--cache-from', 'gcr.io/$PROJECT_ID/refsheet-site:latest', '.' ]
 
   - name: 'circleci/ruby:2.3-node-browsers'
     args: ['bundle', 'exec', 'rspec']
@@ -21,6 +25,6 @@ steps:
       - 'CLOUDSDK_CONTAINER_CLUSTER=refsheet-prod'
 
 images:
-  - 'gcr.io/$PROJECT_ID/refsheet-site'
+  - 'gcr.io/$PROJECT_ID/refsheet-site:latest'
 
 timeout: 3600s
