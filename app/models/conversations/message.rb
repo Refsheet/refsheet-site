@@ -43,7 +43,7 @@ class Conversations::Message < ApplicationRecord
 
   before_validation :handle_slash_commands
   after_create :update_bookmark
-  after_create :notify_conversation
+  after_commit :notify_conversation, on: :create
 
   scope :unread, -> (user=nil) {
     if user.nil?
