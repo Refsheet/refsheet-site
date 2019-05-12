@@ -62,4 +62,4 @@ COPY . /app
 
 EXPOSE $PORT
 
-CMD foreman start --formation "$FORMATION"
+CMD foreman start --formation "$FORMATION" --env ""

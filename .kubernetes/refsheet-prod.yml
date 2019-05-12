@@ -11,7 +11,7 @@ spec:
     metadata:
       labels:
         app: refsheet-prod
-        tier: refsheet-prod-worker
+        tier: frontend
     spec:
       containers:
         - name: refsheet-prod
