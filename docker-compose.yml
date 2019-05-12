@@ -29,6 +29,20 @@ services:
     env_file:
       - '.env'
 
+  worker:
+    depends_on:
+      - 'postgres'
+      - 'redis'
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - '.:/app'
+    env_file:
+      - '.env'
+    environment:
+      FORMATION: worker=1
+
   cable:
     depends_on:
       - 'redis'
