@@ -13,10 +13,14 @@ Rails.application.configure do
     password = ":%s@" % resque_config['password']
   end
 
-  Resque.redis = "redis://%s%s:%s%s" % [
+  redis_path = "redis://%s%s:%s%s" % [
       password,
       resque_config['host'],
       resque_config['port'],
       channel
   ]
+
+  Rails.logger.info "Connecting to Redis on: #{redis_path}"
+
+  Resque.redis = redis_path
 end
