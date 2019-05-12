@@ -46,6 +46,8 @@ COPY yarn.lock    /app/yarn.lock
 
 RUN yarn --pure-lockfile
 
+ENV NODE_OPTIONS="--max-old-space-size=1024"
+
 
 # Move App and Precompile
 
@@ -57,4 +59,4 @@ RUN bundle exec rake assets:precompile RAILS_ENV=production
 
 EXPOSE 3000
 
-CMD bundle exec foreman start --formation "$FORMATION"
+CMD foreman start --formation "$FORMATION"
