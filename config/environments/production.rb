@@ -62,6 +62,7 @@ Rails.application.configure do
     https://staging.refsheet.net
     https://green.refsheet.net
     https://blue.refsheet.net
+    https://kube.refsheet.net
     https://refsheet.net
     https://websocket.org
   )
