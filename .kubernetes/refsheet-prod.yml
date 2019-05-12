@@ -1,0 +1,40 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: refsheet-prod
+  labels:
+    app: refsheet-prod
+    tier: frontend
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: refsheet-prod
+        tier: refsheet-prod-worker
+    spec:
+      containers:
+        - name: refsheet-prod
+          image: gcr.io/refsheet-239409/refsheet-site:latest
+          imagePullPolicy: Always
+          livenessProbe:
+            httpGet:
+              path: /health.json
+              port: 3000
+              scheme: HTTP
+          readinessProbe:
+            httpGet:
+              path: /health.json
+              port: 3000
+              scheme: HTTP
+          env:
+            - name: FORMATION
+              value: web=1
+          envFrom:
+            - configMapRef:
+                name: refsheet-prod
+            - secretRef:
+                name: refsheet-prod-secret
+          ports:
+            - containerPort: 3000
+              protocol: TCP
