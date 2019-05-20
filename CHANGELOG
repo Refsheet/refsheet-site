@@ -1,4 +1,18 @@
 ---
+v1.5.0-pre.104:
+- sha: d479d0463a41d5619390836b44ab15522d1d412d
+  time: '1558387093'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: d479d046
+  date: '2019-05-20'
+- sha: 5be4fa1b75b0e0815992faca2002a412a3b487d5
+  time: '1558387089'
+  tags: []
+  message: Add gcloud repo
+  hash: 5be4fa1b
+  date: '2019-05-20'
+---
 v1.5.0-pre.103:
 - sha: 306d38080307cebb6cd36b9b644e0b602b640fdd
   time: '1558385813'
