@@ -1,4 +1,18 @@
 ---
+v1.5.0-pre.103:
+- sha: 306d38080307cebb6cd36b9b644e0b602b640fdd
+  time: '1558385813'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 306d3808
+  date: '2019-05-20'
+- sha: 9e0f31561bf8d9842cea3ff54001b03d82b22ecd
+  time: '1558385808'
+  tags: []
+  message: Fix kube tunnel?
+  hash: 9e0f3156
+  date: '2019-05-20'
+---
 v1.5.0-pre.102:
 - sha: 3a38ba3b1e6cb753feb6c22f6a830a011f73bf50
   time: '1558383946'
