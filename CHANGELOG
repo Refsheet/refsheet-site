@@ -1,4 +1,36 @@
 ---
+v1.5.0-pre.102:
+- sha: 3a38ba3b1e6cb753feb6c22f6a830a011f73bf50
+  time: '1558383946'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 3a38ba3b
+  date: '2019-05-20'
+- sha: ea4b625e3916dc03ee55f65eb7f7a477fe0be7a0
+  time: '1558383941'
+  tags: []
+  message: Try configuring google cloud?
+  hash: ea4b625e
+  date: '2019-05-20'
+- sha: 5027bc0b95badf83ca6fa56c29587b00a2c76e24
+  time: '1557616553'
+  tags: []
+  message: Merge branch 'kube'
+  hash: 5027bc0b
+  date: '2019-05-11'
+- sha: 82e2a21e6e61aec473487f7aca013def02ca9877
+  time: '1556989584'
+  tags: []
+  message: Package redis chagne stuf.
+  hash: 82e2a21e
+  date: '2019-05-04'
+- sha: 1bc7abb840d3d79d615ea6322becfd8c1fe5810c
+  time: '1556905009'
+  tags: []
+  message: Remove Ougai logging??
+  hash: 1bc7abb8
+  date: '2019-05-03'
+---
 v1.5.0-pre.101:
 - sha: 66cc0503aaa91f27839e2f411f503f6f9895cb2d
   time: '1556996668'
