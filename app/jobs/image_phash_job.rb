@@ -1,4 +1,6 @@
 class ImagePhashJob < ApplicationJob
+  # self.queue_adapter = :resque
+
   def perform(image)
     Raven.breadcrumbs.record do |crumb|
       crumb.category = "ImagePhashJob"

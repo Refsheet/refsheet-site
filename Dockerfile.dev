@@ -4,6 +4,12 @@ MAINTAINER Refsheet.net Team <nerds@refsheet.net>
 RUN mkdir /app
 WORKDIR /app
 
+# Environment
+ENV RACK_ENV development
+ENV RAILS_ENV development
+ENV NODE_ENV development
+ENV PORT 5000
+
 
 # Install System Deps
 
@@ -32,7 +38,7 @@ RUN apt-get install -y nodejs
 COPY Gemfile      /app/Gemfile
 COPY Gemfile.lock /app/Gemfile.lock
 
-RUN bundle install --binstubs --deployment
+RUN bundle install
 
 
 # Yarn
@@ -46,22 +52,14 @@ COPY yarn.lock    /app/yarn.lock
 
 RUN yarn --pure-lockfile
 
-ENV NODE_OPTIONS="--max-old-space-size=4096"
-
 
 # Move App and Precompile
 
 COPY . /app
-RUN bundle exec rake assets:precompile RAILS_ENV=production
 
 
 # Execute Order 66
 
-EXPOSE 3000
-
-ENV RACK_ENV production
-ENV RAILS_ENV production
-ENV NODE_ENV production
-ENV PORT 3000
+EXPOSE $PORT
 
 CMD foreman start --formation "$FORMATION" --env ""
