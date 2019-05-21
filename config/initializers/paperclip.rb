@@ -28,6 +28,8 @@ Rails.application.configure do
 end
 
 class DelayedPaperclip::ProcessJob < ActiveJob::Base
+  self.queue_adapter = :split_queue
+
   def perform(instance_klass, instance_id, attachment_name)
     DelayedPaperclip.process_job(instance_klass, instance_id, attachment_name.to_sym)
 
