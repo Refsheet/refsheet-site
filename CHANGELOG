@@ -1,4 +1,18 @@
 ---
+v1.5.0-pre.112:
+- sha: 26f2d8b4171dad3f546e659414163ba2a3d5a1a1
+  time: '1558432178'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 26f2d8b4
+  date: '2019-05-21'
+- sha: 1c8e2d283cb6fa20fcced97b68f3c5c7e50fd04c
+  time: '1558432173'
+  tags: []
+  message: Bind nohup outputs.
+  hash: 1c8e2d28
+  date: '2019-05-21'
+---
 v1.5.0-pre.111:
 - sha: 0e577ac12b2b13e608d2cfd84a44f6256c42a3f7
   time: '1558426607'
