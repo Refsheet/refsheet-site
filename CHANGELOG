@@ -1,4 +1,18 @@
 ---
+v1.5.0-pre.109:
+- sha: 24386ad2369519074be2decc21f0db3519bb83c2
+  time: '1558422851'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 24386ad2
+  date: '2019-05-21'
+- sha: 676b51b1ec778e2adff586b8ae0dad215c3156e0
+  time: '1558422846'
+  tags: []
+  message: Yumdownloader also requires -y?
+  hash: 676b51b1
+  date: '2019-05-21'
+---
 v1.5.0-pre.108:
 - sha: 2c0dc9ea18e227c63594faffd01100357c8782aa
   time: '1558415816'
