@@ -1,4 +1,18 @@
 ---
+v1.5.0-pre.106:
+- sha: 803a942487c1e649a1a0abd96450a1c7a91686dd
+  time: '1558406240'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 803a9424
+  date: '2019-05-21'
+- sha: f09ed03c7e599eef34d00514a5e9f1e56eb6e908
+  time: '1558406232'
+  tags: []
+  message: Wow thanks YAML lint.
+  hash: f09ed03c
+  date: '2019-05-21'
+---
 v1.5.0-pre.105:
 - sha: 0d30ee2a6519e72057a53dfe1b019bf4c2e9b233
   time: '1558388567'
