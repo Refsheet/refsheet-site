@@ -2,7 +2,7 @@ version: '2'
 
 services:
   postgres:
-    image: 'postgres:10.3-alpine'
+    image: 'littlebobbytables/postgres-pg_similarity'
     volumes:
       - 'postgres:/var/lib/postgresql/data'
     env_file:
@@ -18,25 +18,46 @@ services:
     depends_on:
       - 'postgres'
       - 'redis'
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     ports:
-      - '3000:3000'
+      - '5000:5000'
     volumes:
       - '.:/app'
     env_file:
       - '.env'
+    environment:
+      FORMATION: web=1 webpacker=1
 
-  cable:
+  worker:
     depends_on:
+      - 'postgres'
       - 'redis'
-    build: .
-    command: puma -p 28080 cable/config.ru
-    ports:
-      - '28080:28080'
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     volumes:
       - '.:/app'
     env_file:
       - '.env'
+    environment:
+      FORMATION: worker=1
+
+#  cable:
+#    depends_on:
+#      - 'redis'
+#    build:
+#      context: .
+#      dockerfile: Dockerfile.dev
+#    ports:
+#      - '28080:28080'
+#    volumes:
+#      - '.:/app'
+#    env_file:
+#      - '.env'
+#    environment:
+#      FORMATION: cable=1
 
 volumes:
   redis:

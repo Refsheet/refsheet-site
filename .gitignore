@@ -51,3 +51,5 @@ yarn-error.log*
 # SSL Dev
 /config/certs/*
 !/config/certs/.keep
+
+db/*.dump

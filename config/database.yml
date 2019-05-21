@@ -1,20 +1,21 @@
-development:
+default: &default
   adapter: postgresql
-  database: refsheet-site-dev
-  username: refsheet-site-dev
-  password: fishsticks
+  encoding: unicode
+  host: <%= ENV['DB_HOST'] || 'localhost' %>
+  password: <%= ENV['DB_PASSWORD'] || 'fishsticks' %>
+  database: <%= ENV['DB_DATABASE'] || 'refsheet-site' %>
+  username: <%= ENV['DB_USERNAME'] || 'refsheet' %>
   timeout: 5000
-  pool: 15
-  host: localhost
+  pool: <%= ENV['DB_POOL'] || 10 %>
+  port: <%= ENV['DB_PORT'] || 5432 %>
+
+
+development:
+  <<: *default
 
 test:
-  adapter: postgresql
+  <<: *default
   database: refsheet-site-test
-  username: refsheet-site-test
-  password: fishsticks
-  timeout: 5000
-  pool: 15
-  host: localhost
 
 production:
   adapter: <%= ENV['RDS_DB_ADAPTER'] || 'postgresql' %>

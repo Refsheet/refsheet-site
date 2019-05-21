@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: refsheet-prod
+  namespace: default
+data:
+  ASSET_DOMAIN: assets.refsheet.net
+  AWS_REGION: us-east-1
+  CLOUD_DOMAIN: cloud.refsheet.net
+  DB_POOL: "15"
+  GA_PROPERTY_ID: UA-82222637-3
+  NODE_ENV: production
+  RACK_ENV: production
+  RAILS_ENV: production
+  RAILS_MAX_THREADS: "10"
+  REDIS_HOST: redis-prod.default.svc.cluster.local
+  REDIS_PORT: "6379"
+  S3_BUCKET_NAME: refsheet-prod
+  S3_REGION: us-east-1
+  GOOGLE_CLOUD: "1"
