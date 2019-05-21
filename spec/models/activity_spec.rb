@@ -41,11 +41,10 @@ describe Activity, type: :model do
     dsc = create :forum_discussion, user: chr.user
     cmt = create :media_comment, media: img, user: chr.user
 
-    expect(Activity.eager_loaded).to have_at_least(4).items
+    expect(Activity.eager_loaded).to have_at_least(3).items
 
     activities = Activity.eager_loaded.collect(&:activity)
     expect(activities).to include chr
-    expect(activities).to include img
     expect(activities).to include dsc
     expect(activities).to include cmt
   end
