@@ -1,4 +1,18 @@
 ---
+v1.5.0-pre.108:
+- sha: 2c0dc9ea18e227c63594faffd01100357c8782aa
+  time: '1558415816'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 2c0dc9ea
+  date: '2019-05-21'
+- sha: fb30bac613a11deb1e4cddeaba65a392d2c21681
+  time: '1558415811'
+  tags: []
+  message: Yum -y was holding things up forever.
+  hash: fb30bac6
+  date: '2019-05-21'
+---
 v1.5.0-pre.107:
 - sha: f983f79103f1e8202cb13bc79c29ea0db2e82761
   time: '1558412506'
