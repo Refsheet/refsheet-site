@@ -1,4 +1,18 @@
 ---
+v1.5.0-pre.111:
+- sha: 0e577ac12b2b13e608d2cfd84a44f6256c42a3f7
+  time: '1558426607'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 0e577ac1
+  date: '2019-05-21'
+- sha: f8fddf71cff02b7a153504b12983d81a83495b8e
+  time: '1558426603'
+  tags: []
+  message: Add kubeconfig env var.
+  hash: f8fddf71
+  date: '2019-05-21'
+---
 v1.5.0-pre.110:
 - sha: 63b018686a253dfe57eb687405f925f4d7dbd305
   time: '1558424367'
