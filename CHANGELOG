@@ -1,4 +1,24 @@
 ---
+v1.5.0-pre.107:
+- sha: f983f79103f1e8202cb13bc79c29ea0db2e82761
+  time: '1558412506'
+  tags: []
+  message: Don't overwrite python, that broke AWS :(
+  hash: f983f791
+  date: '2019-05-21'
+- sha: 2b24a2fc6efc5ef602c28fce9e36ea9ca62359ee
+  time: '1558412233'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 2b24a2fc
+  date: '2019-05-21'
+- sha: 9064774a2225bb523e745da4517bb51e786fe44d
+  time: '1558412228'
+  tags: []
+  message: Config lint!
+  hash: 9064774a
+  date: '2019-05-21'
+---
 v1.5.0-pre.106:
 - sha: 803a942487c1e649a1a0abd96450a1c7a91686dd
   time: '1558406240'
