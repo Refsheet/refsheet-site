@@ -95,7 +95,9 @@ class Image < ApplicationRecord # < Media
                                 unless: -> (i) { i.image_direct_upload_url.present? }
 
   process_in_background :image,
-                        url_with_processing: false
+                        processing_image_url: -> (attachment) {
+                          ActionController::Base.helpers.image_path("placeholders/processing_500.png")
+                        }
 
   # TODO - this will make it look like images are broken
   #        but it's just moving processing to the background server
