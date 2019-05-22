@@ -1,4 +1,139 @@
 ---
+v1.5.0-pre.113:
+- sha: 52161a3cbd713c2d050b9d0cc25f7f47dfb436b9
+  time: '1558438232'
+  tags: []
+  message: Fix specs and also split queue.
+  hash: 52161a3c
+  date: '2019-05-21'
+- sha: bc77f609c374225b82105aa166fa59637a614446
+  time: '1558435452'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: bc77f609
+  date: '2019-05-21'
+- sha: 30574bf8d51c5025b73226c4588175bde4c8a1c5
+  time: '1558435446'
+  tags: []
+  message: Use Resque for image_phash_job
+  hash: 30574bf8
+  date: '2019-05-21'
+- sha: 57a7e926a3cc6a1d44c4e544eb9092cc6c202b32
+  time: '1558435204'
+  tags: []
+  message: Merge branch 'kube2'
+  hash: 57a7e926
+  date: '2019-05-21'
+- sha: e371ce5a30af579e3f3288b32535535e0f6793e6
+  time: '1557700588'
+  tags: []
+  message: Notify after commit, not after create.
+  hash: e371ce5a
+  date: '2019-05-12'
+- sha: bc9fb7ad8af956da123231c48a5f4c253db4a8e2
+  time: '1557700483'
+  tags: []
+  message: Remove transaction around conversation creation, since that seems to be
+    causing trouble with the GraphQL broadcast.
+  hash: bc9fb7ad
+  date: '2019-05-12'
+- sha: b2c8fdb62b49c24402a25cabed0f3de855b09d63
+  time: '1557699988'
+  tags: []
+  message: Allow cable from Kube.
+  hash: b2c8fdb6
+  date: '2019-05-12'
+- sha: 1b4a46a29699898ed7899369f0555cbd5cd519a8
+  time: '1557660214'
+  tags: []
+  message: Goooogle use resque, it's running, I promise.
+  hash: 1b4a46a2
+  date: '2019-05-12'
+- sha: 55b6966d085c7db1872c67a0dcc3025bc0cf5620
+  time: '1557658159'
+  tags: []
+  message: Clear .env from Foreman startup.
+  hash: 55b6966d
+  date: '2019-05-12'
+- sha: b9aac9b3b1e0831bfc68eaa9cc038c47d89684eb
+  time: '1557650127'
+  tags: []
+  message: Debug log redis path.
+  hash: b9aac9b3
+  date: '2019-05-12'
+- sha: 6563ea38fcec3cfe90ac902880c6dac0049d91b5
+  time: '1557645383'
+  tags: []
+  message: Expose port at 3000 in prod.
+  hash: 6563ea38
+  date: '2019-05-12'
+- sha: 88f2bf009eecefc596d24172f68c491fb6d5417a
+  time: '1557643356'
+  tags: []
+  message: User revision id!
+  hash: 88f2bf00
+  date: '2019-05-12'
+- sha: 589fa28c6126dc267c252e4fc27d18837fbb9147
+  time: '1557641580'
+  tags: []
+  message: Env for all!
+  hash: 589fa28c
+  date: '2019-05-12'
+- sha: b30387cb092f13025b4468a18c6833faaabd60c5
+  time: '1557640513'
+  tags: []
+  message: No circle because that image is very picky.
+  hash: b30387cb
+  date: '2019-05-12'
+- sha: 16394ebaae5404f1f0f1f0b4e22d9e01e2cb770a
+  time: '1557636405'
+  tags: []
+  message: Increase node swap.
+  hash: 16394eba
+  date: '2019-05-12'
+- sha: 41c3c1afea7db95ed8e31cd5183566756155d39c
+  time: '1557635937'
+  tags: []
+  message: Pull cloud build cache.
+  hash: 41c3c1af
+  date: '2019-05-12'
+- sha: 4ab89fd1a4ef8c37b8cf0990a570b807419055b5
+  time: '1557635164'
+  tags: []
+  message: Limit node.
+  hash: 4ab89fd1
+  date: '2019-05-12'
+- sha: b7dbbcdd394c929cb611c9775f651b1696e81a6a
+  time: '1557633940'
+  tags: []
+  message: Timeout in seconds?
+  hash: b7dbbcdd
+  date: '2019-05-12'
+- sha: 35775da03f0c17b1cbc0469331de4cb9d657d32d
+  time: '1557633909'
+  tags: []
+  message: Fakkin commas.
+  hash: 35775da0
+  date: '2019-05-12'
+- sha: 628fe9069216e41981c2c0912f4e74442376dc10
+  time: '1557633750'
+  tags: []
+  message: Fix yaml?
+  hash: 628fe906
+  date: '2019-05-12'
+- sha: 52c81a639bcf4b38b70affd7da8589d68f4f1525
+  time: '1557633608'
+  tags: []
+  message: Kube kubing.
+  hash: 52c81a63
+  date: '2019-05-12'
+- sha: 5085d78b5bb78dc7a5d5ef0bef37873bd2498e22
+  time: '1557625683'
+  tags: []
+  message: Development docker container runs!
+  hash: 5085d78b
+  date: '2019-05-12'
+---
 v1.5.0-pre.112:
 - sha: 26f2d8b4171dad3f546e659414163ba2a3d5a1a1
   time: '1558432178'
