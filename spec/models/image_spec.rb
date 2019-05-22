@@ -160,6 +160,9 @@ describe Image, type: :model do
     let!(:b) { create :image, image: asset('fox.jpg') }
 
     before {
+      DelayedPaperclip::ProcessJob.perform_now('Image', a.id, 'image')
+      DelayedPaperclip::ProcessJob.perform_now('Image', b.id, 'image')
+
       ImagePhashJob.perform_now(a)
       ImagePhashJob.perform_now(b)
     }

@@ -1,7 +1,11 @@
 class ImagePhashJob < ApplicationJob
-  self.queue_adapter = :resque
+  unless Rails.env.test?
+    self.queue_adapter = :resque
+  end
 
   def perform(image)
+    image.reload
+
     Raven.breadcrumbs.record do |crumb|
       crumb.category = "ImagePhashJob"
       crumb.level = :info
