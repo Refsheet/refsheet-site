@@ -1,4 +1,18 @@
 ---
+v1.5.0-pre.115:
+- sha: a50a43914b03cae79d33ef0587abfd4754e82c66
+  time: '1558491679'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: a50a4391
+  date: '2019-05-22'
+- sha: bec368de645b8360a87520d63939b7c233335abc
+  time: '1558491674'
+  tags: []
+  message: Forgot to uh, add files.
+  hash: bec368de
+  date: '2019-05-22'
+---
 v1.5.0-pre.114:
 - sha: 883d250ac293467c0375be645aa30e6a4cf552f3
   time: '1558486896'
