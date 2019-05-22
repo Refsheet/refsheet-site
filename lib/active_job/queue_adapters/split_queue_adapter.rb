@@ -61,6 +61,10 @@ module ActiveJob
       end
 
       def pick_queue(job)
+        if Rails.env.test?
+          return lookup(Rails.configuration.active_job.queue_adapter)
+        end
+
         queue = if redis_available? && experiment_hit?(job)
                   Rails.logger.info("Experiment hit")
                   lookup(:resque)
