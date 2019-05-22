@@ -1,4 +1,19 @@
 ---
+v1.5.0-pre.114:
+- sha: 883d250ac293467c0375be645aa30e6a4cf552f3
+  time: '1558486896'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 883d250a
+  date: '2019-05-22'
+- sha: 6b96bfe2713460f7192571e3ed3065033253020f
+  time: '1558486890'
+  tags: []
+  message: Add user avatar process in background, add queue priority to google for
+    admins.
+  hash: 6b96bfe2
+  date: '2019-05-22'
+---
 v1.5.0-pre.113:
 - sha: 52161a3cbd713c2d050b9d0cc25f7f47dfb436b9
   time: '1558438232'
