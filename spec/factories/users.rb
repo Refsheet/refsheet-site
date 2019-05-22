@@ -21,6 +21,7 @@
 #  unconfirmed_email   :string
 #  email_confirmed_at  :datetime
 #  deleted_at          :datetime
+#  avatar_processing   :boolean
 #
 # Indexes
 #

@@ -21,6 +21,7 @@
 #  unconfirmed_email   :string
 #  email_confirmed_at  :datetime
 #  deleted_at          :datetime
+#  avatar_processing   :boolean
 #
 # Indexes
 #
@@ -94,6 +95,11 @@ class User < ApplicationRecord
   validates_attachment :avatar,
                        content_type: { content_type: /image\/*/ },
                        size: { in: 0..25.megabytes }
+
+  process_in_background :avatar,
+                        processing_image_url: -> (attachment) {
+                          ActionController::Base.helpers.image_path("placeholders/processing_500.png")
+                        }
 
   has_markdown_field :profile
 

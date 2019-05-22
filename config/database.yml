@@ -15,6 +15,7 @@ development:
 
 test:
   <<: *default
+  username: <%= ENV['DB_USERNAME'] || 'refsheet-site-test' %>
   database: refsheet-site-test
 
 production:
