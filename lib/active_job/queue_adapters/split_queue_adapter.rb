@@ -18,6 +18,19 @@ module ActiveJob
       end
 
       def guess_user(job)
+        Rails.logger.info job.class.name.inspect
+
+        if job.class.name == "DelayedPaperclip::ProcessJob"
+          klass = Object.const_get(job.arguments[0])
+          inst = klass.find(job.arguments[1])
+
+          if inst.is_a? User
+            return inst
+          elsif inst.respond_to? :user
+            return inst.user
+          end
+        end
+
         job.arguments.each do |arg|
           if arg.is_a? User
             return arg
@@ -28,6 +41,7 @@ module ActiveJob
 
         nil
       rescue => e
+        puts e.message
         return nil
       end
 
