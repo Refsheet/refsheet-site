@@ -18,7 +18,7 @@ module Refsheet
           emergency: "EMERGENCY"
       }
 
-      hash[:level] = levels[log.level.downcase.to_sym] || "DEFAULT"
+      hash[:severity] = levels[log.level.downcase.to_sym] || "DEFAULT"
       hash[:level_index] = log.level_index
     end
   end
