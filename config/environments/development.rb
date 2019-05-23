@@ -16,7 +16,6 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
   # config.logger = Refsheet::Logger.new(STDOUT)
   STDOUT.sync = true
-  config.logger = ActiveSupport::Logger.new(STDOUT)
 
   config.rails_semantic_logger.format = Refsheet::LogFormatter.new
   config.log_tags = {
@@ -24,6 +23,9 @@ Rails.application.configure do
       ip: :remote_ip,
       username: -> request { SessionHelper.user_jar(request) }
   }
+
+  config.rails_semantic_logger.add_file_appender = false
+  config.semantic_logger.add_appender(io: STDOUT, level: config.log_level, formatter: config.rails_semantic_logger.format)
 
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
