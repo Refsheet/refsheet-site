@@ -12,16 +12,18 @@ spec:
       labels:
         app: refsheet-prod
         tier: refsheet-prod-worker
+      annotations:
+        configHash: ff6c1455a5b13e8b4459d3aed8bdfba9ade655921df1a59ff8171a03078c596d
     spec:
       containers:
-        - name: refsheet-prod-worker
-          image: gcr.io/refsheet-239409/refsheet-site:latest
-          imagePullPolicy: Always
-          env:
-            - name: FORMATION
-              value: worker=1
-          envFrom:
-            - configMapRef:
-                name: refsheet-prod
-            - secretRef:
-                name: refsheet-prod-secret
+      - name: refsheet-prod-worker
+        image: gcr.io/refsheet-239409/refsheet-site:latest
+        imagePullPolicy: Always
+        env:
+        - name: FORMATION
+          value: worker=1
+        envFrom:
+        - configMapRef:
+            name: refsheet-prod
+        - secretRef:
+            name: refsheet-prod-secret

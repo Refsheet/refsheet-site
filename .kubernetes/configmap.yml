@@ -18,3 +18,4 @@ data:
   S3_BUCKET_NAME: refsheet-prod
   S3_REGION: us-east-1
   GOOGLE_CLOUD: "1"
+  RAILS_LOG_TO_STDOUT: "1"

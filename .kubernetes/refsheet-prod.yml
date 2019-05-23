@@ -12,29 +12,31 @@ spec:
       labels:
         app: refsheet-prod
         tier: frontend
+      annotations:
+        configHash: ff6c1455a5b13e8b4459d3aed8bdfba9ade655921df1a59ff8171a03078c596d
     spec:
       containers:
-        - name: refsheet-prod
-          image: gcr.io/refsheet-239409/refsheet-site:latest
-          imagePullPolicy: Always
-          livenessProbe:
-            httpGet:
-              path: /health.json
-              port: 3000
-              scheme: HTTP
-          readinessProbe:
-            httpGet:
-              path: /health.json
-              port: 3000
-              scheme: HTTP
-          env:
-            - name: FORMATION
-              value: web=1
-          envFrom:
-            - configMapRef:
-                name: refsheet-prod
-            - secretRef:
-                name: refsheet-prod-secret
-          ports:
-            - containerPort: 3000
-              protocol: TCP
+      - name: refsheet-prod
+        image: gcr.io/refsheet-239409/refsheet-site:latest
+        imagePullPolicy: Always
+        livenessProbe:
+          httpGet:
+            path: /health.json
+            port: 3000
+            scheme: HTTP
+        readinessProbe:
+          httpGet:
+            path: /health.json
+            port: 3000
+            scheme: HTTP
+        env:
+        - name: FORMATION
+          value: web=1
+        envFrom:
+        - configMapRef:
+            name: refsheet-prod
+        - secretRef:
+            name: refsheet-prod-secret
+        ports:
+        - containerPort: 3000
+          protocol: TCP
