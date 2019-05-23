@@ -15,8 +15,15 @@ Rails.application.configure do
 
   # Settings specified here will take precedence over those in config/application.rb.
   # config.logger = Refsheet::Logger.new(STDOUT)
+  STDOUT.sync = true
   config.logger = ActiveSupport::Logger.new(STDOUT)
-  config.log_tags = [:request_id]
+
+  config.rails_semantic_logger.format = Refsheet::LogFormatter.new
+  config.log_tags = {
+      request_id: :request_id,
+      ip: :remote_ip,
+      username: -> request { SessionHelper.user_jar(request) }
+  }
 
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development

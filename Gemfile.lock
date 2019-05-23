@@ -416,6 +416,9 @@ GEM
       loofah (~> 2.2, >= 2.2.2)
     rails-ujs (0.1.0)
       railties (>= 3.1)
+    rails_semantic_logger (4.4.1)
+      rails (>= 3.2)
+      semantic_logger (~> 4.4)
     railties (5.0.7.2)
       actionpack (= 5.0.7.2)
       activesupport (= 5.0.7.2)
@@ -532,6 +535,8 @@ GEM
       childprocess (~> 0.5)
       rubyzip (~> 1.2, >= 1.2.2)
     semantic (1.6.1)
+    semantic_logger (4.5.0)
+      concurrent-ruby (~> 1.0)
     sentry-raven (2.9.0)
       faraday (>= 0.7.6, < 1.0)
     serviceworker-rails (0.5.5)
@@ -709,6 +714,7 @@ DEPENDENCIES
   rails-assets-tinyColorPicker!
   rails-controller-testing
   rails-ujs
+  rails_semantic_logger
   rake (~> 12.3.1)
   ranked-model
   react-rails!

@@ -162,4 +162,25 @@ module SessionHelper
       @eager_load.merge! object_or_key.to_sym => value
     end
   end
+
+  def self.user_jar(request)
+    @@user_jar ||= {}
+    user_id = request.cookie_jar.signed[UserSession::COOKIE_USER_ID_NAME]
+
+    if user_id
+      unless @@user_jar.include? user_id
+        user = User.unscoped.find_by(id: user_id)
+
+        if user
+          @@user_jar[user_id] = user&.username || '<not-found>'
+        else
+          @@user_jar[user_id] = nil
+        end
+      end
+
+      return @@user_jar[user_id]
+    else
+      nil
+    end
+  end
 end
