@@ -19,9 +19,13 @@ spec:
       - name: refsheet-prod-worker
         image: gcr.io/refsheet-239409/refsheet-site:latest
         imagePullPolicy: Always
-        env:
-        - name: FORMATION
-          value: worker=1
+        command:
+        - bundle
+        args:
+        - exec
+        - rake
+        - resque:work
+        - QUEUE=*
         envFrom:
         - configMapRef:
             name: refsheet-prod

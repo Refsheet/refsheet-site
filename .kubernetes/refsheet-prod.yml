@@ -29,9 +29,16 @@ spec:
             path: /health.json
             port: 3000
             scheme: HTTP
-        env:
-        - name: FORMATION
-          value: web=1
+        command:
+        - bundle
+        args:
+        - exec
+        - rails
+        - server
+        - -b
+        - 0.0.0.0
+        - -p
+        - "5000"
         envFrom:
         - configMapRef:
             name: refsheet-prod
