@@ -105,7 +105,7 @@ Rails.application.configure do
   config.active_support.deprecation = :notify
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
-  config.log_formatter = ::Logger::Formatter.new
+  # config.log_formatter = ::Logger::Formatter.new
 
   # Use a different logger for distributed setups.
   # require 'syslog/logger'
@@ -113,14 +113,17 @@ Rails.application.configure do
 
   # if ENV["RAILS_LOG_TO_STDOUT"].present?
   STDOUT.sync = true
-  config.logger = ActiveSupport::Logger.new(STDOUT)
 
+  config.rails_semantic_logger.add_file_appender = false
   config.rails_semantic_logger.format = Refsheet::LogFormatter.new
+
   config.log_tags = {
       request_id: :request_id,
       ip: :remote_ip,
       username: -> request { SessionHelper.user_jar(request) }
   }
+
+  config.semantic_logger.add_appender(io: STDOUT, level: config.log_level, formatter: config.rails_semantic_logger.format)
   # end
 
   # config.logger = Refsheet::Logger.new(STDOUT)
