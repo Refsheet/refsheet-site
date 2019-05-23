@@ -12,6 +12,8 @@ default: &default
 
 development:
   <<: *default
+  username: <%= ENV['DB_USERNAME'] || 'refsheet-site-dev' %>
+  database: <%= ENV['DB_DATABASE'] || 'refsheet-site-dev' %>
 
 test:
   <<: *default

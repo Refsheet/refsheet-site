@@ -112,9 +112,15 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
   # if ENV["RAILS_LOG_TO_STDOUT"].present?
-    logger           = ActiveSupport::Logger.new(STDOUT)
-    logger.formatter = config.log_formatter
-    config.logger = ActiveSupport::TaggedLogging.new(logger)
+  STDOUT.sync = true
+  config.logger = ActiveSupport::Logger.new(STDOUT)
+
+  config.rails_semantic_logger.format = Refsheet::LogFormatter.new
+  config.log_tags = {
+      request_id: :request_id,
+      ip: :remote_ip,
+      username: -> request { SessionHelper.user_jar(request) }
+  }
   # end
 
   # config.logger = Refsheet::Logger.new(STDOUT)

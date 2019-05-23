@@ -26,6 +26,7 @@ gem 'webpacker'
 gem 'faraday_middleware'
 gem 'json', '~> 2.1.0'
 gem 'ar-octopus'
+gem 'rails_semantic_logger'
 
 # == FRONT END
 
