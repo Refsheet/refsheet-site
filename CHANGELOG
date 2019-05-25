@@ -1,4 +1,60 @@
 ---
+v1.5.0-pre.117:
+- sha: c7c2ec3917d0ee58b70ea9ea56e8738239ec45ad
+  time: '1558802309'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: c7c2ec39
+  date: '2019-05-25'
+- sha: 64d0fb5ad7f36f2f43c54dce9da3fc1c31bb6179
+  time: '1558600050'
+  tags: []
+  message: derp
+  hash: 64d0fb5a
+  date: '2019-05-23'
+- sha: 17bcae5cea506d2cfbe9dcf826184a18d1ef2687
+  time: '1558597846'
+  tags: []
+  message: Attempt to fix Resque forking?
+  hash: 17bcae5c
+  date: '2019-05-23'
+- sha: 4683cbc6846ce324380f84da6067baf225acd135
+  time: '1558593677'
+  tags: []
+  message: User severity for Goog?
+  hash: 4683cbc6
+  date: '2019-05-23'
+- sha: dc939ae29adb5719e0c20f7c016b65ce956c733c
+  time: '1558592585'
+  tags: []
+  message: I'm a whole idiot.
+  hash: dc939ae2
+  date: '2019-05-23'
+- sha: 4da1002b5b6a334a04700caa8ad3dbacd9bd2784
+  time: '1558588647'
+  tags: []
+  message: Directly run commands instead of using foreman in prod.
+  hash: 4da1002b
+  date: '2019-05-23'
+- sha: edc3ad6d527f635ab295d14b37625eddb7099d21
+  time: '1558584195'
+  tags: []
+  message: Appender to STDOUT???
+  hash: edc3ad6d
+  date: '2019-05-23'
+- sha: 01211aec62dbcfd0a33747d0b6cfeb011c751317
+  time: '1558576448'
+  tags: []
+  message: Add config map cache to kube.
+  hash: 01211aec
+  date: '2019-05-23'
+- sha: 3dd42986abf2439a9396f95e9121e60de7150f4e
+  time: '1558570458'
+  tags: []
+  message: Add json logging again, without ougai.
+  hash: 3dd42986
+  date: '2019-05-23'
+---
 v1.5.0-pre.116:
 - sha: 15389eee109349048971ed51a9312bbf08af24f6
   time: '1558495907'
