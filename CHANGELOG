@@ -1,4 +1,30 @@
 ---
+v1.5.0-pre.116:
+- sha: 15389eee109349048971ed51a9312bbf08af24f6
+  time: '1558495907'
+  tags: []
+  message: Fix broken spec with image placeholder.
+  hash: 15389eee
+  date: '2019-05-22'
+- sha: d765221e84fa453a67b4fb973fd71c4d65e3684b
+  time: '1558494770'
+  tags: []
+  message: Adjust queue priority to check out DPC's args, too.
+  hash: d765221e
+  date: '2019-05-22'
+- sha: 521857cefaf3a00a58242415acd3b2d6f1dc6a33
+  time: '1558493738'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 521857ce
+  date: '2019-05-22'
+- sha: 309690cde472dfaf0a18eeb19ebefa14660c4e84
+  time: '1558493732'
+  tags: []
+  message: Show a processing placeholder to appease the "broken" look.
+  hash: 309690cd
+  date: '2019-05-22'
+---
 v1.5.0-pre.115:
 - sha: a50a43914b03cae79d33ef0587abfd4754e82c66
   time: '1558491679'
