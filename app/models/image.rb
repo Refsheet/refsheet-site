@@ -132,6 +132,8 @@ class Image < ApplicationRecord # < Media
   scope :nsfw, -> { where(nsfw: true) }
   scope :visible, -> { where(hidden: false) }
 
+  scope :processing, -> { where(image_processing: true) }
+
   scope :similar_to, -> (image) {
     target_hash = image.image_phash
     where(<<-SQL.squish, image.id, target_hash)

@@ -8,8 +8,22 @@ class PublicController < ApplicationController
   def health
     # Ensure we have a connection to our database and that everything
     # is functioning correctly:
-    counts = [User.count, Character.count, Image.count]
-    render json: { status: "OK", counts: counts, version: Refsheet::VERSION }, status: 200
+    counts = {
+        users: User.unscoped.count,
+        characters: Character.unscoped.count,
+        images: {
+            total: Image.unscoped.count,
+            queued: Image.processing.count
+        }
+    }
+
+    Rails.logger.info("HEALTH_CHECK", counts)
+
+    render json: {
+        status: "OK",
+        counts: counts,
+        version: Refsheet::VERSION
+    }, status: 200
   rescue => _e
     head :internal_server_error
   end
