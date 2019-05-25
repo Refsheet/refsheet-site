@@ -50,7 +50,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
 COPY package.json /app/package.json
 COPY yarn.lock    /app/yarn.lock
 
-RUN yarn --pure-lockfile
+RUN yarn install
 
 
 # Move App and Precompile
@@ -61,5 +61,7 @@ COPY . /app
 # Execute Order 66
 
 EXPOSE $PORT
+
+ENTRYPOINT bin/entrypoint.dev.sh
 
 CMD foreman start --formation "$FORMATION" --env ""
