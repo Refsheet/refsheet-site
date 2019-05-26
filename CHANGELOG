@@ -1,4 +1,18 @@
 ---
+v1.5.0-pre.119:
+- sha: a07d77ffe94cc87db48d8941eed4f32dd2b37263
+  time: '1558901423'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: a07d77ff
+  date: '2019-05-26'
+- sha: 6c35310f471eaf9bf3c774621abb77389312a8d2
+  time: '1558901417'
+  tags: []
+  message: Add cronjob to Kube.
+  hash: 6c35310f
+  date: '2019-05-26'
+---
 v1.5.0-pre.118:
 - sha: e34c14f7f195180a5eaae4f1ace9823dada69696
   time: '1558899359'
