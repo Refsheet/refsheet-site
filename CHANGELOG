@@ -1,4 +1,24 @@
 ---
+v1.5.0-pre.118:
+- sha: e34c14f7f195180a5eaae4f1ace9823dada69696
+  time: '1558899359'
+  tags: []
+  message: Fix spec.
+  hash: e34c14f7
+  date: '2019-05-26'
+- sha: 0d5e338bc262356bc18746cf3a6e3f5c71e7e66d
+  time: '1558807355'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 0d5e338b
+  date: '2019-05-25'
+- sha: 0a72d1fd7fe5b4e1467d3ab6d0917944eeb0ed4c
+  time: '1558807349'
+  tags: []
+  message: Add counts to /health.json
+  hash: 0a72d1fd
+  date: '2019-05-25'
+---
 v1.5.0-pre.117:
 - sha: c7c2ec3917d0ee58b70ea9ea56e8738239ec45ad
   time: '1558802309'
