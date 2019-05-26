@@ -62,6 +62,6 @@ COPY . /app
 
 EXPOSE $PORT
 
-ENTRYPOINT bin/entrypoint.dev.sh
+ENTRYPOINT ["bin/entrypoint.dev.sh"]
 
 CMD foreman start --formation "$FORMATION" --env ""
