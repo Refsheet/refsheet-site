@@ -8,13 +8,13 @@ describe 'Health Checks' do
     end
 
     it 'returns 200 on success' do
-      expect(User).to receive(:count).and_call_original
+      expect(User).to receive(:unscoped).and_call_original
       get '/health'
       expect(response).to have_http_status :ok
     end
 
     it 'returns error if DB disconnected' do
-      expect(User).to receive(:count).and_raise {
+      expect(User).to receive(:unscoped).and_raise {
         ActiveRecord::ConnectionNotEstablished.new
       }
 
