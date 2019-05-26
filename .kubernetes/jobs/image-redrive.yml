@@ -1,0 +1,31 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: image-redrive
+spec:
+  schedule: "0 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        labels:
+          app: refsheet-prod
+          tier: refsheet-prod-job
+        annotations:
+          configHash: 865d934592b343dc93d6e8e43c4b6adaa208d30a0b8b7cfe0381c157d5598e38
+        spec:
+          containers:
+            - name: image-redrive
+              image: gcr.io/refsheet-239409/refsheet-site:4683cbc6846ce324380f84da6067baf225acd135
+              imagePullPolicy: Always
+              command:
+                - bundle
+              args:
+                - exec
+                - rails
+                - runner
+                - ImageRedriveJob.perform_now
+              envFrom:
+                - configMapRef:
+                    name: refsheet-prod
+                - secretRef:
+                    name: refsheet-prod-secret
