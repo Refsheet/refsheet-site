@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: refsheet-prod-worker
-        image: gcr.io/refsheet-239409/refsheet-site:bca931d94c0a4b73b5338f0d01099c9b8b452a2c
+        image: gcr.io/refsheet-239409/refsheet-site:b084e85471a41b80c5f12a5a7a968781fc7f5ffa
         imagePullPolicy: Always
         command:
         - bundle
