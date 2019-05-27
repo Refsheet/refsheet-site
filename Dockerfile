@@ -52,7 +52,7 @@ ENV NODE_OPTIONS="--max-old-space-size=4096"
 # Move App and Precompile
 
 COPY . /app
-#RUN bundle exec rake assets:precompile RAILS_ENV=production
+RUN bundle exec rake assets:precompile RAILS_ENV=production
 
 
 # Execute Order 66
