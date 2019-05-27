@@ -32,7 +32,7 @@ RUN apt-get install -y nodejs
 COPY Gemfile      /app/Gemfile
 COPY Gemfile.lock /app/Gemfile.lock
 
-RUN bundle install --without="development test"
+RUN bundle install --without="development test" --deployment
 
 
 # Yarn
