@@ -19,7 +19,7 @@ namespace :kube do
     # Jobs:
     Dir['.kubernetes/jobs/*.yml'].each do |file|
       sh "yq", "w", "-i", file, "spec.jobTemplate.spec.template.metadata.annotations.configHash", config_hash
-      sh "yq", "q", "-i", file, "spec.jobTemplate.spec.template.spec.containers[*].image", latest_image
+      sh "yq", "w", "-i", file, "spec.jobTemplate.spec.template.spec.containers[*].image", latest_image
       apply! file
     end
   end
