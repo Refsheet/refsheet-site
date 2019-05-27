@@ -11,17 +11,21 @@ namespace :kube do
     # Deployments:
     %w[refsheet-prod refsheet-prod-worker].each do |deployment|
       file = ".kubernetes/#{deployment}.yml"
-      sh "yq", "w", "-i", file, "spec.template.metadata.annotations.configHash", config_hash
-      sh "yq", "w", "-i", file, "spec.template.spec.containers[*].image", latest_image
+      yq! file, "spec.template.metadata.annotations.configHash", config_hash
+      yq! file, "spec.template.spec.containers[*].image", latest_image
       apply! file
     end
 
     # Jobs:
     Dir['.kubernetes/jobs/*.yml'].each do |file|
-      sh "yq", "w", "-i", file, "spec.jobTemplate.spec.template.metadata.annotations.configHash", config_hash
-      sh "yq", "w", "-i", file, "spec.jobTemplate.spec.template.spec.containers[*].image", latest_image
+      yq! file, "spec.jobTemplate.spec.template.metadata.annotations.configHash", config_hash
+      yq! file, "spec.jobTemplate.spec.template.spec.containers[*].image", latest_image
       apply! file
     end
+  end
+
+  def yq!(file, path, value)
+    sh "yq", "w", "-i", file, path, value
   end
 
   def apply!(config_file)

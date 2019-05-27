@@ -32,7 +32,7 @@ RUN apt-get install -y nodejs
 COPY Gemfile      /app/Gemfile
 COPY Gemfile.lock /app/Gemfile.lock
 
-RUN bundle install --binstubs --deployment
+RUN bundle install --without="development test"
 
 
 # Yarn
@@ -52,7 +52,7 @@ ENV NODE_OPTIONS="--max-old-space-size=4096"
 # Move App and Precompile
 
 COPY . /app
-RUN bundle exec rake assets:precompile RAILS_ENV=production
+#RUN bundle exec rake assets:precompile RAILS_ENV=production
 
 
 # Execute Order 66
