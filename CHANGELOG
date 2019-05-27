@@ -1,4 +1,24 @@
 ---
+v1.5.0-pre.122:
+- sha: 6aaa02ef4565fa23d676f2b20872dae00aa71318
+  time: '1558933873'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 6aaa02ef
+  date: '2019-05-27'
+- sha: 1c0dc0744ce0964634cb36ee0f70541ff5a90749
+  time: '1558933866'
+  tags: []
+  message: Recompile assets I guess.
+  hash: 1c0dc074
+  date: '2019-05-27'
+- sha: d2a0ccf833b698969924051ad7e1e07c48146852
+  time: '1558933856'
+  tags: []
+  message: Recompile assets I guess.
+  hash: d2a0ccf8
+  date: '2019-05-27'
+---
 v1.5.0-pre.121:
 - sha: b084e85471a41b80c5f12a5a7a968781fc7f5ffa
   time: '1558932210'
