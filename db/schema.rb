@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190522000950) do
+ActiveRecord::Schema.define(version: 20190530082430) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -418,9 +418,11 @@ ActiveRecord::Schema.define(version: 20190522000950) do
     t.boolean  "locked"
     t.boolean  "nsfw"
     t.boolean  "no_rp"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.boolean  "system_owned", default: false
     t.index ["slug"], name: "index_forums_on_slug", using: :btree
+    t.index ["system_owned"], name: "index_forums_on_system_owned", using: :btree
   end
 
   create_table "images", force: :cascade do |t|

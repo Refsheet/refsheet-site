@@ -33,4 +33,9 @@ Types::MutationType = GraphQL::ObjectType.define do
   field :updateProfileWidget, field: Mutations::ProfileWidgetMutations::Update
   field :createProfileWidget, field: Mutations::ProfileWidgetMutations::Create
   field :deleteProfileWidget, field: Mutations::ProfileWidgetMutations::Delete
+
+  #== Forums
+
+  field :createForum, field: Mutations::ForumMutations::Create
+  field :updateForum, field: Mutations::ForumMutations::Update
 end

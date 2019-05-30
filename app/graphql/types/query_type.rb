@@ -116,4 +116,9 @@ Types::QueryType = GraphQL::ObjectType.define do
 
   field :searchForUser, field: Mutations::UserMutations::Search
   field :searchForCharacter, field: Mutations::CharacterMutations::Search
+
+  #== Forums
+
+  field :getForums, field: Mutations::ForumMutations::Index
+  field :getForum, field: Mutations::ForumMutations::Show
 end
