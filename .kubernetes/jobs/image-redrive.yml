@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: image-redrive
 spec:
-  schedule: '*/1 * * * *'
+  schedule: '*/15 * * * *'
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:
@@ -18,7 +18,7 @@ spec:
           restartPolicy: Never
           containers:
           - name: image-redrive
-            image: gcr.io/refsheet-239409/refsheet-site:b084e85471a41b80c5f12a5a7a968781fc7f5ffa
+            image: gcr.io/refsheet-239409/refsheet-site:6aaa02ef4565fa23d676f2b20872dae00aa71318
             imagePullPolicy: Always
             command:
             - bundle
