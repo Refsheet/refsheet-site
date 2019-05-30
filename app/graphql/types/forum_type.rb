@@ -19,4 +19,18 @@ Types::ForumType = GraphQL::ObjectType.define do
   field :nsfw, types.Boolean
   field :no_rp, types.Boolean
   field :system_owned, types.Boolean
+
+  field :discussions, types[Types::ForumDiscussionType] do
+    argument :page, types.Int
+
+    resolve -> (obj, args, _ctx) {
+      scope = obj.threads
+
+      if args[:page]
+        scope = scope.page(args[:page])
+      end
+
+      scope
+    }
+  end
 end
