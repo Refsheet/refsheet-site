@@ -34,3 +34,8 @@ end
 
 make_user 'username', 'user@example.com' do |user|
 end
+
+Forum.create(name: 'Support', slug: 'support', description: 'For technical and account support.') unless Forum.exists? slug: 'support'
+Forum.create(name: 'Site Feedback', slug: 'feedback', description: 'Feature requests and site feedback.') unless Forum.exists? slug: 'feedback'
+Forum.create(name: 'Swaps', slug: 'swaps', description: 'Trade art + characters!') unless Forum.exists? slug: 'swaps'
+Forum.create(name: 'Roleplay', slug: 'rp', description: 'OwO *notices ur forum*') unless Forum.exists? slug: 'rp'
