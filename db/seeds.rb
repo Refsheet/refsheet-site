@@ -35,7 +35,17 @@ end
 make_user 'username', 'user@example.com' do |user|
 end
 
+#== Forums
+
 Forum.create(name: 'Support', slug: 'support', description: 'For technical and account support.') unless Forum.exists? slug: 'support'
 Forum.create(name: 'Site Feedback', slug: 'feedback', description: 'Feature requests and site feedback.') unless Forum.exists? slug: 'feedback'
 Forum.create(name: 'Swaps', slug: 'swaps', description: 'Trade art + characters!') unless Forum.exists? slug: 'swaps'
 Forum.create(name: 'Roleplay', slug: 'rp', description: 'OwO *notices ur forum*') unless Forum.exists? slug: 'rp'
+
+10.times do
+  Forum::Discussion.create!(forum: Forum.random, user: User.random, topic: Faker::Books::Lovecraft.tome, content: Faker::Books::Lovecraft.paragraph)
+end
+
+30.times do
+  Forum::Post.create!(thread: Forum::Discussion.random, user: User.random, content: Faker::Books::Lovecraft.paragraph)
+end

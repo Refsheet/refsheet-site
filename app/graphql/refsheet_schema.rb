@@ -41,3 +41,21 @@ class ActionCable::Connection::Subscriptions
     logger.error "Could not execute command from #{data.inspect}) [#{e.class} - #{e.message}]: #{e.backtrace.first(5).join(" | ")}"
   end
 end
+
+module GraphQL
+  class Schema
+    class RescueMiddleware
+      private
+      def attempt_rescue(err)
+        rescue_table.each do |exception_class, handler|
+          if err.kind_of? exception_class
+            message = handler.call(err)
+            return GraphQL::ExecutionError.new(message)
+          end
+        end
+
+        raise(err)
+      end
+    end
+  end
+end

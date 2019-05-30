@@ -12,6 +12,10 @@ class ApplicationRecord < ActiveRecord::Base
     end
   end
 
+  def self.random
+    order("RANDOM()").first
+  end
+
   private
 
   # Rollbar #496
