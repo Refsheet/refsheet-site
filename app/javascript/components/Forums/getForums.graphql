@@ -1,0 +1,10 @@
+query getForums {
+    getForums {
+        id
+        slug
+        name
+        description
+        system_owned
+        created_at
+    }
+}
