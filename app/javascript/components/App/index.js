@@ -12,6 +12,9 @@ import { ThemeProvider } from 'styled-components'
 import { base as defaultTheme } from 'themes/default'
 import DropzoneProvider from '../Dropzone'
 import Lightbox from '../Lightbox'
+import { I18nextProvider } from 'react-i18next'
+
+import i18n from '../../services/i18n.js'
 
 reactGuard(React, (error, componentInfo) => {
   const errorString = `Failed to render <${componentInfo.name} />!`
@@ -37,6 +40,7 @@ const App = ({children: propChildren, state}) => {
   const theme = defaultTheme
 
   return (
+    <I18nextProvider i18n={i18n}>
       <ThemeProvider theme={ theme }>
         <ApolloProvider client={ client } store={store}>
           <ReduxProvider store={ store }>
@@ -46,6 +50,7 @@ const App = ({children: propChildren, state}) => {
           </ReduxProvider>
         </ApolloProvider>
       </ThemeProvider>
+    </I18nextProvider>
   )
 }
 
