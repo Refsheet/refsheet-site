@@ -89,6 +89,8 @@
     maxRowHeight: $(window).width() * (coef * 0.4)
 
   _getThumbnailPath: (currentPath, width, height, image) ->
+    currentPath ||= ''
+
     results = currentPath.match(/\d{3}\/\d{3}\/\d{3}\/(\w+)\//)
 
     if results
