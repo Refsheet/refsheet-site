@@ -1,4 +1,37 @@
 ---
+v1.5.0-pre.123:
+- sha: e9a272bdda1f47a791b0a3fec046a9848f3b5d5b
+  time: '1562719797'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: e9a272bd
+  date: '2019-07-10'
+- sha: f6ba3369dc55c85303c026955c45af2b99db3bfe
+  time: '1562719783'
+  tags: []
+  message: Fix report mailer for admins, add report to admin panel, add auto_resolve
+    button and pass button (which is useless right now)
+  hash: f6ba3369
+  date: '2019-07-10'
+- sha: aecc202ab43b2ea71ac23686c5e80b377dbe911d
+  time: '1559207923'
+  tags: []
+  message: Add forum discussion & posts to GraphQL
+  hash: aecc202a
+  date: '2019-05-30'
+- sha: ef115f8bc357bd934e1bb521b542220943b4343f
+  time: '1559205653'
+  tags: []
+  message: Add forum to GraphQL, add system_owned flag.
+  hash: ef115f8b
+  date: '2019-05-30'
+- sha: 5574dec71238e2b26958d8f66031f7e5bd9d45da
+  time: '1559201353'
+  tags: []
+  message: Kube update config.
+  hash: 5574dec7
+  date: '2019-05-30'
+---
 v1.5.0-pre.122:
 - sha: 6aaa02ef4565fa23d676f2b20872dae00aa71318
   time: '1558933873'
