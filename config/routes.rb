@@ -166,7 +166,9 @@ Rails.application.routes.draw do
 
     resources :users, except: [:destroy]
     resources :characters, except: [:destroy]
-    resources :images, except: [:destroy]
+    resources :images, except: [:destroy] do
+      get :download
+    end
     resources :pledges, only: [:index, :show]
     resources :changelogs, only: [:index, :show]
     resources :forums, only: [:index, :show, :update, :create]
