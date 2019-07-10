@@ -9,6 +9,10 @@ class Admin::ModerationReportsController < AdminController
       scope = scope.pending
     end
 
+    if params[:violation_type]
+      scope = scope.where(violation_type: params[:violation_type])
+    end
+
     if (sender_id = User.lookup(params[:sender])&.id)
       scope = scope.where(sender_user_id: sender_id)
     end
