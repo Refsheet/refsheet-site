@@ -1,4 +1,18 @@
 ---
+v1.5.0-pre.124:
+- sha: 9e2e04975542f6c5c9f0296cb3f8c092e859714f
+  time: '1562721800'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 9e2e0497
+  date: '2019-07-10'
+- sha: 4dca0342823c312b94d5788ce277bda541600132
+  time: '1562721794'
+  tags: []
+  message: Finalized admin reporting interface.
+  hash: 4dca0342
+  date: '2019-07-10'
+---
 v1.5.0-pre.123:
 - sha: e9a272bdda1f47a791b0a3fec046a9848f3b5d5b
   time: '1562719797'
