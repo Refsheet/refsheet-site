@@ -41,7 +41,7 @@ class ModerationReport < ApplicationRecord
 
   belongs_to :user
   belongs_to :sender, foreign_key: :sender_user_id, class_name: "User"
-  belongs_to :moderatable, polymorphic: true
+  belongs_to :moderatable, -> { with_deleted }, polymorphic: true
 
   validates_presence_of :violation_type
   validates_inclusion_of :violation_type, in: VIOLATION_TYPES.keys
@@ -56,6 +56,9 @@ class ModerationReport < ApplicationRecord
   VIOLATION_TYPES.keys.each do |key|
     scope key, -> { where violation_type: key }
   end
+
+  scope :similar_to, -> (report) { where moderatable_type: report.moderatable_type, moderatable_id: report.moderatable_id }
+  scope :same_as, -> (report) { similar_to(report).where violation_type: report.violation_type }
 
   state_machine :status, initial: :pending do
     before_transition any => :removed, do: [:auto_remove_item, :send_removal_notice]

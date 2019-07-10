@@ -19,7 +19,7 @@
           - image = @report.moderatable
           = link_to image_tag(image.image.url(:thumbnail), alt: image.caption), admin_moderation_report_url(@report.id)
         - else
-          = link_to "#{@report.moderatable_type}(#{@report.moderatable_id})", admin_moderation_report_path(@report.id)
+          = link_to "#{@report.moderatable_type}(#{@report.moderatable_id})", admin_moderation_report_url(@report.id)
 
   - if @report.user
     %tr
