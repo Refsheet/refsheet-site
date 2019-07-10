@@ -1,0 +1,30 @@
+.card{data: { 'report-id': report.id }}
+  .card-image
+    .image-actions
+      = link_to admin_moderation_report_path(report.id, report_action: 'pass'),
+                  method: :put,
+                  remote: true,
+                  class: 'btn waves-effect waves-light grey tooltipped',
+                  'data-tooltip': 'Pass' do
+        PASS
+
+      = link_to admin_moderation_report_path(report.id, report_action: 'auto_resolve'),
+                  method: :put,
+                  remote: true,
+                  class: 'btn waves-effect waves-light red right tooltipped',
+                  'data-tooltip': 'Auto Resolve' do
+        AUTO
+
+    - case report.moderatable_type
+      - when "Image"
+        - image = report.moderatable
+        = link_to image_tag(image.image.url(:thumbnail), alt: image.caption), admin_moderation_report_path(report.id)
+      - else
+        = link_to "#{report.moderatable_type}(#{report.moderatable_id})", admin_moderation_report_path(report.id)
+
+  .card-content
+    = link_to report.violation_string, admin_moderation_report_path(report.id)
+
+    .muted.truncate.padding-top--small
+      #{ report.created_at.strftime('%d %b %Y') }
+      &bull; #{ report.status.humanize }
