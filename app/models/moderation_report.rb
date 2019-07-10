@@ -32,6 +32,13 @@ class ModerationReport < ApplicationRecord
       other: "Other, please specify in comment."
   }.with_indifferent_access.freeze
 
+  VIOLATION_STRINGS = {
+      dmca: "DMCA",
+      improper_flag: "Improper Flag",
+      offensive: "Offensive",
+      other: "Other (Comment)"
+  }.with_indifferent_access.freeze
+
   belongs_to :user
   belongs_to :sender, foreign_key: :sender_user_id, class_name: "User"
   belongs_to :moderatable, polymorphic: true
@@ -63,6 +70,12 @@ class ModerationReport < ApplicationRecord
 
     event :dismiss do
       transition [:pending, :assigned] => :dismissed
+    end
+
+    # Deal with this later, or assign to a different mod
+    #
+    event :pass do
+      transition [:assigned, :pending] => :passed
     end
 
     # Remove the image and issue a moderation notice
@@ -102,6 +115,10 @@ class ModerationReport < ApplicationRecord
 
   def violation_message
     VIOLATION_TYPES[violation_type]
+  end
+
+  def violation_string
+    VIOLATION_STRINGS[violation_type]
   end
 
   private

@@ -175,6 +175,8 @@ Rails.application.routes.draw do
       resources :replies, only: [:create], controller: 'feedbacks/replies'
     end
 
+    resources :moderation_reports, only: [:index, :show, :update]
+
     resources :ads, only: [:index, :edit, :new, :create, :update]
     post :ad_slots, to: 'advertisements/slots#create'
   end
