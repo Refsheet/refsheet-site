@@ -34,7 +34,7 @@
           %tr
             %th{align: 'left'} Reported By:
             %td= link_to "#{@report.sender.name} (@#{@report.sender.username})", admin_user_path(@report.sender.username)
-            %td.right= link_to "(#{ModerationReport.where(sender_user_id: @report.sender.id).count} reports)", admin_moderation_reports_path(sender: @report.user.username)
+            %td.right= link_to "(#{ModerationReport.where(sender_user_id: @report.sender.id).count} reports)", admin_moderation_reports_path(sender: @report.sender.username)
         %tr
           %th{align: 'left'} #{ModerationReport.similar_to(@report).count} Other Reports:
           %td{colspan: 2}
