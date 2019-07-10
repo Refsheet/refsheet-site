@@ -127,8 +127,8 @@ class ModerationReport < ApplicationRecord
   private
 
   def assign_user
-    if moderatable.is_a? Image
-      self.user = moderatable.character.user
+    if moderatable&.is_a? Image
+      self.user = moderatable&.character&.user
     end
   end
 
