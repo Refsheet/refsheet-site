@@ -1,4 +1,61 @@
 ---
+v1.5.0-pre.125:
+- sha: eb19ddbf576d055b5564d8589b3696025b191bd0
+  time: '1562725118'
+  tags: []
+  message: Allow filter on violation type.
+  hash: eb19ddbf
+  date: '2019-07-10'
+- sha: dd1efd845a1d138dc44ca2f1b979c2fdfbc6b67c
+  time: '1562725054'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: dd1efd84
+  date: '2019-07-10'
+- sha: 57b0a76344ca5ee7e7354528a10e3d8253b96f0c
+  time: '1562724965'
+  tags: []
+  message: Fix moderation reports for removed characters.
+  hash: 57b0a763
+  date: '2019-07-10'
+- sha: 90974ef1990bcffd5c92027f39634139b6a480db
+  time: '1562723912'
+  tags:
+  - ci skip
+  message: v1.5.0-pre.124
+  hash: 90974ef1
+  date: '2019-07-10'
+- sha: 3d745687c6e67535e02b8a2c03ddca5ac57b854c
+  time: '1562722577'
+  tags: []
+  message: Conditional image on admin moderation cards.
+  hash: 3d745687
+  date: '2019-07-10'
+- sha: d12e2897366cc10968db01c08679c2f471c878ed
+  time: '1562722476'
+  tags: []
+  message: Some more bug fixes. Probably related to invalid images during processing.
+  hash: d12e2897
+  date: '2019-07-10'
+- sha: 30c13400ec39511fa43754217aaf94513e2cb503
+  time: '1562722097'
+  tags: []
+  message: Fix currentSize path bug thing.
+  hash: 30c13400
+  date: '2019-07-10'
+- sha: 9e2e04975542f6c5c9f0296cb3f8c092e859714f
+  time: '1562721800'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 9e2e0497
+  date: '2019-07-10'
+- sha: 4dca0342823c312b94d5788ce277bda541600132
+  time: '1562721794'
+  tags: []
+  message: Finalized admin reporting interface.
+  hash: 4dca0342
+  date: '2019-07-10'
+---
 v1.5.0-pre.124:
 - sha: 3d745687c6e67535e02b8a2c03ddca5ac57b854c
   time: '1562722577'
