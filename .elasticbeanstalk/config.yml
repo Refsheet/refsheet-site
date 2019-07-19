@@ -15,6 +15,11 @@ global:
   default_ec2_keyname: kenku-dev-1
   default_platform: Ruby 2.3 (Puma)
   default_region: us-east-1
-  profile: eb-cli
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: null
   repository: null
   sc: git
+  workspace_type: Application
