@@ -1,4 +1,18 @@
 ---
+v1.5.0-pre.127:
+- sha: 9a7b3164427fb8d97f78a1b6c56f311092bb4f95
+  time: '1563537194'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 9a7b3164
+  date: '2019-07-19'
+- sha: a315042b2c1f088598350924d932b4730750d444
+  time: '1563537187'
+  tags: []
+  message: Swallow queue errors.
+  hash: a315042b
+  date: '2019-07-19'
+---
 v1.5.0-pre.126:
 - sha: 0e23e9b4a5526fbcd54d5947f30d1f0929775a14
   time: '1563535269'
