@@ -5,10 +5,16 @@ module ActiveJob
 
       def enqueue(job)
         pick_queue(job).enqueue(job)
+      rescue Redis::CannotConnectError => e
+        Raven.capture_exception(e) rescue nil
+        lookup(Rails.configuration.active_job.queue_adapter).enqueue(job)
       end
 
       def enqueue_at(job, timestamp)
         pick_queue(job).enqueue_at(job, timestamp)
+      rescue Redis::CannotConnectError => e
+        Raven.capture_exception(e) rescue nil
+        lookup(Rails.configuration.active_job.queue_adapter).enqueue_at(job, timestamp)
       end
 
       private
