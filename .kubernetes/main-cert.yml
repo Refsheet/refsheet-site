@@ -1,7 +1,7 @@
 apiVersion: networking.gke.io/v1beta1
 kind: ManagedCertificate
 metadata:
-  name: com-refsheet-kube
+  name: com-refsheet
 spec:
   domains:
-    - kube.refsheet.net
+    - refsheet.net
