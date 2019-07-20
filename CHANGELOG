@@ -1,4 +1,18 @@
 ---
+v1.5.0-pre.129:
+- sha: acb3bd86f40081c2949122b3c2679bd24e1c0639
+  time: '1563582187'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: acb3bd86
+  date: '2019-07-20'
+- sha: 67555f311e079f55461589bc8ca83eae1ce582e5
+  time: '1563582180'
+  tags: []
+  message: Debug the deploy.
+  hash: 67555f31
+  date: '2019-07-20'
+---
 v1.5.0-pre.128:
 - sha: b0b54c514bd136f18e5412951d566309ab8e0f14
   time: '1563579447'
