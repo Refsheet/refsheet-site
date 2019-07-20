@@ -1,4 +1,24 @@
 ---
+v1.5.0-pre.132:
+- sha: 9f0d24ef77eb34868c8c3bf6f6f76e9044cb2e3b
+  time: '1563598771'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 9f0d24ef
+  date: '2019-07-20'
+- sha: 21c37b50143d7d6d2de97bc6479de55a930c4748
+  time: '1563598764'
+  tags: []
+  message: Add character version input.
+  hash: 21c37b50
+  date: '2019-07-20'
+- sha: b2b46c117926b99aab2c8b7c399dda8c9341745e
+  time: '1563595960'
+  tags: []
+  message: Kube limits.
+  hash: b2b46c11
+  date: '2019-07-20'
+---
 v1.5.0-pre.131:
 - sha: 8a5f88b826488ece7465a7145c7770eed2cb4cbd
   time: '1563590734'
