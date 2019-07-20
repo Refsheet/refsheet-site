@@ -1,4 +1,24 @@
 ---
+v1.5.0-pre.130:
+- sha: 700f8b6d3d74fab43eb6b501ccc54e7e8aa466a0
+  time: '1563586631'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 700f8b6d
+  date: '2019-07-20'
+- sha: c750ea67d2c1a10dde5a1566aaca56e71ace561e
+  time: '1563586625'
+  tags: []
+  message: A bit more force starting of the gcloud config on aws.
+  hash: c750ea67
+  date: '2019-07-20'
+- sha: 0d359a575c516bee7441924dd9d88652f8100fb8
+  time: '1563586570'
+  tags: []
+  message: Add kubernetes resource requests.
+  hash: 0d359a57
+  date: '2019-07-20'
+---
 v1.5.0-pre.129:
 - sha: acb3bd86f40081c2949122b3c2679bd24e1c0639
   time: '1563582187'
