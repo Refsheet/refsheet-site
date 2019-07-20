@@ -14,6 +14,10 @@ steps:
 #  - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci'
 #    args: ['yaml-lint', '.kubernetes/*.{yml,yaml}']
 
+  #== Asset Pipeline
+  - name: 'gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID'
+    args: ['']
+
   #== DEPLOY
 
   # Push Build
