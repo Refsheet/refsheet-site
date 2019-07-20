@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: refsheet-prod-worker
-        image: gcr.io/refsheet-239409/refsheet-site:6aaa02ef4565fa23d676f2b20872dae00aa71318
+        image: gcr.io/refsheet-239409/refsheet-site:eb19ddbf576d055b5564d8589b3696025b191bd0
         imagePullPolicy: Always
         command:
         - bundle
@@ -31,3 +31,10 @@ spec:
             name: refsheet-prod
         - secretRef:
             name: refsheet-prod-secret
+        resources:
+          requests:
+            cpu: "1"
+            memory: 1G
+          limits:
+            cpu: "1"
+            memory: 4G

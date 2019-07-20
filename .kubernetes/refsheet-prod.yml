@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: refsheet-prod
-        image: gcr.io/refsheet-239409/refsheet-site:6aaa02ef4565fa23d676f2b20872dae00aa71318
+        image: gcr.io/refsheet-239409/refsheet-site:eb19ddbf576d055b5564d8589b3696025b191bd0
         imagePullPolicy: Always
         livenessProbe:
           httpGet:
@@ -47,3 +47,10 @@ spec:
         ports:
         - containerPort: 3000
           protocol: TCP
+        resources:
+          requests:
+            cpu: "1"
+            memory: 1G
+          limits:
+            cpu: "4"
+            memory: 2G
