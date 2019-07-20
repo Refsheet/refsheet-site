@@ -27,7 +27,7 @@ class Notifications::ImageComment < Notification
   delegate :media, :comment, to: :actionable, allow_nil: true
 
   def title
-    "#{sender.name} commented on #{media.title}"
+    "#{sender.name} commented on #{media&.title || "<Deleted Image>"}"
   end
 
   def message
@@ -35,11 +35,11 @@ class Notifications::ImageComment < Notification
   end
 
   def href
-    image_url(media)
+    media && image_url(media)
   end
 
   def link
-    image_path(media)
+    media && image_path(media)
   end
 
   protected

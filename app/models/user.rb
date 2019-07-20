@@ -182,12 +182,14 @@ class User < ApplicationRecord
   #== Lookups
 
   def self.lookup(username)
+    return nil if username.nil?
     return lookup_list(username) if username.is_a? Array
     column = username =~ /@/ ? 'email' : 'username'
     find_by("LOWER(users.#{column}) = ?", username&.downcase)
   end
 
   def self.lookup!(username)
+    return nil if username.nil?
     column = username =~ /@/ ? 'email' : 'username'
     find_by!("LOWER(users.#{column}) = ?", username&.downcase)
   end

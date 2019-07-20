@@ -21,10 +21,14 @@ class Admin::ImagesController < AdminController
     respond_with :admin, @image, location: admin_image_path(@image.guid)
   end
 
+  def download
+    redirect_to @image.image.expiring_url(30, :original)
+  end
+
   private
 
   def get_image
-    @image = Image.find_by! guid: params[:id]
+    @image = Image.find_by! guid: (params[:id] || params[:image_id])
   end
 
   def image_params

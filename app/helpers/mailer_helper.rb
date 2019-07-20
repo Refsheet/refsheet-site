@@ -3,6 +3,7 @@ module MailerHelper
     primary = options.delete(:primary) || false
     last = options.delete(:last) || true
     type = options.delete(:type)
+    align = options.delete(:align) || 'left'
 
     button_classes = %w(btn)
     button_classes.push 'btn-primary' if primary
@@ -56,7 +57,7 @@ module MailerHelper
     content_tag :table, border: 0, cellpadding: 0, cellspacing: 0, class: button_classes.join(' ') do
       content_tag :tbody do
         content_tag :tr do
-          content_tag :td, align: 'left', class: button_td_classes.join(' ') do
+          content_tag :td, align: align, class: button_td_classes.join(' ') do
             content_tag :table, border: 0, cellpadding: 0, cellspacing: 0 do
               content_tag :tbody do
                 content_tag :tr do

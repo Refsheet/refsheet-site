@@ -3,7 +3,9 @@
 .content
   .row
     .col.s12.m4.l3
-      = image_tag @image.image.url(:medium_square), class: 'materialboxed responsive-img z-depth-1'
+      = link_to admin_image_download_path(@image), target: :_blank do
+        = image_tag @image.image.url(:medium_square), class: 'responsive-img z-depth-1'
+
       %h1.caption= title @image.image_file_name
 
       %ul.attributes

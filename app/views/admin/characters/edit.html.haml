@@ -13,6 +13,8 @@
             .col.s6
               = f.input :nsfw
 
+        = f.input :version, collection: 1..2, class: 'browser-default'
+
       .col.s12.m6
         = f.input :slug
         = f.input :shortcode
@@ -53,3 +55,4 @@
 :coffeescript
   $ ->
     Materialize.updateTextFields()
+    $('select').material_select()

@@ -12,7 +12,8 @@ data:
   NODE_ENV: production
   RACK_ENV: production
   RAILS_ENV: production
-  RAILS_MAX_THREADS: "10"
+  RAILS_MAX_THREADS: "2"
+  WEB_CONCURRENCY: "1"
   REDIS_HOST: redis-prod.default.svc.cluster.local
   REDIS_PORT: "6379"
   S3_BUCKET_NAME: refsheet-prod
