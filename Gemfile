@@ -138,6 +138,7 @@ group :development, :test do
   gem 'simplecov'
   gem 'timecop'
   gem 'webmock'
+  gem 'derailed_benchmarks'
 end
 
 group :nocircle do

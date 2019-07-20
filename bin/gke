@@ -1,0 +1,22 @@
+#!/bin/bash
+
+function do_ssh() {
+
+	echo "Fetching pods..."
+
+	pods=$(kubectl get pods --no-headers=true | grep Running | cut -d' ' -f1 | tr '\n' '\t')
+
+	select pod in $pods; do
+		kubectl exec "$pod" -it -c refsheet-prod -- bash
+		return
+	done
+}
+
+case "$1" in
+	list-pods)
+		kubectl get pods --no-headers=true | grep Running
+		;;
+	ssh)
+		do_ssh
+		;;
+esac
