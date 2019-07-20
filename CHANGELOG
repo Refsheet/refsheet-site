@@ -1,4 +1,18 @@
 ---
+v1.5.0-pre.131:
+- sha: 8a5f88b826488ece7465a7145c7770eed2cb4cbd
+  time: '1563590734'
+  tags: []
+  message: 'Merge pull request #66 from eiwi1101/dependabot/bundler/chartkick-3.2.1'
+  hash: 8a5f88b8
+  date: '2019-07-20'
+- sha: a269fc802997c360c7ba15bc8c9b3a5dd2d32dbf
+  time: '1563590054'
+  tags: []
+  message: Bump chartkick from 3.0.2 to 3.2.1
+  hash: a269fc80
+  date: '2019-07-20'
+---
 v1.5.0-pre.130:
 - sha: 700f8b6d3d74fab43eb6b501ccc54e7e8aa466a0
   time: '1563586631'
