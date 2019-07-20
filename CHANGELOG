@@ -1,4 +1,236 @@
 ---
+v1.5.0-pre.131:
+- sha: 8a5f88b826488ece7465a7145c7770eed2cb4cbd
+  time: '1563590734'
+  tags: []
+  message: 'Merge pull request #66 from eiwi1101/dependabot/bundler/chartkick-3.2.1'
+  hash: 8a5f88b8
+  date: '2019-07-20'
+- sha: a269fc802997c360c7ba15bc8c9b3a5dd2d32dbf
+  time: '1563590054'
+  tags: []
+  message: Bump chartkick from 3.0.2 to 3.2.1
+  hash: a269fc80
+  date: '2019-07-20'
+---
+v1.5.0-pre.130:
+- sha: 700f8b6d3d74fab43eb6b501ccc54e7e8aa466a0
+  time: '1563586631'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 700f8b6d
+  date: '2019-07-20'
+- sha: c750ea67d2c1a10dde5a1566aaca56e71ace561e
+  time: '1563586625'
+  tags: []
+  message: A bit more force starting of the gcloud config on aws.
+  hash: c750ea67
+  date: '2019-07-20'
+- sha: 0d359a575c516bee7441924dd9d88652f8100fb8
+  time: '1563586570'
+  tags: []
+  message: Add kubernetes resource requests.
+  hash: 0d359a57
+  date: '2019-07-20'
+---
+v1.5.0-pre.129:
+- sha: acb3bd86f40081c2949122b3c2679bd24e1c0639
+  time: '1563582187'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: acb3bd86
+  date: '2019-07-20'
+- sha: 67555f311e079f55461589bc8ca83eae1ce582e5
+  time: '1563582180'
+  tags: []
+  message: Debug the deploy.
+  hash: 67555f31
+  date: '2019-07-20'
+---
+v1.5.0-pre.128:
+- sha: b0b54c514bd136f18e5412951d566309ab8e0f14
+  time: '1563579447'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: b0b54c51
+  date: '2019-07-19'
+- sha: 2e2bfaee18451ce34da17457f6fd70815bccc45a
+  time: '1563579436'
+  tags: []
+  message: Use init instead of systemd :(
+  hash: 2e2bfaee
+  date: '2019-07-19'
+---
+v1.5.0-pre.127:
+- sha: 9a7b3164427fb8d97f78a1b6c56f311092bb4f95
+  time: '1563537194'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 9a7b3164
+  date: '2019-07-19'
+- sha: a315042b2c1f088598350924d932b4730750d444
+  time: '1563537187'
+  tags: []
+  message: Swallow queue errors.
+  hash: a315042b
+  date: '2019-07-19'
+---
+v1.5.0-pre.126:
+- sha: 0e23e9b4a5526fbcd54d5947f30d1f0929775a14
+  time: '1563535269'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 0e23e9b4
+  date: '2019-07-19'
+- sha: fbe2dc23e0dc9d08fb085c755332460863bebce9
+  time: '1563535263'
+  tags: []
+  message: Use systemctl to manage google port forwarding.
+  hash: fbe2dc23
+  date: '2019-07-19'
+---
+v1.5.0-pre.125:
+- sha: eb19ddbf576d055b5564d8589b3696025b191bd0
+  time: '1562725118'
+  tags: []
+  message: Allow filter on violation type.
+  hash: eb19ddbf
+  date: '2019-07-10'
+- sha: dd1efd845a1d138dc44ca2f1b979c2fdfbc6b67c
+  time: '1562725054'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: dd1efd84
+  date: '2019-07-10'
+- sha: 57b0a76344ca5ee7e7354528a10e3d8253b96f0c
+  time: '1562724965'
+  tags: []
+  message: Fix moderation reports for removed characters.
+  hash: 57b0a763
+  date: '2019-07-10'
+- sha: 90974ef1990bcffd5c92027f39634139b6a480db
+  time: '1562723912'
+  tags:
+  - ci skip
+  message: v1.5.0-pre.124
+  hash: 90974ef1
+  date: '2019-07-10'
+- sha: 3d745687c6e67535e02b8a2c03ddca5ac57b854c
+  time: '1562722577'
+  tags: []
+  message: Conditional image on admin moderation cards.
+  hash: 3d745687
+  date: '2019-07-10'
+- sha: d12e2897366cc10968db01c08679c2f471c878ed
+  time: '1562722476'
+  tags: []
+  message: Some more bug fixes. Probably related to invalid images during processing.
+  hash: d12e2897
+  date: '2019-07-10'
+- sha: 30c13400ec39511fa43754217aaf94513e2cb503
+  time: '1562722097'
+  tags: []
+  message: Fix currentSize path bug thing.
+  hash: 30c13400
+  date: '2019-07-10'
+- sha: 9e2e04975542f6c5c9f0296cb3f8c092e859714f
+  time: '1562721800'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 9e2e0497
+  date: '2019-07-10'
+- sha: 4dca0342823c312b94d5788ce277bda541600132
+  time: '1562721794'
+  tags: []
+  message: Finalized admin reporting interface.
+  hash: 4dca0342
+  date: '2019-07-10'
+---
+v1.5.0-pre.124:
+- sha: 3d745687c6e67535e02b8a2c03ddca5ac57b854c
+  time: '1562722577'
+  tags: []
+  message: Conditional image on admin moderation cards.
+  hash: 3d745687
+  date: '2019-07-10'
+- sha: d12e2897366cc10968db01c08679c2f471c878ed
+  time: '1562722476'
+  tags: []
+  message: Some more bug fixes. Probably related to invalid images during processing.
+  hash: d12e2897
+  date: '2019-07-10'
+- sha: 30c13400ec39511fa43754217aaf94513e2cb503
+  time: '1562722097'
+  tags: []
+  message: Fix currentSize path bug thing.
+  hash: 30c13400
+  date: '2019-07-10'
+- sha: 9e2e04975542f6c5c9f0296cb3f8c092e859714f
+  time: '1562721800'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 9e2e0497
+  date: '2019-07-10'
+- sha: 4dca0342823c312b94d5788ce277bda541600132
+  time: '1562721794'
+  tags: []
+  message: Finalized admin reporting interface.
+  hash: 4dca0342
+  date: '2019-07-10'
+---
+v1.5.0-pre.123:
+- sha: e9a272bdda1f47a791b0a3fec046a9848f3b5d5b
+  time: '1562719797'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: e9a272bd
+  date: '2019-07-10'
+- sha: f6ba3369dc55c85303c026955c45af2b99db3bfe
+  time: '1562719783'
+  tags: []
+  message: Fix report mailer for admins, add report to admin panel, add auto_resolve
+    button and pass button (which is useless right now)
+  hash: f6ba3369
+  date: '2019-07-10'
+- sha: aecc202ab43b2ea71ac23686c5e80b377dbe911d
+  time: '1559207923'
+  tags: []
+  message: Add forum discussion & posts to GraphQL
+  hash: aecc202a
+  date: '2019-05-30'
+- sha: ef115f8bc357bd934e1bb521b542220943b4343f
+  time: '1559205653'
+  tags: []
+  message: Add forum to GraphQL, add system_owned flag.
+  hash: ef115f8b
+  date: '2019-05-30'
+- sha: 5574dec71238e2b26958d8f66031f7e5bd9d45da
+  time: '1559201353'
+  tags: []
+  message: Kube update config.
+  hash: 5574dec7
+  date: '2019-05-30'
+---
+v1.5.0-pre.122:
+- sha: 6aaa02ef4565fa23d676f2b20872dae00aa71318
+  time: '1558933873'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 6aaa02ef
+  date: '2019-05-27'
+- sha: 1c0dc0744ce0964634cb36ee0f70541ff5a90749
+  time: '1558933866'
+  tags: []
+  message: Recompile assets I guess.
+  hash: 1c0dc074
+  date: '2019-05-27'
+- sha: d2a0ccf833b698969924051ad7e1e07c48146852
+  time: '1558933856'
+  tags: []
+  message: Recompile assets I guess.
+  hash: d2a0ccf8
+  date: '2019-05-27'
+---
 v1.5.0-pre.121:
 - sha: b084e85471a41b80c5f12a5a7a968781fc7f5ffa
   time: '1558932210'

@@ -1,1 +1,40 @@
-= debug @report
+%h2 New Moderation Report
+
+%table
+  %tr
+    %th{align: 'left'} Report Type:
+    %td{colspan:2}= @report.violation_message
+  %tr
+    %th{align: 'left'} Comment:
+    %td{colspan:2}
+      - if @report.comment.present?
+        = @report.comment
+      - else
+        %span.muted (No comment)
+  %tr
+    %th{align: 'left'} Content:
+    %td{colspan:2}
+      - case @report.moderatable_type
+        - when "Image"
+          - image = @report.moderatable
+          = link_to image_tag(image.image.url(:thumbnail), alt: image.caption), admin_moderation_report_url(@report.id)
+        - else
+          = link_to "#{@report.moderatable_type}(#{@report.moderatable_id})", admin_moderation_report_url(@report.id)
+
+  - if @report.user
+    %tr
+      %th{align: 'left'} Offending User:
+      %td= link_to "#{@report.user.name} (@#{@report.user.username})", admin_user_url(@report.user.username)
+      %td= link_to "(#{ModerationReport.where(user_id: @report.user.id).count} reported)", admin_moderation_reports_url(reported: @report.user.username)
+  - if @report.sender
+    %tr
+      %th{align: 'left'} Reported By:
+      %td= link_to "#{@report.sender.name} (@#{@report.sender.username})", admin_user_url(@report.sender.username)
+      %td= link_to "(#{ModerationReport.where(sender_user_id: @report.sender.id).count} reports)", admin_moderation_reports_url(sender: @report.user.username)
+
+%hr/
+
+%table
+  %tr
+    %td{width: '33%', align: 'left'}= button 'Review', admin_moderation_report_url(@report.id), primary: true, last: true, align: 'left'
+    %td{width: '33%', align: 'right'}= button 'Auto Resolve', admin_moderation_report_url(@report.id, instant_action: 'auto_resolve'), primary: false, last: true, align: 'right'

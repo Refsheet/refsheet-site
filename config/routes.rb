@@ -166,7 +166,9 @@ Rails.application.routes.draw do
 
     resources :users, except: [:destroy]
     resources :characters, except: [:destroy]
-    resources :images, except: [:destroy]
+    resources :images, except: [:destroy] do
+      get :download
+    end
     resources :pledges, only: [:index, :show]
     resources :changelogs, only: [:index, :show]
     resources :forums, only: [:index, :show, :update, :create]
@@ -174,6 +176,8 @@ Rails.application.routes.draw do
     resources :feedbacks, only: [:index, :show, :update] do
       resources :replies, only: [:create], controller: 'feedbacks/replies'
     end
+
+    resources :moderation_reports, only: [:index, :show, :update]
 
     resources :ads, only: [:index, :edit, :new, :create, :update]
     post :ad_slots, to: 'advertisements/slots#create'

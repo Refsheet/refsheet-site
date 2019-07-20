@@ -4,7 +4,7 @@ metadata:
          name: refsheet-prod-ingress
          annotations:
                  kubernetes.io/ingress.global-static-ip-name: refsheet-prod-ip
-                 networking.gke.io/managed-certificates: com-refsheet-kube
+                 networking.gke.io/managed-certificates: "com-refsheet,com-refsheet-kube"
 spec:
         backend:
                 serviceName: refsheet-prod
