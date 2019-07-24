@@ -1,4 +1,12 @@
 ---
+v1.5.0-pre.133:
+- sha: a0f0a7c2d97a91ddd11f4eb6e1144dd0ba5bcd6f
+  time: '1563943144'
+  tags: []
+  message: Make a directory before copying files to it.
+  hash: a0f0a7c2
+  date: '2019-07-24'
+---
 v1.5.0-pre.132:
 - sha: 9f0d24ef77eb34868c8c3bf6f6f76e9044cb2e3b
   time: '1563598771'
