@@ -3,7 +3,6 @@ steps:
     args:
     - --destination=gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID
     - --cache=true
-    - --cache-ttl=1w
 
   #== TEST
 
