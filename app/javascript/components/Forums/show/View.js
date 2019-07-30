@@ -14,7 +14,11 @@ class View extends Component {
       t
     } = this.props
 
-    const sortedDiscussions = forum.discussions;
+    const discussions = [...forum.discussions]
+
+    discussions.sort((a, b) => (
+      a.karma_total - b.karma_total
+    ))
 
     return (
       <Main title={'Forums'} className={'main-flex split-bg-right'}>
@@ -45,18 +49,17 @@ class View extends Component {
           <main className={'content-left'}>
             {/*<div className={'forum-sort margin-bottom--medium'} />*/}
 
-            { sortedDiscussions.map((discussion) => (
+            <div className='forum-posts--group-name'>
+              { t('forums.recent_posts', "Recent Posts") }
+            </div>
+
+            { discussions.map((discussion) => (
               <DiscussionLink key={discussion.id} forum={forum} discussion={discussion} />
             ))}
           </main>
 
           <aside className={'sidebar left-pad'}>
-            This is the sidebar. I'm going to probably put:
-            <ul>
-              <li>Forum Admins & Mods</li>
-              <li>Rules Overview</li>
-              <li>Advertisement because I need support</li>
-            </ul>
+            { typeof Advertisement != 'undefined' && <Advertisement /> }
           </aside>
         </div>
       </Main>
