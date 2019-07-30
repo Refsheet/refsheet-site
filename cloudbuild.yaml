@@ -1,10 +1,9 @@
 steps:
-  - name: 'gcr.io/cloud-builders/docker'
-    entrypoint: 'bash'
-    args: ['-c', 'docker pull gcr.io/$PROJECT_ID/refsheet-site:latest || exit 0']
-
-  - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID', '--cache-from', 'gcr.io/$PROJECT_ID/refsheet-site:latest', '.' ]
+  - name: 'gcr.io/kaniko-project/executor'
+    args:
+    - --destination=gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID
+    - --cache=true
+    - --cache-ttl=1w
 
   #== TEST
 
