@@ -1,4 +1,18 @@
 ---
+v1.5.0-pre.136:
+- sha: 7730d5a889434af630fe45cc16f4d32a8db954a2
+  time: '1564459652'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 7730d5a8
+  date: '2019-07-30'
+- sha: 46dcefc414828c91f6f25c7df640b9546e4d5705
+  time: '1564459646'
+  tags: []
+  message: Oh, I broke Cloudbuild.
+  hash: 46dcefc4
+  date: '2019-07-30'
+---
 v1.5.0-pre.135:
 - sha: 22ee2e5681ab1922753fdbc62364ace1af61ea56
   time: '1564458420'
