@@ -97,6 +97,7 @@ gem 'stripe'
 gem 'webpush'
 gem 'her'
 gem 'sentry-raven'
+gem 'sendgrid-actionmailer'
 
 # == BOWER ASSETS
 

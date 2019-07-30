@@ -516,6 +516,7 @@ GEM
       json
       oauth (>= 0.4.5)
       rest-client (>= 1.8.0)
+    ruby_http_client (3.3.0)
     rubyzip (1.2.2)
     safe_yaml (1.0.5)
     safely_block (0.2.1)
@@ -548,6 +549,11 @@ GEM
     semantic (1.6.1)
     semantic_logger (4.5.0)
       concurrent-ruby (~> 1.0)
+    sendgrid-actionmailer (2.4.0)
+      mail (~> 2.5)
+      sendgrid-ruby (~> 6.0)
+    sendgrid-ruby (6.0.0)
+      ruby_http_client (~> 3.3.0)
     sentry-raven (2.9.0)
       faraday (>= 0.7.6, < 1.0)
     serviceworker-rails (0.5.5)
@@ -750,6 +756,7 @@ DEPENDENCIES
   sassc-rails
   scoped_search
   semantic
+  sendgrid-actionmailer
   sentry-raven
   serviceworker-rails
   shoulda-matchers (~> 2.8)
