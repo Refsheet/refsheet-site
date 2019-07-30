@@ -8,7 +8,14 @@ related to their characters in one unified format, allowing artists and
 story writers to access the specific details of a character, maintaining
 synchronized dynamic canon.
 
-## Development Setup
+## Development Setup VERY OUT OF DATE! (7/30/19)
+
+> This section is super out of date but Mau hasn't added better instructions.
+> We use docker now. Install `docker-compose` and run `docker-compose up`
+> Check out the whateveritis file that compose uses for service descriptions.
+>
+> Build `Dockerfile.dev` in dev. `Dockerfile` builds a prod instance, which
+> takes 19 evers to precompile assets.
 
 Make sure you have **Ruby 2.3.1** installed, this project was built with
 `rbenv` in mind. You'll need Git, obviously, and a connection to the
