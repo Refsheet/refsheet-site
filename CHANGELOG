@@ -1,4 +1,19 @@
 ---
+v1.5.0-pre.135:
+- sha: 22ee2e5681ab1922753fdbc62364ace1af61ea56
+  time: '1564458420'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 22ee2e56
+  date: '2019-07-30'
+- sha: a75ded6cb6466dbbb7d7de4db4489d3817749af7
+  time: '1564458393'
+  tags: []
+  message: Using NVM for production Docker image instead, since that seems to actually,
+    properly install the right Node version.
+  hash: a75ded6c
+  date: '2019-07-30'
+---
 v1.5.0-pre.134:
 - sha: d9144bf0dd14625492c7045f32fd09319fb2160f
   time: '1564455488'
