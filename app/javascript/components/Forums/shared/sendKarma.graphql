@@ -1,0 +1,6 @@
+mutation sendKarma($postId: ID!, $take: Boolean!) {
+    sendKarma(postId: $postId, take: $take) {
+        id,
+        karma_total
+    }
+}

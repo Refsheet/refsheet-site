@@ -1,9 +1,25 @@
 .forum-post
+  display: table-row
+  margin: 0
+  padding: 0
+
+  @at-root
+    .forum-posts--group-name
+      font-size: 0.9rem
+      color: rgba(255, 255, 255, 0.3)
+      padding-bottom: 0.2rem
+      margin-bottom: 0.5rem
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1)
+
   .forum-post--votes
     text-align: center
     line-height: 1rem
+    width: auto
+    display: table-cell
+    margin: 0
+    padding: 0.5rem 1rem 0.5rem 0
 
-    & > a
+    & > a, & > span
       display: block
       line-height: 1.5rem
 
@@ -18,9 +34,14 @@
 
   .forum-post--title
 
+  .forum-post--summary
+    display: table-cell
+    margin: 0
+    padding: 0.5rem 0 0.5rem 0
 
   .forum-post--date
     @extend .muted
 
   .forum-post--meta
     @extend .muted
+    color: $text-light-color !important

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import {Trans, withNamespaces} from 'react-i18next'
 import UserLink from "../../Shared/UserLink";
 import Moment from "react-moment";
+import {Link} from "react-router-dom";
+import KarmaButton from "../shared/KarmaButton";
 
 class DiscussionLink extends Component {
   render() {
@@ -13,12 +15,15 @@ class DiscussionLink extends Component {
     } = this.props
 
     return (
-      <div className={'row forum-post'}>
-        <div className={'col s2 m1 forum-post--votes'}>
+      <div className={'forum-post'}>
+        <div className={'forum-post--votes'}>
           <div className="forum-post--upvote">
-            <a href={'#'} title={t('forums.karma.give', "Give Karma")}>
-              <Icon>keyboard_arrow_up</Icon>
-            </a>
+            <KarmaButton
+              give
+              postId={ discussion.id }
+              disabled={ false }
+              voted={ false }
+            />
           </div>
 
           <div className={'forum-post--karma'}>
@@ -26,17 +31,20 @@ class DiscussionLink extends Component {
           </div>
 
           <div className="forum-post--downvote">
-            <a href={'#'} title={t('forums.karma.take', "Take Karma")}>
-              <Icon>keyboard_arrow_down</Icon>
-            </a>
+            <KarmaButton
+              take
+              postId={ discussion.id }
+              disabled={ false }
+              voted={ false }
+            />
           </div>
         </div>
 
-        <div className={'col s10 m11'}>
+        <div className={'forum-post--summary'}>
           <div className="forum-post--title">
-            <a href={`/v2/forums/${forum.slug}/${discussion.slug}`}>
+            <Link to={`/v2/forums/${forum.slug}/${discussion.slug}`} title={ discussion.topic }>
               { discussion.topic }
-            </a>
+            </Link>
           </div>
 
           <div className="forum-post--date">
@@ -58,7 +66,7 @@ class DiscussionLink extends Component {
               count: 0
             })}
 
-            &nbsp;| <a href={'#'}>{t('forums.save', "Save")}</a>
+            {/*&nbsp;| <a href={'#'}>{t('forums.save', "Save")}</a>*/}
           </div>
         </div>
       </div>
