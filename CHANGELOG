@@ -1,4 +1,12 @@
 ---
+v1.5.0-pre.134:
+- sha: d9144bf0dd14625492c7045f32fd09319fb2160f
+  time: '1564455488'
+  tags: []
+  message: Add Sendgrid integration for Google Cloud.
+  hash: d9144bf0
+  date: '2019-07-30'
+---
 v1.5.0-pre.133:
 - sha: a0f0a7c2d97a91ddd11f4eb6e1144dd0ba5bcd6f
   time: '1563943144'
