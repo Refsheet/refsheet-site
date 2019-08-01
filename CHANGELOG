@@ -1,4 +1,57 @@
 ---
+v1.5.0-pre.138:
+- sha: 2ca10b57f8b48a29939c0f24ee7bc08bf76804d8
+  time: '1564495686'
+  tags: []
+  message: Will doesn't maintain this anymore. There is no will, only Mau.
+  hash: 2ca10b57
+  date: '2019-07-30'
+- sha: 88dde14ca56b75433fd3a3d4bb86d5bd7f75fd2a
+  time: '1564495570'
+  tags: []
+  message: Update README.md
+  hash: 88dde14c
+  date: '2019-07-30'
+---
+v1.5.0-pre.137:
+- sha: 6af4bc9bbfef95eb6d95f736ff0c4b7d93d55f85
+  time: '1564463233'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 6af4bc9b
+  date: '2019-07-30'
+- sha: 8ef7faee346367fc812a6c2fefbb76d2cfda1742
+  time: '1564463223'
+  tags: []
+  message: Add GKE commands and try fixing cloudbuild.
+  hash: 8ef7faee
+  date: '2019-07-30'
+- sha: b02b5153a86046e4a798161d00deb1bd3a84e88b
+  time: '1564461567'
+  tags:
+  - ci skip
+  message: v1.5.0-pre.136
+  hash: b02b5153
+  date: '2019-07-30'
+- sha: 5c277e551a7aa1b5ce1e87bd40968d25a67f43c2
+  time: '1564460039'
+  tags: []
+  message: Use Kaniko executor for docker builds.
+  hash: 5c277e55
+  date: '2019-07-30'
+- sha: 7730d5a889434af630fe45cc16f4d32a8db954a2
+  time: '1564459652'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 7730d5a8
+  date: '2019-07-30'
+- sha: 46dcefc414828c91f6f25c7df640b9546e4d5705
+  time: '1564459646'
+  tags: []
+  message: Oh, I broke Cloudbuild.
+  hash: 46dcefc4
+  date: '2019-07-30'
+---
 v1.5.0-pre.136:
 - sha: 5c277e551a7aa1b5ce1e87bd40968d25a67f43c2
   time: '1564460039'
