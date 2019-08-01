@@ -39,17 +39,17 @@ function do_drain_all() {
 
 case "$1" in
 	list-pods)
-		kubectl get pods --no-headers=true | grep Running
-		;;
+		  kubectl get pods --no-headers=true | grep Running
+		  ;;
 	ssh)
-		do_ssh
-		;;
+		  do_ssh
+	  	;;
 	cordon-all)
 	    do_cordon_all
 	    ;;
-    drain-all)
-        do_drain_all
-        ;;
+  drain-all)
+      do_drain_all
+      ;;
 	*)
 	    echo "Usage:"
 	    echo "  gke list-pods|ssh|cordon-all|drain-all"

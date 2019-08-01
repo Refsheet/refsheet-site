@@ -82,15 +82,20 @@ Rails.application.configure do
 
   if ENV['GOOGLE_CLOUD']
     config.active_job.queue_adapter      = :resque
+  else
+    config.active_job.queue_adapter      = :active_elastic_job
+  end
+
+  if ENV['SENDGRID_API_KEY']
     config.action_mailer.delivery_method = :sendgrid_actionmailer
     config.action_mailer.sendgrid_actionmailer_settings = {
         api_key: ENV['SENDGRID_API_KEY'],
         raise_delivery_errors: true
     }
-
-  else
-    config.active_job.queue_adapter      = :active_elastic_job
+  elsif !ENV['GOOGLE_CLOUD']
     config.action_mailer.delivery_method = :ses
+  else
+    config.action_mailer.delivery_method = :smtp
   end
 
   # config.active_job.queue_name_prefix = "refsheet-site_#{Rails.env}"
