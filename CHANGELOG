@@ -1,4 +1,18 @@
 ---
+v1.5.0-pre.141:
+- sha: 6327094603a06785cc87bc893077888eb3667b5c
+  time: '1564624897'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: '63270946'
+  date: '2019-08-01'
+- sha: 125b5c77eaf3e16af1417d80e9c6f8a1f6c86208
+  time: '1564624890'
+  tags: []
+  message: Missed one start_bridge call. Paperclips!
+  hash: 125b5c77
+  date: '2019-08-01'
+---
 v1.5.0-pre.140:
 - sha: 55a0387c048d344220369081d072f34b39843390
   time: '1564621776'
