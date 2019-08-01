@@ -1,4 +1,37 @@
 ---
+v1.5.0-pre.139:
+- sha: 71e3ddbdf3a90ad1d1c924c39d4eb0844907b094
+  time: '1564617685'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 71e3ddbd
+  date: '2019-08-01'
+- sha: af7c2b180f66be6c6c3985aa6d06ebe8202e23b0
+  time: '1564617676'
+  tags: []
+  message: Try and reconnect to Redis.
+  hash: af7c2b18
+  date: '2019-08-01'
+- sha: b50db59ce132fd8a5871449b300e87e4bb17b980
+  time: '1564497684'
+  tags:
+  - ci skip
+  message: v1.5.0-pre.138
+  hash: b50db59c
+  date: '2019-07-30'
+- sha: 2ca10b57f8b48a29939c0f24ee7bc08bf76804d8
+  time: '1564495686'
+  tags: []
+  message: Will doesn't maintain this anymore. There is no will, only Mau.
+  hash: 2ca10b57
+  date: '2019-07-30'
+- sha: 88dde14ca56b75433fd3a3d4bb86d5bd7f75fd2a
+  time: '1564495570'
+  tags: []
+  message: Update README.md
+  hash: 88dde14c
+  date: '2019-07-30'
+---
 v1.5.0-pre.138:
 - sha: 2ca10b57f8b48a29939c0f24ee7bc08bf76804d8
   time: '1564495686'
