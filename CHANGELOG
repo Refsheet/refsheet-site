@@ -1,4 +1,18 @@
 ---
+v1.5.0-pre.140:
+- sha: 55a0387c048d344220369081d072f34b39843390
+  time: '1564621776'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 55a0387c
+  date: '2019-08-01'
+- sha: 04a5eb6f39895f7e687078a7a479550cea70fc3d
+  time: '1564621768'
+  tags: []
+  message: Only show processed images in image browse page.
+  hash: 04a5eb6f
+  date: '2019-08-01'
+---
 v1.5.0-pre.139:
 - sha: 71e3ddbdf3a90ad1d1c924c39d4eb0844907b094
   time: '1564617685'
