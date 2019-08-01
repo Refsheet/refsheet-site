@@ -3,9 +3,14 @@ module ActiveJob
     class SplitQueueAdapter
       GOOGLE_PERCENT = (ENV.fetch('ACTIVE_JOB_GOOGLE_PERCENT') { 0 }).to_i
 
-      def enqueue(job)
+      def enqueue(job, connect = true)
         pick_queue(job).enqueue(job)
       rescue Redis::CannotConnectError => e
+        if connect
+          start_bridge
+          return enqueue(job, false)
+        end
+
         Raven.capture_exception(e) rescue nil
         lookup(Rails.configuration.active_job.queue_adapter).enqueue(job)
       end
