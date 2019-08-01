@@ -8,7 +8,14 @@ related to their characters in one unified format, allowing artists and
 story writers to access the specific details of a character, maintaining
 synchronized dynamic canon.
 
-## Development Setup
+## Development Setup VERY OUT OF DATE! (7/30/19)
+
+> This section is super out of date but Mau hasn't added better instructions.
+> We use docker now. Install `docker-compose` and run `docker-compose up`
+> Check out the whateveritis file that compose uses for service descriptions.
+>
+> Build `Dockerfile.dev` in dev. `Dockerfile` builds a prod instance, which
+> takes 19 evers to precompile assets.
 
 Make sure you have **Ruby 2.3.1** installed, this project was built with
 `rbenv` in mind. You'll need Git, obviously, and a connection to the
@@ -59,14 +66,14 @@ Branches should be named thusly (draft):
 
 ## Testing
 
-[Travis CI][3] will take care of testing out our app when you commit
-changes and push them up to the repository. If you want to test things
+CircleCI handles testing and deploys to Amazon. Google Cloud Build handles
+testing and deploy to Kubernetes. If you want to test things
 locally, swell! Uh, run `rspec` against the project. Or, use an IDE
 like [RubyMine][4], it'll do this for you. Specs live in `./specs`.
 
 ## Maintainer
 
-This project is built and maintained by Will, and you can reach him at
+This project is built and maintained by Mau, and you them reach him at
 [@refsheet on Twitter](https://twitter.com/refsheet).
 
 ## Special Thanks
