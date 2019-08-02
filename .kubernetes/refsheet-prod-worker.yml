@@ -13,7 +13,7 @@ spec:
         app: refsheet-prod
         tier: refsheet-prod-worker
       annotations:
-        configHash: 1da0271815dc950744f8bcf5835f02e23c1437ec3f29491a9c731d03d300a9b1
+        configHash: 02e0476e1c09c4195773d117fc7b4be7b91ead152054568d77c49b0f8725052b
     spec:
       containers:
       - name: refsheet-prod-worker
