@@ -1,4 +1,36 @@
 ---
+v1.5.0-pre.142:
+- sha: adcafd645e970c1615d02180149617c173e0ea25
+  time: '1565043692'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: adcafd64
+  date: '2019-08-05'
+- sha: 570d50e8cc2c17e7432034b0b51cb39c7ffa6346
+  time: '1565043679'
+  tags: []
+  message: Add artist models!
+  hash: 570d50e8
+  date: '2019-08-05'
+- sha: b3259b850754e4e4155d2f79ec6c90e7422348d8
+  time: '1565040692'
+  tags: []
+  message: Revert the disk map on magick because apparently that just breaks everything.
+  hash: b3259b85
+  date: '2019-08-05'
+- sha: 9070cbd8e1a7d191abfd23a1732e00ce4d33bb12
+  time: '1564706442'
+  tags: []
+  message: Add disk limit to config.
+  hash: 9070cbd8
+  date: '2019-08-02'
+- sha: c55ca38e266c541697f8bbb983e0ffe438f40683
+  time: '1564706237'
+  tags: []
+  message: Add disk limit to config.
+  hash: c55ca38e
+  date: '2019-08-02'
+---
 v1.5.0-pre.141:
 - sha: 6327094603a06785cc87bc893077888eb3667b5c
   time: '1564624897'
