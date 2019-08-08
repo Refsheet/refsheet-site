@@ -80,11 +80,7 @@ Rails.application.configure do
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 
-  if ENV['GOOGLE_CLOUD']
-    config.active_job.queue_adapter      = :resque
-  else
-    config.active_job.queue_adapter      = :active_elastic_job
-  end
+  config.active_job.queue_adapter = :resque
 
   if ENV['SENDGRID_API_KEY']
     config.action_mailer.delivery_method = :sendgrid_actionmailer

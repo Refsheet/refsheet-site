@@ -25,15 +25,6 @@ GIT
     materialize-sass (0.97.8)
       sass (~> 3.3)
 
-GIT
-  remote: git://github.com/tawan/active-elastic-job.git
-  revision: ec51c5d9dedc4a1b47f2db41f26d5fceb251e979
-  branch: master
-  specs:
-    active_elastic_job (2.0.1)
-      aws-sdk-sqs (~> 1)
-      rails (>= 4.2)
-
 GEM
   remote: https://rubygems.org/
   remote: http://insecure.rails-assets.org/
@@ -661,7 +652,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_elastic_job!
   active_model_serializers
   ahoy_matey
   annotate
