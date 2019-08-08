@@ -21,8 +21,11 @@
     %h2 Roles
 
     .row
-      .col.s12
+      .col.s6
         = f.association :roles, multiple: true
+
+      .col.s6
+        = f.input :support_pledge_amount
 
     %h2 Save
     .input-field
