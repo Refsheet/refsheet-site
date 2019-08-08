@@ -27,14 +27,16 @@ class Notifications::ImageFavorite < Notification
   delegate :media, to: :actionable, allow_nil: true
 
   def title
-    "#{sender.name} likes #{media&.title || "<Deleted Image>"}!"
+    "#{sender&.name || "(deleted account)"} likes #{media&.title || "<Deleted Image>"}!"
   end
 
   def href
+    return nil if actionable.nil?
     media && image_url(media)
   end
 
   def link
+    return nil if actionable.nil?
     media && image_path(media)
   end
 
