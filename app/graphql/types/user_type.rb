@@ -9,6 +9,8 @@ Types::UserType = GraphQL::ObjectType.define do
   field :characters_count, types.String
   field :is_admin, types.Boolean
   field :is_patron, types.Boolean
+  field :is_moderator, types.Boolean
+  field :is_supporter, types.Boolean
 
   field :avatar_url, types.String
   field :profile_image_url, types.String

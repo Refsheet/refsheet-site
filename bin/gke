@@ -1,22 +1,57 @@
 #!/bin/bash
 
-function do_ssh() {
+DEFAULT_CLUSTER="refsheet-prod"
 
+function get_nodes() {
+    pools=$(gcloud container node-pools list --cluster "$DEFAULT_CLUSTER" | grep -vP '^NAME' | cut -d' ' -f1 | tr '\n' '\t')
+
+    select pool in $pools; do
+        kubectl get nodes -l cloud.google.com/gke-nodepool=$pool -o=name
+        return
+    done
+}
+
+function do_ssh() {
 	echo "Fetching pods..."
+	container="refsheet-prod"
 
 	pods=$(kubectl get pods --no-headers=true | grep Running | cut -d' ' -f1 | tr '\n' '\t')
 
 	select pod in $pods; do
-		kubectl exec "$pod" -it -c refsheet-prod -- bash
+		kubectl exec "$pod" -it -c "$container" -- bash
 		return
 	done
 }
 
+function do_cordon_all() {
+    echo "Fetching node pools..."
+    for node in $(get_nodes); do
+        kubectl cordon "$node"
+    done
+}
+
+function do_drain_all() {
+    echo "Fetching node pools..."
+    for node in $(get_nodes); do
+        kubectl drain --force --ignore-daemonsets --delete-local-data --grace-period=10 "$node"
+    done
+}
+
 case "$1" in
 	list-pods)
-		kubectl get pods --no-headers=true | grep Running
-		;;
+		  kubectl get pods --no-headers=true | grep Running
+		  ;;
 	ssh)
-		do_ssh
-		;;
+		  do_ssh
+	  	;;
+	cordon-all)
+	    do_cordon_all
+	    ;;
+  drain-all)
+      do_drain_all
+      ;;
+	*)
+	    echo "Usage:"
+	    echo "  gke list-pods|ssh|cordon-all|drain-all"
+	    ;;
 esac

@@ -2,26 +2,27 @@
 #
 # Table name: users
 #
-#  id                  :integer          not null, primary key
-#  name                :string
-#  username            :string
-#  email               :string
-#  password_digest     :string
-#  profile             :text
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  avatar_file_name    :string
-#  avatar_content_type :string
-#  avatar_file_size    :integer
-#  avatar_updated_at   :datetime
-#  settings            :json
-#  type                :string
-#  auth_code_digest    :string
-#  parent_user_id      :integer
-#  unconfirmed_email   :string
-#  email_confirmed_at  :datetime
-#  deleted_at          :datetime
-#  avatar_processing   :boolean
+#  id                    :integer          not null, primary key
+#  name                  :string
+#  username              :string
+#  email                 :string
+#  password_digest       :string
+#  profile               :text
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  avatar_file_name      :string
+#  avatar_content_type   :string
+#  avatar_file_size      :integer
+#  avatar_updated_at     :datetime
+#  settings              :json
+#  type                  :string
+#  auth_code_digest      :string
+#  parent_user_id        :integer
+#  unconfirmed_email     :string
+#  email_confirmed_at    :datetime
+#  deleted_at            :datetime
+#  avatar_processing     :boolean
+#  support_pledge_amount :integer          default(0)
 #
 # Indexes
 #

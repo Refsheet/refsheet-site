@@ -117,7 +117,7 @@ class Notification < ApplicationRecord
   end
 
   def icon
-    sender.avatar_url
+    sender&.avatar_url
   end
 
   def href
@@ -129,8 +129,8 @@ class Notification < ApplicationRecord
   end
 
   def tag
-    if actionable.respond_to? :guid
-      "#{permission_key}-#{actionable.guid}"
+    if actionable&.respond_to? :guid
+      "#{permission_key}-#{actionable&.guid}"
     else
       "#{permission_key}-#{self.guid}"
     end

@@ -2,26 +2,27 @@
 #
 # Table name: users
 #
-#  id                  :integer          not null, primary key
-#  name                :string
-#  username            :string
-#  email               :string
-#  password_digest     :string
-#  profile             :text
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  avatar_file_name    :string
-#  avatar_content_type :string
-#  avatar_file_size    :integer
-#  avatar_updated_at   :datetime
-#  settings            :json
-#  type                :string
-#  auth_code_digest    :string
-#  parent_user_id      :integer
-#  unconfirmed_email   :string
-#  email_confirmed_at  :datetime
-#  deleted_at          :datetime
-#  avatar_processing   :boolean
+#  id                    :integer          not null, primary key
+#  name                  :string
+#  username              :string
+#  email                 :string
+#  password_digest       :string
+#  profile               :text
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  avatar_file_name      :string
+#  avatar_content_type   :string
+#  avatar_file_size      :integer
+#  avatar_updated_at     :datetime
+#  settings              :json
+#  type                  :string
+#  auth_code_digest      :string
+#  parent_user_id        :integer
+#  unconfirmed_email     :string
+#  email_confirmed_at    :datetime
+#  deleted_at            :datetime
+#  avatar_processing     :boolean
+#  support_pledge_amount :integer          default(0)
 #
 # Indexes
 #
@@ -215,9 +216,12 @@ class User < ApplicationRecord
     self.admin? or self.pledges.active.any?
   end
 
-  # TODO - migrate
-  def support_pledge_amount
-    0
+  def supporter?
+    self.support_pledge_amount > 0
+  end
+
+  def moderator?
+    false
   end
 
   def supporter_level
@@ -256,40 +260,6 @@ class User < ApplicationRecord
 
   def send_welcome_email
     UserMailer.welcome(id, generate_auth_code!).deliver_now
-  end
-
-  class SupporterLevel
-    APPRENTICE = 1
-    SILVER = 5
-    GOLD = 10
-
-    def initialize(amount, admin)
-      if admin
-        @amount = 999
-      else
-        @amount = amount
-      end
-    end
-
-    def authorize!(level)
-      unless @amount >= level
-        raise NotAuthorizedError, "Your account does not meet the supporter requirement for this feature."
-      end
-    end
-
-    def apprentice?
-      @amount >= APPRENTICE
-    end
-
-    def silver?
-      @amount >= SILVER
-    end
-
-    def gold?
-      @amount >= GOLD
-    end
-
-    class NotAuthorizedError < StandardError; end
   end
 
   private

@@ -3,16 +3,26 @@ module ActiveJob
     class SplitQueueAdapter
       GOOGLE_PERCENT = (ENV.fetch('ACTIVE_JOB_GOOGLE_PERCENT') { 0 }).to_i
 
-      def enqueue(job)
+      def enqueue(job, connect = true)
         pick_queue(job).enqueue(job)
       rescue Redis::CannotConnectError => e
+        if connect
+          start_bridge
+          return enqueue(job, false)
+        end
+
         Raven.capture_exception(e) rescue nil
         lookup(Rails.configuration.active_job.queue_adapter).enqueue(job)
       end
 
-      def enqueue_at(job, timestamp)
+      def enqueue_at(job, timestamp, connect = true)
         pick_queue(job).enqueue_at(job, timestamp)
       rescue Redis::CannotConnectError => e
+        if connect
+          start_bridge
+          return enqueue_at(job, timestamp, false)
+        end
+
         Raven.capture_exception(e) rescue nil
         lookup(Rails.configuration.active_job.queue_adapter).enqueue_at(job, timestamp)
       end
@@ -80,6 +90,13 @@ module ActiveJob
 
         Rails.logger.info("Queuing job on #{queue.class.name}")
         queue
+      end
+
+      def start_bridge
+        file = "/root/kube.sh"
+        Rails.logger.info("Attempting to restart Kube bridge to Redis...")
+        output = `bash -c #{file}`
+        output.split("\n").each { |l| Rails.logger.info(l) }
       end
     end
   end

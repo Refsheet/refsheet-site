@@ -20,7 +20,6 @@ gem 'aws-sdk-sqs'
 gem 'resque'
 gem 'non-stupid-digest-assets'
 gem 'rollbar'
-gem 'active_elastic_job', github: 'tawan/active-elastic-job', branch: 'master'
 gem 'sprockets_uglifier_with_source_maps'
 gem 'webpacker'
 gem 'faraday_middleware'
@@ -97,6 +96,7 @@ gem 'stripe'
 gem 'webpush'
 gem 'her'
 gem 'sentry-raven'
+gem 'sendgrid-actionmailer'
 
 # == BOWER ASSETS
 

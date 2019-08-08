@@ -27,18 +27,21 @@ class Notifications::ForumReply < Notification
   delegate :forum, :thread, to: :actionable, allow_nil: true
 
   def title
-    "#{sender.name} replied to #{actionable.thread.topic}"
+    "#{sender&.name || "(deleted account)"} replied to #{actionable&.thread&.topic || "(deleted topic)"}"
   end
 
   def message
+    return nil if actionable.nil?
     "\"#{actionable.content.to_text.truncate(120).chomp}\""
   end
 
   def href
+    return nil if actionable.nil?
     forum_thread_url forum, thread.slug, anchor: actionable.guid
   end
 
   def link
+    return nil if actionable.nil?
     forum_thread_path forum, thread.slug, anchor: actionable.guid
   end
 

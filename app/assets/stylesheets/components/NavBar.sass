@@ -4,6 +4,31 @@
   $dropdown-z: $navbar-z + 10
   $dropdown-item-padding: 10px
 
+  .navbar-notice
+    background-color: $brand-primary
+    position: absolute
+    left: 0
+    right: 0
+    color: white !important
+    z-index: $navbar-z + 100
+
+    .container
+      padding: 15px 0
+      line-height: 26px
+
+    .notice-close
+      position: absolute
+      right: 0
+      top: 0
+      bottom: 0
+      background-color: transparent
+      border: none
+      color: white
+      padding: 1rem 1.5rem
+
+      &:hover
+        background-color: rgba(0, 0, 0, 0.1)
+
   a > .count
     position: absolute
     bottom: 0.5rem
