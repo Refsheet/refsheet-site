@@ -7,7 +7,7 @@ WORKDIR /app
 
 # Install System Deps
 
-RUN apt-get update && \
+RUN apt-get -o Acquire::Check-Valid-Until=false update && \
     apt-get install -y \
         build-essential \
         libpq-dev \
