@@ -5,6 +5,8 @@ class PrivateUserSerializer < ActiveModel::Serializer
              :avatar_url,
              :is_admin,
              :is_patron,
+             :is_supporter,
+             :is_moderator,
              :settings,
              :link,
              :password,
