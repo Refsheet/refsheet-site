@@ -13,12 +13,12 @@ spec:
             app: refsheet-prod
             tier: refsheet-prod-job
           annotations:
-            configHash: cb74f4461ebf98fb970c3bf11a4e79ae5d60bc467e7617ca5b6578e5ed9d86cc
+            configHash: 17459fa03f3be4a3c13bb5f568c7851b0ae4360da9aff7d75221a668cb7e2917
         spec:
           restartPolicy: Never
           containers:
           - name: image-redrive
-            image: gcr.io/refsheet-239409/refsheet-site:7730d5a889434af630fe45cc16f4d32a8db954a2
+            image: gcr.io/refsheet-239409/refsheet-site:6ca1748bd25a19d7961e65b16791cb3def114719
             imagePullPolicy: Always
             command:
             - bundle

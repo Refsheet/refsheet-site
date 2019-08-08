@@ -67,15 +67,15 @@ history.listen(() => {
     router = `<Router history={ history } onUpdate={ this._handleRouteUpdate }>
       <Switch>
         <Route path='/' render={(props) =>
-          <App {...props} eagerLoad={ this.props.eagerLoad } environment={ this.props.environment }>
+          <App {...props} eagerLoad={ this.props.eagerLoad } environment={ this.props.environment } notice={ this.props.notice }>
             <Switch>
               <Route exact path='/' component={ Home } title='Home' />
 
               <Route path='/login' component={ LoginView } />
               <Route path='/register' component={ RegisterView } />
 
-              <Route path='/account' title='Account' render={(props) =>
-                <Views.Account.Layout {...props}>
+              <Route path='/account' title='Account' render={(props2) =>
+                <Views.Account.Layout {...props2}>
                   <Switch>
                     <Redirect exact from='/account' to='/account/settings' />
                     <Route path='/account/settings' title='Account Settings' component={ Views.Account.Settings.Show } />
@@ -97,8 +97,8 @@ history.listen(() => {
                 <Switch>
                   <Route exact path='/forums' component={ Forums.Index } />
 
-                  <Route path='/forums/:forumId' render={(props) =>
-                    <Forums.Show {...props}>
+                  <Route path='/forums/:forumId' render={(props2) =>
+                    <Forums.Show {...props2}>
                       <Route path='/forums/:forumId/:threadId' component={ Forums.Threads.Show } />
                     </Forums.Show>
                   }/>
