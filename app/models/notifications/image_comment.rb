@@ -27,18 +27,21 @@ class Notifications::ImageComment < Notification
   delegate :media, :comment, to: :actionable, allow_nil: true
 
   def title
-    "#{sender.name} commented on #{media&.title || "<Deleted Image>"}"
+    "#{sender&.name || "(deleted account)"} commented on #{media&.title || "<Deleted Image>"}"
   end
 
   def message
+    return nil if actionable.nil?
     "\"#{comment.truncate(120).chomp}\""
   end
 
   def href
+    return nil if actionable.nil?
     media && image_url(media)
   end
 
   def link
+    return nil if actionable.nil?
     media && image_path(media)
   end
 
