@@ -1,4 +1,18 @@
 ---
+v1.5.0-pre.143:
+- sha: c7cc125871afa09efb78a12c569cbebd208d33bb
+  time: '1565236371'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: c7cc1258
+  date: '2019-08-08'
+- sha: ac5fad27ff8243922563db4b0bb7ca4c6e8aaba7
+  time: '1565236364'
+  tags: []
+  message: Remove active-elastic-job and route everything to Redis. Yes, even _that_.
+  hash: ac5fad27
+  date: '2019-08-08'
+---
 v1.5.0-pre.142:
 - sha: adcafd645e970c1615d02180149617c173e0ea25
   time: '1565043692'
