@@ -4,7 +4,6 @@ metadata:
   name: refsheet-prod
   namespace: default
 data:
-  ASSET_DOMAIN: assets.refsheet.net
   AWS_REGION: us-east-1
   CLOUD_DOMAIN: cloud.refsheet.net
   DB_POOL: "15"

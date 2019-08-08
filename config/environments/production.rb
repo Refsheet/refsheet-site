@@ -80,14 +80,18 @@ Rails.application.configure do
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 
-  if ENV['GOOGLE_CLOUD']
-    config.active_job.queue_adapter      = :resque
-    config.action_mailer.delivery_method = :smtp
-    # TODO - GCLOUD Find a way to deliver mail through Google cloud
-    # Also uh, eventually queue jobs to Google???
-  else
-    config.active_job.queue_adapter      = :active_elastic_job
+  config.active_job.queue_adapter = :resque
+
+  if ENV['SENDGRID_API_KEY']
+    config.action_mailer.delivery_method = :sendgrid_actionmailer
+    config.action_mailer.sendgrid_actionmailer_settings = {
+        api_key: ENV['SENDGRID_API_KEY'],
+        raise_delivery_errors: true
+    }
+  elsif !ENV['GOOGLE_CLOUD']
     config.action_mailer.delivery_method = :ses
+  else
+    config.action_mailer.delivery_method = :smtp
   end
 
   # config.active_job.queue_name_prefix = "refsheet-site_#{Rails.env}"

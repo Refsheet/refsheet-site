@@ -133,6 +133,7 @@ class Image < ApplicationRecord # < Media
   scope :visible, -> { where(hidden: false) }
 
   scope :processing, -> { where(image_processing: true) }
+  scope :processed,  -> { where(image_processing: false) }
 
   scope :similar_to, -> (image) {
     target_hash = image.image_phash

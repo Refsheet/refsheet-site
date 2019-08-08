@@ -10,6 +10,7 @@
 import 'whatwg-fetch'
 import * as Sentry from '@sentry/browser'
 import * as ReactRouter from 'react-router-dom'
+import * as UserUtils from 'utils/UserUtils'
 import { setCurrentUser } from 'actions'
 
 export const __globals = [
@@ -25,7 +26,8 @@ export const __globals = [
   'connect',
   'setCurrentUser',
   'NewLightbox',
-  'Restrict'
+  'Restrict',
+  'UserUtils'
 ]
 
 export { default as React } from 'react'
@@ -39,6 +41,7 @@ export { connect } from 'react-redux'
 export { ReactRouter }
 export { Sentry }
 export { setCurrentUser }
+export { UserUtils }
 
 // NOT GLOBAL
 export { default as V2Wrapper } from 'App'

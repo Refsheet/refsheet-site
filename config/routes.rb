@@ -151,6 +151,7 @@ Rails.application.routes.draw do
     delete :test_cart, to: 'test#destroy_cart'
   end
 
+  resources :artists, only: [:index, :show]
 
   #== Webhooks
 

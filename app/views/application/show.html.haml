@@ -2,7 +2,8 @@
                   gaPropertyID: ENV['GA_PROPERTY_ID'],
                   eagerLoad: @eager_load,
                   flash: flash.to_hash,
-                  environment: Rails.env
+                  environment: Rails.env,
+                  notice: ENV['MAINTENANCE_NOTICE']
 
 #rootAppLoader.shaded-background
   %main#loading-screen

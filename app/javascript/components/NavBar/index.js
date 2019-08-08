@@ -20,6 +20,7 @@ class NavBar extends Component {
     this.state = {
       sessionModalOpen: false,
       register: false,
+      noticeClosed: false,
       menuOpen: false
     }
 
@@ -32,7 +33,6 @@ class NavBar extends Component {
 
   handleLoginClick(e) {
     e.preventDefault()
-    console.log("Login")
     this.setState({
       sessionModalOpen: true,
       register: false
@@ -41,7 +41,6 @@ class NavBar extends Component {
 
   handleRegisterClick(e) {
     e.preventDefault()
-    console.log("Register")
     this.setState({
       sessionModalOpen: true,
       register: true
@@ -73,6 +72,11 @@ class NavBar extends Component {
     this.setState({menuOpen: false})
   }
 
+  handleNoticeClose(e) {
+    e.preventDefault()
+    this.setState({noticeClosed: true})
+  }
+
   render() {
     const {
       query,
@@ -85,6 +89,16 @@ class NavBar extends Component {
     return (
         <div className='NavBar navbar-fixed user-bar'>
           <div className='navbar-shroud' onClick={ this.handleMenuClose } />
+
+          { !this.state.noticeClosed && this.props.notice && <div className={'navbar-notice'} onClick={ this.handleNoticeClose.bind(this) }>
+            <div className={'container'}>
+              <strong>Notice:</strong> { this.props.notice }
+            </div>
+
+            <button type={'button'} className={'notice-close'} onClick={ this.handleNoticeClose.bind(this) }>
+              <i className={'material-icons'}>close</i>
+            </button>
+          </div> }
 
           <nav>
             <div className='container'>
@@ -128,7 +142,8 @@ NavBar.propTypes = {
     nsfwOk: PropTypes.bool
   }),
   setCurrentUser: PropTypes.func,
-  setNsfwMode: PropTypes.func
+  setNsfwMode: PropTypes.func,
+  notice: PropTypes.string
 }
 
 const mapStateToProps = ({session}, props) => ({

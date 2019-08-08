@@ -25,15 +25,6 @@ GIT
     materialize-sass (0.97.8)
       sass (~> 3.3)
 
-GIT
-  remote: git://github.com/tawan/active-elastic-job.git
-  revision: ec51c5d9dedc4a1b47f2db41f26d5fceb251e979
-  branch: master
-  specs:
-    active_elastic_job (2.0.1)
-      aws-sdk-sqs (~> 1)
-      rails (>= 4.2)
-
 GEM
   remote: https://rubygems.org/
   remote: http://insecure.rails-assets.org/
@@ -516,6 +507,7 @@ GEM
       json
       oauth (>= 0.4.5)
       rest-client (>= 1.8.0)
+    ruby_http_client (3.3.0)
     rubyzip (1.2.2)
     safe_yaml (1.0.5)
     safely_block (0.2.1)
@@ -548,6 +540,11 @@ GEM
     semantic (1.6.1)
     semantic_logger (4.5.0)
       concurrent-ruby (~> 1.0)
+    sendgrid-actionmailer (2.4.0)
+      mail (~> 2.5)
+      sendgrid-ruby (~> 6.0)
+    sendgrid-ruby (6.0.0)
+      ruby_http_client (~> 3.3.0)
     sentry-raven (2.9.0)
       faraday (>= 0.7.6, < 1.0)
     serviceworker-rails (0.5.5)
@@ -655,7 +652,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_elastic_job!
   active_model_serializers
   ahoy_matey
   annotate
@@ -750,6 +746,7 @@ DEPENDENCIES
   sassc-rails
   scoped_search
   semantic
+  sendgrid-actionmailer
   sentry-raven
   serviceworker-rails
   shoulda-matchers (~> 2.8)

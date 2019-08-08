@@ -13,11 +13,11 @@ spec:
         app: refsheet-prod
         tier: frontend
       annotations:
-        configHash: 4238c08a8ce1b6ee9b74cf744c89f20d693fe4002ae51d694366fe7f12da57e4
+        configHash: 17459fa03f3be4a3c13bb5f568c7851b0ae4360da9aff7d75221a668cb7e2917
     spec:
       containers:
       - name: refsheet-prod
-        image: gcr.io/refsheet-239409/refsheet-site:eb19ddbf576d055b5564d8589b3696025b191bd0
+        image: gcr.io/refsheet-239409/refsheet-site:6ca1748bd25a19d7961e65b16791cb3def114719
         imagePullPolicy: Always
         livenessProbe:
           httpGet:
@@ -49,8 +49,8 @@ spec:
           protocol: TCP
         resources:
           requests:
-            cpu: "1"
+            cpu: "0.15"
             memory: 500M
           limits:
-            cpu: "1"
+            cpu: "0.3"
             memory: 1G

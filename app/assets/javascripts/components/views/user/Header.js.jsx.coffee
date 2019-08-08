@@ -30,10 +30,16 @@
       canFollow = true
       followColor = if @props.followed then '#ffca28' else 'rgba(255, 255, 255, 0.7)'
 
-    `<div className='user-header'>
+    userColor = UserUtils.userFgColor(this.props)
+    userBgColor = UserUtils.userBgColor(this.props)
+
+    if userColor
+      imageStyle = { boxShadow: "#{userColor} 0px 0px 3px 1px" }
+
+    `<div className='user-header' style={{ backgroundColor: userBgColor }}>
         <div className='container flex'>
             <div className='user-avatar'>
-                <div className='image'>
+                <div className='image' style={imageStyle}>
                     { editable &&
                         <div className='image-edit-overlay'>
                             <div className='content'>
@@ -54,19 +60,25 @@
                             <Icon style={{ color: followColor }} className='right'>person_add</Icon>
                         </a> }
 
-                    <h1 className='name'>{ this.props.name }</h1>
+                    <h1 className='name' style={{color: userColor}}>{ this.props.name }</h1>
                     <div className='username'>
                         @{ this.props.username }
 
                         { this.props.is_admin &&
-                            <span className='user-badge admin-badge'>
-                                <i className='material-icons'>security</i>
+                            <span className='user-badge admin-badge' title="Site administrator">
+                                <i className='material-icons' style={{color: UserUtils.USER_FG_COLOR.admin}}>security</i>
                             </span>
                         }
 
                         { this.props.is_patron &&
-                            <span className='user-badge patron-badge' title='Patron'>
+                            <span className='user-badge patron-badge' title='Site Patron'>
                                 <img src='/assets/third_party/patreon_logo.png' alt='Patreon' />
+                            </span>
+                        }
+
+                        { this.props.is_supporter &&
+                            <span className='user-badge supporter-badge' title='Site Supporter'>
+                                <i className='material-icons' style={{color: UserUtils.USER_FG_COLOR.supporter}}>star</i>
                             </span>
                         }
                     </div>

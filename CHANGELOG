@@ -1,4 +1,221 @@
 ---
+v1.5.0-pre.142:
+- sha: adcafd645e970c1615d02180149617c173e0ea25
+  time: '1565043692'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: adcafd64
+  date: '2019-08-05'
+- sha: 570d50e8cc2c17e7432034b0b51cb39c7ffa6346
+  time: '1565043679'
+  tags: []
+  message: Add artist models!
+  hash: 570d50e8
+  date: '2019-08-05'
+- sha: b3259b850754e4e4155d2f79ec6c90e7422348d8
+  time: '1565040692'
+  tags: []
+  message: Revert the disk map on magick because apparently that just breaks everything.
+  hash: b3259b85
+  date: '2019-08-05'
+- sha: 9070cbd8e1a7d191abfd23a1732e00ce4d33bb12
+  time: '1564706442'
+  tags: []
+  message: Add disk limit to config.
+  hash: 9070cbd8
+  date: '2019-08-02'
+- sha: c55ca38e266c541697f8bbb983e0ffe438f40683
+  time: '1564706237'
+  tags: []
+  message: Add disk limit to config.
+  hash: c55ca38e
+  date: '2019-08-02'
+---
+v1.5.0-pre.141:
+- sha: 6327094603a06785cc87bc893077888eb3667b5c
+  time: '1564624897'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: '63270946'
+  date: '2019-08-01'
+- sha: 125b5c77eaf3e16af1417d80e9c6f8a1f6c86208
+  time: '1564624890'
+  tags: []
+  message: Missed one start_bridge call. Paperclips!
+  hash: 125b5c77
+  date: '2019-08-01'
+---
+v1.5.0-pre.140:
+- sha: 55a0387c048d344220369081d072f34b39843390
+  time: '1564621776'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 55a0387c
+  date: '2019-08-01'
+- sha: 04a5eb6f39895f7e687078a7a479550cea70fc3d
+  time: '1564621768'
+  tags: []
+  message: Only show processed images in image browse page.
+  hash: 04a5eb6f
+  date: '2019-08-01'
+---
+v1.5.0-pre.139:
+- sha: 71e3ddbdf3a90ad1d1c924c39d4eb0844907b094
+  time: '1564617685'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 71e3ddbd
+  date: '2019-08-01'
+- sha: af7c2b180f66be6c6c3985aa6d06ebe8202e23b0
+  time: '1564617676'
+  tags: []
+  message: Try and reconnect to Redis.
+  hash: af7c2b18
+  date: '2019-08-01'
+- sha: b50db59ce132fd8a5871449b300e87e4bb17b980
+  time: '1564497684'
+  tags:
+  - ci skip
+  message: v1.5.0-pre.138
+  hash: b50db59c
+  date: '2019-07-30'
+- sha: 2ca10b57f8b48a29939c0f24ee7bc08bf76804d8
+  time: '1564495686'
+  tags: []
+  message: Will doesn't maintain this anymore. There is no will, only Mau.
+  hash: 2ca10b57
+  date: '2019-07-30'
+- sha: 88dde14ca56b75433fd3a3d4bb86d5bd7f75fd2a
+  time: '1564495570'
+  tags: []
+  message: Update README.md
+  hash: 88dde14c
+  date: '2019-07-30'
+---
+v1.5.0-pre.138:
+- sha: 2ca10b57f8b48a29939c0f24ee7bc08bf76804d8
+  time: '1564495686'
+  tags: []
+  message: Will doesn't maintain this anymore. There is no will, only Mau.
+  hash: 2ca10b57
+  date: '2019-07-30'
+- sha: 88dde14ca56b75433fd3a3d4bb86d5bd7f75fd2a
+  time: '1564495570'
+  tags: []
+  message: Update README.md
+  hash: 88dde14c
+  date: '2019-07-30'
+---
+v1.5.0-pre.137:
+- sha: 6af4bc9bbfef95eb6d95f736ff0c4b7d93d55f85
+  time: '1564463233'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 6af4bc9b
+  date: '2019-07-30'
+- sha: 8ef7faee346367fc812a6c2fefbb76d2cfda1742
+  time: '1564463223'
+  tags: []
+  message: Add GKE commands and try fixing cloudbuild.
+  hash: 8ef7faee
+  date: '2019-07-30'
+- sha: b02b5153a86046e4a798161d00deb1bd3a84e88b
+  time: '1564461567'
+  tags:
+  - ci skip
+  message: v1.5.0-pre.136
+  hash: b02b5153
+  date: '2019-07-30'
+- sha: 5c277e551a7aa1b5ce1e87bd40968d25a67f43c2
+  time: '1564460039'
+  tags: []
+  message: Use Kaniko executor for docker builds.
+  hash: 5c277e55
+  date: '2019-07-30'
+- sha: 7730d5a889434af630fe45cc16f4d32a8db954a2
+  time: '1564459652'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 7730d5a8
+  date: '2019-07-30'
+- sha: 46dcefc414828c91f6f25c7df640b9546e4d5705
+  time: '1564459646'
+  tags: []
+  message: Oh, I broke Cloudbuild.
+  hash: 46dcefc4
+  date: '2019-07-30'
+---
+v1.5.0-pre.136:
+- sha: 5c277e551a7aa1b5ce1e87bd40968d25a67f43c2
+  time: '1564460039'
+  tags: []
+  message: Use Kaniko executor for docker builds.
+  hash: 5c277e55
+  date: '2019-07-30'
+- sha: 7730d5a889434af630fe45cc16f4d32a8db954a2
+  time: '1564459652'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 7730d5a8
+  date: '2019-07-30'
+- sha: 46dcefc414828c91f6f25c7df640b9546e4d5705
+  time: '1564459646'
+  tags: []
+  message: Oh, I broke Cloudbuild.
+  hash: 46dcefc4
+  date: '2019-07-30'
+---
+v1.5.0-pre.135:
+- sha: 22ee2e5681ab1922753fdbc62364ace1af61ea56
+  time: '1564458420'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 22ee2e56
+  date: '2019-07-30'
+- sha: a75ded6cb6466dbbb7d7de4db4489d3817749af7
+  time: '1564458393'
+  tags: []
+  message: Using NVM for production Docker image instead, since that seems to actually,
+    properly install the right Node version.
+  hash: a75ded6c
+  date: '2019-07-30'
+---
+v1.5.0-pre.134:
+- sha: d9144bf0dd14625492c7045f32fd09319fb2160f
+  time: '1564455488'
+  tags: []
+  message: Add Sendgrid integration for Google Cloud.
+  hash: d9144bf0
+  date: '2019-07-30'
+---
+v1.5.0-pre.133:
+- sha: a0f0a7c2d97a91ddd11f4eb6e1144dd0ba5bcd6f
+  time: '1563943144'
+  tags: []
+  message: Make a directory before copying files to it.
+  hash: a0f0a7c2
+  date: '2019-07-24'
+---
+v1.5.0-pre.132:
+- sha: 9f0d24ef77eb34868c8c3bf6f6f76e9044cb2e3b
+  time: '1563598771'
+  tags: []
+  message: Merge remote-tracking branch 'origin/master'
+  hash: 9f0d24ef
+  date: '2019-07-20'
+- sha: 21c37b50143d7d6d2de97bc6479de55a930c4748
+  time: '1563598764'
+  tags: []
+  message: Add character version input.
+  hash: 21c37b50
+  date: '2019-07-20'
+- sha: b2b46c117926b99aab2c8b7c399dda8c9341745e
+  time: '1563595960'
+  tags: []
+  message: Kube limits.
+  hash: b2b46c11
+  date: '2019-07-20'
+---
 v1.5.0-pre.131:
 - sha: 8a5f88b826488ece7465a7145c7770eed2cb4cbd
   time: '1563590734'

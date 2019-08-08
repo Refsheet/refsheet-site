@@ -74,6 +74,7 @@
         <Packs.application.NavBar
             query={ this.props.location.query.q }
             onUserChange={ this._onLogin }
+            notice={ this.props.notice }
         />
 
         { this.props.children }

@@ -5,12 +5,13 @@ import {connect} from "react-redux";
 const Restrict = ({admin, patron, currentUser, children}) => {
   const {
     is_admin,
-    is_patron
+    is_patron,
+    is_supporter
   } = (currentUser || {})
 
   const hide = (
     admin && !is_admin ||
-    patron && !is_patron
+    patron && (!is_patron && !is_supporter)
   )
 
   if (hide) return null
