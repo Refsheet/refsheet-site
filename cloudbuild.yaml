@@ -18,10 +18,6 @@ steps:
 
   #== DEPLOY
 
-  # Push Build
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ["push", "gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID"]
-
   # Deploy Web
   - name: 'gcr.io/cloud-builders/kubectl'
     args: ['set', 'image', 'deployment', 'refsheet-prod', "refsheet-prod=gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID"]
@@ -35,9 +31,5 @@ steps:
     env:
       - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
       - 'CLOUDSDK_CONTAINER_CLUSTER=refsheet-prod'
-
-images:
-  - 'gcr.io/$PROJECT_ID/refsheet-site:latest'
-  - 'gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID'
 
 timeout: 3600s
