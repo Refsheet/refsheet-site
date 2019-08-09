@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import DropdownLink from '../DropdownLink'
 import NotificationItem from '../Dropdown/NotificationItem'
@@ -6,31 +6,47 @@ import { Link } from 'react-router-dom'
 import Scrollbars from 'Shared/Scrollbars'
 import subscription from './subscription'
 
-const NotificationMenu = ({notifications=[], unreadCount, loading=false, error, subscribe, refetch}) => {
-  const renderNotification = (n) => (
-      <NotificationItem key={n.id} {...n} />
-  )
-
-  if (!loading && !error)
-    subscribe()
-
-  const renderContent = () => {
-    if(loading) {
-      return <li className='empty-item'>Loading...</li>
-    } else if(error) {
-      return <li className='empty-item red-text'>{ error }</li>
-    } else if(notifications.length > 0) {
-      return notifications.map(renderNotification)
-    } else {
-      return <li className='empty-item'>No new notifications.</li>
+class NotificationMenu extends Component {
+  componentWillReceiveProps(newProps) {
+    if (this.props.unreadCount < newProps.unreadCount) {
+      console.log("Play WOO!")
     }
   }
 
-  const tryRefetch = () => {
-    if(refetch) refetch()
-  }
+  render() {
+    const {
+      notifications=[],
+      unreadCount,
+      loading=false,
+      error,
+      subscribe,
+      refetch
+    } = this.props
 
-  return (
+    const renderNotification = (n) => (
+      <NotificationItem key={n.id} {...n} />
+    )
+
+    if (!loading && !error)
+      subscribe()
+
+    const renderContent = () => {
+      if (loading) {
+        return <li className='empty-item'>Loading...</li>
+      } else if (error) {
+        return <li className='empty-item red-text'>{error}</li>
+      } else if (notifications.length > 0) {
+        return notifications.map(renderNotification)
+      } else {
+        return <li className='empty-item'>No new notifications.</li>
+      }
+    }
+
+    const tryRefetch = () => {
+      if (refetch) refetch()
+    }
+
+    return (
       <DropdownLink icon='notifications' count={unreadCount} onOpen={tryRefetch}>
         <div className='dropdown-menu wide'>
           <div className='title'>
@@ -47,7 +63,8 @@ const NotificationMenu = ({notifications=[], unreadCount, loading=false, error, 
           <Link to='/notifications' className='cap-link'>See More...</Link>
         </div>
       </DropdownLink>
-  )
+    )
+  }
 }
 
 NotificationMenu.propTypes = {
