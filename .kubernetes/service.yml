@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: 2019-05-03T03:57:48Z
+  labels:
+    run: refsheet-prod
+  name: refsheet-prod
+  namespace: default
+  resourceVersion: "71539"
+  selfLink: /api/v1/namespaces/default/services/refsheet-prod
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+    - nodePort: 30140
+      port: 80
+      protocol: TCP
+      targetPort: 3000
+  selector:
+    run: refsheet-prod
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}

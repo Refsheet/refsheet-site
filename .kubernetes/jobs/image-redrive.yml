@@ -13,7 +13,7 @@ spec:
             app: refsheet-prod
             tier: refsheet-prod-job
           annotations:
-            configHash: 17459fa03f3be4a3c13bb5f568c7851b0ae4360da9aff7d75221a668cb7e2917
+            configHash: 8d14f710bdfa33097fa82dcb73a77f9d3505bec7a4456915032d647c41c77b97
         spec:
           restartPolicy: Never
           containers:

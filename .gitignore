@@ -40,9 +40,6 @@ TESTS-*.xml
 
 # OSX Garbage
 .DS_Store
-/public/packs
-/public/packs-test
-/node_modules
 yarn-debug.log*
 yarn-error.log
 yarn-error.log*
@@ -53,3 +50,7 @@ yarn-error.log*
 !/config/certs/.keep
 
 db/*.dump
+
+.pgsync.yml
+.kubernetes/secret.yml
+db-prod.env
