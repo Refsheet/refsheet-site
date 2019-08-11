@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import IdentitySelect from "./CommentForm/IdentitySelect";
 import UserAvatar from "../User/UserAvatar";
 import Restrict from "./Restrict";
+import IdentityModal from "./CommentForm/IdentityModal";
 
 class CommentForm extends Component {
   constructor(props) {
@@ -12,13 +13,26 @@ class CommentForm extends Component {
     this.state = {
       comment: "",
       error: "",
+      identityModalOpen: false,
       submitting: false,
-      identity: {}
+      character: null
     }
   }
 
-  handleCommentChange(name, value) {
-    this.setState({ comment: value })
+  handleCommentChange(name, comment) {
+    this.setState({ comment })
+  }
+
+  handleCharacterChange(character) {
+    this.setState({character, identityModalOpen: false})
+  }
+
+  handleIdentityOpen() {
+    this.setState({identityModalOpen: true})
+  }
+
+  handleIdentityClose() {
+    this.setState({identityModalClosed: false})
   }
 
   handleError(error) {
@@ -34,6 +48,22 @@ class CommentForm extends Component {
     this.setState({ submitting: false, error: message })
   }
 
+  getIdentity() {
+    if (this.state.character) {
+      return {
+        name: this.state.character.name,
+        avatarUrl: this.state.character.profile_image.url.thumbnail,
+        characterId: this.state.character.id
+      }
+    } else {
+      return {
+        name: this.props.currentUser.name,
+        avatarUrl: this.props.currentUser.avatar_url,
+        characterId: null
+      }
+    }
+  }
+
   handleSubmit(e) {
     e.preventDefault()
     this.setState({ submitting: true })
@@ -44,7 +74,7 @@ class CommentForm extends Component {
 
     this.props.onSubmit({
       comment: this.state.comment,
-      identity: this.state.identity
+      identity: this.getIdentity()
     })
       .then((data) => {
         if (data.errors) {
@@ -61,47 +91,46 @@ class CommentForm extends Component {
       inCharacter
     } = this.props
 
-    const identity = {
-      name: this.props.currentUser.name,
-      avatarUrl: this.props.currentUser.avatar_url
-    }
+    const identity = this.getIdentity()
 
     const placeholder = (this.props.placeholder || "").replace(/%n/, identity.name)
 
     return (
-      <form className='card reply-box margin-top--none sp with-avatar'
-            onSubmit={ this.handleSubmit.bind(this) }
-      >
-        <UserAvatar user={this.props.currentUser} />
+      <div className={'comment-form'}>
+        <form className='card reply-box margin-top--none sp with-avatar'
+              onSubmit={ this.handleSubmit.bind(this) }
+        >
+          <UserAvatar user={this.props.currentUser} identity={identity} />
 
-        <div className='card-content reply-box'>
-          <Input
-            type={'textarea'}
-            name='comment'
-            browserDefault
-            noMargin
-            disabled={ this.state.submitting }
-            placeholder={ placeholder }
-            value={this.state.comment}
-            onChange={this.handleCommentChange.bind(this)}
-          />
+          <div className='card-content reply-box'>
+            <Input
+              type={'textarea'}
+              name='comment'
+              browserDefault
+              noMargin
+              disabled={ this.state.submitting }
+              placeholder={ placeholder }
+              value={this.state.comment}
+              onChange={this.handleCommentChange.bind(this)}
+            />
 
-          { this.state.error && <span className={'error red-text smaller'}>{ this.state.error }</span> }
+            { this.state.error && <span className={'error red-text smaller'}>{ this.state.error }</span> }
 
-          <Row noMargin>
-            <Column s={8}>
-              <Restrict admin>
-                { inCharacter && <IdentitySelect /> }
-              </Restrict>
-            </Column>
-            <Column s={4}>
-              <button type={'submit'} className='btn right' disabled={!this.state.comment || this.state.submitting}>
-                { this.state.submitting ? "Posting..." : this.props.buttonText }
-              </button>
-            </Column>
-          </Row>
-        </div>
-      </form>
+            <Row noMargin>
+              <Column s={8}>
+                { inCharacter && <IdentitySelect onClick={this.handleIdentityOpen.bind(this)} name={identity.name} /> }
+              </Column>
+              <Column s={4}>
+                <button type={'submit'} className='btn right' disabled={!this.state.comment || this.state.submitting}>
+                  { this.state.submitting ? "Posting..." : this.props.buttonText }
+                </button>
+              </Column>
+            </Row>
+          </div>
+        </form>
+
+        { this.state.identityModalOpen && <IdentityModal onCharacterSelect={this.handleCharacterChange.bind(this)} onClose={this.handleIdentityClose.bind(this)} /> }
+      </div>
     )
   }
 }

@@ -1,24 +1,25 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { withRouter } from 'react-router'
+import {withNamespaces} from "react-i18next";
 
-const SiteNav = () => {
+const SiteNav = ({t}) => {
   return (
       <ul className='site-nav visible-on-med-and-up'>
         <li>
-          <NavLink to='/' exact activeClassName='primary-text'>Home</NavLink>
+          <NavLink to='/' exact activeClassName='primary-text'>{t('nav.home', 'Home')}</NavLink>
         </li>
 
         <li>
-          <NavLink to='/browse' activeClassName='primary-text'>Characters</NavLink>
+          <NavLink to='/browse' activeClassName='primary-text'>{t('nav.characters', 'Characters')}</NavLink>
         </li>
 
         <li>
-          <NavLink to='/explore' activeClassName='primary-text'>Images</NavLink>
+          <NavLink to='/explore' activeClassName='primary-text'>{t('nav.images', 'Images')}</NavLink>
         </li>
 
         <li>
-          <NavLink to='/forums' activeClassName='primary-text'>Forums</NavLink>
+          <NavLink to='/forums' activeClassName='primary-text'>{t('nav.forums', 'Forums')}</NavLink>
         </li>
 
         {/*<li>*/}
@@ -34,4 +35,4 @@ const SiteNav = () => {
 
 SiteNav.propTypes = {}
 
-export default withRouter(SiteNav)
+export default withNamespaces('common')(withRouter(SiteNav))
