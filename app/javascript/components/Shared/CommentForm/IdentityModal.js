@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import {Query} from "react-apollo";
 import {withNamespaces} from "react-i18next";
 import SearchForCharacter from 'ActivityFeed/searchForCharacter.graphql'
+import {setIdentity} from "../../../actions";
+import {connect} from "react-redux";
 
 class IdentityModal extends Component {
   constructor(props) {
@@ -21,7 +23,13 @@ class IdentityModal extends Component {
   handleCharacterSelect(character) {
     return (e) => {
       e.preventDefault()
-      this.props.onCharacterSelect(character)
+      this.props.setIdentity({character})
+
+      if (this.props.onCharacterSelect) {
+        this.props.onCharacterSelect(character)
+      } else {
+        this.props.onClose()
+      }
     }
   }
 
@@ -98,7 +106,9 @@ class IdentityModal extends Component {
 
 IdentityModal.propTypes = {
   onClose: PropTypes.func.isRequired,
-  onCharacterSelect: PropTypes.func.isRequired
+  onCharacterSelect: PropTypes.func
 }
 
-export default withNamespaces('common')(IdentityModal)
+const mapDispatchToProps = { setIdentity }
+
+export default connect(undefined, mapDispatchToProps)(withNamespaces('common')(IdentityModal))

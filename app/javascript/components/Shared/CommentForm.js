@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import PropTypes from 'react'
+import PropTypes from 'prop-types'
 import {connect} from "react-redux";
 import IdentitySelect from "./CommentForm/IdentitySelect";
 import UserAvatar from "../User/UserAvatar";
-import Restrict from "./Restrict";
 import IdentityModal from "./CommentForm/IdentityModal";
 
 class CommentForm extends Component {
@@ -136,8 +135,8 @@ class CommentForm extends Component {
 }
 
 CommentForm.propTypes = {
-  inCharacter: PropTypes.boolean,
-  richText: PropTypes.boolean,
+  inCharacter: PropTypes.bool,
+  richText: PropTypes.bool,
   onSubmit: PropTypes.func,
   placeholder: PropTypes.string,
   value: PropTypes.string,

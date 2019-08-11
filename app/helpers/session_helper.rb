@@ -66,6 +66,10 @@ module SessionHelper
   #== NSFW
 
   def nsfw_on?
+    if signed_in?
+      return current_user.settings(:view).nsfw_ok
+    end
+
     !!session[:nsfw_ok]
   end
 
@@ -132,7 +136,8 @@ module SessionHelper
 
   def session_hash
     {
-        nsfw_ok: session[:nsfw_ok],
+        nsfw_ok: nsfw_on?,
+        nsfwOk: nsfw_on?,
         locale: session[:locale],
         session_id: cookies.signed[UserSession::COOKIE_SESSION_ID_NAME],
         time_zone: session[:time_zone],

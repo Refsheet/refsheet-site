@@ -3,7 +3,8 @@
     "currentUser": null,
     "nsfwOk": false,
     "timeZone": null,
-    "locale": null
+    "locale": null,
+    "identity": {}
   },
   "conversations": {
     "openConversations": []

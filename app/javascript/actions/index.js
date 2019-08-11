@@ -67,3 +67,21 @@ export const CLOSE_LIGHTBOX = 'CLOSE_LIGHTBOX'
 export function closeLightbox() {
   return { type: CLOSE_LIGHTBOX }
 }
+
+export const SET_IDENTITY = 'SET_IDENTITY'
+export function setIdentity({user, character}) {
+  let identity = null
+
+  if (character) {
+    identity = {
+      name: character.name,
+      avatarUrl: character.profile_image.url.thumbnail,
+      characterId: character.id
+    }
+  }
+
+  return {
+    type: SET_IDENTITY,
+    identity
+  }
+}
