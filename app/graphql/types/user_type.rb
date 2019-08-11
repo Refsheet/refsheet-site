@@ -33,6 +33,12 @@ Types::UserType = GraphQL::ObjectType.define do
     }
   end
 
+  field :link, types.String do
+    resolve -> (obj, _args, _ctx) {
+      "/#{obj.username}"
+    }
+  end
+
   # has_many :character_groups,
   #          serializer: CharacterGroupSerializer
 end

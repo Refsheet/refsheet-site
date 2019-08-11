@@ -6,6 +6,7 @@
       username: React.PropTypes.string.isRequired
       type: React.PropTypes.string
       avatar_url: React.PropTypes.string
+    avatarUrl: React.PropTypes.string
 
   render: ->
     to = StringUtils.indifferentKeys @props.src
@@ -19,4 +20,4 @@
       imgShadow = '0 0 3px 1px #F96854'
       nameColor = '#F96854'
 
-    `<img src={ to.avatarUrl } alt={ to.name } className='avatar circle' style={{ boxShadow: imgShadow }} height={48} width={48} />`
+    `<img src={ this.props.avatarUrl || to.avatarUrl } alt={ this.props.name || to.name } className='avatar circle' style={{ boxShadow: imgShadow }} height={48} width={48} />`

@@ -1,0 +1,29 @@
+ul.stats
+  display: flex
+  margin-top: 0
+  width: 100%
+
+  &.stats-compact
+    li
+      .value
+        font-size: 1.25rem
+        color: $brand-primary
+        font-weight: 300
+
+      .label
+        color: $page-text-color
+
+  li
+    text-align: center
+    margin-top: 0
+    flex-grow: 1
+
+    .value, .stat
+      font-size: 2rem
+      font-weight: 200
+      color: $brand-darker
+
+    .label
+      text-transform: uppercase
+      font-size: 0.9rem
+      color: lighten($admin-page-text-color, 15%)

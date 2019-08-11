@@ -9,6 +9,9 @@
       username: React.PropTypes.string.isRequired
       type: React.PropTypes.string
       avatar_url: React.PropTypes.string
+    name: React.PropTypes.string
+    link: React.PropTypes.string
+    avatarUrl: React.PropTypes.string
 
   timer: null
 
@@ -46,7 +49,10 @@
     { user } = @state
     to = StringUtils.indifferentKeys @props.to
 
-    to.type ||= 'user'
+    if @props.avatarUrl
+      to.type ||= 'character'
+    else
+      to.type ||= 'user'
 
     if to.is_admin || user?.is_admin
       imgShadow = '0 0 3px 1px #2480C8'
@@ -84,8 +90,8 @@
                  display: 'none'
              }}
         >
-            { to.avatarUrl &&
-                <img src={ to.avatarUrl } alt={ to.name } className='avatar circle' style={{ boxShadow: imgShadow }} height={48} width={48} /> }
+            { (to.avatarUrl || this.props.avatarUrl) &&
+                <img src={ this.props.avatarUrl || to.avatarUrl } alt={ this.props.name || to.name } className='avatar circle' style={{ boxShadow: imgShadow }} height={48} width={48} /> }
 
             <div className='card-content'>
                 { canFollow &&
@@ -93,7 +99,7 @@
                         <Icon>person_add</Icon>
                     </a> }
 
-                <Link to={ to.link } style={{ display: 'block', whiteSpace: 'nowrap', marginRight: '3rem', color: nameColor }}>{ to.name }</Link>
+                <Link to={ this.props.link || to.link } style={{ display: 'block', whiteSpace: 'nowrap', marginRight: '3rem', color: nameColor }}>{ this.props.name || to.name }</Link>
 
                 <div className='smaller' style={{ lineHeight: '1rem', verticalAlign: 'middle' }}>
                     { byline }
@@ -154,11 +160,11 @@
             </div>
         </div>
 
-        <Link to={ to.link }
+        <Link to={ this.props.link || to.link }
               onMouseOver={ this._handleLinkMouseover }
               onMouseOut={ this._handleLinkMouseout }
               style={{ color: nameColor }}
         >
-            { to.name }
+            { this.props.name || to.name }
         </Link>
     </div>`
