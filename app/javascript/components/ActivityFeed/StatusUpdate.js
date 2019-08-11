@@ -25,7 +25,7 @@ class StatusUpdate extends Component {
         inCharacter
         placeholder={t('status_update.placeholder', "What's on your mind, %n?")}
         buttonText={t('status_update.post', "Post")}
-        buttonSubmittingText={t('status_update.submitting', 'Sending')}
+        buttonSubmittingText={t('status_update.submitting', 'Sending...')}
         onSubmit={this.handleSubmit.bind(this)}
       />
     )

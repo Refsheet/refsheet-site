@@ -122,7 +122,7 @@ class CommentForm extends Component {
               </Column>
               <Column s={4}>
                 <button type={'submit'} className='btn right' disabled={!this.state.comment || this.state.submitting}>
-                  { this.state.submitting ? "Posting..." : this.props.buttonText }
+                  { this.state.submitting ? this.props.buttonSubmittingText : this.props.buttonText }
                 </button>
               </Column>
             </Row>
@@ -141,7 +141,8 @@ CommentForm.propTypes = {
   onSubmit: PropTypes.func,
   placeholder: PropTypes.string,
   value: PropTypes.string,
-  buttonText: PropTypes.string
+  buttonText: PropTypes.string,
+  buttonSubmittingText: PropTypes.string
 }
 
 const mapStateToProps = (state, props) => ({
