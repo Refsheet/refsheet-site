@@ -144,6 +144,7 @@ class ApplicationController < ActionController::Base
     session[:locale]   = params[:locale] if params.include? :locale
     session[:locale] ||= current_user.settings(:view).locale if signed_in?
     session[:locale] ||= I18n.default_locale
+    cookies[:locale]   = session[:locale]
     I18n.locale = session[:locale]
 
     Time.zone   = current_user.settings(:view).time_zone if signed_in?

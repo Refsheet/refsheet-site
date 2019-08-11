@@ -105,6 +105,8 @@ history.listen(() => {
                 </Switch>
               </Route>
 
+              <Route path='/v2/forums' component={ Packs.application.CharacterController } />
+
 
               {/*== Static Routes */}
 
