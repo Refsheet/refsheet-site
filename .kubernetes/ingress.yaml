@@ -1,11 +1,11 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-         name: refsheet-prod-ingress
-         annotations:
-                 kubernetes.io/ingress.global-static-ip-name: refsheet-prod-ip
-                 networking.gke.io/managed-certificates: "com-refsheet,com-refsheet-kube"
+  name: refsheet-prod-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: refsheet-prod-ip
+    networking.gke.io/managed-certificates: "com-refsheet,com-refsheet-kube,st-ref"
 spec:
-        backend:
-                serviceName: refsheet-prod
-                servicePort: 80
+  backend:
+    serviceName: refsheet-prod
+    servicePort: 80
