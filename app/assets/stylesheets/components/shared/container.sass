@@ -19,6 +19,9 @@
       display: flex
       flex-direction: column
 
+      &.split-bg-right
+        background: linear-gradient(to right, $page-bg-color 50%, $card-bg-color 50%)
+
   &.container-flex
     display: flex
     flex-grow: 1
@@ -29,6 +32,10 @@
       max-width: 300px
       background-color: $card-bg-color
 
+      &.left-pad
+        padding-top: 1.5rem
+        padding-left: 1.5rem
+
       @media #{$small-and-down}
         flex: none
         display: none
@@ -36,3 +43,9 @@
     .content
       flex-grow: 1
       padding: 1.5rem 0 0 1.5rem
+      background-color: $page-bg-color
+
+    .content-left
+      flex-grow: 1
+      padding: 1.5rem 1.5rem 0 0
+      background-color: $page-bg-color

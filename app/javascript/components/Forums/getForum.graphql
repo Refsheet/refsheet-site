@@ -1,0 +1,32 @@
+query getForum($id: String!) {
+    getForum(slug: $id) {
+        id
+        slug
+        name
+        description
+        system_owned
+        created_at
+
+        discussions {
+            id
+            topic
+            slug
+            locked
+            karma_total
+            updated_at
+            created_at
+
+            user {
+                username
+                name
+                is_admin
+                is_patron
+            }
+
+            character {
+                name
+                slug
+            }
+        }
+    }
+}
