@@ -1,0 +1,14 @@
+query SearchForCharacter($slug: String!, $username: String!) {
+    searchForCharacter(slug: $slug, username: $username) {
+        id
+        name
+        shortcode
+        species
+        profile_image {
+            url {
+                thumbnail
+            }
+        }
+        path
+    }
+}

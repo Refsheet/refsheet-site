@@ -1,27 +1,27 @@
 @Modal = React.createClass
   componentDidMount: ->
-    $modal = $(@refs.modal)
-
-    $modal.modal
-      complete: @props.onClose
-      ready: ->
+    $modal = M.Modal.init @refs.modal,
+      onCloseEnd: @props.onClose
+      onOpenEnd: ->
+        console.log("Modal ready.")
         $(this).find('.autofocus').focus()
         $(document).trigger 'materialize:modal:ready'
-        $('.modal-overlay').appendTo('#rootApp')
 
     if window.location.hash is "##{@props.id}"
       history.replaceState '', document.title, window.location.pathname + window.location.search
-      $modal.modal 'open'
+      $modal.open()
 
     if @props.autoOpen
-      $modal.modal 'open'
+      $modal.open()
 
   componentWillUnmount: ->
-    @close()
+    $modal = M.Modal.getInstance(@refs.modal)
+    $modal.close()
+    $modal.destroy()
 
   close: ->
-    $modal = $(@refs.modal)
-    $modal.modal 'close'
+    $modal = M.Modal.getInstance(@refs.modal)
+    $modal.close()
 
   _handleClose: (e) ->
     @close()

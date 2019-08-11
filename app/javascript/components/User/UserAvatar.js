@@ -2,10 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {userFgColor} from "../../utils/UserUtils";
 
-const UserAvatar = ({user, character}) => {
-  const identity = {
-    avatarUrl: user.avatar_url,
-    name: user.name
+const UserAvatar = ({user, identity}) => {
+  if (!identity) {
+    identity = {
+      avatarUrl: user.avatar_url,
+      name: user.name
+    }
   }
 
   const style = {

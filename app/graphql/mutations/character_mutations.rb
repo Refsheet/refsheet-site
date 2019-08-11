@@ -35,7 +35,13 @@ class Mutations::CharacterMutations < Mutations::ApplicationMutation
 
   def search
     q = params[:slug].downcase + '%'
-    scope = User.lookup(params[:username]).characters
+    user = if params[:username] == "me"
+             context.current_user.call
+           else
+             User.lookup!(params[:username])
+           end
+
+    scope = user.characters
     scope.where('LOWER(characters.slug) LIKE ? OR LOWER(characters.name) LIKE ?', q, q).limit(10).order(:name)
   end
 

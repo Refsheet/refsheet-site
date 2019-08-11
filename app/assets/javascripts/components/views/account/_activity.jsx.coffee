@@ -19,7 +19,6 @@
     lastUpdate: null
 
   componentDidMount: ->
-    console.log @props
     StateUtils.load @, 'activity', @props.match?.params, =>
       @setState since: @state.activity[0]?.timestamp, lastUpdate: Math.floor(Date.now() / 1000)
       @_poll()
