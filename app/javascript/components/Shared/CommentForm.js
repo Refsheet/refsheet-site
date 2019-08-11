@@ -3,6 +3,7 @@ import PropTypes from 'react'
 import {connect} from "react-redux";
 import IdentitySelect from "./CommentForm/IdentitySelect";
 import UserAvatar from "../User/UserAvatar";
+import Restrict from "./Restrict";
 
 class CommentForm extends Component {
   constructor(props) {
@@ -11,16 +12,31 @@ class CommentForm extends Component {
     this.state = {
       comment: "",
       error: "",
+      submitting: false,
       identity: {}
     }
   }
 
-  handleCommentChange(e) {
-    this.setState({comment: e.target.value})
+  handleCommentChange(name, value) {
+    this.setState({ comment: value })
+  }
+
+  handleError(error) {
+    console.error(error)
+    let message = ""
+
+    if (error.map) {
+      message = error.map((e) => e.message).join(", ")
+    } else {
+      message = error.message || ("" + error)
+    }
+
+    this.setState({ submitting: false, error: message })
   }
 
   handleSubmit(e) {
     e.preventDefault()
+    this.setState({ submitting: true })
 
     if (!this.state.comment) {
       M.toast("Please enter a comment!", { duration: 3000 })
@@ -30,6 +46,14 @@ class CommentForm extends Component {
       comment: this.state.comment,
       identity: this.state.identity
     })
+      .then((data) => {
+        if (data.errors) {
+          this.handleError(data.errors[0])
+        } else {
+          this.setState({comment: "", submitting: false, error: ""})
+        }
+      })
+      .catch(this.handleError)
   }
 
   render() {
@@ -51,9 +75,12 @@ class CommentForm extends Component {
         <UserAvatar user={this.props.currentUser} />
 
         <div className='card-content reply-box'>
-          <textarea
+          <Input
+            type={'textarea'}
             name='comment'
-            className='browser-default no-margin'
+            browserDefault
+            noMargin
+            disabled={ this.state.submitting }
             placeholder={ placeholder }
             value={this.state.comment}
             onChange={this.handleCommentChange.bind(this)}
@@ -63,10 +90,14 @@ class CommentForm extends Component {
 
           <Row noMargin>
             <Column s={8}>
-              { inCharacter && <IdentitySelect /> }
+              <Restrict admin>
+                { inCharacter && <IdentitySelect /> }
+              </Restrict>
             </Column>
             <Column s={4}>
-              <button type={'submit'} className='btn right' disabled={!this.state.comment}>{ this.props.buttonText }</button>
+              <button type={'submit'} className='btn right' disabled={!this.state.comment || this.state.submitting}>
+                { this.state.submitting ? "Posting..." : this.props.buttonText }
+              </button>
             </Column>
           </Row>
         </div>

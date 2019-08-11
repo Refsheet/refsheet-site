@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190808050615) do
+ActiveRecord::Schema.define(version: 20190811040251) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,10 +24,13 @@ ActiveRecord::Schema.define(version: 20190808050615) do
     t.integer  "activity_id"
     t.string   "activity_method"
     t.string   "activity_field"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.text     "comment"
+    t.integer  "reply_to_activity_id"
     t.index ["activity_type"], name: "index_activities_on_activity_type", using: :btree
     t.index ["character_id"], name: "index_activities_on_character_id", using: :btree
+    t.index ["reply_to_activity_id"], name: "index_activities_on_reply_to_activity_id", using: :btree
     t.index ["user_id"], name: "index_activities_on_user_id", using: :btree
   end
 
@@ -871,6 +874,7 @@ ActiveRecord::Schema.define(version: 20190808050615) do
     t.index ["type"], name: "index_users_on_type", using: :btree
   end
 
+  add_foreign_key "activities", "activities", column: "reply_to_activity_id"
   add_foreign_key "artists_edits", "users"
   add_foreign_key "artists_edits", "users", column: "approved_by_id"
   add_foreign_key "artists_links", "artists"

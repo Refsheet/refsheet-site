@@ -1,0 +1,8 @@
+mutation CreateActivity($comment: String!, $characterId: ID) {
+    createActivity(comment: $comment, character_id: $characterId) {
+        id
+        user_id
+        character_id
+        comment
+    }
+}

@@ -23,14 +23,16 @@
 #  index_activities_on_user_id               (user_id)
 #
 
-FactoryBot.define do
-  factory :activity do
-    guid { "MyString" }
-    user_id { 1 }
-    character_id { 1 }
-    activity_type { "MyString" }
-    activity_id { 1 }
-    activity_method { "MyString" }
-    activity_field { "MyString" }
-  end
+Types::ActivityType = GraphQL::ObjectType.define do
+  name 'Activity'
+
+  interfaces [Interfaces::ApplicationRecordInterface]
+
+  field :id, !types.ID
+  field :user_id, !types.ID
+  field :character_id, types.ID
+
+  field :user, Types::UserType
+  field :character, Types::CharacterType
+  field :comment, types.String
 end
