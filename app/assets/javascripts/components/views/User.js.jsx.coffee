@@ -34,7 +34,7 @@
 
 
   goToCharacter: (character) ->
-    $('#character-form').modal('close')
+    M.Modal.getInstance(document.getElementById('character-form')).close()
     @context.router.history.push character.link
 
   handleUserChange: (user) ->

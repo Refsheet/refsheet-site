@@ -35,8 +35,8 @@
           galleryTitle: 'Select Profile Picture'
           onGallerySelect: (imageId) =>
             @setProfileImage(imageId)
-            $('#image-gallery-modal').modal 'close'
-        $('#image-gallery-modal').modal 'open'
+            M.Modal.getInstance(document.getElementById('image-gallery-modal')).close()
+        M.Modal.getInstance(document.getElementById('image-gallery-modal')).open()
 
       .on 'app:character:reload app:image:delete', (e, newPath = @state.character.path, callback = null) =>
         console.debug "[CharacterApp] Reloading character..."
@@ -118,8 +118,8 @@
       galleryTitle: 'Select Header Image'
       onGallerySelect: (imageId) =>
         @setFeaturedImage(imageId)
-        $('#image-gallery-modal').modal 'close'
-    $('#image-gallery-modal').modal 'open'
+        M.Modal.getInstance(document.getElementById('image-gallery-modal')).close()
+    M.Modal.getInstance(document.getElementById('image-gallery-modal')).open()
 
   handleDropzoneUpload: (data) ->
     i = @state.images

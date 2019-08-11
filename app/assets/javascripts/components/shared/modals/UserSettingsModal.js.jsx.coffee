@@ -3,7 +3,7 @@
     user: @props.user
 
   handleSettingsClose: (e) ->
-    $('#user-settings-modal').modal 'close'
+    M.Modal.getInstance(document.getElementById('user-settings-modal')).close()
 
   handleSettingsChange: (setting, onSuccess, onError) ->
     o = {}

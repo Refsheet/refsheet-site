@@ -27,7 +27,7 @@ class UploadModal extends Component {
   }
 
   componentDidMount() {
-    $('#upload-images').modal('open')
+    M.Modal.getInstance(document.getElementById('upload-images')).open()
   }
 
   componentDidUpdate(prevProps) {

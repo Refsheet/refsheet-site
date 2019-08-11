@@ -8,7 +8,7 @@
 
 
   _handleSettingsClose: (e) ->
-    $('#character-settings-form').modal('close')
+    M.Modal.getInstance(document.getElementById('character-settings-form')).close()
 
   _handleChange: (character) ->
     if character.link != @props.character.link
@@ -63,11 +63,11 @@
 
             <Row noMargin hidden={ this.props.character.pending_transfer }>
                 <Column m={6}>
-                    <a className='red-text' href='#delete-form'>Delete Character</a>
+                    <a className='red-text modal-trigger' href='#delete-form'>Delete Character</a>
                     <div className='muted'>This can not be undone!</div>
                 </Column>
                 <Column m={6}>
-                    <a href='#character-transfer-modal'>Transfer Character</a>
+                    <a href='#character-transfer-modal' className='modal-trigger'>Transfer Character</a>
                     <div className='muted'>The recipient will have to accept.</div>
                 </Column>
             </Row>

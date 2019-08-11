@@ -10,7 +10,7 @@
 
 
   _handleColorSchemeClose: (e) ->
-    $('#color-scheme-form').modal('close')
+    M.Modal.getInstance(document.getElementById('color-scheme-form')).close()
 
   _handleLoad: (e, data) ->
     obj = JSON.parse data

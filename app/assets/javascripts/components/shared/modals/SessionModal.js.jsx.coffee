@@ -3,7 +3,7 @@
     view: 'login'
 
   close: ->
-    $('#session-modal').modal 'close'
+    M.Modal.getInstance(document.getElementById('session-modal')).close()
 
   view: (view) ->
     $(@refs.view).fadeOut 300, =>
