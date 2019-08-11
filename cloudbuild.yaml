@@ -32,4 +32,13 @@ steps:
       - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
       - 'CLOUDSDK_CONTAINER_CLUSTER=refsheet-prod-clone-1'
 
+images:
+  - 'gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID'
+
+artifacts:
+  objects:
+    location: "gs://refsheet-prod-assets/"
+    paths:
+      - "public/*"
+
 timeout: 3600s
