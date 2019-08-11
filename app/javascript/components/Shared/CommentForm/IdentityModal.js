@@ -65,7 +65,7 @@ class IdentityModal extends Component {
             type={'text'}
             className={'block'}
             name={'query'}
-            placeholder={'Search for Character...'}
+            placeholder={t('identity.search', 'Search for Character...')}
             onChange={this.handleQueryChange.bind(this)}
             value={this.state.queryInput}
           />
@@ -77,7 +77,7 @@ class IdentityModal extends Component {
         <Query query={SearchForCharacter} variables={{ slug: this.state.query, username: "me" }}>
           { ({data, loading, errors}) => {
             if (loading) {
-              return <div className='caption center modal-content'>Loading...</div>
+              return <div className='caption center modal-content'>{ t('status.loading', 'Loading...') }</div>
             } else if (errors) {
               return <div className='caption center error red-text modal-content'>{ "" + errors }</div>
             } else {
@@ -88,7 +88,7 @@ class IdentityModal extends Component {
 
         <div className={'modal-footer right-align'}>
           <button className={'btn'} onClick={this.handleCharacterSelect(null).bind(this)}>
-            Post As Yourself
+            { t('identity.as-self', 'Post As Yourself') }
           </button>
         </div>
       </Modal>
