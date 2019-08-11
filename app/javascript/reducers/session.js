@@ -2,9 +2,18 @@ import { createReducer } from 'reducers'
 import * as Actions from 'actions'
 import SessionService from '../services/SessionService'
 
+const identityFromUser = (user) => {
+  if (!user) return null
+  return {
+    name: user.name,
+    avatarUrl: user.avatar_url,
+    characterId: null
+  }
+}
+
 const handlers = {
   [Actions.SET_CURRENT_USER]: (state, action) => (
-      {...state, currentUser: action.user}
+      {...state, currentUser: action.user, identity: identityFromUser(action.user)}
   ),
   [Actions.SET_NSFW_MODE]: (state, action) => {
     // TODO FIXME HACK: This should use a styled modal and not a browser confirm. Also, it shouldn't do a server call, but hey whatever.
@@ -14,6 +23,20 @@ const handlers = {
       SessionService.set({nsfwOk: action.nsfwOk}).then()
     }
     return {...state, nsfwOk: action.nsfwOk}
+  },
+  [Actions.SET_IDENTITY]: (state, action) => {
+    let identity
+
+    if (action.identity) {
+      identity = action.identity
+    } else {
+      identity = identityFromUser(state.currentUser)
+    }
+
+    return {
+      ...state,
+      identity
+    }
   }
 }
 

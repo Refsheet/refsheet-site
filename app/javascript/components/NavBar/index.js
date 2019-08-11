@@ -12,6 +12,7 @@ import {
   setNsfwMode
 } from 'actions'
 import SessionService from "../../services/SessionService";
+import IdentityModal from "../Shared/CommentForm/IdentityModal";
 
 class NavBar extends Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class NavBar extends Component {
 
     this.state = {
       sessionModalOpen: false,
+      identityModalOpen: false,
       register: false,
       noticeClosed: false,
       menuOpen: false
@@ -77,12 +79,22 @@ class NavBar extends Component {
     this.setState({noticeClosed: true})
   }
 
+  handleIdentityOpen(e) {
+    e.preventDefault()
+    this.setState({identityModalOpen: true})
+  }
+
+  handleIdentityClose() {
+    this.setState({identityModalOpen: false})
+  }
+
   render() {
     const {
       query,
       session: {
         nsfwOk,
-        currentUser
+        currentUser,
+        identity
       }
     } = this.props
 
@@ -99,6 +111,8 @@ class NavBar extends Component {
               <i className={'material-icons'}>close</i>
             </button>
           </div> }
+
+          { this.state.identityModalOpen && <IdentityModal onClose={this.handleIdentityClose.bind(this)} /> }
 
           <nav>
             <div className='container'>
@@ -121,6 +135,8 @@ class NavBar extends Component {
                         onLogoutClick={this.handleLogoutClick}
                         nsfwOk={nsfwOk}
                         user={currentUser}
+                        identity={identity}
+                        onIdentityClick={this.handleIdentityOpen.bind(this)}
                     />
                   : <SessionNav
                         onNsfwClick={this.handleNsfwClick}

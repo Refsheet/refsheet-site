@@ -17,7 +17,7 @@ import { I18nextProvider } from 'react-i18next'
 import i18n from '../../services/i18n.js'
 
 reactGuard(React, (error, componentInfo) => {
-  const errorString = `Failed to render <${componentInfo.name} />!`
+  const errorString = `Failed to render &lt;${componentInfo.name} /&gt;!`
 
   if (console && console.error) {
     console.error(errorString, componentInfo)
@@ -32,7 +32,24 @@ reactGuard(React, (error, componentInfo) => {
 })
 
 const App = ({children: propChildren, state}) => {
-  const store = createStore(rootReducer, {...defaultState, ...state})
+  const newState = {
+    ...defaultState,
+    ...state,
+    session: {
+      ...defaultState.session,
+      ...state.session
+    }
+  }
+
+  if (!newState.session.identity.name) {
+    newState.session.identity = {
+      avatarUrl: newState.session.currentUser.avatar_url,
+      name: newState.session.currentUser.name,
+      characterId: null
+    }
+  }
+
+  const store = createStore(rootReducer, newState)
   console.log("Initialized with state:", store.getState())
 
   const children = propChildren || <Router />

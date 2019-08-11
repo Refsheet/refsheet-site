@@ -3,7 +3,6 @@
     $modal = M.Modal.init @refs.modal,
       onCloseEnd: @props.onClose
       onOpenEnd: ->
-        console.log("Modal ready.")
         $(this).find('.autofocus').focus()
         $(document).trigger 'materialize:modal:ready'
 

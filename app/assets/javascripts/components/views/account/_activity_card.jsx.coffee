@@ -1,6 +1,6 @@
 @Views.Account.ActivityCard = React.createClass
   propTypes:
-    activityType: React.PropTypes.string.isRequired
+    activityType: React.PropTypes.string
     activityMethod: React.PropTypes.string
     activityField: React.PropTypes.string
     activity: React.PropTypes.object
