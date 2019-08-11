@@ -13,8 +13,7 @@ class CommentForm extends Component {
       comment: "",
       error: "",
       identityModalOpen: false,
-      submitting: false,
-      character: null
+      submitting: false
     }
   }
 
@@ -22,16 +21,12 @@ class CommentForm extends Component {
     this.setState({ comment })
   }
 
-  handleCharacterChange(character) {
-    this.setState({character, identityModalOpen: false})
-  }
-
   handleIdentityOpen() {
     this.setState({identityModalOpen: true})
   }
 
   handleIdentityClose() {
-    this.setState({identityModalClosed: false})
+    this.setState({identityModalOpen: false})
   }
 
   handleError(error) {
@@ -47,22 +42,6 @@ class CommentForm extends Component {
     this.setState({ submitting: false, error: message })
   }
 
-  getIdentity() {
-    if (this.state.character) {
-      return {
-        name: this.state.character.name,
-        avatarUrl: this.state.character.profile_image.url.thumbnail,
-        characterId: this.state.character.id
-      }
-    } else {
-      return {
-        name: this.props.currentUser.name,
-        avatarUrl: this.props.currentUser.avatar_url,
-        characterId: null
-      }
-    }
-  }
-
   handleSubmit(e) {
     e.preventDefault()
     this.setState({ submitting: true })
@@ -73,7 +52,7 @@ class CommentForm extends Component {
 
     this.props.onSubmit({
       comment: this.state.comment,
-      identity: this.getIdentity()
+      identity: this.props.identity
     })
       .then((data) => {
         if (data.errors) {
@@ -87,10 +66,9 @@ class CommentForm extends Component {
 
   render() {
     const {
-      inCharacter
+      inCharacter,
+      identity
     } = this.props
-
-    const identity = this.getIdentity()
 
     const placeholder = (this.props.placeholder || "").replace(/%n/, identity.name)
 
@@ -128,7 +106,7 @@ class CommentForm extends Component {
           </div>
         </form>
 
-        { this.state.identityModalOpen && <IdentityModal onCharacterSelect={this.handleCharacterChange.bind(this)} onClose={this.handleIdentityClose.bind(this)} /> }
+        { this.state.identityModalOpen && <IdentityModal onClose={this.handleIdentityClose.bind(this)} /> }
       </div>
     )
   }
@@ -147,6 +125,7 @@ CommentForm.propTypes = {
 const mapStateToProps = (state, props) => ({
   ...props,
   currentUser: state.session.currentUser,
+  identity: state.session.identity
 })
 
 export default connect(mapStateToProps)(CommentForm)
