@@ -32,7 +32,7 @@
     @props.activities || [ @props.activity ]
 
   _getActivity: ->
-    return unless @props.activity
+    return unless @props.activity || @props.comment
 
     switch @props.activityType
       when 'Image'
@@ -48,7 +48,10 @@
         `<Views.Account.Activities.ForumDiscussion discussions={ this._getActivities() } />`
 
       else
-        `<div className='red-text padding-bottom--medium'>Unsupported activity type: {this.props.activityType}.{this.props.activityMethod}</div>`
+        if @props.comment
+          `<Views.Account.Activities.StatusUpdate comment={ this.props.comment } />`
+        else
+          `<div className='red-text padding-bottom--medium'>Unsupported activity type: {this.props.activityType}.{this.props.activityMethod}</div>`
 
   render: ->
     { date, dateHuman } = @props

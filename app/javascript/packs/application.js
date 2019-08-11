@@ -52,7 +52,7 @@ export { default as NavBar } from 'NavBar'
 export { default as DeleteUser } from 'Settings/Account/DeleteUser'
 export { default as NewLightbox } from 'Lightbox'
 export { default as Restrict } from 'Shared/Restrict'
-export { default as CommentForm } from 'Shared/CommentForm'
+export { default as CommentForm } from 'ActivityFeed/StatusUpdate'
 
 (function() {
   console.log("Pack loaded: Refsheet JS v2")
