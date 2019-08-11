@@ -62,6 +62,6 @@
             </div>
         </Container>
 
-        <FixedActionButton icon='add' href='#new-thread-modal' tooltip='New Thread' />
+        <FixedActionButton icon='add' href='#new-thread-modal' className='modal-trigger' tooltip='New Thread' />
         <Forums.Threads.Modal forumId={ this.state.forum.slug } />
     </Main>`

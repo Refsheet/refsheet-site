@@ -10,7 +10,7 @@
 
 
   _handleModalClose: (e) ->
-    $('#character-transfer-modal').modal('close')
+    M.Modal.getInstance(document.getElementById('character-transfer-modal')).close()
 
   _handleChange: (character) ->
     @setState model: transfer_to_user: null

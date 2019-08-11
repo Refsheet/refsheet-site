@@ -66,8 +66,8 @@
         $(document).trigger 'app:image:delete', id
         @state.onDelete(id) if @state.onDelete
         @props.onDelete(id) if @props.onDelete
-        $('#lightbox-delete-form').modal('close')
-        $('#lightbox').modal('close')
+        M.Modal.getInstance(document.getElementById('lightbox-delete-form')).close()
+        M.Modal.getInstance(document.getElementById('lightbox')).close()
       error: =>
         Materialize.toast('Could not delete that for some reason.', 3000, 'red')
     e.preventDefault()
@@ -112,7 +112,7 @@
           @setState image: imageId, directLoad: imageId.directLoad, onChange: onChange, onDelete: onDelete
           window.history.pushState {}, "", imageId.path
 
-        $('#lightbox').modal('open')
+        M.Modal.getInstance(document.getElementById('lightbox')).open()
 
   _handleChange: (image) ->
     Materialize.toast "Image saved!", 3000, 'green'

@@ -11,7 +11,7 @@
       url: @props.character.path
       type: 'DELETE'
       success: (data) =>
-        $('#delete-form').modal('close')
+        M.Modal.getInstance(document.getElementById('delete-form')).close()
         Materialize.toast "#{data.name} deleted. :(", 3000
         @context.router.history.push '/' + data.user_id
 

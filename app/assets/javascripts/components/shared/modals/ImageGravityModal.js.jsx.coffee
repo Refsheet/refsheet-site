@@ -17,7 +17,7 @@
         $(document).trigger 'app:image:update', data
         Materialize.toast 'Cropping settings saved. It may take a second to rebuild your thumbnails.', 3000, 'green'
         @setState loading: false
-        $('#image-gravity-modal').modal('close')
+        M.Modal.getInstance(document.getElementById('image-gravity-modal')).close()
       error: (error) =>
         Materialize.toast 'Something bad happened', 3000, 'red'
         @setState loading: false
