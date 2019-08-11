@@ -5,3 +5,11 @@ metadata:
 spec:
   domains:
     - refsheet.net
+---
+apiVersion: networking.gke.io/v1beta1
+kind: ManagedCertificate
+metadata:
+  name: st-ref
+spec:
+  domains:
+    - ref.st

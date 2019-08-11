@@ -27,7 +27,8 @@ export const __globals = [
   'setCurrentUser',
   'NewLightbox',
   'Restrict',
-  'UserUtils'
+  'UserUtils',
+  'CommentForm'
 ]
 
 export { default as React } from 'react'
@@ -51,6 +52,7 @@ export { default as NavBar } from 'NavBar'
 export { default as DeleteUser } from 'Settings/Account/DeleteUser'
 export { default as NewLightbox } from 'Lightbox'
 export { default as Restrict } from 'Shared/Restrict'
+export { default as CommentForm } from 'Shared/CommentForm'
 
 (function() {
   console.log("Pack loaded: Refsheet JS v2")

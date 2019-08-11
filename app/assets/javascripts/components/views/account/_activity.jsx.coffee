@@ -83,6 +83,13 @@
       `<Views.Account.ActivityCard {...StringUtils.camelizeKeys(item)} key={item.id} />`
 
     `<div className='feed-item-stream'>
+        <CommentForm
+          inCharacter
+          onSubmit={console.log}
+          placeholder={"What's on your mind, %n?"}
+          buttonText="Post"
+        />
+
         { this.state.newActivity && this.state.newActivity.length > 0 &&
             <a className='btn btn-flat block margin-bottom--medium' onClick={ this._prepend }>
                 { this.state.newActivity.length } new { this.state.newActivity.length == 1 ? 'activity' : 'activities' }
