@@ -2,6 +2,7 @@ class Forum::ThreadSerializer < ActiveModel::Serializer
   include ActionView::Helpers::DateHelper
 
   attributes :id,
+             :guid,
              :forum_id,
              :topic,
              :created_at_human,
@@ -25,6 +26,10 @@ class Forum::ThreadSerializer < ActiveModel::Serializer
 
   def id
     object.slug
+  end
+
+  def guid
+    object.id
   end
 
   def forum_id

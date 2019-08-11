@@ -38,6 +38,7 @@ Types::MutationType = GraphQL::ObjectType.define do
 
   field :createForum, field: Mutations::ForumMutations::Create
   field :updateForum, field: Mutations::ForumMutations::Update
+  field :postReply, field: Mutations::ForumPostMutations::Create
 
   # Activity Feed
   field :createActivity, field: Mutations::ActivityMutations::Create

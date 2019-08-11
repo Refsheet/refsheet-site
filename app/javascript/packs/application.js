@@ -28,7 +28,8 @@ export const __globals = [
   'NewLightbox',
   'Restrict',
   'UserUtils',
-  'CommentForm'
+  'CommentForm',
+  'LegacyForumReply'
 ]
 
 export { default as React } from 'react'
@@ -53,6 +54,7 @@ export { default as DeleteUser } from 'Settings/Account/DeleteUser'
 export { default as NewLightbox } from 'Lightbox'
 export { default as Restrict } from 'Shared/Restrict'
 export { default as CommentForm } from 'ActivityFeed/StatusUpdate'
+export { default as LegacyForumReply } from 'Forums/LegacyForumReply'
 
 (function() {
   console.log("Pack loaded: Refsheet JS v2")

@@ -17,7 +17,7 @@ import { I18nextProvider } from 'react-i18next'
 import i18n from '../../services/i18n.js'
 
 reactGuard(React, (error, componentInfo) => {
-  const errorString = `Failed to render &lt;${componentInfo.name} /&gt;!`
+  const errorString = `Failed to render <${componentInfo.displayName} />!`
 
   if (console && console.error) {
     console.error(errorString, componentInfo)
@@ -41,7 +41,7 @@ const App = ({children: propChildren, state}) => {
     }
   }
 
-  if (!newState.session.identity.name) {
+  if (!newState.session.identity.name && newState.session.currentUser) {
     newState.session.identity = {
       avatarUrl: newState.session.currentUser.avatar_url,
       name: newState.session.currentUser.name,
