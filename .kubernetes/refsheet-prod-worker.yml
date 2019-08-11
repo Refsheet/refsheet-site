@@ -13,11 +13,11 @@ spec:
         app: refsheet-prod
         tier: refsheet-prod-worker
       annotations:
-        configHash: 19006b11742c746f2ada42c9bf929a340681cbc403ce8da53ab3ea276d0610b2
+        configHash: c3e3d1e79aed5fc0e4bd6b9a9f1772d195a25b9445ce41844420ba990a815573
     spec:
       containers:
       - name: refsheet-prod-worker
-        image: gcr.io/refsheet-239409/refsheet-site:5b991029b01a74a2c5cd1485903c4a2ec6c65fd4
+        image: gcr.io/refsheet-239409/refsheet-site:f8b89f41acf02f293724a27ad69a12ab7c421b3a
         imagePullPolicy: Always
         command:
         - bundle

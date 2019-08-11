@@ -11,7 +11,7 @@ data:
   NODE_ENV: production
   RACK_ENV: production
   RAILS_ENV: production
-  RAILS_MAX_THREADS: "2"
+  RAILS_MAX_THREADS: "5"
   WEB_CONCURRENCY: "1"
   REDIS_HOST: redis-prod.default.svc.cluster.local
   REDIS_PORT: "6379"
