@@ -30,8 +30,9 @@ steps:
       - name: 'artifacts'
         path: '/artifacts'
     args:
+      - -m
       - cp
-      - -R
+      - -r
       - /artifacts
       - gs://assets.refsheet.net/
 
