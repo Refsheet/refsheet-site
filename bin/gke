@@ -12,14 +12,32 @@ function get_nodes() {
 }
 
 function do_ssh() {
-	echo "Fetching pods..."
+	echo "Select a pod:"
+  printf "Loading...\r"
 	container="refsheet-prod"
 
-	pods=$(kubectl get pods --no-headers=true | grep Running | cut -d' ' -f1 | tr '\n' '\t')
+	pod_lists=$(kubectl get pods --field-selector=status.phase=Running -o=jsonpath='{range .items[*]}{"\n"}{.metadata.name}{"\t"}{range .spec.containers[*]}{.name}{"\t"}{end}{end}' | sort | awk 'NF > 0')
+	pods=$(echo "$pod_lists" | cut -d $'\t' -f1 | tr '\n' '\t')
 
+  printf "          \r"
 	select pod in $pods; do
-		kubectl exec "$pod" -it -c "$container" -- bash
-		return
+	  containers=$(echo "$pod_lists" | grep "^$pod" | cut -d $'\t' -f2- | head -n1 | xargs)
+
+    echo
+
+    if [[ "$containers" =~ '\t' ]]; then
+      echo "Select a running container:"
+      select container in $containers; do
+        echo
+        echo "Connecting to $container on $pod"
+        kubectl exec "$pod" -it -c "$container" -- bash
+        return
+      done
+    else
+      echo "Connecting to $containers on $pod"
+      kubectl exec "$pod" -it -c "$containers" -- bash
+      return
+    fi
 	done
 }
 

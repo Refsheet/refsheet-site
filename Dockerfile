@@ -67,6 +67,8 @@ ENV NODE_OPTIONS="--max-old-space-size=4096"
 COPY . /app
 RUN bundle exec rake assets:precompile RAILS_ENV=production
 
+# Copy System Config
+COPY ./config/imagemagick/policy.xml /etc/ImageMagick-6/policy.xml
 
 # Execute Order 66
 
