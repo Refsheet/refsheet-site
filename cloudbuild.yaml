@@ -20,7 +20,7 @@ steps:
     entrypoint: 'bash'
     args:
       - -c
-      - 'cp -R /app/public /artifacts'
+      - 'cp -R /app/public/* /artifacts'
 
   - name: 'gcr.io/cloud-builders/gsutil'
     volumes:
@@ -30,7 +30,7 @@ steps:
       - -m
       - cp
       - -r
-      - /artifacts
+      - /artifacts/*
       - gs://assets.refsheet.net/
 
   #== DEPLOY
