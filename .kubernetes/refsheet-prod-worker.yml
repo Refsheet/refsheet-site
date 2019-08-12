@@ -7,17 +7,22 @@ metadata:
     tier: worker
 spec:
   replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 1
   template:
     metadata:
       labels:
         app: refsheet-prod
         tier: refsheet-prod-worker
       annotations:
-        configHash: c3e3d1e79aed5fc0e4bd6b9a9f1772d195a25b9445ce41844420ba990a815573
+        configHash: 8e0fcc024baaaaefc2835effee4f1095ae25bf68e47755129ea2b9d4010217b1
     spec:
       containers:
       - name: refsheet-prod-worker
-        image: gcr.io/refsheet-239409/refsheet-site:f8b89f41acf02f293724a27ad69a12ab7c421b3a
+        image: gcr.io/refsheet-239409/refsheet-site:5fbd9fc90748a6388f72aebdd8d0245be33a4f35
         imagePullPolicy: Always
         command:
         - bundle

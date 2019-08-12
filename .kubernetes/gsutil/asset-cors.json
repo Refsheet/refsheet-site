@@ -1,0 +1,15 @@
+[
+  {
+    "origin": [
+      "http://refsheet.net",
+      "https://refsheet.net",
+      "http://ref.st",
+      "https://ref.st",
+      "http://kube.refsheet.net",
+      "https://kube.refsheet.net"
+    ],
+    "responseHeader": ["Content-Type"],
+    "method": ["GET", "HEAD", "DELETE"],
+    "maxAgeSeconds": 2628000
+  }
+]
