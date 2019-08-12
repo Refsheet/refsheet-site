@@ -13,8 +13,27 @@ steps:
 #    args: ['yaml-lint', '.kubernetes/*.{yml,yaml}']
 
   #== Asset Pipeline
-#  - name: 'gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID'
-#    args: ['']
+  - name: 'gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID'
+    volumes:
+      - name: 'artifacts'
+        path: '/artifacts'
+    entrypoint: 'bash'
+    args:
+      - -c
+      - cp
+      - -R
+      - /app/public
+      - /artifacts
+
+  - name: 'gcr.io/cloud-builders/gsutil'
+    volumes:
+      - name: 'artifacts'
+        path: '/artifacts'
+    args:
+      - cp
+      - -R
+      - /artifacts
+      - gs://assets.refsheet.net/
 
   #== DEPLOY
 
@@ -31,12 +50,5 @@ steps:
     env:
       - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
       - 'CLOUDSDK_CONTAINER_CLUSTER=refsheet-prod-clone-1'
-
-artifacts:
-  objects:
-    location: "gs://refsheet-prod-assets/"
-    paths:
-      - "public/*"
-      - "public/assets/*"
 
 timeout: 3600s
