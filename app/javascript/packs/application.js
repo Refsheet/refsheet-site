@@ -29,7 +29,9 @@ export const __globals = [
   'Restrict',
   'UserUtils',
   'CommentForm',
-  'LegacyForumReply'
+  'LegacyForumReply',
+  'StatusUpdate',
+  'ActivityCard'
 ]
 
 export { default as React } from 'react'
@@ -55,6 +57,8 @@ export { default as NewLightbox } from 'Lightbox'
 export { default as Restrict } from 'Shared/Restrict'
 export { default as CommentForm } from 'ActivityFeed/StatusUpdate'
 export { default as LegacyForumReply } from 'Forums/LegacyForumReply'
+export { default as StatusUpdate } from 'ActivityFeed/Activities/StatusUpdate'
+export { default as ActivityCard } from 'ActivityFeed/ActivityCard'
 
 (function() {
   console.log("Pack loaded: Refsheet JS v2")
