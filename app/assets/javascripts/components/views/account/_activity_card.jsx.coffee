@@ -54,6 +54,8 @@
           `<div className='red-text padding-bottom--medium'>Unsupported activity type: {this.props.activityType}.{this.props.activityMethod}</div>`
 
   render: ->
+    return `<ActivityCard {...this.props} />`
+
     { date, dateHuman } = @props
     identity = @_getIdentity()
 
@@ -68,12 +70,14 @@
     `<div className='card sp with-avatar margin-bottom--medium'>
         <img className='avatar circle' src={ identity.avatarUrl } alt={ identity.name } style={{ boxShadow: imgShadow }} />
 
-        <div className='card-content padding-bottom--none'>
-            <DateFormat className='muted right' timestamp={ this.props.timestamp } fuzzy />
-            <IdentityLink to={ identity } />
-
-            { this._getActivity() }
+        <div className='card-content padding-bottom--medium'>
+            <IdentityLink to={ identity } /> uploaded four images
+            <div className='date'>
+              <DateFormat className='muted' timestamp={ this.props.timestamp } fuzzy />
+            </div>
         </div>
+
+        { this._getActivity() }
 
         <div className='clearfix' />
     </div>`

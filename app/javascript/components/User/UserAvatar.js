@@ -1,14 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {userFgColor} from "../../utils/UserUtils";
+import {createIdentity, identitySourceType} from "../../utils/IdentityUtils";
 
-const UserAvatar = ({user, identity}) => {
-  if (!identity) {
-    identity = {
-      avatarUrl: user.avatar_url,
-      name: user.name
-    }
-  }
+const UserAvatar = (props) => {
+  const { user } = props
+  const identity = createIdentity(props)
 
   const style = {
     boxShadow: `${userFgColor(user)} 0px 0px 3px 1px`
@@ -19,6 +16,6 @@ const UserAvatar = ({user, identity}) => {
   )
 }
 
-UserAvatar.propTypes = {}
+UserAvatar.propTypes = identitySourceType
 
 export default UserAvatar
