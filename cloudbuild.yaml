@@ -18,6 +18,7 @@ steps:
       - name: 'artifacts'
         path: '/artifacts'
     entrypoint: 'bash'
+    dir: '/app'
     args:
       - -c
       - 'pwd && ls -la && bundle exec rake assets:precompile && cp -r public/* /artifacts'
