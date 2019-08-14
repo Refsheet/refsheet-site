@@ -73,11 +73,11 @@ RUN yarn --pure-lockfile
 
 COPY ./config/imagemagick/policy.xml /etc/ImageMagick-6/policy.xml
 
-RUN bundle exec rake assets:precompile
-
 # Move App
 
 COPY . /app
+
+RUN bundle exec rake assets:precompile
 
 # Execute Order 66
 
