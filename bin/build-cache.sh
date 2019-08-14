@@ -1,11 +1,30 @@
 #!/bin/bash
 
+CACHE_BUCKET="gs://refsheet-build-cache"
 BRANCH="${2:-master}"
 
 if [ "$1" == "pull" ]; then
-  echo "Pulling build cache..."
-  gsutil cp -Jnr gs://refsheet-build-cache/* /cache/
+  echo "Finding cache..."
+  if gsutil ls "$CACHE_BUCKET/cache-$BRANCH.tar.gz" > /dev/null; then
+    gsutil -m cp -Jr "$CACHE_BUCKET/cache-$BRANCH.tar.gz" cache.tar.gz
+  elif gsutil ls "$CACHE_BUCKET/cache-master.tar.gz" > /dev/null; then
+    gsutil -m cp -Jr "$CACHE_BUCKET/cache-master.tar.gz" cache.tar.gz
+  else
+    echo "No cache found."
+    exit 0
+  fi
+
+  echo "Extracting cache..."
+  tar -xzf cache.tar.gz -C /cache
 else
-  echo "Pushing build cache..."
-  gsutil cp -Jnr /cache/* gs://refsheet-build-cache/
+  echo "Creating cache archive..."
+  opwd=$(pwd)
+  cd /cache || exit 0
+  tar -cvzf "$opwd/cache.tar.gz" .
+  cd "$opwd" || exit 0
+
+  echo "Uploading archive..."
+  gsutil -m cp -Jr cache.tar.gz "gs://refsheet-build-cache/cache-$BRANCH.tar.gz"
 fi
+
+rm -f cache.tar.gz
