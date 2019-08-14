@@ -73,6 +73,7 @@ RUN yarn --pure-lockfile
 
 COPY ./config/imagemagick/policy.xml /etc/ImageMagick-6/policy.xml
 
+RUN bundle exec rails assets:precompile
 
 # Move App
 

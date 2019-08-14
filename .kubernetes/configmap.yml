@@ -7,7 +7,7 @@ data:
   AWS_REGION: us-east-1
   ASSET_DOMAIN: assets.refsheet.net
   CLOUD_DOMAIN: cloud.refsheet.net
-  DB_POOL: "7"
+  DB_POOL: "15"
   GA_PROPERTY_ID: UA-82222637-3
   NODE_ENV: production
   RACK_ENV: production
