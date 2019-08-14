@@ -3,8 +3,3 @@
 .byebug_history
 log/
 tmp/
-node_modules/
-vendor/bundle/
-public/assets/
-public/packs/
-public/system/
