@@ -20,7 +20,7 @@ else
   echo "Creating cache archive..."
   opwd=$(pwd)
   cd /cache || exit 0
-  tar -cvzf "$opwd/cache.tar.gz" .
+  tar -czf "$opwd/cache.tar.gz" .
   cd "$opwd" || exit 0
 
   echo "Uploading archive..."

@@ -13,8 +13,6 @@
 //= require_self
 //
 //= require react_ujs
-// xrequire react_router
-// xrequire react_router_ujs
 //
 //= require jquery2
 //= require jquery_ujs

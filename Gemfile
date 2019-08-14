@@ -34,7 +34,6 @@ gem 'sassc-rails'
 gem 'coffee-rails', '~> 4.2'
 gem 'haml'
 gem 'react-rails', github: 'reactjs/react-rails', branch: 'master'
-gem 'zreact-router-rails'
 gem 'materialize-sass', github: 'sitehive/materialize-sass', branch: 'master'
 
 gem 'rails-ujs'
