@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: refsheet-prod
-        image: gcr.io/refsheet-239409/refsheet-site:5fbd9fc90748a6388f72aebdd8d0245be33a4f35
+        image: gcr.io/refsheet-239409/refsheet-site:fca69e12b1207092b3eea447d5bae5622776f188
         imagePullPolicy: Always
         livenessProbe:
           timeoutSeconds: 30
@@ -57,7 +57,7 @@ spec:
           protocol: TCP
         resources:
           requests:
-            cpu: "0.15"
+            cpu: "0.25"
             memory: 500M
           limits:
             cpu: "0.6"

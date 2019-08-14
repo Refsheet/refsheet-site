@@ -68,6 +68,9 @@ case "$1" in
   drain-all)
       do_drain_all
       ;;
+  apply)
+    bundle exec rake kube:update_config
+    ;;
 	*)
 	    echo "Usage:"
 	    echo "  gke list-pods|ssh|cordon-all|drain-all"
