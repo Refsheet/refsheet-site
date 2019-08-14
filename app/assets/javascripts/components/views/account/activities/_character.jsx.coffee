@@ -4,11 +4,6 @@
     username: React.PropTypes.string.isRequired
 
   render: ->
-    if @props.characters.length == 1
-      str = 'a new character'
-    else
-      str = "#{@props.characters.length} new characters"
-
     characters = @props.characters.map (character) =>
       identity =
         username: @props.username
@@ -17,8 +12,8 @@
         link: character.link
         type: 'character'
 
-      `<Row key={ character.id } oneColumn>
-          <div className='character-card compact-mobile z-depth-0 margin-bottom--none' style={{ backgroundColor: '#1a1a1a', overflow: 'visible' }}>
+      `<Row key={ character.id } oneColumn noMargin>
+          <div className='character-card compact-mobile z-depth-0 margin-bottom--none margin-top--small' style={{ backgroundColor: '#1a1a1a', overflow: 'visible' }}>
               <div className='character-details' style={{ minHeight: 'initial' }}>
                   <h3 className='name margin-top--none'>
                       <IdentityLink to={ identity } />
@@ -39,10 +34,6 @@
           </div>
       </Row>`
 
-    `<div className='activity'>
-        <div className='headline margin-bottom--medium'>
-            Created { str }.
-        </div>
-
+    `<div className='activity shift-up'>
         { characters }
     </div>`
