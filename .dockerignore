@@ -1,6 +1,10 @@
-.git
+.git/
 .dockerignore
 .byebug_history
-log
-tmp
-node_modules
+log/
+tmp/
+node_modules/
+vendor/bundle/
+public/assets/
+public/packs/
+public/system/
