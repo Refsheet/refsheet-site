@@ -12,7 +12,7 @@ steps:
       - name: 'cache'
         path: '/cache'
     args:
-      - -mJn
+      - -mZn
       - cp
       - -r
       - gs://refsheet-build-cache/*
@@ -67,7 +67,7 @@ steps:
       - name: 'cache'
         path: '/cache'
     args:
-      - -mJn
+      - -mZn
       - cp
       - -r
       - /cache/*
