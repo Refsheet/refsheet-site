@@ -4,6 +4,18 @@ steps:
     - --destination=gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID
     - --cache=true
 
+  # Populate Cache
+  - name: 'gcr.io/cloud-builders/gsutil'
+    volumes:
+      - name: 'cache'
+        path: '/cache'
+    args:
+      - -m
+      - cp
+      - -r
+      - gs://refsheet-build-cache/
+      - /cache
+
   #== TEST
 
 #  - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci'
@@ -17,6 +29,8 @@ steps:
     volumes:
       - name: 'artifacts'
         path: '/artifacts'
+      - name: 'cache'
+        path: '/app/tmp/cache'
     entrypoint: 'bash'
     dir: '/app'
     args:
@@ -35,6 +49,18 @@ steps:
       - -r
       - /artifacts/*
       - gs://assets.refsheet.net/
+
+  # Store Cache
+  - name: 'gcr.io/cloud-builders/gsutil'
+    volumes:
+      - name: 'cache'
+        path: '/cache'
+    args:
+      - -m
+      - cp
+      - -r
+      - /cache/*
+      - gs://refsheet-build-cache/
 
   #== DEPLOY
 
