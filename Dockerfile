@@ -59,24 +59,24 @@ COPY yarn.lock    /app/yarn.lock
 
 RUN yarn --pure-lockfile
 
-ENV NODE_OPTIONS="--max-old-space-size=4096"
-
-
-# Move App and Precompile
-
-COPY . /app
-RUN bundle exec rake assets:precompile RAILS_ENV=production
 
 # Copy System Config
+
 COPY ./config/imagemagick/policy.xml /etc/ImageMagick-6/policy.xml
 
-# Execute Order 66
 
-EXPOSE 3000
+# Runtime ENV
 
 ENV RACK_ENV production
 ENV RAILS_ENV production
 ENV NODE_ENV production
 ENV PORT 3000
 
+# Move App
+
+COPY . /app
+
+# Execute Order 66
+
+EXPOSE 3000
 CMD foreman start --formation "$FORMATION" --env ""

@@ -16,11 +16,12 @@ steps:
   - name: 'gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID'
     volumes:
       - name: 'artifacts'
-        path: '/artifacts'
-    entrypoint: 'bash'
+        path: '/app/public/artifacts'
+    entrypoint: 'bundle'
     args:
-      - -c
-      - 'cp -R /app/public/* /artifacts'
+      - exec
+      - rake
+      - assets:precompile
 
   - name: 'gcr.io/cloud-builders/gsutil'
     volumes:
@@ -29,6 +30,8 @@ steps:
     args:
       - -m
       - cp
+      - -a
+      - public-read
       - -r
       - /artifacts/*
       - gs://assets.refsheet.net/
