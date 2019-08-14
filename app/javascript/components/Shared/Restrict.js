@@ -2,7 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from "react-redux";
 
-const Restrict = ({admin, patron, currentUser, children}) => {
+const Restrict = ({admin, patron, currentUser, hideAll, children}) => {
+  if (hideAll) return null
+
   const {
     is_admin,
     is_patron,
@@ -20,7 +22,8 @@ const Restrict = ({admin, patron, currentUser, children}) => {
 
 Restrict.propTypes = {
   admin: PropTypes.bool,
-  patron: PropTypes.bool
+  patron: PropTypes.bool,
+  hideAll: PropTypes.bool
 }
 
 const mapStateToProps = (state) => ({

@@ -3,7 +3,12 @@ import PropTypes from 'prop-types'
 import {withNamespaces} from "react-i18next";
 import Moment from "react-moment";
 import UserAvatar from "../User/UserAvatar";
-import UserLink, {characterIdentitySourceType, userIdentitySourceType} from "../User/UserLink";
+import UserLink from "../User/UserLink";
+import * as Activities from "./Activities";
+import {
+  characterIdentitySourceType,
+  userIdentitySourceType
+} from "../../utils/IdentityUtils";
 
 class ActivityCard extends Component {
   constructor(props) {
@@ -12,25 +17,26 @@ class ActivityCard extends Component {
 
   render() {
     const {
+      t,
       user,
       character,
-      timestamp,
-      activityText,
-      children
+      timestamp
     } = this.props
+
+    const activityText = Activities.getText(t, this.props)
 
     return (
       <div className='card sp with-avatar margin-bottom--medium'>
         <UserAvatar user={user} character={character} />
 
-        <div className='card-content padding-bottom--medium'>
+        <div className='card-content padding-bottom--none'>
           <UserLink user={user} character={character} /> { activityText }
           <div className='date'>
             <Moment className='muted' unix fromNow>{ timestamp }</Moment>
           </div>
         </div>
 
-        { children }
+        { Activities.render(this.props) }
 
         <div className='clearfix' />
       </div>

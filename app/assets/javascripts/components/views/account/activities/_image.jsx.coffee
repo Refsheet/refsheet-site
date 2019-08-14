@@ -5,21 +5,21 @@
     action: React.PropTypes.string
 
   _buildSingle: (key, one) ->
-    `<Row noMargin tinyGutter key={ key }>
+    `<Row noMargin noGutter key={ key }>
         <Column><GalleryImage image={ one } size='medium_square' /></Column>
     </Row>`
 
   _buildDouble: (key, one, two) ->
-    `<Row noMargin tinyGutter key={ key }>
+    `<Row noMargin noGutter key={ key }>
         <Column s={6}><GalleryImage image={ one } size='medium_square' /></Column>
         <Column s={6}><GalleryImage image={ two } size='medium_square' /></Column>
     </Row>`
 
   _buildTriple: (key, one, two, three) ->
-    `<Row noMargin tinyGutter key={ key }>
+    `<Row noMargin noGutter key={ key }>
         <Column s={8}><GalleryImage image={ one } size='medium_square' /></Column>
         <Column s={4}>
-            <Row noMargin tinyGutter>
+            <Row noMargin noGutter>
                 <Column><GalleryImage image={ two } size='medium_square' /></Column>
                 <Column><GalleryImage image={ three } size='medium_square' /></Column>
             </Row>
@@ -49,14 +49,10 @@
     grid
 
   render: ->
-    str = if @props.images.length == 1 then 'an image' else "#{@props.images.length} images"
-    action = @props.action || 'Uploaded'
-
     if @props.character
       for i in @props.images
         i.character = @props.character
 
     `<div className='activity'>
-        <div className='headline margin-bottom--medium'>{ action } { str }:</div>
-        <Row oneColumn>{ this._buildImageGrid(this.props.images) }</Row>
+        { this._buildImageGrid(this.props.images) }
     </div>`

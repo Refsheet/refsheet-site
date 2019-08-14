@@ -1,1 +1,0 @@
-@Views.Account.Activities.StatusUpdate = @StatusUpdate

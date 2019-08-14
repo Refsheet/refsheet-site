@@ -34,7 +34,9 @@
 
   &.with-avatar
     &.sp
-      min-height: calc(48px + 2rem)
+      .card-content
+        min-height: calc(48px + 1rem)
+        margin-bottom: 1rem
 
     & > .avatar
       position: absolute
@@ -42,6 +44,14 @@
       left: 1rem
       width: 48px
       height: 48px
+
+    .activity
+      &.shift-up
+        margin-top: -7px
+
+      .card-content
+        min-height: 0
+        margin-left: 0
 
     .card-content
       margin-left: calc(48px + 1rem)
