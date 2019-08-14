@@ -12,3 +12,4 @@ RestClient.add_before_execution_proc do |_req, params|
     crumb.message = "#{params[:method].upcase} #{params[:url]}"
   end
 end
+puts 'Initializing config/initializers/sentry.rb'

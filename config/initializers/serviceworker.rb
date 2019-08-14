@@ -24,3 +24,4 @@ Rails.application.configure do
     # match "/*/serviceworker.js" => "%{paths}/serviceworker.js"
   end
 end
+puts 'Initializing config/initializers/serviceworker.rb'

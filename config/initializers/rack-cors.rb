@@ -45,3 +45,4 @@ if defined? Rack::Cors
     end
   end
 end
+puts 'Initializing config/initializers/rack-cors.rb'

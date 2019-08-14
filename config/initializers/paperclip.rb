@@ -39,4 +39,4 @@ class DelayedPaperclip::ProcessJob < ActiveJob::Base
       Rails.logger.error(e)
     end
   end
-end
+endputs 'Initializing config/initializers/paperclip.rb'

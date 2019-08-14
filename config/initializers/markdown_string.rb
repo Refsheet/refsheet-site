@@ -154,3 +154,4 @@ class MarkdownString < String
     tags
   end
 end
+puts 'Initializing config/initializers/markdown_string.rb'

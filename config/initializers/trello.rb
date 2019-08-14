@@ -6,3 +6,4 @@ Rails.application.configure do
     config.member_token = Rails.configuration.x.trello['token']
   end
 end
+puts 'Initializing config/initializers/trello.rb'

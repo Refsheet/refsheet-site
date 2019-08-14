@@ -5,3 +5,4 @@ Rails.application.configure do |config|
 
   Premailer::Rails.config.merge! options
 end
+puts 'Initializing config/initializers/premailer_rails.rb'

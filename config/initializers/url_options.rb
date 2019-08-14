@@ -7,3 +7,4 @@ Rails.application.configure do
   end
 end
 
+puts 'Initializing config/initializers/url_options.rb'

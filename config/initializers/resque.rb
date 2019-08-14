@@ -27,4 +27,4 @@ Rails.application.configure do
   end
 
   Resque.redis = redis_path
-end
+endputs 'Initializing config/initializers/resque.rb'

@@ -8,3 +8,4 @@ $markdown = Redcarpet::Markdown.new(
     underline: true,
     hard_wrap: true
 )
+puts 'Initializing config/initializers/markdown.rb'

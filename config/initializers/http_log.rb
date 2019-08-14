@@ -27,3 +27,4 @@ HttpLog&.configure do |config|
   # Ignore Capybara Spam
   config.url_blacklist_pattern = /95\d\d\/session/
 end
+puts 'Initializing config/initializers/http_log.rb'

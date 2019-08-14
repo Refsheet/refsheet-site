@@ -15,3 +15,4 @@ Rails.configuration.assets.precompile += %w[
   admin.css
   admin.js
 ]
+puts 'Initializing config/initializers/assets.rb'

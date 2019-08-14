@@ -3,3 +3,4 @@ class ActiveSupport::TimeWithZone
     to_i
   end
 end
+puts 'Initializing config/initializers/time_with_zone.rb'

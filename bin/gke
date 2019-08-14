@@ -14,7 +14,6 @@ function get_nodes() {
 function do_ssh() {
 	echo "Select a pod:"
   printf "Loading...\r"
-	container="refsheet-prod"
 
 	pod_lists=$(kubectl get pods --field-selector=status.phase=Running -o=jsonpath='{range .items[*]}{"\n"}{.metadata.name}{"\t"}{range .spec.containers[*]}{.name}{"\t"}{end}{end}' | sort | awk 'NF > 0')
 	pods=$(echo "$pod_lists" | cut -d $'\t' -f1 | tr '\n' '\t')
@@ -41,6 +40,19 @@ function do_ssh() {
 	done
 }
 
+function do_logs() {
+  echo "Select a pod:"
+  printf "Loading...\r"
+
+  pods=$(kubectl get pods -o=jsonpath='{.items[*].metadata.name}' | sort)
+
+  select pod in $pods; do
+    echo
+    kubectl logs "$pod" | less
+    return
+  done
+}
+
 function do_cordon_all() {
     echo "Fetching node pools..."
     for node in $(get_nodes); do
@@ -62,6 +74,9 @@ case "$1" in
 	ssh)
 		  do_ssh
 	  	;;
+  logs)
+      do_logs
+      ;;
 	cordon-all)
 	    do_cordon_all
 	    ;;
@@ -69,8 +84,8 @@ case "$1" in
       do_drain_all
       ;;
   apply)
-    bundle exec rake kube:update_config
-    ;;
+      bundle exec rake kube:update_config
+      ;;
 	*)
 	    echo "Usage:"
 	    echo "  gke list-pods|ssh|cordon-all|drain-all"

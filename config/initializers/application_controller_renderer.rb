@@ -4,3 +4,4 @@
 #   http_host: 'example.org',
 #   https: false
 # )
+puts 'Initializing config/initializers/application_controller_renderer.rb'

@@ -18,3 +18,4 @@
 ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.uncountable %w(media)
 end
+puts 'Initializing config/initializers/inflections.rb'

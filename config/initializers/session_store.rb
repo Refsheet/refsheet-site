@@ -17,3 +17,4 @@ Rails.application.config.session_store(
     key: key,
     domain: domain
 )
+puts 'Initializing config/initializers/session_store.rb'
