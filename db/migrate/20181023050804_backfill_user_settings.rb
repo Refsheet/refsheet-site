@@ -1,6 +1,9 @@
 class BackfillUserSettings < ActiveRecord::Migration[5.0]
+  class ::User < ApplicationRecord
+    include Users::SettingsDecorator
+  end
   def up
-    User.where.not(settings: nil).find_each do |user|
+    ::User.where.not(settings: nil).find_each do |user|
       settings_data = user.attributes['settings']
       settings = JSON.parse(settings_data) rescue nil
       next unless settings

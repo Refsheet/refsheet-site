@@ -25,7 +25,7 @@ class InitializeActivities < ActiveRecord::Migration[5.0]
       Activity.create activities
     end
 
-    Image.joins(:character => :user).select(:id, :character_id, 'users.id AS user_id', :created_at).find_in_batches do |batch|
+    Image.joins(:character).select(:id, :character_id, 'characters.user_id AS user_id', :created_at).find_in_batches do |batch|
       puts "   --> Running #{batch.first.class.name} batch of #{batch.count}"
 
       activities = batch.collect { |i| {

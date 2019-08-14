@@ -41,14 +41,17 @@ preload_app!
 # cannot share connections between processes.
 #
 on_worker_boot do
+  puts "Attempting to connect to database."
   ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
+  puts "Opening semantic logger"
   SemanticLogger.reopen
+  puts "Logger opened, done with pre-fork"
 end
 
-# Allow puma to be restarted by `rails restart` command.
-plugin :tmp_restart
-
 if rails_env == 'development'
+  # Allow puma to be restarted by `rails restart` command.
+  plugin :tmp_restart
+
   key_file = 'config/certs/localhost.key'
   crt_file = 'config/certs/localhost.crt'
 
