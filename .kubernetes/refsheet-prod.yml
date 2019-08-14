@@ -26,17 +26,13 @@ spec:
         image: gcr.io/refsheet-239409/refsheet-site:3fd50029541f8ecc2abb5421511d39a04810fe84
         imagePullPolicy: Always
         livenessProbe:
-          timeoutSeconds: 1200
-          initialDelaySeconds: 120
-          periodSeconds: 2000
+          timeoutSeconds: 60
           httpGet:
             path: /health.json
             port: 3000
             scheme: HTTP
         readinessProbe:
-          timeoutSeconds: 1200
-          initialDelaySeconds: 120
-          periodSeconds: 2000
+          timeoutSeconds: 60
           httpGet:
             path: /health.json
             port: 3000
