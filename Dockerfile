@@ -5,6 +5,14 @@ RUN mkdir /app
 WORKDIR /app
 
 
+# Runtime ENV
+
+ENV RACK_ENV production
+ENV RAILS_ENV production
+ENV NODE_ENV production
+ENV PORT 3000
+
+
 # Install System Deps
 
 RUN apt-get -o Acquire::Check-Valid-Until=false update && \
@@ -37,6 +45,10 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | b
 ENV NODE_PATH $NVM_DIR/versions/node/v$NODE_VERSION/lib/node_modules
 ENV PATH      $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+    apt-get update && apt-get install -y yarn
+
 
 # Bundle
 
@@ -50,10 +62,6 @@ RUN bundle install --without="development test" --deployment
 
 # Yarn
 
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-    apt-get update && apt-get install -y yarn
-
 COPY package.json /app/package.json
 COPY yarn.lock    /app/yarn.lock
 
@@ -64,13 +72,6 @@ RUN yarn --pure-lockfile
 
 COPY ./config/imagemagick/policy.xml /etc/ImageMagick-6/policy.xml
 
-
-# Runtime ENV
-
-ENV RACK_ENV production
-ENV RAILS_ENV production
-ENV NODE_ENV production
-ENV PORT 3000
 
 # Move App
 
