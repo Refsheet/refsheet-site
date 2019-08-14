@@ -12,9 +12,9 @@ steps:
       - name: 'cache'
         path: '/cache'
     args:
-      - -mn
+      - -m
       - cp
-      - -r
+      - -Jnr
       - gs://refsheet-build-cache/*
       - /cache/
     waitFor:
@@ -67,9 +67,9 @@ steps:
       - name: 'cache'
         path: '/cache'
     args:
-      - -mn
+      - -m
       - cp
-      - -r
+      - -Jnr
       - /cache/*
       - gs://refsheet-build-cache/
     waitFor:
