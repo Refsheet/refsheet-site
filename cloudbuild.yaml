@@ -13,8 +13,8 @@ steps:
       - -m
       - cp
       - -r
-      - gs://refsheet-build-cache/
-      - /cache
+      - gs://refsheet-build-cache/*
+      - /cache/
 
   #== TEST
 
