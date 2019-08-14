@@ -74,3 +74,4 @@ production:
 
   # Cache manifest.json for performance
   cache_manifest: true
+  check_yarn_integrity: false
