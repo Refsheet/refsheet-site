@@ -6,17 +6,17 @@ steps:
     - --cache=true
 
   # Populate Cache
-#  - name: 'gcr.io/cloud-builders/gsutil'
-#    id: getCache
-#    volumes:
-#      - name: 'cache'
-#        path: '/cache'
-#    entrypoint: bash
-#    args:
-#      - -c
-#      - './bin/build-cache.sh pull'
-#    waitFor:
-#      - build
+  - name: 'gcr.io/cloud-builders/gsutil'
+    id: getCache
+    volumes:
+      - name: 'cache'
+        path: '/cache'
+    entrypoint: bash
+    args:
+      - -c
+      - './bin/build-cache.sh pull'
+    waitFor:
+      - build
 
   #== TEST
 
@@ -27,70 +27,70 @@ steps:
 #    args: ['yaml-lint', '.kubernetes/*.{yml,yaml}']
 
   #== Asset Pipeline
-#  - name: 'gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID'
-#    id: precompile
-#    volumes:
-#      - name: 'artifacts'
-#        path: '/artifacts'
-#      - name: 'cache'
-#        path: '/app/tmp/cache'
-#    entrypoint: 'bash'
-#    dir: '/app'
-#    args:
-#      - -c
-#      - 'bundle exec rake assets:precompile && cp -r public/* /artifacts'
-#    waitFor:
-#      - getCache
+  - name: 'gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID'
+    id: precompile
+    volumes:
+      - name: 'artifacts'
+        path: '/artifacts'
+      - name: 'cache'
+        path: '/app/tmp/cache'
+    entrypoint: 'bash'
+    dir: '/app'
+    args:
+      - -c
+      - 'bundle exec rake assets:precompile && cp -r public/* /artifacts'
+    waitFor:
+      - getCache
 
-#  - name: 'gcr.io/cloud-builders/gsutil'
-#    id: pushAssets
-#    volumes:
-#      - name: 'artifacts'
-#        path: '/artifacts'
-#    args:
-#      - -m
-#      - cp
-#      - -a
-#      - public-read
-#      - -r
-#      - /artifacts/*
-#      - gs://assets.refsheet.net/
-#    waitFor:
-#      - precompile
+  - name: 'gcr.io/cloud-builders/gsutil'
+    id: pushAssets
+    volumes:
+      - name: 'artifacts'
+        path: '/artifacts'
+    args:
+      - -m
+      - cp
+      - -a
+      - public-read
+      - -rn
+      - /artifacts/*
+      - gs://assets.refsheet.net/
+    waitFor:
+      - precompile
 
   # Store Cache
-#  - name: 'gcr.io/cloud-builders/gsutil'
-#    id: pushCache
-#    volumes:
-#      - name: 'cache'
-#        path: '/cache'
-#    args:
-#      - -m
-#      - cp
-#      - -Jnr
-#      - /cache/*
-#      - gs://refsheet-build-cache/
-#    waitFor:
-#      - precompile
+  - name: 'gcr.io/cloud-builders/gsutil'
+    id: pushCache
+    volumes:
+      - name: 'cache'
+        path: '/cache'
+    entrypoint: bash
+    args:
+      - -c
+      - './bin/build-cache.sh push'
+    waitFor:
+      - precompile
 
   #== DEPLOY
 
   # Deploy Web
   - name: 'gcr.io/cloud-builders/kubectl'
+    id: deployWeb
     args: ['set', 'image', 'deployment', 'refsheet-prod', "refsheet-prod=gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID"]
     env:
       - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
       - 'CLOUDSDK_CONTAINER_CLUSTER=refsheet-prod-clone-1'
     waitFor:
-      - build
+      - pushAssets
 
   # Deploy Worker
   - name: 'gcr.io/cloud-builders/kubectl'
+    id: deployWorker
     args: ['set', 'image', 'deployment', 'refsheet-prod-worker', "refsheet-prod-worker=gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID"]
     env:
       - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
       - 'CLOUDSDK_CONTAINER_CLUSTER=refsheet-prod-clone-1'
     waitFor:
-      - build
+      - pushAssets
 
 timeout: 3600s

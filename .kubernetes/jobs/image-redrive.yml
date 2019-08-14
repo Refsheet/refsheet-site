@@ -18,7 +18,7 @@ spec:
           restartPolicy: Never
           containers:
           - name: image-redrive
-            image: gcr.io/refsheet-239409/refsheet-site:3fd50029541f8ecc2abb5421511d39a04810fe84
+            image: gcr.io/refsheet-239409/refsheet-site:a3e9aa9b4d0eef0e1bf7ce182365309b4a9adf17
             imagePullPolicy: Always
             command:
             - bundle
