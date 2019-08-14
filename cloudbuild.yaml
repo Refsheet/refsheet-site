@@ -11,12 +11,10 @@ steps:
     volumes:
       - name: 'cache'
         path: '/cache'
+    entrypoint: bash
     args:
-      - -m
-      - cp
-      - -Jnr
-      - gs://refsheet-build-cache/*
-      - /cache/
+      - -c
+      - './bin/build-cache.sh pull'
     waitFor:
       - build
 

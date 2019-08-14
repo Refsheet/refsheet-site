@@ -27,7 +27,7 @@ module ApplicationCable
         user = get_remembered_user(session_token, insecure_user_id)
       elsif !insecure_user_id.nil?
         Rails.logger.info("Looking up user by insecure_user_id: #{insecure_user_id.inspect}")
-        user = User.find_by id: user_id
+        user = User.find_by id: insecure_user_id
       else
         Rails.logger.warn("Session Token and IUID is nil: #{session_token.inspect}, #{insecure_user_id.inspect}")
         return reject_unauthorized_connection
