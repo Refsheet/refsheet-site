@@ -116,6 +116,7 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
   # if ENV["RAILS_LOG_TO_STDOUT"].present?
+  puts "Configuring logging"
   STDOUT.sync = true
 
   config.rails_semantic_logger.add_file_appender = false
@@ -128,6 +129,7 @@ Rails.application.configure do
   }
 
   config.semantic_logger.add_appender(io: STDOUT, level: config.log_level, formatter: config.rails_semantic_logger.format)
+  puts "Log configured."
   # end
 
   # config.logger = Refsheet::Logger.new(STDOUT)
