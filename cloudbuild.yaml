@@ -21,7 +21,7 @@ steps:
     dir: '/app'
     args:
       - -c
-      - 'pwd && ls -la && bundle exec rake assets:precompile && cp -r public/* /artifacts'
+      - 'bundle exec rake assets:precompile && cp -r public/* /artifacts'
 
   - name: 'gcr.io/cloud-builders/gsutil'
     volumes:
