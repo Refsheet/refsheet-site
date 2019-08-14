@@ -42,7 +42,7 @@ steps:
 #    waitFor:
 #      - getCache
 
-  - name: 'gcr.io/cloud-builders/gsutil'
+#  - name: 'gcr.io/cloud-builders/gsutil'
 #    id: pushAssets
 #    volumes:
 #      - name: 'artifacts'
