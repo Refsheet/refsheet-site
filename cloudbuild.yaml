@@ -1,20 +1,24 @@
 steps:
   - name: 'gcr.io/kaniko-project/executor'
+    id: build
     args:
     - --destination=gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID
     - --cache=true
 
   # Populate Cache
   - name: 'gcr.io/cloud-builders/gsutil'
+    id: getCache
     volumes:
       - name: 'cache'
         path: '/cache'
     args:
-      - -m
+      - -mJn
       - cp
       - -r
       - gs://refsheet-build-cache/*
       - /cache/
+    waitFor:
+      - build
 
   #== TEST
 
@@ -26,6 +30,7 @@ steps:
 
   #== Asset Pipeline
   - name: 'gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID'
+    id: precompile
     volumes:
       - name: 'artifacts'
         path: '/artifacts'
@@ -36,8 +41,11 @@ steps:
     args:
       - -c
       - 'bundle exec rake assets:precompile && cp -r public/* /artifacts'
+    waitFor:
+      - getCache
 
   - name: 'gcr.io/cloud-builders/gsutil'
+    id: pushAssets
     volumes:
       - name: 'artifacts'
         path: '/artifacts'
@@ -49,18 +57,23 @@ steps:
       - -r
       - /artifacts/*
       - gs://assets.refsheet.net/
+    waitFor:
+      - precompile
 
   # Store Cache
   - name: 'gcr.io/cloud-builders/gsutil'
+    id: pushCache
     volumes:
       - name: 'cache'
         path: '/cache'
     args:
-      - -m
+      - -mJn
       - cp
       - -r
       - /cache/*
       - gs://refsheet-build-cache/
+    waitFor:
+      - precompile
 
   #== DEPLOY
 
@@ -70,6 +83,8 @@ steps:
     env:
       - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
       - 'CLOUDSDK_CONTAINER_CLUSTER=refsheet-prod-clone-1'
+    waitFor:
+      - precompile
 
   # Deploy Worker
   - name: 'gcr.io/cloud-builders/kubectl'
@@ -77,5 +92,7 @@ steps:
     env:
       - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
       - 'CLOUDSDK_CONTAINER_CLUSTER=refsheet-prod-clone-1'
+    waitFor:
+      - precompile
 
 timeout: 3600s
