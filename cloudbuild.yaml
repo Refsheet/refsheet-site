@@ -20,7 +20,7 @@ steps:
     entrypoint: 'bash'
     args:
       - -c
-      - 'bundle exec rake assets:precompile && cp -r public/* /artifacts'
+      - 'pwd && ls -la && bundle exec rake assets:precompile && cp -r public/* /artifacts'
 
   - name: 'gcr.io/cloud-builders/gsutil'
     volumes:
