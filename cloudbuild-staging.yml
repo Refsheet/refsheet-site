@@ -37,14 +37,7 @@ steps:
 
   # Deploy Web
   - name: 'gcr.io/cloud-builders/kubectl'
-    args: ['set', 'image', 'deployment', 'refsheet-prod', "refsheet-prod=gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID"]
-    env:
-      - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
-      - 'CLOUDSDK_CONTAINER_CLUSTER=refsheet-prod-clone-1'
-
-  # Deploy Worker
-  - name: 'gcr.io/cloud-builders/kubectl'
-    args: ['set', 'image', 'deployment', 'refsheet-prod-worker', "refsheet-prod-worker=gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID"]
+    args: ['set', 'image', 'deployment', 'refsheet-prod-staging', "refsheet-prod-staging=gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID"]
     env:
       - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
       - 'CLOUDSDK_CONTAINER_CLUSTER=refsheet-prod-clone-1'
