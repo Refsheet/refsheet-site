@@ -19,6 +19,10 @@ const Router = () => (
       {/** Moderation **/}
       <Route path="/moderate" component={ Moderate } />
 
+      {/** Artists **/}
+      <Route path={'/artists'} component={ Loading } />
+      <Route path={'/artists/:slug'} component={ Loading } />
+
       {/** Character Profiles **/}
       <Route path="/v2/:username/:slug" component={ Character } />
       <Route path={"/:username/:slug"} component={ Character } />
