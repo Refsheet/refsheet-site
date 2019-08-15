@@ -14,7 +14,6 @@ ActiveRecord::Schema.define(version: 20190811040251) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "pg_similarity"
 
   create_table "activities", force: :cascade do |t|
     t.string   "guid"
@@ -41,7 +40,7 @@ ActiveRecord::Schema.define(version: 20190811040251) do
     t.string   "link"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.integer  "image_file_size"
+    t.bigint   "image_file_size"
     t.datetime "image_updated_at"
     t.integer  "amount_cents",       default: 0,     null: false
     t.string   "amount_currency",    default: "USD", null: false
@@ -377,7 +376,7 @@ ActiveRecord::Schema.define(version: 20190811040251) do
     t.integer  "images_count"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.integer  "image_file_size"
+    t.bigint   "image_file_size"
     t.datetime "image_updated_at"
     t.string   "gravity"
     t.integer  "opacity"
@@ -497,7 +496,7 @@ ActiveRecord::Schema.define(version: 20190811040251) do
     t.string   "source_url"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.integer  "image_file_size"
+    t.bigint   "image_file_size"
     t.datetime "image_updated_at"
     t.datetime "created_at",                                         null: false
     t.datetime "updated_at",                                         null: false
@@ -858,7 +857,7 @@ ActiveRecord::Schema.define(version: 20190811040251) do
     t.datetime "updated_at",                        null: false
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
-    t.integer  "avatar_file_size"
+    t.bigint   "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.json     "settings"
     t.string   "type"
