@@ -60,6 +60,7 @@
     "styled-components": "^3.2.3",
     "superagent": "^4.0.0-beta.5",
     "underscore": "^1.9.1",
+    "webpack-cli": "^3.3.6",
     "whatwg-fetch": "^2.0.4",
     "xml-js": "^1.6.8"
   },
@@ -84,7 +85,6 @@
     "react-test-renderer": "^16.2.0",
     "rosie": "^1.6.0",
     "sinon": "^4.4.8",
-    "webpack-cli": "^2.0.11",
     "webpack-dev-server": "^3.8.0",
     "yaml-lint": "https://github.com/eiwi1101/yaml-lint"
   },
