@@ -1,0 +1,59 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: refsheet-prod-staging
+  labels:
+    app: refsheet-prod-staging
+    tier: frontend
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: refsheet-prod-staging
+        tier: frontend
+        run: refsheet-prod-staging
+      annotations:
+        configHash: 8e0fcc024baaaaefc2835effee4f1095ae25bf68e47755129ea2b9d4010217b1
+    spec:
+      containers:
+        - name: refsheet-prod-staging
+          image: gcr.io/refsheet-239409/refsheet-site:5fbd9fc90748a6388f72aebdd8d0245be33a4f35
+          imagePullPolicy: Always
+          livenessProbe:
+            timeoutSeconds: 30
+            httpGet:
+              path: /health.json
+              port: 3000
+              scheme: HTTP
+          readinessProbe:
+            timeoutSeconds: 30
+            httpGet:
+              path: /health.json
+              port: 3000
+              scheme: HTTP
+          command:
+            - bundle
+          args:
+            - exec
+            - rails
+            - server
+            - -b
+            - 0.0.0.0
+            - -p
+            - "3000"
+          envFrom:
+            - configMapRef:
+                name: refsheet-prod
+            - secretRef:
+                name: refsheet-prod-secret
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          resources:
+            requests:
+              cpu: "0.15"
+              memory: 500M
+            limits:
+              cpu: "0.6"
+              memory: 1G
