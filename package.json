@@ -1,6 +1,7 @@
 {
   "license": "MIT",
   "dependencies": {
+    "@babel/preset-react": "^7.0.0",
     "@opuscapita/react-markdown": "^2.3.9",
     "@rails/webpacker": "^4.0.7",
     "@sentry/browser": "^4.2.1",
