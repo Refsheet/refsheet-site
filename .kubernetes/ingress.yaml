@@ -7,6 +7,12 @@ metadata:
     networking.gke.io/managed-certificates: "com-refsheet,com-refsheet-kube,st-ref,com-refsheet-staging"
 spec:
   rules:
+    - host: kube.refsheet.net
+      http:
+        paths:
+          - backend:
+              serviceName: refsheet-prod-staging
+              servicePort: 80
     - host: staging.refsheet.net
       http:
         paths:
