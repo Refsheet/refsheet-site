@@ -16,6 +16,10 @@ spec:
       annotations:
         configHash: 8e0fcc024baaaaefc2835effee4f1095ae25bf68e47755129ea2b9d4010217b1
     spec:
+      volumes:
+        - name: refsheet-prod-storage
+          secret:
+            secretName: refsheet-prod-storage
       containers:
         - name: refsheet-prod-staging
           image: gcr.io/refsheet-239409/refsheet-site:5fbd9fc90748a6388f72aebdd8d0245be33a4f35
@@ -47,6 +51,10 @@ spec:
                 name: refsheet-prod
             - secretRef:
                 name: refsheet-prod-secret
+          volumeMounts:
+            - name: refsheet-prod-storage
+              mountPath: '/secrets/storage'
+              readOnly: true
           ports:
             - containerPort: 3000
               protocol: TCP
