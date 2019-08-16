@@ -65,6 +65,8 @@ ENV NODE_OPTIONS="--max-old-space-size=4096"
 # Move App and Precompile
 
 COPY . /app
+
+ENV SECRET_KEY_BASE ijustneedthistocompileassetsapparently
 RUN bundle exec rake assets:precompile RAILS_ENV=production
 
 # Copy System Config
