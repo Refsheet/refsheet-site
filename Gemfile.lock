@@ -357,6 +357,8 @@ GEM
       mini_portile2 (~> 2.4.0)
     non-stupid-digest-assets (1.0.9)
       sprockets (>= 2.0)
+    nulldb (0.3.7.pre.alpha.1)
+      activerecord (>= 2.0.0)
     oauth (0.5.4)
     paperclip (6.1.0)
       activemodel (>= 4.2.0)
@@ -711,6 +713,7 @@ DEPENDENCIES
   meta-tags
   money-rails
   non-stupid-digest-assets
+  nulldb
   paperclip
   paperclip-meta
   paranoia
