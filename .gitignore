@@ -54,3 +54,5 @@ db/*.dump
 .pgsync.yml
 .kubernetes/secret.yml
 db-prod.env
+# Ignore master key for decrypting credentials and more.
+/config/master.key
