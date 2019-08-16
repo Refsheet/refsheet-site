@@ -26,6 +26,7 @@ gem 'faraday_middleware'
 gem 'json', '~> 2.1.0'
 gem 'rails_semantic_logger'
 gem 'active_record_slave'
+gem 'nulldb'
 
 # == FRONT END
 
