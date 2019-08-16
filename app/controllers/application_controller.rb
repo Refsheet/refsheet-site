@@ -131,13 +131,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def use_read_replica(&block)
-    replica = :read_1
-    Rails.logger.tagged("db_replica:#{replica}") do
-      Octopus.using(replica, &block)
-    end
-  end
-
   private
 
   def set_user_locale

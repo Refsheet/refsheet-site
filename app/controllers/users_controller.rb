@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   before_action :get_user, only: [:show, :update]
-  around_action :use_read_replica, only: [:show]
   respond_to :json
 
   def index

@@ -1,6 +1,4 @@
 class AdvertisementSlotsController < ApplicationController
-  around_action :use_read_replica, only: [:next, :shortcode]
-
   def next
     slot = Advertisement::Slot.next!
 

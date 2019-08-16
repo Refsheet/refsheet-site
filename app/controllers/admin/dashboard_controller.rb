@@ -1,6 +1,4 @@
 class Admin::DashboardController < AdminController
-  around_action :use_read_replica, only: [:show]
-
   def show
     @main_chart_data = [
         { name: 'Users', data: report_sum(report_group(User).count), color: '#1F94EE' },
