@@ -56,3 +56,5 @@ db/*.dump
 db-prod.env
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+refsheet-prod-storage.json
