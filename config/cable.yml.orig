@@ -1,0 +1,10 @@
+development:
+  adapter: postgresql
+
+test:
+  adapter: async
+
+production:
+  adapter: redis
+  url: <%= "redis://:#{ URI.encode((ENV['REDIS_PASS'] || ''), /\W/) }@" + (ENV['REDIS_HOST'] || '127.0.0.1') + ":" + (ENV['REDIS_PORT'] || '6379') %>
+  channel_prefix: refsheet_prod_cable
