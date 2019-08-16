@@ -2,6 +2,7 @@ steps:
   - name: 'gcr.io/kaniko-project/executor'
     args:
       - --destination=gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID
+      - --build-arg=SECRET_KEY_BASE=ilikepoptarts
       - --cache=true
 
   #== TEST
