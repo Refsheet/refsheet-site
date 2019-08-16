@@ -57,6 +57,8 @@ GEM
       activemodel (>= 4.1, < 6)
       case_transform (>= 0.2)
       jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
+    active_record_slave (1.5.0)
+      activerecord (>= 3.0)
     activejob (5.2.3)
       activesupport (= 5.2.3)
       globalid (>= 0.3.6)
@@ -93,9 +95,6 @@ GEM
     annotate (2.7.4)
       activerecord (>= 3.2, < 6.0)
       rake (>= 10.4, < 13.0)
-    ar-octopus (0.10.2)
-      activerecord (>= 4.2.0)
-      activesupport (>= 4.2.0)
     archive-zip (0.12.0)
       io-like (~> 0.3.0)
     arel (9.0.0)
@@ -657,9 +656,9 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
+  active_record_slave
   ahoy_matey
   annotate
-  ar-octopus
   autoprefixer-rails
   aws-sdk-s3
   aws-sdk-sqs

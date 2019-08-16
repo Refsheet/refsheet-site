@@ -1,7 +1,6 @@
 class CharactersController < ApplicationController
   before_action :get_user, except: [:index]
   before_action :get_character, except: [:index, :create]
-  around_action :use_read_replica, only: [:index, :show]
 
   def index
     @characters = filter_scope
