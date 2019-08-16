@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 
 # == BACK END
 
-gem 'rails', '~> 5.0.7'
+gem 'rails', '~> 5.2.3'
 gem 'rake', '~> 12.3.1'
 gem 'rack-cors'
 gem 'pg', '~> 0.21'
