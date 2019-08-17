@@ -1,4 +1,4 @@
 - title "New Artist"
 
 .content
-  = render partial: 'form'
+  = render partial: 'form', locals: { url: admin_artists_path }
