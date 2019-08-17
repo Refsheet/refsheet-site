@@ -1,0 +1,9 @@
+- title 'Artists'
+= action_button :add, new_admin_artist_path, class: 'red', tooltip: 'New Artist'
+
+.content
+  = render partial: 'table', locals: { artists: @artists }
+
+  .center
+    = will_paginate @scope
+
