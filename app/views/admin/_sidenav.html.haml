@@ -7,6 +7,7 @@
   = nav_link_to :dashboard, 'Dashboard', admin_root_path
   = nav_link_to :person, 'Users', admin_users_path
   = nav_link_to :face, 'Characters', admin_characters_path
+  = nav_link_to :people, 'Artists', admin_artists_path
   = nav_link_to :collections, 'Images', admin_images_path
   = nav_link_to :messages, 'Forums', admin_forums_path
 
@@ -21,7 +22,7 @@
     .divider
 
   = nav_link_to :open_in_new, 'Advertising', admin_ads_path
-  = nav_link_to :history, 'Changelog', admin_changelogs_path
+  -#= nav_link_to :history, 'Changelog', admin_changelogs_path
 
 :coffeescript
   $ ->

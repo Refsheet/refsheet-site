@@ -23,6 +23,9 @@
 /.sass-cache/
 /db/*.sqlite3
 
+/storage/*
+!/storage/.keep
+
 TESTS-*.xml
 
 /.idea/

@@ -97,6 +97,7 @@ gem 'webpush'
 gem 'her'
 gem 'sentry-raven'
 gem 'sendgrid-actionmailer'
+gem "google-cloud-storage", "~> 1.11", require: false
 
 # == BOWER ASSETS
 

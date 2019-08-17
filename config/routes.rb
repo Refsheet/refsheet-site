@@ -178,6 +178,8 @@ Rails.application.routes.draw do
       resources :replies, only: [:create], controller: 'feedbacks/replies'
     end
 
+    resources :artists, only: [:index, :show, :edit, :new, :create, :update]
+
     resources :moderation_reports, only: [:index, :show, :update]
 
     resources :ads, only: [:index, :edit, :new, :create, :update]

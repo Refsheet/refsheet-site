@@ -29,12 +29,16 @@ class Artist < ApplicationRecord
   include Sluggable
   include HasGuid
 
-  belongs_to :user
+  belongs_to :user, optional: true
 
-  # TODO - ActiveStorage could be added here I GUESS pending Rails 5.2 upgrade.
+  delegate :username, to: :user, allow_nil: true
 
+  has_one_attached :avatar
   has_markdown_field :commission_info
   has_markdown_field :profile
   has_guid
+
   slugify :name, lookups: true
+
+  validates_presence_of :name
 end
