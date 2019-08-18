@@ -6,6 +6,7 @@ query getArtist($slug: String!) {
         profile_markdown,
         commission_info_markdown,
         locked,
+        avatar_url,
         user {
             name,
             username

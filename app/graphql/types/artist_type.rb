@@ -46,5 +46,15 @@ module Types
     field :commission_info_markdown, types.String
     field :locked, types.Boolean
     field :media_count, types.Int
+
+    field :avatar_url, types.String do
+      resolve -> (obj, _args, _ctx) {
+        if obj.avatar.attached?
+          Rails.application.routes.url_helpers.url_for(obj.avatar.variant(resize: '400x400>'))
+        else
+          Rails.application.routes.url_helpers.url_for('default.png')
+        end
+      }
+    end
   end
 end
