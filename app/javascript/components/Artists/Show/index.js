@@ -14,7 +14,6 @@ class Show extends Component {
     return (
       <Query query={getArtist} variables={variables}>
         {({data, loading, errors}) => {
-          console.log({data, loading, errors})
           if (loading) return <Loading />
           else if (errors) return <Error error={errors} />
           else return <View artist={data.getArtist} />
