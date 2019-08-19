@@ -41,6 +41,6 @@ export default class RichText extends Component
       <div className={ bodyClassNames.join(' ') }>
         { content && content.length > 0
             ? <div dangerouslySetInnerHTML={ { __html: contentHtml } }/>
-            : <p className='caption'>This section unintentionally left blank.</p> }
+            : <p className='grey-text text-darken-2'>This section unintentionally left blank.</p> }
       </div>
     </div>`

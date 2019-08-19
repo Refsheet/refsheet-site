@@ -30,6 +30,7 @@ class Artist < ApplicationRecord
   include HasGuid
 
   belongs_to :user, optional: true
+  has_many :links, class_name: 'Artists::Link'
 
   delegate :username, to: :user, allow_nil: true
 

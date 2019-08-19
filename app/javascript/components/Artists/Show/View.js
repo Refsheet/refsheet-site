@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Main from "../../Shared/Main";
 import Header from "./Header";
+import TabbedContent from "../../Shared/TabbedContent";
 
 class View extends Component {
   render() {
@@ -24,7 +25,7 @@ class View extends Component {
           profile={profile}
           profileMarkdown={profile_markdown}
         />
-        <pre>{ JSON.stringify(this.props, undefined, 2) }</pre>
+        <TabbedContent />
       </Main>
     )
   }
