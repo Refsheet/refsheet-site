@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import RichText from "../../Shared/RichText";
+import ContactLinks from "../../Shared/ContactLinks";
 
-const Header = ({avatarUrl, name, category, profile, profileMarkdown}) => {
+const Header = ({avatarUrl, name, category, profile, profileMarkdown, links}) => {
   return (
     <div className={'user-header'}>
       <div className={'container flex'}>
@@ -14,11 +15,11 @@ const Header = ({avatarUrl, name, category, profile, profileMarkdown}) => {
 
         <div className={'user-data'}>
           <div className={'avatar-shift'}>
-            <a href={'#'} className={'secondary-content btn btn-flat right'}
-               style={{ border: '1px solid rgba(255, 255, 255, 0.1'}}>
-              <span className={'hide-on-med-and-down'}>Closed</span>
-              <i className={'material-icons right'} style={{ color: 'rgba(255, 255, 255, 0.7' }}>remove_circle</i>
-            </a>
+            {/*<a href={'#'} className={'secondary-content btn btn-flat right'}*/}
+            {/*   style={{ border: '1px solid rgba(255, 255, 255, 0.1'}}>*/}
+            {/*  <span className={'hide-on-med-and-down'}>Closed</span>*/}
+            {/*  <i className={'material-icons right'} style={{ color: 'rgba(255, 255, 255, 0.7' }}>remove_circle</i>*/}
+            {/*</a>*/}
 
             <h1 className={'name'}>
               { name }
@@ -33,7 +34,7 @@ const Header = ({avatarUrl, name, category, profile, profileMarkdown}) => {
                 </div>
               </div>
               <div className={'col s12 m6'}>
-                Contact Info Here?
+                <ContactLinks links={links} />
               </div>
             </div>
           </div>
