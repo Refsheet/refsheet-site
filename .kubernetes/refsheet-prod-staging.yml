@@ -48,6 +48,9 @@ spec:
             - 0.0.0.0
             - -p
             - "3000"
+          env:
+            - name: DEFAULT_URL_HOST
+              value: kube.refsheet.net
           envFrom:
             - configMapRef:
                 name: refsheet-prod
