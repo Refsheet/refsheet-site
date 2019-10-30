@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Main from "../../Shared/Main";
 import Header from "./Header";
 import TabbedContent from "../../Shared/TabbedContent";
+import DiscussionLink from "../../Forums/show/DiscussionLink";
 
 class View extends Component {
   render() {
@@ -25,7 +26,20 @@ class View extends Component {
           profile={profile}
           profileMarkdown={profile_markdown}
         />
+
         <TabbedContent />
+
+        <div className={'container container-flex'}>
+          <main className={'content-left'}>
+            {/*<div className={'forum-sort margin-bottom--medium'} />*/}
+
+            {/*<pre>{JSON.stringify(this.props, undefined, 2)}</pre>*/}
+          </main>
+
+          <aside className={'sidebar left-pad'}>
+            { typeof Advertisement != 'undefined' && <Advertisement /> }
+          </aside>
+        </div>
       </Main>
     )
   }
