@@ -18,6 +18,9 @@ Types::MutationType = GraphQL::ObjectType.define do
   field :createSession, field: Mutations::SessionMutations::Create
   field :destroySession, field: Mutations::SessionMutations::Destroy
 
+  # Notifications
+  field :markAllNotificationsAsRead, field: Mutations::NotificationMutations::ReadAll
+
   #== Character Profiles
 
   # Character Mutations
