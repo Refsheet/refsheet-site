@@ -121,7 +121,7 @@ class NavBar extends Component {
               </ul>
 
               <Link to='/' className='logo left'>
-                <img src='/assets/logos/RefsheetLogo_64.png' alt='Refsheet.net' width='32' height='32' />
+                <img src='/assets/logos/pumpkin2_64.png' alt='Refsheet.net' width='32' height='32' />
               </Link>
 
               <SiteNav />
