@@ -5,11 +5,32 @@ import NotificationItem from '../Dropdown/NotificationItem'
 import { Link } from 'react-router-dom'
 import Scrollbars from 'Shared/Scrollbars'
 import subscription from './subscription'
+import {Mutation} from "react-apollo"
+import {markAllNotificationsAsRead} from "./markAllNotificationsAsRead.graphql"
 
 class NotificationMenu extends Component {
   componentWillReceiveProps(newProps) {
     if (this.props.unreadCount < newProps.unreadCount) {
       console.log("Play WOO!")
+    }
+  }
+
+  handleMarkAllClick(e) {
+    const {
+      unreadCount,
+      loading=false,
+      refetch,
+      markAllAsRead
+    } = this.props
+
+    e.preventDefault()
+
+    if (unreadCount !== 0 && !loading && markAllAsRead) {
+      markAllAsRead()
+        .then((_data) => {
+          if(refetch) refetch()
+        })
+        .catch(console.error)
     }
   }
 
@@ -51,7 +72,7 @@ class NotificationMenu extends Component {
         <div className='dropdown-menu wide'>
           <div className='title'>
             <div className='right'>
-              <a href={'#'}>Mark All Read</a>
+              <a href={'/notifications'} onClick={this.handleMarkAllClick.bind(this)}>Mark All Read</a>
             </div>
             <strong>Notifications</strong>
           </div>
@@ -74,4 +95,10 @@ NotificationMenu.propTypes = {
 
 export { NotificationMenu }
 
-export default subscription(NotificationMenu)
+const Mutated = (props) => (
+  <Mutation mutation={markAllNotificationsAsRead}>
+    { (markAllAsRead) => <NotificationMenu {...props} markAllAsRead={markAllAsRead} /> }
+  </Mutation>
+)
+
+export default subscription(Mutated)

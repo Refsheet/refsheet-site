@@ -1,0 +1,5 @@
+mutation markAllNotificationsAsRead {
+    markAllNotificationsAsRead {
+        unreadCount
+    }
+}
