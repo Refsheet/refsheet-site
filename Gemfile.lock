@@ -1,16 +1,16 @@
 GIT
-  remote: git://github.com/harrybournis/will_paginate-materialize.git
+  remote: https://github.com/harrybournis/will_paginate-materialize.git
   revision: 86e86a9ea3b21636e685b0fafb5b4b1681ff9dbd
   specs:
     will_paginate-materialize (0.1.2)
       will_paginate (~> 3.1.3)
 
 GIT
-  remote: git://github.com/reactjs/react-rails.git
-  revision: 649e2d60c03f4f585c695aa414374150015e2d5b
+  remote: https://github.com/reactjs/react-rails.git
+  revision: ac80f085be379655e8a10bbab3ee743890291710
   branch: master
   specs:
-    react-rails (2.4.7)
+    react-rails (2.6.0)
       babel-transpiler (>= 0.7.0)
       connection_pool
       execjs
@@ -18,7 +18,7 @@ GIT
       tilt
 
 GIT
-  remote: git://github.com/sitehive/materialize-sass.git
+  remote: https://github.com/sitehive/materialize-sass.git
   revision: 09add7cdd203a6221a2b333365a6af86d5c87ca8
   branch: master
   specs:
@@ -348,7 +348,7 @@ GEM
       connection_pool (~> 2.2)
     netrc (0.11.0)
     nio4r (2.3.1)
-    nokogiri (1.10.1)
+    nokogiri (1.10.5)
       mini_portile2 (~> 2.4.0)
     non-stupid-digest-assets (1.0.9)
       sprockets (>= 2.0)
