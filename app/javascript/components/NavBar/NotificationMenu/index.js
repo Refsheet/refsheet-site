@@ -7,6 +7,7 @@ import Scrollbars from 'Shared/Scrollbars'
 import subscription from './subscription'
 import {Mutation} from "react-apollo"
 import {markAllNotificationsAsRead} from "./markAllNotificationsAsRead.graphql"
+import {readNotification} from "./readNotification.graphql"
 
 class NotificationMenu extends Component {
   componentWillReceiveProps(newProps) {
@@ -41,11 +42,12 @@ class NotificationMenu extends Component {
       loading=false,
       error,
       subscribe,
-      refetch
+      refetch,
+      readNotification
     } = this.props
 
     const renderNotification = (n) => (
-      <NotificationItem key={n.id} {...n} />
+      <NotificationItem key={n.id} {...n} onDismiss={readNotification} refetch={refetch} />
     )
 
     if (!loading && !error)
@@ -97,7 +99,11 @@ export { NotificationMenu }
 
 const Mutated = (props) => (
   <Mutation mutation={markAllNotificationsAsRead}>
-    { (markAllAsRead) => <NotificationMenu {...props} markAllAsRead={markAllAsRead} /> }
+    { (markAllAsRead) => (
+      <Mutation mutation={readNotification}>
+        { (readNotification) => <NotificationMenu {...props} markAllAsRead={markAllAsRead} readNotification={readNotification} /> }
+      </Mutation>
+    )}
   </Mutation>
 )
 

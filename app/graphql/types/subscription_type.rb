@@ -32,4 +32,8 @@ Types::SubscriptionType = GraphQL::ObjectType.define do
     argument :imageId, !types.ID
     description "Image processing complete"
   end
+
+  field :newNotification, !Types::NotificationType do
+    description "New notifications go here"
+  end
 end

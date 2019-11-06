@@ -34,6 +34,7 @@ const updateQuery = (prev, data) => {
       ...prev,
       getNotifications: {
         ...prev.getNotifications,
+        unreadCount: (prev.unreadCount + 1),
         notifications: [
           ...prev.getNotifications.notifications,
           newNotification

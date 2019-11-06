@@ -40,6 +40,7 @@ class Account::NotificationsController < AccountController
         notification.update_attributes read_at: read
       end
       Rails.logger.info "POST: " + notification.read_at.inspect
+      notification.broadcast!
 
       render json: notification, serializer: NotificationSerializer
     end

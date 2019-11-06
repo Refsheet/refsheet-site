@@ -7,6 +7,7 @@ import { Icon } from 'react-materialize'
 
 const NotificationItem = (props) => {
   const {
+    id,
     link = '#',
     icon,
     thumbnail,
@@ -16,7 +17,8 @@ const NotificationItem = (props) => {
     floatTime,
     onClick,
     onMoreClick,
-    onDismiss
+    onDismiss,
+    refetch
   } = props
 
   const time = <div
@@ -30,7 +32,20 @@ const NotificationItem = (props) => {
 
   const dismiss = (e) => {
     e.preventDefault()
-    return onDismiss && onDismiss()
+
+    onDismiss({
+      variables: {
+        id: id
+      }
+    })
+      .then((_data) => {
+        refetch()
+      })
+      .catch(console.error)
+  }
+
+  if (!link) {
+    return null
   }
 
   return (
@@ -47,7 +62,7 @@ const NotificationItem = (props) => {
           { thumbnail && <img src={thumbnail} className='subject' /> }
         </Link>
         <div className='menu'>
-          { onDismiss && <a href={'#'} onClick={dismiss}><Icon>check</Icon></a> }
+          { onDismiss && is_unread && <a href={'#'} onClick={dismiss}><Icon>check</Icon></a> }
           { onMoreClick && <a href={'#'} onClick={more}><Icon>more_vert</Icon></a> }
         </div>
       </li>
