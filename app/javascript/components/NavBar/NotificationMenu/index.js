@@ -8,11 +8,12 @@ import subscription from './subscription'
 import {Mutation} from "react-apollo"
 import {markAllNotificationsAsRead} from "./markAllNotificationsAsRead.graphql"
 import {readNotification} from "./readNotification.graphql"
+import WindowAlert from "../../../utils/WindowAlert";
 
 class NotificationMenu extends Component {
   componentWillReceiveProps(newProps) {
     if (this.props.unreadCount < newProps.unreadCount) {
-      console.log("Play WOO!")
+      WindowAlert.playSound('notificationDing')
     }
   }
 

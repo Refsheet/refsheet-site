@@ -15,6 +15,7 @@ import Lightbox from '../Lightbox'
 import { I18nextProvider } from 'react-i18next'
 
 import i18n from '../../services/i18n.js'
+import WindowAlert from "../../utils/WindowAlert";
 
 reactGuard(React, (error, componentInfo) => {
   const errorString = `Failed to render <${componentInfo.displayName} />!`
@@ -31,7 +32,7 @@ reactGuard(React, (error, componentInfo) => {
   return <span>{errorString}</span>
 })
 
-const App = ({children: propChildren, state}) => {
+const App = ({children: propChildren, state, assets}) => {
   const newState = {
     ...defaultState,
     ...state,
@@ -48,6 +49,10 @@ const App = ({children: propChildren, state}) => {
       characterId: null
     }
   }
+
+  WindowAlert.initSound({
+    notificationSoundPaths: assets.notificationSoundPaths
+  })
 
   const store = createStore(rootReducer, newState)
   console.log("Initialized with state:", store.getState())

@@ -87,6 +87,19 @@ class ApplicationController < ActionController::Base
     raise "This is a bad error."
   end
 
+
+  #== Other Helpers
+
+  def render_asset_paths
+    {
+        notificationSoundPaths: [
+            view_context.asset_url('woo.mp3')
+        ]
+    }
+  end
+
+  helper_method :render_asset_paths
+
   protected
 
   def allow_http?
