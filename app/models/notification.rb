@@ -136,6 +136,14 @@ class Notification < ApplicationRecord
     end
   end
 
+  # Send GraphQL broadcast
+  def broadcast!
+    trigger! "newNotification",
+             {},
+             self,
+             scope: user.id
+  end
+
 
   protected
 

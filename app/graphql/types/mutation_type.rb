@@ -20,6 +20,7 @@ Types::MutationType = GraphQL::ObjectType.define do
 
   # Notifications
   field :markAllNotificationsAsRead, field: Mutations::NotificationMutations::ReadAll
+  field :readNotification, field: Mutations::NotificationMutations::Read
 
   #== Character Profiles
 
