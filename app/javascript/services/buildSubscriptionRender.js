@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import { Query } from 'react-apollo'
+import React from "react";
 
 const defaultMapDataToProps = (data) => data
 const defaultUpdateQuery = (prev) => prev
@@ -29,16 +30,10 @@ export default function buildSubscriptionRender(args) {
     const mapped = (data && mapDataToProps && mapDataToProps(data)) || {}
     const wrappedProps = {...props, loading, subscribe, data, ...mapped, ...more}
 
-    const oldUpdate = Component.prototype.componentWillUpdate
-
-    Component.prototype.componentWillUpdate = function(newProps, newState) {
-      if (!this._subscribed && !newProps.loading && this.props.loading) {
-        console.debug("Data found, subscribing for: " + Component.name)
-        newProps.subscribe()
-        this._subscribed = true
-      }
-
-      if(oldUpdate) return oldUpdate.bind(this)(newProps, newState)
+    if (!Component._subscribed && !loading) {
+      console.debug("Data found, subscribing for: " + Component.name)
+      subscribe()
+      Component._subscribed = true
     }
 
     return(<Component {...wrappedProps} />)

@@ -34,6 +34,7 @@ Types::SubscriptionType = GraphQL::ObjectType.define do
   end
 
   field :newNotification, !Types::NotificationType do
+    subscription_scope :current_user_id
     description "New notifications go here"
   end
 end
