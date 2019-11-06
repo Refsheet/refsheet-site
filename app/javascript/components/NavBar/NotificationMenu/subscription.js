@@ -30,15 +30,19 @@ const mapDataToProps = ({getNotifications = {}}) => ({
 const updateQuery = (prev, data) => {
   const { newNotification } = data
 
+  const notifications = [
+    newNotification,
+    ...prev.getNotifications.notifications.filter(n => n.id !== newNotification.id)
+  ]
+
+  const unreadCount = notifications.filter(n => n.is_unread).length
+
   return {
       ...prev,
       getNotifications: {
         ...prev.getNotifications,
-        unreadCount: (prev.unreadCount + 1),
-        notifications: [
-          ...prev.getNotifications.notifications,
-          newNotification
-        ]
+        unreadCount,
+        notifications
       }
   }
 }

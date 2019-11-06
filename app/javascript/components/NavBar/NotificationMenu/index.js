@@ -39,20 +39,16 @@ class NotificationMenu extends Component {
   render() {
     const {
       notifications=[],
-      unreadCount,
       loading=false,
       error,
-      subscribe,
       refetch,
+      unreadCount,
       readNotification
     } = this.props
 
     const renderNotification = (n) => (
       <NotificationItem key={n.id} {...n} onDismiss={readNotification} refetch={refetch} />
     )
-
-    if (!loading && !error)
-      subscribe()
 
     const renderContent = () => {
       if (loading) {
@@ -107,5 +103,29 @@ const Mutated = (props) => (
     )}
   </Mutation>
 )
+
+/*
+Possible helper forms:
+
+export default mutateWith({
+  markAllNotificationsAsRead,
+  readNotification
+}, subscription)(NotificationMenu)
+
+export default graphql({
+  mutations: {
+    markAllNotificationsAsRead,
+    readNotifications
+  },
+  query: [getNotifications, mapQueryToProps],
+  subscription: [newNotification, updateQuery]
+})(NotificationMenu)
+
+export default compose(
+  mutateWith({ ... }),
+  subscription,
+  connect(mapStateToProps, mapDispatchToProps)
+)(NotificationMenu)
+ */
 
 export default subscription(Mutated)
