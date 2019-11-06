@@ -137,6 +137,6 @@ history.listen(() => {
       session: StringUtils.camelizeKeys(session)
     }
 
-    `<Packs.application.V2Wrapper state={defaultState}>
+    `<Packs.application.V2Wrapper state={defaultState} assets={this.props.assets}>
       { router }
     </Packs.application.V2Wrapper>`

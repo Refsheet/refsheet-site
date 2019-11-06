@@ -3,7 +3,8 @@
                   eagerLoad: @eager_load,
                   flash: flash.to_hash,
                   environment: Rails.env,
-                  notice: ENV['MAINTENANCE_NOTICE']
+                  notice: ENV['MAINTENANCE_NOTICE'],
+                  assets: render_asset_paths
 
 #rootAppLoader.shaded-background
   %main#loading-screen

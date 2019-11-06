@@ -1,4 +1,5 @@
 import Favico from 'favico.js-slevomat'
+import { Howl, Howler } from 'howler'
 
 const CYCLE_ENABLED = true
 
@@ -86,6 +87,22 @@ class WindowAlert {
   static beginCycle() {
     if(window.RS_ALERT_INTERVAL || !CYCLE_ENABLED) return
     window.RS_ALERT_INTERVAL = setInterval(WindowAlert.showNext, 3000)
+  }
+
+  static initSound(options) {
+    const notificationDing = new Howl({
+      src: [...options.notificationSoundPaths]
+    })
+
+    window.RS_SOUND = {
+      notificationDing
+    }
+  }
+
+  static playSound(key) {
+    if (window.RS_SOUND && window.RS_SOUND[key]) {
+      try { window.RS_SOUND[key].play() } catch(e) { console.error(e) }
+    }
   }
 }
 

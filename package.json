@@ -21,6 +21,7 @@
     "graphql-request": "^1.5.1",
     "graphql-ruby-client": "^1.4.1",
     "graphql-tag": "^2.8.0",
+    "howler": "^2.1.2",
     "i18next": "^13.0.1",
     "i18next-browser-languagedetector": "^2.2.4",
     "i18next-locize-backend": "^1.7.0",
