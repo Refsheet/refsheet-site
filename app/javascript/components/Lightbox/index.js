@@ -7,11 +7,13 @@ import getMedia from './getMedia.graphql'
 import View from "./View";
 import Silhouette from "./Silhouette";
 import {Error, Loading} from "./Status";
+import {withRouter} from 'react-router-dom';
 
 class Lightbox extends Component {
   constructor(props) {
     super(props)
 
+    this.previousPath = window.location.pathname
     this.handleKeyDown = this.handleKeyDown.bind(this)
   }
 
@@ -62,11 +64,18 @@ class Lightbox extends Component {
   }
 
   componentWillMount() {
+    const { mediaId } = this.props
+
+    window.history.replaceState({}, null, `/media/${mediaId}`)
     document.body.classList.add('lightbox-open')
     document.addEventListener("keydown", this.handleKeyDown)
   }
 
   componentWillUnmount() {
+    if (this.previousPath) {
+      window.history.replaceState({}, null, this.previousPath)
+    }
+
     document.body.classList.remove('lightbox-open')
     document.removeEventListener("keydown", this.handleKeyDown)
   }
@@ -203,4 +212,4 @@ const mapDispatchToProps = {
   closeLightbox
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Wrapped)
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Wrapped))

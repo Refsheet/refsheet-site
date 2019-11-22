@@ -85,6 +85,9 @@ history.listen(() => {
                 </Views.Account.Layout>
               } />
 
+              <Route path='/myrefs' component={ Packs.application.CharacterController } />
+              <Route path='/myrefs/new' component={ Packs.application.CharacterController } />
+
               <Route path='/moderate' component={ Packs.application.CharacterController } />
 
               <Route path='/notifications' title='Notifications' component={ Views.Account.Notifications.Show } />
@@ -124,7 +127,7 @@ history.listen(() => {
 
               {/*== Fallback */}
 
-              <Route path='*' component={ NotFound } />
+              <Route path='*' component={ Packs.application.CharacterController } />
             </Switch>
           </App>}>
         </Route>

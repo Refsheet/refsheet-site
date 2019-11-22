@@ -6,6 +6,7 @@
     third: React.PropTypes.object
     onImageSwap: React.PropTypes.func
     onImageClick: React.PropTypes.func
+    gallery: React.PropTypes.array
 
 
   componentDidMount: ->
@@ -98,6 +99,7 @@
                           size='large'
                           onClick={ this.props.onImageClick }
                           onSwap={ this.props.onImageSwap }
+                          gallery={ this.props.gallery }
                           editable={ this.props.editable } />
         </div>
 
@@ -108,6 +110,7 @@
                           size='medium'
                           onClick={ this.props.onImageClick }
                           onSwap={ this.props.onImageSwap }
+                          gallery={ this.props.gallery }
                           editable={ this.props.editable } />
 
             <GalleryImage key={ thirdId }
@@ -116,6 +119,7 @@
                           size='medium'
                           onClick={ this.props.onImageClick }
                           onSwap={ this.props.onImageSwap }
+                          gallery={ this.props.gallery }
                           editable={ this.props.editable } />
         </div>
     </div>`
