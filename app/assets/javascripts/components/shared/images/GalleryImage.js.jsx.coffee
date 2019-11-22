@@ -11,6 +11,7 @@ gallery_image = React.createClass
     size: React.PropTypes.string
     onSwap: React.PropTypes.func
     onClick: React.PropTypes.func
+    gallery: React.PropTypes.array
 
 
   getInitialState: ->
@@ -36,10 +37,10 @@ gallery_image = React.createClass
   _handleClick: (e) ->
     $target = $(e.target)
     if $target.prop('tagName') == 'IMG'
-      if @props.onClick
-        @props.onClick(@state.image)
+      if @props.onClick and @props.onClick(@state.image)
+        true
       else
-        $(document).trigger 'app:lightbox', [ @state.image, @load ]
+        @props.dispatch({type: "OPEN_LIGHTBOX", mediaId: @state.image?.id, gallery: @props.gallery})
     else if @state.image.nsfw and not @props.session.nsfwOk
       @props.dispatch({type: "SET_NSFW_MODE", nsfwOk: true})
 

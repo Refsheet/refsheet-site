@@ -5,6 +5,7 @@ import ImageLoader from 'react-load-image'
 import { Loading, Error } from './Status'
 import CharacterBox from "./CharacterBox";
 import ImageMeta from "./ImageMeta";
+import { Tabs, Tab } from 'react-materialize'
 
 class View extends Component {
   constructor(props) {
@@ -56,6 +57,18 @@ class View extends Component {
             <CharacterBox {...character} createdAt={created_at} />
             <ImageMeta {...this.props} />
           </div>
+
+          <Tabs>
+            <Tab title={() => <Icon>comment</Icon>}>
+              <p>FOOBLEBURGB</p>
+            </Tab>
+            <Tab title={'Favs'}>
+              <p>Favs</p>
+            </Tab>
+            <Tab title={'Settings'}>
+              <p>Settings</p>
+            </Tab>
+          </Tabs>
         </div>
       </div>
     )

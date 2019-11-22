@@ -772,5 +772,8 @@ DEPENDENCIES
   will_paginate-materialize!
   zreact-router-rails
 
+RUBY VERSION
+   ruby 2.5.5p157
+
 BUNDLED WITH
    2.0.1

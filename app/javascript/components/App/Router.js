@@ -23,6 +23,10 @@ const Router = () => (
       <Route path="/v2/:username/:slug" component={ Character } />
       <Route path={"/:username/:slug"} component={ Character } />
 
+      {/** Account **/}
+      <Route path="/myrefs/new" component={ Loading } />
+      <Route path="/myrefs" component={ Loading } />
+
       {/** Misc **/}
       <Route path="*" component={ NotFound } />
     </Switch>
