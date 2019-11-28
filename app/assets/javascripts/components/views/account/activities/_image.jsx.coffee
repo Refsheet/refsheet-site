@@ -4,24 +4,28 @@
     character: React.PropTypes.object
     action: React.PropTypes.string
 
+  _getGallery: () ->
+    @props.images.map (i) ->
+      i.id
+
   _buildSingle: (key, one) ->
     `<Row noMargin noGutter key={ key }>
-        <Column><GalleryImage image={ one } size='medium_square' /></Column>
+        <Column><GalleryImage gallery={this._getGallery()} image={ one } size='medium_square' /></Column>
     </Row>`
 
   _buildDouble: (key, one, two) ->
     `<Row noMargin noGutter key={ key }>
-        <Column s={6}><GalleryImage image={ one } size='medium_square' /></Column>
-        <Column s={6}><GalleryImage image={ two } size='medium_square' /></Column>
+        <Column s={6}><GalleryImage gallery={this._getGallery()} image={ one } size='medium_square' /></Column>
+        <Column s={6}><GalleryImage gallery={this._getGallery()} image={ two } size='medium_square' /></Column>
     </Row>`
 
   _buildTriple: (key, one, two, three) ->
     `<Row noMargin noGutter key={ key }>
-        <Column s={8}><GalleryImage image={ one } size='medium_square' /></Column>
+        <Column s={8}><GalleryImage gallery={this._getGallery()} image={ one } size='medium_square' /></Column>
         <Column s={4}>
             <Row noMargin noGutter>
-                <Column><GalleryImage image={ two } size='medium_square' /></Column>
-                <Column><GalleryImage image={ three } size='medium_square' /></Column>
+                <Column><GalleryImage gallery={this._getGallery()} image={ two } size='medium_square' /></Column>
+                <Column><GalleryImage gallery={this._getGallery()} image={ three } size='medium_square' /></Column>
             </Row>
         </Column>
     </Row>`

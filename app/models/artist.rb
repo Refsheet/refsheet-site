@@ -26,4 +26,7 @@
 #
 
 class Artist < ApplicationRecord
+  include Sluggable
+
+  slugify :name, lookups: true
 end

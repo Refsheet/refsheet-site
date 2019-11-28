@@ -48,7 +48,6 @@ gallery_image = React.createClass
 
   _initialize: ->
     return unless @state.image
-    console.log @props
 
     $image = $(@refs.image)
 

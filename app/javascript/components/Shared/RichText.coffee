@@ -20,7 +20,7 @@ export default class RichText extends Component
     @setState content: e.target.value
 
   render: ->
-    { contentHtml, title } = @props
+    { contentHtml, title, placeholder } = @props
     { content } = @state
 
     outerClassNames = []
@@ -41,6 +41,6 @@ export default class RichText extends Component
       <div className={ bodyClassNames.join(' ') }>
         { content && content.length > 0
             ? <div dangerouslySetInnerHTML={ { __html: contentHtml } }/>
-            : <p className='caption'>This section unintentionally left blank.</p> }
+            : <p className='caption'>{ placeholder || "This section unintentionally left blank." }</p> }
       </div>
     </div>`
