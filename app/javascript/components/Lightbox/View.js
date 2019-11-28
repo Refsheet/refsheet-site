@@ -5,7 +5,9 @@ import ImageLoader from 'react-load-image'
 import { Loading, Error } from './Status'
 import CharacterBox from "./CharacterBox";
 import ImageMeta from "./ImageMeta";
-import { Tabs, Tab } from 'react-materialize'
+import Comments from './Comments';
+import {Link} from "react-router-dom";
+import Favorites from "./Favorites";
 
 class View extends Component {
   constructor(props) {
@@ -58,17 +60,8 @@ class View extends Component {
             <ImageMeta {...this.props} />
           </div>
 
-          <Tabs>
-            <Tab title={() => <Icon>comment</Icon>}>
-              <p>FOOBLEBURGB</p>
-            </Tab>
-            <Tab title={'Favs'}>
-              <p>Favs</p>
-            </Tab>
-            <Tab title={'Settings'}>
-              <p>Settings</p>
-            </Tab>
-          </Tabs>
+          <Favorites />
+          <Comments />
         </div>
       </div>
     )
