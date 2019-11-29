@@ -1,0 +1,6 @@
+mutation addComment($mediaId: ID!) {
+    addComment(mediaId: $mediaId) {
+        id
+        is_favorite
+    }
+}

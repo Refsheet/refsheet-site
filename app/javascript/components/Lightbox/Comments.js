@@ -36,19 +36,12 @@ class Comments extends Component {
   }
 
   render() {
-    const comment = {
-      id: "0bc1",
-      created_at: 123758689,
-      created_at_human: 'now',
-      comment: 'This is a cool picture!',
-      user: {
-        avatar_url: "https://placehold.it/64x64",
-        link: '/Username',
-        name: 'User Name'
-      }
-    }
-
-    const comments = [comment, comment, comment]
+    const {
+      comments,
+      count = 0,
+      isManaged,
+      currentUser
+    } = this.props
 
     return (
       <div className={'flex-vertical comments'}>
@@ -57,7 +50,7 @@ class Comments extends Component {
           { comments.length <= 0 && <p className={'caption padding--medium'}>No comments yet!</p> }
         </div>
 
-        { this.renderReplyBox() }
+        { this.props.currentUser && this.renderReplyBox() }
       </div>
     )
   }

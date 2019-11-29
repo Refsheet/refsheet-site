@@ -33,8 +33,8 @@ Types::ImageType = GraphQL::ObjectType.define do
     }
   end
 
-  field :character, -> { Types::CharacterType }
-  # has_one :character, serializer: ImageCharacterSerializer
-  # has_many :favorites, serializer: Media::FavoriteSerializer
-  # has_many :comments, serializer: Media::CommentSerializer
+  field :character, Types::CharacterType
+
+  field :favorites, types[Types::MediaFavoriteType]
+  field :comments, types[Types::MediaCommentType]
 end
