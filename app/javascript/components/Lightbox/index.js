@@ -153,6 +153,7 @@ class Lightbox extends Component {
     }
 
     if (error || !data || !data.getMedia) {
+      console.error(this.props)
       return (
         <Silhouette>
           <Error error={error} />

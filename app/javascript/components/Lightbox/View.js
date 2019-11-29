@@ -26,12 +26,19 @@ class View extends Component {
 
   render() {
     const {
+      id,
       title,
       url: {
         large: imageSrc
       },
       created_at,
       character,
+      favorites,
+      favorites_count,
+      comments,
+      comments_count,
+      is_managed,
+      is_favorite,
       nextMediaId,
       prevMediaId
     } = this.props
@@ -39,11 +46,11 @@ class View extends Component {
     return (
       <div className={'lightbox-content'}>
         <div className={'image-content'}>
-          { prevMediaId && <a className={'image-prev image-nav'} href={`/images/${prevMediaId}`} onClick={this.handlePrevClick.bind(this)}>
+          { prevMediaId && <a className={'image-prev image-nav'} href={`/media/${prevMediaId}`} onClick={this.handlePrevClick.bind(this)}>
             <Icon>keyboard_arrow_left</Icon>
           </a> }
 
-          { nextMediaId && <a className={'image-next image-nav'} href={`/images/${nextMediaId}`} onClick={this.handleNextClick.bind(this)}>
+          { nextMediaId && <a className={'image-next image-nav'} href={`/media/${nextMediaId}`} onClick={this.handleNextClick.bind(this)}>
             <Icon>keyboard_arrow_right</Icon>
           </a> }
 
@@ -60,8 +67,8 @@ class View extends Component {
             <ImageMeta {...this.props} />
           </div>
 
-          <Favorites />
-          <Comments />
+          <Favorites count={favorites_count} favorites={favorites} isFavorite={is_favorite} mediaId={id} />
+          <Comments count={comments_count} comments={comments} isManaged={is_managed} mediaId={id} />
         </div>
       </div>
     )

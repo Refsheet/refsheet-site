@@ -1,0 +1,5 @@
+mutation addFavorite($mediaId: ID!) {
+    addFavorite(mediaId: $mediaId) {
+        id
+    }
+}
