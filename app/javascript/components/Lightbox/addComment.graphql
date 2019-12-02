@@ -1,6 +1,6 @@
-mutation addComment($mediaId: ID!) {
-    addComment(mediaId: $mediaId) {
+mutation addComment($mediaId: ID!, $comment: String!) {
+    addComment(mediaId: $mediaId, comment: $comment) {
         id
-        is_favorite
+        comment
     }
 }
