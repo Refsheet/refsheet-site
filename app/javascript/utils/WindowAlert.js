@@ -4,6 +4,25 @@ import { Howl, Howler } from 'howler'
 const CYCLE_ENABLED = true
 
 class WindowAlert {
+  static dirty(key, message) {
+    if(!window.RS_DIRTY)
+      window.RS_DIRTY = {}
+
+    window.RS_DIRTY[key] = message
+  }
+
+  static clean(key) {
+    if(!window.RS_DIRTY)
+      return
+
+    delete window.RS_DIRTY[key]
+  }
+
+  static onbeforeunload() {
+    // Handle popup on site, too?
+    return Object.keys(window.RS_DIRTY).length > 0
+  }
+
   static getCounts() {
     if(!window.RS_ALERTS) return
     const keys = Object.keys(window.RS_ALERTS)

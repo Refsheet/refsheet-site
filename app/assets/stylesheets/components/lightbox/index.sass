@@ -81,6 +81,49 @@
       .card
         border-bottom: none
 
+      .comment-form
+        .card, .card-content
+          box-shadow: none
+          margin: 0
+
+        form
+          display: flex
+          margin: 0
+          background-color: rgba(black, 0.1)
+          height: 3rem
+
+          .avatar
+            height: 2rem
+            margin: 0.5rem
+            position: static
+
+          .card-content, .send
+            display: flex
+            margin: 0
+            padding: 0 !important
+
+          button
+            vertical-align: middle
+            line-height: 2.5rem
+            padding: 0.25rem
+            border-radius: 0
+            width: 2.5rem
+            transition: background-color 0.3s ease
+            color: white
+            background-color: rgba(black, 0.1)
+            flex: 0 0 2.5rem
+
+          input, textarea
+            display: block
+            flex: 1 1 auto
+            margin: 0 !important
+            height: auto !important
+            line-height: 2.5rem
+            vertical-align: middle
+            padding: 0.25rem 1rem !important
+            border: none !important
+            outline: none !important
+
     .image-content
       overflow: visible
       min-width: 600px

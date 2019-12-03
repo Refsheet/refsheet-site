@@ -72,54 +72,80 @@ class CommentForm extends Component {
 
   render() {
     const {
-      inCharacter,
+      inCharacter = false,
       identity,
-      richText
+      richText,
+      slim = false
     } = this.props
 
     const placeholder = (this.props.placeholder || "").replace(/%n/, identity.name)
+
+    let submitButton, input
+
+    if (slim) {
+      submitButton = <div className={'send'}>
+        <button type={'submit'} className={'btn right flat'} disabled={!this.state.comment || this.state.submitting}>
+          { this.state.submitting ? this.props.buttonSubmittingText : this.props.buttonText }
+        </button>
+      </div>
+
+      input = <Input
+        type={'text'}
+        name={'comment'}
+        browserDefault
+        noMargin
+        disabled={ this.state.submitting }
+        placeholder={ placeholder }
+        value={ this.state.comment }
+        onChange={ this.handleCommentChange.bind(this) }
+      />
+    } else {
+      submitButton = <Row noMargin>
+        <Column s={8}>
+          <Restrict patron>
+            { inCharacter && <IdentitySelect onClick={this.handleIdentityOpen.bind(this)} name={identity.name} /> }
+          </Restrict>
+        </Column>
+        <Column s={4}>
+          <button type={'submit'} className='btn right' disabled={!this.state.comment || this.state.submitting}>
+            { this.state.submitting ? this.props.buttonSubmittingText : this.props.buttonText }
+          </button>
+        </Column>
+      </Row>
+
+      if (richText) {
+        input = <MarkdownEditor
+          name={'comment'}
+          disabled={this.state.submitting}
+          placeholder={ placeholder }
+          content={this.state.comment}
+          onChange={this.handleCommentChange.bind(this)}
+        />
+      } else {
+        input = <Input
+          type={'textarea'}
+          name='comment'
+          browserDefault
+          noMargin
+          disabled={ this.state.submitting }
+          placeholder={ placeholder }
+          value={this.state.comment}
+          onChange={this.handleCommentChange.bind(this)}
+        />
+      }
+    }
 
     return (
       <div className={'comment-form'}>
         <form className='card reply-box margin-top--none sp with-avatar'
               onSubmit={ this.handleSubmit.bind(this) }
         >
-          <UserAvatar user={this.props.currentUser} identity={identity} />
+          <UserAvatar user={this.props.currentUser} identity={identity} onIdentityChangeClick={this.handleIdentityOpen.bind(this)} />
 
           <div className='card-content reply-box'>
-            { richText || <Input
-              type={'textarea'}
-              name='comment'
-              browserDefault
-              noMargin
-              disabled={ this.state.submitting }
-              placeholder={ placeholder }
-              value={this.state.comment}
-              onChange={this.handleCommentChange.bind(this)}
-            /> }
-
-            { richText && <MarkdownEditor
-              name={'comment'}
-              disabled={this.state.submitting}
-              placeholder={ placeholder }
-              content={this.state.comment}
-              onChange={this.handleCommentChange.bind(this)}
-            /> }
-
+            { input }
             { this.state.error && <span className={'error red-text smaller'}>{ this.state.error }</span> }
-
-            <Row noMargin>
-              <Column s={8}>
-                <Restrict patron>
-                  { inCharacter && <IdentitySelect onClick={this.handleIdentityOpen.bind(this)} name={identity.name} /> }
-                </Restrict>
-              </Column>
-              <Column s={4}>
-                <button type={'submit'} className='btn right' disabled={!this.state.comment || this.state.submitting}>
-                  { this.state.submitting ? this.props.buttonSubmittingText : this.props.buttonText }
-                </button>
-              </Column>
-            </Row>
+            { submitButton }
           </div>
         </form>
 
@@ -137,7 +163,8 @@ CommentForm.propTypes = {
   placeholder: PropTypes.string,
   value: PropTypes.string,
   buttonText: PropTypes.string,
-  buttonSubmittingText: PropTypes.string
+  buttonSubmittingText: PropTypes.string,
+  slim: PropTypes.bool
 }
 
 const mapStateToProps = (state, props) => ({
