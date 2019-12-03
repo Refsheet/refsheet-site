@@ -1,5 +1,6 @@
 import React from "react";
 import {Mutation} from "react-apollo";
+import {connect} from "react-redux";
 
 function compose() {
   return (component) => {
@@ -39,8 +40,18 @@ function withMutations(mutations) {
   }
 }
 
+function withCurrentUser() {
+  const mapStateToProps = (state, props) => ({
+    currentUser: state.session.currentUser,
+    ...props
+  })
+
+  return connect(mapStateToProps)
+}
+
 export {
-  withMutations
+  withMutations,
+  withCurrentUser
 }
 
 export default compose

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import {Link} from "react-router-dom";
-import RichText from "../Shared/RichText";
+import removeComment from './removeComment.graphql'
+import compose, {withCurrentUser, withMutations} from "../../utils/compose";
+import CommentForm from "../Shared/CommentForm";
 
 class Comments extends Component {
   renderComment(comment) {
@@ -21,16 +23,7 @@ class Comments extends Component {
   renderReplyBox() {
     return (
       <div className='flex-fixed'>
-        <Form className='reply-box'
-              action={ '/media/' + this.props.mediaId + '/comments' }
-              model={ {} }
-              modelName='comment'
-              onChange={ this._handleComment }
-              resetOnSubmit
-        >
-          <Input type='textarea' name='comment' placeholder='Leave a comment...' noMargin browserDefault className='min-height overline block' />
-          <Submit className='btn-square btn-block'>Send Comment <Icon className='right'>send</Icon></Submit>
-        </Form>
+        <CommentForm slim placeholder={"What say you?"} buttonText={"Send"} buttonSubmittingText={"Sending"} />
       </div>
     )
   }
@@ -56,4 +49,7 @@ class Comments extends Component {
   }
 }
 
-export default Comments
+export default compose(
+  withMutations({removeComment}),
+  withCurrentUser()
+)(Comments)

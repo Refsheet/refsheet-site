@@ -1,65 +1,72 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import DropdownLink from '../DropdownLink'
 import NotificationItem from '../Dropdown/NotificationItem'
 import { Link } from 'react-router-dom'
 import Scrollbars from 'Shared/Scrollbars'
-// import subscription from './subscription'
+import compose from "../../../utils/compose";
+import {connect} from "react-redux";
+import WindowAlert from "../../../utils/WindowAlert";
 
-const TransferMenu = ({transfers=[], loading=false, error, subscribe, refetch}) => {
-  const renderNotification = (n) => (
-    <NotificationItem key={n.id} {...n} />
-  )
+class UploadMenu extends Component {
+  renderNotification(n) {
+    return (
+      <NotificationItem key={n.id} {...n} />
+    )
+  }
 
-  if (!loading && !error)
-    if(subscribe) subscribe()
+  renderContent() {
+    const {
+      uploads = []
+    } = this.props
 
-  const renderContent = () => {
-    if(loading) {
-      return <li className='empty-item'>Loading...</li>
-    } else if(error) {
-      return <li className='empty-item red-text'>{ error }</li>
-    } else if(transfers.length > 0) {
-      return transfers.map(renderNotification)
+    return <pre>{ JSON.stringify(uploads, null, 2) }</pre>
+  }
+
+  render() {
+    const {
+      uploads = []
+    } = this.props
+
+    const unreadCount = uploads.length
+
+    if(!unreadCount) {
+      WindowAlert.clean('uploads')
+      return null;
     } else {
-      return <li className='empty-item'>No new transfers.</li>
+      WindowAlert.dirty('uploads', 'You have pending uploads!')
     }
-  }
 
-  const unreadCount = transfers.filter(n => n.is_unread).length
-
-  if(!unreadCount) {
-    return null;
-  }
-
-  const tryRefetch = () => {
-    if(refetch) refetch()
-  }
-
-  return (
-    <DropdownLink icon='swap_horiz' count={unreadCount} onOpen={tryRefetch}>
-      <div className='dropdown-menu wide'>
-        <div className='title'>
-          <div className='right'>
-            <a href={'#'}>Accept All</a>
+    return (
+      <DropdownLink icon='cloud_upload' count={unreadCount}>
+        <div className='dropdown-menu wide'>
+          <div className='title'>
+            <div className='right'>
+              <a href={'#'}>Accept All</a>
+            </div>
+            <strong>Uploads</strong>
           </div>
-          <strong>Transfers</strong>
+          <Scrollbars>
+            <ul>
+              {this.renderContent()}
+            </ul>
+          </Scrollbars>
+          <Link to='/transfers' className='cap-link'>See More...</Link>
         </div>
-        <Scrollbars>
-          <ul>
-            {renderContent()}
-          </ul>
-        </Scrollbars>
-        <Link to='/transfers' className='cap-link'>See More...</Link>
-      </div>
-    </DropdownLink>
-  )
+      </DropdownLink>
+    )
+  }
 }
 
-TransferMenu.propTypes = {
+UploadMenu.propTypes = {
   transfers: PropTypes.array
 }
 
-export { TransferMenu }
-export default(TransferMenu)
-// export default subscription(TransferMenu)
+const mapStateToProps = (state, props) => ({
+  uploads: state.uploads.files,
+  ...props
+})
+
+export default compose(
+  connect(mapStateToProps)
+)(UploadMenu)

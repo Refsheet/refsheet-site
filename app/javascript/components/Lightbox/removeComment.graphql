@@ -1,0 +1,5 @@
+mutation removeComment($mediaId: ID!, $id: ID!) {
+    removeComment(mediaId: $mediaId, id: $id) {
+        id
+    }
+}
