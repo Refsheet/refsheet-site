@@ -5,21 +5,31 @@ const CYCLE_ENABLED = true
 
 class WindowAlert {
   static dirty(key, message) {
-    if(!window.RS_DIRTY)
+    if (!window.RS_DIRTY)
       window.RS_DIRTY = {}
 
     window.RS_DIRTY[key] = message
+
+    if (!window.onbeforeunload) {
+      window.onbeforeunload = this.onbeforeunload
+    }
   }
 
   static clean(key) {
-    if(!window.RS_DIRTY)
+    if (!window.RS_DIRTY)
       return
 
     delete window.RS_DIRTY[key]
+
+    if (window.onbeforeunload && !this.onbeforeunload()) {
+      window.onbeforeunload = null
+    }
   }
 
   static onbeforeunload() {
-    // Handle popup on site, too?
+    if (!window.RS_DIRTY)
+      return false
+
     return Object.keys(window.RS_DIRTY).length > 0
   }
 

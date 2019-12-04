@@ -30,30 +30,6 @@ export function closeConversation(conversationId) {
   }
 }
 
-export const ENQUEUE_UPLOADS = 'ENQUEUE_UPLOADS'
-export function enqueueUploads(files) {
-  return {
-    type: ENQUEUE_UPLOADS,
-    files
-  }
-}
-
-export const CLEAR_UPLOAD = 'CLEAR_UPLOAD'
-export function clearUpload(fileId) {
-  return {
-    type: CLEAR_UPLOAD,
-    fileId
-  }
-}
-
-export const MODIFY_UPLOAD = 'MODIFY_UPLOAD'
-export function modifyUpload(file) {
-  return {
-    type: MODIFY_UPLOAD,
-    file
-  }
-}
-
 export const OPEN_LIGHTBOX = 'OPEN_LIGHTBOX'
 export function openLightbox(mediaId, gallery) {
   return {
@@ -85,3 +61,5 @@ export function setIdentity({user, character}) {
     identity
   }
 }
+
+export * from './uploads'

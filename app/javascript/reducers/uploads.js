@@ -9,7 +9,8 @@ const handlers = {
         ...state.files,
         ...action.files
       ],
-      selectedIndex: 0
+      selectedIndex: 0,
+      modalOpen: true
     }
   ),
 
@@ -26,6 +27,34 @@ const handlers = {
       ...state,
       files: files,
       selectedIndex
+    }
+  },
+
+  [Actions.CLEAR_ALL_UPLOADS]: (state, action) => {
+    return {
+      ...state,
+      files: [],
+      selectedIndex: null
+    }
+  },
+
+  [Actions.OPEN_UPLOAD_MODAL]: (state, action) => {
+    let selectedIndex = state.files.findIndex((file) => file.id === state.uploadId)
+
+    return {
+      ...state,
+      modalOpen: true,
+      selectedIndex,
+      characterId: action.characterId
+    }
+  },
+
+  [Actions.CLOSE_UPLOAD_MODAL]: (state, action) => {
+    return {
+      ...state,
+      modalOpen: false,
+      selectedIndex: null,
+      characterId: null
     }
   }
 }

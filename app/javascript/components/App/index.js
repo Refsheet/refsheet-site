@@ -54,8 +54,6 @@ const App = ({children: propChildren, state, assets}) => {
     notificationSoundPaths: assets.notificationSoundPaths
   })
 
-  window.onbeforeunload = WindowAlert.onbeforeunload
-
   const store = createStore(rootReducer, newState)
   console.log("Initialized with state:", store.getState())
 
