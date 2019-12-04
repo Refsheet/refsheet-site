@@ -3,7 +3,9 @@ import PropTypes from 'prop-types'
 
 import {
   Row,
-  Input,
+  Select,
+  TextInput,
+  Switch,
   Button
 } from 'react-materialize'
 
@@ -63,19 +65,19 @@ class UploadForm extends Component {
     return <form onSubmit={this.handleSubmit} className='image-form' style={ { flex: '0 1 300px', display: 'flex', height: 300, flexDirection: 'column' } }>
       <div className='image-data padding--medium padding-bottom--none' style={ { flexGrow: 1, overflow: 'hidden' } }>
         <Row>
-          <Input s={ 12 } onChange={ this.handleChange } value={ image.title } type='text' name='title' className='margin-bottom--none' label='Name'/>
+          <TextInput s={ 12 } onChange={ this.handleChange } value={ image.title } name='title' className='margin-bottom--none' label='Name'/>
         </Row>
         <Row>
-          <Input s={ 12 } onChange={ this.handleChange } value={ image.folder } type='select' name='folder' className='margin-bottom--none' label='Folder'>
+          <Select s={ 12 } onChange={ this.handleChange } value={ image.folder } name='folder' className='margin-bottom--none' label='Folder'>
             { folders.map((i) => <option value={ i[ 0 ] } key={ i[ 0 ] }>{ i[ 1 ] }</option>) }
-          </Input>
+          </Select>
         </Row>
       </div>
 
       <div className='image-submit padding--medium padding-top--none' style={ { flexShrink: 0, flexGrow: 0 } }>
         <div className='center margin-bottom--large'>
           <Row>
-            <Input s={ 12 } onChange={ this.handleChange } checked={ image.nsfw } type='switch' name='nsfw' offLabel='SFW' onLabel='NSFW' />
+            <Switch s={ 12 } onChange={ this.handleChange } checked={ image.nsfw } name='nsfw' offLabel='SFW' onLabel='NSFW' />
           </Row>
         </div>
 

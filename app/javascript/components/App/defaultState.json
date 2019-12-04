@@ -10,7 +10,10 @@
     "openConversations": []
   },
   "uploads": {
-    "files": []
+    "files": [],
+    "characterId": null,
+    "modalOpen": false,
+    "activeImageId": null
   },
   "lightbox": {
     "mediaId": null,

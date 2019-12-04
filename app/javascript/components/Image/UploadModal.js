@@ -3,8 +3,9 @@ import PropTypes from 'prop-types'
 import Filmstrip from './Filmstrip'
 import UploadForm from './UploadForm'
 import ImageHandler from 'ImageHandler'
-import {clearUpload, modifyUpload} from "../../actions";
+import {clearUpload, closeUploadModal, modifyUpload} from "../../actions";
 import {connect} from "react-redux";
+import M from 'materialize-css'
 
 class UploadModal extends Component {
   constructor(props, context) {
@@ -36,6 +37,10 @@ class UploadModal extends Component {
       this.setState({activeImageId})
     } else if (this.props.files.length < prevProps.files.length) {
       this.selectNextImage()
+    }
+
+    if (prevProps.activeImageId !== this.props.activeImageId) {
+      this.setActiveImage(this.props.activeImageId)
     }
   }
 
@@ -138,6 +143,14 @@ class UploadModal extends Component {
     </div>
   }
 
+  handleClose() {
+    if (this.props.onClose) {
+      this.props.onClose()
+    } else {
+      this.props.closeUploadModal()
+    }
+  }
+
   render() {
     const activeImage = this.getActiveImage()
 
@@ -154,7 +167,7 @@ class UploadModal extends Component {
     }
 
     return (
-      <Modal id='upload-images' title={title} noContainer onClose={this.props.onClose}>
+      <Modal id='upload-images' title={title} noContainer onClose={this.handleClose.bind(this)}>
         { this.renderCurrent(activeImage) }
         { this.renderPending(this.props.files) }
         { this.renderPlaceholder() }
@@ -165,20 +178,40 @@ class UploadModal extends Component {
 
 UploadModal.propTypes = {
   characterId: PropTypes.string,
-  onUpload: PropTypes.func
+  onUpload: PropTypes.func,
+  alwaysOpen: PropTypes.bool,
+  activeImageId: PropTypes.string
 }
 
 UploadModal.contextTypes = {
   getDropzone: PropTypes.func
 }
 
-const mapStateToProps = ({uploads}) => ({
-  files: uploads.files
+const mapStateToProps = ({uploads}, props) => ({
+  files: uploads.files,
+  characterId: uploads.characterId,
+  modalOpen: uploads.modalOpen,
+  activeImageId: uploads.activeImageId,
+  ...props
 })
 
 const mapDispatchToProps = {
   clearUpload,
-  modifyUpload
+  modifyUpload,
+  closeUploadModal
 }
 
-export default connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(UploadModal)
+const Wrapped = (props) => {
+  const {
+    alwaysOpen = false,
+    modalOpen = false
+  } = props
+
+  if (!alwaysOpen && !modalOpen) {
+    return null
+  }
+
+  return <UploadModal {...props} />
+}
+
+export default connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(Wrapped)
