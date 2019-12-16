@@ -1,6 +1,6 @@
+import React from 'react'
 import PropTypes from 'prop-types'
 import {Component} from 'react'
-// TODO: Import React once we're done with the global nonsense.
 
 class Filmstrip extends Component {
   constructor(props) {
@@ -83,7 +83,7 @@ class Filmstrip extends Component {
 
 const imageType = PropTypes.shape({
   src: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.oneOf(PropTypes.number, PropTypes.string).isRequired,
   active: PropTypes.bool,
   state: PropTypes.string.isRequired,
   progress: PropTypes.number

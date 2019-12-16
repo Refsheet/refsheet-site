@@ -6438,8 +6438,8 @@ markdown-it@^8.4.0:
     uc.micro "^1.0.5"
 
 materialize-css@^1.0.0-beta:
-  version "1.0.0-beta"
-  resolved "https://registry.yarnpkg.com/materialize-css/-/materialize-css-1.0.0-beta.tgz#fe79bba7faa77d277568b290e1f75b0d8c635926"
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/materialize-css/-/materialize-css-1.0.0.tgz#8d5db1c4a81c6d65f3b2e2ca83a8e08daa24d1be"
 
 math-expression-evaluator@^1.2.14:
   version "1.2.17"

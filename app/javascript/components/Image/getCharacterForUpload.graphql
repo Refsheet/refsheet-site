@@ -1,0 +1,11 @@
+query getCharacterForUpload($id: ID!) {
+    getCharacter(id: $id) {
+        name,
+        nsfw,
+        profile_image {
+            url {
+                small
+            }
+        }
+    }
+}

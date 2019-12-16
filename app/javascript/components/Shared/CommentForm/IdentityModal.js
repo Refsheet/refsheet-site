@@ -23,7 +23,10 @@ class IdentityModal extends Component {
   handleCharacterSelect(character) {
     return (e) => {
       e.preventDefault()
-      this.props.setIdentity({character})
+
+      if (!this.props.temporary) {
+        this.props.setIdentity({character})
+      }
 
       if (this.props.onCharacterSelect) {
         this.props.onCharacterSelect(character)
@@ -58,14 +61,14 @@ class IdentityModal extends Component {
   }
 
   render() {
-    const { t } = this.props
+    const { t, title, requireCharacter } = this.props
 
     return (
       <Modal
         autoOpen
         noContainer
         id='select-identity'
-        title={t('identity.change', 'Change Identity')}
+        title={title || t('identity.change', 'Change Identity')}
         onClose={this.handleModalDone.bind(this)}
       >
         <form className={'modal-inline-form'} onSubmit={this.handleSearch.bind(this)}>
@@ -94,11 +97,11 @@ class IdentityModal extends Component {
           }}
         </Query>
 
-        <div className={'modal-footer right-align'}>
+        {requireCharacter || <div className={'modal-footer right-align'}>
           <button className={'btn'} onClick={this.handleCharacterSelect(null).bind(this)}>
-            { t('identity.as-self', 'Post As Yourself') }
+            {t('identity.as-self', 'Post As Yourself')}
           </button>
-        </div>
+        </div> }
       </Modal>
     )
   }
@@ -106,7 +109,10 @@ class IdentityModal extends Component {
 
 IdentityModal.propTypes = {
   onClose: PropTypes.func.isRequired,
-  onCharacterSelect: PropTypes.func
+  onCharacterSelect: PropTypes.func,
+  title: PropTypes.string,
+  requireCharacter: PropTypes.bool,
+  temporary: PropTypes.bool
 }
 
 const mapDispatchToProps = { setIdentity }

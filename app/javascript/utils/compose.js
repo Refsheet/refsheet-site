@@ -7,7 +7,6 @@ function compose() {
     let func = component
 
     Array.from(arguments).reverse().map(arg => {
-      console.log({arg, func})
       func = arg(func)
     })
 
