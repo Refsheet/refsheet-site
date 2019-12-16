@@ -4,7 +4,7 @@ import {userFgColor} from "../../utils/UserUtils";
 import {createIdentity, identitySourceType} from "../../utils/IdentityUtils";
 
 const UserAvatar = (props) => {
-  const { user } = props
+  const { user, onIdentityChangeClick } = props
   const identity = createIdentity(props)
 
   const style = {
@@ -12,7 +12,7 @@ const UserAvatar = (props) => {
   }
 
   return (
-    <img className='avatar circle' src={ identity.avatarUrl } alt={ identity.name } style={ style } />
+    <img className='avatar circle' src={ identity.avatarUrl } alt={ identity.name } style={ style } onClick={onIdentityChangeClick} />
   )
 }
 
