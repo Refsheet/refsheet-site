@@ -1,4 +1,4 @@
-class Mutations::MediaFavoriteMutations < Mutations::ApplicationMutation
+class Mutations::MediaCommentMutations < Mutations::ApplicationMutation
   before_action :get_media
 
   action :create do

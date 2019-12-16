@@ -93,14 +93,39 @@
           height: 3rem
 
           .avatar
-            height: 2rem
+            height: 2rem !important
+            width: 2rem !important
             margin: 0.5rem
+            flex: 0 0 2rem
             position: static
 
-          .card-content, .send
+          .card-content.reply-box
             display: flex
-            margin: 0
+            flex-grow: 1
+            margin: 0 !important
             padding: 0 !important
+
+            .input-field
+              flex-grow: 1
+              flex-shrink: 1
+
+              input
+                padding: 0 1rem !important
+                height: 3rem
+                line-height: 3rem
+                vertical-align: middle
+                box-sizing: border-box
+
+            .send
+              flex: 0 0 3rem
+
+              button
+                padding: 0 !important
+                height: 3rem
+                width: 3rem
+                text-align: center
+                line-height: 3rem
+                vertical-align: middle
 
           button
             vertical-align: middle

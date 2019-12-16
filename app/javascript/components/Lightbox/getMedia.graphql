@@ -48,7 +48,8 @@ query getMedia($mediaId: ID!) {
                 username,
                 name,
                 avatar_url
-            }
+            },
+            comment
         }
     }
   }

@@ -84,8 +84,11 @@ class CommentForm extends Component {
 
     if (slim) {
       submitButton = <div className={'send'}>
-        <button type={'submit'} className={'btn right flat'} disabled={!this.state.comment || this.state.submitting}>
-          { this.state.submitting ? this.props.buttonSubmittingText : this.props.buttonText }
+        <button type={'submit'} className={'btn right flat'} onClick={ this.handleSubmit.bind(this) } disabled={!this.state.comment || this.state.submitting}>
+          { this.state.submitting
+            ? <Icon title={this.props.buttonSubmittingText}>hourglass_empty</Icon>
+            : <Icon title={this.props.buttonText}>send</Icon>
+          }
         </button>
       </div>
 
@@ -107,7 +110,7 @@ class CommentForm extends Component {
           </Restrict>
         </Column>
         <Column s={4}>
-          <button type={'submit'} className='btn right' disabled={!this.state.comment || this.state.submitting}>
+          <button type={'submit'} onClick={ this.handleSubmit.bind(this) } className='btn right' disabled={!this.state.comment || this.state.submitting}>
             { this.state.submitting ? this.props.buttonSubmittingText : this.props.buttonText }
           </button>
         </Column>
