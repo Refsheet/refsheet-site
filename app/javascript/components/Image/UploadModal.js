@@ -5,7 +5,12 @@ import UploadForm from './UploadForm'
 import ImageHandler from 'ImageHandler'
 import {clearUpload, closeUploadModal, modifyUpload} from "../../actions";
 import {connect} from "react-redux";
-import M from 'materialize-css'
+import c from 'classnames'
+import {Query} from "react-apollo";
+import getCharacterForUpload from './getCharacterForUpload.graphql'
+import IdentityModal from "../Shared/CommentForm/IdentityModal";
+import {withNamespaces} from "react-i18next";
+import compose from "../../utils/compose";
 
 class UploadModal extends Component {
   constructor(props, context) {
@@ -17,7 +22,9 @@ class UploadModal extends Component {
     }
 
     this.state = {
-      activeImageId
+      activeImageId,
+      characterId: this.props.characterId,
+      identityModalOpen: false
     }
 
     this.setActiveImage = this.setActiveImage.bind(this)
@@ -25,10 +32,6 @@ class UploadModal extends Component {
     this.handleUpload = this.handleUpload.bind(this)
     this.handleUploadClick = this.handleUploadClick.bind(this)
     this.handleImageClear = this.handleImageClear.bind(this)
-  }
-
-  componentDidMount() {
-    M.Modal.getInstance(document.getElementById('upload-images')).open()
   }
 
   componentDidUpdate(prevProps) {
@@ -42,10 +45,26 @@ class UploadModal extends Component {
     if (prevProps.activeImageId !== this.props.activeImageId) {
       this.setActiveImage(this.props.activeImageId)
     }
+
+    if (prevProps.characterId !== this.props.characterId) {
+      this.setCharacter(this.props.characterId)
+    }
+  }
+
+  setCharacter(character) {
+    this.setState({ characterId: character.id, identityModalOpen: false })
+  }
+
+  handleChangeCharacterClick(e) {
+    e.preventDefault()
+    this.setState({ identityModalOpen: true })
+  }
+
+  handleIdentityClose() {
+    this.setState({ identityModalOpen: false })
   }
 
   setActiveImage(activeImageId) {
-    console.log("Setting active", activeImageId)
     this.setState({activeImageId})
   }
 
@@ -93,12 +112,13 @@ class UploadModal extends Component {
     this.handleImageChange(image)
 
     ImageHandler
-        .upload(image, this.props.characterId, this.handleImageChange)
+        .upload(image, this.state.characterId, this.handleImageChange.bind(this))
         .then((image) => {
           Materialize.toast(image.title + ' uploaded!', 3000, 'green')
           this.props.clearUpload(image.id)
           this.props.onUpload(image)
         })
+        .catch(console.log)
 
     this.selectNextImage()
   }
@@ -117,7 +137,7 @@ class UploadModal extends Component {
     />
   }
 
-  renderCurrent(image) {
+  renderCurrent(image, character) {
     if(!image) return null
 
     return <div className='image-preview' style={{display: 'flex'}}>
@@ -127,7 +147,13 @@ class UploadModal extends Component {
           <div className='upload-error red darken-4 white-text padding--small'><strong>Error:</strong> { image.errorMessage }</div> }
       </div>
 
-      <UploadForm image={image} onChange={this.handleImageChange} onUpload={this.handleUpload} onClear={this.handleImageClear} />
+      <UploadForm image={image}
+                  character={character}
+                  characterId={this.state.characterId}
+                  onChange={this.handleImageChange}
+                  onUpload={this.handleUpload}
+                  onClear={this.handleImageClear}
+      />
     </div>
   }
 
@@ -143,6 +169,27 @@ class UploadModal extends Component {
     </div>
   }
 
+  renderCharacterTarget(character, loading, error) {
+    const { t } = this.props
+
+    let characterName = t('identity.no_character_selected', "No Character Selected")
+
+    if (loading) {
+      characterName = t('status.loading', "Loading...")
+    } else if (character && character.name) {
+      characterName = character.name
+    }
+
+    return <div className={c('modal-notice', 'character-select', { "alert": !character})}>
+      {t('actions.upload_to', "Upload To")}: <strong>{ characterName }</strong>
+      { !loading && <a className={'right btn-flat'} href={'#'}
+                       onClick={this.handleChangeCharacterClick.bind(this)}
+                       title={ t('actions.change_character', "Change Character...") }>
+        <Icon className={'left'}>swap_horiz</Icon> Change
+      </a> }
+    </div>
+  }
+
   handleClose() {
     if (this.props.onClose) {
       this.props.onClose()
@@ -152,26 +199,43 @@ class UploadModal extends Component {
   }
 
   render() {
+    const { t } = this.props
+
     const activeImage = this.getActiveImage()
 
-    let title = 'Upload Images'
+    let title = t('actions.upload_images', 'Upload Images')
 
     if(activeImage) {
-      let status = 'Upload'
+      let status = t('actions.upload', 'Upload')
 
       if(activeImage.state === 'uploading') {
-        status = `Uploading (${activeImage.progress}%)`
+        status = t('actions.uploading_with_progress', "Uploading {{progress}}%", { progress: activeImage.progress })
       }
 
       title = `${status}: ${activeImage.title || activeImage.name}`
     }
 
     return (
-      <Modal id='upload-images' title={title} noContainer onClose={this.handleClose.bind(this)}>
-        { this.renderCurrent(activeImage) }
-        { this.renderPending(this.props.files) }
-        { this.renderPlaceholder() }
-      </Modal>
+      <Query query={getCharacterForUpload} variables={{id: this.state.characterId}}>
+        {({data: { getCharacter }, loading, error}) => (
+          <div>
+            { this.state.identityModalOpen && <IdentityModal
+              requireCharacter
+              temporary
+              title={t('actions.upload_to', "Upload To")}
+              onClose={this.handleIdentityClose.bind(this)}
+              onCharacterSelect={this.setCharacter.bind(this)}
+            /> }
+
+            <Modal id='upload-images' title={title} noContainer autoOpen onClose={this.handleClose.bind(this)}>
+              { this.renderCharacterTarget(getCharacter, loading, error) }
+              { this.renderCurrent(activeImage, getCharacter) }
+              { this.renderPending(this.props.files) }
+              { this.renderPlaceholder() }
+            </Modal>
+          </div>
+        )}
+      </Query>
     )
   }
 }
@@ -214,4 +278,7 @@ const Wrapped = (props) => {
   return <UploadModal {...props} />
 }
 
-export default connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(Wrapped)
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps, null, {pure: false}),
+  withNamespaces('common')
+)(Wrapped)

@@ -27,7 +27,6 @@ class UploadForm extends Component {
 
     if (e.target.type === 'checkbox') {
       value = e.target.checked
-      console.log("Checkbox changed to: " + value)
     }
 
     if (!onChange) return
@@ -37,13 +36,11 @@ class UploadForm extends Component {
 
   handleClear(e) {
     e.preventDefault()
-    console.log("CLEAR: " + this.props.image.id)
     this.props.onClear(this.props.image.id)
   }
 
   handleSubmit (e) {
     e.preventDefault()
-    console.log("BEGIN UPLOAD", this.props.image)
     if(!this.props.onUpload) return
 
     this.props.onUpload(this.props.image)
@@ -51,7 +48,8 @@ class UploadForm extends Component {
 
   render () {
     const {
-      image
+      image,
+      characterId
     } = this.props
 
     const folders = [
@@ -62,15 +60,15 @@ class UploadForm extends Component {
 
     const uploading = image.state === 'uploading'
 
-    return <form onSubmit={this.handleSubmit} className='image-form' style={ { flex: '0 1 300px', display: 'flex', height: 300, flexDirection: 'column' } }>
+    return <form onSubmit={this.handleSubmit} className='image-form' style={ { flex: '0 1 300px', display: 'flex', height: 'auto', flexDirection: 'column' } }>
       <div className='image-data padding--medium padding-bottom--none' style={ { flexGrow: 1, overflow: 'hidden' } }>
         <Row>
           <TextInput s={ 12 } onChange={ this.handleChange } value={ image.title } name='title' className='margin-bottom--none' label='Name'/>
         </Row>
         <Row>
-          <Select s={ 12 } onChange={ this.handleChange } value={ image.folder } name='folder' className='margin-bottom--none' label='Folder'>
-            { folders.map((i) => <option value={ i[ 0 ] } key={ i[ 0 ] }>{ i[ 1 ] }</option>) }
-          </Select>
+          {/*<Select s={ 12 } onChange={ this.handleChange } value={ image.folder } name='folder' className='margin-bottom--none' label='Folder'>*/}
+          {/*  { folders.map((i) => <option value={ i[ 0 ] } key={ i[ 0 ] }>{ i[ 1 ] }</option>) }*/}
+          {/*</Select>*/}
         </Row>
       </div>
 
@@ -83,7 +81,7 @@ class UploadForm extends Component {
 
         <div className={'actions'}>
           <div className='right'>
-            <Button type='submit' disabled={uploading}>{ uploading ? 'Uploading...' : 'Upload' }</Button>
+            <Button type='submit' disabled={!characterId || uploading}>{ uploading ? 'Uploading...' : 'Upload' }</Button>
           </div>
 
           { !uploading && <Button type='button' className={'btn low-pad btn-flat'} onClick={this.handleClear.bind(this)}>

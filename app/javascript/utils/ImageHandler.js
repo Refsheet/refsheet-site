@@ -20,7 +20,7 @@ class ImageHandler {
   }
 
   upload() {
-    console.log("ImageHandler#upload", this.image)
+    console.log("ImageHandler#upload", this.image, this.characterId)
 
     return this
         .getS3Token()
@@ -42,13 +42,17 @@ class ImageHandler {
   }
 
   postToS3(response) {
+    if (response.errors) {
+      return Promise.reject(response.errors)
+    }
+
     const token = (
         response.data &&
         response.data.getImageUploadToken
     )
 
     if (!token) {
-      throw { error: "No token." }
+      return Promise.reject({ error: "An upload token could not be generated. Is a character selected?" })
     }
 
     const { url, __typename, ...awsHeaders } = token
@@ -70,7 +74,6 @@ class ImageHandler {
         .on('progress', (e) => {
           this.image.progress = Math.ceil(e.percent)
           this.onChange(this.image)
-          console.log("PROGRESS", e)
         })
         .then((response) => {
           const data = xmljs.xml2js(response.text, { compact: true })
@@ -102,6 +105,10 @@ class ImageHandler {
   }
 
   finalize(response) {
+    if (response.errors) {
+      return Promise.reject(response.errors)
+    }
+
     const image = (
         response.data &&
         response.data.uploadImage
@@ -134,10 +141,14 @@ class ImageHandler {
     image.errorMessage = errorMessage
 
     this.onChange(image)
+
+    return Promise.reject(error)
   }
 
   static findError(error) {
-    console.error(error.response)
+    if (error.map) {
+      return error.map(e => e.message).join(", ")
+    }
 
     return (
         error.response &&

@@ -1,4 +1,4 @@
-import { createReducer } from 'reducers'
+import {createReducer} from 'reducers'
 import * as Actions from 'actions'
 
 const handlers = {
@@ -35,6 +35,22 @@ const handlers = {
       ...state,
       files: [],
       selectedIndex: null
+    }
+  },
+
+  [Actions.MODIFY_UPLOAD]: (state, action) => {
+    let files = state.files
+    let fileIndex = state.files.findIndex((i) => i.id === action.file.id)
+
+    if (fileIndex !== -1) {
+      files[fileIndex] = Object.assign(files[fileIndex], action.file)
+    }
+
+    console.log({files, fileIndex})
+
+    return {
+      ...state,
+      files: files
     }
   },
 
