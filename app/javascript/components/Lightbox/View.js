@@ -8,6 +8,7 @@ import ImageMeta from "./ImageMeta";
 import Comments from './Comments';
 import {Link} from "react-router-dom";
 import Favorites from "./Favorites";
+import ImageActions from './ImageActions'
 
 class View extends Component {
   constructor(props) {
@@ -62,6 +63,7 @@ class View extends Component {
 
         <div className={'image-details-container'}>
           <div className='image-details'>
+            <ImageActions />
             <CharacterBox {...character} createdAt={created_at} />
             <ImageMeta {...this.props} />
           </div>

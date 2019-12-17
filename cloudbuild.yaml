@@ -12,6 +12,9 @@ steps:
 #  - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci'
 #    args: ['yaml-lint', '.kubernetes/*.{yml,yaml}']
 
+  - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci'
+    args: ['yarn', 'run', 'prettier-check']
+
   #== Asset Pipeline
   - name: 'gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID'
     volumes:
