@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import compose, {withCurrentUser, withMutations} from "../../utils/compose";
-import {withNamespaces} from "react-i18next";
+import compose, { withCurrentUser, withMutations } from '../../utils/compose'
+import { withNamespaces } from 'react-i18next'
 import addComment from './addComment.graphql'
 
 class CommentForm extends Component {
@@ -8,13 +8,13 @@ class CommentForm extends Component {
     super(props)
 
     this.state = {
-      comment: ""
+      comment: '',
     }
   }
 
   handleSubmit(e) {
     e.preventDefault()
-    this.setState({ comment: "" })
+    this.setState({ comment: '' })
   }
 
   render() {
@@ -33,14 +33,13 @@ class CommentForm extends Component {
     return (
       <form>
         <input type={'textarea'} name={'comment'} placeholder={t('')} />
-
       </form>
     )
   }
 }
 
 export default compose(
-  withMutations({addComment}),
+  withMutations({ addComment }),
   withNamespaces('common'),
   withCurrentUser()
 )(CommentForm)

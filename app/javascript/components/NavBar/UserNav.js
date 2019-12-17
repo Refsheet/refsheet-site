@@ -6,10 +6,10 @@ import TransferMenu from './TransferMenu'
 import NotificationMenu from './NotificationMenu'
 import ConversationMenu from './ConversationMenu'
 import UploadMenu from './UploadMenu'
-import Restrict from "../Shared/Restrict";
+import Restrict from '../Shared/Restrict'
 
-const UserNav = (props) => (
-  <ul className='right'>
+const UserNav = props => (
+  <ul className="right">
     <CartMenu />
     <TransferMenu />
     <UploadMenu />
@@ -23,11 +23,11 @@ const UserNav = (props) => (
 
 UserNav.propTypes = {
   user: PropTypes.shape({
-    avatar_url: PropTypes.string.isRequired
+    avatar_url: PropTypes.string.isRequired,
   }).isRequired,
   nsfwOk: PropTypes.bool,
   onNsfwClick: PropTypes.func.isRequired,
-  onLogoutClick: PropTypes.func.isRequired
+  onLogoutClick: PropTypes.func.isRequired,
 }
 
 export default UserNav

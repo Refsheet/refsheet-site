@@ -15,7 +15,7 @@ import Lightbox from '../Lightbox'
 import { I18nextProvider } from 'react-i18next'
 
 import i18n from '../../services/i18n.js'
-import WindowAlert from "../../utils/WindowAlert";
+import WindowAlert from '../../utils/WindowAlert'
 
 reactGuard(React, (error, componentInfo) => {
   const errorString = `Failed to render <${componentInfo.displayName} />!`
@@ -24,7 +24,7 @@ reactGuard(React, (error, componentInfo) => {
     console.error(errorString, componentInfo)
     console.error(error.stack)
 
-    if(Sentry) {
+    if (Sentry) {
       Sentry.captureException(error)
     }
   }
@@ -32,30 +32,30 @@ reactGuard(React, (error, componentInfo) => {
   return <span>{errorString}</span>
 })
 
-const App = ({children: propChildren, state, assets}) => {
+const App = ({ children: propChildren, state, assets }) => {
   const newState = {
     ...defaultState,
     ...state,
     session: {
       ...defaultState.session,
-      ...state.session
-    }
+      ...state.session,
+    },
   }
 
   if (!newState.session.identity.name && newState.session.currentUser) {
     newState.session.identity = {
       avatarUrl: newState.session.currentUser.avatar_url,
       name: newState.session.currentUser.name,
-      characterId: null
+      characterId: null,
     }
   }
 
   WindowAlert.initSound({
-    notificationSoundPaths: assets.notificationSoundPaths
+    notificationSoundPaths: assets.notificationSoundPaths,
   })
 
   const store = createStore(rootReducer, newState)
-  console.log("Initialized with state:", store.getState())
+  console.log('Initialized with state:', store.getState())
 
   const children = propChildren || <Router />
 
@@ -63,12 +63,10 @@ const App = ({children: propChildren, state, assets}) => {
 
   return (
     <I18nextProvider i18n={i18n}>
-      <ThemeProvider theme={ theme }>
-        <ApolloProvider client={ client } store={store}>
-          <ReduxProvider store={ store }>
-            <DropzoneProvider>
-              { children }
-            </DropzoneProvider>
+      <ThemeProvider theme={theme}>
+        <ApolloProvider client={client} store={store}>
+          <ReduxProvider store={store}>
+            <DropzoneProvider>{children}</DropzoneProvider>
           </ReduxProvider>
         </ApolloProvider>
       </ThemeProvider>

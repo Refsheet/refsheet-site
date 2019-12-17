@@ -2,15 +2,15 @@ export const SET_CURRENT_USER = 'SET_CURRENT_USER'
 export function setCurrentUser(user) {
   return {
     type: SET_CURRENT_USER,
-    user
+    user,
   }
 }
 
 export const SET_NSFW_MODE = 'SET_NSFW_MODE'
-export function setNsfwMode(nsfwOk=false) {
+export function setNsfwMode(nsfwOk = false) {
   return {
     type: SET_NSFW_MODE,
-    nsfwOk
+    nsfwOk,
   }
 }
 
@@ -18,7 +18,7 @@ export const OPEN_CONVERSATION = 'OPEN_CONVERSATION'
 export function openConversation(conversationId) {
   return {
     type: OPEN_CONVERSATION,
-    conversationId
+    conversationId,
   }
 }
 
@@ -26,7 +26,7 @@ export const CLOSE_CONVERSATION = 'CLOSE_CONVERSATION'
 export function closeConversation(conversationId) {
   return {
     type: CLOSE_CONVERSATION,
-    conversationId
+    conversationId,
   }
 }
 
@@ -35,7 +35,7 @@ export function openLightbox(mediaId, gallery) {
   return {
     type: OPEN_LIGHTBOX,
     mediaId,
-    gallery
+    gallery,
   }
 }
 
@@ -45,20 +45,20 @@ export function closeLightbox() {
 }
 
 export const SET_IDENTITY = 'SET_IDENTITY'
-export function setIdentity({user, character}) {
+export function setIdentity({ user, character }) {
   let identity = null
 
   if (character) {
     identity = {
       name: character.name,
       avatarUrl: character.profile_image.url.thumbnail,
-      characterId: character.id
+      characterId: character.id,
     }
   }
 
   return {
     type: SET_IDENTITY,
-    identity
+    identity,
   }
 }
 

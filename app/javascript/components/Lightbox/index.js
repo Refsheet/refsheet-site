@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
-import {closeLightbox, openLightbox} from "../../actions";
-import {connect} from "react-redux";
-import {Icon} from 'react-materialize';
-import {Query} from "react-apollo";
+import { closeLightbox, openLightbox } from '../../actions'
+import { connect } from 'react-redux'
+import { Icon } from 'react-materialize'
+import { Query } from 'react-apollo'
 import getMedia from './getMedia.graphql'
-import View from "./View";
-import Silhouette from "./Silhouette";
-import {Error, Loading} from "./Status";
-import {withRouter} from 'react-router-dom';
+import View from './View'
+import Silhouette from './Silhouette'
+import { Error, Loading } from './Status'
+import { withRouter } from 'react-router-dom'
 
 class Lightbox extends Component {
   constructor(props) {
@@ -36,7 +36,7 @@ class Lightbox extends Component {
   }
 
   handleKeyDown(e) {
-    switch(e.keyCode) {
+    switch (e.keyCode) {
       case 27: // ESC
       case 81: // q
         this.props.closeLightbox()
@@ -59,7 +59,7 @@ class Lightbox extends Component {
         break
 
       case 67:
-        // c - comment
+      // c - comment
     }
   }
 
@@ -68,7 +68,7 @@ class Lightbox extends Component {
 
     window.history.replaceState({}, null, `/media/${mediaId}`)
     document.body.classList.add('lightbox-open')
-    document.addEventListener("keydown", this.handleKeyDown)
+    document.addEventListener('keydown', this.handleKeyDown)
   }
 
   componentWillUnmount() {
@@ -77,22 +77,17 @@ class Lightbox extends Component {
     }
 
     document.body.classList.remove('lightbox-open')
-    document.removeEventListener("keydown", this.handleKeyDown)
+    document.removeEventListener('keydown', this.handleKeyDown)
   }
 
   getGalleryIndex() {
-    const {
-      mediaId,
-      gallery
-    } = this.props
+    const { mediaId, gallery } = this.props
 
     return gallery.indexOf(mediaId)
   }
 
   getNextMediaId() {
-    const {
-      gallery
-    } = this.props
+    const { gallery } = this.props
 
     const index = this.getGalleryIndex()
     if (index < 0 || gallery.length <= 1) {
@@ -107,9 +102,7 @@ class Lightbox extends Component {
   }
 
   getPrevMediaId() {
-    const {
-      gallery
-    } = this.props
+    const { gallery } = this.props
 
     const index = this.getGalleryIndex()
     if (index < 0 || gallery.length <= 1) {
@@ -138,11 +131,7 @@ class Lightbox extends Component {
   }
 
   renderContent() {
-    const {
-      data,
-      loading,
-      error
-    } = this.props
+    const { data, loading, error } = this.props
 
     if (loading) {
       return (
@@ -161,12 +150,14 @@ class Lightbox extends Component {
       )
     }
 
-    return <View
-      {...data.getMedia}
-      nextMediaId={this.getNextMediaId()}
-      prevMediaId={this.getPrevMediaId()}
-      onMediaOpen={this.handleMediaOpen.bind(this)}
-    />
+    return (
+      <View
+        {...data.getMedia}
+        nextMediaId={this.getNextMediaId()}
+        prevMediaId={this.getPrevMediaId()}
+        onMediaOpen={this.handleMediaOpen.bind(this)}
+      />
+    )
   }
 
   render() {
@@ -178,39 +169,46 @@ class Lightbox extends Component {
         onKeyDown={this.handleKeyDown.bind(this)}
       >
         <div className={'lightbox v2'}>
-          <a className={'close'} role={'button'} href={'#'} onClick={this.handleCloseClick.bind(this)}>
+          <a
+            className={'close'}
+            role={'button'}
+            href={'#'}
+            onClick={this.handleCloseClick.bind(this)}
+          >
             <Icon>close</Icon>
           </a>
 
-          { this.renderContent() }
+          {this.renderContent()}
         </div>
       </div>
     )
   }
 }
 
-const Wrapped = (props) => {
-  const {
-    mediaId
-  } = props
+const Wrapped = props => {
+  const { mediaId } = props
 
   if (mediaId === null) {
     return null
   }
 
-  return <Query query={getMedia} variables={{mediaId}}>
-    {({data, loading, error}) => <Lightbox {...props} data={data} loading={loading} error={error} />}
-  </Query>
+  return (
+    <Query query={getMedia} variables={{ mediaId }}>
+      {({ data, loading, error }) => (
+        <Lightbox {...props} data={data} loading={loading} error={error} />
+      )}
+    </Query>
+  )
 }
 
-const mapStateToProps = ({lightbox}) => ({
+const mapStateToProps = ({ lightbox }) => ({
   mediaId: lightbox.mediaId,
-  gallery: lightbox.gallery
+  gallery: lightbox.gallery,
 })
 
 const mapDispatchToProps = {
   openLightbox,
-  closeLightbox
+  closeLightbox,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Wrapped))

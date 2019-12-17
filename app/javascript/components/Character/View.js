@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import {Container, Row, Col} from 'react-materialize';
-import {ThemeProvider} from 'styled-components';
-import Header from './Header';
-import Profile from './Profile';
-import Gallery from './Gallery';
-import Sidebar from './Sidebar';
-import defaultTheme from 'themes/default';
-import {StickyContainer} from 'react-sticky';
-import {ThemedMain} from 'Styled/Global';
-import UploadModal from 'Image/UploadModal';
-import SettingsModal from "./Modals/SettingsModal";
-import ColorModal from "./Modals/ColorModal";
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { Container, Row, Col } from 'react-materialize'
+import { ThemeProvider } from 'styled-components'
+import Header from './Header'
+import Profile from './Profile'
+import Gallery from './Gallery'
+import Sidebar from './Sidebar'
+import defaultTheme from 'themes/default'
+import { StickyContainer } from 'react-sticky'
+import { ThemedMain } from 'Styled/Global'
+import UploadModal from 'Image/UploadModal'
+import SettingsModal from './Modals/SettingsModal'
+import ColorModal from './Modals/ColorModal'
 
 class View extends Component {
   constructor(props) {
@@ -20,14 +20,14 @@ class View extends Component {
     this.state = {
       editable: false,
       settingsOpen: false,
-      colorOpen: false
+      colorOpen: false,
     }
 
     this.handleEditableChange = this.handleEditableChange.bind(this)
   }
 
   handleEditableChange(editable) {
-    this.setState({editable})
+    this.setState({ editable })
 
     if (!editable) {
       this.props.onChange()
@@ -37,7 +37,7 @@ class View extends Component {
   handleModalOpen(modal) {
     return () => {
       let state = {}
-      state[modal + "Open"] = true
+      state[modal + 'Open'] = true
       this.setState(state)
     }
   }
@@ -51,21 +51,35 @@ class View extends Component {
   }
 
   render() {
-    const {character, uploadOpen, onChange, onUploadModalOpen, onUploadModalClose} = this.props
-    const {settingsOpen, colorOpen} = this.state
+    const {
+      character,
+      uploadOpen,
+      onChange,
+      onUploadModalOpen,
+      onUploadModalClose,
+    } = this.props
+    const { settingsOpen, colorOpen } = this.state
 
     return (
       <ThemedMain title={character.name}>
-        {uploadOpen && <UploadModal
-          characterId={character.id}
-          onClose={onUploadModalClose}
-          onUpload={onChange}
-        /> }
+        {uploadOpen && (
+          <UploadModal
+            characterId={character.id}
+            onClose={onUploadModalClose}
+            onUpload={onChange}
+          />
+        )}
 
-        { settingsOpen && <SettingsModal onClose={this.handleModalClose('settings').bind(this)} /> }
-        { colorOpen && <ColorModal onClose={this.handleModalClose('color').bind(this)} /> }
+        {settingsOpen && (
+          <SettingsModal
+            onClose={this.handleModalClose('settings').bind(this)}
+          />
+        )}
+        {colorOpen && (
+          <ColorModal onClose={this.handleModalClose('color').bind(this)} />
+        )}
 
-        <div id='top' className='profile-scrollspy'>
+        <div id="top" className="profile-scrollspy">
           <Header character={character} editable={this.state.editable} />
         </div>
 
@@ -95,7 +109,10 @@ class View extends Component {
                 />
 
                 {/*<Reference />*/}
-                <Gallery images={character.images} onUploadClick={onUploadModalOpen} />
+                <Gallery
+                  images={character.images}
+                  onUploadClick={onUploadModalOpen}
+                />
               </Col>
             </Row>
           </StickyContainer>
@@ -105,18 +122,20 @@ class View extends Component {
   }
 }
 
-const Themed = function (props) {
-  const {colors} = props.character.theme || {};
-  return <ThemeProvider theme={defaultTheme.apply(colors)}>
-    <View {...props} />
-  </ThemeProvider>;
+const Themed = function(props) {
+  const { colors } = props.character.theme || {}
+  return (
+    <ThemeProvider theme={defaultTheme.apply(colors)}>
+      <View {...props} />
+    </ThemeProvider>
+  )
 }
 
 View.propTypes = {
   character: PropTypes.object.isRequired,
   onUploadModalOpen: PropTypes.func,
   onUploadModalClose: PropTypes.func,
-  onUpload: PropTypes.func
+  onUpload: PropTypes.func,
 }
 
-export default Themed;
+export default Themed

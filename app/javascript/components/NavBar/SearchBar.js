@@ -5,12 +5,12 @@ import qs from 'query-string'
 import { withRouter } from 'react-router-dom'
 
 class SearchBar extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.state = {
       active: !!props.query,
-      query: props.query
+      query: props.query,
     }
 
     this.activate = this.activate.bind(this)
@@ -24,64 +24,67 @@ class SearchBar extends Component {
     const { query: oldQuery } = this.state
     const active = !!query
 
-    if(query !== oldQuery)
-      this.setState({query, active})
+    if (query !== oldQuery) this.setState({ query, active })
   }
 
   activate() {
     const active = true
-    this.setState({active})
+    this.setState({ active })
   }
 
   deactivate() {
     const active = !!this.state.query
-    this.setState({active})
+    this.setState({ active })
   }
 
   handleQueryChange(e) {
     e.preventDefault()
     const query = e.target.value
-    this.setState({query})
+    this.setState({ query })
   }
 
   handleSearchSubmit(e) {
     e.preventDefault()
     const { query } = this.state
 
-    if(query) {
-      const newPath = `/browse?${qs.stringify({q: query})}`
+    if (query) {
+      const newPath = `/browse?${qs.stringify({ q: query })}`
       e.target.elements[0].blur()
       this.props.history.push(newPath)
     }
   }
 
-  render () {
-    const {
-      active,
-      query = ''
-    } = this.state
+  render() {
+    const { active, query = '' } = this.state
 
     return (
-        <form className={ c('search', {active: active}) } onSubmit={ this.handleSearchSubmit }>
-          <div className="input-field">
-            <input ref='search'
-                   id="search"
-                   type="search"
-                   onChange={ this.handleQueryChange }
-                   onFocus={ this.activate }
-                   onBlur={ this.deactivate }
-                   value={ query } />
+      <form
+        className={c('search', { active: active })}
+        onSubmit={this.handleSearchSubmit}
+      >
+        <div className="input-field">
+          <input
+            ref="search"
+            id="search"
+            type="search"
+            onChange={this.handleQueryChange}
+            onFocus={this.activate}
+            onBlur={this.deactivate}
+            value={query}
+          />
 
-            <label htmlFor="search"><i className="material-icons">search</i></label>
-          </div>
-        </form>
+          <label htmlFor="search">
+            <i className="material-icons">search</i>
+          </label>
+        </div>
+      </form>
     )
   }
 }
 
 SearchBar.propTypes = {
   query: PropTypes.string,
-  history: PropTypes.object.isRequired
+  history: PropTypes.object.isRequired,
 }
 
 export default withRouter(SearchBar)

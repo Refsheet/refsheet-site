@@ -22,7 +22,7 @@ const InputButton = styled.button`
   flex-direction: column;
   justify-content: center;
   background-color: transparent;
-  
+
   &:not(.inactive) {
     border: 1px solid ${props => props.theme.border} !important;
     border-left: none !important;
@@ -30,7 +30,7 @@ const InputButton = styled.button`
     border-bottom-right-radius: 3px;
     background-color: rgba(0, 0, 0, 0.1) !important;
   }
-  
+
   &.inactive {
     border: none !important;
     color: ${props => props.theme.textLight} !important;
@@ -39,12 +39,12 @@ const InputButton = styled.button`
 
 const InputContainer = styled.div`
   display: flex;
-  
+
   & > .input-value {
     flex: 1 1 auto;
     display: flex;
   }
-  
+
   & > .input-placeholder {
     padding-right: 0.25rem !important;
   }
@@ -56,7 +56,7 @@ class EditableHeader extends Component {
 
     this.state = {
       locked: true,
-      value: ""
+      value: '',
     }
 
     this.handleEditClick = this.handleEditClick.bind(this)
@@ -67,13 +67,13 @@ class EditableHeader extends Component {
   unlock() {
     this.setState({
       locked: false,
-      value: this.props.children
+      value: this.props.children,
     })
   }
 
   lock() {
     this.setState({
-      locked: true
+      locked: true,
     })
   }
 
@@ -89,7 +89,7 @@ class EditableHeader extends Component {
 
   handleInputChange(e) {
     e.preventDefault()
-    this.setState({value: e.target.value})
+    this.setState({ value: e.target.value })
   }
 
   handleSubmit(e) {
@@ -100,16 +100,30 @@ class EditableHeader extends Component {
   render() {
     const ComponentRef = this.props.component || H1
 
-    if(!this.props.editable) {
+    if (!this.props.editable) {
       return (
-        <ComponentRef className={this.props.className}>{this.props.children}</ComponentRef>
+        <ComponentRef className={this.props.className}>
+          {this.props.children}
+        </ComponentRef>
       )
-    } else if(this.state.locked) {
+    } else if (this.state.locked) {
       return (
         <div className={'editable-container'}>
           <InputContainer>
-            <ComponentRef className={c('input-placeholder', this.props.className)}>{this.props.children || <span className={'muted-color'}>{ this.props.default || '?'}</span>}</ComponentRef>
-            <InputButton className={'editable-button inactive'} title={'edit'} onClick={this.handleEditClick}>
+            <ComponentRef
+              className={c('input-placeholder', this.props.className)}
+            >
+              {this.props.children || (
+                <span className={'muted-color'}>
+                  {this.props.default || '?'}
+                </span>
+              )}
+            </ComponentRef>
+            <InputButton
+              className={'editable-button inactive'}
+              title={'edit'}
+              onClick={this.handleEditClick}
+            >
               <i className={'material-icons'}>edit</i>
             </InputButton>
           </InputContainer>
@@ -120,9 +134,19 @@ class EditableHeader extends Component {
         <form className={'editable-container'} onSubmit={this.handleSubmit}>
           <InputContainer>
             <ComponentRef className={c('input-value', this.props.className)}>
-              <InputField type={'text'} value={this.state.value} style={{font: 'inherit'}} onChange={this.handleInputChange} autoFocus />
+              <InputField
+                type={'text'}
+                value={this.state.value}
+                style={{ font: 'inherit' }}
+                onChange={this.handleInputChange}
+                autoFocus
+              />
             </ComponentRef>
-            <InputButton className={'editable-button'} title={'edit'} type={'submit'}>
+            <InputButton
+              className={'editable-button'}
+              title={'edit'}
+              type={'submit'}
+            >
               <i className={'material-icons'}>save</i>
             </InputButton>
           </InputContainer>
@@ -135,7 +159,7 @@ class EditableHeader extends Component {
 EditableHeader.propTypes = {
   editable: PropTypes.bool,
   onValueChange: PropTypes.func,
-  children: PropTypes.string
+  children: PropTypes.string,
 }
 
 export default EditableHeader

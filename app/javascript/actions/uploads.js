@@ -2,7 +2,7 @@ export const ENQUEUE_UPLOADS = 'ENQUEUE_UPLOADS'
 export function enqueueUploads(files) {
   return {
     type: ENQUEUE_UPLOADS,
-    files
+    files,
   }
 }
 
@@ -10,14 +10,14 @@ export const CLEAR_UPLOAD = 'CLEAR_UPLOAD'
 export function clearUpload(fileId) {
   return {
     type: CLEAR_UPLOAD,
-    fileId
+    fileId,
   }
 }
 
 export const CLEAR_ALL_UPLOADS = 'CLEAR_ALL_UPLOADS'
 export function clearAllUploads() {
   return {
-    type: CLEAR_ALL_UPLOADS
+    type: CLEAR_ALL_UPLOADS,
   }
 }
 
@@ -25,7 +25,7 @@ export const MODIFY_UPLOAD = 'MODIFY_UPLOAD'
 export function modifyUpload(file) {
   return {
     type: MODIFY_UPLOAD,
-    file
+    file,
   }
 }
 
@@ -34,13 +34,13 @@ export function openUploadModal(uploadId, characterId) {
   return {
     type: OPEN_UPLOAD_MODAL,
     uploadId,
-    characterId
+    characterId,
   }
 }
 
 export const CLOSE_UPLOAD_MODAL = 'CLOSE_UPLOAD_MODAL'
 export function closeUploadModal() {
   return {
-    type: CLOSE_UPLOAD_MODAL
+    type: CLOSE_UPLOAD_MODAL,
   }
 }

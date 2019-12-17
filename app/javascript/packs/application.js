@@ -31,7 +31,7 @@ export const __globals = [
   'CommentForm',
   'LegacyForumReply',
   'StatusUpdate',
-  'ActivityCard'
+  'ActivityCard',
 ]
 
 export { default as React } from 'react'
@@ -61,36 +61,37 @@ export { default as LegacyForumReply } from 'Forums/LegacyForumReply'
 export { default as StatusUpdate } from 'ActivityFeed/Activities/StatusUpdate'
 export { default as ActivityCard } from 'ActivityFeed/ActivityCard'
 
-(function() {
-  console.log("Pack loaded: Refsheet JS v2")
+;(function() {
+  console.log('Pack loaded: Refsheet JS v2')
   const event = new CustomEvent('jsload.pack')
   window.dispatchEvent(event)
-})();
+})()
 
-(function() {
+;(function() {
   Sentry.init({
     dsn: Refsheet.sentryDsn,
     release: Refsheet.version,
-    stage: Refsheet.environment
+    stage: Refsheet.environment,
   })
-})();
+})()
 
 // HOLIDAY THEME
 
 import Snowflakes from 'magic-snowflakes'
 
 try {
-  document && document.addEventListener('DOMContentLoaded', () => {
-    if(window.location.hash === '#snow') {
-      Snowflakes({
-        color: '#80cbc4',
-        minOpacity: 0.1,
-        maxOpacity: 0.6,
-        zIndex: 1,
-        target: 'body'
-      })
-    }
-  })
-} catch(e) {
+  document &&
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.location.hash === '#snow') {
+        Snowflakes({
+          color: '#80cbc4',
+          minOpacity: 0.1,
+          maxOpacity: 0.6,
+          zIndex: 1,
+          target: 'body',
+        })
+      }
+    })
+} catch (e) {
   // noop
 }
