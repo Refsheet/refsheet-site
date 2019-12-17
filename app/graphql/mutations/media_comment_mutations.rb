@@ -1,6 +1,29 @@
 class Mutations::MediaCommentMutations < Mutations::ApplicationMutation
   before_action :get_media
 
+  action :index do
+    type Types::MediaCommentCollectionType
+    argument :mediaId, !types.ID
+    argument :page, types.Int
+    argument :perPage, types.Int
+    argument :since, types.Int
+  end
+
+  def index
+    scope = @media.comments.order(:created_at => :desc)
+
+    unless params[:since].nil?
+      since = Time.zone.at(params[:since])
+      scope = scope.where('media_comments.created_at >= ?', since)
+    end
+
+    unless params[:page].nil?
+      scope = scope.paginate(page: params[:page], per_page: params[:perPage])
+    end
+
+    scope
+  end
+
   action :create do
     type Types::MediaCommentType
     argument :mediaId, !types.ID
