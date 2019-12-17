@@ -9,15 +9,33 @@ import removeFavorite from './removeFavorite.graphql'
 import {connect} from "react-redux";
 
 class Favorites extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      dirty: false,
+      isFavorite: false,
+      favorite: null,
+      ignoreIds: []
+    }
+  }
+
   handleFavoriteClick(e) {
     e.preventDefault()
 
     const {
       mediaId,
-      isFavorite,
       addFavorite,
       removeFavorite
     } = this.props
+
+    let {
+      isFavorite
+    } = this.props
+
+    if (this.state.dirty) {
+      isFavorite = this.state.isFavorite
+    }
 
     if (isFavorite) {
       removeFavorite({
@@ -25,7 +43,18 @@ class Favorites extends Component {
           mediaId
         }
       })
-        .then(console.log)
+        .then(({data}) => {
+          console.log({data})
+          this.setState({
+            dirty: true,
+            isFavorite: false,
+            favorite: data.removeFavorite,
+            ignoreIds: [
+              ...this.state.ignoreIds,
+              data.removeFavorite.id
+            ]
+          })
+        })
         .catch(console.error)
     } else {
       addFavorite({
@@ -33,19 +62,50 @@ class Favorites extends Component {
           mediaId
         }
       })
-        .then(console.log)
+        .then(({data}) => {
+          console.log({data})
+          this.setState({
+            dirty: true,
+            isFavorite: true,
+            favorite: data.addFavorite
+          })
+        })
         .catch(console.error)
     }
   }
 
   render() {
     const {
-      favorites,
-      count = 0,
-      isFavorite,
       currentUser,
       t
     } = this.props
+
+    let {
+      isFavorite,
+      favorites,
+      count = 0
+    } = this.props
+
+    if (this.state.dirty) {
+      isFavorite = this.state.isFavorite
+
+      if (isFavorite) {
+        if (!this.props.isFavorite) {
+          count += 1
+
+          favorites = [
+            this.state.favorite,
+            ...favorites
+          ]
+        }
+      } else {
+        if (this.props.isFavorite) {
+          count -= 1
+
+          favorites = favorites.filter(f => this.state.ignoreIds.indexOf(f.id) === -1)
+        }
+      }
+    }
 
     return (
       <div className={'favorites card flat'}>
