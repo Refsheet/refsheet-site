@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import { Icon } from 'react-materialize'
 import ImageLoader from 'react-load-image'
 import { Loading, Error } from './Status'
-import CharacterBox from "./CharacterBox";
-import ImageMeta from "./ImageMeta";
-import Comments from './Comments';
-import {Link} from "react-router-dom";
-import Favorites from "./Favorites";
+import CharacterBox from './CharacterBox'
+import ImageMeta from './ImageMeta'
+import Comments from './Comments'
+import { Link } from 'react-router-dom'
+import Favorites from './Favorites'
 import ImageActions from './ImageActions'
 
 class View extends Component {
@@ -29,9 +29,7 @@ class View extends Component {
     const {
       id,
       title,
-      url: {
-        large: imageSrc
-      },
+      url: { large: imageSrc },
       created_at,
       character,
       favorites,
@@ -40,19 +38,31 @@ class View extends Component {
       is_managed,
       is_favorite,
       nextMediaId,
-      prevMediaId
+      prevMediaId,
     } = this.props
 
     return (
       <div className={'lightbox-content'}>
         <div className={'image-content'}>
-          { prevMediaId && <a className={'image-prev image-nav'} href={`/media/${prevMediaId}`} onClick={this.handlePrevClick.bind(this)}>
-            <Icon>keyboard_arrow_left</Icon>
-          </a> }
+          {prevMediaId && (
+            <a
+              className={'image-prev image-nav'}
+              href={`/media/${prevMediaId}`}
+              onClick={this.handlePrevClick.bind(this)}
+            >
+              <Icon>keyboard_arrow_left</Icon>
+            </a>
+          )}
 
-          { nextMediaId && <a className={'image-next image-nav'} href={`/media/${nextMediaId}`} onClick={this.handleNextClick.bind(this)}>
-            <Icon>keyboard_arrow_right</Icon>
-          </a> }
+          {nextMediaId && (
+            <a
+              className={'image-next image-nav'}
+              href={`/media/${nextMediaId}`}
+              onClick={this.handleNextClick.bind(this)}
+            >
+              <Icon>keyboard_arrow_right</Icon>
+            </a>
+          )}
 
           <ImageLoader src={imageSrc}>
             <img alt={title} title={title} />
@@ -62,14 +72,23 @@ class View extends Component {
         </div>
 
         <div className={'image-details-container'}>
-          <div className='image-details'>
+          <div className="image-details">
             <ImageActions />
             <CharacterBox {...character} createdAt={created_at} />
             <ImageMeta {...this.props} />
           </div>
 
-          <Favorites count={favorites_count} favorites={favorites} isFavorite={is_favorite} mediaId={id} />
-          <Comments count={comments_count} isManaged={is_managed} mediaId={id} />
+          <Favorites
+            count={favorites_count}
+            favorites={favorites}
+            isFavorite={is_favorite}
+            mediaId={id}
+          />
+          <Comments
+            count={comments_count}
+            isManaged={is_managed}
+            mediaId={id}
+          />
         </div>
       </div>
     )
@@ -77,7 +96,7 @@ class View extends Component {
 }
 
 View.propTypes = {
-  onMediaOpen: PropTypes.func.isRequired
+  onMediaOpen: PropTypes.func.isRequired,
 }
 
 export default View

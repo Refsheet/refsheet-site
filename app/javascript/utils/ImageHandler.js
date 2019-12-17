@@ -20,25 +20,24 @@ class ImageHandler {
   }
 
   upload() {
-    console.log("ImageHandler#upload", this.image, this.characterId)
+    console.log('ImageHandler#upload', this.image, this.characterId)
 
-    return this
-        .getS3Token()
-        .then((response) => {
-          return this.postToS3(response)
-        })
-        .then((response) => {
-          return this.updateImageRecord(response)
-        })
-        .then((response) => {
-          return this.finalize(response)
-        })
-        .catch(this.error)
+    return this.getS3Token()
+      .then(response => {
+        return this.postToS3(response)
+      })
+      .then(response => {
+        return this.updateImageRecord(response)
+      })
+      .then(response => {
+        return this.finalize(response)
+      })
+      .catch(this.error)
   }
 
   getS3Token() {
     const variables = { characterId: this.characterId }
-    return client.query({query: getImageUploadToken, variables})
+    return client.query({ query: getImageUploadToken, variables })
   }
 
   postToS3(response) {
@@ -46,46 +45,48 @@ class ImageHandler {
       return Promise.reject(response.errors)
     }
 
-    const token = (
-        response.data &&
-        response.data.getImageUploadToken
-    )
+    const token = response.data && response.data.getImageUploadToken
 
     if (!token) {
-      return Promise.reject({ error: "An upload token could not be generated. Is a character selected?" })
+      return Promise.reject({
+        error:
+          'An upload token could not be generated. Is a character selected?',
+      })
     }
 
     const { url, __typename, ...awsHeaders } = token
 
     console.log(`Posting file to ${url}`)
 
-    const formData = new FormData();
+    const formData = new FormData()
 
-    Object.keys(awsHeaders).forEach((key) => {
-      formData.append(key.replace(/^x_amz_/, 'x-amz-'), awsHeaders[key]);
+    Object.keys(awsHeaders).forEach(key => {
+      formData.append(key.replace(/^x_amz_/, 'x-amz-'), awsHeaders[key])
     })
 
     formData.append('Content-Type', this.image.type)
     formData.append('file', this.image)
 
     return request
-        .post(url)
-        .send(formData)
-        .on('progress', (e) => {
-          this.image.progress = Math.ceil(e.percent)
-          this.onChange(this.image)
-        })
-        .then((response) => {
-          const data = xmljs.xml2js(response.text, { compact: true })
-          const obj = data && data.PostResponse
+      .post(url)
+      .send(formData)
+      .on('progress', e => {
+        this.image.progress = Math.ceil(e.percent)
+        this.onChange(this.image)
+      })
+      .then(response => {
+        const data = xmljs.xml2js(response.text, { compact: true })
+        const obj = data && data.PostResponse
 
-          return obj && {
+        return (
+          obj && {
             bucket: obj.Bucket._text,
             etag: obj.ETag._text,
             key: obj.Key._text,
-            location: obj.Location._text
+            location: obj.Location._text,
           }
-        })
+        )
+      })
   }
 
   updateImageRecord(response) {
@@ -96,12 +97,12 @@ class ImageHandler {
       title,
       folder,
       nsfw,
-      characterId: this.characterId
+      characterId: this.characterId,
     }
 
-    console.log("Telling Refsheet all about this!", variables)
+    console.log('Telling Refsheet all about this!', variables)
 
-    return client.mutate({mutation: uploadImage, variables})
+    return client.mutate({ mutation: uploadImage, variables })
   }
 
   finalize(response) {
@@ -109,10 +110,7 @@ class ImageHandler {
       return Promise.reject(response.errors)
     }
 
-    const image = (
-        response.data &&
-        response.data.uploadImage
-    )
+    const image = response.data && response.data.uploadImage
 
     const { id, ...imageData } = image
 
@@ -121,10 +119,10 @@ class ImageHandler {
       ...imageData,
       guid: id,
       state: 'done',
-      progress: 100
+      progress: 100,
     }
 
-    console.log("UPLOAD DONE", image, final)
+    console.log('UPLOAD DONE', image, final)
     this.onChange(final)
     return final
   }
@@ -147,14 +145,16 @@ class ImageHandler {
 
   static findError(error) {
     if (error.map) {
-      return error.map(e => e.message).join(", ")
+      return error.map(e => e.message).join(', ')
     }
 
     return (
-        error.response &&
+      (error.response &&
         error.response.body &&
-        (error.response.body.error || error.response.body)
-    ) || error.error || "Something went wrong."
+        (error.response.body.error || error.response.body)) ||
+      error.error ||
+      'Something went wrong.'
+    )
   }
 }
 

@@ -10,7 +10,7 @@ import { Icon } from 'react-materialize'
  * returned we assume it's a GraphQL mutation call, and will call the
  * refetch handler if provided. Promise catches go to console.error.
  */
-const NotificationItem = (props) => {
+const NotificationItem = props => {
   const {
     id,
     link = '#',
@@ -24,70 +24,72 @@ const NotificationItem = (props) => {
     onClick,
     onMoreClick,
     onDismiss,
-    refetch
+    refetch,
   } = props
 
   let time
 
   if (created_at) {
-    time = <div
-      className={c('time muted', {right: floatTime})}
-      title={timeDisplay(created_at, true)}
-    >
-      {timeDisplay(created_at || 0)}
-    </div>
+    time = (
+      <div
+        className={c('time muted', { right: floatTime })}
+        title={timeDisplay(created_at, true)}
+      >
+        {timeDisplay(created_at || 0)}
+      </div>
+    )
   } else {
     time = null
   }
 
-  const more = (e) => {
+  const more = e => {
     e.preventDefault()
 
     const result = onMoreClick({
       variables: {
-        id: id
-      }
+        id: id,
+      },
     })
 
     if (result && result.then) {
       result
-        .then((data) => {
+        .then(data => {
           if (data && refetch) refetch()
         })
         .catch(console.error)
     }
   }
 
-  const dismiss = (e) => {
+  const dismiss = e => {
     e.preventDefault()
 
     const result = onDismiss({
       variables: {
-        id: id
-      }
+        id: id,
+      },
     })
 
     if (result && result.then) {
       result
-        .then((data) => {
+        .then(data => {
           if (data && refetch) refetch()
         })
         .catch(console.error)
     }
   }
 
-  const click = (e) => {
+  const click = e => {
     e.preventDefault()
 
     const result = onClick({
       variables: {
-        id: id
-      }
+        id: id,
+      },
     })
 
     if (result && result.then) {
       result
-        .then((data) => {
+        .then(data => {
           if (data && refetch) refetch()
         })
         .catch(console.error)
@@ -99,23 +101,36 @@ const NotificationItem = (props) => {
   }
 
   return (
-      <li className={c('notification-item', {unread: is_unread, fullbody: floatTime})}>
-        <Link to={link} onClick={click}>
-          { icon && <img src={icon} className='avatar' /> }
-          <div className='body'>
-            <div className='message'>
-              { floatTime && time }
-              { title || '???' }
-            </div>
-            { floatTime || time }
+    <li
+      className={c('notification-item', {
+        unread: is_unread,
+        fullbody: floatTime,
+      })}
+    >
+      <Link to={link} onClick={click}>
+        {icon && <img src={icon} className="avatar" />}
+        <div className="body">
+          <div className="message">
+            {floatTime && time}
+            {title || '???'}
           </div>
-          { thumbnail && <img src={thumbnail} className='subject' /> }
-        </Link>
-        <div className='menu'>
-          { onDismiss && is_unread && <a href={'#'} onClick={dismiss}><Icon>{ dismissIcon || "check" }</Icon></a> }
-          { onMoreClick && <a href={'#'} onClick={more}><Icon>more_vert</Icon></a> }
+          {floatTime || time}
         </div>
-      </li>
+        {thumbnail && <img src={thumbnail} className="subject" />}
+      </Link>
+      <div className="menu">
+        {onDismiss && is_unread && (
+          <a href={'#'} onClick={dismiss}>
+            <Icon>{dismissIcon || 'check'}</Icon>
+          </a>
+        )}
+        {onMoreClick && (
+          <a href={'#'} onClick={more}>
+            <Icon>more_vert</Icon>
+          </a>
+        )}
+      </div>
+    </li>
   )
 }
 

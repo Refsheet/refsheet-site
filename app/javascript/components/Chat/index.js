@@ -20,7 +20,7 @@ class Chat extends Component {
       isOpen,
       activeConversationId: null,
       activeConversationName: null,
-      activeConversationUser: null
+      activeConversationUser: null,
     }
 
     this.handleOpenClose = this.handleOpenClose.bind(this)
@@ -34,7 +34,7 @@ class Chat extends Component {
   handleOpenClose(e) {
     e.preventDefault()
 
-    if(!this.state.isOpen) {
+    if (!this.state.isOpen) {
       window.location.hash = '#chat'
     } else {
       window.location.hash = ''
@@ -44,14 +44,14 @@ class Chat extends Component {
       isOpen: !this.state.isOpen,
       activeConversationId: null,
       activeConversationName: null,
-      activeConversationUser: null
+      activeConversationUser: null,
     })
   }
 
-  handleConversationChange({id, name, user}) {
+  handleConversationChange({ id, name, user }) {
     let activeConversationId = null
 
-    if(typeof id !== 'undefined' && id !== null) {
+    if (typeof id !== 'undefined' && id !== null) {
       activeConversationId = id
       window.location.hash = `chat:${id}`
     } else {
@@ -61,29 +61,28 @@ class Chat extends Component {
     this.setState({
       activeConversationId,
       activeConversationName: name,
-      activeConversationUser: user
+      activeConversationUser: user,
     })
   }
 
   render() {
     const {
-        isOpen,
-        activeConversationId,
-        activeConversationName,
-        activeConversationUser: user
+      isOpen,
+      activeConversationId,
+      activeConversationName,
+      activeConversationUser: user,
     } = this.state
 
-    const {
-        unread
-    } = this.props
+    const { unread } = this.props
 
     let title, body, isUnread
 
-    const name = activeConversationName && activeConversationId
+    const name =
+      activeConversationName && activeConversationId
         ? `Conversation with ${activeConversationName}`
         : 'Conversations'
 
-    if(unread) {
+    if (unread) {
       title = `${name} (${f(unread)})`
       isUnread = true
       WindowAlert.add('chat', `${f(unread)} New Messages`, unread)
@@ -92,64 +91,83 @@ class Chat extends Component {
       WindowAlert.clear('chat')
     }
 
-    if(activeConversationId !== null) {
-      body = <Conversation user={user} key={activeConversationId} id={activeConversationId} onClose={this.handleConversationChange} />
+    if (activeConversationId !== null) {
+      body = (
+        <Conversation
+          user={user}
+          key={activeConversationId}
+          id={activeConversationId}
+          onClose={this.handleConversationChange}
+        />
+      )
     } else {
-      body = <Conversations onConversationSelect={this.handleConversationChange} />
+      body = (
+        <Conversations onConversationSelect={this.handleConversationChange} />
+      )
     }
 
-    return (<div className={
-      c('chat-popout', {open: isOpen, unread: isUnread})
-    }>
-      <div className={c('chat-title', (!isUnread && userClasses(user, 'user-background-light')))}>
-        <a href='#' className='right white-text' onClick={this.handleOpenClose}>
-          <Icon>{ isOpen ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }</Icon>
-        </a>
-        <a href='#' className='white-text' onClick={this.handleOpenClose}>
-          { title }
-        </a>
-      </div>
+    return (
+      <div className={c('chat-popout', { open: isOpen, unread: isUnread })}>
+        <div
+          className={c(
+            'chat-title',
+            !isUnread && userClasses(user, 'user-background-light')
+          )}
+        >
+          <a
+            href="#"
+            className="right white-text"
+            onClick={this.handleOpenClose}
+          >
+            <Icon>{isOpen ? 'keyboard_arrow_down' : 'keyboard_arrow_up'}</Icon>
+          </a>
+          <a href="#" className="white-text" onClick={this.handleOpenClose}>
+            {title}
+          </a>
+        </div>
 
-      { isOpen && body }
-    </div>)
+        {isOpen && body}
+      </div>
+    )
   }
 }
 
 const CHAT_COUNT_SUBSCRIPTION = gql`
-    subscription chatCountsChanged {
-        chatCountsChanged {
-            unread
-        }
+  subscription chatCountsChanged {
+    chatCountsChanged {
+      unread
     }
+  }
 `
 
 const CHAT_COUNT_QUERY = gql`
-    query chatCounts {
-        chatCounts {
-            unread
-        }
+  query chatCounts {
+    chatCounts {
+      unread
     }
+  }
 `
 
-const Wrapped = (props) => {
-  return <Subscription subscription={CHAT_COUNT_SUBSCRIPTION}>
-    {({data: subscriptionData}) =>
+const Wrapped = props => {
+  return (
+    <Subscription subscription={CHAT_COUNT_SUBSCRIPTION}>
+      {({ data: subscriptionData }) => (
         <Query query={CHAT_COUNT_QUERY}>
-          {({data: queryData}) => {
-            const counts = (
-                (subscriptionData && subscriptionData.chatCountsChanged) ||
-                (queryData && queryData.chatCounts) ||
-                { unread: 0 }
-            )
+          {({ data: queryData }) => {
+            const counts = (subscriptionData &&
+              subscriptionData.chatCountsChanged) ||
+              (queryData && queryData.chatCounts) || { unread: 0 }
 
             return <Chat {...props} unread={counts.unread} />
           }}
-        </Query>}
-  </Subscription>
+        </Query>
+      )}
+    </Subscription>
+  )
 }
 
 Chat.propTypes = {
-  unread: PropTypes.number
+  unread: PropTypes.number,
 }
 
 export default Wrapped

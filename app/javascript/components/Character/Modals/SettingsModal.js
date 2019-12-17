@@ -8,13 +8,18 @@ class SettingsModal extends Component {
 
   render() {
     return (
-      <Modal autoOpen id='character-settings' title={'Character Settings'} onClose={this.props.onClose} />
+      <Modal
+        autoOpen
+        id="character-settings"
+        title={'Character Settings'}
+        onClose={this.props.onClose}
+      />
     )
   }
 }
 
 SettingsModal.propTypes = {
-  onClose: PropTypes.func
+  onClose: PropTypes.func,
 }
 
 export default SettingsModal

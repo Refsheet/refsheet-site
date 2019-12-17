@@ -5,13 +5,13 @@ import { format as f } from 'NumberUtils'
 import { Icon } from 'react-materialize'
 
 class DropdownLink extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
-    this.ref = null;
+    this.ref = null
 
     this.state = {
-      visible: false
+      visible: false,
     }
 
     this.handleMenuToggle = this.handleMenuToggle.bind(this)
@@ -27,61 +27,52 @@ class DropdownLink extends Component {
   }
 
   handleBodyClick(e) {
-    if(!this.ref || this.ref.contains(e.target)) return null;
-    this.setState({visible: false})
+    if (!this.ref || this.ref.contains(e.target)) return null
+    this.setState({ visible: false })
   }
 
   handleMenuToggle(e) {
     e.preventDefault()
     const visible = !this.state.visible
-    this.setState({visible}, () => {
+    this.setState({ visible }, () => {
       if (visible && this.props.onOpen) {
         this.props.onOpen()
       }
     })
   }
 
-  render () {
-    const {
-      imageSrc,
-      className,
-      text = "?",
-      icon,
-      count
-    } = this.props
+  render() {
+    const { imageSrc, className, text = '?', icon, count } = this.props
 
     const { visible } = this.state
 
-    const classNames = c(
-        'dropdown-button-native',
-        className,
-        {
-          avatar: !!imageSrc,
-          active: visible
-        }
-    )
+    const classNames = c('dropdown-button-native', className, {
+      avatar: !!imageSrc,
+      active: visible,
+    })
 
     return (
-        <li ref={(r) => this.ref = r}>
-          <a className={ classNames } onClick={ this.handleMenuToggle }>
-            { imageSrc
-              ? <img src={ imageSrc } className='circle' />
-              : icon
-                    ? <Icon>{ icon }</Icon>
-                    : <span>{ text }</span>
-            }
+      <li ref={r => (this.ref = r)}>
+        <a className={classNames} onClick={this.handleMenuToggle}>
+          {imageSrc ? (
+            <img src={imageSrc} className="circle" />
+          ) : icon ? (
+            <Icon>{icon}</Icon>
+          ) : (
+            <span>{text}</span>
+          )}
 
-            { !!count && count > 0 && <span className='count'>{f(count)}</span> }
-          </a>
+          {!!count && count > 0 && <span className="count">{f(count)}</span>}
+        </a>
 
-          { visible && this.props.children }
-        </li>
+        {visible && this.props.children}
+      </li>
     )
   }
 }
 
 DropdownLink.propTypes = {
-  onOpen: PropTypes.func
+  onOpen: PropTypes.func,
 }
 
 export default DropdownLink

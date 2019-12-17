@@ -1,16 +1,17 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types'
 
-export function createIdentity({user, character, identity}) {
+export function createIdentity({ user, character, identity }) {
   if (identity) {
     return identity
   } else if (character) {
     return {
       name: character.name,
-      avatarUrl: (character.profile_image_url || character.profile_image.url.thumbnail),
+      avatarUrl:
+        character.profile_image_url || character.profile_image.url.thumbnail,
       username: user.username,
       path: `/${user.username}/${character.slug}`,
       type: 'character',
-      characterId: character.id
+      characterId: character.id,
     }
   } else {
     return {
@@ -19,7 +20,7 @@ export function createIdentity({user, character, identity}) {
       username: user.username,
       path: `/${user.username}`,
       type: 'user',
-      characterId: null
+      characterId: null,
     }
   }
 }
@@ -30,7 +31,7 @@ export const userIdentitySourceType = {
   is_admin: PropTypes.boolean,
   is_patron: PropTypes.boolean,
   is_moderator: PropTypes.boolean,
-  avatar_url: PropTypes.string
+  avatar_url: PropTypes.string,
 }
 
 export const characterIdentitySourceType = {
@@ -38,9 +39,9 @@ export const characterIdentitySourceType = {
   slug: PropTypes.string.isRequired,
   profile_image: PropTypes.shape({
     url: PropTypes.shape({
-      thumbnail: PropTypes.string.isRequired
-    })
-  })
+      thumbnail: PropTypes.string.isRequired,
+    }),
+  }),
 }
 
 export const identityType = {
@@ -49,11 +50,11 @@ export const identityType = {
   username: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   path: PropTypes.string.isRequired,
-  characterId: PropTypes.number
+  characterId: PropTypes.number,
 }
 
 export const identitySourceType = {
   user: PropTypes.shape(userIdentitySourceType).isRequired,
   character: PropTypes.shape(characterIdentitySourceType),
-  identity: PropTypes.shape(identityType)
+  identity: PropTypes.shape(identityType),
 }

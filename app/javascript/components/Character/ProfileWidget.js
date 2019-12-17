@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { camelize } from 'object-utils'
 import widgets, { SerializerWidget } from './Widgets'
-import ProfileWidgetHeader from "./ProfileWidgetHeader";
-import {Mutation} from "react-apollo";
+import ProfileWidgetHeader from './ProfileWidgetHeader'
+import { Mutation } from 'react-apollo'
 import updateProfileWidget from './updateProfileWidget.graphql'
 import deleteProfileWidget from './deleteProfileWidget.graphql'
-import * as M from "materialize-css";
+import * as M from 'materialize-css'
 
 class ProfileWidget extends Component {
   constructor(props) {
@@ -14,39 +14,42 @@ class ProfileWidget extends Component {
 
     this.state = {
       editing: false,
-      widgetData: props.data
+      widgetData: props.data,
     }
   }
 
   handleEditStart() {
-    this.setState({editing: true})
+    this.setState({ editing: true })
   }
 
   handleEditStop() {
-    this.setState({editing: false})
+    this.setState({ editing: false })
   }
 
   handleDelete() {
     const payload = {
-      id: this.props.id
+      id: this.props.id,
     }
 
-    this.props.deleteWidget({variables: payload})
-      .then(({data, errors}) => {
+    this.props
+      .deleteWidget({ variables: payload })
+      .then(({ data, errors }) => {
         if (errors) {
           console.error(errors)
-          errors.map((e) => M.toast({html: e.message, classes: 'red', duration: 3000}))
+          errors.map(e =>
+            M.toast({ html: e.message, classes: 'red', duration: 3000 })
+          )
         } else {
           const { deleteProfileWidget: widgetData } = data
           this.props.onDelete && this.props.onDelete(widgetData.id)
         }
       })
-      .catch((error) => console.error(error))
+      .catch(error => console.error(error))
   }
 
   handleMove(direction) {
     const payload = {
-      id: this.props.id
+      id: this.props.id,
     }
 
     if (direction === 'up' || direction === 'down') {
@@ -57,51 +60,66 @@ class ProfileWidget extends Component {
       payload['column'] = this.props.column + 1
     }
 
-    this.props.update({variables: payload})
-      .then(({data, errors}) => {
+    this.props
+      .update({ variables: payload })
+      .then(({ data, errors }) => {
         if (errors) {
           console.error(errors)
-          errors.map((e) => M.toast({html: e.message, classes: 'red', duration: 3000}))
+          errors.map(e =>
+            M.toast({ html: e.message, classes: 'red', duration: 3000 })
+          )
         } else {
           const { updateProfileWidget: widgetData } = data
           this.props.onChange && this.props.onChange(widgetData)
         }
       })
-      .catch((error) => console.error(error))
+      .catch(error => console.error(error))
   }
 
   handleSave(title) {
     const payload = {
       id: this.props.id,
       data: JSON.stringify(this.state.widgetData),
-      title: title
+      title: title,
     }
 
-    this.props.update({variables: payload})
-      .then(({data, errors}) => {
+    this.props
+      .update({ variables: payload })
+      .then(({ data, errors }) => {
         if (errors) {
           console.error(errors)
-          errors.map((e) => M.toast({html: e.message, classes: 'red', duration: 3000}))
+          errors.map(e =>
+            M.toast({ html: e.message, classes: 'red', duration: 3000 })
+          )
         } else {
-          const {updateProfileWidget: widgetData} = data
+          const { updateProfileWidget: widgetData } = data
 
           this.props.onChange && this.props.onChange(widgetData)
           this.handleEditStop()
         }
       })
-      .catch((error) => console.error(error))
+      .catch(error => console.error(error))
   }
 
   handleWidgetChange(widgetData) {
-    this.setState({widgetData})
+    this.setState({ widgetData })
   }
 
   render() {
-    const {widgetType, title, data, editable, lastColumn, firstColumn, first, last} = this.props
-    const Widget = widgets[widgetType] || SerializerWidget;
+    const {
+      widgetType,
+      title,
+      data,
+      editable,
+      lastColumn,
+      firstColumn,
+      first,
+      last,
+    } = this.props
+    const Widget = widgets[widgetType] || SerializerWidget
 
     return (
-      <div className='card profile-widget margin-top--none margin-bottom--large margin-bottom-last--none'>
+      <div className="card profile-widget margin-top--none margin-bottom--large margin-bottom-last--none">
         <ProfileWidgetHeader
           widgetType={widgetType}
           title={title}
@@ -139,18 +157,18 @@ ProfileWidget.propTypes = {
   lastColumn: PropTypes.bool,
   firstColumn: PropTypes.bool,
   first: PropTypes.bool,
-  last: PropTypes.bool
+  last: PropTypes.bool,
 }
 
-const Mutated = (props) => (
+const Mutated = props => (
   <Mutation mutation={updateProfileWidget}>
-    {(update) => <ProfileWidget {...props} update={update} />}
+    {update => <ProfileWidget {...props} update={update} />}
   </Mutation>
 )
 
-const DeleteMutation = (props) => (
+const DeleteMutation = props => (
   <Mutation mutation={deleteProfileWidget}>
-    {(deleteWidget) => <Mutated {...props} deleteWidget={deleteWidget} />}
+    {deleteWidget => <Mutated {...props} deleteWidget={deleteWidget} />}
   </Mutation>
 )
 

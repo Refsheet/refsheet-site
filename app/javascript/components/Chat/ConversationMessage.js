@@ -7,34 +7,33 @@ import { Twemoji } from 'react-emoji-render'
 const EMOTE_PREFIX_REGEX = /^\/me\s+/
 
 export const formatBody = (message, prefixYou = false) => {
-  let {
-    message: body = ''
-  } = message
+  let { message: body = '' } = message
 
   const {
-    user: {
-      name: userName
-    },
-    is_self: isSelf
+    user: { name: userName },
+    is_self: isSelf,
   } = message
 
-  const RenderEmoji = ({children}) =>
-      <Twemoji text={children} onlyEmojiClassName={'only-emoji'} />
+  const RenderEmoji = ({ children }) => (
+    <Twemoji text={children} onlyEmojiClassName={'only-emoji'} />
+  )
 
-  if(body.match(EMOTE_PREFIX_REGEX)) {
-    return <span>
-      <span className='emote-prefix'>{ userName } </span>
-      <RenderEmoji>{ body.replace(EMOTE_PREFIX_REGEX, '') }</RenderEmoji>
-    </span>
-
-  } else if(prefixYou && isSelf) {
-    return <span>
-      <span className="self-title">You: </span>
-      <RenderEmoji>{body}</RenderEmoji>
-    </span>
-
+  if (body.match(EMOTE_PREFIX_REGEX)) {
+    return (
+      <span>
+        <span className="emote-prefix">{userName} </span>
+        <RenderEmoji>{body.replace(EMOTE_PREFIX_REGEX, '')}</RenderEmoji>
+      </span>
+    )
+  } else if (prefixYou && isSelf) {
+    return (
+      <span>
+        <span className="self-title">You: </span>
+        <RenderEmoji>{body}</RenderEmoji>
+      </span>
+    )
   } else {
-    return <RenderEmoji>{ body }</RenderEmoji>
+    return <RenderEmoji>{body}</RenderEmoji>
   }
 }
 
@@ -64,43 +63,54 @@ const ConversationMessage = ({ message }) => {
     is_self: isSelf,
     unread,
     message: body,
-    status
+    status,
   } = message
 
   let readIcon, isEmote
 
-  if(isSelf) {
+  if (isSelf) {
     if (status) {
       switch (status) {
-        case "preflight":
-        case "delivered":
-          readIcon = <Icon title={"Sending..."}>access_time</Icon>
-          break;
-        case "error":
+        case 'preflight':
+        case 'delivered':
+          readIcon = <Icon title={'Sending...'}>access_time</Icon>
+          break
+        case 'error':
           readIcon = <Icon title={message.error}>warning</Icon>
-          break;
+          break
         default:
-          console.log("WHAT", status)
+          console.log('WHAT', status)
           readIcon = <Icon>check</Icon>
       }
-    } else if(!unread) {
+    } else if (!unread) {
       readIcon = <Icon>check</Icon>
-    } else if(typeof guid !== 'undefined') {
+    } else if (typeof guid !== 'undefined') {
       readIcon = <Icon>check</Icon>
     }
   }
 
-  if(body.match(EMOTE_PREFIX_REGEX)) {
+  if (body.match(EMOTE_PREFIX_REGEX)) {
     isEmote = true
   }
 
-  return (<li className={ c('chat-message', { unread: unread, self: isSelf, emote: isEmote, error: message.error }) }>
-    <div className='message' title={message.guid || message.error}>{ formatBody(message) }</div>
-    <div className='time right' title={timeDisplay(created_at, true)}>
-      { timeDisplay(created_at) }
-      &nbsp;{ readIcon }
+  return (
+    <li
+      className={c('chat-message', {
+        unread: unread,
+        self: isSelf,
+        emote: isEmote,
+        error: message.error,
+      })}
+    >
+      <div className="message" title={message.guid || message.error}>
+        {formatBody(message)}
       </div>
-  </li>)
+      <div className="time right" title={timeDisplay(created_at, true)}>
+        {timeDisplay(created_at)}
+        &nbsp;{readIcon}
+      </div>
+    </li>
+  )
 }
 
 export default ConversationMessage

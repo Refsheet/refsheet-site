@@ -4,7 +4,7 @@ const SESSION_PATH = '/session'
 
 const csrf = function() {
   return {
-    'X-CSRF-Token': document.getElementsByName('csrf-token')[0].content
+    'X-CSRF-Token': document.getElementsByName('csrf-token')[0].content,
   }
 }
 
@@ -17,9 +17,7 @@ const SessionService = {
   },
 
   logout: function() {
-    return superagent
-      .delete(SESSION_PATH)
-      .set(csrf())
+    return superagent.delete(SESSION_PATH).set(csrf())
   },
 
   set: function(params) {
@@ -27,7 +25,7 @@ const SessionService = {
       .put(SESSION_PATH)
       .set(csrf())
       .send(params)
-  }
+  },
 }
 
 export default SessionService

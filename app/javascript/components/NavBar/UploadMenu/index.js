@@ -4,10 +4,10 @@ import DropdownLink from '../DropdownLink'
 import NotificationItem from '../Dropdown/NotificationItem'
 import { Link } from 'react-router-dom'
 import Scrollbars from 'Shared/Scrollbars'
-import compose from "../../../utils/compose";
-import {connect} from "react-redux";
-import WindowAlert from "../../../utils/WindowAlert";
-import {clearAllUploads, clearUpload, openUploadModal} from "../../../actions";
+import compose from '../../../utils/compose'
+import { connect } from 'react-redux'
+import WindowAlert from '../../../utils/WindowAlert'
+import { clearAllUploads, clearUpload, openUploadModal } from '../../../actions'
 
 class UploadMenu extends Component {
   handleUploadDismiss(args) {
@@ -15,7 +15,7 @@ class UploadMenu extends Component {
   }
 
   handleUploadClick(args) {
-    console.log({args})
+    console.log({ args })
     this.props.openUploadModal(args.variables.id, null)
   }
 
@@ -36,26 +36,25 @@ class UploadMenu extends Component {
      */
 
     return (
-      <NotificationItem key={n.id}
-                        id={n.id}
-                        thumbnail={n.preview}
-                        title={n.title}
-                        is_unread={n.state === "pending"}
-                        onDismiss={this.handleUploadDismiss.bind(this)}
-                        onClick={this.handleUploadClick.bind(this)}
-                        dismissIcon={'close'}
+      <NotificationItem
+        key={n.id}
+        id={n.id}
+        thumbnail={n.preview}
+        title={n.title}
+        is_unread={n.state === 'pending'}
+        onDismiss={this.handleUploadDismiss.bind(this)}
+        onClick={this.handleUploadClick.bind(this)}
+        dismissIcon={'close'}
       />
     )
   }
 
   render() {
-    const {
-      uploads = []
-    } = this.props
+    const { uploads = [] } = this.props
 
     const unreadCount = uploads.length
 
-    if(!unreadCount || unreadCount === 0) {
+    if (!unreadCount || unreadCount === 0) {
       WindowAlert.clean('uploads')
       return null
     } else {
@@ -63,18 +62,18 @@ class UploadMenu extends Component {
     }
 
     return (
-      <DropdownLink icon='cloud_upload' count={unreadCount}>
-        <div className='dropdown-menu wide'>
-          <div className='title'>
-            <div className='right'>
-              <a href={'#'} onClick={this.handleClearAllClick.bind(this)}>Clear All</a>
+      <DropdownLink icon="cloud_upload" count={unreadCount}>
+        <div className="dropdown-menu wide">
+          <div className="title">
+            <div className="right">
+              <a href={'#'} onClick={this.handleClearAllClick.bind(this)}>
+                Clear All
+              </a>
             </div>
             <strong>Pending Uploads</strong>
           </div>
           <Scrollbars>
-            <ul>
-              { uploads.map(this.renderNotification.bind(this)) }
-            </ul>
+            <ul>{uploads.map(this.renderNotification.bind(this))}</ul>
           </Scrollbars>
         </div>
       </DropdownLink>
@@ -83,20 +82,18 @@ class UploadMenu extends Component {
 }
 
 UploadMenu.propTypes = {
-  transfers: PropTypes.array
+  transfers: PropTypes.array,
 }
 
 const mapStateToProps = (state, props) => ({
   uploads: state.uploads.files,
-  ...props
+  ...props,
 })
 
 const mapDispatchToProps = {
   clearUpload,
   clearAllUploads,
-  openUploadModal
+  openUploadModal,
 }
 
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps)
-)(UploadMenu)
+export default compose(connect(mapStateToProps, mapDispatchToProps))(UploadMenu)

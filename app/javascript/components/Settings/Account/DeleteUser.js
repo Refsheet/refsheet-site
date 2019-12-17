@@ -14,7 +14,7 @@ class DeleteUser extends Component {
       password: '',
       errors: [],
       isOpen: false,
-      isSubmitting: false
+      isSubmitting: false,
     }
 
     this.toggleOpen = this.toggleOpen.bind(this)
@@ -25,125 +25,144 @@ class DeleteUser extends Component {
 
   toggleOpen(e) {
     e.preventDefault()
-    this.setState({isOpen: !this.state.isOpen})
+    this.setState({ isOpen: !this.state.isOpen })
   }
 
   handleUserChange(e) {
     e.preventDefault()
     const username = e.target.value
-    this.setState({username})
+    this.setState({ username })
   }
 
   handlePasswordChange(e) {
     e.preventDefault()
     const password = e.target.value
-    this.setState({password})
+    this.setState({ password })
   }
 
   handleFormSubmit(e) {
     e.preventDefault()
 
-    this.setState({isSubmitting: true})
+    this.setState({ isSubmitting: true })
 
-    this.props.deleteUser({
-      variables: {
-        username: this.state.username,
-        password: this.state.password
-      }
-    })
-        .then((response) => {
-          const { data, errors } = response
+    this.props
+      .deleteUser({
+        variables: {
+          username: this.state.username,
+          password: this.state.password,
+        },
+      })
+      .then(response => {
+        const { data, errors } = response
 
-          if(errors && errors.length) {
-            this.setState({errors})
-          } else {
-            console.log(`I'm sorry to see you go, ${data.deleteUser.username} :(`)
-            window.location = '/'
-          }
-        })
+        if (errors && errors.length) {
+          this.setState({ errors })
+        } else {
+          console.log(`I'm sorry to see you go, ${data.deleteUser.username} :(`)
+          window.location = '/'
+        }
+      })
 
-        .catch((data) => console.error(data))
+      .catch(data => console.error(data))
 
-        .finally(() => {
-          this.setState({isSubmitting: false})
-        })
+      .finally(() => {
+        this.setState({ isSubmitting: false })
+      })
   }
 
   render() {
     const {
       first,
-      user: {
-        username
-      }
+      user: { username },
     } = this.props
 
-    const {
-      username: usernameConfirm,
-      password,
-      isOpen,
-      errors
-    } = this.state
+    const { username: usernameConfirm, password, isOpen, errors } = this.state
 
-    const disabled = (usernameConfirm !== username) || !password
+    const disabled = usernameConfirm !== username || !password
 
     const body = [
-      <div className='card-content padding-bottom--none' key='content'>
-        <p className='margin-bottom--medium'>
-          If you are <strong>absolutely</strong> sure you want to do this,
-          you can delete your account. THIS WILL REMOVE ALL YOUR CHARACTERS,
-          and NOTHING will be recovered. Please be sure you have a backup of
-          your art.
+      <div className="card-content padding-bottom--none" key="content">
+        <p className="margin-bottom--medium">
+          If you are <strong>absolutely</strong> sure you want to do this, you
+          can delete your account. THIS WILL REMOVE ALL YOUR CHARACTERS, and
+          NOTHING will be recovered. Please be sure you have a backup of your
+          art.
         </p>
 
-        { errors.map((e, i) => <div key={i} className='red-text margin-bottom--medium'>
-          {e.message}
-        </div>)}
+        {errors.map((e, i) => (
+          <div key={i} className="red-text margin-bottom--medium">
+            {e.message}
+          </div>
+        ))}
 
-        <Row className='no-margin'>
+        <Row className="no-margin">
           <Col s={12} m={6}>
-            <div className='input-field'>
+            <div className="input-field">
               <input
-                  type='text'
-                  name='username'
-                  id='delete_username'
-                  autoComplete='false'
-                  value={usernameConfirm}
-                  onChange={this.handleUserChange} />
-              <label htmlFor='delete_username'>Username Confirmation</label>
-              { disabled && !usernameConfirm &&
-                <span className='hint hint-block error error-text'>Please type your username to confirm delete.</span> }
+                type="text"
+                name="username"
+                id="delete_username"
+                autoComplete="false"
+                value={usernameConfirm}
+                onChange={this.handleUserChange}
+              />
+              <label htmlFor="delete_username">Username Confirmation</label>
+              {disabled && !usernameConfirm && (
+                <span className="hint hint-block error error-text">
+                  Please type your username to confirm delete.
+                </span>
+              )}
             </div>
           </Col>
 
           <Col s={12} m={6}>
-            <div className='input-field'>
-                <input
-                  type='password'
-                  name='password'
-                  id='delete_password'
-                  autoComplete='current-password'
-                  value={password}
-                  onChange={this.handlePasswordChange} />
-              <label htmlFor='delete_password'>Password Confirmation</label>
-              { disabled && !password &&
-              <span className='hint hint-block'>Please type your password to confirm delete.</span> }
+            <div className="input-field">
+              <input
+                type="password"
+                name="password"
+                id="delete_password"
+                autoComplete="current-password"
+                value={password}
+                onChange={this.handlePasswordChange}
+              />
+              <label htmlFor="delete_password">Password Confirmation</label>
+              {disabled && !password && (
+                <span className="hint hint-block">
+                  Please type your password to confirm delete.
+                </span>
+              )}
             </div>
           </Col>
         </Row>
       </div>,
-      <div className='card-action right-align' key='action'>
-        <Button data-disable-with="Hang on..." className='red' type='submit' disabled={disabled}>Delete Account</Button>
-      </div>
+      <div className="card-action right-align" key="action">
+        <Button
+          data-disable-with="Hang on..."
+          className="red"
+          type="submit"
+          disabled={disabled}
+        >
+          Delete Account
+        </Button>
+      </div>,
     ]
 
-    return(
-        <form className={c('card sp', {'margin-top--large': !first})} method='POST' onSubmit={this.handleFormSubmit}>
-          <div className='card-header' onClick={this.toggleOpen} style={{ cursor: 'pointer' }}>
-            <h2 className='red-text'>Delete Account</h2>
-          </div>
+    return (
+      <form
+        className={c('card sp', { 'margin-top--large': !first })}
+        method="POST"
+        onSubmit={this.handleFormSubmit}
+      >
+        <div
+          className="card-header"
+          onClick={this.toggleOpen}
+          style={{ cursor: 'pointer' }}
+        >
+          <h2 className="red-text">Delete Account</h2>
+        </div>
 
-          { isOpen && body }
-        </form>
+        {isOpen && body}
+      </form>
     )
   }
 }
@@ -151,27 +170,26 @@ class DeleteUser extends Component {
 DeleteUser.propTypes = {
   first: PropTypes.bool,
   user: PropTypes.shape({
-    username: PropTypes.string.isRequired
+    username: PropTypes.string.isRequired,
   }),
-  deleteUser: PropTypes.func.isRequired
+  deleteUser: PropTypes.func.isRequired,
 }
 
 const DELETE_USER_MUTATION = gql`
   mutation DeleteUser($username: String!, $password: String!) {
-      deleteUser(username: $username, password: $password) {
-          username deleted_at
-      }
+    deleteUser(username: $username, password: $password) {
+      username
+      deleted_at
+    }
   }
 `
 
-const Wrapped = (props) => (
-    <Mutation mutation={DELETE_USER_MUTATION}>
-      {((send, {mutationData}) => <DeleteUser
-          {...props}
-          deleteUser={send}
-          deleteResult={mutationData}
-      />)}
-    </Mutation>
+const Wrapped = props => (
+  <Mutation mutation={DELETE_USER_MUTATION}>
+    {(send, { mutationData }) => (
+      <DeleteUser {...props} deleteUser={send} deleteResult={mutationData} />
+    )}
+  </Mutation>
 )
 
 export { DeleteUser }

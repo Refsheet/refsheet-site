@@ -5,10 +5,10 @@ import NotificationItem from '../Dropdown/NotificationItem'
 import { Link } from 'react-router-dom'
 import Scrollbars from 'Shared/Scrollbars'
 import subscription from './subscription'
-import {Mutation} from "react-apollo"
-import {markAllNotificationsAsRead} from "./markAllNotificationsAsRead.graphql"
-import {readNotification} from "./readNotification.graphql"
-import WindowAlert from "../../../utils/WindowAlert";
+import { Mutation } from 'react-apollo'
+import { markAllNotificationsAsRead } from './markAllNotificationsAsRead.graphql'
+import { readNotification } from './readNotification.graphql'
+import WindowAlert from '../../../utils/WindowAlert'
 
 class NotificationMenu extends Component {
   componentWillReceiveProps(newProps) {
@@ -18,19 +18,14 @@ class NotificationMenu extends Component {
   }
 
   handleMarkAllClick(e) {
-    const {
-      unreadCount,
-      loading=false,
-      refetch,
-      markAllAsRead
-    } = this.props
+    const { unreadCount, loading = false, refetch, markAllAsRead } = this.props
 
     e.preventDefault()
 
     if (unreadCount !== 0 && !loading && markAllAsRead) {
       markAllAsRead()
-        .then((_data) => {
-          if(refetch) refetch()
+        .then(_data => {
+          if (refetch) refetch()
         })
         .catch(console.error)
     }
@@ -38,27 +33,32 @@ class NotificationMenu extends Component {
 
   render() {
     const {
-      notifications=[],
-      loading=false,
+      notifications = [],
+      loading = false,
       error,
       refetch,
       unreadCount,
-      readNotification
+      readNotification,
     } = this.props
 
-    const renderNotification = (n) => (
-      <NotificationItem key={n.id} {...n} onDismiss={readNotification} refetch={refetch} />
+    const renderNotification = n => (
+      <NotificationItem
+        key={n.id}
+        {...n}
+        onDismiss={readNotification}
+        refetch={refetch}
+      />
     )
 
     const renderContent = () => {
       if (loading) {
-        return <li className='empty-item'>Loading...</li>
+        return <li className="empty-item">Loading...</li>
       } else if (error) {
-        return <li className='empty-item red-text'>{error}</li>
+        return <li className="empty-item red-text">{error}</li>
       } else if (notifications.length > 0) {
         return notifications.map(renderNotification)
       } else {
-        return <li className='empty-item'>No new notifications.</li>
+        return <li className="empty-item">No new notifications.</li>
       }
     }
 
@@ -67,20 +67,29 @@ class NotificationMenu extends Component {
     }
 
     return (
-      <DropdownLink icon='notifications' count={unreadCount} onOpen={tryRefetch}>
-        <div className='dropdown-menu wide'>
-          <div className='title'>
-            <div className='right'>
-              <a href={'/notifications'} onClick={this.handleMarkAllClick.bind(this)}>Mark All Read</a>
+      <DropdownLink
+        icon="notifications"
+        count={unreadCount}
+        onOpen={tryRefetch}
+      >
+        <div className="dropdown-menu wide">
+          <div className="title">
+            <div className="right">
+              <a
+                href={'/notifications'}
+                onClick={this.handleMarkAllClick.bind(this)}
+              >
+                Mark All Read
+              </a>
             </div>
             <strong>Notifications</strong>
           </div>
           <Scrollbars>
-            <ul>
-              {renderContent()}
-            </ul>
+            <ul>{renderContent()}</ul>
           </Scrollbars>
-          <Link to='/notifications' className='cap-link'>See More...</Link>
+          <Link to="/notifications" className="cap-link">
+            See More...
+          </Link>
         </div>
       </DropdownLink>
     )
@@ -89,16 +98,22 @@ class NotificationMenu extends Component {
 
 NotificationMenu.propTypes = {
   notifications: PropTypes.array,
-  unreadCount: PropTypes.number
+  unreadCount: PropTypes.number,
 }
 
 export { NotificationMenu }
 
-const Mutated = (props) => (
+const Mutated = props => (
   <Mutation mutation={markAllNotificationsAsRead}>
-    { (markAllAsRead) => (
+    {markAllAsRead => (
       <Mutation mutation={readNotification}>
-        { (readNotification) => <NotificationMenu {...props} markAllAsRead={markAllAsRead} readNotification={readNotification} /> }
+        {readNotification => (
+          <NotificationMenu
+            {...props}
+            markAllAsRead={markAllAsRead}
+            readNotification={readNotification}
+          />
+        )}
       </Mutation>
     )}
   </Mutation>
