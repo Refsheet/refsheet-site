@@ -63,7 +63,7 @@ class CommentForm extends Component {
           this.setState({comment: "", submitting: false, error: ""})
 
           if (this.props.onSubmitConfirm) {
-            this.props.onSubmitConfirm(data.data)
+            this.props.onSubmitConfirm(data.data || data)
           }
         }
       })

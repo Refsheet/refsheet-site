@@ -10,14 +10,23 @@ import getComments from './getComments.graphql'
 import subscribeToComments from './subscribeToComments.graphql'
 import Scrollbars from "../Shared/Scrollbars";
 import { AutoSizer } from 'react-virtualized'
+import Moment from "react-moment";
 
 class Comments extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      pendingComments: []
+    }
+  }
+
   renderComment(comment) {
     return (
       <div className='card flat with-avatar' key={ comment.id }>
         <img src={ comment.user.avatar_url } className='circle avatar' />
         <div className='card-content'>
-          <div className='muted right' title={ comment.created_at }>{ comment.created_at_human }</div>
+          <Moment fromNow unix withTitle className={'muted right'}>{ comment.created_at }</Moment>
           <Link to={ `/${comment.user.username}` }>{ comment.user.name }</Link>
           <div className={'comment-content'}>
             { comment.comment }
@@ -43,6 +52,15 @@ class Comments extends Component {
     })
   }
 
+  handlePost({addComment: comment}) {
+    this.setState({
+      pendingComments: [
+        ...this.state.pendingComments,
+        comment
+      ]
+    })
+  }
+
   render() {
     const {
       comments,
@@ -59,8 +77,11 @@ class Comments extends Component {
     } else if (comments.length <= 0) {
       renderComments = <p className={'caption padding--medium center'}>No comments yet!</p>
     } else {
+      const pending = this.state.pendingComments.filter((c) => comments.findIndex(x => x.id === c.id) === -1)
+
       const sorted = [
-        ...comments
+        ...comments,
+        ...pending
       ].sort((a, b) => b.created_at - a.created_at)
 
       renderComments = sorted.map(this.renderComment)
@@ -83,6 +104,7 @@ class Comments extends Component {
                        placeholder={"Add comment..."}
                        buttonText={"Send"}
                        onSubmit={this.handleSubmit.bind(this)}
+                       onSubmitConfirm={this.handlePost.bind(this)}
                        buttonSubmittingText={"Sending"}
           />
         </div> }
