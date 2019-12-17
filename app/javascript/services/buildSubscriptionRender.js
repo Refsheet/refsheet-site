@@ -4,13 +4,15 @@ import React from "react";
 
 const defaultMapDataToProps = (data) => data
 const defaultUpdateQuery = (prev) => prev
+const defaultMapPropsToVariables = (props) => props
 
 export default function buildSubscriptionRender(args) {
   const {
     query,
     subscription,
     mapDataToProps = defaultMapDataToProps,
-    updateQuery = defaultUpdateQuery
+    updateQuery = defaultUpdateQuery,
+    mapPropsToVariables = defaultMapPropsToVariables
   } = args
 
   const render = ({Component, ...props}) => ({loading, data, subscribeToMore, ...more}) => {
@@ -19,6 +21,7 @@ export default function buildSubscriptionRender(args) {
 
       subscribeToMore({
         document: subscription,
+        variables: mapPropsToVariables(props),
         updateQuery: (prev, { subscriptionData }) => {
           console.log({prev, subscriptionData})
           if (!subscriptionData.data) return prev
@@ -40,7 +43,7 @@ export default function buildSubscriptionRender(args) {
   }
 
   const Wrapped = (props) => (
-      <Query query={query}>
+      <Query query={query} variables={mapPropsToVariables(props)}>
         {render(props)}
       </Query>
   )

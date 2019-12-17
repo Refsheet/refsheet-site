@@ -1,0 +1,12 @@
+subscription subscribeToComments($mediaId: ID!) {
+    newComment(mediaId: $mediaId) {
+        id,
+        created_at,
+        user {
+            username,
+            name,
+            avatar_url
+        },
+        comment
+    }
+}

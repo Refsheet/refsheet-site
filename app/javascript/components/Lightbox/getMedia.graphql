@@ -41,15 +41,5 @@ query getMedia($mediaId: ID!) {
                 avatar_url
             }
         }
-
-        comments {
-            id,
-            user {
-                username,
-                name,
-                avatar_url
-            },
-            comment
-        }
     }
   }

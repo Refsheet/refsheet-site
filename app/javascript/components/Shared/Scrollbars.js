@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Scrollbars as CustomScrollbars } from 'react-custom-scrollbars'
 import { withTheme } from 'styled-components'
 
-const Scrollbars = ({children, theme, ...otherProps}) => {
+const Scrollbars = ({children, theme, maxHeight, ...otherProps}) => {
   const renderThumb = ({style, ...props}) =>
       <div {...props} style={{
         ...style,
@@ -27,7 +27,7 @@ const Scrollbars = ({children, theme, ...otherProps}) => {
       <CustomScrollbars
           autoHide
           autoHeight
-          autoHeightMax={400}
+          autoHeightMax={maxHeight || 400}
           renderThumbVertical={renderThumb}
           renderTrackVertical={renderTrack}
           children={children} />

@@ -35,7 +35,6 @@ class View extends Component {
       character,
       favorites,
       favorites_count,
-      comments,
       comments_count,
       is_managed,
       is_favorite,
@@ -68,7 +67,7 @@ class View extends Component {
           </div>
 
           <Favorites count={favorites_count} favorites={favorites} isFavorite={is_favorite} mediaId={id} />
-          <Comments count={comments_count} comments={comments} isManaged={is_managed} mediaId={id} />
+          <Comments count={comments_count} isManaged={is_managed} mediaId={id} />
         </div>
       </div>
     )
