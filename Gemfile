@@ -139,6 +139,7 @@ group :development, :test do
   gem 'timecop'
   gem 'webmock'
   gem 'derailed_benchmarks'
+  gem 'rubocop', require: false
 end
 
 group :nocircle do
