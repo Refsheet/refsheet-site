@@ -15,17 +15,31 @@ class ImageEditForm extends Component {
 
   handleFormSubmit(e) {
     e.preventDefault()
-    console.log(this.state.image)
+    this.props.updateImage({
+      variables: {
+        ...this.state.image
+      }
+    })
+      .then(({data, errors}) => {
+        if (errors) {
+          console.error(errors)
+        } else {
+          if (this.props.onSave) {
+            this.props.onSave(data.updateImage)
+          }
+        }
+      })
+      .catch(console.error)
   }
 
   handleCancelClick(e) {
     e.preventDefault()
-    console.log('Good bye.')
+    if (this.props.onCancel) {
+      this.props.onCancel()
+    }
   }
 
   handleInputChange(e) {
-    e.preventDefault()
-
     let image = { ...this.state.image }
     let value = e.target.value
     let name = e.target.name
@@ -41,8 +55,6 @@ class ImageEditForm extends Component {
 
   render() {
     const { image } = this.state
-
-    console.log({image})
 
     return (
       <form
@@ -122,6 +134,10 @@ ImageEditForm.propTypes = {
     caption: PropTypes.string,
     nsfw: PropTypes.boolean,
   }).isRequired,
+  onCancel: PropTypes.func,
+  onSave: PropTypes.func
 }
 
-export default compose(withMutations({ updateImage }))(ImageEditForm)
+export default compose(
+  withMutations({ updateImage })
+)(ImageEditForm)

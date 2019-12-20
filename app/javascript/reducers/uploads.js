@@ -1,12 +1,17 @@
 import { createReducer } from 'reducers'
 import * as Actions from 'actions'
 
+function willOpenModal() {
+  // Prevent clobbering the lightbox:
+  return !document.getElementById('lightbox-v2')
+}
+
 const handlers = {
   [Actions.ENQUEUE_UPLOADS]: (state, action) => ({
     ...state,
     files: [...state.files, ...action.files],
     selectedIndex: 0,
-    modalOpen: true,
+    modalOpen: willOpenModal(),
   }),
 
   [Actions.CLEAR_UPLOAD]: (state, action) => {
