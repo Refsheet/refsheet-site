@@ -124,6 +124,7 @@ class Image < ApplicationRecord # < Media
 
   before_validation :adjust_source_url
   after_save :clean_up_character
+  after_save :sync_hashtags
   after_destroy :clean_up_character
 
   scoped_search on: [:caption, :image_file_name]
@@ -234,6 +235,26 @@ class Image < ApplicationRecord # < Media
                     character_id: self.character_id,
                     created_at: self.created_at,
                     activity_method: 'create'
+  end
+
+  def sync_hashtags
+    old_tags = hashtags.collect {|t| t.tag}
+    new_tags = []
+
+    caption.scan(/#(\w+)/) do |tag|
+      new_tags.push tag[0]
+    end
+
+    remove = old_tags - new_tags
+    add = new_tags - old_tags
+
+    remove.each do |tag|
+      hashtags.delete(Media::Hashtag[tag])
+    end
+
+    add.each do |tag|
+      hashtags.push(Media::Hashtag[tag])
+    end
   end
 
   def delayed_complete
