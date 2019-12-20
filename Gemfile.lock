@@ -17,14 +17,6 @@ GIT
       railties (>= 3.2)
       tilt
 
-GIT
-  remote: git://github.com/sitehive/materialize-sass.git
-  revision: 09add7cdd203a6221a2b333365a6af86d5c87ca8
-  branch: master
-  specs:
-    materialize-sass (0.97.8)
-      sass (~> 3.3)
-
 GEM
   remote: https://rubygems.org/
   remote: http://insecure.rails-assets.org/
@@ -320,6 +312,8 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
+    materialize-sass (1.0.0)
+      autoprefixer-rails (>= 6.0.3)
     memory_profiler (0.9.14)
     meta-tags (2.11.1)
       actionpack (>= 3.2.0, < 6.1)
@@ -704,7 +698,7 @@ DEPENDENCIES
   letter_opener
   letter_opener_web
   listen (~> 3.0.5)
-  materialize-sass!
+  materialize-sass (~> 1.0.0)
   meta-tags
   money-rails
   non-stupid-digest-assets

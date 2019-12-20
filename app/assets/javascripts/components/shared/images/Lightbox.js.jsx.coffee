@@ -141,7 +141,7 @@
     @state.onChange image if @state.onChange
 
   componentDidUpdate: ->
-    $('.dropdown-button').dropdown
+    $('.dropdown-trigger').dropdown
       constrain_width: false
 
   render: ->
@@ -175,7 +175,7 @@
                   </a></li>
               </ul>
 
-              <a className='dropdown-button' id='image-actions-menu' href='#image-options' data-activates='lightbox-image-actions'>
+              <a className='dropdown-trigger' id='image-actions-menu' href='#image-options' data-target='lightbox-image-actions'>
                   <i className='material-icons'>more_vert</i>
               </a>
           </div>`

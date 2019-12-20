@@ -28,17 +28,21 @@ class ImageEditForm extends Component {
 
     let image = { ...this.state.image }
     let value = e.target.value
+    let name = e.target.name
 
     if (e.target.type === 'checkbox') {
       value = e.target.checked
+      name = e.target.value
     }
 
-    image[e.target.name] = value
+    image[name] = value
     this.setState({ image })
   }
 
   render() {
     const { image } = this.state
+
+    console.log({image})
 
     return (
       <form
@@ -57,7 +61,7 @@ class ImageEditForm extends Component {
                 id={'image_title'}
                 name={'title'}
                 onChange={this.handleInputChange.bind(this)}
-                value={image.name || ''}
+                value={image.title || ''}
                 label={'Title'}
               />
             </Row>
@@ -72,22 +76,22 @@ class ImageEditForm extends Component {
               />
             </Row>
             <Row>
-              <Col s={6} className={'center'}>
+              <Col s={6} className={''}>
                 <Checkbox
                   onChange={this.handleInputChange.bind(this)}
                   checked={image.nsfw}
                   id={'image_nsfw'}
-                  name="nsfw"
+                  value="nsfw"
                   label="NSFW"
                 />
               </Col>
 
-              <Col s={6} className={'center'}>
+              <Col s={6} className={''}>
                 <Checkbox
                   onChange={this.handleInputChange.bind(this)}
                   checked={image.hidden}
                   id={'image_hidden'}
-                  name="hidden"
+                  value="hidden"
                   label={'Hidden'}
                 />
               </Col>
