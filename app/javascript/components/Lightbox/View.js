@@ -9,10 +9,15 @@ import Comments from './Comments'
 import { Link } from 'react-router-dom'
 import Favorites from './Favorites'
 import ImageActions from './ImageActions'
+import ImageEditForm from './ImageEditForm'
 
 class View extends Component {
   constructor(props) {
     super(props)
+
+    this.state = {
+      editing: false,
+    }
   }
 
   handlePrevClick(e) {
@@ -25,11 +30,13 @@ class View extends Component {
     this.props.onMediaOpen(this.props.nextMediaId)
   }
 
-  render() {
+  handleEditStart() {
+    this.setState({ editing: true })
+  }
+
+  renderDetails() {
     const {
       id,
-      title,
-      url: { large: imageSrc },
       created_at,
       character,
       favorites,
@@ -37,6 +44,43 @@ class View extends Component {
       comments_count,
       is_managed,
       is_favorite,
+    } = this.props.media
+
+    if (this.state.editing) {
+      return <ImageEditForm image={this.props.media} />
+    } else {
+      return (
+        <div className={'image-details-container'}>
+          <div className="image-details">
+            {is_managed && (
+              <ImageActions onEditClick={this.handleEditStart.bind(this)} />
+            )}
+            <CharacterBox {...character} createdAt={created_at} />
+            <ImageMeta {...this.props.media} />
+          </div>
+
+          <Favorites
+            count={favorites_count}
+            favorites={favorites}
+            isFavorite={is_favorite}
+            mediaId={id}
+          />
+          <Comments
+            count={comments_count}
+            isManaged={is_managed}
+            mediaId={id}
+          />
+        </div>
+      )
+    }
+  }
+
+  render() {
+    const {
+      media: {
+        title,
+        url: { large: imageSrc },
+      },
       nextMediaId,
       prevMediaId,
     } = this.props
@@ -71,25 +115,7 @@ class View extends Component {
           </ImageLoader>
         </div>
 
-        <div className={'image-details-container'}>
-          <div className="image-details">
-            <ImageActions />
-            <CharacterBox {...character} createdAt={created_at} />
-            <ImageMeta {...this.props} />
-          </div>
-
-          <Favorites
-            count={favorites_count}
-            favorites={favorites}
-            isFavorite={is_favorite}
-            mediaId={id}
-          />
-          <Comments
-            count={comments_count}
-            isManaged={is_managed}
-            mediaId={id}
-          />
-        </div>
+        {this.renderDetails()}
       </div>
     )
   }
@@ -97,6 +123,7 @@ class View extends Component {
 
 View.propTypes = {
   onMediaOpen: PropTypes.func.isRequired,
+  media: PropTypes.object.isRequired,
 }
 
 export default View

@@ -3,9 +3,20 @@ import PropTypes from 'prop-types'
 import { Icon, Dropdown, Divider } from 'react-materialize'
 
 class ImageActions extends Component {
+  handleEditClick(e) {
+    e.preventDefault()
+    this.props.onEditClick && this.props.onEditClick()
+  }
+
   render() {
     return (
       <div className={'image-actions'}>
+        <div className={'image-action-menu'}>
+          <a href={'#edit-image'} onClick={this.handleEditClick.bind(this)}>
+            <Icon>edit</Icon>
+          </a>
+        </div>
+
         <div className={'image-action-menu'}>
           <Dropdown
             options={{
@@ -28,7 +39,12 @@ class ImageActions extends Component {
             </a>
             <Divider />
             <a href={'#'}>
-              <Icon className={'left'}>file_download</Icon> <span>Download</span>
+              <Icon className={'left'}>file_download</Icon>{' '}
+              <span>Download</span>
+            </a>
+            <a href={'#'}>
+              <Icon className={'left'}>forward</Icon>
+              <span>Transfer To...</span>
             </a>
             <a href={'#'}>
               <Icon className={'left'}>delete</Icon> <span>Delete...</span>
@@ -40,6 +56,8 @@ class ImageActions extends Component {
   }
 }
 
-ImageActions.propTypes = {}
+ImageActions.propTypes = {
+  onEditClick: PropTypes.func,
+}
 
 export default ImageActions

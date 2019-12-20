@@ -87,7 +87,6 @@ class CommentForm extends Component {
           <button
             type={'submit'}
             className={'btn right flat'}
-            onClick={this.handleSubmit.bind(this)}
             disabled={!this.state.comment || this.state.submitting}
           >
             {this.state.submitting ? (
