@@ -10,6 +10,8 @@ import { Link } from 'react-router-dom'
 import Favorites from './Favorites'
 import ImageActions from './ImageActions'
 import ImageEditForm from './ImageEditForm'
+import {withNamespaces} from "react-i18next";
+import compose from "../../utils/compose";
 
 class View extends Component {
   constructor(props) {
@@ -87,6 +89,7 @@ class View extends Component {
 
   render() {
     const {
+      t,
       media: {
         title,
         url: { large: imageSrc },
@@ -102,6 +105,7 @@ class View extends Component {
             <a
               className={'image-prev image-nav'}
               href={`/media/${prevMediaId}`}
+              title={t('actions.previous_media', "Previous Image")}
               onClick={this.handlePrevClick.bind(this)}
             >
               <Icon>keyboard_arrow_left</Icon>
@@ -112,6 +116,7 @@ class View extends Component {
             <a
               className={'image-next image-nav'}
               href={`/media/${nextMediaId}`}
+              title={t('actions.next_media', "Next Image")}
               onClick={this.handleNextClick.bind(this)}
             >
               <Icon>keyboard_arrow_right</Icon>
@@ -123,8 +128,18 @@ class View extends Component {
           </div>
 
           <div className={'lightbox-overlay bottom'}>
-            <div className={'left'}>Left</div>
-            <div className={'right'}>Right</div>
+            <div className={'left'}>
+              <a className={'block red-text'} href={'#'} title={t('actions.report_image', "Report")}>
+                <Icon className={'left'}>report</Icon>
+                { t('actions.report_image', "Report") }
+              </a>
+            </div>
+            <div className={'right'}>
+              <a className={'block'} href={'#'} title={t('actions.tag_characters', "Tag Characters")}>
+                <Icon className={'left'}>tag_faces</Icon>
+                { t('actions.tag_characters', "Tag Characters") }
+              </a>
+            </div>
           </div>
 
           <ImageLoader src={imageSrc}>
@@ -145,4 +160,6 @@ View.propTypes = {
   media: PropTypes.object.isRequired,
 }
 
-export default View
+export default compose(
+  withNamespaces('common')
+)(View)
