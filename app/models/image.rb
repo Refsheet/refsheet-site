@@ -241,10 +241,13 @@ class Image < ApplicationRecord # < Media
     old_tags = hashtags.collect {|t| t.tag}
     new_tags = []
 
-    caption.scan(/#(\w+)/) do |tag|
-      new_tags.push tag[0]
+    unless caption.blank?
+      caption.scan(/#(\w+)/) do |tag|
+        new_tags.push tag[0]&.downcase
+      end
     end
 
+    new_tags.uniq!
     remove = old_tags - new_tags
     add = new_tags - old_tags
 

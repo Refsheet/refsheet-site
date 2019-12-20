@@ -55,7 +55,7 @@ const App = ({ children: propChildren, state, assets }) => {
   })
 
   const store = createStore(rootReducer, newState)
-  console.log('Initialized with state:', store.getState())
+  console.debug('Initialized with state:', store.getState())
 
   const children = propChildren || <Router />
 
