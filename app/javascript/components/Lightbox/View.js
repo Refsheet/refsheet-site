@@ -118,6 +118,15 @@ class View extends Component {
             </a>
           )}
 
+          <div className={'lightbox-overlay top'}>
+            <h1>{title}</h1>
+          </div>
+
+          <div className={'lightbox-overlay bottom'}>
+            <div className={'left'}>Left</div>
+            <div className={'right'}>Right</div>
+          </div>
+
           <ImageLoader src={imageSrc}>
             <img alt={title} title={title} />
             <Error />

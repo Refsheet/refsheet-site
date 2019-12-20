@@ -171,14 +171,41 @@
       &:hover .image-nav
         opacity: 0.6
 
+      &:hover .lightbox-overlay
+        opacity: 1.0
+
+      .lightbox-overlay
+        position: absolute
+        left: 0
+        right: 0
+        background-color: rgba(0,0,0,0.6)
+        color: white
+        text-align: left
+        padding: 0.5rem 1rem
+        opacity: 0.0
+        transition: opacity 0.3s ease
+
+        &.top
+          top: 0
+          background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent)
+
+        &.bottom
+          bottom: 0
+          background: linear-gradient(to top, rgba(0,0,0,0.9), transparent)
+
+        h1
+          font-size: 2rem
+
       .image-nav
         position: absolute
-        top: 0
-        bottom: 0
         padding: 1.5rem
         background-color: rgba(0,0,0,0.6)
         color: white
         opacity: 0
+        height: 6rem
+        width: 6rem
+        margin: 0 1rem
+        border-radius: 2px
         transition: opacity 0.3s ease
 
         i.material-icons
