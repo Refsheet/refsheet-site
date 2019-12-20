@@ -186,10 +186,56 @@ describe Image, type: :model do
   #   expect(image).to be_processed
   # end
 
-  it 'syncs hashtags' do
-    image = create :image, caption: "This is #so #cool!"
-    image.reload
-    expect(image).to have_exactly(2).hashtags
-    expect(image.hashtags.first.tag).to eq 'so'
+  describe '#hashtags' do
+    it 'syncs hashtags' do
+      image = create :image, caption: "This is #so #cool!"
+      image.reload
+      expect(image).to have_exactly(2).hashtags
+      expect(image.hashtags.first.tag).to eq 'so'
+    end
+
+    it 'has unique hashtags' do
+      image = create :image, caption: "This #hashtag is the #coolest #hashtag"
+      image.reload
+      expect(image).to have_exactly(2).hashtags
+      expect(image.hashtags.first.tag).to eq 'hashtag'
+      expect(image.hashtags.second.tag).to eq 'coolest'
+    end
+
+    it 'has unique hashtags with mixed case' do
+      image = create :image, caption: "THIS IS #AMAZING! (Ruby Rose says #amazing a lot)."
+      image.reload
+      expect(image).to have_exactly(1).hashtags
+      expect(image.hashtags.first.tag).to eq 'amazing'
+    end
+
+    it 'handles nil captions' do
+      image = create :image, caption: nil
+      image.reload
+      expect(image).to have_exactly(0).hashtags
+    end
+
+    it 'clears hashtags' do
+      image = create :image, caption: '#one #two'
+      image.reload
+      expect(image).to have_exactly(2).hashtags
+      expect(image.hashtags.first.tag).to eq 'one'
+
+      image.update_attributes(caption: '#three')
+      image.reload
+      expect(image).to have_exactly(1).hashtags
+      expect(image.hashtags.first.tag).to eq 'three'
+    end
+
+    it 'clears hashtags when nil' do
+      image = create :image, caption: '#one #two'
+      image.reload
+      expect(image).to have_exactly(2).hashtags
+      expect(image.hashtags.first.tag).to eq 'one'
+
+      image.update_attributes(caption: nil)
+      image.reload
+      expect(image).to have_exactly(0).hashtags
+    end
   end
 end

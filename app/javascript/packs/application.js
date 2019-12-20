@@ -32,7 +32,7 @@ export const __globals = [
   'LegacyForumReply',
   'StatusUpdate',
   'ActivityCard',
-  'Materialize'
+  'Materialize',
 ]
 
 export { default as React } from 'react'

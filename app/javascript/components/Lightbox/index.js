@@ -36,6 +36,11 @@ class Lightbox extends Component {
   }
 
   handleKeyDown(e) {
+    if ('value' in e.target) {
+      // This was probably an input field.
+      return
+    }
+
     switch (e.keyCode) {
       case 27: // ESC
       case 81: // q

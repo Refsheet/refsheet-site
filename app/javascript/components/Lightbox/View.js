@@ -10,8 +10,8 @@ import { Link } from 'react-router-dom'
 import Favorites from './Favorites'
 import ImageActions from './ImageActions'
 import ImageEditForm from './ImageEditForm'
-import {withNamespaces} from "react-i18next";
-import compose from "../../utils/compose";
+import { withNamespaces } from 'react-i18next'
+import compose from '../../utils/compose'
 
 class View extends Component {
   constructor(props) {
@@ -37,11 +37,11 @@ class View extends Component {
   }
 
   handleEditEnd() {
-    this.setState({editing: false})
+    this.setState({ editing: false })
   }
 
   handleMediaUpdate() {
-    this.setState({editing: false})
+    this.setState({ editing: false })
   }
 
   renderDetails() {
@@ -59,7 +59,13 @@ class View extends Component {
     // console.log({})
 
     if (this.state.editing) {
-      return <ImageEditForm image={this.props.media} onSave={this.handleMediaUpdate.bind(this)} onCancel={this.handleEditEnd.bind(this)} />
+      return (
+        <ImageEditForm
+          image={this.props.media}
+          onSave={this.handleMediaUpdate.bind(this)}
+          onCancel={this.handleEditEnd.bind(this)}
+        />
+      )
     } else {
       return (
         <div className={'image-details-container'}>
@@ -105,7 +111,7 @@ class View extends Component {
             <a
               className={'image-prev image-nav'}
               href={`/media/${prevMediaId}`}
-              title={t('actions.previous_media', "Previous Image")}
+              title={t('actions.previous_media', 'Previous Image')}
               onClick={this.handlePrevClick.bind(this)}
             >
               <Icon>keyboard_arrow_left</Icon>
@@ -116,7 +122,7 @@ class View extends Component {
             <a
               className={'image-next image-nav'}
               href={`/media/${nextMediaId}`}
-              title={t('actions.next_media', "Next Image")}
+              title={t('actions.next_media', 'Next Image')}
               onClick={this.handleNextClick.bind(this)}
             >
               <Icon>keyboard_arrow_right</Icon>
@@ -129,15 +135,23 @@ class View extends Component {
 
           <div className={'lightbox-overlay bottom'}>
             <div className={'left'}>
-              <a className={'block red-text'} href={'#'} title={t('actions.report_image', "Report")}>
+              <a
+                className={'block red-text'}
+                href={'#'}
+                title={t('actions.report_image', 'Report')}
+              >
                 <Icon className={'left'}>report</Icon>
-                { t('actions.report_image', "Report") }
+                {t('actions.report_image', 'Report')}
               </a>
             </div>
             <div className={'right'}>
-              <a className={'block'} href={'#'} title={t('actions.tag_characters', "Tag Characters")}>
+              <a
+                className={'block'}
+                href={'#'}
+                title={t('actions.tag_characters', 'Tag Characters')}
+              >
                 <Icon className={'left'}>tag_faces</Icon>
-                { t('actions.tag_characters', "Tag Characters") }
+                {t('actions.tag_characters', 'Tag Characters')}
               </a>
             </div>
           </div>
@@ -160,6 +174,4 @@ View.propTypes = {
   media: PropTypes.object.isRequired,
 }
 
-export default compose(
-  withNamespaces('common')
-)(View)
+export default compose(withNamespaces('common'))(View)

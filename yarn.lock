@@ -8787,6 +8787,12 @@ react-sticky@^6.0.3:
     prop-types "^15.5.8"
     raf "^3.3.0"
 
+react-string-replace@^0.4.4:
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/react-string-replace/-/react-string-replace-0.4.4.tgz#24006fbe0db573d5be583133df38b1a735cb4225"
+  dependencies:
+    lodash "^4.17.4"
+
 react-style-tag@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/react-style-tag/-/react-style-tag-1.4.1.tgz#1a50eeb7192f9ec58b16113ffd790c0f03ef6a43"

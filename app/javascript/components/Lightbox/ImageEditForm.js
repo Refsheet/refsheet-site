@@ -15,12 +15,13 @@ class ImageEditForm extends Component {
 
   handleFormSubmit(e) {
     e.preventDefault()
-    this.props.updateImage({
-      variables: {
-        ...this.state.image
-      }
-    })
-      .then(({data, errors}) => {
+    this.props
+      .updateImage({
+        variables: {
+          ...this.state.image,
+        },
+      })
+      .then(({ data, errors }) => {
         if (errors) {
           console.error(errors)
         } else {
@@ -74,6 +75,7 @@ class ImageEditForm extends Component {
                 name={'title'}
                 onChange={this.handleInputChange.bind(this)}
                 value={image.title || ''}
+                help={"Include #hashtags here. If the last line is just tags, it will not be displayed."}
                 label={'Title'}
               />
             </Row>
@@ -135,9 +137,7 @@ ImageEditForm.propTypes = {
     nsfw: PropTypes.boolean,
   }).isRequired,
   onCancel: PropTypes.func,
-  onSave: PropTypes.func
+  onSave: PropTypes.func,
 }
 
-export default compose(
-  withMutations({ updateImage })
-)(ImageEditForm)
+export default compose(withMutations({ updateImage }))(ImageEditForm)

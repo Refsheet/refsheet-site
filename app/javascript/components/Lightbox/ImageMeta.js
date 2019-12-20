@@ -1,27 +1,21 @@
 import React from 'react'
 import { Icon } from 'react-materialize'
 import RichText from '../Shared/RichText'
+import replace from 'react-string-replace'
 import { withNamespaces } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-const artists = [
-  {
-    name: 'Helixel',
-    slug: 'helixel',
-  },
-]
+const artists = []
 
-const characterTags = [
-  {
-    startX: 20,
-    endX: 20,
-    startY: 20,
-    character: {
-      link: '#',
-      name: 'Some Cool OC',
-    },
-  },
-]
+function renderContent(content) {
+  if (!content || content === "") {
+    return <p className={'caption'}>No Caption</p>
+  }
+
+  return replace(content, /#(\w+)/g, (match, i) => (
+    <Link key={i} to={`/browse/tag/${match}`}>#{match}</Link>
+  ));
+}
 
 const ImageMeta = ({
   id,
@@ -29,15 +23,12 @@ const ImageMeta = ({
   caption_html,
   source_url,
   source_url_display,
-  hashtags
+  tags,
+  hashtags,
 }) => (
   <div className={'image-meta'}>
     <div className={'image-caption'}>
-      <RichText
-        contentHtml={caption_html}
-        content={caption}
-        placeholder={'No Caption'}
-      />
+      { renderContent(caption) }
     </div>
     <ul className={'attributes'}>
       {source_url && (
@@ -49,7 +40,7 @@ const ImageMeta = ({
         </li>
       )}
 
-      {artists && (
+      {artists.length > 0 && (
         <li>
           <Icon className={'left'}>brush</Icon>
           {artists.map((artist, i) => (
@@ -61,10 +52,10 @@ const ImageMeta = ({
         </li>
       )}
 
-      {characterTags && (
+      {tags.length > 0 && (
         <li>
           <Icon className={'left'}>tag_faces</Icon>
-          {characterTags.map((characterTag, i) => (
+          {tags.map((characterTag, i) => (
             <span key={characterTag.character.link}>
               <Link to={characterTag.character.link}>
                 {characterTag.character.name}
@@ -78,7 +69,7 @@ const ImageMeta = ({
       {hashtags.length > 0 && (
         <li>
           <Icon className={'left'}>tag</Icon>
-          {hashtags.map(({tag: mediaTag}, i) => (
+          {hashtags.map(({ tag: mediaTag }, i) => (
             <span key={mediaTag} className={'media-tag'}>
               <Link to={`/browse/tag/${mediaTag}`}>{mediaTag}</Link>
               {i + 1 < hashtags.length ? ', ' : ''}
