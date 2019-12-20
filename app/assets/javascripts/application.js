@@ -68,7 +68,7 @@ window.namespace = function(ns_path, parent) {
 function exportPackGlobals() {
   var app = Packs.application
 
-  console.log("Pack sync: Trying export of globals from V2:", app)
+  console.debug("Pack sync: Trying export of globals from V2:", app)
   if(!app) return false
 
   app.__globals.map(function(globalVar) {
@@ -83,10 +83,10 @@ function exportPackGlobals() {
 
 // Wait for WebPack to catch up here...
 (function() {
-  console.log("Pack loaded: Legacy Refsheet JS")
+  console.debug("Pack loaded: Legacy Refsheet JS")
 
   if(typeof Packs !== 'undefined' && exportPackGlobals()) {
-    console.log("Pack sync: JS v2 detected in Legacy, mounting...")
+    console.debug("Pack sync: JS v2 detected in Legacy, mounting...")
     if (typeof ReactRailsUJS !== 'undefined') {
       ReactRailsUJS.mountComponents();
     } else {
@@ -98,9 +98,9 @@ function exportPackGlobals() {
       })
     }
   } else {
-    console.log("Waiting for JS v2 to load.")
+    console.debug("Waiting for JS v2 to load.")
     window.addEventListener('jsload.pack', function() {
-      console.log("Pack sync: JS v2 reported load, mounting...")
+      console.debug("Pack sync: JS v2 reported load, mounting...")
       exportPackGlobals()
       if (typeof ReactRailsUJS !== 'undefined') {
         ReactRailsUJS.mountComponents();

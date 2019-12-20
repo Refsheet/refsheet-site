@@ -1,0 +1,6 @@
+mutation updateImage($mediaId: ID!, $caption: String!) {
+    updateImage(mediaId: $mediaId, caption: $caption) {
+        id
+        caption
+    }
+}

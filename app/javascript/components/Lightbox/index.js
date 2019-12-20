@@ -23,11 +23,11 @@ class Lightbox extends Component {
   }
 
   handleWrapperClick(e) {
-    e.preventDefault()
     if (e.target.id !== 'lightbox-wrapper') {
       return
     }
 
+    e.preventDefault()
     this.props.closeLightbox()
   }
 
@@ -152,7 +152,7 @@ class Lightbox extends Component {
 
     return (
       <View
-        {...data.getMedia}
+        media={data.getMedia}
         nextMediaId={this.getNextMediaId()}
         prevMediaId={this.getPrevMediaId()}
         onMediaOpen={this.handleMediaOpen.bind(this)}

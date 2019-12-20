@@ -60,13 +60,11 @@ export { default as CommentForm } from 'ActivityFeed/StatusUpdate'
 export { default as LegacyForumReply } from 'Forums/LegacyForumReply'
 export { default as StatusUpdate } from 'ActivityFeed/Activities/StatusUpdate'
 export { default as ActivityCard } from 'ActivityFeed/ActivityCard'
-
 ;(function() {
   console.log('Pack loaded: Refsheet JS v2')
   const event = new CustomEvent('jsload.pack')
   window.dispatchEvent(event)
 })()
-
 ;(function() {
   Sentry.init({
     dsn: Refsheet.sentryDsn,
