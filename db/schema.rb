@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190817023217) do
+ActiveRecord::Schema.define(version: 20191220194503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -544,6 +544,13 @@ ActiveRecord::Schema.define(version: 20190817023217) do
     t.index ["guid"], name: "index_images_on_guid", using: :btree
   end
 
+  create_table "images_media_hashtags", id: false, force: :cascade do |t|
+    t.integer "image_id",         null: false
+    t.integer "media_hashtag_id", null: false
+    t.index ["image_id", "media_hashtag_id"], name: "index_images_media_hashtags_on_image_id_and_media_hashtag_id", using: :btree
+    t.index ["media_hashtag_id", "image_id"], name: "index_images_media_hashtags_on_media_hashtag_id_and_image_id", using: :btree
+  end
+
   create_table "invitations", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "email"
@@ -593,6 +600,23 @@ ActiveRecord::Schema.define(version: 20190817023217) do
     t.datetime "updated_at", null: false
     t.index ["media_id"], name: "index_media_favorites_on_media_id", using: :btree
     t.index ["user_id"], name: "index_media_favorites_on_user_id", using: :btree
+  end
+
+  create_table "media_hashtags", force: :cascade do |t|
+    t.string   "tag"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "media_tags", force: :cascade do |t|
+    t.integer  "media_id"
+    t.integer  "character_id"
+    t.integer  "position_x"
+    t.integer  "position_y"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["character_id"], name: "index_media_tags_on_character_id", using: :btree
+    t.index ["media_id"], name: "index_media_tags_on_media_id", using: :btree
   end
 
   create_table "moderation_reports", force: :cascade do |t|
@@ -911,6 +935,8 @@ ActiveRecord::Schema.define(version: 20190817023217) do
   add_foreign_key "conversations_read_bookmarks", "conversations_messages", column: "message_id"
   add_foreign_key "conversations_read_bookmarks", "users"
   add_foreign_key "images", "custom_watermarks"
+  add_foreign_key "media_tags", "characters"
+  add_foreign_key "media_tags", "images", column: "media_id"
   add_foreign_key "user_sessions", "ahoy_visits"
   add_foreign_key "user_sessions", "users"
 end
