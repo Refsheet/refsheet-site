@@ -34,6 +34,14 @@ class View extends Component {
     this.setState({ editing: true })
   }
 
+  handleEditEnd() {
+    this.setState({editing: false})
+  }
+
+  handleMediaUpdate() {
+    this.setState({editing: false})
+  }
+
   renderDetails() {
     const {
       id,
@@ -46,8 +54,10 @@ class View extends Component {
       is_favorite,
     } = this.props.media
 
+    // console.log({})
+
     if (this.state.editing) {
-      return <ImageEditForm image={this.props.media} />
+      return <ImageEditForm image={this.props.media} onSave={this.handleMediaUpdate.bind(this)} onCancel={this.handleEditEnd.bind(this)} />
     } else {
       return (
         <div className={'image-details-container'}>

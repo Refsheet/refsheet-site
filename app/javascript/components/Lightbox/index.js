@@ -168,7 +168,7 @@ class Lightbox extends Component {
         onClick={this.handleWrapperClick.bind(this)}
         onKeyDown={this.handleKeyDown.bind(this)}
       >
-        <div className={'lightbox v2'}>
+        <div className={'lightbox v2'} id={'lightbox-v2'}>
           <a
             className={'close'}
             role={'button'}
