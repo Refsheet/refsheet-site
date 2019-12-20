@@ -7,7 +7,6 @@
   handleEditStart: (e) ->
     if @props.onChange?
       @setState edit: true
-      Materialize.initializeForms()
 
   handleEditStop: (e) ->
     @setState edit: false, markup: @props.markup

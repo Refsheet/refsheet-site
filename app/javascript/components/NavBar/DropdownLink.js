@@ -46,7 +46,7 @@ class DropdownLink extends Component {
 
     const { visible } = this.state
 
-    const classNames = c('dropdown-button-native', className, {
+    const classNames = c('dropdown-trigger-native', className, {
       avatar: !!imageSrc,
       active: visible,
     })

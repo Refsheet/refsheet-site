@@ -32,6 +32,7 @@ export const __globals = [
   'LegacyForumReply',
   'StatusUpdate',
   'ActivityCard',
+  'Materialize'
 ]
 
 export { default as React } from 'react'
@@ -41,6 +42,7 @@ export { default as ReactDOM } from 'react-dom'
 export { default as Bowser } from 'bowser'
 export { default as qs } from 'query-string'
 export { default as createBrowserHistory } from 'history/createBrowserHistory'
+export { default as Materialize } from 'materialize-css'
 export { connect } from 'react-redux'
 export { ReactRouter }
 export { Sentry }

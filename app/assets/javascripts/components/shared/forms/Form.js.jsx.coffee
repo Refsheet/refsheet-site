@@ -26,7 +26,6 @@
     @setState model: $.extend({}, @props.model), errors: (@props.errors || {}), dirty: false
 
   componentDidMount: ->
-    Materialize.initializeForms()
     Materialize.updateTextFields()
 
   componentDidUpdate: ->
