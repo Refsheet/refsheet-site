@@ -12,9 +12,15 @@ function renderContent(content) {
     return <p className={'caption'}>No Caption</p>
   }
 
-  return replace(content, /#(\w+)/g, (match, i) => (
+  let filtered = content.replace(/^\s*(#\w+\s*)+$/mg, '')
+
+  filtered = replace(filtered, /#(\w+)/g, (match, i) => (
     <Link key={i} to={`/browse/tag/${match}`}>#{match}</Link>
-  ));
+  ))
+
+  filtered = replace(filtered, /\n/, (match, i) => <br/>)
+
+  return filtered
 }
 
 const ImageMeta = ({
