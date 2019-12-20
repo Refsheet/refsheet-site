@@ -37,4 +37,6 @@ Types::ImageType = GraphQL::ObjectType.define do
 
   field :favorites, types[Types::MediaFavoriteType]
   field :comments, types[Types::MediaCommentType]
+  field :tags, types[Types::MediaTagType]
+  field :hashtags, types[Types::MediaHashtagType]
 end
