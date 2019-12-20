@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import compose, { withMutations } from '../../utils/compose'
 import updateImage from './updateImage.graphql'
-import {Row, Col, Checkbox, Textarea, TextInput} from 'react-materialize'
+import { Row, Col, Checkbox, Textarea, TextInput } from 'react-materialize'
 
 class ImageEditForm extends Component {
   constructor(props) {
@@ -26,7 +26,7 @@ class ImageEditForm extends Component {
   handleInputChange(e) {
     e.preventDefault()
 
-    let image = {...this.state.image}
+    let image = { ...this.state.image }
     let value = e.target.value
 
     if (e.target.type === 'checkbox') {
@@ -34,13 +34,11 @@ class ImageEditForm extends Component {
     }
 
     image[e.target.name] = value
-    this.setState({image})
+    this.setState({ image })
   }
 
   render() {
-    const {
-      image
-    } = this.state
+    const { image } = this.state
 
     return (
       <form
@@ -59,7 +57,7 @@ class ImageEditForm extends Component {
                 id={'image_title'}
                 name={'title'}
                 onChange={this.handleInputChange.bind(this)}
-                value={image.name || ""}
+                value={image.name || ''}
                 label={'Title'}
               />
             </Row>
@@ -69,7 +67,7 @@ class ImageEditForm extends Component {
                 id={'image_caption'}
                 name={'caption'}
                 onChange={this.handleInputChange.bind(this)}
-                value={image.caption || ""}
+                value={image.caption || ''}
                 label={'Caption'}
               />
             </Row>
@@ -118,7 +116,7 @@ ImageEditForm.propTypes = {
   image: PropTypes.shape({
     name: PropTypes.string,
     caption: PropTypes.string,
-    nsfw: PropTypes.boolean
+    nsfw: PropTypes.boolean,
   }).isRequired,
 }
 
