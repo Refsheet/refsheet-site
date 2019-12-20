@@ -51,6 +51,8 @@ class Image < ApplicationRecord # < Media
   has_one :user, through: :character
   has_many :favorites, foreign_key: :media_id, class_name: "Media::Favorite", dependent: :destroy
   has_many :comments, foreign_key: :media_id, class_name: "Media::Comment", dependent: :destroy
+  has_many :tags, foreign_key: :media_id, class_name: "Media::Tag", dependent: :destroy
+  has_and_belongs_to_many :hashtags, class_name: "Media::Hashtag"
 
   # Requires this to eager load the news feed:
   has_many :activities, as: :activity, dependent: :destroy
