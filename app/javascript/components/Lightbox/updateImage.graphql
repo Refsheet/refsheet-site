@@ -6,5 +6,9 @@ mutation updateImage($id: ID!, $caption: String, $title: String, $nsfw: Boolean,
         caption_html
         nsfw
         hidden
+
+        hashtags {
+            tag
+        }
     }
 }

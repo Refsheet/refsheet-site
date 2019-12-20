@@ -185,4 +185,11 @@ describe Image, type: :model do
   #   # expect(launch).to eq ""
   #   expect(image).to be_processed
   # end
+
+  it 'syncs hashtags' do
+    image = create :image, caption: "This is #so #cool!"
+    image.reload
+    expect(image).to have_exactly(2).hashtags
+    expect(image.hashtags.first.tag).to eq 'so'
+  end
 end

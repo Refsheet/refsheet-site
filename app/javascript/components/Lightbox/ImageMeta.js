@@ -23,14 +23,13 @@ const characterTags = [
   },
 ]
 
-const mediaTags = ['demon', 'imp', 'totally_cool_oc', 'tags_are_a_thing']
-
 const ImageMeta = ({
   id,
   caption,
   caption_html,
   source_url,
   source_url_display,
+  hashtags
 }) => (
   <div className={'image-meta'}>
     <div className={'image-caption'}>
@@ -76,13 +75,13 @@ const ImageMeta = ({
         </li>
       )}
 
-      {mediaTags && (
+      {hashtags.length > 0 && (
         <li>
           <Icon className={'left'}>tag</Icon>
-          {mediaTags.map((mediaTag, i) => (
+          {hashtags.map(({tag: mediaTag}, i) => (
             <span key={mediaTag} className={'media-tag'}>
               <Link to={`/browse/tag/${mediaTag}`}>{mediaTag}</Link>
-              {i + 1 < mediaTags.length ? ', ' : ''}
+              {i + 1 < hashtags.length ? ', ' : ''}
             </span>
           ))}
         </li>
