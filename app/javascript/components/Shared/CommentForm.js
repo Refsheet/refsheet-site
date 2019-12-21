@@ -6,6 +6,7 @@ import UserAvatar from '../User/UserAvatar'
 import IdentityModal from './CommentForm/IdentityModal'
 import Restrict from './Restrict'
 import MarkdownEditor from './MarkdownEditor'
+import { Row, Col } from 'react-materialize'
 
 class CommentForm extends Component {
   constructor(props) {
@@ -114,8 +115,8 @@ class CommentForm extends Component {
       )
     } else {
       submitButton = (
-        <Row noMargin>
-          <Column s={8}>
+        <Row className={'no-margin'}>
+          <Col s={8}>
             <Restrict patron>
               {inCharacter && (
                 <IdentitySelect
@@ -124,8 +125,8 @@ class CommentForm extends Component {
                 />
               )}
             </Restrict>
-          </Column>
-          <Column s={4}>
+          </Col>
+          <Col s={4}>
             <button
               type={'submit'}
               onClick={this.handleSubmit.bind(this)}
@@ -136,7 +137,7 @@ class CommentForm extends Component {
                 ? this.props.buttonSubmittingText
                 : this.props.buttonText}
             </button>
-          </Column>
+          </Col>
         </Row>
       )
 

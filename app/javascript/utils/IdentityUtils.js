@@ -1,20 +1,10 @@
 import PropTypes from 'prop-types'
 
 export function createIdentity({ user, character, identity }) {
-  if (identity) {
-    return identity
-  } else if (character) {
-    return {
-      name: character.name,
-      avatarUrl:
-        character.profile_image_url || character.profile_image.url.thumbnail,
-      username: user.username,
-      path: `/${user.username}/${character.slug}`,
-      type: 'character',
-      characterId: character.id,
-    }
-  } else {
-    return {
+  let result = {}
+
+  if (user) {
+    result = {
       name: user.name,
       avatarUrl: user.avatar_url,
       username: user.username,
@@ -23,6 +13,28 @@ export function createIdentity({ user, character, identity }) {
       characterId: null,
     }
   }
+
+  if (character) {
+    result = {
+      ...result,
+      name: character.name,
+      avatarUrl:
+        character.profile_image_url || character.profile_image.url.thumbnail,
+      username: user.username,
+      path: `/${user.username}/${character.slug}`,
+      type: 'character',
+      characterId: character.id,
+    }
+  }
+
+  if (identity) {
+    result = {
+      ...result,
+      ...identity
+    }
+  }
+
+  return result
 }
 
 export const userIdentitySourceType = {
