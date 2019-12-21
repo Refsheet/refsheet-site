@@ -75,7 +75,9 @@ class ImageEditForm extends Component {
                 name={'title'}
                 onChange={this.handleInputChange.bind(this)}
                 value={image.title || ''}
-                help={"Include #hashtags here. If the last line is just tags, it will not be displayed."}
+                help={
+                  'Include #hashtags here. If the last line is just tags, it will not be displayed.'
+                }
                 label={'Title'}
               />
             </Row>
