@@ -13,14 +13,15 @@ function renderContent(content) {
   }
 
   let filtered = content.replace(/^\s*(#\w+\s*)+$/gm, '')
+  let n = 0
 
   filtered = replace(filtered, /#(\w+)/g, (match, i) => (
-    <Link key={'hashtag-' + i} to={`/explore/tag/${match}`}>
+    <Link key={'hashtag-' + n++} to={`/explore/tag/${match}`}>
       #{match}
     </Link>
   ))
 
-  filtered = replace(filtered, /\n/, (match, i) => <br key={'br-' + i} />)
+  filtered = replace(filtered, /\n/, (match, i) => <br key={'br-' + n++} />)
 
   return filtered
 }
