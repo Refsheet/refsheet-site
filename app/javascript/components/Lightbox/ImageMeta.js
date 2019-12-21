@@ -8,17 +8,19 @@ import { Link } from 'react-router-dom'
 const artists = []
 
 function renderContent(content) {
-  if (!content || content === "") {
+  if (!content || content === '') {
     return <p className={'caption'}>No Caption</p>
   }
 
-  let filtered = content.replace(/^\s*(#\w+\s*)+$/mg, '')
+  let filtered = content.replace(/^\s*(#\w+\s*)+$/gm, '')
 
   filtered = replace(filtered, /#(\w+)/g, (match, i) => (
-    <Link key={i} to={`/browse/tag/${match}`}>#{match}</Link>
+    <Link key={i} to={`/browse/tag/${match}`}>
+      #{match}
+    </Link>
   ))
 
-  filtered = replace(filtered, /\n/, (match, i) => <br/>)
+  filtered = replace(filtered, /\n/, (match, i) => <br />)
 
   return filtered
 }
@@ -33,9 +35,7 @@ const ImageMeta = ({
   hashtags,
 }) => (
   <div className={'image-meta'}>
-    <div className={'image-caption'}>
-      { renderContent(caption) }
-    </div>
+    <div className={'image-caption'}>{renderContent(caption)}</div>
     <ul className={'attributes'}>
       {source_url && (
         <li>
