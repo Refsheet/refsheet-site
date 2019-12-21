@@ -15,12 +15,12 @@ function renderContent(content) {
   let filtered = content.replace(/^\s*(#\w+\s*)+$/gm, '')
 
   filtered = replace(filtered, /#(\w+)/g, (match, i) => (
-    <Link key={i} to={`/browse/tag/${match}`}>
+    <Link key={'hashtag-' + i} to={`/explore/tag/${match}`}>
       #{match}
     </Link>
   ))
 
-  filtered = replace(filtered, /\n/, (match, i) => <br />)
+  filtered = replace(filtered, /\n/, (match, i) => <br key={'br-' + i} />)
 
   return filtered
 }
@@ -77,7 +77,7 @@ const ImageMeta = ({
           <Icon className={'left'}>tag</Icon>
           {hashtags.map(({ tag: mediaTag }, i) => (
             <span key={mediaTag} className={'media-tag'}>
-              <Link to={`/browse/tag/${mediaTag}`}>{mediaTag}</Link>
+              <Link to={`/explore/tag/${mediaTag}`}>{mediaTag}</Link>
               {i + 1 < hashtags.length ? ', ' : ''}
             </span>
           ))}

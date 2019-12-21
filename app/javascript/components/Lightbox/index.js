@@ -8,11 +8,13 @@ import View from './View'
 import Silhouette from './Silhouette'
 import { Error, Loading } from './Status'
 import { withRouter } from 'react-router-dom'
+import compose from '../../utils/compose'
 
 class Lightbox extends Component {
   constructor(props) {
     super(props)
 
+    this.unlisten = null
     this.previousPath = window.location.pathname
     this.handleKeyDown = this.handleKeyDown.bind(this)
   }
@@ -69,7 +71,12 @@ class Lightbox extends Component {
   }
 
   componentWillMount() {
-    const { mediaId } = this.props
+    const { mediaId, history, closeLightbox } = this.props
+
+    this.unlisten = history.listen((location, action) => {
+      this.previousPath = null
+      closeLightbox()
+    })
 
     window.history.replaceState({}, null, `/media/${mediaId}`)
     document.body.classList.add('lightbox-open')
@@ -77,6 +84,10 @@ class Lightbox extends Component {
   }
 
   componentWillUnmount() {
+    if (this.unlisten) {
+      this.unlisten()
+    }
+
     if (this.previousPath) {
       window.history.replaceState({}, null, this.previousPath)
     }
@@ -216,4 +227,7 @@ const mapDispatchToProps = {
   closeLightbox,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Wrapped))
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withRouter
+)(Wrapped)
