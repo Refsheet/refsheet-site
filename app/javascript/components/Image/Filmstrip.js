@@ -1,6 +1,6 @@
+import React from 'react'
 import PropTypes from 'prop-types'
-import {Component} from 'react'
-// TODO: Import React once we're done with the global nonsense.
+import { Component } from 'react'
 
 class Filmstrip extends Component {
   constructor(props) {
@@ -11,19 +11,17 @@ class Filmstrip extends Component {
   }
 
   select(id) {
-    if(this.props.onSelect) this.props.onSelect(id)
+    if (this.props.onSelect) this.props.onSelect(id)
   }
 
   componentDidUpdate() {
-    const {
-      filmstrip,
-      activeImage
-    } = this.refs
+    const { filmstrip, activeImage } = this.refs
 
-    const requestAnimationFrame = requestAnimationFrame || ((s) => setTimeout(s, 1000 / 60))
+    const requestAnimationFrame =
+      requestAnimationFrame || (s => setTimeout(s, 1000 / 60))
 
-    if(activeImage) {
-      const left = activeImage.offsetLeft + (activeImage.width / 2)
+    if (activeImage) {
+      const left = activeImage.offsetLeft + activeImage.width / 2
       const width = filmstrip.clientWidth / 2
       const finalScroll = Math.max(left - width, 0)
       let current = filmstrip.scrollLeft
@@ -35,7 +33,7 @@ class Filmstrip extends Component {
         current += distance / steps
         count++
         filmstrip.scrollLeft = current
-        if(count < steps) requestAnimationFrame(step)
+        if (count < steps) requestAnimationFrame(step)
       }
 
       requestAnimationFrame(step)
@@ -43,56 +41,59 @@ class Filmstrip extends Component {
   }
 
   imageClickHandler(id) {
-    return (e) => {
+    return e => {
       this.select(id)
       e.preventDefault()
     }
   }
 
-  renderImage({src, id, state, progress}) {
+  renderImage({ src, id, state, progress }) {
     const classNames = ['filmstrip-image']
     const active = this.props.activeImageId === id
-    if(active) classNames.push('active')
+    if (active) classNames.push('active')
 
-    return <div className={classNames.join(' ')} key={id}>
-      <img src={src}
-           key={id}
-           data-id={id}
-           onClick={this.imageClickHandler(id)}
-           ref={active ? 'activeImage' : null} />
+    return (
+      <div className={classNames.join(' ')} key={id}>
+        <img
+          src={src}
+          key={id}
+          data-id={id}
+          onClick={this.imageClickHandler(id)}
+          ref={active ? 'activeImage' : null}
+        />
 
-      { state === 'uploading' &&
-        <div className='progress-overlay' style={{ width: `${progress}%` }} /> }
-    </div>
+        {state === 'uploading' && (
+          <div className="progress-overlay" style={{ width: `${progress}%` }} />
+        )}
+      </div>
+    )
   }
 
   render() {
-    const {
-      images = [],
-      autoHide
-    } = this.props
+    const { images = [], autoHide } = this.props
 
-    if(images.length === 0 && autoHide)
-      return null
+    if (images.length === 0 && autoHide) return null
 
-    return <div className='filmstrip' ref='filmstrip'>
-      { images.map(this.renderImage) }
-    </div>
+    return (
+      <div className="filmstrip" ref="filmstrip">
+        {images.map(this.renderImage)}
+      </div>
+    )
   }
 }
 
 const imageType = PropTypes.shape({
   src: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   active: PropTypes.bool,
   state: PropTypes.string.isRequired,
-  progress: PropTypes.number
+  progress: PropTypes.number,
 })
 
 Filmstrip.propTypes = {
   images: PropTypes.arrayOf(imageType),
   autoHide: PropTypes.bool,
-  onSelect: PropTypes.func
+  onSelect: PropTypes.func,
 }
 
 export default Filmstrip

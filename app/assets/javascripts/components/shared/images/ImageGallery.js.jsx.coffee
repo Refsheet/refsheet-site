@@ -72,8 +72,8 @@
   _handleImageClick: (image) ->
     if @props.onImageClick?
       @props.onImageClick(image.id)
-    else
-      $(document).trigger 'app:lightbox', [ image, @_handleImageChange, @_handleImageDelete ]
+      return true
+    return false
 
   _handleImageChange: (image) ->
     console.debug '[ImageGallery] Lightbox changed image:', image
@@ -144,6 +144,9 @@
     wrapperClassName = ''
     _this = @
 
+    imageIds = @state.images?.map (i) ->
+      i.id
+
     unless @state.images?
       return `<Spinner />`
 
@@ -173,6 +176,7 @@
                      onSwap={ _this._handleImageSwap }
                      wrapperClassName={ wrapperClassName }
                      className={ imageClassName }
+                     gallery={ imageIds }
                      editable={ editable } />`
 
     if @state.images?.length
@@ -183,6 +187,7 @@
                               third={ third }
                               onImageClick={ this._handleImageClick }
                               onImageSwap={ this._handleImageSwap }
+                              gallery={ imageIds }
                               editable={ editable } />
           }
 

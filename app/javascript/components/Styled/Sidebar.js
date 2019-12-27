@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const _SidebarLink = ({to, icon, children, className, onClick}) => (
+const _SidebarLink = ({ to, icon, children, className, onClick }) => (
   <a href={to} className={className} onClick={onClick}>
     <i className={'material-icons left'}>{icon}</i>
     {children}
@@ -21,7 +21,7 @@ const SidebarLink = styled(_SidebarLink)`
     line-height: 2.5rem;
     color: ${props => props.theme.textLight} !important;
   }
-  
+
   &:hover {
     color: ${props => props.theme.text} !important;
   }
@@ -31,6 +31,4 @@ const SidebarLink = styled(_SidebarLink)`
   }
 `
 
-export {
-  SidebarLink
-}
+export { SidebarLink }

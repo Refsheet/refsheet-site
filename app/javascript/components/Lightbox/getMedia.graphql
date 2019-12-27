@@ -1,5 +1,6 @@
 query getMedia($mediaId: ID!) {
     getMedia(mediaId: $mediaId) {
+        id
       title
       created_at
 
@@ -8,9 +9,34 @@ query getMedia($mediaId: ID!) {
       source_url
       source_url_display
 
+        nsfw
+        hidden
+        background_color
+        image_processing
+
+        favorites_count
+        comments_count
+        is_favorite
+        is_managed
+
       url {
         large
       }
+
+        download_link
+
+        hashtags {
+            tag
+        }
+
+        tags {
+            position_x
+            position_y
+
+            character {
+                name
+            }
+        }
 
       character {
         name
@@ -21,5 +47,14 @@ query getMedia($mediaId: ID!) {
             }
         }
       }
+
+        favorites {
+            id,
+            user {
+                username,
+                name,
+                avatar_url
+            }
+        }
     }
   }

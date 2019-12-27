@@ -1,30 +1,24 @@
 import i18n from 'i18next'
 import Backend from 'i18next-locize-backend'
 import LngDetector from 'i18next-browser-languagedetector'
-import moment from 'moment';
+import moment from 'moment'
 
 const detectionOptions = {
-  order: [
-    'querystring',
-    'cookie',
-    'localStorage',
-    'navigator',
-    'htmlTag'
-  ],
+  order: ['querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag'],
   lookupQuerystring: 'locale',
-  lookupCookie: '_rst_lang'
-};
+  lookupCookie: '_rst_lang',
+}
 
 i18n
   .use(LngDetector)
   .use(Backend)
   .init({
-    saveMissing: true,
+    saveMissing: Refsheet && Refsheet.environment === 'development',
     fallbackLng: 'en',
     ns: ['common'],
     defaultNS: 'common',
     interpolation: {
-      escapeValue: false
+      escapeValue: false,
     },
     backend: {
       projectId: '6ed4fe38-276a-4796-a6d4-59da84aaeaf9',
@@ -33,16 +27,16 @@ i18n
       allowedAddOrUpdateHosts: [
         'localhost',
         'dev.refsheet.net',
-        'dev1.refsheet.net'
-      ]
+        'dev1.refsheet.net',
+      ],
     },
-    detection: detectionOptions
-  });
+    detection: detectionOptions,
+  })
 
 i18n.on('languageChanged', function(locale) {
-  moment.locale(locale);
-});
+  moment.locale(locale)
+})
 
-window.__I18N = i18n;
+window.__I18N = i18n
 
-export default i18n;
+export default i18n

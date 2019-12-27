@@ -3,6 +3,15 @@ class GraphqlController < ApplicationController
 
   skip_before_action :verify_authenticity_token
 
+  if Rails.env.development?
+    rescue_from Exception do |e|
+      render json: {
+          error: e.message,
+          backtrace: e.backtrace
+      }, status: :internal_server_error
+    end
+  end
+
   def execute
     variables = ensure_hash(params[:variables])
     query = params[:query]
@@ -21,6 +30,8 @@ class GraphqlController < ApplicationController
                                     variables: variables,
                                     context: context,
                                     operation_name: operation_name)
+
+    Rails.logger.debug("Result: #{result.to_json}")
 
     render json: result
   end

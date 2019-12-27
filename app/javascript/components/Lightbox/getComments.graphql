@@ -1,0 +1,20 @@
+query getComments($mediaId: ID!, $page: Int, $perPage: Int, $since: Int) {
+    getComments(mediaId: $mediaId, page: $page, perPage: $perPage, since: $since) {
+        count,
+        totalEntries,
+        currentPage,
+        totalPages,
+        perPage,
+        offset,
+        comments {
+            id,
+            created_at,
+            user {
+                username,
+                name,
+                avatar_url
+            },
+            comment
+        }
+    }
+}

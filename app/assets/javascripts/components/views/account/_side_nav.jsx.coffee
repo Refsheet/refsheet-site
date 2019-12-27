@@ -19,7 +19,15 @@
             <NavLink to='/notifications?feed=reply' text='Replies' />
         </NavLink>
 
+        {/*<NavLink to='/messages' icon='message' text='Messages' />*/}
+
         <li className='subheader'>Account</li>
+
+        {/*<NavLink to='/myrefs' icon='people' text='My Refs'>*/}
+        {/*    <NavLink to='/myrefs/new' text='New Page' />*/}
+        {/*    <NavLink to='/myrefs/worlds' text='Worlds' />*/}
+        {/*    <NavLink to='/myrefs/guilds' text='Guilds' />*/}
+        {/*</NavLink>*/}
 
         <NavLink to='/account' noStrict icon='settings' text='Settings'>
             <NavLink to='/account/settings' text='Account' />

@@ -85,6 +85,9 @@ history.listen(() => {
                 </Views.Account.Layout>
               } />
 
+              <Route path='/myrefs' component={ Packs.application.CharacterController } />
+              <Route path='/myrefs/new' component={ Packs.application.CharacterController } />
+
               <Route path='/moderate' component={ Packs.application.CharacterController } />
 
               <Route path='/notifications' title='Notifications' component={ Views.Account.Notifications.Show } />
@@ -121,6 +124,7 @@ history.listen(() => {
               <Route path='/v2/:userId/:characterId' component={ Packs.application.CharacterController } />
 
               <Route path='/images/:imageId' component={ ImageApp } />
+              <Route path='/media/:imageId' component={ ImageApp } />
               <Route path='/:userId/:characterId' component={ CharacterApp } />
               <Route path='/:userId' component={ User.View } />
 
@@ -139,6 +143,6 @@ history.listen(() => {
       session: StringUtils.camelizeKeys(session)
     }
 
-    `<Packs.application.V2Wrapper state={defaultState}>
+    `<Packs.application.V2Wrapper state={defaultState} assets={this.props.assets}>
       { router }
     </Packs.application.V2Wrapper>`

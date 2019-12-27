@@ -1,0 +1,14 @@
+mutation updateImage($id: ID!, $caption: String, $title: String, $nsfw: Boolean, $hidden: Boolean) {
+    updateImage(mediaId: $id, caption: $caption, title: $title, nsfw: $nsfw, hidden: $hidden) {
+        id
+        title
+        caption
+        caption_html
+        nsfw
+        hidden
+
+        hashtags {
+            tag
+        }
+    }
+}

@@ -39,6 +39,7 @@ class Media::Comment < ApplicationRecord
 
   after_create :log_activity
   after_create :notify_user
+  after_create :broadcast!
 
   has_guid
 
@@ -54,5 +55,11 @@ class Media::Comment < ApplicationRecord
 
   def notify_user
     Notifications::ImageComment.notify! media.user, user, self
+  end
+
+  def broadcast!
+    trigger! "newComment",
+             { mediaId: self.media.guid },
+             self
   end
 end

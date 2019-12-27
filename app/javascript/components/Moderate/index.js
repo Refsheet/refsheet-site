@@ -18,16 +18,17 @@ class Moderate extends Component {
       const message = data.error.graphQLErrors.map(e => e.message).join(', ')
       return <Error message={message} />
     } else {
-      return <View moderation={data.getNextModeration} {...data} {...this.state} />
+      return (
+        <View moderation={data.getNextModeration} {...data} {...this.state} />
+      )
     }
   }
 }
 
-const Queried = (props) => (
-    <Query query={getNextModeration}
-           pollInterval={3000}>
-      {(data) => <Moderate {...props} {...data} />}
-    </Query>
+const Queried = props => (
+  <Query query={getNextModeration} pollInterval={3000}>
+    {data => <Moderate {...props} {...data} />}
+  </Query>
 )
 
 export default Queried

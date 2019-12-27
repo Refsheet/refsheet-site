@@ -3,35 +3,32 @@ import { subscribe } from 'ApplicationService'
 import FIELDS from 'graphql/fragments/ConversationsFields.graphql'
 
 const QUERY = gql`
-    ${FIELDS}
-    query getConversations {
-        getConversations {
-            ...ConversationsFields
-        }
+  ${FIELDS}
+  query getConversations {
+    getConversations {
+      ...ConversationsFields
     }
+  }
 `
 const SUBSCRIPTION = gql`
-    ${FIELDS}
-    subscription subscribeToConversations {
-        newConversation {
-            ...ConversationsFields
-        }
+  ${FIELDS}
+  subscription subscribeToConversations {
+    newConversation {
+      ...ConversationsFields
     }
+  }
 `
 
-const mapDataToProps = (data) => ({
-  conversations: data.getConversations
+const mapDataToProps = data => ({
+  conversations: data.getConversations,
 })
 
 const updateQuery = (prev, data) => {
   const { newConversation } = data
 
   return {
-      ...prev,
-      getConversations: [
-        ...prev.getConversations,
-        newConversation
-      ]
+    ...prev,
+    getConversations: [...prev.getConversations, newConversation],
   }
 }
 
@@ -39,5 +36,5 @@ export default subscribe({
   query: QUERY,
   subscription: SUBSCRIPTION,
   mapDataToProps,
-  updateQuery
+  updateQuery,
 })

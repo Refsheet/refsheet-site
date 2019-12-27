@@ -8,6 +8,19 @@ related to their characters in one unified format, allowing artists and
 story writers to access the specific details of a character, maintaining
 synchronized dynamic canon.
 
+## Docker
+
+A note on starting up the website in development mode:
+
+docker-compose up will start the worker and the website at the same time, which is awesome if you want to run migrations twice on top of each other (Rails doesn't like this).
+
+To start it up and keep the website logs in the foreground:
+
+    docker-compose start postgres
+    docker-compose start redis
+    docker-compose start worker
+    docker-compose up website
+
 ## Development Setup VERY OUT OF DATE! (7/30/19)
 
 > This section is super out of date but Mau hasn't added better instructions.

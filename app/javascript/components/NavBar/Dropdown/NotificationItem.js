@@ -5,10 +5,17 @@ import { Link } from 'react-router-dom'
 import { timeDisplay } from 'Chat/ConversationMessage'
 import { Icon } from 'react-materialize'
 
-const NotificationItem = (props) => {
+/*
+ * For the onClick, onMoreClick, and onDismiss handlers, if a Promise is
+ * returned we assume it's a GraphQL mutation call, and will call the
+ * refetch handler if provided. Promise catches go to console.error.
+ */
+const NotificationItem = props => {
   const {
+    id,
     link = '#',
     icon,
+    dismissIcon,
     thumbnail,
     title,
     created_at,
@@ -16,41 +23,114 @@ const NotificationItem = (props) => {
     floatTime,
     onClick,
     onMoreClick,
-    onDismiss
+    onDismiss,
+    refetch,
   } = props
 
-  const time = <div
-      className={c('time muted', {right: floatTime})}
-      title={timeDisplay(created_at, true)}
-  >
-    { timeDisplay(created_at || 0) }
-  </div>
+  let time
 
-  const more = (e) => e.preventDefault()
+  if (created_at) {
+    time = (
+      <div
+        className={c('time muted', { right: floatTime })}
+        title={timeDisplay(created_at, true)}
+      >
+        {timeDisplay(created_at || 0)}
+      </div>
+    )
+  } else {
+    time = null
+  }
 
-  const dismiss = (e) => {
+  const more = e => {
     e.preventDefault()
-    return onDismiss && onDismiss()
+
+    const result = onMoreClick({
+      variables: {
+        id: id,
+      },
+    })
+
+    if (result && result.then) {
+      result
+        .then(data => {
+          if (data && refetch) refetch()
+        })
+        .catch(console.error)
+    }
+  }
+
+  const dismiss = e => {
+    e.preventDefault()
+
+    const result = onDismiss({
+      variables: {
+        id: id,
+      },
+    })
+
+    if (result && result.then) {
+      result
+        .then(data => {
+          if (data && refetch) refetch()
+        })
+        .catch(console.error)
+    }
+  }
+
+  const click = e => {
+    e.preventDefault()
+
+    const result = onClick({
+      variables: {
+        id: id,
+      },
+    })
+
+    if (result && result.then) {
+      result
+        .then(data => {
+          if (data && refetch) refetch()
+        })
+        .catch(console.error)
+    }
+  }
+
+  if (!link) {
+    return null
   }
 
   return (
-      <li className={c('notification-item', {unread: is_unread, fullbody: floatTime})}>
-        <Link to={link} onClick={onClick}>
-          { icon && <img src={icon} className='avatar' /> }
-          <div className='body'>
-            <div className='message'>
-              { floatTime && time }
-              { title || '???' }
-            </div>
-            { floatTime || time }
+    <li
+      className={c('notification-item', {
+        unread: is_unread,
+        fullbody: floatTime,
+      })}
+    >
+      <Link to={link} onClick={click}>
+        {icon && <img src={icon} className="avatar" />}
+        <div className="body">
+          <div className="message">
+            {floatTime && time}
+            {title || '???'}
           </div>
-          { thumbnail && <img src={thumbnail} className='subject' /> }
-        </Link>
-        <div className='menu'>
-          { onDismiss && <a href={'#'} onClick={dismiss}><Icon>check</Icon></a> }
-          { onMoreClick && <a href={'#'} onClick={more}><Icon>more_vert</Icon></a> }
+          {floatTime || time}
         </div>
-      </li>
+        {thumbnail && <img src={thumbnail} className="subject" />}
+      </Link>
+      <div className="menu">
+        {onDismiss && is_unread && (
+          <a href={'#'} onClick={dismiss}>
+            <Icon>{dismissIcon || 'check'}</Icon>
+          </a>
+        )}
+        {onMoreClick && (
+          <a href={'#'} onClick={more}>
+            <Icon>more_vert</Icon>
+          </a>
+        )}
+      </div>
+    </li>
   )
 }
 

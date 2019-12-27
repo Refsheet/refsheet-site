@@ -20,6 +20,7 @@ Types::ImageType = GraphQL::ObjectType.define do
 
   field :url, Types::ImageUrlType, property: :image
   field :size, Types::ImageSizeType, property: :image
+  field :download_link, types.String
 
   field :is_favorite, types.Boolean do
     resolve -> (obj, _args, ctx) {
@@ -33,8 +34,11 @@ Types::ImageType = GraphQL::ObjectType.define do
     }
   end
 
-  field :character, -> { Types::CharacterType }
-  # has_one :character, serializer: ImageCharacterSerializer
-  # has_many :favorites, serializer: Media::FavoriteSerializer
-  # has_many :comments, serializer: Media::CommentSerializer
+  field :character, Types::CharacterType
+  field :character_id, types.ID
+
+  field :favorites, types[Types::MediaFavoriteType]
+  field :comments, types[Types::MediaCommentType]
+  field :tags, types[Types::MediaTagType]
+  field :hashtags, types[Types::MediaHashtagType]
 end

@@ -4,7 +4,7 @@
 
 
   __init: ->
-    $('.user-bar .dropdown-button').dropdown
+    $('.user-bar .dropdown-trigger').dropdown
       constrain_width: false
 
   componentDidUpdate: ->
@@ -116,7 +116,7 @@
             </li>*/}
 
             <li>
-                <a className={ 'dropdown-button-native avatar ' + nsfwClassName } onClick={ this._handleUserMenuToggle }>
+                <a className={ 'dropdown-trigger-native avatar ' + nsfwClassName } onClick={ this._handleUserMenuToggle }>
                     <img src={ this.props.session.current_user.avatar_url } className='circle' />
                 </a>
 
@@ -153,7 +153,7 @@
       currentUser =
         `<ul className='right'>
             <li>
-                <a className={ 'dropdown-button-native ' + nsfwClassName } onClick={ this._handleUserMenuToggle }>
+                <a className={ 'dropdown-trigger-native ' + nsfwClassName } onClick={ this._handleUserMenuToggle }>
                     <i className='material-icons'>perm_identity</i>
                 </a>
 
@@ -171,7 +171,7 @@
               </ul>
 
               <Link to='/' className='logo left'>
-                  <img src='/assets/logos/RefsheetLogo_64.png' alt='Refsheet.net' width='32' height='32' />
+                  <img src='/assets/logos/pumpkin2_64.png' alt='Refsheet.net' width='32' height='32' />
               </Link>
 
               <ul className='site-nav visible-on-med-and-up'>

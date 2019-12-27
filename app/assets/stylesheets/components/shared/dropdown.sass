@@ -5,11 +5,15 @@ body:not(.admin) ul.dropdown-content
   right: 1rem !important
   top: 1rem !important
 
+  &:focus
+    outline: none
+    border: none
+
   li.divider
     margin: 0
 
-  li:hover, li.divider
-    background-color: $lighten-color
+  li:hover, li.divider, div.divider
+    background-color: $lighten-color !important
 
   li > a, li > span
     color: $lighten-text-color

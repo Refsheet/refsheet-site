@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ReactDropzone from 'react-dropzone'
-import {connect} from "react-redux";
-import {enqueueUploads} from "../../actions";
+import { connect } from 'react-redux'
+import { enqueueUploads } from '../../actions'
+import * as Materialize from 'materialize-css'
 
 class Dropzone extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
-      dropzoneActive: false
+      dropzoneActive: false,
     }
 
     this.dropzone = null
@@ -18,14 +19,14 @@ class Dropzone extends Component {
 
   getChildContext() {
     return {
-      getDropzone: () => this.dropzone
+      getDropzone: () => this.dropzone,
     }
   }
 
   onDrop(acceptedFiles, rejectedFiles) {
     let pending = []
 
-    acceptedFiles.forEach((file) => {
+    acceptedFiles.forEach(file => {
       const filename = file.name
         .replace(/\..*?$/, '')
         .replace(/[-_]+/g, ' ')
@@ -37,50 +38,57 @@ class Dropzone extends Component {
         folder: 'default',
         nsfw: false,
         state: 'pending',
-        progress: 0
+        progress: 0,
       }
 
       Object.assign(file, image)
       pending.push(file)
     })
 
-    this.props.enqueueUploads(pending)
-    this.setState({dropzoneActive: false})
+    if (pending.length > 0) {
+      this.props.enqueueUploads(pending)
+    }
 
-    rejectedFiles.forEach((file) => {
-      console.warn("File invalid:", file)
+    this.setState({ dropzoneActive: false })
 
-      if (file.getAsString) {
-        file.getAsString((str) => {
-          console.warn("Did you mean to upload:", str)
-        })
-      }
+    rejectedFiles.forEach(file => {
+      console.warn('File invalid:', file)
 
       if (file.name) {
-        Materialize.toast(file.name + ' is invalid.', 3000, 'red')
+        Materialize.toast({
+          html: file.name + ' is invalid.',
+          displayLength: 3000,
+          classes: 'red',
+        })
       }
     })
   }
 
-  onDragEnter() {
+  onDragEnter(e) {
+    const {
+      dataTransfer: { types },
+    } = e
+
+    if (types.length === 0 || types.indexOf('Files') === -1) {
+      return
+    }
+
     this.setState({
-      dropzoneActive: true
+      dropzoneActive: true,
     })
   }
 
   onDragLeave() {
     this.setState({
-      dropzoneActive: false
+      dropzoneActive: false,
     })
   }
 
   render() {
-    if(!this.props.currentUser) {
+    if (!this.props.currentUser) {
       return this.props.children
     } else {
-      const {
-        dropzoneActive
-      } = this.state
+      const { dropzoneActive } = this.state
 
       const overlayStyle = {
         position: 'fixed',
@@ -96,27 +104,32 @@ class Dropzone extends Component {
         verticalAlign: 'middle',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center'
+        justifyContent: 'center',
       }
 
       const iconStyle = {
-        fontSize: '3rem'
+        fontSize: '3rem',
       }
 
       return (
         <ReactDropzone
-          ref={r => this.dropzone = r}
+          ref={r => (this.dropzone = r)}
           disableClick
           style={{}}
+          accept={'image/*'}
           onDrop={this.onDrop.bind(this)}
           onDragEnter={this.onDragEnter.bind(this)}
           onDragLeave={this.onDragLeave.bind(this)}
         >
-          { dropzoneActive && <div style={overlayStyle}>
-            <i className={'material-icons'} style={iconStyle}>cloud_upload</i>
-            <h1>Drop files...</h1>
-          </div> }
-          { this.props.children }
+          {dropzoneActive && (
+            <div style={overlayStyle}>
+              <i className={'material-icons'} style={iconStyle}>
+                cloud_upload
+              </i>
+              <h1>Drop files...</h1>
+            </div>
+          )}
+          {this.props.children}
         </ReactDropzone>
       )
     }
@@ -124,17 +137,17 @@ class Dropzone extends Component {
 }
 
 Dropzone.childContextTypes = {
-  getDropzone: PropTypes.func
+  getDropzone: PropTypes.func,
 }
 
-const mapStateToProps = ({session}) => {
+const mapStateToProps = ({ session }) => {
   return {
-    currentUser: session.currentUser
+    currentUser: session.currentUser,
   }
 }
 
 const mapDispatchToProps = {
-  enqueueUploads
+  enqueueUploads,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dropzone)

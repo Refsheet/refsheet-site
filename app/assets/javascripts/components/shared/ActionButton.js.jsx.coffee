@@ -1,12 +1,13 @@
 @ActionButton = React.createClass
   componentDidUpdate: ->
-    $(@refs.actionButton).tooltip(delay: 0, position: 'left')
+    Materialize.Tooltip.init(@refs.actionButton, delay: 0, position: 'left')
 
   componentDidMount: ->
-    $(@refs.actionButton).tooltip(delay: 0, position: 'left')
+    Materialize.Tooltip.init(@refs.actionButton, delay: 0, position: 'left')
 
   componentWillUnmount: ->
-    $(@refs.actionButton).tooltip('remove')
+    el = Materialize.Tooltip.getInstance(@refs.actionButton)
+    el.destroy()
 
   render: ->
     largeClass = ''

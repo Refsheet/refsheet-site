@@ -3,7 +3,6 @@
     $modal = M.Modal.init @refs.modal,
       onCloseEnd: @props.onClose
       onOpenEnd: ->
-        $(this).find('.autofocus').focus()
         $(document).trigger 'materialize:modal:ready'
 
     if window.location.hash is "##{@props.id}"

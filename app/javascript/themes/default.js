@@ -9,13 +9,13 @@ export const definitions = {
   cardBackground: ['Card Background', '#212121'],
   cardHeaderBackground: ['Card Header Background', 'rgba(0,0,0,0.2)'],
   imageBackground: ['Image Background', '#000000'],
-  border: ['Border Colors', 'rgba(255,255,255,0.1)']
+  border: ['Border Colors', 'rgba(255,255,255,0.1)'],
 }
 
-export const apply = (otherTheme={}) => {
+export const apply = (otherTheme = {}) => {
   const final = {}
   for (const key of Object.keys(definitions)) {
-    final[key] = otherTheme[key] || definitions[key][ 1 ]
+    final[key] = otherTheme[key] || definitions[key][1]
   }
   return final
 }
@@ -25,5 +25,5 @@ export const base = apply()
 export default {
   base,
   apply,
-  definitions
+  definitions,
 }

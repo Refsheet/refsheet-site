@@ -66,6 +66,7 @@
 
         { Packs.application.Chat && <Packs.application.Chat /> }
         { Packs.application.NewLightbox && <Packs.application.NewLightbox /> }
+        { Packs.application.UploadModal && <Packs.application.UploadModal /> }
 
         <SessionModal />
         <Views.Images.ReportModal imageId={ this.state.reportImageId } />

@@ -8,13 +8,18 @@ class ColorModal extends Component {
 
   render() {
     return (
-      <Modal autoOpen id='character-color' title={'Character Color'} onClose={this.props.onClose} />
+      <Modal
+        autoOpen
+        id="character-color"
+        title={'Character Color'}
+        onClose={this.props.onClose}
+      />
     )
   }
 }
 
 ColorModal.propTypes = {
-  onClose: PropTypes.func
+  onClose: PropTypes.func,
 }
 
 export default ColorModal

@@ -1,21 +1,22 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {connect} from "react-redux";
-import IdentitySelect from "./CommentForm/IdentitySelect";
-import UserAvatar from "../User/UserAvatar";
-import IdentityModal from "./CommentForm/IdentityModal";
-import Restrict from "./Restrict";
-import MarkdownEditor from "./MarkdownEditor";
+import { connect } from 'react-redux'
+import IdentitySelect from './CommentForm/IdentitySelect'
+import UserAvatar from '../User/UserAvatar'
+import IdentityModal from './CommentForm/IdentityModal'
+import Restrict from './Restrict'
+import MarkdownEditor from './MarkdownEditor'
+import { Row, Col } from 'react-materialize'
 
 class CommentForm extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      comment: "",
-      error: "",
+      comment: '',
+      error: '',
       identityModalOpen: false,
-      submitting: false
+      submitting: false,
     }
   }
 
@@ -24,21 +25,21 @@ class CommentForm extends Component {
   }
 
   handleIdentityOpen() {
-    this.setState({identityModalOpen: true})
+    this.setState({ identityModalOpen: true })
   }
 
   handleIdentityClose() {
-    this.setState({identityModalOpen: false})
+    this.setState({ identityModalOpen: false })
   }
 
   handleError(error) {
     console.error(error)
-    let message = ""
+    let message = ''
 
     if (error.map) {
-      message = error.map((e) => e.message).join(", ")
+      message = error.map(e => e.message).join(', ')
     } else {
-      message = error.message || ("" + error)
+      message = error.message || '' + error
     }
 
     this.setState({ submitting: false, error: message })
@@ -49,21 +50,26 @@ class CommentForm extends Component {
     this.setState({ submitting: true })
 
     if (!this.state.comment) {
-      M.toast("Please enter a comment!", { duration: 3000 })
+      M.toast({
+        html: 'Please enter a comment!',
+        displayLength: 3000,
+        classes: 'red',
+      })
     }
 
-    this.props.onSubmit({
-      comment: this.state.comment,
-      identity: this.props.identity
-    })
-      .then((data) => {
+    this.props
+      .onSubmit({
+        comment: this.state.comment,
+        identity: this.props.identity,
+      })
+      .then(data => {
         if (data.errors) {
           this.handleError(data.errors[0])
         } else {
-          this.setState({comment: "", submitting: false, error: ""})
+          this.setState({ comment: '', submitting: false, error: '' })
 
           if (this.props.onSubmitConfirm) {
-            this.props.onSubmitConfirm(data.data)
+            this.props.onSubmitConfirm(data.data || data)
           }
         }
       })
@@ -71,59 +77,126 @@ class CommentForm extends Component {
   }
 
   render() {
-    const {
-      inCharacter,
-      identity,
-      richText
-    } = this.props
+    const { inCharacter = false, identity, richText, slim = false } = this.props
 
-    const placeholder = (this.props.placeholder || "").replace(/%n/, identity.name)
+    const placeholder = (this.props.placeholder || '').replace(
+      /%n/,
+      identity.name
+    )
+
+    let submitButton, input
+
+    if (slim) {
+      submitButton = (
+        <div className={'send'}>
+          <button
+            type={'submit'}
+            className={'btn right flat'}
+            disabled={!this.state.comment || this.state.submitting}
+          >
+            {this.state.submitting ? (
+              <Icon title={this.props.buttonSubmittingText}>
+                hourglass_empty
+              </Icon>
+            ) : (
+              <Icon title={this.props.buttonText}>send</Icon>
+            )}
+          </button>
+        </div>
+      )
+
+      input = (
+        <Input
+          type={'text'}
+          name={'comment'}
+          browserDefault
+          noMargin
+          disabled={this.state.submitting}
+          placeholder={placeholder}
+          value={this.state.comment}
+          onChange={this.handleCommentChange.bind(this)}
+        />
+      )
+    } else {
+      submitButton = (
+        <Row className={'no-margin'}>
+          <Col s={8}>
+            <Restrict patron>
+              {inCharacter && (
+                <IdentitySelect
+                  onClick={this.handleIdentityOpen.bind(this)}
+                  name={identity.name}
+                />
+              )}
+            </Restrict>
+          </Col>
+          <Col s={4}>
+            <button
+              type={'submit'}
+              onClick={this.handleSubmit.bind(this)}
+              className="btn right"
+              disabled={!this.state.comment || this.state.submitting}
+            >
+              {this.state.submitting
+                ? this.props.buttonSubmittingText
+                : this.props.buttonText}
+            </button>
+          </Col>
+        </Row>
+      )
+
+      if (richText) {
+        input = (
+          <MarkdownEditor
+            name={'comment'}
+            disabled={this.state.submitting}
+            placeholder={placeholder}
+            content={this.state.comment}
+            onChange={this.handleCommentChange.bind(this)}
+          />
+        )
+      } else {
+        input = (
+          <Input
+            type={'textarea'}
+            name="comment"
+            browserDefault
+            noMargin
+            disabled={this.state.submitting}
+            placeholder={placeholder}
+            value={this.state.comment}
+            onChange={this.handleCommentChange.bind(this)}
+          />
+        )
+      }
+    }
 
     return (
       <div className={'comment-form'}>
-        <form className='card reply-box margin-top--none sp with-avatar'
-              onSubmit={ this.handleSubmit.bind(this) }
+        <form
+          className="card reply-box margin-top--none sp with-avatar"
+          onSubmit={this.handleSubmit.bind(this)}
         >
-          <UserAvatar user={this.props.currentUser} identity={identity} />
+          <UserAvatar
+            user={this.props.currentUser}
+            identity={identity}
+            onIdentityChangeClick={this.handleIdentityOpen.bind(this)}
+          />
 
-          <div className='card-content reply-box'>
-            { richText || <Input
-              type={'textarea'}
-              name='comment'
-              browserDefault
-              noMargin
-              disabled={ this.state.submitting }
-              placeholder={ placeholder }
-              value={this.state.comment}
-              onChange={this.handleCommentChange.bind(this)}
-            /> }
-
-            { richText && <MarkdownEditor
-              name={'comment'}
-              disabled={this.state.submitting}
-              placeholder={ placeholder }
-              content={this.state.comment}
-              onChange={this.handleCommentChange.bind(this)}
-            /> }
-
-            { this.state.error && <span className={'error red-text smaller'}>{ this.state.error }</span> }
-
-            <Row noMargin>
-              <Column s={8}>
-                <Restrict patron>
-                  { inCharacter && <IdentitySelect onClick={this.handleIdentityOpen.bind(this)} name={identity.name} /> }
-                </Restrict>
-              </Column>
-              <Column s={4}>
-                <button type={'submit'} className='btn right' disabled={!this.state.comment || this.state.submitting}>
-                  { this.state.submitting ? this.props.buttonSubmittingText : this.props.buttonText }
-                </button>
-              </Column>
-            </Row>
+          <div className="card-content reply-box">
+            {input}
+            {this.state.error && (
+              <span className={'error red-text smaller'}>
+                {this.state.error}
+              </span>
+            )}
+            {submitButton}
           </div>
         </form>
 
-        { this.state.identityModalOpen && <IdentityModal onClose={this.handleIdentityClose.bind(this)} /> }
+        {this.state.identityModalOpen && (
+          <IdentityModal onClose={this.handleIdentityClose.bind(this)} />
+        )}
       </div>
     )
   }
@@ -137,13 +210,14 @@ CommentForm.propTypes = {
   placeholder: PropTypes.string,
   value: PropTypes.string,
   buttonText: PropTypes.string,
-  buttonSubmittingText: PropTypes.string
+  buttonSubmittingText: PropTypes.string,
+  slim: PropTypes.bool,
 }
 
 const mapStateToProps = (state, props) => ({
   ...props,
   currentUser: state.session.currentUser,
-  identity: state.session.identity
+  identity: state.session.identity,
 })
 
 export default connect(mapStateToProps)(CommentForm)

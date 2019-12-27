@@ -18,28 +18,31 @@ class ConversationMenu extends Component {
   }
 
   renderConversation(c) {
-    const {
-      openConversation
-    } = this.props
+    const { openConversation } = this.props
 
-    const click = (e) => {
+    const click = e => {
       e.preventDefault()
       openConversation(c.guid)
     }
 
-    return <NotificationItem
-        onClick={ click }
-        key={ c.id }
+    return (
+      <NotificationItem
+        onClick={click}
+        key={c.id}
         icon={c.user.avatar_url}
         created_at={c.lastMessage ? c.lastMessage.created_at : c.created_at}
-        title={<span>
-          <strong>{c.user.name}</strong><br/>
-          {formatBody(c.lastMessage, true)}
-        </span>}
+        title={
+          <span>
+            <strong>{c.user.name}</strong>
+            <br />
+            {formatBody(c.lastMessage, true)}
+          </span>
+        }
         is_unread={c.unreadCount > 0}
         floatTime
-        { ...c }
-    />
+        {...c}
+      />
+    )
   }
 
   handleNewConversationClick(e) {
@@ -48,56 +51,56 @@ class ConversationMenu extends Component {
   }
 
   render() {
-    const {
-      conversations=[],
-      loading=false,
-      refetch
-    } = this.props
+    const { conversations = [], loading = false, refetch } = this.props
 
     const unreadCount = conversations.filter(c => c.unreadCount > 0).length
 
     const tryRefetch = () => {
-      if(refetch) refetch()
+      if (refetch) refetch()
     }
 
     return (
-        <DropdownLink icon='message' count={unreadCount} onOpen={tryRefetch}>
-          <div className='dropdown-menu wide'>
-            <div className='title'>
-              <div className='right'>
-                <a href={'#'} onClick={this.handleNewConversationClick}>New Conversation</a>
-              </div>
-              <strong>Conversations</strong>
-            </div>
-            <Scrollbars>
-              <ul>
-                {conversations.map(this.renderConversation)}
-                {loading && <li className='empty-item'>Loading...</li>}
-                {conversations.length > 0 || <li className='empty-item'>No new conversations.</li>}
-              </ul>
-            </Scrollbars>
-            { false &&
-              <Link to='/conversations' className='cap-link'>
+      <DropdownLink icon="message" count={unreadCount} onOpen={tryRefetch}>
+        <div className="dropdown-menu wide">
+          <div className="title">
+            <div className="right">
+              <a href={'#'} onClick={this.handleNewConversationClick}>
                 New Conversation
-              </Link>
-            }
+              </a>
+            </div>
+            <strong>Conversations</strong>
           </div>
-        </DropdownLink>
+          <Scrollbars>
+            <ul>
+              {conversations.map(this.renderConversation)}
+              {loading && <li className="empty-item">Loading...</li>}
+              {conversations.length > 0 || (
+                <li className="empty-item">No new conversations.</li>
+              )}
+            </ul>
+          </Scrollbars>
+          {false && (
+            <Link to="/conversations" className="cap-link">
+              New Conversation
+            </Link>
+          )}
+        </div>
+      </DropdownLink>
     )
   }
 }
 
 ConversationMenu.propTypes = {
-  conversations: PropTypes.array
+  conversations: PropTypes.array,
 }
 
-const mapStateToProps = ({conversations}, props) => ({
+const mapStateToProps = ({ conversations }, props) => ({
   openConversations: conversations.openConversations,
-  ...props
+  ...props,
 })
 
 const mapDispatchToProps = {
-  openConversation
+  openConversation,
 }
 
 const connected = connect(mapStateToProps, mapDispatchToProps)(ConversationMenu)

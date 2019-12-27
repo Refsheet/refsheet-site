@@ -8,43 +8,44 @@ class YoutubeWidget extends Component {
   }
 
   handleUrlChange(e) {
-    this.props.onChange({url: e.target.value})
+    this.props.onChange({ url: e.target.value })
   }
 
   render() {
-    const {
-      url
-    } = this.props
+    const { url } = this.props
 
     if (this.props.editing) {
       return (
         <div className={'card-content'}>
-          <input id='youtube-url' type={'url'} defaultValue={url} onChange={this.handleUrlChange.bind(this)} />
+          <input
+            id="youtube-url"
+            type={'url'}
+            defaultValue={url}
+            onChange={this.handleUrlChange.bind(this)}
+          />
           <label htmlFor={'youtube-url'}>Video URL</label>
         </div>
       )
     }
 
-    const {
-      id,
-      service
-    } = getVideoId(url || "")
+    const { id, service } = getVideoId(url || '')
 
     if (service !== 'youtube') {
       return (
-        <div className='widget-error red-text card-content'>
+        <div className="widget-error red-text card-content">
           Invalid YouTube URL!
         </div>
       )
     } else {
       return (
-        <div className='youtube-widget'>
-          <div className='video-container'>
-            <iframe width="560"
-                    height="315"
-                    src={"https://youtube.com/embed/" + id}
-                    frameBorder="0"
-                    allowFullScreen
+        <div className="youtube-widget">
+          <div className="video-container">
+            <iframe
+              width="560"
+              height="315"
+              src={'https://youtube.com/embed/' + id}
+              frameBorder="0"
+              allowFullScreen
             />
           </div>
         </div>
@@ -55,7 +56,7 @@ class YoutubeWidget extends Component {
 
 YoutubeWidget.propTypes = {
   url: PropTypes.string,
-  caption: PropTypes.string
+  caption: PropTypes.string,
 }
 
 export default YoutubeWidget

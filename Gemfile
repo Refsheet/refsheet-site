@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-# ruby '2.3.0' # or 2.3.1 or something
+ruby '2.5.5'
 
 # == BACK END
 
@@ -36,7 +36,7 @@ gem 'sassc-rails'
 gem 'coffee-rails', '~> 4.2'
 gem 'haml'
 gem 'react-rails', github: 'reactjs/react-rails', branch: 'master'
-gem 'materialize-sass', github: 'sitehive/materialize-sass', branch: 'master'
+gem 'materialize-sass', '~> 1.0.0'
 
 gem 'rails-ujs'
 gem 'turbolinks', '~> 5'
@@ -141,6 +141,7 @@ group :development, :test do
   gem 'timecop'
   gem 'webmock'
   gem 'derailed_benchmarks'
+  gem 'rubocop', require: false
 end
 
 group :nocircle do
