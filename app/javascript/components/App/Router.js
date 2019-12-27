@@ -20,8 +20,8 @@ const Router = () => (
       <Route path="/moderate" component={Moderate} />
 
       {/** Artists **/}
-      <Route path={'/artists/:slug'} component={ Artists.Show } />
-      <Route path={'/artists'} component={ Artists.Index } />
+      <Route path={'/artists/:slug'} component={Artists.Show} />
+      <Route path={'/artists'} component={Artists.Index} />
 
       {/** Character Profiles **/}
       <Route path="/v2/:username/:slug" component={Character} />

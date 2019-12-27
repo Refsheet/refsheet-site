@@ -17,9 +17,11 @@ const SiteNav = ({ t }) => {
           {t('nav.characters', 'Characters')}
         </NavLink>
       </li>
-        <li>
-          <NavLink to='/artists' activeClassName='primary-text strong'>{t('nav.artists', 'Artists')}</NavLink>
-        </li>
+      <li>
+        <NavLink to="/artists" activeClassName="primary-text strong">
+          {t('nav.artists', 'Artists')}
+        </NavLink>
+      </li>
 
       <li>
         <NavLink to="/explore" activeClassName="primary-text">
