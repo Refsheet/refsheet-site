@@ -16,6 +16,8 @@ steps:
       - -d
       - --name=postgres
       - --network=cloudbuild
+      - -e
+      - POSTGRES_PASSWORD=fishsticks
       - postgres
 
   # Wait for Postgres to become available
@@ -49,11 +51,8 @@ steps:
 
 options:
   env:
-    - POSTGRES_USER=refsheet
-    - POSTGRES_PASSWORD=fishsticks
-    - POSTGRES_DB=refsheet-site
     - DB_HOST=postgres
-    - DB_USERNAME=refsheet
+    - DB_USERNAME=postgres
     - DB_PASSWORD=fishsticks
     - DB_DATABASE=refsheet-site
 
