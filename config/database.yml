@@ -18,7 +18,7 @@ development:
 test:
   <<: *default
   username: <%= ENV['DB_USERNAME'] || 'refsheet-site-test' %>
-  database: refsheet-site-test
+  database: <%= ENV['DB_DATABASE'] || 'refsheet-site-test' %>
 
 production:
   adapter: <%= ENV['RDS_DB_ADAPTER'] || 'postgresql' %>

@@ -61,6 +61,6 @@ options:
     - DB_HOST=postgres
     - DB_USERNAME=postgres
     - DB_PASSWORD=fishsticks
-    - DB_DATABASE=refsheet-site
+    - DB_DATABASE=postgres
 
 timeout: 3600s
