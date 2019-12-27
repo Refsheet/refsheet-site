@@ -11,6 +11,7 @@ import getCharacterForUpload from './getCharacterForUpload.graphql'
 import IdentityModal from '../Shared/CommentForm/IdentityModal'
 import { withNamespaces } from 'react-i18next'
 import compose from '../../utils/compose'
+import * as Materialize from 'materialize-css'
 
 class UploadModal extends Component {
   constructor(props, context) {
@@ -120,7 +121,11 @@ class UploadModal extends Component {
       this.handleImageChange.bind(this)
     )
       .then(image => {
-        Materialize.toast(image.title + ' uploaded!', 3000, 'green')
+        Materialize.toast({
+          html: image.title + ' uploaded!',
+          displayLength: 3000,
+          classes: 'green',
+        })
         this.props.clearUpload(image.id)
         this.props.onUpload(image)
       })

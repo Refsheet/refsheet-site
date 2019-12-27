@@ -37,7 +37,7 @@ class ProfileWidget extends Component {
         if (errors) {
           console.error(errors)
           errors.map(e =>
-            M.toast({ html: e.message, classes: 'red', duration: 3000 })
+            M.toast({ html: e.message, classes: 'red', displayLength: 3000 })
           )
         } else {
           const { deleteProfileWidget: widgetData } = data
@@ -66,7 +66,7 @@ class ProfileWidget extends Component {
         if (errors) {
           console.error(errors)
           errors.map(e =>
-            M.toast({ html: e.message, classes: 'red', duration: 3000 })
+            M.toast({ html: e.message, classes: 'red', displayLength: 3000 })
           )
         } else {
           const { updateProfileWidget: widgetData } = data
@@ -89,7 +89,7 @@ class ProfileWidget extends Component {
         if (errors) {
           console.error(errors)
           errors.map(e =>
-            M.toast({ html: e.message, classes: 'red', duration: 3000 })
+            M.toast({ html: e.message, classes: 'red', displayLength: 3000 })
           )
         } else {
           const { updateProfileWidget: widgetData } = data

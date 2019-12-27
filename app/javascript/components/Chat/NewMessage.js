@@ -73,7 +73,11 @@ class NewMessage extends Component {
 
         if (errors) {
           errors.map(error => {
-            M.toast({ html: error.message, classes: 'red' })
+            M.toast({
+              html: error.message,
+              classes: 'red',
+              displayLength: 3000,
+            })
           })
 
           if (this.props.onCreate) {

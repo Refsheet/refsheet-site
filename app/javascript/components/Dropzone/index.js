@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import ReactDropzone from 'react-dropzone'
 import { connect } from 'react-redux'
 import { enqueueUploads } from '../../actions'
+import * as Materialize from 'materialize-css'
 
 class Dropzone extends Component {
   constructor(props) {
@@ -44,25 +45,34 @@ class Dropzone extends Component {
       pending.push(file)
     })
 
-    this.props.enqueueUploads(pending)
+    if (pending.length > 0) {
+      this.props.enqueueUploads(pending)
+    }
+
     this.setState({ dropzoneActive: false })
 
     rejectedFiles.forEach(file => {
       console.warn('File invalid:', file)
 
-      if (file.getAsString) {
-        file.getAsString(str => {
-          console.warn('Did you mean to upload:', str)
-        })
-      }
-
       if (file.name) {
-        Materialize.toast(file.name + ' is invalid.', 3000, 'red')
+        Materialize.toast({
+          html: file.name + ' is invalid.',
+          displayLength: 3000,
+          classes: 'red',
+        })
       }
     })
   }
 
-  onDragEnter() {
+  onDragEnter(e) {
+    const {
+      dataTransfer: { types },
+    } = e
+
+    if (types.length === 0 || types.indexOf('Files') === -1) {
+      return
+    }
+
     this.setState({
       dropzoneActive: true,
     })
@@ -106,6 +116,7 @@ class Dropzone extends Component {
           ref={r => (this.dropzone = r)}
           disableClick
           style={{}}
+          accept={'image/*'}
           onDrop={this.onDrop.bind(this)}
           onDragEnter={this.onDragEnter.bind(this)}
           onDragLeave={this.onDragLeave.bind(this)}

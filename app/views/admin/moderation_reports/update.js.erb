@@ -1,11 +1,11 @@
 <% if @report.errors.any? %>
 
 <%- @report.errors.full_messages.each do |message| %>
-Materialize.toast("<%= escape_javascript message %>", 3000, 'red');
+Materialize.toast({ html: "<%= escape_javascript message %>", displayLength: 3000, classes: 'red' });
 <%- end %>
 
 <% else %>
-Materialize.toast("Report updated.", 3000, 'green');
+Materialize.toast({ html: "Report updated.", displayLength: 3000, classes: 'green' });
 //$newCard = $("<%= escape_javascript render partial: 'card', locals: { report: @report } %>");
 $('[data-report-id=<%= @report.id %>]').remove(); //replaceWith($newCard);
 <% end %>

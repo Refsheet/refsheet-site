@@ -34,7 +34,7 @@ class Summary extends Component {
         if (errors) {
           console.error(errors)
           errors.map(e =>
-            M.toast({ html: e.message, classes: 'red', duration: 3000 })
+            M.toast({ html: e.message, classes: 'red', displayLength: 3000 })
           )
         } else {
           done(data.updateCharacter)

@@ -1,4 +1,4 @@
-@CharacterApp = React.createClass
+Component = React.createClass
   contextTypes:
     router: React.PropTypes.object.isRequired
     eagerLoad: React.PropTypes.object
@@ -25,9 +25,11 @@
     StateUtils.reload @, 'character', newProps
 
   componentDidMount: ->
+    @props.setUploadTarget(@state.character?.real_id)
+
     $(document)
       .on 'app:character:update', (e, character) =>
-        if @state.character.id == character.id
+        if @state.character.real_id == character.real_id
           @setState character: character
 
       .on 'app:character:profileImage:edit', =>
@@ -54,6 +56,7 @@
   componentWillUpdate: (newProps, newState) ->
     if newState.character && @state.character && newState.character.link != @state.character.link
       window.history.replaceState {}, '', newState.character.link
+      @props.setUploadTarget(@state.character?.real_id)
 
 
   setFeaturedImage: (imageId) ->
@@ -133,6 +136,9 @@
   _toggleEditable: ->
     @setState editable: !@state.editable
 
+  _openUploads: ->
+    @props.openUploadModal()
+
   render: ->
     if @state.error?
       return `<NotFound />`
@@ -160,96 +166,100 @@
         { this.state.character.color_scheme &&
             <PageStylesheet colorData={ this.state.character.color_scheme.color_data } /> }
 
-        <DropzoneContainer url={ this.state.character.path + '/images' }
-                           onUpload={ dropzoneUpload }
-                           clickable={ dropzoneTriggerId }>
+        {/*<CharacterEditMenu onEditClick={ this._toggleEditable }
+                              images={ this.state.images }
+                              galleryTitle={ this.state.galleryTitle } <-- THIS SHOULD NOT HAPPEN
+                              onGallerySelect={ this.onGallerySelect }
+                              character={ this.state.character } */}
 
-            {/*<CharacterEditMenu onEditClick={ this._toggleEditable }
-                                  images={ this.state.images }
-                                  galleryTitle={ this.state.galleryTitle } <-- THIS SHOULD NOT HAPPEN
-                                  onGallerySelect={ this.onGallerySelect }
-                                  character={ this.state.character } */}
+        { showMenu &&
+            <div className='edit-container'>
+                <FixedActionButton clickToToggle className='red' tooltip='Menu' icon='menu'>
+                    <ActionButton className='indigo lighten-1' tooltip='Upload Images' id='image-upload' onClick={ this._openUploads } icon='file_upload' />
+                    <ActionButton className='green lighten-1 modal-trigger' tooltip='Edit Page Colors' href='#color-scheme-form' icon='palette' />
+                    <ActionButton className='blue darken-1 modal-trigger' tooltip='Character Settings' href='#character-settings-form' icon='settings' />
+
+                    { editable
+                        ? <ActionButton className='red lighten-1' tooltip='Lock Page' icon='lock' onClick={ this._toggleEditable } />
+                        : <ActionButton className='red lighten-1' tooltip='Edit Page' icon='edit' onClick={ this._toggleEditable } /> }
+                </FixedActionButton>
+
+                <ImageGalleryModal images={ this.state.images }
+                                   title={ this.state.galleryTitle }
+                                   onClick={ this.state.onGallerySelect } />
+
+                <CharacterColorSchemeModal colorScheme={ this.state.character.color_scheme } characterPath={ this.state.character.path } />
+                <CharacterDeleteModal character={ this.state.character } />
+                <CharacterTransferModal character={ this.state.character } />
+                <CharacterSettingsModal character={ this.state.character } />
+            </div>
+        }
+
+        <PageHeader backgroundImage={ (this.state.character.featured_image || {}).url }
+                    onHeaderImageEdit={ headerImageEditCallback }>
+
+            <CharacterNotice transfer={ this.state.character.pending_transfer } />
 
             { showMenu &&
-                <div className='edit-container'>
-                    <FixedActionButton clickToToggle className='red' tooltip='Menu' icon='menu'>
-                        <ActionButton className='indigo lighten-1' tooltip='Upload Images' id='image-upload' icon='file_upload' />
-                        <ActionButton className='green lighten-1 modal-trigger' tooltip='Edit Page Colors' href='#color-scheme-form' icon='palette' />
-                        <ActionButton className='blue darken-1 modal-trigger' tooltip='Character Settings' href='#character-settings-form' icon='settings' />
+                <div className='button-group'>
+                    { editable
+                        ? <ActionButton className='red lighten-1' tooltip='Lock Page' icon='lock' onClick={ this._toggleEditable } />
+                        : <ActionButton className='red lighten-1' tooltip='Edit Page' icon='edit' onClick={ this._toggleEditable } /> }
+                </div> }
 
-                        { editable
-                            ? <ActionButton className='red lighten-1' tooltip='Lock Page' icon='lock' onClick={ this._toggleEditable } />
-                            : <ActionButton className='red lighten-1' tooltip='Edit Page' icon='edit' onClick={ this._toggleEditable } /> }
-                    </FixedActionButton>
+            <CharacterCard edit={ editable } detailView={ true } character={ this.state.character } onLightbox={ this.props.onLightbox } />
+            <SwatchPanel edit={ editable } swatchesPath={ this.state.character.path + '/swatches/' } swatches={ this.state.character.swatches } />
 
-                    <ImageGalleryModal images={ this.state.images }
-                                       title={ this.state.galleryTitle }
-                                       onClick={ this.state.onGallerySelect } />
+        </PageHeader>
 
-                    <CharacterColorSchemeModal colorScheme={ this.state.character.color_scheme } characterPath={ this.state.character.path } />
-                    <CharacterDeleteModal character={ this.state.character } />
-                    <CharacterTransferModal character={ this.state.character } />
-                    <CharacterSettingsModal character={ this.state.character } />
-                </div>
-            }
+        <Section>
+            <Row className='rowfix'>
+                <Column m={12}>
+                    <div className='card-panel margin--none'>
+                        <h1>About { this.state.character.name }</h1>
+                        <RichText placeholder='No biography written.'
+                                  onChange={ profileChange }
+                                  content={ this.state.character.profile_html }
+                                  markup={ this.state.character.profile } />
+                    </div>
+                </Column>
+            </Row>
+            <Row className='rowfix'>
+                <Column m={6}>
+                    <div className='card-panel margin--none'>
+                        <h2>Likes</h2>
+                        <RichText placeholder='No likes specified.'
+                                  onChange={ likesChange }
+                                  content={ this.state.character.likes_html }
+                                  markup={ this.state.character.likes } />
+                    </div>
+                </Column>
+                <Column m={6}>
+                    <div className='card-panel margin--none'>
+                        <h2>Dislikes</h2>
+                        <RichText placeholder='No dislikes specified.'
+                                  onChange={ dislikesChange }
+                                  content={ this.state.character.dislikes_html }
+                                  markup={ this.state.character.dislikes } />
+                    </div>
+                </Column>
+            </Row>
+        </Section>
 
-            <PageHeader backgroundImage={ (this.state.character.featured_image || {}).url }
-                        onHeaderImageEdit={ headerImageEditCallback }>
-
-                <CharacterNotice transfer={ this.state.character.pending_transfer } />
-
-                { showMenu &&
-                    <div className='button-group'>
-                        { editable
-                            ? <ActionButton className='red lighten-1' tooltip='Lock Page' icon='lock' onClick={ this._toggleEditable } />
-                            : <ActionButton className='red lighten-1' tooltip='Edit Page' icon='edit' onClick={ this._toggleEditable } /> }
-                    </div> }
-
-                <CharacterCard edit={ editable } detailView={ true } character={ this.state.character } onLightbox={ this.props.onLightbox } />
-                <SwatchPanel edit={ editable } swatchesPath={ this.state.character.path + '/swatches/' } swatches={ this.state.character.swatches } />
-
-            </PageHeader>
-
-            <Section>
-                <Row className='rowfix'>
-                    <Column m={12}>
-                        <div className='card-panel margin--none'>
-                            <h1>About { this.state.character.name }</h1>
-                            <RichText placeholder='No biography written.'
-                                      onChange={ profileChange }
-                                      content={ this.state.character.profile_html }
-                                      markup={ this.state.character.profile } />
-                        </div>
-                    </Column>
-                </Row>
-                <Row className='rowfix'>
-                    <Column m={6}>
-                        <div className='card-panel margin--none'>
-                            <h2>Likes</h2>
-                            <RichText placeholder='No likes specified.'
-                                      onChange={ likesChange }
-                                      content={ this.state.character.likes_html }
-                                      markup={ this.state.character.likes } />
-                        </div>
-                    </Column>
-                    <Column m={6}>
-                        <div className='card-panel margin--none'>
-                            <h2>Dislikes</h2>
-                            <RichText placeholder='No dislikes specified.'
-                                      onChange={ dislikesChange }
-                                      content={ this.state.character.dislikes_html }
-                                      markup={ this.state.character.dislikes } />
-                        </div>
-                    </Column>
-                </Row>
-            </Section>
-
-            <Section className='margin-bottom--large'>
-                <ImageGallery editable={ editable }
-                              imagesPath={ this.state.character.path + '/images/' }
-                              images={ this.state.images }
-                              onImagesLoad={ this._handleGalleryLoad } />
-            </Section>
-
-        </DropzoneContainer>
+        <Section className='margin-bottom--large'>
+            <ImageGallery editable={ editable }
+                          imagesPath={ this.state.character.path + '/images/' }
+                          images={ this.state.images }
+                          onImagesLoad={ this._handleGalleryLoad } />
+        </Section>
     </Main>`
+
+mapDispatchToProps = {
+  setUploadTarget: setUploadTarget,
+  openUploadModal: Actions.openUploadModal
+}
+
+mapStateToProps = (state) ->
+  state
+
+@CharacterApp = connect(mapStateToProps, mapDispatchToProps)(Component)

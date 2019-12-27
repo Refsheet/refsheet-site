@@ -61,7 +61,7 @@ const handlers = {
       ...state,
       modalOpen: true,
       selectedIndex,
-      characterId: action.characterId,
+      characterId: action.characterId || state.characterId,
     }
   },
 
@@ -71,6 +71,13 @@ const handlers = {
       modalOpen: false,
       selectedIndex: null,
       characterId: null,
+    }
+  },
+
+  [Actions.SET_UPLOAD_TARGET]: (state, action) => {
+    return {
+      ...state,
+      characterId: action.characterId,
     }
   },
 }

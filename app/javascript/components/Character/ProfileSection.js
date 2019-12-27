@@ -74,7 +74,7 @@ class ProfileSection extends Component {
         if (errors) {
           console.error(errors)
           errors.map(e =>
-            M.toast({ html: e.message, classes: 'red', duration: 3000 })
+            M.toast({ html: e.message, classes: 'red', displayLength: 3000 })
           )
         } else {
           console.log({ data })
@@ -96,7 +96,7 @@ class ProfileSection extends Component {
         if (errors) {
           console.error(errors)
           errors.map(e =>
-            M.toast({ html: e.message, classes: 'red', duration: 3000 })
+            M.toast({ html: e.message, classes: 'red', displayLength: 3000 })
           )
         } else {
           console.log({ data })

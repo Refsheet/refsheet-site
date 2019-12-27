@@ -44,3 +44,11 @@ export function closeUploadModal() {
     type: CLOSE_UPLOAD_MODAL,
   }
 }
+
+export const SET_UPLOAD_TARGET = 'SET_UPLOAD_TARGET'
+export function setUploadTarget(characterId) {
+  return {
+    type: SET_UPLOAD_TARGET,
+    characterId,
+  }
+}
