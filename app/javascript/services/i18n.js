@@ -13,7 +13,7 @@ i18n
   .use(LngDetector)
   .use(Backend)
   .init({
-    saveMissing: Refsheet && Refsheet.environment === 'development',
+    saveMissing: (typeof Refsheet !== "undefined") && Refsheet.environment === 'development',
     fallbackLng: 'en',
     ns: ['common'],
     defaultNS: 'common',
