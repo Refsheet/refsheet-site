@@ -71,11 +71,16 @@ Capybara.register_driver :chrome do |app|
 end
 
 Capybara.register_driver :headless_chrome do |app|
-  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-      chromeOptions: { args: %w(disable-gpu no-sandbox) }
-  )
+  Capybara::Selenium::Driver.load_selenium
 
-  Capybara::Selenium::Driver.new(app, browser: :chrome, desired_capabilities: capabilities)
+  browser_options = ::Selenium::WebDriver::Chrome::Options.new
+  browser_options.args << '--headless'
+  browser_options.args << '--disable-gpu'
+  browser_options.args << '--allow-insecure-localhost'
+  browser_options.args << '--no-sandbox'
+  browser_options.args << '--window-size=1920,1080'
+
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
 end
 
 Capybara.configure do |config|
