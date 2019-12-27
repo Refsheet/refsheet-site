@@ -29,7 +29,10 @@ class View extends Component {
   }
 
   componentDidMount() {
-    this.props.setUploadTarget(this.props.character.id, this.uploadCallback.bind(this))
+    this.props.setUploadTarget(
+      this.props.character.id,
+      this.uploadCallback.bind(this)
+    )
   }
 
   // TODO: Upload callback should update the Apollo cache, not force a Refetch. That's brutal.

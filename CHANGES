@@ -1,2 +1,27 @@
+# 12/26/19
+
+Several bug fixes, an update to the Materialize framework, and upload anywhere + new lightbox.
+
+## Bug Fixes
+
 - Fixed "Important Notes" getting stuck when you enter only spaces
 - Fixed drag and drop so it doesn't trigger the upload popup
+
+## New Features
+
+- Both V1 and V2 profiles use the new uploader for images
+- The new uploader is available anywhere, just drag and drop!
+- New lightbox for all image views, including timeline
+- Back/forward navigation in the lightbox
+
+## Minor Things
+
+- Added more translations throughout the app
+- Images now crop to the top, not the center, by default
+
+## Framework
+
+- Added Prettier to clean up Javascript and maintain a standard style
+- Updated Materialize to 1.0.0 (which might break old V1 code)
+- Tighter integration with the Apollo / GraphQL cache for more dynamic page updates
+- Added React component `compose()` helper to encourage state / HOC bindings
