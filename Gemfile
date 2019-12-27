@@ -120,7 +120,7 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'capybara'
   gem 'capybara-selenium'
-  gem 'chromedriver-helper'
+  gem 'webdrivers'
   gem 'codecov', require: false
   gem 'database_cleaner'
   gem 'factory_bot_rails'
