@@ -30,7 +30,7 @@ FactoryBot.define do
   factory :forum_discussion, class: 'Forum::Discussion' do
     forum
     user
-    topic { Faker::LordOfTheRings.location }
+    topic { Faker::Movies::LordOfTheRings.location }
     content { Faker::Lorem.paragraph(2) }
   end
 end
