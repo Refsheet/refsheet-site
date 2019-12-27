@@ -1,20 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Main from "../../Shared/Main";
-import Header from "./Header";
-import TabbedContent from "../../Shared/TabbedContent";
-import DiscussionLink from "../../Forums/show/DiscussionLink";
+import Main from '../../Shared/Main'
+import Header from './Header'
+import TabbedContent from '../../Shared/TabbedContent'
+import DiscussionLink from '../../Forums/show/DiscussionLink'
 
 class View extends Component {
   render() {
     const {
-      artist: {
-        name,
-        avatar_url,
-        profile,
-        profile_markdown,
-        user = {}
-      }
+      artist: { name, avatar_url, profile, profile_markdown, user = {} },
     } = this.props
 
     return (
@@ -37,7 +31,7 @@ class View extends Component {
           </main>
 
           <aside className={'sidebar left-pad'}>
-            { typeof Advertisement != 'undefined' && <Advertisement /> }
+            {typeof Advertisement != 'undefined' && <Advertisement />}
           </aside>
         </div>
       </Main>
@@ -47,8 +41,8 @@ class View extends Component {
 
 View.propTypes = {
   artist: PropTypes.shape({
-    name: PropTypes.string.isRequired
-  })
+    name: PropTypes.string.isRequired,
+  }),
 }
 
 export default View
