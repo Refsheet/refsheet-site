@@ -10,7 +10,7 @@ steps:
 
   #== TEST
 
-  - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
+  - name: 'gcr.io/$PROJECT_ID/docker-compose'
     args: ['rspec']
 
   - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
