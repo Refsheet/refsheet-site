@@ -122,6 +122,7 @@ history.listen(() => {
               <Route path='/v2/:userId/:characterId' component={ Packs.application.CharacterController } />
 
               <Route path='/images/:imageId' component={ ImageApp } />
+              <Route path='/media/:imageId' component={ ImageApp } />
               <Route path='/:userId/:characterId' component={ CharacterApp } />
               <Route path='/:userId' component={ User.View } />
 
