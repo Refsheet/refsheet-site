@@ -1,0 +1,21 @@
+steps:
+
+  #== BUILD
+
+  - name: 'gcr.io/kaniko-project/executor'
+    args:
+      - --destination=gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID
+      - --cache=true
+
+  #== TEST
+
+  - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
+    args: ['rspec']
+
+  - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
+    args: ['yaml-lint', '.kubernetes/*.{yml,yaml}']
+
+  - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
+    args: ['yarn', 'run', 'prettier-check']
+
+timeout: 3600s
