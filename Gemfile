@@ -20,12 +20,10 @@ gem 'aws-sdk-sqs'
 gem 'resque'
 gem 'non-stupid-digest-assets'
 gem 'rollbar'
-gem 'sprockets_uglifier_with_source_maps'
 gem 'webpacker'
 gem 'faraday_middleware'
 gem 'json', '~> 2.1.0'
 gem 'rails_semantic_logger'
-gem 'active_record_slave'
 gem 'nulldb'
 gem 'mini_magick'
 
@@ -112,6 +110,12 @@ end
 gem 'puma_worker_killer', require: false
 gem 'table_print'
 gem 'httplog', '~> 1.1.1'
+
+# == PRODUCTION GEMS
+
+group :production, :staging do
+  gem 'active_record_slave'
+end
 
 # == NON PRODUCTION GEMS
 

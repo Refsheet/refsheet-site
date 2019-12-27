@@ -618,9 +618,6 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sprockets_uglifier_with_source_maps (2.1.0)
-      sprockets-rails (~> 3.0)
-      uglifier (>= 2.5)
     state_machines (0.5.0)
     state_machines-activemodel (0.5.1)
       activemodel (>= 4.1, < 6.0)
@@ -799,7 +796,6 @@ DEPENDENCIES
   slack-notifier
   spring
   spring-watcher-listen (~> 2.0.0)
-  sprockets_uglifier_with_source_maps
   state_machines
   state_machines-activerecord
   stripe

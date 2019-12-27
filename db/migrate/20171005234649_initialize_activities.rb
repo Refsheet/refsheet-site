@@ -17,7 +17,8 @@ class InitializeActivities < ActiveRecord::Migration[5.0]
     belongs_to :user
   end
 
-  class ::Image < ActiveRecord::Base
+  class ::MImage < ActiveRecord::Base
+    self.table_name = 'images'
     belongs_to :character
   end
 
@@ -52,7 +53,7 @@ class InitializeActivities < ActiveRecord::Migration[5.0]
       Activity.create activities
     end
 
-    ::Image.joins(:character => :user).select(:id, :character_id, 'users.id AS user_id', :created_at).find_in_batches do |batch|
+    ::MImage.joins(:character => :user).select(:id, :character_id, 'users.id AS user_id', :created_at).find_in_batches do |batch|
       puts "   --> Running #{batch.first.class.name} batch of #{batch.count}"
 
       activities = batch.collect { |i| {
@@ -82,7 +83,7 @@ class InitializeActivities < ActiveRecord::Migration[5.0]
     end
 
 
-    Media::Comment.select(:id, :user_id, :created_at).find_in_batches do |batch|
+    ::Media::Comment.select(:id, :user_id, :created_at).find_in_batches do |batch|
       puts "   --> Running #{batch.first.class.name} batch of #{batch.count}"
 
       activities = batch.collect { |i| {
