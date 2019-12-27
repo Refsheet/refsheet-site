@@ -128,7 +128,7 @@ class NavBar extends Component {
 
             <Link to="/" className="logo left">
               <img
-                src="/assets/logos/pumpkin2_64.png"
+                src="/assets/logos/RefsheetLogo_White_64.png"
                 alt="Refsheet.net"
                 width="32"
                 height="32"
