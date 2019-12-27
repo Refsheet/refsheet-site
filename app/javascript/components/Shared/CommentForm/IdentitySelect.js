@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {Trans, withNamespaces} from "react-i18next";
+import { Trans, withNamespaces } from 'react-i18next'
 
 class IdentitySelect extends Component {
   constructor(props) {
@@ -13,26 +13,30 @@ class IdentitySelect extends Component {
   }
 
   render() {
-    const {
-      t,
-      name
-    } = this.props
+    const { t, name } = this.props
 
     return (
-      <div className={'identity-select truncate'} style={{lineHeight: '36px', verticalAlign: 'middle', height: '36px'}}>
+      <div
+        className={'identity-select truncate'}
+        style={{ lineHeight: '36px', verticalAlign: 'middle', height: '36px' }}
+      >
         <Trans i18nKey={'identity.select-link'}>
-          <span className={'muted'} style={{lineHeight: '36px', verticalAlign: 'middle'}}>As: </span>
+          <span
+            className={'muted'}
+            style={{ lineHeight: '36px', verticalAlign: 'middle' }}
+          >
+            As:{' '}
+          </span>
 
           <a
             href={'#select-identity'}
             onClick={this.handleModalOpen.bind(this)}
             title={t('identity.change', 'Change Identity')}
-            style={{lineHeight: '36px', verticalAlign: 'middle'}}
+            style={{ lineHeight: '36px', verticalAlign: 'middle' }}
           >
             {{ name }}
           </a>
         </Trans>
-
       </div>
     )
   }
@@ -40,7 +44,7 @@ class IdentitySelect extends Component {
 
 IdentitySelect.propTypes = {
   onClick: PropTypes.func.isRequired,
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
 }
 
 export default withNamespaces('common')(IdentitySelect)

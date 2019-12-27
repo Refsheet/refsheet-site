@@ -6,6 +6,14 @@ Types::MutationType = GraphQL::ObjectType.define do
 
   # Images
   field :uploadImage, field: Mutations::ImageMutations::Create
+  field :updateImage, field: Mutations::ImageMutations::Update
+  field :deleteMedia, field: Mutations::ImageMutations::Destroy
+
+  # Media
+  field :addFavorite, field: Mutations::MediaFavoriteMutations::Create
+  field :removeFavorite, field: Mutations::MediaFavoriteMutations::Destroy
+  field :addComment, field: Mutations::MediaCommentMutations::Create
+  field :removeComment, field: Mutations::MediaCommentMutations::Destroy
 
   # Chat
   field :sendMessage, field: Mutations::MessageMutations::Create
@@ -17,6 +25,10 @@ Types::MutationType = GraphQL::ObjectType.define do
   # Session
   field :createSession, field: Mutations::SessionMutations::Create
   field :destroySession, field: Mutations::SessionMutations::Destroy
+
+  # Notifications
+  field :markAllNotificationsAsRead, field: Mutations::NotificationMutations::ReadAll
+  field :readNotification, field: Mutations::NotificationMutations::Read
 
   #== Character Profiles
 

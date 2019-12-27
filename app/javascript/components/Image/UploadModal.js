@@ -3,8 +3,15 @@ import PropTypes from 'prop-types'
 import Filmstrip from './Filmstrip'
 import UploadForm from './UploadForm'
 import ImageHandler from 'ImageHandler'
-import {clearUpload, modifyUpload} from "../../actions";
-import {connect} from "react-redux";
+import { clearUpload, closeUploadModal, modifyUpload } from '../../actions'
+import { connect } from 'react-redux'
+import c from 'classnames'
+import { Query } from 'react-apollo'
+import getCharacterForUpload from './getCharacterForUpload.graphql'
+import IdentityModal from '../Shared/CommentForm/IdentityModal'
+import { withNamespaces } from 'react-i18next'
+import compose from '../../utils/compose'
+import * as Materialize from 'materialize-css'
 
 class UploadModal extends Component {
   constructor(props, context) {
@@ -16,7 +23,9 @@ class UploadModal extends Component {
     }
 
     this.state = {
-      activeImageId
+      activeImageId,
+      characterId: this.props.characterId,
+      identityModalOpen: false,
     }
 
     this.setActiveImage = this.setActiveImage.bind(this)
@@ -26,38 +35,57 @@ class UploadModal extends Component {
     this.handleImageClear = this.handleImageClear.bind(this)
   }
 
-  componentDidMount() {
-    M.Modal.getInstance(document.getElementById('upload-images')).open()
-  }
-
   componentDidUpdate(prevProps) {
-    if (this.props.files.length > prevProps.files.length && this.state.activeImageId === null) {
+    if (
+      this.props.files.length > prevProps.files.length &&
+      this.state.activeImageId === null
+    ) {
       const activeImageId = this.props.files[0].id
-      this.setState({activeImageId})
+      this.setState({ activeImageId })
     } else if (this.props.files.length < prevProps.files.length) {
       this.selectNextImage()
     }
+
+    if (prevProps.activeImageId !== this.props.activeImageId) {
+      this.setActiveImage(this.props.activeImageId)
+    }
+
+    if (prevProps.characterId !== this.props.characterId) {
+      this.setCharacter(this.props.characterId)
+    }
+  }
+
+  setCharacter(character) {
+    this.setState({ characterId: character.id, identityModalOpen: false })
+  }
+
+  handleChangeCharacterClick(e) {
+    e.preventDefault()
+    this.setState({ identityModalOpen: true })
+  }
+
+  handleIdentityClose() {
+    this.setState({ identityModalOpen: false })
   }
 
   setActiveImage(activeImageId) {
-    console.log("Setting active", activeImageId)
-    this.setState({activeImageId})
+    this.setState({ activeImageId })
   }
 
   getActiveImage() {
-    return this.props.files.filter((i) => i.id === this.state.activeImageId)[0]
+    return this.props.files.filter(i => i.id === this.state.activeImageId)[0]
   }
 
   selectNextImage() {
     if (this.props.files.length === 0) {
-      console.log("Clearing active image.")
+      console.log('Clearing active image.')
       return this.setActiveImage(null)
     }
 
     const currentIndex = this.props.files.indexOf(this.getActiveImage()) || 0
     let selectedIndex = 0
 
-    if (currentIndex >= 0 && currentIndex !== (this.props.files.length - 1)) {
+    if (currentIndex >= 0 && currentIndex !== this.props.files.length - 1) {
       selectedIndex = currentIndex + 1
     }
 
@@ -65,7 +93,7 @@ class UploadModal extends Component {
   }
 
   handleImageChange(newImage) {
-    this.props.modifyUpload(newImage);
+    this.props.modifyUpload(newImage)
   }
 
   handleImageClear(imageId) {
@@ -87,43 +115,78 @@ class UploadModal extends Component {
     image.state = 'uploading'
     this.handleImageChange(image)
 
-    ImageHandler
-        .upload(image, this.props.characterId, this.handleImageChange)
-        .then((image) => {
-          Materialize.toast(image.title + ' uploaded!', 3000, 'green')
-          this.props.clearUpload(image.id)
-          this.props.onUpload(image)
+    ImageHandler.upload(
+      image,
+      this.state.characterId,
+      this.handleImageChange.bind(this)
+    )
+      .then(image => {
+        Materialize.toast({
+          html: image.title + ' uploaded!',
+          displayLength: 3000,
+          classes: 'green',
         })
+        this.props.clearUpload(image.id)
+        this.props.onUpload && this.props.onUpload(image)
+        this.props.uploadCallback && this.props.uploadCallback(image)
+      })
+      .catch(console.log)
 
     this.selectNextImage()
   }
 
   renderPending(images) {
-    const imageArray = images.map((image) => {
+    const imageArray = images.map(image => {
       const { state, progress } = image
       return { src: image.preview, id: image.id, state, progress }
     })
 
-    return <Filmstrip
+    return (
+      <Filmstrip
         images={imageArray}
         autoHide
         activeImageId={this.state.activeImageId}
         onSelect={this.setActiveImage}
-    />
+      />
+    )
   }
 
-  renderCurrent(image) {
-    if(!image) return null
+  renderCurrent(image, character) {
+    if (!image) return null
 
-    return <div className='image-preview' style={{display: 'flex'}}>
-      <div className='image-container' style={{backgroundColor: 'black', textAlign: 'center', flexGrow: 1, overflow: 'hidden'}}>
-        <img src={image.preview} height={300} style={{display: 'inline-block', verticalAlign: 'middle'}}/>
-        { image.state === 'error' &&
-          <div className='upload-error red darken-4 white-text padding--small'><strong>Error:</strong> { image.errorMessage }</div> }
+    return (
+      <div className="image-preview" style={{ display: 'flex' }}>
+        <div
+          className="image-container"
+          style={{
+            backgroundColor: 'black',
+            textAlign: 'center',
+            flexGrow: 1,
+            overflow: 'hidden',
+          }}
+        >
+          <img
+            src={image.preview}
+            height={300}
+            style={{ display: 'inline-block', verticalAlign: 'middle' }}
+          />
+          {image.state === 'error' && (
+            <div className="upload-error red darken-4 white-text padding--small">
+              <strong>Error:</strong> {image.errorMessage}
+            </div>
+          )}
+        </div>
+
+        <UploadForm
+          image={image}
+          character={character}
+          characterId={this.state.characterId}
+          onChange={this.handleImageChange}
+          onUpload={this.handleUpload}
+          onClear={this.handleImageClear}
+        />
       </div>
-
-      <UploadForm image={image} onChange={this.handleImageChange} onUpload={this.handleUpload} onClear={this.handleImageClear} />
-    </div>
+    )
   }
 
   renderPlaceholder() {
@@ -131,54 +194,158 @@ class UploadModal extends Component {
       return null
     }
 
-    return <div className={'modal-content'} style={{textAlign: 'center'}}>
-      <i className={'material-icons'} style={{fontSize: '3rem'}}>cloud_upload</i>
-      <p className={'caption'}>Drag & Drop to upload files.</p>
-      <button className={'btn'} type={'button'} onClick={this.handleUploadClick}>Select Files</button>
-    </div>
+    return (
+      <div className={'modal-content'} style={{ textAlign: 'center' }}>
+        <i className={'material-icons'} style={{ fontSize: '3rem' }}>
+          cloud_upload
+        </i>
+        <p className={'caption'}>Drag & Drop to upload files.</p>
+        <button
+          className={'btn'}
+          type={'button'}
+          onClick={this.handleUploadClick}
+        >
+          Select Files
+        </button>
+      </div>
+    )
+  }
+
+  renderCharacterTarget(character, loading, error) {
+    const { t } = this.props
+
+    let characterName = t(
+      'identity.no_character_selected',
+      'No Character Selected'
+    )
+
+    if (loading) {
+      characterName = t('status.loading', 'Loading...')
+    } else if (character && character.name) {
+      characterName = character.name
+    }
+
+    return (
+      <div
+        className={c('modal-notice', 'character-select', { alert: !character })}
+      >
+        {t('actions.upload_to', 'Upload To')}: <strong>{characterName}</strong>
+        {!loading && (
+          <a
+            className={'right btn-flat'}
+            href={'#'}
+            onClick={this.handleChangeCharacterClick.bind(this)}
+            title={t('actions.change_character', 'Change Character...')}
+          >
+            <Icon className={'left'}>swap_horiz</Icon> Change
+          </a>
+        )}
+      </div>
+    )
+  }
+
+  handleClose() {
+    if (this.props.onClose) {
+      this.props.onClose()
+    } else {
+      this.props.closeUploadModal()
+    }
   }
 
   render() {
+    const { t } = this.props
+
     const activeImage = this.getActiveImage()
 
-    let title = 'Upload Images'
+    let title = t('actions.upload_images', 'Upload Images')
 
-    if(activeImage) {
-      let status = 'Upload'
+    if (activeImage) {
+      let status = t('actions.upload', 'Upload')
 
-      if(activeImage.state === 'uploading') {
-        status = `Uploading (${activeImage.progress}%)`
+      if (activeImage.state === 'uploading') {
+        status = t(
+          'actions.uploading_with_progress',
+          'Uploading {{progress}}%',
+          { progress: activeImage.progress }
+        )
       }
 
       title = `${status}: ${activeImage.title || activeImage.name}`
     }
 
     return (
-      <Modal id='upload-images' title={title} noContainer onClose={this.props.onClose}>
-        { this.renderCurrent(activeImage) }
-        { this.renderPending(this.props.files) }
-        { this.renderPlaceholder() }
-      </Modal>
+      <Query
+        query={getCharacterForUpload}
+        variables={{ id: this.state.characterId }}
+      >
+        {({ data: { getCharacter }, loading, error }) => (
+          <div>
+            {this.state.identityModalOpen && (
+              <IdentityModal
+                requireCharacter
+                temporary
+                title={t('actions.upload_to', 'Upload To')}
+                onClose={this.handleIdentityClose.bind(this)}
+                onCharacterSelect={this.setCharacter.bind(this)}
+              />
+            )}
+
+            <Modal
+              id="upload-images"
+              title={title}
+              noContainer
+              autoOpen
+              onClose={this.handleClose.bind(this)}
+            >
+              {this.renderCharacterTarget(getCharacter, loading, error)}
+              {this.renderCurrent(activeImage, getCharacter)}
+              {this.renderPending(this.props.files)}
+              {this.renderPlaceholder()}
+            </Modal>
+          </div>
+        )}
+      </Query>
     )
   }
 }
 
 UploadModal.propTypes = {
-  characterId: PropTypes.string,
-  onUpload: PropTypes.func
+  characterId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  onUpload: PropTypes.func,
+  alwaysOpen: PropTypes.bool,
+  activeImageId: PropTypes.string,
 }
 
 UploadModal.contextTypes = {
-  getDropzone: PropTypes.func
+  getDropzone: PropTypes.func,
 }
 
-const mapStateToProps = ({uploads}) => ({
-  files: uploads.files
+const mapStateToProps = ({ uploads }, props) => ({
+  files: uploads.files,
+  characterId: uploads.characterId,
+  modalOpen: uploads.modalOpen,
+  activeImageId: uploads.activeImageId,
+  uploadCallback: uploads.uploadCallback,
+  ...props,
 })
 
 const mapDispatchToProps = {
   clearUpload,
-  modifyUpload
+  modifyUpload,
+  closeUploadModal,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(UploadModal)
+const Wrapped = props => {
+  const { alwaysOpen = false, modalOpen = false } = props
+
+  if (!alwaysOpen && !modalOpen) {
+    return null
+  }
+
+  return <UploadModal {...props} />
+}
+
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps, null, { pure: false }),
+  withNamespaces('common')
+)(Wrapped)

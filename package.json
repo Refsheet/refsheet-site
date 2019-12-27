@@ -21,6 +21,7 @@
     "graphql-request": "^1.5.1",
     "graphql-ruby-client": "^1.4.1",
     "graphql-tag": "^2.8.0",
+    "howler": "^2.1.2",
     "i18next": "^13.0.1",
     "i18next-browser-languagedetector": "^2.2.4",
     "i18next-locize-backend": "^1.7.0",
@@ -53,7 +54,9 @@
     "react-router-dom": "^4.2.2",
     "react-sizeme": "^2.3.6",
     "react-sticky": "^6.0.3",
+    "react-string-replace": "^0.4.4",
     "react-style-tag": "^1.4.1",
+    "react-virtualized": "^9.21.2",
     "redux": "^3.7.2",
     "smoothscroll": "^0.4.0",
     "styled-components": "^3.2.3",
@@ -79,6 +82,7 @@
     "mocha": "^5.0.5",
     "nock": "^9.2.3",
     "phantomjs-prebuilt": "^2.1.16",
+    "prettier": "1.19.1",
     "react-addons-test-utils": "^15.6.2",
     "react-test-renderer": "^16.2.0",
     "rosie": "^1.6.0",
@@ -90,6 +94,8 @@
   "scripts": {
     "test": "NODE_ENV=test ./node_modules/karma/bin/karma start --single-run",
     "config-lint": "./node_modules/yaml-lint/bin/yamllint --verbose .kubernetes/*.{yml,yaml} config/*.{yml,yaml} .ebextensions/*.config",
+    "prettier": "prettier --write \"app/javascript/**/*.js\"",
+    "prettier-check": "prettier --check \"app/javascript/**/*.js\"",
     "build-gcloud": "docker build -t gcr.io/${PROJECT_ID}/refsheet-site .",
     "push-gcloud": "docker push gcr.io/${PROJECT_ID}/refsheet-site:latest"
   }

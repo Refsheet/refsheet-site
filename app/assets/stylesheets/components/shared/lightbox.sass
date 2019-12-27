@@ -24,7 +24,6 @@
     overflow: hidden
 
     img
-      @extend .valign
       max-width: 100%
       max-height: 80vh
       margin: 0 auto
@@ -47,9 +46,15 @@
     a
       color: $page-text-color
 
-    & > div
+    & > div.image-action-menu
       display: inline-block
       margin-left: 0.5rem
+
+    .dropdown-content
+      width: 200px !important
+
+      & > li
+        min-height: initial
 
   .image-details-container
     display: flex

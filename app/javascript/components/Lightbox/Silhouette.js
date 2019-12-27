@@ -1,13 +1,11 @@
 import React from 'react'
 
-const Silhouette = ({children}) => (
+const Silhouette = ({ children }) => (
   <div className={'lightbox-content silhouette'}>
-    <div className={'image-content'}>
-      { children }
-    </div>
+    <div className={'image-content'}>{children}</div>
 
     <div className={'image-details-container'}>
-      <div className='image-details'>
+      <div className="image-details">
         <div className={'character-box'}>
           <div className={'character-avatar'} />
           <div className={'character-details'}>

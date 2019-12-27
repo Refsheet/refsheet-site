@@ -1,0 +1,12 @@
+mutation addComment($mediaId: ID!, $comment: String!) {
+    addComment(mediaId: $mediaId, comment: $comment) {
+        id,
+        created_at,
+        user {
+            username,
+            name,
+            avatar_url
+        },
+        comment
+    }
+}

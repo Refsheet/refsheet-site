@@ -62,14 +62,14 @@
       success: =>
         id = @state.image.id
 
-        Materialize.toast('Image deleted.', 3000, 'green')
+        Materialize.toast({ html: 'Image deleted.', displayLength: 3000, classes: 'green'})
         $(document).trigger 'app:image:delete', id
         @state.onDelete(id) if @state.onDelete
         @props.onDelete(id) if @props.onDelete
         M.Modal.getInstance(document.getElementById('lightbox-delete-form')).close()
         M.Modal.getInstance(document.getElementById('lightbox')).close()
       error: =>
-        Materialize.toast('Could not delete that for some reason.', 3000, 'red')
+        Materialize.toast({ html: 'Could not delete that for some reason.', displayLength: 3000, classes: 'red'})
     e.preventDefault()
 
   handleClose: (e) ->
@@ -141,7 +141,7 @@
     @state.onChange image if @state.onChange
 
   componentDidUpdate: ->
-    $('.dropdown-button').dropdown
+    $('.dropdown-trigger').dropdown
       constrain_width: false
 
   render: ->
@@ -175,7 +175,7 @@
                   </a></li>
               </ul>
 
-              <a className='dropdown-button' id='image-actions-menu' href='#image-options' data-activates='lightbox-image-actions'>
+              <a className='dropdown-trigger' id='image-actions-menu' href='#image-options' data-target='lightbox-image-actions'>
                   <i className='material-icons'>more_vert</i>
               </a>
           </div>`

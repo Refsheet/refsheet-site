@@ -67,7 +67,8 @@ class Character < ApplicationRecord
   validates_associated :transfers
 
   validates :name,
-            presence: true
+            presence: true,
+            format: { with: /[a-z0-9]/i, message: 'must have at least one letter or number' }
 
   validate :validate_profile_image
   validate :validate_featured_image

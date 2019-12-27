@@ -3,6 +3,40 @@
 
   max-height: 80vh
 
+  .modal-notice
+    padding: 0 1rem
+    background-color: rgba(white, 0.03)
+    line-height: 2.5rem
+    vertical-align: middle
+    height: 2.5rem
+
+    i.material-icons
+      height: 2.5rem
+      line-height: 2.5rem
+      vertical-align: middle
+
+    a.btn-flat
+      border-radius: 0
+      margin: 0 1rem
+      padding: 0 1rem
+      line-height: 2.5rem
+      vertical-align: middle
+      height: 2.5rem
+      color: $page-text-color
+
+      i.material-icons.left
+        margin-right: 1rem
+
+      &.right
+        margin: 0 -1rem 0 1rem
+
+    &.alert
+      color: white
+      background-color: color('red', 'darken-2')
+
+      a.btn-flat
+        color: white
+
   &:focus
     outline: none
 

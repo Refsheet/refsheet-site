@@ -6,7 +6,7 @@ class ProfileWidgetHeader extends Component {
     super(props)
 
     this.state = {
-      title: props.title
+      title: props.title,
     }
   }
 
@@ -17,7 +17,7 @@ class ProfileWidgetHeader extends Component {
 
   handleCancelClick(e) {
     e.preventDefault()
-    this.setState({title: this.props.title})
+    this.setState({ title: this.props.title })
     this.props.onEditStop()
   }
 
@@ -34,62 +34,175 @@ class ProfileWidgetHeader extends Component {
   handleTitleChange(e) {
     e.preventDefault()
     const title = e.target.value
-    this.setState({title})
+    this.setState({ title })
   }
 
   handleMove(direction) {
-    return (e) => {
+    return e => {
       e.preventDefault()
       this.props.onMove(direction)
     }
   }
 
   renderLocked() {
-    const {widgetType, title, editable, lastColumn, firstColumn, first, last} = this.props
+    const {
+      widgetType,
+      title,
+      editable,
+      lastColumn,
+      firstColumn,
+      first,
+      last,
+    } = this.props
 
     if (editable) {
       return (
-        <div className='muted card-header fix-height'>
-          <div className='right' style={{opacity: 0.3}}>
-            <a href='#' onClick={this.handleDeleteClick.bind(this)} title={'Delete Widget'} className='margin-right--medium'><Icon className='muted' style={{fontSize: '1rem', color: 'rgba(255,255,255,0.1) !important'}}>delete</Icon></a>
-            <a href='#' onClick={this.handleEditClick.bind(this)} title={'Edit Widget'}><Icon className='muted' style={{fontSize: '1rem', color: 'rgba(255,255,255,0.1) !important'}}>edit</Icon></a>
+        <div className="muted card-header fix-height">
+          <div className="right" style={{ opacity: 0.3 }}>
+            <a
+              href="#"
+              onClick={this.handleDeleteClick.bind(this)}
+              title={'Delete Widget'}
+              className="margin-right--medium"
+            >
+              <Icon
+                className="muted"
+                style={{
+                  fontSize: '1rem',
+                  color: 'rgba(255,255,255,0.1) !important',
+                }}
+              >
+                delete
+              </Icon>
+            </a>
+            <a
+              href="#"
+              onClick={this.handleEditClick.bind(this)}
+              title={'Edit Widget'}
+            >
+              <Icon
+                className="muted"
+                style={{
+                  fontSize: '1rem',
+                  color: 'rgba(255,255,255,0.1) !important',
+                }}
+              >
+                edit
+              </Icon>
+            </a>
           </div>
-          <div className='left' style={{opacity: 0.3}}>
-            { firstColumn || <a href='#' onClick={this.handleMove('left').bind(this)} title={'Move Left'} className='margin-right--medium'><Icon className='muted' style={{fontSize: '1rem', color: 'rgba(255,255,255,0.1) !important'}}>keyboard_arrow_left</Icon></a> }
-            { first || <a href='#' onClick={this.handleMove('up').bind(this)} title={'Move Up'} className='margin-right--medium'><Icon className='muted' style={{fontSize: '1rem', color: 'rgba(255,255,255,0.1) !important'}}>keyboard_arrow_up</Icon></a> }
-            { last || <a href='#' onClick={this.handleMove('down').bind(this)} title={'Move Down'} className='margin-right--medium'><Icon className='muted' style={{fontSize: '1rem', color: 'rgba(255,255,255,0.1) !important'}}>keyboard_arrow_down</Icon></a> }
-            { lastColumn || <a href='#' onClick={this.handleMove('right').bind(this)} title={'Move Left'} className='margin-right--medium'><Icon className='muted' style={{fontSize: '1rem', color: 'rgba(255,255,255,0.1) !important'}}>keyboard_arrow_right</Icon></a> }
+          <div className="left" style={{ opacity: 0.3 }}>
+            {firstColumn || (
+              <a
+                href="#"
+                onClick={this.handleMove('left').bind(this)}
+                title={'Move Left'}
+                className="margin-right--medium"
+              >
+                <Icon
+                  className="muted"
+                  style={{
+                    fontSize: '1rem',
+                    color: 'rgba(255,255,255,0.1) !important',
+                  }}
+                >
+                  keyboard_arrow_left
+                </Icon>
+              </a>
+            )}
+            {first || (
+              <a
+                href="#"
+                onClick={this.handleMove('up').bind(this)}
+                title={'Move Up'}
+                className="margin-right--medium"
+              >
+                <Icon
+                  className="muted"
+                  style={{
+                    fontSize: '1rem',
+                    color: 'rgba(255,255,255,0.1) !important',
+                  }}
+                >
+                  keyboard_arrow_up
+                </Icon>
+              </a>
+            )}
+            {last || (
+              <a
+                href="#"
+                onClick={this.handleMove('down').bind(this)}
+                title={'Move Down'}
+                className="margin-right--medium"
+              >
+                <Icon
+                  className="muted"
+                  style={{
+                    fontSize: '1rem',
+                    color: 'rgba(255,255,255,0.1) !important',
+                  }}
+                >
+                  keyboard_arrow_down
+                </Icon>
+              </a>
+            )}
+            {lastColumn || (
+              <a
+                href="#"
+                onClick={this.handleMove('right').bind(this)}
+                title={'Move Left'}
+                className="margin-right--medium"
+              >
+                <Icon
+                  className="muted"
+                  style={{
+                    fontSize: '1rem',
+                    color: 'rgba(255,255,255,0.1) !important',
+                  }}
+                >
+                  keyboard_arrow_right
+                </Icon>
+              </a>
+            )}
           </div>
 
-          <div className='center'>
-            { title || widgetType }
-          </div>
+          <div className="center">{title || widgetType}</div>
         </div>
-      );
-
+      )
     } else if (title) {
-      return (
-        <div className='card-header'>
-          { title }
-        </div>
-      );
-
+      return <div className="card-header">{title}</div>
     } else {
-      return null;
+      return null
     }
   }
 
   renderUnlocked() {
     return (
       <div className={'muted card-header fix-height'}>
-        <div className='right btn-group'>
-          <a href='#' className={'btn'} onClick={this.handleSaveClick.bind(this)}>
-            <Icon className='muted left' style={{fontSize: '1rem', color: 'rgba(255,255,255,0.1) !important'}}>save</Icon> Save
+        <div className="right btn-group">
+          <a
+            href="#"
+            className={'btn'}
+            onClick={this.handleSaveClick.bind(this)}
+          >
+            <Icon
+              className="muted left"
+              style={{
+                fontSize: '1rem',
+                color: 'rgba(255,255,255,0.1) !important',
+              }}
+            >
+              save
+            </Icon>{' '}
+            Save
           </a>
         </div>
 
         <div className={'center'}>
-          <input value={this.state.title} onChange={this.handleTitleChange.bind(this)} />
+          <input
+            value={this.state.title}
+            onChange={this.handleTitleChange.bind(this)}
+          />
         </div>
       </div>
     )
@@ -112,7 +225,7 @@ ProfileWidgetHeader.propTypes = {
   lastColumn: PropTypes.bool,
   firstColumn: PropTypes.bool,
   first: PropTypes.bool,
-  last: PropTypes.bool
+  last: PropTypes.bool,
 }
 
 export default ProfileWidgetHeader

@@ -12,17 +12,6 @@ class Character extends Component
 
     @state =
       editable: false
-      uploadOpen: false
-
-  handleUploadModalOpen: () =>
-    @setState uploadOpen: true
-
-  handleUploadModalClose: () =>
-    @setState uploadOpen: false
-
-  componentWillReceiveProps: (newProps) =>
-    if newProps.files.length > @props.files.length
-      @setState uploadOpen: true
 
   refetch: () =>
     @props.data.refetch()
@@ -36,9 +25,7 @@ class Character extends Component
       message = data.error.graphQLErrors.map((e) -> e.message).join(', ')
       `<Error message={message} />`
     else
-      `<View onUploadModalOpen={this.handleUploadModalOpen}
-             onUploadModalClose={this.handleUploadModalClose}
-             onChange={this.refetch}
+      `<View refetch={this.refetch}
              character={data.getCharacterByUrl}
              {...this.state}
       />`

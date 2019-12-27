@@ -1,22 +1,91 @@
 import React from 'react'
 import { Icon } from 'react-materialize'
+import RichText from '../Shared/RichText'
+import replace from 'react-string-replace'
+import { withNamespaces } from 'react-i18next'
+import { Link } from 'react-router-dom'
 
-const ImageMeta = ({id, caption_html, source_url, source_url_display}) => (
+const artists = []
+
+function renderContent(content) {
+  if (!content || content === '') {
+    return <p className={'caption'}>No Caption</p>
+  }
+
+  let filtered = content.replace(/^\s*(#\w+\s*)+$/gm, '')
+  let n = 0
+
+  filtered = replace(filtered, /#(\w+)/g, (match, i) => (
+    <Link key={'hashtag-' + n++} to={`/explore/tag/${match}`}>
+      #{match}
+    </Link>
+  ))
+
+  filtered = replace(filtered, /\n/, (match, i) => <br key={'br-' + n++} />)
+
+  return filtered
+}
+
+const ImageMeta = ({
+  id,
+  caption,
+  caption_html,
+  source_url,
+  source_url_display,
+  tags,
+  hashtags,
+}) => (
   <div className={'image-meta'}>
-    <div className={'image-caption'}>
-      <div dangerouslySetInnerHTML={{__html: caption_html}} />
-    </div>
+    <div className={'image-caption'}>{renderContent(caption)}</div>
     <ul className={'attributes'}>
-      { source_url && <li>
-        <Icon className={'left'}>link</Icon>
-        <a href={source_url} target={'_blank'} rel={'external nofollow'}>{ source_url_display }</a>
-      </li> }
-      <li>
-        <Icon className={'left'}>report</Icon>
-        <a href={'#'}>Report Image</a>
-      </li>
+      {source_url && (
+        <li>
+          <Icon className={'left'}>link</Icon>
+          <a href={source_url} target={'_blank'} rel={'external nofollow'}>
+            {source_url_display}
+          </a>
+        </li>
+      )}
+
+      {artists.length > 0 && (
+        <li>
+          <Icon className={'left'}>brush</Icon>
+          {artists.map((artist, i) => (
+            <span key={artist.slug}>
+              <Link to={`/artists/${artist.slug}`}>{artist.name}</Link>
+              {i + 1 < artists.length ? ', ' : ''}
+            </span>
+          ))}
+        </li>
+      )}
+
+      {tags.length > 0 && (
+        <li>
+          <Icon className={'left'}>tag_faces</Icon>
+          {tags.map((characterTag, i) => (
+            <span key={characterTag.character.link}>
+              <Link to={characterTag.character.link}>
+                {characterTag.character.name}
+              </Link>
+              {i + 1 < characterTags.length ? ', ' : ''}
+            </span>
+          ))}
+        </li>
+      )}
+
+      {hashtags.length > 0 && (
+        <li>
+          <Icon className={'left'}>tag</Icon>
+          {hashtags.map(({ tag: mediaTag }, i) => (
+            <span key={mediaTag} className={'media-tag'}>
+              <Link to={`/explore/tag/${mediaTag}`}>{mediaTag}</Link>
+              {i + 1 < hashtags.length ? ', ' : ''}
+            </span>
+          ))}
+        </li>
+      )}
     </ul>
   </div>
 )
 
-export default ImageMeta
+export default withNamespaces('common')(ImageMeta)

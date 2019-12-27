@@ -32,4 +32,21 @@ Types::SubscriptionType = GraphQL::ObjectType.define do
     argument :imageId, !types.ID
     description "Image processing complete"
   end
+
+  field :newNotification, !Types::NotificationType do
+    subscription_scope :current_user_id
+    description "New notifications go here"
+  end
+
+  #== Media
+
+  field :newFavorite, !Types::MediaFavoriteType do
+    argument :mediaId, !types.ID
+    description "New favorite on media"
+  end
+
+  field :newComment, !Types::MediaCommentType do
+    argument :mediaId, !types.ID
+    description "New comment on media"
+  end
 end

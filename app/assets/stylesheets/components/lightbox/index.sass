@@ -42,6 +42,113 @@
     .lightbox-content
       display: inline-flex
 
+    .favorites
+      border-bottom: none
+      background-color: rgba(white, 0.03)
+
+      i.material-icons
+        line-height: 2rem
+        margin: 0.5rem 0rem 0.5rem 0.5rem
+        color: $text-light-color
+
+        &.isFavorite
+          color: gold !important
+
+      .avatar
+        height: 2rem
+        line-height: 2rem
+        margin: 0.5rem -1.5rem 0.5rem 0.5rem
+        vertical-align: middle
+        border: 1px solid $card-bg-color
+
+      .fav-summary
+        line-height: 2rem
+        margin: 0.5rem 0.5rem 0.5rem 2rem
+        vertical-align: middle
+        float: right
+
+    .comments
+      .avatar
+        height: 2.5rem !important
+        width: 2.5rem !important
+        left: 0.5rem !important
+        top: 0.5rem !important
+
+      .card-content
+        margin-left: 3.5rem !important
+        padding: 0.5rem !important
+
+      .card
+        border-bottom: none
+
+      .comment-form
+        .card, .card-content
+          box-shadow: none
+          margin: 0
+
+        form
+          display: flex
+          margin: 0
+          background-color: rgba(black, 0.1)
+          height: 3rem
+
+          .avatar
+            height: 2rem !important
+            width: 2rem !important
+            margin: 0.5rem
+            flex: 0 0 2rem
+            position: static
+
+          .card-content.reply-box
+            display: flex
+            flex-grow: 1
+            margin: 0 !important
+            padding: 0 !important
+
+            .input-field
+              flex-grow: 1
+              flex-shrink: 1
+
+              input
+                padding: 0 1rem !important
+                height: 3rem
+                line-height: 3rem
+                vertical-align: middle
+                box-sizing: border-box
+
+            .send
+              flex: 0 0 3rem
+
+              button
+                padding: 0 !important
+                height: 3rem
+                width: 3rem
+                text-align: center
+                line-height: 3rem
+                vertical-align: middle
+
+          button
+            vertical-align: middle
+            line-height: 2.5rem
+            padding: 0.25rem
+            border-radius: 0
+            width: 2.5rem
+            transition: background-color 0.3s ease
+            color: white
+            background-color: rgba(black, 0.1)
+            flex: 0 0 2.5rem
+
+          input, textarea
+            display: block
+            flex: 1 1 auto
+            margin: 0 !important
+            height: auto !important
+            line-height: 2.5rem
+            vertical-align: middle
+            padding: 0.25rem 1rem !important
+            border: none !important
+            outline: none !important
+
     .image-content
       overflow: visible
       min-width: 600px
@@ -49,6 +156,9 @@
 
       .imageloader
         width: 100%
+
+      img
+        display: block
 
       .image-status
         max-width: 300px
@@ -61,14 +171,51 @@
       &:hover .image-nav
         opacity: 0.6
 
+      &:hover .lightbox-overlay
+        opacity: 1.0
+
+      .lightbox-overlay
+        position: absolute
+        left: 0
+        right: 0
+        background-color: rgba(0,0,0,0.6)
+        color: white
+        text-align: left
+        padding: 0.5rem 1rem
+        opacity: 0.0
+        transition: opacity 0.3s ease
+
+        &.top
+          top: 0
+          background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent)
+
+        &.bottom
+          bottom: 0
+          background: linear-gradient(to top, rgba(0,0,0,0.9), transparent)
+
+        h1
+          font-size: 2rem
+
+        a.block
+          margin: -0.5rem -1rem
+          padding: 0.5rem 1rem
+          border-radius: 1px
+          background-color: transparent
+          transition: background-color 0.3s ease
+
+          &:hover
+            background-color: rgba(0,0,0,0.6)
+
       .image-nav
         position: absolute
-        top: 0
-        bottom: 0
         padding: 1.5rem
         background-color: rgba(0,0,0,0.6)
         color: white
         opacity: 0
+        height: 6rem
+        width: 6rem
+        margin: 0 1rem
+        border-radius: 2px
         transition: opacity 0.3s ease
 
         i.material-icons
@@ -98,9 +245,17 @@
       width: 300px
       word-wrap: break-word
 
+      .image-details
+        h3
+          font-size: 1.3rem
+          margin: 0
+
       .image-meta
         .image-caption
           min-height: 2.5rem
+
+        .caption
+          font-size: inherit !important
 
         ul.attributes
           margin-bottom: 0
@@ -109,11 +264,21 @@
             clear: both
             line-height: 24px
             vertical-align: middle
+            padding-left: 2rem
+            position: relative
+            font-size: 0.9rem
+            margin-top: 0.25rem
+
+            .media-tag
+              white-space: nowrap
 
             i.material-icons
               font-size: 1.2rem
               line-height: 24px
               vertical-align: middle
+              position: absolute
+              left: 0
+              top: 0
 
             a
               display: inline-block

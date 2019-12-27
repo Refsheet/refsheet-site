@@ -17,7 +17,7 @@ Rails.application.configure do
   # config.logger = Refsheet::Logger.new(STDOUT)
   STDOUT.sync = true
 
-  config.rails_semantic_logger.format = Refsheet::LogFormatter.new
+  config.rails_semantic_logger.format = :color
   config.log_tags = {
       request_id: :request_id,
       ip: :remote_ip,
@@ -25,7 +25,7 @@ Rails.application.configure do
   }
 
   config.rails_semantic_logger.add_file_appender = false
-  config.semantic_logger.add_appender(io: STDOUT, level: config.log_level, formatter: config.rails_semantic_logger.format)
+  # config.semantic_logger.add_appender(io: STDOUT, level: config.log_level, formatter: config.rails_semantic_logger.format)
 
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
@@ -101,4 +101,7 @@ Rails.application.configure do
   )
 
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  config.web_console.permissions = '192.168.0.0/16'
+  config.web_console.whiny_requests = false
 end

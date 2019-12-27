@@ -1,0 +1,10 @@
+mutation addFavorite($mediaId: ID!) {
+    addFavorite(mediaId: $mediaId) {
+        id,
+        user {
+            username,
+            name,
+            avatar_url
+        }
+    }
+}

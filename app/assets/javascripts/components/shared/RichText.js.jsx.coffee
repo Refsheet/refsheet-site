@@ -7,7 +7,6 @@
   handleEditStart: (e) ->
     if @props.onChange?
       @setState edit: true
-      Materialize.initializeForms()
 
   handleEditStop: (e) ->
     @setState edit: false, markup: @props.markup
@@ -26,6 +25,9 @@
   componentDidUpdate: ->
     $('.rich-text textarea').trigger 'autoresize'
 
+  isEmpty: (text) ->
+    !text || text == '' || text.match(/^\s*$/)
+
   render: ->
     if @props.onChange?
       editable = true
@@ -39,7 +41,7 @@
           </a>
       </div>`
 
-    else if @state.markup != null && @state.markup != '' && @state.markup != undefined
+    else if !@isEmpty(this.state.markup)
       `<div className={ 'rich-text ' + this.props.className }>
           { editable &&
               <a className='edit-button right' onClick={ this.handleEditStart }>

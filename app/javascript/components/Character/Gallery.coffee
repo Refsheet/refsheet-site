@@ -3,15 +3,18 @@ import JustifiedLayout from 'react-justified-layout'
 import Measure from 'react-measure'
 import Section from 'Shared/Section'
 import Thumbnail from 'Image/Thumbnail'
+import compose from "../../utils/compose"
+import {connect} from "react-redux"
+import {openUploadModal} from "../../actions"
 
-Gallery = ({images, onUploadClick}) ->
+Gallery = ({images, openUploadModal}) ->
   galleryTabs = [
     { id: 'baz', title: 'Scraps' }
     { id: 'bar', title: 'Hidden' }
   ]
 
   galleryActions = [
-    { icon: 'file_upload', title: 'Upload', onClick: onUploadClick }
+    { icon: 'file_upload', title: 'Upload', onClick: openUploadModal }
   ]
 
   `<Section title='Main Gallery'
@@ -60,6 +63,11 @@ Gallery.propTypes =
       ).isRequired
     )
   )
-  onUploadClick: PropTypes.func
 
-export default Gallery
+mapDispatchToProps = {
+  openUploadModal
+}
+
+export default compose(
+  connect(undefined, mapDispatchToProps)
+)(Gallery)

@@ -96,7 +96,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :media, only: [:show] do
+  resources :media, only: [:show], controller: 'images' do
     delete :favorites, to: 'media/favorites#destroy'
 
     resources :favorites, only: [:index, :create], controller: 'media/favorites'

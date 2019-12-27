@@ -1,14 +1,16 @@
 import styled from 'styled-components'
 import smoothScroll from 'smoothscroll'
 
-const goTo = (target) => (e) => {
+const goTo = target => e => {
   e.preventDefault()
   const el = document.querySelector(target)
   smoothScroll(el.offsetTop)
 }
 
-const TocLink = ({to, children, className}) => (
-  <a href={to} onClick={goTo(to)} className={className}>{children}</a>
+const TocLink = ({ to, children, className }) => (
+  <a href={to} onClick={goTo(to)} className={className}>
+    {children}
+  </a>
 )
 
 export default styled(TocLink)`

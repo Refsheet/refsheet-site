@@ -11,7 +11,7 @@ class NewConversation extends Component {
 
     this.state = {
       username: '',
-      doSearch: false
+      doSearch: false,
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -23,18 +23,17 @@ class NewConversation extends Component {
 
   handleUsernameChange(e) {
     e.preventDefault()
-    this.setState({username: e.target.value})
+    this.setState({ username: e.target.value })
   }
 
   handleReset(e) {
-    if(e && e.preventDefault) e.preventDefault()
-    this.setState({username: '', doSearch: false})
+    if (e && e.preventDefault) e.preventDefault()
+    this.setState({ username: '', doSearch: false })
   }
 
   handleSubmit(e) {
     e.preventDefault()
-    if(this.state.username !== '')
-      this.setState({doSearch: true})
+    if (this.state.username !== '') this.setState({ doSearch: true })
   }
 
   handleClose(e) {
@@ -43,89 +42,93 @@ class NewConversation extends Component {
   }
 
   handleKeyPress(e) {
-    if(e.keyCode === 27) {
+    if (e.keyCode === 27) {
       this.handleClose(e)
     }
   }
 
   render() {
-    const {
-      doSearch,
-      username
-    } = this.state
+    const { doSearch, username } = this.state
 
-    if(!doSearch) {
-      return (<form onSubmit={ this.handleSubmit }>
-        <button type="button" onClick={ this.handleClose }>
-          <Icon>close</Icon>
-        </button>
+    if (!doSearch) {
+      return (
+        <form onSubmit={this.handleSubmit}>
+          <button type="button" onClick={this.handleClose}>
+            <Icon>close</Icon>
+          </button>
 
-        <input name='username'
-               type='text'
-               onChange={ this.handleUsernameChange }
-               onKeyDown={ this.handleKeyPress }
-               value={ username }
-               placeholder='Username'
-               autoFocus
-        />
+          <input
+            name="username"
+            type="text"
+            onChange={this.handleUsernameChange}
+            onKeyDown={this.handleKeyPress}
+            value={username}
+            placeholder="Username"
+            autoFocus
+          />
 
-        <button type='submit' disabled={ username === '' }>
-          <Icon>add</Icon>
-        </button>
-      </form>)
+          <button type="submit" disabled={username === ''}>
+            <Icon>add</Icon>
+          </button>
+        </form>
+      )
     } else {
       const FIND_USER_QUERY = gql`
         query findUser($username: String!) {
-            findUser(username: $username) {
-                id
-                name
-                username
-                avatar_url
-                is_admin
-                is_patron
-            }
+          findUser(username: $username) {
+            id
+            name
+            username
+            avatar_url
+            is_admin
+            is_patron
+          }
         }
       `
 
-      const renderResult = ({loading, data}) => {
-        if(loading) {
-          return <div className='chat-footer'>
-            <span>Finding user...</span>
-          </div>
+      const renderResult = ({ loading, data }) => {
+        if (loading) {
+          return (
+            <div className="chat-footer">
+              <span>Finding user...</span>
+            </div>
+          )
         } else {
-          const {
-            findUser: user
-          } = data
+          const { findUser: user } = data
 
-          if(user) {
-            return <div className='chat-search-results'>
-              <div className='chat-footer highlight'>
-                <span>To: {user.name} (@{user.username})</span>
-              </div>
-              <NewMessage
+          if (user) {
+            return (
+              <div className="chat-search-results">
+                <div className="chat-footer highlight">
+                  <span>
+                    To: {user.name} (@{user.username})
+                  </span>
+                </div>
+                <NewMessage
                   recipientId={user.id}
                   recipient={user}
                   onClose={this.handleReset}
                   onConversationStart={this.props.onConversationStart}
-              />
-            </div>
+                />
+              </div>
+            )
           } else {
-            return <div className='chat-footer'>
-              <a className='btn left' onClick={this.handleReset}>
-                <Icon>close</Icon>
-              </a>
-              <span>
-                User not found.
-              </span>
-            </div>
+            return (
+              <div className="chat-footer">
+                <a className="btn left" onClick={this.handleReset}>
+                  <Icon>close</Icon>
+                </a>
+                <span>User not found.</span>
+              </div>
+            )
           }
         }
       }
 
       return (
-          <Query query={FIND_USER_QUERY} variables={{username}}>
-            {renderResult}
-          </Query>
+        <Query query={FIND_USER_QUERY} variables={{ username }}>
+          {renderResult}
+        </Query>
       )
     }
   }
@@ -133,7 +136,7 @@ class NewConversation extends Component {
 
 NewConversation.propTypes = {
   onClose: PropTypes.func.isRequired,
-  onConversationStart: PropTypes.func
+  onConversationStart: PropTypes.func,
 }
 
 export default NewConversation

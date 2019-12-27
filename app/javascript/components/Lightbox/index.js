@@ -1,17 +1,21 @@
 import React, { Component } from 'react'
-import {closeLightbox, openLightbox} from "../../actions";
-import {connect} from "react-redux";
-import {Icon} from 'react-materialize';
-import {Query} from "react-apollo";
+import { closeLightbox, openLightbox } from '../../actions'
+import { connect } from 'react-redux'
+import { Icon } from 'react-materialize'
+import { Query } from 'react-apollo'
 import getMedia from './getMedia.graphql'
-import View from "./View";
-import Silhouette from "./Silhouette";
-import {Error, Loading} from "./Status";
+import View from './View'
+import Silhouette from './Silhouette'
+import { Error, Loading } from './Status'
+import { withRouter } from 'react-router-dom'
+import compose from '../../utils/compose'
 
 class Lightbox extends Component {
   constructor(props) {
     super(props)
 
+    this.unlisten = null
+    this.previousPath = window.location.pathname
     this.handleKeyDown = this.handleKeyDown.bind(this)
   }
 
@@ -21,11 +25,11 @@ class Lightbox extends Component {
   }
 
   handleWrapperClick(e) {
-    e.preventDefault()
     if (e.target.id !== 'lightbox-wrapper') {
       return
     }
 
+    e.preventDefault()
     this.props.closeLightbox()
   }
 
@@ -34,7 +38,12 @@ class Lightbox extends Component {
   }
 
   handleKeyDown(e) {
-    switch(e.keyCode) {
+    if ('value' in e.target) {
+      // This was probably an input field.
+      return
+    }
+
+    switch (e.keyCode) {
       case 27: // ESC
       case 81: // q
         this.props.closeLightbox()
@@ -57,33 +66,44 @@ class Lightbox extends Component {
         break
 
       case 67:
-        // c - comment
+      // c - comment
     }
   }
 
   componentWillMount() {
+    const { mediaId, history, closeLightbox } = this.props
+
+    this.unlisten = history.listen((location, action) => {
+      this.previousPath = null
+      closeLightbox()
+    })
+
+    window.history.replaceState({}, null, `/media/${mediaId}`)
     document.body.classList.add('lightbox-open')
-    document.addEventListener("keydown", this.handleKeyDown)
+    document.addEventListener('keydown', this.handleKeyDown)
   }
 
   componentWillUnmount() {
+    if (this.unlisten) {
+      this.unlisten()
+    }
+
+    if (this.previousPath) {
+      window.history.replaceState({}, null, this.previousPath)
+    }
+
     document.body.classList.remove('lightbox-open')
-    document.removeEventListener("keydown", this.handleKeyDown)
+    document.removeEventListener('keydown', this.handleKeyDown)
   }
 
   getGalleryIndex() {
-    const {
-      mediaId,
-      gallery
-    } = this.props
+    const { mediaId, gallery } = this.props
 
     return gallery.indexOf(mediaId)
   }
 
   getNextMediaId() {
-    const {
-      gallery
-    } = this.props
+    const { gallery } = this.props
 
     const index = this.getGalleryIndex()
     if (index < 0 || gallery.length <= 1) {
@@ -98,9 +118,7 @@ class Lightbox extends Component {
   }
 
   getPrevMediaId() {
-    const {
-      gallery
-    } = this.props
+    const { gallery } = this.props
 
     const index = this.getGalleryIndex()
     if (index < 0 || gallery.length <= 1) {
@@ -129,11 +147,7 @@ class Lightbox extends Component {
   }
 
   renderContent() {
-    const {
-      data,
-      loading,
-      error
-    } = this.props
+    const { data, loading, error } = this.props
 
     if (loading) {
       return (
@@ -144,6 +158,7 @@ class Lightbox extends Component {
     }
 
     if (error || !data || !data.getMedia) {
+      console.error(this.props)
       return (
         <Silhouette>
           <Error error={error} />
@@ -151,12 +166,14 @@ class Lightbox extends Component {
       )
     }
 
-    return <View
-      {...data.getMedia}
-      nextMediaId={this.getNextMediaId()}
-      prevMediaId={this.getPrevMediaId()}
-      onMediaOpen={this.handleMediaOpen.bind(this)}
-    />
+    return (
+      <View
+        media={data.getMedia}
+        nextMediaId={this.getNextMediaId()}
+        prevMediaId={this.getPrevMediaId()}
+        onMediaOpen={this.handleMediaOpen.bind(this)}
+      />
+    )
   }
 
   render() {
@@ -167,40 +184,50 @@ class Lightbox extends Component {
         onClick={this.handleWrapperClick.bind(this)}
         onKeyDown={this.handleKeyDown.bind(this)}
       >
-        <div className={'lightbox v2'}>
-          <a className={'close'} role={'button'} href={'#'} onClick={this.handleCloseClick.bind(this)}>
+        <div className={'lightbox v2'} id={'lightbox-v2'}>
+          <a
+            className={'close'}
+            role={'button'}
+            href={'#'}
+            onClick={this.handleCloseClick.bind(this)}
+          >
             <Icon>close</Icon>
           </a>
 
-          { this.renderContent() }
+          {this.renderContent()}
         </div>
       </div>
     )
   }
 }
 
-const Wrapped = (props) => {
-  const {
-    mediaId
-  } = props
+const Wrapped = props => {
+  const { mediaId } = props
 
   if (mediaId === null) {
     return null
   }
 
-  return <Query query={getMedia} variables={{mediaId}}>
-    {({data, loading, error}) => <Lightbox {...props} data={data} loading={loading} error={error} />}
-  </Query>
+  return (
+    <Query query={getMedia} variables={{ mediaId }}>
+      {({ data, loading, error }) => (
+        <Lightbox {...props} data={data} loading={loading} error={error} />
+      )}
+    </Query>
+  )
 }
 
-const mapStateToProps = ({lightbox}) => ({
+const mapStateToProps = ({ lightbox }) => ({
   mediaId: lightbox.mediaId,
-  gallery: lightbox.gallery
+  gallery: lightbox.gallery,
 })
 
 const mapDispatchToProps = {
   openLightbox,
-  closeLightbox
+  closeLightbox,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Wrapped)
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withRouter
+)(Wrapped)

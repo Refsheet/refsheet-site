@@ -1,6 +1,6 @@
 @FixedActionButton = React.createClass
   componentDidMount: (e) ->
-    $('.fixed-action-btn').fab()
+    $('.fixed-action-btn').floatingActionButton()
 
   render: ->
     children = React.Children.map @props.children, (child) =>

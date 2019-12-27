@@ -5,12 +5,14 @@ import CartMenu from './CartMenu'
 import TransferMenu from './TransferMenu'
 import NotificationMenu from './NotificationMenu'
 import ConversationMenu from './ConversationMenu'
-import Restrict from "../Shared/Restrict";
+import UploadMenu from './UploadMenu'
+import Restrict from '../Shared/Restrict'
 
-const UserNav = (props) => (
-  <ul className='right'>
+const UserNav = props => (
+  <ul className="right">
     <CartMenu />
     <TransferMenu />
+    <UploadMenu />
     <Restrict patron>
       <ConversationMenu />
       <NotificationMenu />
@@ -21,11 +23,11 @@ const UserNav = (props) => (
 
 UserNav.propTypes = {
   user: PropTypes.shape({
-    avatar_url: PropTypes.string.isRequired
+    avatar_url: PropTypes.string.isRequired,
   }).isRequired,
   nsfwOk: PropTypes.bool,
   onNsfwClick: PropTypes.func.isRequired,
-  onLogoutClick: PropTypes.func.isRequired
+  onLogoutClick: PropTypes.func.isRequired,
 }
 
 export default UserNav
