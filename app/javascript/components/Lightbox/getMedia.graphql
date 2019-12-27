@@ -23,6 +23,8 @@ query getMedia($mediaId: ID!) {
         large
       }
 
+        download_link
+
         hashtags {
             tag
         }

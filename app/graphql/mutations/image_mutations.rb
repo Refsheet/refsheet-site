@@ -1,6 +1,17 @@
 class Mutations::ImageMutations < Mutations::ApplicationMutation
   before_action :get_character, only: [:create]
-  before_action :get_image, only: [:update]
+  before_action :get_image, only: [:update, :destroy]
+
+  action :destroy do
+    type Types::ImageType
+
+    argument :mediaId, !types.ID
+  end
+
+  def destroy
+    @image.destroy
+    @image
+  end
 
   action :update do
     type Types::ImageType

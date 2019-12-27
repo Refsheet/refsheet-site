@@ -1,0 +1,10 @@
+mutation deleteMedia($mediaId: ID!) {
+    deleteMedia(mediaId: $mediaId) {
+        id
+        character {
+            username
+            slug
+        }
+        deleted_at
+    }
+}

@@ -54,6 +54,7 @@ class View extends Component {
       comments_count,
       is_managed,
       is_favorite,
+      download_link,
     } = this.props.media
 
     // console.log({})
@@ -71,7 +72,11 @@ class View extends Component {
         <div className={'image-details-container'}>
           <div className="image-details">
             {is_managed && (
-              <ImageActions onEditClick={this.handleEditStart.bind(this)} />
+              <ImageActions
+                onEditClick={this.handleEditStart.bind(this)}
+                downloadLink={download_link}
+                mediaId={this.props.media.id}
+              />
             )}
             <CharacterBox {...character} createdAt={created_at} />
             <ImageMeta {...this.props.media} />

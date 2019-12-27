@@ -20,6 +20,7 @@ Types::ImageType = GraphQL::ObjectType.define do
 
   field :url, Types::ImageUrlType, property: :image
   field :size, Types::ImageSizeType, property: :image
+  field :download_link, types.String
 
   field :is_favorite, types.Boolean do
     resolve -> (obj, _args, ctx) {
@@ -34,6 +35,7 @@ Types::ImageType = GraphQL::ObjectType.define do
   end
 
   field :character, Types::CharacterType
+  field :character_id, types.ID
 
   field :favorites, types[Types::MediaFavoriteType]
   field :comments, types[Types::MediaCommentType]
