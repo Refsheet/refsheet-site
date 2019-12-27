@@ -62,6 +62,7 @@ const handlers = {
       modalOpen: true,
       selectedIndex,
       characterId: action.characterId || state.characterId,
+      uploadCallback: action.uploadCallback || state.uploadCallback,
     }
   },
 
@@ -70,7 +71,6 @@ const handlers = {
       ...state,
       modalOpen: false,
       selectedIndex: null,
-      characterId: null,
     }
   },
 
@@ -78,6 +78,7 @@ const handlers = {
     return {
       ...state,
       characterId: action.characterId,
+      uploadCallback: action.uploadCallback,
     }
   },
 }

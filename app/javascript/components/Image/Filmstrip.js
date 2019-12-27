@@ -84,7 +84,7 @@ class Filmstrip extends Component {
 
 const imageType = PropTypes.shape({
   src: PropTypes.string.isRequired,
-  id: PropTypes.oneOf(PropTypes.number, PropTypes.string).isRequired,
+  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   active: PropTypes.bool,
   state: PropTypes.string.isRequired,
   progress: PropTypes.number,

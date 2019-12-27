@@ -13,7 +13,8 @@
     "files": [],
     "characterId": null,
     "modalOpen": false,
-    "activeImageId": null
+    "activeImageId": null,
+    "uploadCallback": null
   },
   "lightbox": {
     "mediaId": null,

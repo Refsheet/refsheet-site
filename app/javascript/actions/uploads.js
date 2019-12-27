@@ -30,11 +30,12 @@ export function modifyUpload(file) {
 }
 
 export const OPEN_UPLOAD_MODAL = 'OPEN_UPLOAD_MODAL'
-export function openUploadModal(uploadId, characterId) {
+export function openUploadModal(uploadId, characterId, uploadCallback = null) {
   return {
     type: OPEN_UPLOAD_MODAL,
     uploadId,
     characterId,
+    uploadCallback,
   }
 }
 
@@ -46,9 +47,10 @@ export function closeUploadModal() {
 }
 
 export const SET_UPLOAD_TARGET = 'SET_UPLOAD_TARGET'
-export function setUploadTarget(characterId) {
+export function setUploadTarget(characterId, uploadCallback = null) {
   return {
     type: SET_UPLOAD_TARGET,
     characterId,
+    uploadCallback,
   }
 }

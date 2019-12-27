@@ -127,7 +127,8 @@ class UploadModal extends Component {
           classes: 'green',
         })
         this.props.clearUpload(image.id)
-        this.props.onUpload(image)
+        this.props.onUpload && this.props.onUpload(image)
+        this.props.uploadCallback && this.props.uploadCallback(image)
       })
       .catch(console.log)
 
@@ -309,7 +310,7 @@ class UploadModal extends Component {
 }
 
 UploadModal.propTypes = {
-  characterId: PropTypes.string,
+  characterId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onUpload: PropTypes.func,
   alwaysOpen: PropTypes.bool,
   activeImageId: PropTypes.string,
@@ -324,6 +325,7 @@ const mapStateToProps = ({ uploads }, props) => ({
   characterId: uploads.characterId,
   modalOpen: uploads.modalOpen,
   activeImageId: uploads.activeImageId,
+  uploadCallback: uploads.uploadCallback,
   ...props,
 })
 

@@ -9,9 +9,11 @@ import Sidebar from './Sidebar'
 import defaultTheme from 'themes/default'
 import { StickyContainer } from 'react-sticky'
 import { ThemedMain } from 'Styled/Global'
-import UploadModal from 'Image/UploadModal'
 import SettingsModal from './Modals/SettingsModal'
 import ColorModal from './Modals/ColorModal'
+import compose from '../../utils/compose'
+import { connect } from 'react-redux'
+import { setUploadTarget } from '../../actions'
 
 class View extends Component {
   constructor(props) {
@@ -26,11 +28,20 @@ class View extends Component {
     this.handleEditableChange = this.handleEditableChange.bind(this)
   }
 
+  componentDidMount() {
+    this.props.setUploadTarget(this.props.character.id, this.uploadCallback.bind(this))
+  }
+
+  // TODO: Upload callback should update the Apollo cache, not force a Refetch. That's brutal.
+  uploadCallback(image) {
+    this.props.refetch && this.props.refetch()
+  }
+
   handleEditableChange(editable) {
     this.setState({ editable })
 
     if (!editable) {
-      this.props.onChange()
+      this.props.refetch()
     }
   }
 
@@ -51,25 +62,11 @@ class View extends Component {
   }
 
   render() {
-    const {
-      character,
-      uploadOpen,
-      onChange,
-      onUploadModalOpen,
-      onUploadModalClose,
-    } = this.props
+    const { character } = this.props
     const { settingsOpen, colorOpen } = this.state
 
     return (
       <ThemedMain title={character.name}>
-        {uploadOpen && (
-          <UploadModal
-            characterId={character.id}
-            onClose={onUploadModalClose}
-            onUpload={onChange}
-          />
-        )}
-
         {settingsOpen && (
           <SettingsModal
             onClose={this.handleModalClose('settings').bind(this)}
@@ -94,7 +91,7 @@ class View extends Component {
                   onEditableChange={this.handleEditableChange}
                   characterVersion={character.version}
                   characterId={character.shortcode}
-                  refetch={this.props.onChange}
+                  refetch={this.props.refetch}
                   onSettingsClick={this.handleModalOpen('settings').bind(this)}
                   onColorClick={this.handleModalOpen('color').bind(this)}
                   canEdit={character.can_edit}
@@ -104,15 +101,12 @@ class View extends Component {
                 <Profile
                   profileSections={character.profile_sections}
                   editable={this.state.editable}
-                  refetch={this.props.onChange}
+                  refetch={this.props.refetch}
                   characterId={this.props.character.shortcode}
                 />
 
                 {/*<Reference />*/}
-                <Gallery
-                  images={character.images}
-                  onUploadClick={onUploadModalOpen}
-                />
+                <Gallery images={character.images} />
               </Col>
             </Row>
           </StickyContainer>
@@ -133,9 +127,11 @@ const Themed = function(props) {
 
 View.propTypes = {
   character: PropTypes.object.isRequired,
-  onUploadModalOpen: PropTypes.func,
-  onUploadModalClose: PropTypes.func,
   onUpload: PropTypes.func,
 }
 
-export default Themed
+const mapDispatchToProps = {
+  setUploadTarget,
+}
+
+export default compose(connect(undefined, mapDispatchToProps))(Themed)
