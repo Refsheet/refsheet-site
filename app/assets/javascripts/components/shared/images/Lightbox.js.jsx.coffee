@@ -62,14 +62,14 @@
       success: =>
         id = @state.image.id
 
-        Materialize.toast('Image deleted.', 3000, 'green')
+        Materialize.toast({ html: 'Image deleted.', displayLength: 3000, classes: 'green'})
         $(document).trigger 'app:image:delete', id
         @state.onDelete(id) if @state.onDelete
         @props.onDelete(id) if @props.onDelete
         M.Modal.getInstance(document.getElementById('lightbox-delete-form')).close()
         M.Modal.getInstance(document.getElementById('lightbox')).close()
       error: =>
-        Materialize.toast('Could not delete that for some reason.', 3000, 'red')
+        Materialize.toast({ html: 'Could not delete that for some reason.', displayLength: 3000, classes: 'red'})
     e.preventDefault()
 
   handleClose: (e) ->

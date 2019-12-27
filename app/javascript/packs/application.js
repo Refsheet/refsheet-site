@@ -11,7 +11,8 @@ import 'whatwg-fetch'
 import * as Sentry from '@sentry/browser'
 import * as ReactRouter from 'react-router-dom'
 import * as UserUtils from 'utils/UserUtils'
-import { setCurrentUser } from 'actions'
+import { setCurrentUser, setUploadTarget } from 'actions'
+import * as Actions from 'actions'
 
 export const __globals = [
   'React',
@@ -25,6 +26,8 @@ export const __globals = [
   'createBrowserHistory',
   'connect',
   'setCurrentUser',
+  'setUploadTarget',
+  'Actions',
   'NewLightbox',
   'Restrict',
   'UserUtils',
@@ -47,6 +50,8 @@ export { connect } from 'react-redux'
 export { ReactRouter }
 export { Sentry }
 export { setCurrentUser }
+export { setUploadTarget }
+export { Actions }
 export { UserUtils }
 
 // NOT GLOBAL

@@ -71,7 +71,7 @@ class IdentityModal extends Component {
   }
 
   render() {
-    const { t, title, requireCharacter } = this.props
+    const { t, title, requireCharacter, allowCreate } = this.props
 
     return (
       <Modal
@@ -121,14 +121,21 @@ class IdentityModal extends Component {
           }}
         </Query>
 
-        {requireCharacter || (
-          <div className={'modal-footer right-align'}>
-            <button
-              className={'btn'}
-              onClick={this.handleCharacterSelect(null).bind(this)}
-            >
-              {t('identity.as-self', 'Post As Yourself')}
-            </button>
+        {(allowCreate || !requireCharacter) && (
+          <div className={'modal-footer'}>
+            {allowCreate && (
+              <button className={'btn left'}>
+                {t('actions.create_character', 'Create Character')}
+              </button>
+            )}
+            {requireCharacter || (
+              <button
+                className={'btn right'}
+                onClick={this.handleCharacterSelect(null).bind(this)}
+              >
+                {t('identity.as-self', 'Post As Yourself')}
+              </button>
+            )}
           </div>
         )}
       </Modal>
@@ -141,6 +148,7 @@ IdentityModal.propTypes = {
   onCharacterSelect: PropTypes.func,
   title: PropTypes.string,
   requireCharacter: PropTypes.bool,
+  allowCreate: PropTypes.bool,
   temporary: PropTypes.bool,
 }
 

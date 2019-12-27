@@ -1,0 +1,2 @@
+- Fixed "Important Notes" getting stuck when you enter only spaces
+- Fixed drag and drop so it doesn't trigger the upload popup

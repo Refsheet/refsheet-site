@@ -18,12 +18,12 @@ module MaterialHelper
 
     if options[:no_wrapper]
       <<-JAVASCRIPT.html_safe
-        Materialize.toast("#{escape_javascript message}", 5000, "#{klass}")
+        Materialize.toast({ html: "#{escape_javascript message}", displayLength: 5000, classes: "#{klass}"})
       JAVASCRIPT
     else
       <<-HTML.html_safe
         <script type="text/javascript">
-            Materialize.toast("#{escape_javascript message}", 5000, "#{klass}")
+            Materialize.toast({ html: "#{escape_javascript message}", displayLength: 5000, classes: "#{klass}" })
         </script>
       HTML
     end

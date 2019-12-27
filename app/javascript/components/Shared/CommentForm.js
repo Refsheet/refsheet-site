@@ -50,7 +50,11 @@ class CommentForm extends Component {
     this.setState({ submitting: true })
 
     if (!this.state.comment) {
-      M.toast('Please enter a comment!', { duration: 3000 })
+      M.toast({
+        html: 'Please enter a comment!',
+        displayLength: 3000,
+        classes: 'red',
+      })
     }
 
     this.props

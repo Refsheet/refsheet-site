@@ -161,7 +161,7 @@ class Image < ApplicationRecord # < Media
   }
 
   def gravity
-    super || 'center'
+    super || 'North'
   end
 
   def processed?

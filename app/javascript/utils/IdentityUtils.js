@@ -30,7 +30,7 @@ export function createIdentity({ user, character, identity }) {
   if (identity) {
     result = {
       ...result,
-      ...identity
+      ...identity,
     }
   }
 

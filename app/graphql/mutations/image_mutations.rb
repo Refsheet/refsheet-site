@@ -6,7 +6,7 @@ class Mutations::ImageMutations < Mutations::ApplicationMutation
     type Types::ImageType
 
     argument :mediaId, types.ID
-    argument :characterId, types.String
+    argument :characterId, types.ID
     argument :folder, types.String
     argument :title, types.String
     argument :caption, types.String
@@ -22,7 +22,7 @@ class Mutations::ImageMutations < Mutations::ApplicationMutation
   action :create do
     type Types::ImageType
 
-    argument :characterId, !types.String
+    argument :characterId, !types.ID
     argument :folder, types.String
     argument :title, types.String
     argument :nsfw, types.Boolean
