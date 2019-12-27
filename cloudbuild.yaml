@@ -3,38 +3,10 @@ steps:
     args:
     - --destination=gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID
     - --cache=true
-
-  #== TEST
-
-#  - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci'
-#    args: ['rspec']
-
-#  - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci'
-#    args: ['yaml-lint', '.kubernetes/*.{yml,yaml}']
-
-#  - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci'
-#    args: ['yarn', 'run', 'prettier-check']
-
-  #== Asset Pipeline
-  - name: 'gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID'
-    volumes:
-      - name: 'artifacts'
-        path: '/artifacts'
-    entrypoint: 'bash'
-    args:
-      - -c
-      - 'cp -R /app/public/* /artifacts'
-
-  - name: 'gcr.io/cloud-builders/gsutil'
-    volumes:
-      - name: 'artifacts'
-        path: '/artifacts'
-    args:
-      - -m
-      - cp
-      - -r
-      - /artifacts/*
-      - gs://assets.refsheet.net/
+    artifacts:
+      objects:
+        location: 'gs://assets.refsheet.net/'
+        paths: ['/app/public/*']
 
   #== DEPLOY
 
