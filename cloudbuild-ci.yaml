@@ -47,13 +47,14 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['rm', '--force', 'postgres']
 
-environment:
-  - POSTGRES_USER=refsheet
-  - POSTGRES_PASSWORD=fishsticks
-  - POSTGRES_DB=refsheet-site
-  - DB_HOST=postgres
-  - DB_USERNAME=refsheet
-  - DB_PASSWORD=fishsticks
-  - DB_DATABASE=refsheet-site
+options:
+  env:
+    - POSTGRES_USER=refsheet
+    - POSTGRES_PASSWORD=fishsticks
+    - POSTGRES_DB=refsheet-site
+    - DB_HOST=postgres
+    - DB_USERNAME=refsheet
+    - DB_PASSWORD=fishsticks
+    - DB_DATABASE=refsheet-site
 
 timeout: 3600s
