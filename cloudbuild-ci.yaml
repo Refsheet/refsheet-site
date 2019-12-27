@@ -47,7 +47,7 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['rm', '--force', 'postgres']
 
-env:
+environment:
   - POSTGRES_USER=refsheet
   - POSTGRES_PASSWORD=fishsticks
   - POSTGRES_DB=refsheet-site
