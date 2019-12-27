@@ -36,8 +36,8 @@ steps:
   - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
     args: ['rspec', '--exclude-pattern', '**/features/**/*_spec.rb']
 
-  - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
-    args: ['rspec', '--pattern', '**/features/**/*_spec.rb']
+#  - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
+#    args: ['rspec', '--pattern', '**/features/**/*_spec.rb']
 
   - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
     args: ['yaml-lint', '.kubernetes/*.{yml,yaml}']
