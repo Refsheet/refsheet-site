@@ -59,4 +59,13 @@ describe Activity, type: :model do
     chr.destroy
     expect(Activity.count).to eq 0
   end
+
+  it 'checks visible_to' do
+    usr0 = create :user
+    chr = create :character, hidden: true
+
+    usr1 = chr.user
+    expect(Activity.visible_to(usr1)).to have(1).items
+    expect(Activity.visible_to(usr0)).to have(0).items
+  end
 end

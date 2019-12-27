@@ -17,8 +17,8 @@ ActiveRecord::Migration.maintain_test_schema!
 RSpec.configure do |config|
   config.use_transactional_fixtures = false
   config.infer_spec_type_from_file_location!
-  # config.filter_rails_from_backtrace!
-  config.full_backtrace = true
+  config.filter_rails_from_backtrace!
+  config.full_backtrace = false
 
   config.include GraphqlHelper
 
@@ -64,7 +64,7 @@ end
 
 class JavascriptError < StandardError; end
 
-Chromedriver.set_version "73.0.3683.68"
+Webdrivers::Chromedriver.required_version = "73.0.3683.68"
 
 Capybara.register_driver :chrome do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome)

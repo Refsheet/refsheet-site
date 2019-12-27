@@ -10,8 +10,35 @@
 #  updated_at      :datetime         not null
 
 class InitializeActivities < ActiveRecord::Migration[5.0]
+  class ::User < ActiveRecord::Base
+  end
+
+  class ::Character < ActiveRecord::Base
+    belongs_to :user
+  end
+
+  class ::Image < ActiveRecord::Base
+    belongs_to :character
+  end
+
+  module ::Forum
+    class Discussion < ActiveRecord::Base
+      self.table_name = 'forum_threads'
+    end
+  end
+
+  module ::Media
+    class Comment < ActiveRecord::Base
+      self.table_name = 'media_comments'
+    end
+  end
+
+  class ::Activity < ActiveRecord::Base
+
+  end
+
   def up
-    Character.select(:id, :user_id, :created_at).find_in_batches do |batch|
+    ::Character.select(:id, :user_id, :created_at).find_in_batches do |batch|
       puts "   --> Running #{batch.first.class.name} batch of #{batch.count}"
 
       activities = batch.collect { |i| {
@@ -25,7 +52,7 @@ class InitializeActivities < ActiveRecord::Migration[5.0]
       Activity.create activities
     end
 
-    Image.joins(:character => :user).select(:id, :character_id, 'users.id AS user_id', :created_at).find_in_batches do |batch|
+    ::Image.joins(:character => :user).select(:id, :character_id, 'users.id AS user_id', :created_at).find_in_batches do |batch|
       puts "   --> Running #{batch.first.class.name} batch of #{batch.count}"
 
       activities = batch.collect { |i| {
@@ -40,7 +67,7 @@ class InitializeActivities < ActiveRecord::Migration[5.0]
       Activity.create activities
     end
 
-    Forum::Discussion.select(:id, :user_id, :created_at).find_in_batches do |batch|
+    ::Forum::Discussion.select(:id, :user_id, :created_at).find_in_batches do |batch|
       puts "   --> Running #{batch.first.class.name} batch of #{batch.count}"
 
       activities = batch.collect { |i| {
