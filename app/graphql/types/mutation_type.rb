@@ -7,6 +7,7 @@ Types::MutationType = GraphQL::ObjectType.define do
   # Images
   field :uploadImage, field: Mutations::ImageMutations::Create
   field :updateImage, field: Mutations::ImageMutations::Update
+  field :deleteMedia, field: Mutations::ImageMutations::Destroy
 
   # Media
   field :addFavorite, field: Mutations::MediaFavoriteMutations::Create

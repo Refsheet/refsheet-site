@@ -193,6 +193,10 @@ class Image < ApplicationRecord # < Media
     output
   end
 
+  def download_link
+    Rails.application.routes.url_helpers.full_image_url(self.guid)
+  end
+
   def regenerate_thumbnail!
     ImageProcessingJob.perform_later self
   end
