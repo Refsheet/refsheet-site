@@ -59,7 +59,7 @@ COPY yarn.lock    /app/yarn.lock
 
 RUN yarn --pure-lockfile
 
-ENV NODE_OPTIONS="--max-old-space-size=4096"
+ENV NODE_OPTIONS="--max-old-space-size=2048"
 
 
 # Move App and Precompile
