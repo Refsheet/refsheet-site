@@ -27,6 +27,10 @@ steps:
       - -timeout=60s
       - -wait=tcp://postgres:5432
 
+  # Setup Database
+  - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
+    args: ['bundle', 'exec', 'rake', 'db:setup']
+
   #== TEST
 
   - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
@@ -51,6 +55,9 @@ steps:
 
 options:
   env:
+    - RAILS_ENV=test
+    - RACK_ENV=test
+    - NODE_ENV=test
     - DB_HOST=postgres
     - DB_USERNAME=postgres
     - DB_PASSWORD=fishsticks
