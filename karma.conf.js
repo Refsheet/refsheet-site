@@ -38,9 +38,16 @@ module.exports = function(config) {
     port: 9876,
     colors: true,
 
+    customLaunchers: {
+      ChromeNoSandbox: {
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox']
+      }
+    },
+
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['PhantomJS'],
+    browsers: ['ChromeNoSandbox'],
     singleRun: false,
     concurrency: Infinity,
 

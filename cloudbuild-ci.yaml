@@ -8,15 +8,43 @@ steps:
       - --cache=true
       - --dockerfile=./Dockerfile.dev
 
+  #== SETUP
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - run
+      - -d
+      - --name=postgres
+      - --network=cloudbuild
+      - postgres
+
+  # Wait for Postgres to become available
+  - name: 'jwilder/dockerize:0.6.1'
+    args:
+      - dockerize
+      - -timeout=60s
+      - -wait=tcp://postgres:5432
+
   #== TEST
 
-  - name: 'gcr.io/$PROJECT_ID/docker-compose'
-    args: ['rspec']
+  - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
+    args: ['rspec', '--exclude-pattern', '**/features/**/*_spec.rb']
+
+  - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
+    args: ['rspec', '--pattern', '**/features/**/*_spec.rb']
 
   - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
     args: ['yaml-lint', '.kubernetes/*.{yml,yaml}']
 
   - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
+    args: ['yarn', 'run', 'karma', 'start', '--single-run']
+
+  - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
     args: ['yarn', 'run', 'prettier-check']
+
+  #== TEARDOWN
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['rm', '--force', 'postgres']
 
 timeout: 3600s
