@@ -8,7 +8,7 @@
                     A new, convenient way to organize your character designs, art and world.
                     All of this supported by <a href='https://www.patreon.com/refsheet' target='_blank'>Patreon</a>!
                   </p>
-                  <div className='muted'>Copyright &copy;2018 Refsheet.net</div>
+                  <div className='muted'>Copyright &copy;2020 Refsheet.net</div>
               </Column>
 
               <Column s={12} m={2} />
@@ -50,15 +50,4 @@
               </Column>
           </Row>
       </div>
-      {/*<Section className="footer-copyright">*/}
-          {/*<Row>*/}
-              {/*<Column s='12' m='6'>*/}
-                  {/*&copy;2017 // A Sitehive project*/}
-              {/*</Column>*/}
-
-              {/*<Column s='12' m='6' className='right-align'>*/}
-                  {/*<Link to='/terms'>Terms</Link> | <Link to='/privacy'>Privacy</Link>*/}
-              {/*</Column>*/}
-          {/*</Row>*/}
-      {/*</Section>*/}
   </footer>`
