@@ -2,7 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { withRouter } from 'react-router'
 import { withNamespaces } from 'react-i18next'
-import Restrict from "../Shared/Restrict";
+import Restrict from '../Shared/Restrict'
 
 const SiteNav = ({ t }) => {
   return (

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import compose, { withMutations } from '../../utils/compose'
 import updateImage from './updateImage.graphql'
 import { Row, Col, Checkbox, Textarea, TextInput } from 'react-materialize'
-import {withNamespaces} from "react-i18next";
+import { withNamespaces } from 'react-i18next'
 
 class ImageEditForm extends Component {
   constructor(props) {
@@ -65,7 +65,7 @@ class ImageEditForm extends Component {
         onSubmit={this.handleFormSubmit.bind(this)}
       >
         <div className={'image-details'}>
-          <h3>{t('actions.edit_image', "Edit Image")}</h3>
+          <h3>{t('actions.edit_image', 'Edit Image')}</h3>
         </div>
 
         <div className={'flex-vertical'}>
@@ -110,7 +110,7 @@ class ImageEditForm extends Component {
                   checked={image.nsfw}
                   id={'image_nsfw'}
                   value="nsfw"
-                  label={t('labels.nsfw', "NSFW")}
+                  label={t('labels.nsfw', 'NSFW')}
                 />
               </Col>
 

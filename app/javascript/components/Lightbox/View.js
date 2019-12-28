@@ -11,7 +11,7 @@ import ImageActions from './ImageActions'
 import ImageEditForm from './ImageEditForm'
 import { withNamespaces } from 'react-i18next'
 import compose from '../../utils/compose'
-import Restrict from "../Shared/Restrict";
+import Restrict from '../Shared/Restrict'
 
 class View extends Component {
   constructor(props) {
