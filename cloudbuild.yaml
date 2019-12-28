@@ -3,10 +3,28 @@ steps:
     args:
     - --destination=gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID
     - --cache=true
-    artifacts:
-      objects:
-        location: 'gs://assets.refsheet.net/'
-        paths: ['/app/public/*']
+
+  #== Upload Assets
+
+  - name: 'gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID'
+    volumes:
+      - name: 'artifacts'
+        path: '/artifacts'
+    entrypoint: 'bash'
+    args:
+      - -c
+      - 'cp -R /app/public/* /artifacts'
+
+  - name: 'gcr.io/cloud-builders/gsutil'
+    volumes:
+      - name: 'artifacts'
+        path: '/artifacts'
+    args:
+      - -m
+      - cp
+      - -r
+      - /artifacts/*
+      - gs://assets.refsheet.net/
 
   #== DEPLOY
 
