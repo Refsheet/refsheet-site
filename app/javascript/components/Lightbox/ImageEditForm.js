@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import compose, { withMutations } from '../../utils/compose'
 import updateImage from './updateImage.graphql'
 import { Row, Col, Checkbox, Textarea, TextInput } from 'react-materialize'
+import { withNamespaces } from 'react-i18next'
 
 class ImageEditForm extends Component {
   constructor(props) {
@@ -55,6 +56,7 @@ class ImageEditForm extends Component {
   }
 
   render() {
+    const { t } = this.props
     const { image } = this.state
 
     return (
@@ -63,7 +65,7 @@ class ImageEditForm extends Component {
         onSubmit={this.handleFormSubmit.bind(this)}
       >
         <div className={'image-details'}>
-          <h3>Edit Image</h3>
+          <h3>{t('actions.edit_image', 'Edit Image')}</h3>
         </div>
 
         <div className={'flex-vertical'}>
@@ -75,10 +77,7 @@ class ImageEditForm extends Component {
                 name={'title'}
                 onChange={this.handleInputChange.bind(this)}
                 value={image.title || ''}
-                help={
-                  'Include #hashtags here. If the last line is just tags, it will not be displayed.'
-                }
-                label={'Title'}
+                label={t('labels.title', 'Title')}
               />
             </Row>
             <Row>
@@ -88,7 +87,20 @@ class ImageEditForm extends Component {
                 name={'caption'}
                 onChange={this.handleInputChange.bind(this)}
                 value={image.caption || ''}
-                label={'Caption'}
+                helpText={
+                  'Include #hashtags here. If the last line is just tags, it will not be displayed.'
+                }
+                label={t('labels.caption', 'Caption')}
+              />
+            </Row>
+            <Row>
+              <TextInput
+                s={12}
+                id={'image_source_url'}
+                name={'source_url'}
+                onChange={this.handleInputChange.bind(this)}
+                value={image.source_url || ''}
+                label={t('labels.source_url', 'Source URL')}
               />
             </Row>
             <Row>
@@ -98,7 +110,7 @@ class ImageEditForm extends Component {
                   checked={image.nsfw}
                   id={'image_nsfw'}
                   value="nsfw"
-                  label="NSFW"
+                  label={t('labels.nsfw', 'NSFW')}
                 />
               </Col>
 
@@ -108,7 +120,7 @@ class ImageEditForm extends Component {
                   checked={image.hidden}
                   id={'image_hidden'}
                   value="hidden"
-                  label={'Hidden'}
+                  label={t('labels.hidden', 'Hidden')}
                 />
               </Col>
             </Row>
@@ -116,14 +128,14 @@ class ImageEditForm extends Component {
 
           <div className={'flex-fixed padded'}>
             <button type={'submit'} className={'btn btn-primary right'}>
-              Save
+              {t('actions.save', 'Save')}
             </button>
             <a
               href={'#'}
               className={'btn btn-secondary'}
               onClick={this.handleCancelClick.bind(this)}
             >
-              Cancel
+              {t('actions.cancel', 'Cancel')}
             </a>
           </div>
         </div>
@@ -142,4 +154,7 @@ ImageEditForm.propTypes = {
   onSave: PropTypes.func,
 }
 
-export default compose(withMutations({ updateImage }))(ImageEditForm)
+export default compose(
+  withNamespaces('common'),
+  withMutations({ updateImage })
+)(ImageEditForm)

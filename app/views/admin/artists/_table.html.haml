@@ -1,0 +1,24 @@
+- if artists.is_a? Hash
+  - artists.each do |group, items|
+    %h2.list-group-heading= group
+    = render partial: 'table', locals: { artists: items }
+
+- else
+  %ul.collection
+    - artists.each do |artist|
+      %li.collection-item.avatar
+        - if artist.avatar.attached?
+          = image_tag url_for(artist.avatar), class: 'circle', alt: artist.name
+
+        .title= link_to artist.name, admin_artist_path(artist.slug)
+        .muted
+          Created:
+          = artist.created_at.strftime('%d %b %Y')
+          &bull; Slug: #{ artist.slug }
+          - if artist.user
+            &bull; User: #{ link_to artist.user.username, admin_user_path(artist.user.username) }
+
+        = link_to material_icon('edit'), edit_admin_artist_path(artist.slug), class: 'secondary-content'
+
+- if artists.empty?
+  .caption.center Nothing to show here...

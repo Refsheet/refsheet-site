@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
   def self.force_ssl(options = {})
     return unless Rails.env.production?
 
-    before_filter(options) do
+    before_action(options) do
       unless request.ssl? or allow_http?
         new = "https://#{request.host_with_port}#{request.fullpath}"
         redirect_to new, status: :moved_permanently
@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
   #== Action Locks
 
   def self.in_beta!
-    before_filter do
+    before_action do
       unless signed_in? and current_user.patron?
         raise ActionController::RoutingError.new 'This is available to Patrons only!'
       end
@@ -141,13 +141,6 @@ class ApplicationController < ActionController::Base
 
       format.json { render json: { error: message }, status: :unauthorized }
       format.any  { head :unauthorized }
-    end
-  end
-
-  def use_read_replica(&block)
-    replica = :read_1
-    Rails.logger.tagged("db_replica:#{replica}") do
-      Octopus.using(replica, &block)
     end
   end
 

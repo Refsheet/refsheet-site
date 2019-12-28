@@ -1,0 +1,15 @@
+query getArtist($slug: String!) {
+    getArtist(slug: $slug) {
+        name,
+        slug,
+        guid,
+        profile_markdown,
+        commission_info_markdown,
+        locked,
+        avatar_url,
+        user {
+            name,
+            username
+        }
+    }
+}

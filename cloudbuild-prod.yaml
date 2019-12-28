@@ -1,17 +1,37 @@
 steps:
+  - name: 'gcr.io/kaniko-project/executor'
+    args:
+      - --destination=gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID
+      - --cache=true
 
-  #== BUILD
+  #== TEST
 
-  - name: 'gcr.io/cloud-builders/docker'
+  #  - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci'
+  #    args: ['rspec']
+
+  #  - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci'
+  #    args: ['yaml-lint', '.kubernetes/*.{yml,yaml}']
+
+  #== Asset Pipeline
+  - name: 'gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID'
+    volumes:
+      - name: 'artifacts'
+        path: '/artifacts'
     entrypoint: 'bash'
-    args: ['-c', 'docker pull gcr.io/$PROJECT_ID/refsheet-site:latest || exit 0']
+    args:
+      - -c
+      - 'cp -R /app/public/* /artifacts'
 
-  - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID', '--cache-from', 'gcr.io/$PROJECT_ID/refsheet-site:latest', '.' ]
-
-  # Push Build
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ["push", "gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID"]
+  - name: 'gcr.io/cloud-builders/gsutil'
+    volumes:
+      - name: 'artifacts'
+        path: '/artifacts'
+    args:
+      - -m
+      - cp
+      - -r
+      - /artifacts/*
+      - gs://assets.refsheet.net/
 
   #== DEPLOY
 
@@ -20,13 +40,13 @@ steps:
     args: ['set', 'image', 'deployment', 'refsheet-prod', "refsheet-prod=gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID"]
     env:
       - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
-      - 'CLOUDSDK_CONTAINER_CLUSTER=refsheet-prod'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=refsheet-prod-clone-1'
 
   # Deploy Worker
   - name: 'gcr.io/cloud-builders/kubectl'
     args: ['set', 'image', 'deployment', 'refsheet-prod-worker', "refsheet-prod-worker=gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID"]
     env:
       - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
-      - 'CLOUDSDK_CONTAINER_CLUSTER=refsheet-prod'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=refsheet-prod-clone-1'
 
 timeout: 3600s

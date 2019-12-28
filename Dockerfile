@@ -65,7 +65,10 @@ ENV NODE_OPTIONS="--max-old-space-size=2048"
 # Move App and Precompile
 
 COPY . /app
-RUN bundle exec rake assets:precompile RAILS_ENV=production
+
+RUN SECRET_KEY_BASE=nothing \
+    RDS_DB_ADAPTER=nulldb \
+    bundle exec rake assets:precompile RAILS_ENV=production
 
 # Copy System Config
 COPY ./config/imagemagick/policy.xml /etc/ImageMagick-6/policy.xml

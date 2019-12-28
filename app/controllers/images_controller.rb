@@ -2,7 +2,6 @@ class ImagesController < ApplicationController
   before_action :get_user, except: [:show, :full, :update, :destroy, :refresh]
   before_action :get_character, except: [:show, :full, :update, :destroy, :refresh]
   before_action :get_image, only: [:show, :full, :update, :destroy, :refresh]
-  around_action :use_read_replica, only: [:index, :show]
 
   respond_to :json
 

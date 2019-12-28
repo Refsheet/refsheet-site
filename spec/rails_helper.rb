@@ -6,6 +6,7 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'spec_helper'
 require 'rspec/rails'
 require 'rack_session_access/capybara'
+require 'webdrivers/chromedriver'
 require 'selenium/webdriver'
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
@@ -16,8 +17,8 @@ ActiveRecord::Migration.maintain_test_schema!
 RSpec.configure do |config|
   config.use_transactional_fixtures = false
   config.infer_spec_type_from_file_location!
-  # config.filter_rails_from_backtrace!
-  config.full_backtrace = true
+  config.filter_rails_from_backtrace!
+  config.full_backtrace = false
 
   config.include GraphqlHelper
 
@@ -63,18 +64,23 @@ end
 
 class JavascriptError < StandardError; end
 
-Chromedriver.set_version "73.0.3683.68"
+Webdrivers::Chromedriver.required_version = "79.0.3945.36"
 
 Capybara.register_driver :chrome do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome)
 end
 
 Capybara.register_driver :headless_chrome do |app|
-  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-      chromeOptions: { args: %w(disable-gpu no-sandbox) }
-  )
+  Capybara::Selenium::Driver.load_selenium
 
-  Capybara::Selenium::Driver.new(app, browser: :chrome, desired_capabilities: capabilities)
+  browser_options = ::Selenium::WebDriver::Chrome::Options.new
+  browser_options.args << '--headless'
+  browser_options.args << '--disable-gpu'
+  browser_options.args << '--allow-insecure-localhost'
+  browser_options.args << '--no-sandbox'
+  browser_options.args << '--window-size=1920,1080'
+
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
 end
 
 Capybara.configure do |config|
