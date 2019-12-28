@@ -39,11 +39,8 @@ steps:
 #  - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
 #    args: ['rspec', '--pattern', '**/features/**/*_spec.rb']
 
-#  - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
-#    args: ['yaml-lint', '.kubernetes/*.{yml,yaml}']
-
   - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
-    args: ['yarn', 'run', 'karma', 'start', '--single-run']
+    args: ['yarn', 'run', 'test']
 
   - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
     args: ['yarn', 'run', 'prettier-check']
