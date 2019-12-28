@@ -20,10 +20,10 @@
         .apple-link{style: 'padding-bottom: 10px;'}
           Refsheet.net is made with love by Mau Abata, a big ol' nerd.
 
-        - if @user
+        - if get_verified_email
           .apple-link{style: 'padding-bottom: 10px;'}
             Not a fan of emails form us?
-            = link_to 'Unsubscribe', unsubscribe_url(email: @user.email)
+            = link_to 'Unsubscribe', unsubscribe_url(email: get_verified_email)
 
     - if @user
       %tr
