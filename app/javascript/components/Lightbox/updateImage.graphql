@@ -1,9 +1,11 @@
-mutation updateImage($id: ID!, $caption: String, $title: String, $nsfw: Boolean, $hidden: Boolean) {
-    updateImage(mediaId: $id, caption: $caption, title: $title, nsfw: $nsfw, hidden: $hidden) {
+mutation updateImage($id: ID!, $caption: String, $title: String, $nsfw: Boolean, $hidden: Boolean, $source_url: String) {
+    updateImage(mediaId: $id, caption: $caption, title: $title, nsfw: $nsfw, hidden: $hidden, source_url: $source_url) {
         id
         title
         caption
         caption_html
+        source_url
+        source_url_display
         nsfw
         hidden
 

@@ -2,6 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { withRouter } from 'react-router'
 import { withNamespaces } from 'react-i18next'
+import Restrict from "../Shared/Restrict";
 
 const SiteNav = ({ t }) => {
   return (
@@ -17,11 +18,14 @@ const SiteNav = ({ t }) => {
           {t('nav.characters', 'Characters')}
         </NavLink>
       </li>
-      <li>
-        <NavLink to="/artists" activeClassName="primary-text strong">
-          {t('nav.artists', 'Artists')}
-        </NavLink>
-      </li>
+
+      <Restrict development>
+        <li>
+          <NavLink to="/artists" activeClassName="primary-text strong">
+            {t('nav.artists', 'Artists')}
+          </NavLink>
+        </li>
+      </Restrict>
 
       <li>
         <NavLink to="/explore" activeClassName="primary-text">
