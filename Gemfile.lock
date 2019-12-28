@@ -754,7 +754,7 @@ DEPENDENCIES
   pg (~> 0.21)
   phashion
   premailer-rails
-  puma (~> 3.0)
+  puma (~> 3.12)
   puma_worker_killer
   rack-cors
   rack_session_access
