@@ -14,6 +14,11 @@
     font-weight: 400
     margin-left: 1.5rem
 
+  .button-collapse
+    float: left
+    padding: 0 1.5rem
+    display: none
+
   input[type=search]
     cursor: pointer
     height: 56px
@@ -27,9 +32,11 @@
       right: 1.5rem
       transition: all 0.3s ease
       pointer-events: none
+      transform: none !important
 
     &:active, &:focus
       background-color: white !important
+      padding-left: 3rem !important
 
     &:active, &:focus, &.active
       & + label
@@ -41,3 +48,6 @@
 
   @media #{$medium-and-down}
     padding-left: 0
+
+    .button-collapse
+      display: inline-block
