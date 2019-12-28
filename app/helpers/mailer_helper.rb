@@ -1,4 +1,15 @@
 module MailerHelper
+  def get_verified_email
+    if @verified_email
+      return @verified_email
+    end
+
+    email = @user&.email || @mail_to
+    return nil unless email
+
+    @verified_email = Rails.application.message_verifier('emails').generate(email)
+  end
+
   def button(text, path, options={})
     primary = options.delete(:primary) || false
     last = options.delete(:last) || true
