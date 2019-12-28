@@ -40,8 +40,33 @@
     padding: 0.5rem 0 0.5rem 0
 
   .forum-post--date
-    @extend .muted
+    display: table-cell
+    text-align: right
+    width: 200px
+
+    .user-summary
+      padding-right: 4rem
+      position: relative
+      white-space: nowrap
+
+      .avatar
+        position: absolute
+        right: 0
+        top: 0
+        width: 3rem
+        height: 3rem
+
+      a
+        display: block
+        line-height: 1.5rem
+        vertical-align: top
+
+      .time
+        @extend .muted
+        line-height: 1.5rem
+        vertical-align: baseline
 
   .forum-post--meta
     @extend .muted
+    margin-top: 0.25rem
     color: $text-light-color !important

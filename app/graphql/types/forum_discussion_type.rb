@@ -36,6 +36,7 @@ Types::ForumDiscussionType = GraphQL::ObjectType.define do
   field :shortcode, types.String
   field :content, types.String
   field :content_html, types.String
+  field :preview, types.String
   field :locked, types.Boolean
   field :karma_total, types.Int
 

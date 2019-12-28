@@ -32,12 +32,12 @@ class View extends Component {
         </div>
 
         <Container>
-          {/*<div className={'margin-top--large page-header with-search'}>*/}
-          {/*  <form className={'right page-search'}>*/}
-          {/*    <input type={'search'} name={'q'} placeholder={'search'} />*/}
-          {/*  </form>*/}
-          {/*  <h1>Forums</h1>*/}
-          {/*</div>*/}
+          <div className={'margin-top--large page-header with-search'}>
+            <form className={'right page-search'}>
+              <input type={'search'} name={'q'} placeholder={'search'} />
+            </form>
+            <h1>Forums</h1>
+          </div>
           <table>
             <thead>
               <tr>

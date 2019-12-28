@@ -48,7 +48,15 @@ class View extends Component {
 
         <div className={'container container-flex'}>
           <main className={'content-left'}>
-            {/*<div className={'forum-sort margin-bottom--medium'} />*/}
+            <div className={'forum-sort margin-bottom--medium'}>
+              <div className={'sort-by left'}>
+                Sort By: <a href={'#'}>Recent Comments</a> | <a href={'#'}>Newest Discussions</a>
+              </div>
+
+              <div className={'right'}>
+                <a href={'#'} className={'btn btn-small'}>New Discussion</a>
+              </div>
+            </div>
 
             <div className="forum-posts--group-name">
               {t('forums.recent_posts', 'Recent Posts')}
