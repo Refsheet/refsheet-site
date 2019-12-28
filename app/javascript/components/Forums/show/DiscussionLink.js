@@ -5,7 +5,7 @@ import UserLink from '../../Shared/UserLink'
 import Moment from 'react-moment'
 import { Link } from 'react-router-dom'
 import KarmaButton from '../shared/KarmaButton'
-import UserAvatar from "../../User/UserAvatar";
+import UserAvatar from '../../User/UserAvatar'
 import c from 'classnames'
 
 class DiscussionLink extends Component {
@@ -15,7 +15,7 @@ class DiscussionLink extends Component {
     console.log({ discussion })
 
     return (
-      <div className={c('forum-post', {new: discussion.is_unread})}>
+      <div className={c('forum-post', { new: discussion.is_unread })}>
         <div className={'forum-post--votes'}>
           <div className="forum-post--upvote">
             <KarmaButton
@@ -42,7 +42,12 @@ class DiscussionLink extends Component {
 
         <div className={'forum-post--summary'}>
           <div className="forum-post--title">
-            { discussion.is_unread && <span className={'new'}>New</span> }
+            {discussion.is_unread && <span className={'tag new'}>New</span>}
+            {discussion.sticky && <span className={'tag alert'}>Sticky</span>}
+            {discussion.is_resolved && (
+              <span className={'tag resolved'}>Resolved</span>
+            )}
+
             <Link
               to={`/v2/forums/${forum.slug}/${discussion.slug}`}
               title={discussion.topic}
@@ -51,17 +56,29 @@ class DiscussionLink extends Component {
             </Link>
           </div>
 
-          <div className={'forum-post--preview'}>
-            { JSON.stringify(discussion.preview) }
-          </div>
+          <div className={'forum-post--preview'}>{discussion.preview}</div>
 
           <div className={'forum-post--meta'}>
             {t('forums.replies', {
               defaultValue: '{{count}} replies',
-              count: 0,
+              count: discussion.reply_count,
             })}
-
-            &nbsp;&bull;&nbsp;<a href={'#'}>{t('forums.save', "Save")}</a>
+            {discussion.last_post_at && (
+              <span className={'last-reply-at'}>
+                {' '}
+                (
+                <Link
+                  to={`/v2/forums/${forum.slug}/${discussion.slug}#last`}
+                  title={t('forums.go_to_last', 'Go to last post')}
+                >
+                  <Moment key={'date'} fromNow unix>
+                    {discussion.last_post_at}
+                  </Moment>
+                </Link>
+                )
+              </span>
+            )}
+            &nbsp;&bull;&nbsp;<a href={'#'}>{t('forums.save', 'Save')}</a>
           </div>
         </div>
 
@@ -72,10 +89,7 @@ class DiscussionLink extends Component {
               character={discussion.character}
             />
 
-            <UserLink
-              user={discussion.user}
-              character={discussion.character}
-            />
+            <UserLink user={discussion.user} character={discussion.character} />
 
             <div className={'time'}>
               <Trans
@@ -92,8 +106,6 @@ class DiscussionLink extends Component {
               />
             </div>
           </div>
-
-
         </div>
       </div>
     )

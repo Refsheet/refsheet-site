@@ -85,6 +85,18 @@ class Forum::Discussion < ApplicationRecord
     super.to_md
   end
 
+  def reply_count
+    self.posts.count
+  end
+
+  def last_post_at
+    if self.attributes.include? 'last_post_at'
+      self.attributes['last_post_at']
+    else
+      nil
+    end
+  end
+
   def last_read_at(user)
     if self.attributes.include? 'last_read_cache'
       self.last_read_cache

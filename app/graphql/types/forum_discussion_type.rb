@@ -39,6 +39,7 @@ Types::ForumDiscussionType = GraphQL::ObjectType.define do
   field :preview, types.String
   field :locked, types.Boolean
   field :karma_total, types.Int
+  field :reply_count, types.Int
 
   field :forum, Types::ForumType
   field :user, Types::UserType
@@ -53,6 +54,24 @@ Types::ForumDiscussionType = GraphQL::ObjectType.define do
       end
 
       scope
+    }
+  end
+
+  field :last_read_at, types.Int do
+    resolve -> (obj, _args, ctx) {
+      obj.last_read_at(ctx[:current_user].call)
+    }
+  end
+
+  field :last_post_at, types.Int do
+    resolve -> (obj, _args, _ctx) {
+      obj.last_post_at
+    }
+  end
+
+  field :unread_posts_count, types.Int do
+    resolve -> (obj, _args, _ctx) {
+      obj.unread_posts_count
     }
   end
 end
