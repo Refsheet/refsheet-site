@@ -8,12 +8,19 @@ import { withNamespaces } from 'react-i18next'
 import DiscussionLink from './DiscussionLink'
 
 class View extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      sort: 'created_at:desc',
+      page: 1,
+    }
+  }
+
   render() {
     const { forum, t } = this.props
 
     const discussions = [...forum.discussions]
-
-    discussions.sort((a, b) => a.karma_total - b.karma_total)
 
     return (
       <Main title={'Forums'} className={'main-flex split-bg-right'}>
@@ -50,11 +57,14 @@ class View extends Component {
           <main className={'content-left'}>
             <div className={'forum-posts--header'}>
               <div className={'right'}>
-                <a href={'#'} className={'btn btn-small'}>New Discussion</a>
+                <a href={'#'} className={'btn btn-small'}>
+                  New Discussion
+                </a>
               </div>
 
               <div className={'sort-by'}>
-                Sort By: <a href={'#'}>Recent Comments</a> | <a href={'#'}>Newest Discussions</a>
+                Sort By: <a href={'#'}>Recent Comments</a> |{' '}
+                <a href={'#'}>Newest Discussions</a>
               </div>
             </div>
 

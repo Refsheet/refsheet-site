@@ -16,6 +16,10 @@ query getForum($id: String!) {
             updated_at
             created_at
             preview
+            last_read_at
+            unread_posts_count
+            last_post_at
+            reply_count
 
             user {
                 username

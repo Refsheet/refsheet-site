@@ -1,10 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {userFgColor} from "../../utils/UserUtils";
-import {createIdentity} from "../../utils/IdentityUtils";
+import { userFgColor } from '../../utils/UserUtils'
+import { createIdentity } from '../../utils/IdentityUtils'
 
-const UserLink = (props) => {
+const UserLink = props => {
   const { user } = props
   const identity = createIdentity(props)
 
@@ -12,9 +12,15 @@ const UserLink = (props) => {
     color: `${userFgColor(user)}`,
   }
 
-  return <Link to={identity.path} title={`${identity.type}: ${identity.name}`} style={style}>
-    {identity.name}
-  </Link>
+  return (
+    <Link
+      to={identity.path}
+      title={`${identity.type}: ${identity.name}`}
+      style={style}
+    >
+      {identity.name}
+    </Link>
+  )
 }
 
 UserLink.propTypes = {

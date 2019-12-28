@@ -24,7 +24,7 @@ Types::ForumType = GraphQL::ObjectType.define do
     argument :page, types.Int
     argument :sort, types.String
 
-    resolve -> (obj, args, _ctx) {
+    resolve -> (obj, args, ctx) {
       scope = obj.threads
 
       if args[:page]
@@ -36,6 +36,9 @@ Types::ForumType = GraphQL::ObjectType.define do
       else
         scope = scope.order(created_at: :desc)
       end
+
+      scope = scope.with_unread_count(ctx[:current_user].call)
+      scope = scope.with_last_post_at
 
       scope
     }

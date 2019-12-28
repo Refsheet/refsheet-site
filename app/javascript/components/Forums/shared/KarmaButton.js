@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { withNamespaces } from 'react-i18next'
 import sendKarma from './sendKarma.graphql'
 import { Mutation } from 'react-apollo'
-import compose, {withMutations} from "../../../utils/compose";
+import compose, { withMutations } from '../../../utils/compose'
 
 const KarmaButton = ({ t, postId, give, take, disabled, voted, sendKarma }) => {
   let title, icon
@@ -32,7 +32,7 @@ const KarmaButton = ({ t, postId, give, take, disabled, voted, sendKarma }) => {
   const onClick = e => {
     e.preventDefault()
 
-    sendKarma({variables})
+    sendKarma({ variables })
       .then(console.log)
       .catch(console.error)
   }
@@ -53,6 +53,6 @@ KarmaButton.propTypes = {
 }
 
 export default compose(
-  withMutations({sendKarma}),
+  withMutations({ sendKarma }),
   withNamespaces('common')
 )(KarmaButton)
