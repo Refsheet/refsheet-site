@@ -18,6 +18,9 @@ Rails.application.routes.draw do
 
   get '/c/:id', to: 'shortcodes#show'
 
+  # Email Things
+  get 'unsubscribe', to: 'emails#unsubscribe'
+
   # Placeholder Route
   get 'register', to: 'application#show'
   get 'guilds', to: 'application#show'
@@ -177,6 +180,8 @@ Rails.application.routes.draw do
     resources :feedbacks, only: [:index, :show, :update] do
       resources :replies, only: [:create], controller: 'feedbacks/replies'
     end
+
+    resources :artists, only: [:index, :show, :edit, :new, :create, :update]
 
     resources :moderation_reports, only: [:index, :show, :update]
 

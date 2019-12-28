@@ -6,12 +6,12 @@ import { Loading, Error } from './Status'
 import CharacterBox from './CharacterBox'
 import ImageMeta from './ImageMeta'
 import Comments from './Comments'
-import { Link } from 'react-router-dom'
 import Favorites from './Favorites'
 import ImageActions from './ImageActions'
 import ImageEditForm from './ImageEditForm'
 import { withNamespaces } from 'react-i18next'
 import compose from '../../utils/compose'
+import Restrict from '../Shared/Restrict'
 
 class View extends Component {
   constructor(props) {
@@ -56,8 +56,6 @@ class View extends Component {
       is_favorite,
       download_link,
     } = this.props.media
-
-    // console.log({})
 
     if (this.state.editing) {
       return (
@@ -140,24 +138,28 @@ class View extends Component {
 
           <div className={'lightbox-overlay bottom'}>
             <div className={'left'}>
-              <a
-                className={'block red-text'}
-                href={'#'}
-                title={t('actions.report_image', 'Report')}
-              >
-                <Icon className={'left'}>report</Icon>
-                {t('actions.report_image', 'Report')}
-              </a>
+              <Restrict development>
+                <a
+                  className={'block red-text'}
+                  href={'#'}
+                  title={t('actions.report_image', 'Report')}
+                >
+                  <Icon className={'left'}>report</Icon>
+                  {t('actions.report_image', 'Report')}
+                </a>
+              </Restrict>
             </div>
             <div className={'right'}>
-              <a
-                className={'block'}
-                href={'#'}
-                title={t('actions.tag_characters', 'Tag Characters')}
-              >
-                <Icon className={'left'}>tag_faces</Icon>
-                {t('actions.tag_characters', 'Tag Characters')}
-              </a>
+              <Restrict development>
+                <a
+                  className={'block'}
+                  href={'#'}
+                  title={t('actions.tag_characters', 'Tag Characters')}
+                >
+                  <Icon className={'left'}>tag_faces</Icon>
+                  {t('actions.tag_characters', 'Tag Characters')}
+                </a>
+              </Restrict>
             </div>
           </div>
 

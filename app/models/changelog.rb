@@ -26,8 +26,6 @@ class Changelog < ApplicationRecord
   validates_presence_of :user
   validates_presence_of :change_data
 
-  serialize :change_data, JSON
-
   scope :for_user, -> (c) { where(changed_user_id: c.id) }
   scope :for_image, -> (c) { where(changed_image_id: c.id) }
   scope :for_swatch, -> (c) { where(changed_swatch_id: c.id) }

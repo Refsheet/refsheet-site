@@ -110,6 +110,8 @@ history.listen(() => {
 
               <Route path='/v2/forums' component={ Packs.application.CharacterController } />
 
+              <Route path='/artists' component={ Packs.application.CharacterController } />
+              <Route path='/artists/:slug' component={ Packs.application.CharacterController } />
 
               {/*== Static Routes */}
 

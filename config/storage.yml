@@ -1,0 +1,18 @@
+test:
+  service: Disk
+  root: <%= Rails.root.join("tmp/storage") %>
+
+local:
+  service: Disk
+  root: <%= Rails.root.join("storage") %>
+
+google:
+  service: GCS
+  project: <%= ENV.fetch('GKE_PROJECT') { "refsheet-239409" } %>
+  credentials: <%= ENV.fetch('GKE_CREDENTIALS') { Rails.root.join("refsheet-prod.json") } %>
+  bucket: <%= ENV.fetch('GKE_STORAGE_BUCKET') { "cloud1.refsheet.net" } %>
+
+# mirror:
+#   service: Mirror
+#   primary: local
+#   mirrors: [ amazon, google, microsoft ]

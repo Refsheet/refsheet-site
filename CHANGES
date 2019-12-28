@@ -1,3 +1,28 @@
+# 12/28/19
+
+Core update to Rails, bringing us to current. Several security fixes and minor bugfixes from the lightbox release.
+
+## Bug Fixes
+
+- Source URL field is back in the image settings
+- Components which are in development will now be hidden on production servers
+
+## Minor Things
+
+- No more pumpkins :(
+- Adjusted font weights on navbar to be slightly more legible
+
+## WIPs
+
+- Back-end code for the Artist profiles is being deployed with this change
+
+## Framework
+
+- Updated Rails from 5.0 to 5.2
+- Fixed several issues with our automated testing
+- Started migrating to Active Storage for saving images
+
+
 # 12/26/19
 
 Several bug fixes, an update to the Materialize framework, and upload anywhere + new lightbox.

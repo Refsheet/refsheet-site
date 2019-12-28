@@ -66,8 +66,8 @@ class Forum::Discussion < ApplicationRecord
     SQL
 
     left_outer_joins(:subscriptions).
-    where(forum_subscriptions: { user_id: [user&.id, nil] }).
-    select('forum_threads.*, forum_subscriptions.last_read_at AS last_read_cache, urc.unread_posts_count AS unread_posts_count')
+    where(subscriptions_forum_threads: { user_id: [user&.id, nil] }).
+    select('forum_threads.*, subscriptions_forum_threads.last_read_at AS last_read_cache, urc.unread_posts_count AS unread_posts_count')
   }
 
   scope :with_last_post_at, -> {

@@ -16,6 +16,7 @@ ENV PORT 5000
 RUN apt-get update && \
     apt-get install -y \
         build-essential \
+        libssl-dev \
         libpq-dev \
         libxml2-dev \
         libxslt1-dev \
@@ -65,6 +66,11 @@ COPY yarn.lock    /app/yarn.lock
 
 RUN yarn install
 
+# Install Google Chrome
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+RUN apt-get update && apt-get install -y google-chrome-stable
+
 
 # Move App and Precompile
 
@@ -75,6 +81,4 @@ COPY . /app
 
 EXPOSE $PORT
 
-ENTRYPOINT ["bin/entrypoint.dev.sh"]
-
-CMD foreman start --formation "$FORMATION" --env ""
+CMD bin/entrypoint.dev.sh foreman start --formation "$FORMATION" --env ""

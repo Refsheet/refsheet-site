@@ -23,6 +23,9 @@
 /.sass-cache/
 /db/*.sqlite3
 
+/storage/*
+!/storage/.keep
+
 TESTS-*.xml
 
 /.idea/
@@ -54,3 +57,7 @@ db/*.dump
 .pgsync.yml
 .kubernetes/secret.yml
 db-prod.env
+# Ignore master key for decrypting credentials and more.
+/config/master.key
+
+refsheet-prod-storage.json

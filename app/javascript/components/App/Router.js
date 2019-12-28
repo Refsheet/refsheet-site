@@ -4,6 +4,7 @@ import Character from 'Character'
 import Moderate from 'Moderate'
 import Forums from 'Forums'
 import Forum from 'Forums/Forum'
+import Artists from 'Artists'
 
 const Router = () => (
   <BrowserRouter>
@@ -17,6 +18,10 @@ const Router = () => (
 
       {/** Moderation **/}
       <Route path="/moderate" component={Moderate} />
+
+      {/** Artists **/}
+      <Route path={'/artists/:slug'} component={Artists.Show} />
+      <Route path={'/artists'} component={Artists.Index} />
 
       {/** Character Profiles **/}
       <Route path="/v2/:username/:slug" component={Character} />

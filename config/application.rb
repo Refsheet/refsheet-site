@@ -1,6 +1,6 @@
 require_relative 'boot'
 
-require "rails"
+require "rails/all"
 # Pick the frameworks you want:
 require "active_model/railtie"
 require "active_job/railtie"
@@ -27,6 +27,11 @@ module Refsheet
   VERSION = File.read 'VERSION'
 
   class Application < Rails::Application
+    # Initialize configuration defaults for originally generated Rails version.
+    config.load_defaults 5.0
+
+    config.railties_order = [:all, :main_app]
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

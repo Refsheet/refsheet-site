@@ -4,7 +4,7 @@ ruby '2.5.5'
 
 # == BACK END
 
-gem 'rails', '~> 5.0.7'
+gem 'rails', '~> 5.2.3'
 gem 'rake', '~> 12.3.1'
 gem 'rack-cors'
 gem 'pg', '~> 0.21'
@@ -20,12 +20,12 @@ gem 'aws-sdk-sqs'
 gem 'resque'
 gem 'non-stupid-digest-assets'
 gem 'rollbar'
-gem 'sprockets_uglifier_with_source_maps'
 gem 'webpacker'
 gem 'faraday_middleware'
 gem 'json', '~> 2.1.0'
-gem 'ar-octopus'
 gem 'rails_semantic_logger'
+gem 'nulldb'
+gem 'mini_magick'
 
 # == FRONT END
 
@@ -34,7 +34,6 @@ gem 'sassc-rails'
 gem 'coffee-rails', '~> 4.2'
 gem 'haml'
 gem 'react-rails', github: 'reactjs/react-rails', branch: 'master'
-gem 'zreact-router-rails'
 gem 'materialize-sass', '~> 1.0.0'
 
 gem 'rails-ujs'
@@ -97,6 +96,7 @@ gem 'webpush'
 gem 'her'
 gem 'sentry-raven'
 gem 'sendgrid-actionmailer'
+gem "google-cloud-storage", "~> 1.11", require: false
 
 # == BOWER ASSETS
 
@@ -111,6 +111,12 @@ gem 'puma_worker_killer', require: false
 gem 'table_print'
 gem 'httplog', '~> 1.1.1'
 
+# == PRODUCTION GEMS
+
+group :production, :staging do
+  gem 'active_record_slave'
+end
+
 # == NON PRODUCTION GEMS
 
 group :development, :test do
@@ -118,7 +124,7 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'capybara'
   gem 'capybara-selenium'
-  gem 'chromedriver-helper'
+  gem 'webdrivers'
   gem 'codecov', require: false
   gem 'database_cleaner'
   gem 'factory_bot_rails'

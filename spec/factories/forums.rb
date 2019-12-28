@@ -21,7 +21,7 @@
 
 FactoryBot.define do
   factory :forum do
-    name { Faker::LordOfTheRings.location }
+    name { Faker::Movies::LordOfTheRings.location }
     description { Faker::Lorem.paragraph }
     sequence(:slug) { |i| "forum-#{i}"}
   end

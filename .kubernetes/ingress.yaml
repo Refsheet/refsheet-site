@@ -4,8 +4,24 @@ metadata:
   name: refsheet-prod-ingress
   annotations:
     kubernetes.io/ingress.global-static-ip-name: refsheet-prod-ip
-    networking.gke.io/managed-certificates: "com-refsheet,com-refsheet-kube,st-ref"
+    networking.gke.io/managed-certificates: "com-refsheet,com-refsheet-kube,st-ref,com-refsheet-staging"
 spec:
-  backend:
-    serviceName: refsheet-prod
-    servicePort: 80
+  rules:
+    - host: kube.refsheet.net
+      http:
+        paths:
+          - backend:
+              serviceName: refsheet-prod-staging
+              servicePort: 80
+    - host: staging.refsheet.net
+      http:
+        paths:
+          - backend:
+              serviceName: refsheet-prod-staging
+              servicePort: 80
+    - host:
+      http:
+        paths:
+          - backend:
+              serviceName: refsheet-prod
+              servicePort: 80

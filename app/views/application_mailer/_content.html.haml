@@ -18,13 +18,12 @@
     %tr
       %td.content-block
         .apple-link{style: 'padding-bottom: 10px;'}
-          Refsheet.net is made with love by Eisert Development, LLC
-          %br/
-          3104 Pacific St N &bull; Suite 301 &bull; Minneapolis, MN 55411
+          Refsheet.net is made with love by Mau Abata, a big ol' nerd.
 
-        .apple-link{style: 'padding-bottom: 10px;'}
-          Not a fan of emails form us?
-          = link_to 'Unsubscribe', '#'
+        - if get_verified_email
+          .apple-link{style: 'padding-bottom: 10px;'}
+            Not a fan of emails form us?
+            = link_to 'Unsubscribe', unsubscribe_url(email: get_verified_email)
 
     - if @user
       %tr
