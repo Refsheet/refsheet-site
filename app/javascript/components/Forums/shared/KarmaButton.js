@@ -3,8 +3,9 @@ import PropTypes from 'prop-types'
 import { withNamespaces } from 'react-i18next'
 import sendKarma from './sendKarma.graphql'
 import { Mutation } from 'react-apollo'
+import compose, {withMutations} from "../../../utils/compose";
 
-const KarmaButton = ({ t, postId, give, take, disabled, voted }) => {
+const KarmaButton = ({ t, postId, give, take, disabled, voted, sendKarma }) => {
   let title, icon
 
   if (give) {
@@ -28,21 +29,19 @@ const KarmaButton = ({ t, postId, give, take, disabled, voted }) => {
     take: !give,
   }
 
-  const onClick = send => e => {
+  const onClick = e => {
     e.preventDefault()
-    send(variables)
+
+    sendKarma({variables})
+      .then(console.log)
+      .catch(console.error)
   }
 
-  const renderLink = (send, { called, loading, data, error }) => {
-    return (
-      <a href={'#'} title={title} onClick={onClick}>
-        <Icon>{icon}</Icon>
-        {JSON.stringify(data)}
-      </a>
-    )
-  }
-
-  return <Mutation mutation={sendKarma}>{renderLink}</Mutation>
+  return (
+    <a href={'#'} title={title} onClick={onClick}>
+      <Icon>{icon}</Icon>
+    </a>
+  )
 }
 
 KarmaButton.propTypes = {
@@ -53,4 +52,7 @@ KarmaButton.propTypes = {
   voted: PropTypes.bool,
 }
 
-export default withNamespaces('common')(KarmaButton)
+export default compose(
+  withMutations({sendKarma}),
+  withNamespaces('common')
+)(KarmaButton)

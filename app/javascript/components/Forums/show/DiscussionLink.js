@@ -5,6 +5,7 @@ import UserLink from '../../Shared/UserLink'
 import Moment from 'react-moment'
 import { Link } from 'react-router-dom'
 import KarmaButton from '../shared/KarmaButton'
+import UserAvatar from "../../User/UserAvatar";
 
 class DiscussionLink extends Component {
   render() {
@@ -46,24 +47,8 @@ class DiscussionLink extends Component {
             </Link>
           </div>
 
-          <div className="forum-post--date">
-            <Trans
-              i18nKey={'forums.post-date'}
-              defaults={'Submitted <0>{{ date }}</0> by <1></1>'}
-              values={{
-                date: discussion.created_at,
-              }}
-              components={[
-                <Moment key={'date'} fromNow unix>
-                  {discussion.created_at}
-                </Moment>,
-                <UserLink
-                  key={'user'}
-                  user={discussion.user}
-                  character={discussion.character}
-                />,
-              ]}
-            />
+          <div className={'forum-post--preview'}>
+            { JSON.stringify(discussion.preview) }
           </div>
 
           <div className={'forum-post--meta'}>
@@ -72,8 +57,39 @@ class DiscussionLink extends Component {
               count: 0,
             })}
 
-            {/*&nbsp;| <a href={'#'}>{t('forums.save', "Save")}</a>*/}
+            &nbsp;| <a href={'#'}>{t('forums.save', "Save")}</a>
           </div>
+        </div>
+
+        <div className="forum-post--date">
+          <div className={'user-summary'}>
+            <UserAvatar
+              user={discussion.user}
+              character={discussion.character}
+            />
+
+            <UserLink
+              user={discussion.user}
+              character={discussion.character}
+            />
+
+            <div className={'time'}>
+              <Trans
+                i18nKey={'forums.summary-posted-date'}
+                defaults={'Posted <0>{{ date }}</0>'}
+                values={{
+                  date: discussion.created_at,
+                }}
+                components={[
+                  <Moment key={'date'} fromNow unix>
+                    {discussion.created_at}
+                  </Moment>,
+                ]}
+              />
+            </div>
+          </div>
+
+
         </div>
       </div>
     )

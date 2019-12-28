@@ -101,6 +101,10 @@ class Forum::Discussion < ApplicationRecord
     end
   end
 
+  def preview
+    content && content.truncate(120)
+  end
+
   private
 
   def log_activity

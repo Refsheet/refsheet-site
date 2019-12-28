@@ -15,17 +15,25 @@ query getForum($id: String!) {
             karma_total
             updated_at
             created_at
+            preview
 
             user {
                 username
                 name
                 is_admin
                 is_patron
+                is_supporter
+                avatar_url
             }
 
             character {
                 name
                 slug
+                profile_image {
+                    url {
+                        thumbnail
+                    }
+                }
             }
         }
     }
