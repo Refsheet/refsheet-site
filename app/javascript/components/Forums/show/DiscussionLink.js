@@ -6,13 +6,16 @@ import Moment from 'react-moment'
 import { Link } from 'react-router-dom'
 import KarmaButton from '../shared/KarmaButton'
 import UserAvatar from "../../User/UserAvatar";
+import c from 'classnames'
 
 class DiscussionLink extends Component {
   render() {
     const { forum, discussion, t } = this.props
 
+    console.log({ discussion })
+
     return (
-      <div className={'forum-post'}>
+      <div className={c('forum-post', {new: discussion.is_unread})}>
         <div className={'forum-post--votes'}>
           <div className="forum-post--upvote">
             <KarmaButton
@@ -39,6 +42,7 @@ class DiscussionLink extends Component {
 
         <div className={'forum-post--summary'}>
           <div className="forum-post--title">
+            { discussion.is_unread && <span className={'new'}>New</span> }
             <Link
               to={`/v2/forums/${forum.slug}/${discussion.slug}`}
               title={discussion.topic}
@@ -53,11 +57,11 @@ class DiscussionLink extends Component {
 
           <div className={'forum-post--meta'}>
             {t('forums.replies', {
-              defaultValue: '{{count}} reply',
+              defaultValue: '{{count}} replies',
               count: 0,
             })}
 
-            &nbsp;| <a href={'#'}>{t('forums.save', "Save")}</a>
+            &nbsp;&bull;&nbsp;<a href={'#'}>{t('forums.save', "Save")}</a>
           </div>
         </div>
 

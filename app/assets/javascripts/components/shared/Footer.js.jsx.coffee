@@ -17,6 +17,9 @@
                 <ul className='margin-top--none'>
                   <li><Link to='/'>Home</Link></li>
                   <li><Link to='/browse'>Characters</Link></li>
+                  <Restrict development>
+                    <li><Link to='/artists'>Artists</Link></li>
+                  </Restrict>
                   <li><Link to='/explore'>Images</Link></li>
                   <li><Link to='/forums'>Forums</Link></li>
                 </ul>
@@ -25,8 +28,11 @@
               <Column s={12} m={3}>
                   <div className='social-links'>
                       <a href='https://twitter.com/Refsheet' target='_blank'>
-                          <i className='fa fa-fw fa-twitter' />
+                          <i className='fab fa-fw fa-twitter' />
                       </a>
+                      <a href='mailto:mau@refsheet.net' target='_blank'>
+                          <i className='fa fa-fw fa-envelope' />
+                      </a>{' '}
                       <a href='https://www.patreon.com/refsheet' target='_blank'>
                           <img src='/assets/third_party/patreon_white.png' alt='Patreon' />
                       </a>
