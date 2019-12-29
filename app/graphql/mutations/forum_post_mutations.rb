@@ -1,6 +1,6 @@
 module Mutations
   class ForumPostMutations < ApplicationMutation
-    before_action :get_discussion, only: [:index, :create]
+    before_action :get_discussion, only: [:index, :create, :send_karma]
 
     action :index do
       type types[Types::ForumPostType]
@@ -41,6 +41,22 @@ module Mutations
 
     def update
 
+    end
+
+
+    action :send_karma do
+      type Types::ForumPostType
+
+      argument :discussionId, !types.ID
+      argument :take, types.Boolean
+    end
+
+    def send_karma
+      value = params[:take] ? -1 : 1
+      @discussion.karmas.for_user(current_user).destroy_all
+      @discussion.karmas.create(user: current_user, value: value)
+      @discussion.reload
+      @discussion
     end
 
     private

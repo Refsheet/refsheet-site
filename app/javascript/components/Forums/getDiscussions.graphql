@@ -1,17 +1,13 @@
-query getForum($id: String!) {
-    getForum(slug: $id) {
+query getDiscussions($forumId: String!) {
+    getForum(slug: $forumId) {
         id
-        slug
-        name
-        description
-        system_owned
-        created_at
 
-        discussions(sticky: true) {
+        discussions {
             id
             topic
             slug
             locked
+            karma_total
             updated_at
             created_at
             preview
