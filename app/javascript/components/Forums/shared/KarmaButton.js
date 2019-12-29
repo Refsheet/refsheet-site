@@ -17,9 +17,9 @@ class KarmaButton extends Component {
 
   handleClick(e) {
     e.preventDefault()
-    this.setState({ loading: true })
+    const { postId, give, forumId, sendKarma, onLoading } = this.props
 
-    const { postId, give, forumId, sendKarma } = this.props
+    onLoading(true)
 
     const variables = {
       postId: postId,
@@ -62,7 +62,7 @@ class KarmaButton extends Component {
           console.error(errors)
         }
 
-        this.setState({ loading: true })
+        onLoading(false)
       })
       .catch(console.error)
   }
@@ -101,6 +101,7 @@ KarmaButton.propTypes = {
   give: PropTypes.bool,
   take: PropTypes.bool,
   disabled: PropTypes.bool,
+  onLoading: PropTypes.func,
   voted: PropTypes.bool,
 }
 

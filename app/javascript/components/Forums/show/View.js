@@ -22,7 +22,6 @@ class View extends Component {
   renderDiscussions(props) {
     const { forum } = this.props
     const { data, loading, error } = props
-    console.log(props)
 
     if (loading) {
       return <Loading />
@@ -38,6 +37,13 @@ class View extends Component {
           discussion={discussion}
         />
       ))
+    }
+  }
+
+  handleSortClick(sortBy) {
+    return (e) => {
+      e.preventDefault()
+      this.setState({sort: sortBy})
     }
   }
 
@@ -85,8 +91,9 @@ class View extends Component {
               </div>
 
               <div className={'sort-by'}>
-                Sort By: <a href={'#'}>Recent Comments</a> |{' '}
-                <a href={'#'}>Newest Discussions</a>
+                Sort By: <a href={'#'} onClick={this.handleSortClick('last_comment_at:desc').bind(this)}>Recent Comments</a> |{' '}
+                <a href={'#'} onClick={this.handleSortClick('created_at:desc').bind(this)}>Newest Discussions</a> |{' '}
+                <a href={'#'} onClick={this.handleSortClick('karma_total:desc').bind(this)}>Top Rated</a>
               </div>
             </div>
 
@@ -110,7 +117,11 @@ class View extends Component {
               {t('forums.recent_posts', 'Recent Posts')}
             </div>
 
-            <Query query={getDiscussions} variables={{ forumId: forum.slug }}>
+            <Query query={getDiscussions} variables={{
+              forumId: forum.slug,
+              page: this.state.page,
+              sort: this.state.sort,
+            }}>
               {this.renderDiscussions.bind(this)}
             </Query>
           </main>
