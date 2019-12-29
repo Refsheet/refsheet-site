@@ -6,7 +6,7 @@ import Jumbotron from '../../Shared/Jumbotron'
 import { Link } from 'react-router-dom'
 import { withNamespaces } from 'react-i18next'
 import DiscussionLink from './DiscussionLink'
-import {Query} from "react-apollo";
+import { Query } from 'react-apollo'
 import getDiscussions from '../getDiscussions.graphql'
 
 class View extends Component {
@@ -90,17 +90,21 @@ class View extends Component {
               </div>
             </div>
 
-            { forum.discussions.length > 0 && <div className={'stickies'}>
-              <div className={'forum-posts--group-name'}>
-                {t('forums.sticky_posts', "Sticky Posts")}
-              </div>
+            {forum.discussions.length > 0 && (
+              <div className={'stickies'}>
+                <div className={'forum-posts--group-name'}>
+                  {t('forums.sticky_posts', 'Sticky Posts')}
+                </div>
 
-              { forum.discussions.map((discussion) => <DiscussionLink
-                key={discussion.id}
-                forum={forum}
-                discussion={discussion}
-              />)}
-            </div> }
+                {forum.discussions.map(discussion => (
+                  <DiscussionLink
+                    key={discussion.id}
+                    forum={forum}
+                    discussion={discussion}
+                  />
+                ))}
+              </div>
+            )}
 
             <div className="forum-posts--group-name">
               {t('forums.recent_posts', 'Recent Posts')}

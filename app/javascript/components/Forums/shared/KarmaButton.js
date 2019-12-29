@@ -11,13 +11,13 @@ class KarmaButton extends Component {
     super(props)
 
     this.state = {
-      loading: false
+      loading: false,
     }
   }
 
   handleClick(e) {
     e.preventDefault()
-    this.setState({loading: true})
+    this.setState({ loading: true })
 
     const { postId, give, forumId, sendKarma } = this.props
 
@@ -28,11 +28,11 @@ class KarmaButton extends Component {
 
     sendKarma({
       variables,
-      update: (cache, {data: {sendKarma}}) => {
-        const {getForum} = cache.readQuery({
+      update: (cache, { data: { sendKarma } }) => {
+        const { getForum } = cache.readQuery({
           query: gdQuery,
           variables: {
-            forumId: forumId
+            forumId: forumId,
           },
         })
 
@@ -41,25 +41,28 @@ class KarmaButton extends Component {
           data: {
             getForum: {
               ...getForum,
-              discussions: getForum.discussions.map((d) => {
+              discussions: getForum.discussions.map(d => {
                 if (d.id === sendKarma.id) {
-                  return {...d, karma_total: sendKarma.karma_total}
+                  return { ...d, karma_total: sendKarma.karma_total }
                 } else {
                   return d
                 }
-              })
-            }
-          }
+              }),
+            },
+          },
         })
-      }
+      },
     })
-      .then(({data, errors}) => {
+      .then(({ data, errors }) => {
         if (errors) {
-          M.toast({html: "Something went wrong sending that karma...", classes: 'red'})
+          M.toast({
+            html: 'Something went wrong sending that karma...',
+            classes: 'red',
+          })
           console.error(errors)
         }
 
-        this.setState({loading: true})
+        this.setState({ loading: true })
       })
       .catch(console.error)
   }
