@@ -13,12 +13,12 @@ class DiscussionLink extends Component {
     super(props)
 
     this.state = {
-      karmaLoading: false
+      karmaLoading: false,
     }
   }
 
   onKarmaLoad(value) {
-    this.setState({karmaLoading: value})
+    this.setState({ karmaLoading: value })
   }
 
   render() {
@@ -39,7 +39,7 @@ class DiscussionLink extends Component {
           </div>
 
           <div className={'forum-post--karma'}>
-            { this.state.karmaLoading ? '...' : (discussion.karma_total || 0) }
+            {this.state.karmaLoading ? '...' : discussion.karma_total || 0}
           </div>
 
           <div className="forum-post--downvote">
