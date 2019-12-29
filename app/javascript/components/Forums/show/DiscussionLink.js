@@ -9,10 +9,20 @@ import UserAvatar from '../../User/UserAvatar'
 import c from 'classnames'
 
 class DiscussionLink extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      karmaLoading: false
+    }
+  }
+
+  onKarmaLoad(value) {
+    this.setState({karmaLoading: value})
+  }
+
   render() {
     const { forum, discussion, t } = this.props
-
-    console.log({ discussion })
 
     return (
       <div className={c('forum-post', { new: discussion.is_unread })}>
@@ -22,13 +32,14 @@ class DiscussionLink extends Component {
               give
               postId={discussion.id}
               forumId={forum.slug}
+              onLoading={this.onKarmaLoad.bind(this)}
               disabled={false}
               voted={false}
             />
           </div>
 
           <div className={'forum-post--karma'}>
-            {discussion.karma_total || 0}
+            { this.state.karmaLoading ? '...' : (discussion.karma_total || 0) }
           </div>
 
           <div className="forum-post--downvote">
@@ -36,6 +47,7 @@ class DiscussionLink extends Component {
               take
               postId={discussion.id}
               forumId={forum.slug}
+              onLoading={this.onKarmaLoad.bind(this)}
               disabled={false}
               voted={false}
             />
