@@ -1,5 +1,5 @@
-query getDiscussion($forumId: String!, $id: String!) {
-    getDiscussion(forumId: $forumId, id: $id) {
+query getDiscussion($forumId: String!, $discussionId: String!) {
+    getDiscussion(forumId: $forumId, id: $discussionId) {
         id
         topic
         slug
