@@ -26,25 +26,26 @@
           min-width: 150px
           width: auto
 
-        &:after
-          content: ''
-          display: block
-          position: absolute
-          top: 50%
-          right: 1.5rem
-          border: 0.2rem solid transparent
-          border-top: 0.4rem solid $text-light-color
-          border-bottom: 0 none
-          transform: translateY(-50%)
-          transition: border-top-color 0.3s ease
-
         &:hover
-          &:after
-            border-top-color: $brand-primary
-
           .tag
             background-color: transparent
             color: $brand-primary !important
+
+            &:after
+              border-top-color: $brand-primary
+
+        .tag
+          &:after
+            content: ''
+            display: block
+            position: absolute
+            top: 50%
+            right: 1.5rem
+            border: 0.2rem solid transparent
+            border-top: 0.4rem solid $text-light-color
+            border-bottom: 0 none
+            transform: translateY(-50%)
+            transition: border-top-color 0.3s ease
 
       .tag
         @extend .btn
