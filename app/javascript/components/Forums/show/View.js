@@ -6,6 +6,8 @@ import Jumbotron from '../../Shared/Jumbotron'
 import { Link } from 'react-router-dom'
 import { withNamespaces } from 'react-i18next'
 import DiscussionLink from './DiscussionLink'
+import {Query} from "react-apollo";
+import getDiscussions from '../getDiscussions.graphql'
 
 class View extends Component {
   constructor(props) {
@@ -17,10 +19,30 @@ class View extends Component {
     }
   }
 
+  renderDiscussions(props) {
+    const { forum } = this.props
+    const { data, loading, error } = props
+    console.log(props)
+
+    if (loading) {
+      return <Loading />
+    } else if (error) {
+      return <Error error={error} />
+    } else {
+      const discussions = data.getForum.discussions || []
+
+      return discussions.map(discussion => (
+        <DiscussionLink
+          key={discussion.id}
+          forum={forum}
+          discussion={discussion}
+        />
+      ))
+    }
+  }
+
   render() {
     const { forum, t } = this.props
-
-    const discussions = [...forum.discussions]
 
     return (
       <Main title={'Forums'} className={'main-flex split-bg-right'}>
@@ -68,17 +90,25 @@ class View extends Component {
               </div>
             </div>
 
+            { forum.discussions.length > 0 && <div className={'stickies'}>
+              <div className={'forum-posts--group-name'}>
+                {t('forums.sticky_posts', "Sticky Posts")}
+              </div>
+
+              { forum.discussions.map((discussion) => <DiscussionLink
+                key={discussion.id}
+                forum={forum}
+                discussion={discussion}
+              />)}
+            </div> }
+
             <div className="forum-posts--group-name">
               {t('forums.recent_posts', 'Recent Posts')}
             </div>
 
-            {discussions.map(discussion => (
-              <DiscussionLink
-                key={discussion.id}
-                forum={forum}
-                discussion={discussion}
-              />
-            ))}
+            <Query query={getDiscussions} variables={{ forumId: forum.slug }}>
+              {this.renderDiscussions.bind(this)}
+            </Query>
           </main>
 
           <aside className={'sidebar left-pad'}>

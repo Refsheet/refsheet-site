@@ -11,7 +11,7 @@
 #  shortcode    :string
 #  content      :text
 #  locked       :boolean
-#  karma_total  :integer
+#  karma_total  :integer          default(0), not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  content_html :string

@@ -21,6 +21,7 @@ class DiscussionLink extends Component {
             <KarmaButton
               give
               postId={discussion.id}
+              forumId={forum.slug}
               disabled={false}
               voted={false}
             />
@@ -34,6 +35,7 @@ class DiscussionLink extends Component {
             <KarmaButton
               take
               postId={discussion.id}
+              forumId={forum.slug}
               disabled={false}
               voted={false}
             />

@@ -4,11 +4,12 @@
 #
 #  id          :integer          not null, primary key
 #  karmic_id   :integer
-#  karmic_type :integer
+#  karmic_type :string
 #  user_id     :integer
 #  discord     :boolean
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  value       :integer          default(1)
 #
 # Indexes
 #

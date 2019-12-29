@@ -11,7 +11,7 @@
 #  shortcode    :string
 #  content      :text
 #  locked       :boolean
-#  karma_total  :integer
+#  karma_total  :integer          default(0), not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  content_html :string
@@ -80,6 +80,8 @@ class Forum::Discussion < ApplicationRecord
 
     select('forum_threads.*, lpa.last_post_at AS last_post_at')
   }
+
+  scope :sticky, -> { where(locked: true) }
 
   def content
     super.to_md
