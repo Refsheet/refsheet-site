@@ -12,6 +12,9 @@ import ImageEditForm from './ImageEditForm'
 import { withNamespaces } from 'react-i18next'
 import compose from '../../utils/compose'
 import Restrict from '../Shared/Restrict'
+import ImageTagForm from "./ImageTagForm";
+import c from 'classnames'
+import {Link} from "react-router-dom";
 
 class View extends Component {
   constructor(props) {
@@ -19,6 +22,8 @@ class View extends Component {
 
     this.state = {
       editing: false,
+      tagging: false,
+      tags: []
     }
   }
 
@@ -40,8 +45,46 @@ class View extends Component {
     this.setState({ editing: false })
   }
 
+  handleTagStart(e) {
+    e.preventDefault()
+    this.setState({tagging: true})
+  }
+
+  handleTagEnd() {
+    this.setState({tagging: false})
+  }
+
   handleMediaUpdate() {
     this.setState({ editing: false })
+  }
+
+  handleImageClick(e) {
+    e.preventDefault()
+
+    const { top, left } = e.target.getBoundingClientRect()
+    const x = e.pageX - left
+    const y = e.pageY - top
+
+    const cw = e.target.clientWidth
+    const ch = e.target.clientHeight
+
+    const xp = x / cw
+    const yp = y / ch
+
+    console.log({xp, yp})
+
+    let tags = [
+      ...this.state.tags,
+      {
+        position_x: xp * 100,
+        position_y: yp * 100,
+        character: {
+          name: "Test!"
+        }
+      }
+    ]
+
+    this.setState({tags})
   }
 
   renderDetails() {
@@ -63,6 +106,14 @@ class View extends Component {
           image={this.props.media}
           onSave={this.handleMediaUpdate.bind(this)}
           onCancel={this.handleEditEnd.bind(this)}
+        />
+      )
+    } else if (this.state.tagging) {
+      return (
+        <ImageTagForm
+          image={this.props.media}
+          onSave={this.handleMediaUpdate.bind(this)}
+          onCancel={this.handleTagEnd.bind(this)}
         />
       )
     } else {
@@ -109,7 +160,7 @@ class View extends Component {
 
     return (
       <div className={'lightbox-content'}>
-        <div className={'image-content'}>
+        <div className={c('image-content', { tagging: this.state.tagging})}>
           {prevMediaId && (
             <a
               className={'image-prev image-nav'}
@@ -150,10 +201,11 @@ class View extends Component {
               </Restrict>
             </div>
             <div className={'right'}>
-              <Restrict development>
+              <Restrict patron>
                 <a
                   className={'block'}
                   href={'#'}
+                  onClick={this.handleTagStart.bind(this)}
                   title={t('actions.tag_characters', 'Tag Characters')}
                 >
                   <Icon className={'left'}>tag_faces</Icon>
@@ -164,10 +216,25 @@ class View extends Component {
           </div>
 
           <ImageLoader src={imageSrc}>
-            <img alt={title} title={title} />
+            <img alt={title} title={title} onClick={this.handleImageClick.bind(this)} />
             <Error />
             <Loading />
           </ImageLoader>
+
+          <ul className={'image-tags'}>
+            { this.state.tags.map((tag, i) => (
+              <li key={i} className={c('tag', { left: tag.position_x < 50, right: tag.position_x >= 50 })}
+              style={{
+                left: ( tag.position_x < 50 ? `${tag.position_x}%` : 'auto' ),
+                right: ( tag.position_x >= 50 ? `${100 - tag.position_x}%` : 'auto' ),
+                top: `${tag.position_y}%`}}>
+                <Link to={'/'}>
+                  <img className={'avatar circle'} src={'/administrator/test.png'} />
+                  <span>{ tag.character.name }</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
 
         {this.renderDetails()}
