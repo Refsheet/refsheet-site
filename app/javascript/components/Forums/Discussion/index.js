@@ -4,12 +4,12 @@ import { graphql } from 'react-apollo'
 import getDiscussion from './getDiscussion.graphql'
 import Error from '../../Shared/Error'
 import View from './View'
-import compose from "../../../utils/compose";
-import { withRouter} from 'react-router'
+import compose from '../../../utils/compose'
+import { withRouter } from 'react-router'
 
 class Discussion extends Component {
   render() {
-    const { data  = {} } = this.props
+    const { data = {} } = this.props
     console.log(this.props)
 
     if (data.loading) {
