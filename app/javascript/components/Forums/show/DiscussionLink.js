@@ -4,40 +4,27 @@ import { Trans, withNamespaces } from 'react-i18next'
 import UserLink from '../../Shared/UserLink'
 import Moment from 'react-moment'
 import { Link } from 'react-router-dom'
-import KarmaButton from '../shared/KarmaButton'
+import UserAvatar from '../../User/UserAvatar'
+import c from 'classnames'
+import KarmaCounter from '../shared/KarmaCounter'
+import PostMeta from '../shared/PostMeta'
 
 class DiscussionLink extends Component {
   render() {
     const { forum, discussion, t } = this.props
 
     return (
-      <div className={'forum-post'}>
-        <div className={'forum-post--votes'}>
-          <div className="forum-post--upvote">
-            <KarmaButton
-              give
-              postId={discussion.id}
-              disabled={false}
-              voted={false}
-            />
-          </div>
-
-          <div className={'forum-post--karma'}>
-            {discussion.karma_total || 0}
-          </div>
-
-          <div className="forum-post--downvote">
-            <KarmaButton
-              take
-              postId={discussion.id}
-              disabled={false}
-              voted={false}
-            />
-          </div>
-        </div>
+      <div className={c('forum-post', { new: discussion.is_unread })}>
+        <KarmaCounter discussion={discussion} forum={forum} />
 
         <div className={'forum-post--summary'}>
           <div className="forum-post--title">
+            {discussion.is_unread && <span className={'tag new'}>New</span>}
+            {discussion.sticky && <span className={'tag alert'}>Sticky</span>}
+            {discussion.is_resolved && (
+              <span className={'tag resolved'}>Resolved</span>
+            )}
+
             <Link
               to={`/v2/forums/${forum.slug}/${discussion.slug}`}
               title={discussion.topic}
@@ -46,33 +33,34 @@ class DiscussionLink extends Component {
             </Link>
           </div>
 
-          <div className="forum-post--date">
-            <Trans
-              i18nKey={'forums.post-date'}
-              defaults={'Submitted <0>{{ date }}</0> by <1></1>'}
-              values={{
-                date: discussion.created_at,
-              }}
-              components={[
-                <Moment key={'date'} fromNow unix>
-                  {discussion.created_at}
-                </Moment>,
-                <UserLink
-                  key={'user'}
-                  user={discussion.user}
-                  character={discussion.character}
-                />,
-              ]}
+          <div className={'forum-post--preview'}>{discussion.preview}</div>
+
+          <PostMeta forum={forum} discussion={discussion} />
+        </div>
+
+        <div className="forum-post--date">
+          <div className={'user-summary'}>
+            <UserAvatar
+              user={discussion.user}
+              character={discussion.character}
             />
-          </div>
 
-          <div className={'forum-post--meta'}>
-            {t('forums.replies', {
-              defaultValue: '{{count}} reply',
-              count: 0,
-            })}
+            <UserLink user={discussion.user} character={discussion.character} />
 
-            {/*&nbsp;| <a href={'#'}>{t('forums.save', "Save")}</a>*/}
+            <div className={'time'}>
+              <Trans
+                i18nKey={'forums.summary-posted-date'}
+                defaults={'Posted <0>{{ date }}</0>'}
+                values={{
+                  date: discussion.created_at,
+                }}
+                components={[
+                  <Moment key={'date'} fromNow unix>
+                    {discussion.created_at}
+                  </Moment>,
+                ]}
+              />
+            </div>
           </div>
         </div>
       </div>

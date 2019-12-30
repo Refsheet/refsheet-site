@@ -1,5 +1,9 @@
 require 'simplecov'
 
+unless Rails.env.test?
+  raise "This isn't a test environment!"
+end
+
 SimpleCov.start 'rails' do
   add_filter '/spec/'
 end
@@ -20,7 +24,6 @@ RSpec.configure do |config|
 
   config.shared_context_metadata_behavior = :apply_to_host_groups
   config.filter_run_when_matching :focus
-  config.profile_examples = 10
   config.order = :random
   Kernel.srand config.seed
 end

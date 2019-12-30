@@ -41,7 +41,6 @@ class Forum::Post < ApplicationRecord
 
   after_create :notify_user
   after_create :notify_tagged
-  before_save :update_content_cache
 
   has_guid
   has_markdown_field :content
@@ -60,10 +59,6 @@ class Forum::Post < ApplicationRecord
   end
 
   private
-
-  def update_content_cache
-    self.content_html = content.to_html
-  end
 
   def notify_tagged
     tags = content.extract_tags only_users: true
