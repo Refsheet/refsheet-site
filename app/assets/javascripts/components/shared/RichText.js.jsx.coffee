@@ -23,7 +23,8 @@
     e.preventDefault()
 
   componentDidUpdate: ->
-    $('.rich-text textarea').trigger 'autoresize'
+    if (@refs.input)
+      Materialize.textareaAutoResize(@refs.input)
 
   isEmpty: (text) ->
     !text || text == '' || text.match(/^\s*$/)
@@ -34,7 +35,7 @@
 
     if @state.edit
       `<div className={ 'rich-text editing ' + this.props.className }>
-          <textarea className='materialize-textarea' onChange={ this.handleMarkupChange } value={ this.state.markup } autoFocus />
+          <textarea ref='input' className='materialize-textarea' onChange={ this.handleMarkupChange } value={ this.state.markup } autoFocus />
           <button type='submit' className='btn right waves-effect waves-light' onClick={ this.handleSubmit }>Save Changes</button>
           <a className='btn grey darken-3' onClick={ this.handleEditStop }>
               <i className='material-icons'>cancel</i>
