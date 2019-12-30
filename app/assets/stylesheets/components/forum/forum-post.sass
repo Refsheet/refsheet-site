@@ -58,23 +58,36 @@
       margin-bottom: 1rem
 
     .forum-post--replies
-      margin-left: 3rem
+      margin-left: 4rem
 
-      .forum-post--reply
-        padding-left: 4rem
-        position: relative
+    .forum-post--reply,
+    .forum-post--main
+      padding-left: 4rem
+      position: relative
+      margin-bottom: 1.5rem
 
-        .avatar
-          position: absolute
-          left: 0
-          top: 0
-          width: 3rem
-          height: 3rem
+      .forum-post--whodunnit
+        margin-bottom: 0.25rem
 
-        .time
-          @extend .muted
-          color: $text-light-color !important
-          float: right
+      .forum-post--votes
+        display: block
+        position: absolute
+        left: 0
+        top: 4rem
+        padding: 0
+        width: 3rem
+
+      .avatar
+        position: absolute
+        left: 0
+        top: 0
+        width: 3rem
+        height: 3rem
+
+      .time
+        @extend .muted
+        color: $text-light-color !important
+        float: right
 
     .forum-post--tags
 
@@ -135,29 +148,16 @@
 
   &.forum-post--main
     display: block
-    position: relative
-    padding-left: 3rem
-    margin-bottom: 1.5rem
+    min-height: 9rem
 
     .forum-post--date
       display: block
       float: right
 
-    .forum-post--votes
-      display: block
-      position: absolute
-      left: 0
-      top: 0
-      padding: 0
-      width: 2.5rem
-
     h2
-      margin: 0
       color: $brand-primary
-
-      & + .forum-post--meta
-        margin-top: 0rem
-        margin-bottom: 1rem
+      font-size: 1.5rem
+      margin: 0 0 0.5rem
 
   &.new
     .forum-post--title

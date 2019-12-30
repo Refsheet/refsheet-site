@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import UserAvatar from '../../User/UserAvatar'
 import c from 'classnames'
 import KarmaCounter from '../shared/KarmaCounter'
-import PostMeta from '../Discussion/PostMeta'
+import PostMeta from '../shared/PostMeta'
 
 class DiscussionLink extends Component {
   render() {

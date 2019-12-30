@@ -52,6 +52,7 @@ class Forum::Discussion < ApplicationRecord
 
   slugify :topic, lookups: true
   has_guid :shortcode, type: :shortcode
+  has_markdown_field :content
 
   scope :with_unread_count, -> (user) {
     joins(sanitize_sql_array [<<-SQL.squish, user&.id]).
@@ -82,10 +83,6 @@ class Forum::Discussion < ApplicationRecord
   }
 
   scope :sticky, -> { where(locked: true) }
-
-  def content
-    super.to_md
-  end
 
   def reply_count
     self.posts.count

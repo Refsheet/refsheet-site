@@ -118,7 +118,7 @@ class MarkdownString < String
 
         if cache_present
           define_method(cache_column) do
-            super()&.html_safe
+            super()&.html_safe&.presence || send(name)&.to_html
           end
 
           before_save do
