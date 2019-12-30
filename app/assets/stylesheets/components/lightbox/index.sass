@@ -154,6 +154,73 @@
       min-width: 600px
       text-align: center
 
+      .image-tags
+        margin: 0
+        position: absolute
+        top: 0
+        left: 0
+        right: 0
+        bottom: 0
+        pointer-events: none
+
+        .tag
+          position: absolute
+
+          a
+            position: relative
+            display: block
+            color: white
+            font-size: 0.8rem
+            text-transform: uppercase
+            pointer-events: initial
+            background-color: rgba(0,0,0,0.8)
+            height: 2rem
+            line-height: 2rem
+            vertical-align: middle
+            padding: 0 1rem
+            opacity: 0.5
+            transition: opacity 0.3s ease
+
+            &:hover
+              opacity: 1.0
+
+            img
+              width: 2rem
+              height: 2rem
+              position: absolute
+              top: 0
+
+            &:before
+              content: ''
+              display: block
+              position: absolute
+              border: 3px solid white
+              top: 0
+              border-radius: 1px
+              border-bottom-color: transparent
+
+          &.right a
+            border-radius: 1rem 1px 1rem 1rem
+            padding-left: 2.5rem
+
+            &:before
+              right: 0
+              border-left-color: transparent
+
+            img
+              left: 0
+
+          &.left a
+            border-radius: 1px 1rem 1rem 1rem
+            padding-right: 2.5rem
+
+            &:before
+              left: 0
+              border-right-color: transparent
+
+            img
+              right: 0
+
       .imageloader
         width: 100%
 
@@ -173,6 +240,11 @@
 
       &:hover .lightbox-overlay
         opacity: 1.0
+
+      &.tagging:hover
+        .image-nav, .lightbox-overlay
+          opacity: 0
+          pointer-events: none
 
       .lightbox-overlay
         position: absolute

@@ -28,6 +28,20 @@ class CharactersController < ApplicationController
         eager_load character: CharacterSerializer.new(@character, scope: view_context).as_json
         render 'application/show'
       end
+      format.png do
+        size = case params[:size]&.to_s&.downcase
+               when "small"
+                 :small
+               when "medium"
+                 :medium
+               when "large"
+                 :large
+               else
+                 :thumbnail
+               end
+
+        redirect_to @character.profile_image.image.url(size)
+      end
       format.json { render json: @character, serializer: CharacterSerializer }
     end
   end
