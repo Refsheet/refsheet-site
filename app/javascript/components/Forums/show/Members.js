@@ -16,7 +16,9 @@ class Members extends Component {
       <div className={'container container-flex'}>
         <main className={'content-left'}>
           <div className={'forum-post--content'}>
-            <p className={'caption'}>This is a system group, everyone is a member.</p>
+            <p className={'caption'}>
+              This is a system group, everyone is a member.
+            </p>
           </div>
         </main>
 
