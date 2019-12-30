@@ -4,6 +4,49 @@
   padding: 0
 
   @at-root
+    .sidebar .forum-post--date
+      .user-summary
+        padding-left: 4rem
+        position: relative
+
+        .avatar
+          position: absolute
+          left: 0
+          top: 0
+          width: 3rem
+          height: 3rem
+
+        a
+          display: block
+          line-height: 1.5rem
+          vertical-align: top
+
+        .time
+          @extend .muted
+          line-height: 1.5rem
+          vertical-align: baseline
+
+    .forum-post--votes
+      text-align: center
+      line-height: 1rem
+      width: auto
+      display: table-cell
+      margin: 0
+      padding: 0.5rem 1rem 0.5rem 0
+
+      & > a, & > span
+        display: block
+        line-height: 1.5rem
+
+      i.material-icons
+        line-height: 1.5rem
+        vertical-align: middle
+        height: 1.5rem
+
+      .forum-post--karma
+        font-weight: bold
+        color: $text-light-color
+
     .forum-posts--group-name
       font-size: 0.9rem
       color: rgba(255, 255, 255, 0.3)
@@ -13,6 +56,25 @@
 
     .forum-posts--header
       margin-bottom: 1rem
+
+    .forum-post--replies
+      margin-left: 3rem
+
+      .forum-post--reply
+        padding-left: 4rem
+        position: relative
+
+        .avatar
+          position: absolute
+          left: 0
+          top: 0
+          width: 3rem
+          height: 3rem
+
+        .time
+          @extend .muted
+          color: $text-light-color !important
+          float: right
 
     .forum-post--tags
 
@@ -70,30 +132,36 @@
           background-color: transparent
           color: $brand-primary !important
 
+
+  &.forum-post--main
+    display: block
+    position: relative
+    padding-left: 3rem
+    margin-bottom: 1.5rem
+
+    .forum-post--date
+      display: block
+      float: right
+
+    .forum-post--votes
+      display: block
+      position: absolute
+      left: 0
+      top: 0
+      padding: 0
+      width: 2.5rem
+
+    h2
+      margin: 0
+      color: $brand-primary
+
+      & + .forum-post--meta
+        margin-top: 0rem
+        margin-bottom: 1rem
+
   &.new
     .forum-post--title
       font-weight: bold
-
-  .forum-post--votes
-    text-align: center
-    line-height: 1rem
-    width: auto
-    display: table-cell
-    margin: 0
-    padding: 0.5rem 1rem 0.5rem 0
-
-    & > a, & > span
-      display: block
-      line-height: 1.5rem
-
-    i.material-icons
-      line-height: 1.5rem
-      vertical-align: middle
-      height: 1.5rem
-
-    .forum-post--karma
-      font-weight: bold
-      color: $text-light-color
 
   .forum-post--title
     .tag

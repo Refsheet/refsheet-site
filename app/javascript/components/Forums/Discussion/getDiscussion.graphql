@@ -35,5 +35,33 @@ query getDiscussion($forumId: String!, $discussionId: String!) {
                 }
             }
         }
+
+        posts {
+            id
+            guid
+            content
+            content_html
+            karma_total
+            created_at
+
+            user {
+                username
+                name
+                is_admin
+                is_patron
+                is_supporter
+                avatar_url
+            }
+
+            character {
+                name
+                slug
+                profile_image {
+                    url {
+                        thumbnail
+                    }
+                }
+            }
+        }
     }
 }

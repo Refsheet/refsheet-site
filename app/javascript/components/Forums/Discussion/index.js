@@ -10,7 +10,6 @@ import { withRouter } from 'react-router'
 class Discussion extends Component {
   render() {
     const { data = {} } = this.props
-    console.log(this.props)
 
     if (data.loading) {
       return <Loading />
@@ -18,12 +17,20 @@ class Discussion extends Component {
       const message = data.error.graphQLErrors.map(e => e.message).join(', ')
       return <Error message={message} />
     } else {
-      return <View discussion={data.getDiscussion} {...this.state} />
+      return (
+        <View
+          discussion={data.getDiscussion}
+          forum={this.props.forum}
+          {...this.state}
+        />
+      )
     }
   }
 }
 
-Discussion.propTypes = {}
+Discussion.propTypes = {
+  forum: PropTypes.object.isRequired,
+}
 
 export default compose(
   withRouter,
