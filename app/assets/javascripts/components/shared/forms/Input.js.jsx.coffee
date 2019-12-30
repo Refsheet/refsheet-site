@@ -102,6 +102,8 @@
     error = @props.error
     error = error[0] if error?.length
 
+    inputFieldInsideLabel = false
+
     if @props.id
       id = @props.id
     else if @props.modelName
@@ -134,6 +136,7 @@
         />`
 
     else if @props.type == 'checkbox'
+      inputFieldInsideLabel = true
       inputField =
         `<input {...commonProps}
                 type={ this.props.type }
@@ -141,6 +144,7 @@
         />`
 
     else if @props.type == 'radio'
+      inputFieldInsideLabel = true
       inputField =
         `<input {...commonProps}
                 value={ this.props.default }
@@ -170,16 +174,19 @@
       icon =
         `<i className='material-icons prefix'>{ this.props.icon }</i>`
 
-    wrapperClassNames = ['input-field']
+    wrapperClassNames = []
+    wrapperClassNames.push 'input-field' if @props.type != 'radio' && @props.type != 'checkbox'
     wrapperClassNames.push 'margin-top--none' if @props.noMargin or !@props.label
+    wrapperClassNames.push 'check-field' if @props.type == 'radio' || @props.type == 'checkbox'
 
     `<div className={ wrapperClassNames.join(' ') }>
         { icon }
-        { inputField }
+        { !inputFieldInsideLabel && inputField }
 
         { this.props.label &&
             <label htmlFor={ id }>
-                { this.props.label }
+              { inputFieldInsideLabel && inputField }
+              <span>{ this.props.label }</span>
             </label> }
 
         { error &&
