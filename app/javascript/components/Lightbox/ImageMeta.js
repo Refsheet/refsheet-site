@@ -34,10 +34,35 @@ const ImageMeta = ({
   source_url_display,
   tags,
   hashtags,
+  hidden,
+  image_processing,
+  nsfw,
+  t
 }) => (
   <div className={'image-meta'}>
     <div className={'image-caption'}>{renderContent(caption)}</div>
     <ul className={'attributes'}>
+      {hidden && (
+        <li>
+          <Icon className={'left'}>visibility_off</Icon>
+          {t('labels.hidden', "Hidden")}
+        </li>
+      )}
+
+      {nsfw && (
+        <li>
+          <Icon className={'left'}>remove_circle</Icon>
+          {t('labels.nsfw', "NSFW")}
+        </li>
+      )}
+
+      {image_processing && (
+        <li>
+          <Icon className={'left'}>hourglass_empty</Icon>
+          {t('images.processing', "Image Processing...")}
+        </li>
+      )}
+
       {source_url && (
         <li>
           <Icon className={'left'}>link</Icon>

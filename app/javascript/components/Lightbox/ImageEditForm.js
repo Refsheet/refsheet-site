@@ -124,6 +124,17 @@ class ImageEditForm extends Component {
                 />
               </Col>
             </Row>
+            <Row>
+              <Col s={6}>
+                <Checkbox
+                  onChange={this.handleInputChange.bind(this)}
+                  checked={image.watermark}
+                  id={'image_watermark'}
+                  value={"watermark"}
+                  label={t('labels.watermark', "Watermark")}
+                />
+              </Col>
+            </Row>
           </div>
 
           <div className={'flex-fixed padded'}>
