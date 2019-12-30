@@ -18,6 +18,7 @@ query getMedia($mediaId: ID!) {
         comments_count
         is_favorite
         is_managed
+        watermark
 
       url {
         large
