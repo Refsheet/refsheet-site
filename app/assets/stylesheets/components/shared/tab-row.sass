@@ -10,3 +10,14 @@
 
     .indicator
       background-color: $primary-color
+
+    .tab
+      a
+        border-bottom: 2px solid transparent
+        transition: all 0.3s
+
+        &:focus, &:active
+          background-color: transparent !important
+
+      a.active
+        border-bottom: 2px solid $primary-color

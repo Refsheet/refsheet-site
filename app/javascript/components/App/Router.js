@@ -5,16 +5,17 @@ import Moderate from 'Moderate'
 import Forums from 'Forums'
 import Forum from 'Forums/Forum'
 import Artists from 'Artists'
+import Discussion from '../Forums/Discussion'
 
 const Router = () => (
   <BrowserRouter>
     <Switch>
       {/** Forums **/}
-      <Route path={'/v2/forums/:id'} component={Forum} />
-      <Route path={'/v2/forums'} component={Forums} />
+      {/*<Route path={"/v2/forums/:forumId/:id"} component={ Discussion } />*/}
       {/*<Route path={"/forums/new"} component={ NewForum } />*/}
       {/*<Route path={"/forums/:id/settings"} component={ EditForum } />*/}
-      {/*<Route path={"/forums/:forumId/:id"} component={ Discussion } />*/}
+      <Route path={'/v2/forums/:id'} component={Forum} />
+      <Route path={'/v2/forums'} component={Forums} />
 
       {/** Moderation **/}
       <Route path="/moderate" component={Moderate} />

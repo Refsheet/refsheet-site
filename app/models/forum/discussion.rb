@@ -11,7 +11,7 @@
 #  shortcode    :string
 #  content      :text
 #  locked       :boolean
-#  karma_total  :integer
+#  karma_total  :integer          default(0), not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  content_html :string
@@ -52,6 +52,7 @@ class Forum::Discussion < ApplicationRecord
 
   slugify :topic, lookups: true
   has_guid :shortcode, type: :shortcode
+  has_markdown_field :content
 
   scope :with_unread_count, -> (user) {
     joins(sanitize_sql_array [<<-SQL.squish, user&.id]).
@@ -81,8 +82,18 @@ class Forum::Discussion < ApplicationRecord
     select('forum_threads.*, lpa.last_post_at AS last_post_at')
   }
 
-  def content
-    super.to_md
+  scope :sticky, -> { where(locked: true) }
+
+  def reply_count
+    self.posts.count
+  end
+
+  def last_post_at
+    if self.attributes.include? 'last_post_at'
+      self.attributes['last_post_at']
+    else
+      nil
+    end
   end
 
   def last_read_at(user)
@@ -99,6 +110,10 @@ class Forum::Discussion < ApplicationRecord
     else
       nil
     end
+  end
+
+  def preview
+    content && content.truncate(120)
   end
 
   private

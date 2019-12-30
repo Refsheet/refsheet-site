@@ -1,0 +1,67 @@
+query getDiscussion($forumId: String!, $discussionId: String!) {
+    getDiscussion(forumId: $forumId, id: $discussionId) {
+        id
+        topic
+        slug
+        locked
+        karma_total
+        updated_at
+        created_at
+        reply_count
+        content
+        content_html
+
+        forum {
+            id
+            slug
+            name
+        }
+
+        user {
+            username
+            name
+            is_admin
+            is_patron
+            is_supporter
+            avatar_url
+        }
+
+        character {
+            name
+            slug
+            profile_image {
+                url {
+                    thumbnail
+                }
+            }
+        }
+
+        posts {
+            id
+            guid
+            content
+            content_html
+            karma_total
+            created_at
+
+            user {
+                username
+                name
+                is_admin
+                is_patron
+                is_supporter
+                avatar_url
+            }
+
+            character {
+                name
+                slug
+                profile_image {
+                    url {
+                        thumbnail
+                    }
+                }
+            }
+        }
+    }
+}

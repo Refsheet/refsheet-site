@@ -22,13 +22,28 @@ Types::ForumType = GraphQL::ObjectType.define do
 
   field :discussions, types[Types::ForumDiscussionType] do
     argument :page, types.Int
+    argument :sort, types.String
+    argument :sticky, types.Boolean
 
-    resolve -> (obj, args, _ctx) {
+    resolve -> (obj, args, ctx) {
       scope = obj.threads
 
       if args[:page]
         scope = scope.page(args[:page])
       end
+
+      if args[:sort]
+        scope = scope.order(created_at: :desc)
+      else
+        scope = scope.order(created_at: :desc)
+      end
+
+      if args[:sticky]
+        scope = scope.sticky
+      end
+
+      scope = scope.with_unread_count(ctx[:current_user].call)
+      scope = scope.with_last_post_at
 
       scope
     }

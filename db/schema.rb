@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_20_194503) do
+ActiveRecord::Schema.define(version: 2019_12_29_061303) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -438,11 +438,12 @@ ActiveRecord::Schema.define(version: 2019_12_20_194503) do
 
   create_table "forum_karmas", id: :serial, force: :cascade do |t|
     t.integer "karmic_id"
-    t.integer "karmic_type"
+    t.string "karmic_type"
     t.integer "user_id"
     t.boolean "discord"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "value", default: 1
     t.index ["karmic_id"], name: "index_forum_karmas_on_karmic_id"
     t.index ["karmic_type"], name: "index_forum_karmas_on_karmic_type"
   end
@@ -484,7 +485,7 @@ ActiveRecord::Schema.define(version: 2019_12_20_194503) do
     t.string "shortcode"
     t.text "content"
     t.boolean "locked"
-    t.integer "karma_total"
+    t.integer "karma_total", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "content_html"
