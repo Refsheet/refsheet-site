@@ -28,7 +28,6 @@
       React.PropTypes.array
     ])
 
-
   getInitialState: ->
     value: if @props.type == 'radio' then ('') else (@props.value || @props.default)
     error: @props.error
@@ -43,6 +42,9 @@
       @setState error: newProps.error
 
   componentDidMount: ->
+    if @props.type == 'textarea'
+      Materialize.textareaAutoResize(@refs.input)
+
     if @props.type == 'color'
       tcp =
         $(@refs.input).colorPicker
@@ -68,6 +70,9 @@
     if @props.type == 'textarea' and @props.browserDefault and @state.value != newState.value
       $(@refs.input).css height: 0
       $(@refs.input).css height: @refs.input.scrollHeight + 10
+
+    if @props.type == 'textarea' and !@props.browserDefault
+      Materialize.textareaAutoResize(@refs.input)
 
 
   _handleInputChange: (e) ->

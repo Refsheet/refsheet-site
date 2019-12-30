@@ -1,4 +1,8 @@
 form
+  @at-root
+    textarea, input
+      color: $page-text-color
+
   .input-field
     label
       width: 100%
@@ -183,12 +187,13 @@ body:not(.admin)
     textarea
       resize: none
 
+
       &.min-height
         min-height: 3rem
         height: auto
 
     input, textarea, select, optgroup
-      color: $page-text-color
+      color: $page-text-color !important
 
       &::placeholder
         color: $muted-text-color
