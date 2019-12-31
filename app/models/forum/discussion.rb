@@ -2,19 +2,22 @@
 #
 # Table name: forum_threads
 #
-#  id           :integer          not null, primary key
-#  forum_id     :integer
-#  user_id      :integer
-#  character_id :integer
-#  topic        :string
-#  slug         :string
-#  shortcode    :string
-#  content      :text
-#  locked       :boolean
-#  karma_total  :integer          default(0), not null
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  content_html :string
+#  id             :integer          not null, primary key
+#  forum_id       :integer
+#  user_id        :integer
+#  character_id   :integer
+#  topic          :string
+#  slug           :string
+#  shortcode      :string
+#  content        :text
+#  locked         :boolean
+#  karma_total    :integer          default(0), not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  content_html   :string
+#  sticky         :boolean
+#  admin_post     :boolean
+#  moderator_post :boolean
 #
 # Indexes
 #
@@ -23,6 +26,7 @@
 #  index_forum_threads_on_karma_total   (karma_total)
 #  index_forum_threads_on_shortcode     (shortcode)
 #  index_forum_threads_on_slug          (slug)
+#  index_forum_threads_on_sticky        (sticky)
 #  index_forum_threads_on_user_id       (user_id)
 #
 
@@ -48,6 +52,7 @@ class Forum::Discussion < ApplicationRecord
   validates_presence_of :slug
   validates_presence_of :content
 
+  before_validation :assign_admin_level
   after_create :log_activity
 
   slugify :topic, lookups: true
@@ -82,7 +87,7 @@ class Forum::Discussion < ApplicationRecord
     select('forum_threads.*, lpa.last_post_at AS last_post_at')
   }
 
-  scope :sticky, -> { where(locked: true) }
+  scope :sticky, -> { where(sticky: true) }
 
   def reply_count
     self.posts.count
@@ -117,6 +122,11 @@ class Forum::Discussion < ApplicationRecord
   end
 
   private
+
+  def assign_admin_level
+    self.admin_post = user&.admin?
+    self.moderator_post = user&.moderator?
+  end
 
   def log_activity
     Activity.create activity: self,
