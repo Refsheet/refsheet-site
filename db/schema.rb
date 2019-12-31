@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_29_061303) do
+ActiveRecord::Schema.define(version: 2019_12_31_101854) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -489,11 +489,15 @@ ActiveRecord::Schema.define(version: 2019_12_29_061303) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "content_html"
+    t.boolean "sticky"
+    t.boolean "admin_post"
+    t.boolean "moderator_post"
     t.index ["character_id"], name: "index_forum_threads_on_character_id"
     t.index ["forum_id"], name: "index_forum_threads_on_forum_id"
     t.index ["karma_total"], name: "index_forum_threads_on_karma_total"
     t.index ["shortcode"], name: "index_forum_threads_on_shortcode"
     t.index ["slug"], name: "index_forum_threads_on_slug"
+    t.index ["sticky"], name: "index_forum_threads_on_sticky"
     t.index ["user_id"], name: "index_forum_threads_on_user_id"
   end
 
