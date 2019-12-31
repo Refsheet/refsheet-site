@@ -9,7 +9,10 @@ class Mutations::ImageMutations < Mutations::ApplicationMutation
   end
 
   def destroy
-    @image.destroy
+    PgLock.new(name: 'image_rank_lock').lock do
+      @image.destroy
+    end
+
     @image
   end
 
@@ -28,7 +31,10 @@ class Mutations::ImageMutations < Mutations::ApplicationMutation
   end
 
   def update
-    @image.update_attributes(image_params)
+    PgLock.new(name: 'image_rank_lock').lock do
+      @image.update_attributes(image_params)
+    end
+
     @image
   end
 
@@ -44,7 +50,11 @@ class Mutations::ImageMutations < Mutations::ApplicationMutation
   end
 
   def create
-    @character.images.create! image_params_for_upload
+    PgLock.new(name: 'image_rank_lock').lock do
+      @image = @character.images.create! image_params_for_upload
+    end
+
+    @image
   end
 
   private

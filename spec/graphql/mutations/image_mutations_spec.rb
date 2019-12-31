@@ -26,7 +26,7 @@ describe Mutations::ImageMutations do
     let(:context) {{ current_user: -> { user } }}
 
     it 'uploads image' do
-      expect { subject }.to change { character.images.count }
+      expect { subject }.to change { character.tap(&:reload).images.count }
       expect(subject[:errors]).to be_nil
       expect(subject[:data][:uploadImage][:title]).to eq "Image of John Doe"
     end
