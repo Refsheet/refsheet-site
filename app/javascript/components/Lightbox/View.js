@@ -12,9 +12,10 @@ import ImageEditForm from './ImageEditForm'
 import { withNamespaces } from 'react-i18next'
 import compose from '../../utils/compose'
 import Restrict from '../Shared/Restrict'
-import ImageTagForm from "./ImageTagForm";
+import ImageTagForm from "./ImageTags/ImageTagForm";
 import c from 'classnames'
 import {Link} from "react-router-dom";
+import ImageTags from "./ImageTags";
 
 class View extends Component {
   constructor(props) {
@@ -62,16 +63,14 @@ class View extends Component {
     e.preventDefault()
 
     const { top, left } = e.target.getBoundingClientRect()
-    const x = e.pageX - left
-    const y = e.pageY - top
+    const x = e.pageX - left - window.pageXOffset
+    const y = e.pageY - top - window.pageYOffset
 
     const cw = e.target.clientWidth
     const ch = e.target.clientHeight
 
     const xp = x / cw
     const yp = y / ch
-
-    console.log({xp, yp})
 
     let tags = [
       ...this.state.tags,
@@ -158,6 +157,10 @@ class View extends Component {
       prevMediaId,
     } = this.props
 
+    const {
+      tags
+    } = this.state
+
     return (
       <div className={'lightbox-content'}>
         <div className={c('image-content', { tagging: this.state.tagging})}>
@@ -221,20 +224,7 @@ class View extends Component {
             <Loading />
           </ImageLoader>
 
-          <ul className={'image-tags'}>
-            { this.state.tags.map((tag, i) => (
-              <li key={i} className={c('tag', { left: tag.position_x < 50, right: tag.position_x >= 50 })}
-              style={{
-                left: ( tag.position_x < 50 ? `${tag.position_x}%` : 'auto' ),
-                right: ( tag.position_x >= 50 ? `${100 - tag.position_x}%` : 'auto' ),
-                top: `${tag.position_y}%`}}>
-                <Link to={'/'}>
-                  <img className={'avatar circle'} src={'/administrator/test.png'} />
-                  <span>{ tag.character.name }</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <ImageTags tags={this.state.tags} tagging={this.state.tagging} />
         </div>
 
         {this.renderDetails()}
