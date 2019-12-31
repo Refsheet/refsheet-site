@@ -20,5 +20,10 @@ describe FollowsController, type: :controller do
       get :suggested
       expect(response).to have_http_status :ok
     end
+
+    it 'limits' do
+      get :suggested, params: { limit: '6' }
+      expect(response).to have_http_status :ok
+    end
   end
 end

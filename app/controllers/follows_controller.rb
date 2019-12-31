@@ -17,7 +17,7 @@ class FollowsController < ApplicationController
     scope = current_user.followers.suggested
     scope = User.patrons if scope.none?
 
-    scope = scope.first(params[:limit]) if params[:limit]
+    scope = scope.first(params[:limit].to_i) if params[:limit]
 
     render json: scope, each_serializer: UserIndexSerializer
   end
