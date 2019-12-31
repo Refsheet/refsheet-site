@@ -46,7 +46,7 @@ class ImagesController < ApplicationController
     @image = Image.new image_params.merge(character: @character)
     saved = nil
 
-    PgLock.new(name: 'image_rank_lock') do
+    PgLock.new(name: 'image_rank_lock').lock do
       saved = @image.save
     end
 
@@ -63,7 +63,7 @@ class ImagesController < ApplicationController
     if params[:image][:swap_target_image_id]
       target = Image.find_by!(guid: params[:image][:swap_target_image_id])
 
-      PgLock.new(name: 'image_rank_lock') do
+      PgLock.new(name: 'image_rank_lock').lock do
         @image.row_order = target.row_order - 1
         @image.save
       end
