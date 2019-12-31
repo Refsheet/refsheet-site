@@ -44,8 +44,13 @@ class ImagesController < ApplicationController
     head :unauthorized and return unless @character.managed_by? current_user
 
     @image = Image.new image_params.merge(character: @character)
+    saved = nil
 
-    if @image.save
+    PgLock.new(name: 'image_rank_lock') do
+      saved = @image.save
+    end
+
+    if saved
       render json: @image, serializer: ImageSerializer
     else
       render json: { errors: @image.errors }, status: :bad_request
@@ -57,8 +62,11 @@ class ImagesController < ApplicationController
 
     if params[:image][:swap_target_image_id]
       target = Image.find_by!(guid: params[:image][:swap_target_image_id])
-      @image.row_order = target.row_order - 1
-      @image.save
+
+      PgLock.new(name: 'image_rank_lock') do
+        @image.row_order = target.row_order - 1
+        @image.save
+      end
 
       @character = @image.character
       render json: image_scope, each_serializer: ImageSerializer
