@@ -37,7 +37,7 @@ const ImageMeta = ({
   hidden,
   image_processing,
   nsfw,
-  t
+  t,
 }) => (
   <div className={'image-meta'}>
     <div className={'image-caption'}>{renderContent(caption)}</div>
@@ -45,21 +45,21 @@ const ImageMeta = ({
       {hidden && (
         <li>
           <Icon className={'left'}>visibility_off</Icon>
-          {t('labels.hidden', "Hidden")}
+          {t('labels.hidden', 'Hidden')}
         </li>
       )}
 
       {nsfw && (
         <li>
           <Icon className={'left'}>remove_circle</Icon>
-          {t('labels.nsfw', "NSFW")}
+          {t('labels.nsfw', 'NSFW')}
         </li>
       )}
 
       {image_processing && (
         <li>
           <Icon className={'left'}>hourglass_empty</Icon>
-          {t('images.processing', "Image Processing...")}
+          {t('images.processing', 'Image Processing...')}
         </li>
       )}
 

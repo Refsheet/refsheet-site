@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import compose from 'utils/compose'
 
@@ -14,8 +14,11 @@ class ImageTagForm extends Component {
   }
 }
 
-ImageTagForm.propTypes = {image: PropTypes.object.isRequired, onSave: PropTypes.func, onCancel: PropTypes.func}
+ImageTagForm.propTypes = {
+  image: PropTypes.object.isRequired,
+  onSave: PropTypes.func,
+  onCancel: PropTypes.func,
+}
 
-export default compose(
-  // TODO: Add HOC bindings here
-)(ImageTagForm)
+export default compose()(ImageTagForm)
+// TODO: Add HOC bindings here
