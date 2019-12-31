@@ -395,6 +395,7 @@ GEM
     parser (2.6.0.0)
       ast (~> 2.4.0)
     pg (0.21.0)
+    pg_lock (0.2.1)
     phashion (1.2.0)
     premailer (1.11.1)
       addressable
@@ -752,6 +753,7 @@ DEPENDENCIES
   paperclip-meta
   paranoia
   pg (~> 0.21)
+  pg_lock
   phashion
   premailer-rails
   puma (~> 3.12)
