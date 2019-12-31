@@ -166,6 +166,9 @@
         .tag
           position: absolute
 
+          &:hover
+            z-index: 1
+
           a
             position: relative
             display: block
@@ -199,6 +202,12 @@
               border-radius: 1px
               border-bottom-color: transparent
 
+          &.bottom a:before
+            border-bottom-color: white
+            border-top-color: transparent
+            top: auto
+            bottom: 0
+
           &.right a
             border-radius: 1rem 1px 1rem 1rem
             padding-left: 2.5rem
@@ -210,6 +219,9 @@
             img
               left: 0
 
+          &.right.bottom a
+            border-radius: 1rem 1rem 1px 1rem
+
           &.left a
             border-radius: 1px 1rem 1rem 1rem
             padding-right: 2.5rem
@@ -220,6 +232,9 @@
 
             img
               right: 0
+
+          &.left.bottom a
+            border-radius: 1rem 1rem 1rem 1px
 
       .imageloader
         width: 100%
