@@ -62,6 +62,7 @@ module Sluggable
   def to_slug(string, tail=nil)
     return if string.nil?
     slug = string.downcase.gsub(/[^a-z0-9-]+/, '-').gsub(/^-+|-+$/, '')
+    slug = "blank" if slug.blank?
     slug = [slug, tail].join('-') if tail
     slug
   end
