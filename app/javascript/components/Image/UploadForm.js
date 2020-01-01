@@ -37,6 +37,11 @@ class UploadForm extends Component {
     this.props.onUpload(this.props.image)
   }
 
+  handleCharacterChangeClick(e) {
+    if (this.props.onCharacterChangeClick) this.props.onCharacterChangeClick(e)
+    else e.preventDefault()
+  }
+
   render() {
     const { image, characterId } = this.props
 
@@ -98,6 +103,19 @@ class UploadForm extends Component {
           </div>
 
           <div className={'actions'}>
+            {!characterId && (
+              <div className={'errors muted red-text padding--small center'}>
+                You must{' '}
+                <a
+                  href={'#'}
+                  onClick={this.handleCharacterChangeClick.bind(this)}
+                >
+                  select a character
+                </a>{' '}
+                before uploading.
+              </div>
+            )}
+
             <div className="right">
               <Button type="submit" disabled={!characterId || uploading}>
                 {uploading ? 'Uploading...' : 'Upload'}
@@ -131,6 +149,7 @@ UploadForm.propTypes = {
   }),
   onChange: PropTypes.func,
   onUpload: PropTypes.func,
+  onCharacterChangeClick: PropTypes.func,
 }
 
 export default UploadForm
