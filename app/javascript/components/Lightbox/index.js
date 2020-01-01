@@ -38,7 +38,7 @@ class Lightbox extends Component {
   }
 
   handleKeyDown(e) {
-    if ('value' in e.target) {
+    if ('value' in e.target || e.target.isContentEditable) {
       // This was probably an input field.
       return
     }
