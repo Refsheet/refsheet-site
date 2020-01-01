@@ -130,8 +130,8 @@ class ImageEditForm extends Component {
                   onChange={this.handleInputChange.bind(this)}
                   checked={image.watermark}
                   id={'image_watermark'}
-                  value={"watermark"}
-                  label={t('labels.watermark', "Watermark")}
+                  value={'watermark'}
+                  label={t('labels.watermark', 'Watermark')}
                 />
               </Col>
             </Row>
