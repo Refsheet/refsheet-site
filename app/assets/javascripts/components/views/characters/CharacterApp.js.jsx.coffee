@@ -186,7 +186,9 @@ Component = React.createClass
 
                 <ImageGalleryModal images={ this.state.images }
                                    title={ this.state.galleryTitle }
-                                   onClick={ this.state.onGallerySelect } />
+                                   onClick={ this.state.onGallerySelect }
+                                   onUploadClick={ this._openUploads }
+                />
 
                 <CharacterColorSchemeModal colorScheme={ this.state.character.color_scheme } characterPath={ this.state.character.path } />
                 <CharacterDeleteModal character={ this.state.character } />
