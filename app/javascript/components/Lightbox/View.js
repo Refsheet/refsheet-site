@@ -12,10 +12,10 @@ import ImageEditForm from './ImageEditForm'
 import { withNamespaces } from 'react-i18next'
 import compose from '../../utils/compose'
 import Restrict from '../Shared/Restrict'
-import ImageTagForm from "./ImageTags/ImageTagForm";
+import ImageTagForm from './ImageTags/ImageTagForm'
 import c from 'classnames'
-import {Link} from "react-router-dom";
-import ImageTags from "./ImageTags";
+import { Link } from 'react-router-dom'
+import ImageTags from './ImageTags'
 
 class View extends Component {
   constructor(props) {
@@ -24,7 +24,7 @@ class View extends Component {
     this.state = {
       editing: false,
       tagging: false,
-      tags: []
+      tags: [],
     }
   }
 
@@ -48,11 +48,11 @@ class View extends Component {
 
   handleTagStart(e) {
     e.preventDefault()
-    this.setState({tagging: true})
+    this.setState({ tagging: true })
   }
 
   handleTagEnd() {
-    this.setState({tagging: false})
+    this.setState({ tagging: false })
   }
 
   handleMediaUpdate() {
@@ -78,12 +78,12 @@ class View extends Component {
         position_x: xp * 100,
         position_y: yp * 100,
         character: {
-          name: "Test!"
-        }
-      }
+          name: 'Test!',
+        },
+      },
     ]
 
-    this.setState({tags})
+    this.setState({ tags })
   }
 
   renderDetails() {
@@ -157,13 +157,11 @@ class View extends Component {
       prevMediaId,
     } = this.props
 
-    const {
-      tags
-    } = this.state
+    const { tags } = this.state
 
     return (
       <div className={'lightbox-content'}>
-        <div className={c('image-content', { tagging: this.state.tagging})}>
+        <div className={c('image-content', { tagging: this.state.tagging })}>
           {prevMediaId && (
             <a
               className={'image-prev image-nav'}
@@ -219,7 +217,11 @@ class View extends Component {
           </div>
 
           <ImageLoader src={imageSrc}>
-            <img alt={title} title={title} onClick={this.handleImageClick.bind(this)} />
+            <img
+              alt={title}
+              title={title}
+              onClick={this.handleImageClick.bind(this)}
+            />
             <Error />
             <Loading />
           </ImageLoader>
