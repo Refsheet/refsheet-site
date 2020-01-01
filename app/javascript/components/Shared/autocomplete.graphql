@@ -12,3 +12,10 @@ query searchForCharacter($username: String, $slug: String) {
         slug
     }
 }
+
+query autocompleteHashtags($hashtag: String!) {
+    autocompleteHashtags(hashtag: $hashtag) {
+        tag,
+        count
+    }
+}

@@ -116,6 +116,7 @@ Types::QueryType = GraphQL::ObjectType.define do
 
   field :searchForUser, field: Mutations::UserMutations::Search
   field :searchForCharacter, field: Mutations::CharacterMutations::Search
+  field :autocompleteHashtags, field: Mutations::MediaHashtagMutations::Autocomplete
 
   #== Forums
 

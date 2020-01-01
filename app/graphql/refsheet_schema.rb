@@ -25,6 +25,13 @@ GraphQL::Errors.configure(RefsheetSchema) do
     Raven.capture_exception(e)
     GraphQL::ExecutionError.new e.message
   end
+
+  rescue_from Exception do |e|
+    Rails.logger.e
+    Rails.logger.error e.backtrace.join("\n")
+    Raven.capture_exception(e)
+    GraphQL::ExecutionError.new e.message
+  end
 end
 
 class ActionCable::Connection::Subscriptions
