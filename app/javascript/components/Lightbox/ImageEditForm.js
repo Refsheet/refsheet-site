@@ -4,6 +4,7 @@ import compose, { withMutations } from '../../utils/compose'
 import updateImage from './updateImage.graphql'
 import { Row, Col, Checkbox, Textarea, TextInput } from 'react-materialize'
 import { withNamespaces } from 'react-i18next'
+import MarkdownEditor from '../Shared/MarkdownEditor'
 
 class ImageEditForm extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class ImageEditForm extends Component {
 
     this.state = {
       image: this.props.image,
+      caption: this.props.image && this.props.image.caption,
     }
   }
 
@@ -55,9 +57,14 @@ class ImageEditForm extends Component {
     this.setState({ image })
   }
 
+  handleCaptionChange(caption) {
+    const image = { ...this.state.image, caption }
+    this.setState({ image })
+  }
+
   render() {
     const { t } = this.props
-    const { image } = this.state
+    const { image, caption } = this.state
 
     return (
       <form
@@ -69,7 +76,7 @@ class ImageEditForm extends Component {
         </div>
 
         <div className={'flex-vertical'}>
-          <div className={'flex-content padded'}>
+          <div className={'flex-content overflow padded'}>
             <Row>
               <TextInput
                 s={12}
@@ -80,19 +87,17 @@ class ImageEditForm extends Component {
                 label={t('labels.title', 'Title')}
               />
             </Row>
-            <Row>
-              <Textarea
-                s={12}
-                id={'image_caption'}
-                name={'caption'}
-                onChange={this.handleInputChange.bind(this)}
-                value={image.caption || ''}
-                helpText={
-                  'Include #hashtags here. If the last line is just tags, it will not be displayed.'
-                }
-                label={t('labels.caption', 'Caption')}
-              />
-            </Row>
+
+            <div className={'markdown-caption'}>
+              {t('labels.caption', 'Caption')}
+            </div>
+            <MarkdownEditor
+              key={'image_caption'}
+              content={caption}
+              hashtags
+              onChange={this.handleCaptionChange.bind(this)}
+            />
+
             <Row>
               <TextInput
                 s={12}

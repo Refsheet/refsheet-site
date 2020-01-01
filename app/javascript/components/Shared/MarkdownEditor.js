@@ -48,6 +48,29 @@ class MarkdownEditor extends Component {
     })
   }
 
+  searchForHashtag(hashtag) {
+    return new Promise(resolve => {
+      client
+        .query({
+          query: Autocomplete.autocompleteHashtags,
+          variables: { hashtag },
+        })
+        .then(({ data, error }) => {
+          if (!data) {
+            console.error(error)
+            resolve([])
+          }
+
+          const { autocompleteHashtags: hashtags } = data
+          resolve(hashtags || [])
+        })
+        .catch(error => {
+          console.error(error)
+          resolve([])
+        })
+    })
+  }
+
   usernameAutoComplete() {
     const _this = this
 
@@ -102,8 +125,43 @@ class MarkdownEditor extends Component {
     }
   }
 
+  hashtagAutoComplete() {
+    const _this = this
+
+    return {
+      specialCharacter: '#',
+      termRegex: /^#(\w*)$/,
+      searchItems(term) {
+        return _this.searchForHashtag(term.substring(1))
+      },
+      markdownText(item) {
+        return '#' + item.tag
+      },
+      renderItem: ({ item, isSelected }) => (
+        <div
+          className={c(
+            'react-markdown--autocomplete-widget__item user-token character',
+            { selected: isSelected }
+          )}
+        >
+          <span className={'name'}>#{item.tag}</span>
+          <span className={'username right'}>{item.count || 0}</span>
+        </div>
+      ),
+    }
+  }
+
   render() {
-    const { content, onChange } = this.props
+    const { content, onChange, hashtags } = this.props
+
+    let extensions = [
+      this.usernameAutoComplete.bind(this)(),
+      this.characterAutoComplete.bind(this)(),
+    ]
+
+    if (hashtags) {
+      extensions.push(this.hashtagAutoComplete.bind(this)())
+    }
 
     return (
       <MarkdownInput
@@ -111,10 +169,7 @@ class MarkdownEditor extends Component {
         showFullScreenButton={false}
         onChange={onChange}
         autoFocus={true}
-        extensions={[
-          this.usernameAutoComplete.bind(this)(),
-          this.characterAutoComplete.bind(this)(),
-        ]}
+        extensions={extensions}
       />
     )
   }
