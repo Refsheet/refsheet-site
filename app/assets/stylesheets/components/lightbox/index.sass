@@ -18,7 +18,7 @@
 
   .lightbox.v2
     @extend .z-depth-2
-    margin: 1.5rem
+    margin: 1.5rem 4rem
     display: inline-flex
     text-align: left
     background-color: $card-bg-color
@@ -41,6 +41,7 @@
 
       &:hover
         opacity: 1.0
+        background-color: $input-background
 
     .lightbox-content
       display: inline-flex
@@ -326,7 +327,7 @@
 
       @media #{$medium-and-up}
         img
-          max-width: calc(100vw - 3rem - 300px)
+          max-width: calc(100vw - 8rem - 300px)
           max-height: calc(100vh - 3rem)
 
     .image-details-container
