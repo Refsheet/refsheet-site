@@ -194,8 +194,6 @@ class Lightbox extends Component {
             <Icon>close</Icon>
           </a>
 
-          <div className={'mobile-header'}>{/*{Lightbox?}*/}</div>
-
           {this.renderContent()}
         </div>
       </div>
