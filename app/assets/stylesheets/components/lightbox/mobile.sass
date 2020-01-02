@@ -1,0 +1,33 @@
+.lightbox-wrapper.v2
+  @media #{$small-and-down}
+
+    .lightbox.v2
+      margin: 0
+      display: block
+
+      .mobile-header
+        @extend .depth-1
+        display: block
+
+
+      .lightbox-content
+        display: block
+
+      .image-content
+        margin: 0
+        min-width: 100%
+        width: 100%
+        flex: none
+
+      .image-details-container
+        flex: 0
+        width: 100%
+        display: block
+        background-color: $card-bg-color
+
+        .comments
+          display: block
+          width: 100%
+
+          .flex-content.overflow
+            height: auto
