@@ -130,6 +130,8 @@ class Favorites extends Component {
             {t('media.favorites', '{{count}} Favorites', { count })}
           </a>
         </span>
+
+        <br className={'clearfix'} />
       </div>
     )
   }
