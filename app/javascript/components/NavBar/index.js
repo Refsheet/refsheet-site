@@ -6,6 +6,7 @@ import SiteNav from './SiteNav'
 import UserNav from './UserNav'
 import SessionNav from './SessionNav'
 import { connect } from 'react-redux'
+import c from 'classnames'
 
 import { setCurrentUser, setNsfwMode } from 'actions'
 import SessionService from '../../services/SessionService'
@@ -89,8 +90,12 @@ class NavBar extends Component {
       session: { nsfwOk, currentUser, identity },
     } = this.props
 
+    const {
+      menuOpen
+    } = this.state
+
     return (
-      <div className="NavBar navbar-fixed user-bar">
+      <div className={c("NavBar navbar-fixed user-bar", { menuOpen })}>
         <div className="navbar-shroud" onClick={this.handleMenuClose} />
 
         {!this.state.noticeClosed && this.props.notice && (
