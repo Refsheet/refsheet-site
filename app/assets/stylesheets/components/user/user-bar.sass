@@ -135,11 +135,90 @@
     display: none
 
   @media #{$small-and-down}
-    .logo
-      float: none !important
-      position: absolute
-      left: 50%
-      transform: translateX(-50%)
+    nav .container
+      display: flex
+      padding: 5px 0 !important
+
+      & > .right
+        flex-grow: 1
+        display: flex
+        margin: 0 5px
+
+        form.search
+          flex-grow: 1
+          margin-right: 5px
+
+          &.active
+            background-color: transparent
+
+          input
+            background-color: $input-background
+            width: 100%
+            box-sizing: border-box
+            border-radius: 2px
+            border: 1px solid transparent
+            border-bottom: 1px solid transparent !important
+            transition: all 0.1s ease
+            padding-left: 40px
+
+            & + label
+              padding: 0 10px
+              width: 40px
+
+              & > i.material-icons
+                width: 20px
+                height: 46px !important
+                line-height: 46px !important
+
+            &:focus
+              width: 100%
+              background-color: $input-background !important
+              border-color: $brand-primary !important
+              outline-color: $brand-primary
+
+              & + label > i.material-icons
+                color: $brand-primary !important
+
+        & > ul.right
+          flex-grow: 0
+          flex-shrink: 0
+
+    nav
+      ul.menu
+        margin-left: 5px
+
+      .logo
+        float: none !important
+        padding: 0
+
+        img
+          margin: 7px
+
+      .logo, & > a, form, input, .input-field, label
+        height: 46px !important
+        line-height: 46px !important
+
+      & > .container > ul > li > a, & > .container > div.right > ul > li > a
+        height: 46px !important
+        line-height: 46px !important
+
+        i.material-icons
+          font-size: 1.5rem
+          width: 46px
+          text-align: center
+          height: 46px !important
+          line-height: 46px !important
+
+        padding: 0
+        width: 46px
+
+      .avatar
+        padding: 0
+
+        img
+          height: 36px
+          width: 36px
+          margin: 5px
 
     .site-nav
       display: none
