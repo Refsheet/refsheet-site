@@ -220,18 +220,42 @@
           width: 36px
           margin: 5px
 
+    .dropdown-menu
+      left: 15px
+      right: 15px
+      position: fixed
+      top: 66px
+      background-color: $card-bg-color
+      box-shadow: 0 0 1000px 1000px rgba(0,0,0,0.5)
+
+      &:before
+        display: none
+
+    .dropdown-trigger-native.active
+      position: relative
+      z-index: 10010
+
     .site-nav
       display: none
       position: fixed
       top: 56px
       left: 0
       width: 100%
-      background-color: $card-bg-color
+      background-color: darken($card-bg-color, 2%)
       z-index: 10
+
+      &.visible
+        display: block !important
 
       li
         display: block
         float: none
+
+        a
+          padding: 0 15px !important
+          display: block
+          line-height: 46px
+          width: 100% !important
 
     .navbar-shroud
       position: fixed
@@ -239,7 +263,11 @@
       bottom: 0
       left: 0
       width: 100%
-      background-color: rgba(black, 0.5)
+      background-color: rgba(black, 0.6)
 
     .dropdown-content
       position: fixed !important
+
+    &.menuOpen
+      .navbar-shroud, .site-nav
+        display: block !important
