@@ -90,12 +90,10 @@ class NavBar extends Component {
       session: { nsfwOk, currentUser, identity },
     } = this.props
 
-    const {
-      menuOpen
-    } = this.state
+    const { menuOpen } = this.state
 
     return (
-      <div className={c("NavBar navbar-fixed user-bar", { menuOpen })}>
+      <div className={c('NavBar navbar-fixed user-bar', { menuOpen })}>
         <div className="navbar-shroud" onClick={this.handleMenuClose} />
 
         {!this.state.noticeClosed && this.props.notice && (
