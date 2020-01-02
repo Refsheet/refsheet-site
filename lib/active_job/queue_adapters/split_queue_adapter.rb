@@ -1,3 +1,6 @@
+# @deprecated
+# This adapter is no longer required since AWS move, deprecated 2020-01-02
+#
 module ActiveJob
   module QueueAdapters
     class SplitQueueAdapter
