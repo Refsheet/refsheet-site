@@ -30,7 +30,7 @@ spec:
         - exec
         - rake
         - resque:work
-        - QUEUE=*
+        - QUEUE=priority,refsheet_image_processing,refsheet_application_queue
         envFrom:
         - configMapRef:
             name: refsheet-prod
