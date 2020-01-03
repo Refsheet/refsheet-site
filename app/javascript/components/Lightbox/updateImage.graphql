@@ -15,5 +15,9 @@ mutation updateImage($id: ID!, $caption: String, $title: String, $nsfw: Boolean,
         hashtags {
             tag
         }
+
+        url {
+            large
+        }
     }
 }
