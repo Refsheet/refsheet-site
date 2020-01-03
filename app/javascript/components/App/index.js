@@ -19,17 +19,37 @@ import WindowAlert from '../../utils/WindowAlert'
 
 reactGuard(React, (error, componentInfo) => {
   const errorString = `Failed to render <${componentInfo.displayName} />!`
+  let eventId = null
 
   if (console && console.error) {
+    console.error(error)
     console.error(errorString, componentInfo)
     console.error(error.stack)
-
-    if (Sentry) {
-      Sentry.captureException(error)
-    }
   }
 
-  return <span>{errorString}</span>
+  if (Sentry) {
+    eventId = Sentry.captureException(error)
+  }
+
+  if (eventId) {
+    const report = e => {
+      e.preventDefault()
+      Sentry.showReportDialog({ eventId })
+    }
+
+    return (
+      <span className={'render-error'}>
+        {errorString}
+        <br />(
+        <a onClick={report} href={'#bugreport'}>
+          Report Bug?
+        </a>
+        )
+      </span>
+    )
+  } else {
+    return <span className={'render-error'}>{errorString}</span>
+  }
 })
 
 const App = ({ children: propChildren, state, assets }) => {
