@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import EditCharacter from './EditCharacter'
+import TransferCharacter from './TransferCharacter'
+import { withNamespaces } from 'react-i18next'
+import compose from '../../../../utils/compose'
+import DeleteCharacter from './DeleteCharacter'
 
 class SettingsModal extends Component {
   constructor(props) {
@@ -12,15 +16,36 @@ class SettingsModal extends Component {
   }
 
   goTo(view) {
-    this.setState({ view })
+    return e => {
+      if (e) e.preventDefault()
+      this.setState({ view })
+    }
+  }
+
+  getTitle() {
+    const { t } = this.props
+    const { view } = this.state
+    return t(`character.settings.title_${view}`, `Character ${view}`)
   }
 
   renderContent() {
     switch (this.state.view) {
       case 'transfer':
-        return <p>Transfer</p>
+        return (
+          <TransferCharacter
+            character={this.props.character}
+            onSave={this.props.refetch}
+            goTo={this.goTo.bind(this)}
+          />
+        )
       case 'delete':
-        return <p>Delete</p>
+        return (
+          <DeleteCharacter
+            character={this.props.character}
+            onSave={this.props.refetch}
+            goTo={this.goTo.bind(this)}
+          />
+        )
       default:
         return (
           <EditCharacter
@@ -37,7 +62,7 @@ class SettingsModal extends Component {
       <Modal
         autoOpen
         id="character-settings"
-        title={'Character Settings'}
+        title={this.getTitle()}
         onClose={this.props.onClose}
       >
         {this.renderContent()}
@@ -47,7 +72,9 @@ class SettingsModal extends Component {
 }
 
 SettingsModal.propTypes = {
+  character: PropTypes.object.isRequired,
   onClose: PropTypes.func,
+  refetch: PropTypes.func,
 }
 
-export default SettingsModal
+export default compose(withNamespaces('common'))(SettingsModal)

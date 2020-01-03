@@ -65,7 +65,7 @@ class View extends Component {
   }
 
   render() {
-    const { character } = this.props
+    const { character, refetch } = this.props
     const { settingsOpen, colorOpen } = this.state
 
     return (
@@ -73,6 +73,8 @@ class View extends Component {
         {settingsOpen && (
           <SettingsModal
             onClose={this.handleModalClose('settings').bind(this)}
+            character={character}
+            refetch={refetch}
           />
         )}
         {colorOpen && (
