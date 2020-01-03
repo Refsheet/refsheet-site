@@ -247,7 +247,7 @@ class Image < ApplicationRecord # < Media
 
   def contemplate_reprocessing
     if saved_change_to_gravity? or saved_change_to_watermark?
-      ImageProcessingJob.perform_later self
+      self.image.reprocess!
     end
   end
 
