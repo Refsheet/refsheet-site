@@ -32,12 +32,21 @@ reactGuard(React, (error, componentInfo) => {
   }
 
   if (eventId) {
-    const report = (e) => {
+    const report = e => {
       e.preventDefault()
       Sentry.showReportDialog({ eventId })
     }
 
-    return <span className={'render-error'}>{errorString}<br />(<a onClick={report} href={'#bugreport'}>Report Bug?</a>)</span>
+    return (
+      <span className={'render-error'}>
+        {errorString}
+        <br />(
+        <a onClick={report} href={'#bugreport'}>
+          Report Bug?
+        </a>
+        )
+      </span>
+    )
   } else {
     return <span className={'render-error'}>{errorString}</span>
   }
