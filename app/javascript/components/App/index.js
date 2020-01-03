@@ -18,10 +18,11 @@ import i18n from '../../services/i18n.js'
 import WindowAlert from '../../utils/WindowAlert'
 
 reactGuard(React, (error, componentInfo) => {
-  const errorString = `Failed to render &lt;${componentInfo.displayName} /&gt;!`
+  const errorString = `Failed to render <${componentInfo.displayName} />!`
   let eventId = null
 
   if (console && console.error) {
+    console.error(error)
     console.error(errorString, componentInfo)
     console.error(error.stack)
   }
@@ -36,9 +37,9 @@ reactGuard(React, (error, componentInfo) => {
       Sentry.showReportDialog({ eventId })
     }
 
-    return <span>{errorString} (<a onClick={report} href={'#bugreport'}>Report Bug?</a>)</span>
+    return <span className={'render-error'}>{errorString}<br />(<a onClick={report} href={'#bugreport'}>Report Bug?</a>)</span>
   } else {
-    return <span>{errorString}</span>
+    return <span className={'render-error'}>{errorString}</span>
   }
 })
 
