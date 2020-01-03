@@ -2,7 +2,14 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import compose, { withMutations } from '../../utils/compose'
 import updateImage from './updateImage.graphql'
-import { Row, Col, Checkbox, Textarea, TextInput } from 'react-materialize'
+import {
+  Row,
+  Col,
+  Checkbox,
+  Textarea,
+  TextInput,
+  Select,
+} from 'react-materialize'
 import { withNamespaces } from 'react-i18next'
 import MarkdownEditor from '../Shared/MarkdownEditor'
 
@@ -65,6 +72,18 @@ class ImageEditForm extends Component {
   render() {
     const { t } = this.props
     const { image, caption } = this.state
+
+    const gravities = [
+      'NorthWest',
+      'North',
+      'NorthEast',
+      'West',
+      'Center',
+      'East',
+      'SouthWest',
+      'South',
+      'SouthEast',
+    ]
 
     return (
       <form
@@ -139,6 +158,22 @@ class ImageEditForm extends Component {
                   label={t('labels.watermark', 'Watermark')}
                 />
               </Col>
+            </Row>
+            <Row>
+              <Select
+                s={12}
+                name={'gravity'}
+                id={'image_gravity'}
+                label={t('labels.gravity', 'Crop Priority')}
+                onChange={this.handleInputChange.bind(this)}
+                value={image.gravity}
+              >
+                {gravities.map(gravity => (
+                  <option key={gravity} value={gravity}>
+                    {t(`image_gravity.${gravity}`, gravity)}
+                  </option>
+                ))}
+              </Select>
             </Row>
           </div>
 

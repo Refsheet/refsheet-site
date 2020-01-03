@@ -19,6 +19,8 @@ query getMedia($mediaId: ID!) {
         is_favorite
         is_managed
         watermark
+        gravity
+        image_processing
 
       url {
         large

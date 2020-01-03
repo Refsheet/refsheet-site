@@ -27,6 +27,7 @@ class Mutations::ImageMutations < Mutations::ApplicationMutation
     argument :nsfw, types.Boolean
     argument :hidden, types.Boolean
     argument :watermark, types.Boolean
+    argument :gravity, types.String
     argument :source_url, types.String
   end
 
@@ -60,7 +61,7 @@ class Mutations::ImageMutations < Mutations::ApplicationMutation
   private
 
   def image_params
-    params.permit(:title, :nsfw, :caption, :hidden, :source_url, :watermark)
+    params.permit(:title, :nsfw, :caption, :hidden, :source_url, :watermark, :gravity)
   end
 
   def image_params_for_upload
