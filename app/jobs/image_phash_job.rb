@@ -1,8 +1,4 @@
 class ImagePhashJob < ApplicationJob
-  unless Rails.env.test?
-    self.queue_adapter = :resque
-  end
-
   def perform(image)
     image.reload
 
