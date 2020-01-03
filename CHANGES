@@ -1,3 +1,39 @@
+# 01/02/20
+
+Wrapping up the round of minor improvements and other Fun Things(tm).
+
+## Bug Fixes
+
+- Fixed input boxes on character profiles (color and size)
+- Fixed checkboxes on most* of the site
+- Fixed upload button in the avatar/header image select box
+- Fixed an issue with concurrent image uploads sometimes failing to initialize sort order and crashing
+- Fixed an issue loading image comments when a page was not specified
+- Fixed an issue loading suggested users to follow (introduced in Rails 5.2)
+- Fixed character profile URLs to always generate even if somehow the name was blank or had non-url-able characters
+
+## Major Things
+
+- Style change for mobile navbar, fixed several broken navbar things on mobile
+- The new image lightbox now works on mobile devices, too
+
+## Minor Things
+
+- Added some warnings when trying to upload images without selecting a character
+- Reintroduced formatting for image descriptions (though hashtags can't link as a result)
+- Added Watermark option back to images
+- Fixed the spacing between lightbox close button and the lightbox itself to prevent overlap
+
+## WIPs
+
+- More cleanup work on preparing V2 of the Forums [Preview Here](https://refsheet.net/v2/forums)
+
+## Framework
+
+- Image processing now takes priority over every other background job, which fixes the issue where images would
+  get stuck behind email sending, geocoding, etc.
+
+
 # 12/28/19
 
 Core update to Rails, bringing us to current. Several security fixes and minor bugfixes from the lightbox release.
