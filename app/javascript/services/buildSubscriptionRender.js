@@ -24,9 +24,13 @@ export default function buildSubscriptionRender(args) {
     const subscribe = () => {
       if (loading || !data) return null
 
+      const variables = mapPropsToVariables(props)
+
+      console.debug("Subscription info: ", { variables, subscription })
+
       subscribeToMore({
         document: subscription,
-        variables: mapPropsToVariables(props),
+        variables,
         updateQuery: (prev, { subscriptionData }) => {
           console.log({ prev, subscriptionData })
           if (!subscriptionData.data) return prev
