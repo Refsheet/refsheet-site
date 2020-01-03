@@ -222,6 +222,8 @@ describe Image, type: :model do
       expect(image).to receive(:log_activity).exactly(2).times.and_call_original
       image.send(:delayed_complete)
 
+      expect_any_instance_of(Image).to receive(:contemplate_reprocessing)
+
       expect {
         image.update_attributes(gravity: 'South')
         image.send(:delayed_complete)
