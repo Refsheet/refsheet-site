@@ -23,6 +23,7 @@ class View extends Component {
       editable: false,
       settingsOpen: window.location.hash === '#character-settings',
       colorOpen: window.location.hash === '#character-color',
+      colorSchemeOverride: this.props.character && this.props.character.theme,
     }
 
     this.handleEditableChange = this.handleEditableChange.bind(this)
@@ -38,6 +39,10 @@ class View extends Component {
   // TODO: Upload callback should update the Apollo cache, not force a Refetch. That's brutal.
   uploadCallback(image) {
     this.props.refetch && this.props.refetch()
+  }
+
+  handleColorSchemeOverride(theme) {
+    this.setState({ colorSchemeOverride: theme })
   }
 
   handleEditableChange(editable) {
@@ -78,7 +83,12 @@ class View extends Component {
           />
         )}
         {colorOpen && (
-          <ColorModal onClose={this.handleModalClose('color').bind(this)} />
+          <ColorModal
+            onClose={this.handleModalClose('color').bind(this)}
+            colorScheme={character.theme}
+            colorSchemeOverride={this.state.colorSchemeOverride}
+            onChange={this.handleColorSchemeOverride.bind(this)}
+          />
         )}
 
         <div id="top" className="profile-scrollspy">

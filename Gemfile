@@ -132,21 +132,20 @@ group :development, :test do
   gem 'letter_opener'
   gem 'letter_opener_web'
   gem 'rack_session_access'
-  gem 'rspec-collection_matchers'
-  gem 'rspec-expectations'
-  gem 'rspec-its'
-  gem 'rspec-rails'
-  gem 'rspec-retry'
-  gem 'rspec_junit_formatter'
+  gem 'rspec-collection_matchers', require: false
+  gem 'rspec-expectations', require: false
+  gem 'rspec-its', require: false
+  gem 'rspec-rails', require: false
+  gem 'rspec-retry', require: false
+  gem 'rspec_junit_formatter', require: false
   gem 'rails-controller-testing'
-  gem 'rubocop'
-  gem 'rubocop-rspec'
   gem 'shoulda-matchers', '~> 2.8'
   gem 'simplecov'
   gem 'timecop'
   gem 'webmock'
   gem 'derailed_benchmarks'
   gem 'rubocop', require: false
+  gem 'rubocop-rspec'
 end
 
 group :nocircle do
