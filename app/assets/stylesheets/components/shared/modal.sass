@@ -1,7 +1,61 @@
 .modal
   $stripe-color: rgba(white, 0.05)
+  $mobile-side-sheet-split: 90vw
+  $side-sheet-width: 300px
 
   max-height: 80vh
+
+  &.side-sheet
+    position: fixed
+    left: 0
+    bottom: 0
+    top: 0 !important
+    right: auto
+    min-height: initial !important
+    max-height: initial !important
+    width: $side-sheet-width
+
+    @extend .z-depth-3
+
+    @media #{$small-and-down}
+      width: $mobile-side-sheet-split !important
+
+      .modal-body
+        width: $mobile-side-sheet-split !important
+
+    @at-root
+      .user-bar.navbar-fixed nav
+        width: auto
+        right: 0
+        left: 0
+        transition: left 0.3s ease
+
+      body.side-sheet-open
+        margin-left: $side-sheet-width
+        overflow-y: auto !important
+        transition: margin-left 0.3s ease
+
+        @media #{$small-and-down}
+          overflow-x: auto !important
+          width: $mobile-side-sheet-split
+          margin-left: $mobile-side-sheet-split
+
+          .user-bar.navbar-fixed nav
+            left: $mobile-side-sheet-split !important
+            width: $mobile-side-sheet-split !important
+
+        .user-bar.navbar-fixed nav
+          left: $side-sheet-width
+
+        &.side-sheet-closing
+          margin-left: 0
+
+          .user-bar.navbar-fixed nav
+            left: 0
+
+        .modal-overlay
+          opacity: 0.0 !important
+          cursor: not-allowed
 
   .modal-notice
     padding: 0 1rem

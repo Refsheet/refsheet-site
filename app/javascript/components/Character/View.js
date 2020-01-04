@@ -21,8 +21,8 @@ class View extends Component {
 
     this.state = {
       editable: false,
-      settingsOpen: false,
-      colorOpen: false,
+      settingsOpen: window.location.hash === '#character-settings',
+      colorOpen: window.location.hash === '#character-color',
     }
 
     this.handleEditableChange = this.handleEditableChange.bind(this)

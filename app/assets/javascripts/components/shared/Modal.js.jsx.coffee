@@ -1,12 +1,31 @@
 @Modal = React.createClass
   componentDidMount: ->
     $modal = M.Modal.init @refs.modal,
-      onCloseEnd: @props.onClose
-      onOpenEnd: ->
+      onCloseEnd: (args) =>
+        if @props.sideSheet
+          document.body.classList.remove('side-sheet-open', 'side-sheet-closing', 'side-sheet-opening')
+
+        if @props.onClose
+          @props.onClose(args)
+
+        if window.location.hash is "##{@props.id}"
+          window.location.hash = ""
+
+      onCloseStart: =>
+        if @props.sideSheet
+          document.body.classList.add('side-sheet-closing')
+
+      onOpenStart: =>
+        if @props.sideSheet
+          document.body.classList.add('side-sheet-opening')
+          document.body.classList.add('side-sheet-open')
+
+      onOpenEnd: =>
+        if @props.id
+          window.location.hash = "##{@props.id}"
         $(document).trigger 'materialize:modal:ready'
 
     if window.location.hash is "##{@props.id}"
-      history.replaceState '', document.title, window.location.pathname + window.location.search
       $modal.open()
 
     if @props.autoOpen
@@ -30,6 +49,7 @@
     classes = ['modal']
     classes.push 'wide' if @props.wide
     classes.push 'bottom-sheet' if @props.bottomSheet
+    classes.push 'side-sheet' if @props.sideSheet
     classes.push @props.className if @props.className
 
     containerClasses = ['modal-stretch']
