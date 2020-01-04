@@ -4,6 +4,13 @@ unless Rails.env.test?
   raise "This isn't a test environment!"
 end
 
+require 'rspec-rails'
+require 'rspec/collection_matchers'
+require 'rspec/its'
+require 'rspec/expectations'
+require 'rspec/retry'
+require 'rspec_junit_formatter'
+
 SimpleCov.start 'rails' do
   add_filter '/spec/'
 end
