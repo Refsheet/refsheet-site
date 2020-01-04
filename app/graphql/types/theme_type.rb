@@ -4,5 +4,10 @@ Types::ThemeType = GraphQL::ObjectType.define do
   interfaces [Interfaces::ApplicationRecordInterface]
 
   field :name, types.String
-  field :colors, Types::ThemeColorDataType, property: :color_data
+
+  field :colors, Types::ThemeColorDataType do
+    resolve -> (obj, _ctx, _args) {
+      obj
+    }
+  end
 end
