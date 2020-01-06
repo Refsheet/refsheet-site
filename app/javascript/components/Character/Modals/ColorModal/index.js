@@ -1,6 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { BlockPicker, ChromePicker, TwitterPicker } from 'react-color'
+import { Row, Col, Icon, TextInput, Switch } from 'react-materialize'
+import {
+  BlockPicker,
+  ChromePicker,
+  SketchPicker,
+  TwitterPicker,
+} from 'react-color'
 import { withNamespaces } from 'react-i18next'
 import compose from '../../../../utils/compose'
 // import Modal from Global
@@ -31,9 +37,76 @@ const colorSuggestions = {
   text: ['#FFFFFF', '#bdbdbd', '#757575', '#444444', '#212121', '#000000'],
 }
 
+// TODO: Refactor dark/light detection based on background color selection, move bg before text
+// TODO: Move simple / advanced to tabs
+// TODO: Cleanup callback hell.
+// TODO: Adjust text / bg suggestions to values appropriate for the base selection & colors
+// TODO: Calculate additional values off of base colors
+// TODO: Refactor focus to 3 main color groups: Accent, Text & Background
+// TODO: Refactor color calculations to utility class.
+
 class ColorModal extends Component {
   constructor(props) {
     super(props)
+
+    this.state = {
+      mode: 'simple',
+      base: 'dark',
+    }
+
+    this.colorKeys = {
+      simple: ['primary', 'text', 'background'],
+
+      advanced: [
+        'primary',
+        'accent1',
+        'accent2',
+        'text',
+        'textLight',
+        'textMedium',
+        'background',
+        'cardBackground',
+        'imageBackground',
+      ],
+    }
+
+    this.simpleBase = {
+      dark: {
+        text: '#bdbdbd',
+        background: '#262626',
+      },
+      light: {
+        text: '#212121',
+        background: '#eeeeee',
+      },
+    }
+  }
+
+  extrapolateColors(key, colors) {
+    if (this.state.mode === 'advanced') return colors
+
+    switch (key) {
+      case 'primary':
+        colors['accent1'] = colors['accent2'] = colors['primary']
+        break
+      case 'text':
+        colors['textLight'] = colors['textMedium'] = colors['text']
+        break
+      case 'background':
+        colors['cardBackground'] = colors['imageBackground'] =
+          colors['background']
+    }
+
+    return colors
+  }
+
+  applyBaseColors() {
+    const base = this.simpleBase[this.state.base]
+    const _this = this
+    console.log(base)
+    this.handleColorChange('background')({ hex: base.background }, () => {
+      _this.handleColorChange.bind(_this)('text')({ hex: base.text })
+    })
   }
 
   handleClose() {
@@ -42,13 +115,30 @@ class ColorModal extends Component {
   }
 
   handleColorChange(key) {
-    return color => {
+    return (color, callback) => {
       let theme = { ...this.props.colorSchemeOverride }
       let colors = { ...theme.colors }
       colors[key] = color.hex
-      theme.colors = colors
-      this.props.onChange(theme)
+      theme.colors = this.extrapolateColors(key, colors)
+      this.props.onChange(
+        theme,
+        typeof callback === 'object' ? undefined : callback
+      )
     }
+  }
+
+  changeMode(e) {
+    this.setState({ mode: e.target.checked ? 'advanced' : 'simple' })
+  }
+
+  changeBase(e) {
+    this.setState({ base: e.target.checked ? 'light' : 'dark' }, () => {
+      this.applyBaseColors()
+    })
+  }
+
+  handleSubmit(e) {
+    e.preventDefault()
   }
 
   renderColor(key) {
@@ -59,6 +149,8 @@ class ColorModal extends Component {
       colorScheme,
       colorSchemeOverride: { colors },
     } = this.props
+
+    const advanced = this.state.mode === 'advanced'
 
     const color = colors[key] || ''
     let suggestion
@@ -72,20 +164,44 @@ class ColorModal extends Component {
     }
 
     return (
-      <div key={key} className={'color-picker'}>
-        <label>{key}</label>
-        <TwitterPicker
-          color={color}
-          width={200}
-          colors={[colorScheme.colors[key], ...suggestion]}
-          onChangeComplete={this.handleColorChange(key).bind(this)}
+      <Row key={key} className={'color-picker'}>
+        <TextInput
+          id={`theme_${key}`}
+          name={key}
+          label={key}
+          value={color}
+          readOnly
+          s={8}
         />
-      </div>
+        <Col s={4}>
+          <Icon>grid</Icon>
+          <Icon>palette</Icon>
+        </Col>
+        <Col s={12}>
+          {advanced ? (
+            <SketchPicker
+              color={color}
+              width={200}
+              presetColors={[colorScheme.colors[key], ...suggestion]}
+              onChangeComplete={this.handleColorChange(key).bind(this)}
+            />
+          ) : (
+            <TwitterPicker
+              color={color}
+              width={200}
+              colors={[colorScheme.colors[key], ...suggestion]}
+              onChangeComplete={this.handleColorChange(key).bind(this)}
+            />
+          )}
+        </Col>
+      </Row>
     )
   }
 
   render() {
     const { t, colorSchemeOverride } = this.props
+    const advanced = this.state.mode === 'advanced'
+    const light = this.state.base === 'light'
 
     return (
       <Modal
@@ -93,11 +209,27 @@ class ColorModal extends Component {
         sideSheet
         id="character-color"
         title={t('labels.edit_color_scheme', 'Edit Color Scheme')}
-        onClose={this.props.onClose}
+        onClose={this.props.onClose.bind(this)}
       >
-        {Object.keys(colorSchemeOverride.colors).map(
-          this.renderColor.bind(this)
-        )}
+        <form onSubmit={this.handleSubmit.bind(this)}>
+          <Switch
+            id={'theme_advanced'}
+            offLabel={'Simple'}
+            onLabel={'Advanced'}
+            onChange={this.changeMode.bind(this)}
+            checked={advanced}
+          />
+          {advanced || (
+            <Switch
+              id={'theme_light'}
+              offLabel={'Dark'}
+              onLabel={'Light'}
+              onChange={this.changeBase.bind(this)}
+              checked={light}
+            />
+          )}
+          {this.colorKeys[this.state.mode].map(this.renderColor.bind(this))}
+        </form>
       </Modal>
     )
   }

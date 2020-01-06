@@ -41,8 +41,8 @@ class View extends Component {
     this.props.refetch && this.props.refetch()
   }
 
-  handleColorSchemeOverride(theme) {
-    this.setState({ colorSchemeOverride: theme })
+  handleColorSchemeOverride(theme, callback) {
+    this.setState({ colorSchemeOverride: theme }, callback)
   }
 
   handleEditableChange(editable) {
