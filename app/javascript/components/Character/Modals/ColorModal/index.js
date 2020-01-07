@@ -9,6 +9,7 @@ import {
 } from 'react-color'
 import { withNamespaces } from 'react-i18next'
 import compose from '../../../../utils/compose'
+import ColorTheme from "../../../../utils/ColorTheme";
 // import Modal from Global
 
 const colorSuggestions = {
@@ -85,25 +86,13 @@ class ColorModal extends Component {
   extrapolateColors(key, colors) {
     if (this.state.mode === 'advanced') return colors
 
-    switch (key) {
-      case 'primary':
-        colors['accent1'] = colors['accent2'] = colors['primary']
-        break
-      case 'text':
-        colors['textLight'] = colors['textMedium'] = colors['text']
-        break
-      case 'background':
-        colors['cardBackground'] = colors['imageBackground'] =
-          colors['background']
-    }
-
-    return colors
+    const theme = new ColorTheme(colors)
+    return theme.getHash()
   }
 
   applyBaseColors() {
     const base = this.simpleBase[this.state.base]
     const _this = this
-    console.log(base)
     this.handleColorChange('background')({ hex: base.background }, () => {
       _this.handleColorChange.bind(_this)('text')({ hex: base.text })
     })
