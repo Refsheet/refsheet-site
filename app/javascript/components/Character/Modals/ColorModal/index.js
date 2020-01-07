@@ -9,42 +9,13 @@ import {
 } from 'react-color'
 import { withNamespaces } from 'react-i18next'
 import compose from '../../../../utils/compose'
-import ColorTheme from "../../../../utils/ColorTheme";
+import ColorTheme from '../../../../utils/ColorTheme'
 // import Modal from Global
 
-const colorSuggestions = {
-  accent: [
-    '#26a69a', // teal lighten-1 brand-primary
-    '#00838f', // cyan darken-3
-    '#0277bd', // light-blue darken-3
-    '#1565c0', // blue darken-3
-    '#283593', // indigo darken-3
-    '#4527a0', // deep-purple darken-3
-    '#6a1b9a', // purple darken-3
-    '#ad1457', // pink darken-3
-    '#c62828', // red darken-3
-    '#d84315', // deep-orange darken-3
-    '#ef6c00', // orange darken-3
-    '#6d4c41', // brown darken-1
-  ],
-  background: [
-    '#262626',
-    '#212121',
-    '#000000',
-    '#EEEEEE',
-    '#F6F6F6',
-    '#FFFFFF',
-  ],
-  text: ['#FFFFFF', '#bdbdbd', '#757575', '#444444', '#212121', '#000000'],
-}
-
-// TODO: Refactor dark/light detection based on background color selection, move bg before text
 // TODO: Move simple / advanced to tabs
 // TODO: Cleanup callback hell.
-// TODO: Adjust text / bg suggestions to values appropriate for the base selection & colors
 // TODO: Calculate additional values off of base colors
 // TODO: Refactor focus to 3 main color groups: Accent, Text & Background
-// TODO: Refactor color calculations to utility class.
 
 class ColorModal extends Component {
   constructor(props) {
@@ -83,11 +54,13 @@ class ColorModal extends Component {
     }
   }
 
+  theme(colors = this.props.colorSchemeOverride.colors) {
+    return new ColorTheme({ ...colors, base: this.state.base })
+  }
+
   extrapolateColors(key, colors) {
     if (this.state.mode === 'advanced') return colors
-
-    const theme = new ColorTheme(colors)
-    return theme.getHash()
+    return this.theme(colors).getHash()
   }
 
   applyBaseColors() {
@@ -145,11 +118,26 @@ class ColorModal extends Component {
     let suggestion
 
     if (key.match(/background/i)) {
-      suggestion = colorSuggestions.background
+      suggestion = this.theme().getSuggestions({
+        base: 'brand',
+        includeBase: 'background',
+        desaturate: 0.4,
+        darken: 0.7,
+        lighten: 2.3,
+        count: 7,
+      })
     } else if (key.match(/text/i)) {
-      suggestion = colorSuggestions.text
+      suggestion = this.theme().getSuggestions({
+        base: 'brand',
+        includeBase: 'text',
+        desaturate: 0.4,
+        darken: 0.6,
+        lighten: 0.4,
+        count: 7,
+        highContrast: true,
+      })
     } else {
-      suggestion = colorSuggestions.accent
+      suggestion = this.theme().getSuggestions({ base: 'brand', count: 14 })
     }
 
     return (
@@ -170,15 +158,15 @@ class ColorModal extends Component {
           {advanced ? (
             <SketchPicker
               color={color}
-              width={200}
-              presetColors={[colorScheme.colors[key], ...suggestion]}
+              width={232}
+              presetColors={suggestion}
               onChangeComplete={this.handleColorChange(key).bind(this)}
             />
           ) : (
             <TwitterPicker
               color={color}
-              width={200}
-              colors={[colorScheme.colors[key], ...suggestion]}
+              width={240}
+              colors={suggestion}
               onChangeComplete={this.handleColorChange(key).bind(this)}
             />
           )}
