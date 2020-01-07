@@ -36,6 +36,11 @@ class Sidebar extends Component {
     this.instance = M.ScrollSpy.init(elem)
   }
 
+  componentDidUpdate() {
+    const elem = document.querySelectorAll('.profile-scrollspy')
+    this.instance = M.ScrollSpy.init(elem)
+  }
+
   componentWillUnmount() {
     this.instance && this.instance.destroy && this.instance.destroy()
   }

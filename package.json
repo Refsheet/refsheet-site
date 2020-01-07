@@ -13,6 +13,7 @@
     "classnames": "^2.2.5",
     "coffee-loader": "^0.9.0",
     "coffeescript": "1.12.7",
+    "color": "^3.1.2",
     "create-react-class": "^15.6.3",
     "enzyme-adapter-react-16": "^1.1.1",
     "favico.js-slevomat": "^0.3.11",

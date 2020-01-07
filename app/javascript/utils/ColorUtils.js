@@ -1,7 +1,5 @@
 import Color from 'color'
 
-const ColorUtils = {
-
-}
+const ColorUtils = {}
 
 export default ColorUtils
