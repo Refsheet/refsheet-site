@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Row, Col, Icon, TextInput, Switch } from 'react-materialize'
+import { Row, Col, Icon, TextInput, Switch, Tabs, Tab } from 'react-materialize'
 import {
   BlockPicker,
   ChromePicker,
@@ -10,6 +10,8 @@ import {
 import { withNamespaces } from 'react-i18next'
 import compose from '../../../../utils/compose'
 import ColorTheme from '../../../../utils/ColorTheme'
+import SimpleSchemeForm from "./SimpleSchemeForm";
+import AdvancedSchemeForm from "./AdvancedSchemeForm";
 // import Modal from Global
 
 // TODO: Move simple / advanced to tabs
@@ -188,25 +190,36 @@ class ColorModal extends Component {
         title={t('labels.edit_color_scheme', 'Edit Color Scheme')}
         onClose={this.props.onClose.bind(this)}
       >
-        <form onSubmit={this.handleSubmit.bind(this)}>
-          <Switch
-            id={'theme_advanced'}
-            offLabel={'Simple'}
-            onLabel={'Advanced'}
-            onChange={this.changeMode.bind(this)}
-            checked={advanced}
-          />
-          {advanced || (
-            <Switch
-              id={'theme_light'}
-              offLabel={'Dark'}
-              onLabel={'Light'}
-              onChange={this.changeBase.bind(this)}
-              checked={light}
-            />
-          )}
-          {this.colorKeys[this.state.mode].map(this.renderColor.bind(this))}
-        </form>
+        <Tabs className={'modal-tabs'}>
+          <Tab title={'Simple'} active={this.state.mode === 'simple'}>
+            <SimpleSchemeForm />
+          </Tab>
+          <Tab title={'Advanced'} active={this.state.mode === 'advanced'}>
+            <AdvancedSchemeForm />
+          </Tab>
+          <Tab title={'Share'}>
+            <form onSubmit={this.handleSubmit.bind(this)}>
+              <Switch
+                id={'theme_advanced'}
+                offLabel={'Simple'}
+                onLabel={'Advanced'}
+                onChange={this.changeMode.bind(this)}
+                checked={advanced}
+              />
+              {advanced || (
+                <Switch
+                  id={'theme_light'}
+                  offLabel={'Dark'}
+                  onLabel={'Light'}
+                  onChange={this.changeBase.bind(this)}
+                  checked={light}
+                />
+              )}
+              {this.colorKeys[this.state.mode].map(this.renderColor.bind(this))}
+            </form>
+          </Tab>
+        </Tabs>
+
       </Modal>
     )
   }
