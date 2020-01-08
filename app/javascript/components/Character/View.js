@@ -14,6 +14,7 @@ import ColorModal from './Modals/ColorModal'
 import compose from '../../utils/compose'
 import { connect } from 'react-redux'
 import { setUploadTarget } from '../../actions'
+import RevisionModal from './Modals/RevisionModal'
 
 class View extends Component {
   constructor(props) {
@@ -24,6 +25,7 @@ class View extends Component {
       settingsOpen: window.location.hash === '#character-settings',
       colorOpen: window.location.hash === '#character-color',
       colorSchemeOverride: this.props.character && this.props.character.theme,
+      revisionsOpen: window.location.hash === '#character-revisions',
     }
 
     this.handleEditableChange = this.handleEditableChange.bind(this)
@@ -71,7 +73,7 @@ class View extends Component {
 
   render() {
     const { character, refetch } = this.props
-    const { settingsOpen, colorOpen } = this.state
+    const { settingsOpen, colorOpen, revisionsOpen } = this.state
     const { colors } =
       this.state.colorSchemeOverride || this.props.character.theme || {}
 
@@ -95,6 +97,12 @@ class View extends Component {
             />
           )}
 
+          {revisionsOpen && (
+            <RevisionModal
+              onClose={this.handleModalClose('revisions').bind(this)}
+            />
+          )}
+
           <div id="top" className="profile-scrollspy">
             <Header character={character} editable={this.state.editable} />
           </div>
@@ -115,6 +123,9 @@ class View extends Component {
                       this
                     )}
                     onColorClick={this.handleModalOpen('color').bind(this)}
+                    onRevisionsClick={this.handleModalOpen('revisions').bind(
+                      this
+                    )}
                     canEdit={character.can_edit}
                   />
                 </Col>

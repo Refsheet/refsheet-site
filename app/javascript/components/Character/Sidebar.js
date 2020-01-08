@@ -31,6 +31,11 @@ class Sidebar extends Component {
     this.props.onColorClick && this.props.onColorClick()
   }
 
+  handleRevisionsClick(e) {
+    e.preventDefault()
+    this.props.onRevisionsClick && this.props.onRevisionsClick()
+  }
+
   componentDidMount() {
     const elem = document.querySelectorAll('.profile-scrollspy')
     this.instance = M.ScrollSpy.init(elem)
@@ -118,6 +123,13 @@ class Sidebar extends Component {
               onClick={this.handleColorClick.bind(this)}
             >
               Color Scheme
+            </SidebarLink>
+            <SidebarLink
+              to={'#revisions'}
+              icon={'history'}
+              onClick={this.handleRevisionsClick.bind(this)}
+            >
+              Revisions
             </SidebarLink>
             {/*<SidebarLink to='#' icon='archive'>Archive</SidebarLink>*/}
           </div>
