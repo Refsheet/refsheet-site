@@ -27,6 +27,7 @@ gem 'json', '~> 2.1.0'
 gem 'rails_semantic_logger'
 gem 'nulldb'
 gem 'mini_magick'
+gem 'paper_trail'
 
 # == FRONT END
 
