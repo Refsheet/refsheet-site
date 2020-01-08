@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import compose from 'utils/compose'
 
@@ -16,6 +16,5 @@ class SimpleSchemeForm extends Component {
 
 SimpleSchemeForm.propTypes = {}
 
-export default compose(
-  // TODO: Add HOC bindings here
-)(SimpleSchemeForm)
+export default compose()(SimpleSchemeForm)
+// TODO: Add HOC bindings here

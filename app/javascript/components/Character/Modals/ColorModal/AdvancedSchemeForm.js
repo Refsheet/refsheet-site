@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import compose from 'utils/compose'
 
@@ -16,6 +16,5 @@ class AdvancedSchemeForm extends Component {
 
 AdvancedSchemeForm.propTypes = {}
 
-export default compose(
-  // TODO: Add HOC bindings here
-)(AdvancedSchemeForm)
+export default compose()(AdvancedSchemeForm)
+// TODO: Add HOC bindings here

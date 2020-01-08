@@ -10,8 +10,8 @@ import {
 import { withNamespaces } from 'react-i18next'
 import compose from '../../../../utils/compose'
 import ColorTheme from '../../../../utils/ColorTheme'
-import SimpleSchemeForm from "./SimpleSchemeForm";
-import AdvancedSchemeForm from "./AdvancedSchemeForm";
+import SimpleSchemeForm from './SimpleSchemeForm'
+import AdvancedSchemeForm from './AdvancedSchemeForm'
 // import Modal from Global
 
 // TODO: Move simple / advanced to tabs
@@ -188,7 +188,7 @@ class ColorModal extends Component {
         sideSheet
         id="character-color"
         title={t('labels.edit_color_scheme', 'Edit Color Scheme')}
-        onClose={this.props.onClose.bind(this)}
+        onClose={this.handleClose.bind(this)}
       >
         <Tabs className={'modal-tabs'}>
           <Tab title={'Simple'} active={this.state.mode === 'simple'}>
@@ -219,7 +219,6 @@ class ColorModal extends Component {
             </form>
           </Tab>
         </Tabs>
-
       </Modal>
     )
   }

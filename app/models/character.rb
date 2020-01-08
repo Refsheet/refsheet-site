@@ -36,12 +36,14 @@ class Character < ApplicationRecord
   include Sluggable
   include RankedModel
 
-  has_paper_trail ignore: [
-      :row_order,
-      :secret,
-      :hidden,
-      :nsfw,
-  ]
+  has_paper_trail version: :paper_trail_version,
+                  ignore: [
+                      :row_order,
+                      :secret,
+                      :hidden,
+                      :nsfw,
+                  ]
+
 
   belongs_to :user
   belongs_to :color_scheme, autosave: true
