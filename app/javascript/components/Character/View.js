@@ -99,6 +99,7 @@ class View extends Component {
 
           {revisionsOpen && (
             <RevisionModal
+              characterId={character.id}
               onClose={this.handleModalClose('revisions').bind(this)}
             />
           )}
