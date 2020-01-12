@@ -89,6 +89,15 @@ Types::CharacterType = GraphQL::ObjectType.define do
   end
 
   field :theme, Types::ThemeType, property: :color_scheme
+  field :versions, types[Types::VersionType] do
+    resolve -> (obj, _args, ctx) {
+      if obj.managed_by?(ctx[:current_user].call)
+        obj.versions
+      else
+        []
+      end
+    }
+  end
 
   # has_one :pending_transfer, serializer: CharacterTransferSerializer
 end
