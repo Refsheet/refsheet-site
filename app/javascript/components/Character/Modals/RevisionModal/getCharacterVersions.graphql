@@ -1,0 +1,19 @@
+query getCharacterVersions($characterId: ID!) {
+    getCharacter(id: $characterId) {
+        id
+        slug
+        shortcode
+        versions {
+            id
+            index
+            event
+            was_me
+            created_at
+            whodunnit {
+                name
+                username
+            }
+            object_changes
+        }
+    }
+}

@@ -7,6 +7,10 @@ import Moment from "react-moment";
 import c from 'classnames'
 import Diff from 'react-stylable-diff'
 import TimelineEntry from "../../../Shared/Timeline/TimelineEntry";
+import {Loading} from "../../../Lightbox/Status";
+import Error from "../../../Shared/Error";
+import {Query} from "react-apollo";
+import getCharacterVersions from './getCharacterVersions.graphql'
 
 class RevisionModal extends Component {
   constructor(props) {
@@ -15,6 +19,12 @@ class RevisionModal extends Component {
     this.state = {
       activeVersion: 0
     }
+
+    this.ignoredFields = [
+      'created_at',
+      'updated_at',
+      'deleted_at'
+    ]
   }
 
   componentDidUpdate() {
@@ -28,14 +38,44 @@ class RevisionModal extends Component {
     }
   }
 
+  renderHistory({data, loading, error}) {
+    if (loading) {
+      return <Loading />
+    }
+
+    if (error || !data) {
+      return <Error error={error} />
+    }
+
+    const { getCharacter: { versions } } = data
+
+    return (<ul className={'timeline collapsible accordion'} ref={r => this.collapsible = r}>
+      {versions.map((version) => {
+        const changes = JSON.parse(version.object_changes)
+        const changed_fields = Object.keys(changes).filter(k => this.ignoredFields.indexOf(k) === -1)
+
+        return (
+          <TimelineEntry key={version.index}
+                         current={ this.state.activeVersion === version.index }
+                         onClick={this.handleVersionClick(version.index).bind(this)}
+                         time={version.created_at}
+                         title={version.event}
+                         summary={`${version.whodunnit.name || 'Someone'} updated ${changed_fields.length} fields`}
+          >
+            <div className={'change-table'}>
+              { changed_fields.map(changeKey => <div className={'change'}>
+                <div className={'label'}>{ changeKey }</div>
+                <Diff inputA={changes[changeKey][0]} inputB={changes[changeKey][1]} type={'words'} />
+              </div>)}
+            </div>
+          </TimelineEntry>
+        )
+      })}
+    </ul>)
+  }
+
   render() {
     const { t } = this.props
-
-    const changes = {
-      "name": ["Test Testington", "Dr Test Testington III"],
-      "about": ["this is a really long about field that contains lots of text and should probrbgly be cut off at some point",
-        "this is a really long about field that contains lots of text and should probably be cut off at some point"]
-    }
 
     return (
       <Modal
@@ -50,25 +90,9 @@ class RevisionModal extends Component {
           previous points in time, and roll back to undo changes.
         </Trans>
 
-        <ul className={'timeline collapsible accordion'} ref={r => this.collapsible = r}>
-          {[0,1,2,3,4,5,6].map((i) =>
-          <TimelineEntry key={i}
-                         current={ this.state.activeVersion === i }
-                         onClick={this.handleVersionClick(i).bind(this)}
-                         time={123456789123}
-                         title={"Update"}
-                         summary={"You updated 2 fields"}
-          >
-              <div className={'change-table'}>
-                { Object.keys(changes).map(changeKey => <div className={'change'}>
-                  <div className={'label'}>{ changeKey }</div>
-                  <Diff inputA={changes[changeKey][0]} inputB={changes[changeKey][1]} type={'words'} />
-                  {/*<div className={'from'}>{ changes[changeKey][0] }</div>*/}
-                  {/*<div className={'to'}>{ changes[changeKey][1] }</div>*/}
-                </div>)}
-              </div>
-          </TimelineEntry> )}
-        </ul>
+        <Query query={getCharacterVersions} variables={{characterId: this.props.characterId}}>
+          {this.renderHistory.bind(this)}
+        </Query>
       </Modal>
     )
   }
