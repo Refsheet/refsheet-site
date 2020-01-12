@@ -57,6 +57,7 @@
     "react-sizeme": "^2.3.6",
     "react-sticky": "^6.0.3",
     "react-string-replace": "^0.4.4",
+    "react-stylable-diff": "^2.0.0",
     "react-style-tag": "^1.4.1",
     "react-virtualized": "^9.21.2",
     "redux": "^3.7.2",

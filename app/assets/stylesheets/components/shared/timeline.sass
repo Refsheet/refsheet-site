@@ -8,11 +8,29 @@
 
   $tl-current-dot-top: $tl-dot-top + ($tl-gutter-width * 2) - ($tl-spacing / 2)
 
+  &.collapsible
+    border: none !important
+    margin: 0 !important
+    box-shadow: none !important
+
   .timeline-entry
     margin-left: ($tl-gutter-width + $tl-active-dot-size)
     position: relative
     padding: $tl-spacing/2 0
     min-height: ($tl-active-dot-size * 2)
+
+    .collapsible-header
+      display: block
+      line-height: inherit
+      padding: 0
+      background: transparent
+      border: none
+
+    .collapsible-body
+      margin: 0.5rem 0 0
+      padding: 0
+      border: none !important
+      box-shadow: none
 
     &.current
       &:not(:first-child)
