@@ -122,10 +122,10 @@
             - @character.versions.reverse.each do |version|
               %tr
                 %td= link_to version.index, url_for({version: version.index})
-                %td= version.whodunnit
+                %td= version.whodunnit&.name
                 %td= version.event 
                 %td
-                  = link_to YAML.load(version.object_changes).keys.count.to_s + ' changes', "#change-modal-#{version.index}", class: 'modal-trigger'
+                  = link_to version.object_changes.keys.count.to_s + ' changes', "#change-modal-#{version.index}", class: 'modal-trigger'
                   %div.modal{id: "change-modal-#{version.index}"}
                     %div.modal-content
                       %h4
@@ -136,7 +136,7 @@
                           %th Field
                           %th From
                           %th To
-                        - YAML.load(version.object_changes).each do |field, changes|
+                        - version.object_changes.each do |field, changes|
                           %tr
                             %td= field
                             %td= changes[0]
