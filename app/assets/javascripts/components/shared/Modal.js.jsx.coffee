@@ -9,20 +9,21 @@
           @props.onClose(args)
 
         if window.location.hash is "##{@props.id}"
-          window.location.hash = ""
+          window.history.replaceState({}, "", window.location.pathname)
 
       onCloseStart: =>
         if @props.sideSheet
           document.body.classList.add('side-sheet-closing')
 
       onOpenStart: =>
+        if @props.id
+          window.history.replaceState({}, "", window.location.pathname + "##{@props.id}")
+
         if @props.sideSheet
           document.body.classList.add('side-sheet-opening')
           document.body.classList.add('side-sheet-open')
 
       onOpenEnd: =>
-        if @props.id
-          window.location.hash = "##{@props.id}"
         $(document).trigger 'materialize:modal:ready'
 
     if window.location.hash is "##{@props.id}"
