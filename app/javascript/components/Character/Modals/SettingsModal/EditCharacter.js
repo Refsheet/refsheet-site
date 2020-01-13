@@ -93,7 +93,7 @@ class EditCharacter extends Component {
             />
             <span className={'hint'}>
               <Trans
-                i18nkey={'notice.character_nsfw_summary'}
+                i18nKey={'notice.character_nsfw_summary'}
                 className={'hint muted'}
               >
                 Flag your character as NSFW, which will apply to all images.
@@ -110,7 +110,7 @@ class EditCharacter extends Component {
             />
             <span className={'hint'}>
               <Trans
-                i18nkey={'notice.character_hidden_summary'}
+                i18nKey={'notice.character_hidden_summary'}
                 className={'hint muted'}
               >
                 Hide your character from other user's activity feeds and search
@@ -131,7 +131,7 @@ class EditCharacter extends Component {
             </a>
             <span className={'hint'}>
               <Trans
-                i18nkey={'notice.character_archive_summary'}
+                i18nKey={'notice.character_archive_summary'}
                 className={'hint muted'}
               >
                 Archives your character forever, including all images. This
@@ -149,7 +149,7 @@ class EditCharacter extends Component {
             </a>
             <span className={'hint'}>
               <Trans
-                i18nkey={'notice.transfer_summary'}
+                i18nKey={'notice.transfer_summary'}
                 className={'hint muted'}
               >
                 Transfer ownership of this profile to another user or

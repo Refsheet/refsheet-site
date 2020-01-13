@@ -30,7 +30,7 @@ class DeleteCharacter extends Component {
         onSubmit={this.handleSubmit.bind(this)}
         className={'no-input-margins'}
       >
-        <Trans i18nkey={'notice.character_delete'}>
+        <Trans i18nKey={'notice.character_delete'}>
           <p>
             This will delete your character, and all images and profile data.
             Any forum posts or social activity will become unattributed. This

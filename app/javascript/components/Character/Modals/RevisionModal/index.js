@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import compose from 'utils/compose'
-import { Icon } from 'react-materialize'
 import { Trans, withNamespaces } from 'react-i18next'
-import Moment from 'react-moment'
-import c from 'classnames'
 import Diff from 'react-stylable-diff'
 import TimelineEntry from '../../../Shared/Timeline/TimelineEntry'
 import { Loading } from '../../../Lightbox/Status'
@@ -17,7 +14,7 @@ class RevisionModal extends Component {
     super(props)
 
     this.state = {
-      activeVersion: 0,
+      activeVersion: 'current',
     }
 
     this.ignoredFields = ['created_at', 'updated_at', 'deleted_at']
@@ -35,6 +32,8 @@ class RevisionModal extends Component {
   }
 
   renderHistory({ data, loading, error }) {
+    const { t } = this.props
+
     if (loading) {
       return <Loading />
     }
@@ -55,8 +54,8 @@ class RevisionModal extends Component {
           key={'current'}
           current={this.state.activeVersion === 'current'}
           onClick={this.handleVersionClick('current').bind(this)}
-          title={'Current Profile'}
-          summary={'You are here.'}
+          title={t('revisions.current_profile', 'Current Profile')}
+          summary={t('revisions.current_caption', 'You are here.')}
         />
 
         {versions.map(version => {
@@ -78,7 +77,7 @@ class RevisionModal extends Component {
             >
               <div className={'change-table'}>
                 {changed_fields.map(changeKey => (
-                  <div className={'change'}>
+                  <div className={'change'} key={changeKey}>
                     <div className={'label'}>{changeKey}</div>
                     <Diff
                       inputA={changes[changeKey][0]}
@@ -123,6 +122,9 @@ class RevisionModal extends Component {
   }
 }
 
-RevisionModal.propTypes = {}
+RevisionModal.propTypes = {
+  characterId: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    .isRequired,
+}
 
 export default compose(withNamespaces('common'))(RevisionModal)

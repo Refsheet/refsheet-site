@@ -30,7 +30,7 @@ class TransferCharacter extends Component {
         onSubmit={this.handleSubmit.bind(this)}
         className={'no-input-margins'}
       >
-        <Trans i18nkey={'notice.character_transfer'}>
+        <Trans i18nKey={'notice.character_transfer'}>
           <p>
             If you wish to transfer a character, and all the art assets and
             history attached, enter the destination username or email below.
