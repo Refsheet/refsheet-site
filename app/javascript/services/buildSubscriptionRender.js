@@ -26,7 +26,7 @@ export default function buildSubscriptionRender(args) {
 
       const variables = mapPropsToVariables(props)
 
-      console.debug("Subscription info: ", { variables, subscription })
+      console.debug('Subscription info: ', { variables, subscription })
 
       subscribeToMore({
         document: subscription,
