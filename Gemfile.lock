@@ -91,9 +91,9 @@ GEM
     ast (2.4.0)
     autoprefixer-rails (9.5.0)
       execjs
-    aws-eventstream (1.0.2)
+    aws-eventstream (1.0.3)
     aws-partitions (1.144.0)
-    aws-sdk-core (3.48.0)
+    aws-sdk-core (3.48.6)
       aws-eventstream (~> 1.0, >= 1.0.2)
       aws-partitions (~> 1.0)
       aws-sigv4 (~> 1.1)
@@ -124,7 +124,7 @@ GEM
     bindex (0.5.0)
     breadcrumbs_on_rails (3.0.1)
     browser (2.5.3)
-    builder (3.2.3)
+    builder (3.2.4)
     bullet (5.9.0)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
@@ -381,6 +381,9 @@ GEM
       activerecord (>= 2.0.0)
     oauth (0.5.4)
     os (1.0.1)
+    paper_trail (10.3.1)
+      activerecord (>= 4.2)
+      request_store (~> 1.1)
     paperclip (6.1.0)
       activemodel (>= 4.2.0)
       activesupport (>= 4.2.0)
@@ -749,6 +752,7 @@ DEPENDENCIES
   money-rails
   non-stupid-digest-assets
   nulldb
+  paper_trail
   paperclip
   paperclip-meta
   paranoia

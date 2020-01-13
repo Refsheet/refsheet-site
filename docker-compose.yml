@@ -25,6 +25,7 @@ services:
       - '5000:5000'
     volumes:
       - '.:/app'
+      - 'bundle:/usr/local/bundle'
     env_file:
       - '.env'
     environment:
@@ -39,6 +40,7 @@ services:
       dockerfile: Dockerfile.dev
     volumes:
       - '.:/app'
+      - 'bundle:/usr/local/bundle'
     env_file:
       - '.env'
     environment:
@@ -62,3 +64,4 @@ services:
 volumes:
   redis:
   postgres:
+  bundle:

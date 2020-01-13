@@ -63,6 +63,7 @@ options:
     - DB_USERNAME=postgres
     - DB_PASSWORD=fishsticks
     - DB_DATABASE=postgres
+    - CI=true
 
 # Create Secrets with:
 # echo "value" | gcloud kms encrypt --plaintext-file=- --ciphertext-file=- --location=global --keyring=refsheet-ci \

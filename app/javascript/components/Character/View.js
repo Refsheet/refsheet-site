@@ -14,6 +14,7 @@ import ColorModal from './Modals/ColorModal'
 import compose from '../../utils/compose'
 import { connect } from 'react-redux'
 import { setUploadTarget } from '../../actions'
+import RevisionModal from './Modals/RevisionModal'
 
 class View extends Component {
   constructor(props) {
@@ -21,8 +22,10 @@ class View extends Component {
 
     this.state = {
       editable: false,
-      settingsOpen: false,
-      colorOpen: false,
+      settingsOpen: window.location.hash === '#character-settings',
+      colorOpen: window.location.hash === '#character-color',
+      colorSchemeOverride: this.props.character && this.props.character.theme,
+      revisionsOpen: window.location.hash === '#character-revisions',
     }
 
     this.handleEditableChange = this.handleEditableChange.bind(this)
@@ -38,6 +41,10 @@ class View extends Component {
   // TODO: Upload callback should update the Apollo cache, not force a Refetch. That's brutal.
   uploadCallback(image) {
     this.props.refetch && this.props.refetch()
+  }
+
+  handleColorSchemeOverride(theme, callback) {
+    this.setState({ colorSchemeOverride: theme }, callback)
   }
 
   handleEditableChange(editable) {
@@ -65,67 +72,82 @@ class View extends Component {
   }
 
   render() {
-    const { character } = this.props
-    const { settingsOpen, colorOpen } = this.state
+    const { character, refetch } = this.props
+    const { settingsOpen, colorOpen, revisionsOpen } = this.state
+    const { colors } =
+      this.state.colorSchemeOverride || this.props.character.theme || {}
 
     return (
-      <ThemedMain title={character.name}>
-        {settingsOpen && (
-          <SettingsModal
-            onClose={this.handleModalClose('settings').bind(this)}
-          />
-        )}
-        {colorOpen && (
-          <ColorModal onClose={this.handleModalClose('color').bind(this)} />
-        )}
+      <ThemeProvider theme={defaultTheme.apply(colors)}>
+        <ThemedMain title={character.name}>
+          {settingsOpen && (
+            <SettingsModal
+              onClose={this.handleModalClose('settings').bind(this)}
+              character={character}
+              refetch={refetch}
+            />
+          )}
 
-        <div id="top" className="profile-scrollspy">
-          <Header character={character} editable={this.state.editable} />
-        </div>
+          {colorOpen && (
+            <ColorModal
+              onClose={this.handleModalClose('color').bind(this)}
+              colorScheme={character.theme}
+              colorSchemeOverride={this.state.colorSchemeOverride}
+              onChange={this.handleColorSchemeOverride.bind(this)}
+            />
+          )}
 
-        <Container>
-          <StickyContainer>
-            <Row>
-              <Col s={12} m={3} l={2}>
-                <Sidebar
-                  user={character.user}
-                  profileSections={character.profile_sections}
-                  editable={this.state.editable}
-                  onEditableChange={this.handleEditableChange}
-                  characterVersion={character.version}
-                  characterId={character.shortcode}
-                  refetch={this.props.refetch}
-                  onSettingsClick={this.handleModalOpen('settings').bind(this)}
-                  onColorClick={this.handleModalOpen('color').bind(this)}
-                  canEdit={character.can_edit}
-                />
-              </Col>
-              <Col s={12} m={9} l={10}>
-                <Profile
-                  profileSections={character.profile_sections}
-                  editable={this.state.editable}
-                  refetch={this.props.refetch}
-                  characterId={this.props.character.shortcode}
-                />
+          {revisionsOpen && (
+            <RevisionModal
+              characterId={character.id}
+              onClose={this.handleModalClose('revisions').bind(this)}
+            />
+          )}
 
-                {/*<Reference />*/}
-                <Gallery images={character.images} />
-              </Col>
-            </Row>
-          </StickyContainer>
-        </Container>
-      </ThemedMain>
+          <div id="top" className="profile-scrollspy">
+            <Header character={character} editable={this.state.editable} />
+          </div>
+
+          <Container>
+            <StickyContainer>
+              <Row>
+                <Col s={12} m={3} l={2}>
+                  <Sidebar
+                    user={character.user}
+                    profileSections={character.profile_sections}
+                    editable={this.state.editable}
+                    onEditableChange={this.handleEditableChange}
+                    characterVersion={character.version}
+                    characterId={character.shortcode}
+                    refetch={this.props.refetch}
+                    onSettingsClick={this.handleModalOpen('settings').bind(
+                      this
+                    )}
+                    onColorClick={this.handleModalOpen('color').bind(this)}
+                    onRevisionsClick={this.handleModalOpen('revisions').bind(
+                      this
+                    )}
+                    canEdit={character.can_edit}
+                  />
+                </Col>
+                <Col s={12} m={9} l={10}>
+                  <Profile
+                    profileSections={character.profile_sections}
+                    editable={this.state.editable}
+                    refetch={this.props.refetch}
+                    characterId={this.props.character.shortcode}
+                  />
+
+                  {/*<Reference />*/}
+                  <Gallery images={character.images} />
+                </Col>
+              </Row>
+            </StickyContainer>
+          </Container>
+        </ThemedMain>
+      </ThemeProvider>
     )
   }
-}
-
-const Themed = function(props) {
-  const { colors } = props.character.theme || {}
-  return (
-    <ThemeProvider theme={defaultTheme.apply(colors)}>
-      <View {...props} />
-    </ThemeProvider>
-  )
 }
 
 View.propTypes = {
@@ -137,4 +159,4 @@ const mapDispatchToProps = {
   setUploadTarget,
 }
 
-export default compose(connect(undefined, mapDispatchToProps))(Themed)
+export default compose(connect(undefined, mapDispatchToProps))(View)

@@ -14,12 +14,12 @@ const TocLink = ({ to, children, className }) => (
 )
 
 export default styled(TocLink)`
-  color: ${props => props.theme.textLight} !important;
+  color: ${props => props.theme.textMedium} !important;
   margin-bottom: 0.5rem;
   display: block;
 
   &:hover {
-    color: ${props => props.theme.textMedium} !important;
+    color: ${props => props.theme.text} !important;
     border-left-color: ${props => props.theme.accent2} !important;
   }
 

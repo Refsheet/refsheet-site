@@ -8,11 +8,12 @@ related to their characters in one unified format, allowing artists and
 story writers to access the specific details of a character, maintaining
 synchronized dynamic canon.
 
-## Docker
+## Development
 
-A note on starting up the website in development mode:
+This app is now Dockerized. Install Docker and `docker-compose` to get going.
 
-docker-compose up will start the worker and the website at the same time, which is awesome if you want to run migrations twice on top of each other (Rails doesn't like this).
+*A note on starting up the website in development mode:* `docker-compose up` will start the worker and the website at 
+the same time, which is awesome if you want to run migrations twice on top of each other (Rails doesn't like this).
 
 To start it up and keep the website logs in the foreground:
 
@@ -20,74 +21,58 @@ To start it up and keep the website logs in the foreground:
     docker-compose start redis
     docker-compose start worker
     docker-compose up website
+    
+For your convenience, this has been summed up in `bin/start-dev`. I recommend adding `./bin` to your `$PATH`:
 
-## Development Setup VERY OUT OF DATE! (7/30/19)
+    echo 'export PATH="$PATH:./bin"' >> ~/.bashrc
+    
+#### bin/r
 
-> This section is super out of date but Mau hasn't added better instructions.
-> We use docker now. Install `docker-compose` and run `docker-compose up`
-> Check out the whateveritis file that compose uses for service descriptions.
->
-> Build `Dockerfile.dev` in dev. `Dockerfile` builds a prod instance, which
-> takes 19 evers to precompile assets.
+Since commands should be run in Docker, there is a helper in `bin/r` which can be used to run commands against the 
+`website` container. The following are equivalent:
 
-Make sure you have **Ruby 2.3.1** installed, this project was built with
-`rbenv` in mind. You'll need Git, obviously, and a connection to the
-World Wide Web. You might need to install a modem for this, see your
-workstation's hardware manufacturer for details.
+    # "Run Bundle"
+    bin/rb rake db:migrate
+    
+    # "Run"
+    bin/r bundle exec rake db:migrate
+    
+    # Both same as:
+    docker-compose run website bundle exec rake db:migrate
+    
+    # If you adjusted your PATH to include ./bin
+    rb rake db:migrate
 
-Oh yeah, install `postgres` or be prepared for pain. Also install
-`redis-server`, and `resque`.
+### Testing
 
-### Setup Steps
-
-1. `rbenv install 2.3.1`
-1. `gem install bundler`
-1. `bundle install`
-1. `createuser -dP refsheet-site-test`
-   - Specify `fishsticks` as a password.
-1. `createuser -dP refsheet-site-dev`
-   - Specify `fishsticks` as a password.
-1. `bundle exec rake db:create`
-1. `bundle exec rake db:migrate`
-
-### Running Locally
-
-Start Rails however you start Rails. Puma is our server of choice for
-local development. `rails s` will default to port 3000 of course, you
-should change this if you have other projects going on. I use 3012.
-
-If you want any of the background jobs to work (image processing, etc)
-you're going to have to start up Resque.
-
-`$ QUEUE=* bundle exec rake environment resque:work`
-
-## Issue Tracking
-
-We use [Trello][1] for issue influx and collaborating with the 
-non-developers and not so technical things within the app. Development 
-related cards move to the 'Development' list, and should be 
-cross-reported in GitHub as issues, which land in the Triage queue of 
-[Zube.io][2], our development tracker.
-
-### Branch Naming
-
-Branches should be named thusly (draft):
-
-- `f/feature-name` - For features that hold until next release.
-- `p/patch-name` - For patches that need to go out right away.
-- `b/145-bug-name` - Where 145 is the GH Issue for the bug.
-
-## Testing
-
-CircleCI handles testing and deploys to Amazon. Google Cloud Build handles
-testing and deploy to Kubernetes. If you want to test things
+Google Cloud Build handles testing and deploy to Kubernetes. If you want to test things
 locally, swell! Uh, run `rspec` against the project. Or, use an IDE
 like [RubyMine][4], it'll do this for you. Specs live in `./specs`.
 
+    bin/r rspec
+    bin/r yarn run karma
+
+### Prettier
+
+Javascript code is made prettier by Prettier. Your checks will fail in CI if you change Javascript code and it isn't
+pretty enough. Before you commit:
+
+    bin/r yarn run prettier
+
 ## Maintainer
 
-This project is built and maintained by Mau, and you them reach him at
+This project is built and maintained by Mau, and you can reach them at
 [@refsheet on Twitter](https://twitter.com/refsheet).
+
+## Links
+
+- Translations: [locize.io](https://www.locize.io/p/zbocgoxn)
+- CI / CD: [Google Cloud Build](https://console.cloud.google.com/cloud-build/builds?organizationId=183290543501&project=refsheet-239409)
+- Monitoring: [Stackdriver Monitoring](https://console.cloud.google.com/monitoring/dashboards/custom/10331969783848097169?project=refsheet-239409&timeDomain=1d)
+- Logs: [Stackdriver Logging](https://console.cloud.google.com/logs/viewer?organizationId=183290543501&project=refsheet-239409&minLogLevel=0&expandAll=false&timestamp=2020-01-13T01:39:35.490000000Z&customFacets=&limitCustomFacetWidth=true&dateRangeStart=2020-01-13T00:39:35.742Z&dateRangeEnd=2020-01-13T01:39:35.742Z&interval=PT1H&resource=container&scrollTimestamp=2020-01-13T01:39:26.519636322Z)
+- Infrastructure: [Google Kubernetes Engine](https://console.cloud.google.com/kubernetes/workload?organizationId=183290543501&project=refsheet-239409&workload_list_tablesize=50)
+- Production: [Refsheet.net](https://refsheet.net)
+- Staging: [kube.Refsheet.net](https://kube.refsheet.net)
 
 ## Special Thanks
 
@@ -96,9 +81,5 @@ made transmitting the commit containing this thank you message possible.
 
 I would also like to thank #devfurs for being good little rubber ducks.
 
-
-[1]: https://trello.com/b/4UljEwOX/application-development
-[2]: https://zube.io/eiwi1101/refsheetnet/w/application-development/kanban
-[3]: https://travis-ci.com/eiwi1101/refsheet-site
 [4]: https://www.jetbrains.com/ruby/
  
