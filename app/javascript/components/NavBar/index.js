@@ -24,7 +24,7 @@ class NavBar extends Component {
       menuOpen: false,
     }
 
-    this.logoSrc = "/assets/logos/RefsheetLogo_64.png"
+    this.logoSrc = '/assets/logos/RefsheetLogo_64.png'
 
     this.handleLoginClick = this.handleLoginClick.bind(this)
     this.handleLogoutClick = this.handleLogoutClick.bind(this)
@@ -133,7 +133,7 @@ class NavBar extends Component {
 
             <Link to="/" className="logo left">
               <img
-                src={ this.logoSrc }
+                src={this.logoSrc}
                 alt="Refsheet.net"
                 width="32"
                 height="32"
