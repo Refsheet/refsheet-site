@@ -17,7 +17,7 @@ class @Views.Account.Settings.Support extends React.Component
 
   _handleFormChange: (patron) =>
     console.debug patron
-    Materialize.toast "Settings Saved", 3000, 'green'
+    Materialize.toast({ html: "Settings Saved", displayLength: 3000, classes: 'green' })
 
 
   render: ->

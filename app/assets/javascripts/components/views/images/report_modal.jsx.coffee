@@ -39,7 +39,7 @@ class @Views.Images.ReportModal extends React.Component
   _handleSubmit: (data) =>
     @context.reportImage(null)
     M.Modal.getInstance(@refs.modal).close()
-    Materialize.toast "Thank you for your report, we will look into it shortly.", 3000, 'green'
+    Materialize.toast({ "Thank you for your report, we will look into it shortly.", displayLength: 3000, classes: 'green' })
 
   render: ->
     violationTypes = []

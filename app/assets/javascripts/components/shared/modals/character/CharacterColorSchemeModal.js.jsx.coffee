@@ -22,7 +22,7 @@
   _handleChange: (data) ->
     @setState color_data: data.color_scheme.color_data, =>
       $(document).trigger 'app:color_scheme:update', data.color_scheme.color_data
-      Materialize.toast 'Color scheme saved.', 3000, 'green'
+      Materialize.toast({ html: 'Color scheme saved.', displayLength: 3000, classes: 'green' })
       @_handleColorSchemeClose()
 
   _handleUpdate: (data) ->

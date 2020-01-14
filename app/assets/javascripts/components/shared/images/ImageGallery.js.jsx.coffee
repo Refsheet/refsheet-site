@@ -62,7 +62,7 @@
       type: 'PATCH'
       data: { image: { swap_target_image_id: target } }
       success: (data) =>
-        Materialize.toast 'Image moved!', 3000, 'green'
+        Materialize.toast({ html: 'Image moved!', displayLength: 3000, classes: 'green' })
         @load data
       error: (error) =>
         console.log error

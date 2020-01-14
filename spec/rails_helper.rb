@@ -85,7 +85,7 @@ end
 
 Capybara.configure do |config|
   config.javascript_driver = :headless_chrome
-  config.raise_server_errors = false
+  config.raise_server_errors = true
   config.default_max_wait_time = 7.seconds
 end
 
