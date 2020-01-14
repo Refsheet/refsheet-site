@@ -15,19 +15,19 @@
 #
 #  index_versions_on_item_type_and_item_id  (item_type,item_id)
 #
-
-module PaperTrail
-  class Version < ActiveRecord::Base
-    include PaperTrail::VersionConcern
-
-    def whodunnit
-      id = attributes['whodunnit']
-
-      if id =~ /^gid/
-        GlobalID::Locator.locate(id)
-      else
-        User.find_by(id: id)
-      end
-    end
-  end
-end
+#
+#module PaperTrail
+#  class Version < ActiveRecord::Base
+#    include PaperTrail::VersionConcern
+#
+#    def whodunnit
+#      id = attributes['whodunnit']
+#
+#      if id =~ /^gid/
+#        GlobalID::Locator.locate(id)
+#      else
+#        User.find_by(id: id)
+#      end
+#    end
+#  end
+#end
