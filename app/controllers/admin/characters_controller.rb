@@ -15,7 +15,7 @@ class Admin::CharactersController < AdminController
 
   def update
     if params[:version].present?
-      @character.paper_trail_event = 'rollback'
+      #@character.paper_trail_event = 'rollback'
       @character.save
     else
       if @character.update_attributes(character_params)
