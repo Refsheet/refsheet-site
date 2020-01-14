@@ -15,14 +15,13 @@ class Admin::CharactersController < AdminController
 
   def update
     if params[:version].present?
-      #@character.paper_trail_event = 'rollback'
+      @character.paper_trail_event = 'rollback'
       @character.save
     else
       if @character.update_attributes(character_params)
         Changelog.create changelog_params
       end
     end
-
 
     respond_with :admin, @character, location: admin_character_path(@character.shortcode)
   end

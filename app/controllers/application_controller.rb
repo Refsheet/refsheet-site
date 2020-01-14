@@ -234,6 +234,6 @@ class ApplicationController < ActionController::Base
   end
 
   def set_paper_trail_actor
-    #PaperTrail.request.whodunnit = current_user&.to_global_id
+    PaperTrail.request.whodunnit = current_user&.to_global_id
   end
 end

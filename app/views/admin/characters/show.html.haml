@@ -6,15 +6,15 @@
       = image_tag @character.profile_image.image.url(:medium_square), class: 'materialboxed responsive-img z-depth-1'
       %h1.caption= link_to title(@character.name), @character.path
       
-      -#- if ! @character.paper_trail.live?
-      -#  .card-panel.red.white-text
-      -#    %strong Old Version!
-      -#    %p
-      -#      This is an old version of the record.
-      -#    %p
-      -#      = link_to "Revert to This Version", url_for({version: @character.version.index}), data: { method: 'PATCH', confirm: "You sure about that?" }
-      -#
-      -#  = link_to "Current Version", url_for({}), class: 'btn'
+      - if ! @character.paper_trail.live?
+        .card-panel.red.white-text
+          %strong Old Version!
+          %p
+            This is an old version of the record.
+          %p
+            = link_to "Revert to This Version", url_for({version: @character.version.index}), data: { method: 'PATCH', confirm: "You sure about that?" }
+
+        = link_to "Current Version", url_for({}), class: 'btn'
 
       %ul.attributes
         %li
