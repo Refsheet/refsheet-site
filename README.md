@@ -42,6 +42,13 @@ Since commands should be run in Docker, there is a helper in `bin/r` which can b
     
     # If you adjusted your PATH to include ./bin
     rb rake db:migrate
+    
+### Initial Setup
+
+You might need to create a database for something useful to happen. Rake does this:
+
+    bin/r rake db:setup RAILS_ENV=development
+    bin/r rake db:create RAILS_ENV=test
 
 ### Testing
 
