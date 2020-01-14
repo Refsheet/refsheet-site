@@ -22,9 +22,7 @@
 
 FactoryBot.define do
   factory :character_group do
-    name { "MyString" }
-    slug { "MyString" }
-    row_order { 1 }
+    name { Faker::Movies::StarWars.call_sign }
     hidden { false }
   end
 end
