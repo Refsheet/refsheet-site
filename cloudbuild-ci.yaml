@@ -38,10 +38,10 @@ steps:
     secretEnv:
       - CODECOV_TOKEN
 
-#  - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
-#    args: ['rspec', '--pattern', '**/features/**/*_spec.rb']
-#    secretEnv:
-#      - CODECOV_TOKEN
+  - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
+    args: ['rspec', '--pattern', '**/features/**/*_spec.rb']
+    secretEnv:
+      - CODECOV_TOKEN
 
   - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
     args: ['bin/entrypoint.dev.sh', 'yarn', 'run', 'test']
