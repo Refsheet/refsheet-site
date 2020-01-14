@@ -40,4 +40,4 @@
         if error
           error(msg)
         else
-          Materialize.toast msg.error, 3000, 'red' if msg.error
+          Materialize.toast({ html: msg.error, displayLength: 3000, classes: 'red' }) if msg.error

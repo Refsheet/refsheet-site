@@ -15,11 +15,11 @@
       data: image: gravity: @state.gravity
       success: (data) =>
         $(document).trigger 'app:image:update', data
-        Materialize.toast 'Cropping settings saved. It may take a second to rebuild your thumbnails.', 3000, 'green'
+        Materialize.toast({ html: 'Cropping settings saved. It may take a second to rebuild your thumbnails.', displayLength: 3000, classes: 'green' })
         @setState loading: false
         M.Modal.getInstance(document.getElementById('image-gravity-modal')).close()
       error: (error) =>
-        Materialize.toast 'Something bad happened', 3000, 'red'
+        Materialize.toast({ html: 'Something bad happened', displayLength: 3000, classes: 'red' })
         @setState loading: false
         console.log error
     e.preventDefault()

@@ -47,7 +47,7 @@ history.listen(() => {
             when 'notice' then 'green'
             else 'grey darken-2'
 
-        Materialize.toast message, 3000, color
+        Materialize.toast({html: message, displayLength: 3000, classes: color})
 
   _handleRouteUpdate: ->
     if @props.gaPropertyID

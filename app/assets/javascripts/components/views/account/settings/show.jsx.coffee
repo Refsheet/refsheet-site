@@ -14,7 +14,7 @@ class @Views.Account.Settings.Show extends React.Component
 
   _handleFormChange: (user) =>
     @context.setCurrentUser user
-    Materialize.toast "Settings Saved", 3000, 'green'
+    Materialize.toast({ html: "Settings Saved", displayLength: 3000, classes: 'green' })
 
 
   render: ->

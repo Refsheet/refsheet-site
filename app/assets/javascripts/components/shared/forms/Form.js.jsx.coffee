@@ -93,9 +93,9 @@
           console.warn "Error messages:", data.responseJSON.errors
           @setState errors: data.responseJSON.errors, invalid: true
         else if data.responseJSON?.error
-          Materialize.toast data.responseJSON.error, 3000, 'red'
+          Materialize.toast({ html: data.responseJSON.error, displayLength: 3000, classes: 'red' })
         else
-          Materialize.toast data.responseText, 3000, 'red'
+          Materialize.toast({ html: data.responseText, displayLength: 3000, classes: 'red' })
 
       complete: ->
         $(document).trigger 'app:loading:done'
