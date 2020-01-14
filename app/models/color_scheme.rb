@@ -45,11 +45,7 @@ class ColorScheme < ApplicationRecord
   end
 
   def [](key)
-    get_color(key)
-  end
-
-  def []=(key, value)
-    set_color(key, value)
+    super || get_color(key)
   end
 
   def get_color(key)
@@ -69,12 +65,15 @@ class ColorScheme < ApplicationRecord
     key = method.to_s.gsub(/=$/, '')
 
     if (color = get_color(key))
+      Rails.logger.info("Pretending to find color: " + color.inspect)
       if method =~ /=$/
         return set_color(key, args[0])
       end
 
       return color
     end
+
+    Rails.logger.info("Super!")
 
     super
   end
