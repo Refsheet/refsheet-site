@@ -34,11 +34,11 @@ class Characters::ProfileWidget < ApplicationRecord
     }
   end
 
-  has_paper_trail only: [
-      :widget_type,
-      :title,
-      :data
-  ]
+  #has_paper_trail only: [
+  #    :widget_type,
+  #    :title,
+  #    :data
+  #]
 
   include HasGuid
   include RankedModel
