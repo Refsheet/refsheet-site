@@ -45,6 +45,6 @@ describe Media::Favorite, type: :model do
     expect(n.count).to be > 0
     f.media.destroy
     expect(n.count).to eq 0
-    expect { f.reload }.to raise_exception
+    expect { f.reload }.to raise_exception(ActiveRecord::RecordNotFound)
   end
 end

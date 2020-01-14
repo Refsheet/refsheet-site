@@ -20,7 +20,7 @@ describe 'User Profiles' do
     context 'when html' do
       let(:params) { { format: 'html' } }
       it { expect(response).to be_successful }
-      it { expect(response.body).to include 'og:picture' }
+      it { expect(response.body).to include 'og:image' }
     end
   end
 
