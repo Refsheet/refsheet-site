@@ -20,7 +20,7 @@ if ENV['CIRCLECI'] || ENV['CI']
   SimpleCov.formatter = SimpleCov::Formatter::Codecov
   puts "CI environment initialized."
 
-  puts ENV.to_yaml
+  puts ENV.to_h.to_yaml
 end
 
 RSpec.configure do |config|
