@@ -312,6 +312,8 @@ GEM
     js_cookie_rails (2.2.0)
       railties (>= 3.1)
     json (2.1.0)
+    json-schema (2.8.1)
+      addressable (>= 2.4)
     jsonapi-renderer (0.2.0)
     jwt (2.1.0)
     launchy (2.4.3)
@@ -528,6 +530,19 @@ GEM
     rspec-support (3.8.0)
     rspec_junit_formatter (0.4.1)
       rspec-core (>= 2, < 4, != 2.12.0)
+    rswag (2.2.0)
+      rswag-api (= 2.2.0)
+      rswag-specs (= 2.2.0)
+      rswag-ui (= 2.2.0)
+    rswag-api (2.2.0)
+      railties (>= 3.1, < 6.1)
+    rswag-specs (2.2.0)
+      activesupport (>= 3.1, < 6.1)
+      json-schema (~> 2.2)
+      railties (>= 3.1, < 6.1)
+    rswag-ui (2.2.0)
+      actionpack (>= 3.1, < 6.1)
+      railties (>= 3.1, < 6.1)
     rubocop (0.66.0)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
@@ -785,6 +800,7 @@ DEPENDENCIES
   rspec-rails
   rspec-retry
   rspec_junit_formatter
+  rswag
   rubocop
   rubocop-rspec
   ruby-progressbar
