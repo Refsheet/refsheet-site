@@ -2,22 +2,19 @@
 #
 # Table name: forum_threads
 #
-#  id             :integer          not null, primary key
-#  forum_id       :integer
-#  user_id        :integer
-#  character_id   :integer
-#  topic          :string
-#  slug           :string
-#  shortcode      :string
-#  content        :text
-#  locked         :boolean
-#  karma_total    :integer          default(0), not null
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  content_html   :string
-#  sticky         :boolean
-#  admin_post     :boolean
-#  moderator_post :boolean
+#  id           :integer          not null, primary key
+#  forum_id     :integer
+#  user_id      :integer
+#  character_id :integer
+#  topic        :string
+#  slug         :string
+#  shortcode    :string
+#  content      :text
+#  locked       :boolean
+#  karma_total  :integer          default(0), not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  content_html :string
 #
 # Indexes
 #
@@ -26,7 +23,6 @@
 #  index_forum_threads_on_karma_total   (karma_total)
 #  index_forum_threads_on_shortcode     (shortcode)
 #  index_forum_threads_on_slug          (slug)
-#  index_forum_threads_on_sticky        (sticky)
 #  index_forum_threads_on_user_id       (user_id)
 #
 
