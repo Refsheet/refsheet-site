@@ -1,5 +1,7 @@
 require 'simplecov'
 
+ENV['NODE_ENV'] = ENV['RACK_ENV'] = ENV['RAILS_ENV']
+
 unless Rails.env.test?
   raise "This isn't a test environment!"
 end
