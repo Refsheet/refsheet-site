@@ -34,12 +34,12 @@ steps:
   #== TEST
 
   - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
-    args: ['bundle', 'exec', 'rspec', '--exclude-pattern', '**/{features,requests}/**/*_spec.rb']
+    args: ['bin/entrypoint.dev.sh', 'bundle', 'exec', 'rspec', '--exclude-pattern', '**/{features,requests}/**/*_spec.rb']
     secretEnv:
       - CODECOV_TOKEN
 
   - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
-    args: ['bundle', 'exec', 'rspec', '--pattern', '**/{features,requests}/**/*_spec.rb']
+    args: ['bin/entrypoint.dev.sh', 'bundle', 'exec', 'rspec', '--pattern', '**/{features,requests}/**/*_spec.rb']
     secretEnv:
       - CODECOV_TOKEN
 
