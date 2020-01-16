@@ -8,7 +8,7 @@
       comment: null
 
   _handleSubmit: (feedback) ->
-    Materialize.toast 'Thanks for the feedback!', 3000, 'green'
+    Materialize.toast({ html: 'Thanks for the feedback!', displayLength: 3000, classes: 'green' })
     @setState model: comment: null
 
   render: ->

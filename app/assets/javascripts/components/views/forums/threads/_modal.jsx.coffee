@@ -12,7 +12,7 @@
 
 
   _handleCreate: (thread) ->
-    Materialize.toast "Thread created! Hope it's a good one :)", 3000, 'green'
+    Materialize.toast({ html: "Thread created! Hope it's a good one :)", displayLength: 3000, classes: 'green' })
     @refs.modal.close()
     console.log thread
     @context.router.history.push thread.path

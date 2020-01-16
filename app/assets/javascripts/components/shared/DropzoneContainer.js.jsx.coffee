@@ -42,13 +42,13 @@
 
           @on 'error', (_, error) ->
             if error.errors?.image
-              Materialize.toast "Image #{error.errors.image}", 3000, 'red'
+              Materialize.toast({ html: "Image #{error.errors.image}", displayLength: 3000, classes: 'red' })
             else
               console.error JSON.stringify(error)
-              Materialize.toast "An unknown error has occurred :( Please find Mau and tell them this: #{JSON.stringify(error)}"
+              Materialize.toast({ html: "An unknown error has occurred :( Please find Mau and tell them this: #{JSON.stringify(error)}" })
 
           @on 'success', (_, data) ->
-            Materialize.toast "Image uploaded!", 3000, 'green'
+            Materialize.toast({ html: "Image uploaded!", displayLength: 3000, classes: 'green' })
             ___this.props.onUpload(data) if ___this.props.onUpload?
 
   componentWillUnmount: ->

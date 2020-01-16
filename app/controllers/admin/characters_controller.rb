@@ -23,7 +23,6 @@ class Admin::CharactersController < AdminController
       end
     end
 
-
     respond_with :admin, @character, location: admin_character_path(@character.shortcode)
   end
 

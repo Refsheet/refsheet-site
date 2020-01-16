@@ -45,11 +45,7 @@ class ColorScheme < ApplicationRecord
   end
 
   def [](key)
-    get_color(key)
-  end
-
-  def []=(key, value)
-    set_color(key, value)
+    super || get_color(key)
   end
 
   def get_color(key)
@@ -75,6 +71,7 @@ class ColorScheme < ApplicationRecord
 
       return color
     end
+
 
     super
   end

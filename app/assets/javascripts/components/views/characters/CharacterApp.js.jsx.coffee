@@ -65,11 +65,11 @@ Component = React.createClass
       type: 'PATCH'
       data: { character: { featured_image_guid: imageId } }
       success: (data) =>
-        Materialize.toast 'Cover image changed!', 3000, 'green'
+        Materialize.toast({ html: 'Cover image changed!', displayLength: 3000, classes: 'green' })
         @setState character: data
       error: (error) =>
         errors = error.responseJSON.errors
-        Materialize.toast errors.featured_image, 3000, 'red'
+        Materialize.toast({ html: errors.featured_image, displayLength: 3000, classes: 'red' })
 
   setProfileImage: (imageId) ->
     $.ajax
@@ -77,11 +77,11 @@ Component = React.createClass
       type: 'PATCH'
       data: { character: { profile_image_guid: imageId } }
       success: (data) =>
-        Materialize.toast 'Profile image changed!', 3000, 'green'
+        Materialize.toast({ html: 'Profile image changed!', displayLength: 3000, classes: 'green' })
         @setState character: data
       error: (error) =>
         errors = error.responseJSON.errors
-        Materialize.toast errors.profile_image, 3000, 'red'
+        Materialize.toast({ html: errors.profile_image, displayLength: 3000, classes: 'red' })
 
   handleProfileChange: (data, onSuccess, onError) ->
     $.ajax

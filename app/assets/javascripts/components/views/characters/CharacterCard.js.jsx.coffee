@@ -38,7 +38,7 @@
 
   _handleFollow: (f) ->
     @setState HashUtils.set(@state, 'character.followed', f), ->
-      Materialize.toast "Character #{if f then 'followed!' else 'unfollowed.'}", 3000, 'green'
+      Materialize.toast({ html: "Character #{if f then 'followed!' else 'unfollowed.'}", displayLength: 3000, classes: 'green' })
       
   _handleChange: (char) ->
     @props.onChange(char) if @props.onChange

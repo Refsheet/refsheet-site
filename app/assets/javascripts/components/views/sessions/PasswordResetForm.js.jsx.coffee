@@ -17,7 +17,7 @@
 
   _handlePasswordChange: (data) ->
     @props.onComplete() if @props.onComplete
-    Materialize.toast 'Password changed!', 3000, 'green'
+    Materialize.toast({ html: 'Password changed!', displayLength: 3000, classes: 'green' })
 
   _handleSignInClick: (e) ->
     @props.onSignInClick() if @props.onSignInClick

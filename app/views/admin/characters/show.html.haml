@@ -13,7 +13,7 @@
             This is an old version of the record.
           %p
             = link_to "Revert to This Version", url_for({version: @character.version.index}), data: { method: 'PATCH', confirm: "You sure about that?" }
-        
+
         = link_to "Current Version", url_for({}), class: 'btn'
 
       %ul.attributes
