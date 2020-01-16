@@ -61,6 +61,29 @@ FactoryBot.define do
       end
     end
 
+    trait :with_characters do
+      transient do
+        characters_count { 5 }
+      end
+
+      after(:create) do |user, evaluator|
+        create_list(:character, evaluator.characters_count, user: user)
+      end
+    end
+
+    trait :with_character_groups do
+      transient do
+        character_groups_count { 2 }
+      end
+
+      after(:create) do |user, evaluator|
+        create_list(:character_group, evaluator.character_groups_count, user: user)
+        user.character_groups.each do |cg|
+          cg.characters << user.characters
+        end
+      end
+    end
+
     factory :admin do
       roles {[ Role.find_or_initialize_by(name: 'admin') ]}
     end

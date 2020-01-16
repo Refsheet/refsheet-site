@@ -42,6 +42,13 @@ Since commands should be run in Docker, there is a helper in `bin/r` which can b
     
     # If you adjusted your PATH to include ./bin
     rb rake db:migrate
+    
+### Initial Setup
+
+You might need to create a database for something useful to happen. Rake does this:
+
+    bin/r rake db:setup RAILS_ENV=development
+    bin/r rake db:create RAILS_ENV=test
 
 ### Testing
 
@@ -71,6 +78,7 @@ This project is built and maintained by Mau, and you can reach them at
 - Monitoring: [Stackdriver Monitoring](https://console.cloud.google.com/monitoring/dashboards/custom/10331969783848097169?project=refsheet-239409&timeDomain=1d)
 - Logs: [Stackdriver Logging](https://console.cloud.google.com/logs/viewer?organizationId=183290543501&project=refsheet-239409&minLogLevel=0&expandAll=false&timestamp=2020-01-13T01:39:35.490000000Z&customFacets=&limitCustomFacetWidth=true&dateRangeStart=2020-01-13T00:39:35.742Z&dateRangeEnd=2020-01-13T01:39:35.742Z&interval=PT1H&resource=container&scrollTimestamp=2020-01-13T01:39:26.519636322Z)
 - Infrastructure: [Google Kubernetes Engine](https://console.cloud.google.com/kubernetes/workload?organizationId=183290543501&project=refsheet-239409&workload_list_tablesize=50)
+- Error Reporting: [Sentry](https://sentry.io/organizations/refsheetnet/issues/?project=1307540)
 - Production: [Refsheet.net](https://refsheet.net)
 - Staging: [kube.Refsheet.net](https://kube.refsheet.net)
 

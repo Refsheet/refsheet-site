@@ -1,5 +1,7 @@
 require 'simplecov'
 
+ENV['NODE_ENV'] = ENV['RACK_ENV'] = ENV['RAILS_ENV']
+
 unless Rails.env.test?
   raise "This isn't a test environment!"
 end
@@ -18,6 +20,9 @@ end
 if ENV['CIRCLECI'] || ENV['CI']
   require 'codecov'
   SimpleCov.formatter = SimpleCov::Formatter::Codecov
+  puts "CI environment initialized."
+
+  puts ENV.to_h.to_yaml
 end
 
 RSpec.configure do |config|

@@ -18,13 +18,13 @@ class @Views.Account.Settings.Notifications extends React.Component
 
     if typeof Notification is 'undefined' or typeof window.requestNotifications is 'undefined'
       console.log '[Notifications] Not supported :('
-      Materialize.toast "Your browser does not support Push notifications.", 3000, 'red'
+      Materialize.toast({ html: "Your browser does not support Push notifications.", displayLength: 3000, classes: 'red' })
 
     else if Notification.permission is 'granted'
       console.log '[Notifications] Already granted.'
 
       @_updatePushSubscription ->
-        Materialize.toast "Notification subscription updated.", 3000, 'green'
+        Materialize.toast({ html: "Notification subscription updated.", displayLength: 3000, classes: 'green' })
 
     else
       console.log('Requesting permissions.')
@@ -35,16 +35,16 @@ class @Views.Account.Settings.Notifications extends React.Component
           console.log '[Notifications] Permission granted!'
 
           __this._updatePushSubscription ->
-            Materialize.toast "Browser push notifications enabled!", 3000, 'green'
+            Materialize.toast({ html: "Browser push notifications enabled!", displayLength: 3000, classes: 'green' })
 
   _jiggleLever: (e) =>
     e.preventDefault()
     @_updatePushSubscription ->
-      Materialize.toast "Browser push notifications (re)enabled?", 3000, 'green'
+      Materialize.toast({ html: "Browser push notifications (re)enabled?", displayLength: 3000, classes: 'green' })
 
   _updatePushSubscription: (callback) ->
     if typeof window.requestNotifications is 'undefined'
-      Materialize.toast "Your browser does not support Push notifications.", 3000, 'red'
+      Materialize.toast({ html: "Your browser does not support Push notifications.", displayLength: 3000, classes: 'red' })
       return false
 
     requestNotifications =>

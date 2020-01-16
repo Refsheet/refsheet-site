@@ -7,5 +7,5 @@ yarn install
 rm -f tmp/pids/server.pid
 
 bundle exec rake db:migrate
-echo "RUN $@"
+echo "RUN" "$@"
 exec "$@"

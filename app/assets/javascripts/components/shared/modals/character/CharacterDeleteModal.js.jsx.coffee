@@ -12,11 +12,11 @@
       type: 'DELETE'
       success: (data) =>
         M.Modal.getInstance(document.getElementById('delete-form')).close()
-        Materialize.toast "#{data.name} deleted. :(", 3000
+        Materialize.toast({ html: "#{data.name} deleted. :(", displayLength: 3000 })
         @context.router.history.push '/' + data.user_id
 
       error: (error) =>
-        Materialize.toast "I'm afraid I couldn't do that, Jim.", 3000, 'red'
+        Materialize.toast({ html: "Something went wrong.", displayLength: 3000, classes: 'red' })
 
     e.preventDefault()
 

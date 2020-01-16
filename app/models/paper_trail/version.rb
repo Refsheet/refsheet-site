@@ -15,7 +15,7 @@
 #
 #  index_versions_on_item_type_and_item_id  (item_type,item_id)
 #
-
+#
 module PaperTrail
   class Version < ActiveRecord::Base
     include PaperTrail::VersionConcern

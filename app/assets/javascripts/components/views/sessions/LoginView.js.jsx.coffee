@@ -17,7 +17,12 @@
   _handleLogin: (session) ->
     user = session.current_user
     $(document).trigger 'app:session:update', session
-    @context.router.history.push user.link
+    next = @context.router.history.location?.query?.next
+
+    if next
+      window.location = next
+    else
+      @context.router.history.push(user.link)
 
   componentDidMount: ->
     $('body').addClass 'no-footer'

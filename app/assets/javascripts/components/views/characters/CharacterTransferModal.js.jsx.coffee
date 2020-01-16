@@ -17,7 +17,7 @@
     $(document).trigger 'app:character:update', character
 
     @_handleModalClose()
-    Materialize.toast 'Character transfer initiated.', 3000, 'green'
+    Materialize.toast({ html: 'Character transfer initiated.', displayLength: 3000, classes: 'green' })
 
   _handleCancel: (e) ->
     @refs.form.reset()
