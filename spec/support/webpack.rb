@@ -5,8 +5,6 @@ RSpec.configure do |config|
 
   config.when_first_matching_example_defined(:webpack, :js) do
     puts "Contemplating Webpack compilation..."
-    puts `pwd`
-    puts `ls`
-    puts `bin/webpack`
+    puts `#{Rails.root.join('bin', 'webpack')}`
   end
 end
