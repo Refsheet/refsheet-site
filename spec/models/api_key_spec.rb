@@ -21,7 +21,7 @@
 require 'rails_helper'
 
 describe ApiKey do
-  it_is_expected_to respond_to: [:name, :deleted_at, :secret=]
+  it_is_expected_to respond_to: [:name, :deleted_at, :secret]
 
   let(:user) { create :admin }
 
@@ -29,7 +29,23 @@ describe ApiKey do
     key = ApiKey.create(user: user)
     expect(key).to be_valid
     expect(key.secret).to_not be_nil
-    key.reload
-    expect(key.secret).to be_nil
+    reloaded = ApiKey.find(key.id)
+    expect(reloaded.secret).to be_nil
+  end
+
+  it 'authenticates' do
+    key = ApiKey.create(user: user)
+    guid, secret = [key.guid, key.secret]
+
+    auth = ApiKey.find_by!(guid: guid)
+    expect(auth.authenticate_secret(secret)).to be_truthy
+  end
+
+  it 'does not authenticate' do
+    key = ApiKey.create(user: user)
+    guid, secret = [key.guid, key.secret]
+
+    auth = ApiKey.find_by!(guid: guid)
+    expect(auth.authenticate_secret('poptarts')).to be_falsey
   end
 end
