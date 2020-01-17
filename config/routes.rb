@@ -204,12 +204,12 @@ Rails.application.routes.draw do
     mount ResqueWeb::Engine => '/resque_web'
     mount LetterOpenerWeb::Engine => '/letter_opener'
 
-    mount Rswag::Ui::Engine => '/api-docs'
-    mount Rswag::Api::Engine => '/api-docs'
-
     get :bad_request, to: 'application#bad_request!'
     get :not_found, to: 'application#not_found!'
   end
+
+  mount Rswag::Ui::Engine => '/api-docs'
+  mount Rswag::Api::Engine => '/api-docs'
 
   mount Ahoy::Engine => '/ahoy', as: :my_ahoy
 

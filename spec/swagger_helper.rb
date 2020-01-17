@@ -9,6 +9,22 @@ RSpec.configure do |config|
   description = <<-MARKDOWN
 The Refsheet.net API allows another application to view and manipulate data on behalf of a user. To get started,
 [generate an API Key from your account settings](https://refsheet.net/account/settings/api).
+
+## Authentication
+
+The API requires two values, `api_key_id` and `api_key_secret` to be sent either as query parameters or via headers.
+
+|Field|URL Param|Header|
+|---|---|---|
+|API Key ID|`api_key_id`|`X-ApiKeyId`|
+|API Key Secret|`api_key_secret`|`X-ApiKeySecret`|
+
+
+```
+curl -H "X-ApiKeyId: YOUR_KEY_ID" \
+     -H "X-ApiKeySecret: YOUR_KEY_SECRET" \
+     https://refsheet.net/api/v1/users/abc123
+```
   MARKDOWN
 
   # Define one or more Swagger documents and provide global metadata for each one
@@ -48,11 +64,10 @@ The Refsheet.net API allows another application to view and manipulate data on b
           'https'
       ],
       consumes: [
-          'application/json',
-          'application/vnd.api+json'
+          'application/json'
       ],
       produces: [
-          'application/vnd.api+json'
+          'application/json'
       ]
     }
   }

@@ -20,7 +20,6 @@ class ApiController < ApplicationController
   private
 
   def force_json
-    response.headers['Content-Type'] = 'application/vnd.api+json'
     request.format = :json
   end
 
