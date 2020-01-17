@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_16_212345) do
+ActiveRecord::Schema.define(version: 2020_01_17_002153) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -927,7 +927,9 @@ ActiveRecord::Schema.define(version: 2020_01_16_212345) do
     t.datetime "deleted_at"
     t.boolean "avatar_processing"
     t.integer "support_pledge_amount", default: 0
+    t.string "guid"
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
+    t.index ["guid"], name: "index_users_on_guid"
     t.index ["parent_user_id"], name: "index_users_on_parent_user_id"
     t.index ["type"], name: "index_users_on_type"
   end

@@ -1,5 +1,6 @@
 JSONAPI::Rails.configure do |config|
   # # Set a default serializable class mapping.
+  # TODO: Move this to controller level hook if V2+ API ever gets created.
   config.jsonapi_class = Hash.new { |h, k|
     names = k.to_s.split('::')
     klass = names.pop

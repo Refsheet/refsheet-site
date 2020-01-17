@@ -23,15 +23,19 @@
 #  deleted_at            :datetime
 #  avatar_processing     :boolean
 #  support_pledge_amount :integer          default(0)
+#  guid                  :string
 #
 # Indexes
 #
 #  index_users_on_deleted_at      (deleted_at)
+#  index_users_on_guid            (guid)
 #  index_users_on_parent_user_id  (parent_user_id)
 #  index_users_on_type            (type)
 #
 
 class User < ApplicationRecord
+  include HasGuid
+
   include Rails.application.routes.url_helpers
 
   include Users::SettingsDecorator
@@ -81,6 +85,7 @@ class User < ApplicationRecord
 
   has_secure_password
   acts_as_paranoid
+  has_guid
 
   has_attached_file :avatar,
                     styles: {
