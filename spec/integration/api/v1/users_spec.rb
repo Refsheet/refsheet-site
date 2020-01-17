@@ -37,18 +37,31 @@ describe 'V1 Users API' do
       let(:user) { create :user }
 
       tags 'Users'
-      produces 'application/json'
+
       parameter name: :id,
                 in: :path,
                 type: :string,
                 description: 'User GUID'
 
       response '200', 'user found' do
-        #schema type: :object,
-        #       properties: {
-        #           id: { type: :string },
-        #       },
-        #       required: [ 'id' ]
+        schema type: :object,
+               properties: {
+                   data: {
+                       type: :object,
+                       properties: {
+                           id: { type: :string },
+                           attributes: {
+                               type: :object,
+                               properties: {
+                                  name: { type: :string },
+                                  username: { type: :string },
+                               },
+                               required: [ 'username' ]
+                           }
+                       },
+                       required: ['id']
+                   }
+               }
 
         let(:id) { user.guid }
         run_test!

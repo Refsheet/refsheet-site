@@ -216,6 +216,8 @@ Rails.application.routes.draw do
   #== API
 
   namespace :api do
+    root to: 'api#documentation'
+
     namespace :v1 do
       resources :users, only: [:show]
     end

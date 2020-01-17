@@ -93,6 +93,8 @@ gem 'rest-client'
 # == API
 
 gem 'jsonapi-rails'
+gem 'rswag-api'
+gem 'rswag-ui'
 
 # == INTEGRATIONS
 
@@ -151,7 +153,7 @@ group :development, :test do
   gem 'derailed_benchmarks'
   gem 'rubocop', require: false
   gem 'rubocop-rspec'
-  gem 'rswag'
+  gem 'rswag-specs'
 end
 
 group :nocircle do
