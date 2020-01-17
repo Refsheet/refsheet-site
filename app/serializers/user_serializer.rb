@@ -47,7 +47,7 @@ class UserSerializer < ActiveModel::Serializer
              :is_admin,
              :is_patron,
              :is_supporter,
-             :is_moderator
+             :is_moderator,
              :followed
 
   has_many :characters,

@@ -90,6 +90,10 @@ gem 'will_paginate'
 gem 'will_paginate-materialize', github: 'harrybournis/will_paginate-materialize'
 gem 'rest-client'
 
+# == API
+
+gem 'jsonapi-rails'
+
 # == INTEGRATIONS
 
 gem 'ruby-trello'
