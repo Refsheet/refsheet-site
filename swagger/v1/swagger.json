@@ -10,11 +10,11 @@
   "paths": {
     "/users/{id}": {
       "get": {
-        "summary": "Retrieves a User",
+        "summary": "Retrieve User by ID",
         "tags": [
           "Users"
         ],
-        "description": "Find a user by ID",
+        "description": "Finds a user by ID. The ID supplied should be the hexadecimal user GUID, not the username. To find a user by username,\nuse `/users/lookup/{id}`\n",
         "operationId": "find",
         "parameters": [
           {
@@ -85,14 +85,14 @@
             "examples": {
               "application/json": {
                 "data": {
-                  "id": "898a09509d77e40b",
+                  "id": "7ee7535dca01714f",
                   "type": "users",
                   "attributes": {
                     "username": "user1",
                     "avatar_url": "https://secure.gravatar.com/avatar/111d68d06e2d317b5a59c2c6c5bad808?default=identicon&secure=true",
-                    "name": "Mr. Katherin Howell",
+                    "name": "Ms. Enriqueta Durgan",
                     "profile_image_url": "https://secure.gravatar.com/avatar/111d68d06e2d317b5a59c2c6c5bad808?default=identicon&secure=true&size=200",
-                    "profile": "Quia sequi architecto. Qui quos et. Porro iusto quis.",
+                    "profile": "Unde hic delectus. Ut dolore doloribus. Aut consequuntur minus.",
                     "characters_count": 0,
                     "is_admin": false,
                     "is_patron": false,
@@ -102,6 +102,119 @@
                   "links": {
                     "self": "http://dev1.refsheet.net:5000/api/v1/users/user1",
                     "public": "http://dev1.refsheet.net:5000/users/user1"
+                  }
+                },
+                "jsonapi": {
+                  "version": "1.0"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "user not found",
+            "examples": {
+              "application/json": {
+                "error": "Couldn't find User"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/lookup/{username}": {
+      "get": {
+        "summary": "Retrieve User by Username",
+        "tags": [
+          "Users"
+        ],
+        "description": "Finds a user by Username. This operation is not case sensitive. Please consider using `/users/{id}` directly if possible.\n",
+        "operationId": "lookup",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "type": "string",
+            "description": "Username of the user to find",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "user found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "attributes": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "username": {
+                          "type": "string"
+                        },
+                        "avatar_url": {
+                          "type": "string"
+                        },
+                        "profile_image_url": {
+                          "type": "string"
+                        },
+                        "is_admin": {
+                          "type": "boolean"
+                        },
+                        "is_patron": {
+                          "type": "boolean"
+                        },
+                        "is_supporter": {
+                          "type": "boolean"
+                        },
+                        "is_moderator": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "username",
+                        "avatar_url",
+                        "profile_image_url"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ]
+                }
+              },
+              "required": [
+                "data"
+              ]
+            },
+            "examples": {
+              "application/json": {
+                "data": {
+                  "id": "4842e6e325b3c06f",
+                  "type": "users",
+                  "attributes": {
+                    "username": "user4",
+                    "avatar_url": "https://secure.gravatar.com/avatar/7e65550957227bd38fe2d7fbc6fd2f7b?default=identicon&secure=true",
+                    "name": "Ms. Duane Frami",
+                    "profile_image_url": "https://secure.gravatar.com/avatar/7e65550957227bd38fe2d7fbc6fd2f7b?default=identicon&secure=true&size=200",
+                    "profile": "Sit amet nihil. Est rerum pariatur. Nesciunt eos nisi.",
+                    "characters_count": 0,
+                    "is_admin": false,
+                    "is_patron": false,
+                    "is_supporter": false,
+                    "is_moderator": false
+                  },
+                  "links": {
+                    "self": "http://dev1.refsheet.net:5000/api/v1/users/user4",
+                    "public": "http://dev1.refsheet.net:5000/users/user4"
                   }
                 },
                 "jsonapi": {

@@ -4,4 +4,9 @@ class Api::V1::UsersController < ApiController
     user = User.find_by!(guid: params[:id])
     render jsonapi: user
   end
+
+  def lookup
+    user = User.find_by!('LOWER(users.username) = ?', params[:username]&.downcase)
+    render jsonapi: user
+  end
 end
