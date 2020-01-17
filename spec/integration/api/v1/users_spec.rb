@@ -1,5 +1,22 @@
 require 'swagger_helper'
 
+def model_schema(data)
+  schema({
+      type: :object,
+      properties: {
+          data: {
+              type: :object,
+              properties: {
+                  id: { type: :string },
+                  attributes: data
+              },
+              required: ['id']
+          }
+      },
+      required: ['data']
+  })
+end
+
 describe 'V1 Users API' do
   let(:api_user) { create(:user) }
   let(:api_key) { ApiKey.create(user: api_user) }
@@ -37,6 +54,8 @@ describe 'V1 Users API' do
       let(:user) { create :user }
 
       tags 'Users'
+      description 'Find a user by ID'
+      operationId 'find'
 
       parameter name: :id,
                 in: :path,
@@ -44,24 +63,18 @@ describe 'V1 Users API' do
                 description: 'User GUID'
 
       response '200', 'user found' do
-        schema type: :object,
-               properties: {
-                   data: {
-                       type: :object,
-                       properties: {
-                           id: { type: :string },
-                           attributes: {
-                               type: :object,
-                               properties: {
-                                  name: { type: :string },
-                                  username: { type: :string },
-                               },
-                               required: [ 'username' ]
-                           }
-                       },
-                       required: ['id']
-                   }
-               }
+        model_schema type: :object,
+                     properties: {
+                        name: { type: :string },
+                        username: { type: :string },
+                        avatar_url: { type: :string },
+                        profile_image_url: { type: :string },
+                        is_admin: { type: :boolean },
+                        is_patron: { type: :boolean },
+                        is_supporter: { type: :boolean },
+                        is_moderator: { type: :boolean }
+                     },
+                     required: %w(name username avatar_url profile_image_url)
 
         let(:id) { user.guid }
         run_test!
