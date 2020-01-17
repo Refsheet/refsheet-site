@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Refsheet.net API",
-    "description": "The Refsheet.net API allows another application to view and manipulate data on behalf of a user. To get started,\n[generate an API Key from your account settings](https://refsheet.net/account/settings/api).\n\n## Authentication\n\nThe API requires two values, `api_key_id` and `api_key_secret` to be sent either as query parameters or via headers.\n\n|Field|URL Param|Header|\n|---|---|---|\n|API Key ID|`api_key_id`|`X-ApiKeyId`|\n|API Key Secret|`api_key_secret`|`X-ApiKeySecret`|\n\n\n```\ncurl -H \"X-ApiKeyId: YOUR_KEY_ID\"      -H \"X-ApiKeySecret: YOUR_KEY_SECRET\"      https://refsheet.net/api/v1/users/abc123\n```\n",
+    "description": "The Refsheet.net API allows another application to view and manipulate data on behalf of a user. To get started,\n[generate an API Key from your account settings](https://refsheet.net/account/settings/api).\n\n## Authentication\n\nThe API requires two values, `api_key_id` and `api_key_secret` to be sent either as query parameters or via headers.\n\n|Field|URL Param|Header|\n|---|---|---|\n|API Key ID|`api_key_id`|`X-ApiKeyId`|\n|API Key Secret|`api_key_secret`|`X-ApiKeySecret`|\n\n\n```\ncurl -H \"X-ApiKeyId: YOUR_KEY_ID\" \\\n     -H \"X-ApiKeySecret: YOUR_KEY_SECRET\" \\\n     https://refsheet.net/api/v1/users/abc123\n```\n",
     "version": "v1"
   },
   "host": "http://dev1.refsheet.net",
@@ -85,14 +85,14 @@
             "examples": {
               "application/json": {
                 "data": {
-                  "id": "fcce01ed7ce9e3b5",
+                  "id": "898a09509d77e40b",
                   "type": "users",
                   "attributes": {
                     "username": "user1",
                     "avatar_url": "https://secure.gravatar.com/avatar/111d68d06e2d317b5a59c2c6c5bad808?default=identicon&secure=true",
-                    "name": "Dottie Rohan III",
+                    "name": "Mr. Katherin Howell",
                     "profile_image_url": "https://secure.gravatar.com/avatar/111d68d06e2d317b5a59c2c6c5bad808?default=identicon&secure=true&size=200",
-                    "profile": "Aut vel dicta. Qui quae ab. Laudantium possimus qui.",
+                    "profile": "Quia sequi architecto. Qui quos et. Porro iusto quis.",
                     "characters_count": 0,
                     "is_admin": false,
                     "is_patron": false,

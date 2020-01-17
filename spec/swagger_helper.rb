@@ -21,8 +21,8 @@ The API requires two values, `api_key_id` and `api_key_secret` to be sent either
 
 
 ```
-curl -H "X-ApiKeyId: YOUR_KEY_ID" \
-     -H "X-ApiKeySecret: YOUR_KEY_SECRET" \
+curl -H "X-ApiKeyId: YOUR_KEY_ID" \\
+     -H "X-ApiKeySecret: YOUR_KEY_SECRET" \\
      https://refsheet.net/api/v1/users/abc123
 ```
   MARKDOWN
