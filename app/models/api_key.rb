@@ -44,7 +44,7 @@ class ApiKey < ApplicationRecord
   # TODO: Refactor after Rails 6 to assign self.secret=
   def generate_secret
     return if secret_digest.present?
-    @secret = SecureRandom.base64(32)
+    @secret = SecureRandom.hex(32)
     self.secret_digest = BCrypt::Password.create(@secret)
   end
 end
