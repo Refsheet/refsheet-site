@@ -16,6 +16,10 @@ class Api::V1::SerializableUser < JSONAPI::Serializable::Resource
              :is_moderator
 
   link :self do
+    @url_helpers.api_v1_user_url(@object.username)
+  end
+
+  link :public do
     @url_helpers.user_url(@object.username)
   end
 end

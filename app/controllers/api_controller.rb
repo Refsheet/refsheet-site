@@ -13,7 +13,7 @@ class ApiController < ApplicationController
   def not_authorized!(message = nil)
     render json: {
         error: message || "You are not authorized to access this resource."
-    }, status: :not_found
+    }, status: :unauthorized
   end
 
   private
