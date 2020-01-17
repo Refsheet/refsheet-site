@@ -1,9 +1,11 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "API V1",
+    "title": "Refsheet.net API",
+    "description": "The Refsheet.net API allows another application to view and manipulate data on behalf of a user. To get started,\n[generate an API Key from your account settings](https://refsheet.net/account/settings/api).\n",
     "version": "v1"
   },
+  "host": "http://dev1.refsheet.net",
   "basePath": "/api/v1",
   "paths": {
     "/users/{id}": {
@@ -11,9 +13,6 @@
         "summary": "Retrieves a User",
         "tags": [
           "Users"
-        ],
-        "produces": [
-          "application/json"
         ],
         "parameters": [
           {
@@ -27,17 +26,47 @@
         "responses": {
           "200": {
             "description": "user found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "attributes": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "username": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "username"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ]
+                }
+              }
+            },
             "examples": {
               "application/json": {
                 "data": {
-                  "id": "7a97d6d170046d24",
+                  "id": "2a78263ed9730bb8",
                   "type": "users",
                   "attributes": {
                     "username": "user1",
                     "avatar_url": "https://secure.gravatar.com/avatar/111d68d06e2d317b5a59c2c6c5bad808?default=identicon&secure=true",
-                    "name": "Milan Jakubowski",
+                    "name": "Nicky Corkery II",
                     "profile_image_url": "https://secure.gravatar.com/avatar/111d68d06e2d317b5a59c2c6c5bad808?default=identicon&secure=true&size=200",
-                    "profile": "Iste consequatur nihil. Sint qui et. Qui minus sed.",
+                    "profile": "Assumenda debitis impedit. Fuga repellat quo. Nesciunt culpa ipsam.",
                     "characters_count": 0,
                     "is_admin": false,
                     "is_patron": false,
@@ -88,5 +117,15 @@
 
       ]
     }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json",
+    "application/vnd.api+json"
+  ],
+  "produces": [
+    "application/vnd.api+json"
   ]
 }

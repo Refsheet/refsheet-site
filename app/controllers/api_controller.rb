@@ -1,6 +1,7 @@
 class ApiController < ApplicationController
   before_action :force_json
   before_action :authenticate_from_token
+  after_action :skip_cookies
 
   # Base error statuses for rendering:
 
@@ -19,6 +20,7 @@ class ApiController < ApplicationController
   private
 
   def force_json
+    response.headers['Content-Type'] = 'application/vnd.api+json'
     request.format = :json
   end
 
@@ -31,10 +33,15 @@ class ApiController < ApplicationController
 
       if api_key && api_key.authenticate_secret(secret)
         @current_user = api_key.user
+        response.headers['X-ApiKeyName'] = api_key.name
         return
       end
     end
 
     not_authorized!
+  end
+
+  def skip_cookies
+    request.session_options[:skip] = true
   end
 end

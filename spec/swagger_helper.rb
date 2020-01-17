@@ -6,6 +6,11 @@ RSpec.configure do |config|
   # to ensure that it's configured to serve Swagger from the same folder
   config.swagger_root = Rails.root.join('swagger').to_s
 
+  description = <<-MARKDOWN
+The Refsheet.net API allows another application to view and manipulate data on behalf of a user. To get started,
+[generate an API Key from your account settings](https://refsheet.net/account/settings/api).
+  MARKDOWN
+
   # Define one or more Swagger documents and provide global metadata for each one
   # When you run the 'rswag:specs:swaggerize' rake task, the complete Swagger will
   # be generated at the provided relative path under swagger_root
@@ -16,9 +21,11 @@ RSpec.configure do |config|
     'v1/swagger.json' => {
       swagger: '2.0',
       info: {
-        title: 'API V1',
+        title: 'Refsheet.net API',
+        description: description,
         version: 'v1'
       },
+      host: (Rails.env.production? ? 'https://refsheet.net' : 'http://dev1.refsheet.net'),
       basePath: '/api/v1',
       paths: {},
       securityDefinitions: {
@@ -36,6 +43,16 @@ RSpec.configure do |config|
       security: [
           apiKeyId: [],
           apiKeySecret: []
+      ],
+      schemes: [
+          'https'
+      ],
+      consumes: [
+          'application/json',
+          'application/vnd.api+json'
+      ],
+      produces: [
+          'application/vnd.api+json'
       ]
     }
   }
