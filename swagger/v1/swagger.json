@@ -1,0 +1,92 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API V1",
+    "version": "v1"
+  },
+  "basePath": "/api/v1",
+  "paths": {
+    "/users/{id}": {
+      "get": {
+        "summary": "Retrieves a User",
+        "tags": [
+          "Users"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "description": "User GUID",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "user found",
+            "examples": {
+              "application/json": {
+                "data": {
+                  "id": "7a97d6d170046d24",
+                  "type": "users",
+                  "attributes": {
+                    "username": "user1",
+                    "avatar_url": "https://secure.gravatar.com/avatar/111d68d06e2d317b5a59c2c6c5bad808?default=identicon&secure=true",
+                    "name": "Milan Jakubowski",
+                    "profile_image_url": "https://secure.gravatar.com/avatar/111d68d06e2d317b5a59c2c6c5bad808?default=identicon&secure=true&size=200",
+                    "profile": "Iste consequatur nihil. Sint qui et. Qui minus sed.",
+                    "characters_count": 0,
+                    "is_admin": false,
+                    "is_patron": false,
+                    "is_supporter": false,
+                    "is_moderator": false
+                  },
+                  "links": {
+                    "self": "http://dev1.refsheet.net:5000/api/v1/users/user1",
+                    "public": "http://dev1.refsheet.net:5000/users/user1"
+                  }
+                },
+                "jsonapi": {
+                  "version": "1.0"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "user not found",
+            "examples": {
+              "application/json": {
+                "error": "Couldn't find User"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "apiKeyId": {
+      "type": "apiKey",
+      "name": "X-ApiKeyId",
+      "in": "header"
+    },
+    "apiKeySecret": {
+      "type": "apiKey",
+      "name": "X-ApiKeySecret",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "apiKeyId": [
+
+      ],
+      "apiKeySecret": [
+
+      ]
+    }
+  ]
+}

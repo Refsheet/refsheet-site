@@ -151,6 +151,7 @@ group :development, :test do
   gem 'derailed_benchmarks'
   gem 'rubocop', require: false
   gem 'rubocop-rspec'
+  gem 'rswag'
 end
 
 group :nocircle do
@@ -165,5 +166,4 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'annotate'
   gem 'graphiql-rails'
-  gem 'rswag'
 end
