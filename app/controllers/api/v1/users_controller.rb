@@ -5,28 +5,19 @@ class Api::V1::UsersController < ApiController
 
   def show
     authorize @user
-
-    render json: @user, serializer: Api::V1::UserSerializer
+    respond_with @user
   end
 
   def lookup
     @user = User.find_by!('LOWER(users.username) = ?', params[:username]&.downcase)
     authorize @user, :show?
-
-    render json: Panko::Response.new(
-        success: true,
-        user: Api::V1::UserSerializer.new.serialize(@user)
-    )
+    respond_with @user
   end
 
   def update
     authorize @user
-
-    if @user.update_attributes(user_params)
-      render jsonapi: @user
-    else
-      render jsonapi_errors: @user
-    end
+    @user.update_attributes(user_params)
+    respond_with @user
   end
 
   private
@@ -36,8 +27,7 @@ class Api::V1::UsersController < ApiController
   end
 
   def user_params
-    params.require(:data)
-        .require(:attributes)
+    params.require(:user)
         .permit(:name, :username, :profile, :email)
   end
 end

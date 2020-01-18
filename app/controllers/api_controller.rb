@@ -1,6 +1,8 @@
 class ApiController < ApplicationController
   include Pundit
 
+  serialization_scope :current_user
+
   before_action :force_json
   before_action :authenticate_from_token
   after_action :skip_cookies

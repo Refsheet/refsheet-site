@@ -1,6 +1,7 @@
 # See: http://jsonapi-rb.org/guides/serialization/defining.html
-class Api::V1::UserSerializer < Panko::Serializer
-  aliases guid: :id
+class Api::V1::UserSerializer < Api::ApiSerializer
+  type :user
+  id
 
   attributes :username,
              :avatar_url,

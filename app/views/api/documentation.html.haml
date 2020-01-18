@@ -6,6 +6,20 @@
 
 :sass
   #redoc-root
+    .api-content
+      div[id^=operation]
+        &:after
+          border-bottom-color: rgba(255,255,255,0.1)
+
+        & > div:first-child > div:nth-child(2) > div:first-child > div:nth-child(2)
+          // This targets the endpoint dropdown:
+          background-color: rgb(33,33,33) !important
+          border: 1px solid #4c4c4c !important
+
+          & > div > div > div
+            background-color: rgba(0,0,0,0.05) !important
+            border-color: rgba(255,255,255,0.1) !important
+
     h2
       color: #E6E6E6 !important
 
