@@ -59,6 +59,7 @@ module HasGuid
   end
 
   def generate_guid
+    return unless self.respond_to? guid_column_name
     return true unless self.send(guid_column_name).blank?
 
     begin
