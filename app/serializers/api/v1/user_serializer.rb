@@ -3,12 +3,11 @@ class Api::V1::UserSerializer < Api::ApiSerializer
   type :user
   id
 
-  attributes :username,
-             :avatar_url,
-             :name,
-             :profile_image_url,
+  attributes :name,
+             :username,
              :profile,
-             :characters_count,
+             :avatar_url,
+             :profile_image_url,
              :is_admin,
              :is_patron,
              :is_supporter,

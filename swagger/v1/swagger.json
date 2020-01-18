@@ -29,53 +29,17 @@
           "200": {
             "description": "user found",
             "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "username": {
-                  "type": "string"
-                },
-                "profile": {
-                  "type": "string"
-                },
-                "avatar_url": {
-                  "type": "string"
-                },
-                "profile_image_url": {
-                  "type": "string"
-                },
-                "is_admin": {
-                  "type": "boolean"
-                },
-                "is_patron": {
-                  "type": "boolean"
-                },
-                "is_supporter": {
-                  "type": "boolean"
-                },
-                "is_moderator": {
-                  "type": "boolean"
-                }
-              },
-              "required": [
-                "name",
-                "username",
-                "avatar_url",
-                "profile_image_url"
-              ]
+              "$ref": "#/definitions/user"
             },
             "examples": {
               "application/json": {
                 "_type": "user",
-                "id": "2bd8e69eae66cf7f",
+                "id": "6bcb62cec5bf8232",
+                "name": "Emmett Cronin",
                 "username": "user1",
+                "profile": "Eligendi placeat iusto. Maiores cum provident. Pariatur et rem.",
                 "avatar_url": "https://secure.gravatar.com/avatar/111d68d06e2d317b5a59c2c6c5bad808?default=identicon&secure=true",
-                "name": "Lesia Kulas",
                 "profile_image_url": "https://secure.gravatar.com/avatar/111d68d06e2d317b5a59c2c6c5bad808?default=identicon&secure=true&size=200",
-                "profile": "Atque maiores possimus. Laudantium soluta dolor. Labore voluptatum libero.",
-                "characters_count": 0,
                 "is_admin": false,
                 "is_patron": false,
                 "is_supporter": false,
@@ -112,26 +76,7 @@
             "name": "user",
             "in": "body",
             "schema": {
-              "type": "object",
-              "properties": {
-                "user": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "username": {
-                      "type": "string"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "profile": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
+              "$ref": "#/definitions/userPayload"
             }
           }
         ],
@@ -187,53 +132,17 @@
           "200": {
             "description": "user found",
             "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "username": {
-                  "type": "string"
-                },
-                "profile": {
-                  "type": "string"
-                },
-                "avatar_url": {
-                  "type": "string"
-                },
-                "profile_image_url": {
-                  "type": "string"
-                },
-                "is_admin": {
-                  "type": "boolean"
-                },
-                "is_patron": {
-                  "type": "boolean"
-                },
-                "is_supporter": {
-                  "type": "boolean"
-                },
-                "is_moderator": {
-                  "type": "boolean"
-                }
-              },
-              "required": [
-                "name",
-                "username",
-                "avatar_url",
-                "profile_image_url"
-              ]
+              "$ref": "#/definitions/user"
             },
             "examples": {
               "application/json": {
                 "_type": "user",
-                "id": "1301e3fa95688eb9",
+                "id": "9834ba1312fd0014",
+                "name": "Damon Wolf",
                 "username": "user9",
+                "profile": "Provident veritatis mollitia. Perspiciatis voluptas iure. Doloremque molestiae voluptate.",
                 "avatar_url": "https://secure.gravatar.com/avatar/f784fdb21d26dd2c64f5135f35ec401f?default=identicon&secure=true",
-                "name": "Jesus Buckridge",
                 "profile_image_url": "https://secure.gravatar.com/avatar/f784fdb21d26dd2c64f5135f35ec401f?default=identicon&secure=true&size=200",
-                "profile": "Dolorem aperiam voluptatem. Sunt enim blanditiis. Fugit aliquid tenetur.",
-                "characters_count": 0,
                 "is_admin": false,
                 "is_patron": false,
                 "is_supporter": false,
@@ -247,6 +156,68 @@
               "application/json": {
                 "error": "Couldn't find User"
               }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "user": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "profile": {
+          "type": "string"
+        },
+        "avatar_url": {
+          "type": "string"
+        },
+        "profile_image_url": {
+          "type": "string"
+        },
+        "is_admin": {
+          "type": "boolean"
+        },
+        "is_patron": {
+          "type": "boolean"
+        },
+        "is_supporter": {
+          "type": "boolean"
+        },
+        "is_moderator": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "userPayload": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "username": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "profile": {
+              "type": "string"
             }
           }
         }

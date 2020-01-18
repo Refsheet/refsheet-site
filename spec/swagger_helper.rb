@@ -78,6 +78,7 @@ as they are created:
       host: (Rails.env.production? ? 'https://refsheet.net' : 'http://dev1.refsheet.net'),
       basePath: '/api/v1',
       paths: {},
+      definitions: {},
       securityDefinitions: {
           apiKeyId: {
               type: :apiKey,
@@ -121,4 +122,20 @@ as they are created:
       example.metadata[:response][:examples] = { response.content_type => JSON.parse(response.body, symbolize_names: true) }
     end
   end
+
+  module SwaggerHelpers
+    def define_model(name, swagger_file='v1/swagger.json', schema)
+      RSpec.configure do |config|
+        swagger_doc = config.swagger_docs[swagger_file]
+        unless swagger_doc
+          raise "Couldn't define model on #{swagger_file}: Document not found."
+        end
+
+        swagger_doc[:definitions] ||= {}
+        swagger_doc[:definitions][name] = schema
+      end
+    end
+  end
+
+  config.extend SwaggerHelpers
 end
