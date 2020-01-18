@@ -1,7 +1,18 @@
 class ApiController < ApplicationController
+  include Pundit
+
   before_action :force_json
   before_action :authenticate_from_token
   after_action :skip_cookies
+
+  # Development helpers to ensure Pundit was called:
+  after_action :verify_authorized, except: :index
+  after_action :verify_policy_scoped, only: :index
+
+  # Default rescues:
+
+  rescue_from Pundit::NotAuthorizedError, with: :not_authorized!
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found!
 
   # Base error statuses for rendering:
 
@@ -21,6 +32,14 @@ class ApiController < ApplicationController
 
   def force_json
     request.format = :json
+  end
+
+  def current_user
+    @current_user
+  end
+
+  def pundit_user
+    @current_user
   end
 
   def authenticate_from_token
