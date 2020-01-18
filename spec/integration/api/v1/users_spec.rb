@@ -88,6 +88,60 @@ MARKDOWN
         run_test!
       end
     end
+
+    patch 'Update your User' do
+      tags 'Users'
+      description <<-MARKDOWN
+Updates a user account. You may only update your own user account, unless the current API user has admin scope.
+      MARKDOWN
+      operationId 'update'
+
+      parameter name: :id,
+                in: :path,
+                type: :string,
+                description: 'User GUID'
+
+      parameter name: :name,
+                in: :body,
+                type: :string,
+                description: 'Display name'
+
+      response '200', 'user updated' do
+        model_schema type: :object,
+                     properties: {
+                         name: { type: :string },
+                         username: { type: :string },
+                         avatar_url: { type: :string },
+                         profile_image_url: { type: :string },
+                         is_admin: { type: :boolean },
+                         is_patron: { type: :boolean },
+                         is_supporter: { type: :boolean },
+                         is_moderator: { type: :boolean }
+                     },
+                     required: %w(name username avatar_url profile_image_url)
+
+        let(:user) { api_user }
+        let(:name) { "John Doe III" }
+        let(:id) { user.guid }
+
+        run_test! do |response|
+          puts response.inspect
+        end
+      end
+
+      response '404', 'user not found' do
+        let(:id) { 'invalid' }
+        let(:name) { "I am bad at typing" }
+        run_test!
+      end
+
+      response '401', 'not authorized' do
+        let(:user) { create :user }
+        let(:name) { "I have bad intentions" }
+        let(:id) { user.guid }
+        run_test!
+      end
+    end
   end
 
   path '/users/lookup/{username}', swagger_doc: 'v1/swagger.json' do

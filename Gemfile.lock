@@ -425,6 +425,8 @@ GEM
     puma_worker_killer (0.1.0)
       get_process_mem (~> 0.2)
       puma (>= 2.7, < 4)
+    pundit (2.1.0)
+      activesupport (>= 3.0.0)
     rack (2.1.1)
     rack-cors (1.0.2)
     rack-protection (2.0.5)
@@ -784,6 +786,7 @@ DEPENDENCIES
   premailer-rails
   puma (~> 3.12)
   puma_worker_killer
+  pundit
   rack-cors
   rack_session_access
   rails (~> 5.2.3)
