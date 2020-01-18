@@ -93,7 +93,6 @@ gem 'rest-client'
 
 # == API
 
-gem 'panko_serializer'
 gem 'rswag-api'
 gem 'rswag-ui'
 

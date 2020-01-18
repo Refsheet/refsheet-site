@@ -31,82 +31,55 @@
             "schema": {
               "type": "object",
               "properties": {
-                "data": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "attributes": {
-                      "type": "object",
-                      "properties": {
-                        "name": {
-                          "type": "string"
-                        },
-                        "username": {
-                          "type": "string"
-                        },
-                        "avatar_url": {
-                          "type": "string"
-                        },
-                        "profile_image_url": {
-                          "type": "string"
-                        },
-                        "is_admin": {
-                          "type": "boolean"
-                        },
-                        "is_patron": {
-                          "type": "boolean"
-                        },
-                        "is_supporter": {
-                          "type": "boolean"
-                        },
-                        "is_moderator": {
-                          "type": "boolean"
-                        }
-                      },
-                      "required": [
-                        "name",
-                        "username",
-                        "avatar_url",
-                        "profile_image_url"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "id"
-                  ]
+                "name": {
+                  "type": "string"
+                },
+                "username": {
+                  "type": "string"
+                },
+                "profile": {
+                  "type": "string"
+                },
+                "avatar_url": {
+                  "type": "string"
+                },
+                "profile_image_url": {
+                  "type": "string"
+                },
+                "is_admin": {
+                  "type": "boolean"
+                },
+                "is_patron": {
+                  "type": "boolean"
+                },
+                "is_supporter": {
+                  "type": "boolean"
+                },
+                "is_moderator": {
+                  "type": "boolean"
                 }
               },
               "required": [
-                "data"
+                "name",
+                "username",
+                "avatar_url",
+                "profile_image_url"
               ]
             },
             "examples": {
               "application/json": {
-                "data": {
-                  "id": "7ee7535dca01714f",
-                  "type": "users",
-                  "attributes": {
-                    "username": "user1",
-                    "avatar_url": "https://secure.gravatar.com/avatar/111d68d06e2d317b5a59c2c6c5bad808?default=identicon&secure=true",
-                    "name": "Ms. Enriqueta Durgan",
-                    "profile_image_url": "https://secure.gravatar.com/avatar/111d68d06e2d317b5a59c2c6c5bad808?default=identicon&secure=true&size=200",
-                    "profile": "Unde hic delectus. Ut dolore doloribus. Aut consequuntur minus.",
-                    "characters_count": 0,
-                    "is_admin": false,
-                    "is_patron": false,
-                    "is_supporter": false,
-                    "is_moderator": false
-                  },
-                  "links": {
-                    "self": "http://dev1.refsheet.net:5000/api/v1/users/user1",
-                    "public": "http://dev1.refsheet.net:5000/users/user1"
-                  }
-                },
-                "jsonapi": {
-                  "version": "1.0"
-                }
+                "_type": "user",
+                "id": "7c86cf01c8c3e659",
+                "username": "user1",
+                "avatar_url": "https://secure.gravatar.com/avatar/111d68d06e2d317b5a59c2c6c5bad808?default=identicon&secure=true",
+                "name": "Mrs. Lauren Bins",
+                "profile_image_url": "https://secure.gravatar.com/avatar/111d68d06e2d317b5a59c2c6c5bad808?default=identicon&secure=true&size=200",
+                "profile": "Soluta atque ad. Adipisci occaecati non. Id quaerat laboriosam.",
+                "characters_count": 0,
+                "is_admin": false,
+                "is_patron": false,
+                "is_supporter": false,
+                "is_moderator": false
               }
             }
           },
@@ -115,6 +88,78 @@
             "examples": {
               "application/json": {
                 "error": "Couldn't find User"
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update your User",
+        "tags": [
+          "Users"
+        ],
+        "description": "Updates a user account. You may only update your own user account, unless the current API user has admin scope.\n\nOn successful update, this will return `HTTP 204: No Content`.\n",
+        "operationId": "update",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "description": "User GUID",
+            "required": true
+          },
+          {
+            "name": "user",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "username": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "profile": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "user updated"
+          },
+          "404": {
+            "description": "user not found",
+            "examples": {
+              "application/json": {
+                "error": "Couldn't find User"
+              }
+            }
+          },
+          "401": {
+            "description": "not authorized",
+            "examples": {
+              "application/json": {
+                "error": "not allowed to update? this User"
+              }
+            }
+          },
+          "400": {
+            "description": "bad request body",
+            "examples": {
+              "application/json": {
+                "error": "param is missing or the value is empty: user"
               }
             }
           }
@@ -144,82 +189,55 @@
             "schema": {
               "type": "object",
               "properties": {
-                "data": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "attributes": {
-                      "type": "object",
-                      "properties": {
-                        "name": {
-                          "type": "string"
-                        },
-                        "username": {
-                          "type": "string"
-                        },
-                        "avatar_url": {
-                          "type": "string"
-                        },
-                        "profile_image_url": {
-                          "type": "string"
-                        },
-                        "is_admin": {
-                          "type": "boolean"
-                        },
-                        "is_patron": {
-                          "type": "boolean"
-                        },
-                        "is_supporter": {
-                          "type": "boolean"
-                        },
-                        "is_moderator": {
-                          "type": "boolean"
-                        }
-                      },
-                      "required": [
-                        "name",
-                        "username",
-                        "avatar_url",
-                        "profile_image_url"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "id"
-                  ]
+                "name": {
+                  "type": "string"
+                },
+                "username": {
+                  "type": "string"
+                },
+                "profile": {
+                  "type": "string"
+                },
+                "avatar_url": {
+                  "type": "string"
+                },
+                "profile_image_url": {
+                  "type": "string"
+                },
+                "is_admin": {
+                  "type": "boolean"
+                },
+                "is_patron": {
+                  "type": "boolean"
+                },
+                "is_supporter": {
+                  "type": "boolean"
+                },
+                "is_moderator": {
+                  "type": "boolean"
                 }
               },
               "required": [
-                "data"
+                "name",
+                "username",
+                "avatar_url",
+                "profile_image_url"
               ]
             },
             "examples": {
               "application/json": {
-                "data": {
-                  "id": "4842e6e325b3c06f",
-                  "type": "users",
-                  "attributes": {
-                    "username": "user4",
-                    "avatar_url": "https://secure.gravatar.com/avatar/7e65550957227bd38fe2d7fbc6fd2f7b?default=identicon&secure=true",
-                    "name": "Ms. Duane Frami",
-                    "profile_image_url": "https://secure.gravatar.com/avatar/7e65550957227bd38fe2d7fbc6fd2f7b?default=identicon&secure=true&size=200",
-                    "profile": "Sit amet nihil. Est rerum pariatur. Nesciunt eos nisi.",
-                    "characters_count": 0,
-                    "is_admin": false,
-                    "is_patron": false,
-                    "is_supporter": false,
-                    "is_moderator": false
-                  },
-                  "links": {
-                    "self": "http://dev1.refsheet.net:5000/api/v1/users/user4",
-                    "public": "http://dev1.refsheet.net:5000/users/user4"
-                  }
-                },
-                "jsonapi": {
-                  "version": "1.0"
-                }
+                "_type": "user",
+                "id": "2da40f6c993105f3",
+                "username": "user9",
+                "avatar_url": "https://secure.gravatar.com/avatar/f784fdb21d26dd2c64f5135f35ec401f?default=identicon&secure=true",
+                "name": "Mr. Brock Homenick",
+                "profile_image_url": "https://secure.gravatar.com/avatar/f784fdb21d26dd2c64f5135f35ec401f?default=identicon&secure=true&size=200",
+                "profile": "Repudiandae veritatis cupiditate. Sed omnis tenetur. Possimus omnis unde.",
+                "characters_count": 0,
+                "is_admin": false,
+                "is_patron": false,
+                "is_supporter": false,
+                "is_moderator": false
               }
             }
           },

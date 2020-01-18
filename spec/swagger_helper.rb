@@ -83,8 +83,8 @@ curl -H "X-ApiKeyId: YOUR_KEY_ID" \\
   config.swagger_format = :json
 
   config.after(:each, :swagger) do |example|
-    if response
-      example.metadata[:response][:examples] = { 'application/json' => JSON.parse(response.body, symbolize_names: true) }
+    if response&.body.present?
+      example.metadata[:response][:examples] = { response.content_type => JSON.parse(response.body, symbolize_names: true) }
     end
   end
 end
