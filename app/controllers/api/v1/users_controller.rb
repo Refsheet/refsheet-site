@@ -23,7 +23,11 @@ class Api::V1::UsersController < ApiController
   private
 
   def get_user
-    @user = User.find_by!(guid: params[:id])
+    if params[:id] === 'me'
+      @user = current_user
+    else
+      @user = User.find_by!(guid: params[:id])
+    end
   end
 
   def user_params

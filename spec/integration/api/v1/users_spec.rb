@@ -14,6 +14,9 @@ describe 'V1 Users API' do
       description <<-MARKDOWN
 Finds a user by ID. The ID supplied should be the hexadecimal user GUID, not the username. To find a user by username,
 use `/users/lookup/{id}`
+
+**Get Yourself:** There is a special `me` ID that can be used to return the user associated with the supplied API Key:
+`/users/me`. This might be useful for updating your user account, and works anywhere a User ID is expected.
 MARKDOWN
       operationId 'find'
 
