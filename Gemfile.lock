@@ -382,10 +382,7 @@ GEM
     nulldb (0.3.7.pre.alpha.1)
       activerecord (>= 2.0.0)
     oauth (0.5.4)
-    oj (3.10.1)
     os (1.0.1)
-    panko_serializer (0.7.2)
-      oj (~> 3.10.0)
     paper_trail (10.3.1)
       activerecord (>= 4.2)
       request_store (~> 1.1)
@@ -768,7 +765,6 @@ DEPENDENCIES
   money-rails
   non-stupid-digest-assets
   nulldb
-  panko_serializer
   paper_trail
   paperclip
   paperclip-meta
