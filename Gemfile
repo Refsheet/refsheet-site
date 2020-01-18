@@ -90,6 +90,12 @@ gem 'will_paginate'
 gem 'will_paginate-materialize', github: 'harrybournis/will_paginate-materialize'
 gem 'rest-client'
 
+# == API
+
+gem 'jsonapi-rails'
+gem 'rswag-api'
+gem 'rswag-ui'
+
 # == INTEGRATIONS
 
 gem 'ruby-trello'
@@ -147,6 +153,7 @@ group :development, :test do
   gem 'derailed_benchmarks'
   gem 'rubocop', require: false
   gem 'rubocop-rspec'
+  gem 'rswag-specs'
 end
 
 group :nocircle do

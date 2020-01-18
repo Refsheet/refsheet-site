@@ -42,3 +42,9 @@ module Refsheet
     config.active_record.default_timezone = :utc
   end
 end
+
+if defined? RSpec
+  RSpec.configure do |config|
+    config.swagger_dry_run = false
+  end
+end
