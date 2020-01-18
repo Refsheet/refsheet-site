@@ -6,6 +6,36 @@ describe 'V1 Users API' do
   let(:'X-ApiKeyId') { api_key.guid }
   let(:'X-ApiKeySecret') { api_key.secret }
 
+  define_model :user,
+               type: :object,
+               properties: {
+                   id: { type: :string },
+                   name: { type: :string },
+                   username: { type: :string },
+                   profile: { type: :string },
+                   avatar_url: { type: :string },
+                   profile_image_url: { type: :string },
+                   is_admin: { type: :boolean },
+                   is_patron: { type: :boolean },
+                   is_supporter: { type: :boolean },
+                   is_moderator: { type: :boolean }
+               },
+               required: %w(id)
+
+  define_model :userPayload,
+               type: :object,
+               properties: {
+                   user: {
+                       type: :object,
+                       properties: {
+                           name: { type: :string },
+                           username: { type: :string },
+                           email: { type: :string },
+                           profile: { type: :string },
+                       }
+                   }
+               }
+
   path '/users/{id}', swagger_doc: 'v1/swagger.json' do
     get 'Retrieve User by ID' do
       let(:user) { create :user }
@@ -26,19 +56,7 @@ MARKDOWN
                 description: 'User GUID'
 
       response '200', 'user found' do
-        schema type: :object,
-               properties: {
-                  name: { type: :string },
-                  username: { type: :string },
-                  profile: { type: :string },
-                  avatar_url: { type: :string },
-                  profile_image_url: { type: :string },
-                  is_admin: { type: :boolean },
-                  is_patron: { type: :boolean },
-                  is_supporter: { type: :boolean },
-                  is_moderator: { type: :boolean }
-               },
-               required: %w(name username avatar_url profile_image_url)
+        schema '$ref' => '#/definitions/user'
 
         let(:id) { user.guid }
         run_test!
@@ -66,18 +84,7 @@ On successful update, this will return `HTTP 204: No Content`.
 
       parameter name: :user, in: :body,
                 schema: {
-                    type: :object,
-                    properties: {
-                        user: {
-                            type: :object,
-                            properties: {
-                                name: { type: :string },
-                                username: { type: :string },
-                                email: { type: :string },
-                                profile: { type: :string },
-                            }
-                        }
-                    }
+                    '$ref' => '#/definitions/userPayload'
                 }
 
 
@@ -128,19 +135,7 @@ Finds a user by Username. This operation is not case sensitive. Please consider 
                 description: 'Username of the user to find'
 
       response '200', 'user found' do
-        schema type: :object,
-               properties: {
-                   name: { type: :string },
-                   username: { type: :string },
-                   profile: { type: :string },
-                   avatar_url: { type: :string },
-                   profile_image_url: { type: :string },
-                   is_admin: { type: :boolean },
-                   is_patron: { type: :boolean },
-                   is_supporter: { type: :boolean },
-                   is_moderator: { type: :boolean }
-               },
-               required: %w(name username avatar_url profile_image_url)
+        schema '$ref' => '#/definitions/user'
 
         let(:username) { user.username }
         run_test!

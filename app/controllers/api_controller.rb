@@ -1,7 +1,14 @@
 class ApiController < ApplicationController
   include Pundit
 
+  # Provide current user to Serializers
   serialization_scope :current_user
+
+  # Skip authenticity tokens since we use API tokens
+  skip_before_action :verify_authenticity_token
+
+  # We don't need visitor metrics on the API
+  skip_before_action :track_ahoy_visit
 
   before_action :force_json
   before_action :authenticate_from_token
@@ -12,9 +19,10 @@ class ApiController < ApplicationController
   after_action :verify_policy_scoped, only: :index
 
   # Default rescues:
-
+  rescue_from Exception, with: :internal_server_error!
   rescue_from Pundit::NotAuthorizedError, with: :not_authorized!
   rescue_from ActiveRecord::RecordNotFound, with: :not_found!
+  rescue_from ActionController::ParameterMissing, with: :bad_request!
 
   # Base error statuses for rendering:
 
@@ -28,6 +36,19 @@ class ApiController < ApplicationController
     render json: {
         error: message || "You are not authorized to access this resource."
     }, status: :unauthorized
+  end
+
+  def bad_request!(message = nil)
+    render json: {
+        error: message || "You are not authorized to access this resource."
+    }, status: :bad_request
+  end
+
+  def internal_server_error!(message = nil)
+    Rails.logger.error(message.inspect)
+    render json: {
+        error: message || "Something went very wrong."
+    }, status: :internal_server_error
   end
 
   private
