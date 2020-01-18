@@ -1,8 +1,6 @@
 # See: http://jsonapi-rb.org/guides/serialization/defining.html
-class Api::V1::SerializableUser < JSONAPI::Serializable::Resource
-  type 'users'
-
-  id { @object.guid }
+class Api::V1::UserSerializer < Panko::Serializer
+  aliases guid: :id
 
   attributes :username,
              :avatar_url,
@@ -14,12 +12,4 @@ class Api::V1::SerializableUser < JSONAPI::Serializable::Resource
              :is_patron,
              :is_supporter,
              :is_moderator
-
-  link :self do
-    @url_helpers.api_v1_user_url(@object.username)
-  end
-
-  link :public do
-    @url_helpers.user_url(@object.username)
-  end
 end
