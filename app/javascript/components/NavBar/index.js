@@ -6,6 +6,7 @@ import SiteNav from './SiteNav'
 import UserNav from './UserNav'
 import SessionNav from './SessionNav'
 import { connect } from 'react-redux'
+import c from 'classnames'
 
 import { setCurrentUser, setNsfwMode } from 'actions'
 import SessionService from '../../services/SessionService'
@@ -22,6 +23,8 @@ class NavBar extends Component {
       noticeClosed: false,
       menuOpen: false,
     }
+
+    this.logoSrc = '/assets/logos/RefsheetLogo_64.png'
 
     this.handleLoginClick = this.handleLoginClick.bind(this)
     this.handleLogoutClick = this.handleLogoutClick.bind(this)
@@ -89,8 +92,10 @@ class NavBar extends Component {
       session: { nsfwOk, currentUser, identity },
     } = this.props
 
+    const { menuOpen } = this.state
+
     return (
-      <div className="NavBar navbar-fixed user-bar">
+      <div className={c('NavBar navbar-fixed user-bar', { menuOpen })}>
         <div className="navbar-shroud" onClick={this.handleMenuClose} />
 
         {!this.state.noticeClosed && this.props.notice && (
@@ -128,7 +133,7 @@ class NavBar extends Component {
 
             <Link to="/" className="logo left">
               <img
-                src="/assets/logos/RefsheetLogo_White_64.png"
+                src={this.logoSrc}
                 alt="Refsheet.net"
                 width="32"
                 height="32"

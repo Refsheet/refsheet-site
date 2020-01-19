@@ -1,0 +1,269 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Refsheet.net API",
+    "description": "The Refsheet.net API allows another application to view and manipulate data on behalf of a user. To get started,\n[generate an API Key from your account settings](https://refsheet.net/account/settings/api).\n\n## Authentication\n\nThe API requires two values, `api_key_id` and `api_key_secret` to be sent either as query parameters or via headers.\n\n|Field|URL Param|Header|\n|---|---|---|\n|API Key ID|`api_key_id`|`X-ApiKeyId`|\n|API Key Secret|`api_key_secret`|`X-ApiKeySecret`|\n\n\n```\ncurl -H \"X-ApiKeyId: YOUR_KEY_ID\" \\\n     -H \"X-ApiKeySecret: YOUR_KEY_SECRET\" \\\n     https://refsheet.net/api/v1/users/abc123\n```\n",
+    "version": "v1"
+  },
+  "host": "http://dev1.refsheet.net",
+  "basePath": "/api/v1",
+  "paths": {
+    "/users/{id}": {
+      "get": {
+        "summary": "Retrieve User by ID",
+        "tags": [
+          "Users"
+        ],
+        "description": "Finds a user by ID. The ID supplied should be the hexadecimal user GUID, not the username. To find a user by username,\nuse `/users/lookup/{id}`\n",
+        "operationId": "find",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "description": "User GUID",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "user found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "attributes": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "username": {
+                          "type": "string"
+                        },
+                        "avatar_url": {
+                          "type": "string"
+                        },
+                        "profile_image_url": {
+                          "type": "string"
+                        },
+                        "is_admin": {
+                          "type": "boolean"
+                        },
+                        "is_patron": {
+                          "type": "boolean"
+                        },
+                        "is_supporter": {
+                          "type": "boolean"
+                        },
+                        "is_moderator": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "username",
+                        "avatar_url",
+                        "profile_image_url"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ]
+                }
+              },
+              "required": [
+                "data"
+              ]
+            },
+            "examples": {
+              "application/json": {
+                "data": {
+                  "id": "7ee7535dca01714f",
+                  "type": "users",
+                  "attributes": {
+                    "username": "user1",
+                    "avatar_url": "https://secure.gravatar.com/avatar/111d68d06e2d317b5a59c2c6c5bad808?default=identicon&secure=true",
+                    "name": "Ms. Enriqueta Durgan",
+                    "profile_image_url": "https://secure.gravatar.com/avatar/111d68d06e2d317b5a59c2c6c5bad808?default=identicon&secure=true&size=200",
+                    "profile": "Unde hic delectus. Ut dolore doloribus. Aut consequuntur minus.",
+                    "characters_count": 0,
+                    "is_admin": false,
+                    "is_patron": false,
+                    "is_supporter": false,
+                    "is_moderator": false
+                  },
+                  "links": {
+                    "self": "http://dev1.refsheet.net:5000/api/v1/users/user1",
+                    "public": "http://dev1.refsheet.net:5000/users/user1"
+                  }
+                },
+                "jsonapi": {
+                  "version": "1.0"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "user not found",
+            "examples": {
+              "application/json": {
+                "error": "Couldn't find User"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/lookup/{username}": {
+      "get": {
+        "summary": "Retrieve User by Username",
+        "tags": [
+          "Users"
+        ],
+        "description": "Finds a user by Username. This operation is not case sensitive. Please consider using `/users/{id}` directly if possible.\n",
+        "operationId": "lookup",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "type": "string",
+            "description": "Username of the user to find",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "user found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "attributes": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "username": {
+                          "type": "string"
+                        },
+                        "avatar_url": {
+                          "type": "string"
+                        },
+                        "profile_image_url": {
+                          "type": "string"
+                        },
+                        "is_admin": {
+                          "type": "boolean"
+                        },
+                        "is_patron": {
+                          "type": "boolean"
+                        },
+                        "is_supporter": {
+                          "type": "boolean"
+                        },
+                        "is_moderator": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "username",
+                        "avatar_url",
+                        "profile_image_url"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ]
+                }
+              },
+              "required": [
+                "data"
+              ]
+            },
+            "examples": {
+              "application/json": {
+                "data": {
+                  "id": "4842e6e325b3c06f",
+                  "type": "users",
+                  "attributes": {
+                    "username": "user4",
+                    "avatar_url": "https://secure.gravatar.com/avatar/7e65550957227bd38fe2d7fbc6fd2f7b?default=identicon&secure=true",
+                    "name": "Ms. Duane Frami",
+                    "profile_image_url": "https://secure.gravatar.com/avatar/7e65550957227bd38fe2d7fbc6fd2f7b?default=identicon&secure=true&size=200",
+                    "profile": "Sit amet nihil. Est rerum pariatur. Nesciunt eos nisi.",
+                    "characters_count": 0,
+                    "is_admin": false,
+                    "is_patron": false,
+                    "is_supporter": false,
+                    "is_moderator": false
+                  },
+                  "links": {
+                    "self": "http://dev1.refsheet.net:5000/api/v1/users/user4",
+                    "public": "http://dev1.refsheet.net:5000/users/user4"
+                  }
+                },
+                "jsonapi": {
+                  "version": "1.0"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "user not found",
+            "examples": {
+              "application/json": {
+                "error": "Couldn't find User"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "apiKeyId": {
+      "type": "apiKey",
+      "name": "X-ApiKeyId",
+      "in": "header"
+    },
+    "apiKeySecret": {
+      "type": "apiKey",
+      "name": "X-ApiKeySecret",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "apiKeyId": [
+
+      ],
+      "apiKeySecret": [
+
+      ]
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ]
+}

@@ -187,6 +187,50 @@ describe Image, type: :model do
   #   expect(image).to be_processed
   # end
 
+  describe 'reprocess triggers' do
+    it 'does not reprocess on normal change', paperclip: true do
+      image = create :image, image: asset('fox.jpg')
+      expect(image).to receive(:contemplate_reprocessing).and_call_original
+      expect(image.image).to_not receive(:reprocess!)
+      image.update_attributes(caption: 'bleh')
+    end
+
+    it 'triggers reprocess on gravity change', paperclip: true do
+      image = create :image, image: asset('fox.jpg')
+      expect(image).to receive(:contemplate_reprocessing).and_call_original
+      expect(image.image).to receive(:reprocess!)
+      image.update_attributes(gravity: 'South')
+    end
+
+    it 'triggers reprocess on watermark change', paperclip: true do
+      image = create :image, image: asset('fox.jpg')
+      expect(image).to receive(:contemplate_reprocessing).and_call_original
+      expect(image.image).to receive(:reprocess!)
+      image.update_attributes(watermark: true)
+    end
+
+    it 'validates gravity' do
+      image = build :image, gravity: 'Newst'
+      expect(image).to_not be_valid
+      expect(image).to have(1).errors_on(:gravity)
+    end
+
+    it 'does not log activity after reprocess', paperclip: true do
+      image = create :image, image: asset('fox.jpg')
+      expect(image).to be_valid
+
+      expect(image).to receive(:log_activity).exactly(2).times.and_call_original
+      image.send(:delayed_complete)
+
+      expect_any_instance_of(Image).to receive(:contemplate_reprocessing)
+
+      expect {
+        image.update_attributes(gravity: 'South')
+        image.send(:delayed_complete)
+      }.to_not change { Activity.count }
+    end
+  end
+
   describe '#hashtags' do
     it 'syncs hashtags' do
       image = create :image, caption: "This is #so #cool!"

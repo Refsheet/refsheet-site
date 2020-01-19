@@ -23,15 +23,19 @@
 #  deleted_at            :datetime
 #  avatar_processing     :boolean
 #  support_pledge_amount :integer          default(0)
+#  guid                  :string
 #
 # Indexes
 #
 #  index_users_on_deleted_at      (deleted_at)
+#  index_users_on_guid            (guid)
 #  index_users_on_parent_user_id  (parent_user_id)
 #  index_users_on_type            (type)
 #
 
 class User < ApplicationRecord
+  include HasGuid
+
   include Rails.application.routes.url_helpers
 
   include Users::SettingsDecorator
@@ -44,6 +48,7 @@ class User < ApplicationRecord
   has_many :roles, through: :permissions
   has_many :visits, class_name: "Ahoy::Visit", dependent: :nullify
   has_many :sessions, class_name: 'UserSession', dependent: :destroy
+  has_many :api_keys, dependent: :destroy
 
   has_many :transfers_in, class_name: "Transfer", foreign_key: :destination_user_id, dependent: :destroy
   has_many :transfers_out, class_name: "Transfer", foreign_key: :sender_user_id, dependent: :destroy
@@ -80,6 +85,7 @@ class User < ApplicationRecord
 
   has_secure_password
   acts_as_paranoid
+  has_guid
 
   has_attached_file :avatar,
                     styles: {
@@ -209,7 +215,8 @@ class User < ApplicationRecord
   end
 
   def admin?
-    self.role_ids.include? Role.id_for Role::ADMIN
+    id = Role.id_for Role::ADMIN
+    self.role_ids.include? id
   end
 
   def patron?

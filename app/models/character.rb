@@ -36,6 +36,15 @@ class Character < ApplicationRecord
   include Sluggable
   include RankedModel
 
+  has_paper_trail version: :paper_trail_version,
+                  ignore: [
+                      :row_order,
+                      :secret,
+                      :hidden,
+                      :nsfw,
+                  ]
+
+
   belongs_to :user
   belongs_to :color_scheme, autosave: true
   belongs_to :featured_image, class_name: "Image"
@@ -173,6 +182,10 @@ class Character < ApplicationRecord
 
   def self.find_by_shortcode!(shortcode)
     find_by!('LOWER(characters.shortcode) = ?', shortcode.downcase)
+  end
+
+  def color_scheme
+    super || ColorScheme.default
   end
 
 

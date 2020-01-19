@@ -44,7 +44,8 @@ class Mutations::ApplicationMutation
 
   def run_before_actions(action_name)
     Rails.logger.info "Processing by #{self.class.name}##{action_name} as GRAPHQL"
-    Rails.logger.info "  Parameters: #{params.as_json}"
+    # TODO: Enable this once we can get the parameter filter on here.
+    #Rails.logger.info "  Parameters: #{params.as_json}"
 
     self.class.before_actions.each do |action|
       callback = action[:callback]

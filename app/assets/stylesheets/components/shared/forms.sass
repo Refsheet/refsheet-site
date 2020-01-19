@@ -14,6 +14,10 @@ form
 body:not(.admin)
   form
     @at-root
+      form.no-input-margins
+        .input-field.col
+          margin-bottom: 0
+
       form.inline
         display: flex
         height: 2.5rem
@@ -159,6 +163,11 @@ body:not(.admin)
     .invalid input
       @extend input.invalid
 
+    .hint
+      @extend .muted
+      margin-top: 3px
+      color: $text-light-color !important
+
     .hint-block,
     .error-block
       display: block
@@ -175,6 +184,7 @@ body:not(.admin)
     input[type=checkbox] + label,
     input[type=radio] + label
       margin-bottom: 20px
+      color: $page-text-color
 
     label
       abbr[title]

@@ -17,7 +17,7 @@
     $(document).trigger 'app:character:update', character
 
     @_handleSettingsClose()
-    Materialize.toast 'Character saved!', 3000, 'green'
+    Materialize.toast({ html: 'Character saved!', displayLength: 3000, classes: 'green' })
 
   _handleCancel: (e) ->
     @refs.form.reset()

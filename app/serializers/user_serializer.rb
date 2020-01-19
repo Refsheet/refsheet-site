@@ -23,10 +23,12 @@
 #  deleted_at            :datetime
 #  avatar_processing     :boolean
 #  support_pledge_amount :integer          default(0)
+#  guid                  :string
 #
 # Indexes
 #
 #  index_users_on_deleted_at      (deleted_at)
+#  index_users_on_guid            (guid)
 #  index_users_on_parent_user_id  (parent_user_id)
 #  index_users_on_type            (type)
 #
@@ -47,7 +49,7 @@ class UserSerializer < ActiveModel::Serializer
              :is_admin,
              :is_patron,
              :is_supporter,
-             :is_moderator
+             :is_moderator,
              :followed
 
   has_many :characters,

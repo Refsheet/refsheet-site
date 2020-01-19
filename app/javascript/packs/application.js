@@ -73,11 +73,13 @@ export { default as ActivityCard } from 'ActivityFeed/ActivityCard'
   window.dispatchEvent(event)
 })()
 ;(function() {
-  Sentry.init({
-    dsn: Refsheet.sentryDsn,
-    release: Refsheet.version,
-    stage: Refsheet.environment,
-  })
+  if (Refsheet.environment === 'production') {
+    Sentry.init({
+      dsn: Refsheet.sentryDsn,
+      release: Refsheet.version,
+      stage: Refsheet.environment,
+    })
+  }
 })()
 
 // HOLIDAY THEME

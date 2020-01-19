@@ -1,0 +1,108 @@
+.timeline
+  $tl-active-dot-size: 1rem
+  $tl-inactive-dot-size: 0.75rem
+  $tl-dot-top: 1.5rem
+  $tl-line-width: 2px
+  $tl-gutter-width: 1rem
+  $tl-spacing: 1rem
+
+  $tl-current-dot-top: $tl-dot-top + ($tl-gutter-width * 2) - ($tl-spacing / 2)
+
+  &.collapsible
+    border: none !important
+    margin: 0 !important
+    box-shadow: none !important
+
+  .timeline-entry
+    margin-left: ($tl-gutter-width + $tl-active-dot-size)
+    position: relative
+    padding: $tl-spacing/2 0
+    min-height: ($tl-active-dot-size * 2)
+
+    .collapsible-header
+      display: block
+      line-height: inherit
+      padding: 0
+      background: transparent
+      border: none
+
+    .collapsible-body
+      margin: 0.5rem 0 0
+      padding: 0
+      border: none !important
+      box-shadow: none
+
+    &.current
+      &:not(:first-child)
+        padding-top: $tl-gutter-width*2
+        &:after
+          top: $tl-current-dot-top
+
+      &:not(:last-child)
+        padding-bottom: $tl-gutter-width*2
+
+      &:after
+        width: $tl-active-dot-size
+        height: $tl-active-dot-size
+        background-color: $brand-primary
+
+      &:before
+        background: linear-gradient(to bottom, $text-light-color, $brand-primary $tl-current-dot-top, $text-light-color)
+
+      &:first-child:before
+        background: linear-gradient(to bottom, $brand-primary, $text-light-color)
+
+      &:last-child:before
+        height: $tl-current-dot-top
+        background: linear-gradient(to bottom, $text-light-color, $brand-primary)
+
+
+    &:first-child:before
+      top: $tl-dot-top
+
+    &:last-child:before
+      height: $tl-dot-top
+      bottom: auto
+
+    &:before
+      display: block
+      content: ''
+      position: absolute
+      top: 0
+      bottom: 0
+      left: (0 - $tl-gutter-width - ($tl-active-dot-size / 2))
+      width: $tl-line-width
+      background-color: $text-light-color !important
+      transform: translateX(-50%)
+
+    &:after
+      display: block
+      content: ''
+      width: $tl-inactive-dot-size
+      height: $tl-inactive-dot-size
+      border-radius: $tl-active-dot-size
+      background-color: $text-light-color
+      position: absolute
+      left: (0 - $tl-gutter-width - ($tl-active-dot-size / 2))
+      top: $tl-dot-top
+      transform: translate(-50%, -50%)
+
+    time
+      float: right
+      color: $text-light-color
+      font-size: 0.9rem
+
+    .title
+      height: 1.5rem
+      line-height: 1.5rem
+      color: $brand-primary
+
+      i.material-icons
+        height: 1.5rem
+        line-height: 1.5rem
+        font-size: 1.2rem
+        color: $text-light-color
+        margin-right: 0.5rem
+
+    .details
+      margin-top: 0.5rem

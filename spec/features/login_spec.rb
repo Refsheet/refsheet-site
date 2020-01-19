@@ -10,13 +10,13 @@ feature 'Log In', js: true do
     expect(page).to have_content 'Log In' unless expect_redirect
   end
 
-  def try_login(valid=true)
+  def try_login(valid=true, expect=nil)
     click_button 'Log In'
 
     if valid
-      expect(page).to have_content user.username
+      expect(page).to have_content(expect || user.username)
     else
-      expect(page).to have_content 'Invalid username or password'
+      expect(page).to have_content(expect || 'Invalid username or password')
     end
   end
 
@@ -74,23 +74,21 @@ feature 'Log In', js: true do
     end
   end
 
-  xcontext 'admin' do
-    let!(:user) { create :user }
-    let!(:role) { create :role, name: :admin }
-    before { user.roles << role }
+  context 'admin' do
+    let(:query) {{ next: '/admin' }}
+    let(:expect_redirect) { true }
+    let!(:user) { create :admin }
 
     scenario 'successfully logs in' do
       enter user.username, 'fishsticks'
-      try_login
-      expect(page).to have_content 'Dashboard'
+      try_login(true, 'Dashboard')
     end
 
     scenario 'rejected admin' do
       visit admin_root_path
       expect(page).to have_content 'not authorized'
       enter user.username, 'fishsticks'
-      try_login
-      expect(page).to have_content 'Dashboard'
+      try_login(true, 'Dashboard')
     end
   end
 end

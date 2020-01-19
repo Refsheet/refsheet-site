@@ -34,14 +34,14 @@ steps:
   #== TEST
 
   - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
-    args: ['rspec', '--exclude-pattern', '**/features/**/*_spec.rb']
+    args: ['bin/entrypoint.dev.sh', 'bundle', 'exec', 'rspec', '--exclude-pattern', '**/{features,requests}/**/*_spec.rb']
     secretEnv:
       - CODECOV_TOKEN
 
-#  - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
-#    args: ['rspec', '--pattern', '**/features/**/*_spec.rb']
-#    secretEnv:
-#      - CODECOV_TOKEN
+  - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
+    args: ['bin/entrypoint.dev.sh', 'bundle', 'exec', 'rspec', '--pattern', '**/{features,requests}/**/*_spec.rb']
+    secretEnv:
+      - CODECOV_TOKEN
 
   - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
     args: ['bin/entrypoint.dev.sh', 'yarn', 'run', 'test']
@@ -63,14 +63,16 @@ options:
     - DB_USERNAME=postgres
     - DB_PASSWORD=fishsticks
     - DB_DATABASE=postgres
+    - CI=true
 
 # Create Secrets with:
-# echo "value" | gcloud kms encrypt --plaintext-file=- --ciphertext-file=- --location=global --keyring=refsheet-ci \
+# printf "value" | gcloud kms encrypt --plaintext-file=- --ciphertext-file=- --location=global --keyring=refsheet-ci \
 #   --key=refsheet-ci | base64 -w0
 
 secrets:
   - kmsKeyName: projects/refsheet-239409/locations/global/keyRings/refsheet-ci/cryptoKeys/refsheet-ci
     secretEnv:
-      CODECOV_TOKEN: CiQA5Rk5Qwx3O8FuITO2nXfDU9FAncqLzTA4dHyOC0z878Dgw5cSTgBhT4yKc9ln5ag02Syi3Joom8YkQf1LOmS3CHB0LSIP4KY7LPYp3QfIsWGYbBv5DjZUY+TVRz2wR9CMnI8YzKm+e0oT3cIqnGz7UAMPlg==
+      CODECOV_TOKEN: CiQA5Rk5QxccJ1JM+r6g/OJkGe+2xDp1GXSf8CRjvHCc3bNiXU8STQBhT4yKrD63EFjNRI0SGS5BxvxSq48q0UWA3l5QXo5Pj31DpNWl8Fi6Yf3mNumRImTSVMCBgnU/jWd0HQU8p31HTDlJHj5Z/zIS+JsU
 
 timeout: 3600s
+tags: ['ci']

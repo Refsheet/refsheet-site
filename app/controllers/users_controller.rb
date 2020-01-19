@@ -28,7 +28,7 @@ class UsersController < ApplicationController
         image_src: @user.avatar.url(:medium)
     )
 
-    @user = User.includes(:characters => [:profile_image, :featured_image, :user, :color_scheme, :character_groups], :character_groups => [:user]).find(@user.id)
+    @user = User.includes(:characters => [:profile_image, :featured_image, :color_scheme, :character_groups], :character_groups => [:user]).find(@user.id)
 
     respond_to do |format|
       format.html do

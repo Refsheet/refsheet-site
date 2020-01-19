@@ -23,10 +23,12 @@
 #  deleted_at            :datetime
 #  avatar_processing     :boolean
 #  support_pledge_amount :integer          default(0)
+#  guid                  :string
 #
 # Indexes
 #
 #  index_users_on_deleted_at      (deleted_at)
+#  index_users_on_guid            (guid)
 #  index_users_on_parent_user_id  (parent_user_id)
 #  index_users_on_type            (type)
 #
@@ -58,6 +60,29 @@ FactoryBot.define do
     trait :confirmed do
       after(:create) do |user|
         user.confirm!
+      end
+    end
+
+    trait :with_characters do
+      transient do
+        characters_count { 5 }
+      end
+
+      after(:create) do |user, evaluator|
+        create_list(:character, evaluator.characters_count, user: user)
+      end
+    end
+
+    trait :with_character_groups do
+      transient do
+        character_groups_count { 2 }
+      end
+
+      after(:create) do |user, evaluator|
+        create_list(:character_group, evaluator.character_groups_count, user: user)
+        user.character_groups.each do |cg|
+          cg.characters << user.characters
+        end
       end
     end
 

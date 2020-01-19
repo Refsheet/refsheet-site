@@ -4,4 +4,5 @@ Types::MediaHashtagType = GraphQL::ObjectType.define do
 
   field :tag, types.String
   field :media, Types::ImageType
+  field :count, types.Int
 end

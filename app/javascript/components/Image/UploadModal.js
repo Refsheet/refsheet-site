@@ -184,6 +184,7 @@ class UploadModal extends Component {
           onChange={this.handleImageChange}
           onUpload={this.handleUpload}
           onClear={this.handleImageClear}
+          onCharacterChangeClick={this.handleChangeCharacterClick.bind(this)}
         />
       </div>
     )

@@ -52,10 +52,10 @@
       data: nsfw_ok: !@props.session.nsfw_ok
       success: (session) =>
         $(document).trigger 'app:session:update', session
-        Materialize.toast "NSFW mode is #{if session.nsfw_ok then 'on' else 'off'}.", 3000, 'green'
+        Materialize.toast({ html: "NSFW mode is #{if session.nsfw_ok then 'on' else 'off'}.", displayLength: 3000, classes: 'green' })
       error: (data) =>
         console.error data
-        Materialize.toast "Unable to set NSFW mode!", 3000, 'red'
+        Materialize.toast({ html: "Unable to set NSFW mode!", displayLength: 3000, classes: 'red' })
 
   _handleSignOut: (e) ->
     $.ajax
@@ -63,7 +63,7 @@
       type: 'DELETE'
       success: (data) =>
         $(document).trigger 'app:session:update', data
-        Materialize.toast "See you later!", 3000, 'green'
+        Materialize.toast({ html: "See you later!", displayLength: 3000, classes: 'green' })
     e.preventDefault()
 
 
