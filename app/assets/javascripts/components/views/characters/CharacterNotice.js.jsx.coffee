@@ -21,10 +21,10 @@
       success: (data) =>
         $(document).trigger 'app:character:reload', data.character_path, (character) =>
           window.history.replaceState {}, '', data.character_path
-          Materialize.toast "Transfer claimed!", 3000, 'green'
+          Materialize.toast({ html: "Transfer claimed!", displayLength: 3000, classes: 'green' })
       error: (data) =>
         console.error data
-        Materialize.toast "Something went wrong :(", 3000, 'red'
+        Materialize.toast({ html: "Something went wrong :(", displayLength: 3000, classes: 'red' })
     e.preventDefault()
 
   _handleRejectTransfer: (e) ->
@@ -34,10 +34,10 @@
       type: 'PATCH'
       success: (data) =>
         @setState transfer: null
-        Materialize.toast "Transfer rejected.", 3000, 'green'
+        Materialize.toast({ html: "Transfer rejected.", displayLength: 3000, classes: 'green' })
       error: (data) =>
         console.error data
-        Materialize.toast "Something went wrong :(", 3000, 'red'
+        Materialize.toast({ html: "Something went wrong :(", displayLength: 3000, classes: 'red' })
     e.preventDefault()
 
   render: ->

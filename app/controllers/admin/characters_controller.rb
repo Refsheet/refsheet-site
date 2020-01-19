@@ -14,8 +14,13 @@ class Admin::CharactersController < AdminController
   def edit; end
 
   def update
-    if @character.update_attributes(character_params)
-      Changelog.create changelog_params
+    if params[:version].present?
+      @character.paper_trail_event = 'rollback'
+      @character.save
+    else
+      if @character.update_attributes(character_params)
+        Changelog.create changelog_params
+      end
     end
 
     respond_with :admin, @character, location: admin_character_path(@character.shortcode)
@@ -25,6 +30,10 @@ class Admin::CharactersController < AdminController
 
   def get_character
     @character = Character.find_by_shortcode! params[:id]
+
+    if params[:version]
+      @character = @character.versions[params[:version].to_i]&.reify
+    end
   end
 
   def character_params

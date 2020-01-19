@@ -50,7 +50,7 @@
         error: (error) =>
           console.error error
           @setState results: [], searching: false, page: null, lastPage: true, totalResults: 0
-          Materialize.toast error.responseText, 3000, 'red'
+          Materialize.toast({ html: error.responseText, displayLength: 3000, classes: 'red' })
 
   render: ->
     if @props.location.query.q

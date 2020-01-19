@@ -208,8 +208,26 @@ Rails.application.routes.draw do
     get :not_found, to: 'application#not_found!'
   end
 
+  mount Rswag::Ui::Engine => '/api-docs'
+  mount Rswag::Api::Engine => '/api-docs'
+
   mount Ahoy::Engine => '/ahoy', as: :my_ahoy
 
+  #== API
+
+  namespace :api do
+    root to: 'api#documentation'
+
+    namespace :v1 do
+      resources :users, only: [:show] do
+        collection do
+          get '/lookup/:username', to: 'users#lookup'
+        end
+      end
+    end
+
+    match '*path', to: 'api#not_found!', via: [:get, :post, :put, :patch, :delete, :head, :options]
+  end
 
   #== Static Routes
 

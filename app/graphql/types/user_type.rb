@@ -39,6 +39,16 @@ Types::UserType = GraphQL::ObjectType.define do
     }
   end
 
+  field :apiKeys, types[Types::ApiKeyType] do
+    resolve -> (obj, _args, ctx) {
+      if ctx[:current_user].call&.id == obj.id
+        obj.api_keys
+      else
+        []
+      end
+    }
+  end
+
   # has_many :character_groups,
   #          serializer: CharacterGroupSerializer
 end

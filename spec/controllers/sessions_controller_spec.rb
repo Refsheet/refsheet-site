@@ -7,7 +7,7 @@ describe SessionController do
   describe 'Persistence' do
     it 'signs in without remembering' do
       post :create, params: user_params.merge(remember: false)
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(assigns(:current_user)).to eq user
       expect(cookies.signed[UserSession::COOKIE_USER_ID_NAME]).to eq user.id
       expect(cookies.signed[UserSession::COOKIE_SESSION_ID_NAME]).to eq nil
@@ -15,7 +15,7 @@ describe SessionController do
 
     it 'signs in with remembering' do
       post :create, params: user_params.merge(remember: true)
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(assigns(:current_user)).to eq user
 
       session = user.sessions.first

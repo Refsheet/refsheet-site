@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_31_101854) do
+ActiveRecord::Schema.define(version: 2020_01_17_002153) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -130,6 +130,19 @@ ActiveRecord::Schema.define(version: 2019_12_31_101854) do
     t.datetime "started_at"
     t.index ["user_id"], name: "index_ahoy_visits_on_user_id"
     t.index ["visit_token"], name: "index_ahoy_visits_on_visit_token", unique: true
+  end
+
+  create_table "api_keys", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "guid"
+    t.string "secret_digest"
+    t.boolean "read_only", default: false
+    t.string "name"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["guid"], name: "index_api_keys_on_guid"
+    t.index ["user_id"], name: "index_api_keys_on_user_id"
   end
 
   create_table "artists", id: :serial, force: :cascade do |t|
@@ -489,15 +502,11 @@ ActiveRecord::Schema.define(version: 2019_12_31_101854) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "content_html"
-    t.boolean "sticky"
-    t.boolean "admin_post"
-    t.boolean "moderator_post"
     t.index ["character_id"], name: "index_forum_threads_on_character_id"
     t.index ["forum_id"], name: "index_forum_threads_on_forum_id"
     t.index ["karma_total"], name: "index_forum_threads_on_karma_total"
     t.index ["shortcode"], name: "index_forum_threads_on_shortcode"
     t.index ["slug"], name: "index_forum_threads_on_slug"
-    t.index ["sticky"], name: "index_forum_threads_on_sticky"
     t.index ["user_id"], name: "index_forum_threads_on_user_id"
   end
 
@@ -918,13 +927,27 @@ ActiveRecord::Schema.define(version: 2019_12_31_101854) do
     t.datetime "deleted_at"
     t.boolean "avatar_processing"
     t.integer "support_pledge_amount", default: 0
+    t.string "guid"
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
+    t.index ["guid"], name: "index_users_on_guid"
     t.index ["parent_user_id"], name: "index_users_on_parent_user_id"
     t.index ["type"], name: "index_users_on_type"
   end
 
+  create_table "versions", force: :cascade do |t|
+    t.string "item_type", null: false
+    t.bigint "item_id", null: false
+    t.string "event", null: false
+    t.string "whodunnit"
+    t.datetime "created_at"
+    t.jsonb "object"
+    t.jsonb "object_changes"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "activities", "activities", column: "reply_to_activity_id"
+  add_foreign_key "api_keys", "users"
   add_foreign_key "artists_edits", "users"
   add_foreign_key "artists_edits", "users", column: "approved_by_id"
   add_foreign_key "artists_links", "artists"

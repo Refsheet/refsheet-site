@@ -36,7 +36,7 @@ class Notification < ApplicationRecord
   belongs_to :character
   belongs_to :sender_user, class_name: "User"
   belongs_to :sender_character, class_name: "Character"
-  belongs_to :actionable, polymorphic: :true
+  belongs_to :actionable, polymorphic: true
 
   validates_presence_of :user
   validates_presence_of :sender_user
@@ -63,6 +63,7 @@ class Notification < ApplicationRecord
 
   after_create :send_browser_push
   after_create :send_email
+  after_create :broadcast!
 
   has_guid
 

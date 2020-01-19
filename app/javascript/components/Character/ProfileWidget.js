@@ -7,6 +7,7 @@ import { Mutation } from 'react-apollo'
 import updateProfileWidget from './updateProfileWidget.graphql'
 import deleteProfileWidget from './deleteProfileWidget.graphql'
 import * as M from 'materialize-css'
+import { div as Card } from '../Styled/Card'
 
 class ProfileWidget extends Component {
   constructor(props) {
@@ -119,7 +120,7 @@ class ProfileWidget extends Component {
     const Widget = widgets[widgetType] || SerializerWidget
 
     return (
-      <div className="card profile-widget margin-top--none margin-bottom--large margin-bottom-last--none">
+      <Card className="card profile-widget margin-top--none margin-bottom--large margin-bottom-last--none">
         <ProfileWidgetHeader
           widgetType={widgetType}
           title={title}
@@ -141,7 +142,7 @@ class ProfileWidget extends Component {
           onChange={this.handleWidgetChange.bind(this)}
           editing={this.state.editing}
         />
-      </div>
+      </Card>
     )
   }
 }

@@ -5,6 +5,16 @@
     .col.s12.m4.l3
       = image_tag @character.profile_image.image.url(:medium_square), class: 'materialboxed responsive-img z-depth-1'
       %h1.caption= link_to title(@character.name), @character.path
+      
+      - if ! @character.paper_trail.live?
+        .card-panel.red.white-text
+          %strong Old Version!
+          %p
+            This is an old version of the record.
+          %p
+            = link_to "Revert to This Version", url_for({version: @character.version.index}), data: { method: 'PATCH', confirm: "You sure about that?" }
+
+        = link_to "Current Version", url_for({}), class: 'btn'
 
       %ul.attributes
         %li
@@ -32,7 +42,8 @@
           %li.tab= link_to 'Attributes', '#attributes', class: 'active'
           %li.tab= link_to 'Profile', '#profile'
           %li.tab= link_to 'Transfers', '#transfers'
-          %li.tab= link_to 'Changes', '#changelog'
+          %li.tab= link_to 'Admin Changes', '#changelog'
+          %li.tab= link_to 'Paper Trail', '#paper-trail'
 
         %section.card-content#attributes
           .row
@@ -98,6 +109,44 @@
 
         %section#changelog
           = render partial: 'admin/shared/changelog', locals: { changes: Changelog.for_character(@character).last(10).reverse}
+
+        %section#paper-trail
+          %table
+            %tr
+              %th #
+              %th Who
+              %th What
+              %th Changes
+              %th When
+              
+            - @character.versions.reverse.each do |version|
+              %tr
+                %td= link_to version.index, url_for({version: version.index})
+                %td= version.whodunnit&.name
+                %td= version.event 
+                %td
+                  = link_to version.object_changes.keys.count.to_s + ' changes', "#change-modal-#{version.index}", class: 'modal-trigger'
+                  %div.modal{id: "change-modal-#{version.index}"}
+                    %div.modal-content
+                      %h4
+                        Version #{version.index}
+                        
+                      %table
+                        %tr
+                          %th Field
+                          %th From
+                          %th To
+                        - version.object_changes.each do |field, changes|
+                          %tr
+                            %td= field
+                            %td= changes[0]
+                            %td= changes[1]
+                            
+                    %div.modal-footer
+                      = link_to "Revert To This Version", url_for({version: version.index}), data: { confirm: "You sure about this?", method: "PATCH" }, class: 'btn-flat red-text'
+                            
+                %td= time_ago_in_words(version.created_at) + " ago"
+
 
 :coffeescript
   $ ->

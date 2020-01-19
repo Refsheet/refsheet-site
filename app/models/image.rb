@@ -40,12 +40,13 @@
 #
 
 # Should me larger than 1280px in both dimensions,
-# should be no more than 25MB
 # TODO - This will be refactored to be an STI class of Media
 class Image < ApplicationRecord # < Media
   include HasGuid
   include RankedModel
   include HasDirectUpload
+
+  IMAGE_GRAVITIES = %w(NorthWest North NorthEast West Center East SouthWest South SouthEast)
 
   belongs_to :character, inverse_of: :images
   has_one :user, through: :character
@@ -101,14 +102,6 @@ class Image < ApplicationRecord # < Media
                           ActionController::Base.helpers.image_path("placeholders/processing_500.png")
                         }
 
-  # TODO - this will make it look like images are broken
-  #        but it's just moving processing to the background server
-  # after_create do
-  #   if self.image_direct_upload_url.nil?
-  #     self.image.reprocess_without_delay!
-  #   end
-  # end
-
   has_direct_upload :image
 
   validates_format_of :background_color,
@@ -116,6 +109,12 @@ class Image < ApplicationRecord # < Media
                       message: 'must be RGB, HSL or Hex code',
                       allow_blank: true,
                       if: -> { background_color_changed? }
+
+  validates_inclusion_of :gravity,
+                         in: IMAGE_GRAVITIES,
+                         message: 'must be a valid image gravity',
+                         allow_blank: true,
+                         if: -> { gravity_changed? }
 
   has_guid
   ranks :row_order, with_same: :character_id
@@ -125,6 +124,7 @@ class Image < ApplicationRecord # < Media
   before_validation :adjust_source_url
   after_save :clean_up_character
   after_save :sync_hashtags
+  after_save :contemplate_reprocessing
   after_destroy :clean_up_character
 
   scoped_search on: [:caption, :image_file_name]
@@ -176,7 +176,7 @@ class Image < ApplicationRecord # < Media
     color = if super
               super
             elsif self.character&.color_scheme
-              c = self.character.color_scheme.color_data['image-background']
+              c = self.character.color_scheme['image-background']
               c&.match(ColorScheme::COLOR_MATCH) ? c : nil
             end
 
@@ -234,11 +234,21 @@ class Image < ApplicationRecord # < Media
   end
 
   def log_activity
+    if Activity.exists?(activity: self, activity_method: 'create')
+      return
+    end
+
     Activity.create activity: self,
                     user_id: self.character.user_id,
                     character_id: self.character_id,
                     created_at: self.created_at,
                     activity_method: 'create'
+  end
+
+  def contemplate_reprocessing
+    if saved_change_to_gravity? or saved_change_to_watermark?
+      self.image.reprocess!
+    end
   end
 
   def sync_hashtags
@@ -271,7 +281,6 @@ class Image < ApplicationRecord # < Media
   end
 
   def schedule_phash_job
-    Rails.logger.info("Schedule?")
     if self.image_updated_at_changed?
       Rails.logger.info("Scheduling pHash update.")
       ImagePhashJob.perform_later(self)

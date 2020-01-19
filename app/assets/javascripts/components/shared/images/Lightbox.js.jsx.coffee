@@ -27,12 +27,12 @@
       type: 'PATCH'
       data: { character: { featured_image_guid: @state.image.id } }
       success: (data) =>
-        Materialize.toast 'Cover image changed!', 3000, 'green'
+        Materialize.toast({ html: 'Cover image changed!', displayLength: 3000, classes: 'green' })
         $(document).trigger 'app:character:update', data
 
       error: (error) =>
         console.log error
-        Materialize.toast 'Error?', 3000, 'red'
+        Materialize.toast({ html: 'Error?', displayLength: 3000, classes: 'red' })
 
     e.preventDefault()
 
@@ -42,12 +42,12 @@
       type: 'PATCH'
       data: { character: { profile_image_guid: @state.image.id } }
       success: (data) =>
-        Materialize.toast 'Profile image changed!', 3000, 'green'
+        Materialize.toast({ html: 'Profile image changed!', displayLength: 3000, classes: 'green' })
         $(document).trigger 'app:character:update', data
 
       error: (error) =>
         console.error error
-        Materialize.toast 'Error?', 3000, 'red'
+        Materialize.toast({ html: 'Error?', displayLength: 3000, classes: 'red' })
 
     e.preventDefault()
 
@@ -115,7 +115,7 @@
         M.Modal.getInstance(document.getElementById('lightbox')).open()
 
   _handleChange: (image) ->
-    Materialize.toast "Image saved!", 3000, 'green'
+    Materialize.toast({ html: "Image saved!", displayLength: 3000, classes: 'green' })
     @setState image: image, @_callback
 
   _handleUpdate: (image) ->

@@ -23,13 +23,11 @@ Rails.application.configure do
   end
 
   config.delayed_paperclip_defaults = {
-      queue: :refsheet_application_queue
+      queue: :refsheet_image_processing
   }
 end
 
 class DelayedPaperclip::ProcessJob < ActiveJob::Base
-  self.queue_adapter = :split_queue
-
   def perform(instance_klass, instance_id, attachment_name)
     DelayedPaperclip.process_job(instance_klass, instance_id, attachment_name.to_sym)
 
