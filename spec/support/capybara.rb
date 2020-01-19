@@ -24,6 +24,7 @@ Capybara.register_driver :headless_chrome do |app|
   browser_options.args << '--no-sandbox'
   browser_options.args << '--window-size=1920,1080'
   browser_options.args << '--disable-dev-shm-usage'
+  browser_options.args << '--enable-features=NetworkService,NetworkServiceInProcess'
 
   Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
 end

@@ -219,7 +219,7 @@ Rails.application.routes.draw do
     root to: 'api#documentation'
 
     namespace :v1 do
-      resources :users, only: [:show] do
+      resources :users, only: [:show, :update] do
         collection do
           get '/lookup/:username', to: 'users#lookup'
         end
