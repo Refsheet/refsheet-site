@@ -39,7 +39,11 @@ Rails.application.routes.draw do
 
   namespace :account do
     get '/activity' => 'activities#index'
-    resource :settings, only: [:show, :update]
+    resource :settings, only: [:show, :update] do
+      collection do
+        resource :api_keys, only: [:show]
+      end
+    end
 
     resource :notifications, only: [:show, :update] do
       member do
@@ -132,6 +136,11 @@ Rails.application.routes.draw do
     end
   end
 
+
+  #== Asks / Blog
+
+  get 'ask/:shortcode', to: 'asks#index'
+  get 'ask/:shortcode/:id', to: 'asks#show'
 
   #== Marketplace
 
