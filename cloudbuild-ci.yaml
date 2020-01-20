@@ -7,7 +7,7 @@ steps:
     args:
       - --destination=gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID
       - --cache=true
-      - --dockerfile=./Dockerfile.dev
+      - --dockerfile=./Dockerfile.ci
 
   #== SETUP
 
@@ -44,7 +44,7 @@ steps:
 
   - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
     id: RSpec Unit
-    args: ['bin/entrypoint.dev.sh', 'bundle', 'exec', 'rspec', '--exclude-pattern', '**/{features,requests,integration}/**/*_spec.rb']
+    args: ['bin/entrypoint.ci.sh', 'bundle', 'exec', 'rspec', '--exclude-pattern', '**/{features,requests,integration}/**/*_spec.rb']
     secretEnv:
       - CODECOV_TOKEN
     waitFor:
@@ -52,7 +52,7 @@ steps:
 
   - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
     id: RSpec Integration
-    args: ['bin/entrypoint.dev.sh', 'bundle', 'exec', 'rspec', '--pattern', '**/{features,requests,integration}/**/*_spec.rb']
+    args: ['bin/entrypoint.ci.sh', 'bundle', 'exec', 'rspec', '--pattern', '**/{features,requests,integration}/**/*_spec.rb']
     secretEnv:
       - CODECOV_TOKEN
     waitFor:
@@ -60,13 +60,13 @@ steps:
 
   - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
     id: Karma
-    args: ['bin/entrypoint.dev.sh', 'yarn', 'run', 'test']
+    args: ['bin/entrypoint.ci.sh', 'yarn', 'run', 'test']
     waitFor:
       - Build Container
 
   - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
     id: Prettier Check
-    args: ['bin/entrypoint.dev.sh', 'yarn', 'run', 'prettier-check']
+    args: ['bin/entrypoint.ci.sh', 'yarn', 'run', 'prettier-check']
     waitFor:
       - Build Container
 
@@ -89,6 +89,11 @@ options:
     - DB_PASSWORD=fishsticks
     - DB_DATABASE=postgres
     - CI=true
+  volumes:
+    - name: bundle
+      path: /usr/local/bundle
+    - name: node
+      path: /app/node_modules
 
 # Create Secrets with:
 # printf "value" | gcloud kms encrypt --plaintext-file=- --ciphertext-file=- --location=global --keyring=refsheet-ci \
