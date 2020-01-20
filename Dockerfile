@@ -65,11 +65,11 @@ ENV NODE_OPTIONS="--max-old-space-size=2048"
 
 COPY . /app
 
-RUN mkdir -p /cache && mkdir -p /app/tmp/cache && cp -Rv /cache/* /app/tmp/cache && \
+RUN mkdir -p /cache && mkdir -p /app/tmp/cache && cp -R /cache/* /app/tmp/cache && \
     SECRET_KEY_BASE=nothing \
     RDS_DB_ADAPTER=nulldb \
     bundle exec rake assets:precompile RAILS_ENV=production && \
-    mkdir -p /artifacts && cp -Rv /app/public/* /artifacts && cp -Rv /app/tmp/cache/* /cache && \
+    mkdir -p /artifacts && cp -R /app/public/* /artifacts && cp -R /app/tmp/cache/* /cache && \
     rm -rf /app/tmp/*
 
 # Copy System Config
