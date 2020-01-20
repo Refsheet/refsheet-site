@@ -88,11 +88,11 @@ gem 'state_machines'
 gem 'state_machines-activerecord'
 gem 'will_paginate'
 gem 'will_paginate-materialize', github: 'harrybournis/will_paginate-materialize'
+gem 'pundit'
 gem 'rest-client'
 
 # == API
 
-gem 'jsonapi-rails'
 gem 'rswag-api'
 gem 'rswag-ui'
 

@@ -184,10 +184,6 @@ class Character < ApplicationRecord
     find_by!('LOWER(characters.shortcode) = ?', shortcode.downcase)
   end
 
-  def color_scheme
-    super || ColorScheme.default
-  end
-
 
   #== Marketplace
 
