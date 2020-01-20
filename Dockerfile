@@ -68,7 +68,7 @@ COPY . /app
 
 RUN SECRET_KEY_BASE=nothing \
     RDS_DB_ADAPTER=nulldb \
-    mkdir -p /cache && mkdir -p /app/tmp/cache && cp -R v/cache/* /app/tmp/cache && \
+    mkdir -p /cache && mkdir -p /app/tmp/cache && cp -Rv /cache/* /app/tmp/cache && \
     bundle exec rake assets:precompile RAILS_ENV=production && \
     mkdir -p /artifacts && cp -Rv /app/public/* /artifacts && cp -Rv /app/tmp/cache/* /cache && \
     rm -rf /app/tmp/*
