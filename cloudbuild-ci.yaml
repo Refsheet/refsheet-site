@@ -7,7 +7,7 @@ steps:
     args:
       - --destination=gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID
       - --cache=true
-      - --dockerfile=./Dockerfile.ci
+      - --dockerfile=./Dockerfile.dev
 
   #== SETUP
 
