@@ -11,6 +11,7 @@ steps:
   #== SETUP
 
   - name: 'gcr.io/cloud-builders/docker'
+    id: Build
     args:
       - run
       - -d
@@ -22,37 +23,59 @@ steps:
 
   # Wait for Postgres to become available
   - name: 'jwilder/dockerize:0.6.1'
+    id: Postgres Start
     args:
       - dockerize
       - -timeout=60s
       - -wait=tcp://postgres:5432
+    waitFor:
+      - Build
 
   # Setup Database
   - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
+    id: Migrate
     args: ['bundle', 'exec', 'rake', 'db:migrate']
+    waitFor:
+      - Postgres Start
 
   #== TEST
 
   - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
-    args: ['bin/entrypoint.dev.sh', 'bundle', 'exec', 'rspec', '--exclude-pattern', '**/{features,requests}/**/*_spec.rb']
+    id: RSpec Unit
+    args: ['bin/entrypoint.dev.sh', 'bundle', 'exec', 'rspec', '--exclude-pattern', '**/{features,requests,integration}/**/*_spec.rb']
     secretEnv:
       - CODECOV_TOKEN
+    waitFor:
+      - Migrate
 
   - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
-    args: ['bin/entrypoint.dev.sh', 'bundle', 'exec', 'rspec', '--pattern', '**/{features,requests}/**/*_spec.rb']
+    id: RSpec Integration
+    args: ['bin/entrypoint.dev.sh', 'bundle', 'exec', 'rspec', '--pattern', '**/{features,requests,integration}/**/*_spec.rb']
     secretEnv:
       - CODECOV_TOKEN
+    waitFor:
+      - Migrate
 
   - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
+    id: Karma
     args: ['bin/entrypoint.dev.sh', 'yarn', 'run', 'test']
+    waitFor:
+      - Build
 
   - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
+    id: Prettier Check
     args: ['bin/entrypoint.dev.sh', 'yarn', 'run', 'prettier-check']
+    waitFor:
+      - Build
 
   #== TEARDOWN
 
   - name: 'gcr.io/cloud-builders/docker'
+    id: Stop Postgres
     args: ['rm', '--force', 'postgres']
+    waitFor:
+      - RSpec Unit
+      - RSpec Integration
 
 options:
   env:
