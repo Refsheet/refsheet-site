@@ -49,7 +49,7 @@ steps:
       - cp
       - -a
       - public-read
-      - -rnZ
+      - -rZ
       - /artifacts/*
       - gs://assets.refsheet.net/
     waitFor:
@@ -69,8 +69,8 @@ steps:
 
   - name: 'gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID'
     id: Report Release
-    entrypoint: bundle
     args:
+      - bundle
       - exec
       - rake
       - refsheet:post_deploy
