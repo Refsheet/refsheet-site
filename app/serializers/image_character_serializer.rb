@@ -15,6 +15,10 @@ class ImageCharacterSerializer < ActiveModel::Serializer
 
   has_one :color_scheme, serializer: ColorSchemeSerializer
 
+  def color_scheme
+    object.color_scheme || ColorScheme.default
+  end
+
   def id
     object.slug
   end

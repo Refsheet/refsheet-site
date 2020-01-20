@@ -26,18 +26,18 @@ class ColorScheme < ApplicationRecord
 
   def self.default
     new color_data: {
-        primary: "#80cbc4",
-        accent1: "#26a69a",
-        accent2: "#ee6e73",
-        text: "rgba(255,255,255,0.9)",
-        textMedium: "rgba(255,255,255,0.5)",
-        textLight: "rgba(255,255,255,0.3)",
-        background: "#262626",
-        cardBackground: "#212121",
-        cardHeaderBackground: "rgba(0,0,0,0.2)",
-        imageBackground: "#000000",
-        border: "rgba(255,255,255,0.1)",
-    }
+            primary: "#80cbc4",
+            accent1: "#26a69a",
+            accent2: "#ee6e73",
+            text: "rgba(255,255,255,0.9)",
+            textMedium: "rgba(255,255,255,0.5)",
+            textLight: "rgba(255,255,255,0.3)",
+            background: "#262626",
+            cardBackground: "#212121",
+            cardHeaderBackground: "rgba(0,0,0,0.2)",
+            imageBackground: "#000000",
+            border: "rgba(255,255,255,0.1)",
+        }
   end
 
   def color_data
