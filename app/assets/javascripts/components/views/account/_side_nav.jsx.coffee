@@ -39,5 +39,6 @@
             <NavLink to='/account/settings' text='Account' />
             <NavLink to='/account/support' text='Support' />
             <NavLink to='/account/notifications' text='Notifications' />
+            <NavLink to='/account/api_keys' text='API Keys' />
         </NavLink>
     </ul>`

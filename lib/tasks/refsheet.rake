@@ -258,4 +258,22 @@ namespace :refsheet do
   task :clear_image_meta => :environment do
     Image.update_all image_meta: nil
   end
+
+  namespace :forums do
+    desc 'Synchronize admin level flags.'
+    task :sync_admin_flags => :environment do
+      puts "Synchronizing admin and moderator flags..."
+      progress = ProgressBar.create total: Forum::Discussion.count,
+                                    format: '%c/%C [%w>:|%i] %E'
+
+      Forum::Discussion.find_each do |discussion|
+        discussion.send(:assign_admin_level)
+        discussion.save
+        progress.increment
+      end
+
+      progress.stop
+      puts "DONE"
+    end
+  end
 end

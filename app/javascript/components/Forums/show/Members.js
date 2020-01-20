@@ -14,7 +14,7 @@ class Members extends Component {
 
     return (
       <div className={'container container-flex'}>
-        <main className={'content-left'}>
+        <main className={'content-left padding-bottom--large'}>
           <div className={'forum-post--content'}>
             <p className={'caption'}>
               This is a system group, everyone is a member.

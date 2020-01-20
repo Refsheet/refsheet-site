@@ -15,7 +15,7 @@ class NewPost extends Component {
 
     return (
       <div className={'container container-flex'}>
-        <main className={'content-left'}>
+        <main className={'content-left padding-bottom--large'}>
           <div className={'forum-post--content'}>{forum.about}</div>
         </main>
 
