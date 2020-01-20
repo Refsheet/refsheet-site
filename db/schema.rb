@@ -502,11 +502,15 @@ ActiveRecord::Schema.define(version: 2020_01_17_002153) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "content_html"
+    t.boolean "sticky"
+    t.boolean "admin_post"
+    t.boolean "moderator_post"
     t.index ["character_id"], name: "index_forum_threads_on_character_id"
     t.index ["forum_id"], name: "index_forum_threads_on_forum_id"
     t.index ["karma_total"], name: "index_forum_threads_on_karma_total"
     t.index ["shortcode"], name: "index_forum_threads_on_shortcode"
     t.index ["slug"], name: "index_forum_threads_on_slug"
+    t.index ["sticky"], name: "index_forum_threads_on_sticky"
     t.index ["user_id"], name: "index_forum_threads_on_user_id"
   end
 

@@ -88,7 +88,12 @@ Types::CharacterType = GraphQL::ObjectType.define do
     }
   end
 
-  field :theme, Types::ThemeType, property: :color_scheme
+  field :theme, Types::ThemeType do
+    resolve -> (obj, _args, ctx) {
+      obj.color_scheme || ColorScheme.default
+    }
+  end
+
   field :versions, types[Types::VersionType] do
     resolve -> (obj, _args, ctx) {
       if obj.managed_by?(ctx[:current_user].call)

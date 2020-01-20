@@ -186,4 +186,8 @@ class CharacterSerializer < ActiveModel::Serializer
   def followed
     scope.current_user&.following? object.user if scope&.respond_to? :current_user
   end
+
+  def color_scheme
+    object.color_scheme || ColorScheme.default
+  end
 end
