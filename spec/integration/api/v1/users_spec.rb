@@ -1,53 +1,40 @@
 require 'swagger_helper'
 
-def model_schema(data)
-  schema({
-      type: :object,
-      properties: {
-          data: {
-              type: :object,
-              properties: {
-                  id: { type: :string },
-                  attributes: data
-              },
-              required: ['id']
-          }
-      },
-      required: ['data']
-  })
-end
-
 describe 'V1 Users API' do
   let(:api_user) { create(:user) }
   let(:api_key) { ApiKey.create(user: api_user) }
   let(:'X-ApiKeyId') { api_key.guid }
   let(:'X-ApiKeySecret') { api_key.secret }
 
-  #path '/api/v1/users' do
-    #
-    #post 'Creates a blog' do
-    #  tags 'Blogs'
-    #  consumes 'application/json', 'application/xml'
-    #  parameter name: :blog, in: :body, schema: {
-    #      type: :object,
-    #      properties: {
-    #          title: { type: :string },
-    #          content: { type: :string }
-    #      },
-    #      required: [ 'title', 'content' ]
-    #  }
-    #
-    #  response '201', 'blog created' do
-    #    let(:blog) { { title: 'foo', content: 'bar' } }
-    #    run_test!
-    #  end
-    #
-    #  response '422', 'invalid request' do
-    #    let(:blog) { { title: 'foo' } }
-    #    run_test!
-    #  end
-    #end
-  #end
+  define_model :user,
+               type: :object,
+               properties: {
+                   id: { type: :string },
+                   name: { type: :string },
+                   username: { type: :string },
+                   profile: { type: :string },
+                   avatar_url: { type: :string },
+                   profile_image_url: { type: :string },
+                   is_admin: { type: :boolean },
+                   is_patron: { type: :boolean },
+                   is_supporter: { type: :boolean },
+                   is_moderator: { type: :boolean }
+               },
+               required: %w(id)
+
+  define_model :userPayload,
+               type: :object,
+               properties: {
+                   user: {
+                       type: :object,
+                       properties: {
+                           name: { type: :string },
+                           username: { type: :string },
+                           email: { type: :string },
+                           profile: { type: :string },
+                       }
+                   }
+               }
 
   path '/users/{id}', swagger_doc: 'v1/swagger.json' do
     get 'Retrieve User by ID' do
@@ -57,6 +44,9 @@ describe 'V1 Users API' do
       description <<-MARKDOWN
 Finds a user by ID. The ID supplied should be the hexadecimal user GUID, not the username. To find a user by username,
 use `/users/lookup/{id}`
+
+**Get Yourself:** There is a special `me` ID that can be used to return the user associated with the supplied API Key:
+`/users/me`. This might be useful for updating your user account, and works anywhere a User ID is expected.
 MARKDOWN
       operationId 'find'
 
@@ -66,18 +56,7 @@ MARKDOWN
                 description: 'User GUID'
 
       response '200', 'user found' do
-        model_schema type: :object,
-                     properties: {
-                        name: { type: :string },
-                        username: { type: :string },
-                        avatar_url: { type: :string },
-                        profile_image_url: { type: :string },
-                        is_admin: { type: :boolean },
-                        is_patron: { type: :boolean },
-                        is_supporter: { type: :boolean },
-                        is_moderator: { type: :boolean }
-                     },
-                     required: %w(name username avatar_url profile_image_url)
+        schema '$ref' => '#/definitions/user'
 
         let(:id) { user.guid }
         run_test!
@@ -85,6 +64,56 @@ MARKDOWN
 
       response '404', 'user not found' do
         let(:id) { 'invalid' }
+        run_test!
+      end
+    end
+
+    patch 'Update your User' do
+      tags 'Users'
+      description <<-MARKDOWN
+Updates a user account. You may only update your own user account, unless the current API user has admin scope.
+
+On successful update, this will return `HTTP 204: No Content`.
+      MARKDOWN
+      operationId 'update'
+
+      parameter name: :id,
+                in: :path,
+                type: :string,
+                description: 'User GUID'
+
+      parameter name: :user, in: :body,
+                schema: {
+                    '$ref' => '#/definitions/userPayload'
+                }
+
+
+      let(:id) { api_user.guid }
+
+      let(:user) {{
+          name: "John Doe III",
+          email: "j.doe3@example.com",
+          username: 'jdoe3',
+          profile: "I really like Fortnite."
+      }}
+
+      response '204', 'user updated' do
+        run_test!
+      end
+
+      response '404', 'user not found' do
+        let(:id) { 'invalid' }
+        run_test!
+      end
+
+      response '401', 'not authorized' do
+        let(:target_user) { create :user }
+        let(:id) { target_user.guid }
+        run_test!
+      end
+
+      response '400', 'bad request body' do
+        let(:user) { "This is a strange object, isn't it?" }
         run_test!
       end
     end
@@ -106,18 +135,7 @@ Finds a user by Username. This operation is not case sensitive. Please consider 
                 description: 'Username of the user to find'
 
       response '200', 'user found' do
-        model_schema type: :object,
-                     properties: {
-                         name: { type: :string },
-                         username: { type: :string },
-                         avatar_url: { type: :string },
-                         profile_image_url: { type: :string },
-                         is_admin: { type: :boolean },
-                         is_patron: { type: :boolean },
-                         is_supporter: { type: :boolean },
-                         is_moderator: { type: :boolean }
-                     },
-                     required: %w(name username avatar_url profile_image_url)
+        schema '$ref' => '#/definitions/user'
 
         let(:username) { user.username }
         run_test!

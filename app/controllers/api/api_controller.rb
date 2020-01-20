@@ -3,6 +3,8 @@ class Api::ApiController < ::ApiController
   skip_before_action :force_json, only: [:documentation]
 
   def documentation
+    skip_authorization
+
     page_bg_color = '#262626'
     brand_primary = '#26a69a'
     card_bg_color = 'rgb(33,33,33)'
