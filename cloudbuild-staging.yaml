@@ -67,6 +67,16 @@ steps:
     waitFor:
       - Build Container
 
+  - name: 'gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID'
+    id: Report Release
+    entrypoint: bundle
+    args:
+      - exec
+      - rake
+      - refsheet:post_deploy
+    waitFor:
+      - Build Container
+
   #== DEPLOY
 
   # Deploy Web
