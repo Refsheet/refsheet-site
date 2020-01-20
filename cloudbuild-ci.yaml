@@ -3,6 +3,7 @@ steps:
   #== BUILD
 
   - name: 'gcr.io/kaniko-project/executor'
+    id: Build Container
     args:
       - --destination=gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID
       - --cache=true
@@ -11,7 +12,7 @@ steps:
   #== SETUP
 
   - name: 'gcr.io/cloud-builders/docker'
-    id: Build
+    id: Postgres
     args:
       - run
       - -d
@@ -29,13 +30,14 @@ steps:
       - -timeout=60s
       - -wait=tcp://postgres:5432
     waitFor:
-      - Build
+      - Postgres
 
   # Setup Database
   - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
     id: Migrate
     args: ['bundle', 'exec', 'rake', 'db:migrate']
     waitFor:
+      - Build Container
       - Postgres Start
 
   #== TEST
