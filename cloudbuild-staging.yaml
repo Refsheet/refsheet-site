@@ -7,13 +7,12 @@ steps:
     entrypoint: bash
     args:
       - -c
-      - './bin/build-cache.sh pull'
+      - './bin/build-cache.sh pull && printf "$REVISION_ID" > /workdir/VERSION'
 
   - name: 'gcr.io/kaniko-project/executor'
     id: Build Container
     args:
       - --destination=gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID
-      - --build-arg=VERSION=$REVISION_ID
       - --cache=true
       - --cache-dir=/kaniko-cache
     volumes:
