@@ -73,6 +73,10 @@ RUN SECRET_KEY_BASE=nothing \
 # Copy System Config
 COPY ./config/imagemagick/policy.xml /etc/ImageMagick-6/policy.xml
 
+# Set Version
+ARG VERSION
+RUN echo "$VERSION" > ./VERSION
+
 # Execute Order 66
 
 EXPOSE 3000

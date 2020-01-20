@@ -3,6 +3,7 @@ steps:
     id: Build Container
     args:
       - --destination=gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID
+      - --build-arg VERSION=$REVISION_ID
       - --cache=true
 
   #== Asset Pipeline
