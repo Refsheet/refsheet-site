@@ -1,3 +1,46 @@
+# 01/20/20
+
+Focus for this period has been the new public API, another round of updates to get V2 profiles closer to completion,
+and more work on the V2 Forums. I'm introducing an "Active Projects" section to the changelog, mostly so I can make
+sure it doesn't get too bloated:
+
+## Active Projects
+
+- Public API
+- V2 Profiles
+- V2 Forums
+
+## Bug Fixes
+
+- Fixed character color scheme creation and editing on V1 profiles
+- Fixed an issue causing User pages to not render if characters have a color scheme
+- Fixed redirects after login if a login was requested to access a certain page
+- Minor improvement on 500 error page to vertically center
+- Fixed an issue where translations weren't loading after new keys were added
+- Added Watermark option back to the image settings
+
+## Major Things
+
+- Added revision history tracker to all characters
+
+## Minor Things
+
+- Added image crop priority to image settings
+- Added several more tests to ensure site features don't accidentally break
+
+## WIPs
+
+- Added a first draft of the public API + Documentation
+- Added revision history (view only) to V2 profiles
+- Added character settings (view only) to V2 profiles
+- Added new color scheme tool (draft) to V2 profiles
+
+## Framework
+
+- Implemented a better role system to allow for more scalable authorization
+- Another Rails upgrade, we're just about ready to upgrade from 5.2 to 6.0
+
+
 # 01/02/20
 
 Wrapping up the round of minor improvements and other Fun Things(tm).
