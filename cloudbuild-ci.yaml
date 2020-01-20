@@ -62,13 +62,13 @@ steps:
     id: Karma
     args: ['bin/entrypoint.dev.sh', 'yarn', 'run', 'test']
     waitFor:
-      - Build
+      - Build Container
 
   - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
     id: Prettier Check
     args: ['bin/entrypoint.dev.sh', 'yarn', 'run', 'prettier-check']
     waitFor:
-      - Build
+      - Build Container
 
   #== TEARDOWN
 
