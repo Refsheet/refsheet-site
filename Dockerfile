@@ -1,5 +1,5 @@
 FROM ruby:2.5.5
-MAINTAINER Refsheet.net Team <nerds@refsheet.net>
+LABEL maintainer="Refsheet.net Team <nerds@refsheet.net>"
 
 RUN mkdir /app
 WORKDIR /app
