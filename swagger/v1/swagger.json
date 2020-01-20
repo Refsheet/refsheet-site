@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Refsheet.net API",
-    "description": "The Refsheet.net API allows another application to view and manipulate data on behalf of a user. To get started,\n[generate an API Key from your account settings](https://refsheet.net/account/settings/api).\n\n## Authentication\n\nThe API requires two values, `api_key_id` and `api_key_secret` to be sent either as query parameters or via headers.\n\n|Field|URL Param|Header|\n|---|---|---|\n|API Key ID|`api_key_id`|`X-ApiKeyId`|\n|API Key Secret|`api_key_secret`|`X-ApiKeySecret`|\n\n\n```\ncurl -H \"X-ApiKeyId: YOUR_KEY_ID\" \\\n     -H \"X-ApiKeySecret: YOUR_KEY_SECRET\" \\\n     https://refsheet.net/api/v1/users/abc123\n```\n",
+    "description": "The Refsheet.net API allows another application to view and manipulate data on behalf of a user. To get started,\n[generate an API Key from your account settings](https://refsheet.net/account/settings/api).\n\n<div id='refsheet-auth-root'></div>\n\n## Authentication\n\nThe API requires two values, `api_key_id` and `api_key_secret` to be sent either as query parameters or via headers.\n\n|Field|URL Param|Header|\n|---|---|---|\n|API Key ID|`api_key_id`|`X-ApiKeyId`|\n|API Key Secret|`api_key_secret`|`X-ApiKeySecret`|\n\n\nAn example request using CURL:\n\n```\ncurl -H \"X-ApiKeyId: $REFSHEET_API_KEY_ID\" \\\n     -H \"X-ApiKeySecret: $REFSHEET_API_KEY_SECRET\" \\\n     https://refsheet.net/api/v1/users/me\n```\n\n\n## Response Format\n\nThis API responds with a simple JSON representation of the requested object, which you can see in the examples\nprovided. Some resources include special keys which can be used however you'd like. A summary of fields to expect:\n\n|Property|Required|Description|\n|---|---|---|\n|`id`|Yes|The ID of the resource requested|\n|`_type`|Yes|A type associated with the resource|\n\n### Collections\n\nTBD\n\n### Errors\n\nTBD\n\n\n## Client Libraries\n\nAside from the Swagger definition of the API, there are a few client libraries that are generated. More will be added\nas they are created:\n\n|Language|Link|\n|---|---|\n|Ruby|https://rubygems.org/gems/refsheet|\n\n",
     "version": "v1"
   },
   "host": "http://dev1.refsheet.net",
@@ -14,7 +14,7 @@
         "tags": [
           "Users"
         ],
-        "description": "Finds a user by ID. The ID supplied should be the hexadecimal user GUID, not the username. To find a user by username,\nuse `/users/lookup/{id}`\n",
+        "description": "Finds a user by ID. The ID supplied should be the hexadecimal user GUID, not the username. To find a user by username,\nuse `/users/lookup/{id}`\n\n**Get Yourself:** There is a special `me` ID that can be used to return the user associated with the supplied API Key:\n`/users/me`. This might be useful for updating your user account, and works anywhere a User ID is expected.\n",
         "operationId": "find",
         "parameters": [
           {
@@ -29,84 +29,21 @@
           "200": {
             "description": "user found",
             "schema": {
-              "type": "object",
-              "properties": {
-                "data": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "attributes": {
-                      "type": "object",
-                      "properties": {
-                        "name": {
-                          "type": "string"
-                        },
-                        "username": {
-                          "type": "string"
-                        },
-                        "avatar_url": {
-                          "type": "string"
-                        },
-                        "profile_image_url": {
-                          "type": "string"
-                        },
-                        "is_admin": {
-                          "type": "boolean"
-                        },
-                        "is_patron": {
-                          "type": "boolean"
-                        },
-                        "is_supporter": {
-                          "type": "boolean"
-                        },
-                        "is_moderator": {
-                          "type": "boolean"
-                        }
-                      },
-                      "required": [
-                        "name",
-                        "username",
-                        "avatar_url",
-                        "profile_image_url"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "id"
-                  ]
-                }
-              },
-              "required": [
-                "data"
-              ]
+              "$ref": "#/definitions/user"
             },
             "examples": {
               "application/json": {
-                "data": {
-                  "id": "7ee7535dca01714f",
-                  "type": "users",
-                  "attributes": {
-                    "username": "user1",
-                    "avatar_url": "https://secure.gravatar.com/avatar/111d68d06e2d317b5a59c2c6c5bad808?default=identicon&secure=true",
-                    "name": "Ms. Enriqueta Durgan",
-                    "profile_image_url": "https://secure.gravatar.com/avatar/111d68d06e2d317b5a59c2c6c5bad808?default=identicon&secure=true&size=200",
-                    "profile": "Unde hic delectus. Ut dolore doloribus. Aut consequuntur minus.",
-                    "characters_count": 0,
-                    "is_admin": false,
-                    "is_patron": false,
-                    "is_supporter": false,
-                    "is_moderator": false
-                  },
-                  "links": {
-                    "self": "http://dev1.refsheet.net:5000/api/v1/users/user1",
-                    "public": "http://dev1.refsheet.net:5000/users/user1"
-                  }
-                },
-                "jsonapi": {
-                  "version": "1.0"
-                }
+                "_type": "user",
+                "id": "6bcb62cec5bf8232",
+                "name": "Emmett Cronin",
+                "username": "user1",
+                "profile": "Eligendi placeat iusto. Maiores cum provident. Pariatur et rem.",
+                "avatar_url": "https://secure.gravatar.com/avatar/111d68d06e2d317b5a59c2c6c5bad808?default=identicon&secure=true",
+                "profile_image_url": "https://secure.gravatar.com/avatar/111d68d06e2d317b5a59c2c6c5bad808?default=identicon&secure=true&size=200",
+                "is_admin": false,
+                "is_patron": false,
+                "is_supporter": false,
+                "is_moderator": false
               }
             }
           },
@@ -115,6 +52,59 @@
             "examples": {
               "application/json": {
                 "error": "Couldn't find User"
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update your User",
+        "tags": [
+          "Users"
+        ],
+        "description": "Updates a user account. You may only update your own user account, unless the current API user has admin scope.\n\nOn successful update, this will return `HTTP 204: No Content`.\n",
+        "operationId": "update",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "description": "User GUID",
+            "required": true
+          },
+          {
+            "name": "user",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/userPayload"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "user updated"
+          },
+          "404": {
+            "description": "user not found",
+            "examples": {
+              "application/json": {
+                "error": "Couldn't find User"
+              }
+            }
+          },
+          "401": {
+            "description": "not authorized",
+            "examples": {
+              "application/json": {
+                "error": "not allowed to update? this User"
+              }
+            }
+          },
+          "400": {
+            "description": "bad request body",
+            "examples": {
+              "application/json": {
+                "error": "param is missing or the value is empty: user"
               }
             }
           }
@@ -142,84 +132,21 @@
           "200": {
             "description": "user found",
             "schema": {
-              "type": "object",
-              "properties": {
-                "data": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "attributes": {
-                      "type": "object",
-                      "properties": {
-                        "name": {
-                          "type": "string"
-                        },
-                        "username": {
-                          "type": "string"
-                        },
-                        "avatar_url": {
-                          "type": "string"
-                        },
-                        "profile_image_url": {
-                          "type": "string"
-                        },
-                        "is_admin": {
-                          "type": "boolean"
-                        },
-                        "is_patron": {
-                          "type": "boolean"
-                        },
-                        "is_supporter": {
-                          "type": "boolean"
-                        },
-                        "is_moderator": {
-                          "type": "boolean"
-                        }
-                      },
-                      "required": [
-                        "name",
-                        "username",
-                        "avatar_url",
-                        "profile_image_url"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "id"
-                  ]
-                }
-              },
-              "required": [
-                "data"
-              ]
+              "$ref": "#/definitions/user"
             },
             "examples": {
               "application/json": {
-                "data": {
-                  "id": "4842e6e325b3c06f",
-                  "type": "users",
-                  "attributes": {
-                    "username": "user4",
-                    "avatar_url": "https://secure.gravatar.com/avatar/7e65550957227bd38fe2d7fbc6fd2f7b?default=identicon&secure=true",
-                    "name": "Ms. Duane Frami",
-                    "profile_image_url": "https://secure.gravatar.com/avatar/7e65550957227bd38fe2d7fbc6fd2f7b?default=identicon&secure=true&size=200",
-                    "profile": "Sit amet nihil. Est rerum pariatur. Nesciunt eos nisi.",
-                    "characters_count": 0,
-                    "is_admin": false,
-                    "is_patron": false,
-                    "is_supporter": false,
-                    "is_moderator": false
-                  },
-                  "links": {
-                    "self": "http://dev1.refsheet.net:5000/api/v1/users/user4",
-                    "public": "http://dev1.refsheet.net:5000/users/user4"
-                  }
-                },
-                "jsonapi": {
-                  "version": "1.0"
-                }
+                "_type": "user",
+                "id": "9834ba1312fd0014",
+                "name": "Damon Wolf",
+                "username": "user9",
+                "profile": "Provident veritatis mollitia. Perspiciatis voluptas iure. Doloremque molestiae voluptate.",
+                "avatar_url": "https://secure.gravatar.com/avatar/f784fdb21d26dd2c64f5135f35ec401f?default=identicon&secure=true",
+                "profile_image_url": "https://secure.gravatar.com/avatar/f784fdb21d26dd2c64f5135f35ec401f?default=identicon&secure=true&size=200",
+                "is_admin": false,
+                "is_patron": false,
+                "is_supporter": false,
+                "is_moderator": false
               }
             }
           },
@@ -229,6 +156,68 @@
               "application/json": {
                 "error": "Couldn't find User"
               }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "user": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "profile": {
+          "type": "string"
+        },
+        "avatar_url": {
+          "type": "string"
+        },
+        "profile_image_url": {
+          "type": "string"
+        },
+        "is_admin": {
+          "type": "boolean"
+        },
+        "is_patron": {
+          "type": "boolean"
+        },
+        "is_supporter": {
+          "type": "boolean"
+        },
+        "is_moderator": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "userPayload": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "username": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "profile": {
+              "type": "string"
             }
           }
         }
