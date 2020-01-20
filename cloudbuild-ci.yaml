@@ -92,8 +92,6 @@ options:
   volumes:
     - name: bundle
       path: /usr/local/bundle
-    - name: node
-      path: /app/node_modules
 
 # Create Secrets with:
 # printf "value" | gcloud kms encrypt --plaintext-file=- --ciphertext-file=- --location=global --keyring=refsheet-ci \
