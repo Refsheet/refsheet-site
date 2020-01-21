@@ -76,8 +76,7 @@ RUN mkdir -p /cache && mkdir -p /app/tmp/cache && cp -R /cache/* /app/tmp/cache 
 COPY ./config/imagemagick/policy.xml /etc/ImageMagick-6/policy.xml
 
 # Set Version
-ARG VERSION
-RUN echo "$VERSION" > ./VERSION
+COPY /cache/VERSION /app/VERSION
 
 # Execute Order 66
 
