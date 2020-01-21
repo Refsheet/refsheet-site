@@ -72,7 +72,7 @@ steps:
     dir: /app
     args:
       - -c
-      - 'bundle exec rake refsheet:post_deploy'
+      - 'SECRET_KEY_BASE=nothing RDS_DB_ADAPTER=nulldb bundle exec rake refsheet:post_deploy'
     waitFor:
       - Build Container
 
@@ -87,5 +87,8 @@ steps:
       - 'CLOUDSDK_CONTAINER_CLUSTER=refsheet-prod-clone-1'
     waitFor:
       - Upload Artifacts
+
+options:
+  machineType: 'N1_HIGHCPU_8'
 
 timeout: 3600s
