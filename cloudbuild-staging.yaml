@@ -7,7 +7,7 @@ steps:
     entrypoint: bash
     args:
       - -c
-      - './bin/build-cache.sh pull && printf "$REVISION_ID" > /workdir/VERSION'
+      - './bin/build-cache.sh pull && printf "$REVISION_ID" > /cache/VERSION'
 
   - name: 'gcr.io/kaniko-project/executor'
     id: Build Container
