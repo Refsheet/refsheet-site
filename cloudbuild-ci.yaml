@@ -35,6 +35,7 @@ steps:
   # Setup Database
   - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
     id: Migrate
+    dir: /app
     args: ['bundle', 'exec', 'rake', 'db:migrate']
     waitFor:
       - Build Container
@@ -44,6 +45,7 @@ steps:
 
   - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
     id: RSpec Unit
+    dir: /app
     args: ['bin/entrypoint.ci.sh', 'bundle', 'exec', 'rspec', '--exclude-pattern', '**/{features,requests,integration}/**/*_spec.rb']
     secretEnv:
       - CODECOV_TOKEN
@@ -52,6 +54,7 @@ steps:
 
   - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
     id: RSpec Integration
+    dir: /app
     args: ['bin/entrypoint.ci.sh', 'bundle', 'exec', 'rspec', '--pattern', '**/{features,requests,integration}/**/*_spec.rb']
     secretEnv:
       - CODECOV_TOKEN
@@ -60,12 +63,14 @@ steps:
 
   - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
     id: Karma
+    dir: /app
     args: ['bin/entrypoint.ci.sh', 'yarn', 'run', 'test']
     waitFor:
       - Build Container
 
   - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
     id: Prettier Check
+    dir: /app
     args: ['bin/entrypoint.ci.sh', 'yarn', 'run', 'prettier-check']
     waitFor:
       - Build Container
