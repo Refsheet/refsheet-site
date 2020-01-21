@@ -71,7 +71,7 @@ steps:
     entrypoint: bash
     args:
       - -c
-      - 'bundle install && exec rake refsheet:post_deploy'
+      - 'ls vendor/bundle'
     waitFor:
       - Build Container
 
