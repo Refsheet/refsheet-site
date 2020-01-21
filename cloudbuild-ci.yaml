@@ -98,7 +98,7 @@ options:
     - CI_BRANCH=$BRANCH_NAME
     - CI_COMMIT_ID=$COMMIT_SHA
     - CI_BUILD_NUMBER=$BUILD_ID
-    - CI_BUILD_URL="https://console.cloud.google.com/cloud-build/builds/${BUILD_ID}?project=${PROJECT_ID}&organizationId=183290543501"
+    - CI_BUILD_URL=https://console.cloud.google.com/cloud-build/builds/${BUILD_ID}?project=${PROJECT_ID}&organizationId=183290543501
   machineType: 'N1_HIGHCPU_8'
 
 # Create Secrets with:
