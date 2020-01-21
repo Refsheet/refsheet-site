@@ -45,14 +45,11 @@ class Footer extends Component {
           <Row>
             <Col
               s={12}
-              l={8}
-              m={10}
-              offset={'l2 m1'}
               className="grey-text text-lighten-1"
             >
-              <h2 className="primary-text center">
+              <h3 className="primary-text center">
                 Would you like to support Refsheet.net?
-              </h2>
+              </h3>
               <p>
                 It seems you like this website (or you like scrolling to the
                 bottom of pages)! Did you know that this whole site is developed
@@ -63,43 +60,41 @@ class Footer extends Component {
                   Here are 3 really easy ways to help out:
                 </strong>
               </p>
-              <p>
-                <ul className="browser-default">
-                  <li className="padding-bottom--small">
-                    <strong>
-                      <a
-                        href="https://patreon.com/refsheet"
-                        target="_blank"
-                        className="primary-text"
-                      >
-                        Patreon!
-                      </a>
-                    </strong>{' '}
-                    Recurring monthly donations help cover the costs of running
-                    the website, and one day might pay for other people to help
-                    develop, too!
-                  </li>
-                  <li className="padding-bottom--small">
-                    <strong>
-                      <a
-                        href="https://ko-fi.com/refsheet"
-                        target="_blank"
-                        className="primary-text"
-                      >
-                        Buy a Coffee!
-                      </a>
-                    </strong>{' '}
-                    One-time donations through Ko-fi really help, and are a
-                    great way to show your appreciation!
-                  </li>
-                  <li>
-                    <strong className="white-text">Spread the word!</strong>{' '}
-                    This website is free to use, and spreading the word is a
-                    great free way to invite your friends and followers to join.
-                    Bonus points if you share our Patreon or Ko-fi links around!
-                  </li>
-                </ul>
-              </p>
+              <ul className="browser-default">
+                <li className="padding-bottom--small">
+                  <strong>
+                    <a
+                      href="https://patreon.com/refsheet"
+                      target="_blank"
+                      className="primary-text"
+                    >
+                      Patreon!
+                    </a>
+                  </strong>{' '}
+                  Recurring monthly donations help cover the costs of running
+                  the website, and one day might pay for other people to help
+                  develop, too!
+                </li>
+                <li className="padding-bottom--small">
+                  <strong>
+                    <a
+                      href="https://ko-fi.com/refsheet"
+                      target="_blank"
+                      className="primary-text"
+                    >
+                      Buy a Coffee!
+                    </a>
+                  </strong>{' '}
+                  One-time donations through Ko-fi really help, and are a
+                  great way to show your appreciation!
+                </li>
+                <li>
+                  <strong className="white-text">Spread the word!</strong>{' '}
+                  This website is free to use, and spreading the word is a
+                  great free way to invite your friends and followers to join.
+                  Bonus points if you share our Patreon or Ko-fi links around!
+                </li>
+              </ul>
               <p>
                 Honestly, without the help and donations I've received so far,
                 this site wouldn't be possible. If you like what you see, and
