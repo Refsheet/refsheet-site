@@ -24,17 +24,6 @@ steps:
       - Pull Cache
 
   #== Asset Pipeline
-#  - name: 'gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID'
-#    id: Extract Artifacts
-#    volumes:
-#      - name: 'artifacts'
-#        path: '/artifacts'
-#    entrypoint: 'bash'
-#    args:
-#      - -c
-#      - 'cp -R /app/public/* /artifacts'
-#    waitFor:
-#      - Build Container
 
   - name: 'gcr.io/cloud-builders/gsutil'
     id: Upload Artifacts
