@@ -75,9 +75,6 @@ RUN mkdir -p /cache && mkdir -p /app/tmp/cache && cp -R /cache/* /app/tmp/cache 
 # Copy System Config
 COPY ./config/imagemagick/policy.xml /etc/ImageMagick-6/policy.xml
 
-# Set Version
-COPY /cache/VERSION /app/VERSION
-
 # Execute Order 66
 
 EXPOSE 3000
