@@ -48,7 +48,6 @@ const SiteNav = ({ t }) => {
         </li>
       </Restrict>
 
-
       {/*<li>*/}
       {/*<NavLink to='/guilds' activeClassName='primary-text'>Guilds</NavLink>*/}
       {/*</li>*/}

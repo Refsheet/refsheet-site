@@ -17,8 +17,9 @@
     = render 'favicon'
     %meta{name: 'viewport', content: 'width=device-width, initial-scale=1'}
     = javascript_pack_tag 'application'
-    = stylesheet_link_tag 'application', media: 'all'
+    = stylesheet_pack_tag 'application'
 
+    = stylesheet_link_tag 'application', media: 'all'
     = javascript_include_tag 'application'
 
     -#= javascript_include_tag 'https://js.stripe.com/v2/'
