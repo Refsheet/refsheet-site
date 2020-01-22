@@ -8,6 +8,7 @@ import UserLink from '../../Shared/UserLink'
 import PostMeta from '../shared/PostMeta'
 import DiscussionReply from './DiscussionReply'
 import RichText from '../../Shared/RichText'
+import DiscussionReplyForm from './DiscussionReplyForm'
 
 class View extends Component {
   render() {
@@ -26,42 +27,57 @@ class View extends Component {
 
             <KarmaCounter discussion={discussion} forum={forum} />
 
-            <div className={'time'}>
-              <Trans
-                i18nKey={'forums.summary-posted-date'}
-                defaults={'Posted <0>{{ date }}</0>'}
-                values={{
-                  date: discussion.created_at,
-                }}
-                components={[
-                  <Moment key={'date'} fromNow unix>
-                    {discussion.created_at}
-                  </Moment>,
-                ]}
-              />
-            </div>
+            <div className={'forum-card card sp'}>
+              <div className={'time card-header'}>
+                <Trans
+                  i18nKey={'forums.summary-posted-date'}
+                  defaults={'Posted <0>{{ date }}</0>'}
+                  values={{
+                    date: discussion.created_at,
+                  }}
+                  components={[
+                    <Moment key={'date'} fromNow unix>
+                      {discussion.created_at}
+                    </Moment>,
+                  ]}
+                />
+              </div>
 
-            <div className={'forum-post--whodunnit'}>
-              <UserLink
-                user={discussion.user}
-                character={discussion.character}
-              />
-            </div>
+              <div className={'forum-post--whodunnit card-header'}>
+                <UserLink
+                  user={discussion.user}
+                  character={discussion.character}
+                />
+              </div>
 
-            <h2>{discussion.topic}</h2>
-            <div className={'forum-post--content'}>
-              <RichText
-                content={discussion.content}
-                contentHtml={discussion.content_html}
-              />
+              <div className={'card-content'}>
+                <h2>{discussion.topic}</h2>
+                <div className={'forum-post--content'}>
+                  <RichText
+                    content={discussion.content}
+                    contentHtml={discussion.content_html}
+                  />
+                </div>
+
+                <PostMeta
+                  forum={forum}
+                  discussion={discussion}
+                  className={'margin-top--small'}
+                />
+              </div>
             </div>
-            <PostMeta forum={forum} discussion={discussion} />
           </div>
 
           <div className={'forum-post--replies'}>
             {discussion.posts.map(post => (
               <DiscussionReply key={post.id} post={post} />
             ))}
+
+            <DiscussionReplyForm
+              key={'new-reply'}
+              discussion={discussion}
+              forum={forum}
+            />
           </div>
         </main>
 

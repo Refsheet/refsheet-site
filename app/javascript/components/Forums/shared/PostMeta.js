@@ -4,13 +4,14 @@ import compose from 'utils/compose'
 import { Link } from 'react-router-dom'
 import Moment from 'react-moment'
 import { withNamespaces } from 'react-i18next'
+import c from 'classnames'
 
 class PostMeta extends Component {
   render() {
-    const { discussion, forum, t } = this.props
+    const { discussion, forum, t, className } = this.props
 
     return (
-      <div className={'forum-post--meta'}>
+      <div className={c('forum-post--meta', className)}>
         {t('forums.replies', {
           defaultValue: '{{count}} replies',
           count: discussion.reply_count,
@@ -39,6 +40,7 @@ class PostMeta extends Component {
 PostMeta.propTypes = {
   discussion: PropTypes.object.isRequired,
   forum: PropTypes.object.isRequired,
+  className: PropTypes.string,
 }
 
 export default compose(withNamespaces('common'))(PostMeta)

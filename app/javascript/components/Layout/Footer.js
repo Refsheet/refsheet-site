@@ -43,10 +43,7 @@ class Footer extends Component {
       <footer className="page-footer grey darken-4">
         <div className="container margin-top--large">
           <Row>
-            <Col
-              s={12}
-              className="grey-text text-lighten-1"
-            >
+            <Col s={12} className="grey-text text-lighten-1">
               <h3 className="primary-text center">
                 Would you like to support Refsheet.net?
               </h3>
@@ -85,14 +82,14 @@ class Footer extends Component {
                       Buy a Coffee!
                     </a>
                   </strong>{' '}
-                  One-time donations through Ko-fi really help, and are a
-                  great way to show your appreciation!
+                  One-time donations through Ko-fi really help, and are a great
+                  way to show your appreciation!
                 </li>
                 <li>
-                  <strong className="white-text">Spread the word!</strong>{' '}
-                  This website is free to use, and spreading the word is a
-                  great free way to invite your friends and followers to join.
-                  Bonus points if you share our Patreon or Ko-fi links around!
+                  <strong className="white-text">Spread the word!</strong> This
+                  website is free to use, and spreading the word is a great free
+                  way to invite your friends and followers to join. Bonus points
+                  if you share our Patreon or Ko-fi links around!
                 </li>
               </ul>
               <p>
