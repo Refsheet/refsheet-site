@@ -22,6 +22,7 @@ sure it doesn't get too bloated:
 ## Major Things
 
 - Added revision history tracker to all characters
+- Replaced the markdown editor with React-MDE, which is actually maintained and should work on mobile
 
 ## Minor Things
 
@@ -34,11 +35,16 @@ sure it doesn't get too bloated:
 - Added revision history (view only) to V2 profiles
 - Added character settings (view only) to V2 profiles
 - Added new color scheme tool (draft) to V2 profiles
+- Added the reply box UI to V2 forums
 
 ## Framework
 
 - Implemented a better role system to allow for more scalable authorization
 - Another Rails upgrade, we're just about ready to upgrade from 5.2 to 6.0
+- Added GZip compression to assets, which should speed up site loading time
+- Configured webpack to emit styles and process SASS, which will allow styles to move to V2 bundle
+- Upgraded React to 16.12.0
+- Upgraded react-materialize to remove duplicate react requirement
 
 
 # 01/02/20

@@ -40,9 +40,9 @@ export function createIdentity({ user, character, identity }) {
 export const userIdentitySourceType = {
   name: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
-  is_admin: PropTypes.boolean,
-  is_patron: PropTypes.boolean,
-  is_moderator: PropTypes.boolean,
+  is_admin: PropTypes.bool,
+  is_patron: PropTypes.bool,
+  is_moderator: PropTypes.bool,
   avatar_url: PropTypes.string,
 }
 

@@ -27,8 +27,6 @@ Types::ForumPostType = GraphQL::ObjectType.define do
 
   interfaces [Interfaces::ApplicationRecordInterface]
 
-  field :id, !types.ID
-  field :guid, !types.ID
   field :content, types.String
   field :content_html, types.String
   field :karma_total, types.Int

@@ -46,7 +46,7 @@
     "react-i18next": "^8.4.0",
     "react-justified-layout": "^0.1.0",
     "react-load-image": "^0.1.7",
-    "react-materialize": "3.3.4",
+    "react-materialize": "^3.5.9",
     "react-mde": "^8.0.1",
     "react-measure": "^2.0.2",
     "react-moment": "^0.8.4",

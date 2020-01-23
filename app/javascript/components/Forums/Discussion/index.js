@@ -11,6 +11,8 @@ class Discussion extends Component {
   render() {
     const { data = {} } = this.props
 
+    console.log({ data })
+
     if (data.loading) {
       return <Loading />
     } else if (data.error) {
@@ -21,6 +23,7 @@ class Discussion extends Component {
         <View
           discussion={data.getDiscussion}
           forum={this.props.forum}
+          refetch={data.refetch}
           {...this.state}
         />
       )

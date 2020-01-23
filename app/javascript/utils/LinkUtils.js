@@ -1,3 +1,5 @@
+import routes from '../config/routes'
+
 function buildHelpers(object) {
   let obj = { ...object }
 
@@ -8,7 +10,10 @@ function buildHelpers(object) {
       const route = obj[key]
 
       obj[name + 'Path'] = params => {
-        return route + 'process'
+        console.log({ params })
+        return route.replace(/:(\w+)/g, (match, key) => {
+          return params[key]
+        })
       }
 
       obj[name + 'Url'] = params => {
@@ -21,29 +26,6 @@ function buildHelpers(object) {
   return obj
 }
 
-const LinkUtils = buildHelpers({
-  baseUrl: 'https://dev1.refsheet.net:5000',
-
-  // Asset Helpers
-
-  // Forum URLs:
-
-  forumDiscussionRoute: '/v2/forums/:forumId/:discussionId',
-  forumPostRoute: '/v2/forums/:forumId/:discussionId#:postId',
-
-  // forumDiscussionLink(forum, discussion, post=null) {
-  //   let link = `/v2/forums/${forum.slug || forum}/${discussion.slug || discussion}`
-  //
-  //   if (post) {
-  //     link += '#' + (post.id || post)
-  //   }
-  //
-  //   return link
-  // },
-  //
-  // forumDiscussionUrl(forum, discussion, post=null) {
-  //   return this.baseUrl + this.forumDiscussionLink(forum, discussion, post)
-  // }
-})
+const LinkUtils = buildHelpers(routes)
 
 export default LinkUtils
