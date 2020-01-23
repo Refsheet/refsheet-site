@@ -1,0 +1,28 @@
+mutation postReply($discussionId: ID!, $characterId: ID, $content: String!) {
+    postReply(discussionId: $discussionId, characterId: $characterId, content: $content) {
+        id
+        content
+        content_html
+        karma_total
+        created_at
+
+        user {
+            username
+            name
+            is_admin
+            is_patron
+            is_supporter
+            avatar_url
+        }
+
+        character {
+            name
+            slug
+            profile_image {
+                url {
+                    thumbnail
+                }
+            }
+        }
+    }
+}

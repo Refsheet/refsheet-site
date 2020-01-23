@@ -6,8 +6,18 @@ import UserAvatar from '../User/UserAvatar'
 import IdentityModal from './CommentForm/IdentityModal'
 import Restrict from './Restrict'
 import MarkdownEditor from './MarkdownEditor'
-import { Row, Col } from 'react-materialize'
+import { Row, Col, Button } from 'react-materialize'
 
+// TODO: This class has now 3 different styles that it produces,
+//       this should be refactored into a generic wrapper that handles
+//       functionality and passes components to a child class to render
+//       those specific variants.
+//
+// Known Variants:
+//   - default (V1 Forums, Status Updates)
+//   - slim    (Lightbox Comment Form, Messages?)
+//   - v2Style (V2 Forums)
+//
 class CommentForm extends Component {
   constructor(props) {
     super(props)
@@ -63,7 +73,7 @@ class CommentForm extends Component {
         identity: this.props.identity,
       })
       .then(data => {
-        if (data.errors) {
+        if (data && data.errors) {
           this.handleError(data.errors[0])
         } else {
           this.setState({ comment: '', submitting: false, error: '' })
@@ -73,11 +83,18 @@ class CommentForm extends Component {
           }
         }
       })
-      .catch(this.handleError)
+      .catch(this.handleError.bind(this))
   }
 
   render() {
-    const { inCharacter = false, identity, richText, slim = false } = this.props
+    const {
+      inCharacter = false,
+      identity,
+      richText,
+      slim = false,
+      emoji,
+      hashtags,
+    } = this.props
 
     const placeholder = (this.props.placeholder || '').replace(
       /%n/,
@@ -89,7 +106,7 @@ class CommentForm extends Component {
     if (slim) {
       submitButton = (
         <div className={'send'}>
-          <button
+          <Button
             type={'submit'}
             className={'btn right flat'}
             disabled={!this.state.comment || this.state.submitting}
@@ -101,7 +118,7 @@ class CommentForm extends Component {
             ) : (
               <Icon title={this.props.buttonText}>send</Icon>
             )}
-          </button>
+          </Button>
         </div>
       )
 
@@ -131,7 +148,7 @@ class CommentForm extends Component {
             </Restrict>
           </Col>
           <Col s={4}>
-            <button
+            <Button
               type={'submit'}
               onClick={this.handleSubmit.bind(this)}
               className="btn right"
@@ -140,7 +157,7 @@ class CommentForm extends Component {
               {this.state.submitting
                 ? this.props.buttonSubmittingText
                 : this.props.buttonText}
-            </button>
+            </Button>
           </Col>
         </Row>
       )
@@ -149,9 +166,11 @@ class CommentForm extends Component {
         input = (
           <MarkdownEditor
             name={'comment'}
-            disabled={this.state.submitting}
+            readOnly={this.state.submitting}
             placeholder={placeholder}
             content={this.state.comment}
+            emoji={emoji}
+            hashtags={hashtags}
             onChange={this.handleCommentChange.bind(this)}
           />
         )
@@ -171,10 +190,40 @@ class CommentForm extends Component {
       }
     }
 
+    if (this.props.v2Style) {
+      return (
+        <div className={'v2-reply-box'}>
+          <UserAvatar
+            user={this.props.currentUser}
+            identity={identity}
+            onIdentityChangeClick={this.handleIdentityOpen.bind(this)}
+          />
+
+          <div className={'reply-content card sp'}>
+            <div className={'reply-content card-content padding--none'}>
+              {input}
+            </div>
+
+            {this.state.error && (
+              <div className={'error card-footer red-text smaller'}>
+                {this.state.error}
+              </div>
+            )}
+
+            <div className={'card-footer'}>{submitButton}</div>
+
+            {this.state.identityModalOpen && (
+              <IdentityModal onClose={this.handleIdentityClose.bind(this)} />
+            )}
+          </div>
+        </div>
+      )
+    }
+
     return (
       <div className={'comment-form'}>
         <form
-          className="card reply-box margin-top--none sp with-avatar"
+          className={c('card margin-top--none sp with-avatar')}
           onSubmit={this.handleSubmit.bind(this)}
         >
           <UserAvatar
@@ -212,6 +261,8 @@ CommentForm.propTypes = {
   buttonText: PropTypes.string,
   buttonSubmittingText: PropTypes.string,
   slim: PropTypes.bool,
+  hashtags: PropTypes.bool,
+  emoji: PropTypes.bool,
 }
 
 const mapStateToProps = (state, props) => ({

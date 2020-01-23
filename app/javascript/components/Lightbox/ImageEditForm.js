@@ -199,7 +199,7 @@ ImageEditForm.propTypes = {
   image: PropTypes.shape({
     name: PropTypes.string,
     caption: PropTypes.string,
-    nsfw: PropTypes.boolean,
+    nsfw: PropTypes.bool,
   }).isRequired,
   onCancel: PropTypes.func,
   onSave: PropTypes.func,

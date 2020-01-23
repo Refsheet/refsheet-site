@@ -11,7 +11,7 @@ import LinkUtils from 'utils/LinkUtils'
 
 class DiscussionReply extends Component {
   render() {
-    const { post } = this.props
+    const { post, discussionId, forumId } = this.props
 
     return (
       <div className={'margin-top--medium forum-post--reply'}>
@@ -21,9 +21,9 @@ class DiscussionReply extends Component {
           <div className={'time card-header'}>
             <a
               href={LinkUtils.forumPostUrl({
-                forumId: 'foo',
-                discussionId: 'bar',
-                postId: 'qux',
+                forumId,
+                discussionId,
+                postId: post.id,
               })}
             >
               <Trans

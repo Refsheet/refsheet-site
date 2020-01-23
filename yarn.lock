@@ -2041,6 +2041,11 @@ classnames@^2.2.5:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
 
+classnames@^2.2.6:
+  version "2.2.6"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
+  integrity sha512-JR/iSQOSt+LQIWwrwEzJ9uk0xfN3mTVYMwt1Ir5mUcSN6pU+V4zQFFaJsclJbPuAUQH+yfWef6tm7l1quW3C8Q==
+
 cli-cursor@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/cli-cursor/-/cli-cursor-1.0.2.tgz#64da3f7d56a54412e59794bd62dc35295e8f2987"
@@ -8381,15 +8386,6 @@ react-dom@^16.8.0:
     prop-types "^15.6.2"
     scheduler "^0.18.0"
 
-react-dom@^16.8.5:
-  version "16.9.0"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.9.0.tgz#5e65527a5e26f22ae3701131bcccaee9fb0d3962"
-  dependencies:
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
-    prop-types "^15.6.2"
-    scheduler "^0.15.0"
-
 react-dropzone@^4.3.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/react-dropzone/-/react-dropzone-4.3.0.tgz#facdd7db16509772633c9f5200621ac01aa6706f"
@@ -8443,13 +8439,12 @@ react-load-image@^0.1.7:
   version "0.1.7"
   resolved "https://registry.yarnpkg.com/react-load-image/-/react-load-image-0.1.7.tgz#508243c8a80f0af2007ac9099430230e6ba4a2d4"
 
-react-materialize@3.3.4:
-  version "3.3.4"
-  resolved "https://registry.yarnpkg.com/react-materialize/-/react-materialize-3.3.4.tgz#9f0e1b02df207819c2d455b649fcdb1ee29a63a4"
+react-materialize@^3.5.9:
+  version "3.5.9"
+  resolved "https://registry.yarnpkg.com/react-materialize/-/react-materialize-3.5.9.tgz#be93a16860ab09122113dea9166300660b7d3eab"
+  integrity sha512-/tKotBAWzxQuWCKHz+zo2Cw3CKS56/9spYqJzZ8+SevgSg3xcoMMeSQWYKtFKAg2/KTv+l9wcYUIIEt9zJJOYQ==
   dependencies:
-    classnames "^2.2.5"
-    react "^16.8.5"
-    react-dom "^16.8.5"
+    classnames "^2.2.6"
 
 react-mde@^8.0.1:
   version "8.0.1"
@@ -8579,14 +8574,6 @@ react@^16.0.0, react@^16.8.0:
   version "16.12.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.12.0.tgz#0c0a9c6a142429e3614834d5a778e18aa78a0b83"
   integrity sha512-fglqy3k5E+81pA8s+7K0/T3DBCF0ZDOher1elBFzF7O6arXJgzyu/FW+COxFvAWXJoJN9KIZbT2LXlukwphYTA==
-  dependencies:
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
-    prop-types "^15.6.2"
-
-react@^16.8.5:
-  version "16.9.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.9.0.tgz#40ba2f9af13bc1a38d75dbf2f4359a5185c4f7aa"
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
@@ -9261,13 +9248,6 @@ sass-loader@^6.0.6:
 sax@^1.2.4, sax@~1.2.1:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
-
-scheduler@^0.15.0:
-  version "0.15.0"
-  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.15.0.tgz#6bfcf80ff850b280fed4aeecc6513bc0b4f17f8e"
-  dependencies:
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
 
 scheduler@^0.18.0:
   version "0.18.0"

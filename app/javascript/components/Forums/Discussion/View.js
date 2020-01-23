@@ -12,9 +12,7 @@ import DiscussionReplyForm from './DiscussionReplyForm'
 
 class View extends Component {
   render() {
-    const { discussion, forum, t } = this.props
-
-    console.log({ discussion })
+    const { discussion, forum, t, refetch } = this.props
 
     return (
       <div className={'container container-flex'}>
@@ -70,13 +68,20 @@ class View extends Component {
 
           <div className={'forum-post--replies'}>
             {discussion.posts.map(post => (
-              <DiscussionReply key={post.id} post={post} />
+              <DiscussionReply
+                key={post.id}
+                post={post}
+                forumId={forum.slug}
+                discussionId={discussion.slug}
+              />
             ))}
 
             <DiscussionReplyForm
               key={'new-reply'}
               discussion={discussion}
               forum={forum}
+              inCharacter={!forum.no_rp}
+              refetch={refetch}
             />
           </div>
         </main>
