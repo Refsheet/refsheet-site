@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom'
 export const Muted = styled.div`
   color: ${props => props.theme.textLight};
   font-size: 0.9rem;
-  
+
   a {
     color: ${props => props.theme.textLight};
-    
+
     &:hover {
       color: ${props => props.theme.textLight};
       text-decoration: underline;
@@ -25,7 +25,7 @@ export const MutedHeader = styled(Muted)`
 export const MutedLink = styled(Link)`
   color: ${props => props.theme.textLight};
   font-size: 0.9rem;
-  
+
   &:hover {
     color: ${props => props.theme.textLight};
     text-decoration: underline;
@@ -35,7 +35,7 @@ export const MutedLink = styled(Link)`
 export const MutedAnchor = styled.a`
   color: ${props => props.theme.textLight};
   font-size: 0.9rem;
-  
+
   &:hover {
     color: ${props => props.theme.textLight};
     text-decoration: underline;

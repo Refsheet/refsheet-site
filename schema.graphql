@@ -13,11 +13,63 @@ interface ApplicationRecord {
     updated_at: Int
 }
 
+interface Paginated {
+    count: Int
+    currentPage: Int
+    offset: Int
+    perPage: Int
+    totalEntries: Int
+    totalPages: Int
+}
+
 "Various data attached to a particular moderation item"
 union ModerationItem = Image
 
 "Various data attached to a particular widget"
 union WidgetData = Json | RichText | Youtube
+
+type Activity implements ApplicationRecord {
+    character: Character
+    character_id: ID
+    comment: String
+    created_at: Int
+    deleted_at: Int
+    id: ID!
+    updated_at: Int
+    user: User
+    user_id: ID!
+}
+
+type ApiKey implements ApplicationRecord {
+    created_at: Int
+    deleted_at: Int
+    id: ID
+    name: String
+    read_only: Boolean
+    secret: String
+    updated_at: Int
+    user: User
+}
+
+type Artist implements ApplicationRecord {
+    avatar_url: String
+    commission_info: String
+    commission_info_markdown: String
+    commission_url: String
+    created_at: Int
+    deleted_at: Int
+    guid: ID!
+    id: ID!
+    locked: Boolean
+    media_count: Int
+    name: String!
+    profile: String
+    profile_markdown: String
+    slug: String!
+    updated_at: Int
+    user: User
+    website_url: String
+}
 
 type Attribute {
     id: String!
@@ -56,6 +108,7 @@ type Character implements ApplicationRecord {
     user: User
     username: String!
     version: Int
+    versions: [Version]
 }
 
 type ChatCount {
@@ -77,6 +130,61 @@ type Conversation implements ApplicationRecord {
     user: User
 }
 
+type Forum implements ApplicationRecord {
+    created_at: Int
+    deleted_at: Int
+    description: String
+    discussions(page: Int, sort: String, sticky: Boolean): [ForumDiscussion]
+    id: ID
+    locked: Boolean
+    name: String!
+    no_rp: Boolean
+    nsfw: Boolean
+    slug: String
+    system_owned: Boolean
+    updated_at: Int
+}
+
+type ForumDiscussion implements ApplicationRecord {
+    admin_post: Boolean
+    character: Character
+    content: String
+    content_html: String
+    created_at: Int
+    deleted_at: Int
+    forum: Forum
+    id: ID
+    karma_total: Int
+    last_post_at: Int
+    last_read_at: Int
+    locked: Boolean
+    moderator_post: Boolean
+    posts: [ForumPost]
+    preview: String
+    reply_count: Int
+    shortcode: String
+    slug: String
+    sticky: Boolean
+    topic: String
+    unread_posts_count: Int
+    updated_at: Int
+    user: User
+}
+
+type ForumPost implements ApplicationRecord {
+    character: Character
+    content: String
+    content_html: String
+    created_at: Int
+    deleted_at: Int
+    discussion: ForumDiscussion
+    id: ID
+    karma_total: Int
+    parent_post: ForumPost
+    updated_at: Int
+    user: User
+}
+
 type Geometry {
     height: Int!
     width: Int!
@@ -88,11 +196,16 @@ type Image implements ApplicationRecord {
     caption: String
     caption_html: String
     character: Character
+    character_id: ID
+    comments: [MediaComment]
     comments_count: Int
     created_at: Int
     deleted_at: Int
+    download_link: String
+    favorites: [MediaFavorite]
     favorites_count: Int
     gravity: String
+    hashtags: [MediaHashtag]
     height: Int
     hidden: Boolean
     id: ID
@@ -103,9 +216,11 @@ type Image implements ApplicationRecord {
     size: ImageSize
     source_url: String
     source_url_display: String
+    tags: [MediaTag]
     title: String
     updated_at: Int
     url: ImageUrl
+    watermark: Boolean
     width: Int
 }
 
@@ -145,6 +260,54 @@ type Json {
     json: String
 }
 
+type MediaComment implements ApplicationRecord {
+    comment: String!
+    created_at: Int
+    deleted_at: Int
+    id: ID
+    updated_at: Int
+    user: User
+}
+
+type MediaCommentCollection implements Paginated {
+    comments: [MediaComment]
+    count: Int
+    currentPage: Int
+    offset: Int
+    perPage: Int
+    totalEntries: Int
+    totalPages: Int
+}
+
+type MediaFavorite implements ApplicationRecord {
+    created_at: Int
+    deleted_at: Int
+    id: ID
+    updated_at: Int
+    user: User
+}
+
+type MediaHashtag implements ApplicationRecord {
+    count: Int
+    created_at: Int
+    deleted_at: Int
+    id: ID
+    media: Image
+    tag: String
+    updated_at: Int
+}
+
+type MediaTag implements ApplicationRecord {
+    character: Character
+    created_at: Int
+    deleted_at: Int
+    id: ID
+    media: Image
+    position_x: Int
+    position_y: Int
+    updated_at: Int
+}
+
 type Message implements ApplicationRecord {
     conversation: Conversation
     created_at: Int
@@ -178,20 +341,36 @@ type Moderation implements ApplicationRecord {
 }
 
 type Mutation {
+    addComment(comment: String!, mediaId: ID!): MediaComment
+    addFavorite(mediaId: ID!): MediaFavorite
     convertCharacter(id: ID!): Character
+    createActivity(character_id: ID, comment: String): Activity
+    createApiKey(name: String, read_only: Boolean): ApiKey
+    createForum: Forum
     createProfileSection(characterId: ID!, createAfterSectionId: ID): ProfileSection
     createProfileWidget(characterId: ID!, columnId: ID!, sectionId: ID!, type: String!): Widget
     createSession(password: String!, remember: Boolean, username: String!): Session
+    deleteMedia(mediaId: ID!): Image
+    deleteProfileSection(id: ID!): ProfileSection
     deleteProfileWidget(id: ID!): Widget
     deleteUser(password: String!, username: String!): User
     destroySession: Session
+    editReply(content: String!, postId: ID!): ForumPost
+    markAllNotificationsAsRead: NotificationCollection
+    postReply(characterId: ID, content: String!, discussionId: ID!, parentPostId: ID): ForumPost
+    readNotification(id: ID!): Notification
+    removeComment(id: ID!, mediaId: ID!): MediaComment
+    removeFavorite(mediaId: ID!): MediaFavorite
+    sendKarma(discussionId: ID!, take: Boolean): ForumPost
     sendMessage(conversationId: ID, message: String!, recipientId: ID): Message
     updateCharacter(id: ID!, name: String, special_notes: String, species: String): Character
     updateConversation(conversation_id: ID!, read: Boolean): Conversation
+    updateForum: Forum
+    updateImage(caption: String, characterId: ID, folder: String, gravity: String, hidden: Boolean, mediaId: ID, nsfw: Boolean, source_url: String, title: String, watermark: Boolean): Image
     updateModeration(id: ID!, resolution: String!): Moderation
-    updateProfileSection(id: ID!, title: String): ProfileSection
+    updateProfileSection(id: ID!, row_order_position: String, title: String): ProfileSection
     updateProfileWidget(column: Int, data: String, id: ID!, row_order_position: String, title: String): Widget
-    uploadImage(characterId: String!, folder: String, key: String, location: String, nsfw: Boolean, title: String): Image
+    uploadImage(characterId: ID!, folder: String, key: String, location: String, nsfw: Boolean, title: String): Image
 }
 
 type Notification implements ApplicationRecord {
@@ -224,12 +403,18 @@ type ProfileSection {
 }
 
 type Query {
+    autocompleteHashtags(hashtag: String!): [MediaHashtag]
     chatCounts: ChatCount
     findUser(username: String!): User
+    getArtist(slug: String!): Artist
     getCharacter(id: ID!): Character
     getCharacterByUrl(slug: String!, username: String!): Character
+    getComments(mediaId: ID!, page: Int, perPage: Int, since: Int): MediaCommentCollection
     getConversation(conversationId: ID!): Conversation
     getConversations: [Conversation]
+    getDiscussion(forumId: String!, id: String!): ForumDiscussion
+    getForum(slug: String!): Forum
+    getForums: [Forum]
     getImageUploadToken(characterId: ID!): ImageUploadToken
     getMedia(mediaId: ID!): Image
     getMessages(conversationId: ID!): [Message]
@@ -262,10 +447,16 @@ type Subscription {
     convChanged(convId: ID!): Conversation!
     "Image processing complete"
     imageProcessingComplete(imageId: ID!): Image
+    "New comment on media"
+    newComment(mediaId: ID!): MediaComment!
     "Conversation changed somehow"
     newConversation: Conversation!
+    "New favorite on media"
+    newFavorite(mediaId: ID!): MediaFavorite!
     "New message published"
     newMessage(conversationId: ID!): Message!
+    "New notifications go here"
+    newNotification: Notification!
 }
 
 type Swatch implements ApplicationRecord {
@@ -300,6 +491,7 @@ type ThemeColorData {
 }
 
 type User implements ApplicationRecord {
+    apiKeys: [ApiKey]
     avatar_url: String
     characters: [Character]
     characters_count: String
@@ -309,13 +501,31 @@ type User implements ApplicationRecord {
     is_admin: Boolean
     is_followed: Boolean
     is_managed: Boolean
+    is_moderator: Boolean
     is_patron: Boolean
+    is_supporter: Boolean
+    link: String
     name: String
     profile: String
     profile_html: String
     profile_image_url: String
     updated_at: Int
     username: String
+}
+
+type Version implements ApplicationRecord {
+    created_at: Int
+    deleted_at: Int
+    event: String!
+    id: ID
+    index: Int
+    item_id: Int!
+    item_type: String!
+    object: String
+    object_changes: String
+    updated_at: Int
+    was_me: Boolean
+    whodunnit: User
 }
 
 type Widget {

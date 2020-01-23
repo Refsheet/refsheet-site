@@ -6,8 +6,8 @@ import Restrict from '../Shared/Restrict'
 import i18n from 'services/i18n'
 import c from 'classnames'
 import SessionService from '../../services/SessionService'
-import {H3} from "../Styled/Headings";
-import styled from "styled-components";
+import { H3 } from '../Styled/Headings'
+import styled from 'styled-components'
 
 class _Footer extends Component {
   constructor(props) {
@@ -52,12 +52,9 @@ class _Footer extends Component {
               <p>
                 It seems you like this website (or you like scrolling to the
                 bottom of pages)! Did you know that this whole site is developed
-                by <strong>one person</strong> with a
-                tiny army of helpful people? I love making this site possible,
-                but I could use your help.{' '}
-                <strong>
-                  Here are 3 really easy ways to help out:
-                </strong>
+                by <strong>one person</strong> with a tiny army of helpful
+                people? I love making this site possible, but I could use your
+                help. <strong>Here are 3 really easy ways to help out:</strong>
               </p>
               <ul className="browser-default">
                 <li className="padding-bottom--small">
