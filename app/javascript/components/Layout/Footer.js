@@ -6,8 +6,10 @@ import Restrict from '../Shared/Restrict'
 import i18n from 'services/i18n'
 import c from 'classnames'
 import SessionService from '../../services/SessionService'
+import {H3} from "../Styled/Headings";
+import styled from "styled-components";
 
-class Footer extends Component {
+class _Footer extends Component {
   constructor(props) {
     super(props)
 
@@ -40,20 +42,20 @@ class Footer extends Component {
 
   render() {
     return (
-      <footer className="page-footer grey darken-4">
+      <footer className="page-footer">
         <div className="container margin-top--large">
           <Row>
-            <Col s={12} className="grey-text text-lighten-1">
-              <h3 className="primary-text center">
+            <Col s={12}>
+              <H3 className="center">
                 Would you like to support Refsheet.net?
-              </h3>
+              </H3>
               <p>
                 It seems you like this website (or you like scrolling to the
                 bottom of pages)! Did you know that this whole site is developed
-                by <strong className="white-text">one person</strong> with a
+                by <strong>one person</strong> with a
                 tiny army of helpful people? I love making this site possible,
                 but I could use your help.{' '}
-                <strong className="white-text">
+                <strong>
                   Here are 3 really easy ways to help out:
                 </strong>
               </p>
@@ -100,7 +102,9 @@ class Footer extends Component {
               </p>
             </Col>
           </Row>
+
           <hr />
+
           <Row>
             <Col s={12} m={4}>
               <div className="caption white-text">Refsheet.net</div>
@@ -233,6 +237,11 @@ class Footer extends Component {
     )
   }
 }
+
+const Footer = styled(_Footer)`
+  background-color: ${props => props.theme.cardBackground};
+  color: ${props => props.theme.text};
+`
 
 export default compose()(Footer)
 // TODO: Add HOC bindings here

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import Moment from 'react-moment'
 import { withNamespaces } from 'react-i18next'
 import c from 'classnames'
+import {MutedLink} from "../../Styled/Muted";
 
 class PostMeta extends Component {
   render() {
@@ -20,18 +21,19 @@ class PostMeta extends Component {
           <span className={'last-reply-at'}>
             {' '}
             (
-            <Link
+            <MutedLink
               to={`/v2/forums/${forum.slug}/${discussion.slug}#last`}
               title={t('forums.go_to_last', 'Go to last post')}
             >
               <Moment key={'date'} fromNow unix>
                 {discussion.last_post_at}
               </Moment>
-            </Link>
+            </MutedLink>
             )
           </span>
         )}
         &nbsp;&bull;&nbsp;<a href={'#'}>{t('forums.save', 'Save')}</a>
+        &nbsp;&bull;&nbsp;<a href={'#reply'}>{t('forums.reply', 'Reply')}</a>
       </div>
     )
   }

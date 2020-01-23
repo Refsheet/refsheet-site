@@ -9,6 +9,10 @@ import PostMeta from '../shared/PostMeta'
 import DiscussionReply from './DiscussionReply'
 import RichText from '../../Shared/RichText'
 import DiscussionReplyForm from './DiscussionReplyForm'
+import c from 'classnames'
+import {MutedAnchor} from "../../Styled/Muted";
+import LinkUtils from 'utils/LinkUtils'
+import {H2} from "../../Styled/Headings";
 
 class View extends Component {
   render() {
@@ -25,20 +29,22 @@ class View extends Component {
 
             <KarmaCounter discussion={discussion} forum={forum} />
 
-            <div className={'forum-card card sp'}>
-              <div className={'time card-header'}>
-                <Trans
-                  i18nKey={'forums.summary-posted-date'}
-                  defaults={'Posted <0>{{ date }}</0>'}
-                  values={{
-                    date: discussion.created_at,
-                  }}
-                  components={[
-                    <Moment key={'date'} fromNow unix>
-                      {discussion.created_at}
-                    </Moment>,
-                  ]}
-                />
+            <div className={c('forum-card card sp', { admin: discussion.admin_post, moderator: discussion.moderator_post })}>
+              <div className={'time right smaller card-header'}>
+                <MutedAnchor href={LinkUtils.forumDiscussionUrl({forumId: forum.slug, discussionId: discussion.slug})}>
+                  <Trans
+                    i18nKey={'forums.summary-posted-date'}
+                    defaults={'Posted <0>{{ date }}</0>'}
+                    values={{
+                      date: discussion.created_at,
+                    }}
+                    components={[
+                      <Moment key={'date'} fromNow unix>
+                        {discussion.created_at}
+                      </Moment>,
+                    ]}
+                  />
+                </MutedAnchor>
               </div>
 
               <div className={'forum-post--whodunnit card-header'}>
@@ -49,7 +55,7 @@ class View extends Component {
               </div>
 
               <div className={'card-content'}>
-                <h2>{discussion.topic}</h2>
+                <H2>{discussion.topic}</H2>
                 <div className={'forum-post--content'}>
                   <RichText
                     content={discussion.content}
