@@ -6,6 +6,7 @@ import M from 'materialize-css'
 import CommentForm from '../../Shared/CommentForm'
 import { Row, Col } from 'react-materialize'
 import postReply from './postReply.graphql'
+import Muted from "../../Styled/Muted";
 
 class DiscussionReplyForm extends Component {
   constructor(props) {
@@ -53,7 +54,7 @@ class DiscussionReplyForm extends Component {
     }
 
     return (
-      <div className={'margin-top--medium forum-post--reply'}>
+      <div id='reply' className={'margin-top--medium forum-post--reply'}>
         <CommentForm
           richText
           v2Style
@@ -68,11 +69,11 @@ class DiscussionReplyForm extends Component {
 
         <Row>
           <Col s={12} m={10} offset={'m1'}>
-            <div className={'muted text-light margin-top--medium center'}>
+            <Muted className={'margin-top--medium center'}>
               Before posting, please make sure you've read the forum rules, and
               be sure your post doesn't violate them. Remember: be excellent to
               each other.
-            </div>
+            </Muted>
           </Col>
         </Row>
       </div>

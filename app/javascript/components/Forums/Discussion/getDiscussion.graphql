@@ -10,6 +10,8 @@ query getDiscussion($forumId: String!, $discussionId: String!) {
         reply_count
         content
         content_html
+        admin_post
+        moderator_post
 
         forum {
             id

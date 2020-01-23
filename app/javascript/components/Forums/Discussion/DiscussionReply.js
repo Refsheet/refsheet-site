@@ -8,6 +8,9 @@ import UserLink from '../../Shared/UserLink'
 import PostMeta from '../shared/PostMeta'
 import RichText from '../../Shared/RichText'
 import LinkUtils from 'utils/LinkUtils'
+import c from 'classnames'
+import {MutedAnchor} from "../../Styled/Muted";
+import { div as Card } from "../../Styled/Card";
 
 class DiscussionReply extends Component {
   render() {
@@ -17,9 +20,9 @@ class DiscussionReply extends Component {
       <div className={'margin-top--medium forum-post--reply'}>
         <UserAvatar user={post.user} character={post.character} />
 
-        <div className={'forum-reply card sp'}>
-          <div className={'time card-header'}>
-            <a
+        <Card className={c('forum-reply card sp', { admin: post.admin_post, moderator: post.moderator_post})}>
+          <div className={'time right smaller card-header'}>
+            <MutedAnchor
               href={LinkUtils.forumPostUrl({
                 forumId,
                 discussionId,
@@ -38,7 +41,7 @@ class DiscussionReply extends Component {
                   </Moment>,
                 ]}
               />
-            </a>
+            </MutedAnchor>
           </div>
 
           <div className={'forum-post--whodunnit card-header'}>
@@ -48,7 +51,7 @@ class DiscussionReply extends Component {
           <div className={'reply-content card-content'}>
             <RichText content={post.content} contentHtml={post.content_html} />
           </div>
-        </div>
+        </Card>
       </div>
     )
   }

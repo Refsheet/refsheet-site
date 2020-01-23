@@ -10,6 +10,7 @@ import * as Sentry from '@sentry/browser'
 import defaultState from './defaultState.json'
 import { ThemeProvider } from 'styled-components'
 import { base as defaultTheme } from 'themes/default'
+import { base as debugTheme } from 'themes/debug'
 import DropzoneProvider from '../Dropzone'
 import Lightbox from '../Lightbox'
 import { I18nextProvider } from 'react-i18next'
@@ -79,7 +80,11 @@ const App = ({ children: propChildren, state, assets }) => {
 
   const children = propChildren || <Router />
 
-  const theme = defaultTheme
+  let theme = defaultTheme
+
+  if (window.location.hash === '#!debug') {
+    theme = debugTheme
+  }
 
   return (
     <I18nextProvider i18n={i18n}>
