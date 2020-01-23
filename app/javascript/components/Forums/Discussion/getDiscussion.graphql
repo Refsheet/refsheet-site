@@ -44,6 +44,7 @@ query getDiscussion($forumId: String!, $discussionId: String!) {
             content_html
             karma_total
             created_at
+            updated_at
 
             user {
                 username

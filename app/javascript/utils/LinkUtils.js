@@ -10,7 +10,6 @@ function buildHelpers(object) {
       const route = obj[key]
 
       obj[name + 'Path'] = params => {
-        console.log({ params })
         return route.replace(/:(\w+)/g, (match, key) => {
           return params[key]
         })
@@ -22,7 +21,6 @@ function buildHelpers(object) {
     }
   })
 
-  console.log({ obj })
   return obj
 }
 

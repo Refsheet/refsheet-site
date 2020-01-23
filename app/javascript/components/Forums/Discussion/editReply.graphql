@@ -1,5 +1,5 @@
-mutation postReply($discussionId: ID!, $characterId: ID, $content: String!) {
-    postReply(discussionId: $discussionId, characterId: $characterId, content: $content) {
+mutation editReply($postId: ID!, $content: String!) {
+    editReply(postId: $postId, content: $content) {
         id
         content
         content_html

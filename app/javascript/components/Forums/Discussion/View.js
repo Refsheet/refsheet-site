@@ -10,9 +10,9 @@ import DiscussionReply from './DiscussionReply'
 import RichText from '../../Shared/RichText'
 import DiscussionReplyForm from './DiscussionReplyForm'
 import c from 'classnames'
-import {MutedAnchor} from "../../Styled/Muted";
+import { MutedAnchor } from '../../Styled/Muted'
 import LinkUtils from 'utils/LinkUtils'
-import {H2} from "../../Styled/Headings";
+import { H2 } from '../../Styled/Headings'
 
 class View extends Component {
   render() {
@@ -29,25 +29,35 @@ class View extends Component {
 
             <KarmaCounter discussion={discussion} forum={forum} />
 
-            <div className={c('forum-card card sp', { admin: discussion.admin_post, moderator: discussion.moderator_post })}>
-              <div className={'time right smaller card-header'}>
-                <MutedAnchor href={LinkUtils.forumDiscussionUrl({forumId: forum.slug, discussionId: discussion.slug})}>
-                  <Trans
-                    i18nKey={'forums.summary-posted-date'}
-                    defaults={'Posted <0>{{ date }}</0>'}
-                    values={{
-                      date: discussion.created_at,
-                    }}
-                    components={[
-                      <Moment key={'date'} fromNow unix>
-                        {discussion.created_at}
-                      </Moment>,
-                    ]}
-                  />
-                </MutedAnchor>
-              </div>
-
+            <div
+              className={c('forum-card card sp', {
+                admin: discussion.admin_post,
+                moderator: discussion.moderator_post,
+              })}
+            >
               <div className={'forum-post--whodunnit card-header'}>
+                <div className={'time right smaller'}>
+                  <MutedAnchor
+                    href={LinkUtils.forumDiscussionUrl({
+                      forumId: forum.slug,
+                      discussionId: discussion.slug,
+                    })}
+                  >
+                    <Trans
+                      i18nKey={'forums.summary-posted-date'}
+                      defaults={'Posted <0>{{ date }}</0>'}
+                      values={{
+                        date: discussion.created_at,
+                      }}
+                      components={[
+                        <Moment key={'date'} fromNow unix>
+                          {discussion.created_at}
+                        </Moment>,
+                      ]}
+                    />
+                  </MutedAnchor>
+                </div>
+
                 <UserLink
                   user={discussion.user}
                   character={discussion.character}
@@ -66,7 +76,7 @@ class View extends Component {
                 <PostMeta
                   forum={forum}
                   discussion={discussion}
-                  className={'margin-top--small'}
+                  className={'margin-top--medium'}
                 />
               </div>
             </div>

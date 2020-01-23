@@ -23,7 +23,7 @@ class CommentForm extends Component {
     super(props)
 
     this.state = {
-      comment: '',
+      comment: this.props.value,
       error: '',
       identityModalOpen: false,
       submitting: false,

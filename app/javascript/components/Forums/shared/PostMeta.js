@@ -5,14 +5,14 @@ import { Link } from 'react-router-dom'
 import Moment from 'react-moment'
 import { withNamespaces } from 'react-i18next'
 import c from 'classnames'
-import {MutedLink} from "../../Styled/Muted";
+import Muted, { MutedLink } from '../../Styled/Muted'
 
 class PostMeta extends Component {
   render() {
     const { discussion, forum, t, className } = this.props
 
     return (
-      <div className={c('forum-post--meta', className)}>
+      <Muted className={c('forum-post--meta', className)}>
         {t('forums.replies', {
           defaultValue: '{{count}} replies',
           count: discussion.reply_count,
@@ -34,7 +34,7 @@ class PostMeta extends Component {
         )}
         &nbsp;&bull;&nbsp;<a href={'#'}>{t('forums.save', 'Save')}</a>
         &nbsp;&bull;&nbsp;<a href={'#reply'}>{t('forums.reply', 'Reply')}</a>
-      </div>
+      </Muted>
     )
   }
 }
