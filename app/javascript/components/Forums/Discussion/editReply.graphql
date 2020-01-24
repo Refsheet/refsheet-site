@@ -1,29 +1,7 @@
+#import "./ForumPostFields.graphql"
+
 mutation editReply($postId: ID!, $content: String!) {
     editReply(postId: $postId, content: $content) {
-        id
-        content
-        content_html
-        karma_total
-        created_at
-        updated_at
-
-        user {
-            username
-            name
-            is_admin
-            is_patron
-            is_supporter
-            avatar_url
-        }
-
-        character {
-            name
-            slug
-            profile_image {
-                url {
-                    thumbnail
-                }
-            }
-        }
+        ...ForumPostFields
     }
 }
