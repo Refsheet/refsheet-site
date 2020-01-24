@@ -32,6 +32,7 @@ Types::ForumPostType = GraphQL::ObjectType.define do
   field :karma_total, types.Int
   field :admin_post, types.Boolean
   field :moderator_post, types.Boolean
+  field :is_edited, types.Boolean
 
   field :user, Types::UserType
   field :character, Types::CharacterType
