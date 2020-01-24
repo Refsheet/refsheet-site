@@ -40,8 +40,6 @@ class DiscussionReply extends Component {
   render() {
     const { post, discussionId, forumId } = this.props
 
-    const edited = post.created_at !== post.updated_at
-
     if (this.state.editing) {
       return (
         <DiscussionReplyForm
@@ -87,7 +85,7 @@ class DiscussionReply extends Component {
                 />
               </MutedAnchor>
 
-              {edited && (
+              {post.is_edited && (
                 <Muted className={'margin-left--small inline'}>
                   (
                   <a href={'#'} title={'Show edit history...'}>
