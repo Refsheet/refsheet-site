@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_17_002153) do
+ActiveRecord::Schema.define(version: 2020_01_23_214329) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -472,7 +472,12 @@ ActiveRecord::Schema.define(version: 2020_01_17_002153) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "content_html"
+    t.boolean "admin_post", default: false
+    t.boolean "moderator_post", default: false
+    t.datetime "deleted_at"
+    t.boolean "edited", default: false
     t.index ["character_id"], name: "index_forum_posts_on_character_id"
+    t.index ["deleted_at"], name: "index_forum_posts_on_deleted_at"
     t.index ["guid"], name: "index_forum_posts_on_guid"
     t.index ["parent_post_id"], name: "index_forum_posts_on_parent_post_id"
     t.index ["thread_id"], name: "index_forum_posts_on_thread_id"

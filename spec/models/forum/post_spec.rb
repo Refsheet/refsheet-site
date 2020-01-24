@@ -13,10 +13,15 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  content_html   :string
+#  admin_post     :boolean          default(FALSE)
+#  moderator_post :boolean          default(FALSE)
+#  deleted_at     :datetime
+#  edited         :boolean          default(FALSE)
 #
 # Indexes
 #
 #  index_forum_posts_on_character_id    (character_id)
+#  index_forum_posts_on_deleted_at      (deleted_at)
 #  index_forum_posts_on_guid            (guid)
 #  index_forum_posts_on_parent_post_id  (parent_post_id)
 #  index_forum_posts_on_thread_id       (thread_id)
@@ -35,7 +40,8 @@ describe Forum::Post, type: :model do
       ],
       have_many: [
           :replies,
-          :karmas
+          :karmas,
+          :versions
       ],
       have_one: [
           :forum
@@ -60,5 +66,18 @@ describe Forum::Post, type: :model do
   it 'markdown cache' do
     post = create :forum_post, content: '# Hello!'
     expect(post.content_html).to eq "<h1 id=\"hello\">Hello!</h1>\n"
+  end
+
+  it 'flags content changes' do
+    post = create :forum_post
+    expect(post).to_not be_edited
+    expect(post).to_not be_admin_post
+
+    post.update_attributes(user: create(:admin))
+    expect(post).to_not be_edited
+    expect(post).to be_admin_post
+
+    post.update_attributes(content: 'Okay I changed it.')
+    expect(post).to be_edited
   end
 end

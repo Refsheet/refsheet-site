@@ -7,6 +7,9 @@ import IdentityModal from './CommentForm/IdentityModal'
 import Restrict from './Restrict'
 import MarkdownEditor from './MarkdownEditor'
 import { Row, Col, Button } from 'react-materialize'
+import compose from 'utils/compose'
+import {withNamespaces} from 'react-i18next'
+import WindowAlert from 'utils/WindowAlert'
 
 // TODO: This class has now 3 different styles that it produces,
 //       this should be refactored into a generic wrapper that handles
@@ -30,8 +33,30 @@ class CommentForm extends Component {
     }
   }
 
+  getDraftKey() {
+    return this.props.draftKey || "comment-" + this.props.name
+  }
+
   handleCommentChange(name, comment) {
     this.setState({ comment })
+
+    if (comment !== this.props.value) {
+      WindowAlert.dirty(this.getDraftKey(), "You have a pending comment.")
+    } else {
+      WindowAlert.clean(this.getDraftKey())
+    }
+  }
+
+  handleCancel(e) {
+    e.preventDefault()
+
+    const {
+      draftKey = "comment-" + name,
+      onCancel
+    } = this.props
+
+    WindowAlert.clean(this.getDraftKey())
+    onCancel && onCancel()
   }
 
   handleIdentityOpen() {
@@ -57,6 +82,11 @@ class CommentForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
+
+    const {
+      draftKey = "comment-" + name
+    } = this.props
+
     this.setState({ submitting: true })
 
     if (!this.state.comment) {
@@ -77,6 +107,7 @@ class CommentForm extends Component {
           this.handleError(data.errors[0])
         } else {
           this.setState({ comment: '', submitting: false, error: '' })
+          WindowAlert.clean(this.getDraftKey())
 
           if (this.props.onSubmitConfirm) {
             this.props.onSubmitConfirm(data.data || data)
@@ -94,6 +125,8 @@ class CommentForm extends Component {
       slim = false,
       emoji,
       hashtags,
+      onCancel,
+      t
     } = this.props
 
     const placeholder = (this.props.placeholder || '').replace(
@@ -138,6 +171,17 @@ class CommentForm extends Component {
       submitButton = (
         <Row className={'no-margin'}>
           <Col s={8}>
+            { onCancel && (
+              <Button
+                type={'cancel'}
+                onClick={this.handleCancel.bind(this)}
+                className={'btn btn-secondary left margin-right--small'}
+                disabled={this.state.submitting}
+              >
+                { this.props.cancelText || t('actions.cancel', "Cancel") }
+              </Button>
+            )}
+
             <Restrict patron>
               {inCharacter && (
                 <IdentitySelect
@@ -271,4 +315,7 @@ const mapStateToProps = (state, props) => ({
   identity: state.session.identity,
 })
 
-export default connect(mapStateToProps)(CommentForm)
+export default compose(
+  connect(mapStateToProps),
+  withNamespaces('common')
+)(CommentForm)

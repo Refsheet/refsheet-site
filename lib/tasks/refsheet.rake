@@ -275,5 +275,21 @@ namespace :refsheet do
       progress.stop
       puts "DONE"
     end
+
+    desc 'Synchronize admin level flags on posts.'
+    task :sync_post_admin_flags => :environment do
+      puts "Synchronizing admin and moderator flags..."
+      progress = ProgressBar.create total: Forum::Post.count,
+                                    format: '%c/%C [%w>:|%i] %E'
+
+      Forum::Post.find_each do |post|
+        post.send(:assign_admin_level)
+        post.save
+        progress.increment
+      end
+
+      progress.stop
+      puts "DONE"
+    end
   end
 end
