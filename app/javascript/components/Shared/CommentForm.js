@@ -8,7 +8,7 @@ import Restrict from './Restrict'
 import MarkdownEditor from './MarkdownEditor'
 import { Row, Col, Button } from 'react-materialize'
 import compose from 'utils/compose'
-import {withNamespaces} from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import WindowAlert from 'utils/WindowAlert'
 
 // TODO: This class has now 3 different styles that it produces,
@@ -34,14 +34,14 @@ class CommentForm extends Component {
   }
 
   getDraftKey() {
-    return this.props.draftKey || "comment-" + this.props.name
+    return this.props.draftKey || 'comment-' + this.props.name
   }
 
   handleCommentChange(name, comment) {
     this.setState({ comment })
 
     if (comment !== this.props.value) {
-      WindowAlert.dirty(this.getDraftKey(), "You have a pending comment.")
+      WindowAlert.dirty(this.getDraftKey(), 'You have a pending comment.')
     } else {
       WindowAlert.clean(this.getDraftKey())
     }
@@ -50,10 +50,7 @@ class CommentForm extends Component {
   handleCancel(e) {
     e.preventDefault()
 
-    const {
-      draftKey = "comment-" + name,
-      onCancel
-    } = this.props
+    const { draftKey = 'comment-' + name, onCancel } = this.props
 
     WindowAlert.clean(this.getDraftKey())
     onCancel && onCancel()
@@ -83,9 +80,7 @@ class CommentForm extends Component {
   handleSubmit(e) {
     e.preventDefault()
 
-    const {
-      draftKey = "comment-" + name
-    } = this.props
+    const { draftKey = 'comment-' + name } = this.props
 
     this.setState({ submitting: true })
 
@@ -126,7 +121,7 @@ class CommentForm extends Component {
       emoji,
       hashtags,
       onCancel,
-      t
+      t,
     } = this.props
 
     const placeholder = (this.props.placeholder || '').replace(
@@ -171,14 +166,14 @@ class CommentForm extends Component {
       submitButton = (
         <Row className={'no-margin'}>
           <Col s={8}>
-            { onCancel && (
+            {onCancel && (
               <Button
                 type={'cancel'}
                 onClick={this.handleCancel.bind(this)}
                 className={'btn btn-secondary left margin-right--small'}
                 disabled={this.state.submitting}
               >
-                { this.props.cancelText || t('actions.cancel', "Cancel") }
+                {this.props.cancelText || t('actions.cancel', 'Cancel')}
               </Button>
             )}
 
