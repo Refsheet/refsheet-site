@@ -16,17 +16,15 @@ class DiscussionReplyForm extends Component {
 
   canReply(user) {
     const { forum, discussion, edit } = this.props
+    if (!user) return false
     if (edit) return true
+    if (user.is_admin) return true
 
-    if (!user || forum.locked || discussion.locked) {
-      return false
-    }
-
-    return true
+    return !(forum && forum.locked) || (discussion && discussion.locked)
   }
 
   handleSubmit({ comment: content, identity }) {
-    const { edit, post, discussion, postReply, editReply } = this.props
+    const { edit, post, discussion, postReply, editReply, newDiscussion } = this.props
 
     if (edit) {
       return editReply({
@@ -36,6 +34,10 @@ class DiscussionReplyForm extends Component {
           content: content,
         },
       })
+    }
+
+    if (newDiscussion) {
+      return null
     }
 
     return postReply({
@@ -62,7 +64,7 @@ class DiscussionReplyForm extends Component {
   }
 
   render() {
-    const { currentUser, inCharacter, edit, post = {}, onCancel } = this.props
+    const { currentUser, inCharacter, edit, post = {}, onCancel, children } = this.props
     console.log({ edit, post })
 
     if (!this.canReply(currentUser)) {
@@ -84,6 +86,7 @@ class DiscussionReplyForm extends Component {
           value={post.content || ''}
           buttonText={edit ? 'Edit Reply' : 'Post Reply'}
           buttonSubmittingText={'Posting...'}
+          children={children}
         />
 
         <Row>

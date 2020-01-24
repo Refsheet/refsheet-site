@@ -120,15 +120,23 @@ body:not(.admin)
         li.selected, li:hover, li.active
           background-color: darken($card-bg-color, 5%)
 
+    &.v2-reply-box
+      .row.no-margin .col
+        margin: 0
+      .input-field, input
+        margin: 0
 
     &.reply-box
       &:not(.not-really-tho)
+        .row.no-margin .col
+          margin: 0
+
         .input-field
           margin: 0
 
       textarea
         border: none
-        font: inherit
+        font: inherit !important
         font-family: inherit !important
         font-size: inherit !important
         color: inherit
@@ -138,7 +146,7 @@ body:not(.admin)
         border-bottom: 1px solid rgba(255,255,255,0.1)
         margin-bottom: 0.5rem
 
-        &:placeholder
+        &::placeholder
           color: rgba(white, 0.8)
 
         &:focus, &:active
@@ -223,3 +231,12 @@ body:not(.admin)
           -webkit-animation-fill-mode: both
           -webkit-text-fill-color: $page-text-color !important
           border-bottom-color: color('yellow', 'darken-1') !important
+
+      &.outlined
+        background-color: rgba(255,255,255,0.01)
+        padding: 0 0.5rem
+        border: 1px solid rgba(255,255,255,0.1)
+        border-radius: 2px
+
+    .checkbox-full-height > label
+        line-height: 3rem

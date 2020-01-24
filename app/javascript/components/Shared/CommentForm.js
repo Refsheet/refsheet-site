@@ -10,6 +10,7 @@ import { Row, Col, Button } from 'react-materialize'
 import compose from 'utils/compose'
 import { withNamespaces } from 'react-i18next'
 import WindowAlert from 'utils/WindowAlert'
+import { div as Card } from "../Styled/Card";
 
 // TODO: This class has now 3 different styles that it produces,
 //       this should be refactored into a generic wrapper that handles
@@ -121,6 +122,7 @@ class CommentForm extends Component {
       emoji,
       hashtags,
       onCancel,
+      children,
       t,
     } = this.props
 
@@ -231,14 +233,16 @@ class CommentForm extends Component {
 
     if (this.props.v2Style) {
       return (
-        <div className={'v2-reply-box'}>
+        <form className={'v2-reply-box'} onSubmit={this.handleSubmit.bind(this)}>
           <UserAvatar
             user={this.props.currentUser}
             identity={identity}
             onIdentityChangeClick={this.handleIdentityOpen.bind(this)}
           />
 
-          <div className={'reply-content card sp'}>
+          <Card className={'reply-content card sp'}>
+            {children}
+
             <div className={'reply-content card-content padding--none'}>
               {input}
             </div>
@@ -254,8 +258,8 @@ class CommentForm extends Component {
             {this.state.identityModalOpen && (
               <IdentityModal onClose={this.handleIdentityClose.bind(this)} />
             )}
-          </div>
-        </div>
+          </Card>
+        </form>
       )
     }
 
@@ -272,6 +276,7 @@ class CommentForm extends Component {
           />
 
           <div className="card-content reply-box">
+            {children}
             {input}
             {this.state.error && (
               <span className={'error red-text smaller'}>
