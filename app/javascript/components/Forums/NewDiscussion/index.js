@@ -4,7 +4,7 @@ import compose from 'utils/compose'
 import { withCurrentUser } from '../../../utils/compose'
 import { withNamespaces } from 'react-i18next'
 import { Row, Col, TextInput, Checkbox } from 'react-materialize'
-import DiscussionReplyForm from "../Discussion/DiscussionReplyForm";
+import DiscussionReplyForm from '../Discussion/DiscussionReplyForm'
 
 class NewDiscussion extends Component {
   constructor(props) {
@@ -22,7 +22,13 @@ class NewDiscussion extends Component {
           <DiscussionReplyForm forum={forum} newDiscussion>
             <div className={'card-header'}>
               <Row className={'no-margin'}>
-                <TextInput id={'discussion_title'} s={12} m={6} placeholder={'Discussion Title'} inputClassName={'outlined'} />
+                <TextInput
+                  id={'discussion_title'}
+                  s={12}
+                  m={6}
+                  placeholder={'Discussion Title'}
+                  inputClassName={'outlined'}
+                />
                 <Col s={6} m={3} className={'right-align checkbox-full-height'}>
                   <Checkbox id={'nsfw'} value={'nsfw'} label={'NSFW'} />
                 </Col>

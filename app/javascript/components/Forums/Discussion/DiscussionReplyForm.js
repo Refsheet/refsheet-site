@@ -24,7 +24,14 @@ class DiscussionReplyForm extends Component {
   }
 
   handleSubmit({ comment: content, identity }) {
-    const { edit, post, discussion, postReply, editReply, newDiscussion } = this.props
+    const {
+      edit,
+      post,
+      discussion,
+      postReply,
+      editReply,
+      newDiscussion,
+    } = this.props
 
     if (edit) {
       return editReply({
@@ -64,7 +71,14 @@ class DiscussionReplyForm extends Component {
   }
 
   render() {
-    const { currentUser, inCharacter, edit, post = {}, onCancel, children } = this.props
+    const {
+      currentUser,
+      inCharacter,
+      edit,
+      post = {},
+      onCancel,
+      children,
+    } = this.props
     console.log({ edit, post })
 
     if (!this.canReply(currentUser)) {
