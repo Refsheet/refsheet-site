@@ -6,6 +6,7 @@ import { TextInput, Row, Col, Checkbox } from 'react-materialize'
 import { withMutations } from '../../../../utils/compose'
 import updateSettings from './updateSettings.graphql'
 import M from 'materialize-css'
+import { withRouter } from 'react-router'
 
 class EditCharacter extends Component {
   constructor(props) {
@@ -34,21 +35,33 @@ class EditCharacter extends Component {
   handleSubmit(e) {
     e.preventDefault()
 
-    this.props
-      .updateSettings({
-        wrapped: true,
-        variables: {
-          ...this.state.character,
-          id: this.state.character.shortcode,
-        },
-      })
+    const { history, updateSettings, character, onSave = _c => {} } = this.props
+
+    updateSettings({
+      wrapped: true,
+      variables: {
+        ...this.state.character,
+        id: character.shortcode,
+      },
+    })
       .then(({ data: { updateCharacter } }) => {
         M.toast({
           html: 'Character saved!',
           classes: 'green',
           displayLength: 3000,
         })
-        this.props.onSave && this.props.onSave(updateCharacter)
+
+        if (updateCharacter.slug !== character.slug) {
+          const newPath = history.location.pathname.replace(
+            '/' + character.slug,
+            '/' + updateCharacter.slug
+          )
+
+          history.replace(newPath, {})
+          return
+        }
+
+        onSave(updateCharacter)
       })
       .catch(({ validationErrors }) => {
         this.setState({ errors: validationErrors })
@@ -209,5 +222,6 @@ EditCharacter.propTypes = {
 
 export default compose(
   withNamespaces('common'),
-  withMutations({ updateSettings })
+  withMutations({ updateSettings }),
+  withRouter
 )(EditCharacter)
