@@ -1,20 +1,27 @@
 steps:
+  - name: 'gcr.io/cloud-builders/gsutil'
+    id: Pull Cache
+    volumes:
+      - name: 'cache'
+        path: '/cache'
+    entrypoint: bash
+    args:
+      - -c
+      - './bin/build-cache.sh pull && printf "$REVISION_ID" > /workspace/VERSION'
+
   - name: 'gcr.io/kaniko-project/executor'
     id: Build Container
     args:
       - --destination=gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID
       - --cache=true
-
-  #== Asset Pipeline
-  - name: 'gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID'
-    id: Extract Artifacts
+      - --cache-dir=/kaniko-cache
     volumes:
+      - name: 'cache'
+        path: '/cache'
       - name: 'artifacts'
         path: '/artifacts'
-    entrypoint: 'bash'
-    args:
-      - -c
-      - 'cp -R /app/public/* /artifacts'
+    waitFor:
+      - Pull Cache
 
   - name: 'gcr.io/cloud-builders/gsutil'
     id: Upload Artifacts
@@ -23,10 +30,38 @@ steps:
         path: '/artifacts'
     args:
       - -m
+      - -h
+      - 'Cache-Control:"Cache-Control: public, max-age=31559652"'
       - cp
-      - -r
+      - -a
+      - public-read
+      - -rZ
       - /artifacts/*
       - gs://assets.refsheet.net/
+    waitFor:
+      - Build Container
+
+  - name: 'gcr.io/cloud-builders/gsutil'
+    id: Push Cache
+    volumes:
+      - name: 'cache'
+        path: '/cache'
+    entrypoint: bash
+    args:
+      - -c
+      - './bin/build-cache.sh push'
+    waitFor:
+      - Build Container
+
+  - name: 'gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID'
+    id: Report Release
+    entrypoint: bash
+    dir: /app
+    args:
+      - -c
+      - 'SECRET_KEY_BASE=nothing RDS_DB_ADAPTER=nulldb bundle exec rake refsheet:post_deploy'
+    waitFor:
+      - Build Container
 
   #== DEPLOY
 
