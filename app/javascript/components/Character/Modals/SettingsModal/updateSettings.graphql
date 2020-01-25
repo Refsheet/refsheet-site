@@ -1,0 +1,11 @@
+mutation updateSettings($id: ID!, $name: String, $species: String, $slug: String, $shortcode: String, $nsfw: Boolean, $hidden: Boolean) {
+    updateCharacter(id: $id, name: $name, species: $species, slug: $slug, shortcode: $shortcode, nsfw: $nsfw, hidden: $hidden) {
+        id
+        name
+        species
+        slug
+        shortcode
+        nsfw
+        hidden
+    }
+}
