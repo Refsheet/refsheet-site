@@ -18,11 +18,13 @@ sure it doesn't get too bloated:
 - Minor improvement on 500 error page to vertically center
 - Fixed an issue where translations weren't loading after new keys were added
 - Added Watermark option back to the image settings
+- Language settings in the footer now apply without reloading the page
 
 ## Major Things
 
 - Added revision history tracker to all characters
 - Replaced the markdown editor with React-MDE, which is actually maintained and should work on mobile
+- The [privacy policy](https://refsheet.net/privacy) has been updated to clarify our data usage
 
 ## Minor Things
 
