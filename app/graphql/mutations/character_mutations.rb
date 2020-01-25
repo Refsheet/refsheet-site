@@ -9,9 +9,16 @@ class Mutations::CharacterMutations < Mutations::ApplicationMutation
     argument :name, types.String
     argument :species, types.String
     argument :special_notes, types.String
+    argument :slug, types.String
+    argument :shortcode, types.String
+    argument :nsfw, types.Boolean
+    argument :hidden, types.Boolean
+    argument :color_scheme_id, types.ID
   end
 
   def update
+    authorize @character
+
     @character.update_attributes! update_params
     @character
   end
@@ -22,10 +29,13 @@ class Mutations::CharacterMutations < Mutations::ApplicationMutation
   end
 
   def convert
+    authorize @character
+
     ConvertProfileV2Job.perform_now(@character)
     @character
   end
 
+  # TODO: Rename to :autocomplete, update mutation type.
   action :search do
     type types[Types::CharacterType]
 
@@ -49,14 +59,23 @@ class Mutations::CharacterMutations < Mutations::ApplicationMutation
 
   def get_character
     @character = Character.find_by! shortcode: params[:id]
-    authorize! @character.managed_by? context.current_user.call
   end
 
   def update_params
-    params.permit(
+    _params = params.permit(
         :name,
         :species,
-        :special_notes
+        :special_notes,
+        :slug,
+        :shortcode,
+        :nsfw,
+        :hidden
     )
+
+    if params.include? :color_scheme_id
+      _params.merge(color_scheme: ColorScheme.find_by!(guid: params[:color_scheme_id]))
+    end
+
+    _params
   end
 end
