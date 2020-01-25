@@ -11,7 +11,10 @@ class EditCharacter extends Component {
   constructor(props) {
     super(props)
 
-    this.state = { character: this.props.character }
+    this.state = {
+      character: this.props.character,
+      errors: {}
+    }
   }
 
   handleInputChange(e) {
@@ -32,23 +35,19 @@ class EditCharacter extends Component {
     e.preventDefault()
 
     this.props.updateSettings({
+      wrapped: true,
       variables: {
         ...this.state.character,
         id: this.state.character.shortcode
       }
     })
-      .then(({data: { updateCharacter }, errors}) => {
-        // TODO: This is a generic error handler. Make withMutations return a wrapper to handle this if wrapped: true
-        if (errors && errors.length > 0) {
-          console.error(errors)
-          errors.map(e => M.toast({html: e.message, classes: 'red', displayLength: 3000}))
-          return
-        }
-
+      .then(({data: { updateCharacter }}) => {
         M.toast({html: "Character saved!", classes: 'green', displayLength: 3000})
         this.props.onSave && this.props.onSave(updateCharacter)
       })
-      .catch(console.error)
+      .catch(({ validationErrors }) => {
+        this.setState({ errors: validationErrors })
+      })
   }
 
   render() {
