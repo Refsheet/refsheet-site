@@ -10,7 +10,8 @@ import { Row, Col, Button } from 'react-materialize'
 import compose from 'utils/compose'
 import { withNamespaces } from 'react-i18next'
 import WindowAlert from 'utils/WindowAlert'
-import { div as Card } from "../Styled/Card";
+import { div as Card } from "../Styled/Card"
+import c from 'classnames'
 
 // TODO: This class has now 3 different styles that it produces,
 //       this should be refactored into a generic wrapper that handles
@@ -266,7 +267,7 @@ class CommentForm extends Component {
     return (
       <div className={'comment-form'}>
         <form
-          className={c('card margin-top--none sp with-avatar')}
+          className={c('card reply-box margin-top--none sp with-avatar')}
           onSubmit={this.handleSubmit.bind(this)}
         >
           <UserAvatar
