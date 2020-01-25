@@ -1,7 +1,6 @@
 FROM ruby:2.5.5
-MAINTAINER Refsheet.net Team <nerds@refsheet.net>
+LABEL maintainer="Refsheet.net Team <nerds@refsheet.net>"
 
-RUN mkdir /app
 WORKDIR /app
 
 
@@ -66,9 +65,12 @@ ENV NODE_OPTIONS="--max-old-space-size=2048"
 
 COPY . /app
 
-RUN SECRET_KEY_BASE=nothing \
+RUN mkdir -p /cache && mkdir -p /app/tmp/cache && cp -R /cache/* /app/tmp/cache && \
+    SECRET_KEY_BASE=nothing \
     RDS_DB_ADAPTER=nulldb \
-    bundle exec rake assets:precompile RAILS_ENV=production
+    bundle exec rake assets:precompile RAILS_ENV=production && \
+    mkdir -p /artifacts && cp -R /app/public/* /artifacts && cp -R /app/tmp/cache/* /cache && \
+    rm -rf /app/tmp/*
 
 # Copy System Config
 COPY ./config/imagemagick/policy.xml /etc/ImageMagick-6/policy.xml

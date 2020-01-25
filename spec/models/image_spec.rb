@@ -155,17 +155,19 @@ describe Image, type: :model do
     ActiveJob::Base.queue_adapter = a
   end
 
-  # TODO: Re-enable when we have a hamming calculation ready for our Docker image / Google Cloud SQL
-  xdescribe ".similar_to", paperclip: true do
+  describe ".similar_to", paperclip: true do
     let!(:a) { create :image, image: asset('fox.jpg') }
     let!(:b) { create :image, image: asset('fox.jpg') }
+    let!(:c) { create :image, image: asset("advertisement_test.png") }
 
     before {
       DelayedPaperclip::ProcessJob.perform_now('Image', a.id, 'image')
       DelayedPaperclip::ProcessJob.perform_now('Image', b.id, 'image')
+      DelayedPaperclip::ProcessJob.perform_now('Image', c.id, 'image')
 
       ImagePhashJob.perform_now(a)
       ImagePhashJob.perform_now(b)
+      ImagePhashJob.perform_now(c)
     }
 
     it 'does not include self in results' do
@@ -174,6 +176,21 @@ describe Image, type: :model do
 
     it 'includes other similar images' do
       expect(Image.similar_to(a)).to include b
+    end
+
+    it 'excludes dissimilar images' do
+      expect(Image.similar_to(a)).to_not include c
+    end
+
+    it 'includes phash_distance' do
+      q = Image.similar_to(a)
+      expect(q.first.phash_distance).to eq 0
+    end
+
+    it 'matches very distant images if required' do
+      q = Image.similar_to(c, distance: 64)
+      expect(q).to include a
+      expect(q.first.phash_distance).to eq 42
     end
   end
 

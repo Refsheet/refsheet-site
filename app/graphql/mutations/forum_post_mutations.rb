@@ -1,6 +1,7 @@
 module Mutations
   class ForumPostMutations < ApplicationMutation
     before_action :get_discussion, only: [:index, :create, :send_karma]
+    before_action :get_post, only: [:update]
 
     action :index do
       type types[Types::ForumPostType]
@@ -37,10 +38,15 @@ module Mutations
 
     action :update do
       type Types::ForumPostType
+
+      argument :postId, !types.ID
+      argument :content, !types.String
     end
 
     def update
-
+      authorize @post
+      @post.update_attributes!(post_update_params)
+      @post
     end
 
 
@@ -65,6 +71,10 @@ module Mutations
       @discussion = Forum::Discussion.find_by!(id: params[:discussionId])
     end
 
+    def get_post
+      @post = Forum::Post.find_by!(guid: params[:postId])
+    end
+
     def post_params
       user = context.current_user.call
       character = nil
@@ -79,6 +89,10 @@ module Mutations
               user: user,
               character: character
           )
+    end
+
+    def post_update_params
+      params.permit(:content)
     end
   end
 end

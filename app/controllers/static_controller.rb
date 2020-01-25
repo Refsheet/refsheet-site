@@ -18,14 +18,14 @@ class StaticController < ApplicationController
       respond_to do |format|
         format.html do
           eager_load page: data
-          render 'application/show'
+          render 'application/show', layout: 'application'
         end
 
         format.json { render json: data }
       end
     else
       respond_to do |format|
-        format.html { render 'application/show' }
+        format.html { render 'application/show', layout: 'application' }
         format.json { render json: { error: 'Page not found' }, status: :not_found }
       end
     end

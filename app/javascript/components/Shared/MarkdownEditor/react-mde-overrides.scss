@@ -1,0 +1,122 @@
+@import '~materialize-css/sass/components/color-variables';
+@import 'variables.shared.sass';
+@import 'variables.sass';
+
+$mde-border-radius:                 0px;
+$mde-white-color:                   white;
+$mde-border-color:                  transparent;
+$mde-button-color:                  $page-text-color;
+$mde-toolbar-color:                 darken($card-bg-color, 1%);
+$mde-selected-color:                $brand-primary;
+$mde-toolbar-padding:               0.5rem;
+$mde-editor-default-min-height:     5rem;
+$mde-editor-padding:                1rem;
+$mde-preview-horizontal-padding:    1rem;
+$mde-preview-padding:               1rem;
+$mde-preview-default-min-height:    $mde-editor-default-min-height;
+$mde-preview-default-height:        auto;
+
+@import '~react-mde/lib/styles/scss/variables.scss';
+@import '~react-mde/lib/styles/scss/react-mde.scss';
+@import '~react-mde/lib/styles/scss/react-mde-editor.scss';
+@import '~react-mde/lib/styles/scss/react-mde-suggestions.scss';
+@import '~react-mde/lib/styles/scss/react-mde-toolbar.scss';
+
+.react-mde {
+  border: none !important;
+
+  ul.mde-suggestions {
+    border-radius: 0px !important;
+    border: none !important;
+    background: darken($card-bg-color, 3%);
+
+    li {
+      border: none !important;
+    }
+
+    .markdown-editor--suggestion {
+      width: 100%;
+      display: flex;
+
+      .value {
+        font-weight: bold;
+        color: white;
+        flex-grow: 1;
+      }
+
+      .meta {
+        padding-left: 1rem;
+        text-align: right;
+      }
+    }
+  }
+
+  .mde-header {
+    border-bottom: none !important;
+
+    .mde-tabs {
+      margin: -0.5rem 0.5rem calc(-0.5rem + 2px) -0.5rem;
+      flex-grow: 1;
+
+      button {
+        border: none;
+        border-bottom: 2px solid transparent;
+        padding: 0.5rem 1rem;
+        box-sizing: border-box;
+        color: $page-text-color;
+
+        &.selected {
+          color: $brand-primary;
+          border-bottom-color: $brand-primary;
+        }
+
+        &:hover {
+          color: white;
+        }
+      }
+    }
+
+    .react-mde-dropdown {
+      background-color: darken($card-bg-color, 3%) !important;
+
+      li button p:hover {
+        color: $brand-primary !important;
+      }
+
+      &::before {
+        border-bottom-color: $card-bg-color !important;
+      }
+
+      &::after {
+        border-bottom-color: darken($card-bg-color, 3%) !important;
+      }
+    }
+
+    button {
+      color: $page-text-color;
+
+      &:hover {
+        color: white !important;
+      }
+    }
+  }
+
+  .mde-text {
+    font: inherit;
+
+    &:active, &:focus {
+      outline: none !important;
+    }
+  }
+
+  .grip {
+    background-color: rgba(black, 0.2);
+
+    svg.icon {
+      color: $page-text-color;
+      height: 15px;
+      position: relative;
+      top: -5px;
+    }
+  }
+}

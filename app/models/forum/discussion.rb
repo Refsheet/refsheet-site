@@ -52,6 +52,7 @@ class Forum::Discussion < ApplicationRecord
   validates_presence_of :slug
   validates_presence_of :content
 
+  before_validation :assign_admin_level
   after_create :log_activity
 
   slugify :topic, lookups: true
@@ -86,7 +87,7 @@ class Forum::Discussion < ApplicationRecord
     select('forum_threads.*, lpa.last_post_at AS last_post_at')
   }
 
-  scope :sticky, -> { where(locked: true) }
+  scope :sticky, -> { where(sticky: true) }
 
   def reply_count
     self.posts.count
@@ -121,6 +122,11 @@ class Forum::Discussion < ApplicationRecord
   end
 
   private
+
+  def assign_admin_level
+    self.admin_post = user&.admin?
+    self.moderator_post = user&.moderator?
+  end
 
   def log_activity
     Activity.create activity: self,

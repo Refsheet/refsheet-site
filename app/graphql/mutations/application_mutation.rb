@@ -1,4 +1,5 @@
 class Mutations::ApplicationMutation
+  include Pundit
   include Helpers::SessionHelper
   include ParamsHelper
 
@@ -18,7 +19,7 @@ class Mutations::ApplicationMutation
     field.name ||= self.name.gsub(/^Mutations::|Mutation$/, '') + classy
 
     field.resolve = -> (object, inputs, context) {
-      resolver = self.new(object, inputs, context)
+      resolver = self.new(object, inputs, context, name)
       resolver.run_before_actions(name)
       resolver.send(name)
     }
@@ -28,10 +29,15 @@ class Mutations::ApplicationMutation
 
   attr_accessor :object
 
-  def initialize(object, inputs, context)
+  def initialize(object, inputs, context, action)
     @object = object
     @inputs = inputs
     @context = context
+    @action = action
+  end
+
+  def action_name
+    @action
   end
 
   def params

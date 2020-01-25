@@ -11,7 +11,6 @@ Types::ForumType = GraphQL::ObjectType.define do
 
   interfaces [Interfaces::ApplicationRecordInterface]
 
-  field :id, !types.ID
   field :name, !types.String
   field :description, types.String
   field :slug, types.String

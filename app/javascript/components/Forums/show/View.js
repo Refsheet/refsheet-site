@@ -10,7 +10,7 @@ import Discussion from '../Discussion'
 import { Route, Switch } from 'react-router'
 import About from './About'
 import Members from './Members'
-import NewPost from './NewPost'
+import NewDiscussion from '../NewDiscussion'
 
 class View extends Component {
   render() {
@@ -38,7 +38,14 @@ class View extends Component {
                 <li className={'tab'}>
                   <NavLink
                     activeClassName={'active'}
-                    exact
+                    isActive={(match, location) => {
+                      const subPath = location.pathname
+                        .replace(/^\/v2/, '')
+                        .split('/')[3]
+                      return (
+                        ['about', 'members', 'edit'].indexOf(subPath) === -1
+                      )
+                    }}
                     to={`/v2/forums/${forum.slug}`}
                   >
                     {t('forums.posts', 'Posts')}
@@ -65,7 +72,7 @@ class View extends Component {
             <Members forum={forum} />
           </Route>
           <Route path={'/v2/forums/:forumId/post'}>
-            <NewPost forum={forum} />
+            <NewDiscussion forum={forum} />
           </Route>
           <Route path={'/v2/forums/:forumId/:discussionId'}>
             <Discussion forum={forum} />

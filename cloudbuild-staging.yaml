@@ -1,45 +1,83 @@
 steps:
+  - name: 'gcr.io/cloud-builders/gsutil'
+    id: Pull Cache
+    volumes:
+      - name: 'cache'
+        path: '/cache'
+    entrypoint: bash
+    args:
+      - -c
+      - './bin/build-cache.sh pull && printf "$REVISION_ID" > /workspace/VERSION'
+
   - name: 'gcr.io/kaniko-project/executor'
+    id: Build Container
     args:
       - --destination=gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID
       - --cache=true
-
-  #== TEST
-
-  #  - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci'
-  #    args: ['rspec']
-
-  #  - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci'
-  #    args: ['yaml-lint', '.kubernetes/*.{yml,yaml}']
-
-  #== Asset Pipeline
-  - name: 'gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID'
+      - --cache-dir=/kaniko-cache
     volumes:
+      - name: 'cache'
+        path: '/cache'
       - name: 'artifacts'
         path: '/artifacts'
-    entrypoint: 'bash'
-    args:
-      - -c
-      - 'cp -R /app/public/* /artifacts'
+    waitFor:
+      - Pull Cache
+
+  #== Asset Pipeline
 
   - name: 'gcr.io/cloud-builders/gsutil'
+    id: Upload Artifacts
     volumes:
       - name: 'artifacts'
         path: '/artifacts'
     args:
       - -m
+      - -h
+      - 'Cache-Control:"Cache-Control: public, max-age=31559652"'
       - cp
-      - -r
+      - -a
+      - public-read
+      - -rZ
       - /artifacts/*
       - gs://assets.refsheet.net/
+    waitFor:
+      - Build Container
+
+  - name: 'gcr.io/cloud-builders/gsutil'
+    id: Push Cache
+    volumes:
+      - name: 'cache'
+        path: '/cache'
+    entrypoint: bash
+    args:
+      - -c
+      - './bin/build-cache.sh push'
+    waitFor:
+      - Build Container
+
+  - name: 'gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID'
+    id: Report Release
+    entrypoint: bash
+    dir: /app
+    args:
+      - -c
+      - 'SECRET_KEY_BASE=nothing RDS_DB_ADAPTER=nulldb bundle exec rake refsheet:post_deploy'
+    waitFor:
+      - Build Container
 
   #== DEPLOY
 
   # Deploy Web
   - name: 'gcr.io/cloud-builders/kubectl'
+    id: Deploy Staging
     args: ['set', 'image', 'deployment', 'refsheet-prod-staging', "refsheet-prod-staging=gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID"]
     env:
       - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
       - 'CLOUDSDK_CONTAINER_CLUSTER=refsheet-prod-clone-1'
+    waitFor:
+      - Upload Artifacts
+
+options:
+  machineType: 'N1_HIGHCPU_8'
 
 timeout: 3600s
