@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import compose from 'utils/compose'
 import { Trans, withNamespaces } from 'react-i18next'
 import { TextInput, Row, Col, Checkbox } from 'react-materialize'
-import {withMutations} from "../../../../utils/compose";
+import { withMutations } from '../../../../utils/compose'
 import updateSettings from './updateSettings.graphql'
 import M from 'materialize-css'
 
@@ -13,7 +13,7 @@ class EditCharacter extends Component {
 
     this.state = {
       character: this.props.character,
-      errors: {}
+      errors: {},
     }
   }
 
@@ -34,15 +34,20 @@ class EditCharacter extends Component {
   handleSubmit(e) {
     e.preventDefault()
 
-    this.props.updateSettings({
-      wrapped: true,
-      variables: {
-        ...this.state.character,
-        id: this.state.character.shortcode
-      }
-    })
-      .then(({data: { updateCharacter }}) => {
-        M.toast({html: "Character saved!", classes: 'green', displayLength: 3000})
+    this.props
+      .updateSettings({
+        wrapped: true,
+        variables: {
+          ...this.state.character,
+          id: this.state.character.shortcode,
+        },
+      })
+      .then(({ data: { updateCharacter } }) => {
+        M.toast({
+          html: 'Character saved!',
+          classes: 'green',
+          displayLength: 3000,
+        })
         this.props.onSave && this.props.onSave(updateCharacter)
       })
       .catch(({ validationErrors }) => {
@@ -204,5 +209,5 @@ EditCharacter.propTypes = {
 
 export default compose(
   withNamespaces('common'),
-  withMutations({ updateSettings }),
+  withMutations({ updateSettings })
 )(EditCharacter)

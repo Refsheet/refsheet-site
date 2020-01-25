@@ -1,7 +1,7 @@
 import React from 'react'
 import { Mutation } from 'react-apollo'
 import { connect } from 'react-redux'
-import M from "materialize-css";
+import M from 'materialize-css'
 
 function compose() {
   return component => {
@@ -20,27 +20,41 @@ function compose() {
 function withMutations(mutations) {
   const mutationNames = Object.keys(mutations)
 
-  const wrap = (fn) => {
-    return (attrs) => {
+  const wrap = fn => {
+    return attrs => {
       if (attrs.wrapped) {
         delete attrs.wrapped
 
         return new Promise((resolve, reject) => {
           fn(attrs)
-            .then((data) => {
+            .then(data => {
               if (data.errors && data.errors.length > 0) {
                 data.validationErrors = {}
                 data.errors.map(err => {
                   if (err.extensions && err.extensions.validation) {
                     Object.keys(err.extensions.validation).map(k => {
-                      if (!data.validationErrors[k]) data.validationErrors[k] = []
-                      data.validationErrors[k] = [ ...data.validationErrors[k], ...err.extensions.validation[k] ]
+                      if (!data.validationErrors[k])
+                        data.validationErrors[k] = []
+                      data.validationErrors[k] = [
+                        ...data.validationErrors[k],
+                        ...err.extensions.validation[k],
+                      ]
                     })
                   }
                 })
 
-                console.error("GraphQL returned an error: ", data.errors, data.validationErrors)
-                data.errors.map(e => M.toast({html: e.message, classes: 'red', displayLength: 3000}))
+                console.error(
+                  'GraphQL returned an error: ',
+                  data.errors,
+                  data.validationErrors
+                )
+                data.errors.map(e =>
+                  M.toast({
+                    html: e.message,
+                    classes: 'red',
+                    displayLength: 3000,
+                  })
+                )
                 reject(data)
               }
 
