@@ -10,7 +10,7 @@ import { Row, Col, Button } from 'react-materialize'
 import compose from 'utils/compose'
 import { withNamespaces } from 'react-i18next'
 import WindowAlert from 'utils/WindowAlert'
-import { div as Card } from "../Styled/Card"
+import { div as Card } from '../Styled/Card'
 import c from 'classnames'
 
 // TODO: This class has now 3 different styles that it produces,
@@ -234,7 +234,10 @@ class CommentForm extends Component {
 
     if (this.props.v2Style) {
       return (
-        <form className={'v2-reply-box'} onSubmit={this.handleSubmit.bind(this)}>
+        <form
+          className={'v2-reply-box'}
+          onSubmit={this.handleSubmit.bind(this)}
+        >
           <UserAvatar
             user={this.props.currentUser}
             identity={identity}
