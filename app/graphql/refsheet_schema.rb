@@ -16,7 +16,9 @@ GraphQL::Errors.configure(RefsheetSchema) do
 
   rescue_from ActiveRecord::RecordInvalid do |e|
     error_messages = e.record.errors.full_messages.to_sentence
-    GraphQL::ExecutionError.new "Validation failed: #{error_messages}."
+    GraphQL::ExecutionError.new "Validation failed: #{error_messages}.", extensions: {
+        validation: e.record.errors
+    }
   end
 
   rescue_from Pundit::NotAuthorizedError do |e|
