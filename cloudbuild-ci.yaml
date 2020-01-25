@@ -35,6 +35,7 @@ steps:
   # Setup Database
   - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
     id: Migrate
+    dir: /app
     args: ['bundle', 'exec', 'rake', 'db:migrate']
     waitFor:
       - Build Container
@@ -44,7 +45,8 @@ steps:
 
   - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
     id: RSpec Unit
-    args: ['bin/entrypoint.dev.sh', 'bundle', 'exec', 'rspec', '--exclude-pattern', '**/{features,requests,integration}/**/*_spec.rb']
+    dir: /app
+    args: ['bin/entrypoint.ci.sh', 'bundle', 'exec', 'rspec', '--exclude-pattern', '**/{features,requests,integration}/**/*_spec.rb']
     secretEnv:
       - CODECOV_TOKEN
     waitFor:
@@ -52,7 +54,8 @@ steps:
 
   - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
     id: RSpec Integration
-    args: ['bin/entrypoint.dev.sh', 'bundle', 'exec', 'rspec', '--pattern', '**/{features,requests,integration}/**/*_spec.rb']
+    dir: /app
+    args: ['bin/entrypoint.ci.sh', 'bundle', 'exec', 'rspec', '--pattern', '**/{features,requests,integration}/**/*_spec.rb']
     secretEnv:
       - CODECOV_TOKEN
     waitFor:
@@ -60,13 +63,15 @@ steps:
 
   - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
     id: Karma
-    args: ['bin/entrypoint.dev.sh', 'yarn', 'run', 'test']
+    dir: /app
+    args: ['bin/entrypoint.ci.sh', 'yarn', 'run', 'test']
     waitFor:
       - Build Container
 
   - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
     id: Prettier Check
-    args: ['bin/entrypoint.dev.sh', 'yarn', 'run', 'prettier-check']
+    dir: /app
+    args: ['bin/entrypoint.ci.sh', 'yarn', 'run', 'prettier-check']
     waitFor:
       - Build Container
 
@@ -89,6 +94,12 @@ options:
     - DB_PASSWORD=fishsticks
     - DB_DATABASE=postgres
     - CI=true
+    - CI_NAME=codeship
+    - CI_BRANCH=$BRANCH_NAME
+    - CI_COMMIT_ID=$COMMIT_SHA
+    - CI_BUILD_NUMBER=$BUILD_ID
+    - CI_BUILD_URL=https://console.cloud.google.com/cloud-build/builds/${BUILD_ID}?project=${PROJECT_ID}&organizationId=183290543501
+  machineType: 'N1_HIGHCPU_8'
 
 # Create Secrets with:
 # printf "value" | gcloud kms encrypt --plaintext-file=- --ciphertext-file=- --location=global --keyring=refsheet-ci \

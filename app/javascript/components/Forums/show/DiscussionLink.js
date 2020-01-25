@@ -14,7 +14,13 @@ class DiscussionLink extends Component {
     const { forum, discussion, t } = this.props
 
     return (
-      <div className={c('forum-post', { new: discussion.is_unread })}>
+      <div
+        className={c('forum-post', {
+          new: discussion.is_unread,
+          admin: discussion.admin_post,
+          moderator: discussion.moderator_post,
+        })}
+      >
         <KarmaCounter discussion={discussion} forum={forum} />
 
         <div className={'forum-post--summary'}>

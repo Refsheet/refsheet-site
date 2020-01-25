@@ -86,4 +86,10 @@ describe Forum::Discussion, type: :model do
       expect(post.thread.attributes).to include 'last_read_cache'
     end
   end
+
+  it 'assigns admin level' do
+    u = create :admin
+    d = create :forum_discussion, user: u
+    expect(d.admin_post).to eq true
+  end
 end

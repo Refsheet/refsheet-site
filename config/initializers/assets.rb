@@ -18,3 +18,6 @@ Rails.application.config.assets.precompile += %w[
   admin.css
   admin.js
 ]
+
+# Disable GZip because Google Cloud is going to do that for us?
+Rails.application.config.assets.gzip = false

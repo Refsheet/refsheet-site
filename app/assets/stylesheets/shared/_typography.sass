@@ -4,18 +4,26 @@
 .smaller
   font-size: 0.80rem
 
+  &.material-icons
+    font-size: 1.1rem
+    line-height: inherit
+    height: auto
+
 .thinner
   font-weight: 300
 
 
 .muted
   @extend .grey-text
-  @extend .text-lighten-1
+  //@extend .text-lighten-1
   @extend .smaller
+
+.inline
+  display: inline-block
 
 .muted-color
   @extend .grey-text
-  @extend .text-lighten-1
+  //@extend .text-lighten-1
 
 .header
   @extend .blue-grey-text
@@ -66,6 +74,9 @@ hr
 
 .primary-text
   color: $primary-color !important
+
+.text-light
+  color: $text-light-color !important
 
 //== Links
 

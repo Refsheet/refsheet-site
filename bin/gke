@@ -41,6 +41,19 @@ function do_ssh() {
 	done
 }
 
+function do_logs() {
+  echo "Select a pod:"
+  printf "Loading...\r"
+
+  pods=$(kubectl get pods -o=jsonpath='{.items[*].metadata.name}' | sort)
+
+  select pod in $pods; do
+    echo
+    kubectl logs "$pod" | less
+    return
+  done
+}
+
 function do_cordon_all() {
     echo "Fetching node pools..."
     for node in $(get_nodes); do
@@ -62,14 +75,20 @@ case "$1" in
 	ssh)
 		  do_ssh
 	  	;;
+	logs)
+      do_logs
+      ;;
 	cordon-all)
 	    do_cordon_all
 	    ;;
   drain-all)
       do_drain_all
       ;;
+  apply)
+      bin/rb rake kube:update_config
+      ;;
 	*)
 	    echo "Usage:"
-	    echo "  gke list-pods|ssh|cordon-all|drain-all"
+	    echo "  gke list-pods|ssh|logs|cordon-all|drain-all|apply"
 	    ;;
 esac

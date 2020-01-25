@@ -30,7 +30,6 @@ Types::ForumDiscussionType = GraphQL::ObjectType.define do
 
   interfaces [Interfaces::ApplicationRecordInterface]
 
-  field :id, !types.ID
   field :topic, types.String
   field :slug, types.String
   field :shortcode, types.String
@@ -40,6 +39,9 @@ Types::ForumDiscussionType = GraphQL::ObjectType.define do
   field :locked, types.Boolean
   field :karma_total, types.Int
   field :reply_count, types.Int
+  field :sticky, types.Boolean
+  field :admin_post, types.Boolean
+  field :moderator_post, types.Boolean
 
   field :forum, Types::ForumType
   field :user, Types::UserType

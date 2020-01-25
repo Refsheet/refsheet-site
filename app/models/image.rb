@@ -138,10 +138,28 @@ class Image < ApplicationRecord # < Media
   scope :processing, -> { where(image_processing: true) }
   scope :processed,  -> { where(image_processing: false) }
 
-  scope :similar_to, -> (image) {
+  scope :similar_to, -> (image, distance: 7) {
     target_hash = image.image_phash
-    where(<<-SQL.squish, image.id, target_hash)
-      images.id != ? AND hamming(images.image_phash::bit(64), ?::bit(64)) >= 0.7
+
+    if target_hash.nil?
+      return all
+    end
+
+    with_phash_distance(image).
+    where(<<-SQL.squish, image.id, target_hash, distance)
+      images.id != ? AND length(regexp_replace((B? # images.image_phash)::text, '[^1]', '', 'g')) < ?
+    SQL
+  }
+
+  scope :with_phash_distance, -> (image) {
+    target_hash = image.image_phash
+
+    if target_hash.nil?
+      return all
+    end
+
+    select(sanitize_sql_array([<<-SQL.squish, target_hash]))
+      images.*, length(regexp_replace((B? # images.image_phash)::text, '[^1]', '', 'g')) AS phash_distance
     SQL
   }
 
@@ -214,6 +232,10 @@ class Image < ApplicationRecord # < Media
 
   def geometry
     Paperclip::Geometry.new width, height
+  end
+
+  def phash_distance
+    attributes['phash_distance']
   end
 
   def recalculate_attachment_meta!

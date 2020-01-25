@@ -13,10 +13,15 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  content_html   :string
+#  admin_post     :boolean          default(FALSE)
+#  moderator_post :boolean          default(FALSE)
+#  deleted_at     :datetime
+#  edited         :boolean          default(FALSE)
 #
 # Indexes
 #
 #  index_forum_posts_on_character_id    (character_id)
+#  index_forum_posts_on_deleted_at      (deleted_at)
 #  index_forum_posts_on_guid            (guid)
 #  index_forum_posts_on_parent_post_id  (parent_post_id)
 #  index_forum_posts_on_thread_id       (thread_id)

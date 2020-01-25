@@ -1,0 +1,15 @@
+export default {
+  baseUrl: 'http://dev1.refsheet.net:5000',
+
+  // Asset Helpers
+
+  // Forum URLs:
+
+  forumRoute: '/v2/forums/:forumId',
+  newForumDiscussionRoute: '/v2/forums/:forumId/post',
+  forumAboutRoute: '/v2/forums/:forumId/about',
+  forumMembersRoute: '/v2/forums/:forumId/members',
+
+  forumDiscussionRoute: '/v2/forums/:forumId/:discussionId',
+  forumPostRoute: '/v2/forums/:forumId/:discussionId#:postId',
+}

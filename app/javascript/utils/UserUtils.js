@@ -1,5 +1,7 @@
 import c from 'classnames'
 
+// Keep this in sync with user-rank-colors.sass
+
 export const USER_FG_COLOR = {
   admin: '#2480C8',
   patron: '#F96854',
@@ -21,6 +23,8 @@ export const userClasses = (user, className = 'user-color') => {
   return c(className, {
     admin: user.is_admin,
     patron: user.is_patron,
+    supporter: user.is_supporter,
+    moderator: user.is_moderator,
   })
 }
 
