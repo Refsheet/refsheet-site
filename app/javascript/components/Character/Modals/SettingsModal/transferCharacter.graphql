@@ -1,0 +1,12 @@
+mutation transferCharacter($id: ID!, $destination: String!) {
+    transferCharacter(id: $id, destination: $destination) {
+        id
+
+        # Update this with whichever fields are required for the transfer popup
+        # to render properly.
+        pending_transfer {
+            created_at
+            id
+        }
+    }
+}

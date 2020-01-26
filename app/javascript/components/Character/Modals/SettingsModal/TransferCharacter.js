@@ -3,12 +3,15 @@ import PropTypes from 'prop-types'
 import compose from 'utils/compose'
 import { Trans, withNamespaces } from 'react-i18next'
 import { Row, Col, TextInput } from 'react-materialize'
+import transferCharacter from './transferCharacter.graphql'
+import {withCurrentUser, withMutations} from "../../../../utils/compose";
+import authorize from "policies";
 
 class TransferCharacter extends Component {
   constructor(props) {
     super(props)
 
-    this.state = { destination: '' }
+    this.state = { destination: '', errors: {} }
   }
 
   handleDestinationChange(e) {
@@ -19,7 +22,35 @@ class TransferCharacter extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    console.log(this.state.destination)
+
+    const {
+      character, currentUser, transferCharacter
+    } = this.props
+
+    if (!authorize(character, 'transfer', { user: currentUser })) {
+      console.warn("Not authorized!")
+      return false
+    }
+
+    transferCharacter({
+      wrapped: true,
+      variables: {
+        id: character.shortcode,
+        destination: this.state.destination,
+      }
+    })
+      .then(({transferCharacter}) => {
+        M.toast({
+          html: "Character transfer initiated",
+          displayLength: 3000,
+          classes: 'green'
+        })
+
+        // Update Cache
+      })
+      .catch(({validationErrors}) => {
+        this.setState({ errors: validationErrors })
+      })
   }
 
   render() {
@@ -91,4 +122,8 @@ TransferCharacter.propTypes = {
   onSave: PropTypes.func.isRequired,
 }
 
-export default compose(withNamespaces('common'))(TransferCharacter)
+export default compose(
+  withNamespaces('common'),
+  withMutations({ transferCharacter }),
+  withCurrentUser()
+)(TransferCharacter)

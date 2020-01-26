@@ -3,10 +3,11 @@ import PropTypes from 'prop-types'
 import compose from 'utils/compose'
 import { Trans, withNamespaces } from 'react-i18next'
 import { TextInput, Row, Col, Checkbox } from 'react-materialize'
-import { withMutations } from '../../../../utils/compose'
+import {withCurrentUser, withMutations} from '../../../../utils/compose'
 import updateSettings from './updateSettings.graphql'
 import M from 'materialize-css'
 import { withRouter } from 'react-router'
+import {Authorized} from "../../../../policies";
 
 class EditCharacter extends Component {
   constructor(props) {
@@ -160,40 +161,44 @@ class EditCharacter extends Component {
 
         <Row className={'no-margin margin-top--small'}>
           <Col s={12} m={6}>
-            <a
-              className={'red-text block'}
-              href={'#'}
-              onClick={this.props.goTo('delete')}
-            >
-              {t('actions.delete_character', 'Delete Character...')}
-            </a>
-            <span className={'hint'}>
-              <Trans
-                i18nKey={'notice.character_archive_summary'}
-                className={'hint muted'}
+            <Authorized object={this.props.character} user={this.props.currentUser} action={'destroy'}>
+              <a
+                className={'red-text block'}
+                href={'#'}
+                onClick={this.props.goTo('delete')}
               >
-                Archives your character forever, including all images. This
-                cannot be undone.
-              </Trans>
-            </span>
+                {t('actions.delete_character', 'Delete Character...')}
+              </a>
+              <span className={'hint'}>
+                <Trans
+                  i18nKey={'notice.character_archive_summary'}
+                  className={'hint muted'}
+                >
+                  Archives your character forever, including all images. This
+                  cannot be undone.
+                </Trans>
+              </span>
+            </Authorized>
           </Col>
           <Col s={12} m={6}>
-            <a
-              className={'block'}
-              href={'#'}
-              onClick={this.props.goTo('transfer')}
-            >
-              {t('actions.transfer_character', 'Transfer Character...')}
-            </a>
-            <span className={'hint'}>
-              <Trans
-                i18nKey={'notice.transfer_summary'}
-                className={'hint muted'}
+            <Authorized object={this.props.character} user={this.props.currentUser} action={'transfer'}>
+              <a
+                className={'block'}
+                href={'#'}
+                onClick={this.props.goTo('transfer')}
               >
-                Transfer ownership of this profile to another user or
-                organization. They will have to accept.
-              </Trans>
-            </span>
+                {t('actions.transfer_character', 'Transfer Character...')}
+              </a>
+              <span className={'hint'}>
+                <Trans
+                  i18nKey={'notice.transfer_summary'}
+                  className={'hint muted'}
+                >
+                  Transfer ownership of this profile to another user or
+                  organization. They will have to accept.
+                </Trans>
+              </span>
+            </Authorized>
           </Col>
         </Row>
 
@@ -223,5 +228,6 @@ EditCharacter.propTypes = {
 export default compose(
   withNamespaces('common'),
   withMutations({ updateSettings }),
+  withCurrentUser(),
   withRouter
 )(EditCharacter)

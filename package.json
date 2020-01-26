@@ -102,8 +102,6 @@
     "config-lint": "./node_modules/yaml-lint/bin/yamllint --verbose .kubernetes/*.{yml,yaml} config/*.{yml,yaml} .ebextensions/*.config --ignore config/database.yml",
     "prettier": "prettier --write \"app/javascript/**/*.js\"",
     "prettier-check": "prettier --check \"app/javascript/**/*.js\"",
-    "schema-dump2": "apollo client:download-schema schema.graphql # overkill",
-    "schema-dump": "graphql get-schema -e development # also bad",
     "eslint": "eslint ./app/javascript/ --ext .js --ext .gql --ext .graphql"
   }
 }
