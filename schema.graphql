@@ -172,6 +172,7 @@ type ForumDiscussion implements ApplicationRecord {
 }
 
 type ForumPost implements ApplicationRecord {
+    admin_post: Boolean
     character: Character
     content: String
     content_html: String
@@ -179,7 +180,9 @@ type ForumPost implements ApplicationRecord {
     deleted_at: Int
     discussion: ForumDiscussion
     id: ID
+    is_edited: Boolean
     karma_total: Int
+    moderator_post: Boolean
     parent_post: ForumPost
     updated_at: Int
     user: User
@@ -354,6 +357,7 @@ type Mutation {
     deleteProfileSection(id: ID!): ProfileSection
     deleteProfileWidget(id: ID!): Widget
     deleteUser(password: String!, username: String!): User
+    destroyCharacter(confirmation: String!, id: ID!): Character
     destroySession: Session
     editReply(content: String!, postId: ID!): ForumPost
     markAllNotificationsAsRead: NotificationCollection
@@ -363,7 +367,7 @@ type Mutation {
     removeFavorite(mediaId: ID!): MediaFavorite
     sendKarma(discussionId: ID!, take: Boolean): ForumPost
     sendMessage(conversationId: ID, message: String!, recipientId: ID): Message
-    updateCharacter(id: ID!, name: String, special_notes: String, species: String): Character
+    updateCharacter(color_scheme_id: ID, hidden: Boolean, id: ID!, name: String, nsfw: Boolean, shortcode: String, slug: String, special_notes: String, species: String): Character
     updateConversation(conversation_id: ID!, read: Boolean): Conversation
     updateForum: Forum
     updateImage(caption: String, characterId: ID, folder: String, gravity: String, hidden: Boolean, mediaId: ID, nsfw: Boolean, source_url: String, title: String, watermark: Boolean): Image
