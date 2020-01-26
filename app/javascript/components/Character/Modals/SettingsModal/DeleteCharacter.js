@@ -3,12 +3,17 @@ import PropTypes from 'prop-types'
 import compose from 'utils/compose'
 import { Trans, withNamespaces } from 'react-i18next'
 import { Row, Col, TextInput } from 'react-materialize'
+import archiveCharacter from './archiveCharacter.graphql'
+import { withMutations } from '../../../../utils/compose'
+import { withRouter } from 'react-router'
+import M from 'materialize-css'
+import LinkUtils from 'utils/LinkUtils'
 
 class DeleteCharacter extends Component {
   constructor(props) {
     super(props)
 
-    this.state = { confirmation: '' }
+    this.state = { confirmation: '', errors: {} }
   }
 
   handleConfirmationChange(e) {
@@ -19,7 +24,35 @@ class DeleteCharacter extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    console.log(this.state.confirmation)
+
+    const {
+      archiveCharacter,
+      character: { shortcode: id, username },
+      t,
+      history,
+    } = this.props
+    const { confirmation } = this.state
+
+    archiveCharacter({
+      wrapped: true,
+      variables: {
+        id,
+        confirmation,
+      },
+    })
+      .then(({ data: { archiveCharacter } }) => {
+        M.toast({
+          html: t('notice.character_deleted', 'Character deleted.'),
+          displayLength: 3000,
+          classes: 'orange',
+        })
+
+        // TODO: The V2 router cannot push routes that would be handled by the V1 router. :thinking:
+        history.push(LinkUtils.userPath({ username }), {})
+      })
+      .catch(({ validationErrors }) => {
+        this.setState({ errors: validationErrors })
+      })
   }
 
   render() {
@@ -86,4 +119,8 @@ DeleteCharacter.propTypes = {
   goTo: PropTypes.func.isRequired,
 }
 
-export default compose(withNamespaces('common'))(DeleteCharacter)
+export default compose(
+  withNamespaces('common'),
+  withMutations({ archiveCharacter }),
+  withRouter
+)(DeleteCharacter)

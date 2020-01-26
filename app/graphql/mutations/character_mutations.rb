@@ -1,5 +1,5 @@
 class Mutations::CharacterMutations < Mutations::ApplicationMutation
-  before_action :get_character, only: [:update, :convert]
+  before_action :get_character, only: [:update, :convert, :destroy]
 
   action :update do
     type Types::CharacterType
@@ -53,6 +53,23 @@ class Mutations::CharacterMutations < Mutations::ApplicationMutation
 
     scope = user.characters
     scope.where('LOWER(characters.slug) LIKE ? OR LOWER(characters.name) LIKE ?', q, q).limit(10).order(:name)
+  end
+
+  action :destroy do
+    type Types::CharacterType
+
+    argument :id, !types.ID
+    argument :confirmation, !types.String
+  end
+
+  def destroy
+    authorize @character
+
+    if params[:confirmation] == @character.slug
+      @character.destroy
+    else
+      @character.errors.add(:confirmation, "does not match slug")
+    end
   end
 
   private
