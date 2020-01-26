@@ -69,4 +69,32 @@ describe Mutations::CharacterMutations do
       end
     end
   end
+
+  describe 'destroyCharacter' do
+    let(:confirmation) { character.slug}
+
+    let(:query) { <<-GRAPHQL }
+      mutation {
+        destroyCharacter(id: "#{character.shortcode}", confirmation: "#{confirmation}") {
+          id
+          deleted_at
+        }
+      }
+    GRAPHQL
+
+    it 'requires authorization' do
+      expect(subject[:errors]).to have_at_least(1).items
+      expect(character.reload.deleted_at).to be_nil
+    end
+
+    context 'when authorized' do
+      let(:context) {{ current_user: -> { user } }}
+
+      it 'destroys' do
+        expect(subject[:errors]).to be_nil
+        expect(subject[:data][:destroyCharacter][:deleted_at]).to_not be_nil
+        expect(character.reload.deleted_at).to_not be_nil
+      end
+    end
+  end
 end

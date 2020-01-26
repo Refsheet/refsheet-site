@@ -1,0 +1,6 @@
+mutation archiveCharacter($id: ID!, $confirmation: String!) {
+    destroyCharacter(id: $id, confirmation: $confirmation) {
+        id
+        deleted_at
+    }
+}
