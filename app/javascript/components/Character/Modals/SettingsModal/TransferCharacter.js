@@ -3,27 +3,74 @@ import PropTypes from 'prop-types'
 import compose from 'utils/compose'
 import { Trans, withNamespaces } from 'react-i18next'
 import { Row, Col, TextInput } from 'react-materialize'
+import transferCharacter from './transferCharacter.graphql'
+import { withCurrentUser, withMutations } from '../../../../utils/compose'
+import authorize from 'policies'
+import validate, { errorProps, isRequired } from '../../../../utils/validate'
 
 class TransferCharacter extends Component {
   constructor(props) {
     super(props)
 
-    this.state = { destination: '' }
+    this.validations = {
+      destination: [isRequired],
+    }
+
+    this.state = { destination: '', errors: {} }
   }
 
   handleDestinationChange(e) {
     e.preventDefault()
     const destination = e.target.value
-    this.setState({ destination })
+    const errors = validate({ destination }, this.validations)
+    this.setState({ destination, errors })
   }
 
   handleSubmit(e) {
     e.preventDefault()
-    console.log(this.state.destination)
+
+    const {
+      character,
+      currentUser,
+      transferCharacter,
+      onSave = _c => {},
+    } = this.props
+
+    if (!authorize(character, 'transfer', { user: currentUser })) {
+      console.warn('Not authorized!')
+      return false
+    }
+
+    transferCharacter({
+      wrapped: true,
+      variables: {
+        id: character.shortcode,
+        destination: this.state.destination,
+      },
+    })
+      .then(({ transferCharacter }) => {
+        M.toast({
+          html: 'Character transfer initiated',
+          displayLength: 3000,
+          classes: 'green',
+        })
+
+        // Update Cache
+        onSave(transferCharacter)
+      })
+      .catch(({ validationErrors }) => {
+        this.setState({
+          errors: {
+            ...validationErrors,
+            destination: validationErrors.transfer_to_user,
+          },
+        })
+      })
   }
 
   render() {
     const { t } = this.props
+    const { errors } = this.state
 
     return (
       <form
@@ -46,7 +93,7 @@ class TransferCharacter extends Component {
           </p>
         </Trans>
 
-        <Row>
+        <Row className={'margin-top--medium'}>
           <TextInput
             s={12}
             name={'destination'}
@@ -56,6 +103,7 @@ class TransferCharacter extends Component {
               'Destination Email, Username, or Organization ID'
             )}
             value={this.state.destination}
+            {...errorProps(errors.destination)}
             onChange={this.handleDestinationChange.bind(this)}
           />
         </Row>
@@ -91,4 +139,8 @@ TransferCharacter.propTypes = {
   onSave: PropTypes.func.isRequired,
 }
 
-export default compose(withNamespaces('common'))(TransferCharacter)
+export default compose(
+  withNamespaces('common'),
+  withMutations({ transferCharacter }),
+  withCurrentUser()
+)(TransferCharacter)

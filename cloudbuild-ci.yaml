@@ -75,6 +75,13 @@ steps:
     waitFor:
       - Build Container
 
+  - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
+    id: ESLint
+    dir: /app
+    args: ['bin/entrypoint.ci.sh', 'yarn', 'run', 'eslint']
+    waitFor:
+      - Build Container
+
   #== TEARDOWN
 
   - name: 'gcr.io/cloud-builders/docker'

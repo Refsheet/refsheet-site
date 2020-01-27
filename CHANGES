@@ -1,3 +1,35 @@
+# TBD
+
+## Active Projects
+
+- V2 Profiles
+
+## New Bugs
+
+- Image description editor doesn't actually change anything
+- Possible bug in registration form conflicting with login form
+
+## Bug Fixes
+
+- Fixed an issue where streaming notifications wouldn't authorize even though a user is signed in
+
+## Major Things
+
+## Minor Things
+
+- Notifications menu is now available for all users
+- Introduced validation structure to frontend to show errors before submitting some forms
+- Introduced policy structure to frontend to easily control who is allowed to do what
+
+## WIPs
+
+- V2 profile work continues, now with Settings, Delete and Transfer forms
+
+## Framework
+
+- Improved metric reporting and image server scaling based on queue size, not CPU usage
+
+
 # 01/20/20
 
 Focus for this period has been the new public API, another round of updates to get V2 profiles closer to completion,

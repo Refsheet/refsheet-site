@@ -16,21 +16,43 @@ GraphQL::Errors.configure(RefsheetSchema) do
 
   rescue_from ActiveRecord::RecordInvalid do |e|
     error_messages = e.record.errors.full_messages.to_sentence
-    GraphQL::ExecutionError.new "Validation failed: #{error_messages}."
+    GraphQL::ExecutionError.new "Validation failed: #{error_messages}.", extensions: {
+        validation: e.record.errors
+    }
+  end
+
+  rescue_from Pundit::NotAuthorizedError do |e|
+    GraphQL::ExecutionError.new e.message
+  end
+
+  rescue_from GraphQL::ExecutionError do |e|
+    e
   end
 
   rescue_from StandardError do |e|
     Rails.logger.error e
     Rails.logger.error e.backtrace.join("\n")
     Raven.capture_exception(e)
-    GraphQL::ExecutionError.new e.message
+    extensions = {}
+    unless Rails.env.production?
+      extensions[:error_type] = e.class.name
+      extensions[:error_message] = e.message
+      extensions[:backtrace] = e.backtrace
+    end
+    GraphQL::ExecutionError.new e.message, extensions: extensions
   end
 
   rescue_from Exception do |e|
     Rails.logger.e
     Rails.logger.error e.backtrace.join("\n")
     Raven.capture_exception(e)
-    GraphQL::ExecutionError.new e.message
+    extensions = {}
+    unless Rails.env.production?
+      extensions[:error_type] = e.class.name
+      extensions[:error_message] = e.message
+      extensions[:backtrace] = e.backtrace
+    end
+    GraphQL::ExecutionError.new e.message, extensions: extensions
   end
 end
 

@@ -3,12 +3,29 @@ import PropTypes from 'prop-types'
 import compose from 'utils/compose'
 import { Trans, withNamespaces } from 'react-i18next'
 import { TextInput, Row, Col, Checkbox } from 'react-materialize'
+import { withCurrentUser, withMutations } from '../../../../utils/compose'
+import updateSettings from './updateSettings.graphql'
+import M from 'materialize-css'
+import { withRouter } from 'react-router'
+import { Authorized } from '../../../../policies'
+import validate, { isRequired, isSluggable, isSlug } from 'utils/validate'
+import { errorProps } from '../../../../utils/validate'
 
 class EditCharacter extends Component {
   constructor(props) {
     super(props)
 
-    this.state = { character: this.props.character }
+    this.validations = {
+      name: [isRequired, isSluggable],
+      slug: [isSlug],
+      shortcode: [isSlug],
+    }
+
+    this.state = {
+      character: this.props.character,
+      submitting: false,
+      errors: validate(this.props.character, this.validations),
+    }
   }
 
   handleInputChange(e) {
@@ -22,18 +39,51 @@ class EditCharacter extends Component {
     }
 
     character[name] = value
-    this.setState({ character })
+
+    const errors = validate(character, this.validations)
+    this.setState({ character, errors })
   }
 
   handleSubmit(e) {
     e.preventDefault()
-    console.log(this.state.character)
+
+    const { history, updateSettings, character, onSave = _c => {} } = this.props
+
+    updateSettings({
+      wrapped: true,
+      variables: {
+        ...this.state.character,
+        id: character.shortcode,
+      },
+    })
+      .then(({ data: { updateCharacter } }) => {
+        M.toast({
+          html: 'Character saved!',
+          classes: 'green',
+          displayLength: 3000,
+        })
+
+        if (updateCharacter.slug !== character.slug) {
+          const newPath = history.location.pathname.replace(
+            '/' + character.slug,
+            '/' + updateCharacter.slug
+          )
+
+          history.replace(newPath, {})
+          return
+        }
+
+        onSave(updateCharacter)
+      })
+      .catch(({ formErrors }) => {
+        this.setState({ errors: formErrors })
+      })
   }
 
   render() {
     const { t } = this.props
 
-    const { character } = this.state
+    const { character, errors, submitting } = this.state
 
     const username =
       (character && character.user && character.user.username) || 'me'
@@ -47,7 +97,8 @@ class EditCharacter extends Component {
             label={t('labels.character_name', 'Name')}
             name={'name'}
             id={'character_name'}
-            value={this.state.character.name}
+            value={character.name}
+            {...errorProps(errors.name)}
             onChange={this.handleInputChange.bind(this)}
           />
           <TextInput
@@ -56,7 +107,8 @@ class EditCharacter extends Component {
             label={t('labels.character_species', 'Species / Race')}
             name={'species'}
             id={'character_species'}
-            value={this.state.character.species}
+            value={character.species}
+            {...errorProps(errors.species)}
             onChange={this.handleInputChange.bind(this)}
           />
         </Row>
@@ -68,7 +120,8 @@ class EditCharacter extends Component {
             label={`refsheet.net/${username}/`}
             name={'slug'}
             id={'character_slug'}
-            value={this.state.character.slug}
+            value={character.slug}
+            {...errorProps(errors.slug)}
             onChange={this.handleInputChange.bind(this)}
           />
           <TextInput
@@ -77,7 +130,8 @@ class EditCharacter extends Component {
             label={'ref.st/'}
             name={'shortcode'}
             id={'character_shortcode'}
-            value={this.state.character.shortcode}
+            value={character.shortcode}
+            {...errorProps(errors.shortcode)}
             onChange={this.handleInputChange.bind(this)}
           />
         </Row>
@@ -122,40 +176,52 @@ class EditCharacter extends Component {
 
         <Row className={'no-margin margin-top--small'}>
           <Col s={12} m={6}>
-            <a
-              className={'red-text block'}
-              href={'#'}
-              onClick={this.props.goTo('delete')}
+            <Authorized
+              object={this.props.character}
+              user={this.props.currentUser}
+              action={'destroy'}
             >
-              {t('actions.delete_character', 'Delete Character...')}
-            </a>
-            <span className={'hint'}>
-              <Trans
-                i18nKey={'notice.character_archive_summary'}
-                className={'hint muted'}
+              <a
+                className={'red-text block'}
+                href={'#'}
+                onClick={this.props.goTo('delete')}
               >
-                Archives your character forever, including all images. This
-                cannot be undone.
-              </Trans>
-            </span>
+                {t('actions.delete_character', 'Delete Character...')}
+              </a>
+              <span className={'hint'}>
+                <Trans
+                  i18nKey={'notice.character_archive_summary'}
+                  className={'hint muted'}
+                >
+                  Archives your character forever, including all images. This
+                  cannot be undone.
+                </Trans>
+              </span>
+            </Authorized>
           </Col>
           <Col s={12} m={6}>
-            <a
-              className={'block'}
-              href={'#'}
-              onClick={this.props.goTo('transfer')}
+            <Authorized
+              object={this.props.character}
+              user={this.props.currentUser}
+              action={'transfer'}
             >
-              {t('actions.transfer_character', 'Transfer Character...')}
-            </a>
-            <span className={'hint'}>
-              <Trans
-                i18nKey={'notice.transfer_summary'}
-                className={'hint muted'}
+              <a
+                className={'block'}
+                href={'#'}
+                onClick={this.props.goTo('transfer')}
               >
-                Transfer ownership of this profile to another user or
-                organization. They will have to accept.
-              </Trans>
-            </span>
+                {t('actions.transfer_character', 'Transfer Character...')}
+              </a>
+              <span className={'hint'}>
+                <Trans
+                  i18nKey={'notice.transfer_summary'}
+                  className={'hint muted'}
+                >
+                  Transfer ownership of this profile to another user or
+                  organization. They will have to accept.
+                </Trans>
+              </span>
+            </Authorized>
           </Col>
         </Row>
 
@@ -182,4 +248,9 @@ EditCharacter.propTypes = {
   goTo: PropTypes.func,
 }
 
-export default compose(withNamespaces('common'))(EditCharacter)
+export default compose(
+  withNamespaces('common'),
+  withMutations({ updateSettings }),
+  withCurrentUser(),
+  withRouter
+)(EditCharacter)

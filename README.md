@@ -76,7 +76,7 @@ This project is built and maintained by Mau, and you can reach them at
 - Translations: [locize.io](https://www.locize.io/p/zbocgoxn)
 - CI / CD: [Google Cloud Build](https://console.cloud.google.com/cloud-build/builds?organizationId=183290543501&project=refsheet-239409)
 - Monitoring: [Stackdriver Monitoring](https://console.cloud.google.com/monitoring/dashboards/custom/10331969783848097169?project=refsheet-239409&timeDomain=1d)
-- Logs: [Stackdriver Logging](https://console.cloud.google.com/logs/viewer?organizationId=183290543501&project=refsheet-239409&minLogLevel=0&expandAll=false&timestamp=2020-01-13T01:39:35.490000000Z&customFacets=&limitCustomFacetWidth=true&dateRangeStart=2020-01-13T00:39:35.742Z&dateRangeEnd=2020-01-13T01:39:35.742Z&interval=PT1H&resource=container&scrollTimestamp=2020-01-13T01:39:26.519636322Z)
+- Logs: [Stackdriver Logging](https://console.cloud.google.com/logs/viewer?organizationId=183290543501&project=refsheet-239409&minLogLevel=0&expandAll=false&timestamp=2020-01-27T07:48:17.205000000Z&customFacets=resource.labels.container_name&limitCustomFacetWidth=true&dateRangeStart=2020-01-27T06:48:31.898Z&dateRangeEnd=2020-01-27T07:48:31.898Z&interval=PT1H&resource=k8s_container)
 - Infrastructure: [Google Kubernetes Engine](https://console.cloud.google.com/kubernetes/workload?organizationId=183290543501&project=refsheet-239409&workload_list_tablesize=50)
 - Error Reporting: [Sentry](https://sentry.io/organizations/refsheetnet/issues/?project=1307540)
 - Production: [Refsheet.net](https://refsheet.net)

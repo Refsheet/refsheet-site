@@ -18,11 +18,11 @@ spec:
         app: refsheet-prod
         tier: refsheet-prod-worker
       annotations:
-        configHash: bd22984fa141790ebdb3b8713044d21fa30b181108cc590139cef1565cb42a7c
+        configHash: b6434529026540e58e2751ed60fcfe48ccee9201aa8a9294c7742e58b3a3d66c
     spec:
       containers:
       - name: refsheet-prod-worker
-        image: gcr.io/refsheet-239409/refsheet-site:55c735e7e98b211f58e24c40e792c6f1fbb26318
+        image: gcr.io/refsheet-239409/refsheet-site:d3e64450b65607d7d074969467d470f380331f15
         imagePullPolicy: Always
         command:
         - bundle
@@ -38,8 +38,8 @@ spec:
             name: refsheet-prod-secret
         resources:
           requests:
-            cpu: "0.5"
+            cpu: "1"
             memory: 1G
           limits:
-            cpu: "1"
+            cpu: "2"
             memory: 2G
