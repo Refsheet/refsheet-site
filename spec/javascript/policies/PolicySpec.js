@@ -5,6 +5,4 @@ describe('Policy', () => {
   def('type', () => 'Character')
   def('object', () => ({ __typename: $type, user_id: 4 }))
   def('user', () => ({ id: 4 }))
-
-
 })
