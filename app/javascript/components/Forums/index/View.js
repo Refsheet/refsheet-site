@@ -18,7 +18,7 @@ class View extends Component {
         </Jumbotron>
 
         <div className="tab-row-container">
-          <div className="tab-row pushpin" ref="tabRow">
+          <div className="tab-row pushpin">
             <div className="container">
               <ul className="tabs">
                 <li className={'tab'}>
@@ -49,7 +49,7 @@ class View extends Component {
             </thead>
             <tbody>
               {forums.map(forum => (
-                <tr>
+                <tr key={forum.id}>
                   <td>
                     <Link to={`/v2/forums/${forum.slug}`}>{forum.name}</Link>
                     <div className={'muted'}>{forum.description}</div>

@@ -13,6 +13,11 @@ import Members from './Members'
 import NewDiscussion from '../NewDiscussion'
 
 class View extends Component {
+  constructor(props) {
+    super(props)
+
+    this.tabRow = null
+  }
   render() {
     const { forum, t } = this.props
 
@@ -24,7 +29,7 @@ class View extends Component {
         </Jumbotron>
 
         <div className="tab-row-container">
-          <div className="tab-row pushpin" ref="tabRow">
+          <div className="tab-row pushpin" ref={r => this.tabRow = r}>
             <div className="container">
               <ul className="tabs">
                 <li className={'tab'}>

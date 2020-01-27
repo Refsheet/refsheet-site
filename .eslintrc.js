@@ -18,6 +18,8 @@ module.exports = {
     "react/display-name": 'warn',
     "react/jsx-no-undef": 'warn',
     "react/prop-types": 'warn',
+    "react/no-deprecated": 'warn',
+    "react/no-unescaped-entities": "off",
 
     // GraphQL
     "graphql/template-strings": ['error', {
