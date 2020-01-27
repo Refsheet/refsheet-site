@@ -79,7 +79,7 @@ class Filmstrip extends Component {
     if (images.length === 0 && autoHide) return null
 
     return (
-      <div className="filmstrip" ref={ r => this.filmstripRef = r}>
+      <div className="filmstrip" ref={r => (this.filmstripRef = r)}>
         {images.map(this.renderImage)}
       </div>
     )
