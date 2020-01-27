@@ -18,9 +18,9 @@ describe SessionController do
       expect(response).to be_successful
       expect(assigns(:current_user)).to eq user
 
-      session = user.sessions.first
+      user_session = user.sessions.first
       expect(cookies.signed[UserSession::COOKIE_USER_ID_NAME]).to eq user.id
-      expect(cookies.signed[UserSession::COOKIE_SESSION_ID_NAME]).to eq session.session_guid
+      expect(cookies.signed[UserSession::COOKIE_SESSION_ID_NAME]).to eq user_session.session_guid
     end
   end
 end

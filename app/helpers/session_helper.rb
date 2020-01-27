@@ -27,11 +27,12 @@ module SessionHelper
   def current_user
     if defined? cookies and cookies[UserSession::COOKIE_SESSION_TOKEN_NAME]
       @current_user ||= get_remembered_user
+      return @current_user if @current_user
     end
 
     if (user_id = session[UserSession::COOKIE_USER_ID_NAME] ||
         (defined? cookies and cookies.signed[UserSession::COOKIE_USER_ID_NAME]))
-      @current_user ||= User.find_by id: user_id
+      @current_user ||= User.unscoped.find_by id: user_id
     else
       nil
     end
