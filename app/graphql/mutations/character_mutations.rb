@@ -1,5 +1,5 @@
 class Mutations::CharacterMutations < Mutations::ApplicationMutation
-  before_action :get_character, only: [:update, :convert, :destroy]
+  before_action :get_character, only: [:update, :convert, :destroy, :transfer]
 
   action :update do
     type Types::CharacterType
@@ -20,6 +20,20 @@ class Mutations::CharacterMutations < Mutations::ApplicationMutation
     authorize @character
 
     @character.update_attributes! update_params
+    @character
+  end
+
+  action :transfer do
+    type Types::CharacterType
+
+    argument :id, !types.ID
+    argument :destination, !types.String
+  end
+
+  def transfer
+    authorize @character
+
+    @character.transfer_to_user = params[:destination]
     @character
   end
 

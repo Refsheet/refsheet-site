@@ -15,6 +15,10 @@ class CharacterPolicy < ApplicationPolicy
     update?
   end
 
+  def transfer?
+    update?
+  end
+
   def destroy?
     update?
   end
