@@ -1,23 +1,6 @@
-import { gql } from 'apollo-client-preset'
 import { subscribe } from 'ApplicationService'
-import FIELDS from 'graphql/fragments/ConversationsFields.graphql'
-
-const QUERY = gql`
-  ${FIELDS}
-  query getConversations {
-    getConversations {
-      ...ConversationsFields
-    }
-  }
-`
-const SUBSCRIPTION = gql`
-  ${FIELDS}
-  subscription subscribeToConversations {
-    newConversation {
-      ...ConversationsFields
-    }
-  }
-`
+import getConversations from './getConversations.graphql'
+import subscribeToConversations from './subscribeToConversations.graphql'
 
 const mapDataToProps = data => ({
   conversations: data.getConversations,
@@ -33,8 +16,8 @@ const updateQuery = (prev, data) => {
 }
 
 export default subscribe({
-  query: QUERY,
-  subscription: SUBSCRIPTION,
+  query: getConversations,
+  subscription: subscribeToConversations,
   mapDataToProps,
   updateQuery,
 })

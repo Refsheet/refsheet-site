@@ -1,0 +1,7 @@
+#import 'graphql/fragments/ConversationsFields.graphql'
+
+query getConversations {
+    getConversations {
+        ...ConversationsFields
+    }
+}

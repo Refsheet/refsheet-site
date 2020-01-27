@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Query } from 'react-apollo'
-import { gql } from 'apollo-client-preset'
+import getConversations from './getConversations.graphql'
+import subscribeToConversations from './subscribeToConversations.graphql'
 import _ from 'underscore'
 
 import ConversationLink from './ConversationLink'
@@ -74,48 +75,6 @@ class Conversations extends Component {
   }
 }
 
-const CONVERSATIONS_FIELDS = gql`
-  fragment ConversationsFields on Conversation {
-    id
-    guid
-    unreadCount
-    lastMessage {
-      message
-      created_at
-      is_self
-      user {
-        name
-      }
-    }
-    user {
-      name
-      username
-      avatar_url
-      is_admin
-      is_patron
-    }
-  }
-`
-
-const CONVERSATIONS_QUERY = gql`
-  ${CONVERSATIONS_FIELDS}
-
-  query getConversations {
-    getConversations {
-      ...ConversationsFields
-    }
-  }
-`
-const CONVERSATIONS_SUBSCRIPTION = gql`
-  ${CONVERSATIONS_FIELDS}
-
-  subscription subscribeToConversations {
-    newConversation {
-      ...ConversationsFields
-    }
-  }
-`
-
 const renderConversations = props => ({ loading, data, subscribeToMore }) => {
   if (loading) {
     return <div className="chat-loading">Loading...</div>
@@ -124,7 +83,7 @@ const renderConversations = props => ({ loading, data, subscribeToMore }) => {
   } else {
     const subscribe = () => {
       subscribeToMore({
-        document: CONVERSATIONS_SUBSCRIPTION,
+        document: subscribeToConversations,
         updateQuery: (prev, { subscriptionData }) => {
           if (!subscriptionData.data) return prev
           const { newConversation } = subscriptionData.data
@@ -147,7 +106,7 @@ const renderConversations = props => ({ loading, data, subscribeToMore }) => {
 }
 
 const Wrapped = props => (
-  <Query query={CONVERSATIONS_QUERY}>{renderConversations(props)}</Query>
+  <Query query={getConversations}>{renderConversations(props)}</Query>
 )
 
 Wrapped.propTypes = {
