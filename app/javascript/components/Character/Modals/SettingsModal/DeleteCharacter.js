@@ -88,7 +88,7 @@ class DeleteCharacter extends Component {
           />
         </Row>
 
-        <Row className={'actions margin-top--none'}>
+        <Row className={'actions'}>
           <Col s={6}>
             <button
               type={'button'}

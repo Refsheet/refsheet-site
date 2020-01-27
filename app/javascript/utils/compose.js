@@ -43,6 +43,11 @@ function withMutations(mutations) {
                   }
                 })
 
+                data.formErrors = {}
+                Object.keys(data.validationErrors).map(k => {
+                  data.formErrors[k] = data.validationErrors[k].join(', ')
+                })
+
                 console.error(
                   'GraphQL returned an error: ',
                   data.errors,

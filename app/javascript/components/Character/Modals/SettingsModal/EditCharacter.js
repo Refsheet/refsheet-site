@@ -8,14 +8,23 @@ import updateSettings from './updateSettings.graphql'
 import M from 'materialize-css'
 import { withRouter } from 'react-router'
 import { Authorized } from '../../../../policies'
+import validate, { isRequired, isSluggable, isSlug } from 'utils/validate'
+import { errorProps } from '../../../../utils/validate'
 
 class EditCharacter extends Component {
   constructor(props) {
     super(props)
 
+    this.validations = {
+      name: [isRequired, isSluggable],
+      slug: [isSlug],
+      shortcode: [isSlug],
+    }
+
     this.state = {
       character: this.props.character,
-      errors: {},
+      submitting: false,
+      errors: validate(this.props.character, this.validations),
     }
   }
 
@@ -30,7 +39,9 @@ class EditCharacter extends Component {
     }
 
     character[name] = value
-    this.setState({ character })
+
+    const errors = validate(character, this.validations)
+    this.setState({ character, errors })
   }
 
   handleSubmit(e) {
@@ -64,15 +75,15 @@ class EditCharacter extends Component {
 
         onSave(updateCharacter)
       })
-      .catch(({ validationErrors }) => {
-        this.setState({ errors: validationErrors })
+      .catch(({ formErrors }) => {
+        this.setState({ errors: formErrors })
       })
   }
 
   render() {
     const { t } = this.props
 
-    const { character } = this.state
+    const { character, errors, submitting } = this.state
 
     const username =
       (character && character.user && character.user.username) || 'me'
@@ -86,7 +97,8 @@ class EditCharacter extends Component {
             label={t('labels.character_name', 'Name')}
             name={'name'}
             id={'character_name'}
-            value={this.state.character.name}
+            value={character.name}
+            {...errorProps(errors.name)}
             onChange={this.handleInputChange.bind(this)}
           />
           <TextInput
@@ -95,7 +107,8 @@ class EditCharacter extends Component {
             label={t('labels.character_species', 'Species / Race')}
             name={'species'}
             id={'character_species'}
-            value={this.state.character.species}
+            value={character.species}
+            {...errorProps(errors.species)}
             onChange={this.handleInputChange.bind(this)}
           />
         </Row>
@@ -107,7 +120,8 @@ class EditCharacter extends Component {
             label={`refsheet.net/${username}/`}
             name={'slug'}
             id={'character_slug'}
-            value={this.state.character.slug}
+            value={character.slug}
+            {...errorProps(errors.slug)}
             onChange={this.handleInputChange.bind(this)}
           />
           <TextInput
@@ -116,7 +130,8 @@ class EditCharacter extends Component {
             label={'ref.st/'}
             name={'shortcode'}
             id={'character_shortcode'}
-            value={this.state.character.shortcode}
+            value={character.shortcode}
+            {...errorProps(errors.shortcode)}
             onChange={this.handleInputChange.bind(this)}
           />
         </Row>

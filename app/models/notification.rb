@@ -38,6 +38,9 @@ class Notification < ApplicationRecord
   belongs_to :sender_character, class_name: "Character"
   belongs_to :actionable, polymorphic: true
 
+  # Eager Loading associations
+  belongs_to :notified_forum_post, ->{ joins(:actionable).where(actionable: { id: Notification.where(actionable_type: 'Forum::Post') }) }, class_name: 'Forum::Post', foreign_key: :actionable_id
+
   validates_presence_of :user
   validates_presence_of :sender_user
   validates_presence_of :actionable
@@ -51,6 +54,7 @@ class Notification < ApplicationRecord
         :sender_user,
         character: [:user, :profile_image, :featured_image],
         sender_character: [:user, :profile_image, :featured_image],
+        notified_forum_post: [],
         # activity_image: [:character, :favorites],
         # activity_comment: [:media],
         # activity_discussion: [:forum],
