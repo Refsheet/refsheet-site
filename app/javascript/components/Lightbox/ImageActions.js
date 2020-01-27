@@ -157,6 +157,7 @@ class ImageActions extends Component {
             <a
               href={downloadLink}
               target={'_blank'}
+              rel="noopener noreferrer"
               onClick={this.handleDownloadClick.bind(this)}
             >
               <Icon className={'left'}>file_download</Icon>

@@ -4,7 +4,7 @@ const ContactLinks = ({ links }) => {
   return (
     <ul className={'contact-links margin--none'}>
       <li className={'contact-link verified'}>
-        <a href={'https://twitter.com/helixel'} target={'_blank'}>
+        <a href={'https://twitter.com/helixel'} target={'_blank'} rel="noopener noreferrer">
           <img
             className={'favicon'}
             height={16}
@@ -18,7 +18,7 @@ const ContactLinks = ({ links }) => {
         </a>
       </li>
       <li className={'contact-link broken'}>
-        <a href={'https://twitter.com/helixel'} target={'_blank'}>
+        <a href={'https://twitter.com/helixel'} target={'_blank'} rel="noopener noreferrer">
           <i className={'material-icons'}>link_off</i>
           <span className={'title'}>https://furraffinity.net/helixel</span>
         </a>

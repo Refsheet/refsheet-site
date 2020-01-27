@@ -64,7 +64,6 @@ class SearchBar extends Component {
       >
         <div className="input-field">
           <input
-            ref="search"
             id="search"
             type="search"
             onChange={this.handleQueryChange}
