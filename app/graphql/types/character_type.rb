@@ -104,5 +104,14 @@ Types::CharacterType = GraphQL::ObjectType.define do
     }
   end
 
+  field :pending_transfer, Types::TransferType do
+    resolve -> (obj, _args, ctx) {
+      if obj.managed_by?(ctx[:current_user].call)
+        obj.pending_transfer
+      else
+        nil
+      end
+    }
+  end
   # has_one :pending_transfer, serializer: CharacterTransferSerializer
 end

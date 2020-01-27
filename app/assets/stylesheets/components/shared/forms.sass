@@ -202,6 +202,16 @@ body:not(.admin)
         color: color('red', 'lighten-1')
         display: none
 
+      & + .helper-text
+        &:before
+          display: block
+          margin-top: -15px
+
+        &[data-error]:before
+          color: color('red', 'lighten-1')
+          content: attr(data-error)
+
+
     textarea
       resize: none
 

@@ -77,7 +77,7 @@ class DeleteCharacter extends Component {
 
         <code>{character.slug}</code>
 
-        <Row>
+        <Row className={'margin-top--medium'}>
           <TextInput
             s={12}
             name={'confirmation'}
@@ -88,7 +88,7 @@ class DeleteCharacter extends Component {
           />
         </Row>
 
-        <Row className={'actions'}>
+        <Row className={'actions margin-top--none'}>
           <Col s={6}>
             <button
               type={'button'}

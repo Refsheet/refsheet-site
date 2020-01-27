@@ -75,7 +75,7 @@ class TransferCharacter extends Component {
           </p>
         </Trans>
 
-        <Row>
+        <Row className={'margin-top--medium'}>
           <TextInput
             s={12}
             name={'destination'}
@@ -84,12 +84,13 @@ class TransferCharacter extends Component {
               'labels.transfer_destination',
               'Destination Email, Username, or Organization ID'
             )}
+            error={this.state.errors.destination}
             value={this.state.destination}
             onChange={this.handleDestinationChange.bind(this)}
           />
         </Row>
 
-        <Row className={'actions'}>
+        <Row className={'actions margin-top--none'}>
           <Col s={6}>
             <button
               type={'button'}
