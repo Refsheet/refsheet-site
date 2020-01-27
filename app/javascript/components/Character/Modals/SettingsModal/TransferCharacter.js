@@ -4,8 +4,8 @@ import compose from 'utils/compose'
 import { Trans, withNamespaces } from 'react-i18next'
 import { Row, Col, TextInput } from 'react-materialize'
 import transferCharacter from './transferCharacter.graphql'
-import {withCurrentUser, withMutations} from "../../../../utils/compose";
-import authorize from "policies";
+import { withCurrentUser, withMutations } from '../../../../utils/compose'
+import authorize from 'policies'
 
 class TransferCharacter extends Component {
   constructor(props) {
@@ -23,12 +23,10 @@ class TransferCharacter extends Component {
   handleSubmit(e) {
     e.preventDefault()
 
-    const {
-      character, currentUser, transferCharacter
-    } = this.props
+    const { character, currentUser, transferCharacter } = this.props
 
     if (!authorize(character, 'transfer', { user: currentUser })) {
-      console.warn("Not authorized!")
+      console.warn('Not authorized!')
       return false
     }
 
@@ -37,18 +35,18 @@ class TransferCharacter extends Component {
       variables: {
         id: character.shortcode,
         destination: this.state.destination,
-      }
+      },
     })
-      .then(({transferCharacter}) => {
+      .then(({ transferCharacter }) => {
         M.toast({
-          html: "Character transfer initiated",
+          html: 'Character transfer initiated',
           displayLength: 3000,
-          classes: 'green'
+          classes: 'green',
         })
 
         // Update Cache
       })
-      .catch(({validationErrors}) => {
+      .catch(({ validationErrors }) => {
         this.setState({ errors: validationErrors })
       })
   }
