@@ -1,0 +1,7 @@
+#import './ConversationsFields.graphql'
+
+subscription subscribeToConversations {
+    newConversation {
+        ...ConversationsFields
+    }
+}

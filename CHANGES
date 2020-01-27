@@ -8,6 +8,7 @@
 
 - Image description editor doesn't actually change anything
 - Possible bug in registration form conflicting with login form
+- Notification menu doesn't render because of a problem with eager_loaded
 
 ## Bug Fixes
 
