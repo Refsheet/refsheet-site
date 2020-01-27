@@ -110,7 +110,11 @@ class _Footer extends Component {
               <p>
                 A new, convenient way to organize your character designs, art
                 and world. All of this supported by{' '}
-                <a href="https://www.patreon.com/refsheet" target="_blank" rel='noopener noreferrer'>
+                <a
+                  href="https://www.patreon.com/refsheet"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Patreon
                 </a>
                 !
@@ -143,13 +147,25 @@ class _Footer extends Component {
 
             <Col s={6} m={3}>
               <div className="social-links">
-                <a href="https://twitter.com/Refsheet" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://twitter.com/Refsheet"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <i className="fab fa-fw fa-twitter" />
                 </a>
-                <a href="mailto:mau@refsheet.net" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="mailto:mau@refsheet.net"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <i className="fa fa-fw fa-envelope" />
                 </a>{' '}
-                <a href="https://www.patreon.com/refsheet" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://www.patreon.com/refsheet"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <img
                     src="/assets/third_party/patreon_white.png"
                     alt="Patreon"

@@ -29,7 +29,7 @@ class View extends Component {
         </Jumbotron>
 
         <div className="tab-row-container">
-          <div className="tab-row pushpin" ref={r => this.tabRow = r}>
+          <div className="tab-row pushpin" ref={r => (this.tabRow = r)}>
             <div className="container">
               <ul className="tabs">
                 <li className={'tab'}>
