@@ -6,10 +6,15 @@ import { Row, Col, TextInput } from 'react-materialize'
 import transferCharacter from './transferCharacter.graphql'
 import { withCurrentUser, withMutations } from '../../../../utils/compose'
 import authorize from 'policies'
+import validate, { errorProps, isRequired } from '../../../../utils/validate'
 
 class TransferCharacter extends Component {
   constructor(props) {
     super(props)
+
+    this.validations = {
+      destination: [isRequired],
+    }
 
     this.state = { destination: '', errors: {} }
   }
@@ -17,13 +22,19 @@ class TransferCharacter extends Component {
   handleDestinationChange(e) {
     e.preventDefault()
     const destination = e.target.value
-    this.setState({ destination })
+    const errors = validate({ destination }, this.validations)
+    this.setState({ destination, errors })
   }
 
   handleSubmit(e) {
     e.preventDefault()
 
-    const { character, currentUser, transferCharacter } = this.props
+    const {
+      character,
+      currentUser,
+      transferCharacter,
+      onSave = _c => {},
+    } = this.props
 
     if (!authorize(character, 'transfer', { user: currentUser })) {
       console.warn('Not authorized!')
@@ -45,14 +56,21 @@ class TransferCharacter extends Component {
         })
 
         // Update Cache
+        onSave(transferCharacter)
       })
       .catch(({ validationErrors }) => {
-        this.setState({ errors: validationErrors })
+        this.setState({
+          errors: {
+            ...validationErrors,
+            destination: validationErrors.transfer_to_user,
+          },
+        })
       })
   }
 
   render() {
     const { t } = this.props
+    const { errors } = this.state
 
     return (
       <form
@@ -84,13 +102,13 @@ class TransferCharacter extends Component {
               'labels.transfer_destination',
               'Destination Email, Username, or Organization ID'
             )}
-            error={this.state.errors.destination}
             value={this.state.destination}
+            {...errorProps(errors.destination)}
             onChange={this.handleDestinationChange.bind(this)}
           />
         </Row>
 
-        <Row className={'actions margin-top--none'}>
+        <Row className={'actions'}>
           <Col s={6}>
             <button
               type={'button'}

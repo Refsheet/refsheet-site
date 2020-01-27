@@ -34,6 +34,8 @@ class Mutations::CharacterMutations < Mutations::ApplicationMutation
     authorize @character
 
     @character.transfer_to_user = params[:destination]
+    @character.save!
+
     @character
   end
 

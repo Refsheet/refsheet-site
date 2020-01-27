@@ -66,7 +66,7 @@ Types::QueryType = GraphQL::ObjectType.define do
 
   field :getNotifications, Types::NotificationsCollectionType do
     resolve -> (_obj, _args, ctx) {
-      Notification.for(ctx[:current_user].call)
+      Notification.eager_loaded.for(ctx[:current_user].call)
     }
   end
 

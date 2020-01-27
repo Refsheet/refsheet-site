@@ -38,8 +38,8 @@ spec:
             name: refsheet-prod-secret
         resources:
           requests:
-            cpu: "0.5"
+            cpu: "1"
             memory: 1G
           limits:
-            cpu: "1"
+            cpu: "2"
             memory: 2G
