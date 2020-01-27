@@ -16,4 +16,10 @@ let requireAll = requireContext => {
 requireAll(require.context('./', true, /^((?!specHelper).)*\.(jsx?|coffee)$/))
 
 // require all js files except main.js in the src folder
-requireAll(require.context('../../app/javascript/', true, /^((?!application).)*\.(jsx?|coffee)$/))
+requireAll(
+  require.context(
+    '../../app/javascript/',
+    true,
+    /^((?!application).)*\.(jsx?|coffee)$/
+  )
+)
