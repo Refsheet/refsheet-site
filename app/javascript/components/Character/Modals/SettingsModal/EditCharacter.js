@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import compose from 'utils/compose'
 import { Trans, withNamespaces } from 'react-i18next'
 import { TextInput, Row, Col, Checkbox } from 'react-materialize'
-import {withCurrentUser, withMutations} from '../../../../utils/compose'
+import { withCurrentUser, withMutations } from '../../../../utils/compose'
 import updateSettings from './updateSettings.graphql'
 import M from 'materialize-css'
 import { withRouter } from 'react-router'
-import {Authorized} from "../../../../policies";
+import { Authorized } from '../../../../policies'
 
 class EditCharacter extends Component {
   constructor(props) {
@@ -161,7 +161,11 @@ class EditCharacter extends Component {
 
         <Row className={'no-margin margin-top--small'}>
           <Col s={12} m={6}>
-            <Authorized object={this.props.character} user={this.props.currentUser} action={'destroy'}>
+            <Authorized
+              object={this.props.character}
+              user={this.props.currentUser}
+              action={'destroy'}
+            >
               <a
                 className={'red-text block'}
                 href={'#'}
@@ -181,7 +185,11 @@ class EditCharacter extends Component {
             </Authorized>
           </Col>
           <Col s={12} m={6}>
-            <Authorized object={this.props.character} user={this.props.currentUser} action={'transfer'}>
+            <Authorized
+              object={this.props.character}
+              user={this.props.currentUser}
+              action={'transfer'}
+            >
               <a
                 className={'block'}
                 href={'#'}

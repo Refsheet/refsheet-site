@@ -33,6 +33,4 @@ class Policy {
   }
 }
 
-
-
 export default Policy
