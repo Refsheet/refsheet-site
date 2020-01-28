@@ -44,12 +44,16 @@ module HasImageAttached
     end
 
     def style(key)
-      unless @options[:styles].include? key
+      unless key === :original || @options[:styles].include?(key)
         raise NoStyleError, "Attachment :#{name} does not define style :#{key}"
       end
 
+      unless @base.attached?
+        return nil
+      end
+
       style = @options[:defaults] || {}
-      style.merge! @options[:styles][key]
+      style.merge! @options[:styles][key] || {}
       style_args = []
 
       resize_type = (style.keys & [:fit, :fill, :limit]).first
@@ -77,11 +81,17 @@ module HasImageAttached
     end
 
     def url(style, *args)
+      variant = self.style(style)
+
+      unless @base.attached?
+        return nil
+      end
+
       if style === :original
         return Rails.application.routes.url_helpers.rails_blob_url(@base, *args)
       end
 
-      Rails.application.routes.url_helpers.rails_representation_url(self.style(style), *args)
+      Rails.application.routes.url_helpers.rails_representation_url(variant, *args)
     end
 
     def method_missing(sym, *args)
