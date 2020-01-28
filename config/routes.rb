@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   constraints ShortcodeDomainConstraint do
-    root to: redirect('https://refsheet.net')
+    root to: redirect('https://refsheet.net'), as: :shortcode_root
     get '/c/:id', to: 'shortcodes#show'
     get '/e/*url', to: 'image_proxy#get', as: :image_proxy
     get '/f/:id', to: 'forums#shortcode'
@@ -208,7 +208,6 @@ Rails.application.routes.draw do
   #== Engines!
 
   if Rails.env.development?
-    mount ResqueWeb::Engine => '/resque_web'
     mount LetterOpenerWeb::Engine => '/letter_opener'
 
     get :bad_request, to: 'application#bad_request!'

@@ -4,7 +4,7 @@ ruby '2.5.5'
 
 # == BACK END
 
-gem 'rails', '~> 5.2.3'
+gem 'rails', '~> 6.0.0'
 gem 'rake', '~> 12.3.1'
 gem 'rack-cors'
 gem 'pg', '~> 0.21'
@@ -14,7 +14,7 @@ gem 'redis', '~> 3.3.5'
 gem 'bcrypt', '~> 3.1.7'
 gem 'execjs'
 gem 'money-rails'
-gem 'responders'
+gem 'responders', '~> 3.0'
 gem 'ahoy_matey'
 gem 'aws-sdk-s3'
 gem 'aws-sdk-sqs'
@@ -25,14 +25,14 @@ gem 'webpacker'
 gem 'faraday_middleware'
 gem 'json', '~> 2.1.0'
 gem 'rails_semantic_logger'
-gem 'nulldb'
+# gem 'nulldb'
 gem 'mini_magick'
 gem 'paper_trail'
 
 # == FRONT END
 
 gem 'uglifier', '>= 1.3.0'
-gem 'sassc-rails'
+gem 'sass-rails', '~> 6.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'haml'
 gem 'react-rails', github: 'reactjs/react-rails', branch: 'master'
@@ -59,7 +59,7 @@ gem 'serviceworker-rails'
 
 # == UTILITY
 
-gem 'active_model_serializers'
+gem 'active_model_serializers', '~> 0.10.10'
 gem 'aws-ses', '~> 0.4.4'
 gem 'carrierwave'
 gem 'counter_culture'
@@ -158,8 +158,6 @@ end
 
 group :nocircle do
 end
-
-gem 'resque-web', require: 'resque_web'
 
 group :development do
   gem 'web-console'

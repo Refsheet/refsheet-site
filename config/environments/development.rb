@@ -100,6 +100,9 @@ Rails.application.configure do
     https://websocket.org
   )
 
+  config.hosts << 'dev.refsheet.net'
+  config.hosts << 'dev1.refsheet.net'
+
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.web_console.permissions = '192.168.0.0/16'
