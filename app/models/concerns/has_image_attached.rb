@@ -76,8 +76,12 @@ module HasImageAttached
       @base.variant(*style_args)
     end
 
-    def url(style)
-      self.style(style).service_url
+    def url(style, *args)
+      if style === :original
+        return Rails.application.routes.url_helpers.rails_blob_url(@base, *args)
+      end
+
+      Rails.application.routes.url_helpers.rails_representation_url(self.style(style), *args)
     end
 
     def method_missing(sym, *args)
