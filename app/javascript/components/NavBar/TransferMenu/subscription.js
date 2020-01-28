@@ -1,6 +1,6 @@
 import { subscribe } from 'ApplicationService'
 import getTransfers from './getTransfers.graphql'
-import SubscribeToTransfers from './subscribeToTransfers.graphql'
+import subscribeToTransfers from './subscribeToTransfers.graphql'
 
 const mapDataToProps = data => ({
   transfers: data.getTransfers,
