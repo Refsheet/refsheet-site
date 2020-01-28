@@ -25,7 +25,7 @@ gem 'webpacker'
 gem 'faraday_middleware'
 gem 'json', '~> 2.1.0'
 gem 'rails_semantic_logger'
-# gem 'nulldb'
+gem 'activerecord-nulldb-adapter', '~> 0.4.0'
 gem 'mini_magick'
 gem 'paper_trail'
 
