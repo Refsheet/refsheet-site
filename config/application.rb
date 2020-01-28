@@ -40,6 +40,9 @@ module Refsheet
 
     config.time_zone = 'Central Time (US & Canada)'
     config.active_record.default_timezone = :utc
+
+    # ActiveStorage
+    config.active_storage.variant_processor = :vips
   end
 end
 

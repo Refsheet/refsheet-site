@@ -35,15 +35,7 @@ class Character < ApplicationRecord
   include HasGuid
   include Sluggable
   include RankedModel
-
-  has_paper_trail version: :paper_trail_version,
-                  ignore: [
-                      :row_order,
-                      :secret,
-                      :hidden,
-                      :nsfw,
-                  ]
-
+  include HasImageAttached
 
   belongs_to :user
   belongs_to :color_scheme, autosave: true
@@ -93,6 +85,37 @@ class Character < ApplicationRecord
   has_markdown_field :likes
   has_markdown_field :dislikes
   has_markdown_field :special_notes
+
+  has_paper_trail version: :paper_trail_version,
+                  ignore: [
+                      :row_order,
+                      :secret,
+                      :hidden,
+                      :nsfw,
+                  ]
+
+  has_image_attached :cover_image,
+                     default_url: '/assets/default.png',
+                     defaults: {
+                         crop: :attention,
+                     },
+                     styles: {
+                         small: { fill: [640, 320] },
+                         large: { fill: [1920, 960] },
+                         xlarge: { fill: [2880, 1440] },
+                     }
+
+  has_image_attached :avatar,
+                     default_url: '/assets/default.png',
+                     defaults: {
+                         crop: :attention,
+                     },
+                     styles: {
+                         thumbnail: { fill: [320, 320] },
+                         small: { fit: [480, 480] },
+                         medium: { fit: [640, 640] },
+                         large: { fit: [1280, 1280] },
+                     }
 
   has_guid :shortcode, type: :token
   slugify :name, scope: :user_id
