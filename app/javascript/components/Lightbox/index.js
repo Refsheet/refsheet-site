@@ -70,7 +70,7 @@ class Lightbox extends Component {
     }
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { mediaId, history, closeLightbox } = this.props
 
     this.unlisten = history.listen((location, action) => {

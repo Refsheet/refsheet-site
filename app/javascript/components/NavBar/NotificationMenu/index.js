@@ -11,7 +11,7 @@ import { readNotification } from './readNotification.graphql'
 import WindowAlert from '../../../utils/WindowAlert'
 
 class NotificationMenu extends Component {
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (this.props.unreadCount < newProps.unreadCount) {
       WindowAlert.playSound('notificationDing')
     }

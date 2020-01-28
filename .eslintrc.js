@@ -15,11 +15,11 @@ module.exports = {
     "no-prototype-builtins": 'warn',
 
     // React
+    "react/no-deprecated": 'error',
     "react/display-name": 'warn',
     "react/jsx-no-undef": 'warn',
     "react/prop-types": 'warn',
-    "react/no-deprecated": 'warn',
-    "react/no-unescaped-entities": "off",
+    "react/no-unescaped-entities": 'off',
 
     // GraphQL
     "graphql/template-strings": ['error', {
