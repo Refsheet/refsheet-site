@@ -65,4 +65,3 @@ CartMenu.propTypes = {
 
 export { CartMenu }
 export default CartMenu
-// export default subscription(CartMenu)

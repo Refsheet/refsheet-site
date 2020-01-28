@@ -22,7 +22,7 @@ function withMutations(mutations) {
 
   const wrap = fn => {
     return attrs => {
-      if (attrs.wrapped) {
+      if (attrs && attrs.wrapped) {
         delete attrs.wrapped
 
         return new Promise((resolve, reject) => {

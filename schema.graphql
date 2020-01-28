@@ -93,6 +93,7 @@ type Character implements ApplicationRecord {
     name: String!
     nsfw: Boolean
     path: String!
+    pending_transfer: Transfer
     profile: String
     profile_html: String
     profile_image: Image
@@ -367,6 +368,7 @@ type Mutation {
     removeFavorite(mediaId: ID!): MediaFavorite
     sendKarma(discussionId: ID!, take: Boolean): ForumPost
     sendMessage(conversationId: ID, message: String!, recipientId: ID): Message
+    transferCharacter(destination: String!, id: ID!): Character
     updateCharacter(color_scheme_id: ID, hidden: Boolean, id: ID!, name: String, nsfw: Boolean, shortcode: String, slug: String, special_notes: String, species: String): Character
     updateConversation(conversation_id: ID!, read: Boolean): Conversation
     updateForum: Forum
@@ -492,6 +494,13 @@ type ThemeColorData {
     text: String
     textLight: String
     textMedium: String
+}
+
+type Transfer implements ApplicationRecord {
+    created_at: Int
+    deleted_at: Int
+    id: ID!
+    updated_at: Int
 }
 
 type User implements ApplicationRecord {

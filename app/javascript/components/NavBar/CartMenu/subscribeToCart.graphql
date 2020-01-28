@@ -1,7 +1,0 @@
-#import 'graphql/fragments/TransfersFields.graphql'
-
-subscription subscribeToTransfers {
-    newNotification {
-        ...TransfersFields
-    }
-}

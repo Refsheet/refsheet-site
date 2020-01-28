@@ -100,8 +100,9 @@ class DiscussionReplyForm extends Component {
           value={post.content || ''}
           buttonText={edit ? 'Edit Reply' : 'Post Reply'}
           buttonSubmittingText={'Posting...'}
-          children={children}
-        />
+        >
+          {children}
+        </CommentForm>
 
         <Row>
           <Col s={12} m={10} offset={'m1'}>

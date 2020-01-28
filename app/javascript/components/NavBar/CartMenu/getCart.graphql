@@ -1,7 +1,0 @@
-#import 'graphql/fragments/TransfersFields.graphql'
-
-query getConversations {
-    getTransfers {
-        ...TransfersFields
-    }
-}
