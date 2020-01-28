@@ -5,13 +5,22 @@ import NotificationItem from '../Dropdown/NotificationItem'
 import { Link } from 'react-router-dom'
 import Scrollbars from 'Shared/Scrollbars'
 import subscription from './subscription'
-import { Mutation } from 'react-apollo'
-import { markAllNotificationsAsRead } from './markAllNotificationsAsRead.graphql'
-import { readNotification } from './readNotification.graphql'
+import markAllNotificationsAsRead from './markAllNotificationsAsRead.graphql'
+import readNotification from './readNotification.graphql'
 import WindowAlert from '../../../utils/WindowAlert'
+import compose, { withMutations } from '../../../utils/compose'
+import { withNamespaces } from 'react-i18next'
 
 class NotificationMenu extends Component {
-  componentWillReceiveProps(newProps) {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      markAllLoading: false,
+    }
+  }
+
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (this.props.unreadCount < newProps.unreadCount) {
       WindowAlert.playSound('notificationDing')
     }
@@ -21,11 +30,13 @@ class NotificationMenu extends Component {
     const { unreadCount, loading = false, refetch, markAllAsRead } = this.props
 
     e.preventDefault()
+    this.setState({ markAllLoading: true })
 
     if (unreadCount !== 0 && !loading && markAllAsRead) {
       markAllAsRead()
         .then(_data => {
           if (refetch) refetch()
+          this.setState({ markAllLoading: false })
         })
         .catch(console.error)
     }
@@ -39,6 +50,7 @@ class NotificationMenu extends Component {
       refetch,
       unreadCount,
       readNotification,
+      t,
     } = this.props
 
     const renderNotification = n => (
@@ -54,7 +66,7 @@ class NotificationMenu extends Component {
       if (loading) {
         return <li className="empty-item">Loading...</li>
       } else if (error) {
-        return <li className="empty-item red-text">{error}</li>
+        return <li className="empty-item red-text">{JSON.stringify(error)}</li>
       } else if (notifications.length > 0) {
         return notifications.map(renderNotification)
       } else {
@@ -78,8 +90,11 @@ class NotificationMenu extends Component {
               <a
                 href={'/notifications'}
                 onClick={this.handleMarkAllClick.bind(this)}
+                className={this.state.markAllLoading ? 'disabled' : ''}
               >
-                Mark All Read
+                {this.state.markAllLoading
+                  ? t('status.wait', 'Please wait...')
+                  : t('notifications.mark_all_read', 'Mark All Read')}
               </a>
             </div>
             <strong>Notifications</strong>
@@ -103,44 +118,8 @@ NotificationMenu.propTypes = {
 
 export { NotificationMenu }
 
-const Mutated = props => (
-  <Mutation mutation={markAllNotificationsAsRead}>
-    {markAllAsRead => (
-      <Mutation mutation={readNotification}>
-        {readNotification => (
-          <NotificationMenu
-            {...props}
-            markAllAsRead={markAllAsRead}
-            readNotification={readNotification}
-          />
-        )}
-      </Mutation>
-    )}
-  </Mutation>
-)
-
-/*
-Possible helper forms:
-
-export default mutateWith({
-  markAllNotificationsAsRead,
-  readNotification
-}, subscription)(NotificationMenu)
-
-export default graphql({
-  mutations: {
-    markAllNotificationsAsRead,
-    readNotifications
-  },
-  query: [getNotifications, mapQueryToProps],
-  subscription: [newNotification, updateQuery]
-})(NotificationMenu)
-
 export default compose(
-  mutateWith({ ... }),
   subscription,
-  connect(mapStateToProps, mapDispatchToProps)
+  withNamespaces('common'),
+  withMutations({ markAllAsRead: markAllNotificationsAsRead, readNotification })
 )(NotificationMenu)
- */
-
-export default subscription(Mutated)
