@@ -26,8 +26,6 @@ module.exports = {
       // Import default settings for your GraphQL client. Supported values:
       // 'apollo', 'relay', 'lokka', 'fraql', 'literal'
       env: 'literal',
-      tagName: 'gql',
-      validators: 'all',
     }]
   },
   settings: {
