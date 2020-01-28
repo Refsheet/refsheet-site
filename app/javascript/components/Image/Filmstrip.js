@@ -6,6 +6,9 @@ class Filmstrip extends Component {
   constructor(props) {
     super(props)
 
+    this.filmstripRef = null
+    this.activeImageRef = null
+
     this.renderImage = this.renderImage.bind(this)
     this.imageClickHandler = this.imageClickHandler.bind(this)
   }
@@ -15,7 +18,8 @@ class Filmstrip extends Component {
   }
 
   componentDidUpdate() {
-    const { filmstrip, activeImage } = this.refs
+    const filmstrip = this.filmstripRef
+    const activeImage = this.activeImageRef
 
     const requestAnimationFrame =
       requestAnimationFrame || (s => setTimeout(s, 1000 / 60))
@@ -59,7 +63,7 @@ class Filmstrip extends Component {
           key={id}
           data-id={id}
           onClick={this.imageClickHandler(id)}
-          ref={active ? 'activeImage' : null}
+          ref={r => active && (this.activeImageRef = r)}
         />
 
         {state === 'uploading' && (
@@ -75,7 +79,7 @@ class Filmstrip extends Component {
     if (images.length === 0 && autoHide) return null
 
     return (
-      <div className="filmstrip" ref="filmstrip">
+      <div className="filmstrip" ref={r => (this.filmstripRef = r)}>
         {images.map(this.renderImage)}
       </div>
     )

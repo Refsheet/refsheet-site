@@ -17,7 +17,7 @@ export default class RichText extends Component {
     this.state = { content: props.content }
   }
 
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (this.state.content !== newProps.content) {
       return this.setState({ content: newProps.content })
     }

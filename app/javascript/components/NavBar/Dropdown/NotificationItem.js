@@ -43,6 +43,8 @@ const NotificationItem = props => {
   }
 
   const more = e => {
+    if (!onMoreClick) return
+
     e.preventDefault()
 
     const result = onMoreClick({
@@ -61,6 +63,8 @@ const NotificationItem = props => {
   }
 
   const dismiss = e => {
+    if (!onDismiss) return
+
     e.preventDefault()
 
     const result = onDismiss({
@@ -79,6 +83,8 @@ const NotificationItem = props => {
   }
 
   const click = e => {
+    if (!onClick) return
+
     e.preventDefault()
 
     const result = onClick({

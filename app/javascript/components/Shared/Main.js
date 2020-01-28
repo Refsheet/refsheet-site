@@ -14,7 +14,7 @@ class _Main extends Component {
     super(props)
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (this.props.title) {
       return WindowAlert.addNow('main', this.props.title)
     }
@@ -22,7 +22,7 @@ class _Main extends Component {
 
   //    document.body.addClass @props.bodyClassName
 
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (newProps.title) {
       return WindowAlert.addNow('main', this.props.title)
     }

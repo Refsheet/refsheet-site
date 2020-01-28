@@ -19,7 +19,7 @@ class SearchBar extends Component {
     this.handleSearchSubmit = this.handleSearchSubmit.bind(this)
   }
 
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     const { query } = newProps
     const { query: oldQuery } = this.state
     const active = !!query
@@ -64,7 +64,6 @@ class SearchBar extends Component {
       >
         <div className="input-field">
           <input
-            ref="search"
             id="search"
             type="search"
             onChange={this.handleQueryChange}

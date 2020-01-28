@@ -15,17 +15,17 @@ module.exports = {
     "no-prototype-builtins": 'warn',
 
     // React
+    "react/no-deprecated": 'error',
     "react/display-name": 'warn',
     "react/jsx-no-undef": 'warn',
     "react/prop-types": 'warn',
+    "react/no-unescaped-entities": 'off',
 
     // GraphQL
     "graphql/template-strings": ['error', {
       // Import default settings for your GraphQL client. Supported values:
       // 'apollo', 'relay', 'lokka', 'fraql', 'literal'
       env: 'literal',
-      tagName: 'gql',
-      validators: 'all',
     }]
   },
   settings: {
