@@ -22,11 +22,28 @@ RUN apt-get update && \
         libxslt1-dev \
         libjpeg-dev \
         libpng-dev \
+        libwebp-dev \
         curl \
         git && \
     gem install bundler -v 2.0.1 && \
     gem install foreman
 
+
+# Install Vips
+
+ENV VIPS_VERSION 8.9.0
+
+WORKDIR /libvips
+
+RUN curl -L "https://github.com/libvips/libvips/releases/download/v$VIPS_VERSION/vips-$VIPS_VERSION.tar.gz" \
+    | tar -xzC /libvips && \
+    cd vips-$VIPS_VERSION && \
+    ./configure && \
+    make && \
+    make install && \
+    ldconfig && \
+    cd /libvips && \
+    rm -rf vips-*
 
 # Install Node
 
@@ -44,6 +61,18 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | b
 ENV NODE_PATH $NVM_DIR/versions/node/v$NODE_VERSION/lib/node_modules
 ENV PATH      $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
+# Install Yarn
+
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+    apt-get -o Acquire::Check-Valid-Until=false update && apt-get install -y yarn
+
+# Install Google Chrome
+
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+    sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' && \
+    apt-get -o Acquire::Check-Valid-Until=false update && apt-get install -y google-chrome-stable
+
 
 # Bundle
 
@@ -54,28 +83,14 @@ COPY Gemfile.lock /app/Gemfile.lock
 
 RUN bundle install
 
-
-# Yarn
-
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-    apt-get -o Acquire::Check-Valid-Until=false update && apt-get install -y yarn
-
 COPY package.json /app/package.json
 COPY yarn.lock    /app/yarn.lock
 
 RUN yarn install
 
-# Install Google Chrome
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-RUN apt-get -o Acquire::Check-Valid-Until=false update && apt-get install -y google-chrome-stable
-
-
 # Move App and Precompile
 
 COPY . /app
-
 
 # Execute Order 66
 
