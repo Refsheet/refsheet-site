@@ -65,4 +65,3 @@ TransferMenu.propTypes = {
 
 export { TransferMenu }
 export default TransferMenu
-// export default subscription(TransferMenu)

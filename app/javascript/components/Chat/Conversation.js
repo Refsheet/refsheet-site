@@ -39,7 +39,7 @@ class Conversation extends Component {
     this.scrollToBottom(true)
   }
 
-  componentWillUpdate(newProps) {
+  UNSAFE_componentWillUpdate(newProps) {
     if (newProps.messages.length > this.props.messages.length)
       this.userLockedScroll = !this.isAtBottom()
   }

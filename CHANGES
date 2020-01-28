@@ -12,6 +12,7 @@
 ## Bug Fixes
 
 - Fixed an issue where streaming notifications wouldn't authorize even though a user is signed in
+- Fixed notification menu not doing anything when you click on an item
 
 ## Major Things
 

@@ -38,8 +38,9 @@ const Scrollbars = ({ children, theme, maxHeight, ...otherProps }) => {
       autoHeightMax={maxHeight || 400}
       renderThumbVertical={renderThumb}
       renderTrackVertical={renderTrack}
-      children={children}
-    />
+    >
+      {children}
+    </CustomScrollbars>
   )
 }
 

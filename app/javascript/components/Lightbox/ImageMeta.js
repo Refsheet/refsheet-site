@@ -49,7 +49,11 @@ const ImageMeta = ({
       {source_url && (
         <li>
           <Icon className={'left'}>link</Icon>
-          <a href={source_url} target={'_blank'} rel={'external nofollow'}>
+          <a
+            href={source_url}
+            target={'_blank'}
+            rel="external nofollow noopener noreferrer"
+          >
             {source_url_display}
           </a>
         </li>

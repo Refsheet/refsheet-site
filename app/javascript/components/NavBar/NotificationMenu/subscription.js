@@ -1,26 +1,6 @@
-import { gql } from 'apollo-client-preset'
 import { subscribe } from 'ApplicationService'
-import FIELDS from 'graphql/fragments/NotificationsFields.graphql'
-
-const QUERY = gql`
-  ${FIELDS}
-  query getConversations {
-    getNotifications {
-      unreadCount
-      notifications {
-        ...NotificationsFields
-      }
-    }
-  }
-`
-const SUBSCRIPTION = gql`
-  ${FIELDS}
-  subscription subscribeToNotifications {
-    newNotification {
-      ...NotificationsFields
-    }
-  }
-`
+import getNotifications from './getNotifications.graphql'
+import subscribeToNotifications from './subscribeToNotifications.graphql'
 
 const mapDataToProps = ({ getNotifications = {} }) => ({
   notifications: getNotifications.notifications,
@@ -50,8 +30,8 @@ const updateQuery = (prev, data) => {
 }
 
 export default subscribe({
-  query: QUERY,
-  subscription: SUBSCRIPTION,
+  query: getNotifications,
+  subscription: subscribeToNotifications,
   mapDataToProps,
   updateQuery,
 })
