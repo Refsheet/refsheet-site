@@ -49,11 +49,7 @@ module Types
 
     field :avatar_url, types.String do
       resolve -> (obj, _args, _ctx) {
-        if obj.avatar.attached?
-          Rails.application.routes.url_helpers.url_for(obj.avatar.variant(resize: '400x400>'))
-        else
-          Rails.application.routes.url_helpers.url_for('default.png')
-        end
+        obj.avatar.url(:thumbnail)
       }
     end
   end

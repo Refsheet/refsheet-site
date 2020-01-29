@@ -16,7 +16,7 @@ class View extends Component {
         <Header
           name={name}
           avatarUrl={avatar_url}
-          username={user.username}
+          username={user && user.username}
           profile={profile}
           profileMarkdown={profile_markdown}
         />

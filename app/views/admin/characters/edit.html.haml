@@ -45,6 +45,10 @@
       .col.s12.m6
         = f.input :dislikes
 
+    .row
+      .col.s12
+        = f.input :cover_image
+
     %h2 Save
     .input-field
       = text_area_tag :reason, nil, as: :text, class: 'materialize-textarea'
