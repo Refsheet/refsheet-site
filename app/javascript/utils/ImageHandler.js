@@ -20,7 +20,7 @@ class ImageHandler {
   }
 
   upload() {
-    console.log('ImageHandler#upload', this.image, this.characterId)
+    console.debug('ImageHandler#upload', this.image, this.characterId)
 
     return this.getS3Token()
       .then(response => {
@@ -56,7 +56,7 @@ class ImageHandler {
 
     const { url, __typename, ...awsHeaders } = token
 
-    console.log(`Posting file to ${url}`)
+    console.debug(`Posting file to ${url}`)
 
     const formData = new FormData()
 
@@ -100,7 +100,7 @@ class ImageHandler {
       characterId: this.characterId,
     }
 
-    console.log('Telling Refsheet all about this!', variables)
+    console.debug('Telling Refsheet all about this!', variables)
 
     return client.mutate({ mutation: uploadImage, variables })
   }
@@ -122,7 +122,7 @@ class ImageHandler {
       progress: 100,
     }
 
-    console.log('UPLOAD DONE', image, final)
+    console.debug('UPLOAD DONE', image, final)
     this.onChange(final)
     return final
   }
