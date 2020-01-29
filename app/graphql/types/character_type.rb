@@ -26,6 +26,14 @@ Types::CharacterType = GraphQL::ObjectType.define do
   field :username, !types.String
   field :version, types.Int
 
+  field :avatar_url, types.String do
+    argument :style, types.String
+
+    resolve -> (obj, args, _ctx) {
+      obj.avatar.url(args[:style].to_sym || :large)
+    }
+  end
+
   field :path, !types.String do
     resolve -> (obj, _args, _ctx) {
       "/#{obj.username}/#{obj.slug}"

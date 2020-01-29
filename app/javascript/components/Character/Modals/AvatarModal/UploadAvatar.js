@@ -100,7 +100,6 @@ class UploadAvatar extends Component {
     const blob = blobs[0]
     const { setCharacterAvatarBlob, character, onSave, onClose } = this.props
 
-    // TODO: For +wrapped+, set errorString as well as validationErrors etc
     setCharacterAvatarBlob({
       wrapped: true,
       variables: {
@@ -117,7 +116,7 @@ class UploadAvatar extends Component {
         onSave && onSave(setCharacterAvatarBlob)
         onClose && onClose()
       })
-      .catch(({errorString}) => {
+      .catch(({ errorString }) => {
         this.setState({ error: errorString, loading: false })
       })
   }

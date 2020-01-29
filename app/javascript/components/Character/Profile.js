@@ -5,7 +5,6 @@ import c from 'classnames'
 import { Mutation } from 'react-apollo'
 import createProfileSection from './createProfileSection.graphql'
 import * as M from 'materialize-css'
-import FileUploadInput from '../Shared/FileUploadInput'
 
 class Profile extends Component {
   handleNewSection(lastSection) {

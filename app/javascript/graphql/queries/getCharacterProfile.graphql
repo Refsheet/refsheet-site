@@ -26,6 +26,8 @@ fragment DefaultCharacterFields on Character {
       medium
     }
   }
+
+  avatar_url(style: "large")
 }
 
 query getCharacterProfile($username: String!, $slug: String!) {
