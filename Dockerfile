@@ -3,6 +3,15 @@ LABEL maintainer="Refsheet.net Team <nerds@refsheet.net>"
 
 WORKDIR /app
 
+# Envirionment
+ENV RACK_ENV production
+ENV RAILS_ENV production
+ENV NODE_ENV production
+ENV PORT 3000
+
+ENV NODE_VERSION 8.16.0
+ENV VIPS_VERSION 8.9.0
+ENV BUNDLE_VERSION 2.0.1
 
 # Install System Deps
 
@@ -17,15 +26,13 @@ RUN apt-get -o Acquire::Check-Valid-Until=false update && \
         libwebp-dev \
         curl \
         git && \
-    gem install bundler -v 2.0.1 && \
+    gem install bundler -v $BUNDLE_VERSION && \
     gem install foreman
 
 
 # Install Node
 
 ENV NVM_DIR /usr/local/nvm
-ENV NODE_VERSION 8.16.0
-
 WORKDIR $NVM_DIR
 
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash && \
@@ -39,16 +46,7 @@ ENV PATH      $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 ENV NODE_OPTIONS "--max-old-space-size=2048"
 
 
-# Install Yarn
-
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-    apt-get -o Acquire::Check-Valid-Until=false update && apt-get install -y yarn
-
-
 # Install Vips
-
-ENV VIPS_VERSION 8.9.0
 
 WORKDIR /libvips
 
@@ -61,6 +59,14 @@ RUN curl -L "https://github.com/libvips/libvips/releases/download/v$VIPS_VERSION
     ldconfig && \
     cd /libvips && \
     rm -rf vips-*
+
+
+# Install Yarn
+
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+    apt-get -o Acquire::Check-Valid-Until=false update && \
+    apt-get install -y yarn
 
 
 # Copy System Config
@@ -100,11 +106,6 @@ RUN mkdir -p /cache && \
 
 # Execute Order 66
 
-EXPOSE 3000
-
-ENV RACK_ENV production
-ENV RAILS_ENV production
-ENV NODE_ENV production
-ENV PORT 3000
+EXPOSE $PORT
 
 CMD echo "Starting with formation: $FORMATION" && foreman start --formation "$FORMATION" --env ""
