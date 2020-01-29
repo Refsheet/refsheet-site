@@ -142,7 +142,7 @@ group :development, :test do
   gem 'rspec-collection_matchers', require: false
   gem 'rspec-expectations', require: false
   gem 'rspec-its', require: false
-  gem 'rspec-rails', require: false
+  gem 'rspec-rails', '~> 4.0.0.beta', require: false
   gem 'rspec-retry', require: false
   gem 'rspec_junit_formatter', require: false
   gem 'rails-controller-testing'
