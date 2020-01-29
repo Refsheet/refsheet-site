@@ -26,6 +26,7 @@
 #
 
 class Artist < ApplicationRecord
+  include HasImageAttached
   include Sluggable
   include HasGuid
 
@@ -34,7 +35,17 @@ class Artist < ApplicationRecord
 
   delegate :username, to: :user, allow_nil: true
 
-  has_one_attached :avatar
+  has_image_attached :avatar,
+                     default_url: '/assets/default.png',
+                     defaults: {
+                         crop: :attention,
+                     },
+                     styles: {
+                         thumbnail: { fill: [320, 320] },
+                         small: { fit: [480, 480] },
+                         medium: { fit: [640, 640] },
+                     }
+
   has_markdown_field :commission_info
   has_markdown_field :profile
   has_guid

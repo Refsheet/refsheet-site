@@ -4,8 +4,7 @@
 .content
   .row
     .col.s12.m4.l3
-      - if @artist.avatar.attached?
-        = image_tag url_for(@artist.avatar), class: 'materialboxed responsive-img z-depth-1'
+      = image_tag @artist.avatar.url(:small), class: 'materialboxed responsive-img z-depth-1'
       %h1.caption= link_to title(@artist.name), artist_path(@artist.slug)
 
     .col.s12.m8.l9
