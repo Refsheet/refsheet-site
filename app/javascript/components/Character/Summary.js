@@ -72,7 +72,7 @@ class Summary extends Component {
   }
 
   render() {
-    const { character, editable } = this.props
+    const { character, editable, onAvatarEdit } = this.props
 
     const { profile_image: image } = character
 
@@ -144,6 +144,14 @@ class Summary extends Component {
             data-image-id={image.id}
             style={gravityCrop[image.gravity]}
           />
+          {onAvatarEdit && (
+            <a className="image-edit-overlay" onClick={onAvatarEdit}>
+              <div className="content">
+                <i className="material-icons">photo_camera</i>
+                Change Image
+              </div>
+            </a>
+          )}
         </div>
       </Card>
     )

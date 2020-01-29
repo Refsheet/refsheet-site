@@ -30,7 +30,9 @@ function withMutations(mutations) {
             .then(data => {
               if (data.errors && data.errors.length > 0) {
                 data.validationErrors = {}
+                data.errorStrings = []
                 data.errors.map(err => {
+                  data.errorStrings.push(err.msg)
                   if (err.extensions && err.extensions.validation) {
                     Object.keys(err.extensions.validation).map(k => {
                       if (!data.validationErrors[k])
@@ -43,10 +45,13 @@ function withMutations(mutations) {
                   }
                 })
 
+                // Join errors and flatten
                 data.formErrors = {}
                 Object.keys(data.validationErrors).map(k => {
                   data.formErrors[k] = data.validationErrors[k].join(', ')
                 })
+
+                data.errorString = data.errorStrings.join(', ')
 
                 console.error(
                   'GraphQL returned an error: ',

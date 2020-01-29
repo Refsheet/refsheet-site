@@ -15,6 +15,7 @@ import compose from '../../utils/compose'
 import { connect } from 'react-redux'
 import { setUploadTarget } from '../../actions'
 import RevisionModal from './Modals/RevisionModal'
+import AvatarModal from './Modals/AvatarModal'
 
 class View extends Component {
   constructor(props) {
@@ -22,10 +23,12 @@ class View extends Component {
 
     this.state = {
       editable: false,
+      colorSchemeOverride: this.props.character && this.props.character.theme,
       settingsOpen: window.location.hash === '#character-settings',
       colorOpen: window.location.hash === '#character-color',
-      colorSchemeOverride: this.props.character && this.props.character.theme,
       revisionsOpen: window.location.hash === '#character-revisions',
+      uploadAvatarOpen: window.location.hash === '#upload-avatar',
+      uploadCoverOpen: window.location.hash === '#upload-avatar',
     }
 
     this.handleEditableChange = this.handleEditableChange.bind(this)
@@ -56,7 +59,8 @@ class View extends Component {
   }
 
   handleModalOpen(modal) {
-    return () => {
+    return e => {
+      e && e.preventDefault && e.preventDefault()
       let state = {}
       state[modal + 'Open'] = true
       this.setState(state)
@@ -64,7 +68,8 @@ class View extends Component {
   }
 
   handleModalClose(modal) {
-    return () => {
+    return e => {
+      e && e.preventDefault && e.preventDefault()
       let state = {}
       state[modal + 'Open'] = false
       this.setState(state)
@@ -73,7 +78,13 @@ class View extends Component {
 
   render() {
     const { character, refetch } = this.props
-    const { settingsOpen, colorOpen, revisionsOpen } = this.state
+    const {
+      settingsOpen,
+      colorOpen,
+      revisionsOpen,
+      uploadAvatarOpen,
+      uploadCoverOpen,
+    } = this.state
     const { colors } =
       this.state.colorSchemeOverride || this.props.character.theme || {}
 
@@ -101,11 +112,25 @@ class View extends Component {
             <RevisionModal
               characterId={character.id}
               onClose={this.handleModalClose('revisions').bind(this)}
+              onSave={refetch}
+            />
+          )}
+
+          {uploadAvatarOpen && (
+            <AvatarModal
+              character={character}
+              onSave={refetch}
+              onClose={this.handleModalClose('uploadAvatar').bind(this)}
             />
           )}
 
           <div id="top" className="profile-scrollspy">
-            <Header character={character} editable={this.state.editable} />
+            <Header
+              character={character}
+              editable={this.state.editable}
+              onHeaderImageEdit={this.handleModalOpen('uploadCover').bind(this)}
+              onAvatarEdit={this.handleModalOpen('uploadAvatar').bind(this)}
+            />
           </div>
 
           <Container>
