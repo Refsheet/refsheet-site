@@ -8,7 +8,7 @@
     - artists.each do |artist|
       %li.collection-item.avatar
         - if artist.avatar.attached?
-          = image_tag url_for(artist.avatar), class: 'circle', alt: artist.name
+          = image_tag artist.avatar.url(:thumbnail), class: 'circle', alt: artist.name
 
         .title= link_to artist.name, admin_artist_path(artist.slug)
         .muted
