@@ -34,7 +34,7 @@
 FactoryBot.define do
   factory :advertisement_campaign, class: 'Advertisement::Campaign' do
     title { Faker::Book.title[0,30] }
-    caption { Faker::Lorem.characters(70) }
+    caption { Faker::Lorem.characters(number: 70) }
     link { Faker::Internet.url }
     image_file_name { Rails.root.join 'spec/assets/advertisement_test.png' }
     amount { 5.00 }
