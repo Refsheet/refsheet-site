@@ -1,7 +1,6 @@
 FROM ruby:2.5.5
-MAINTAINER Refsheet.net Team <nerds@refsheet.net>
+LABEL maintainer="Refsheet.net Team <nerds@refsheet.net>"
 
-RUN mkdir /app
 WORKDIR /app
 
 # Environment
@@ -10,10 +9,13 @@ ENV RAILS_ENV development
 ENV NODE_ENV development
 ENV PORT 5000
 
+ENV NODE_VERSION 8.16.0
+ENV VIPS_VERSION 8.9.0
+ENV BUNDLE_VERSION 2.0.1
 
 # Install System Deps
 
-RUN apt-get update && \
+RUN apt-get -o Acquire::Check-Valid-Until=false update && \
     apt-get install -y \
         build-essential \
         libssl-dev \
@@ -25,13 +27,26 @@ RUN apt-get update && \
         libwebp-dev \
         curl \
         git && \
-    gem install bundler -v 2.0.1 && \
+    gem install bundler -v $BUNDLE_VERSION && \
     gem install foreman
 
 
-# Install Vips
+# Install Node
 
-ENV VIPS_VERSION 8.9.0
+ENV NVM_DIR /usr/local/nvm
+WORKDIR $NVM_DIR
+
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash && \
+    . $NVM_DIR/nvm.sh && \
+    nvm install $NODE_VERSION && \
+    nvm alias default $NODE_VERSION && \
+    nvm use default
+
+ENV NODE_PATH $NVM_DIR/versions/node/v$NODE_VERSION/lib/node_modules
+ENV PATH      $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
+
+
+# Install Vips
 
 WORKDIR /libvips
 
@@ -45,21 +60,6 @@ RUN curl -L "https://github.com/libvips/libvips/releases/download/v$VIPS_VERSION
     cd /libvips && \
     rm -rf vips-*
 
-# Install Node
-
-ENV NVM_DIR /usr/local/nvm
-ENV NODE_VERSION 8.11.3
-
-WORKDIR $NVM_DIR
-
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash && \
-    . $NVM_DIR/nvm.sh && \
-    nvm install $NODE_VERSION && \
-    nvm alias default $NODE_VERSION && \
-    nvm use default
-
-ENV NODE_PATH $NVM_DIR/versions/node/v$NODE_VERSION/lib/node_modules
-ENV PATH      $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
 # Install Yarn
 
@@ -67,11 +67,13 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
     apt-get -o Acquire::Check-Valid-Until=false update && apt-get install -y yarn
 
+
 # Install Google Chrome
 
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
     sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' && \
-    apt-get -o Acquire::Check-Valid-Until=false update && apt-get install -y google-chrome-stable
+    apt-get -o Acquire::Check-Valid-Until=false update && \
+    apt-get install -y google-chrome-stable
 
 
 # Bundle
