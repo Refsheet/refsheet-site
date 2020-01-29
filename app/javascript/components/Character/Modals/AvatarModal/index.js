@@ -24,7 +24,11 @@ class AvatarModal extends Component {
       >
         <Tabs className={'modal-tabs'}>
           <Tab title={'Upload File'} active>
-            <UploadAvatar character={character} onSave={onSave} onClose={onClose} />
+            <UploadAvatar
+              character={character}
+              onSave={onSave}
+              onClose={onClose}
+            />
           </Tab>
           <Tab title={'Pick from Gallery'}></Tab>
         </Tabs>

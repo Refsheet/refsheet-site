@@ -148,6 +148,7 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'shoulda-matchers', '~> 2.8'
   gem 'simplecov'
+  gem 'yard'
   gem 'timecop'
   gem 'webmock'
   gem 'derailed_benchmarks'

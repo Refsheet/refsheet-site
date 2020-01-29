@@ -25,6 +25,9 @@ module HasImageAttached
     #   - crop - Crop option, one of :none, :attention, :centre, and :entropy
     #   - composite - not yet supported
     #
+    # TODO: Add support for eager-processing background job
+    # TODO: Move image processing to some other server / image
+    #
     def has_image_attached(name, options = {})
       has_one_attached name
       alias_method "as_#{name}", "#{name}"
@@ -99,6 +102,11 @@ module HasImageAttached
       @base.variant(*style_args)
     end
 
+    # Returns a URL to the image, given a particular style. Style can also be :original,
+    # in which case a URL to the original file will be returned.
+    #
+    # @param [Symbol] style
+    # @param [Array] args
     def url(style, *args)
       variant = self.style(style)
 
