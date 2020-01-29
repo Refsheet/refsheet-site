@@ -9,24 +9,39 @@ module HasImageAttached
     # Defines an attachment, paperclip style, using ActiveStorage as a backer
     # and Vips as a processor.
     #
-    # Any of these options can be set to a proc, which will be called with
-    # +instance, style+:
-    #   - instance: The instance of the model
-    #   - style: The requested style key
+    # @example
+    #   has_image_attached :avatar,
+    #                      default_url: -> (_m, style) { "/assets/default-#{style}.png " },
+    #                      defaults: {
+    #                          crop: :attention,
+    #                      },
+    #                      styles: {
+    #                          thumbnail: { fill: [320, 320] },
+    #                          small: { fit: [480, 480] },
+    #                          medium: { fit: [640, 640] },
+    #                      }
     #
-    # Options:
-    #   - defaults: Default options merged with every style
-    #   - styles: Named styles, which override defaults
-    #   - direct_upload: Not yet supported
-    #   - default_url: {String} - Default asset path for +url+ if nothing is attached
+    # ==== Proc Interpolation
     #
-    # Style Options:
-    #   - fit/fill/pad/limit - Crop modes, mutually exclusive. See Vips docs
-    #   - crop - Crop option, one of :none, :attention, :centre, and :entropy
-    #   - composite - not yet supported
+    # Any of these options can be set to a proc, which will be called to generate the value:
+    #   -> (instance, style) { ... }
+    # - <tt>*instance*</tt> (Object)   The instance of the model
+    # - <tt>*style*</tt>    (Symbol)   The requested style key
     #
-    # TODO: Add support for eager-processing background job
-    # TODO: Move image processing to some other server / image
+    # @todo Add support for eager-processing background job
+    # @todo Move image processing to some other server / image
+    #
+    # @param [Symbol] name      Attachment name, passed to +has_one_attached+.
+    # @param [Hash]   options   Style definition options.
+    #
+    # @option options [Hash] :defaults      Default options merged with every style.
+    # @option options [Hash] :default_url   Default asset path if an image is not attached.
+    # @option options [Hash] :styles        Named styles, which override defaults. +fit/fill/pad/limit+ are mutually exclusive.
+    #   - <tt>*:crop*</tt>  (Symbol) Target crop priority
+    #   - <tt>*:fit*</tt>   (Array) Crop to fit the size given by +[W x H]+
+    #   - <tt>*:fill*</tt>  (Array) Crop to fill
+    #   - <tt>*:pad*</tt>   (Array) Crop to fit with padding
+    #   - <tt>*:limit*</tt> (Array) Resize within the given limits
     #
     def has_image_attached(name, options = {})
       has_one_attached name
@@ -42,6 +57,8 @@ module HasImageAttached
   # Wrapper for ActiveStorage attachments that provides image
   # handling methods. Any unknown methods are delegated to the
   # underlying AS attachment object, so this is mostly* transparent.
+  #
+  # @see HasImageAttached::ClassMethods#has_image_attached
   #
   class ImageAttachmentWrapper
     include ActionView::Helpers::AssetUrlHelper
@@ -105,24 +122,33 @@ module HasImageAttached
     # Returns a URL to the image, given a particular style. Style can also be :original,
     # in which case a URL to the original file will be returned.
     #
-    # @param [Symbol] style
-    # @param [Array] args
-    def url(style, *args)
+    # @param [Symbol] style Style requested for the URL, or :original
+    # @param [Hash] opts Options to configure URL generation. Unknown opts will be passed to URL helpers.
+    # @option opts [Boolean] :allow_nil Return nil instead of default, if default is present.
+    #
+    # @raise [NoStyleError] Style key was not defined on attachment, check your call.
+    # @raise [InvalidStyleError] Style definition was not valid, check your model.
+    #
+    # @return [String, nil] URL of the attachment, or nil
+    #
+    def url(style, opts={})
       variant = self.style(style)
 
       unless @base.attached?
-        if @options[:default_url]
+        if !opts[:allow_nil] && @options[:default_url]
           return image_url(@options[:default_url])
         end
 
         return nil
       end
 
+      url_opts = opts.without(:allow_nil)
+
       if style === :original
-        return Rails.application.routes.url_helpers.rails_blob_url(@base, *args)
+        return Rails.application.routes.url_helpers.rails_blob_url(@base, url_opts)
       end
 
-      Rails.application.routes.url_helpers.rails_representation_url(variant, *args)
+      Rails.application.routes.url_helpers.rails_representation_url(variant, url_opts)
     end
 
     def method_missing(sym, *args)

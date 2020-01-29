@@ -31,7 +31,7 @@ Types::CharacterType = GraphQL::ObjectType.define do
 
     resolve -> (obj, args, _ctx) {
       # todo: allow overriding default
-      obj.avatar.url(args[:style].to_sym || :large)
+      obj.avatar.url(args[:style].to_sym || :large, allow_nil: true)
     }
   end
 
