@@ -1,6 +1,7 @@
 require 'digest'
 
 namespace :kube do
+  desc "Apply config changes in .kubernetes folder"
   task :update_config do
     apply! "configmap.yml"
 
