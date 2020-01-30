@@ -118,7 +118,7 @@ class Mutations::CharacterMutations < Mutations::ApplicationMutation
   def set_cover_blob
     authorize @character, :update?
     if params[:blob].blank?
-      @character.avatar.detach
+      @character.cover_image.detach
     else
       @character.cover_image.attach(params[:blob])
     end

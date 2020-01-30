@@ -16,6 +16,7 @@ import { connect } from 'react-redux'
 import { setUploadTarget } from '../../actions'
 import RevisionModal from './Modals/RevisionModal'
 import AvatarModal from './Modals/AvatarModal'
+import CoverModal from './Modals/CoverModal'
 
 class View extends Component {
   constructor(props) {
@@ -76,6 +77,10 @@ class View extends Component {
     }
   }
 
+  /**
+   * TODO: Refactor out the modals to their own component.
+   * Consider a ModalProvider container/HOC. Yeees.
+   */
   render() {
     const { character, refetch } = this.props
     const {
@@ -121,6 +126,14 @@ class View extends Component {
               character={character}
               onSave={refetch}
               onClose={this.handleModalClose('uploadAvatar').bind(this)}
+            />
+          )}
+
+          {uploadCoverOpen && (
+            <CoverModal
+              character={character}
+              onSave={refetch}
+              onClose={this.handleModalClose('uploadCover').bind(this)}
             />
           )}
 
