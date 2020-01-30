@@ -38,11 +38,11 @@ class Media::CommentSerializer < ActiveModel::Serializer
   end
 
   def media_id
-    object.media.guid
+    object.media&.guid
   end
 
   def user_id
-    object.user.username
+    object.user&.username || "deleted-#{object.user_id}"
   end
 
   def reply_to_comment_id
