@@ -19,7 +19,6 @@ class ImageEditForm extends Component {
 
     this.state = {
       image: this.props.image,
-      caption: this.props.image && this.props.image.caption,
     }
   }
 
@@ -64,14 +63,15 @@ class ImageEditForm extends Component {
     this.setState({ image })
   }
 
-  handleCaptionChange(caption) {
+  handleCaptionChange(name, caption) {
+    console.log({name, caption})
     const image = { ...this.state.image, caption }
     this.setState({ image })
   }
 
   render() {
     const { t } = this.props
-    const { image, caption } = this.state
+    const { image } = this.state
 
     const gravities = [
       'NorthWest',
@@ -112,8 +112,10 @@ class ImageEditForm extends Component {
             </div>
             <MarkdownEditor
               key={'image_caption'}
-              content={caption}
+              name={'caption'}
+              content={image.caption || ''}
               hashtags
+              slim
               onChange={this.handleCaptionChange.bind(this)}
             />
 
