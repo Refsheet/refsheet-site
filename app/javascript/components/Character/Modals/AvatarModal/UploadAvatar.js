@@ -5,7 +5,7 @@ import compose from 'utils/compose'
 import { H1 } from 'Styled/Headings'
 import { DirectUploadProvider } from 'react-activestorage-provider'
 import { TextInput, Button, Row, Col, ProgressBar } from 'react-materialize'
-import Muted from '../../../Styled/Muted'
+import Muted, {MutedAnchor} from '../../../Styled/Muted'
 import { withMutations } from '../../../../utils/compose'
 import setCharacterAvatarBlob from './setCharacterAvatarBlob.graphql'
 import * as M from 'materialize-css'
@@ -31,8 +31,13 @@ class UploadAvatar extends Component {
     handleUpload([this.state.file])
   }
 
+  handleClearClick(e) {
+    e.preventDefault()
+    this.handleSuccess([])
+  }
+
   renderInput({ handleUpload, uploads, ready }) {
-    const { t, id } = this.props
+    const { t, id, character } = this.props
 
     return (
       <form
@@ -91,6 +96,10 @@ class UploadAvatar extends Component {
           >
             {this.state.loading ? 'Uploading...' : 'Upload'}
           </Button>
+
+          { character.avatar_url && <div className={'margin-top--small'}>
+            <MutedAnchor href={'#'} onClick={this.handleClearClick.bind(this)}>Remove Image</MutedAnchor>
+          </div> }
         </div>
       </form>
     )

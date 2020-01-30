@@ -94,12 +94,16 @@ class Mutations::CharacterMutations < Mutations::ApplicationMutation
     type Types::CharacterType
 
     argument :id, !types.ID
-    argument :blob, !types.String
+    argument :blob, types.String
   end
 
   def set_avatar_blob
     authorize @character, :update?
-    @character.avatar.attach(params[:blob])
+    if params[:blob].blank?
+      @character.avatar.detach
+    else
+      @character.avatar.attach(params[:blob])
+    end
     @character.save!
     @character
   end
@@ -108,12 +112,16 @@ class Mutations::CharacterMutations < Mutations::ApplicationMutation
     type Types::CharacterType
 
     argument :id, !types.ID
-    argument :blob, !types.String
+    argument :blob, types.String
   end
 
   def set_cover_blob
     authorize @character, :update?
-    @character.cover_image.attach(params[:blob])
+    if params[:blob].blank?
+      @character.avatar.detach
+    else
+      @character.cover_image.attach(params[:blob])
+    end
     @character.save!
     @character
   end
