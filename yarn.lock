@@ -109,6 +109,11 @@
   version "0.2.4"
   resolved "https://registry.yarnpkg.com/@icons/material/-/material-0.2.4.tgz#e90c9f71768b3736e76d7dd6783fc6c2afa88bc8"
 
+"@rails/actioncable@^6.0.2-1":
+  version "6.0.2-1"
+  resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-6.0.2-1.tgz#8b16bff4d4c91b71069fe54bab9e23f709ccf89b"
+  integrity sha512-65RcsdKcvvc6V4TvsesPmFlHO8gO3ZWnLWTNq4DhP6zW50XlyiR3DazX88EjskCXGqS/uRQ5ppsIMDc05aiTgA==
+
 "@rails/webpacker@^3.3.0":
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/@rails/webpacker/-/webpacker-3.3.0.tgz#4ce1e67d57e615dfacde33d2b27fbd46a2111cba"
