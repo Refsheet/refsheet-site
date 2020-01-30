@@ -7,7 +7,7 @@ import Autocomplete from './autocomplete.graphql'
 import client from 'ApplicationService'
 import './react-mde-overrides.scss'
 import styled from 'styled-components'
-import { commands as Commands } from "react-mde";
+import { commands as Commands } from 'react-mde'
 
 const SRM = styled(ReactMde)`
   background-color: ${props => props.theme.cardBackground} !important;
@@ -184,7 +184,11 @@ class MarkdownEditor extends Component {
     if (slim) {
       commands = [
         {
-          commands: [Commands.boldCommand, Commands.italicCommand, Commands.strikeThroughCommand]
+          commands: [
+            Commands.boldCommand,
+            Commands.italicCommand,
+            Commands.strikeThroughCommand,
+          ],
         },
       ]
     } else {

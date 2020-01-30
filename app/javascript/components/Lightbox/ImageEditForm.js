@@ -64,7 +64,6 @@ class ImageEditForm extends Component {
   }
 
   handleCaptionChange(name, caption) {
-    console.log({name, caption})
     const image = { ...this.state.image, caption }
     this.setState({ image })
   }
