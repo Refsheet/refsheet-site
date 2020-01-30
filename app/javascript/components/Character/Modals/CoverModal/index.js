@@ -5,9 +5,12 @@ import compose from 'utils/compose'
 import { Tab } from 'react-materialize'
 import Tabs from '../../../Styled/Tabs'
 import Modal from '../../../Styled/Modal'
-import UploadAvatar from './UploadAvatar'
+import UploadCover from './UploadCover'
 
-class AvatarModal extends Component {
+/**
+ * TODO: Remove code duplication in this class and AvatarModal.
+ */
+class CoverModal extends Component {
   constructor(props) {
     super(props)
   }
@@ -24,20 +27,20 @@ class AvatarModal extends Component {
       >
         <Tabs className={'modal-tabs'}>
           <Tab id={'upload-avatar_upload'} title={'Upload File'} active>
-            <UploadAvatar
+            <UploadCover
               character={character}
               onSave={onSave}
               onClose={onClose}
             />
           </Tab>
-          <Tab id={'upload-avatar_upload'} title={'Pick from Gallery'}></Tab>
+          <Tab id={'upload-avatar_gallery'} title={'Pick from Gallery'}></Tab>
         </Tabs>
       </Modal>
     )
   }
 }
 
-AvatarModal.propTypes = {
+CoverModal.propTypes = {
   character: PropTypes.object.isRequired,
   onSave: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
@@ -46,4 +49,4 @@ AvatarModal.propTypes = {
 export default compose(
   withNamespaces('common')
   // TODO: Add HOC bindings here
-)(AvatarModal)
+)(CoverModal)

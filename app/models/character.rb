@@ -100,9 +100,9 @@ class Character < ApplicationRecord
                          crop: :attention,
                      },
                      styles: {
-                         small: { fill: [640, 320] },
-                         large: { fill: [1920, 960] },
-                         xlarge: { fill: [2880, 1440] },
+                         small: { fill: [640, 360] },
+                         large: { fill: [1920, 480] },
+                         xlarge: { fill: [2880, 720] },
                      }
 
   has_image_attached :avatar,

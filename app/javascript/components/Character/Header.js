@@ -10,7 +10,9 @@ const Backdrop = styled.div`
 class Header extends Component {
   render() {
     const { character, editable, onHeaderImageEdit, onAvatarEdit } = this.props
-    const backgroundImage = (character.featured_image || { url: {} }).url.large
+    const backgroundImage =
+      character.cover_image_url ||
+      ((character.featured_image || {}).url || {}).large
 
     return (
       <section className="page-header">

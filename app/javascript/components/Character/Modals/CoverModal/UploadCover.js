@@ -2,15 +2,14 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withNamespaces } from 'react-i18next'
 import compose from 'utils/compose'
-import { H1 } from 'Styled/Headings'
 import { DirectUploadProvider } from 'react-activestorage-provider'
 import { TextInput, Button, Row, Col, ProgressBar } from 'react-materialize'
 import Muted, { MutedAnchor } from '../../../Styled/Muted'
 import { withMutations } from '../../../../utils/compose'
-import setCharacterAvatarBlob from './setCharacterAvatarBlob.graphql'
+import setCharacterCoverBlob from './setCharacterCoverBlob.graphql'
 import * as M from 'materialize-css'
 
-class UploadAvatar extends Component {
+class UploadCover extends Component {
   constructor(props) {
     super(props)
 
@@ -97,7 +96,7 @@ class UploadAvatar extends Component {
             {this.state.loading ? 'Uploading...' : 'Upload'}
           </Button>
 
-          {character.avatar_url && (
+          {character.cover_image_url && (
             <div className={'margin-top--small'}>
               <MutedAnchor
                 href={'#'}
@@ -114,22 +113,22 @@ class UploadAvatar extends Component {
 
   handleSuccess(blobs) {
     const blob = blobs[0]
-    const { setCharacterAvatarBlob, character, onSave, onClose } = this.props
+    const { setCharacterCoverBlob, character, onSave, onClose } = this.props
 
-    setCharacterAvatarBlob({
+    setCharacterCoverBlob({
       wrapped: true,
       variables: {
         blob,
         id: character.shortcode,
       },
     })
-      .then(({ setCharacterAvatarBlob }) => {
+      .then(({ setCharacterCoverBlob }) => {
         M.toast({
-          html: 'Avatar updated!',
+          html: 'Cover Image updated!',
           displayLength: 3000,
           classes: 'green',
         })
-        onSave && onSave(setCharacterAvatarBlob)
+        onSave && onSave(setCharacterCoverBlob)
         onClose && onClose()
       })
       .catch(({ errorString }) => {
@@ -149,13 +148,13 @@ class UploadAvatar extends Component {
   }
 }
 
-UploadAvatar.propTypes = {
+UploadCover.propTypes = {
   character: PropTypes.object.isRequired,
   onSave: PropTypes.func.isRequired,
 }
 
 export default compose(
   withNamespaces('common'),
-  withMutations({ setCharacterAvatarBlob })
+  withMutations({ setCharacterCoverBlob })
   // TODO: Add HOC bindings here
-)(UploadAvatar)
+)(UploadCover)

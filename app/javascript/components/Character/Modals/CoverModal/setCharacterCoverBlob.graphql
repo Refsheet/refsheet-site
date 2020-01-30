@@ -1,0 +1,6 @@
+mutation setCharacterCoverBlob($id: ID!, $blob: String) {
+    setCharacterCoverBlob(id: $id, blob: $blob) {
+        id
+        cover_image_url(style: "large")
+    }
+}

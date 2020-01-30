@@ -28,6 +28,7 @@ fragment DefaultCharacterFields on Character {
   }
 
   avatar_url(style: "medium")
+  cover_image_url(style: "large")
 }
 
 query getCharacterProfile($username: String!, $slug: String!) {
