@@ -60,7 +60,7 @@ class UploadAvatar extends Component {
         {uploads.length > 0 && (
           <Row className={'margin-top--large'}>
             {uploads.map(upload => (
-              <Col s={12}>
+              <Col s={12} key={upload.id}>
                 <p>
                   <Muted className={'right'}>{upload.state}</Muted>
                   {upload.file.name}
