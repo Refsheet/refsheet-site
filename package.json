@@ -1,6 +1,7 @@
 {
   "license": "MIT",
   "dependencies": {
+    "@rails/actioncable": "^6.0.2-1",
     "@rails/webpacker": "^3.3.0",
     "@sentry/browser": "^4.2.1",
     "actioncable": "^5.2.1",

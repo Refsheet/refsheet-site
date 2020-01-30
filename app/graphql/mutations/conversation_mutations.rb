@@ -10,7 +10,7 @@ class Mutations::ConversationMutations < Mutations::ApplicationMutation
 
   def create
     sender = context.current_user.call
-    recipient = User.find(params[:recipient_id])
+    recipient = User.find_by!(guid: params[:recipient_id])
 
     @conversation = Conversation.with(sender, recipient)
 
