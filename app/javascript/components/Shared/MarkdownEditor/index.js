@@ -7,6 +7,7 @@ import Autocomplete from './autocomplete.graphql'
 import client from 'ApplicationService'
 import './react-mde-overrides.scss'
 import styled from 'styled-components'
+import { commands as Commands } from 'react-mde'
 
 const SRM = styled(ReactMde)`
   background-color: ${props => props.theme.cardBackground} !important;
@@ -166,9 +167,11 @@ class MarkdownEditor extends Component {
       placeholder,
       readOnly,
       onChange,
+      slim,
     } = this.props
 
     let suggestionTriggers = ['@', '$']
+    let commands
 
     if (hashtags) {
       suggestionTriggers.push('#')
@@ -176,6 +179,20 @@ class MarkdownEditor extends Component {
 
     if (emoji) {
       suggestionTriggers.push(':')
+    }
+
+    if (slim) {
+      commands = [
+        {
+          commands: [
+            Commands.boldCommand,
+            Commands.italicCommand,
+            Commands.strikeThroughCommand,
+          ],
+        },
+      ]
+    } else {
+      commands = Commands.getDefaultCommands()
     }
 
     return (
@@ -202,6 +219,7 @@ class MarkdownEditor extends Component {
           onTabChange={this.handleTabChange.bind(this)}
           loadSuggestions={this.getSuggestions.bind(this)}
           suggestionTriggerCharacters={suggestionTriggers}
+          commands={commands}
           classes={{
             preview: 'rich-text card-content',
             suggestionsDropdown: 'z-depth-2',
@@ -223,6 +241,7 @@ MarkdownEditor.propTypes = {
   placeholder: PropTypes.string,
   hashtags: PropTypes.bool,
   emoji: PropTypes.bool,
+  slim: PropTypes.bool,
 }
 
 export default MarkdownEditor
