@@ -89,9 +89,11 @@ function init(id, props) {
   ReactDOM.render(<App {...props} />, document.getElementById(id))
 }
 
-export { init }
+export {
+  init,
 
-//== Trigger loader
+  //== Trigger loader
+}
 ;(function() {
   window._jsV2 = true
   console.log('Pack loaded: Refsheet JS v2')

@@ -160,11 +160,17 @@ class App extends Component {
     // Fade Out Loader
     const $loader = document.getElementById('rootAppLoader')
     $loader.style.opacity = 1
-    ;(function fade() {
-      ;($loader.style.opacity -= 0.1) < 0
-        ? ($loader.style.display = 'none')
-        : setTimeout(fade, 40)
-    })()
+
+    function fade() {
+      window.requestAnimationFrame(() => {
+        if (($loader.style.opacity -= 0.1) < 0) {
+          $loader.style.display = 'none'
+        } else {
+          setTimeout(fade, 40)
+        }
+      })
+    }
+    fade()
 
     // Set Google Analytics
     if (this.props.gaPropertyId && typeof ReactGA !== 'undefined') {
