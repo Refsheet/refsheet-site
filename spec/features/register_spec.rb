@@ -3,11 +3,11 @@ require 'rails_helper'
 feature 'Register', js: true do
   before(:each) do
     visit register_path
-    expect(page).to have_content 'Sign Up'
+    expect(page).to have_content 'Register'
   end
 
   def try_register(expected_error=nil)
-    click_button 'Sign Up'
+    click_button 'Register'
 
     if expected_error == nil
       expect(page).to have_content '@john_doe'

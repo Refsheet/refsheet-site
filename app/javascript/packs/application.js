@@ -38,6 +38,7 @@ export const __globals = [
   'Materialize',
   'Footer',
   'Link',
+  'StringUtils',
 ]
 
 export { default as React } from 'react'
@@ -56,6 +57,7 @@ export { setCurrentUser }
 export { setUploadTarget }
 export { Actions }
 export { UserUtils }
+export { default as StringUtils } from 'utils/StringUtils'
 
 // NOT GLOBAL
 export { default as V2Wrapper } from 'App'

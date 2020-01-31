@@ -111,6 +111,13 @@
     else
       id = @props.name
 
+    console.log({inputProps: @props})
+
+    # Fix bug with duplicate IDs
+    if typeof window.Input.nonce is 'undefined'
+      window.Input.nonce = 0
+    id = id + "_" + (window.Input.nonce++)
+
     commonProps =
       id: id
       name: @props.name

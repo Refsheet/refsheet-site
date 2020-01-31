@@ -32,10 +32,10 @@
     $('body').removeClass 'no-footer'
 
   render: ->
-    `<Main title='Register'>
+    `<Main title='Register' className='modal-page-content shaded-background'>
         <div className='modal-page-content'>
             <div className='narrow-container'>
-                <h1>Sign Up</h1>
+                <h1>Register</h1>
 
                 <Form
                     action='/users'
@@ -74,7 +74,8 @@
                     />
 
                     <div className='form-actions margin-top--large'>
-                        <Submit>Sign Up</Submit>
+                        <Link to='/login' query={{ username: this.state.username }} className='btn grey darken-3'>Log In</Link>
+                        <Submit className='right'>Register</Submit>
                     </div>
                 </Form>
             </div>

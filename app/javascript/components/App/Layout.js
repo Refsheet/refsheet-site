@@ -22,7 +22,7 @@ class Layout extends Component {
     const { t, location, notice } = this.props
 
     return (
-      <div id={'#rootApp'}>
+      <div id={'rootApp'}>
         <Lightbox />
         <UploadModal />
         <SessionModal />

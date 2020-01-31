@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   #== Account Stuff
 
   namespace :account do
+    get '/', to: redirect('/account/settings')
     get '/activity' => 'activities#index'
     resource :settings, only: [:show, :update]
 
@@ -63,6 +64,8 @@ Rails.application.routes.draw do
       put :bulk_update
     end
   end
+
+  resources :myrefs, only: [:index], controller: 'account/characters'
 
 
   #== Login

@@ -29,6 +29,8 @@
     -# Defer CSS Loading
     = stylesheet_pack_tag 'application', id: 'cssV2', rel: "preload", as: 'style', onload: "this.onload=null; this.rel='stylesheet'"
     = stylesheet_link_tag 'application', id: 'cssV1', media: 'all', rel: "preload", as: 'style', onload: "this.onload=null; this.rel='stylesheet'"
+    %link{href: font_path('font-awesome/fa-brands-400.woff2'), rel: "preload", as: 'font', crossorigin: true, type: "font/woff2"}/
+    %link{href: font_path('font-awesome/fa-solid-900.woff2'), rel: "preload", as: 'font', crossorigin: true, type: "font/woff2"}/
     %noscript
       = stylesheet_pack_tag 'application'
       = stylesheet_link_tag 'application', media: 'all'

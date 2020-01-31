@@ -27,17 +27,14 @@
 
 FactoryBot.define do
   factory :artist do
-    guid { "MyString" }
-    name { "MyString" }
-    slug { "MyString" }
-    commission_url { "MyString" }
-    website_url { "MyString" }
-    profile { "MyText" }
-    profile_markdown { "MyText" }
-    commission_info { "MyText" }
-    commission_info_markdown { "MyText" }
-    locked { false }
-    media_count { 1 }
-    user { "" }
+    name { Faker::Ancient.god }
+    commission_url { Faker::Internet.url }
+    website_url { Faker::Internet.url }
+    profile { Faker::Movies::PrincessBride.quote }
+    commission_info { Faker::Movies::HitchhikersGuideToTheGalaxy.marvin_quote }
+
+    trait :with_user do
+      user
+    end
   end
 end

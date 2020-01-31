@@ -32,7 +32,7 @@
 
 
   render: ->
-    `<Main title='Login'>
+    `<Main title='Login' className='shaded-background modal-page-content'>
         <div className='modal-page-content'>
             <div className='narrow-container'>
                 <h1>Log In</h1>
@@ -48,8 +48,8 @@
                     <Input name='password' type='password' label='Password' />
 
                     <div className='margin-top--medium'>
-                        <Submit>Log In</Submit>
-                        <Link to='/register' query={{ username: this.state.username }} className='btn grey darken-3 right'>Sign Up</Link>
+                      <Link to='/register' query={{ username: this.state.username }} className='btn grey darken-3'>Register</Link>
+                      <Submit className='right'>Log In</Submit>
                     </div>
                 </Form>
             </div>

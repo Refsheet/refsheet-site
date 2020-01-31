@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Router as BrowserRouter, Route, Switch } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import { Redirect } from 'react-router'
 
 import {
@@ -40,16 +40,9 @@ const Routes = () => (
     <Route path={'/artists/:slug'} component={Artists.Show} />
     <Route path={'/artists'} component={Artists.Index} />
 
-    {/** Character Profiles **/}
-    <Route path="/v2/:username/:slug" component={Character} />
-    <Route path={'/:username/:slug'} component={Character} />
-
     {/** Account **/}
     <Route path="/myrefs/new" component={Loading} />
     <Route path="/myrefs" component={Loading} />
-
-    {/** Misc **/}
-    <Route path="*" component={NotFound} />
 
     {/** V1 **/}
 
@@ -119,6 +112,9 @@ const Routes = () => (
 
     <Route path="/images/:imageId" component={ImageApp} />
     <Route path="/media/:imageId" component={ImageApp} />
+
+    {/** Character Profiles **/}
+    <Route path="/v2/:username/:slug" component={Character} />
     <Route path="/:userId/:characterId" component={CharacterApp} />
     <Route path="/:userId" component={User.View} />
 
