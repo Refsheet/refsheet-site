@@ -78,7 +78,9 @@ type Attribute {
 }
 
 type Character implements ApplicationRecord {
+    avatar_url(style: String): String
     can_edit: Boolean
+    cover_image_url(style: String): String
     created_at: Int
     custom_attributes: [Attribute]
     deleted_at: Int
@@ -368,6 +370,8 @@ type Mutation {
     removeFavorite(mediaId: ID!): MediaFavorite
     sendKarma(discussionId: ID!, take: Boolean): ForumPost
     sendMessage(conversationId: ID, message: String!, recipientId: ID): Message
+    setCharacterAvatarBlob(blob: String, id: ID!): Character
+    setCharacterCoverBlob(blob: String, id: ID!): Character
     transferCharacter(destination: String!, id: ID!): Character
     updateCharacter(color_scheme_id: ID, hidden: Boolean, id: ID!, name: String, nsfw: Boolean, shortcode: String, slug: String, special_notes: String, species: String): Character
     updateConversation(conversation_id: ID!, read: Boolean): Conversation

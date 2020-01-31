@@ -25,7 +25,7 @@ Rails.application.configure do
   }
 
   config.rails_semantic_logger.add_file_appender = false
-  # config.semantic_logger.add_appender(io: STDOUT, level: config.log_level, formatter: config.rails_semantic_logger.format)
+  config.semantic_logger.add_appender(io: STDOUT, level: config.log_level, formatter: config.rails_semantic_logger.format)
 
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
@@ -99,6 +99,9 @@ Rails.application.configure do
     http://dev1.refsheet.net
     https://websocket.org
   )
+
+  config.hosts << 'dev.refsheet.net'
+  config.hosts << 'dev1.refsheet.net'
 
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 

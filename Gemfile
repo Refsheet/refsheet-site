@@ -4,7 +4,7 @@ ruby '2.5.5'
 
 # == BACK END
 
-gem 'rails', '~> 5.2.3'
+gem 'rails', '~> 6.0.0'
 gem 'rake', '~> 12.3.1'
 gem 'rack-cors'
 gem 'pg', '~> 0.21'
@@ -14,7 +14,7 @@ gem 'redis', '~> 3.3.5'
 gem 'bcrypt', '~> 3.1.7'
 gem 'execjs'
 gem 'money-rails'
-gem 'responders'
+gem 'responders', '~> 3.0'
 gem 'ahoy_matey'
 gem 'aws-sdk-s3'
 gem 'aws-sdk-sqs'
@@ -25,14 +25,14 @@ gem 'webpacker'
 gem 'faraday_middleware'
 gem 'json', '~> 2.1.0'
 gem 'rails_semantic_logger'
-gem 'nulldb'
+gem 'activerecord-nulldb-adapter', '~> 0.4.0'
 gem 'mini_magick'
 gem 'paper_trail'
 
 # == FRONT END
 
 gem 'uglifier', '>= 1.3.0'
-gem 'sassc-rails'
+gem 'sass-rails', '~> 6.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'haml'
 gem 'react-rails', github: 'reactjs/react-rails', branch: 'master'
@@ -59,14 +59,14 @@ gem 'serviceworker-rails'
 
 # == UTILITY
 
-gem 'active_model_serializers'
+gem 'active_model_serializers', '~> 0.10.10'
 gem 'aws-ses', '~> 0.4.4'
 gem 'carrierwave'
 gem 'counter_culture'
 gem 'dropzonejs-rails'
 gem 'faker'
 gem 'fog-aws'
-gem 'graphql'
+gem 'graphql', '~> 1.9.18'
 gem 'graphql-errors'
 gem 'groupdate'
 gem 'paperclip'
@@ -142,12 +142,13 @@ group :development, :test do
   gem 'rspec-collection_matchers', require: false
   gem 'rspec-expectations', require: false
   gem 'rspec-its', require: false
-  gem 'rspec-rails', require: false
+  gem 'rspec-rails', '~> 4.0.0.beta', require: false
   gem 'rspec-retry', require: false
   gem 'rspec_junit_formatter', require: false
   gem 'rails-controller-testing'
   gem 'shoulda-matchers', '~> 2.8'
   gem 'simplecov'
+  gem 'yard'
   gem 'timecop'
   gem 'webmock'
   gem 'derailed_benchmarks'
@@ -158,8 +159,6 @@ end
 
 group :nocircle do
 end
-
-gem 'resque-web', require: 'resque_web'
 
 group :development do
   gem 'web-console'

@@ -72,9 +72,10 @@ class Summary extends Component {
   }
 
   render() {
-    const { character, editable } = this.props
+    const { character, editable, onAvatarEdit } = this.props
 
-    const { profile_image: image } = character
+    const { profile_image, avatar_url } = character
+    const image = avatar_url || profile_image.url.medium
 
     const gravityCrop = {
       center: { objectPosition: 'center' },
@@ -140,10 +141,18 @@ class Summary extends Component {
         <div className="character-image">
           <Slant className="slant" />
           <img
-            src={image.url.medium}
-            data-image-id={image.id}
-            style={gravityCrop[image.gravity]}
+            src={image}
+            data-image-id={image.id || 'v2-image'}
+            style={gravityCrop[image.gravity || 'center']}
           />
+          {onAvatarEdit && (
+            <a className="image-edit-overlay" onClick={onAvatarEdit}>
+              <div className="content">
+                <i className="material-icons">photo_camera</i>
+                Change Image
+              </div>
+            </a>
+          )}
         </div>
       </Card>
     )

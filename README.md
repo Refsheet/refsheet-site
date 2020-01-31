@@ -66,6 +66,23 @@ pretty enough. Before you commit:
 
     bin/r yarn run prettier
 
+## Rake & Yarn
+
+A few custom Rake and Yarn Run tasks exist to make life a bit better. 
+
+### Rake
+
+- `rake api:generate` - Regenerate Swagger docs from API changes
+- `rake kube:update_config` - Apply config changes in .kubernetes folder
+- `rake sitemap:refresh` - Regenerate sitemap files and ping search engines
+
+### Yarn Run
+
+- `yarn run test` - Run Karma specs
+- `yarn run prettier` - Do this before committing
+- `yarn run eslint` - Check for javascript code errors
+- `bin/update-apollo-fragments.js` - Update Apollo (graphql) code fragments config, used if unions change
+
 ## Maintainer
 
 This project is built and maintained by Mau, and you can reach them at

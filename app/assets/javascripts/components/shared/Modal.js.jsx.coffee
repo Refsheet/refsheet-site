@@ -25,6 +25,11 @@
 
       onOpenEnd: =>
         $(document).trigger 'materialize:modal:ready'
+        # Fix incorrect tab indicator after modal open:
+        tabs = @refs.modal.querySelectorAll('.tabs')
+        tabs.forEach (tab) ->
+          inst = M.Tabs.getInstance tab
+          inst?.updateTabIndicator()
 
     if window.location.hash is "##{@props.id}"
       $modal.open()

@@ -1,0 +1,6 @@
+mutation setCharacterAvatarBlob($id: ID!, $blob: String) {
+    setCharacterAvatarBlob(id: $id, blob: $blob) {
+        id
+        avatar_url(style: "medium")
+    }
+}

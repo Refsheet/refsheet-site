@@ -9,8 +9,10 @@ const Backdrop = styled.div`
 
 class Header extends Component {
   render() {
-    const { character, editable, onHeaderImageEdit } = this.props
-    const backgroundImage = (character.featured_image || { url: {} }).url.large
+    const { character, editable, onHeaderImageEdit, onAvatarEdit } = this.props
+    const backgroundImage =
+      character.cover_image_url ||
+      ((character.featured_image || {}).url || {}).large
 
     return (
       <section className="page-header">
@@ -33,7 +35,11 @@ class Header extends Component {
 
         <div className="page-header-content">
           <div className="container">
-            <Summary character={character} editable={editable} />
+            <Summary
+              character={character}
+              editable={editable}
+              onAvatarEdit={onAvatarEdit}
+            />
           </div>
         </div>
       </section>

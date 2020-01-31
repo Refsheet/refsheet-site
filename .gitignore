@@ -60,4 +60,8 @@ db-prod.env
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
+# Documentation
+/doc/*
+/.yardoc/*
+
 refsheet-prod-storage.json

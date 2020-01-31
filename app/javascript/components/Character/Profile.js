@@ -60,8 +60,6 @@ class Profile extends Component {
       })
     })
 
-    console.log({ groups })
-
     return [groups, groupOrder]
   }
 
