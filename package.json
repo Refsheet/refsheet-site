@@ -1,6 +1,7 @@
 {
   "license": "MIT",
   "dependencies": {
+    "@rails/actioncable": "^6.0.2-1",
     "@rails/webpacker": "^3.3.0",
     "@sentry/browser": "^4.2.1",
     "actioncable": "^5.2.1",
@@ -34,6 +35,7 @@
     "query-string": "^6.2.0",
     "rails-erb-loader": "^5.4.1",
     "react": "^16.8.0",
+    "react-activestorage-provider": "^0.8.0",
     "react-apollo": "^2.1.0",
     "react-color": "^2.17.3",
     "react-component-queries": "^2.2.0",

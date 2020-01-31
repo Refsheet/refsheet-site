@@ -66,8 +66,8 @@ class ActionCable::Connection::Subscriptions
       logger.error "Received unrecognized command in #{data.inspect}"
     end
   rescue Exception => e
-    raise e
     logger.error "Could not execute command from #{data.inspect}) [#{e.class} - #{e.message}]: #{e.backtrace.first(5).join(" | ")}"
+    raise e
   end
 end
 

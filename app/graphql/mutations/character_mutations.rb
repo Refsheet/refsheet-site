@@ -1,5 +1,7 @@
+# TODO: Is this mutation trying too hard?
+#
 class Mutations::CharacterMutations < Mutations::ApplicationMutation
-  before_action :get_character, only: [:update, :convert, :destroy, :transfer]
+  before_action :get_character, only: [:update, :convert, :destroy, :transfer, :set_avatar_blob, :set_cover_blob]
 
   action :update do
     type Types::CharacterType
@@ -86,6 +88,42 @@ class Mutations::CharacterMutations < Mutations::ApplicationMutation
     else
       @character.errors.add(:confirmation, "does not match slug")
     end
+  end
+
+  action :set_avatar_blob do
+    type Types::CharacterType
+
+    argument :id, !types.ID
+    argument :blob, types.String
+  end
+
+  def set_avatar_blob
+    authorize @character, :update?
+    if params[:blob].blank?
+      @character.avatar.detach
+    else
+      @character.avatar.attach(params[:blob])
+    end
+    @character.save!
+    @character
+  end
+
+  action :set_cover_blob do
+    type Types::CharacterType
+
+    argument :id, !types.ID
+    argument :blob, types.String
+  end
+
+  def set_cover_blob
+    authorize @character, :update?
+    if params[:blob].blank?
+      @character.cover_image.detach
+    else
+      @character.cover_image.attach(params[:blob])
+    end
+    @character.save!
+    @character
   end
 
   private

@@ -7,11 +7,11 @@ import {
   IntrospectionFragmentMatcher,
 } from 'apollo-cache-inmemory'
 import fetch from 'node-fetch'
-import ActionCable from 'actioncable'
+import { createConsumer } from '@rails/actioncable'
 import ActionCableLink from 'graphql-ruby-client/subscriptions/ActionCableLink'
 import introspectionQueryResultData from '../config/fragmentTypes.json'
 
-const cable = ActionCable.createConsumer()
+const cable = createConsumer()
 
 const HOST =
   (window && window.location && window.location.origin) ||

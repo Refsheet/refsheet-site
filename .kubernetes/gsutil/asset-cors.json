@@ -8,8 +8,8 @@
       "http://kube.refsheet.net",
       "https://kube.refsheet.net"
     ],
-    "responseHeader": ["Content-Type"],
-    "method": ["GET", "HEAD", "DELETE"],
-    "maxAgeSeconds": 2628000
+    "responseHeader": ["Content-Type", "Content-Md5"],
+    "method": ["GET", "HEAD", "DELETE", "OPTIONS", "PUT"],
+    "maxAgeSeconds": 3600
   }
 ]

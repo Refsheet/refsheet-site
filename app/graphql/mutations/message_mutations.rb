@@ -12,7 +12,7 @@ class Mutations::MessageMutations < Mutations::ApplicationMutation
       @conversation = Conversation.find_by!(guid: params[:conversationId])
     else
       sender = context.current_user.call
-      recipient = User.find(params[:recipientId])
+      recipient = User.find_by!(guid: params[:recipientId])
 
       @conversation = Conversation.with(sender, recipient).tap(&:save!)
     end

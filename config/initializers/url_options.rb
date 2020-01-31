@@ -7,5 +7,13 @@ Rails.application.configure do
   else
     Rails.application.routes.default_url_options[:host] = "#{ENV.fetch("URL_HOSTNAME", 'dev1.refsheet.net')}:#{ENV.fetch('PORT', 5000)}"
   end
-end
 
+  if ENV['ACTIVE_STORAGE_HOST'].present?
+    ActiveStorage::Current.host = ENV['ACTIVE_STORAGE_HOST']
+  else
+    ActiveStorage::Current.host = "%s://%s" % [
+        Rails.application.routes.default_url_options[:protocol] || 'http',
+        Rails.application.routes.default_url_options[:host],
+    ]
+  end
+end

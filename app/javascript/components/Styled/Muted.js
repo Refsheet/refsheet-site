@@ -23,7 +23,7 @@ export const MutedHeader = styled(Muted)`
 `
 
 export const MutedLink = styled(Link)`
-  color: ${props => props.theme.textLight};
+  color: ${props => props.theme.textLight} !important;
   font-size: 0.9rem;
 
   &:hover {
@@ -33,7 +33,7 @@ export const MutedLink = styled(Link)`
 `
 
 export const MutedAnchor = styled.a`
-  color: ${props => props.theme.textLight};
+  color: ${props => props.theme.textLight} !important;
   font-size: 0.9rem;
 
   &:hover {

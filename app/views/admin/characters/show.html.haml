@@ -125,7 +125,7 @@
                 %td= version.whodunnit&.name
                 %td= version.event 
                 %td
-                  = link_to version.object_changes.keys.count.to_s + ' changes', "#change-modal-#{version.index}", class: 'modal-trigger'
+                  = link_to version.object_changes&.keys&.count.to_s + ' changes', "#change-modal-#{version.index}", class: 'modal-trigger'
                   %div.modal{id: "change-modal-#{version.index}"}
                     %div.modal-content
                       %h4
@@ -136,7 +136,7 @@
                           %th Field
                           %th From
                           %th To
-                        - version.object_changes.each do |field, changes|
+                        - version.object_changes&.each do |field, changes|
                           %tr
                             %td= field
                             %td= changes[0]
@@ -147,6 +147,12 @@
                             
                 %td= time_ago_in_words(version.created_at) + " ago"
 
+      - if @character.cover_image.attached?
+        .card
+          .card-image
+            = image_tag @character.cover_image.url(:small)
+            .card-title
+              Cover Image
 
 :coffeescript
   $ ->
