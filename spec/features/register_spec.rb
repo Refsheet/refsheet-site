@@ -18,10 +18,10 @@ feature 'Register', js: true do
   end
 
   def enter(values={})
-    fill_in :user_username, with: values[:username] || 'john_doe'
-    fill_in :user_email, with: values[:email] || 'john@example.com'
-    fill_in :user_password, with: values[:password] || 'fishsticks'
-    fill_in :user_password_confirmation, with: values[:password_confirmation] || 'fishsticks'
+    fill_in :register_user_username, with: values[:username] || 'john_doe'
+    fill_in :register_user_email, with: values[:email] || 'john@example.com'
+    fill_in :register_user_password, with: values[:password] || 'fishsticks'
+    fill_in :register_user_password_confirmation, with: values[:password_confirmation] || 'fishsticks'
 
     # dob = values[:dob] || 20.years.ago
     #

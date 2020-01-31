@@ -10,6 +10,7 @@
     className: React.PropTypes.string
     changeEvent: React.PropTypes.string
     resetOnSubmit: React.PropTypes.bool
+    formName: React.PropTypes.string
 
 
   getInitialState: ->
@@ -110,17 +111,17 @@
       unless React.isValidElement(child)
         return child
 
-      if child.type == Input
+      if child.type == Input or child.type.typeName == Input.typeName
         if child.props.name
           errorKey = if child.props.errorPath then child.props.errorPath + '.' + child.props.name else child.props.name
           value = @state.model[child.props.name]
           childProps =
-            key: child.props.name
             value: value
             error: @state.errors[errorKey]
             onChange: @_handleInputChange
             onSubmit: @_handleFormSubmit
             modelName: @props.modelName
+            formName: @props.formName
         else
           childProps =
             key: child.props.id

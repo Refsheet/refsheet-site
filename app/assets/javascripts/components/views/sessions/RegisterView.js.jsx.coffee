@@ -43,9 +43,11 @@
                     model={ this.state.user }
                     onChange={ this._handleChange }
                     modelName='user'
+                    formName='register'
                 >
 
                     <Input
+                        key='username'
                         name='username'
                         value={ this.state.username }
                         label='Username'
@@ -53,6 +55,7 @@
                     />
 
                     <Input
+                        key='email'
                         name='email'
                         type='email'
                         value={ this.state.email }
@@ -60,6 +63,7 @@
                     />
 
                     <Input
+                        key='password'
                         name='password'
                         value={ this.state.password }
                         type='password'
@@ -67,6 +71,7 @@
                     />
 
                     <Input
+                        key='password_confirmation'
                         name='password_confirmation'
                         value={ this.state.password_confirmation }
                         type='password'

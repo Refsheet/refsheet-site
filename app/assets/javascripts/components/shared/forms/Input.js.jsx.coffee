@@ -1,4 +1,4 @@
-@Input = v1 -> React.createClass
+@Input = v1 "Input", -> React.createClass
   propTypes:
     name: React.PropTypes.string
     id: React.PropTypes.string
@@ -17,6 +17,7 @@
     focusSelectAll: React.PropTypes.bool
     icon: React.PropTypes.string
     onSubmit: React.PropTypes.func
+    formName: React.PropTypes.string
 
     value: React.PropTypes.oneOfType([
       React.PropTypes.string
@@ -42,6 +43,7 @@
       @setState error: newProps.error
 
   componentDidMount: ->
+    console.log("Input mounted ", @props.name)
     if @props.type == 'textarea'
       Materialize.textareaAutoResize(@refs.input)
 
@@ -114,9 +116,8 @@
     console.log({inputProps: @props})
 
     # Fix bug with duplicate IDs
-    if typeof window.Input.nonce is 'undefined'
-      window.Input.nonce = 0
-    id = id + "_" + (window.Input.nonce++)
+    if @props.formName
+      id = @props.formName + "_" + id
 
     commonProps =
       id: id

@@ -40,6 +40,7 @@
                 <Form action='/session'
                       method='POST'
                       modelName='user'
+                      formName="login_full"
                       model={ this.state.user }
                       onError={ this._handleError }
                       onChange={ this._handleLogin }>

@@ -2,12 +2,25 @@
 //= require_tree ./components/views
 //= require_tree ./components
 
-function v1(cb) {
-  return function(props) {
-    var Component = cb.call(this);
-    console.debug("Component " + Component.name + " rendering from V1 context.");
-    return React.createElement(Component, props)
-  };
+function v1(name, cb) {
+  if (typeof name !== "string") {
+    cb = name
+    name = "_v1_wrapper"
+  }
+
+  var Component;
+
+  var wrapper = function(props) {
+    if (typeof Component === "undefined") {
+      Component = cb.call(this);
+      wrapper.wrapped = Component
+    }
+
+    return React.createElement(Component, props);
+  }
+
+  wrapper.typeName = name;
+  return wrapper
 }
 
 window.namespace = function(ns_path, parent) {

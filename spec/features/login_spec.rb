@@ -21,8 +21,8 @@ feature 'Log In', js: true do
   end
 
   def enter(username, password)
-    fill_in :user_username, with: username
-    fill_in :user_password, with: password
+    fill_in :login_full_user_username, with: username
+    fill_in :login_full_user_password, with: password
   end
 
   scenario 'username missing' do
