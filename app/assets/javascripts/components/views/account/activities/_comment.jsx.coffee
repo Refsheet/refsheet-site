@@ -1,4 +1,4 @@
-@Views.Account.Activities.Comment = React.createClass
+@Views.Account.Activities.Comment = v1 -> React.createClass
   propTypes:
     comments: React.PropTypes.array.isRequired
 

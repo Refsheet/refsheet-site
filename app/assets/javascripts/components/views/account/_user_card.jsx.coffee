@@ -1,4 +1,4 @@
-@Views.Account.UserCard = React.createClass
+@Views.Account.UserCard = v1 -> React.createClass
   propTypes:
     user: React.PropTypes.object.isRequired
     onFollow: React.PropTypes.func

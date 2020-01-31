@@ -1,4 +1,4 @@
-@LoginForm = React.createClass
+@LoginForm = v1 -> React.createClass
   getInitialState: ->
     user:
       username: null

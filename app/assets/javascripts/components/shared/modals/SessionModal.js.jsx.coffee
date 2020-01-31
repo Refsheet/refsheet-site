@@ -1,4 +1,4 @@
-@SessionModal = React.createClass
+@SessionModal = v1 -> React.createClass
   getInitialState: ->
     view: 'login'
 

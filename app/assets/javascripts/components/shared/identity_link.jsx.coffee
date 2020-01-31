@@ -1,4 +1,4 @@
-@IdentityLink = React.createClass
+@IdentityLink = v1 -> React.createClass
   contextTypes:
     currentUser: React.PropTypes.object
 

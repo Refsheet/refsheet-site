@@ -1,4 +1,4 @@
-@User.Characters = React.createClass
+@User.Characters = v1 -> React.createClass
   propTypes:
     groups: React.PropTypes.array.isRequired
     characters: React.PropTypes.array.isRequired

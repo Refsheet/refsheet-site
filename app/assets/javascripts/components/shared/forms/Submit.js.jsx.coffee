@@ -1,4 +1,4 @@
-@Submit = (props) ->
+@Submit = v1 -> (props) ->
   classNames = ['btn']
   classNames.push props.className
   classNames.push 'waves-effect waves-light' unless props.noWaves

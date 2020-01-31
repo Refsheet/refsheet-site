@@ -12,18 +12,29 @@
         }
       }
 
+    -# Inline critical CSS styles
+    %meta{name: 'viewport', content: 'width=device-width, initial-scale=1'}
+    %meta{'http-equiv' => 'X-Clacks-Overhead', content: 'GNU Sir Terry Pratchett'}
+    = render partial: 'critical_css'
+
+    -# Site Metadata
     = display_meta_tags site: 'Refsheet.net'
     = csrf_meta_tags
     = render 'favicon'
-    %meta{name: 'viewport', content: 'width=device-width, initial-scale=1'}
-    = javascript_pack_tag 'application'
-    = stylesheet_pack_tag 'application'
 
-    = stylesheet_link_tag 'application', media: 'all'
-    = javascript_include_tag 'application'
+    -# Defer JS Loading
+    = javascript_pack_tag 'application', id: 'jsV2', defer: true
+    = javascript_include_tag 'application', id: 'jsV1', defer: true
 
+    -# Defer CSS Loading
+    = stylesheet_pack_tag 'application', id: 'cssV2', rel: "preload", as: 'style', onload: "this.onload=null; this.rel='stylesheet'"
+    = stylesheet_link_tag 'application', id: 'cssV1', media: 'all', rel: "preload", as: 'style', onload: "this.onload=null; this.rel='stylesheet'"
+    %noscript
+      = stylesheet_pack_tag 'application'
+      = stylesheet_link_tag 'application', media: 'all'
+
+    -# Other Stuff
     -#= javascript_include_tag 'https://js.stripe.com/v2/'
-    %meta{'http-equiv' => 'X-Clacks-Overhead', content: 'GNU Sir Terry Pratchett'}
 
 
   %body{class: [yield(:body_class), params[:controller].gsub(/[^a-z]+/, ' ')].join(' ')}

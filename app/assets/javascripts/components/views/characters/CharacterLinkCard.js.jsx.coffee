@@ -1,4 +1,4 @@
-@CharacterLinkCard = (props) ->
+@CharacterLinkCard = v1 -> (props) ->
   colorData = props.colorScheme?.color_data || {}
 
   `<div className='character-link-card' style={{ backgroundColor: colorData['image-background'] || '#000000' }}>

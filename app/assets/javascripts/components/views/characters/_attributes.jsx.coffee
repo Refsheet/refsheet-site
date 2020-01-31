@@ -1,4 +1,4 @@
-@Views.Character.Attributes = React.createClass
+@Views.Character.Attributes = v1 -> React.createClass
   propTypes:
     characterPath: React.PropTypes.string.isRequired
     attributes: React.PropTypes.array.isRequired

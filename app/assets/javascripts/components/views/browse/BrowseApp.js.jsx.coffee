@@ -1,4 +1,4 @@
-@BrowseApp = React.createClass
+@BrowseApp = v1 -> React.createClass
   perPage: 16
   scrollOffset: 100
 

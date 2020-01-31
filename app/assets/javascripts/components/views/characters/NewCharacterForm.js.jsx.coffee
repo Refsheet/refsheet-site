@@ -1,4 +1,4 @@
-@NewCharacterForm = React.createClass
+@NewCharacterForm = v1 -> React.createClass
   contextTypes:
     currentUser: React.PropTypes.object.isRequired
 

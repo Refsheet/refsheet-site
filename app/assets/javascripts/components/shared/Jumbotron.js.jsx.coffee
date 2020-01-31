@@ -1,4 +1,4 @@
-@Jumbotron = (props) ->
+@Jumbotron = v1 -> (props) ->
   classNames = ['jumbotron']
   classNames.push props.className if props.className
 

@@ -1,5 +1,5 @@
 #@User.CharacterGroups.Form = React.createClass
-@UserCharacterGroupForm = React.createClass
+@UserCharacterGroupForm = v1 -> React.createClass
   propTypes:
     group: React.PropTypes.object
     onChange: React.PropTypes.func

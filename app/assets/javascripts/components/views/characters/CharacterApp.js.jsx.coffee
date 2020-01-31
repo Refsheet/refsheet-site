@@ -1,4 +1,4 @@
-Component = React.createClass
+Component = v1 -> React.createClass
   contextTypes:
     router: React.PropTypes.object.isRequired
     eagerLoad: React.PropTypes.object
@@ -256,7 +256,7 @@ Component = React.createClass
         </Section>
     </Main>`
 
-mapDispatchToProps = {
+mapDispatchToProps = -> {
   setUploadTarget: setUploadTarget,
   openUploadModal: Actions.openUploadModal
 }
@@ -264,4 +264,4 @@ mapDispatchToProps = {
 mapStateToProps = (state) ->
   state
 
-@CharacterApp = connect(mapStateToProps, mapDispatchToProps)(Component)
+@CharacterApp = v1 -> connect(mapStateToProps, mapDispatchToProps())(Component)

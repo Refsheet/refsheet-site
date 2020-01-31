@@ -1,3 +1,3 @@
-@CharacterIndexView = React.createClass
+@CharacterIndexView = v1 -> React.createClass
   render: ->
     `<div/>`

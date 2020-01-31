@@ -1,4 +1,4 @@
-@UserSettingsModal = React.createClass
+@UserSettingsModal = v1 -> React.createClass
   getInitialState: ->
     user: @props.user
 

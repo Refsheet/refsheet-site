@@ -1,4 +1,4 @@
-@Advertisement = React.createClass
+@Advertisement = v1 -> React.createClass
 
   dataPath: '/our_friends/next'
 

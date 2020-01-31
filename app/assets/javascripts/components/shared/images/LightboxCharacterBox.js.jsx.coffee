@@ -1,4 +1,4 @@
-@LightboxCharacterBox = (props) ->
+@LightboxCharacterBox = v1 -> (props) ->
   `<div className='character-box'>
       <Link to={ props.character.link } className='character-avatar'>
           <img src={ props.character.profile_image_url } />

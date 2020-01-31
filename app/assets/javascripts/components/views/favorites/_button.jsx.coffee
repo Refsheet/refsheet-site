@@ -1,4 +1,4 @@
-@FavoriteButton = React.createClass
+@FavoriteButton = v1 -> React.createClass
   contextTypes:
     currentUser: React.PropTypes.object
 

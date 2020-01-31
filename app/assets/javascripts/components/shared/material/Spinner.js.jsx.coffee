@@ -1,4 +1,4 @@
-@Spinner = (props) ->
+@Spinner = v1 -> (props) ->
   classNames = ['preloader-wrapper']
   classNames.push 'active' unless props.inactive
   classNames.push 'big' unless props.small

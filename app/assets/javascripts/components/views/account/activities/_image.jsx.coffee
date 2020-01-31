@@ -1,4 +1,4 @@
-@Views.Account.Activities.Image = React.createClass
+@Views.Account.Activities.Image = v1 -> React.createClass
   propTypes:
     images: React.PropTypes.array.isRequired
     character: React.PropTypes.object

@@ -3,7 +3,7 @@
 # @prop method [String]
 # @prop paramName [String]
 #
-@DropzoneContainer = React.createClass
+@DropzoneContainer = v1 -> React.createClass
   getInitialState: ->
     uploading: false
     uploadPercent: 0

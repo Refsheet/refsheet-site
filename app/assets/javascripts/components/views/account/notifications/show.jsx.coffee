@@ -1,7 +1,8 @@
 namespace 'Views.Account.Notifications'
 
-class @Views.Account.Notifications.Show extends React.Component
-  render: ->
-    `<Views.Account.Layout {...this.props}>
-        <Views.Account.Notifications.Feed filter={ this.props.location.query.feed } />
-    </Views.Account.Layout>`
+@Views.Account.Notifications.Show = v1 ->
+  class C extends React.Component
+    render: ->
+      `<Views.Account.Layout {...this.props}>
+          <Views.Account.Notifications.Feed filter={ this.props.location.query.feed } />
+      </Views.Account.Layout>`

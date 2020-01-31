@@ -1,4 +1,4 @@
-@LoginView = React.createClass
+@LoginView = v1 -> React.createClass
   contextTypes:
     router: React.PropTypes.object.isRequired
 

@@ -1,4 +1,4 @@
-@FixedActionButton = React.createClass
+@FixedActionButton = v1 -> React.createClass
   componentDidMount: (e) ->
     $('.fixed-action-btn').floatingActionButton()
 

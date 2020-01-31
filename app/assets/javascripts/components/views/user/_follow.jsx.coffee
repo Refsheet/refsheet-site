@@ -1,4 +1,4 @@
-@Views.User.Follow = React.createClass
+@Views.User.Follow = v1 -> React.createClass
   contextTypes:
     currentUser: React.PropTypes.object
 

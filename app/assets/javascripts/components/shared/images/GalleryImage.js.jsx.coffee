@@ -1,4 +1,4 @@
-gallery_image = React.createClass
+gallery_image = v1 -> React.createClass
   contextTypes:
     currentUser: React.PropTypes.object
     session: React.PropTypes.object
@@ -156,4 +156,4 @@ gallery_image = React.createClass
 mapStateToProps = (state) ->
   session: state.session
 
-@GalleryImage = connect(mapStateToProps)(gallery_image)
+@GalleryImage = v1 -> connect(mapStateToProps)(gallery_image)

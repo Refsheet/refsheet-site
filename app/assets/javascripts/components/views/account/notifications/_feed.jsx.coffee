@@ -1,6 +1,6 @@
 namespace 'Views.Account.Notifications'
 
-@Views.Account.Notifications.Feed = React.createClass
+@Views.Account.Notifications.Feed = v1 -> React.createClass
   contextTypes:
     currentUser: React.PropTypes.object
 

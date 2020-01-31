@@ -1,4 +1,4 @@
-@Tab = React.createClass
+@Tab = v1 -> React.createClass
   propTypes:
     id: React.PropTypes.string.isRequired
     name: React.PropTypes.string

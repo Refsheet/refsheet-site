@@ -1,4 +1,4 @@
-@Attribute = React.createClass
+@Attribute = v1 -> React.createClass
   getInitialState: ->
     edit: @props.onCommit? && @props.editorActive
 

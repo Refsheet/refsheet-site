@@ -112,7 +112,6 @@
 "@rails/actioncable@^6.0.2-1":
   version "6.0.2-1"
   resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-6.0.2-1.tgz#8b16bff4d4c91b71069fe54bab9e23f709ccf89b"
-  integrity sha512-65RcsdKcvvc6V4TvsesPmFlHO8gO3ZWnLWTNq4DhP6zW50XlyiR3DazX88EjskCXGqS/uRQ5ppsIMDc05aiTgA==
 
 "@rails/webpacker@^3.3.0":
   version "3.3.0"
@@ -9040,6 +9039,10 @@ react-emoji-render@^0.4.6:
     lodash.flatten "^4.4.0"
     prop-types "^15.5.8"
     string-replace-to-array "^1.0.1"
+
+react-ga@^2.7.0:
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/react-ga/-/react-ga-2.7.0.tgz#24328f157f31e8cffbf4de74a3396536679d8d7c"
 
 react-guard@^0.5.0:
   version "0.5.0"

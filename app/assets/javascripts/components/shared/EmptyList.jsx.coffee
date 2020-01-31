@@ -1,4 +1,4 @@
-@EmptyList = (props) ->
+@EmptyList = v1 -> (props) ->
   { coffee, caption } = props
 
   `<div className='empty-list'>

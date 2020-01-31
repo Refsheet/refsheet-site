@@ -1,4 +1,4 @@
-@Stats = React.createClass
+@Stats = v1 -> React.createClass
   propTypes:
     className: React.PropTypes.string
 
@@ -10,7 +10,7 @@
         { this.props.children }
     </ul>`
 
-@Stats.Item = React.createClass
+@Stats.Item = v1 -> React.createClass
   propTypes:
     label: React.PropTypes.string.isRequired
 

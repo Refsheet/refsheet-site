@@ -1,4 +1,4 @@
-@Static.View = React.createClass
+@Static.View = v1 -> React.createClass
   contextTypes:
     router: React.PropTypes.object.isRequired
     eagerLoad: React.PropTypes.object

@@ -1,6 +1,6 @@
 @User = {}
 
-@User.View = React.createClass
+@User.View = v1 -> React.createClass
   contextTypes:
     router: React.PropTypes.object.isRequired
     currentUser: React.PropTypes.object

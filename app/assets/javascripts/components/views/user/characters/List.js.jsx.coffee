@@ -1,4 +1,4 @@
-@User.Characters.List = React.createClass
+@User.Characters.List = v1 -> React.createClass
   propTypes:
     characters: React.PropTypes.array.isRequired
     onSort: React.PropTypes.func.isRequired

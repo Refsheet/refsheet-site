@@ -1,4 +1,4 @@
-@PageStylesheet = React.createClass
+@PageStylesheet = v1 -> React.createClass
   propTypes:
     colorData: React.PropTypes.object.isRequired
 

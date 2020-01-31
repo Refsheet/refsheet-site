@@ -1,6 +1,6 @@
 namespace 'Views.Account.Notifications'
 
-@Views.Account.Notifications.Card = React.createClass
+@Views.Account.Notifications.Card = v1 -> React.createClass
   propTypes:
     type: React.PropTypes.string.isRequired
     actionable: React.PropTypes.object

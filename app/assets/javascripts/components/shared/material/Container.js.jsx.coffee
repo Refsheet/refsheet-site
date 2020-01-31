@@ -1,4 +1,4 @@
-@Container = (props) ->
+@Container = v1 -> (props) ->
   classNames = ['container']
   classNames.push props.className if props.className
   classNames.push 'container-flex' if props.flex

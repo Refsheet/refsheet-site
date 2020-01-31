@@ -1,4 +1,4 @@
-@Forums.Threads.Modal = React.createClass
+@Forums.Threads.Modal = v1 -> React.createClass
   contextTypes:
     router: React.PropTypes.object.isRequired
 

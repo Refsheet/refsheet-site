@@ -1,4 +1,4 @@
-@Views.Account.Activities.ForumPost = React.createClass
+@Views.Account.Activities.ForumPost = v1 -> React.createClass
   propTypes:
     posts: React.PropTypes.array.isRequired
     action: React.PropTypes.string

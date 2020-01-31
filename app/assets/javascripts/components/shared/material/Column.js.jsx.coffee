@@ -1,4 +1,4 @@
-@Column = (props) ->
+@Column = v1 -> (props) ->
   classes = ['col']
   classes.push props.className
   classes.push 's12' unless props['s']

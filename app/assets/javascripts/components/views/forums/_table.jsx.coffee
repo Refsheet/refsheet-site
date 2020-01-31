@@ -1,4 +1,4 @@
-@Forums.Table = (props) ->
+@Forums.Table = v1 -> (props) ->
   { forums, title } = props
 
   forumCards = forums.map (forum) ->

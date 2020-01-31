@@ -1,4 +1,4 @@
-@User.Header = React.createClass
+@User.Header = v1 -> React.createClass
   contextTypes:
     currentUser: React.PropTypes.object
 

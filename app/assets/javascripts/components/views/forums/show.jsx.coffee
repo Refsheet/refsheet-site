@@ -1,4 +1,4 @@
-@Forums.Show = React.createClass
+@Forums.Show = v1 -> React.createClass
   contextTypes:
     eagerLoad: React.PropTypes.object
 

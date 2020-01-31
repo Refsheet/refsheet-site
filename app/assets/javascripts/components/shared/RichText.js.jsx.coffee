@@ -1,4 +1,4 @@
-@RichText = React.createClass
+@RichText = v1 -> React.createClass
   getInitialState: ->
     edit: false
     markup: @props.markup

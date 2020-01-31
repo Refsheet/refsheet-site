@@ -1,4 +1,4 @@
-@ImageApp = React.createClass
+@ImageApp = v1 -> React.createClass
   getInitialState: ->
     image: null
 

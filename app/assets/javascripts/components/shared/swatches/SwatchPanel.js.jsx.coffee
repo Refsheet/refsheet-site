@@ -1,4 +1,4 @@
-@SwatchPanel = React.createClass
+@SwatchPanel = v1 -> React.createClass
   getInitialState: ->
     swatches: @props.swatches
 

@@ -1,4 +1,4 @@
-@Views.Account.ActivityCard = React.createClass
+@Views.Account.ActivityCard = v1 -> React.createClass
   propTypes:
     activityType: React.PropTypes.string
     activityMethod: React.PropTypes.string

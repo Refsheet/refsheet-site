@@ -1,4 +1,4 @@
-@PasswordResetForm = React.createClass
+@PasswordResetForm = v1 -> React.createClass
   getInitialState: ->
     email: null
     token: null

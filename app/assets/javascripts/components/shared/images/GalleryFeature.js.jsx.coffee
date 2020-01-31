@@ -1,4 +1,4 @@
-@GalleryFeature = React.createClass
+@GalleryFeature = v1 -> React.createClass
   propTypes:
     editable: React.PropTypes.bool
     first: React.PropTypes.object

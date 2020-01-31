@@ -1,4 +1,4 @@
-@Input = React.createClass
+@Input = v1 -> React.createClass
   propTypes:
     name: React.PropTypes.string
     id: React.PropTypes.string

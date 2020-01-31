@@ -1,4 +1,4 @@
-@UserCharacterGroupTrash = React.createClass
+@UserCharacterGroupTrash = v1 -> React.createClass
   propTypes:
     onGroupDelete: React.PropTypes.func.isRequired
     onCharacterDelete: React.PropTypes.func.isRequired

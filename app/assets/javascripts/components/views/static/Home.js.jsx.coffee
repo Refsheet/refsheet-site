@@ -1,4 +1,4 @@
-Home = React.createClass
+Home = v1 -> React.createClass
   componentDidMount: ->
     $('.materialboxed').materialbox()
 
@@ -162,4 +162,4 @@ Home = React.createClass
     </Main>`
 
 mapStateToProps = (state) => currentUser: state.session.currentUser
-@Home = connect(mapStateToProps)(Home)
+@Home = v1 -> connect(mapStateToProps)(Home)

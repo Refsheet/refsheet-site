@@ -1,4 +1,4 @@
-@Main = React.createClass
+@Main = v1 -> React.createClass
   propTypes:
     style: React.PropTypes.object
     className: React.PropTypes.string

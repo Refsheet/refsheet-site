@@ -1,4 +1,4 @@
-@Row = React.createClass
+@Row = v1 -> React.createClass
   propTypes:
     hidden: React.PropTypes.bool
     oneColumn: React.PropTypes.bool

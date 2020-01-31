@@ -1,4 +1,4 @@
-@DateFormat = React.createClass
+@DateFormat = v1 -> React.createClass
   propTypes:
     timestamp: React.PropTypes.number.isRequired
     fuzzy: React.PropTypes.bool

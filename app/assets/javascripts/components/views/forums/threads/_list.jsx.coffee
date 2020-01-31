@@ -1,4 +1,4 @@
-@Forums.Threads.List = React.createClass
+@Forums.Threads.List = v1 -> React.createClass
   propTypes:
     threads: React.PropTypes.array
     activeThreadId: React.PropTypes.string

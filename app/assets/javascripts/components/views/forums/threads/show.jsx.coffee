@@ -1,4 +1,4 @@
-@Forums.Threads.Show = React.createClass
+@Forums.Threads.Show = v1 -> React.createClass
   contextTypes:
     currentUser: React.PropTypes.object
     eagerLoad: React.PropTypes.object

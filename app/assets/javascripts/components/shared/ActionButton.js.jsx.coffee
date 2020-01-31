@@ -1,4 +1,4 @@
-@ActionButton = React.createClass
+@ActionButton = v1 -> React.createClass
   componentDidUpdate: ->
     Materialize.Tooltip.init(@refs.actionButton, delay: 0, position: 'left')
 

@@ -1,4 +1,4 @@
-@Forums.Index = React.createClass
+@Forums.Index = v1 -> React.createClass
   contextTypes:
     eagerLoad: React.PropTypes.object
 

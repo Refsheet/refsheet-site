@@ -1,4 +1,4 @@
-@NagBar = React.createClass
+@NagBar = v1 -> React.createClass
   contextTypes:
     environment: React.PropTypes.string
 

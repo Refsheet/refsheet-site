@@ -37,6 +37,7 @@ export const __globals = [
   'ActivityCard',
   'Materialize',
   'Footer',
+  'Link',
 ]
 
 export { default as React } from 'react'
@@ -44,6 +45,7 @@ export { default as PropTypes } from 'prop-types'
 export { default as createReactClass } from 'create-react-class'
 export { default as ReactDOM } from 'react-dom'
 export { default as Bowser } from 'bowser'
+export { Link } from 'react-router-dom'
 export { default as qs } from 'query-string'
 export { default as createBrowserHistory } from 'history/createBrowserHistory'
 export { default as Materialize } from 'materialize-css'
@@ -58,7 +60,6 @@ export { UserUtils }
 // NOT GLOBAL
 export { default as V2Wrapper } from 'App'
 export { default as Chat } from 'Chat/ConversationTray'
-export { default as CharacterController } from 'App/Router'
 export { default as NavBar } from 'NavBar'
 export { default as DeleteUser } from 'Settings/Account/DeleteUser'
 export { default as NewLightbox } from 'Lightbox'
@@ -70,11 +71,6 @@ export { default as StatusUpdate } from 'ActivityFeed/Activities/StatusUpdate'
 export { default as ActivityCard } from 'ActivityFeed/ActivityCard'
 export { default as Footer } from 'Layout/Footer'
 ;(function() {
-  console.log('Pack loaded: Refsheet JS v2')
-  const event = new CustomEvent('jsload.pack')
-  window.dispatchEvent(event)
-})()
-;(function() {
   if (Refsheet.environment === 'production') {
     Sentry.init({
       dsn: Refsheet.sentryDsn,
@@ -84,23 +80,21 @@ export { default as Footer } from 'Layout/Footer'
   }
 })()
 
-// HOLIDAY THEME
+//== V2 Init Code
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from '../components/App'
 
-import Snowflakes from 'magic-snowflakes'
-
-try {
-  document &&
-    document.addEventListener('DOMContentLoaded', () => {
-      if (window.location.hash === '#snow') {
-        Snowflakes({
-          color: '#80cbc4',
-          minOpacity: 0.1,
-          maxOpacity: 0.6,
-          zIndex: 1,
-          target: 'body',
-        })
-      }
-    })
-} catch (e) {
-  // noop
+function init(id, props) {
+  ReactDOM.render(<App {...props} />, document.getElementById(id))
 }
+
+export { init }
+
+//== Trigger loader
+;(function() {
+  window._jsV2 = true
+  console.log('Pack loaded: Refsheet JS v2')
+  const event = new CustomEvent('jsload.pack')
+  window.dispatchEvent(event)
+})()

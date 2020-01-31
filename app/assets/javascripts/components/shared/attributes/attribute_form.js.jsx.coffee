@@ -1,4 +1,4 @@
-@AttributeForm = React.createClass
+@AttributeForm = v1 -> React.createClass
   getInitialState: ->
     name: @props.name
     value: @props.value

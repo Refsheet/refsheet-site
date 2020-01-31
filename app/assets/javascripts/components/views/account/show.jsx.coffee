@@ -1,4 +1,4 @@
-@Views.Account.Show = React.createClass
+@Views.Account.Show = v1 -> React.createClass
   contextTypes:
     currentUser: React.PropTypes.object
 

@@ -1,4 +1,4 @@
-@Button = (props) ->
+@Button = v1 -> (props) ->
   {
     children
     href

@@ -1,4 +1,4 @@
-@Views.Account.Suggestions = React.createClass
+@Views.Account.Suggestions = v1 -> React.createClass
   getInitialState: ->
     suggested: null
 

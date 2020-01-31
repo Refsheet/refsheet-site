@@ -1,4 +1,4 @@
-@CharacterComments = ->
+@CharacterComments = v1 -> ->
   `<section className='character-comments'>
       <div className='container'>
           <div className='row'>

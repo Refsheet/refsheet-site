@@ -1,4 +1,4 @@
-@Form = React.createClass
+@Form = v1 -> React.createClass
   propTypes:
     action: React.PropTypes.string.isRequired
     method: React.PropTypes.string

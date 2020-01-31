@@ -1,4 +1,4 @@
-@AttributeTable = React.createClass
+@AttributeTable = v1 -> React.createClass
   getInitialState: ->
     activeEditor: @props.activeEditor
     appendMode: false

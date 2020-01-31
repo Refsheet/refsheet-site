@@ -1,4 +1,4 @@
-@CharacterTransferModal = React.createClass
+@CharacterTransferModal = v1 -> React.createClass
   propTypes:
     character: React.PropTypes.object.isRequired
 

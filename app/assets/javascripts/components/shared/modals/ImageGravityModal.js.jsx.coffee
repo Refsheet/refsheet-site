@@ -1,4 +1,4 @@
-@ImageGravityModal = React.createClass
+@ImageGravityModal = v1 -> React.createClass
   getInitialState: ->
     gravity: @props.image.gravity || 'center'
     loading: false

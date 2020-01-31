@@ -1,6 +1,6 @@
 @Comments = {}
 
-@Comments.Index = React.createClass
+@Comments.Index = v1 -> React.createClass
   contextTypes:
     currentUser: React.PropTypes.object
 

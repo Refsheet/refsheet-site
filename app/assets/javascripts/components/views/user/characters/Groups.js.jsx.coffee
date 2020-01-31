@@ -1,4 +1,4 @@
-@User.Characters.Groups = React.createClass
+@User.Characters.Groups = v1 -> React.createClass
   propTypes:
     userLink: React.PropTypes.string.isRequired
     groups: React.PropTypes.array.isRequired

@@ -1,4 +1,4 @@
-@CharacterSettingsModal = React.createClass
+@CharacterSettingsModal = v1 -> React.createClass
   propTypes:
     character: React.PropTypes.object.isRequired
 

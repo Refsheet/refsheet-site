@@ -1,4 +1,4 @@
-@InfiniteScroll = React.createClass
+@InfiniteScroll = v1 -> React.createClass
   propTypes:
     onLoad: React.PropTypes.func.isRequired
     params: React.PropTypes.object.isRequired

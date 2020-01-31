@@ -1,4 +1,4 @@
-@NotFound = ->
+@NotFound = v1 -> ->
   `<main className='modal-page-content'>
       <div className='container'>
           <h1>404 - Not Found</h1>

@@ -1,4 +1,4 @@
-@NavLink = React.createClass
+@NavLink = v1 -> React.createClass
   contextTypes:
     router: React.PropTypes.object
 

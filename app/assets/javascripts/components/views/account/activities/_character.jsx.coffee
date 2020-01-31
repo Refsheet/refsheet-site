@@ -1,4 +1,4 @@
-@Views.Account.Activities.Character = React.createClass
+@Views.Account.Activities.Character = v1 -> React.createClass
   propTypes:
     characters: React.PropTypes.array.isRequired
     username: React.PropTypes.string.isRequired

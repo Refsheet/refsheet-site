@@ -1,4 +1,4 @@
-@Forums.Card = (props) ->
+@Forums.Card = v1 -> (props) ->
   { icon, name, description, threadCount, locked, nsfw, noRp, path, unreadCount } = props
 
   description ||= props.children

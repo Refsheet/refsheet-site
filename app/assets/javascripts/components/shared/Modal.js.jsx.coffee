@@ -1,4 +1,4 @@
-@Modal = React.createClass
+@Modal = v1 -> React.createClass
   componentDidMount: ->
     $modal = M.Modal.init @refs.modal,
       onCloseEnd: (args) =>

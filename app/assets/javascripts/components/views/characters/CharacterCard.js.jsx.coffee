@@ -1,4 +1,4 @@
-@CharacterCard = React.createClass
+@CharacterCard = v1 -> React.createClass
   getInitialState: ->
     character: @props.character
 

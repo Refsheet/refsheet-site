@@ -1,4 +1,4 @@
-@ImageGalleryModal = React.createClass
+@ImageGalleryModal = v1 -> React.createClass
   handleUploadClick: ->
     this.props.onUploadClick()
 

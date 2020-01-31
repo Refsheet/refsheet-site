@@ -1,4 +1,4 @@
-@CharacterNotice = React.createClass
+@CharacterNotice = v1 -> React.createClass
   contextTypes:
     currentUser: React.PropTypes.object
 

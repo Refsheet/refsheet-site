@@ -1,4 +1,4 @@
-@Forums.Threads.Reply = React.createClass
+@Forums.Threads.Reply = v1 -> React.createClass
   contextTypes:
     currentUser: React.PropTypes.object
 

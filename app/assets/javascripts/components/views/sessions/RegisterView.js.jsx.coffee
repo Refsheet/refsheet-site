@@ -1,4 +1,4 @@
-@RegisterView = React.createClass
+@RegisterView = v1 -> React.createClass
   contextTypes:
     router: React.PropTypes.object.isRequired
     setCurrentUser: React.PropTypes.func.isRequired

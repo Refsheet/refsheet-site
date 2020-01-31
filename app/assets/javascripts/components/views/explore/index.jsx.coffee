@@ -1,4 +1,4 @@
-@Explore.Index = React.createClass
+@Explore.Index = v1 -> React.createClass
   contextTypes:
     eagerLoad: React.PropTypes.object
     currentUser: React.PropTypes.object

@@ -1,4 +1,4 @@
-@UserCharacterGroupLink = React.createClass
+@UserCharacterGroupLink = v1 -> React.createClass
   propTypes: ->
     group: React.PropTypes.object.isRequired
     editable: React.PropTypes.bool

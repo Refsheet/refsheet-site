@@ -1,4 +1,4 @@
-@IdentityAvatar = React.createClass
+@IdentityAvatar = v1 -> React.createClass
   propTypes:
     src: React.PropTypes.shape
       link: React.PropTypes.string.isRequired

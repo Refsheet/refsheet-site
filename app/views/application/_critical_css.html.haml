@@ -1,0 +1,77 @@
+:sass
+  *, *:before, *:after
+    box-sizing: inherit
+
+  html
+    line-height: 1.5
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif
+    font-weight: normal
+    color: rgba(0,0,0,0.87)
+    font-size: 14px
+
+    @media only screen and (min-width: 992px)
+      font-size: 14.5px
+
+  body
+    background-color: #262626
+    color: #bdbdbd
+    margin: 0
+
+    #rootApp, #rootAppLoader
+      display: flex
+      min-height: 100vh
+      flex-direction: column
+
+      main
+        position: relative
+        flex: 1
+        background-position: center
+        background-size: cover
+        background-attachment: fixed
+
+        &.flex, &#loading-screen
+          display: flex
+          flex-direction: column
+
+      .loading-icon
+        perspective: 300px
+
+        img
+          animation: logo-flip 3s linear 0s infinite
+
+        @keyframes logo-flip
+          0%
+            transform: rotateY(0)
+            opacity: 1
+          50%
+            transform: rotateY(180deg)
+            opacity: 1
+          100%
+            transform: rotateY(360deg)
+            opacity: 1
+
+    .shaded-background
+      background-color: #26a69a
+      background: linear-gradient(-45deg, black, transparent),linear-gradient(45deg, #000303, #219187)
+      color: white
+
+    .modal-page-content
+      width: 100%
+      text-align: center
+      flex: 1
+      display: flex
+      align-items: center
+
+      h1
+        margin: 3rem 0
+        font-size: 2.5rem
+
+    .narrow-page-content, .narrow-container
+      width: 100%
+      max-width: 350px
+      margin: 0 auto
+
+    h1
+      font-weight: 200
+      line-height: 110%
+      font-size: 2em

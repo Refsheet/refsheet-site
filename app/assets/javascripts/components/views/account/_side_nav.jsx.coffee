@@ -1,4 +1,4 @@
-@Views.Account.SideNav = React.createClass
+@Views.Account.SideNav = v1 -> React.createClass
   contextTypes:
     currentUser: React.PropTypes.object.isRequired
 

@@ -1,4 +1,4 @@
-@CharacterViewSilhouette = (props) ->
+@CharacterViewSilhouette = v1 -> (props) ->
   `<Main title={ props.title || 'Loading...' }
          className='silhouette'
          style={{ display: ( props.immediate ? 'block' : 'none' ) }}

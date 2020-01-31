@@ -1,4 +1,4 @@
-@SwatchRule = (props) ->
+@SwatchRule = v1 -> (props) ->
   swatches = props.swatches.map (swatch) ->
     `<div className='swatch' key={ swatch.id } style={{ backgroundColor: swatch.color }} />`
 

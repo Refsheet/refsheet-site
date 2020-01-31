@@ -1,4 +1,4 @@
-@Lightbox = React.createClass
+@Lightbox = v1 -> React.createClass
   contextTypes:
     router: React.PropTypes.object.isRequired
     currentUser: React.PropTypes.object

@@ -1,4 +1,4 @@
-@Views.Account.Activities.ForumDiscussion = React.createClass
+@Views.Account.Activities.ForumDiscussion = v1 -> React.createClass
   propTypes:
     discussions: React.PropTypes.array.isRequired
 

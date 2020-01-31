@@ -1,4 +1,4 @@
-@PageHeader = React.createClass
+@PageHeader = v1 -> React.createClass
   componentDidMount: ->
     $(window).scroll ->
       offset = $(window).scrollTop() * 0.8

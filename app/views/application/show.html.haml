@@ -1,11 +1,4 @@
-= react_component 'Routes',
-                  gaPropertyID: ENV['GA_PROPERTY_ID'],
-                  eagerLoad: @eager_load,
-                  flash: flash.to_hash,
-                  environment: Rails.env,
-                  notice: ENV['MAINTENANCE_NOTICE'],
-                  assets: render_asset_paths
-
+#rootApp
 #rootAppLoader.shaded-background
   %main#loading-screen
     .modal-page-content
@@ -14,7 +7,9 @@
           .loading-icon
             = image_tag 'logos/RefsheetLogo_White_200.png', width: 100, height: 100, alt: 'Loading...', title: 'Loading...'
 
-          %h1 loading
+          %h1#loadstatus{style: "margin-bottom: 0"} Loading...
+          %p#loadmessage{style: "color: rgba(255,255,255,0.5)"}
+            Fetching scripts
 
           :javascript
             document.getElementById('script-on').style.display = '';
@@ -27,3 +22,62 @@
           %p.margin-top--large.red-text.text-lighten-1
             Refsheet requires Javascript to work properly. Please check your browser
             settings, and enable Javascript if it is not already turned on.
+
+:javascript
+  var loaded = {
+    jsV1: window.__jsV1,
+    jsV2: window.__jsV2,
+    cssV1: false,
+    cssV2: false
+  };
+
+  var packName = {
+    jsV1: "legacy JavaScript",
+    jsV2: "application source",
+    cssV1: "legacy stylesheet",
+    cssV2: "application styles"
+  };
+
+  function load(pack) {
+    loaded[pack] = true;
+    document.getElementById('loadmessage').innerHTML = "Loaded " + packName[pack]
+
+    if (loaded.jsV1 && loaded.jsV2 && loaded.cssV1 && loaded.cssV2) {
+      document.getElementById('loadmessage').innerHTML = "Loaded!"
+
+      if (window.exportPackGlobals && window.Packs) {
+        window.exportPackGlobals();
+      } else {
+        console.error("V1 wasn't actually loaded...")
+      }
+
+      var props = #{ ({
+        gaPropertyID: ENV['GA_PROPERTY_ID'],
+        eagerLoad: @eager_load,
+        flash: flash.to_hash,
+        environment: Rails.env,
+        notice: ENV['MAINTENANCE_NOTICE'],
+        assets: render_asset_paths
+      }.to_json).html_safe };
+
+      console.log(props)
+      Packs.application.init('rootApp', props);
+    }
+  }
+
+  document.getElementById('cssV1').addEventListener('load', function() {
+    load('cssV1');
+  });
+
+  document.getElementById('cssV2').addEventListener('load', function() {
+    load('cssV2');
+  });
+
+  window.addEventListener('jsload.pack', function() {
+    load('jsV2');
+  });
+
+  window.addEventListener('jsload.sprockets', function() {
+    load('jsV1');
+  });
+
