@@ -7,7 +7,6 @@ function v1(componentName) {
     let component = window
 
     path.map(entry => {
-      console.log({ component, entry, resolved: component[entry] })
       component = component && component[entry]
     })
 
@@ -17,7 +16,7 @@ function v1(componentName) {
         '(See Shared/V1.js for details and re-exports.)'
     )
 
-    console.log('Resolved ' + componentName + ' to ', component)
+    console.debug('Resolved ' + componentName + ' to ', component)
 
     if (component) {
       return React.createElement(component, props)

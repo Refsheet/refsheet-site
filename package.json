@@ -47,7 +47,7 @@
     "react-ga": "^2.7.0",
     "react-guard": "^0.5.0",
     "react-i18next": "^8.4.0",
-    "react-justified-layout": "^0.1.0",
+    "react-justified-layout": "https://github.com/eiwi1101/react-justified-layout#fix-aspect-ratio",
     "react-load-image": "^0.1.7",
     "react-materialize": "^3.5.9",
     "react-mde": "^8.0.1",
@@ -106,6 +106,7 @@
     "config-lint": "./node_modules/yaml-lint/bin/yamllint --verbose .kubernetes/*.{yml,yaml} config/*.{yml,yaml} .ebextensions/*.config --ignore config/database.yml",
     "prettier": "prettier --write \"app/javascript/**/*.js\" \"spec/javascript/**/*.js\"",
     "prettier-check": "prettier --check \"app/javascript/**/*.js\" \"spec/javascript/**/*.js\"",
-    "eslint": "eslint ./app/javascript/ ./spec/javascript/ --ext .js --ext .gql --ext .graphql"
+    "eslint": "eslint ./app/javascript/ ./spec/javascript/ --ext .js --ext .gql --ext .graphql",
+    "postinstall": "cd ./node_modules/react-justified-layout && npm install && npm run dist"
   }
 }

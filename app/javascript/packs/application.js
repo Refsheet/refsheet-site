@@ -7,8 +7,6 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
-import 'whatwg-fetch'
-import * as Sentry from '@sentry/browser'
 import * as ReactRouter from 'react-router-dom'
 import * as UserUtils from 'utils/UserUtils'
 import { setCurrentUser, setUploadTarget } from 'actions'
@@ -52,7 +50,6 @@ export { default as createBrowserHistory } from 'history/createBrowserHistory'
 export { default as Materialize } from 'materialize-css'
 export { connect } from 'react-redux'
 export { ReactRouter }
-export { Sentry }
 export { setCurrentUser }
 export { setUploadTarget }
 export { Actions }
@@ -72,33 +69,34 @@ export { default as LegacyForumReply } from 'Forums/LegacyForumReply'
 export { default as StatusUpdate } from 'ActivityFeed/Activities/StatusUpdate'
 export { default as ActivityCard } from 'ActivityFeed/ActivityCard'
 export { default as Footer } from 'Layout/Footer'
-;(function() {
-  if (Refsheet.environment === 'production') {
-    Sentry.init({
-      dsn: Refsheet.sentryDsn,
-      release: Refsheet.version,
-      stage: Refsheet.environment,
-    })
-  }
-})()
 
 //== V2 Init Code
+
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from '../components/App'
+import * as Sentry from '@sentry/browser'
+import './index.sass'
 
-function init(id, props) {
+// Polyfills
+import 'whatwg-fetch'
+
+function initSentry(refsheet) {
+  if (refsheet.environment === 'production') {
+    Sentry.init({
+      dsn: refsheet.sentryDsn,
+      release: refsheet.version,
+      stage: refsheet.environment,
+    })
+  }
+}
+
+function init(id, props, refsheet) {
+  initSentry(refsheet)
   ReactDOM.render(<App {...props} />, document.getElementById(id))
 }
 
 export {
-  init,
-
-  //== Trigger loader
+  Sentry,
+  init
 }
-;(function() {
-  window._jsV2 = true
-  console.log('Pack loaded: Refsheet JS v2')
-  const event = new CustomEvent('jsload.pack')
-  window.dispatchEvent(event)
-})()

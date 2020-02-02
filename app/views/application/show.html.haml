@@ -24,60 +24,67 @@
             settings, and enable Javascript if it is not already turned on.
 
 :javascript
-  var loaded = {
-    jsV1: window.__jsV1,
-    jsV2: window.__jsV2,
-    cssV1: false,
-    cssV2: false
-  };
+  (function() {
+    var cssTest = getComputedStyle(document.getElementById('rsVersion'))
 
-  var packName = {
-    jsV1: "legacy JavaScript",
-    jsV2: "application source",
-    cssV1: "legacy stylesheet",
-    cssV2: "application styles"
-  };
+    var loaded = {
+      jsV1: (typeof exportPackGlobals !== 'undefined'),
+      jsV2: !!(typeof Packs !== 'undefined' && Packs.application),
+      cssV1: cssTest.paddingLeft === '1px',
+      cssV2: cssTest.paddingRight === '1px'
+    };
 
-  function load(pack) {
-    loaded[pack] = true;
-    document.getElementById('loadmessage').innerHTML = "Loaded " + packName[pack]
+    var packName = {
+      jsV1: "legacy JavaScript",
+      jsV2: "application source",
+      cssV1: "legacy stylesheet",
+      cssV2: "application styles"
+    };
 
-    if (loaded.jsV1 && loaded.jsV2 && loaded.cssV1 && loaded.cssV2) {
-      document.getElementById('loadmessage').innerHTML = "Loaded!"
+    var props = #{ ({
+      gaPropertyID: ENV['GA_PROPERTY_ID'],
+      eagerLoad: @eager_load,
+      flash: flash.to_hash,
+      environment: Rails.env,
+      notice: ENV['MAINTENANCE_NOTICE'],
+      assets: render_asset_paths
+    }.to_json).html_safe };
 
-      if (window.exportPackGlobals && window.Packs) {
-        window.exportPackGlobals();
-      } else {
-        console.error("V1 wasn't actually loaded...")
+    function load(pack) {
+      if (pack) {
+        loaded[pack] = true;
+        document.getElementById('loadmessage').innerHTML = "Loaded " + packName[pack]
       }
 
-      var props = #{ ({
-        gaPropertyID: ENV['GA_PROPERTY_ID'],
-        eagerLoad: @eager_load,
-        flash: flash.to_hash,
-        environment: Rails.env,
-        notice: ENV['MAINTENANCE_NOTICE'],
-        assets: render_asset_paths
-      }.to_json).html_safe };
+      if (loaded.jsV1 && loaded.jsV2 && loaded.cssV1 && loaded.cssV2) {
+        document.getElementById('loadmessage').innerHTML = "Loaded!"
 
-      console.log(props)
-      Packs.application.init('appContainer', props);
+        if (window.exportPackGlobals && window.Packs && window.Packs.application) {
+          window.exportPackGlobals();
+        } else {
+          console.error("V1 wasn't actually loaded...")
+        }
+
+        Packs.application.init('appContainer', props, Refsheet);
+      }
     }
-  }
 
-  document.getElementById('cssV1').addEventListener('load', function() {
-    load('cssV1');
-  });
+    document.getElementById('cssV1').addEventListener('load', function() {
+      load('cssV1');
+    });
 
-  document.getElementById('cssV2').addEventListener('load', function() {
-    load('cssV2');
-  });
+    document.getElementById('cssV2').addEventListener('load', function() {
+      load('cssV2');
+    });
 
-  window.addEventListener('jsload.pack', function() {
-    load('jsV2');
-  });
+    document.getElementById('jsV2').addEventListener('load', function() {
+      load('jsV2');
+    });
 
-  window.addEventListener('jsload.sprockets', function() {
-    load('jsV1');
-  });
+    document.getElementById('jsV1').addEventListener('load', function() {
+      load('jsV1');
+    });
 
+    // Check for already loaded items:
+    load();
+  })();

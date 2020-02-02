@@ -8,7 +8,7 @@ const sass = require('./loaders/sass')
 
 let output = {
   library: ['Packs', 'application'],
-  libraryTarget: 'var'
+  libraryTarget: 'this'
 }
 
 environment.config.merge({output})
@@ -23,7 +23,7 @@ environment.loaders.append('sass', sass)
 const babelLoader = environment.loaders.get('babel')
 babelLoader.test = /\.(coffee|js|jsx)(\.erb)?$/
 babelLoader.exclude = [
-    /node_modules\/(?!superagent|query-string|strict-uri-encode)/
+    /node_modules\/(?!superagent|query-string|strict-uri-encode|react-justified-layout)/
 ]
 
 module.exports = environment

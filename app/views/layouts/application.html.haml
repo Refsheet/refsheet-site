@@ -23,12 +23,12 @@
     = render 'favicon'
 
     -# Defer JS Loading
-    = javascript_pack_tag 'application', id: 'jsV2', defer: true
-    = javascript_include_tag 'application', id: 'jsV1', defer: true
+    = javascript_pack_tag 'application', id: 'jsV2', defer: !Rails.env.test?, async: !Rails.env.test?
+    = javascript_include_tag 'application', id: 'jsV1', defer: !Rails.env.test?, async: !Rails.env.test?
 
     -# Defer CSS Loading
     = stylesheet_pack_tag 'application', id: 'cssV2', rel: "preload", as: 'style', onload: "this.onload=null; this.rel='stylesheet'"
-    = stylesheet_link_tag 'application', id: 'cssV1', media: 'all', rel: "preload", as: 'style', onload: "this.onload=null; this.rel='stylesheet'"
+    = stylesheet_link_tag 'application', id: 'cssV1', rel: "preload", as: 'style', media: 'all', onload: "this.onload=null; this.rel='stylesheet'"
     %link{href: font_path('font-awesome/fa-brands-400.woff2'), rel: "preload", as: 'font', crossorigin: true, type: "font/woff2"}/
     %link{href: font_path('font-awesome/fa-solid-900.woff2'), rel: "preload", as: 'font', crossorigin: true, type: "font/woff2"}/
     %noscript
@@ -40,5 +40,5 @@
 
 
   %body{class: [yield(:body_class), params[:controller].gsub(/[^a-z]+/, ' ')].join(' ')}
+    #rsVersion.version{style: 'display: none;'}= Refsheet::VERSION
     = render 'body'
-    .version{style: 'display: none;'}= Refsheet::VERSION

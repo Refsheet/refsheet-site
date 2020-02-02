@@ -43,7 +43,6 @@
       @setState error: newProps.error
 
   componentDidMount: ->
-    console.log("Input mounted ", @props.name)
     if @props.type == 'textarea'
       Materialize.textareaAutoResize(@refs.input)
 
@@ -112,8 +111,6 @@
       id = "#{@props.modelName}_#{@props.name}"
     else
       id = @props.name
-
-    console.log({inputProps: @props})
 
     # Fix bug with duplicate IDs
     if @props.formName
