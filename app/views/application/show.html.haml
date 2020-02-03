@@ -30,6 +30,7 @@
     var loaded = {
       jsV1: (typeof exportPackGlobals !== 'undefined'),
       jsV2: !!(typeof Packs !== 'undefined' && Packs.application),
+      jsV2v: false,
       cssV1: cssTest.paddingLeft === '1px',
       cssV2: cssTest.paddingRight === '1px'
     };
@@ -37,6 +38,7 @@
     var packName = {
       jsV1: "legacy JavaScript",
       jsV2: "application source",
+      jsV2v: "application framework",
       cssV1: "legacy stylesheet",
       cssV2: "application styles"
     };
@@ -54,9 +56,10 @@
       if (pack) {
         loaded[pack] = true;
         document.getElementById('loadmessage').innerHTML = "Loaded " + packName[pack]
+        console.log("Lodaded " + packName[pack])
       }
 
-      if (loaded.jsV1 && loaded.jsV2 && loaded.cssV1 && loaded.cssV2) {
+      if (loaded.jsV1 && loaded.jsV2 && loaded.cssV1 && loaded.cssV2 && loaded.jsV2v) {
         document.getElementById('loadmessage').innerHTML = "Loaded!"
 
         if (window.exportPackGlobals && window.Packs && window.Packs.application) {
@@ -83,6 +86,10 @@
 
     document.getElementById('jsV1').addEventListener('load', function() {
       load('jsV1');
+    });
+
+    document.getElementById('jsV2v').addEventListener('load', function() {
+      load('jsV2v');
     });
 
     // Check for already loaded items:

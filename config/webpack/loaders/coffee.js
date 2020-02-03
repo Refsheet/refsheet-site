@@ -1,6 +1,11 @@
 module.exports = {
   test: /\.coffee(\.erb)?$/,
-  use: [{
-    loader: 'coffee-loader'
-  }]
+  use: [
+    {
+      loader: 'babel-loader',
+    },
+    {
+      loader: 'coffee-loader',
+    },
+  ],
 }

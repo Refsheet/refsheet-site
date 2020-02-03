@@ -1,4 +1,4 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
   test: /\.(css|sass|scss)$/i,
@@ -13,10 +13,10 @@ module.exports = {
           includePaths: [
             'app/javascript/sass',
             'app/assets/stylesheets',
-            'app/assets'
-          ]
-        }
-      }
+            'app/assets',
+          ],
+        },
+      },
     },
   ],
 }
