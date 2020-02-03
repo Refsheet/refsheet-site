@@ -30,7 +30,7 @@
     var loaded = {
       jsV1: (typeof exportPackGlobals !== 'undefined'),
       jsV2: !!(typeof Packs !== 'undefined' && Packs.application),
-      jsV2v: false,
+      jsV2v: !document.getElementById('jsV2v'),
       cssV1: cssTest.paddingLeft === '1px',
       cssV2: cssTest.paddingRight === '1px'
     };
@@ -72,26 +72,19 @@
       }
     }
 
-    document.getElementById('cssV1').addEventListener('load', function() {
-      load('cssV1');
-    });
+    function listen(pack) {
+      var wrapper = document.getElementById(pack);
+      if (wrapper) {
+        wrapper.addEventListener('load', function() {
+          load(pack);
+        });
+      }
+    }
 
-    document.getElementById('cssV2').addEventListener('load', function() {
-      load('cssV2');
-    });
-
-    document.getElementById('jsV2').addEventListener('load', function() {
-      load('jsV2');
-    });
-
-    document.getElementById('jsV1').addEventListener('load', function() {
-      load('jsV1');
-    });
-
-    document.getElementById('jsV2v').addEventListener('load', function() {
-      load('jsV2v');
-    });
-
-    // Check for already loaded items:
+    listen('jsV1');
+    listen('jsV2');
+    listen('jsV2v');
+    listen('cssV1');
+    listen('cssV2');
     load();
   })();

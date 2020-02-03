@@ -23,7 +23,7 @@
     = render 'favicon'
 
     -# Defer JS Loading
-    = javascript_pack_tag 'vendor', id: 'jsV2v', defer: !Rails.env.test?, async: !Rails.env.test?
+    -# = javascript_pack_tag 'vendor', id: 'jsV2v', defer: !Rails.env.test?, async: !Rails.env.test?
     = javascript_pack_tag 'application', id: 'jsV2', defer: !Rails.env.test?, async: !Rails.env.test?
     = javascript_include_tag 'application', id: 'jsV1', defer: !Rails.env.test?, async: !Rails.env.test?
 

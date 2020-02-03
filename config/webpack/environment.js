@@ -13,30 +13,30 @@ let output = {
 }
 
 const optimization = {
-  splitChunks: {
-    // automaticNameDelimiter: '~',
-    // automaticNameMaxLength: 30,
-    // chunks: 'async',
-    // maxAsyncRequests: 6,
-    // maxInitialRequests: 4,
-    // maxSize: 0,
-    // minChunks: 1,
-    // minSize: 30000,
-
-    cacheGroups: {
-      defaultVendors: {
-        test: /[\\/]node_modules[\\/]/,
-        name: 'vendor',
-        enforce: true,
-        chunks: 'all',
-      },
-      default: {
-        minChunks: 2,
-        priority: -20,
-        reuseExistingChunk: true,
-      },
-    },
-  },
+  // splitChunks: {
+  //   // automaticNameDelimiter: '~',
+  //   // automaticNameMaxLength: 30,
+  //   // chunks: 'async',
+  //   // maxAsyncRequests: 6,
+  //   // maxInitialRequests: 4,
+  //   // maxSize: 0,
+  //   // minChunks: 1,
+  //   // minSize: 30000,
+  //
+  //   cacheGroups: {
+  //     defaultVendors: {
+  //       test: /[\\/]node_modules[\\/]/,
+  //       name: 'vendor',
+  //       enforce: true,
+  //       chunks: 'all',
+  //     },
+  //     default: {
+  //       minChunks: 2,
+  //       priority: -20,
+  //       reuseExistingChunk: true,
+  //     },
+  //   },
+  // },
 }
 
 const plugins = [new MiniCssExtractPlugin()]

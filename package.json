@@ -106,6 +106,7 @@
     "react-test-renderer": "^16.2.0",
     "rosie": "^1.6.0",
     "sinon": "^4.4.8",
+    "webpack-bundle-analyzer": "^3.6.0",
     "webpack-cli": "^2.0.11",
     "webpack-dev-server": "^3.10.2",
     "yaml-lint": "https://github.com/eiwi1101/yaml-lint"
@@ -116,6 +117,8 @@
     "prettier": "prettier --write \"app/javascript/**/*.js\" \"spec/javascript/**/*.js\" \"config/webpack/**/*.js\" ./*.js",
     "prettier-check": "prettier --check \"app/javascript/**/*.js\" \"spec/javascript/**/*.js\" \"config/webpack/**/*.js\" ./*.js",
     "eslint": "eslint ./app/javascript/ ./spec/javascript/ --ext .js --ext .gql --ext .graphql",
-    "postinstall": "cd ./node_modules/react-justified-layout && NODE_ENV=development npm install && NODE_ENV=development npm run dist"
+    "postinstall": "cd ./node_modules/react-justified-layout && NODE_ENV=development npm install && NODE_ENV=development npm run dist",
+    "bundle-profile": "bin/webpack --profile --json",
+    "bundle-analyze": "webpack-bundle-analyzer -m static -r public/webpack.html profile.json public/packs"
   }
 }
