@@ -76,7 +76,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import App from '../components/App'
 import * as Sentry from '@sentry/browser'
-import './index.sass'
+import '../sass/index.sass'
 
 // Polyfills
 import 'whatwg-fetch'
@@ -96,7 +96,8 @@ function init(id, props, refsheet) {
   ReactDOM.render(<App {...props} />, document.getElementById(id))
 }
 
-export {
-  Sentry,
-  init
-}
+export { Sentry, init }
+
+if (1 == 1)
+  // Force render
+  console.log('did')

@@ -1,13 +1,14 @@
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   test: /\.(css|sass|scss)$/i,
-  loader: ExtractTextPlugin.extract({
-    use: [
-      'css-loader',
-      {
-        loader: 'sass-loader',
-        options: {
+  use: [
+    MiniCssExtractPlugin.loader,
+    'css-loader',
+    {
+      loader: 'sass-loader',
+      options: {
+        sassOptions: {
           sourceMap: true,
           includePaths: [
             'app/javascript/sass',
@@ -15,8 +16,7 @@ module.exports = {
             'app/assets'
           ]
         }
-      },
-    ],
-    fallback: 'style-loader'
-  })
+      }
+    },
+  ],
 }

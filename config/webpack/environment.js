@@ -3,6 +3,7 @@ const coffee = require('./loaders/coffee')
 const erb = require('./loaders/erb')
 const graphql = require('./loaders/graphql')
 const sass = require('./loaders/sass')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 // Export Defaults
 
@@ -11,7 +12,36 @@ let output = {
   libraryTarget: 'this'
 }
 
-environment.config.merge({output})
+const optimization = {
+  splitChunks: {
+    automaticNameDelimiter: '~',
+    automaticNameMaxLength: 30,
+    chunks: 'async',
+    maxAsyncRequests: 6,
+    maxInitialRequests: 4,
+    maxSize: 0,
+    minChunks: 1,
+    minSize: 30000,
+
+    cacheGroups: {
+      defaultVendors: {
+        test: /[\\/]node_modules[\\/]/,
+        priority: -10
+      },
+      default: {
+        minChunks: 2,
+        priority: -20,
+        reuseExistingChunk: true
+      }
+    }
+  }
+}
+
+const plugins = [
+  new MiniCssExtractPlugin()
+]
+
+environment.config.merge({output, optimization, plugins})
 
 // Drink Coffee
 
