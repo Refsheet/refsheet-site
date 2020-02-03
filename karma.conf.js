@@ -11,6 +11,9 @@ webpackConfig.externals = {
   'react-addons-test-utils': 'react-dom',
 }
 
+// Code splitting breaks Karma for some raisin.
+delete webpackConfig.optimization
+
 module.exports = function(config) {
   config.set({
     basePath: '',
