@@ -352,6 +352,7 @@ type Mutation {
     convertCharacter(id: ID!): Character
     createActivity(character_id: ID, comment: String): Activity
     createApiKey(name: String, read_only: Boolean): ApiKey
+    createDiscussion(content: String!, forumId: String!, locked: Boolean, topic: String!): ForumDiscussion
     createForum: Forum
     createProfileSection(characterId: ID!, createAfterSectionId: ID): ProfileSection
     createProfileWidget(characterId: ID!, columnId: ID!, sectionId: ID!, type: String!): Widget

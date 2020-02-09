@@ -80,7 +80,8 @@ class DiscussionReplyForm extends Component {
     })
 
     if (this.props.refetch) this.props.refetch()
-    if (this.props.onSubmit) this.props.onSubmit(postReply || editReply || createDiscussion)
+    if (this.props.onSubmit)
+      this.props.onSubmit(postReply || editReply || createDiscussion)
   }
 
   render() {
