@@ -6,7 +6,7 @@
 
 ## New Bugs
 
-- Image description editor doesn't actually change anything
+- V2 richtext entry doesn't work due to changed interface to that component
 - Possible bug in registration form conflicting with login form
 
 ## Bug Fixes
@@ -25,6 +25,7 @@
 ## WIPs
 
 - V2 profile work continues, now with Settings, Delete and Transfer forms
+- V2 forum work continues, with a "create discussion" view working
 
 ## Framework
 
