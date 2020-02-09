@@ -32,8 +32,7 @@ function wrapMutation(fn) {
                 data.errorStrings.push(err.msg)
                 if (err.extensions && err.extensions.validation) {
                   Object.keys(err.extensions.validation).map(k => {
-                    if (!data.validationErrors[k])
-                      data.validationErrors[k] = []
+                    if (!data.validationErrors[k]) data.validationErrors[k] = []
                     data.validationErrors[k] = [
                       ...data.validationErrors[k],
                       ...err.extensions.validation[k],
@@ -57,7 +56,10 @@ function wrapMutation(fn) {
               )
               data.errors.map(e =>
                 M.toast({
-                  html: e.message.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'})[c]),
+                  html: e.message.replace(
+                    /[&<>]/g,
+                    c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c])
+                  ),
                   classes: 'red',
                   displayLength: 6000,
                 })
@@ -81,13 +83,12 @@ function wrapMutation(fn) {
 function withMutations(mutations) {
   const mutationNames = Object.keys(mutations)
 
-  const getDisplayName = (Component) => (
+  const getDisplayName = Component =>
     Component.displayName || Component.name || 'Component'
-  )
 
   return Component => {
     let Result = props => <Component {...props} />
-    Result.displayName = "withMutation(" + getDisplayName(Component) + ")"
+    Result.displayName = 'withMutation(' + getDisplayName(Component) + ')'
 
     mutationNames.map(mutationName => {
       const mutation = mutations[mutationName]
@@ -104,7 +105,7 @@ function withMutations(mutations) {
         </Mutation>
       )
 
-      Result.displayName = mutationName + "(" + getDisplayName(Component) + ")"
+      Result.displayName = mutationName + '(' + getDisplayName(Component) + ')'
     })
 
     return Result

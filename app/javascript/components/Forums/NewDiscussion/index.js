@@ -7,8 +7,8 @@ import { Row, Col, TextInput, Checkbox } from 'react-materialize'
 import DiscussionReplyForm from '../Discussion/DiscussionReplyForm'
 import FormUtils from 'utils/FormUtils'
 import LinkUtils from 'utils/LinkUtils'
-import {withRouter} from "react-router";
-import Restrict from "../../Shared/Restrict";
+import { withRouter } from 'react-router'
+import Restrict from '../../Shared/Restrict'
 
 class NewDiscussion extends Component {
   constructor(props) {
@@ -26,7 +26,7 @@ class NewDiscussion extends Component {
     this.handleInputChange = FormUtils.handleInputChange('post').bind(this)
   }
 
-  handleSubmit({ slug: discussionId, forum: { slug: forumId }}) {
+  handleSubmit({ slug: discussionId, forum: { slug: forumId } }) {
     const { history } = this.props
     const path = LinkUtils.forumDiscussionPath({ discussionId, forumId })
     history.push(path)
