@@ -1,0 +1,15 @@
+mutation createDiscussion($forumId: String!, $topic: String!, $content: String!, $locked: Boolean!) {
+    createDiscussion(forumId: $forumId, topic: $topic, content: $content, locked: $locked) {
+        #...ForumDiscussionFields
+        id
+        topic
+        slug
+        locked
+
+        forum {
+            id
+            slug
+            name
+        }
+    }
+}

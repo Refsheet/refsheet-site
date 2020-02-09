@@ -7,6 +7,7 @@ import CommentForm from '../../Shared/CommentForm'
 import { Row, Col } from 'react-materialize'
 import postReply from './postReply.graphql'
 import editReply from './editReply.graphql'
+import createDiscussion from '../NewDiscussion/createDiscussion.graphql'
 import Muted from '../../Styled/Muted'
 
 class DiscussionReplyForm extends Component {
@@ -31,10 +32,13 @@ class DiscussionReplyForm extends Component {
       postReply,
       editReply,
       newDiscussion,
+      createDiscussion,
+      forum,
     } = this.props
 
     if (edit) {
       return editReply({
+        wrapped: true,
         variables: {
           postId: post.id,
           userId: identity.userId,
@@ -44,10 +48,19 @@ class DiscussionReplyForm extends Component {
     }
 
     if (newDiscussion) {
-      return null
+      return createDiscussion({
+        wrapped: true,
+        variables: {
+          forumId: forum.slug,
+          locked: post.locked,
+          topic: post.topic,
+          content: content,
+        },
+      })
     }
 
     return postReply({
+      wrapped: true,
       variables: {
         discussionId: discussion.id,
         userId: identity.userId,
@@ -57,7 +70,7 @@ class DiscussionReplyForm extends Component {
     })
   }
 
-  handleSubmitConfirm({ postReply, editReply }) {
+  handleSubmitConfirm({ postReply, editReply, createDiscussion }) {
     const { edit } = this.props
 
     M.toast({
@@ -67,7 +80,7 @@ class DiscussionReplyForm extends Component {
     })
 
     if (this.props.refetch) this.props.refetch()
-    if (this.props.onSubmit) this.props.onSubmit(postReply || editReply)
+    if (this.props.onSubmit) this.props.onSubmit(postReply || editReply || createDiscussion)
   }
 
   render() {
@@ -79,7 +92,6 @@ class DiscussionReplyForm extends Component {
       onCancel,
       children,
     } = this.props
-    console.log({ edit, post })
 
     if (!this.canReply(currentUser)) {
       return null
@@ -132,9 +144,10 @@ DiscussionReplyForm.propTypes = {
   forum: PropTypes.object,
   inCharacter: PropTypes.bool,
   refetch: PropTypes.func,
+  onSubmit: PropTypes.func.isRequired,
 }
 
 export default compose(
   withCurrentUser(),
-  withMutations({ postReply, editReply })
+  withMutations({ postReply, editReply, createDiscussion })
 )(DiscussionReplyForm)
