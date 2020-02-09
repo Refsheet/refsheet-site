@@ -5,12 +5,31 @@ import { withCurrentUser } from '../../../utils/compose'
 import { withNamespaces } from 'react-i18next'
 import { Row, Col, TextInput, Checkbox } from 'react-materialize'
 import DiscussionReplyForm from '../Discussion/DiscussionReplyForm'
+import FormUtils from 'utils/FormUtils'
+import LinkUtils from 'utils/LinkUtils'
+import {withRouter} from "react-router";
+import Restrict from "../../Shared/Restrict";
 
 class NewDiscussion extends Component {
   constructor(props) {
     super(props)
 
-    this.state = { post: {} }
+    this.state = {
+      post: {
+        topic: '',
+        nsfw: false,
+        hidden: false,
+        locked: false,
+      },
+    }
+
+    this.handleInputChange = FormUtils.handleInputChange('post').bind(this)
+  }
+
+  handleSubmit({ slug: discussionId, forum: { slug: forumId }}) {
+    const { history } = this.props
+    const path = LinkUtils.forumDiscussionPath({ discussionId, forumId })
+    history.push(path)
   }
 
   render() {
@@ -19,21 +38,44 @@ class NewDiscussion extends Component {
     return (
       <div className={'container container-flex'}>
         <main className={'content-left padding-bottom--large'}>
-          <DiscussionReplyForm forum={forum} newDiscussion>
+          <DiscussionReplyForm
+            forum={forum}
+            newDiscussion
+            post={this.state.post}
+            onSubmit={this.handleSubmit.bind(this)}
+          >
             <div className={'card-header'}>
               <Row className={'no-margin'}>
                 <TextInput
-                  id={'discussion_title'}
+                  id={'discussion_topic'}
                   s={12}
                   m={6}
-                  placeholder={'Discussion Title'}
+                  key={'discussion_topic'}
+                  placeholder={'Discussion Topic'}
+                  value={this.state.post.topic}
                   inputClassName={'outlined'}
+                  name={'topic'}
+                  onChange={this.handleInputChange}
                 />
                 <Col s={6} m={3} className={'right-align checkbox-full-height'}>
-                  <Checkbox id={'nsfw'} value={'nsfw'} label={'NSFW'} />
+                  {/*<Checkbox*/}
+                  {/*  id={'nsfw'}*/}
+                  {/*  value={'nsfw'}*/}
+                  {/*  label={'NSFW'}*/}
+                  {/*  checked={this.state.post.nsfw}*/}
+                  {/*  onChange={this.handleInputChange}*/}
+                  {/*/>*/}
                 </Col>
                 <Col s={6} m={3} className={'right-align checkbox-full-height'}>
-                  <Checkbox id={'locked'} value={'locked'} label={'Locked'} />
+                  <Restrict admin>
+                    <Checkbox
+                      id={'locked'}
+                      value={'locked'}
+                      label={'Locked'}
+                      checked={this.state.post.locked}
+                      onChange={this.handleInputChange}
+                    />
+                  </Restrict>
                 </Col>
               </Row>
             </div>
@@ -54,5 +96,6 @@ NewDiscussion.propTypes = {
 
 export default compose(
   withNamespaces('common'),
-  withCurrentUser()
+  withCurrentUser(),
+  withRouter
 )(NewDiscussion)
