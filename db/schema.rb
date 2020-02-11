@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_28_094903) do
+ActiveRecord::Schema.define(version: 2020_02_11_043140) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -529,6 +529,14 @@ ActiveRecord::Schema.define(version: 2020_01_28_094903) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "system_owned", default: false
+    t.text "rules"
+    t.text "prepost_message"
+    t.integer "owner_id"
+    t.integer "fandom_id"
+    t.boolean "open", default: false
+    t.text "summary"
+    t.index ["fandom_id"], name: "index_forums_on_fandom_id"
+    t.index ["owner_id"], name: "index_forums_on_owner_id"
     t.index ["slug"], name: "index_forums_on_slug"
     t.index ["system_owned"], name: "index_forums_on_system_owned"
   end

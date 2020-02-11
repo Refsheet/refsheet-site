@@ -25,7 +25,7 @@ class View extends Component {
       <Main title={'Forums'} className={'main-flex split-bg-right'}>
         <Jumbotron short>
           <h1>{forum.name}</h1>
-          <p>{forum.description}</p>
+          <p>{forum.summary}</p>
         </Jumbotron>
 
         <div className="tab-row-container">

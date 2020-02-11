@@ -139,11 +139,16 @@ type Forum implements ApplicationRecord {
     description: String
     discussions(page: Int, sort: String, sticky: Boolean): [ForumDiscussion]
     id: ID
+    is_open: Boolean
     locked: Boolean
     name: String!
     no_rp: Boolean
     nsfw: Boolean
+    owner: User
+    prepost_message: String
+    rules: String
     slug: String
+    summary: String!
     system_owned: Boolean
     updated_at: Int
 }
