@@ -4,6 +4,7 @@ import { graphql } from 'react-apollo'
 import getForums from './getForums.graphql'
 import Error from '../Shared/Error'
 import View from './index/View'
+import { Loading } from '../Shared/V1'
 
 class Forums extends Component {
   render() {
@@ -25,6 +26,9 @@ export const forumType = PropTypes.shape({
   name: PropTypes.string.isRequired,
   description: PropTypes.string,
   system_owned: PropTypes.bool,
+  rules: PropTypes.string,
+  prepost_message: PropTypes.string,
+  open: PropTypes.bool
 })
 
 Forums.propTypes = {}

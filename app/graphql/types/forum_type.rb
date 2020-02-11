@@ -12,12 +12,19 @@ Types::ForumType = GraphQL::ObjectType.define do
   interfaces [Interfaces::ApplicationRecordInterface]
 
   field :name, !types.String
+  field :summary, !types.String
   field :description, types.String
   field :slug, types.String
   field :locked, types.Boolean
   field :nsfw, types.Boolean
   field :no_rp, types.Boolean
   field :system_owned, types.Boolean
+  field :rules, types.String
+  field :prepost_message, types.String
+  field :is_open, types.Boolean
+
+  field :owner, Types::UserType
+  # field :fandom, Types::FandomType
 
   field :discussions, types[Types::ForumDiscussionType] do
     argument :page, types.Int

@@ -2,9 +2,9 @@
 #
 # Table name: versions
 #
-#  id             :bigint(8)        not null, primary key
+#  id             :bigint           not null, primary key
 #  item_type      :string           not null
-#  item_id        :bigint(8)        not null
+#  item_id        :bigint           not null
 #  event          :string           not null
 #  whodunnit      :string
 #  created_at     :datetime
@@ -14,7 +14,6 @@
 # Indexes
 #
 #  index_versions_on_item_type_and_item_id  (item_type,item_id)
-#
 #
 module PaperTrail
   class Version < ActiveRecord::Base
