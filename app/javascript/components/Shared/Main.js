@@ -37,7 +37,7 @@ class _Main extends Component {
 
   render() {
     const style = this.props.style || {}
-    const classNames = [this.props.className]
+    const classNames = ['z-depth-1', this.props.className]
     if (this.props.flex) {
       classNames.push('main-flex')
     }

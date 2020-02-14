@@ -61,6 +61,7 @@ Types::MutationType = GraphQL::ObjectType.define do
   field :editReply, field: Mutations::ForumPostMutations::Update
   field :sendKarma, field: Mutations::ForumPostMutations::SendKarma
   field :createDiscussion, field: Mutations::ForumDiscussionMutations::Create
+  field :updateDiscussion, field: Mutations::ForumDiscussionMutations::Update
 
   #== Artists
 

@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 const Restrict = ({
   admin,
   patron,
+  user,
   currentUser,
   hideAll,
   development,
@@ -21,6 +22,10 @@ const Restrict = ({
     typeof Refsheet !== 'undefined' &&
     Refsheet.environment !== 'development'
   ) {
+    hide = true
+  }
+
+  if (user && !currentUser) {
     hide = true
   }
 

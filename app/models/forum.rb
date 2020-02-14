@@ -46,4 +46,18 @@ class Forum < ApplicationRecord
   def thread_count
     threads.count
   end
+
+  def discussion_count
+    thread_count
+  end
+
+  # Member Management
+
+  def has_member?(_user)
+    system_owned?
+  end
+
+  def member_count
+    system_owned? ? User.count : 0
+  end
 end

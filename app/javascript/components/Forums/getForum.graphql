@@ -10,6 +10,28 @@ query getForum($id: String!) {
         rules
         prepost_message
         is_open
+        is_member
+
+        member_count
+        discussion_count
+
+        owner {
+            username
+            name
+            is_admin
+            is_patron
+            is_supporter
+            avatar_url
+        }
+
+        # moderators {
+        #     username
+        #     name
+        #     is_admin
+        #     is_patron
+        #     is_supporter
+        #     avatar_url
+        # }
 
         discussions(sticky: true) {
             id

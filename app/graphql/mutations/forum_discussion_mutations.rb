@@ -21,6 +21,7 @@ module Mutations
       argument :topic, !types.String
       argument :content, !types.String
       argument :locked, types.Boolean
+      argument :sticky, types.Boolean
     end
 
     def create
@@ -30,18 +31,47 @@ module Mutations
       @discussion
     end
 
+    action :update do
+      type Types::ForumDiscussionType
+
+      argument :id, !types.ID
+      argument :topic, types.String
+      argument :content, types.String
+      argument :locked, types.String
+      argument :sticky, types.String
+    end
+
+    def update
+      authorize @discussion
+      @discussion.update_attributes!(discussion_params)
+      @discussion
+    end
+
     private
 
     def discussion_props
+      # TODO: This should be update params + merge
       params
           .permit(
               :topic,
               :content,
               :locked,
+              :sticky
           )
           .merge(
               user: current_user,
               forum: @forum
+          )
+    end
+
+    def discussion_params
+      # TODO this should be create and edit params, not props
+      params
+          .permit(
+              :topic,
+              :content,
+              :locked,
+              :sticky
           )
     end
 
