@@ -137,10 +137,13 @@ type Forum implements ApplicationRecord {
     created_at: Int
     deleted_at: Int
     description: String
+    discussion_count: Int
     discussions(page: Int, sort: String, sticky: Boolean): [ForumDiscussion]
     id: ID
+    is_member: Boolean
     is_open: Boolean
     locked: Boolean
+    member_count: Int
     name: String!
     no_rp: Boolean
     nsfw: Boolean
@@ -357,7 +360,7 @@ type Mutation {
     convertCharacter(id: ID!): Character
     createActivity(character_id: ID, comment: String): Activity
     createApiKey(name: String, read_only: Boolean): ApiKey
-    createDiscussion(content: String!, forumId: String!, locked: Boolean, topic: String!): ForumDiscussion
+    createDiscussion(content: String!, forumId: String!, locked: Boolean, sticky: Boolean, topic: String!): ForumDiscussion
     createForum: Forum
     createProfileSection(characterId: ID!, createAfterSectionId: ID): ProfileSection
     createProfileWidget(characterId: ID!, columnId: ID!, sectionId: ID!, type: String!): Widget
@@ -381,6 +384,7 @@ type Mutation {
     transferCharacter(destination: String!, id: ID!): Character
     updateCharacter(color_scheme_id: ID, hidden: Boolean, id: ID!, name: String, nsfw: Boolean, shortcode: String, slug: String, special_notes: String, species: String): Character
     updateConversation(conversation_id: ID!, read: Boolean): Conversation
+    updateDiscussion(content: String, id: ID!, locked: String, sticky: String, topic: String): ForumDiscussion
     updateForum: Forum
     updateImage(caption: String, characterId: ID, folder: String, gravity: String, hidden: Boolean, mediaId: ID, nsfw: Boolean, source_url: String, title: String, watermark: Boolean): Image
     updateModeration(id: ID!, resolution: String!): Moderation

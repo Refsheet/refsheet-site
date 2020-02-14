@@ -12,8 +12,8 @@ function v1(componentName) {
 
     console.warn(
       `Use of "${componentName}" from V1 javascript package ` +
-      'is deprecated. Please migrate this component to V2 or stop using it. ' +
-      '(See Shared/V1.js for details and re-exports.)'
+        'is deprecated. Please migrate this component to V2 or stop using it. ' +
+        '(See Shared/V1.js for details and re-exports.)'
     )
 
     console.debug('Resolved ' + componentName + ' to ', component)

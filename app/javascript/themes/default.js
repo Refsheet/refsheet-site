@@ -1,6 +1,6 @@
 export const definitions = {
-  primary: ['Primary Color', '#80cbc4'],
-  accent1: ['Secondary Color', '#26a69a'],
+  primary: ['Primary Color', '#26a69a'],
+  accent1: ['Secondary Color', '#80cbc4'],
   accent2: ['Accent Color', '#ee6e73'],
   text: ['Main Text', 'rgba(255,255,255,0.9)'],
   textMedium: ['Muted Text', 'rgba(255,255,255,0.5)'],

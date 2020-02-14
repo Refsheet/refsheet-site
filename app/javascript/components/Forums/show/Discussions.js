@@ -7,6 +7,7 @@ import getDiscussions from '../getDiscussions.graphql'
 import Error from '../../Shared/Error'
 import { Link } from 'react-router-dom'
 import PostTags, { DropdownTag } from '../shared/PostTags'
+import Restrict from '../../Shared/Restrict'
 
 class Discussions extends Component {
   constructor(props) {
@@ -54,12 +55,14 @@ class Discussions extends Component {
         <main className={'content-left padding-bottom--large'}>
           <div className={'forum-posts--header'}>
             <div className={'right'}>
-              <Link
-                to={`/v2/forums/${forum.slug}/post`}
-                className={'btn btn-small'}
-              >
-                {t('forums.new_discussion', 'New Discussion')}
-              </Link>
+              <Restrict user hideAll={!forum.is_member}>
+                <Link
+                  to={`/v2/forums/${forum.slug}/post`}
+                  className={'btn btn-small'}
+                >
+                  {t('forums.new_discussion', 'New Discussion')}
+                </Link>
+              </Restrict>
             </div>
 
             <PostTags>

@@ -55,6 +55,7 @@ class DiscussionReplyForm extends Component {
           locked: post.locked,
           topic: post.topic,
           content: content,
+          sticky: post.sticky,
         },
       })
     }

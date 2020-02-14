@@ -23,8 +23,17 @@ Types::ForumType = GraphQL::ObjectType.define do
   field :prepost_message, types.String
   field :is_open, types.Boolean
 
+  field :member_count, types.Int
+  field :discussion_count, types.Int
+
   field :owner, Types::UserType
   # field :fandom, Types::FandomType
+
+  field :is_member, types.Boolean do
+    resolve -> (obj, _args, ctx) {
+      obj.has_member? ctx[:current_user].call
+    }
+  end
 
   field :discussions, types[Types::ForumDiscussionType] do
     argument :page, types.Int
@@ -48,8 +57,11 @@ Types::ForumType = GraphQL::ObjectType.define do
         scope = scope.sticky
       end
 
+      # Eager Load
       scope = scope.with_unread_count(ctx[:current_user].call)
       scope = scope.with_last_post_at
+
+      scope = scope.includes(:user, :character)
 
       scope
     }

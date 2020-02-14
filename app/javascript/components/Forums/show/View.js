@@ -1,16 +1,22 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Main from '../../Shared/Main'
 import { forumType } from '../index'
-import Jumbotron from '../../Shared/Jumbotron'
-import { Link, NavLink } from 'react-router-dom'
+import compose from '../../../utils/compose'
 import { withNamespaces } from 'react-i18next'
+
+import { Route, Switch } from 'react-router'
+import { NavLink } from 'react-router-dom'
+import { Icon } from 'react-materialize'
+
+import Main from '../../Shared/Main'
+import Jumbotron from '../../Shared/Jumbotron'
+
 import Discussions from './Discussions'
 import Discussion from '../Discussion'
-import { Route, Switch } from 'react-router'
 import About from './About'
 import Members from './Members'
 import NewDiscussion from '../NewDiscussion'
+import SearchForm from './SearchForm'
 
 class View extends Component {
   constructor(props) {
@@ -18,53 +24,63 @@ class View extends Component {
 
     this.tabRow = null
   }
+
   render() {
     const { forum, t } = this.props
 
     return (
-      <Main title={'Forums'} className={'main-flex split-bg-right'}>
-        <Jumbotron short>
-          <h1>{forum.name}</h1>
-          <p>{forum.summary}</p>
-        </Jumbotron>
+      <Main title={[forum.name, 'Forums']} className={'main-flex split-bg-right'}>
+        <div
+          className={'forum-header z-depth-1'}
+          style={{ position: 'relative', zIndex: 1 }}
+        >
+          <Jumbotron short>
+            <h1>{forum.name}</h1>
+            <p>{forum.summary}</p>
+          </Jumbotron>
 
-        <div className="tab-row-container">
-          <div className="tab-row pushpin" ref={r => (this.tabRow = r)}>
-            <div className="container">
-              <ul className="tabs">
-                <li className={'tab'}>
-                  <NavLink
-                    activeClassName={'active'}
-                    to={`/v2/forums/${forum.slug}/about`}
-                  >
-                    {t('forums.about', 'About & Rules')}
-                  </NavLink>
-                </li>
-                <li className={'tab'}>
-                  <NavLink
-                    activeClassName={'active'}
-                    isActive={(match, location) => {
-                      const subPath = location.pathname
-                        .replace(/^\/v2/, '')
-                        .split('/')[3]
-                      return (
-                        ['about', 'members', 'edit'].indexOf(subPath) === -1
-                      )
-                    }}
-                    to={`/v2/forums/${forum.slug}`}
-                  >
-                    {t('forums.posts', 'Posts')}
-                  </NavLink>
-                </li>
-                <li className={'tab'}>
-                  <NavLink
-                    activeClassName={'active'}
-                    to={`/v2/forums/${forum.slug}/members`}
-                  >
-                    {t('forums.members', 'Members')}
-                  </NavLink>
-                </li>
-              </ul>
+          <div className="tab-row-container">
+            <div className="tab-row pushpin" ref={r => (this.tabRow = r)}>
+              <div className="container">
+                <ul className="tabs">
+                  <li className={'tab'}>
+                    <NavLink
+                      activeClassName={'active'}
+                      to={`/v2/forums/${forum.slug}/about`}
+                    >
+                      {t('forums.about', 'About & Rules')}
+                    </NavLink>
+                  </li>
+                  <li className={'tab'}>
+                    <NavLink
+                      activeClassName={'active'}
+                      isActive={(match, location) => {
+                        const subPath = location.pathname
+                          .replace(/^\/v2/, '')
+                          .split('/')[3]
+                        return (
+                          ['about', 'members', 'edit'].indexOf(subPath) === -1
+                        )
+                      }}
+                      to={`/v2/forums/${forum.slug}`}
+                    >
+                      {t('forums.posts', 'Posts')}
+                    </NavLink>
+                  </li>
+                  <li className={'tab'}>
+                    <NavLink
+                      activeClassName={'active'}
+                      to={`/v2/forums/${forum.slug}/members`}
+                    >
+                      {t('forums.members', 'Members')}
+                    </NavLink>
+                  </li>
+                </ul>
+
+                <div className={'action'}>
+                  <SearchForm forum={forum} />
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -95,6 +111,4 @@ View.propTypes = {
   forum: forumType,
 }
 
-const translated = withNamespaces('common')(View)
-
-export default translated
+export default compose(withNamespaces('common'))(View)
