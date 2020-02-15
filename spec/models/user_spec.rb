@@ -24,6 +24,10 @@
 #  avatar_processing     :boolean
 #  support_pledge_amount :integer          default(0)
 #  guid                  :string
+#  admin                 :boolean
+#  patron                :boolean
+#  supporter             :boolean
+#  moderator             :boolean
 #
 # Indexes
 #
