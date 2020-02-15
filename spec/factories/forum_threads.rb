@@ -18,6 +18,7 @@
 #  sticky         :boolean
 #  admin_post     :boolean
 #  moderator_post :boolean
+#  posts_count    :integer          default(0), not null
 #
 # Indexes
 #

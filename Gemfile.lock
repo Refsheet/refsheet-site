@@ -17,6 +17,14 @@ GIT
       railties (>= 3.2)
       tilt
 
+GIT
+  remote: https://github.com/Refsheet/xivapi-ruby.git
+  revision: 17a12006622b4d11d25734a8535914d703ed13eb
+  branch: extended-character
+  specs:
+    xivapi (0.3.0)
+      rest-client (>= 2.0.2)
+
 GEM
   remote: https://rubygems.org/
   remote: http://insecure.rails-assets.org/
@@ -821,6 +829,7 @@ DEPENDENCIES
   webpush
   will_paginate
   will_paginate-materialize!
+  xivapi!
   yard
 
 RUBY VERSION
