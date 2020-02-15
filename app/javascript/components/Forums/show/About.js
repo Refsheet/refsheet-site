@@ -35,6 +35,7 @@ class About extends Component {
                   <Tag icon={'shield'} label={'System Group'} />
                 )}
               </PostTags>
+              <br className={'clearfix'} />
             </div>
 
             <div className={'forum-description margin-bottom--large'}>

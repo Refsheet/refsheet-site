@@ -23,8 +23,13 @@ Types::ForumType = GraphQL::ObjectType.define do
   field :prepost_message, types.String
   field :is_open, types.Boolean
 
-  field :member_count, types.Int
-  field :discussion_count, types.Int
+  field :member_count, types.Int do
+    resolve -> (obj, _a, _c) { obj.members_count }
+  end
+
+  field :discussion_count, types.Int do
+    resolve -> (obj, _a, _c) { obj.discussions_count }
+  end
 
   field :owner, Types::UserType
   # field :fandom, Types::FandomType

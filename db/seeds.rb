@@ -42,10 +42,10 @@ Forum.create(name: 'Site Feedback', slug: 'feedback', description: 'Feature requ
 Forum.create(name: 'Swaps', slug: 'swaps', description: 'Trade art + characters!') unless Forum.exists? slug: 'swaps'
 Forum.create(name: 'Roleplay', slug: 'rp', description: 'OwO *notices ur forum*') unless Forum.exists? slug: 'rp'
 
-10.times do
+1000.times do
   Forum::Discussion.create!(forum: Forum.random, user: User.random, topic: Faker::Books::Lovecraft.tome, content: Faker::Books::Lovecraft.paragraph)
 end
 
-30.times do
+3000.times do
   Forum::Post.create!(thread: Forum::Discussion.random, user: User.random, content: Faker::Books::Lovecraft.paragraph)
 end

@@ -30,8 +30,13 @@ class Forum < ApplicationRecord
   include Sluggable
 
   belongs_to :owner, -> { with_deleted }, class_name: 'User', optional: true
-  has_many :threads, class_name: "Forum::Discussion"
-  has_many :posts, class_name: "Forum::Post", through: :threads
+  has_many :discussions, class_name: "Forum::Discussion"
+  has_many :posts, class_name: "Forum::Post", through: :discussions
+
+  def threads
+    ActiveSupport::Deprecation.warn("Forum#threads is finally Forum#discussions, please use that.")
+    discussions
+  end
 
   validates_presence_of :name
   validates_presence_of :slug
@@ -44,11 +49,8 @@ class Forum < ApplicationRecord
   end
 
   def thread_count
-    threads.count
-  end
-
-  def discussion_count
-    thread_count
+    ActiveSupport::Deprecation.warn("Forum#thread_count is not right, use Forum#discussion_count")
+    discussions_count
   end
 
   # Member Management

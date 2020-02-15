@@ -34,15 +34,15 @@ class Forum::Post < ApplicationRecord
 
   belongs_to :user
   belongs_to :character
-  belongs_to :thread, class_name: "Forum::Discussion", foreign_key: :thread_id, inverse_of: :posts
+  belongs_to :discussion, class_name: "Forum::Discussion", foreign_key: :thread_id, inverse_of: :posts
   belongs_to :parent_post, class_name: "Forum::Post", foreign_key: :parent_post_id
   has_many :replies, class_name: "Forum::Post", foreign_key: :parent_post_id
   has_many :karmas, class_name: "Forum::Karma", foreign_key: :karmic_id, as: :karmic
-  has_one :forum, through: :thread, class_name: "Forum"
+  has_one :forum, through: :discussion, class_name: "Forum"
 
   validates_presence_of :content
   validates_presence_of :user
-  validates_presence_of :thread
+  validates_presence_of :discussion
 
   before_validation :assign_admin_level
   before_update :set_edited
@@ -53,8 +53,15 @@ class Forum::Post < ApplicationRecord
   has_guid
   has_markdown_field :content
   acts_as_paranoid
+  counter_culture [:discussion, :forum]
+  counter_culture :discussion
 
   has_paper_trail only: [:content, :thread_id, :character_id]
+
+  def thread
+    ActiveSupport::Deprecation.warn("Forum::Post#thread is now Forum::Post#discussion, use that.")
+    discussion
+  end
 
   # If called without a user, it will assume you are using the ::with_unread_counts scope
   # on the parent discussion association. If you are not, pass a user. Beware N+1
