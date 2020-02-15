@@ -2,7 +2,7 @@ import React from 'react'
 
 // Helper for re-importing V1 code
 function v1(componentName) {
-  return props => {
+  const wrap = props => {
     const path = componentName.split('.')
     let component = window
 
@@ -24,6 +24,9 @@ function v1(componentName) {
       return <div>{componentName} not found in V1?</div>
     }
   }
+
+  wrap.displayName = componentName
+  return wrap
 }
 
 // Define V1 imports here, turning them into factories which can be resolved

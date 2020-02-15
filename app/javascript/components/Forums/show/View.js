@@ -17,6 +17,7 @@ import About from './About'
 import Members from './Members'
 import NewDiscussion from '../NewDiscussion'
 import SearchForm from './SearchForm'
+import { withQuery } from '../../../utils/RouteUtils'
 
 class View extends Component {
   constructor(props) {
@@ -26,10 +27,13 @@ class View extends Component {
   }
 
   render() {
-    const { forum, t } = this.props
+    const { forum, t, query } = this.props
 
     return (
-      <Main title={[forum.name, 'Forums']} className={'main-flex split-bg-right'}>
+      <Main
+        title={[forum.name, 'Forums']}
+        className={'main-flex split-bg-right'}
+      >
         <div
           className={'forum-header z-depth-1'}
           style={{ position: 'relative', zIndex: 1 }}
@@ -78,7 +82,7 @@ class View extends Component {
                 </ul>
 
                 <div className={'action'}>
-                  <SearchForm forum={forum} />
+                  <SearchForm forum={forum} query={query.q} />
                 </div>
               </div>
             </div>
@@ -99,7 +103,7 @@ class View extends Component {
             <Discussion forum={forum} />
           </Route>
           <Route>
-            <Discussions forum={forum} />
+            <Discussions forum={forum} query={query.q} />
           </Route>
         </Switch>
       </Main>
@@ -111,4 +115,4 @@ View.propTypes = {
   forum: forumType,
 }
 
-export default compose(withNamespaces('common'))(View)
+export default compose(withNamespaces('common'), withQuery)(View)

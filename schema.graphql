@@ -138,7 +138,7 @@ type Forum implements ApplicationRecord {
     deleted_at: Int
     description: String
     discussion_count: Int
-    discussions(page: Int, sort: String, sticky: Boolean): [ForumDiscussion]
+    discussions(page: Int, query: String, sort: String, sticky: Boolean): ForumDiscussionCollection
     id: ID
     is_member: Boolean
     is_open: Boolean
@@ -180,6 +180,16 @@ type ForumDiscussion implements ApplicationRecord {
     unread_posts_count: Int
     updated_at: Int
     user: User
+}
+
+type ForumDiscussionCollection implements Paginated {
+    count: Int
+    currentPage: Int
+    discussions: [ForumDiscussion]
+    offset: Int
+    perPage: Int
+    totalEntries: Int
+    totalPages: Int
 }
 
 type ForumPost implements ApplicationRecord {
@@ -384,7 +394,7 @@ type Mutation {
     transferCharacter(destination: String!, id: ID!): Character
     updateCharacter(color_scheme_id: ID, hidden: Boolean, id: ID!, name: String, nsfw: Boolean, shortcode: String, slug: String, special_notes: String, species: String): Character
     updateConversation(conversation_id: ID!, read: Boolean): Conversation
-    updateDiscussion(content: String, id: ID!, locked: String, sticky: String, topic: String): ForumDiscussion
+    updateDiscussion(content: String, id: ID!, locked: Boolean, sticky: Boolean, topic: String): ForumDiscussion
     updateForum: Forum
     updateImage(caption: String, characterId: ID, folder: String, gravity: String, hidden: Boolean, mediaId: ID, nsfw: Boolean, source_url: String, title: String, watermark: Boolean): Image
     updateModeration(id: ID!, resolution: String!): Moderation

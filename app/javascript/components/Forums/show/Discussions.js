@@ -8,36 +8,70 @@ import Error from '../../Shared/Error'
 import { Link } from 'react-router-dom'
 import PostTags, { DropdownTag } from '../shared/PostTags'
 import Restrict from '../../Shared/Restrict'
+import { Loading } from '../../Shared/V1'
+import c from 'classnames'
 
 class Discussions extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      sort: 'created_at:desc',
+      sort: 'recent_comments',
       page: 1,
     }
   }
 
   renderDiscussions(props) {
-    const { forum } = this.props
+    const { forum, t, query } = this.props
     const { data, loading, error } = props
+    let content
+    let { totalEntries, offset, count } =
+      (data && data.getForum && data.getForum.discussions) || {}
 
     if (loading) {
-      return <Loading />
+      content = <Loading />
     } else if (error) {
-      return <Error error={error} />
+      content = <Error error={error} />
     } else {
-      const discussions = data.getForum.discussions || []
+      const { discussions, ...rest } = data.getForum.discussions || []
+      console.log({ rest })
 
-      return discussions.map(discussion => (
-        <DiscussionLink
-          key={discussion.id}
-          forum={forum}
-          discussion={discussion}
-        />
-      ))
+      if (discussions.length === 0) {
+        content = (
+          <p className={'caption center no-content'}>
+            {t('content.empty', 'Nothing here :(')}
+          </p>
+        )
+      } else {
+        content = discussions.map(discussion => (
+          <DiscussionLink
+            key={discussion.id}
+            forum={forum}
+            discussion={discussion}
+          />
+        ))
+      }
     }
+
+    return (
+      <div>
+        <div className="forum-posts--group-name">
+          {query
+            ? t('forums.search_posts', 'Search for: {{query}}', { query })
+            : t('forums.recent_posts', 'Recent Posts')}
+
+          {totalEntries > 0 && (
+            <div className={'right'}>
+              {NumberUtils.format(offset + 1)} &ndash;{' '}
+              {NumberUtils.format(offset + count)} of{' '}
+              {NumberUtils.format(totalEntries)}
+            </div>
+          )}
+        </div>
+
+        {content}
+      </div>
+    )
   }
 
   handleSortClick(sortBy) {
@@ -48,7 +82,11 @@ class Discussions extends Component {
   }
 
   render() {
-    const { forum, t } = this.props
+    const { forum, t, query } = this.props
+    const { page, sort } = this.state
+    const {
+      discussions: { discussions, total_entries },
+    } = forum
 
     return (
       <div className={'container container-flex'}>
@@ -66,10 +104,11 @@ class Discussions extends Component {
             </div>
 
             <PostTags>
-              <DropdownTag icon={'sort'} label={t('labels.sort_by', 'Sort By')}>
+              <DropdownTag icon={'sort'} title={t('labels.sort_by', 'Sort By')} label={t(`forums.${sort}`)}>
                 <a
                   href={'#'}
-                  onClick={this.handleSortClick('last_comment_at:desc').bind(
+                  className={c({ active: sort === 'recent_comments' })}
+                  onClick={this.handleSortClick('recent_comments').bind(
                     this
                   )}
                 >
@@ -77,13 +116,15 @@ class Discussions extends Component {
                 </a>
                 <a
                   href={'#'}
-                  onClick={this.handleSortClick('created_at:desc').bind(this)}
+                  className={c({ active: sort === 'newest_discussions' })}
+                  onClick={this.handleSortClick('newest_discussions').bind(this)}
                 >
                   {t('forums.newest_discussions', 'Newest Discussions')}
                 </a>
                 <a
                   href={'#'}
-                  onClick={this.handleSortClick('karma_total:desc').bind(this)}
+                  className={c({ active: sort === 'top_rated' })}
+                  onClick={this.handleSortClick('top_rated').bind(this)}
                 >
                   {t('forums.top_rated', 'Top Rated')}
                 </a>
@@ -91,13 +132,13 @@ class Discussions extends Component {
             </PostTags>
           </div>
 
-          {forum.discussions.length > 0 && (
+          {discussions.length > 0 && (
             <div className={'stickies'}>
               <div className={'forum-posts--group-name'}>
                 {t('forums.sticky_posts', 'Sticky Posts')}
               </div>
 
-              {forum.discussions.map(discussion => (
+              {discussions.map(discussion => (
                 <DiscussionLink
                   key={discussion.id}
                   forum={forum}
@@ -107,16 +148,13 @@ class Discussions extends Component {
             </div>
           )}
 
-          <div className="forum-posts--group-name">
-            {t('forums.recent_posts', 'Recent Posts')}
-          </div>
-
           <Query
             query={getDiscussions}
             variables={{
               forumId: forum.slug,
               page: this.state.page,
               sort: this.state.sort,
+              query: this.props.query,
             }}
           >
             {this.renderDiscussions.bind(this)}
