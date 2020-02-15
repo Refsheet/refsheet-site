@@ -41,6 +41,7 @@ class User < ApplicationRecord
   include Users::SettingsDecorator
   include Users::EmailPrefsDecorator
   include Users::NotificationsDecorator
+  include Users::RoleDecorator
 
   has_many :characters, dependent: :destroy
   has_many :character_groups, dependent: :destroy
