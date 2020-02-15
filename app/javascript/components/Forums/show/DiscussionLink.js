@@ -15,7 +15,7 @@ class DiscussionLink extends Component {
 
     return (
       <div
-        className={c('forum-post', {
+        className={c('forum-post card', {
           new: discussion.is_unread,
           admin: discussion.admin_post,
           moderator: discussion.moderator_post,
