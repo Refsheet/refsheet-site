@@ -2,7 +2,7 @@ steps:
 
   #== BUILD
 
-  - name: 'gcr.io/kaniko-project/executor'
+  - name: 'gcr.io/kaniko-project/executor:v0.16.0'
     id: Build Container
     args:
       - --destination=gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID
