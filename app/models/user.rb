@@ -118,8 +118,6 @@ class User < ApplicationRecord
   scoped_search on: [:name, :username, :email]
 
   scope :confirmed, -> { where.not email_confirmed_at: nil }
-  scope :patrons, -> { joins(:patron).order('patreon_patrons.created_at DESC').where.not patreon_patrons: { id: nil } }
-  scope :with_role, -> (r) { joins(:roles).where(roles: { name: [r, Role::ADMIN] }) }
 
   #== TODO THINGS
 
@@ -205,34 +203,6 @@ class User < ApplicationRecord
     usernames = usernames.collect { |u| u.to_s.downcase }
     column = usernames.any? { |u| u =~ /@/ } ? 'email' : 'username'
     where("LOWER(users.#{column}) IN (?)", usernames)
-  end
-
-
-  #== Status Checks
-
-  def role?(role)
-    self.roles.exists?(name: role.to_s)
-  end
-
-  def admin?
-    id = Role.id_for Role::ADMIN
-    self.role_ids.include? id
-  end
-
-  def patron?
-    self.admin? or self.pledges.active.any?
-  end
-
-  def supporter?
-    self.support_pledge_amount > 0
-  end
-
-  def moderator?
-    false
-  end
-
-  def supporter_level
-    SupporterLevel.new(self.support_pledge_amount, admin?)
   end
 
   #== Email Confirmation & Password Reset

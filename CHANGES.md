@@ -3,11 +3,13 @@
 ## Active Projects
 
 - V2 Profiles
+- V2 Forums
 
 ## New Bugs
 
 - V2 richtext entry doesn't work due to changed interface to that component
 - Possible bug in registration form conflicting with login form
+- Change email / patreon link auth addresses have the wrong email in the URL >:U
 
 ## Bug Fixes
 
@@ -15,6 +17,8 @@
 - Fixed notification menu not doing anything when you click on an item
 
 ## Major Things
+
+- Speed improvement when loading lists of users, mostly in the forums
 
 ## Minor Things
 
@@ -25,7 +29,8 @@
 ## WIPs
 
 - V2 profile work continues, now with Settings, Delete and Transfer forms
-- V2 forum work continues, with a "create discussion" view working
+- V2 forum work continues, with a "create discussion" view working and several other views
+- V2 forums now support search and sort!
 
 ## Framework
 

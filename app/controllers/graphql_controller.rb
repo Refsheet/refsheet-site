@@ -31,7 +31,7 @@ class GraphqlController < ApplicationController
                                     context: context,
                                     operation_name: operation_name)
 
-    Rails.logger.debug("Result: #{result.to_json}")
+    # Rails.logger.debug("Result: #{result.to_json}")
 
     render json: result
   end

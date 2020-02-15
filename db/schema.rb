@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_11_043140) do
+ActiveRecord::Schema.define(version: 2020_02_15_103044) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -510,6 +510,7 @@ ActiveRecord::Schema.define(version: 2020_02_11_043140) do
     t.boolean "sticky"
     t.boolean "admin_post"
     t.boolean "moderator_post"
+    t.integer "posts_count", default: 0, null: false
     t.index ["character_id"], name: "index_forum_threads_on_character_id"
     t.index ["forum_id"], name: "index_forum_threads_on_forum_id"
     t.index ["karma_total"], name: "index_forum_threads_on_karma_total"
@@ -535,6 +536,9 @@ ActiveRecord::Schema.define(version: 2020_02_11_043140) do
     t.integer "fandom_id"
     t.boolean "open", default: false
     t.text "summary"
+    t.integer "discussions_count", default: 0, null: false
+    t.integer "members_count", default: 0, null: false
+    t.integer "posts_count", default: 0, null: false
     t.index ["fandom_id"], name: "index_forums_on_fandom_id"
     t.index ["owner_id"], name: "index_forums_on_owner_id"
     t.index ["slug"], name: "index_forums_on_slug"
@@ -945,6 +949,10 @@ ActiveRecord::Schema.define(version: 2020_02_11_043140) do
     t.boolean "avatar_processing"
     t.integer "support_pledge_amount", default: 0
     t.string "guid"
+    t.boolean "admin"
+    t.boolean "patron"
+    t.boolean "supporter"
+    t.boolean "moderator"
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["guid"], name: "index_users_on_guid"
     t.index ["parent_user_id"], name: "index_users_on_parent_user_id"
