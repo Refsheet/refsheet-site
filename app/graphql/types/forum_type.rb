@@ -35,10 +35,11 @@ Types::ForumType = GraphQL::ObjectType.define do
     }
   end
 
-  field :discussions, types[Types::ForumDiscussionType] do
+  field :discussions, Types::ForumDiscussionCollectionType do
     argument :page, types.Int
     argument :sort, types.String
     argument :sticky, types.Boolean
+    argument :query, types.String
 
     resolve -> (obj, args, ctx) {
       scope = obj.threads
@@ -48,13 +49,28 @@ Types::ForumType = GraphQL::ObjectType.define do
       end
 
       if args[:sort]
-        scope = scope.order(created_at: :desc)
+        sort = case args[:sort].to_s.downcase
+               when 'recent_comments'
+                 { last_post_at: :desc, created_at: :desc }
+               when 'newest_discussions'
+                 { created_at: :desc }
+               when 'top_rated'
+                 { karma_total: :desc, last_post_at: :desc, created_at: :desc }
+               else
+                 { last_post_at: :desc }
+               end
+
+        scope = scope.order(sort)
       else
-        scope = scope.order(created_at: :desc)
+        scope = scope.order(last_post_at: :desc)
       end
 
       if args[:sticky]
         scope = scope.sticky
+      end
+
+      if args[:query].present?
+        scope = scope.search_for(args[:query])
       end
 
       # Eager Load

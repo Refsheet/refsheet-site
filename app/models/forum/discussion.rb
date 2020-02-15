@@ -58,6 +58,7 @@ class Forum::Discussion < ApplicationRecord
   slugify :topic, lookups: true
   has_guid :shortcode, type: :shortcode
   has_markdown_field :content
+  scoped_search on: [:topic, :content]
 
   scope :with_unread_count, -> (user) {
     joins(sanitize_sql_array [<<-SQL.squish, user&.id]).
@@ -84,7 +85,7 @@ class Forum::Discussion < ApplicationRecord
         ) lpa ON lpa.thread_id = forum_threads.id
     SQL
 
-    select('forum_threads.*, lpa.last_post_at AS last_post_at')
+    select('forum_threads.*, COALESCE(lpa.last_post_at, forum_threads.created_at) AS last_post_at')
   }
 
   scope :sticky, -> { where(sticky: true) }

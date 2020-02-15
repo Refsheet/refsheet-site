@@ -37,8 +37,8 @@ module Mutations
       argument :id, !types.ID
       argument :topic, types.String
       argument :content, types.String
-      argument :locked, types.String
-      argument :sticky, types.String
+      argument :locked, types.Boolean
+      argument :sticky, types.Boolean
     end
 
     def update

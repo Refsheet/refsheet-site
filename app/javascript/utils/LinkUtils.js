@@ -16,7 +16,7 @@ function buildHelpers(object) {
         })
 
         if (query) {
-          path += "?" + qs.stringify(query)
+          path += '?' + qs.stringify(query)
         }
 
         return path
