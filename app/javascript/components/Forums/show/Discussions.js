@@ -104,20 +104,24 @@ class Discussions extends Component {
             </div>
 
             <PostTags>
-              <DropdownTag icon={'sort'} title={t('labels.sort_by', 'Sort By')} label={t(`forums.${sort}`)}>
+              <DropdownTag
+                icon={'sort'}
+                title={t('labels.sort_by', 'Sort By')}
+                label={t(`forums.${sort}`)}
+              >
                 <a
                   href={'#'}
                   className={c({ active: sort === 'recent_comments' })}
-                  onClick={this.handleSortClick('recent_comments').bind(
-                    this
-                  )}
+                  onClick={this.handleSortClick('recent_comments').bind(this)}
                 >
                   {t('forums.recent_comments', 'Recent Comments')}
                 </a>
                 <a
                   href={'#'}
                   className={c({ active: sort === 'newest_discussions' })}
-                  onClick={this.handleSortClick('newest_discussions').bind(this)}
+                  onClick={this.handleSortClick('newest_discussions').bind(
+                    this
+                  )}
                 >
                   {t('forums.newest_discussions', 'Newest Discussions')}
                 </a>
