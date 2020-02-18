@@ -1,10 +1,11 @@
 class AddSummaryToForums < ActiveRecord::Migration[6.0]
-  class ::Forum < ActiveRecord::Base
+  class ::MForum < ActiveRecord::Base
+    self.table_name = :forums
   end
 
   def up
     add_column :forums, :summary, :text
-    Forum.update_all('summary = description')
+    ::MForum.update_all('summary = description')
   end
 
   def down
