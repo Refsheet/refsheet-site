@@ -73,4 +73,12 @@ class Activity < ApplicationRecord
         activity_character: [:user, :profile_image, :featured_image]
     )
   }
+
+  # Allow missing consts to not break the site
+  def activity
+    super
+  rescue NameError => e
+    Rails.logger.warn(e)
+    nil
+  end
 end
