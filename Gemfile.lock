@@ -19,11 +19,11 @@ GIT
 
 GIT
   remote: https://github.com/Refsheet/xivapi-ruby.git
-  revision: 17a12006622b4d11d25734a8535914d703ed13eb
+  revision: ccbdb7adc7e5ef3ea9aaba633ac7b213c4056b61
   branch: extended-character
   specs:
     xivapi (0.3.0)
-      rest-client (>= 2.0.2)
+      rest-client (~> 2.0)
 
 GEM
   remote: https://rubygems.org/

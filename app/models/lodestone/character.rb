@@ -32,13 +32,24 @@
 
 class Lodestone::Character < ApplicationRecord
   belongs_to :character
-  belongs_to :active_class_job, class_name: 'Lodestone::ClassJob'
-  belongs_to :server, class_name: 'Lodestone::Server'
-  belongs_to :race, class_name: 'Lodestone::Race'
-  has_many :class_jobs, class_name: 'Lodestone::ClassJob', foreign_key: :lodestone_character_id
+  belongs_to :active_class_job, class_name: 'Lodestone::ClassJob', autosave: true
+  belongs_to :server, class_name: 'Lodestone::Server', autosave: true
+  belongs_to :race, class_name: 'Lodestone::Race', autosave: true
+  has_many :class_jobs, class_name: 'Lodestone::ClassJob', foreign_key: :lodestone_character_id, autosave: true
 
   validates_presence_of :lodestone_id
   validates_presence_of :name
 
+  after_create :log_activity
+
   counter_culture :server
+
+  private
+
+  def log_activity
+    Activity.create activity: self,
+                    user_id: character.user_id,
+                    character: character,
+                    activity_method: 'create'
+  end
 end
