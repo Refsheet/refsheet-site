@@ -4,7 +4,8 @@ steps:
 
   # Kaniko 0.17.0 fixes chrome install bug: https://github.com/GoogleContainerTools/kaniko/issues/769
   # Kaniko 0.17.1 fixes /var/run issue in Google Cloud: https://github.com/GoogleContainerTools/kaniko/issues/1001
-  - name: 'gcr.io/kaniko-project/executor:v0.17.1'
+  # OPEN: Kaniko 0.17.x produces invalid images (whiteout?): https://github.com/GoogleContainerTools/kaniko/issues/1039
+  - name: 'gcr.io/kaniko-project/executor:1039-fix-test'
     id: Build Container
     args:
       - --destination=gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID
