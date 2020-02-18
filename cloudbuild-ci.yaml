@@ -2,7 +2,8 @@ steps:
 
   #== BUILD
 
-  - name: 'gcr.io/kaniko-project/executor:v0.16.0'
+  # Kaniko 0.17.0 fixes chrome install bug: https://github.com/GoogleContainerTools/kaniko/issues/769
+  - name: 'gcr.io/kaniko-project/executor:v0.17.0'
     id: Build Container
     args:
       - --destination=gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID
