@@ -1,13 +1,13 @@
 Rails.application.configure do
   # Test gcloud logging
-  # config.google_cloud.project_id = "refsheet-239409"
-  # config.google_cloud.keyfile = "refsheet-prod.json"
-  # config.google_cloud.use_logging = false
+  config.google_cloud.project_id = "refsheet-239409"
+  config.google_cloud.keyfile = "refsheet-prod.json"
+  config.google_cloud.use_logging = false
   # config.google_cloud.logging.log_name = "refsheet-prod"
   # config.google_cloud.logging.resource = "global"
-  #
-  # # Gcloud Trace
-  # config.google_cloud.use_trace = true
+  
+  # Gcloud Trace
+  config.google_cloud.use_trace = true
 
   # Verifies that versions and hashed value of the package contents in the project's package.json
   config.webpacker.check_yarn_integrity = false
@@ -41,8 +41,7 @@ Rails.application.configure do
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = true
-  # TODO: THIS IS REALLY BAD, but required for react-router-rails to do the correct thing.
+  config.assets.compile = false
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
