@@ -166,7 +166,7 @@ class _Footer extends Component {
                 <a
                   href={'https://discord.gg/dnGYbt'}
                   target={'_blank'}
-                  rel={'noopener noreferrer'}
+                  rel="noopener noreferrer"
                   title={'Join us on Discord!'}
                 >
                   <i className={'fab fa-fw fa-discord'} />
