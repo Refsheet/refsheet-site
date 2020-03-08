@@ -9,7 +9,7 @@ steps:
       - -c
       - './bin/build-cache.sh pull && printf "$REVISION_ID" > /workspace/VERSION'
 
-  - name: 'gcr.io/kaniko-project/executor:v0.16.0'
+  - name: 'gcr.io/kaniko-project/executor:a1af057f997316bfb1c4d2d82719d78481a02a79'
     id: Build Container
     args:
       - --destination=gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID
