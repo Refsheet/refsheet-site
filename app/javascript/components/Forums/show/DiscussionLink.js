@@ -21,7 +21,11 @@ class DiscussionLink extends Component {
           moderator: discussion.moderator_post,
         })}
       >
-        <KarmaCounter discussion={discussion} forum={forum} className={'shade'} />
+        <KarmaCounter
+          discussion={discussion}
+          forum={forum}
+          className={'shade'}
+        />
 
         <div className={'forum-post--summary'}>
           <div className="forum-post--title">
