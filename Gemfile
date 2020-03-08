@@ -29,6 +29,9 @@ gem 'activerecord-nulldb-adapter', '~> 0.4.0'
 gem 'mini_magick'
 gem 'paper_trail'
 
+# == Instrumentation
+gem 'stackdriver'
+
 # == FRONT END
 
 gem 'uglifier', '>= 1.3.0'
