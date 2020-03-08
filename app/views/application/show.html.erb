@@ -1,0 +1,34 @@
+<%= react_component 'Routes',
+                    gaPropertyID: ENV['GA_PROPERTY_ID'],
+                    eagerLoad: @eager_load,
+                    flash: flash.to_hash,
+                    environment: Rails.env,
+                    notice: ENV['MAINTENANCE_NOTICE'],
+                    assets: render_asset_paths
+%>
+
+<div class="shaded-background" id="rootAppLoader">
+  <main id="loading-screen">
+    <div class="modal-page-content">
+      <div class="narrow-container">
+        <div id="script-on" style="display: none;">
+          <div class="loading-icon">
+            <%= image_tag 'logos/RefsheetLogo_White_200.png', width: 100, height: 100, alt: 'Loading...', title: 'Loading...' %>
+          </div>
+          <h1>loading</h1>
+          <script>
+            document.getElementById('script-on').style.display = '';
+          </script>
+        </div>
+        <noscript>
+          <%= image_tag 'logos/RefsheetLogo_White_200.png', width: 100, height: 100, alt: 'Refsheet.net', title: 'Refsheet.net' %>
+          <h1>Javascript Required</h1>
+          <p class="margin-top--large red-text text-lighten-1">
+            Refsheet requires Javascript to work properly. Please check your browser
+            settings, and enable Javascript if it is not already turned on.
+          </p>
+        </noscript>
+      </div>
+    </div>
+  </main>
+</div>
