@@ -63,6 +63,11 @@ class Forum::Post < ApplicationRecord
     discussion
   end
 
+  def thread=(t)
+    ActiveSupport::Deprecation.warn("Forum::Post#thred= is now Forum::Post#discussion=, use that.")
+    self.discussion = t
+  end
+
   # If called without a user, it will assume you are using the ::with_unread_counts scope
   # on the parent discussion association. If you are not, pass a user. Beware N+1
   #

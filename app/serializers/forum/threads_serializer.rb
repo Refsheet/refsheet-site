@@ -1,3 +1,4 @@
+# @deprecated Use Forum::DiscussionsSerializer
 class Forum::ThreadsSerializer < ActiveModel::Serializer
   attributes :id,
              :topic,

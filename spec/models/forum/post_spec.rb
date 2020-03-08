@@ -33,7 +33,7 @@ require 'rails_helper'
 describe Forum::Post, type: :model do
   it_is_expected_to(
       belong_to: [
-          :thread,
+          :discussion,
           :user,
           :character,
           :parent_post
@@ -47,7 +47,7 @@ describe Forum::Post, type: :model do
           :forum
       ],
       validate_presence_of: [
-          :thread,
+          :discussion,
           :user,
           :content
       ]
