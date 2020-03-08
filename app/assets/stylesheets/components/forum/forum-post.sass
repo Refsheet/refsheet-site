@@ -1,5 +1,4 @@
 .forum-post
-  @extend .card
   display: flex
   padding: 0
   margin: 0 0 1rem
@@ -42,7 +41,9 @@
       flex-shrink: 0
       margin: 0
       padding: 0
-      background-color: rgba(0, 0, 0, 0.1)
+
+      &.shade
+        background-color: rgba(0, 0, 0, 0.1)
 
       & > a, & > span
         display: block

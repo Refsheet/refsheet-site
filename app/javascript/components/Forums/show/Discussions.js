@@ -88,6 +88,12 @@ class Discussions extends Component {
       discussions: { discussions, total_entries },
     } = forum
 
+    const i18nDefaults = {
+      recent_comments: 'Recent Comments',
+      newest_discussions: 'Newest Discussions',
+      top_rated: 'Top Rated'
+    }
+
     return (
       <div className={'container container-flex'}>
         <main className={'content-left padding-bottom--large'}>
@@ -107,7 +113,7 @@ class Discussions extends Component {
               <DropdownTag
                 icon={'sort'}
                 title={t('labels.sort_by', 'Sort By')}
-                label={t(`forums.${sort}`)}
+                label={t(`forums.${sort}`, i18nDefaults[sort])}
               >
                 <a
                   href={'#'}

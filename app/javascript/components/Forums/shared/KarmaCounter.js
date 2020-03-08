@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import compose from 'utils/compose'
 import KarmaButton from './KarmaButton'
+import c from 'classnames'
 
 class KarmaCounter extends Component {
   constructor(props) {
@@ -15,10 +16,10 @@ class KarmaCounter extends Component {
   }
 
   render() {
-    const { discussion, forum } = this.props
+    const { discussion, forum, className } = this.props
 
     return (
-      <div className={'forum-post--votes'}>
+      <div className={c('forum-post--votes', className)}>
         <div className="forum-post--upvote">
           <KarmaButton
             give
