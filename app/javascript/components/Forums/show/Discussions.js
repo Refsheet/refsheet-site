@@ -91,7 +91,7 @@ class Discussions extends Component {
     const i18nDefaults = {
       recent_comments: 'Recent Comments',
       newest_discussions: 'Newest Discussions',
-      top_rated: 'Top Rated'
+      top_rated: 'Top Rated',
     }
 
     return (
