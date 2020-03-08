@@ -12,7 +12,7 @@
 #  updated_at            :datetime         not null
 #  avatar_file_name      :string
 #  avatar_content_type   :string
-#  avatar_file_size      :bigint(8)
+#  avatar_file_size      :bigint
 #  avatar_updated_at     :datetime
 #  settings              :json
 #  type                  :string
@@ -24,6 +24,10 @@
 #  avatar_processing     :boolean
 #  support_pledge_amount :integer          default(0)
 #  guid                  :string
+#  admin                 :boolean
+#  patron                :boolean
+#  supporter             :boolean
+#  moderator             :boolean
 #
 # Indexes
 #

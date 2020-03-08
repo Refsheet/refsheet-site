@@ -2,8 +2,8 @@
 #
 # Table name: api_keys
 #
-#  id            :bigint(8)        not null, primary key
-#  user_id       :bigint(8)
+#  id            :bigint           not null, primary key
+#  user_id       :bigint
 #  guid          :string
 #  secret_digest :string
 #  read_only     :boolean          default(FALSE)

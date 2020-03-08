@@ -32,7 +32,8 @@ class Forum::PostSerializer < ActiveModel::Serializer
   include ActionView::Helpers::DateHelper
 
   attributes :id,
-             :thread_id,
+             :thread_id, # deprecated
+             :discussion_id,
              :created_at_human,
              :content,
              :content_html,
@@ -50,8 +51,12 @@ class Forum::PostSerializer < ActiveModel::Serializer
     object.guid
   end
 
+  def discussion_id
+    object.discussion.slug
+  end
+
   def thread_id
-    object.thread.slug
+    discussion_id
   end
 
   def created_at_human
@@ -67,6 +72,6 @@ class Forum::PostSerializer < ActiveModel::Serializer
   end
 
   def path
-    "/forums/#{object.forum.slug}/threads/#{object.thread.slug}/posts/#{object.guid}"
+    "/forums/#{object.forum.slug}/threads/#{object.discussion.slug}/posts/#{object.guid}"
   end
 end

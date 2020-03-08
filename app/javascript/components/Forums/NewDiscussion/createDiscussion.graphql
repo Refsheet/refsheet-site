@@ -1,10 +1,11 @@
-mutation createDiscussion($forumId: String!, $topic: String!, $content: String!, $locked: Boolean!) {
-    createDiscussion(forumId: $forumId, topic: $topic, content: $content, locked: $locked) {
+mutation createDiscussion($forumId: String!, $topic: String!, $content: String!, $locked: Boolean!, $sticky: Boolean!) {
+    createDiscussion(forumId: $forumId, topic: $topic, content: $content, locked: $locked, sticky: $sticky) {
         #...ForumDiscussionFields
         id
         topic
         slug
         locked
+        sticky
 
         forum {
             id

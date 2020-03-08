@@ -1,7 +1,8 @@
 class Activity::PostSerializer < ActiveModel::Serializer
   attributes :id,
              :forum,
-             :thread,
+             :thread, # Deprecated
+             :discussion,
              :content,
              :content_text,
              :content_html,
@@ -18,11 +19,15 @@ class Activity::PostSerializer < ActiveModel::Serializer
     }
   end
 
-  def thread
+  def discussion
     {
-        id: object.thread.slug,
-        topic: object.thread.topic
+        id: object.discussion.slug,
+        topic: object.discussion.topic
     }
+  end
+
+  def thread
+    discussion
   end
 
   def content_html
@@ -34,6 +39,6 @@ class Activity::PostSerializer < ActiveModel::Serializer
   end
 
   def path
-    "/forums/#{object.forum.slug}/#{object.thread.slug}#cid:#{object.guid}"
+    "/forums/#{object.forum.slug}/#{object.discussion.slug}#cid:#{object.guid}"
   end
 end

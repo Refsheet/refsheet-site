@@ -65,3 +65,4 @@ db-prod.env
 /.yardoc/*
 
 refsheet-prod-storage.json
+/public/webpack.html

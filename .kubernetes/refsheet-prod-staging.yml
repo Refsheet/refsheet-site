@@ -22,7 +22,7 @@ spec:
           secretName: refsheet-prod-storage
       containers:
       - name: refsheet-prod-staging
-        image: gcr.io/refsheet-239409/refsheet-site:80a8b582838e3080684d39dc421b67323b2e1039
+        image: gcr.io/refsheet-239409/refsheet-site:bb7c0063121bce5885632829fdc77dbd67ea15c8
         imagePullPolicy: Always
         livenessProbe:
           periodSeconds: 120
@@ -51,6 +51,10 @@ spec:
         env:
         - name: DEFAULT_URL_HOST
           value: kube.refsheet.net
+        - name: RAILS_MAX_THREADS
+          value: "15"
+        - name: WEB_CONCURRENCY
+          value: "2"
         envFrom:
         - configMapRef:
             name: refsheet-prod

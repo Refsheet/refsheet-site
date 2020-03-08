@@ -26,12 +26,16 @@ class GraphqlController < ApplicationController
       cookies: method(:cookies)
     }
 
-    result = RefsheetSchema.execute(query,
-                                    variables: variables,
-                                    context: context,
-                                    operation_name: operation_name)
+    result = nil
 
-    Rails.logger.debug("Result: #{result.to_json}")
+    Google::Cloud::Trace.in_span(operation_name) do |_span|
+      result = RefsheetSchema.execute(query,
+                                      variables: variables,
+                                      context: context,
+                                      operation_name: operation_name)
+    end
+
+    # Rails.logger.debug("Result: #{result.to_json}")
 
     render json: result
   end

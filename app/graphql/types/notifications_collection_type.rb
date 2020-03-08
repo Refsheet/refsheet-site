@@ -1,6 +1,8 @@
 Types::NotificationsCollectionType = GraphQL::ObjectType.define do
   name "NotificationCollection"
 
+  interfaces [Interfaces::ApplicationRecordInterface]
+
   field :unreadCount, types.Int do
     resolve -> (obj, _args, _ctx) {
       obj.unread.count
