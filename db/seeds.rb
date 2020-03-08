@@ -47,5 +47,5 @@ Forum.create(name: 'Roleplay', slug: 'rp', description: 'OwO *notices ur forum*'
 end
 
 3000.times do
-  Forum::Post.create!(thread: Forum::Discussion.random, user: User.random, content: Faker::Books::Lovecraft.paragraph)
+  Forum::Post.create!(discussion: Forum::Discussion.random, user: User.random, content: Faker::Books::Lovecraft.paragraph)
 end

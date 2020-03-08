@@ -55,8 +55,8 @@ describe Forum::Discussion, type: :model do
   it '::with_unread_count' do
     d = create :forum_discussion, topic: 'Subscribed'
     d2 = create :forum_discussion, topic: 'NOT subscribed', forum: d.forum
-    p1 = create :forum_post, thread: d, created_at: 2.hours.ago
-    p2 = create :forum_post, thread: d, created_at: 1.minute.ago
+    p1 = create :forum_post, discussion: d, created_at: 2.hours.ago
+    p2 = create :forum_post, discussion: d, created_at: 1.minute.ago
     s = create :forum_subscription, discussion: d, last_read_at: 1.hour.ago
 
     da = Forum::Discussion.with_unread_count(s.user)

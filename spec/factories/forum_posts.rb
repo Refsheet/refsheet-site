@@ -30,7 +30,7 @@
 
 FactoryBot.define do
   factory :forum_post, class: 'Forum::Post' do
-    association :thread, factory: :forum_discussion
+    association :discussion, factory: :forum_discussion
     user
     content { Faker::Lorem.paragraph }
   end
