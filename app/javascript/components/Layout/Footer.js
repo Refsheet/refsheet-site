@@ -151,6 +151,7 @@ class _Footer extends Component {
                   href="https://twitter.com/Refsheet"
                   target="_blank"
                   rel="noopener noreferrer"
+                  title={"Follow us on Twitter!"}
                 >
                   <i className="fab fa-fw fa-twitter" />
                 </a>
@@ -158,17 +159,27 @@ class _Footer extends Component {
                   href="mailto:mau@refsheet.net"
                   target="_blank"
                   rel="noopener noreferrer"
+                  title={"Send an email"}
                 >
                   <i className="fa fa-fw fa-envelope" />
+                </a>
+                <a
+                  href={"https://discord.gg/dnGYbt"}
+                  target={"_blank"}
+                  rel={"noopener noreferrer"}
+                  title={"Join us on Discord!"}
+                >
+                  <i className={"fab fa-fw fa-discord"} />
                 </a>{' '}
                 <a
                   href="https://www.patreon.com/refsheet"
                   target="_blank"
                   rel="noopener noreferrer"
+                  title={"Support us on Patreon!"}
                 >
                   <img
                     src="/assets/third_party/patreon_white.png"
-                    alt="Patreon"
+                    alt="Support us on Patreon!"
                   />
                 </a>
               </div>
