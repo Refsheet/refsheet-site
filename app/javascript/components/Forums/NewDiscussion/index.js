@@ -17,7 +17,7 @@ class NewDiscussion extends Component {
     this.state = {
       post: {
         topic: '',
-        nsfw: false,
+        sticky: false,
         hidden: false,
         locked: false,
       },
@@ -58,13 +58,15 @@ class NewDiscussion extends Component {
                   onChange={this.handleInputChange}
                 />
                 <Col s={6} m={3} className={'right-align checkbox-full-height'}>
-                  {/*<Checkbox*/}
-                  {/*  id={'nsfw'}*/}
-                  {/*  value={'nsfw'}*/}
-                  {/*  label={'NSFW'}*/}
-                  {/*  checked={this.state.post.nsfw}*/}
-                  {/*  onChange={this.handleInputChange}*/}
-                  {/*/>*/}
+                  <Restrict admin>
+                    <Checkbox
+                      id={'sticky'}
+                      value={'sticky'}
+                      label={'Sticky'}
+                      checked={this.state.post.sticky}
+                      onChange={this.handleInputChange}
+                    />
+                  </Restrict>
                 </Col>
                 <Col s={6} m={3} className={'right-align checkbox-full-height'}>
                   <Restrict admin>

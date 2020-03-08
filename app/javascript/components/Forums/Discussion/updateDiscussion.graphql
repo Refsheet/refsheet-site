@@ -1,0 +1,16 @@
+mutation updateDiscussion($id: ID!, $topic: String, $content: String, $locked: Boolean, $sticky: Boolean) {
+    updateDiscussion(id: $id, topic: $topic, content: $content, locked: $locked, sticky: $sticky) {
+        #...ForumDiscussionFields
+        id
+        topic
+        slug
+        locked
+        sticky
+
+        forum {
+            id
+            slug
+            name
+        }
+    }
+}

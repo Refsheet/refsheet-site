@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_28_094903) do
+ActiveRecord::Schema.define(version: 2020_02_15_183219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -510,6 +510,7 @@ ActiveRecord::Schema.define(version: 2020_01_28_094903) do
     t.boolean "sticky"
     t.boolean "admin_post"
     t.boolean "moderator_post"
+    t.integer "posts_count", default: 0, null: false
     t.index ["character_id"], name: "index_forum_threads_on_character_id"
     t.index ["forum_id"], name: "index_forum_threads_on_forum_id"
     t.index ["karma_total"], name: "index_forum_threads_on_karma_total"
@@ -529,6 +530,17 @@ ActiveRecord::Schema.define(version: 2020_01_28_094903) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "system_owned", default: false
+    t.text "rules"
+    t.text "prepost_message"
+    t.integer "owner_id"
+    t.integer "fandom_id"
+    t.boolean "open", default: false
+    t.text "summary"
+    t.integer "discussions_count", default: 0, null: false
+    t.integer "members_count", default: 0, null: false
+    t.integer "posts_count", default: 0, null: false
+    t.index ["fandom_id"], name: "index_forums_on_fandom_id"
+    t.index ["owner_id"], name: "index_forums_on_owner_id"
     t.index ["slug"], name: "index_forums_on_slug"
     t.index ["system_owned"], name: "index_forums_on_system_owned"
   end
@@ -600,6 +612,72 @@ ActiveRecord::Schema.define(version: 2020_01_28_094903) do
     t.boolean "sold"
     t.integer "seller_id"
     t.index ["sold"], name: "index_items_on_sold"
+  end
+
+  create_table "lodestone_characters", force: :cascade do |t|
+    t.bigint "active_class_job_id"
+    t.text "bio"
+    t.bigint "server_id"
+    t.string "lodestone_id"
+    t.string "name"
+    t.string "nameday"
+    t.datetime "remote_updated_at"
+    t.string "portrait_url"
+    t.bigint "race_id"
+    t.string "title"
+    t.boolean "title_top"
+    t.string "town"
+    t.string "tribe"
+    t.string "diety"
+    t.string "gc_name"
+    t.string "gc_rank_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "character_id"
+    t.index ["active_class_job_id"], name: "index_lodestone_characters_on_active_class_job_id"
+    t.index ["character_id"], name: "index_lodestone_characters_on_character_id"
+    t.index ["lodestone_id"], name: "index_lodestone_characters_on_lodestone_id"
+    t.index ["race_id"], name: "index_lodestone_characters_on_race_id"
+    t.index ["server_id"], name: "index_lodestone_characters_on_server_id"
+  end
+
+  create_table "lodestone_class_jobs", force: :cascade do |t|
+    t.bigint "lodestone_character_id"
+    t.string "name"
+    t.string "class_abbr"
+    t.string "class_icon_url"
+    t.string "class_name"
+    t.string "job_abbr"
+    t.string "job_icon_url"
+    t.string "job_name"
+    t.integer "level"
+    t.integer "exp_level"
+    t.integer "exp_level_max"
+    t.integer "exp_level_togo"
+    t.boolean "specialized"
+    t.boolean "job_active"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["lodestone_character_id"], name: "index_lodestone_class_jobs_on_lodestone_character_id"
+    t.index ["name"], name: "index_lodestone_class_jobs_on_name"
+  end
+
+  create_table "lodestone_races", force: :cascade do |t|
+    t.string "lodestone_id"
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["lodestone_id"], name: "index_lodestone_races_on_lodestone_id"
+  end
+
+  create_table "lodestone_servers", force: :cascade do |t|
+    t.string "lodestone_id"
+    t.string "name"
+    t.string "datacenter"
+    t.integer "characters_count"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["lodestone_id"], name: "index_lodestone_servers_on_lodestone_id"
   end
 
   create_table "media_comments", id: :serial, force: :cascade do |t|
@@ -937,6 +1015,10 @@ ActiveRecord::Schema.define(version: 2020_01_28_094903) do
     t.boolean "avatar_processing"
     t.integer "support_pledge_amount", default: 0
     t.string "guid"
+    t.boolean "admin"
+    t.boolean "patron"
+    t.boolean "supporter"
+    t.boolean "moderator"
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["guid"], name: "index_users_on_guid"
     t.index ["parent_user_id"], name: "index_users_on_parent_user_id"
@@ -972,6 +1054,7 @@ ActiveRecord::Schema.define(version: 2020_01_28_094903) do
   add_foreign_key "conversations_read_bookmarks", "conversations_messages", column: "message_id"
   add_foreign_key "conversations_read_bookmarks", "users"
   add_foreign_key "images", "custom_watermarks"
+  add_foreign_key "lodestone_characters", "characters"
   add_foreign_key "media_tags", "characters"
   add_foreign_key "media_tags", "images", column: "media_id"
   add_foreign_key "user_sessions", "ahoy_visits"

@@ -93,6 +93,7 @@ RUN yarn --pure-lockfile
 COPY . /app
 
 RUN mkdir -p /cache && \
+    touch /cache/warm && \
     mkdir -p /app/tmp/cache && \
     cp -R /cache/* /app/tmp/cache && \
     SECRET_KEY_BASE=nothing \

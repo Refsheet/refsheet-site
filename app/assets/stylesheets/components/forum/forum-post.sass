@@ -1,7 +1,7 @@
 .forum-post
-  display: table-row
-  margin: 0
+  display: flex
   padding: 0
+  margin: 0 0 1rem
 
   @at-root
     .sidebar .forum-post--date
@@ -34,11 +34,16 @@
 
     .forum-post--votes
       text-align: center
-      line-height: 1rem
       width: auto
-      display: table-cell
+      display: flex
+      flex-direction: column
+      flex-grow: 0
+      flex-shrink: 0
       margin: 0
-      padding: 0.5rem 1rem 0.5rem 0
+      padding: 0
+
+      &.shade
+        background-color: rgba(0, 0, 0, 0.1)
 
       & > a, & > span
         display: block
@@ -52,6 +57,18 @@
       .forum-post--karma
         font-weight: bold
         color: $text-light-color
+        flex-grow: 1
+
+      .forum-post--upvote,
+      .forum-post--downvote
+        flex-grow: 0
+
+        a
+          padding: 0.5rem
+          display: block
+
+    .forum-post--preview
+      flex-grow: 1
 
     .forum-posts--group-name
       font-size: 0.9rem
@@ -111,6 +128,9 @@
               border-top-color: $brand-primary
 
         .tag
+          margin-right: 0
+          padding-right: 1.5rem
+
           &:after
             content: ''
             display: block
@@ -165,6 +185,8 @@
       font-weight: bold
 
   .forum-post--title
+    margin-bottom: 0.25rem
+
     .tag
       vertical-align: middle
       font-size: 0.7rem
@@ -187,14 +209,19 @@
 
 
   .forum-post--summary
-    display: table-cell
+    display: flex
     margin: 0
-    padding: 0.5rem 0 0.5rem 0
+    padding: 0.5rem 1rem
+    flex-direction: column
+    flex-grow: 1
 
   .forum-post--date
-    display: table-cell
+    display: block
     text-align: right
     width: 200px
+    flex-shrink: 0
+    flex-grow: 0
+    padding: 0.5rem 1rem
 
     .user-summary
       padding-right: 4rem

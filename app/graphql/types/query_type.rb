@@ -65,8 +65,10 @@ Types::QueryType = GraphQL::ObjectType.define do
   end
 
   field :getNotifications, Types::NotificationsCollectionType do
-    resolve -> (_obj, _args, ctx) {
-      Notification.eager_loaded.for(ctx[:current_user].call)
+    argument :page, types.Int
+
+    resolve -> (_obj, args, ctx) {
+      Notification.eager_loaded.for(ctx[:current_user].call).page(args[:page] || 1)
     }
   end
 

@@ -59,6 +59,9 @@ class Character < ApplicationRecord
   # Requires this to eager load the news feed:
   has_many :activities, as: :activity, dependent: :destroy
 
+  # Remote Links
+  has_one :lodestone_character, class_name: "Lodestone::Character"
+
   # counter_culture :user
 
   accepts_nested_attributes_for :color_scheme

@@ -29,6 +29,9 @@ gem 'activerecord-nulldb-adapter', '~> 0.4.0'
 gem 'mini_magick'
 gem 'paper_trail'
 
+# == Instrumentation
+gem 'stackdriver'
+
 # == FRONT END
 
 gem 'uglifier', '>= 1.3.0'
@@ -105,6 +108,7 @@ gem 'her'
 gem 'sentry-raven'
 gem 'sendgrid-actionmailer'
 gem "google-cloud-storage", "~> 1.11", require: false
+gem 'xivapi', git: 'https://github.com/Refsheet/xivapi-ruby.git', branch: 'extended-character'
 
 # == BOWER ASSETS
 
@@ -142,7 +146,7 @@ group :development, :test do
   gem 'rspec-collection_matchers', require: false
   gem 'rspec-expectations', require: false
   gem 'rspec-its', require: false
-  gem 'rspec-rails', '~> 4.0.0.beta', require: false
+  gem 'rspec-rails', '~> 4.0.0.beta'
   gem 'rspec-retry', require: false
   gem 'rspec_junit_formatter', require: false
   gem 'rails-controller-testing'

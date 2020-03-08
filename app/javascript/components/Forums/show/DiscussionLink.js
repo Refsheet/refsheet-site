@@ -15,13 +15,17 @@ class DiscussionLink extends Component {
 
     return (
       <div
-        className={c('forum-post', {
+        className={c('forum-post card', {
           new: discussion.is_unread,
           admin: discussion.admin_post,
           moderator: discussion.moderator_post,
         })}
       >
-        <KarmaCounter discussion={discussion} forum={forum} />
+        <KarmaCounter
+          discussion={discussion}
+          forum={forum}
+          className={'shade'}
+        />
 
         <div className={'forum-post--summary'}>
           <div className="forum-post--title">

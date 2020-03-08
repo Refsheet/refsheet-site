@@ -1,3 +1,4 @@
+# @deprecated Use Forum::DiscussionSerializer
 class Forum::ThreadSerializer < ActiveModel::Serializer
   include ActionView::Helpers::DateHelper
 
@@ -19,7 +20,7 @@ class Forum::ThreadSerializer < ActiveModel::Serializer
   #
   def posts
     object.posts.collect do |post|
-      post.thread = object
+      post.discussion = object
       Forum::PostSerializer.new post, scope: scope, root: false
     end
   end

@@ -3,8 +3,9 @@ query getForums {
         id
         slug
         name
-        description
+        summary
         system_owned
+        is_open
         created_at
     }
 }

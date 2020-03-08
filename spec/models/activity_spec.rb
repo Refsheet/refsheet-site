@@ -68,4 +68,27 @@ describe Activity, type: :model do
     expect(Activity.visible_to(usr1)).to have(1).items
     expect(Activity.visible_to(usr0)).to have(0).items
   end
+
+  it 'handles missing classes' do
+    class TestUserModel < ActiveRecord::Base
+      self.table_name = :users
+    end
+
+    usr0 = create :user
+    user = TestUserModel.find(usr0.id)
+
+    activity = Activity.create activity: user,
+                               user: usr0,
+                               activity_method: :create
+
+    expect(activity).to be_valid
+    expect(activity).to be_persisted
+    expect(activity.activity).to eq user
+
+    Object.send(:remove_const, :TestUserModel)
+
+    expect { activity.reload }.to_not raise_error
+    expect { activity.activity }.to_not raise_error
+    expect(activity.activity).to be_nil
+  end
 end

@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     get '/f/:id', to: 'forums#shortcode'
     get '/i/:id', to: 'images#shortcode'
     get '/l/:id', to: 'advertisement_slots#shortcode'
-    get '/t/:id', to: 'forum/threads#shortcode'
+    get '/t/:id', to: 'forum/threads#shortcode' # TODO: rename controller to DiscussionsController
     get '/u/:id', to: 'users#shortcode'
     get '*id', to: 'shortcodes#show'
   end
@@ -127,7 +127,7 @@ Rails.application.routes.draw do
   #== Forums
 
   resources :forums, only: [:index, :show] do
-    get ':id', to: 'forum/threads#show', as: :thread
+    get ':id', to: 'forum/threads#show', as: :thread # TODO: Rename to discussions
 
     resources :threads, only: [:index, :show, :create], controller: 'forum/threads' do
       resources :posts, only: [:index, :show, :create], controller: 'forum/posts'

@@ -230,7 +230,9 @@ class ApplicationController < ActionController::Base
   end
 
   def tag_logs(&block)
-    Rails.logger.tagged("#{params[:controller]}##{params[:action]}", &block)
+    Google::Cloud::Trace.in_span("#{params[:controller]}##{params[:action]}") do
+      Rails.logger.tagged("#{params[:controller]}##{params[:action]}", &block)
+    end
   end
 
   def set_paper_trail_actor

@@ -18,6 +18,7 @@
 #  sticky         :boolean
 #  admin_post     :boolean
 #  moderator_post :boolean
+#  posts_count    :integer          default(0), not null
 #
 # Indexes
 #
@@ -39,7 +40,7 @@ class Forum::Discussion < ApplicationRecord
   belongs_to :forum
   belongs_to :user
   belongs_to :character
-  has_many :posts, -> { order('forum_posts.created_at ASC') }, class_name: "Forum::Post", foreign_key: :thread_id, inverse_of: :thread
+  has_many :posts, -> { order('forum_posts.created_at ASC') }, class_name: "Forum::Post", foreign_key: :thread_id, inverse_of: :discussion
   has_many :karmas, class_name: "Forum::Karma", as: :karmic, foreign_key: :karmic_id
   has_many :subscriptions, class_name: "Forum::Subscription", foreign_key: :discussion_id
 
@@ -58,6 +59,8 @@ class Forum::Discussion < ApplicationRecord
   slugify :topic, lookups: true
   has_guid :shortcode, type: :shortcode
   has_markdown_field :content
+  scoped_search on: [:topic, :content]
+  counter_culture :forum
 
   scope :with_unread_count, -> (user) {
     joins(sanitize_sql_array [<<-SQL.squish, user&.id]).
@@ -84,13 +87,13 @@ class Forum::Discussion < ApplicationRecord
         ) lpa ON lpa.thread_id = forum_threads.id
     SQL
 
-    select('forum_threads.*, lpa.last_post_at AS last_post_at')
+    select('forum_threads.*, COALESCE(lpa.last_post_at, forum_threads.created_at) AS last_post_at')
   }
 
   scope :sticky, -> { where(sticky: true) }
 
   def reply_count
-    self.posts.count
+    self.posts_count
   end
 
   def last_post_at
