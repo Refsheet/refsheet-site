@@ -1,3 +1,13 @@
+/* eslint-disable
+    no-undef,
+    no-unreachable,
+    no-unused-vars,
+    react/jsx-no-undef,
+    react/no-deprecated,
+    react/react-in-jsx-scope,
+*/
+// TODO: This file was created by bulk-decaffeinate.
+// Fix any style issues and re-enable lint.
 /*
  * decaffeinate suggestions:
  * DS102: Remove unnecessary code created because of implicit returns
