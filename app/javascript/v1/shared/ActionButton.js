@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-export default ActionButton = createReactClass({
+let ActionButton; export default ActionButton = createReactClass({
   componentDidUpdate() {
     return Materialize.Tooltip.init(this.refs.actionButton, {
       delay: 0,

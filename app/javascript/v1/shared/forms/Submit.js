@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-export default Submit = function(props) {
+let Submit; export default Submit = function(props) {
   const classNames = ['btn']
   classNames.push(props.className)
   if (!props.noWaves) {

@@ -11,7 +11,7 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-export default InfiniteScroll = createReactClass({
+let InfiniteScroll; export default InfiniteScroll = createReactClass({
   propTypes: {
     onLoad: PropTypes.func.isRequired,
     params: PropTypes.object.isRequired,

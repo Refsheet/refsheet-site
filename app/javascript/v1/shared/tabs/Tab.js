@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-export default Tab = createReactClass({
+let Tab; export default Tab = createReactClass({
   propTypes: {
     id: PropTypes.string.isRequired,
     name: PropTypes.string,

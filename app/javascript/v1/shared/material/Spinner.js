@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-export default Spinner = function(props) {
+let Spinner; export default Spinner = function(props) {
   const classNames = ['preloader-wrapper']
   if (!props.inactive) {
     classNames.push('active')

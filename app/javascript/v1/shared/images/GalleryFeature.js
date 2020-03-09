@@ -11,7 +11,7 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-export default GalleryFeature = createReactClass({
+let GalleryFeature; export default GalleryFeature = createReactClass({
   propTypes: {
     editable: PropTypes.bool,
     first: PropTypes.object,

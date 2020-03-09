@@ -11,7 +11,7 @@ import {Link} from "react-router-dom"
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-export default LightboxCharacterBox = props => (
+let LightboxCharacterBox; export default LightboxCharacterBox = props => (
   <div className="character-box">
     <Link to={props.character.link} className="character-avatar">
       <img src={props.character.profile_image_url} />

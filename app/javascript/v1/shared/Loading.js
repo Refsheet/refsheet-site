@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-export default Loading = function(props) {
+let Loading; export default Loading = function(props) {
   const classNames = ['modal-page-content']
   if (props.className) {
     classNames.push(props.className)

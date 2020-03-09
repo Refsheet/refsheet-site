@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-export default NavLink = createReactClass({
+let NavLink; export default NavLink = createReactClass({
   contextTypes: {
     router: PropTypes.object,
   },

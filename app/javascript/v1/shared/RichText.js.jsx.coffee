@@ -2,7 +2,7 @@ import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
 
-export default RichText = createReactClass
+let RichText; export default RichText = createReactClass
   getInitialState: ->
     edit: false
     markup: @props.markup

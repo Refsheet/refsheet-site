@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-export default Main = createReactClass({
+let Main; export default Main = createReactClass({
   propTypes: {
     style: PropTypes.object,
     className: PropTypes.string,

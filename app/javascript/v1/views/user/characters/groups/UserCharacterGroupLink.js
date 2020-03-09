@@ -16,7 +16,7 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.UserCharacterGroupLink = createReactClass({
+let UserCharacterGroupLink; export default UserCharacterGroupLink = createReactClass({
   propTypes() {
     return {
       group: PropTypes.object.isRequired,

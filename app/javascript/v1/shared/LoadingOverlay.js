@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-export default LoadingOverlay = props => (
+let LoadingOverlay; export default LoadingOverlay = props => (
   <div className="loading-overlay">
     <Loading />
   </div>

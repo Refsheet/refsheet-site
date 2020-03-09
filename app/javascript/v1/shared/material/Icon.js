@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-export default Icon = function(props) {
+let Icon; export default Icon = function(props) {
   const { children, title, className, style } = props
   const classNames = ['material-icons']
   if (className) {
