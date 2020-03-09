@@ -1,10 +1,7 @@
-/* eslint-disable
-    no-undef,
-    react/jsx-no-undef,
-    react/no-deprecated,
-    react/no-string-refs,
-    react/react-in-jsx-scope,
-*/
+import React from 'react'
+import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types'
+
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -14,7 +11,7 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.AttributeTable = createReactClass({
+export default AttributeTable = createReactClass({
   getInitialState() {
     return {
       activeEditor: this.props.activeEditor,

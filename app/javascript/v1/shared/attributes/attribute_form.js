@@ -1,9 +1,10 @@
-/* eslint-disable
-    no-undef,
-    react/jsx-no-undef,
-    react/no-deprecated,
-    react/react-in-jsx-scope,
-*/
+import React from 'react'
+import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types'
+
+import Materialize from 'materialize-css'
+import Input from '../forms/Input'
+
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -13,7 +14,7 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.AttributeForm = createReactClass({
+export default AttributeForm = createReactClass({
   getInitialState() {
     return {
       name: this.props.name,

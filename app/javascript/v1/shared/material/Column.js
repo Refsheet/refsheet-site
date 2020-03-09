@@ -1,8 +1,7 @@
-/* eslint-disable
-    react/display-name,
-    react/prop-types,
-    react/react-in-jsx-scope,
-*/
+import React from 'react'
+import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types'
+
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -11,7 +10,7 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.Column = function(props) {
+export default Column = function(props) {
   const classes = ['col']
   classes.push(props.className)
   if (!props['s']) {
