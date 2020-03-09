@@ -1,26 +1,37 @@
-@Views.Account.Activities.Image = React.createClass
-  propTypes:
-    images: React.PropTypes.array.isRequired
-    character: React.PropTypes.object
+/*
+ * decaffeinate suggestions:
+ * DS101: Remove unnecessary use of Array.from
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.Views.Account.Activities.Image = React.createClass({
+  propTypes: {
+    images: React.PropTypes.array.isRequired,
+    character: React.PropTypes.object,
     action: React.PropTypes.string
+  },
 
-  _getGallery: () ->
-    @props.images.map (i) ->
-      i.id
+  _getGallery() {
+    return this.props.images.map(i => i.id);
+  },
 
-  _buildSingle: (key, one) ->
-    `<Row noMargin noGutter key={ key }>
+  _buildSingle(key, one) {
+    return <Row noMargin noGutter key={ key }>
         <Column><GalleryImage gallery={this._getGallery()} image={ one } size='medium_square' /></Column>
-    </Row>`
+    </Row>;
+  },
 
-  _buildDouble: (key, one, two) ->
-    `<Row noMargin noGutter key={ key }>
+  _buildDouble(key, one, two) {
+    return <Row noMargin noGutter key={ key }>
         <Column s={6}><GalleryImage gallery={this._getGallery()} image={ one } size='medium_square' /></Column>
         <Column s={6}><GalleryImage gallery={this._getGallery()} image={ two } size='medium_square' /></Column>
-    </Row>`
+    </Row>;
+  },
 
-  _buildTriple: (key, one, two, three) ->
-    `<Row noMargin noGutter key={ key }>
+  _buildTriple(key, one, two, three) {
+    return <Row noMargin noGutter key={ key }>
         <Column s={8}><GalleryImage gallery={this._getGallery()} image={ one } size='medium_square' /></Column>
         <Column s={4}>
             <Row noMargin noGutter>
@@ -28,35 +39,45 @@
                 <Column><GalleryImage gallery={this._getGallery()} image={ three } size='medium_square' /></Column>
             </Row>
         </Column>
-    </Row>`
+    </Row>;
+  },
 
-  _buildImageGrid: (images, grid=[]) ->
-    key = images.length
+  _buildImageGrid(images, grid) {
+    let one, two;
+    if (grid == null) { grid = []; }
+    const key = images.length;
 
-    # 3 Block: 3, 5, 6
-    if (images.length > 4 && images.length < 7) || images.length == 3
-      [ one, two, three, images... ] = images
-      grid.push @_buildTriple key, one, two, three
-      @_buildImageGrid images, grid
+    // 3 Block: 3, 5, 6
+    if (((images.length > 4) && (images.length < 7)) || (images.length === 3)) {
+      let three;
+      [ one, two, three, ...images ] = Array.from(images);
+      grid.push(this._buildTriple(key, one, two, three));
+      this._buildImageGrid(images, grid);
 
-    # 2 Block: 2, 4, 7+
-    else if images.length == 2 || images.length == 4 || images.length >= 7
-      [ one, two, images... ] = images
-      grid.push @_buildDouble key, one, two
-      @_buildImageGrid images, grid
+    // 2 Block: 2, 4, 7+
+    } else if ((images.length === 2) || (images.length === 4) || (images.length >= 7)) {
+      [ one, two, ...images ] = Array.from(images);
+      grid.push(this._buildDouble(key, one, two));
+      this._buildImageGrid(images, grid);
 
-    # Single: 1
-    else if images.length == 1
-      [ one ] = images
-      grid.push @_buildSingle key, one
+    // Single: 1
+    } else if (images.length === 1) {
+      [ one ] = Array.from(images);
+      grid.push(this._buildSingle(key, one));
+    }
 
-    grid
+    return grid;
+  },
 
-  render: ->
-    if @props.character
-      for i in @props.images
-        i.character = @props.character
+  render() {
+    if (this.props.character) {
+      for (let i of Array.from(this.props.images)) {
+        i.character = this.props.character;
+      }
+    }
 
-    `<div className='activity'>
+    return <div className='activity'>
         { this._buildImageGrid(this.props.images) }
-    </div>`
+    </div>;
+  }
+});

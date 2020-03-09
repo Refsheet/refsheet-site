@@ -1,73 +1,92 @@
-@Views.Account.ActivityCard = React.createClass
-  propTypes:
-    activityType: React.PropTypes.string
-    activityMethod: React.PropTypes.string
-    activityField: React.PropTypes.string
-    activity: React.PropTypes.object
-    activities: React.PropTypes.array
-    user: React.PropTypes.object.isRequired
-    character: React.PropTypes.object
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.Views.Account.ActivityCard = React.createClass({
+  propTypes: {
+    activityType: React.PropTypes.string,
+    activityMethod: React.PropTypes.string,
+    activityField: React.PropTypes.string,
+    activity: React.PropTypes.object,
+    activities: React.PropTypes.array,
+    user: React.PropTypes.object.isRequired,
+    character: React.PropTypes.object,
     timestamp: React.PropTypes.number.isRequired
+  },
 
-  _getIdentity: ->
-    if @props.character
-      avatarUrl: @props.character.profile_image_url
-      name: @props.character.name
-      link: @props.character.link
-      is_admin: @props.user.is_admin
-      is_patron: @props.user.is_patron
-      username: @props.user.username
-      type: 'character'
+  _getIdentity() {
+    if (this.props.character) {
+      return {
+        avatarUrl: this.props.character.profile_image_url,
+        name: this.props.character.name,
+        link: this.props.character.link,
+        is_admin: this.props.user.is_admin,
+        is_patron: this.props.user.is_patron,
+        username: this.props.user.username,
+        type: 'character'
+      };
 
-    else
-      avatarUrl: @props.user.avatar_url
-      name: @props.user.name
-      link: @props.user.link
-      username: @props.user.username
-      is_admin: @props.user.is_admin
-      is_patron: @props.user.is_patron
-      type: 'user'
+    } else {
+      return {
+        avatarUrl: this.props.user.avatar_url,
+        name: this.props.user.name,
+        link: this.props.user.link,
+        username: this.props.user.username,
+        is_admin: this.props.user.is_admin,
+        is_patron: this.props.user.is_patron,
+        type: 'user'
+      };
+    }
+  },
 
-  _getActivities: ->
-    @props.activities || [ @props.activity ]
+  _getActivities() {
+    return this.props.activities || [ this.props.activity ];
+  },
 
-  _getActivity: ->
-    return unless @props.activity || @props.comment
+  _getActivity() {
+    if (!this.props.activity && !this.props.comment) { return; }
 
-    switch @props.activityType
-      when 'Image'
-        `<Views.Account.Activities.Image images={ this._getActivities() } character={ this.props.character } />`
+    switch (this.props.activityType) {
+      case 'Image':
+        return <Views.Account.Activities.Image images={ this._getActivities() } character={ this.props.character } />;
 
-      when 'Media::Comment'
-        `<Views.Account.Activities.Comment comments={ this._getActivities() } />`
+      case 'Media::Comment':
+        return <Views.Account.Activities.Comment comments={ this._getActivities() } />;
 
-      when 'Character'
-        `<Views.Account.Activities.Character characters={ this._getActivities() } username={ this.props.user.username } />`
+      case 'Character':
+        return <Views.Account.Activities.Character characters={ this._getActivities() } username={ this.props.user.username } />;
 
-      when 'Forum::Discussion'
-        `<Views.Account.Activities.ForumDiscussion discussions={ this._getActivities() } />`
+      case 'Forum::Discussion':
+        return <Views.Account.Activities.ForumDiscussion discussions={ this._getActivities() } />;
 
-      else
-        if @props.comment
-          `<Views.Account.Activities.StatusUpdate comment={ this.props.comment } />`
-        else
-          `<div className='red-text padding-bottom--medium'>Unsupported activity type: {this.props.activityType}.{this.props.activityMethod}</div>`
+      default:
+        if (this.props.comment) {
+          return <Views.Account.Activities.StatusUpdate comment={ this.props.comment } />;
+        } else {
+          return <div className='red-text padding-bottom--medium'>Unsupported activity type: {this.props.activityType}.{this.props.activityMethod}</div>;
+        }
+    }
+  },
 
-  render: ->
-    return `<ActivityCard {...this.props} />`
+  render() {
+    let imgShadow, nameColor;
+    return <ActivityCard {...this.props} />;
 
-    { date, dateHuman } = @props
-    identity = @_getIdentity()
+    const { date, dateHuman } = this.props;
+    const identity = this._getIdentity();
 
-    if identity.is_admin
-      imgShadow = '0 0 3px 1px #2480C8'
-      nameColor = '#2480C8'
+    if (identity.is_admin) {
+      imgShadow = '0 0 3px 1px #2480C8';
+      nameColor = '#2480C8';
 
-    else if identity.is_patron
-      imgShadow = '0 0 3px 1px #F96854'
-      nameColor = '#F96854'
+    } else if (identity.is_patron) {
+      imgShadow = '0 0 3px 1px #F96854';
+      nameColor = '#F96854';
+    }
 
-    `<div className='card sp with-avatar margin-bottom--medium'>
+    return <div className='card sp with-avatar margin-bottom--medium'>
         <img className='avatar circle' src={ identity.avatarUrl } alt={ identity.name } style={{ boxShadow: imgShadow }} />
 
         <div className='card-content padding-bottom--medium'>
@@ -80,4 +99,6 @@
         { this._getActivity() }
 
         <div className='clearfix' />
-    </div>`
+    </div>;
+  }
+});

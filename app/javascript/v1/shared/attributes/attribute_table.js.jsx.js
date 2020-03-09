@@ -1,74 +1,101 @@
-@AttributeTable = React.createClass
-  getInitialState: ->
-    activeEditor: @props.activeEditor
-    appendMode: false
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.AttributeTable = React.createClass({
+  getInitialState() {
+    return {
+      activeEditor: this.props.activeEditor,
+      appendMode: false
+    };
+  },
 
-  clearEditor: ->
-    @setState activeEditor: null
+  clearEditor() {
+    return this.setState({activeEditor: null});
+  },
 
-  componentDidMount: ->
-    if @props.onAttributeUpdate?
-      $(@refs.table).sortable
-        items: 'li:not(.attribute-form)'
-        placeholder: 'drop-target'
-        forcePlaceholderSize: true
-        stop: (_, el) =>
-          $item = $(el.item[0])
-          position = $item.parent().children().index($item)
+  componentDidMount() {
+    if (this.props.onAttributeUpdate != null) {
+      return $(this.refs.table).sortable({
+        items: 'li:not(.attribute-form)',
+        placeholder: 'drop-target',
+        forcePlaceholderSize: true,
+        stop: (_, el) => {
+          const $item = $(el.item[0]);
+          const position = $item.parent().children().index($item);
 
-          @props.onAttributeUpdate
-            id: $item.data 'attribute-id'
+          return this.props.onAttributeUpdate({
+            id: $item.data('attribute-id'),
             rowOrderPosition: position
+          });
+        }
+      });
+    }
+  },
 
-  _triggerAppend: (e) ->
-    @setState appendMode: true
-    e.preventDefault()
+  _triggerAppend(e) {
+    this.setState({appendMode: true});
+    return e.preventDefault();
+  },
 
-  render: ->
-    children = React.Children.map @props.children, (child) =>
-      return if @props.hideEmpty and not child.props.value
-      return child unless child?.type == Attribute
+  render() {
+    let newForm;
+    const children = React.Children.map(this.props.children, child => {
+      if (this.props.hideEmpty && !child.props.value) { return; }
+      if ((child != null ? child.type : undefined) !== Attribute) { return child; }
 
-      React.cloneElement child,
-        onCommit: @props.onAttributeUpdate
-        onDelete: @props.onAttributeDelete
-        editorActive: (@state.activeEditor == child.key)
-        sortable: @props.sortable
-        valueType: @props.valueType
-        defaultValue: @props.defaultValue
-        freezeName: @props.freezeName
-        hideNotesForm: @props.hideNotesForm
+      return React.cloneElement(child, {
+        onCommit: this.props.onAttributeUpdate,
+        onDelete: this.props.onAttributeDelete,
+        editorActive: (this.state.activeEditor === child.key),
+        sortable: this.props.sortable,
+        valueType: this.props.valueType,
+        defaultValue: this.props.defaultValue,
+        freezeName: this.props.freezeName,
+        hideNotesForm: this.props.hideNotesForm,
 
-        onEditStart: =>
-          @setState activeEditor: child.key, appendMode: false
+        onEditStart: () => {
+          return this.setState({activeEditor: child.key, appendMode: false});
+        },
           
-        onEditStop: =>
-          @setState activeEditor: null
+        onEditStop: () => {
+          return this.setState({activeEditor: null});
+        }
+      }
+      );
+    });
 
-    if @props.onAttributeCreate?
-      if @state.appendMode
+    if (this.props.onAttributeCreate != null) {
+      if (this.state.appendMode) {
         newForm =
-          `<AttributeForm onCommit={ this.props.onAttributeCreate }
+          <AttributeForm onCommit={ this.props.onAttributeCreate }
                           inactive={ this.state.activeEditor != null }
                           hideNotes={ this.props.hideNotesForm }
                           hideIcon={ this.props.hideIcon }
                           valueType={ this.props.valueType }
-                          onFocus={ this.clearEditor } />`
-      else
+                          onFocus={ this.clearEditor } />;
+      } else {
         newForm =
-          `<li className='attribute-form'>
+          <li className='attribute-form'>
               <div className='full-row'>
                   <a href='#' onClick={ this._triggerAppend } className='block'>
                       <i className='material-icons'>add</i>
                   </a>
               </div>
-          </li>`
+          </li>;
+      }
+    }
 
-    className = 'attribute-table'
-    className += ' sortable' if @props.sortable
-    className += ' ' + @props.className if @props.className
+    let className = 'attribute-table';
+    if (this.props.sortable) { className += ' sortable'; }
+    if (this.props.className) { className += ' ' + this.props.className; }
 
-    `<ul className={ className } ref='table'>
+    return <ul className={ className } ref='table'>
         { children }
         { newForm }
-    </ul>`
+    </ul>;
+  }
+});

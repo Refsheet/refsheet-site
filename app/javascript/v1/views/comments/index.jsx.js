@@ -1,54 +1,74 @@
-@Comments = {}
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.Comments = {};
 
-@Comments.Index = React.createClass
-  contextTypes:
+this.Comments.Index = React.createClass({
+  contextTypes: {
     currentUser: React.PropTypes.object
+  },
 
-  propTypes:
-    mediaId: React.PropTypes.string.isRequired
-    comments: React.PropTypes.array
-    poll: React.PropTypes.bool
-    onCommentChange: React.PropTypes.func
+  propTypes: {
+    mediaId: React.PropTypes.string.isRequired,
+    comments: React.PropTypes.array,
+    poll: React.PropTypes.bool,
+    onCommentChange: React.PropTypes.func,
     onCommentsChange: React.PropTypes.func
+  },
 
-  getInitialState: ->
-    model:
-      comment: ''
+  getInitialState() {
+    return {
+      model: {
+        comment: ''
+      }
+    };
+  },
 
-  _poll: ->
-    @poller = setTimeout =>
-      Model.poll "/media/#{@props.mediaId}/comments", {}, (data) =>
-        @props.onCommentsChange(data) if @props.onCommentsChange
-        @_poll()
-    , 3000
+  _poll() {
+    return this.poller = setTimeout(() => {
+      return Model.poll(`/media/${this.props.mediaId}/comments`, {}, data => {
+        if (this.props.onCommentsChange) { this.props.onCommentsChange(data); }
+        return this._poll();
+      });
+    }
+    , 3000);
+  },
 
-  componentDidMount: ->
-    @_poll() if @props.onCommentsChange and @props.poll
+  componentDidMount() {
+    if (this.props.onCommentsChange && this.props.poll) { return this._poll(); }
+  },
 
-  componentWillUnmount: ->
-    clearTimeout @poller
+  componentWillUnmount() {
+    return clearTimeout(this.poller);
+  },
 
-  _handleComment: (comment) ->
-    @props.onCommentChange comment if @props.onCommentChange
+  _handleComment(comment) {
+    if (this.props.onCommentChange) { return this.props.onCommentChange(comment); }
+  },
 
-  render: ->
-    comments = @props.comments.map (comment) ->
-      if comment.user
-        `<div className='card flat with-avatar' key={ comment.id }>
+  render() {
+    const comments = this.props.comments.map(function(comment) {
+      if (comment.user) {
+        return <div className='card flat with-avatar' key={ comment.id }>
             <img src={ comment.user.avatar_url } className='circle avatar' />
             <div className='card-content'>
                 <div className='muted right' title={ comment.created_at }>{ comment.created_at_human }</div>
                 <Link to={ comment.user.link }>{ comment.user.name }</Link>
                 <RichText content={ comment.comment } markup={ comment.comment } />
             </div>
-        </div>`
+        </div>;
 
-      else
-        `<div className='card flat' key= { comment.id }>
+      } else {
+        return <div className='card flat' key= { comment.id }>
             <div className='card-content red-text text-darken-2'>User Deactivated</div>
-        </div>`
+        </div>;
+      }
+    });
 
-    `<div className='flex-vertical'>
+    return <div className='flex-vertical'>
         <div className='flex-content overflow' ref='commentBox'>
             { comments.reverse() }
             { comments.length <= 0 &&
@@ -68,4 +88,6 @@
                     <Submit className='btn-square btn-block'>Send Comment <Icon className='right'>send</Icon></Submit>
                 </Form>
             </div> }
-    </div>`
+    </div>;
+  }
+});

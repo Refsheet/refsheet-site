@@ -1,82 +1,108 @@
-@UserCharacterGroupLink = React.createClass
-  propTypes: ->
-    group: React.PropTypes.object.isRequired
-    editable: React.PropTypes.bool
-    onChange: React.PropTypes.func
-    active: React.PropTypes.bool
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.UserCharacterGroupLink = React.createClass({
+  propTypes() {
+    return {
+      group: React.PropTypes.object.isRequired,
+      editable: React.PropTypes.bool,
+      onChange: React.PropTypes.func,
+      active: React.PropTypes.bool
+    };
+  },
 
-  getInitialState: ->
-    edit: false
-    dropOver: false
+  getInitialState() {
+    return {
+      edit: false,
+      dropOver: false
+    };
+  },
 
-  componentDidMount: ->
-    @_initialize()
+  componentDidMount() {
+    return this._initialize();
+  },
 
-  componentDidUpdate: ->
-    @_initialize()
-
-
-  _initialize: ->
-    return unless @props.editable
-
-    $link = $(@refs.link)
-
-    $link.droppable
-      tolerance: 'pointer'
-      accept: '.character-drag'
-      over: (_, ui) =>
-        $(ui.draggable).siblings('.drop-target').hide()
-        @setState dropOver: true
-
-      out: (_, ui) =>
-        $(ui.draggable).siblings('.drop-target').show()
-        @setState dropOver: false
-
-      drop: (event, ui) =>
-        $source = ui.draggable
-        $source.addClass 'dropped'
-        sourceId = $source.data 'character-id'
-        @_handleDrop(sourceId)
-        @setState dropOver: false
+  componentDidUpdate() {
+    return this._initialize();
+  },
 
 
-  _handleEdit: (e) ->
-    @setState edit: true
-    e.preventDefault()
+  _initialize() {
+    if (!this.props.editable) { return; }
 
-  _handleChange: (data) ->
-    @setState edit: false
-    @props.onChange data
+    const $link = $(this.refs.link);
 
-  _handleDrop: (characterId) ->
-    Model.post @props.group.path + '/characters', id: characterId, (data) =>
-      @props.onChange data, characterId
+    return $link.droppable({
+      tolerance: 'pointer',
+      accept: '.character-drag',
+      over: (_, ui) => {
+        $(ui.draggable).siblings('.drop-target').hide();
+        return this.setState({dropOver: true});
+      },
+
+      out: (_, ui) => {
+        $(ui.draggable).siblings('.drop-target').show();
+        return this.setState({dropOver: false});
+      },
+
+      drop: (event, ui) => {
+        const $source = ui.draggable;
+        $source.addClass('dropped');
+        const sourceId = $source.data('character-id');
+        this._handleDrop(sourceId);
+        return this.setState({dropOver: false});
+      }
+    });
+  },
 
 
-  render: ->
-    { editable, active } = @props
+  _handleEdit(e) {
+    this.setState({edit: true});
+    return e.preventDefault();
+  },
 
-    if @state.edit
-      `<UserCharacterGroupForm group={ this.props.group }
-                               onChange={ this._handleChange } />`
+  _handleChange(data) {
+    this.setState({edit: false});
+    return this.props.onChange(data);
+  },
 
-    else
-      classNames = ['sortable-link', 'character-group-drop']
-      classNames.push 'active' if active
+  _handleDrop(characterId) {
+    return Model.post(this.props.group.path + '/characters', {id: characterId}, data => {
+      return this.props.onChange(data, characterId);
+    });
+  },
 
-      if editable
-        count = @props.group.characters_count
-      else
-        count = @props.group.visible_characters_count
 
-      if @state.dropOver
-        folder = 'add'
-      else if active
-        folder = 'folder_open'
-      else
-        folder = 'folder'
+  render() {
+    const { editable, active } = this.props;
 
-      `<li className={ classNames.join(' ') } ref='link' data-group-id={ this.props.group.slug }>
+    if (this.state.edit) {
+      return <UserCharacterGroupForm group={ this.props.group }
+                               onChange={ this._handleChange } />;
+
+    } else {
+      let count, folder;
+      const classNames = ['sortable-link', 'character-group-drop'];
+      if (active) { classNames.push('active'); }
+
+      if (editable) {
+        count = this.props.group.characters_count;
+      } else {
+        count = this.props.group.visible_characters_count;
+      }
+
+      if (this.state.dropOver) {
+        folder = 'add';
+      } else if (active) {
+        folder = 'folder_open';
+      } else {
+        folder = 'folder';
+      }
+
+      return <li className={ classNames.join(' ') } ref='link' data-group-id={ this.props.group.slug }>
           <i className='material-icons left folder'>{ folder }</i>
 
           <Link to={ this.props.group.link } className='name'>
@@ -91,4 +117,7 @@
               <a href='#' onClick={ this._handleEdit } className='action'>
                   <i className='material-icons'>edit</i>
               </a> }
-      </li>`
+      </li>;
+    }
+  }
+});

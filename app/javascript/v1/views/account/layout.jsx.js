@@ -1,23 +1,42 @@
-namespace 'Views.Account'
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+namespace('Views.Account');
 
-class Layout extends React.Component
-  @contextTypes:
-    router: React.PropTypes.object.isRequired
+class Layout extends React.Component {
+  static initClass() {
+    this.contextTypes =
+      {router: React.PropTypes.object.isRequired};
+  }
 
-  _findTitle: (props=@props) ->
-    if props.children and props.children.props
-      c = @_findTitle(props.children.props)
-    c || props.route?.title
+  _findTitle(props) {
+    let c;
+    if (props == null) { ({
+      props
+    } = this); }
+    if (props.children && props.children.props) {
+      c = this._findTitle(props.children.props);
+    }
+    return c || (props.route != null ? props.route.title : undefined);
+  }
 
-  componentWillReceiveProps: (newProps) ->
-    if (!newProps.currentUser)
-      @context.router.history.push '/'
+  componentWillReceiveProps(newProps) {
+    if (!newProps.currentUser) {
+      return this.context.router.history.push('/');
+    }
+  }
 
-  render: ->
-    if !@props.currentUser
-      return `<span>Signed out, redirecting...</span>`
+  render() {
+    if (!this.props.currentUser) {
+      return <span>Signed out, redirecting...</span>;
+    }
 
-    `<Main title={ this._findTitle() } flex className='with-sidebar'>
+    return <Main title={ this._findTitle() } flex className='with-sidebar'>
         <Container flex className='activity-feed'>
             <div className='sidebar'>
                 <Views.Account.UserCard user={ this.props.currentUser } />
@@ -34,7 +53,10 @@ class Layout extends React.Component
                 <Views.Account.Suggestions />
             </div>
         </Container>
-    </Main>`
+    </Main>;
+  }
+}
+Layout.initClass();
 
-mapStateToProps = (state) => currentUser: state.session.currentUser
-@Views.Account.Layout = connect(mapStateToProps)(Layout)
+const mapStateToProps = state => ({currentUser: state.session.currentUser});
+this.Views.Account.Layout = connect(mapStateToProps)(Layout);

@@ -1,35 +1,52 @@
-@ImageApp = React.createClass
-  getInitialState: ->
-    image: null
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.ImageApp = React.createClass({
+  getInitialState() {
+    return {image: null};
+  },
 
-  load: (data) ->
-    @setState image: data, ->
-      data.directLoad = true
-      $(document).trigger 'app:lightbox', data
+  load(data) {
+    return this.setState({image: data}, function() {
+      data.directLoad = true;
+      return $(document).trigger('app:lightbox', data);
+    });
+  },
 
-  fetch: (imageId) ->
-    return unless imageId
-    Model.get "/images/#{imageId}.json", @load
+  fetch(imageId) {
+    if (!imageId) { return; }
+    return Model.get(`/images/${imageId}.json`, this.load);
+  },
 
-  componentWillMount: ->
-    @fetch @props.match?.params.imageId
+  componentWillMount() {
+    return this.fetch(this.props.match != null ? this.props.match.params.imageId : undefined);
+  },
 
-  componentWillReceiveProps: (newProps) ->
-    if newProps.match?.params.imageId and @state.image and (newProps.match?.params.imageId isnt @state.image?.id)
-      @fetch newProps.match?.params.imageId
+  componentWillReceiveProps(newProps) {
+    if ((newProps.match != null ? newProps.match.params.imageId : undefined) && this.state.image && ((newProps.match != null ? newProps.match.params.imageId : undefined) !== (this.state.image != null ? this.state.image.id : undefined))) {
+      return this.fetch(newProps.match != null ? newProps.match.params.imageId : undefined);
+    }
+  },
 
-  render: ->
-    if @state.image?
-      `<CharacterViewSilhouette title={[ this.state.image.title, 'Images' ]}
+  render() {
+    if (this.state.image != null) {
+      return <CharacterViewSilhouette title={[ this.state.image.title, 'Images' ]}
                                 coverImage={ this.state.image.character.featured_image_url }
-                                immediate />`
+                                immediate />;
 
-    else
-      `<CharacterViewSilhouette />`
+    } else {
+      return <CharacterViewSilhouette />;
+    }
+  }
+});
 
 
-      # BROKEN THINGS FOR TOMRROW
+      // BROKEN THINGS FOR TOMRROW
 
-      # Change eagerload to CONTEXT
-      # Loading screen broken?
-      # Character load on their own.
+      // Change eagerload to CONTEXT
+      // Loading screen broken?
+      // Character load on their own.

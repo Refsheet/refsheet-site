@@ -1,31 +1,44 @@
-@CharacterDeleteModal = React.createClass
-  contextTypes:
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.CharacterDeleteModal = React.createClass({
+  contextTypes: {
     router: React.PropTypes.object.isRequired
+  },
 
-  propTypes:
+  propTypes: {
     character: React.PropTypes.object.isRequired
+  },
 
 
-  _handleCharacterDelete: (e) ->
-    $.ajax
-      url: @props.character.path
-      type: 'DELETE'
-      success: (data) =>
-        M.Modal.getInstance(document.getElementById('delete-form')).close()
-        Materialize.toast({ html: "#{data.name} deleted. :(", displayLength: 3000 })
-        @context.router.history.push '/' + data.user_id
+  _handleCharacterDelete(e) {
+    $.ajax({
+      url: this.props.character.path,
+      type: 'DELETE',
+      success: data => {
+        M.Modal.getInstance(document.getElementById('delete-form')).close();
+        Materialize.toast({ html: `${data.name} deleted. :(`, displayLength: 3000 });
+        return this.context.router.history.push('/' + data.user_id);
+      },
 
-      error: (error) =>
-        Materialize.toast({ html: "Something went wrong.", displayLength: 3000, classes: 'red' })
+      error: error => {
+        return Materialize.toast({ html: "Something went wrong.", displayLength: 3000, classes: 'red' });
+      }
+    });
 
-    e.preventDefault()
+    return e.preventDefault();
+  },
 
-  _handleDeleteClose: (e) ->
-    $('#delete-form').modal('close')
-    e.preventDefault()
+  _handleDeleteClose(e) {
+    $('#delete-form').modal('close');
+    return e.preventDefault();
+  },
 
-  render: ->
-    `<Modal id='delete-form'>
+  render() {
+    return <Modal id='delete-form'>
         <h2>Delete Character</h2>
         <p>This action can not be undone! Are you sure?</p>
 
@@ -33,4 +46,6 @@
             <a className='btn red right' onClick={ this._handleCharacterDelete }>DELETE CHARACTER</a>
             <a className='btn' onClick={ this._handleDeleteClose }>Cancel</a>
         </div>
-    </Modal>`
+    </Modal>;
+  }
+});

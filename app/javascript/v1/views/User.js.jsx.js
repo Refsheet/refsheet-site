@@ -1,103 +1,137 @@
-@User = {}
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.User = {};
 
-@User.View = React.createClass
-  contextTypes:
-    router: React.PropTypes.object.isRequired
-    currentUser: React.PropTypes.object
-    eagerLoad: React.PropTypes.object
+this.User.View = React.createClass({
+  contextTypes: {
+    router: React.PropTypes.object.isRequired,
+    currentUser: React.PropTypes.object,
+    eagerLoad: React.PropTypes.object,
     setCurrentUser: React.PropTypes.func.isRequired
+  },
 
-  dataPath: '/users/:userId'
+  dataPath: '/users/:userId',
 
-  paramMap:
+  paramMap: {
     userId: 'username'
+  },
 
 
-  getInitialState: ->
-    user: null
-    error: null
-    activeGroupId: null
-    characterName: null
+  getInitialState() {
+    return {
+      user: null,
+      error: null,
+      activeGroupId: null,
+      characterName: null
+    };
+  },
 
 
-  componentDidMount: ->
-    @setState activeGroupId: window.location.hash.substring(1), ->
-      StateUtils.load @, 'user'
+  componentDidMount() {
+    return this.setState({activeGroupId: window.location.hash.substring(1)}, function() {
+      return StateUtils.load(this, 'user');
+    });
+  },
 
-  componentWillReceiveProps: (newProps) ->
-    if newProps.match?.params.userId != @state.user?.username
-      StateUtils.reload @, 'user', newProps
-      return
+  componentWillReceiveProps(newProps) {
+    if ((newProps.match != null ? newProps.match.params.userId : undefined) !== (this.state.user != null ? this.state.user.username : undefined)) {
+      StateUtils.reload(this, 'user', newProps);
+      return;
+    }
 
-    @setState activeGroupId: window.location.hash.substring(1), ->
-      StateUtils.reload @, 'user', newProps
-
-
-  goToCharacter: (character) ->
-    M.Modal.getInstance(document.getElementById('character-form')).close()
-    @context.router.history.push character.link
-
-  handleUserChange: (user) ->
-    @setState { user }
-
-    if user.username == @context.currentUser.username
-      @context.setCurrentUser(user)
+    return this.setState({activeGroupId: window.location.hash.substring(1)}, function() {
+      return StateUtils.reload(this, 'user', newProps);
+    });
+  },
 
 
-  _handleUserFollow: (followed) ->
-    user = $.extend {}, @state.user
-    user.followed = followed
-    @setState { user }
+  goToCharacter(character) {
+    M.Modal.getInstance(document.getElementById('character-form')).close();
+    return this.context.router.history.push(character.link);
+  },
+
+  handleUserChange(user) {
+    this.setState({ user });
+
+    if (user.username === this.context.currentUser.username) {
+      return this.context.setCurrentUser(user);
+    }
+  },
 
 
-  #== Schnazzy Fancy Root-level permutation operations!
-
-  _handleGroupChange: (group, character) ->
-    StateUtils.updateItem @, 'user.character_groups', group, 'slug', ->
-      if character
-        HashUtils.findItem @state.user.characters, character, 'slug', (c) =>
-          i = c.group_ids.indexOf group.slug
-          if i >= 0
-            c.group_ids.splice(i, 1)
-          else
-            c.group_ids.push group.slug
-          StateUtils.updateItem @, 'user.characters', c, 'slug'
-
-  _handleGroupDelete: (groupId) ->
-    @context.router.history.push @state.user.link if groupId is @state.activeGroupId
-    StateUtils.removeItem @, 'user.character_groups', groupId, 'slug'
-
-  _handleGroupSort: (group, position) ->
-    StateUtils.sortItem @, 'user.character_groups', group, position, 'slug'
-
-  _handleCharacterSort: (character, position) ->
-    StateUtils.sortItem @, 'user.characters', character, position, 'slug'
-
-  _handleGroupCharacterDelete: (group) ->
-    @_handleGroupChange group
+  _handleUserFollow(followed) {
+    const user = $.extend({}, this.state.user);
+    user.followed = followed;
+    return this.setState({ user });
+  },
 
 
-  #== Render
+  //== Schnazzy Fancy Root-level permutation operations!
 
-  render: ->
-    if @state.error?
-      return `<NotFound />`
+  _handleGroupChange(group, character) {
+    return StateUtils.updateItem(this, 'user.character_groups', group, 'slug', function() {
+      if (character) {
+        return HashUtils.findItem(this.state.user.characters, character, 'slug', c => {
+          const i = c.group_ids.indexOf(group.slug);
+          if (i >= 0) {
+            c.group_ids.splice(i, 1);
+          } else {
+            c.group_ids.push(group.slug);
+          }
+          return StateUtils.updateItem(this, 'user.characters', c, 'slug');
+        });
+      }
+    });
+  },
 
-    unless @state.user?
-      return `<main />`
+  _handleGroupDelete(groupId) {
+    if (groupId === this.state.activeGroupId) { this.context.router.history.push(this.state.user.link); }
+    return StateUtils.removeItem(this, 'user.character_groups', groupId, 'slug');
+  },
 
-    if @context.currentUser?.username == @state.user.username
+  _handleGroupSort(group, position) {
+    return StateUtils.sortItem(this, 'user.character_groups', group, position, 'slug');
+  },
+
+  _handleCharacterSort(character, position) {
+    return StateUtils.sortItem(this, 'user.characters', character, position, 'slug');
+  },
+
+  _handleGroupCharacterDelete(group) {
+    return this._handleGroupChange(group);
+  },
+
+
+  //== Render
+
+  render() {
+    let actionButtons, editable, editPath, userChangeCallback;
+    if (this.state.error != null) {
+      return <NotFound />;
+    }
+
+    if (this.state.user == null) {
+      return <main />;
+    }
+
+    if ((this.context.currentUser != null ? this.context.currentUser.username : undefined) === this.state.user.username) {
       actionButtons =
-        `<FixedActionButton clickToToggle={ true } className='red' tooltip='Menu' icon='menu' id='user-actions'>
+        <FixedActionButton clickToToggle={ true } className='red' tooltip='Menu' icon='menu' id='user-actions'>
             <ActionButton className='green lighten-1 modal-trigger' tooltip='New Refsheet' href='#character-form' icon='note_add' id='action-new-character' />
             <ActionButton className='blue darken-1 modal-trigger' tooltip='User Settings' href='#user-settings-modal' icon='settings' id='action-settings' />
-        </FixedActionButton>`
+        </FixedActionButton>;
 
-      userChangeCallback = @handleUserChange
-      editable = true
-      editPath = this.state.user.path
+      userChangeCallback = this.handleUserChange;
+      editable = true;
+      editPath = this.state.user.path;
+    }
 
-    `<Main title={[ this.state.user.name, 'Users' ]}>
+    return <Main title={[ this.state.user.name, 'Users' ]}>
         <DropzoneContainer url={ editPath }
                            method='PATCH'
                            clickable='.user-avatar'
@@ -107,7 +141,7 @@
             { editable &&
                 <Modal id='character-form' title='New Character'>
                     <p>It all starts with the basics. Give us a name and a species, and we'll set up a profile.</p>
-                    <NewCharacterForm onCancel={ function(e) { $('#character-form').modal('close'); e.preventDefault() } }
+                    <NewCharacterForm onCancel={ function(e) { $('#character-form').modal('close'); e.preventDefault(); } }
                                       onCreate={ this.goToCharacter }
                                       className='margin-top--large'
                                       newCharacterPath={ this.state.user.path + '/characters' }/>
@@ -140,6 +174,8 @@
                 />
             </Section>
         </DropzoneContainer>
-    </Main>`
+    </Main>;
+  }
+});
 
-export default User
+export default User;

@@ -1,42 +1,61 @@
-@User.Header = React.createClass
-  contextTypes:
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.User.Header = React.createClass({
+  contextTypes: {
     currentUser: React.PropTypes.object
+},
 
-  propTypes:
+  propTypes: {
     onFollow: React.PropTypes.func.isRequired
+},
 
-  handleBioChange: (markup, success) ->
-    $.ajax
-      url: @props.path
-      type: 'PATCH'
-      data: user: profile: markup
-      success: (user) =>
-        @props.onUserChange(user)
-        success(user)
+  handleBioChange(markup, success) {
+    return $.ajax({
+      url: this.props.path,
+      type: 'PATCH',
+      data: { user: {profile: markup}
+  },
+      success: user => {
+        this.props.onUserChange(user);
+        return success(user);
+    }
+    });
+},
 
-  _handleFollowClick: (e) ->
-    action = if @props.followed then 'delete' else 'post'
-    Model.request action, '/users/' + @props.username + '/follow.json', {}, (user) =>
-      @props.onFollow user.followed
-    e.preventDefault()
+  _handleFollowClick(e) {
+    const action = this.props.followed ? 'delete' : 'post';
+    Model.request(action, '/users/' + this.props.username + '/follow.json', {}, user => {
+      return this.props.onFollow(user.followed);
+    });
+    return e.preventDefault();
+},
 
-  render: ->
-    if @props.onUserChange?
-      bioChangeCallback = @handleBioChange
-      followCallback = @props.onFollow
-      editable = true
+  render() {
+    let bioChangeCallback, canFollow, editable, followColor, imageStyle;
+    if (this.props.onUserChange != null) {
+      bioChangeCallback = this.handleBioChange;
+      const followCallback = this.props.onFollow;
+      editable = true;
+  }
 
-    if @context.currentUser and @props.username != @context.currentUser.username
-      canFollow = true
-      followColor = if @props.followed then '#ffca28' else 'rgba(255, 255, 255, 0.7)'
+    if (this.context.currentUser && (this.props.username !== this.context.currentUser.username)) {
+      canFollow = true;
+      followColor = this.props.followed ? '#ffca28' : 'rgba(255, 255, 255, 0.7)';
+  }
 
-    userColor = UserUtils.userFgColor(this.props)
-    userBgColor = UserUtils.userBgColor(this.props)
+    const userColor = UserUtils.userFgColor(this.props);
+    const userBgColor = UserUtils.userBgColor(this.props);
 
-    if userColor
-      imageStyle = { boxShadow: "#{userColor} 0px 0px 3px 1px" }
+    if (userColor) {
+      imageStyle = { boxShadow: `${userColor} 0px 0px 3px 1px` };
+  }
 
-    `<div className='user-header' style={{ backgroundColor: userBgColor }}>
+    return <div className='user-header' style={{ backgroundColor: userBgColor }}>
         <div className='container flex'>
             <div className='user-avatar'>
                 <div className='image' style={imageStyle}>
@@ -90,4 +109,6 @@
                 </div>
             </div>
         </div>
-    </div>`
+    </div>;
+}
+});

@@ -1,37 +1,51 @@
-@Forums.Index = React.createClass
-  contextTypes:
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.Forums.Index = React.createClass({
+  contextTypes: {
     eagerLoad: React.PropTypes.object
+  },
 
-  propTypes:
+  propTypes: {
     forums: React.PropTypes.object
+  },
 
-  dataPath: '/forums'
+  dataPath: '/forums',
 
-  getInitialState: ->
-    forums: null
+  getInitialState() {
+    return {forums: null};
+  },
 
-  componentWillMount: ->
-    StateUtils.load @, 'forums'
+  componentWillMount() {
+    return StateUtils.load(this, 'forums');
+  },
 
-  render: ->
-    forumGroups = HashUtils.groupBy @state.forums, 'group_name'
-    forumTables = []
+  render() {
+    let forums;
+    const forumGroups = HashUtils.groupBy(this.state.forums, 'group_name');
+    let forumTables = [];
 
-    # Build Table Children
-    for groupName, forums of forumGroups
+    // Build Table Children
+    for (let groupName in forumGroups) {
+      forums = forumGroups[groupName];
       forumTables.push(
-        `<Forums.Table key={ groupName } title={ groupName } forums={ forums } />`
-      )
+        <Forums.Table key={ groupName } title={ groupName } forums={ forums } />
+      );
+    }
 
-    if !@state.forums
+    if (!this.state.forums) {
       forumTables =
-        `<Loading />`
+        <Loading />;
 
-    else if forumTables.length == 0
+    } else if (forumTables.length === 0) {
       forumTables =
-        `<p className='caption center'>Nothing to see here :(</p>`
+        <p className='caption center'>Nothing to see here :(</p>;
+    }
 
-    `<Main title='Forums' flex>
+    return <Main title='Forums' flex>
         <Jumbotron className='short'>
             <h1>Discuss & Socialize</h1>
         </Jumbotron>
@@ -45,4 +59,6 @@
                 { forumTables }
             </div>
         </Container>
-    </Main>`
+    </Main>;
+  }
+});

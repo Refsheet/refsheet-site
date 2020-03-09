@@ -1,54 +1,74 @@
-@Attribute = React.createClass
-  getInitialState: ->
-    edit: @props.onCommit? && @props.editorActive
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.Attribute = React.createClass({
+  getInitialState() {
+    return {edit: (this.props.onCommit != null) && this.props.editorActive};
+  },
 
-  componentWillReceiveProps: (newProps) ->
-    if @state.edit && newProps.editorActive == false
-      @setState edit: false
+  componentWillReceiveProps(newProps) {
+    if (this.state.edit && (newProps.editorActive === false)) {
+      return this.setState({edit: false});
+    }
+  },
 
-  deleteAttribute: (e) ->
-    @props.onDelete(@props.id)
-    e.preventDefault()
+  deleteAttribute(e) {
+    this.props.onDelete(this.props.id);
+    return e.preventDefault();
+  },
 
-  startEdit: (e) ->
-    @setState edit: true
-    @props.onEditStart() if @props.onEditStart?
-    e.preventDefault() if e?
+  startEdit(e) {
+    this.setState({edit: true});
+    if (this.props.onEditStart != null) { this.props.onEditStart(); }
+    if (e != null) { return e.preventDefault(); }
+  },
 
-  cancelEdit: (e) ->
-    @setState edit: false
-    @props.onEditStop() if @props.onEditStop?
-    e.preventDefault() if e?
+  cancelEdit(e) {
+    this.setState({edit: false});
+    if (this.props.onEditStop != null) { this.props.onEditStop(); }
+    if (e != null) { return e.preventDefault(); }
+  },
 
-  handleAttributeClick: (e) ->
-    if @props.onCommit
-      @startEdit(e)
+  handleAttributeClick(e) {
+    if (this.props.onCommit) {
+      return this.startEdit(e);
+    }
+  },
 
-  render: ->
-    if @props.defaultValue?
+  render() {
+    let defaultValue, edit, icon, trash;
+    if (this.props.defaultValue != null) {
       defaultValue =
-        `<span className='default-value'>{ this.props.defaultValue }</span>`
+        <span className='default-value'>{ this.props.defaultValue }</span>;
+    }
       
-    if @props.icon?
+    if (this.props.icon != null) {
       icon =
-        `<div className='icon'>
+        <div className='icon'>
             <i className='material-icons' style={{color: this.props.iconColor}}>{ this.props.icon }</i>
-        </div>`
+        </div>;
+    }
 
-    if @props.onDelete?
+    if (this.props.onDelete != null) {
       trash =
-        `<a className='attr-delete' onClick={ this.deleteAttribute } href='#'>
+        <a className='attr-delete' onClick={ this.deleteAttribute } href='#'>
             <i className='material-icons'>delete</i>
-        </a>`
+        </a>;
+    }
 
-    if @props.onCommit?
+    if (this.props.onCommit != null) {
       edit =
-        `<a className='attr-start-edit' onClick={ this.startEdit } href='#'>
+        <a className='attr-start-edit' onClick={ this.startEdit } href='#'>
             <i className='material-icons'>edit</i>
-        </a>`
+        </a>;
+    }
 
-    if @state.edit
-      `<AttributeForm name={ this.props.name }
+    if (this.state.edit) {
+      return <AttributeForm name={ this.props.name }
                       value={ this.props.value }
                       notes={ this.props.notes }
                       id={ this.props.id }
@@ -58,14 +78,16 @@
                       hideIcon={ this.props.icon == null }
                       freezeName={ this.props.freezeName }
                       hideNotes={ this.props.hideNotesForm }
-      />`
+      />;
 
-    else
-      unless @props.hideNotesForm
+    } else {
+      let notesTag;
+      if (!this.props.hideNotesForm) {
         notesTag =
-          `<div className='notes' onClick={ this.handleAttributeClick }>{ this.props.notes }</div>`
+          <div className='notes' onClick={ this.handleAttributeClick }>{ this.props.notes }</div>;
+      }
 
-      `<li data-attribute-id={ this.props.id }>
+      return <li data-attribute-id={ this.props.id }>
           { icon }
 
           <div className='attribute-data'>
@@ -78,4 +100,7 @@
               { edit }
               { trash }
           </div>
-      </li>`
+      </li>;
+    }
+  }
+});

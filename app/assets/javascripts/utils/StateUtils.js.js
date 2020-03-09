@@ -1,105 +1,158 @@
-@StateUtils =
-  page: (context, path, page, props=context.props) ->
-    page ||= (context.currentPage || 1) + 1
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.StateUtils = {
+  page(context, path, page, props) {
+    if (props == null) { ({
+      props
+    } = context); }
+    if (!page) { page = (context.currentPage || 1) + 1; }
 
-    console.debug '[StateUtils] Loading page: ' + page
-    @fetch context, path, { page: page }, props
-
-
-  load: (context, path, props=context.props, callback, options={}) ->
-    { dataPath, paramMap } = context
-    eagerLoad = context.context.eagerLoad
-    state = $.extend {}, context.state
-    fetch = true
-
-    console.debug '[StateUtils] Loading with params:', props.match?.params
-    console.debug '[StateUtils] Eager Loading:', eagerLoad, context.context
-
-    if elItem = ObjectPath.get eagerLoad, path
-      for k, p of paramMap
-        a = ObjectPath.get props.match?.params, k
-        b = ObjectPath.get elItem, p
-        console.debug '[StateUtils] Comparing:', a, b
-        fetch = false if a and b and a.toUpperCase() is b.toUpperCase()
-
-      unless fetch
-        console.debug '[StateUtils] Eager Loading:', elItem
-        ObjectPath.set state, path, elItem
-        context.setState state, ->
-          callback(elItem) if callback
-
-    if fetch
-      @fetch context, path, options.urlParams, props, callback
-      unless options.noScroll
-        console.debug '[StateUtils] Scrolling up!'
-        $(window).scrollTop 0
+    console.debug('[StateUtils] Loading page: ' + page);
+    return this.fetch(context, path, { page }, props);
+  },
 
 
-  fetch: (context, path, data={}, props=context.props, callback) ->
-    fetchUrl = @getFetchUrl context, props
-    state = $.extend {}, context.state
+  load(context, path, props, callback, options) {
+    let elItem;
+    if (props == null) { ({
+      props
+    } = context); }
+    if (options == null) { options = {}; }
+    const { dataPath, paramMap } = context;
+    const {
+      eagerLoad
+    } = context.context;
+    const state = $.extend({}, context.state);
+    let fetch = true;
 
-    Model.request 'GET', fetchUrl, data, (data) ->
-      if data.$meta
-        data = ObjectPath.get data, path
+    console.debug('[StateUtils] Loading with params:', props.match != null ? props.match.params : undefined);
+    console.debug('[StateUtils] Eager Loading:', eagerLoad, context.context);
 
-      ObjectPath.set state, path, data
-      context.setState state, ->
-        callback(data) if callback
+    if (elItem = ObjectPath.get(eagerLoad, path)) {
+      for (let k in paramMap) {
+        const p = paramMap[k];
+        const a = ObjectPath.get(props.match != null ? props.match.params : undefined, k);
+        const b = ObjectPath.get(elItem, p);
+        console.debug('[StateUtils] Comparing:', a, b);
+        if (a && b && (a.toUpperCase() === b.toUpperCase())) { fetch = false; }
+      }
 
-    , (error) ->
-      context.setState { error: error }, ->
-        callback() if callback
+      if (!fetch) {
+        console.debug('[StateUtils] Eager Loading:', elItem);
+        ObjectPath.set(state, path, elItem);
+        context.setState(state, function() {
+          if (callback) { return callback(elItem); }
+        });
+      }
+    }
 
-
-  reload: (context, path, newProps, oldProps=context.props) ->
-    fetch = false
-
-    for k, p of context.paramMap
-      a = ObjectPath.get oldProps.match?.params, k
-      b = ObjectPath.get newProps.match?.params, k
-
-      if (a or b) and a?.toUpperCase() isnt b?.toUpperCase()
-        fetch = true
-        break
-
-    if fetch
-      StateUtils.load context, path, newProps
-      console.debug '[StateUtils] Scrolling up!'
-      $(window).scrollTop 0
-
-
-  poll: (context, path, props=context.props) ->
-    #no-op
+    if (fetch) {
+      this.fetch(context, path, options.urlParams, props, callback);
+      if (!options.noScroll) {
+        console.debug('[StateUtils] Scrolling up!');
+        return $(window).scrollTop(0);
+      }
+    }
+  },
 
 
-  update: (context, path, value, callback) ->
-    context.setState HashUtils.set(context.state, path, value), callback
+  fetch(context, path, data, props, callback) {
+    if (data == null) { data = {}; }
+    if (props == null) { ({
+      props
+    } = context); }
+    const fetchUrl = this.getFetchUrl(context, props);
+    const state = $.extend({}, context.state);
+
+    return Model.request('GET', fetchUrl, data, function(data) {
+      if (data.$meta) {
+        data = ObjectPath.get(data, path);
+      }
+
+      ObjectPath.set(state, path, data);
+      return context.setState(state, function() {
+        if (callback) { return callback(data); }
+      });
+    }
+
+    , error => context.setState({ error }, function() {
+      if (callback) { return callback(); }
+    }));
+  },
+
+
+  reload(context, path, newProps, oldProps) {
+    if (oldProps == null) { oldProps = context.props; }
+    let fetch = false;
+
+    for (let k in context.paramMap) {
+      const p = context.paramMap[k];
+      const a = ObjectPath.get(oldProps.match != null ? oldProps.match.params : undefined, k);
+      const b = ObjectPath.get(newProps.match != null ? newProps.match.params : undefined, k);
+
+      if ((a || b) && ((a != null ? a.toUpperCase() : undefined) !== (b != null ? b.toUpperCase() : undefined))) {
+        fetch = true;
+        break;
+      }
+    }
+
+    if (fetch) {
+      StateUtils.load(context, path, newProps);
+      console.debug('[StateUtils] Scrolling up!');
+      return $(window).scrollTop(0);
+    }
+  },
+
+
+  poll(context, path, props) {
+    if (props == null) { ({
+      props
+    } = context); }
+  },
+    //no-op
+
+
+  update(context, path, value, callback) {
+    return context.setState(HashUtils.set(context.state, path, value), callback);
+  },
     
-  updateItem: (context, path, item, primaryKey, callback) ->
-    context.setState HashUtils.deepUpdateCollectionItem(context.state, path, item, primaryKey), callback
+  updateItem(context, path, item, primaryKey, callback) {
+    return context.setState(HashUtils.deepUpdateCollectionItem(context.state, path, item, primaryKey), callback);
+  },
 
-  updateItems: (context, path, items, primaryKey, callback) ->
-    state = context.state
+  updateItems(context, path, items, primaryKey, callback) {
+    let {
+      state
+    } = context;
 
-    items.map (item) ->
-      state = HashUtils.deepUpdateCollectionItem(state, path, item, primaryKey)
+    items.map(item => state = HashUtils.deepUpdateCollectionItem(state, path, item, primaryKey));
 
-    context.setState state, callback
+    return context.setState(state, callback);
+  },
 
-  sortItem: (context, path, item, position, primaryKey, callback) ->
-    context.setState HashUtils.deepSortCollectionItem(context.state, path, item, position, primaryKey), callback
+  sortItem(context, path, item, position, primaryKey, callback) {
+    return context.setState(HashUtils.deepSortCollectionItem(context.state, path, item, position, primaryKey), callback);
+  },
 
-  removeItem: (context, path, item, primaryKey, callback) ->
-    context.setState HashUtils.deepRemoveCollectionItem(context.state, path, item, primaryKey), callback
+  removeItem(context, path, item, primaryKey, callback) {
+    return context.setState(HashUtils.deepRemoveCollectionItem(context.state, path, item, primaryKey), callback);
+  },
 
 
-  getFetchUrl: (stateLink, props) ->
-    stateLink = stateLink() if typeof stateLink is 'function'
-    { dataPath, paramMap } = stateLink
+  getFetchUrl(stateLink, props) {
+    if (typeof stateLink === 'function') { stateLink = stateLink(); }
+    const { dataPath, paramMap } = stateLink;
 
-    fetchUrl = dataPath.replace /(:[a-zA-Z]+)/g, (m) ->
-      param = ObjectPath.get props.match?.params, m.substring(1)
-      param || ''
+    const fetchUrl = dataPath.replace(/(:[a-zA-Z]+)/g, function(m) {
+      const param = ObjectPath.get(props.match != null ? props.match.params : undefined, m.substring(1));
+      return param || '';
+    });
 
-    fetchUrl.replace /\/\/+|\/$/g, ''
+    return fetchUrl.replace(/\/\/+|\/$/g, '');
+  }
+};

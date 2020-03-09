@@ -1,21 +1,33 @@
-@Stats = React.createClass
-  propTypes:
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.Stats = React.createClass({
+  propTypes: {
     className: React.PropTypes.string
+  },
 
-  render: ->
-    classNames = ['stats']
-    classNames.push @props.className if @props.className
+  render() {
+    const classNames = ['stats'];
+    if (this.props.className) { classNames.push(this.props.className); }
 
-    `<ul className={ classNames.join(' ') }>
+    return <ul className={ classNames.join(' ') }>
         { this.props.children }
-    </ul>`
+    </ul>;
+  }
+});
 
-@Stats.Item = React.createClass
-  propTypes:
+this.Stats.Item = React.createClass({
+  propTypes: {
     label: React.PropTypes.string.isRequired
+  },
 
-  render: ->
-    `<li>
+  render() {
+    return <li>
         <div className='label'>{ this.props.label }</div>
         <div className='value'>{ this.props.children }</div>
-    </li>`
+    </li>;
+  }
+});

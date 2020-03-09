@@ -1,44 +1,60 @@
-@ImageGravityModal = React.createClass
-  getInitialState: ->
-    gravity: @props.image.gravity || 'center'
-    loading: false
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.ImageGravityModal = React.createClass({
+  getInitialState() {
+    return {
+      gravity: this.props.image.gravity || 'center',
+      loading: false
+    };
+  },
     
-  handleGravityChange: (e) ->
-    gravity = $(e.target).closest('[data-gravity]').data 'gravity'
-    @setState gravity: gravity
+  handleGravityChange(e) {
+    const gravity = $(e.target).closest('[data-gravity]').data('gravity');
+    return this.setState({gravity});
+  },
 
-  handleSave: (e) ->
-    @setState loading: true
-    $.ajax
-      url: @props.image.path
-      type: 'PATCH'
-      data: image: gravity: @state.gravity
-      success: (data) =>
-        $(document).trigger 'app:image:update', data
-        Materialize.toast({ html: 'Cropping settings saved. It may take a second to rebuild your thumbnails.', displayLength: 3000, classes: 'green' })
-        @setState loading: false
-        M.Modal.getInstance(document.getElementById('image-gravity-modal')).close()
-      error: (error) =>
-        Materialize.toast({ html: 'Something bad happened', displayLength: 3000, classes: 'red' })
-        @setState loading: false
-        console.log error
-    e.preventDefault()
+  handleSave(e) {
+    this.setState({loading: true});
+    $.ajax({
+      url: this.props.image.path,
+      type: 'PATCH',
+      data: { image: {gravity: this.state.gravity}
+    },
+      success: data => {
+        $(document).trigger('app:image:update', data);
+        Materialize.toast({ html: 'Cropping settings saved. It may take a second to rebuild your thumbnails.', displayLength: 3000, classes: 'green' });
+        this.setState({loading: false});
+        return M.Modal.getInstance(document.getElementById('image-gravity-modal')).close();
+      },
+      error: error => {
+        Materialize.toast({ html: 'Something bad happened', displayLength: 3000, classes: 'red' });
+        this.setState({loading: false});
+        return console.log(error);
+      }
+    });
+    return e.preventDefault();
+  },
 
-  handleClose: (e) ->
-    $('#image-gravity-modal').modal('close')
-    @setState gravity: @getInitialState()
-    e.preventDefault()
+  handleClose(e) {
+    $('#image-gravity-modal').modal('close');
+    this.setState({gravity: this.getInitialState()});
+    return e.preventDefault();
+  },
     
-  render: ->
-    gravity_crop = {
-      center: { objectPosition: 'center' }
-      north: { objectPosition: 'top' }
-      south: { objectPosition: 'bottom' }
-      east: { objectPosition: 'right' }
+  render() {
+    const gravity_crop = {
+      center: { objectPosition: 'center' },
+      north: { objectPosition: 'top' },
+      south: { objectPosition: 'bottom' },
+      east: { objectPosition: 'right' },
       west: { objectPosition: 'left' }
-    }
+    };
 
-    `<Modal id='image-gravity-modal' title='Change Image Cropping'>
+    return <Modal id='image-gravity-modal' title='Change Image Cropping'>
         <p>Images can crop with a focus on the top, bottom, left, right or center. Ideally, the most important
             part of the image will be visible when cropped to a square or circle.</p>
 
@@ -64,4 +80,6 @@
                 </a>
             </Column>
         </Row>
-    </Modal>`
+    </Modal>;
+  }
+});

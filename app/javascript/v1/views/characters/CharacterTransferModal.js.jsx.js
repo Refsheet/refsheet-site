@@ -1,35 +1,50 @@
-@CharacterTransferModal = React.createClass
-  propTypes:
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.CharacterTransferModal = React.createClass({
+  propTypes: {
     character: React.PropTypes.object.isRequired
+},
 
 
-  getInitialState: ->
-    dirty: false
-    model:
-      transfer_to_user: null
+  getInitialState() {
+    return {
+        dirty: false,
+        model: {
+          transfer_to_user: null
+      }
+    };
+},
 
 
-  _handleModalClose: (e) ->
-    M.Modal.getInstance(document.getElementById('character-transfer-modal')).close()
+  _handleModalClose(e) {
+    return M.Modal.getInstance(document.getElementById('character-transfer-modal')).close();
+},
 
-  _handleChange: (character) ->
-    @setState model: transfer_to_user: null
-    $(document).trigger 'app:character:update', character
+  _handleChange(character) {
+    this.setState({model: {transfer_to_user: null}});
+    $(document).trigger('app:character:update', character);
 
-    @_handleModalClose()
-    Materialize.toast({ html: 'Character transfer initiated.', displayLength: 3000, classes: 'green' })
+    this._handleModalClose();
+    return Materialize.toast({ html: 'Character transfer initiated.', displayLength: 3000, classes: 'green' });
+},
 
-  _handleCancel: (e) ->
-    @refs.form.reset()
-    @_handleModalClose()
-    e.preventDefault()
+  _handleCancel(e) {
+    this.refs.form.reset();
+    this._handleModalClose();
+    return e.preventDefault();
+},
 
-  _handleDirty: (dirty) ->
-    @setState dirty: dirty
+  _handleDirty(dirty) {
+    return this.setState({dirty});
+},
 
 
-  render: ->
-    `<Modal id='character-transfer-modal'
+  render() {
+    return <Modal id='character-transfer-modal'
             title='Character Transfer'
     >
         <Form action={ this.props.character.path }
@@ -74,4 +89,6 @@
                 <a className='btn right' onClick={ this._handleModalClose }>Back</a>
             </Column>
         </Row>
-    </Modal>`
+    </Modal>;
+}
+});

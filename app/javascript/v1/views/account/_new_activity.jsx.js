@@ -1,18 +1,30 @@
-@Views.Account.NewActivity = React.createClass
-  contextTypes:
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.Views.Account.NewActivity = React.createClass({
+  contextTypes: {
     currentUser: React.PropTypes.object
+  },
 
-  getInitialState: ->
-    model:
-      name: @props.name
-      comment: null
+  getInitialState() {
+    return {
+      model: {
+        name: this.props.name,
+        comment: null
+      }
+    };
+  },
 
-  _handleSubmit: (feedback) ->
-    Materialize.toast({ html: 'Thanks for the feedback!', displayLength: 3000, classes: 'green' })
-    @setState model: comment: null
+  _handleSubmit(feedback) {
+    Materialize.toast({ html: 'Thanks for the feedback!', displayLength: 3000, classes: 'green' });
+    return this.setState({model: {comment: null}});
+  },
 
-  render: ->
-    `<Form className='card reply-box margin-top--none sp with-avatar'
+  render() {
+    return <Form className='card reply-box margin-top--none sp with-avatar'
            onChange={ this._handleSubmit }
            action='/feedbacks'
            model={ this.state.model }
@@ -28,4 +40,6 @@
                 <Column s={4}><Submit className='btn-block'>Feedback!</Submit></Column>
             </Row>
         </div>
-    </Form>`
+    </Form>;
+  }
+});

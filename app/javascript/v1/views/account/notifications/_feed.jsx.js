@@ -1,106 +1,145 @@
-namespace 'Views.Account.Notifications'
+/*
+ * decaffeinate suggestions:
+ * DS101: Remove unnecessary use of Array.from
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+namespace('Views.Account.Notifications');
 
-@Views.Account.Notifications.Feed = React.createClass
-  contextTypes:
+this.Views.Account.Notifications.Feed = React.createClass({
+  contextTypes: {
     currentUser: React.PropTypes.object
+  },
 
-  propTypes:
+  propTypes: {
     filter: React.PropTypes.string
+  },
 
-  timer: null
-  dataPath: '/notifications'
-  stateLink: ->
-    dataPath: '/notifications?filter=' + @props.filter + '&before=' + @state.since
-    statePath: 'notifications'
+  timer: null,
+  dataPath: '/notifications',
+  stateLink() {
+    return {
+      dataPath: '/notifications?filter=' + this.props.filter + '&before=' + this.state.since,
+      statePath: 'notifications'
+    };
+  },
 
-  getInitialState: ->
-    notifications: null
-    newActivity: null
-    since: null
-    timer: null
-    lastUpdate: null
+  getInitialState() {
+    return {
+      notifications: null,
+      newActivity: null,
+      since: null,
+      timer: null,
+      lastUpdate: null
+    };
+  },
 
-  componentDidMount: ->
-    StateUtils.load @, 'notifications', @props.match?.params, =>
-      @setState since: @state.notifications[0]?.timestamp, lastUpdate: Math.floor(Date.now() / 1000)
-      @_poll()
-    , urlParams: filter: @props.filter
+  componentDidMount() {
+    return StateUtils.load(this, 'notifications', this.props.match != null ? this.props.match.params : undefined, () => {
+      this.setState({since: (this.state.notifications[0] != null ? this.state.notifications[0].timestamp : undefined), lastUpdate: Math.floor(Date.now() / 1000)});
+      return this._poll();
+    }
+    , {urlParams: {filter: this.props.filter}});
+  },
 
-  componentWillUnmount: ->
-    clearTimeout @timer if @timer
+  componentWillUnmount() {
+    if (this.timer) { return clearTimeout(this.timer); }
+  },
 
-  componentWillReceiveProps: (newProps) ->
-    if @props.filter isnt newProps.filter
-      clearTimeout @timer if @timer
-      @setState notifications: null, =>
-        StateUtils.load @, 'notifications', newProps.match?.params, =>
-          @setState since: @state.notifications[0]?.timestamp, lastUpdate: Math.floor(Date.now() / 1000)
-          @_poll()
-        , urlParams: filter: @props.filter
+  componentWillReceiveProps(newProps) {
+    if (this.props.filter !== newProps.filter) {
+      if (this.timer) { clearTimeout(this.timer); }
+      return this.setState({notifications: null}, () => {
+        return StateUtils.load(this, 'notifications', newProps.match != null ? newProps.match.params : undefined, () => {
+          this.setState({since: (this.state.notifications[0] != null ? this.state.notifications[0].timestamp : undefined), lastUpdate: Math.floor(Date.now() / 1000)});
+          return this._poll();
+        }
+        , {urlParams: {filter: this.props.filter}});
+      });
+    }
+  },
 
-  componentWillUpdate: (newProps, newState) ->
-    if newState.newActivity != @state.newActivity
-      document.title = document.title.replace /^\(\d+\)\s+/, ''
-      if newState.newActivity and newState.newActivity.length > 0
-        document.title = "(#{newState.newActivity.length}) " + document.title
+  componentWillUpdate(newProps, newState) {
+    if (newState.newActivity !== this.state.newActivity) {
+      document.title = document.title.replace(/^\(\d+\)\s+/, '');
+      if (newState.newActivity && (newState.newActivity.length > 0)) {
+        return document.title = `(${newState.newActivity.length}) ` + document.title;
+      }
+    }
+  },
 
-  _poll: ->
-    @timer = setTimeout =>
-      Model.poll @dataPath, { since: @state.since, filter: @props.filter }, (data) =>
-        @setState newActivity: data.notifications, lastUpdate: Math.floor(Date.now() / 1000), @_poll
-    , 15000
+  _poll() {
+    return this.timer = setTimeout(() => {
+      return Model.poll(this.dataPath, { since: this.state.since, filter: this.props.filter }, data => {
+        return this.setState({newActivity: data.notifications, lastUpdate: Math.floor(Date.now() / 1000)}, this._poll);
+      });
+    }
+    , 15000);
+  },
 
-  _prepend: ->
-    act = (@state.newActivity || []).concat @state.notifications
-    @setState notifications: act, since: act[0]?.timestamp, newActivity: null
+  _prepend() {
+    const act = (this.state.newActivity || []).concat(this.state.notifications);
+    return this.setState({notifications: act, since: (act[0] != null ? act[0].timestamp : undefined), newActivity: null});
+  },
 
-  _append: (notifications) ->
-    StateUtils.updateItems @, 'notifications', notifications
+  _append(notifications) {
+    return StateUtils.updateItems(this, 'notifications', notifications);
+  },
 
-  _groupedActivity: ->
-    grouped = []
+  _groupedActivity() {
+    const grouped = [];
 
-    for item in @state.notifications
-      last = grouped[grouped.length - 1]
+    for (let item of Array.from(this.state.notifications)) {
+      const last = grouped[grouped.length - 1];
 
-      if item.notification and
-         last and
-         HashUtils.compare(item, last, 'user.username', 'character.id', 'notifications_type', 'notifications_method') and
-         last.timestamp - item.timestamp < 3600
+      if (item.notification &&
+         last &&
+         HashUtils.compare(item, last, 'user.username', 'character.id', 'notifications_type', 'notifications_method') &&
+         ((last.timestamp - item.timestamp) < 3600)) {
 
-        last.notifications ||= [last.notifications]
-        unless HashUtils.itemExists last.notifications, item.notifications, 'id'
-          last.notifications.push item.notifications
-      else
-        grouped.push item
+        if (!last.notifications) { last.notifications = [last.notifications]; }
+        if (!HashUtils.itemExists(last.notifications, item.notifications, 'id')) {
+          last.notifications.push(item.notifications);
+        }
+      } else {
+        grouped.push(item);
+      }
+    }
 
-    grouped
+    return grouped;
+  },
 
-  _markRead: (read, path) -> (e) =>
-    e.preventDefault()
-    Model.put path, { read: read }, (data) =>
-      StateUtils.updateItem @, 'notifications', data, 'id'
+  _markRead(read, path) { return e => {
+    e.preventDefault();
+    return Model.put(path, { read }, data => {
+      return StateUtils.updateItem(this, 'notifications', data, 'id');
+    });
+  }; },
 
-  _markAllRead: (read) -> (e) =>
-    e.preventDefault()
-    ids = @state.notifications.map (n) -> n.id
+  _markAllRead(read) { return e => {
+    e.preventDefault();
+    const ids = this.state.notifications.map(n => n.id);
 
-    Model.put "/notifications/bulk_update", { read: read, ids: ids }, (data) =>
-      newNotes = @state.notifications.map (n) ->
-        note = $.extend {}, n
-        note.is_read = data.read
-        note
-      @setState notifications: newNotes
+    return Model.put("/notifications/bulk_update", { read, ids }, data => {
+      const newNotes = this.state.notifications.map(function(n) {
+        const note = $.extend({}, n);
+        note.is_read = data.read;
+        return note;
+      });
+      return this.setState({notifications: newNotes});
+    });
+  }; },
 
 
-  render: ->
-    return `<Spinner className='margin-top--large' small center />` unless @state.notifications
-    __this = this
+  render() {
+    if (!this.state.notifications) { return <Spinner className='margin-top--large' small center />; }
+    const __this = this;
 
-    out = @_groupedActivity().map (item) ->
-      `<Views.Account.Notifications.Card {...item} key={item.id} onReadChange={ __this._markRead } />`
+    const out = this._groupedActivity().map(item => <Views.Account.Notifications.Card {...item} key={item.id} onReadChange={ __this._markRead } />);
 
-    `<div className='feed-item-stream'>
+    return <div className='feed-item-stream'>
         <div className='feed-header margin-bottom--medium'>
             <a className='btn btn-flat right muted low-pad' onClick={ this._markAllRead(true) }>
                 Read All
@@ -121,4 +160,6 @@ namespace 'Views.Account.Notifications'
                         stateLink={ this.stateLink }
                         params={{}}
                         count={ this.state.notifications.length } />
-    </div>`
+    </div>;
+  }
+});

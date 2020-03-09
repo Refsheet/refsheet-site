@@ -1,24 +1,37 @@
-@Forums.Threads.Modal = React.createClass
-  contextTypes:
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.Forums.Threads.Modal = React.createClass({
+  contextTypes: {
     router: React.PropTypes.object.isRequired
+  },
 
-  propTypes:
+  propTypes: {
     forumId: React.PropTypes.string.isRequired
+  },
 
-  getInitialState: ->
-    thread:
-      topic: null
-      content: null
+  getInitialState() {
+    return {
+      thread: {
+        topic: null,
+        content: null
+      }
+    };
+  },
 
 
-  _handleCreate: (thread) ->
-    Materialize.toast({ html: "Thread created! Hope it's a good one :)", displayLength: 3000, classes: 'green' })
-    @refs.modal.close()
-    console.log thread
-    @context.router.history.push thread.path
+  _handleCreate(thread) {
+    Materialize.toast({ html: "Thread created! Hope it's a good one :)", displayLength: 3000, classes: 'green' });
+    this.refs.modal.close();
+    console.log(thread);
+    return this.context.router.history.push(thread.path);
+  },
 
-  render: ->
-    `<Modal id='new-thread-modal' title='New Thread' ref='modal'>
+  render() {
+    return <Modal id='new-thread-modal' title='New Thread' ref='modal'>
         <Form action={ '/forums/' + this.props.forumId + '/threads' }
               method='POST'
               model={ this.state.thread }
@@ -33,4 +46,6 @@
                 <Submit>Start Thread</Submit>
             </Row>
         </Form>
-    </Modal>`
+    </Modal>;
+  }
+});

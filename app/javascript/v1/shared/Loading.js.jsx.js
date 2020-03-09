@@ -1,8 +1,14 @@
-@Loading = (props) ->
-  classNames = ['modal-page-content']
-  classNames.push props.className if props.className
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.Loading = function(props) {
+  const classNames = ['modal-page-content'];
+  if (props.className) { classNames.push(props.className); }
 
-  `<main className={ classNames.join(' ') }>
+  return <main className={ classNames.join(' ') }>
       <div className='container'>
           <Spinner small={ props.small } />
 
@@ -12,4 +18,5 @@
 
           { props.children }
       </div>
-  </main>`
+  </main>;
+};

@@ -1,175 +1,223 @@
-@ImageGallery = React.createClass
-  propTypes:
-    editable: React.PropTypes.bool
-    noFeature: React.PropTypes.bool
-    noSquare: React.PropTypes.bool
-    imagesPath: React.PropTypes.string
-    images: React.PropTypes.array
-    onImageClick: React.PropTypes.func
+/*
+ * decaffeinate suggestions:
+ * DS101: Remove unnecessary use of Array.from
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.ImageGallery = React.createClass({
+  propTypes: {
+    editable: React.PropTypes.bool,
+    noFeature: React.PropTypes.bool,
+    noSquare: React.PropTypes.bool,
+    imagesPath: React.PropTypes.string,
+    images: React.PropTypes.array,
+    onImageClick: React.PropTypes.func,
     onImagesLoaded: React.PropTypes.func
+  },
 
 
-  getInitialState: ->
-    append: false
-    images: @props.images || null
+  getInitialState() {
+    return {
+      append: false,
+      images: this.props.images || null
+    };
+  },
 
-  load: (data, sendCallback=true) ->
-    s = images: data
+  load(data, sendCallback) {
+    if (sendCallback == null) { sendCallback = true; }
+    const s = {images: data};
 
-    if @state.images > 0 && data.length > 0
-      new_ids = ArrayUtils.pluck(data, 'id')
-      old_ids = ArrayUtils.pluck(@state.images, 'id')
+    if ((this.state.images > 0) && (data.length > 0)) {
+      const new_ids = ArrayUtils.pluck(data, 'id');
+      const old_ids = ArrayUtils.pluck(this.state.images, 'id');
 
-      if ArrayUtils.diff(new_ids, old_ids).length == data.length
-        s.append = true
+      if (ArrayUtils.diff(new_ids, old_ids).length === data.length) {
+        s.append = true;
+      }
+    }
 
-    @setState s, @_initialize
-    @props.onImagesLoad(data) if @props.onImagesLoad and sendCallback
-
-
-  componentDidMount: ->
-    if @props.imagesPath? and !@props.images
-      console.debug '[ImageGallery] Fetching:', @props.imagesPath
-      $.get @props.imagesPath, @load
-    else
-      @_initialize()
-
-    $(window).resize @_resizeJg
-
-  componentWillUnmount: ->
-    if @refs.gallery
-      $(@refs.gallery).justifiedGallery 'destroy'
-
-    $(window).off 'resize', @_resizeJg
-
-  componentWillReceiveProps: (newProps) ->
-    if newProps.images
-      @load newProps.images, false
-
-  _resizeJg: ->
-    return if @props.noFeature and !@props.noSquare
-    if @refs.gallery
-      $(@refs.gallery).justifiedGallery @_getJgRowHeight()
-
-  _handleImageSwap: (source, target) ->
-    # Model.patch "/images/#{source}", (data) =>
-    #   Materialize.toast 'Image moved!', 3000, 'green'
-    #   @load data
-
-    $(document).trigger 'app:loading'
-    $.ajax
-      url: '/images/' + source
-      type: 'PATCH'
-      data: { image: { swap_target_image_id: target } }
-      success: (data) =>
-        Materialize.toast({ html: 'Image moved!', displayLength: 3000, classes: 'green' })
-        @load data
-      error: (error) =>
-        console.log error
-      complete: ->
-        $(document).trigger 'app:loading:done'
-
-  _handleImageClick: (image) ->
-    if @props.onImageClick?
-      @props.onImageClick(image.id)
-      return true
-    return false
-
-  _handleImageChange: (image) ->
-    console.debug '[ImageGallery] Lightbox changed image:', image
-    StateUtils.updateItem @, 'images', image, 'id'
-
-  _handleImageDelete: (id) ->
-    console.debug '[ImageGallery] Lightbox deleted image:', id
-    StateUtils.removeItem @, 'images', id, 'id'
-
-  _getJgRowHeight: ->
-    coef = if $(window).width() < 900 then 1 else 0.7
-    rowHeight: $(window).width() * (coef * 0.25)
-    maxRowHeight: $(window).width() * (coef * 0.4)
-
-  _getThumbnailPath: (currentPath, width, height, image) ->
-    currentPath ||= ''
-
-    results = currentPath.match(/\d{3}\/\d{3}\/\d{3}\/(\w+)\//)
-
-    if results
-      currentSize = results[1]
-    else
-      currentSize = 'medium'
-
-    max = Math.max(width, height)
-
-    if max <= 427
-      newSize = 'small'
-    else if max <= 854
-      newSize = 'medium'
-    else
-      newSize = 'large'
-
-    currentPath.replace /(\d{3}\/\d{3}\/\d{3}\/)\w+\//, '$1' + newSize + '/'
-
-  _initialize: ->
-    return if @props.noFeature and !@props.noSquare
-
-    if @state.images.length == 0 || !@refs.gallery
-      console.debug '[ImageGallery] Empty, no init.'
-      return
-
-    if @state.append
-      console.debug '[ImageGallery] Init with norewind.'
-      try
-        $(@refs.gallery).justifiedGallery 'norewind'
-      catch e
-        console.warn("Attempted to set norewind on an empty gallery.", e)
-
-      return
-
-    console.debug '[ImageGallery] Initializing Justified Gallery...'
-
-    opts =
-      selector: '.gallery-image'
-      margins: 15
-      captions: false
-      thumbnailPath: @_getThumbnailPath
-
-    opts = $.extend {}, opts, @_getJgRowHeight()
-    $(@refs.gallery).justifiedGallery opts
-    @setState append: true
+    this.setState(s, this._initialize);
+    if (this.props.onImagesLoad && sendCallback) { return this.props.onImagesLoad(data); }
+  },
 
 
-  render: ->
-    galleryClassName = 'justified-gallery'
-    imageClassName = ''
-    wrapperClassName = ''
-    _this = @
+  componentDidMount() {
+    if ((this.props.imagesPath != null) && !this.props.images) {
+      console.debug('[ImageGallery] Fetching:', this.props.imagesPath);
+      $.get(this.props.imagesPath, this.load);
+    } else {
+      this._initialize();
+    }
 
-    imageIds = @state.images?.map (i) ->
-      i.id
+    return $(window).resize(this._resizeJg);
+  },
 
-    unless @state.images?
-      return `<Spinner />`
+  componentWillUnmount() {
+    if (this.refs.gallery) {
+      $(this.refs.gallery).justifiedGallery('destroy');
+    }
 
-    if @props.editable
-      editable = true
+    return $(window).off('resize', this._resizeJg);
+  },
 
-    if not @props.noFeature
-      [first, second, third, overflow...] = @state.images
-      imageSize = 'medium'
+  componentWillReceiveProps(newProps) {
+    if (newProps.images) {
+      return this.load(newProps.images, false);
+    }
+  },
 
-    else if @props.noSquare
-      overflow = @state.images
-      imageSize = 'medium'
+  _resizeJg() {
+    if (this.props.noFeature && !this.props.noSquare) { return; }
+    if (this.refs.gallery) {
+      return $(this.refs.gallery).justifiedGallery(this._getJgRowHeight());
+    }
+  },
 
-    else
-      galleryClassName = 'row'
-      wrapperClassName = 'col s6 m3'
-      imageClassName = 'no-jg'
-      overflow = @state.images
-      imageSize = 'small_square'
+  _handleImageSwap(source, target) {
+    // Model.patch "/images/#{source}", (data) =>
+    //   Materialize.toast 'Image moved!', 3000, 'green'
+    //   @load data
 
-    imagesOverflow = overflow.map (image) =>
-      `<GalleryImage key={ image.id }
+    $(document).trigger('app:loading');
+    return $.ajax({
+      url: '/images/' + source,
+      type: 'PATCH',
+      data: { image: { swap_target_image_id: target } },
+      success: data => {
+        Materialize.toast({ html: 'Image moved!', displayLength: 3000, classes: 'green' });
+        return this.load(data);
+      },
+      error: error => {
+        return console.log(error);
+      },
+      complete() {
+        return $(document).trigger('app:loading:done');
+      }
+    });
+  },
+
+  _handleImageClick(image) {
+    if (this.props.onImageClick != null) {
+      this.props.onImageClick(image.id);
+      return true;
+    }
+    return false;
+  },
+
+  _handleImageChange(image) {
+    console.debug('[ImageGallery] Lightbox changed image:', image);
+    return StateUtils.updateItem(this, 'images', image, 'id');
+  },
+
+  _handleImageDelete(id) {
+    console.debug('[ImageGallery] Lightbox deleted image:', id);
+    return StateUtils.removeItem(this, 'images', id, 'id');
+  },
+
+  _getJgRowHeight() {
+    const coef = $(window).width() < 900 ? 1 : 0.7;
+    return {
+      rowHeight: $(window).width() * (coef * 0.25),
+      maxRowHeight: $(window).width() * (coef * 0.4)
+    };
+  },
+
+  _getThumbnailPath(currentPath, width, height, image) {
+    let currentSize, newSize;
+    if (!currentPath) { currentPath = ''; }
+
+    const results = currentPath.match(/\d{3}\/\d{3}\/\d{3}\/(\w+)\//);
+
+    if (results) {
+      currentSize = results[1];
+    } else {
+      currentSize = 'medium';
+    }
+
+    const max = Math.max(width, height);
+
+    if (max <= 427) {
+      newSize = 'small';
+    } else if (max <= 854) {
+      newSize = 'medium';
+    } else {
+      newSize = 'large';
+    }
+
+    return currentPath.replace(/(\d{3}\/\d{3}\/\d{3}\/)\w+\//, '$1' + newSize + '/');
+  },
+
+  _initialize() {
+    if (this.props.noFeature && !this.props.noSquare) { return; }
+
+    if ((this.state.images.length === 0) || !this.refs.gallery) {
+      console.debug('[ImageGallery] Empty, no init.');
+      return;
+    }
+
+    if (this.state.append) {
+      console.debug('[ImageGallery] Init with norewind.');
+      try {
+        $(this.refs.gallery).justifiedGallery('norewind');
+      } catch (e) {
+        console.warn("Attempted to set norewind on an empty gallery.", e);
+      }
+
+      return;
+    }
+
+    console.debug('[ImageGallery] Initializing Justified Gallery...');
+
+    let opts = {
+      selector: '.gallery-image',
+      margins: 15,
+      captions: false,
+      thumbnailPath: this._getThumbnailPath
+    };
+
+    opts = $.extend({}, opts, this._getJgRowHeight());
+    $(this.refs.gallery).justifiedGallery(opts);
+    return this.setState({append: true});
+  },
+
+
+  render() {
+    let editable, first, imageSize, overflow, second, third;
+    let galleryClassName = 'justified-gallery';
+    let imageClassName = '';
+    let wrapperClassName = '';
+    const _this = this;
+
+    const imageIds = this.state.images != null ? this.state.images.map(i => i.id) : undefined;
+
+    if (this.state.images == null) {
+      return <Spinner />;
+    }
+
+    if (this.props.editable) {
+      editable = true;
+    }
+
+    if (!this.props.noFeature) {
+      [first, second, third, ...overflow] = Array.from(this.state.images);
+      imageSize = 'medium';
+
+    } else if (this.props.noSquare) {
+      overflow = this.state.images;
+      imageSize = 'medium';
+
+    } else {
+      galleryClassName = 'row';
+      wrapperClassName = 'col s6 m3';
+      imageClassName = 'no-jg';
+      overflow = this.state.images;
+      imageSize = 'small_square';
+    }
+
+    const imagesOverflow = overflow.map(image => {
+      return <GalleryImage key={ image.id }
                      image={ image }
                      size={ imageSize }
                      onClick={ _this._handleImageClick }
@@ -177,10 +225,11 @@
                      wrapperClassName={ wrapperClassName }
                      className={ imageClassName }
                      gallery={ imageIds }
-                     editable={ editable } />`
+                     editable={ editable } />;
+    });
 
-    if @state.images?.length
-      `<div ref='imageGallery' className='image-gallery'>
+    if ((this.state.images != null ? this.state.images.length : undefined)) {
+      return <div ref='imageGallery' className='image-gallery'>
           { !this.props.noFeature &&
               <GalleryFeature first={ first }
                               second={ second }
@@ -196,14 +245,17 @@
                   { imagesOverflow }
               </div>
           }
-      </div>`
+      </div>;
 
-    else if @props.edit
-      `<div className='image-gallery'>
+    } else if (this.props.edit) {
+      return <div className='image-gallery'>
           <div className='caption center'>Drag and drop images from your computer to your character pages to start a gallery.</div>
-      </div>`
+      </div>;
 
-    else
-      `<div className='image-gallery'>
+    } else {
+      return <div className='image-gallery'>
           <div className='caption center'>This character has not submitted any images</div>
-      </div>`
+      </div>;
+    }
+  }
+});

@@ -1,39 +1,56 @@
-@SessionModal = React.createClass
-  getInitialState: ->
-    view: 'login'
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS205: Consider reworking code to avoid use of IIFEs
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.SessionModal = React.createClass({
+  getInitialState() {
+    return {view: 'login'};
+  },
 
-  close: ->
-    M.Modal.getInstance(document.getElementById('session-modal')).close()
+  close() {
+    return M.Modal.getInstance(document.getElementById('session-modal')).close();
+  },
 
-  view: (view) ->
-    $(@refs.view).fadeOut 300, =>
-      @setState view: view, =>
-        $(@refs.view).fadeIn 300
+  view(view) {
+    return $(this.refs.view).fadeOut(300, () => {
+      return this.setState({view}, () => {
+        return $(this.refs.view).fadeIn(300);
+      });
+    });
+  },
 
-  _handleHelpClick: (e) ->
-    @view 'help'
-    e.preventDefault()
+  _handleHelpClick(e) {
+    this.view('help');
+    return e.preventDefault();
+  },
 
-  _handleComplete: ->
-    @view 'login'
+  _handleComplete() {
+    return this.view('login');
+  },
 
-  render: ->
-    view = switch @state.view
-      when 'help'
-        `<PasswordResetForm onComplete={ this.close } onSignInClick={ this._handleComplete } />`
+  render() {
+    const view = (() => { switch (this.state.view) {
+      case 'help':
+        return <PasswordResetForm onComplete={ this.close } onSignInClick={ this._handleComplete } />;
 
-      else
-        `<LoginForm onLogin={ this.close }>
+      default:
+        return <LoginForm onLogin={ this.close }>
             <div className='right-align'>
                 <a href='/login' onClick={ this._handleHelpClick }>Forgot password?</a>
             </div>
-        </LoginForm>`
+        </LoginForm>;
+    } })();
 
-    `<Modal id='session-modal'
+    return <Modal id='session-modal'
             title='Welcome back!'
             onClose={ this._handleComplete }
             className='narrow'>
         <div ref='view' className='flex'>
             { view }
         </div>
-    </Modal>`
+    </Modal>;
+  }
+});

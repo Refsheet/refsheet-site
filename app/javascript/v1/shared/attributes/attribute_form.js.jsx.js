@@ -1,103 +1,131 @@
-@AttributeForm = React.createClass
-  getInitialState: ->
-    name: @props.name
-    value: @props.value
-    notes: @props.notes
-    errors: {}
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.AttributeForm = React.createClass({
+  getInitialState() {
+    return {
+      name: this.props.name,
+      value: this.props.value,
+      notes: this.props.notes,
+      errors: {}
+    };
+  },
     
-  commit: (e) ->
-    @props.onCommit
-      id:  @props.id
-      name:  @state.name
-      value: @state.value
-      notes: @state.notes
-    , =>
-      if @props.onCancel?
-        @props.onCancel()
-      else
-        @setState errors: {}
-        @setState name: '', value: '', notes: '' unless @props.id?
-    , (data) =>
-      console.log data
-      @setState errors: data
+  commit(e) {
+    this.props.onCommit({
+      id:  this.props.id,
+      name:  this.state.name,
+      value: this.state.value,
+      notes: this.state.notes
+    }
+    , () => {
+      if (this.props.onCancel != null) {
+        return this.props.onCancel();
+      } else {
+        this.setState({errors: {}});
+        if (this.props.id == null) { return this.setState({name: '', value: '', notes: ''}); }
+      }
+    }
+    , data => {
+      console.log(data);
+      return this.setState({errors: data});
+    });
         
-    e.preventDefault()
+    return e.preventDefault();
+  },
 
-  handleChange: (key, value) ->
-    o = {}
-    o[key] = value
-    @setState o
+  handleChange(key, value) {
+    const o = {};
+    o[key] = value;
+    return this.setState(o);
+  },
 
-  colorPicker: (e) ->
-    @setState value: e.target.value
+  colorPicker(e) {
+    return this.setState({value: e.target.value});
+  },
 
-  colorPickerClick: (e) ->
-    $(e.target).children('input').click()
+  colorPickerClick(e) {
+    return $(e.target).children('input').click();
+  },
 
-  componentWillReceiveProps: (newProps) ->
-    state = []
-    state.name = newProps.name if newProps.name?
-    state.value = newProps.value if newProps.value?
-    state.notes = newProps.notes if newProps.notes?
-    @setState state
+  componentWillReceiveProps(newProps) {
+    const state = [];
+    if (newProps.name != null) { state.name = newProps.name; }
+    if (newProps.value != null) { state.value = newProps.value; }
+    if (newProps.notes != null) { state.notes = newProps.notes; }
+    return this.setState(state);
+  },
 
-  componentWillUpdate: ->
-    Materialize.updateTextFields() if Materialize.updateTextFields?
+  componentWillUpdate() {
+    if (Materialize.updateTextFields != null) { return Materialize.updateTextFields(); }
+  },
 
-  componentDidMount: ->
-    $('[name="value"]').focus()
+  componentDidMount() {
+    return $('[name="value"]').focus();
+  },
 
-  render: ->
-    if @props.onCancel?
+  render() {
+    let cancel, iconTag, nameTag, notesTag, saveClassName;
+    if (this.props.onCancel != null) {
       cancel =
-        `<a className='' onClick={ this.props.onCancel }>
+        <a className='' onClick={ this.props.onCancel }>
             <i className='material-icons'>cancel</i>
-        </a>`
+        </a>;
+    }
 
-    className = 'attribute-form'
+    let className = 'attribute-form';
 
-    if Object.keys(@state.errors).length != 0
-      saveClassName = 'red-text'
+    if (Object.keys(this.state.errors).length !== 0) {
+      saveClassName = 'red-text';
 
-    else
-      saveClassName = 'teal-text'
+    } else {
+      saveClassName = 'teal-text';
+    }
 
-    if @props.inactive
-      className += ' inactive'
+    if (this.props.inactive) {
+      className += ' inactive';
+    }
 
-    unless @props.hideIcon
+    if (!this.props.hideIcon) {
       iconTag =
-        `<div className='icon'>
+        <div className='icon'>
             <i className='material-icons'>edit</i>
-        </div>`
+        </div>;
+    }
 
-    if @props.freezeName
+    if (this.props.freezeName) {
       nameTag =
-        `<div className='key'>{ this.state.name }</div>`
+        <div className='key'>{ this.state.name }</div>;
 
-    else
+    } else {
       nameTag =
-        `<div className='key'>
+        <div className='key'>
             <Input type='text'
                    name='name'
                    placeholder='Name'
                    error={ this.state.errors.name }
                    onChange={ this.handleChange }
                    value={ this.state.name } />
-        </div>`
+        </div>;
+    }
 
-    unless @props.hideNotes
+    if (!this.props.hideNotes) {
       notesTag =
-        `<div className='notes'>
+        <div className='notes'>
             <Input type='text'
                    name='notes'
                    placeholder='Notes'
                    error={ this.state.errors.notes }
                    onChange={ this.handleChange }
                    value={ this.state.notes } />
-        </div>`
+        </div>;
+    }
 
-    `<li className={ className } data-attribute-id={ this.props.id }>
+    return <li className={ className } data-attribute-id={ this.props.id }>
         <form onSubmit={ this.commit }>
             { iconTag }
 
@@ -123,4 +151,6 @@
                 { cancel }
             </div>
         </form>
-    </li>`
+    </li>;
+  }
+});

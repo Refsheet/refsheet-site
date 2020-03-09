@@ -1,97 +1,119 @@
-@GalleryFeature = React.createClass
-  propTypes:
-    editable: React.PropTypes.bool
-    first: React.PropTypes.object
-    second: React.PropTypes.object
-    third: React.PropTypes.object
-    onImageSwap: React.PropTypes.func
-    onImageClick: React.PropTypes.func
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.GalleryFeature = React.createClass({
+  propTypes: {
+    editable: React.PropTypes.bool,
+    first: React.PropTypes.object,
+    second: React.PropTypes.object,
+    third: React.PropTypes.object,
+    onImageSwap: React.PropTypes.func,
+    onImageClick: React.PropTypes.func,
     gallery: React.PropTypes.array
+  },
 
 
-  componentDidMount: ->
-    $(window).resize @_initialize
-    @_initialize()
+  componentDidMount() {
+    $(window).resize(this._initialize);
+    return this._initialize();
+  },
 
-  componentDidRecieveProps: (newProps) ->
-    if @props.first?.id != newProps.first?.id ||
-       @props.second?.id != newProps.second?.id ||
-       @props.third?.id != newProps.third?.id
-      @_initialize()
+  componentDidRecieveProps(newProps) {
+    if (((this.props.first != null ? this.props.first.id : undefined) !== (newProps.first != null ? newProps.first.id : undefined)) ||
+       ((this.props.second != null ? this.props.second.id : undefined) !== (newProps.second != null ? newProps.second.id : undefined)) ||
+       ((this.props.third != null ? this.props.third.id : undefined) !== (newProps.third != null ? newProps.third.id : undefined))) {
+      return this._initialize();
+    }
+  },
 
-  componentDidUpdate: ->
-    @_initialize()
+  componentDidUpdate() {
+    return this._initialize();
+  },
 
-  componentWillUnmount: ->
-    $(window).off 'resize', @_initialize
-
-
-  _initialize: ->
-    console.debug "[GalleryFeature] Initializing featured gallery..."
-
-    $(@refs.galleryFeature).imagesLoaded =>
-      select = (selector) =>
-        $(@refs.galleryFeature).find(selector)
-      width = (selector) =>
-        select(selector).width()
-      height = (selector) =>
-        select(selector).height()
-
-      ratio = (selector) =>
-        if select(selector).data 'aspect-ratio'
-          end = select(selector).data('aspect-ratio')
-        else
-          end = (height(selector + ' img') / width(selector + ' img')) || 1
-          select(selector).data('aspect-ratio', end)
-        end
-
-      g = 15
-      x0 = $(@refs.galleryFeature).width() - 5
-      r1 = ratio '.feature-main'
-      r2 = ratio '.side-image.top'
-      r3 = ratio '.side-image.bottom'
-
-      # Lots of magic. Ask Wolfram Alpha.
-      t = g - g*r2 - g*r3 + r2*x0 + r3*x0
-      b = r1 + r2 + r3
-      x1 = t / b
-      x2 = x0 - x1 - g
-      y1 = x1 * r1
-      y2 = x2 * r2
-      y3 = x2 * r3
-
-      $(@refs.featureMain)
-        .css
-          width: x1
-          height: y1
-        .children('.feature-main')
-          .addClass 'gf-entry'
-
-      $(@refs.featureSide).css
-        width: x2
-
-      setTimeout =>
-        $(@refs.featureSide).children('.top')
-          .css
-            height: y2
-          .addClass 'gf-entry'
-      , 250
-
-      setTimeout =>
-        $(@refs.featureSide).children('.bottom')
-          .css
-            height: y3
-          .addClass 'gf-entry'
-      , 500
+  componentWillUnmount() {
+    return $(window).off('resize', this._initialize);
+  },
 
 
+  _initialize() {
+    console.debug("[GalleryFeature] Initializing featured gallery...");
 
-  render: ->
-    firstId = this.props.first?.id || 'placeholder-first'
-    secondId = this.props.second?.id || 'placeholder-second'
-    thirdId = this.props.third?.id || 'placeholder-third'
+    return $(this.refs.galleryFeature).imagesLoaded(() => {
+      const select = selector => {
+        return $(this.refs.galleryFeature).find(selector);
+      };
+      const width = selector => {
+        return select(selector).width();
+      };
+      const height = selector => {
+        return select(selector).height();
+      };
 
-    `<div ref='galleryFeature' className='gallery-feature'>
+      const ratio = selector => {
+        let end;
+        if (select(selector).data('aspect-ratio')) {
+          end = select(selector).data('aspect-ratio');
+        } else {
+          end = (height(selector + ' img') / width(selector + ' img')) || 1;
+          select(selector).data('aspect-ratio', end);
+        }
+        return end;
+      };
+
+      const g = 15;
+      const x0 = $(this.refs.galleryFeature).width() - 5;
+      const r1 = ratio('.feature-main');
+      const r2 = ratio('.side-image.top');
+      const r3 = ratio('.side-image.bottom');
+
+      // Lots of magic. Ask Wolfram Alpha.
+      const t = (g - (g*r2) - (g*r3)) + (r2*x0) + (r3*x0);
+      const b = r1 + r2 + r3;
+      const x1 = t / b;
+      const x2 = x0 - x1 - g;
+      const y1 = x1 * r1;
+      const y2 = x2 * r2;
+      const y3 = x2 * r3;
+
+      $(this.refs.featureMain)
+        .css({
+          width: x1,
+          height: y1}).children('.feature-main')
+          .addClass('gf-entry');
+
+      $(this.refs.featureSide).css({
+        width: x2});
+
+      setTimeout(() => {
+        return $(this.refs.featureSide).children('.top')
+          .css({
+            height: y2})
+          .addClass('gf-entry');
+      }
+      , 250);
+
+      return setTimeout(() => {
+        return $(this.refs.featureSide).children('.bottom')
+          .css({
+            height: y3})
+          .addClass('gf-entry');
+      }
+      , 500);
+    });
+  },
+
+
+
+  render() {
+    const firstId = (this.props.first != null ? this.props.first.id : undefined) || 'placeholder-first';
+    const secondId = (this.props.second != null ? this.props.second.id : undefined) || 'placeholder-second';
+    const thirdId = (this.props.third != null ? this.props.third.id : undefined) || 'placeholder-third';
+
+    return <div ref='galleryFeature' className='gallery-feature'>
         <div ref='featureMain' className='feature-left'>
             <GalleryImage key={ firstId }
                           className='feature-main'
@@ -122,4 +144,6 @@
                           gallery={ this.props.gallery }
                           editable={ this.props.editable } />
         </div>
-    </div>`
+    </div>;
+  }
+});

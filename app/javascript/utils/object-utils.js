@@ -1,14 +1,25 @@
-import _ from 'lodash'
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+import _ from 'lodash';
 
-export changes = (a, b) ->
-  changedData = {}
-  for k, v of b
-    changedData[k] = v if a[k] isnt v
-  changedData
+export var changes = function(a, b) {
+  const changedData = {};
+  for (let k in b) {
+    const v = b[k];
+    if (a[k] !== v) { changedData[k] = v; }
+  }
+  return changedData;
+};
 
-export camelize = (obj) ->
-  return obj unless _.isObject obj
-  out = {}
-  for k, v of obj
-    out[_.camelCase k] = camelize v
-  out
+export var camelize = function(obj) {
+  if (!_.isObject(obj)) { return obj; }
+  const out = {};
+  for (let k in obj) {
+    const v = obj[k];
+    out[_.camelCase(k)] = camelize(v);
+  }
+  return out;
+};

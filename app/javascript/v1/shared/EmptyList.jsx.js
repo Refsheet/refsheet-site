@@ -1,7 +1,13 @@
-@EmptyList = (props) ->
-  { coffee, caption } = props
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.EmptyList = function(props) {
+  const { coffee, caption } = props;
 
-  `<div className='empty-list'>
+  return <div className='empty-list'>
       { coffee &&
           <Icon className='other'>local_cafe</Icon> }
 
@@ -12,4 +18,5 @@
           <Icon className='cloud'>cloud</Icon> }
 
       <p>{ caption || 'Nothing to see here!' }</p>
-  </div>`
+  </div>;
+};

@@ -1,87 +1,121 @@
-@Views.Account.Activity = React.createClass
-  contextTypes:
+/*
+ * decaffeinate suggestions:
+ * DS101: Remove unnecessary use of Array.from
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.Views.Account.Activity = React.createClass({
+  contextTypes: {
     currentUser: React.PropTypes.object
+  },
 
-  propTypes:
+  propTypes: {
     filter: React.PropTypes.string
+  },
 
-  timer: null
-  dataPath: '/account/activity'
-  stateLink: ->
-    dataPath: '/account/activity?filter=' + @props.filter + '&before=' + @state.since
-    statePath: 'activity'
+  timer: null,
+  dataPath: '/account/activity',
+  stateLink() {
+    return {
+      dataPath: '/account/activity?filter=' + this.props.filter + '&before=' + this.state.since,
+      statePath: 'activity'
+    };
+  },
 
-  getInitialState: ->
-    activity: null
-    newActivity: null
-    since: null
-    timer: null
-    lastUpdate: null
+  getInitialState() {
+    return {
+      activity: null,
+      newActivity: null,
+      since: null,
+      timer: null,
+      lastUpdate: null
+    };
+  },
 
-  componentDidMount: ->
-    StateUtils.load @, 'activity', @props.match?.params, =>
-      @setState since: @state.activity[0]?.timestamp, lastUpdate: Math.floor(Date.now() / 1000)
-      @_poll()
-    , urlParams: filter: @props.filter
+  componentDidMount() {
+    return StateUtils.load(this, 'activity', this.props.match != null ? this.props.match.params : undefined, () => {
+      this.setState({since: (this.state.activity[0] != null ? this.state.activity[0].timestamp : undefined), lastUpdate: Math.floor(Date.now() / 1000)});
+      return this._poll();
+    }
+    , {urlParams: {filter: this.props.filter}});
+  },
 
-  componentWillUnmount: ->
-    clearTimeout @timer if @timer
+  componentWillUnmount() {
+    if (this.timer) { return clearTimeout(this.timer); }
+  },
 
-  componentWillReceiveProps: (newProps) ->
-    if @props.filter isnt newProps.filter
-      clearTimeout @timer if @timer
-      @setState activity: null, =>
-        StateUtils.load @, 'activity', newProps.match?.params, =>
-          @setState since: @state.activity[0]?.timestamp, lastUpdate: Math.floor(Date.now() / 1000)
-          @_poll()
-        , urlParams: filter: @props.filter
+  componentWillReceiveProps(newProps) {
+    if (this.props.filter !== newProps.filter) {
+      if (this.timer) { clearTimeout(this.timer); }
+      return this.setState({activity: null}, () => {
+        return StateUtils.load(this, 'activity', newProps.match != null ? newProps.match.params : undefined, () => {
+          this.setState({since: (this.state.activity[0] != null ? this.state.activity[0].timestamp : undefined), lastUpdate: Math.floor(Date.now() / 1000)});
+          return this._poll();
+        }
+        , {urlParams: {filter: this.props.filter}});
+      });
+    }
+  },
 
-  componentWillUpdate: (newProps, newState) ->
-    if newState.newActivity != @state.newActivity
-      document.title = document.title.replace /^\(\d+\)\s+/, ''
-      if newState.newActivity and newState.newActivity.length > 0
-        document.title = "(#{newState.newActivity.length}) " + document.title
+  componentWillUpdate(newProps, newState) {
+    if (newState.newActivity !== this.state.newActivity) {
+      document.title = document.title.replace(/^\(\d+\)\s+/, '');
+      if (newState.newActivity && (newState.newActivity.length > 0)) {
+        return document.title = `(${newState.newActivity.length}) ` + document.title;
+      }
+    }
+  },
 
-  _poll: ->
-    @timer = setTimeout =>
-      Model.poll @dataPath, { since: @state.since, filter: @props.filter }, (data) =>
-        @setState newActivity: data.activity, lastUpdate: Math.floor(Date.now() / 1000), @_poll
-    , 15000
+  _poll() {
+    return this.timer = setTimeout(() => {
+      return Model.poll(this.dataPath, { since: this.state.since, filter: this.props.filter }, data => {
+        return this.setState({newActivity: data.activity, lastUpdate: Math.floor(Date.now() / 1000)}, this._poll);
+      });
+    }
+    , 15000);
+  },
 
-  _prepend: ->
-    act = (@state.newActivity || []).concat @state.activity
-    @setState activity: act, since: act[0]?.timestamp, newActivity: null
+  _prepend() {
+    const act = (this.state.newActivity || []).concat(this.state.activity);
+    return this.setState({activity: act, since: (act[0] != null ? act[0].timestamp : undefined), newActivity: null});
+  },
 
-  _append: (activity) ->
-    StateUtils.updateItems @, 'activity', activity
+  _append(activity) {
+    return StateUtils.updateItems(this, 'activity', activity);
+  },
 
-  _groupedActivity: ->
-    grouped = []
+  _groupedActivity() {
+    const grouped = [];
 
-    for item in @state.activity
-      last = grouped[grouped.length - 1]
+    for (let item of Array.from(this.state.activity)) {
+      const last = grouped[grouped.length - 1];
 
-      if item.activity and
-         last and
-         HashUtils.compare(item, last, 'user.username', 'character.id', 'activity_type', 'activity_method') and
-         last.timestamp - item.timestamp < 3600
+      if (item.activity &&
+         last &&
+         HashUtils.compare(item, last, 'user.username', 'character.id', 'activity_type', 'activity_method') &&
+         ((last.timestamp - item.timestamp) < 3600)) {
 
-        last.activities ||= [last.activity]
-        unless HashUtils.itemExists last.activities, item.activity, 'id'
-          last.activities.push item.activity
-      else
-        grouped.push item
+        if (!last.activities) { last.activities = [last.activity]; }
+        if (!HashUtils.itemExists(last.activities, item.activity, 'id')) {
+          last.activities.push(item.activity);
+        }
+      } else {
+        grouped.push(item);
+      }
+    }
 
-    grouped
+    return grouped;
+  },
 
 
-  render: ->
-    return `<Spinner className='margin-top--large' small center />` unless @state.activity
+  render() {
+    if (!this.state.activity) { return <Spinner className='margin-top--large' small center />; }
 
-    out = @_groupedActivity().map (item) ->
-      `<Views.Account.ActivityCard {...StringUtils.camelizeKeys(item)} key={item.id} />`
+    const out = this._groupedActivity().map(item => <Views.Account.ActivityCard {...StringUtils.camelizeKeys(item)} key={item.id} />);
 
-    `<div className='feed-item-stream'>
+    return <div className='feed-item-stream'>
         <Restrict patron>
           <CommentForm />
         </Restrict>
@@ -97,4 +131,6 @@
                         stateLink={ this.stateLink }
                         params={{}}
                         count={ this.state.activity.length } />
-    </div>`
+    </div>;
+  }
+});

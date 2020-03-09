@@ -1,23 +1,28 @@
-import { PropTypes } from 'prop-types'
-import JustifiedLayout from 'react-justified-layout'
-import Measure from 'react-measure'
-import Section from 'Shared/Section'
-import Thumbnail from 'Image/Thumbnail'
-import compose from "../../utils/compose"
-import {connect} from "react-redux"
-import {openUploadModal} from "../../actions"
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+import { PropTypes } from 'prop-types';
+import JustifiedLayout from 'react-justified-layout';
+import Measure from 'react-measure';
+import Section from 'Shared/Section';
+import Thumbnail from 'Image/Thumbnail';
+import compose from "../../utils/compose";
+import {connect} from "react-redux";
+import {openUploadModal} from "../../actions";
 
-Gallery = ({images, openUploadModal}) ->
-  galleryTabs = [
-    { id: 'baz', title: 'Scraps' }
+const Gallery = function({images, openUploadModal}) {
+  const galleryTabs = [
+    { id: 'baz', title: 'Scraps' },
     { id: 'bar', title: 'Hidden' }
-  ]
+  ];
 
-  galleryActions = [
+  const galleryActions = [
     { icon: 'file_upload', title: 'Upload', onClick: openUploadModal }
-  ]
+  ];
 
-  `<Section title='Main Gallery'
+  return <Section title='Main Gallery'
             id='gallery'
             className='profile-scrollspy'
             tabs={galleryTabs}
@@ -26,48 +31,53 @@ Gallery = ({images, openUploadModal}) ->
     <Measure bounds>
       { renderGallery(images) }
     </Measure>
-  </Section>`
+  </Section>;
+};
 
 
-renderGallery = (images) -> ({measureRef, contentRect}) ->
-  width = contentRect.bounds.width
+var renderGallery = images => (function({measureRef, contentRect}) {
+  const {
+    width
+  } = contentRect.bounds;
 
-  gallery = images.map (i) ->
-    i.id
+  const gallery = images.map(i => i.id);
 
-  imageTiles = images.map (image) ->
-    {id, aspect_ratio} = image
+  const imageTiles = images.map(function(image) {
+    const {id, aspect_ratio} = image;
 
-    `<Thumbnail key={id} aspectRatio={aspect_ratio || 1} image={image} gallery={gallery} />`
+    return <Thumbnail key={id} aspectRatio={aspect_ratio || 1} image={image} gallery={gallery} />;
+  });
 
-  `<div className='gallery-sizer margin-top--medium' ref={measureRef}>
+  return <div className='gallery-sizer margin-top--medium' ref={measureRef}>
     <JustifiedLayout containerWidth={ width } containerPadding={ 0 }>
       { imageTiles }
     </JustifiedLayout>
-  </div>`
+  </div>;
+});
 
 
-Gallery.propTypes =
+Gallery.propTypes = {
   images: PropTypes.arrayOf(
-    PropTypes.shape(
-      id: PropTypes.string.isRequired
-      aspect_ratio: PropTypes.number.isRequired
-      url: PropTypes.shape(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      aspect_ratio: PropTypes.number.isRequired,
+      url: PropTypes.shape({
         small: PropTypes.string.isRequired
-      ).isRequired
-      size: PropTypes.shape(
-        small: PropTypes.shape(
-          width: PropTypes.number.isRequired
+      }).isRequired,
+      size: PropTypes.shape({
+        small: PropTypes.shape({
+          width: PropTypes.number.isRequired,
           height: PropTypes.number.isRequired
-        ).isRequired
-      ).isRequired
-    )
+        }).isRequired
+      }).isRequired
+    })
   )
+};
 
-mapDispatchToProps = {
+const mapDispatchToProps = {
   openUploadModal
-}
+};
 
 export default compose(
   connect(undefined, mapDispatchToProps)
-)(Gallery)
+)(Gallery);
