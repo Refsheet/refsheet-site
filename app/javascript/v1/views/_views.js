@@ -8,15 +8,21 @@
 import ShowAccount from '../../v1/views/account/show'
 import ShowSettings from '../../v1/views/account/settings/show'
 
+import ShowNotifications from './account/notifications/show'
+import ExploreIndex from './explore/index'
 const Views = {
   Account: {
-    ShowAccount,
+    Show: ShowAccount,
     Settings: {
-      ShowSettings,
+      Show: ShowSettings,
     },
+    Notifications: {
+      Show: ShowNotifications
+    }
   },
-  Explore: {},
-  User: {},
+  Explore: {
+    Index: ExploreIndex
+  },
   Character: {},
   Static: {},
 }

@@ -15,7 +15,7 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.Views.Account.UserCard = createReactClass({
+let UserCard; export default UserCard = createReactClass({
   propTypes: {
     user: PropTypes.object.isRequired,
     onFollow: PropTypes.func,

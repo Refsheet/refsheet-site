@@ -17,7 +17,7 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.Views.Account.ActivityCard = createReactClass({
+let ActivityCard; export default ActivityCard = createReactClass({
   propTypes: {
     activityType: PropTypes.string,
     activityMethod: PropTypes.string,

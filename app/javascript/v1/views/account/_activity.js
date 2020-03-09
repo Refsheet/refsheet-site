@@ -17,7 +17,7 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.Views.Account.Activity = createReactClass({
+let Activity; export default Activity = createReactClass({
   contextTypes: {
     currentUser: PropTypes.object,
   },

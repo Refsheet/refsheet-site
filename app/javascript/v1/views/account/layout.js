@@ -8,6 +8,9 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
+import {connect} from "react-redux"
+import Main from "../../shared/Main"
+import Container from "../../shared/material/Container"
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -18,9 +21,8 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-namespace('Views.Account')
 
-class Layout extends React.Component {
+class cLayout extends React.Component {
   static initClass() {
     this.contextTypes = { router: PropTypes.object.isRequired }
   }
@@ -51,23 +53,24 @@ class Layout extends React.Component {
       <Main title={this._findTitle()} flex className="with-sidebar">
         <Container flex className="activity-feed">
           <div className="sidebar">
-            <Views.Account.UserCard user={this.props.currentUser} />
+            <UserCard user={this.props.currentUser} />
 
-            <Views.Account.SideNav />
+            <SideNav />
           </div>
 
           <div className="content">{this.props.children}</div>
 
           <div className="sidebar aside transparent">
             {typeof Advertisement != 'undefined' && <Advertisement />}
-            <Views.Account.Suggestions />
+            <Suggestions />
           </div>
         </Container>
       </Main>
     )
   }
 }
-Layout.initClass()
+cLayout.initClass()
 
 const mapStateToProps = state => ({ currentUser: state.session.currentUser })
-this.Views.Account.Layout = connect(mapStateToProps)(Layout)
+const Layout = connect(mapStateToProps)(cLayout)
+export default Layout

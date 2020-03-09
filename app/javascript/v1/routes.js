@@ -15,11 +15,18 @@ import qs from 'querystring'
 import ReactGA from 'react-ga'
 
 import App from '../components/App'
+import LegacyApp from './views/_App'
 import Static from '../v1/views/Static'
 import StringUtils from '../v1/utils/StringUtils'
 import LoginView from '../v1/views/sessions/LoginView'
 import RegisterView from '../v1/views/sessions/RegisterView'
 import Views from '../v1/views/_views'
+import BrowseApp from "./views/browse/BrowseApp"
+import Forums from "./views/Forums"
+import ImageApp from "./views/images/ImageApp"
+import CharacterApp from "./views/characters/CharacterApp"
+import * as Materialize from "materialize-css"
+import User from './views/User'
 
 // Backfill for Router V4 not parsing query strings.
 const history = createBrowserHistory()
@@ -102,7 +109,7 @@ const Routes = createReactClass({
           <Route
             path="/"
             render={props => (
-              <App
+              <LegacyApp
                 {...props}
                 eagerLoad={this.props.eagerLoad}
                 environment={this.props.environment}
@@ -166,7 +173,7 @@ const Routes = createReactClass({
                   />
 
                   <Route path="/browse" component={BrowseApp} />
-                  <Route path="/explore/:scope?" component={Explore.Index} />
+                  <Route path="/explore/:scope?" component={Views.Explore.Index} />
 
                   <Route path="/forums">
                     <Switch>
@@ -227,7 +234,7 @@ const Routes = createReactClass({
                     component={Packs.application.CharacterController}
                   />
                 </Switch>
-              </App>
+              </LegacyApp>
             )}
           />
         </Switch>
@@ -244,12 +251,12 @@ const Routes = createReactClass({
     }
 
     return (
-      <Packs.application.V2Wrapper
+      <App
         state={defaultState}
         assets={this.props.assets}
       >
         {router}
-      </Packs.application.V2Wrapper>
+      </App>
     )
   },
 })

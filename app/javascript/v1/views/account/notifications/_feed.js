@@ -1,9 +1,3 @@
-/* eslint-disable
-    no-undef,
-    react/jsx-no-undef,
-    react/no-deprecated,
-    react/react-in-jsx-scope,
-*/
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
@@ -17,9 +11,8 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-namespace('Views.Account.Notifications')
 
-this.Views.Account.Notifications.Feed = createReactClass({
+let Feed; export default Feed = createReactClass({
   contextTypes: {
     currentUser: PropTypes.object,
   },

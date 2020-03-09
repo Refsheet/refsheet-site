@@ -15,7 +15,7 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.Forums.Threads.List = createReactClass({
+let List; export default List = createReactClass({
   propTypes: {
     threads: PropTypes.array,
     activeThreadId: PropTypes.string,
