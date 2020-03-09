@@ -1,80 +1,106 @@
-@IdentityLink = React.createClass
-  contextTypes:
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.IdentityLink = React.createClass({
+  contextTypes: {
     currentUser: React.PropTypes.object
+  },
 
-  propTypes:
-    to: React.PropTypes.shape
-      link: React.PropTypes.string.isRequired
-      name: React.PropTypes.string.isRequired
-      username: React.PropTypes.string.isRequired
-      type: React.PropTypes.string
+  propTypes: {
+    to: React.PropTypes.shape({
+      link: React.PropTypes.string.isRequired,
+      name: React.PropTypes.string.isRequired,
+      username: React.PropTypes.string.isRequired,
+      type: React.PropTypes.string,
       avatar_url: React.PropTypes.string
-    name: React.PropTypes.string
-    link: React.PropTypes.string
+    }),
+    name: React.PropTypes.string,
+    link: React.PropTypes.string,
     avatarUrl: React.PropTypes.string
+  },
 
-  timer: null
+  timer: null,
 
-  getInitialState: ->
-    user: null
+  getInitialState() {
+    return {user: null};
+  },
 
-  _load: ->
-    $.get '/users/' + @props.to.username + '/follow.json', (user) =>
-      @setState { user }
+  _load() {
+    return $.get('/users/' + this.props.to.username + '/follow.json', user => {
+      return this.setState({ user });
+  });
+  },
 
-  _handleFollowClick: (e) ->
-    action = if @state.user.followed then 'delete' else 'post'
-    Model.request action, '/users/' + @props.to.username + '/follow.json', {}, (user) =>
-      @setState { user }
-    e.preventDefault()
+  _handleFollowClick(e) {
+    const action = this.state.user.followed ? 'delete' : 'post';
+    Model.request(action, '/users/' + this.props.to.username + '/follow.json', {}, user => {
+      return this.setState({ user });
+  });
+    return e.preventDefault();
+  },
 
-  _handleLinkMouseover: ->
-    @timer = setTimeout =>
-      $(@refs.info).fadeIn()
-      @_load()
-    , 750
+  _handleLinkMouseover() {
+    return this.timer = setTimeout(() => {
+      $(this.refs.info).fadeIn();
+      return this._load();
+    }
+    , 750);
+  },
 
-  _handleLinkMouseout: ->
-    clearTimeout @timer
+  _handleLinkMouseout() {
+    return clearTimeout(this.timer);
+  },
 
-  _handleCardMouseover: ->
-    clearTimeout @timer
+  _handleCardMouseover() {
+    return clearTimeout(this.timer);
+  },
 
-  _handleCardMouseout: (e) ->
-    @timer = setTimeout =>
-      $(@refs.info).fadeOut()
-    , 250
+  _handleCardMouseout(e) {
+    return this.timer = setTimeout(() => {
+      return $(this.refs.info).fadeOut();
+    }
+    , 250);
+  },
 
-  render: ->
-    { user } = @state
-    to = StringUtils.indifferentKeys @props.to
+  render() {
+    let byline, canFollow, followColor, followed, follower, imgShadow, isYou, mutual, nameColor;
+    const { user } = this.state;
+    const to = StringUtils.indifferentKeys(this.props.to);
 
-    if @props.avatarUrl
-      to.type ||= 'character'
-    else
-      to.type ||= 'user'
+    if (this.props.avatarUrl) {
+      if (!to.type) { to.type = 'character'; }
+    } else {
+      if (!to.type) { to.type = 'user'; }
+    }
 
-    if to.is_admin || user?.is_admin
-      imgShadow = '0 0 3px 1px #2480C8'
-      nameColor = '#2480C8'
+    if (to.is_admin || (user != null ? user.is_admin : undefined)) {
+      imgShadow = '0 0 3px 1px #2480C8';
+      nameColor = '#2480C8';
 
-    else if to.is_patron || user?.is_patron
-      imgShadow = '0 0 3px 1px #F96854'
-      nameColor = '#F96854'
+    } else if (to.is_patron || (user != null ? user.is_patron : undefined)) {
+      imgShadow = '0 0 3px 1px #F96854';
+      nameColor = '#F96854';
+    }
 
-    if user
-      { followed, follower } = user
+    if (user) {
+      ({ followed, follower } = user);
 
-      mutual = followed or follower
-      followColor = if followed then '#ffca28' else 'rgba(255, 255, 255, 0.7)'
-      isYou = to.username == @context.currentUser?.username
-      canFollow = !!@context.currentUser and not isYou
+      mutual = followed || follower;
+      followColor = followed ? '#ffca28' : 'rgba(255, 255, 255, 0.7)';
+      isYou = to.username === (this.context.currentUser != null ? this.context.currentUser.username : undefined);
+      canFollow = !!this.context.currentUser && !isYou;
 
-      if to.type == 'character'
-        byline = `<div className='byline' style={{ lineHeight: '1rem', marginBottom: '2px', marginTop: '3px' }}>By: <Link to={ '/' + to.username }>{ user.name }</Link></div>`
+      if (to.type === 'character') {
+        byline = <div className='byline' style={{ lineHeight: '1rem', marginBottom: '2px', marginTop: '3px' }}>By: <Link to={ '/' + to.username }>{ user.name }</Link></div>;
+      }
+    }
 
 
-    `<div className='identity-link-wrapper' style={{ position: 'relative', display: 'inline-block' }}>
+    return <div className='identity-link-wrapper' style={{ position: 'relative', display: 'inline-block' }}>
         <div className='identity-card card with-avatar z-depth-2 sp'
              ref='info'
              onMouseOut={ this._handleCardMouseout }
@@ -167,4 +193,6 @@
         >
             { this.props.name || to.name }
         </Link>
-    </div>`
+    </div>;
+  }
+});

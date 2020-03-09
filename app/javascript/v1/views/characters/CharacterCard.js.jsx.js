@@ -1,57 +1,80 @@
-@CharacterCard = React.createClass
-  getInitialState: ->
-    character: @props.character
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.CharacterCard = React.createClass({
+  getInitialState() {
+    return {character: this.props.character};
+  },
 
-  componentWillUpdate: (newProps) ->
-    if newProps.character != @props.character
-      @setState character: newProps.character
+  componentWillUpdate(newProps) {
+    if (newProps.character !== this.props.character) {
+      return this.setState({character: newProps.character});
+    }
+  },
 
-  handleAttributeChange: (data, onSuccess, onError) ->
-    postData =
-      character: {}
-    postData.character[data.id] = data.value
+  handleAttributeChange(data, onSuccess, onError) {
+    const postData =
+      {character: {}};
+    postData.character[data.id] = data.value;
 
-    $.ajax
-      url: @state.character.path
-      type: 'PATCH'
-      data: postData
-      success: (data) =>
-        @setState character: data
-        onSuccess()
-      error: (error) =>
-        onError(value: error.JSONData?.errors[data.id])
+    return $.ajax({
+      url: this.state.character.path,
+      type: 'PATCH',
+      data: postData,
+      success: data => {
+        this.setState({character: data});
+        return onSuccess();
+      },
+      error: error => {
+        return onError({value: (error.JSONData != null ? error.JSONData.errors[data.id] : undefined)});
+      }
+    });
+  },
 
-  handleSpecialNotesChange: (markup, onSuccess, onError) ->
-    $.ajax
-      url: @state.character.path
-      type: 'PATCH'
-      data: character: special_notes: markup
-      success: (data) =>
-        @setState character: data
-        onSuccess()
+  handleSpecialNotesChange(markup, onSuccess, onError) {
+    return $.ajax({
+      url: this.state.character.path,
+      type: 'PATCH',
+      data: { character: {special_notes: markup}
+    },
+      success: data => {
+        this.setState({character: data});
+        return onSuccess();
+      },
 
-      error: (error) =>
-        onError(error.JSONData?.errors['special_notes'])
+      error: error => {
+        return onError(error.JSONData != null ? error.JSONData.errors['special_notes'] : undefined);
+      }
+    });
+  },
 
-  handleProfileImageEdit: ->
-    $(document).trigger 'app:character:profileImage:edit'
+  handleProfileImageEdit() {
+    return $(document).trigger('app:character:profileImage:edit');
+  },
 
-  _handleFollow: (f) ->
-    @setState HashUtils.set(@state, 'character.followed', f), ->
-      Materialize.toast({ html: "Character #{if f then 'followed!' else 'unfollowed.'}", displayLength: 3000, classes: 'green' })
+  _handleFollow(f) {
+    return this.setState(HashUtils.set(this.state, 'character.followed', f), () => Materialize.toast({ html: `Character ${f ? 'followed!' : 'unfollowed.'}`, displayLength: 3000, classes: 'green' }));
+  },
       
-  _handleChange: (char) ->
-    @props.onChange(char) if @props.onChange
-    @setState character: char
+  _handleChange(char) {
+    if (this.props.onChange) { this.props.onChange(char); }
+    return this.setState({character: char});
+  },
 
-  render: ->
-    if @props.edit
-      attributeUpdate = @handleAttributeChange
-      notesUpdate = @handleSpecialNotesChange
-      editable = true
+  render() {
+    let attributeUpdate, editable, nickname, notesUpdate;
+    if (this.props.edit) {
+      attributeUpdate = this.handleAttributeChange;
+      notesUpdate = this.handleSpecialNotesChange;
+      editable = true;
+    }
 
-    description =
-      `<div className='description'>
+    const description =
+      <div className='description'>
           <AttributeTable onAttributeUpdate={ attributeUpdate }
                           defaultValue='Unspecified'
                           freezeName
@@ -75,29 +98,32 @@
                             onChange={ notesUpdate } />
               </div>
           }
-      </div>`
+      </div>;
 
-    if @props.nickname
-      nickname = `<span className='nickname'> ({ this.state.character.nickname })</span>`
-
-    prefixClass = 'title-prefix'
-    suffixClass = 'title-suffix'
-
-    if @props.officialPrefix
-      prefixClass += ' official'
-
-    if @props.officialSuffix
-      prefixClass += ' official'
-
-    gravity_crop = {
-      center: { objectPosition: 'center' }
-      north: { objectPosition: 'top' }
-      south: { objectPosition: 'bottom' }
-      east: { objectPosition: 'right' }
-      west: { objectPosition: 'left' }
+    if (this.props.nickname) {
+      nickname = <span className='nickname'> ({ this.state.character.nickname })</span>;
     }
 
-    `<div className='character-card' style={{ minHeight: 400 }}>
+    let prefixClass = 'title-prefix';
+    const suffixClass = 'title-suffix';
+
+    if (this.props.officialPrefix) {
+      prefixClass += ' official';
+    }
+
+    if (this.props.officialSuffix) {
+      prefixClass += ' official';
+    }
+
+    const gravity_crop = {
+      center: { objectPosition: 'center' },
+      north: { objectPosition: 'top' },
+      south: { objectPosition: 'bottom' },
+      east: { objectPosition: 'right' },
+      west: { objectPosition: 'left' }
+    };
+
+    return <div className='character-card' style={{ minHeight: 400 }}>
         <div className='character-details'>
             <div className='heading'>
                 <div className='right'>
@@ -138,4 +164,6 @@
                     </div>
                 </a> }
         </div>
-    </div>`
+    </div>;
+  }
+});

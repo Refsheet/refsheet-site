@@ -1,23 +1,37 @@
-@LoginForm = React.createClass
-  getInitialState: ->
-    user:
-      username: null
-      password: null
-      remember: true
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.LoginForm = React.createClass({
+  getInitialState() {
+    return {
+      user: {
+        username: null,
+        password: null,
+        remember: true
+      }
+    };
+  },
 
-  _handleError: (user) ->
-    @setState
-      user:
-        username: @state.user.username
+  _handleError(user) {
+    return this.setState({
+      user: {
+        username: this.state.user.username,
         password: null
+      }
+    });
+  },
 
-  _handleLogin: (session) ->
-    user = session.current_user
-    $(document).trigger 'app:session:update', session
-    @props.onLogin(session) if @props.onLogin
+  _handleLogin(session) {
+    const user = session.current_user;
+    $(document).trigger('app:session:update', session);
+    if (this.props.onLogin) { return this.props.onLogin(session); }
+  },
 
-  render: ->
-    `<Form action='/session'
+  render() {
+    return <Form action='/session'
            method='POST'
            modelName='user'
            model={ this.state.user }
@@ -39,4 +53,6 @@
                 </div>
             </Column>
         </Row>
-    </Form>`
+    </Form>;
+  }
+});

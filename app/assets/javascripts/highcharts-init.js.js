@@ -1,3 +1,5 @@
-Highcharts.setOptions
-  chart:
+Highcharts.setOptions({
+  chart: {
     backgroundColor: 'transparent'
+  }
+});

@@ -1,49 +1,62 @@
-@NavLink = React.createClass
-  contextTypes:
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.NavLink = React.createClass({
+  contextTypes: {
     router: React.PropTypes.object
+  },
 
-  propTypes:
-    to: React.PropTypes.string.isRequired
-    text: React.PropTypes.string.isRequired
-    icon: React.PropTypes.string
-    disabled: React.PropTypes.bool
-    className: React.PropTypes.string
+  propTypes: {
+    to: React.PropTypes.string.isRequired,
+    text: React.PropTypes.string.isRequired,
+    icon: React.PropTypes.string,
+    disabled: React.PropTypes.bool,
+    className: React.PropTypes.string,
     activeClassName: React.PropTypes.string
+  },
 
-  render: ->
-    { to } = @props
+  render() {
+    let active, currentPath;
+    let { to } = this.props;
 
-    to = '/' + to if to[0] is '?'
+    if (to[0] === '?') { to = '/' + to; }
 
-    if @props.noStrict
-      currentPath = @context.router.route.match.path
-      active = currentPath.indexOf(to) is 0
-    else if to.match /\?/
-      currentPath = @context.router.route.location.pathname + (@context.router.route.location.search || '')
-    else
-      currentPath = @context.router.route.location.pathname
+    if (this.props.noStrict) {
+      currentPath = this.context.router.route.match.path;
+      active = currentPath.indexOf(to) === 0;
+    } else if (to.match(/\?/)) {
+      currentPath = this.context.router.route.location.pathname + (this.context.router.route.location.search || '');
+    } else {
+      currentPath = this.context.router.route.location.pathname;
+    }
 
-    if !@props.noStrict
-      active = ReactRouter.matchPath to,
+    if (!this.props.noStrict) {
+      active = ReactRouter.matchPath(to, {
         path: currentPath,
         exact: true
+      }
+      );
+    }
 
-    to = '' if @props.disabled
+    if (this.props.disabled) { to = ''; }
 
-    classNames = ['nav-link']
-    classNames.push @props.className if @props.className
-    classNames.push 'active' if active
-    classNames.push 'disabled' if @props.disabled
+    const classNames = ['nav-link'];
+    if (this.props.className) { classNames.push(this.props.className); }
+    if (active) { classNames.push('active'); }
+    if (this.props.disabled) { classNames.push('disabled'); }
 
-    linkClassNames = []
-    linkClassNames.push 'disabled' if @props.disabled
+    const linkClassNames = [];
+    if (this.props.disabled) { linkClassNames.push('disabled'); }
 
-    activeClassNames = ['active current']
-    activeClassNames.push @props.activeClassName if @props.activeClassName
+    const activeClassNames = ['active current'];
+    if (this.props.activeClassName) { activeClassNames.push(this.props.activeClassName); }
 
-    linkClassNames.push activeClassNames if active
+    if (active) { linkClassNames.push(activeClassNames); }
 
-    `<li className={ classNames.join(' ') }>
+    return <li className={ classNames.join(' ') }>
         <Link to={ to } className={ linkClassNames.join(' ') }>
             { this.props.icon && <Icon className='left'>{ this.props.icon }</Icon> } { this.props.text }
         </Link>
@@ -52,4 +65,6 @@
             <ul className='subnav'>
                 { this.props.children }
             </ul> }
-    </li>`
+    </li>;
+  }
+});

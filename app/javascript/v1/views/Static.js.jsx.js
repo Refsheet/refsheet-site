@@ -1,11 +1,16 @@
-import View from './static/View.js.jsx.coffee'
-import NotFound from './static/NotFound.js.jsx.coffee'
-import Home from './static/Home.js.jsx.coffee'
+/*
+ * decaffeinate suggestions:
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+import View from './static/View.js.jsx.coffee';
+import NotFound from './static/NotFound.js.jsx.coffee';
+import Home from './static/Home.js.jsx.coffee';
 
-@Static = {
+this.Static = {
   Home,
   NotFound,
   View
-}
+};
 
-export default Static
+export default Static;

@@ -1,35 +1,48 @@
-@CharacterSettingsModal = React.createClass
-  propTypes:
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.CharacterSettingsModal = React.createClass({
+  propTypes: {
     character: React.PropTypes.object.isRequired
+},
 
 
-  getInitialState: ->
-    dirty: false
+  getInitialState() {
+    return {dirty: false};
+},
 
 
-  _handleSettingsClose: (e) ->
-    M.Modal.getInstance(document.getElementById('character-settings-form')).close()
+  _handleSettingsClose(e) {
+    return M.Modal.getInstance(document.getElementById('character-settings-form')).close();
+},
 
-  _handleChange: (character) ->
-    if character.link != @props.character.link
-      window.history.replaceState {}, '', character.link
+  _handleChange(character) {
+    if (character.link !== this.props.character.link) {
+      window.history.replaceState({}, '', character.link);
+  }
 
-    $(document).trigger 'app:character:update', character
+    $(document).trigger('app:character:update', character);
 
-    @_handleSettingsClose()
-    Materialize.toast({ html: 'Character saved!', displayLength: 3000, classes: 'green' })
+    this._handleSettingsClose();
+    return Materialize.toast({ html: 'Character saved!', displayLength: 3000, classes: 'green' });
+},
 
-  _handleCancel: (e) ->
-    @refs.form.reset()
-    @_handleSettingsClose()
-    e.preventDefault()
+  _handleCancel(e) {
+    this.refs.form.reset();
+    this._handleSettingsClose();
+    return e.preventDefault();
+},
 
-  _handleDirty: (dirty) ->
-    @setState dirty: dirty
+  _handleDirty(dirty) {
+    return this.setState({dirty});
+},
 
 
-  render: ->
-    `<Modal id='character-settings-form'
+  render() {
+    return <Modal id='character-settings-form'
             title='Character Settings'
     >
         <Form action={ this.props.character.path }
@@ -94,4 +107,6 @@
                 <a className='btn right' onClick={ this._handleSettingsClose }>Done</a>
             </Column>
         </Row>
-    </Modal>`
+    </Modal>;
+}
+});

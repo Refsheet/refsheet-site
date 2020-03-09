@@ -1,156 +1,209 @@
-@Lightbox = React.createClass
-  contextTypes:
-    router: React.PropTypes.object.isRequired
-    currentUser: React.PropTypes.object
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.Lightbox = React.createClass({
+  contextTypes: {
+    router: React.PropTypes.object.isRequired,
+    currentUser: React.PropTypes.object,
     reportImage: React.PropTypes.func.isRequired
+  },
 
 
-  getInitialState: ->
-    image: null
-    error: null
-    directLoad: false
+  getInitialState() {
+    return {
+      image: null,
+      error: null,
+      directLoad: false
+    };
+  },
 
-  handleCaptionChange: (data, onSuccess, onError) ->
-    $.ajax
-      url: @state.image.path
-      type: 'PATCH'
-      data: image: caption: data
-      success: (data) =>
-        @setState image: data
-        onSuccess()
-      error: (error) =>
-        onError(error)
+  handleCaptionChange(data, onSuccess, onError) {
+    return $.ajax({
+      url: this.state.image.path,
+      type: 'PATCH',
+      data: { image: {caption: data}
+    },
+      success: data => {
+        this.setState({image: data});
+        return onSuccess();
+      },
+      error: error => {
+        return onError(error);
+      }
+    });
+  },
 
-  setFeaturedImage: (e) ->
-    $.ajax
-      url: @state.image.character.path
-      type: 'PATCH'
-      data: { character: { featured_image_guid: @state.image.id } }
-      success: (data) =>
-        Materialize.toast({ html: 'Cover image changed!', displayLength: 3000, classes: 'green' })
-        $(document).trigger 'app:character:update', data
+  setFeaturedImage(e) {
+    $.ajax({
+      url: this.state.image.character.path,
+      type: 'PATCH',
+      data: { character: { featured_image_guid: this.state.image.id } },
+      success: data => {
+        Materialize.toast({ html: 'Cover image changed!', displayLength: 3000, classes: 'green' });
+        return $(document).trigger('app:character:update', data);
+      },
 
-      error: (error) =>
-        console.log error
-        Materialize.toast({ html: 'Error?', displayLength: 3000, classes: 'red' })
+      error: error => {
+        console.log(error);
+        return Materialize.toast({ html: 'Error?', displayLength: 3000, classes: 'red' });
+      }
+    });
 
-    e.preventDefault()
+    return e.preventDefault();
+  },
 
-  setProfileImage: (e) ->
-    $.ajax
-      url: @state.image.character.path
-      type: 'PATCH'
-      data: { character: { profile_image_guid: @state.image.id } }
-      success: (data) =>
-        Materialize.toast({ html: 'Profile image changed!', displayLength: 3000, classes: 'green' })
-        $(document).trigger 'app:character:update', data
+  setProfileImage(e) {
+    $.ajax({
+      url: this.state.image.character.path,
+      type: 'PATCH',
+      data: { character: { profile_image_guid: this.state.image.id } },
+      success: data => {
+        Materialize.toast({ html: 'Profile image changed!', displayLength: 3000, classes: 'green' });
+        return $(document).trigger('app:character:update', data);
+      },
 
-      error: (error) =>
-        console.error error
-        Materialize.toast({ html: 'Error?', displayLength: 3000, classes: 'red' })
+      error: error => {
+        console.error(error);
+        return Materialize.toast({ html: 'Error?', displayLength: 3000, classes: 'red' });
+      }
+    });
 
-    e.preventDefault()
+    return e.preventDefault();
+  },
 
-  handleDelete: (e) ->
-    $el = $(e.target)
-    return if $el.hasClass('disabled')
-    $el.addClass('disabled')
-    $el.text('Deleting...')
-    $.ajax
-      url: @state.image.path
-      type: 'DELETE'
-      success: =>
-        id = @state.image.id
+  handleDelete(e) {
+    const $el = $(e.target);
+    if ($el.hasClass('disabled')) { return; }
+    $el.addClass('disabled');
+    $el.text('Deleting...');
+    $.ajax({
+      url: this.state.image.path,
+      type: 'DELETE',
+      success: () => {
+        const {
+          id
+        } = this.state.image;
 
-        Materialize.toast({ html: 'Image deleted.', displayLength: 3000, classes: 'green'})
-        $(document).trigger 'app:image:delete', id
-        @state.onDelete(id) if @state.onDelete
-        @props.onDelete(id) if @props.onDelete
-        M.Modal.getInstance(document.getElementById('lightbox-delete-form')).close()
-        M.Modal.getInstance(document.getElementById('lightbox')).close()
-      error: =>
-        Materialize.toast({ html: 'Could not delete that for some reason.', displayLength: 3000, classes: 'red'})
-    e.preventDefault()
+        Materialize.toast({ html: 'Image deleted.', displayLength: 3000, classes: 'green'});
+        $(document).trigger('app:image:delete', id);
+        if (this.state.onDelete) { this.state.onDelete(id); }
+        if (this.props.onDelete) { this.props.onDelete(id); }
+        M.Modal.getInstance(document.getElementById('lightbox-delete-form')).close();
+        return M.Modal.getInstance(document.getElementById('lightbox')).close();
+      },
+      error: () => {
+        return Materialize.toast({ html: 'Could not delete that for some reason.', displayLength: 3000, classes: 'red'});
+      }
+    });
+    return e.preventDefault();
+  },
 
-  handleClose: (e) ->
-    return unless @state.image
+  handleClose(e) {
+    if (!this.state.image) { return; }
 
-    if @state.directLoad
-      @context.router.history.push @state.image.character.link
-    else
-      window.history.back()
+    if (this.state.directLoad) {
+      this.context.router.history.push(this.state.image.character.link);
+    } else {
+      window.history.back();
+    }
 
-    @setState image: null, onChange: null
+    return this.setState({image: null, onChange: null});
+  },
 
-  componentDidMount: ->
-    $('#lightbox').modal
-      starting_top: '4%'
-      ending_top: '10%'
-      ready: ->
-        $(this).find('.autofocus').focus()
-        $(document).trigger 'materialize:modal:ready'
-      complete: (e) =>
-        @handleClose(e)
+  componentDidMount() {
+    $('#lightbox').modal({
+      starting_top: '4%',
+      ending_top: '10%',
+      ready() {
+        $(this).find('.autofocus').focus();
+        return $(document).trigger('materialize:modal:ready');
+      },
+      complete: e => {
+        return this.handleClose(e);
+      }
+    });
 
-    $(document)
-      .on 'app:lightbox', (e, imageId, onChange, onDelete) =>
-        console.debug '[Lightbox] Launching from event with:', imageId, onChange, onDelete
+    return $(document)
+      .on('app:lightbox', (e, imageId, onChange, onDelete) => {
+        console.debug('[Lightbox] Launching from event with:', imageId, onChange, onDelete);
 
-        if typeof imageId == 'object' and not imageId.comments
-          imageId = imageId.id
+        if ((typeof imageId === 'object') && !imageId.comments) {
+          imageId = imageId.id;
+        }
 
-        if typeof imageId != 'object'
-          $.ajax
-            url: "/images/#{imageId}.json"
-            success: (data) =>
-              @setState image: data, onChange: onChange, onDelete: onDelete
-              window.history.pushState {}, "", data.path
+        if (typeof imageId !== 'object') {
+          $.ajax({
+            url: `/images/${imageId}.json`,
+            success: data => {
+              this.setState({image: data, onChange, onDelete});
+              return window.history.pushState({}, "", data.path);
+            },
 
-            error: (error) =>
-              @setState error: "Image #{error.statusText}"
-        else
-          @setState image: imageId, directLoad: imageId.directLoad, onChange: onChange, onDelete: onDelete
-          window.history.pushState {}, "", imageId.path
+            error: error => {
+              return this.setState({error: `Image ${error.statusText}`});
+            }
+          });
+        } else {
+          this.setState({image: imageId, directLoad: imageId.directLoad, onChange, onDelete});
+          window.history.pushState({}, "", imageId.path);
+        }
 
-        M.Modal.getInstance(document.getElementById('lightbox')).open()
+        return M.Modal.getInstance(document.getElementById('lightbox')).open();
+    });
+  },
 
-  _handleChange: (image) ->
-    Materialize.toast({ html: "Image saved!", displayLength: 3000, classes: 'green' })
-    @setState image: image, @_callback
+  _handleChange(image) {
+    Materialize.toast({ html: "Image saved!", displayLength: 3000, classes: 'green' });
+    return this.setState({image}, this._callback);
+  },
 
-  _handleUpdate: (image) ->
-    @setState image: image if image.background_color
+  _handleUpdate(image) {
+    if (image.background_color) { return this.setState({image}); }
+  },
 
-  _handleComment: (comment) ->
-    if typeof comment.map != 'undefined'
-      StateUtils.updateItems @, 'image.comments', comment, 'id', @_callback
-    else
-      StateUtils.updateItem @, 'image.comments', comment, 'id', @_callback
+  _handleComment(comment) {
+    if (typeof comment.map !== 'undefined') {
+      return StateUtils.updateItems(this, 'image.comments', comment, 'id', this._callback);
+    } else {
+      return StateUtils.updateItem(this, 'image.comments', comment, 'id', this._callback);
+    }
+  },
 
-  _handleFavorite: (favorite, set=true) ->
-    if set
-      StateUtils.updateItem @, 'image.favorites', favorite, 'id', @_callback
-    else
-      StateUtils.removeItem @, 'image.favorites', favorite, 'id', @_callback
+  _handleFavorite(favorite, set) {
+    if (set == null) { set = true; }
+    if (set) {
+      return StateUtils.updateItem(this, 'image.favorites', favorite, 'id', this._callback);
+    } else {
+      return StateUtils.removeItem(this, 'image.favorites', favorite, 'id', this._callback);
+    }
+  },
 
-  _callback: ->
-    return unless @state.image
-    image = HashUtils.set @state.image, 'comments_count', @state.image.comments.length
-    ObjectPath.set image, 'favorites_count', @state.image.favorites.length
-    console.debug '[Lightbox] Callback with', image
-    @state.onChange image if @state.onChange
+  _callback() {
+    if (!this.state.image) { return; }
+    const image = HashUtils.set(this.state.image, 'comments_count', this.state.image.comments.length);
+    ObjectPath.set(image, 'favorites_count', this.state.image.favorites.length);
+    console.debug('[Lightbox] Callback with', image);
+    if (this.state.onChange) { return this.state.onChange(image); }
+  },
 
-  componentDidUpdate: ->
-    $('.dropdown-trigger').dropdown
-      constrain_width: false
+  componentDidUpdate() {
+    return $('.dropdown-trigger').dropdown({
+      constrain_width: false});
+  },
 
-  render: ->
-    poll = true
+  render() {
+    let editable, lightbox;
+    const poll = true;
 
-    if @state.image?
-      if @state.image.user_id == @context.currentUser?.username
+    if (this.state.image != null) {
+      let captionCallback, imgActionMenu;
+      if (this.state.image.user_id === (this.context.currentUser != null ? this.context.currentUser.username : undefined)) {
         imgActionMenu =
-          `<div className='image-action-menu'>
+          <div className='image-action-menu'>
               <ul id='lightbox-image-actions' className='dropdown-content cs-card-background--background-color'>
                   <li><a href='#' onClick={ this.setFeaturedImage }>Set as Cover Image</a></li>
                   <li><a href='#' onClick={ this.setProfileImage }>Set as Profile Image</a></li>
@@ -178,15 +231,16 @@
               <a className='dropdown-trigger' id='image-actions-menu' href='#image-options' data-target='lightbox-image-actions'>
                   <i className='material-icons'>more_vert</i>
               </a>
-          </div>`
+          </div>;
 
-        captionCallback = @handleCaptionChange
-        editable = true
+        captionCallback = this.handleCaptionChange;
+        editable = true;
+      }
 
-      console.log(this.state.image)
+      console.log(this.state.image);
 
       lightbox =
-        `<div className='lightbox'>
+        <div className='lightbox'>
             <div className='image-content' style={{backgroundColor: this.state.image.background_color}}>
                 <img src={ this.state.image.url } />
             </div>
@@ -283,14 +337,15 @@
                     }
                 </Tabs>
             </div>
-        </div>`
-    else
+        </div>;
+    } else {
       lightbox =
-        `<div className='loader center padding--large'>
+        <div className='loader center padding--large'>
             {( this.state.error ? <h1>{ this.state.error }</h1> : <Spinner /> )}
-        </div>`
+        </div>;
+    }
 
-    `<div>
+    return <div>
         { editable &&
             <Modal id='lightbox-delete-form' title='Delete Image'>
                 <p>Are you sure? This can't be undone.</p>
@@ -300,7 +355,7 @@
                             <a href='#' className='btn red right' onClick={ this.handleDelete } id='image-delete-confirm'>DELETE IMAGE</a>
                         </div>
 
-                        <a href='#' className='btn' onClick={ function(e) { $('#lightbox-delete-form').modal('close'); e.preventDefault() } }>Cancel</a>
+                        <a href='#' className='btn' onClick={ function(e) { $('#lightbox-delete-form').modal('close'); e.preventDefault(); } }>Cancel</a>
                     </Column>
                 </Row>
             </Modal>
@@ -316,4 +371,6 @@
         >
             { lightbox }
         </Modal>
-    </div>`
+    </div>;
+  }
+});

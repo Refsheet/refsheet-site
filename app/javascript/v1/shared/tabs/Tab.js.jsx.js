@@ -1,16 +1,25 @@
-@Tab = React.createClass
-  propTypes:
-    id: React.PropTypes.string.isRequired
-    name: React.PropTypes.string
-    icon: React.PropTypes.string
-    count: React.PropTypes.number
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.Tab = React.createClass({
+  propTypes: {
+    id: React.PropTypes.string.isRequired,
+    name: React.PropTypes.string,
+    icon: React.PropTypes.string,
+    count: React.PropTypes.number,
     className: React.PropTypes.string
+  },
 
-  render: ->
-    classNames = ['tab-content']
-    classNames.push @props.className if @props.className
+  render() {
+    const classNames = ['tab-content'];
+    if (this.props.className) { classNames.push(this.props.className); }
 
-    `<div className={ classNames.join(' ') }
+    return <div className={ classNames.join(' ') }
           id={ this.props.id }>
         { this.props.children }
-    </div>`
+    </div>;
+  }
+});

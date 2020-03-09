@@ -1,15 +1,21 @@
-@Forums.Table = (props) ->
-  { forums, title } = props
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.Forums.Table = function(props) {
+  const { forums, title } = props;
 
-  forumCards = forums.map (forum) ->
-    `<Column l={4} xl={3} key={ forum.slug }>
-        <Forums.Card {...StringUtils.camelizeKeys(forum)} />
-    </Column>`
+  const forumCards = forums.map(forum => <Column l={4} xl={3} key={ forum.slug }>
+      <Forums.Card {...StringUtils.camelizeKeys(forum)} />
+  </Column>);
 
-  `<div className='collection-group'>
+  return <div className='collection-group'>
       <h3 className='group-title margin-top--none'>{ title }</h3>
 
       <Row>
           { forumCards }
       </Row>
-  </div>`
+  </div>;
+};

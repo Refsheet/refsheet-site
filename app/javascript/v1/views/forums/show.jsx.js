@@ -1,48 +1,69 @@
-@Forums.Show = React.createClass
-  contextTypes:
+/*
+ * decaffeinate suggestions:
+ * DS101: Remove unnecessary use of Array.from
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.Forums.Show = React.createClass({
+  contextTypes: {
     eagerLoad: React.PropTypes.object
+  },
 
-  dataPath: '/forums/:forumId'
-  paramMap:
+  dataPath: '/forums/:forumId',
+  paramMap: {
     forumId: 'slug'
+  },
 
-  poller: null
+  poller: null,
 
-  getInitialState: ->
-    forum: null
-    threadScope: 'recent'
+  getInitialState() {
+    return {
+      forum: null,
+      threadScope: 'recent'
+    };
+  },
 
-  componentWillMount: ->
-    StateUtils.load @, 'forum', @props, (forum) =>
-      @_poll() if forum
+  componentWillMount() {
+    return StateUtils.load(this, 'forum', this.props, forum => {
+      if (forum) { return this._poll(); }
+    });
+  },
 
-  componentWillUnmount: ->
-    clearTimeout @poller
+  componentWillUnmount() {
+    return clearTimeout(this.poller);
+  },
 
-  _poll: ->
-    @poller = setTimeout =>
-      Model.poll @state.forum.path, {}, (data) =>
-        @setState forum: data if data.id == @state.forum.id
-        @_poll()
-    , 15000
+  _poll() {
+    return this.poller = setTimeout(() => {
+      return Model.poll(this.state.forum.path, {}, data => {
+        if (data.id === this.state.forum.id) { this.setState({forum: data}); }
+        return this._poll();
+      });
+    }
+    , 15000);
+  },
 
-  componentWillReceiveProps: (newProps) ->
-    StateUtils.reload @, 'forum', newProps
+  componentWillReceiveProps(newProps) {
+    return StateUtils.reload(this, 'forum', newProps);
+  },
 
-  _handleThreadReply: (post) ->
-    [thread, i] = HashUtils.findItem @state.forum.threads, post.thread_id, 'id'
-    thread.posts_count += 1
-    StateUtils.updateItem @, 'forum.threads', thread, 'id'
+  _handleThreadReply(post) {
+    const [thread, i] = Array.from(HashUtils.findItem(this.state.forum.threads, post.thread_id, 'id'));
+    thread.posts_count += 1;
+    return StateUtils.updateItem(this, 'forum.threads', thread, 'id');
+  },
 
-  render: ->
-    return `<Loading />` unless @state.forum
-    console.log(this.props)
+  render() {
+    if (!this.state.forum) { return <Loading />; }
+    console.log(this.props);
 
-    childrenWithProps = React.Children.map this.props.children, (child) =>
-      React.cloneElement child,
-        onReply: @_handleThreadReply
+    const childrenWithProps = React.Children.map(this.props.children, child => {
+      return React.cloneElement(child,
+        {onReply: this._handleThreadReply});
+    });
 
-    `<Main title={ this.state.forum.name } fadeEffect flex>
+    return <Main title={ this.state.forum.name } fadeEffect flex>
         <Jumbotron className='short'>
             <h1>{ this.state.forum.name }</h1>
             <p>{ this.state.forum.description }</p>
@@ -64,4 +85,6 @@
 
         <FixedActionButton icon='add' href='#new-thread-modal' className='modal-trigger' tooltip='New Thread' />
         <Forums.Threads.Modal forumId={ this.state.forum.slug } />
-    </Main>`
+    </Main>;
+  }
+});

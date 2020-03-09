@@ -1,146 +1,186 @@
-@Form = React.createClass
-  propTypes:
-    action: React.PropTypes.string.isRequired
-    method: React.PropTypes.string
-    modelName: React.PropTypes.string.isRequired
-    model: React.PropTypes.object.isRequired
-    onChange: React.PropTypes.func
-    onError: React.PropTypes.func
-    errors: React.PropTypes.object
-    className: React.PropTypes.string
-    changeEvent: React.PropTypes.string
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.Form = React.createClass({
+  propTypes: {
+    action: React.PropTypes.string.isRequired,
+    method: React.PropTypes.string,
+    modelName: React.PropTypes.string.isRequired,
+    model: React.PropTypes.object.isRequired,
+    onChange: React.PropTypes.func,
+    onError: React.PropTypes.func,
+    errors: React.PropTypes.object,
+    className: React.PropTypes.string,
+    changeEvent: React.PropTypes.string,
     resetOnSubmit: React.PropTypes.bool
+  },
 
 
-  getInitialState: ->
-    model: $.extend {}, @props.model
-    errors: @props.errors || {}
-    dirty: false
-    invalid: Object.keys(@props.errors || {}).length
+  getInitialState() {
+    return {
+      model: $.extend({}, this.props.model),
+      errors: this.props.errors || {},
+      dirty: false,
+      invalid: Object.keys(this.props.errors || {}).length
+    };
+  },
 
-  componentWillReceiveProps: (newProps) ->
-    if newProps.model != @props.model
-      @setState model: $.extend({}, newProps.model), errors: (newProps.errors || {}), dirty: false
+  componentWillReceiveProps(newProps) {
+    if (newProps.model !== this.props.model) {
+      return this.setState({model: $.extend({}, newProps.model), errors: (newProps.errors || {}), dirty: false});
+    }
+  },
 
-  reload: ->
-    @setState model: $.extend({}, @props.model), errors: (@props.errors || {}), dirty: false
+  reload() {
+    return this.setState({model: $.extend({}, this.props.model), errors: (this.props.errors || {}), dirty: false});
+  },
 
-  componentDidMount: ->
-    Materialize.updateTextFields()
+  componentDidMount() {
+    return Materialize.updateTextFields();
+  },
 
-  componentDidUpdate: ->
-    Materialize.updateTextFields()
-
-
-  reset: ->
-    @setState model: $.extend({}, @props.model), dirty: false
-    @props.onDirty(false) if @props.onDirty
-
-  submit: ->
-    @_handleFormSubmit()
-
-  setModel: (data, dirty=true, callback=null) ->
-    @setState { model: $.extend({}, data), dirty: dirty }, =>
-      @props.onDirty(dirty) if @props.onDirty
-      @props.onUpdate(data) if @props.onUpdate
-      callback() if callback
+  componentDidUpdate() {
+    return Materialize.updateTextFields();
+  },
 
 
-  _handleInputChange: (name, value) ->
-    newModel = $.extend {}, @state.model
-    newModel[name] = value
-    errors = $.extend {}, @state.errors
-    errors[name] = undefined
-    dirty = false
-    invalid = false
+  reset() {
+    this.setState({model: $.extend({}, this.props.model), dirty: false});
+    if (this.props.onDirty) { return this.props.onDirty(false); }
+  },
 
-    for k, v of newModel
-      o = @props.model[k]
-      invalid = true if errors[k]
+  submit() {
+    return this._handleFormSubmit();
+  },
 
-      if v != o and !(v == false and typeof(o) == 'undefined')
-        dirty = true
-
-    @setState model: newModel, dirty: dirty, invalid: invalid, errors: errors
-    @props.onUpdate(newModel) if @props.onUpdate
-    @props.onDirty(dirty) if @props.onDirty
-
-
-  _handleFormSubmit: (e) ->
-    $(document).trigger 'app:loading'
-
-    data = {}
-    ObjectPath.set data, @props.modelName, @state.model
-
-    $.ajax
-      url: @props.action
-      type: @props.method || 'POST'
-      data: data
-      dataType: 'json'
-      success: (data) =>
-        @setState dirty: false, errors: {}
-        @props.onChange(data) if @props.onChange
-        @props.onDirty(false) if @props.onDirty
-        @reset() if @props.resetOnSubmit
-        $(document).trigger @props.changeEvent, data if @props.changeEvent
-        console.log "Complete:", data
-
-      error: (data) =>
-        @props.onError(data) if @props.onError
-        console.log "Error:", data
-
-        if data.responseJSON?.errors
-          console.warn "Error messages:", data.responseJSON.errors
-          @setState errors: data.responseJSON.errors, invalid: true
-        else if data.responseJSON?.error
-          Materialize.toast({ html: data.responseJSON.error, displayLength: 3000, classes: 'red' })
-        else
-          Materialize.toast({ html: data.responseText, displayLength: 3000, classes: 'red' })
-
-      complete: ->
-        $(document).trigger 'app:loading:done'
-
-    e.preventDefault() if e?
+  setModel(data, dirty, callback=null) {
+    if (dirty == null) { dirty = true; }
+    return this.setState({ model: $.extend({}, data), dirty }, () => {
+      if (this.props.onDirty) { this.props.onDirty(dirty); }
+      if (this.props.onUpdate) { this.props.onUpdate(data); }
+      if (callback) { return callback(); }
+    });
+  },
 
 
-  _processChildren: (children) ->
-    React.Children.map children, (child) =>
-      childProps = {}
+  _handleInputChange(name, value) {
+    const newModel = $.extend({}, this.state.model);
+    newModel[name] = value;
+    const errors = $.extend({}, this.state.errors);
+    errors[name] = undefined;
+    let dirty = false;
+    let invalid = false;
 
-      unless React.isValidElement(child)
-        return child
+    for (let k in newModel) {
+      const v = newModel[k];
+      const o = this.props.model[k];
+      if (errors[k]) { invalid = true; }
 
-      if child.type == Input
-        if child.props.name
-          errorKey = if child.props.errorPath then child.props.errorPath + '.' + child.props.name else child.props.name
-          value = @state.model[child.props.name]
+      if ((v !== o) && !((v === false) && (typeof(o) === 'undefined'))) {
+        dirty = true;
+      }
+    }
+
+    this.setState({model: newModel, dirty, invalid, errors});
+    if (this.props.onUpdate) { this.props.onUpdate(newModel); }
+    if (this.props.onDirty) { return this.props.onDirty(dirty); }
+  },
+
+
+  _handleFormSubmit(e) {
+    $(document).trigger('app:loading');
+
+    const data = {};
+    ObjectPath.set(data, this.props.modelName, this.state.model);
+
+    $.ajax({
+      url: this.props.action,
+      type: this.props.method || 'POST',
+      data,
+      dataType: 'json',
+      success: data => {
+        this.setState({dirty: false, errors: {}});
+        if (this.props.onChange) { this.props.onChange(data); }
+        if (this.props.onDirty) { this.props.onDirty(false); }
+        if (this.props.resetOnSubmit) { this.reset(); }
+        if (this.props.changeEvent) { $(document).trigger(this.props.changeEvent, data); }
+        return console.log("Complete:", data);
+      },
+
+      error: data => {
+        if (this.props.onError) { this.props.onError(data); }
+        console.log("Error:", data);
+
+        if (data.responseJSON != null ? data.responseJSON.errors : undefined) {
+          console.warn("Error messages:", data.responseJSON.errors);
+          return this.setState({errors: data.responseJSON.errors, invalid: true});
+        } else if ((data.responseJSON != null ? data.responseJSON.error : undefined)) {
+          return Materialize.toast({ html: data.responseJSON.error, displayLength: 3000, classes: 'red' });
+        } else {
+          return Materialize.toast({ html: data.responseText, displayLength: 3000, classes: 'red' });
+        }
+      },
+
+      complete() {
+        return $(document).trigger('app:loading:done');
+      }
+    });
+
+    if (e != null) { return e.preventDefault(); }
+  },
+
+
+  _processChildren(children) {
+    return React.Children.map(children, child => {
+      let childProps = {};
+
+      if (!React.isValidElement(child)) {
+        return child;
+      }
+
+      if (child.type === Input) {
+        if (child.props.name) {
+          const errorKey = child.props.errorPath ? child.props.errorPath + '.' + child.props.name : child.props.name;
+          const value = this.state.model[child.props.name];
+          childProps = {
+            key: child.props.name,
+            value,
+            error: this.state.errors[errorKey],
+            onChange: this._handleInputChange,
+            onSubmit: this._handleFormSubmit,
+            modelName: this.props.modelName
+          };
+        } else {
           childProps =
-            key: child.props.name
-            value: value
-            error: @state.errors[errorKey]
-            onChange: @_handleInputChange
-            onSubmit: @_handleFormSubmit
-            modelName: @props.modelName
-        else
-          childProps =
-            key: child.props.id
+            {key: child.props.id};
+        }
+      }
 
-      if child.props.children
-        childProps.children = @_processChildren(child.props.children)
+      if (child.props.children) {
+        childProps.children = this._processChildren(child.props.children);
+      }
 
-      React.cloneElement child, childProps
+      return React.cloneElement(child, childProps);
+    });
+  },
 
-  render: ->
-    children = @_processChildren(@props.children)
+  render() {
+    const children = this._processChildren(this.props.children);
 
-    classNames = []
-    classNames.push @props.className
-    classNames.push 'has-errors' if @state.invalid
+    const classNames = [];
+    classNames.push(this.props.className);
+    if (this.state.invalid) { classNames.push('has-errors'); }
 
-    `<form onSubmit={ this._handleFormSubmit }
+    return <form onSubmit={ this._handleFormSubmit }
            className={ classNames.join(' ') }
            action={ this.props.action }
            method={ this.props.method }
            noValidate>
         { children }
-    </form>`
+    </form>;
+  }
+});

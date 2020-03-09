@@ -1,20 +1,28 @@
-@Forums.Card = (props) ->
-  { icon, name, description, threadCount, locked, nsfw, noRp, path, unreadCount } = props
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.Forums.Card = function(props) {
+  let { icon, name, description, threadCount, locked, nsfw, noRp, path, unreadCount } = props;
 
-  description ||= props.children
+  if (!description) { description = props.children; }
 
-  flags = {}
-  flags.lock = 'Locked' if locked
-  flags.visibility_hidden = 'NSFW Content' if nsfw
-  flags.person = 'Users only, no RP' if noRp
+  const flags = {};
+  if (locked) { flags.lock = 'Locked'; }
+  if (nsfw) { flags.visibility_hidden = 'NSFW Content'; }
+  if (noRp) { flags.person = 'Users only, no RP'; }
 
-  flagIcons = []
+  const flagIcons = [];
 
-  for flagIcon, hint of flags
-    flagIcons.push `<Icon title={ hint } key={ hint }>{ flagIcon }</Icon>`
+  for (let flagIcon in flags) {
+      const hint = flags[flagIcon];
+    flagIcons.push(<Icon title={ hint } key={ hint }>{ flagIcon }</Icon>);
+  }
 
 
-  `<Link to={ '/v2' + path } className='block'>
+  return <Link to={ '/v2' + path } className='block'>
       <div className='card summary-card no-margin center'>
           <div className='card-image'>
               <Icon>{ icon || 'forum' }</Icon>
@@ -35,4 +43,5 @@
               </div>
           </div>
       </div>
-  </Link>`
+  </Link>;
+};

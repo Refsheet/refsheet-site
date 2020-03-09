@@ -1,11 +1,18 @@
-@Submit = (props) ->
-  classNames = ['btn']
-  classNames.push props.className
-  classNames.push 'waves-effect waves-light' unless props.noWaves
-  classNames.push 'btn-flat' if props.flat
-  classNames.push 'btn-link' if props.link
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.Submit = function(props) {
+  const classNames = ['btn'];
+  classNames.push(props.className);
+  if (!props.noWaves) { classNames.push('waves-effect waves-light'); }
+  if (props.flat) { classNames.push('btn-flat'); }
+  if (props.link) { classNames.push('btn-link'); }
 
-  `<button type={ props.type || 'submit' }
+  return <button type={ props.type || 'submit' }
            className={ classNames.join(' ') }>
       { props.children || 'Submit' }
-  </button>`
+  </button>;
+};

@@ -1,11 +1,17 @@
-@Spinner = (props) ->
-  classNames = ['preloader-wrapper']
-  classNames.push 'active' unless props.inactive
-  classNames.push 'big' unless props.small
-  classNames.push 'center-by-margin' if props.center
-  classNames.push props.className if props.className
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.Spinner = function(props) {
+  const classNames = ['preloader-wrapper'];
+  if (!props.inactive) { classNames.push('active'); }
+  if (!props.small) { classNames.push('big'); }
+  if (props.center) { classNames.push('center-by-margin'); }
+  if (props.className) { classNames.push(props.className); }
 
-  `<div className={ classNames.join(' ') }>
+  return <div className={ classNames.join(' ') }>
       <div className="spinner-layer spinner-teal">
           <div className="circle-clipper left">
               <div className="circle"></div>
@@ -17,4 +23,5 @@
               <div className="circle"></div>
           </div>
       </div>
-  </div>`
+  </div>;
+};

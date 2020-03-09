@@ -1,22 +1,29 @@
-import React from 'react'
-import createReactClass from 'create-react-class'
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+import React from 'react';
+import createReactClass from 'create-react-class';
 
-Home = createReactClass
-  componentDidMount: ->
-    $('.materialboxed').materialbox()
+const Home = createReactClass({
+  componentDidMount() {
+    return $('.materialboxed').materialbox();
+},
 
-  render: ->
-    return `<Views.Account.Show {...this.props} />` if @props.currentUser
+  render() {
+    if (this.props.currentUser) { return <Views.Account.Show {...this.props} />; }
 
-    demoSwatches = [
+    const demoSwatches = [
       { name: 'Light Fur', color: '#fdf2d4', id: 0 },
       { name: 'Dark Fur', color: '#b5a67e', id: 1 },
       { name: 'Hair', color: '#402b2b', notes: 'Shades may vary.', id: 2 },
-      { name: 'Eyes', color: '#2a3c1e', id: 3 }
+      { name: 'Eyes', color: '#2a3c1e', id: 3 },
       { name: 'Markings', color: '#99b734', id: 4 }
-    ]
+    ];
 
-    `<Main title='Refsheet.net: Your Characters, Organized.'>
+    return <Main title='Refsheet.net: Your Characters, Organized.'>
         <Jumbotron backgroundImage='https://assets.refsheet.net/assets/unsplash/typewriter.jpg'>
             <h1>Your characters, <strong>organized.</strong></h1>
             <p className='flow-text'>
@@ -108,7 +115,7 @@ Home = createReactClass
                 <div className='col m5 s12'>
                     <div className='card-panel'>
                         <h2 className='name'>James the Hunter</h2>
-                        <AttributeTable onAttributeUpdate={ function(e, cb) { if(cb) { cb(e) } } } sortable={ true } hideNotesForm={ true } freezeName='true'>
+                        <AttributeTable onAttributeUpdate={ function(e, cb) { if(cb) { cb(e); } } } sortable={ true } hideNotesForm={ true } freezeName='true'>
                             <Attribute name='Name' value='James the Hunter' />
                             <Attribute name='Species' value='Humanoid' />
                             <Attribute name='Age' value='135 years' />
@@ -162,8 +169,10 @@ Home = createReactClass
             <h2>Ready to show off your characters?</h2>
             <Link to='/register' className='btn'>Sign Up</Link>
         </Section>
-    </Main>`
+    </Main>;
+}
+});
 
-mapStateToProps = (state) => currentUser: state.session.currentUser
-@Home = connect(mapStateToProps)(Home)
-export default @Home
+const mapStateToProps = state => ({currentUser: state.session.currentUser});
+this.Home = connect(mapStateToProps)(Home);
+export default this.Home;

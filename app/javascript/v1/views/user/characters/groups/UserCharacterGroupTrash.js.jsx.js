@@ -1,67 +1,89 @@
-@UserCharacterGroupTrash = React.createClass
-  propTypes:
-    onGroupDelete: React.PropTypes.func.isRequired
-    onCharacterDelete: React.PropTypes.func.isRequired
-    activeGroupId: React.PropTypes.string
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.UserCharacterGroupTrash = React.createClass({
+  propTypes: {
+    onGroupDelete: React.PropTypes.func.isRequired,
+    onCharacterDelete: React.PropTypes.func.isRequired,
+    activeGroupId: React.PropTypes.string,
     characterDragActive: React.PropTypes.bool
+  },
 
-  getInitialState: ->
-    dropOver: false
+  getInitialState() {
+    return {dropOver: false};
+  },
 
-  componentDidMount: ->
-    $trash = $(@refs.trash)
+  componentDidMount() {
+    const $trash = $(this.refs.trash);
 
-    $trash.droppable
-      tolerance: 'pointer'
-      accept: '.character-drag, .sortable-link'
-      over: (_, ui) =>
-        $source = $(ui.draggable)
-        $source.siblings('.drop-target').hide() if $source.hasClass('character-drag')
-        @setState dropOver: true
+    return $trash.droppable({
+      tolerance: 'pointer',
+      accept: '.character-drag, .sortable-link',
+      over: (_, ui) => {
+        const $source = $(ui.draggable);
+        if ($source.hasClass('character-drag')) { $source.siblings('.drop-target').hide(); }
+        return this.setState({dropOver: true});
+      },
 
-      out: (_, ui) =>
-        $source = $(ui.draggable)
-        $source.siblings('.drop-target').show() if $source.hasClass('character-drag')
-        @setState dropOver: false
+      out: (_, ui) => {
+        const $source = $(ui.draggable);
+        if ($source.hasClass('character-drag')) { $source.siblings('.drop-target').show(); }
+        return this.setState({dropOver: false});
+      },
 
-      drop: (event, ui) =>
-        console.log '===DROP'
-        $source = ui.draggable
-        $source.addClass 'dropped'
+      drop: (event, ui) => {
+        let sourceId;
+        console.log('===DROP');
+        const $source = ui.draggable;
+        $source.addClass('dropped');
 
-        if $source.data 'character-id'
-          sourceId = $source.data 'character-id'
-          @_handleCharacterDrop sourceId, ->
-            $source.remove
-        else
-          sourceId = $source.data 'group-id'
-          @_handleGroupDrop sourceId, ->
-            $source.remove
+        if ($source.data('character-id')) {
+          sourceId = $source.data('character-id');
+          this._handleCharacterDrop(sourceId, () => $source.remove);
+        } else {
+          sourceId = $source.data('group-id');
+          this._handleGroupDrop(sourceId, () => $source.remove);
+        }
 
-        @setState dropOver: false
+        return this.setState({dropOver: false});
+      }
+    });
+  },
 
-  _handleGroupDrop: (groupId, callback) ->
-    Model.delete "/character_groups/#{groupId}", =>
-      @props.onGroupDelete groupId
-      callback()
+  _handleGroupDrop(groupId, callback) {
+    return Model.delete(`/character_groups/${groupId}`, () => {
+      this.props.onGroupDelete(groupId);
+      return callback();
+    });
+  },
 
-  _handleCharacterDrop: (characterId, callback) ->
-    Model.delete "/character_groups/#{@props.activeGroupId}/characters/#{characterId}", =>
-      @props.onCharacterDelete characterId
-      callback()
+  _handleCharacterDrop(characterId, callback) {
+    return Model.delete(`/character_groups/${this.props.activeGroupId}/characters/${characterId}`, () => {
+      this.props.onCharacterDelete(characterId);
+      return callback();
+    });
+  },
 
-  render: ->
-    if @state.dropOver
-      icon = 'delete_forever'
-    else
-      icon = 'delete'
+  render() {
+    let icon, message;
+    if (this.state.dropOver) {
+      icon = 'delete_forever';
+    } else {
+      icon = 'delete';
+    }
 
-    if @props.characterDragActive
-      message = 'Remove From Group'
-    else
-      message = 'Delete Group'
+    if (this.props.characterDragActive) {
+      message = 'Remove From Group';
+    } else {
+      message = 'Delete Group';
+    }
 
-    `<li className='trash fixed' ref='trash'>
+    return <li className='trash fixed' ref='trash'>
         <i className='material-icons left folder'>{ icon }</i>
         <span className='name'>{ message }</span>
-    </li>`
+    </li>;
+  }
+});

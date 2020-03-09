@@ -1,6 +1,15 @@
-@ArrayUtils =
-  pluck: (array, key) ->
-    array.map (o) -> o[key]
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.ArrayUtils = {
+  pluck(array, key) {
+    return array.map(o => o[key]);
+  },
 
-  diff: (array_1, array_2) ->
-    array_1.filter (i) -> array_2.indexOf(i) < 0
+  diff(array_1, array_2) {
+    return array_1.filter(i => array_2.indexOf(i) < 0);
+  }
+};

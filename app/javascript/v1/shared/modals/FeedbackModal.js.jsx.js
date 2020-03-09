@@ -1,26 +1,39 @@
-@FeedbackModal = React.createClass
-  propTypes:
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.FeedbackModal = React.createClass({
+  propTypes: {
     name: React.PropTypes.string
+  },
 
 
-  getInitialState: ->
-    model:
-      name: @props.name
-      comment: null
+  getInitialState() {
+    return {
+      model: {
+        name: this.props.name,
+        comment: null
+      }
+    };
+  },
 
 
-  _handleSubmit: (feedback) ->
-    @refs.modal.close()
-    Materialize.toast({ html: 'Thanks for the feedback!', displayLength: 3000, classes: 'green' })
-    @setState model: comment: null
+  _handleSubmit(feedback) {
+    this.refs.modal.close();
+    Materialize.toast({ html: 'Thanks for the feedback!', displayLength: 3000, classes: 'green' });
+    return this.setState({model: {comment: null}});
+  },
 
-  _handleClose: (e) ->
-    @refs.modal.close()
-    e.preventDefault()
+  _handleClose(e) {
+    this.refs.modal.close();
+    return e.preventDefault();
+  },
 
 
-  render: ->
-    `<Modal id='feedback-modal' ref='modal' title='Feedback'>
+  render() {
+    return <Modal id='feedback-modal' ref='modal' title='Feedback'>
         <p>Something not quite right? Want a new feature? Let me know!</p>
 
         <Form onChange={ this._handleSubmit }
@@ -42,4 +55,6 @@
                 </Column>
             </Row>
         </Form>
-    </Modal>`
+    </Modal>;
+  }
+});

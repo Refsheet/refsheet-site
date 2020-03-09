@@ -1,38 +1,58 @@
-@LoginView = React.createClass
-  contextTypes:
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS103: Rewrite code to no longer use __guard__
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.LoginView = React.createClass({
+  contextTypes: {
     router: React.PropTypes.object.isRequired
+  },
 
 
-  getInitialState: ->
-    user:
-      username: @props.location.query?.username
-      password: null
-
-  _handleError: (user) ->
-    @setState
-      user:
-        username: @state.user.username
+  getInitialState() {
+    return {
+      user: {
+        username: (this.props.location.query != null ? this.props.location.query.username : undefined),
         password: null
+      }
+    };
+  },
 
-  _handleLogin: (session) ->
-    user = session.current_user
-    $(document).trigger 'app:session:update', session
-    next = @context.router.history.location?.query?.next
+  _handleError(user) {
+    return this.setState({
+      user: {
+        username: this.state.user.username,
+        password: null
+      }
+    });
+  },
 
-    if next
-      window.location = next
-    else
-      @context.router.history.push(user.link)
+  _handleLogin(session) {
+    const user = session.current_user;
+    $(document).trigger('app:session:update', session);
+    const next = __guard__(this.context.router.history.location != null ? this.context.router.history.location.query : undefined, x => x.next);
 
-  componentDidMount: ->
-    $('body').addClass 'no-footer'
+    if (next) {
+      return window.location = next;
+    } else {
+      return this.context.router.history.push(user.link);
+    }
+  },
 
-  componentWillUnmount: ->
-    $('body').removeClass 'no-footer'
+  componentDidMount() {
+    return $('body').addClass('no-footer');
+  },
+
+  componentWillUnmount() {
+    return $('body').removeClass('no-footer');
+  },
 
 
-  render: ->
-    `<Main title='Login'>
+  render() {
+    return <Main title='Login'>
         <div className='modal-page-content'>
             <div className='narrow-container'>
                 <h1>Log In</h1>
@@ -54,4 +74,10 @@
                 </Form>
             </div>
         </div>
-    </Main>`
+    </Main>;
+  }
+});
+
+function __guard__(value, transform) {
+  return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;
+}

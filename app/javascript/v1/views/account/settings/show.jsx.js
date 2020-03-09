@@ -1,24 +1,44 @@
-namespace 'Views.Account.Settings'
+/*
+ * decaffeinate suggestions:
+ * DS001: Remove Babel/TypeScript constructor workaround
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+namespace('Views.Account.Settings');
 
-class @Views.Account.Settings.Show extends React.Component
-  @contextTypes:
-    currentUser: React.PropTypes.object.isRequired
-    setCurrentUser: React.PropTypes.func.isRequired
+const Cls = (this.Views.Account.Settings.Show = class Show extends React.Component {
+  static initClass() {
+      this.contextTypes = {
+        currentUser: React.PropTypes.object.isRequired,
+        setCurrentUser: React.PropTypes.func.isRequired
+    };
+  }
 
-  constructor: (props, context) ->
-    @state =
-      user: context.currentUser
+  constructor(props, context) {
+    {
+      // Hack: trick Babel/TypeScript into allowing this before super.
+      if (false) { super(); }
+      let thisFn = (() => { return this; }).toString();
+      let thisName = thisFn.match(/return (?:_assertThisInitialized\()*(\w+)\)*;/)[1];
+      eval(`${thisName} = this;`);
+    }
+    this._handleFormChange = this._handleFormChange.bind(this);
+    this.state =
+      {user: context.currentUser};
 
-    super props
+    super(props);
+}
 
 
-  _handleFormChange: (user) =>
-    @context.setCurrentUser user
-    Materialize.toast({ html: "Settings Saved", displayLength: 3000, classes: 'green' })
+  _handleFormChange(user) {
+    this.context.setCurrentUser(user);
+    return Materialize.toast({ html: "Settings Saved", displayLength: 3000, classes: 'green' });
+}
 
 
-  render: ->
-    `<div className='account-settings'>
+  render() {
+    return <div className='account-settings'>
         <Form action={ this.state.user.path }
               className='card sp'
               method='PATCH'
@@ -92,4 +112,7 @@ class @Views.Account.Settings.Show extends React.Component
         </Form>
 
         <Packs.application.DeleteUser user={ this.state.user } />
-    </div>`
+    </div>;
+}
+});
+Cls.initClass();

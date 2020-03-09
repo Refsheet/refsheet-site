@@ -1,9 +1,17 @@
-@Column = (props) ->
-  classes = ['col']
-  classes.push props.className
-  classes.push 's12' unless props['s']
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.Column = function(props) {
+  const classes = ['col'];
+  classes.push(props.className);
+  if (!props['s']) { classes.push('s12'); }
 
-  for s in ['s', 'm', 'l', 'xl', 'offset-s', 'offset-m', 'offset-l']
-    classes.push "#{s}#{props[s]}" if props[s]
+  for (let s of ['s', 'm', 'l', 'xl', 'offset-s', 'offset-m', 'offset-l']) {
+    if (props[s]) { classes.push(`${s}${props[s]}`); }
+  }
     
-  `<div className={ classes.join(' ') }>{ props.children }</div>`
+  return <div className={ classes.join(' ') }>{ props.children }</div>;
+};

@@ -1,16 +1,26 @@
-@ImageGalleryModal = React.createClass
-  handleUploadClick: ->
-    this.props.onUploadClick()
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.ImageGalleryModal = React.createClass({
+  handleUploadClick() {
+    return this.props.onUploadClick();
+  },
 
-  render: ->
-    if @props.hideNsfw && @props.images
-      images = $.grep @props.images, (i) ->
-        !i.nsfw
+  render() {
+    let images;
+    if (this.props.hideNsfw && this.props.images) {
+      images = $.grep(this.props.images, i => !i.nsfw);
 
-    else
-      images = @props.images
+    } else {
+      ({
+        images
+      } = this.props);
+    }
 
-    `<Modal id='image-gallery-modal'
+    return <Modal id='image-gallery-modal'
             title={ this.props.title || 'Character Uploads'}
             actions={[
                 { name: 'Upload...', action: this.handleUploadClick }
@@ -26,4 +36,6 @@
         <ImageGallery images={ images }
                       onImageClick={ this.props.onClick }
                       noFeature />
-    </Modal>`
+    </Modal>;
+  }
+});

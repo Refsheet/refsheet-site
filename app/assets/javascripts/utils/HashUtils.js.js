@@ -1,72 +1,97 @@
-@HashUtils =
-  deepUpdateCollectionItem: (object, collectionPath, item, primaryKey) ->
-    collection = ObjectPath.get object, collectionPath
-    return unless collection
-    [old, index] = @findItem collection, item, primaryKey
+/*
+ * decaffeinate suggestions:
+ * DS101: Remove unnecessary use of Array.from
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.HashUtils = {
+  deepUpdateCollectionItem(object, collectionPath, item, primaryKey) {
+    const collection = ObjectPath.get(object, collectionPath);
+    if (!collection) { return; }
+    const [old, index] = Array.from(this.findItem(collection, item, primaryKey));
 
-    if old
-      collection[index] = item
-    else
-      collection.push item
+    if (old) {
+      collection[index] = item;
+    } else {
+      collection.push(item);
+    }
 
-    @set object, collectionPath, collection
+    return this.set(object, collectionPath, collection);
+  },
 
-  deepSortCollectionItem: (object, collectionPath, item, position, primaryKey) ->
-    collection = ObjectPath.get object, collectionPath
-    return unless collection
-    [old, index] = @findItem collection, item, primaryKey
+  deepSortCollectionItem(object, collectionPath, item, position, primaryKey) {
+    const collection = ObjectPath.get(object, collectionPath);
+    if (!collection) { return; }
+    const [old, index] = Array.from(this.findItem(collection, item, primaryKey));
 
-    if old
-      collection.splice index, 1
-      collection.splice position, 0, old
+    if (old) {
+      collection.splice(index, 1);
+      collection.splice(position, 0, old);
+    }
 
-    @set object, collectionPath, collection
+    return this.set(object, collectionPath, collection);
+  },
 
-  deepRemoveCollectionItem: (object, collectionPath, item, primaryKey) ->
-    collection = ObjectPath.get object, collectionPath
-    return unless collection
-    [old, index] = @findItem collection, item, primaryKey
+  deepRemoveCollectionItem(object, collectionPath, item, primaryKey) {
+    const collection = ObjectPath.get(object, collectionPath);
+    if (!collection) { return; }
+    const [old, index] = Array.from(this.findItem(collection, item, primaryKey));
 
-    if old
-      collection.splice index, 1
+    if (old) {
+      collection.splice(index, 1);
+    }
 
-    @set object, collectionPath, collection
+    return this.set(object, collectionPath, collection);
+  },
 
-  # An immutable variant of ObjectPath.set that saves the original object
-  #
-  set: (object, path, value) ->
-    object = $.extend {}, object
-    ObjectPath.set object, path, value
-    object
+  // An immutable variant of ObjectPath.set that saves the original object
+  //
+  set(object, path, value) {
+    object = $.extend({}, object);
+    ObjectPath.set(object, path, value);
+    return object;
+  },
 
-  itemExists: (collection, item, primaryKey='id') ->
-    return unless collection and item
-    targetKey = if typeof item is 'object' then item[primaryKey] else item
-    !!((collection.filter (i) -> i?[primaryKey] == targetKey)[0])
+  itemExists(collection, item, primaryKey) {
+    if (primaryKey == null) { primaryKey = 'id'; }
+    if (!collection || !item) { return; }
+    const targetKey = typeof item === 'object' ? item[primaryKey] : item;
+    return !!((collection.filter(i => (i != null ? i[primaryKey] : undefined) === targetKey))[0]);
+  },
 
-  findItem: (collection, item, primaryKey='id', callback) ->
-    return [] unless collection and item
-    targetKey = if typeof item is 'object' then item[primaryKey] else item
-    old = (collection.filter (i) -> i?[primaryKey] == targetKey)[0]
-    index = collection.indexOf(old) if old
-    callback(old, index) if callback
-    [old, index]
+  findItem(collection, item, primaryKey, callback) {
+    let index;
+    if (primaryKey == null) { primaryKey = 'id'; }
+    if (!collection || !item) { return []; }
+    const targetKey = typeof item === 'object' ? item[primaryKey] : item;
+    const old = (collection.filter(i => (i != null ? i[primaryKey] : undefined) === targetKey))[0];
+    if (old) { index = collection.indexOf(old); }
+    if (callback) { callback(old, index); }
+    return [old, index];
+  },
 
-  compare: (a, b, keys...) ->
-    for k in keys
-      ca = ObjectPath.get a, k
-      cb = ObjectPath.get b, k
-      return false if ca isnt cb
-    true
+  compare(a, b, ...keys) {
+    for (let k of Array.from(keys)) {
+      const ca = ObjectPath.get(a, k);
+      const cb = ObjectPath.get(b, k);
+      if (ca !== cb) { return false; }
+    }
+    return true;
+  },
 
-  groupBy: (items, path) ->
-    final = {}
+  groupBy(items, path) {
+    const final = {};
 
-    return final unless items
+    if (!items) { return final; }
 
-    for item in items
-      key = ObjectPath.get item, path
-      final[key] ||= []
-      final[key].push item
+    for (let item of Array.from(items)) {
+      const key = ObjectPath.get(item, path);
+      if (!final[key]) { final[key] = []; }
+      final[key].push(item);
+    }
 
-    final
+    return final;
+  }
+};

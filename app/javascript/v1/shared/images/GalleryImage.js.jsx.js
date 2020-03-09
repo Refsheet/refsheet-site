@@ -1,110 +1,142 @@
-gallery_image = React.createClass
-  contextTypes:
-    currentUser: React.PropTypes.object
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+const gallery_image = React.createClass({
+  contextTypes: {
+    currentUser: React.PropTypes.object,
     session: React.PropTypes.object
+  },
 
-  propTypes:
-    image: React.PropTypes.object
-    editable: React.PropTypes.bool
-    wrapperClassName: React.PropTypes.string
-    className: React.PropTypes.string
-    size: React.PropTypes.string
-    onSwap: React.PropTypes.func
-    onClick: React.PropTypes.func
+  propTypes: {
+    image: React.PropTypes.object,
+    editable: React.PropTypes.bool,
+    wrapperClassName: React.PropTypes.string,
+    className: React.PropTypes.string,
+    size: React.PropTypes.string,
+    onSwap: React.PropTypes.func,
+    onClick: React.PropTypes.func,
     gallery: React.PropTypes.array
+  },
 
 
-  getInitialState: ->
-    image: @props.image
+  getInitialState() {
+    return {image: this.props.image};
+  },
 
 
-  load: (image) ->
-    @setState image: image, @_initialize
+  load(image) {
+    return this.setState({image}, this._initialize);
+  },
 
-  _handleFavoriteClick: (e) ->
-    action = if @state.image?.is_favorite then 'delete' else 'post'
-    Model.request action, '/media/' + @state.image.id + '/favorites', {}, (data) =>
-      @_handleFavorite !!data.media_id
-    e.preventDefault()
+  _handleFavoriteClick(e) {
+    const action = (this.state.image != null ? this.state.image.is_favorite : undefined) ? 'delete' : 'post';
+    Model.request(action, '/media/' + this.state.image.id + '/favorites', {}, data => {
+      return this._handleFavorite(!!data.media_id);
+    });
+    return e.preventDefault();
+  },
 
 
-  _handleFavorite: (fav) ->
-    o = @state.image
-    o.is_favorite = fav
-    @setState image: o
-    $(document).trigger 'app:image:update', o
+  _handleFavorite(fav) {
+    const o = this.state.image;
+    o.is_favorite = fav;
+    this.setState({image: o});
+    return $(document).trigger('app:image:update', o);
+  },
 
-  _handleClick: (e) ->
-    $target = $(e.target)
-    if $target.prop('tagName') == 'IMG'
-      if @props.onClick and @props.onClick(@state.image)
-        true
-      else
-        @props.dispatch({type: "OPEN_LIGHTBOX", mediaId: @state.image?.id, gallery: @props.gallery})
-    else if @state.image.nsfw and not @props.session.nsfwOk
-      @props.dispatch({type: "SET_NSFW_MODE", nsfwOk: true})
+  _handleClick(e) {
+    const $target = $(e.target);
+    if ($target.prop('tagName') === 'IMG') {
+      if (this.props.onClick && this.props.onClick(this.state.image)) {
+        true;
+      } else {
+        this.props.dispatch({type: "OPEN_LIGHTBOX", mediaId: (this.state.image != null ? this.state.image.id : undefined), gallery: this.props.gallery});
+      }
+    } else if (this.state.image.nsfw && !this.props.session.nsfwOk) {
+      this.props.dispatch({type: "SET_NSFW_MODE", nsfwOk: true});
+    }
 
-    e.preventDefault()
+    return e.preventDefault();
+  },
 
-  _initialize: ->
-    return unless @state.image
+  _initialize() {
+    if (!this.state.image) { return; }
 
-    $image = $(@refs.image)
+    const $image = $(this.refs.image);
 
-    if @props.editable
-      _this = this
+    if (this.props.editable) {
+      const _this = this;
 
-      $image.draggable
-        revert: true
-        opacity: 0.6
-        appendTo: 'body'
-        cursorAt:
-          top: 5
+      $image.draggable({
+        revert: true,
+        opacity: 0.6,
+        appendTo: 'body',
+        cursorAt: {
+          top: 5,
           left: 5
-        helper: =>
-          $("<div class='card-panel'>#{@state.image.title}</div>")
+        },
+        helper: () => {
+          return $(`<div class='card-panel'>${this.state.image.title}</div>`);
+        }
+      });
 
-      $image.droppable
-        tolerance: 'pointer'
-        drop: (event, ui) =>
-          $source = ui.draggable
-          sourceId = $source.data 'gallery-image-id'
-          _this.props.onSwap(sourceId, @state.image.id) if _this.props.onSwap
-
-
-  _updateEvent: (e, image) ->
-    return unless @state.image and image and @state.image.id == image.id
-    @load(image)
-
-
-  componentDidMount: ->
-    @_initialize()
-
-    $(document).on 'app:image:update', @_updateEvent
-
-  componentWillUnmount: ->
-    $(document).off 'app:image:update', @_updateEvent
-
-  componentWillReceiveProps: (newProps) ->
-    if newProps.image?
-      @load(newProps.image)
+      return $image.droppable({
+        tolerance: 'pointer',
+        drop: (event, ui) => {
+          const $source = ui.draggable;
+          const sourceId = $source.data('gallery-image-id');
+          if (_this.props.onSwap) { return _this.props.onSwap(sourceId, this.state.image.id); }
+        }
+      });
+    }
+  },
 
 
-  render: ->
-    classNames = ['gallery-image']
-    classNames.push @props.className if @props.className
-    classNames.push 'draggable' if @props.editable
+  _updateEvent(e, image) {
+    if (!this.state.image || !image || (this.state.image.id !== image.id)) { return; }
+    return this.load(image);
+  },
 
-    if @state.image
-      if typeof @state.image.url == 'object'
-        imageSrc = @state.image.url[@props.size] || @state.image.url['large']
-      else
-        imageSrc = @state.image[@props.size] || @state.image['large']
 
-      showNsfwWarning = @state.image.nsfw and not @context.session?.nsfw_ok
+  componentDidMount() {
+    this._initialize();
+
+    return $(document).on('app:image:update', this._updateEvent);
+  },
+
+  componentWillUnmount() {
+    return $(document).off('app:image:update', this._updateEvent);
+  },
+
+  componentWillReceiveProps(newProps) {
+    if (newProps.image != null) {
+      return this.load(newProps.image);
+    }
+  },
+
+
+  render() {
+    let contents;
+    const classNames = ['gallery-image'];
+    if (this.props.className) { classNames.push(this.props.className); }
+    if (this.props.editable) { classNames.push('draggable'); }
+
+    if (this.state.image) {
+      let imageSrc;
+      if (typeof this.state.image.url === 'object') {
+        imageSrc = this.state.image.url[this.props.size] || this.state.image.url['large'];
+      } else {
+        imageSrc = this.state.image[this.props.size] || this.state.image['large'];
+      }
+
+      const showNsfwWarning = this.state.image.nsfw && !(this.context.session != null ? this.context.session.nsfw_ok : undefined);
 
       contents =
-        `<a ref='image'
+        <a ref='image'
             className={ classNames.join(' ') }
             onClick={ this._handleClick }
             href={ this.state.image.path }
@@ -137,23 +169,28 @@ gallery_image = React.createClass
             </div>
 
             <img src={ imageSrc } alt={ this.state.image.title } title={ this.state.image.title } />
-        </a>`
+        </a>;
 
-    else
-      classNames.push 'image-placeholder'
+    } else {
+      classNames.push('image-placeholder');
 
       contents =
-        `<div className={ classNames.join(' ') } />`
+        <div className={ classNames.join(' ') } />;
+    }
 
-    if @props.wrapperClassName
-      `<div className={ this.props.wrapperClassName }>
+    if (this.props.wrapperClassName) {
+      return <div className={ this.props.wrapperClassName }>
           { contents }
-      </div>`
+      </div>;
 
-    else
-      contents
+    } else {
+      return contents;
+    }
+  }
+});
 
-mapStateToProps = (state) ->
+const mapStateToProps = state => ({
   session: state.session
+});
 
-@GalleryImage = connect(mapStateToProps)(gallery_image)
+this.GalleryImage = connect(mapStateToProps)(gallery_image);

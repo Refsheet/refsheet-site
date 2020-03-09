@@ -1,26 +1,35 @@
-@User.Characters = React.createClass
-  propTypes:
-    groups: React.PropTypes.array.isRequired
-    characters: React.PropTypes.array.isRequired
-    editable: React.PropTypes.bool
-    userLink: React.PropTypes.string
-    activeGroupId: React.PropTypes.string
-    onGroupChange: React.PropTypes.func.isRequired
-    onGroupSort: React.PropTypes.func.isRequired
-    onGroupDelete: React.PropTypes.func.isRequired
-    onCharacterDelete: React.PropTypes.func.isRequired
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.User.Characters = React.createClass({
+  propTypes: {
+    groups: React.PropTypes.array.isRequired,
+    characters: React.PropTypes.array.isRequired,
+    editable: React.PropTypes.bool,
+    userLink: React.PropTypes.string,
+    activeGroupId: React.PropTypes.string,
+    onGroupChange: React.PropTypes.func.isRequired,
+    onGroupSort: React.PropTypes.func.isRequired,
+    onGroupDelete: React.PropTypes.func.isRequired,
+    onCharacterDelete: React.PropTypes.func.isRequired,
     onCharacterSort: React.PropTypes.func.isRequired
+},
 
 
-  render: ->
-    { groups, characters, editable, userLink, activeGroupId, onGroupChange, onGroupSort, onGroupDelete, onCharacterDelete, onCharacterSort } = @props
+  render() {
+    let listEditable;
+    const { groups, characters, editable, userLink, activeGroupId, onGroupChange, onGroupSort, onGroupDelete, onCharacterDelete, onCharacterSort } = this.props;
 
-    if activeGroupId
-      listEditable = false
-    else
-      listEditable = editable
+    if (activeGroupId) {
+      listEditable = false;
+    } else {
+      listEditable = editable;
+  }
 
-    `<div className='sidebar-container'>
+    return <div className='sidebar-container'>
         <div className='sidebar'>
             { editable &&
                 <a href='#character-form' className='margin-bottom--large btn btn-block center waves-effect waves-light modal-trigger'>
@@ -47,4 +56,6 @@
                                   editable={ listEditable }
             />
         </div>
-    </div>`
+    </div>;
+}
+});

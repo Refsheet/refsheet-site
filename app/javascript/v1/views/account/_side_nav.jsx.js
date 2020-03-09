@@ -1,9 +1,16 @@
-@Views.Account.SideNav = React.createClass
-  contextTypes:
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.Views.Account.SideNav = React.createClass({
+  contextTypes: {
     currentUser: React.PropTypes.object.isRequired
+},
 
-  render: ->
-    `<ul className='side-nav fixed in-page margin-top--large'>
+  render() {
+    return <ul className='side-nav fixed in-page margin-top--large'>
         <NavLink to='/' icon='home' text='Activity Feed' exact={true}>
             <NavLink to='?feed=character' text='Characters' />
             <NavLink to='?feed=image' text='Images' />
@@ -41,4 +48,6 @@
             <NavLink to='/account/notifications' text='Notifications' />
             <NavLink to='/account/api_keys' text='API Keys' />
         </NavLink>
-    </ul>`
+    </ul>;
+}
+});

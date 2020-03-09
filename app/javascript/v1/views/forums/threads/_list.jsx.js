@@ -1,28 +1,38 @@
-@Forums.Threads.List = React.createClass
-  propTypes:
-    threads: React.PropTypes.array
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.Forums.Threads.List = React.createClass({
+  propTypes: {
+    threads: React.PropTypes.array,
     activeThreadId: React.PropTypes.string
+},
 
-  _nudgeClick: (e) ->
-    $el = $(e.target)
-    $el.parents('li').children('a')[0].click()
-    e.preventDefault()
+  _nudgeClick(e) {
+    const $el = $(e.target);
+    $el.parents('li').children('a')[0].click();
+    return e.preventDefault();
+},
 
-  render: ->
-    __this = @
+  render() {
+    const __this = this;
 
-    sortedThreads = @props.threads.sort (a, b) ->
-      switch
-        when a.last_post_at > b.last_post_at then -1
-        when a.last_post_at < b.last_post_at then 1
-        else 0
+    const sortedThreads = this.props.threads.sort(function(a, b) {
+      switch (false) {
+        case !(a.last_post_at > b.last_post_at): return -1;
+        case !(a.last_post_at < b.last_post_at): return 1;
+        default: return 0;
+      }
+    });
 
-    threads = sortedThreads.map (thread) =>
-      classNames = []
-      classNames.push 'active' if thread.id == @props.activeThreadId
-      classNames.push 'unread' if thread.unread_posts_count
+    const threads = sortedThreads.map(thread => {
+      const classNames = [];
+      if (thread.id === this.props.activeThreadId) { classNames.push('active'); }
+      if (thread.unread_posts_count) { classNames.push('unread'); }
 
-      `<li className={ classNames.join(' ') } key={ thread.id } onClick={ __this._nudgeClick }>
+      return <li className={ classNames.join(' ') } key={ thread.id } onClick={ __this._nudgeClick }>
           <Link to={ thread.path } className='truncate strong'>{ thread.topic }</Link>
 
           <div className='muted'>
@@ -36,9 +46,10 @@
                       Last: <DateFormat timestamp={ thread.last_post_at } short fuzzy />
                   </div> }
           </div>
-      </li>`
+      </li>;
+    });
 
-    `<div className='thread-list'>
+    return <div className='thread-list'>
         {/* All | Subscribed | Sort v */}
         <ul className='message-list margin--none'>
             { threads.length == 0 &&
@@ -48,4 +59,6 @@
             {/* sponsored */}
             { threads }
         </ul>
-    </div>`
+    </div>;
+}
+});

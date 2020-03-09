@@ -1,26 +1,40 @@
-@UserSettingsModal = React.createClass
-  getInitialState: ->
-    user: @props.user
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.UserSettingsModal = React.createClass({
+  getInitialState() {
+    return {user: this.props.user};
+  },
 
-  handleSettingsClose: (e) ->
-    M.Modal.getInstance(document.getElementById('user-settings-modal')).close()
+  handleSettingsClose(e) {
+    return M.Modal.getInstance(document.getElementById('user-settings-modal')).close();
+  },
 
-  handleSettingsChange: (setting, onSuccess, onError) ->
-    o = {}
-    o[setting.id] = setting.value
+  handleSettingsChange(setting, onSuccess, onError) {
+    const o = {};
+    o[setting.id] = setting.value;
 
-    $.ajax
-      url: @state.user.path
-      type: 'PATCH'
-      data: user: o
-      success: (data) =>
-        @setState user: data
-        onSuccess(value: data[setting.id]) if onSuccess?
-      error: (error) =>
-        onError(value: error.responseJSON?.errors[setting.id]) if onError?
+    return $.ajax({
+      url: this.state.user.path,
+      type: 'PATCH',
+      data: { user: o
+    },
+      success: data => {
+        this.setState({user: data});
+        if (onSuccess != null) { return onSuccess({value: data[setting.id]}); }
+      },
+      error: error => {
+        if (onError != null) { return onError({value: (error.responseJSON != null ? error.responseJSON.errors[setting.id] : undefined)}); }
+      }
+    });
+  },
 
-  render: ->
-    `<Modal id='user-settings-modal'>
+  render() {
+    return <Modal id='user-settings-modal'>
         <div className='card-panel margin-bottom--large green darken-1 white-text'>
             <div className='strong'>Notice!</div>
             This window will be going away soon! Please use the Settings link in the left
@@ -46,4 +60,6 @@
         <div className='actions margin-top--large'>
             <a className='btn' onClick={ this.handleSettingsClose }>Close</a>
         </div>
-    </Modal>`
+    </Modal>;
+  }
+});

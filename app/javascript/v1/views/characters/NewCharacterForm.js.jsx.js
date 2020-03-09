@@ -1,30 +1,44 @@
-@NewCharacterForm = React.createClass
-  contextTypes:
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.NewCharacterForm = React.createClass({
+  contextTypes: {
     currentUser: React.PropTypes.object.isRequired
+},
 
-  propTypes:
-    newCharacterPath: React.PropTypes.string.isRequired
+  propTypes: {
+    newCharacterPath: React.PropTypes.string.isRequired,
     className: React.PropTypes.string
+},
 
 
-  getInitialState: ->
-    character:
-      name: null
-      species: null
-      slug: null
-      shortcode: null
-      create_v2: false
+  getInitialState() {
+    return {
+        character: {
+          name: null,
+          species: null,
+          slug: null,
+          shortcode: null,
+          create_v2: false
+      }
+    };
+},
 
 
-  _handleCreate: (character) ->
-    @props.onCreate character
-    ReactGA.event
-      category: 'Character'
+  _handleCreate(character) {
+    this.props.onCreate(character);
+    return ReactGA.event({
+      category: 'Character',
       action: 'Created Character'
+    });
+},
 
     
-  render: ->
-    `<Form action={ this.props.newCharacterPath }
+  render() {
+    return <Form action={ this.props.newCharacterPath }
            method='POST'
            className={ this.props.className }
            modelName='character'
@@ -77,4 +91,6 @@
                 <Submit>Create Character</Submit>
             </div>
         </Row>
-    </Form>`
+    </Form>;
+}
+});

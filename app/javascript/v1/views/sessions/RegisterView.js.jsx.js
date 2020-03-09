@@ -1,38 +1,55 @@
-@RegisterView = React.createClass
-  contextTypes:
-    router: React.PropTypes.object.isRequired
-    setCurrentUser: React.PropTypes.func.isRequired
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.RegisterView = React.createClass({
+  contextTypes: {
+    router: React.PropTypes.object.isRequired,
+    setCurrentUser: React.PropTypes.func.isRequired,
     currentUser: React.PropTypes.object
+},
 
 
-  getInitialState: ->
-    user:
-      username: @props.location.query.username
-      email: null
-      password: null
-      password_confirmation: null
+  getInitialState() {
+    return {
+        user: {
+          username: this.props.location.query.username,
+          email: null,
+          password: null,
+          password_confirmation: null
+      }
+    };
+},
 
 
-  _handleChange: (user) ->
-    ReactGA.event
-      category: 'User'
+  _handleChange(user) {
+    ReactGA.event({
+      category: 'User',
       action: 'Sign Up'
+    });
 
-    @context.setCurrentUser user
+    return this.context.setCurrentUser(user);
+},
 
-  componentDidUpdate: (oldProps) ->
-    if @context.currentUser
-      @context.router.history.push '/'
+  componentDidUpdate(oldProps) {
+    if (this.context.currentUser) {
+      return this.context.router.history.push('/');
+  }
+},
 
 
-  componentDidMount: ->
-    $('body').addClass 'no-footer'
+  componentDidMount() {
+    return $('body').addClass('no-footer');
+},
 
-  componentWillUnmount: ->
-    $('body').removeClass 'no-footer'
+  componentWillUnmount() {
+    return $('body').removeClass('no-footer');
+},
 
-  render: ->
-    `<Main title='Register'>
+  render() {
+    return <Main title='Register'>
         <div className='modal-page-content'>
             <div className='narrow-container'>
                 <h1>Sign Up</h1>
@@ -79,4 +96,6 @@
                 </Form>
             </div>
         </div>
-    </Main>`
+    </Main>;
+}
+});

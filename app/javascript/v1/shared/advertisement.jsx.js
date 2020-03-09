@@ -1,34 +1,47 @@
-@Advertisement = React.createClass
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.Advertisement = React.createClass({
 
-  dataPath: '/our_friends/next'
+  dataPath: '/our_friends/next',
 
-  getInitialState: ->
-    campaign: null
+  getInitialState() {
+    return {campaign: null};
+},
 
-  componentDidMount: ->
-    StateUtils.load @, 'campaign'
+  componentDidMount() {
+    return StateUtils.load(this, 'campaign');
+},
 
 
-  _handleImageLoad: (e) ->
-    ahoy.track 'advertisement.impression',
-               advertisement_id: @state.campaign.id,
+  _handleImageLoad(e) {
+    return ahoy.track('advertisement.impression', {
+               advertisement_id: this.state.campaign.id,
                image_file_name: e.target.src,
-               current_slot_id: @state.campaign.current_slot_id
+               current_slot_id: this.state.campaign.current_slot_id
+           }
+    );
+},
 
-  _handleLinkClick: (e) ->
-    ahoy.track 'advertisement.click',
-               advertisement_id: @state.campaign.id
+  _handleLinkClick(e) {
+    return ahoy.track('advertisement.click',
+               {advertisement_id: this.state.campaign.id});
+},
 
-  _generateLink: ->
-    'https://ref.st/l/' + @state.campaign.id
+  _generateLink() {
+    return 'https://ref.st/l/' + this.state.campaign.id;
+},
 
-  render: ->
-    return null unless @state.campaign
-    { title, caption, link, image_url } = @state.campaign
+  render() {
+    if (!this.state.campaign) { return null; }
+    const { title, caption, link, image_url } = this.state.campaign;
 
-    imageSrc = image_url.medium + '?c=' + Math.floor(Date.now() / 1000)
+    const imageSrc = image_url.medium + '?c=' + Math.floor(Date.now() / 1000);
 
-    `<div className='sponsored-content margin-bottom--large'
+    return <div className='sponsored-content margin-bottom--large'
           style={{
               boxSizing: 'border-box',
               overflow: 'hidden',
@@ -85,4 +98,6 @@
                 { caption.substring(0,90) }
             </div>
         </div>
-    </div>`
+    </div>;
+}
+});

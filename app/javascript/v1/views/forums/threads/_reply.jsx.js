@@ -1,23 +1,36 @@
-@Forums.Threads.Reply = React.createClass
-  contextTypes:
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.Forums.Threads.Reply = React.createClass({
+  contextTypes: {
     currentUser: React.PropTypes.object
+  },
 
-  propTypes:
-    forumId: React.PropTypes.string.isRequired
-    threadId: React.PropTypes.string.isRequired
+  propTypes: {
+    forumId: React.PropTypes.string.isRequired,
+    threadId: React.PropTypes.string.isRequired,
     onPost: React.PropTypes.func
+  },
 
-  getInitialState: ->
-    post:
-      content: null
+  getInitialState() {
+    return {
+      post: {
+        content: null
+      }
+    };
+  },
 
-  _handlePost: (post) ->
-    @props.onPost(post) if @props.onPost
+  _handlePost(post) {
+    if (this.props.onPost) { return this.props.onPost(post); }
+  },
 
-  render: ->
-    return null unless @context.currentUser
+  render() {
+    if (!this.context.currentUser) { return null; }
 
-    `<Form className='card sp with-avatar reply-box'
+    return <Form className='card sp with-avatar reply-box'
            action={ '/forums/' + this.props.forumId + '/threads/' + this.props.threadId + '/posts' }
            method='POST'
            model={ this.state.post }
@@ -34,4 +47,6 @@
                 <Submit>Reply</Submit>
             </div>
         </div>
-    </Form>`
+    </Form>;
+  }
+});

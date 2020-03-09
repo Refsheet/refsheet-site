@@ -1,66 +1,90 @@
-@Explore.Index = React.createClass
-  contextTypes:
-    eagerLoad: React.PropTypes.object
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.Explore.Index = React.createClass({
+  contextTypes: {
+    eagerLoad: React.PropTypes.object,
     currentUser: React.PropTypes.object
+  },
 
-  propTypes:
+  propTypes: {
     media: React.PropTypes.object
+  },
 
-  # new syntax
-  stateLink:
-    dataPath: '/explore/:scope'
-    statePath: 'media'
-    paramMap:
+  // new syntax
+  stateLink: {
+    dataPath: '/explore/:scope',
+    statePath: 'media',
+    paramMap: {
       scope: 'scope'
+    }
+  },
 
-  # old syntax
-  dataPath: '/explore/:scope'
+  // old syntax
+  dataPath: '/explore/:scope',
 
-  paramMap:
+  paramMap: {
     scope: 'scope'
+  },
 
-  getInitialState: ->
-    media: null
+  getInitialState() {
+    return {media: null};
+  },
 
-  componentWillMount: ->
-    StateUtils.load @, 'media'
+  componentWillMount() {
+    return StateUtils.load(this, 'media');
+  },
 
-  componentDidMount: ->
-    $(@refs.tabRow).pushpin
-      top: $(@refs.tabRow).offset().top
+  componentDidMount() {
+    return $(this.refs.tabRow).pushpin({
+      top: $(this.refs.tabRow).offset().top,
       offset: 56
+    });
+  },
 
-  componentWillReceiveProps: (newProps) ->
-    if @props.match?.params.scope != newProps.match?.params.scope
-      @setState media: null
-    StateUtils.reload @, 'media', newProps
+  componentWillReceiveProps(newProps) {
+    if ((this.props.match != null ? this.props.match.params.scope : undefined) !== (newProps.match != null ? newProps.match.params.scope : undefined)) {
+      this.setState({media: null});
+    }
+    return StateUtils.reload(this, 'media', newProps);
+  },
 
-  _append: (data) ->
-    StateUtils.updateItems @, 'media', data
+  _append(data) {
+    return StateUtils.updateItems(this, 'media', data);
+  },
 
-  _renderImages: ->
-    return `<Loading />` unless @state.media
+  _renderImages() {
+    if (!this.state.media) { return <Loading />; }
 
-    `<div key={ this.props.match && this.props.match.params.scope }>
+    return <div key={ this.props.match && this.props.match.params.scope }>
         <ImageGallery images={ this.state.media } noFeature noSquare />
         <InfiniteScroll onLoad={ this._append } stateLink={ this.stateLink } params={ this.props.match && this.props.match.params } />
-    </div>`
+    </div>;
+  },
 
-  render: ->
-    switch @props.match?.params.scope
-      when 'favorites'
-        title = 'Your Favorites'
-        description = 'Everything you\'ve ever loved in one place (finally)!'
+  render() {
+    let description, title;
+    switch ((this.props.match != null ? this.props.match.params.scope : undefined)) {
+      case 'favorites':
+        title = 'Your Favorites';
+        description = 'Everything you\'ve ever loved in one place (finally)!';
+        break;
 
-      when 'popular'
-        title = 'Popular Media'
-        description = 'See what\'s getting a lot of love this week on Refsheet.net!'
+      case 'popular':
+        title = 'Popular Media';
+        description = 'See what\'s getting a lot of love this week on Refsheet.net!';
+        break;
 
-      else
-        title = 'Explore Images'
-        description = 'Explore recent artwork uploads across all of Refsheet.net!'
+      default:
+        title = 'Explore Images';
+        description = 'Explore recent artwork uploads across all of Refsheet.net!';
+    }
 
-    `<Main title={ title }>
+    return <Main title={ title }>
         <Jumbotron className='short'>
             <h1>{ title }</h1>
             <p>{ description }</p>
@@ -90,4 +114,6 @@
         <Container className='padding-top--large padding-bottom--large'>
             { this._renderImages() }
         </Container>
-    </Main>`
+    </Main>;
+  }
+});

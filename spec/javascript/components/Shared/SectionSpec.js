@@ -1,29 +1,32 @@
-import React from 'react'
-import { expect } from 'chai'
-import { mount } from 'enzyme'
-import Section from 'Shared/Section'
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+import React from 'react';
+import { expect } from 'chai';
+import { mount } from 'enzyme';
+import Section from 'Shared/Section';
 
-describe '<Section />', ->
-  def 'title', ->
-    null
+describe('<Section />', function() {
+  def('title', () => null);
 
-  subject ->
-    mount `<Section title={$title} />`
+  subject(() => mount(<Section title={$title} />));
 
-  it 'renders without container', ->
-    expect($subject).to.not.have.descendants('.container')
+  it('renders without container', () => expect($subject).to.not.have.descendants('.container'));
 
-  context 'with container', ->
-    subject ->
-      mount `<Section container />`
+  context('with container', function() {
+    subject(() => mount(<Section container />));
 
-    it 'renders wit container', ->
-      expect($subject).to.have.descendants('.container')
+    return it('renders wit container', () => expect($subject).to.have.descendants('.container'));
+  });
 
-  context 'with title', ->
-    def 'title', ->
-      'Section Name'
+  return context('with title', function() {
+    def('title', () => 'Section Name');
 
-    it 'renders title', ->
-      expect($subject).to.have.descendants('h2')
-      expect($subject).to.have.text('Section Name')
+    return it('renders title', function() {
+      expect($subject).to.have.descendants('h2');
+      return expect($subject).to.have.text('Section Name');
+    });
+  });
+});

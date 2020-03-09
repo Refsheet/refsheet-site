@@ -1,60 +1,90 @@
-namespace 'Views.Images.ReportModal'
+/*
+ * decaffeinate suggestions:
+ * DS001: Remove Babel/TypeScript constructor workaround
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS207: Consider shorter variations of null checks
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+namespace('Views.Images.ReportModal');
 
-class @Views.Images.ReportModal extends React.Component
-  @contextTypes:
-    currentUser: React.PropTypes.object
-    reportImage: React.PropTypes.func
+const Cls = (this.Views.Images.ReportModal = class ReportModal extends React.Component {
+  static initClass() {
+      this.contextTypes = {
+        currentUser: React.PropTypes.object,
+        reportImage: React.PropTypes.func
+    };
+    
+      this.propTypes =
+        {imageId: React.PropTypes.string};
+  }
 
-  @propTypes:
-    imageId: React.PropTypes.string
-
-  constructor: (props, context) ->
-    @state =
-      report:
-        sender_user_id: context.currentUser?.id
-        violation_type: 'other'
-        comment: null
-        dmca_source_url: null
+  constructor(props, context) {
+    {
+      // Hack: trick Babel/TypeScript into allowing this before super.
+      if (false) { super(); }
+      let thisFn = (() => { return this; }).toString();
+      let thisName = thisFn.match(/return (?:_assertThisInitialized\()*(\w+)\)*;/)[1];
+      eval(`${thisName} = this;`);
+    }
+    this._handleSubmit = this._handleSubmit.bind(this);
+    this.state = {
+      report: {
+        sender_user_id: (context.currentUser != null ? context.currentUser.id : undefined),
+        violation_type: 'other',
+        comment: null,
+        dmca_source_url: null,
         image_id: props.imageId
+    }
+  };
 
-    @violationTypes =
-      dmca: "User doesn't have permission to post this."
-      improper_flag: "This item was not flagged for proper maturity level."
-      offensive: "This item is offensive or violates community standards."
+    this.violationTypes = {
+      dmca: "User doesn't have permission to post this.",
+      improper_flag: "This item was not flagged for proper maturity level.",
+      offensive: "This item is offensive or violates community standards.",
       other: "Other, please specify in comment."
+  };
 
-    super props
+    super(props);
+}
 
-  componentWillReceiveProps: (newProps, newContext) ->
-    if newProps.imageId != @state.report.image_id
-      console.log "Reporting imageID changed:", newProps.imageId
-      StateUtils.update @, 'report.image_id', newProps.imageId, =>
-        console.log "Chagned to:", @state.report
-        @refs.form.reload()
+  componentWillReceiveProps(newProps, newContext) {
+    if (newProps.imageId !== this.state.report.image_id) {
+      console.log("Reporting imageID changed:", newProps.imageId);
+      return StateUtils.update(this, 'report.image_id', newProps.imageId, () => {
+        console.log("Chagned to:", this.state.report);
+        return this.refs.form.reload();
+      });
 
-    else if newContext.currentUser?.id != @context.currentUser?.id
-      StateUtils.update @, 'report.sender_user_id', newProps.imageId
+    } else if ((newContext.currentUser != null ? newContext.currentUser.id : undefined) !== (this.context.currentUser != null ? this.context.currentUser.id : undefined)) {
+      return StateUtils.update(this, 'report.sender_user_id', newProps.imageId);
+  }
+}
 
 
-  _handleSubmit: (data) =>
-    @context.reportImage(null)
-    M.Modal.getInstance(@refs.modal).close()
-    Materialize.toast({ html: "Thank you for your report, we will look into it shortly.", displayLength: 3000, classes: 'green' })
+  _handleSubmit(data) {
+    this.context.reportImage(null);
+    M.Modal.getInstance(this.refs.modal).close();
+    return Materialize.toast({ html: "Thank you for your report, we will look into it shortly.", displayLength: 3000, classes: 'green' });
+}
 
-  render: ->
-    violationTypes = []
+  render() {
+    const violationTypes = [];
 
-    for key, label of @violationTypes
-      violationTypes.push \
-        `<Input key={ key }
+    for (let key in this.violationTypes) {
+        const label = this.violationTypes[key];
+      violationTypes.push( 
+        <Input key={ key }
                 id={ 'violation_type_' + key }
                 name='violation_type'
                 label={ label }
                 default={ key }
                 type='radio'
-                noMargin />`
+                noMargin />
+      );
+    }
 
-    `<Modal title='Report Image' id='report-modal' ref='modal'>
+    return <Modal title='Report Image' id='report-modal' ref='modal'>
         <p>
             Refsheet.net values a strong and welcoming community for all.
             If you find any content that you believe is unwelcome in this community,
@@ -100,4 +130,7 @@ class @Views.Images.ReportModal extends React.Component
                 </Column>
             </Row>
         </Form>
-    </Modal>`
+    </Modal>;
+}
+});
+Cls.initClass();

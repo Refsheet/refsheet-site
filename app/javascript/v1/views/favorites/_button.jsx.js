@@ -1,51 +1,70 @@
-@FavoriteButton = React.createClass
-  contextTypes:
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.FavoriteButton = React.createClass({
+  contextTypes: {
     currentUser: React.PropTypes.object
+  },
 
-  propTypes:
-    mediaId: React.PropTypes.string.isRequired
-    favorites: React.PropTypes.array
-    isFavorite: React.PropTypes.bool
-    onChange: React.PropTypes.func
+  propTypes: {
+    mediaId: React.PropTypes.string.isRequired,
+    favorites: React.PropTypes.array,
+    isFavorite: React.PropTypes.bool,
+    onChange: React.PropTypes.func,
     onFavorite: React.PropTypes.func
+  },
 
-  _isFavFromProps: (props) ->
-    if typeof props.isFavorite == 'undefined'
-      return false unless props.favorites
-      (props.favorites.filter (fav) =>
-        fav.user_id == @context.currentUser.username
-      ).length > 0
-    else
-      props.isFavorite
+  _isFavFromProps(props) {
+    if (typeof props.isFavorite === 'undefined') {
+      if (!props.favorites) { return false; }
+      return (props.favorites.filter(fav => {
+        return fav.user_id === this.context.currentUser.username;
+      })).length > 0;
+    } else {
+      return props.isFavorite;
+    }
+  },
 
-  getInitialState: ->
-    isFavorite: @_isFavFromProps(@props)
+  getInitialState() {
+    return {isFavorite: this._isFavFromProps(this.props)};
+  },
 
-  componentWillReceiveProps: (newProps) ->
-    @setState isFavorite: @_isFavFromProps(@props)
+  componentWillReceiveProps(newProps) {
+    return this.setState({isFavorite: this._isFavFromProps(this.props)});
+  },
 
-  _handleFavorite: (e) ->
-    path = "/media/#{@props.mediaId}"
+  _handleFavorite(e) {
+    const path = `/media/${this.props.mediaId}`;
 
-    if !@state.isFavorite
-      $.post path + '/favorites', (data) =>
-        @setState isFavorite: true
-        @props.onChange(true) if @props.onChange
-        @props.onFavorite(data, true) if @props.onFavorite
-    else
-      $.ajax
-        url: path + '/favorite'
-        type: 'DELETE'
-        success: (data) =>
-          @setState isFavorite: false
-          @props.onChange(false) if @props.onChange
-          @props.onFavorite(data, false) if @props.onFavorite
-    e.preventDefault()
+    if (!this.state.isFavorite) {
+      $.post(path + '/favorites', data => {
+        this.setState({isFavorite: true});
+        if (this.props.onChange) { this.props.onChange(true); }
+        if (this.props.onFavorite) { return this.props.onFavorite(data, true); }
+      });
+    } else {
+      $.ajax({
+        url: path + '/favorite',
+        type: 'DELETE',
+        success: data => {
+          this.setState({isFavorite: false});
+          if (this.props.onChange) { this.props.onChange(false); }
+          if (this.props.onFavorite) { return this.props.onFavorite(data, false); }
+        }
+      });
+    }
+    return e.preventDefault();
+  },
 
 
-  render: ->
-    favoriteClassName = if @state.isFavorite then 'favorite' else 'not-favorite'
+  render() {
+    const favoriteClassName = this.state.isFavorite ? 'favorite' : 'not-favorite';
 
-    `<div className={ 'favorite-button ' + favoriteClassName } onClick={ this._handleFavorite }>
+    return <div className={ 'favorite-button ' + favoriteClassName } onClick={ this._handleFavorite }>
         <i className='material-icons'>star</i>
-    </div>`
+    </div>;
+  }
+});

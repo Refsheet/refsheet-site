@@ -1,25 +1,32 @@
-@Button = (props) ->
-  {
-    children
-    href
-    onClick
-    block
-    large
-    noWaves
-    className
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.Button = function(props) {
+  const {
+    children,
+    href,
+    onClick,
+    block,
+    large,
+    noWaves,
+    className,
     target
-  } = props
+  } = props;
 
-  classNames = ['btn']
-  classNames.push className if className
-  classNames.push 'waves-effect waves-light' unless noWaves
-  classNames.push 'btn-block' if block
-  classNames.push 'btn-large' if large
+  const classNames = ['btn'];
+  if (className) { classNames.push(className); }
+  if (!noWaves) { classNames.push('waves-effect waves-light'); }
+  if (block) { classNames.push('btn-block'); }
+  if (large) { classNames.push('btn-large'); }
 
-  `<a className={ classNames.join(' ') }
+  return <a className={ classNames.join(' ') }
       href={ href }
       onClick={ onClick }
       target={ target }
   >
       { children }
-  </a>`
+  </a>;
+};

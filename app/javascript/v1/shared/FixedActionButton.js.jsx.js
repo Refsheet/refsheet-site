@@ -1,17 +1,27 @@
-@FixedActionButton = React.createClass
-  componentDidMount: (e) ->
-    $('.fixed-action-btn').floatingActionButton()
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.FixedActionButton = React.createClass({
+  componentDidMount(e) {
+    return $('.fixed-action-btn').floatingActionButton();
+  },
 
-  render: ->
-    children = React.Children.map @props.children, (child) =>
-      `<li>{ React.cloneElement(child) }</li>`
+  render() {
+    const children = React.Children.map(this.props.children, child => {
+      return <li>{ React.cloneElement(child) }</li>;
+    });
       
-    className = 'fixed-action-btn'
-    className += ' click-to-toggle' if @props.clickToToggle
+    let className = 'fixed-action-btn';
+    if (this.props.clickToToggle) { className += ' click-to-toggle'; }
 
-    `<div className={ className }>
+    return <div className={ className }>
         <ActionButton large={ true } {...this.props} />
         <ul>
             { children }
         </ul>
-    </div>`
+    </div>;
+  }
+});

@@ -1,31 +1,47 @@
-@PasswordResetForm = React.createClass
-  getInitialState: ->
-    email: null
-    token: null
-    userPath: null
-    user:
-      password: null
-      password_confirmation: null
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.PasswordResetForm = React.createClass({
+  getInitialState() {
+    return {
+      email: null,
+      token: null,
+      userPath: null,
+      user: {
+        password: null,
+        password_confirmation: null
+      }
+    };
+  },
 
-  _handleCreate: (data) ->
-    $(@refs.createForm).fadeOut 300, =>
-      @setState email: data.user.email
+  _handleCreate(data) {
+    return $(this.refs.createForm).fadeOut(300, () => {
+      return this.setState({email: data.user.email});
+    });
+  },
 
-  _handleUpdate: (data) ->
-    $(@refs.updateForm).fadeOut 300, =>
-      @setState token: true, userPath: data.current_user.path
+  _handleUpdate(data) {
+    return $(this.refs.updateForm).fadeOut(300, () => {
+      return this.setState({token: true, userPath: data.current_user.path});
+    });
+  },
 
-  _handlePasswordChange: (data) ->
-    @props.onComplete() if @props.onComplete
-    Materialize.toast({ html: 'Password changed!', displayLength: 3000, classes: 'green' })
+  _handlePasswordChange(data) {
+    if (this.props.onComplete) { this.props.onComplete(); }
+    return Materialize.toast({ html: 'Password changed!', displayLength: 3000, classes: 'green' });
+  },
 
-  _handleSignInClick: (e) ->
-    @props.onSignInClick() if @props.onSignInClick
-    e.preventDefault()
+  _handleSignInClick(e) {
+    if (this.props.onSignInClick) { this.props.onSignInClick(); }
+    return e.preventDefault();
+  },
 
-  render: ->
-    actions =
-      `<Row className='actions'>
+  render() {
+    const actions =
+      <Row className='actions'>
           <Column>
               <Link to='/login' className='btn btn-secondary z-depth-0 modal-close waves-effect waves-light' onClick={ this._handleSignInClick }>Sign In</Link>
 
@@ -33,10 +49,10 @@
                   <Submit>{ this.state.token ? 'Change Password' : 'Continue' }</Submit>
               </div>
           </Column>
-      </Row>`
+      </Row>;
 
-    if @state.email is null
-      `<div ref='createForm' key='ResetCreateForm'>
+    if (this.state.email === null) {
+      return <div ref='createForm' key='ResetCreateForm'>
           <Form action='/password_resets'
                 onChange={ this._handleCreate }
                 modelName='user'
@@ -49,10 +65,10 @@
 
               { actions }
           </Form>
-      </div>`
+      </div>;
 
-    else if @state.token is null
-      `<div ref='updateForm' key='ResetUpdateForm'>
+    } else if (this.state.token === null) {
+      return <div ref='updateForm' key='ResetUpdateForm'>
           <Form action='/password_resets'
                 method='PUT'
                 onChange={ this._handleUpdate }
@@ -65,10 +81,10 @@
 
               { actions }
           </Form>
-      </div>`
+      </div>;
 
-    else
-      `<Form action={ this.state.userPath }
+    } else {
+      return <Form action={ this.state.userPath }
              method='PUT'
              onChange={ this._handlePasswordChange }
              modelName='user'
@@ -80,4 +96,7 @@
           <Input name='password_confirmation' type='password' label='Password Confirmation' noMargin />
 
           { actions }
-      </Form>`
+      </Form>;
+    }
+  }
+});

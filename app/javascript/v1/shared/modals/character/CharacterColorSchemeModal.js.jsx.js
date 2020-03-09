@@ -1,73 +1,96 @@
-@CharacterColorSchemeModal = React.createClass
-  propTypes:
-    characterPath: React.PropTypes.string.isRequired
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.CharacterColorSchemeModal = React.createClass({
+  propTypes: {
+    characterPath: React.PropTypes.string.isRequired,
     colorScheme: React.PropTypes.object
+},
 
 
-  getInitialState: ->
-    color_data: @props.colorScheme?.color_data || {}
-    dirty: false
+  getInitialState() {
+    return {
+        color_data: (this.props.colorScheme != null ? this.props.colorScheme.color_data : undefined) || {},
+        dirty: false
+    };
+},
 
 
-  _handleColorSchemeClose: (e) ->
-    M.Modal.getInstance(document.getElementById('color-scheme-form')).close()
+  _handleColorSchemeClose(e) {
+    return M.Modal.getInstance(document.getElementById('color-scheme-form')).close();
+},
 
-  _handleLoad: (e, data) ->
-    obj = JSON.parse data
+  _handleLoad(e, data) {
+    const obj = JSON.parse(data);
 
-    if typeof obj == "object"
-      @setState color_data: obj
-      @refs.form.setModel obj
+    if (typeof obj === "object") {
+      this.setState({color_data: obj});
+      return this.refs.form.setModel(obj);
+  }
+},
 
-  _handleChange: (data) ->
-    @setState color_data: data.color_scheme.color_data, =>
-      $(document).trigger 'app:color_scheme:update', data.color_scheme.color_data
-      Materialize.toast({ html: 'Color scheme saved.', displayLength: 3000, classes: 'green' })
-      @_handleColorSchemeClose()
+  _handleChange(data) {
+    return this.setState({color_data: data.color_scheme.color_data}, () => {
+      $(document).trigger('app:color_scheme:update', data.color_scheme.color_data);
+      Materialize.toast({ html: 'Color scheme saved.', displayLength: 3000, classes: 'green' });
+      return this._handleColorSchemeClose();
+    });
+},
 
-  _handleUpdate: (data) ->
-    @setState color_data: data
-    $(document).trigger 'app:color_scheme:update', data
+  _handleUpdate(data) {
+    this.setState({color_data: data});
+    return $(document).trigger('app:color_scheme:update', data);
+},
 
-  _handleDirty: (dirty) ->
-    @setState dirty: dirty
+  _handleDirty(dirty) {
+    return this.setState({dirty});
+},
 
-  _handleCancel: ->
-    @refs.form.reset()
-    @_handleColorSchemeClose()
+  _handleCancel() {
+    this.refs.form.reset();
+    return this._handleColorSchemeClose();
+},
 
 
-  render: ->
-    colorSchemeFields = []
+  render() {
+    const colorSchemeFields = [];
 
-    for key, attr of {
-      primary: ['Primary Color', '#80cbc4']
-      accent1: ['Secondary Color', '#26a69a']
-      accent2: ['Accent Color', '#ee6e73']
-      text: ['Main Text', 'rgba(255,255,255,0.9)']
-      'text-medium': ['Muted Text', 'rgba(255,255,255,0.5)']
-      'text-light': ['Subtle Text', 'rgba(255,255,255,0.3)']
-      background: ['Page Background', '#262626']
-      'card-background': ['Card Background', '#212121']
+    const object = {
+      primary: ['Primary Color', '#80cbc4'],
+      accent1: ['Secondary Color', '#26a69a'],
+      accent2: ['Accent Color', '#ee6e73'],
+      text: ['Main Text', 'rgba(255,255,255,0.9)'],
+      'text-medium': ['Muted Text', 'rgba(255,255,255,0.5)'],
+      'text-light': ['Subtle Text', 'rgba(255,255,255,0.3)'],
+      background: ['Page Background', '#262626'],
+      'card-background': ['Card Background', '#212121'],
       'image-background': ['Image Background', '#000000']
-    }
-      name = attr[0]
-      def = attr[1]
+    };
+    for (let key in object) {
+        const attr = object[key];
+      const name = attr[0];
+      const def = attr[1];
 
-      if @props.colorScheme && @props.colorScheme.color_data
-        value = @props.colorScheme.color_data[key]
+      if (this.props.colorScheme && this.props.colorScheme.color_data) {
+        const value = this.props.colorScheme.color_data[key];
+      }
 
       colorSchemeFields.push(
-        `<Column key={key} s={6} m={4}>
+        <Column key={key} s={6} m={4}>
             <Input name={ key }
                    type='color'
                    errorPath='color_scheme'
                    label={ name }
                    default={ def } />
-        </Column>`
-      )
+        </Column>
+      );
+    }
 
-    `<Modal id='color-scheme-form'
+    return <Modal id='color-scheme-form'
             title='Page Color Scheme'>
 
         <Form action={ this.props.characterPath }
@@ -134,4 +157,6 @@
                 </Column>
             </Row>
         </Form>
-    </Modal>`
+    </Modal>;
+}
+});

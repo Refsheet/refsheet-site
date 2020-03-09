@@ -1,78 +1,108 @@
-@SwatchPanel = React.createClass
-  getInitialState: ->
-    swatches: @props.swatches
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.SwatchPanel = React.createClass({
+  getInitialState() {
+    return {swatches: this.props.swatches};
+  },
 
-  swatchParams: (data) ->
-    if data.rowOrderPosition?
-      swatch:
-        row_order_position: data.rowOrderPosition
-    else
-      swatch:
-        color: data.value || ''
-        name:  data.name  || ''
-        notes: data.notes || ''
+  swatchParams(data) {
+    if (data.rowOrderPosition != null) {
+      return {
+        swatch: {
+          row_order_position: data.rowOrderPosition
+        }
+      };
+    } else {
+      return {
+        swatch: {
+          color: data.value || '',
+          name:  data.name  || '',
+          notes: data.notes || ''
+        }
+      };
+    }
+  },
 
-  editSwatch: (data, onSuccess, onFail) ->
-    $.ajax
-      url: '/swatches/' + data.id
-      data: @swatchParams(data)
-      type: 'PATCH'
-      success: (_data) =>
-        @setState swatches: _data
-        onSuccess(_data) if onSuccess?
-      error: (error) ->
-        d = error.responseJSON.errors
-        onFail(value: d.color, name: d.name, notes: d.notes) if onFail?
+  editSwatch(data, onSuccess, onFail) {
+    return $.ajax({
+      url: '/swatches/' + data.id,
+      data: this.swatchParams(data),
+      type: 'PATCH',
+      success: _data => {
+        this.setState({swatches: _data});
+        if (onSuccess != null) { return onSuccess(_data); }
+      },
+      error(error) {
+        const d = error.responseJSON.errors;
+        if (onFail != null) { return onFail({value: d.color, name: d.name, notes: d.notes}); }
+      }
+    });
+  },
     
-  newSwatch: (data, onSuccess, onFail) ->
-    $.ajax
-      url: @props.swatchesPath
-      data: @swatchParams(data)
-      type: 'POST'
-      success: (_data) =>
-        @setState swatches: _data
-        onSuccess(_data) if onSuccess?
-      error: (error) ->
-        d = error.responseJSON.errors
-        onFail(value: d.color, name: d.name, notes: d.notes) if onFail?
+  newSwatch(data, onSuccess, onFail) {
+    return $.ajax({
+      url: this.props.swatchesPath,
+      data: this.swatchParams(data),
+      type: 'POST',
+      success: _data => {
+        this.setState({swatches: _data});
+        if (onSuccess != null) { return onSuccess(_data); }
+      },
+      error(error) {
+        const d = error.responseJSON.errors;
+        if (onFail != null) { return onFail({value: d.color, name: d.name, notes: d.notes}); }
+      }
+    });
+  },
   
-  removeSwatch: (key) ->
-    $.ajax
-      url: '/swatches/' + key
-      type: 'DELETE'
-      success: (_data) =>
-        @setState swatches: _data
+  removeSwatch(key) {
+    return $.ajax({
+      url: '/swatches/' + key,
+      type: 'DELETE',
+      success: _data => {
+        return this.setState({swatches: _data});
+      }
+    });
+  },
 
-  componentDidMount: ->
-    $('#swatch-menu').collapsible()
+  componentDidMount() {
+    return $('#swatch-menu').collapsible();
+  },
 
-  componentDidUpdate: ->
-    $('#swatch-menu').collapsible()
+  componentDidUpdate() {
+    return $('#swatch-menu').collapsible();
+  },
 
-  render: ->
-    swatches = @state.swatches.map (swatch) ->
-        `<div className='swatch tooltipped'
-              key={ swatch.id }
-              style={{backgroundColor: swatch.color}}
-              data-tooltip={ swatch.name + ' - ' + swatch.color }
-              data-position='top' />`
+  render() {
+    let activeClass, createCallback, deleteCallback, updateCallback;
+    const swatches = this.state.swatches.map(swatch => <div className='swatch tooltipped'
+          key={ swatch.id }
+          style={{backgroundColor: swatch.color}}
+          data-tooltip={ swatch.name + ' - ' + swatch.color }
+          data-position='top' />);
 
-    swatchDetails = @state.swatches.map (swatch) ->
-      `<Attribute key={ swatch.id }
-                  value={ swatch.color }
-                  iconColor={ swatch.color }
-                  icon='palette'
-          {...swatch} />`
+    const swatchDetails = this.state.swatches.map(swatch => <Attribute key={ swatch.id }
+                value={ swatch.color }
+                iconColor={ swatch.color }
+                icon='palette'
+        {...swatch} />);
 
-    if @props.swatchesPath? && @props.edit
-      updateCallback = @editSwatch
-      createCallback = @newSwatch
-      deleteCallback = @removeSwatch
+    if ((this.props.swatchesPath != null) && this.props.edit) {
+      updateCallback = this.editSwatch;
+      createCallback = this.newSwatch;
+      deleteCallback = this.removeSwatch;
+    }
       
-    if @props.expand
-      activeClass = 'active'
+    if (this.props.expand) {
+      activeClass = 'active';
+    }
 
-    `<ul id='swatch-menu' className='collapsible character-swatches'>
+    return <ul id='swatch-menu' className='collapsible character-swatches'>
         <li>
             <div className={ 'collapsible-header swatch-container ' + activeClass }>
                 <div className='swatch-row'>
@@ -92,4 +122,6 @@
                 </AttributeTable>
             </div>
         </li>
-    </ul>`
+    </ul>;
+  }
+});

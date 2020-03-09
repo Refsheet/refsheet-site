@@ -1,61 +1,84 @@
-@InfiniteScroll = React.createClass
-  propTypes:
-    onLoad: React.PropTypes.func.isRequired
-    params: React.PropTypes.object.isRequired
-    perPage: React.PropTypes.number
-    scrollOffset: React.PropTypes.number
-    count: React.PropTypes.number
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.InfiniteScroll = React.createClass({
+  propTypes: {
+    onLoad: React.PropTypes.func.isRequired,
+    params: React.PropTypes.object.isRequired,
+    perPage: React.PropTypes.number,
+    scrollOffset: React.PropTypes.number,
+    count: React.PropTypes.number,
 
     stateLink: React.PropTypes.oneOfType([
-      React.PropTypes.object
+      React.PropTypes.object,
       React.PropTypes.func
     ]).isRequired
+  },
 
-  getDefaultProps: ->
-    perPage: 24
-    count: 0
+  getDefaultProps() {
+    return {
+      perPage: 24,
+      count: 0
+    };
+  },
 
-  getInitialState: ->
-    page: 1
-    lastPage: false # @props.count > 0 and @props.count < @props.perPage
-    loading: false
+  getInitialState() {
+    return {
+      page: 1,
+      lastPage: false, // @props.count > 0 and @props.count < @props.perPage
+      loading: false
+    };
+  },
 
-  componentWillReceiveProps: (newProps) ->
-#    if newProps.count < newProps.perPage
-#      @setState lastPage: true
-#    else
-#      @setState lastPage: false
+  componentWillReceiveProps(newProps) {},
+//    if newProps.count < newProps.perPage
+//      @setState lastPage: true
+//    else
+//      @setState lastPage: false
 
-  componentDidMount: ->
-    $(window).on 'scroll.infinite-scroll', =>
-      if !@state.lastPage and !@state.loading and ($(window).scrollTop() + $(window).height() > $(document).height() - (@props.scrollOffset || 100))
-        @_fetch()
+  componentDidMount() {
+    return $(window).on('scroll.infinite-scroll', () => {
+      if (!this.state.lastPage && !this.state.loading && (($(window).scrollTop() + $(window).height()) > ($(document).height() - (this.props.scrollOffset || 100)))) {
+        return this._fetch();
+      }
+    });
+  },
 
-  componentWillUnmount: ->
-    $(window).off 'scroll.infinite-scroll'
+  componentWillUnmount() {
+    return $(window).off('scroll.infinite-scroll');
+  },
 
-  _fetch: ->
-    fetchUrl = StateUtils.getFetchUrl(@props.stateLink, params: @props.match?.params)
-    data = page: parseInt(@state.page) + 1
+  _fetch() {
+    const fetchUrl = StateUtils.getFetchUrl(this.props.stateLink, {params: (this.props.match != null ? this.props.match.params : undefined)});
+    const data = {page: parseInt(this.state.page) + 1};
 
-    @setState loading: true, =>
-      Model.request 'GET', fetchUrl, data, (fetchData) =>
-        path = if typeof @props.stateLink is 'function' then @props.stateLink().statePath else @props.stateLink.statePath
-        items = ObjectPath.get fetchData, path
-        meta  = fetchData.$meta
+    return this.setState({loading: true}, () => {
+      return Model.request('GET', fetchUrl, data, fetchData => {
+        const path = typeof this.props.stateLink === 'function' ? this.props.stateLink().statePath : this.props.stateLink.statePath;
+        const items = ObjectPath.get(fetchData, path);
+        const meta  = fetchData.$meta;
 
-        console.debug "Infinite done:", items, meta
+        console.debug("Infinite done:", items, meta);
 
-        lastPage = items.length < (@props.perPage || 24)
-        @setState page: meta.page, lastPage: lastPage, loading: false, =>
-          @props.onLoad items
+        const lastPage = items.length < (this.props.perPage || 24);
+        return this.setState({page: meta.page, lastPage, loading: false}, () => {
+          return this.props.onLoad(items);
+        });
+      });
+    });
+  },
 
-  _loadMore: (e) ->
-    @_fetch()
-    e.preventDefault()
+  _loadMore(e) {
+    this._fetch();
+    return e.preventDefault();
+  },
 
-  render: ->
-    `<div className='infinite-scroll'>
+  render() {
+    return <div className='infinite-scroll'>
         { !this.state.lastPage && !this.state.loading &&
             <div className='margin-top--large center'>
                 <Button href='#' onClick={ this._loadMore } large block className='btn-flat grey darken-4 white-text'>Load More...</Button>
@@ -65,5 +88,7 @@
             <div className='margin-top--large center'>
                 <Spinner small />
             </div> }
-    </div>`
+    </div>;
+  }
+});
 

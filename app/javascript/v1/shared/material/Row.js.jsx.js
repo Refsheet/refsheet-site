@@ -1,30 +1,46 @@
-@Row = React.createClass
-  propTypes:
-    hidden: React.PropTypes.bool
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.Row = React.createClass({
+  propTypes: {
+    hidden: React.PropTypes.bool,
     oneColumn: React.PropTypes.bool
+  },
 
 
-  componentWillReceiveProps: (newProps) ->
-    if newProps.hidden != @props.hidden
-      if newProps.hidden
-        $(@refs.row).hide(0).addClass 'hidden'
-      else
-        $(@refs.row).fadeIn(300).removeClass 'hidden'
+  componentWillReceiveProps(newProps) {
+    if (newProps.hidden !== this.props.hidden) {
+      if (newProps.hidden) {
+        return $(this.refs.row).hide(0).addClass('hidden');
+      } else {
+        return $(this.refs.row).fadeIn(300).removeClass('hidden');
+      }
+    }
+  },
 
 
-  render: ->
-    className = @props.className || ''
-    className += ' no-margin' if @props.noMargin
-    className += ' hidden' if @props.hidden
-    className += ' no-gutter' if @props.noGutter
-    className += ' tiny-gutter' if @props.tinyGutter
+  render() {
+    let children;
+    let className = this.props.className || '';
+    if (this.props.noMargin) { className += ' no-margin'; }
+    if (this.props.hidden) { className += ' hidden'; }
+    if (this.props.noGutter) { className += ' no-gutter'; }
+    if (this.props.tinyGutter) { className += ' tiny-gutter'; }
 
-    if this.props.oneColumn
+    if (this.props.oneColumn) {
       children =
-        `<Column>{ this.props.children }</Column>`
-    else
-      children = this.props.children
+        <Column>{ this.props.children }</Column>;
+    } else {
+      ({
+        children
+      } = this.props);
+    }
 
-    `<div ref='row' className={ 'row ' + className }>
+    return <div ref='row' className={ 'row ' + className }>
         { children }
-    </div>`
+    </div>;
+  }
+});

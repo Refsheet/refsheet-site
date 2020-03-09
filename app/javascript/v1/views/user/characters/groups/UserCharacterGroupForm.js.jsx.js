@@ -1,26 +1,40 @@
-#@User.CharacterGroups.Form = React.createClass
-@UserCharacterGroupForm = React.createClass
-  propTypes:
-    group: React.PropTypes.object
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+//@User.CharacterGroups.Form = React.createClass
+this.UserCharacterGroupForm = React.createClass({
+  propTypes: {
+    group: React.PropTypes.object,
     onChange: React.PropTypes.func
+  },
 
-  getInitialState: ->
-    model:
-      name: @props.group?.name || ''
+  getInitialState() {
+    return {
+      model: {
+        name: (this.props.group != null ? this.props.group.name : undefined) || ''
+      }
+    };
+  },
 
-  render: ->
-    editing = !!@props.group
+  render() {
+    let action, icon, method;
+    const editing = !!this.props.group;
 
-    if editing
-      method = 'PUT'
-      action = @props.group.path
-      icon = 'edit'
-    else
-      method = 'POST'
-      action = '/character_groups'
-      icon = 'create_new_folder'
+    if (editing) {
+      method = 'PUT';
+      action = this.props.group.path;
+      icon = 'edit';
+    } else {
+      method = 'POST';
+      action = '/character_groups';
+      icon = 'create_new_folder';
+    }
 
-    `<li className='form fixed'>
+    return <li className='form fixed'>
         <Form action={ action }
               model={ this.state.model }
               className='inline'
@@ -40,4 +54,6 @@
                 <i className='material-icons'>save</i>
             </Submit>
         </Form>
-    </li>`
+    </li>;
+  }
+});

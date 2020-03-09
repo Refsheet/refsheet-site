@@ -1,70 +1,99 @@
-@BrowseApp = React.createClass
-  perPage: 16
-  scrollOffset: 100
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.BrowseApp = React.createClass({
+  perPage: 16,
+  scrollOffset: 100,
 
-  getInitialState: ->
-    searching: true
-    results: null
-    totalResults: null
-    page: null
-    lastPage: false
+  getInitialState() {
+    return {
+      searching: true,
+      results: null,
+      totalResults: null,
+      page: null,
+      lastPage: false
+    };
+  },
 
 
-  componentDidMount: ->
-    @doSearch(@props.location.query.q)
+  componentDidMount() {
+    this.doSearch(this.props.location.query.q);
 
-    $(window).on 'scroll.browse', =>
-      if !@state.lastPage and !@state.searching and $(window).scrollTop() + $(window).height() > $(document).height() - @scrollOffset
-        @_loadMore()
+    return $(window).on('scroll.browse', () => {
+      if (!this.state.lastPage && !this.state.searching && (($(window).scrollTop() + $(window).height()) > ($(document).height() - this.scrollOffset))) {
+        return this._loadMore();
+      }
+    });
+  },
 
-  componentWillUnmount: ->
-    $(window).off 'scroll.browse'
+  componentWillUnmount() {
+    return $(window).off('scroll.browse');
+  },
 
-  componentWillReceiveProps: (newProps) ->
-    if newProps.location.query.q != @props.location.query.q
-      @doSearch(newProps.location.query.q)
+  componentWillReceiveProps(newProps) {
+    if (newProps.location.query.q !== this.props.location.query.q) {
+      return this.doSearch(newProps.location.query.q);
+    }
+  },
 
-  _loadMore: ->
-    console.log "[BrowseApp] Loading more content: page #{@state.page + 1}"
-    @doSearch @props.location.query.q, @state.page + 1
+  _loadMore() {
+    console.log(`[BrowseApp] Loading more content: page ${this.state.page + 1}`);
+    return this.doSearch(this.props.location.query.q, this.state.page + 1);
+  },
 
-  doSearch: (query='', page=1) ->
-    if page > 1
-      s = searching: true
-    else
-      s = results: null, searching: true, page: null, lastPage: true, totalResults: 0
+  doSearch(query, page) {
+    let s;
+    if (query == null) { query = ''; }
+    if (page == null) { page = 1; }
+    if (page > 1) {
+      s = {searching: true};
+    } else {
+      s = {results: null, searching: true, page: null, lastPage: true, totalResults: 0};
+    }
 
-    @setState s, =>
-      $.ajax
-        url: '/characters.json'
-        data: q: query, page: page
-        success: (data) =>
-          results = []
-          results = results.concat @state.results if page > 1
-          results = results.concat data.characters
-          lastPage = data.characters.length < @perPage
-          totalResults = data.$meta.total
-          @setState { results, page, lastPage, totalResults, searching: false }
-          console.debug "[BrowseApp] Loaded #{data.characters.length} new records, #{results.length} total.", data.$meta
+    return this.setState(s, () => {
+      return $.ajax({
+        url: '/characters.json',
+        data: { q: query, page
+      },
+        success: data => {
+          let results = [];
+          if (page > 1) { results = results.concat(this.state.results); }
+          results = results.concat(data.characters);
+          const lastPage = data.characters.length < this.perPage;
+          const totalResults = data.$meta.total;
+          this.setState({ results, page, lastPage, totalResults, searching: false });
+          return console.debug(`[BrowseApp] Loaded ${data.characters.length} new records, ${results.length} total.`, data.$meta);
+        },
 
-        error: (error) =>
-          console.error error
-          @setState results: [], searching: false, page: null, lastPage: true, totalResults: 0
-          Materialize.toast({ html: error.responseText, displayLength: 3000, classes: 'red' })
+        error: error => {
+          console.error(error);
+          this.setState({results: [], searching: false, page: null, lastPage: true, totalResults: 0});
+          return Materialize.toast({ html: error.responseText, displayLength: 3000, classes: 'red' });
+        }
+      });
+    });
+  },
 
-  render: ->
-    if @props.location.query.q
-      title = 'Search Results'
-    else
-      title = 'Browse'
+  render() {
+    let results, title;
+    if (this.props.location.query.q) {
+      title = 'Search Results';
+    } else {
+      title = 'Browse';
+    }
 
-    if @state.results != null
-      results = @state.results.map (character) ->
-        `<div className='col m3 s6' key={ character.slug }>
-            <CharacterLinkCard {...StringUtils.camelizeKeys(character)} />
-        </div>`
+    if (this.state.results !== null) {
+      results = this.state.results.map(character => <div className='col m3 s6' key={ character.slug }>
+          <CharacterLinkCard {...StringUtils.camelizeKeys(character)} />
+      </div>);
+    }
 
-    `<Main title={ title }>
+    return <Main title={ title }>
         <Section className='search-results'>
             { this.state.searching
                 ? <div>Searching...</div>
@@ -94,4 +123,6 @@
                     <Button href='#' onClick={ this._loadMore } large block className='btn-flat grey darken-4 white-text'>Load More...</Button>
                 </div> }
         </Section>
-    </Main>`
+    </Main>;
+  }
+});

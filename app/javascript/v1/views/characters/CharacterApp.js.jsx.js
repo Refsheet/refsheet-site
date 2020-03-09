@@ -1,168 +1,230 @@
-Component = React.createClass
-  contextTypes:
-    router: React.PropTypes.object.isRequired
-    eagerLoad: React.PropTypes.object
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+const Component = React.createClass({
+  contextTypes: {
+    router: React.PropTypes.object.isRequired,
+    eagerLoad: React.PropTypes.object,
     currentUser: React.PropTypes.object
+  },
 
 
-  getInitialState: ->
-    character: null
-    error: null
-    galleryTitle: null
-    onGallerySelect: null
-    images: null
-    editable: true
+  getInitialState() {
+    return {
+      character: null,
+      error: null,
+      galleryTitle: null,
+      onGallerySelect: null,
+      images: null,
+      editable: true
+    };
+  },
 
-  dataPath: '/users/:userId/characters/:characterId'
-  paramMap:
-    characterId: 'id'
+  dataPath: '/users/:userId/characters/:characterId',
+  paramMap: {
+    characterId: 'id',
     userId: 'user_id'
+  },
 
-  componentWillMount: ->
-    StateUtils.load @, 'character'
+  componentWillMount() {
+    return StateUtils.load(this, 'character');
+  },
 
-  componentWillReceiveProps: (newProps) ->
-    StateUtils.reload @, 'character', newProps
+  componentWillReceiveProps(newProps) {
+    return StateUtils.reload(this, 'character', newProps);
+  },
 
-  componentDidMount: ->
-    @props.setUploadTarget(@state.character?.real_id)
+  componentDidMount() {
+    this.props.setUploadTarget(this.state.character != null ? this.state.character.real_id : undefined);
 
-    $(document)
-      .on 'app:character:update', (e, character) =>
-        if @state.character.real_id == character.real_id
-          @setState character: character
+    return $(document)
+      .on('app:character:update', (e, character) => {
+        if (this.state.character.real_id === character.real_id) {
+          return this.setState({character});
+        }
+    }).on('app:character:profileImage:edit', () => {
+        this.setState({
+          galleryTitle: 'Select Profile Picture',
+          onGallerySelect: imageId => {
+            this.setProfileImage(imageId);
+            return M.Modal.getInstance(document.getElementById('image-gallery-modal')).close();
+          }
+        });
+        return M.Modal.getInstance(document.getElementById('image-gallery-modal')).open();
+        }).on('app:character:reload app:image:delete', (e, newPath, callback = null) => {
+        if (newPath == null) { newPath = this.state.character.path; }
+        console.debug("[CharacterApp] Reloading character...");
+        return $.get(`${newPath}.json`, data => {
+          this.setState({character: data});
+          if (callback != null) { return callback(data); }
+        });
+    });
+  },
 
-      .on 'app:character:profileImage:edit', =>
-        @setState
-          galleryTitle: 'Select Profile Picture'
-          onGallerySelect: (imageId) =>
-            @setProfileImage(imageId)
-            M.Modal.getInstance(document.getElementById('image-gallery-modal')).close()
-        M.Modal.getInstance(document.getElementById('image-gallery-modal')).open()
-
-      .on 'app:character:reload app:image:delete', (e, newPath = @state.character.path, callback = null) =>
-        console.debug "[CharacterApp] Reloading character..."
-        $.get "#{newPath}.json", (data) =>
-          @setState character: data
-          callback(data) if callback?
-
-  componentWillUnmount: ->
-    $(document).off 'app:character:update'
-    $(document).off 'app:character:profileImage:edit'
-    $(document).off 'app:character:reload'
-    $(document).off 'app:image:delete'
-
-
-  componentWillUpdate: (newProps, newState) ->
-    if newState.character && @state.character && newState.character.link != @state.character.link
-      window.history.replaceState {}, '', newState.character.link
-      @props.setUploadTarget(@state.character?.real_id)
-
-
-  setFeaturedImage: (imageId) ->
-    $.ajax
-      url: @state.character.path
-      type: 'PATCH'
-      data: { character: { featured_image_guid: imageId } }
-      success: (data) =>
-        Materialize.toast({ html: 'Cover image changed!', displayLength: 3000, classes: 'green' })
-        @setState character: data
-      error: (error) =>
-        errors = error.responseJSON.errors
-        Materialize.toast({ html: errors.featured_image, displayLength: 3000, classes: 'red' })
-
-  setProfileImage: (imageId) ->
-    $.ajax
-      url: @state.character.path
-      type: 'PATCH'
-      data: { character: { profile_image_guid: imageId } }
-      success: (data) =>
-        Materialize.toast({ html: 'Profile image changed!', displayLength: 3000, classes: 'green' })
-        @setState character: data
-      error: (error) =>
-        errors = error.responseJSON.errors
-        Materialize.toast({ html: errors.profile_image, displayLength: 3000, classes: 'red' })
-
-  handleProfileChange: (data, onSuccess, onError) ->
-    $.ajax
-      url: @state.character.path
-      data: character: profile: data
-      type: 'PATCH'
-      success: (data) =>
-        @setState character: data
-        onSuccess()
-      error: (error) =>
-        onError(error)
-
-  handleLikesChange: (data, onSuccess, onError) ->
-    $.ajax
-      url: @state.character.path
-      data: character: likes: data
-      type: 'PATCH'
-      success: (data) =>
-        @setState character: data
-        onSuccess()
-      error: (error) =>
-        onError(error)
-
-  handleDislikesChange: (data, onSuccess, onError) ->
-    $.ajax
-      url: @state.character.path
-      data: character: dislikes: data
-      type: 'PATCH'
-      success: (data) =>
-        @setState character: data
-        onSuccess()
-      error: (error) =>
-        onError(error)
-
-  handleHeaderImageEdit: ->
-    @setState
-      galleryTitle: 'Select Header Image'
-      onGallerySelect: (imageId) =>
-        @setFeaturedImage(imageId)
-        M.Modal.getInstance(document.getElementById('image-gallery-modal')).close()
-    M.Modal.getInstance(document.getElementById('image-gallery-modal')).open()
-
-  handleDropzoneUpload: (data) ->
-    i = @state.images
-    i.push data
-    @setState images: i
+  componentWillUnmount() {
+    $(document).off('app:character:update');
+    $(document).off('app:character:profileImage:edit');
+    $(document).off('app:character:reload');
+    return $(document).off('app:image:delete');
+  },
 
 
-  _handleGalleryLoad: (data) ->
-    @setState images: data
-
-  _toggleEditable: ->
-    @setState editable: !@state.editable
-
-  _openUploads: ->
-    @props.openUploadModal()
-
-  render: ->
-    if @state.error?
-      return `<NotFound />`
-
-    unless @state.character?
-      return `<CharacterViewSilhouette />`
-
-    if @state.character.version == 2
-      return `<Packs.application.CharacterController />`
-
-    if @state.character.user_id == @context.currentUser?.username
-      showMenu = true
-
-      if @state.editable
-        editable = true
-        dropzoneUpload = @handleDropzoneUpload
-        profileChange = @handleProfileChange
-        likesChange = @handleLikesChange
-        dislikesChange = @handleDislikesChange
-        headerImageEditCallback = @handleHeaderImageEdit
-        dropzoneTriggerId = [ '#image-upload' ]
+  componentWillUpdate(newProps, newState) {
+    if (newState.character && this.state.character && (newState.character.link !== this.state.character.link)) {
+      window.history.replaceState({}, '', newState.character.link);
+      return this.props.setUploadTarget(this.state.character != null ? this.state.character.real_id : undefined);
+    }
+  },
 
 
-    `<Main title={[ this.state.character.name, 'Characters' ]}>
+  setFeaturedImage(imageId) {
+    return $.ajax({
+      url: this.state.character.path,
+      type: 'PATCH',
+      data: { character: { featured_image_guid: imageId } },
+      success: data => {
+        Materialize.toast({ html: 'Cover image changed!', displayLength: 3000, classes: 'green' });
+        return this.setState({character: data});
+      },
+      error: error => {
+        const {
+          errors
+        } = error.responseJSON;
+        return Materialize.toast({ html: errors.featured_image, displayLength: 3000, classes: 'red' });
+      }
+    });
+  },
+
+  setProfileImage(imageId) {
+    return $.ajax({
+      url: this.state.character.path,
+      type: 'PATCH',
+      data: { character: { profile_image_guid: imageId } },
+      success: data => {
+        Materialize.toast({ html: 'Profile image changed!', displayLength: 3000, classes: 'green' });
+        return this.setState({character: data});
+      },
+      error: error => {
+        const {
+          errors
+        } = error.responseJSON;
+        return Materialize.toast({ html: errors.profile_image, displayLength: 3000, classes: 'red' });
+      }
+    });
+  },
+
+  handleProfileChange(data, onSuccess, onError) {
+    return $.ajax({
+      url: this.state.character.path,
+      data: { character: {profile: data}
+    },
+      type: 'PATCH',
+      success: data => {
+        this.setState({character: data});
+        return onSuccess();
+      },
+      error: error => {
+        return onError(error);
+      }
+    });
+  },
+
+  handleLikesChange(data, onSuccess, onError) {
+    return $.ajax({
+      url: this.state.character.path,
+      data: { character: {likes: data}
+    },
+      type: 'PATCH',
+      success: data => {
+        this.setState({character: data});
+        return onSuccess();
+      },
+      error: error => {
+        return onError(error);
+      }
+    });
+  },
+
+  handleDislikesChange(data, onSuccess, onError) {
+    return $.ajax({
+      url: this.state.character.path,
+      data: { character: {dislikes: data}
+    },
+      type: 'PATCH',
+      success: data => {
+        this.setState({character: data});
+        return onSuccess();
+      },
+      error: error => {
+        return onError(error);
+      }
+    });
+  },
+
+  handleHeaderImageEdit() {
+    this.setState({
+      galleryTitle: 'Select Header Image',
+      onGallerySelect: imageId => {
+        this.setFeaturedImage(imageId);
+        return M.Modal.getInstance(document.getElementById('image-gallery-modal')).close();
+      }
+    });
+    return M.Modal.getInstance(document.getElementById('image-gallery-modal')).open();
+  },
+
+  handleDropzoneUpload(data) {
+    const i = this.state.images;
+    i.push(data);
+    return this.setState({images: i});
+  },
+
+
+  _handleGalleryLoad(data) {
+    return this.setState({images: data});
+  },
+
+  _toggleEditable() {
+    return this.setState({editable: !this.state.editable});
+  },
+
+  _openUploads() {
+    return this.props.openUploadModal();
+  },
+
+  render() {
+    let dislikesChange, editable, headerImageEditCallback, likesChange, profileChange, showMenu;
+    if (this.state.error != null) {
+      return <NotFound />;
+    }
+
+    if (this.state.character == null) {
+      return <CharacterViewSilhouette />;
+    }
+
+    if (this.state.character.version === 2) {
+      return <Packs.application.CharacterController />;
+    }
+
+    if (this.state.character.user_id === (this.context.currentUser != null ? this.context.currentUser.username : undefined)) {
+      showMenu = true;
+
+      if (this.state.editable) {
+        editable = true;
+        const dropzoneUpload = this.handleDropzoneUpload;
+        profileChange = this.handleProfileChange;
+        likesChange = this.handleLikesChange;
+        dislikesChange = this.handleDislikesChange;
+        headerImageEditCallback = this.handleHeaderImageEdit;
+        const dropzoneTriggerId = [ '#image-upload' ];
+      }
+    }
+
+
+    return <Main title={[ this.state.character.name, 'Characters' ]}>
         { this.state.character.color_scheme &&
             <PageStylesheet colorData={ this.state.character.color_scheme.color_data } /> }
 
@@ -254,14 +316,15 @@ Component = React.createClass
                           images={ this.state.images }
                           onImagesLoad={ this._handleGalleryLoad } />
         </Section>
-    </Main>`
+    </Main>;
+  }
+});
 
-mapDispatchToProps = {
-  setUploadTarget: setUploadTarget,
+const mapDispatchToProps = {
+  setUploadTarget,
   openUploadModal: Actions.openUploadModal
-}
+};
 
-mapStateToProps = (state) ->
-  state
+const mapStateToProps = state => state;
 
-@CharacterApp = connect(mapStateToProps, mapDispatchToProps)(Component)
+this.CharacterApp = connect(mapStateToProps, mapDispatchToProps)(Component);

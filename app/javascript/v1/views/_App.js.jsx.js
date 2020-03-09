@@ -1,66 +1,82 @@
-@LegacyApp = React.createClass
-  childContextTypes:
-    currentUser: React.PropTypes.object
-    session: React.PropTypes.object
-    setCurrentUser: React.PropTypes.func
-    eagerLoad: React.PropTypes.object
-    environment: React.PropTypes.string
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.LegacyApp = React.createClass({
+  childContextTypes: {
+    currentUser: React.PropTypes.object,
+    session: React.PropTypes.object,
+    setCurrentUser: React.PropTypes.func,
+    eagerLoad: React.PropTypes.object,
+    environment: React.PropTypes.string,
     reportImage: React.PropTypes.func
+  },
 
 
-  getInitialState: ->
+  getInitialState() {
     return {
-      loading: 0
-      reportImageId: null
-      eagerLoad: @props.eagerLoad || {}
+      loading: 0,
+      reportImageId: null,
+      eagerLoad: this.props.eagerLoad || {}
+    };
+  },
+
+  getChildContext() {
+    return {
+      currentUser: this.props.session.currentUser,
+      session: StringUtils.unCamelizeKeys(this.props.session),
+      setCurrentUser: this._onLogin,
+      eagerLoad: this.state.eagerLoad,
+      environment: this.props.environment,
+      reportImage: this._reportImage
+    };
+  },
+
+  componentDidMount() {
+    this.setState({eagerLoad: null});
+    console.debug('[App] Mount complete, clearing eager load.');
+
+    return $(document)
+      .on('app:session:update', (e, session) => {
+        console.log("Event login (deprecated!): ", session);
+        ReactGA.set({userId: (session.current_user != null ? session.current_user.id : undefined)});
+        return this.props.setCurrentUser(session.current_user);
+    }).on('app:loading', () => {
+        let val = this.state.loading + 1;
+        if (val <= 0) { val = 1; }
+        return this.setState({loading: val});
+      }).on('app:loading:done', () => {
+        let val = this.state.loading - 1;
+        if (val < 0) { val = 0; }
+        return this.setState({loading: val});
+    });
+  },
+
+
+  _onLogin(user, callback) {
+    this.props.setCurrentUser(user);
+    return ReactGA.set({userId: (user != null ? user.id : undefined)});
+  },
+
+  _reportImage(e) {
+    let imageId;
+    if ((e != null ? e.target : undefined)) {
+      imageId = $(e.target).data('image-id');
+    } else {
+      imageId = e;
     }
 
-  getChildContext: ->
-    currentUser: @props.session.currentUser
-    session: StringUtils.unCamelizeKeys @props.session
-    setCurrentUser: @_onLogin
-    eagerLoad: @state.eagerLoad
-    environment: @props.environment
-    reportImage: @_reportImage
+    console.debug(`Reporting: ${imageId}`);
+    return this.setState({reportImageId: imageId});
+  },
 
-  componentDidMount: ->
-    @setState eagerLoad: null
-    console.debug '[App] Mount complete, clearing eager load.'
+  render() {
+    const currentUser = this.props.session.currentUser || {};
 
-    $(document)
-      .on 'app:session:update', (e, session) =>
-        console.log("Event login (deprecated!): ", session)
-        ReactGA.set userId: session.current_user?.id
-        @props.setCurrentUser session.current_user
-
-      .on 'app:loading', =>
-        val = @state.loading + 1
-        val = 1 if val <= 0
-        @setState loading: val
-
-      .on 'app:loading:done', =>
-        val = @state.loading - 1
-        val = 0 if val < 0
-        @setState loading: val
-
-
-  _onLogin: (user, callback) ->
-    @props.setCurrentUser user
-    ReactGA.set userId: user?.id
-
-  _reportImage: (e) ->
-    if e?.target
-      imageId = $(e.target).data('image-id')
-    else
-      imageId = e
-
-    console.debug "Reporting: #{imageId}"
-    @setState reportImageId: imageId
-
-  render: ->
-    currentUser = @props.session.currentUser || {}
-
-    `<div id='rootApp'>
+    return <div id='rootApp'>
         { this.state.loading > 0 &&
             <LoadingOverlay /> }
 
@@ -95,15 +111,18 @@
                 {/*early access to new features as I develop them. Why not become a Patron?*/}
             {/*</div>*/}
         {/*</NagBar>*/}
-    </div>`
+    </div>;
+  }
+});
 
-# HACK : Redux bridge for session
-console.log("Bridging redux to session.")
+// HACK : Redux bridge for session
+console.log("Bridging redux to session.");
 
-mapStateToProps = (state) ->
+const mapStateToProps = state => ({
   session: state.session
+});
 
-mapDispatchToProps =
-  setCurrentUser: setCurrentUser
+const mapDispatchToProps =
+  {setCurrentUser};
 
-@App = connect(mapStateToProps, mapDispatchToProps)(@LegacyApp)
+this.App = connect(mapStateToProps, mapDispatchToProps)(this.LegacyApp);

@@ -1,31 +1,42 @@
-@Views.Account.Suggestions = React.createClass
-  getInitialState: ->
-    suggested: null
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+this.Views.Account.Suggestions = React.createClass({
+  getInitialState() {
+    return {suggested: null};
+  },
 
-  dataPath: '/users/suggested'
+  dataPath: '/users/suggested',
 
-  componentDidMount: ->
-    StateUtils.load @, 'suggested', undefined, undefined, urlParams: limit: 6
+  componentDidMount() {
+    return StateUtils.load(this, 'suggested', undefined, undefined, {urlParams: {limit: 6}});
+  },
 
-  _handleFollow: (f, id) ->
-    HashUtils.findItem @state.suggested, id, (u) ->
-      u.followed = f
-      StateUtils.updateItem @, 'suggested', u
+  _handleFollow(f, id) {
+    return HashUtils.findItem(this.state.suggested, id, function(u) {
+      u.followed = f;
+      return StateUtils.updateItem(this, 'suggested', u);
+    });
+  },
 
-  render: ->
-    return null unless @state.suggested
+  render() {
+    if (!this.state.suggested) { return null; }
 
-    suggestions = @state.suggested.map (user) ->
-      `<li className='collection-item margin-bottom--small'
+    const suggestions = this.state.suggested.map(function(user) {
+      return <li className='collection-item margin-bottom--small'
            style={{ padding: '0.5rem 0' }}
            key={ user.username }
       >
           <Views.Account.UserCard user={ user }
                                   onFollow={ this._handleFollow }
                                   smaller />
-      </li>`
+      </li>;
+    });
 
-    `<ul className='collection-flat' style={{ marginTop: 0, marginBottom: '3rem' }}>
+    return <ul className='collection-flat' style={{ marginTop: 0, marginBottom: '3rem' }}>
         <li className='subheader'
             style={{
                 fontSize: '0.9rem',
@@ -39,4 +50,6 @@
         </li>
 
         { suggestions }
-    </ul>`
+    </ul>;
+  }
+});
