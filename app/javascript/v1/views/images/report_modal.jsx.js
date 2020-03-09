@@ -1,3 +1,18 @@
+/* eslint-disable
+    constructor-super,
+    no-constant-condition,
+    no-this-before-super,
+    no-undef,
+    no-unused-vars,
+    react/jsx-no-target-blank,
+    react/jsx-no-undef,
+    react/no-deprecated,
+    react/no-string-refs,
+    react/prop-types,
+    react/react-in-jsx-scope,
+*/
+// TODO: This file was created by bulk-decaffeinate.
+// Fix any style issues and re-enable lint.
 /*
  * decaffeinate suggestions:
  * DS001: Remove Babel/TypeScript constructor workaround
