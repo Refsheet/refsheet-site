@@ -141,3 +141,5 @@
             </Section>
         </DropzoneContainer>
     </Main>`
+
+export default User

@@ -1,7 +1,11 @@
-@Static.View = React.createClass
+import React from 'react'
+import PropTypes from 'prop-types'
+import createReactClass from 'create-react-class'
+
+@View = createReactClass
   contextTypes:
-    router: React.PropTypes.object.isRequired
-    eagerLoad: React.PropTypes.object
+    router: PropTypes.object.isRequired
+    eagerLoad: PropTypes.object
 
   dataPath: '/static/:pageId'
 
@@ -33,3 +37,4 @@
 
     else
       `<Main />`
+export default @View

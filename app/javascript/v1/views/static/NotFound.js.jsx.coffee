@@ -1,3 +1,5 @@
+import React from 'react'
+
 @NotFound = ->
   `<main className='modal-page-content'>
       <div className='container'>
@@ -5,3 +7,4 @@
           <div className='flow-text'>That's unfortunate. Where did it go?</div>
       </div>
   </main>`
+export default @NotFound
