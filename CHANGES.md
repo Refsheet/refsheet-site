@@ -18,23 +18,24 @@
 
 ## Major Things
 
-- Speed improvement when loading lists of users, mostly in the forums
+- Speed improvement when loading lists of users, mostly in the forums ($-)
 
 ## Minor Things
 
-- Notifications menu is now available for all users
+- Notifications menu is now available for all users ($+)
 - Introduced validation structure to frontend to show errors before submitting some forms
 - Introduced policy structure to frontend to easily control who is allowed to do what
 
 ## WIPs
 
-- V2 profile work continues, now with Settings, Delete and Transfer forms
-- V2 forum work continues, with a "create discussion" view working and several other views
+- V2 profile work continues, now with Settings, Delete and Transfer forms ($++)
+- V2 forum work continues, with a "create discussion" view working and several other views ($+)
 - V2 forums now support search and sort!
 
 ## Framework
 
-- Improved metric reporting and image server scaling based on queue size, not CPU usage
+- Improved metric reporting and image server scaling based on queue size, not CPU usage ($--)
+- Implemented some metrics on request duration to identify slow queries and speed up the site ($+++)
 
 
 # 01/20/20

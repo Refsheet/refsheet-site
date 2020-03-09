@@ -172,6 +172,26 @@ class Discussions extends Component {
         </main>
 
         <aside className={'sidebar left-pad'}>
+          <div
+            className={
+              'feature-preview-notice margin-bottom--large center-align'
+            }
+          >
+            <strong>You're viewing the new Forums.</strong>
+            <p>
+              A lot has changed, but there is still a lot of work to do. If
+              something is missing or broken, you can still go back to the old
+              forums. If you do go back to the V1 forums, please let me know
+              why!
+            </p>
+            <a
+              href={`/forums/${forum.slug}`}
+              className={'btn-small btn btn-secondary btn-flat'}
+            >
+              Use V1 Forum
+            </a>
+          </div>
+
           {typeof Advertisement != 'undefined' && <Advertisement />}
         </aside>
       </div>

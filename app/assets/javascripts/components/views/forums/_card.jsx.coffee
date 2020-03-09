@@ -14,7 +14,7 @@
     flagIcons.push `<Icon title={ hint } key={ hint }>{ flagIcon }</Icon>`
 
 
-  `<Link to={ path } className='block'>
+  `<Link to={ '/v2' + path } className='block'>
       <div className='card summary-card no-margin center'>
           <div className='card-image'>
               <Icon>{ icon || 'forum' }</Icon>
