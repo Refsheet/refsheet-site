@@ -19,49 +19,59 @@ this.LoginForm = React.createClass({
       user: {
         username: null,
         password: null,
-        remember: true
-      }
-    };
+        remember: true,
+      },
+    }
   },
 
   _handleError(user) {
     return this.setState({
       user: {
         username: this.state.user.username,
-        password: null
-      }
-    });
+        password: null,
+      },
+    })
   },
 
   _handleLogin(session) {
-    const user = session.current_user;
-    $(document).trigger('app:session:update', session);
-    if (this.props.onLogin) { return this.props.onLogin(session); }
+    const user = session.current_user
+    $(document).trigger('app:session:update', session)
+    if (this.props.onLogin) {
+      return this.props.onLogin(session)
+    }
   },
 
   render() {
-    return <Form action='/session'
-           method='POST'
-           modelName='user'
-           model={ this.state.user }
-           onChange={ this._handleLogin }>
+    return (
+      <Form
+        action="/session"
+        method="POST"
+        modelName="user"
+        model={this.state.user}
+        onChange={this._handleLogin}
+      >
+        <Input name="username" label="Username" autoFocus />
+        <Input name="password" type="password" label="Password" />
 
-        <Input name='username' label='Username' autoFocus />
-        <Input name='password' type='password' label='Password' />
-
-        { this.props.children }
+        {this.props.children}
 
         <Input type="checkbox" name="remember" label="Keep me signed in" />
 
-        <Row className='actions'>
-            <Column>
-                <Link to='/register' className='btn btn-secondary z-depth-0 modal-close waves-effect waves-light'>Register</Link>
+        <Row className="actions">
+          <Column>
+            <Link
+              to="/register"
+              className="btn btn-secondary z-depth-0 modal-close waves-effect waves-light"
+            >
+              Register
+            </Link>
 
-                <div className='right'>
-                    <Submit>Log In</Submit>
-                </div>
-            </Column>
+            <div className="right">
+              <Submit>Log In</Submit>
+            </div>
+          </Column>
         </Row>
-    </Form>;
-  }
-});
+      </Form>
+    )
+  },
+})

@@ -13,6 +13,6 @@
  */
 this.CharacterIndexView = React.createClass({
   render() {
-    return <div/>;
-  }
-});
+    return <div />
+  },
+})

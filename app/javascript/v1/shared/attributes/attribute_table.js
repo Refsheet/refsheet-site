@@ -18,12 +18,12 @@ this.AttributeTable = React.createClass({
   getInitialState() {
     return {
       activeEditor: this.props.activeEditor,
-      appendMode: false
-    };
+      appendMode: false,
+    }
   },
 
   clearEditor() {
-    return this.setState({activeEditor: null});
+    return this.setState({ activeEditor: null })
   },
 
   componentDidMount() {
@@ -33,33 +33,40 @@ this.AttributeTable = React.createClass({
         placeholder: 'drop-target',
         forcePlaceholderSize: true,
         stop: (_, el) => {
-          const $item = $(el.item[0]);
-          const position = $item.parent().children().index($item);
+          const $item = $(el.item[0])
+          const position = $item
+            .parent()
+            .children()
+            .index($item)
 
           return this.props.onAttributeUpdate({
             id: $item.data('attribute-id'),
-            rowOrderPosition: position
-          });
-        }
-      });
+            rowOrderPosition: position,
+          })
+        },
+      })
     }
   },
 
   _triggerAppend(e) {
-    this.setState({appendMode: true});
-    return e.preventDefault();
+    this.setState({ appendMode: true })
+    return e.preventDefault()
   },
 
   render() {
-    let newForm;
+    let newForm
     const children = React.Children.map(this.props.children, child => {
-      if (this.props.hideEmpty && !child.props.value) { return; }
-      if ((child != null ? child.type : undefined) !== Attribute) { return child; }
+      if (this.props.hideEmpty && !child.props.value) {
+        return
+      }
+      if ((child != null ? child.type : undefined) !== Attribute) {
+        return child
+      }
 
       return React.cloneElement(child, {
         onCommit: this.props.onAttributeUpdate,
         onDelete: this.props.onAttributeDelete,
-        editorActive: (this.state.activeEditor === child.key),
+        editorActive: this.state.activeEditor === child.key,
         sortable: this.props.sortable,
         valueType: this.props.valueType,
         defaultValue: this.props.defaultValue,
@@ -67,44 +74,53 @@ this.AttributeTable = React.createClass({
         hideNotesForm: this.props.hideNotesForm,
 
         onEditStart: () => {
-          return this.setState({activeEditor: child.key, appendMode: false});
+          return this.setState({ activeEditor: child.key, appendMode: false })
         },
-          
+
         onEditStop: () => {
-          return this.setState({activeEditor: null});
-        }
-      }
-      );
-    });
+          return this.setState({ activeEditor: null })
+        },
+      })
+    })
 
     if (this.props.onAttributeCreate != null) {
       if (this.state.appendMode) {
-        newForm =
-          <AttributeForm onCommit={ this.props.onAttributeCreate }
-                          inactive={ this.state.activeEditor != null }
-                          hideNotes={ this.props.hideNotesForm }
-                          hideIcon={ this.props.hideIcon }
-                          valueType={ this.props.valueType }
-                          onFocus={ this.clearEditor } />;
+        newForm = (
+          <AttributeForm
+            onCommit={this.props.onAttributeCreate}
+            inactive={this.state.activeEditor != null}
+            hideNotes={this.props.hideNotesForm}
+            hideIcon={this.props.hideIcon}
+            valueType={this.props.valueType}
+            onFocus={this.clearEditor}
+          />
+        )
       } else {
-        newForm =
-          <li className='attribute-form'>
-              <div className='full-row'>
-                  <a href='#' onClick={ this._triggerAppend } className='block'>
-                      <i className='material-icons'>add</i>
-                  </a>
-              </div>
-          </li>;
+        newForm = (
+          <li className="attribute-form">
+            <div className="full-row">
+              <a href="#" onClick={this._triggerAppend} className="block">
+                <i className="material-icons">add</i>
+              </a>
+            </div>
+          </li>
+        )
       }
     }
 
-    let className = 'attribute-table';
-    if (this.props.sortable) { className += ' sortable'; }
-    if (this.props.className) { className += ' ' + this.props.className; }
+    let className = 'attribute-table'
+    if (this.props.sortable) {
+      className += ' sortable'
+    }
+    if (this.props.className) {
+      className += ' ' + this.props.className
+    }
 
-    return <ul className={ className } ref='table'>
-        { children }
-        { newForm }
-    </ul>;
-  }
-});
+    return (
+      <ul className={className} ref="table">
+        {children}
+        {newForm}
+      </ul>
+    )
+  },
+})

@@ -16,59 +16,91 @@
  */
 this.UserSettingsModal = React.createClass({
   getInitialState() {
-    return {user: this.props.user};
+    return { user: this.props.user }
   },
 
   handleSettingsClose(e) {
-    return M.Modal.getInstance(document.getElementById('user-settings-modal')).close();
+    return M.Modal.getInstance(
+      document.getElementById('user-settings-modal')
+    ).close()
   },
 
   handleSettingsChange(setting, onSuccess, onError) {
-    const o = {};
-    o[setting.id] = setting.value;
+    const o = {}
+    o[setting.id] = setting.value
 
     return $.ajax({
       url: this.state.user.path,
       type: 'PATCH',
-      data: { user: o
-    },
+      data: { user: o },
       success: data => {
-        this.setState({user: data});
-        if (onSuccess != null) { return onSuccess({value: data[setting.id]}); }
+        this.setState({ user: data })
+        if (onSuccess != null) {
+          return onSuccess({ value: data[setting.id] })
+        }
       },
       error: error => {
-        if (onError != null) { return onError({value: (error.responseJSON != null ? error.responseJSON.errors[setting.id] : undefined)}); }
-      }
-    });
+        if (onError != null) {
+          return onError({
+            value:
+              error.responseJSON != null
+                ? error.responseJSON.errors[setting.id]
+                : undefined,
+          })
+        }
+      },
+    })
   },
 
   render() {
-    return <Modal id='user-settings-modal'>
-        <div className='card-panel margin-bottom--large green darken-1 white-text'>
-            <div className='strong'>Notice!</div>
-            This window will be going away soon! Please use the Settings link in the left
-            menu of your user dashboard to change your account settings.
+    return (
+      <Modal id="user-settings-modal">
+        <div className="card-panel margin-bottom--large green darken-1 white-text">
+          <div className="strong">Notice!</div>
+          This window will be going away soon! Please use the Settings link in
+          the left menu of your user dashboard to change your account settings.
         </div>
 
         <h2>User Settings</h2>
         <p>Be sure to save each row individually.</p>
 
-        <AttributeTable onAttributeUpdate={ this.handleSettingsChange }
-                        freezeName hideNotesForm>
-            <Attribute id='name' name='Display Name' value={ this.state.user.name } />
-            <Attribute id='email' name='Email Address' value={ this.state.user.email } />
+        <AttributeTable
+          onAttributeUpdate={this.handleSettingsChange}
+          freezeName
+          hideNotesForm
+        >
+          <Attribute
+            id="name"
+            name="Display Name"
+            value={this.state.user.name}
+          />
+          <Attribute
+            id="email"
+            name="Email Address"
+            value={this.state.user.email}
+          />
         </AttributeTable>
 
         <h3>Danja Zone!</h3>
         <p>Changing these values can break links you've posted elsewhere!</p>
-        <AttributeTable onAttributeUpdate={ this.handleSettingsChange }
-                        freezeName hideNotesForm>
-            <Attribute id='username' name='Username' value={ this.state.user.username } />
+        <AttributeTable
+          onAttributeUpdate={this.handleSettingsChange}
+          freezeName
+          hideNotesForm
+        >
+          <Attribute
+            id="username"
+            name="Username"
+            value={this.state.user.username}
+          />
         </AttributeTable>
 
-        <div className='actions margin-top--large'>
-            <a className='btn' onClick={ this.handleSettingsClose }>Close</a>
+        <div className="actions margin-top--large">
+          <a className="btn" onClick={this.handleSettingsClose}>
+            Close
+          </a>
         </div>
-    </Modal>;
-  }
-});
+      </Modal>
+    )
+  },
+})

@@ -13,18 +13,20 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 this.Loading = function(props) {
-  const classNames = ['modal-page-content'];
-  if (props.className) { classNames.push(props.className); }
+  const classNames = ['modal-page-content']
+  if (props.className) {
+    classNames.push(props.className)
+  }
 
-  return <main className={ classNames.join(' ') }>
-      <div className='container'>
-          <Spinner small={ props.small } />
+  return (
+    <main className={classNames.join(' ')}>
+      <div className="container">
+        <Spinner small={props.small} />
 
-          { props.message !== false &&
-              <h1>{ props.message || 'Loading...' }</h1>
-          }
+        {props.message !== false && <h1>{props.message || 'Loading...'}</h1>}
 
-          { props.children }
+        {props.children}
       </div>
-  </main>;
-};
+    </main>
+  )
+}

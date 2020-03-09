@@ -1,21 +1,11 @@
-/* eslint-disable
-    no-undef,
-*/
-// TODO: This file was created by bulk-decaffeinate.
-// Fix any style issues and re-enable lint.
-/*
- * decaffeinate suggestions:
- * DS208: Avoid top-level this
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
-import View from './static/View.js.jsx.coffee';
-import NotFound from './static/NotFound.js.jsx.coffee';
-import Home from './static/Home.js.jsx.coffee';
+import View from './static/View'
+import NotFound from './static/NotFound'
+import Home from './static/Home'
 
-this.Static = {
+Static = {
   Home,
   NotFound,
-  View
-};
+  View,
+}
 
-export default Static;
+export default Static

@@ -23,86 +23,106 @@ this.Form = React.createClass({
     errors: React.PropTypes.object,
     className: React.PropTypes.string,
     changeEvent: React.PropTypes.string,
-    resetOnSubmit: React.PropTypes.bool
+    resetOnSubmit: React.PropTypes.bool,
   },
-
 
   getInitialState() {
     return {
       model: $.extend({}, this.props.model),
       errors: this.props.errors || {},
       dirty: false,
-      invalid: Object.keys(this.props.errors || {}).length
-    };
+      invalid: Object.keys(this.props.errors || {}).length,
+    }
   },
 
   componentWillReceiveProps(newProps) {
     if (newProps.model !== this.props.model) {
-      return this.setState({model: $.extend({}, newProps.model), errors: (newProps.errors || {}), dirty: false});
+      return this.setState({
+        model: $.extend({}, newProps.model),
+        errors: newProps.errors || {},
+        dirty: false,
+      })
     }
   },
 
   reload() {
-    return this.setState({model: $.extend({}, this.props.model), errors: (this.props.errors || {}), dirty: false});
+    return this.setState({
+      model: $.extend({}, this.props.model),
+      errors: this.props.errors || {},
+      dirty: false,
+    })
   },
 
   componentDidMount() {
-    return Materialize.updateTextFields();
+    return Materialize.updateTextFields()
   },
 
   componentDidUpdate() {
-    return Materialize.updateTextFields();
+    return Materialize.updateTextFields()
   },
 
-
   reset() {
-    this.setState({model: $.extend({}, this.props.model), dirty: false});
-    if (this.props.onDirty) { return this.props.onDirty(false); }
+    this.setState({ model: $.extend({}, this.props.model), dirty: false })
+    if (this.props.onDirty) {
+      return this.props.onDirty(false)
+    }
   },
 
   submit() {
-    return this._handleFormSubmit();
+    return this._handleFormSubmit()
   },
 
-  setModel(data, dirty, callback=null) {
-    if (dirty == null) { dirty = true; }
+  setModel(data, dirty, callback = null) {
+    if (dirty == null) {
+      dirty = true
+    }
     return this.setState({ model: $.extend({}, data), dirty }, () => {
-      if (this.props.onDirty) { this.props.onDirty(dirty); }
-      if (this.props.onUpdate) { this.props.onUpdate(data); }
-      if (callback) { return callback(); }
-    });
+      if (this.props.onDirty) {
+        this.props.onDirty(dirty)
+      }
+      if (this.props.onUpdate) {
+        this.props.onUpdate(data)
+      }
+      if (callback) {
+        return callback()
+      }
+    })
   },
-
 
   _handleInputChange(name, value) {
-    const newModel = $.extend({}, this.state.model);
-    newModel[name] = value;
-    const errors = $.extend({}, this.state.errors);
-    errors[name] = undefined;
-    let dirty = false;
-    let invalid = false;
+    const newModel = $.extend({}, this.state.model)
+    newModel[name] = value
+    const errors = $.extend({}, this.state.errors)
+    errors[name] = undefined
+    let dirty = false
+    let invalid = false
 
     for (let k in newModel) {
-      const v = newModel[k];
-      const o = this.props.model[k];
-      if (errors[k]) { invalid = true; }
+      const v = newModel[k]
+      const o = this.props.model[k]
+      if (errors[k]) {
+        invalid = true
+      }
 
-      if ((v !== o) && !((v === false) && (typeof(o) === 'undefined'))) {
-        dirty = true;
+      if (v !== o && !(v === false && typeof o === 'undefined')) {
+        dirty = true
       }
     }
 
-    this.setState({model: newModel, dirty, invalid, errors});
-    if (this.props.onUpdate) { this.props.onUpdate(newModel); }
-    if (this.props.onDirty) { return this.props.onDirty(dirty); }
+    this.setState({ model: newModel, dirty, invalid, errors })
+    if (this.props.onUpdate) {
+      this.props.onUpdate(newModel)
+    }
+    if (this.props.onDirty) {
+      return this.props.onDirty(dirty)
+    }
   },
 
-
   _handleFormSubmit(e) {
-    $(document).trigger('app:loading');
+    $(document).trigger('app:loading')
 
-    const data = {};
-    ObjectPath.set(data, this.props.modelName, this.state.model);
+    const data = {}
+    ObjectPath.set(data, this.props.modelName, this.state.model)
 
     $.ajax({
       url: this.props.action,
@@ -110,84 +130,115 @@ this.Form = React.createClass({
       data,
       dataType: 'json',
       success: data => {
-        this.setState({dirty: false, errors: {}});
-        if (this.props.onChange) { this.props.onChange(data); }
-        if (this.props.onDirty) { this.props.onDirty(false); }
-        if (this.props.resetOnSubmit) { this.reset(); }
-        if (this.props.changeEvent) { $(document).trigger(this.props.changeEvent, data); }
-        return console.log("Complete:", data);
+        this.setState({ dirty: false, errors: {} })
+        if (this.props.onChange) {
+          this.props.onChange(data)
+        }
+        if (this.props.onDirty) {
+          this.props.onDirty(false)
+        }
+        if (this.props.resetOnSubmit) {
+          this.reset()
+        }
+        if (this.props.changeEvent) {
+          $(document).trigger(this.props.changeEvent, data)
+        }
+        return console.log('Complete:', data)
       },
 
       error: data => {
-        if (this.props.onError) { this.props.onError(data); }
-        console.log("Error:", data);
+        if (this.props.onError) {
+          this.props.onError(data)
+        }
+        console.log('Error:', data)
 
         if (data.responseJSON != null ? data.responseJSON.errors : undefined) {
-          console.warn("Error messages:", data.responseJSON.errors);
-          return this.setState({errors: data.responseJSON.errors, invalid: true});
-        } else if ((data.responseJSON != null ? data.responseJSON.error : undefined)) {
-          return Materialize.toast({ html: data.responseJSON.error, displayLength: 3000, classes: 'red' });
+          console.warn('Error messages:', data.responseJSON.errors)
+          return this.setState({
+            errors: data.responseJSON.errors,
+            invalid: true,
+          })
+        } else if (
+          data.responseJSON != null ? data.responseJSON.error : undefined
+        ) {
+          return Materialize.toast({
+            html: data.responseJSON.error,
+            displayLength: 3000,
+            classes: 'red',
+          })
         } else {
-          return Materialize.toast({ html: data.responseText, displayLength: 3000, classes: 'red' });
+          return Materialize.toast({
+            html: data.responseText,
+            displayLength: 3000,
+            classes: 'red',
+          })
         }
       },
 
       complete() {
-        return $(document).trigger('app:loading:done');
-      }
-    });
+        return $(document).trigger('app:loading:done')
+      },
+    })
 
-    if (e != null) { return e.preventDefault(); }
+    if (e != null) {
+      return e.preventDefault()
+    }
   },
-
 
   _processChildren(children) {
     return React.Children.map(children, child => {
-      let childProps = {};
+      let childProps = {}
 
       if (!React.isValidElement(child)) {
-        return child;
+        return child
       }
 
       if (child.type === Input) {
         if (child.props.name) {
-          const errorKey = child.props.errorPath ? child.props.errorPath + '.' + child.props.name : child.props.name;
-          const value = this.state.model[child.props.name];
+          const errorKey = child.props.errorPath
+            ? child.props.errorPath + '.' + child.props.name
+            : child.props.name
+          const value = this.state.model[child.props.name]
           childProps = {
             key: child.props.name,
             value,
             error: this.state.errors[errorKey],
             onChange: this._handleInputChange,
             onSubmit: this._handleFormSubmit,
-            modelName: this.props.modelName
-          };
+            modelName: this.props.modelName,
+          }
         } else {
-          childProps =
-            {key: child.props.id};
+          childProps = { key: child.props.id }
         }
       }
 
       if (child.props.children) {
-        childProps.children = this._processChildren(child.props.children);
+        childProps.children = this._processChildren(child.props.children)
       }
 
-      return React.cloneElement(child, childProps);
-    });
+      return React.cloneElement(child, childProps)
+    })
   },
 
   render() {
-    const children = this._processChildren(this.props.children);
+    const children = this._processChildren(this.props.children)
 
-    const classNames = [];
-    classNames.push(this.props.className);
-    if (this.state.invalid) { classNames.push('has-errors'); }
+    const classNames = []
+    classNames.push(this.props.className)
+    if (this.state.invalid) {
+      classNames.push('has-errors')
+    }
 
-    return <form onSubmit={ this._handleFormSubmit }
-           className={ classNames.join(' ') }
-           action={ this.props.action }
-           method={ this.props.method }
-           noValidate>
-        { children }
-    </form>;
-  }
-});
+    return (
+      <form
+        onSubmit={this._handleFormSubmit}
+        className={classNames.join(' ')}
+        action={this.props.action}
+        method={this.props.method}
+        noValidate
+      >
+        {children}
+      </form>
+    )
+  },
+})

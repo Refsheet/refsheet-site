@@ -15,46 +15,59 @@
  */
 this.ImageApp = React.createClass({
   getInitialState() {
-    return {image: null};
+    return { image: null }
   },
 
   load(data) {
-    return this.setState({image: data}, function() {
-      data.directLoad = true;
-      return $(document).trigger('app:lightbox', data);
-    });
+    return this.setState({ image: data }, function() {
+      data.directLoad = true
+      return $(document).trigger('app:lightbox', data)
+    })
   },
 
   fetch(imageId) {
-    if (!imageId) { return; }
-    return Model.get(`/images/${imageId}.json`, this.load);
+    if (!imageId) {
+      return
+    }
+    return Model.get(`/images/${imageId}.json`, this.load)
   },
 
   componentWillMount() {
-    return this.fetch(this.props.match != null ? this.props.match.params.imageId : undefined);
+    return this.fetch(
+      this.props.match != null ? this.props.match.params.imageId : undefined
+    )
   },
 
   componentWillReceiveProps(newProps) {
-    if ((newProps.match != null ? newProps.match.params.imageId : undefined) && this.state.image && ((newProps.match != null ? newProps.match.params.imageId : undefined) !== (this.state.image != null ? this.state.image.id : undefined))) {
-      return this.fetch(newProps.match != null ? newProps.match.params.imageId : undefined);
+    if (
+      (newProps.match != null ? newProps.match.params.imageId : undefined) &&
+      this.state.image &&
+      (newProps.match != null ? newProps.match.params.imageId : undefined) !==
+        (this.state.image != null ? this.state.image.id : undefined)
+    ) {
+      return this.fetch(
+        newProps.match != null ? newProps.match.params.imageId : undefined
+      )
     }
   },
 
   render() {
     if (this.state.image != null) {
-      return <CharacterViewSilhouette title={[ this.state.image.title, 'Images' ]}
-                                coverImage={ this.state.image.character.featured_image_url }
-                                immediate />;
-
+      return (
+        <CharacterViewSilhouette
+          title={[this.state.image.title, 'Images']}
+          coverImage={this.state.image.character.featured_image_url}
+          immediate
+        />
+      )
     } else {
-      return <CharacterViewSilhouette />;
+      return <CharacterViewSilhouette />
     }
-  }
-});
+  },
+})
 
+// BROKEN THINGS FOR TOMRROW
 
-      // BROKEN THINGS FOR TOMRROW
-
-      // Change eagerload to CONTEXT
-      // Loading screen broken?
-      // Character load on their own.
+// Change eagerload to CONTEXT
+// Loading screen broken?
+// Character load on their own.

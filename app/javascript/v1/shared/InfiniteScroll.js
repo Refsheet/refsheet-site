@@ -24,80 +24,104 @@ this.InfiniteScroll = React.createClass({
 
     stateLink: React.PropTypes.oneOfType([
       React.PropTypes.object,
-      React.PropTypes.func
-    ]).isRequired
+      React.PropTypes.func,
+    ]).isRequired,
   },
 
   getDefaultProps() {
     return {
       perPage: 24,
-      count: 0
-    };
+      count: 0,
+    }
   },
 
   getInitialState() {
     return {
       page: 1,
       lastPage: false, // @props.count > 0 and @props.count < @props.perPage
-      loading: false
-    };
+      loading: false,
+    }
   },
 
   componentWillReceiveProps(newProps) {},
-//    if newProps.count < newProps.perPage
-//      @setState lastPage: true
-//    else
-//      @setState lastPage: false
+  //    if newProps.count < newProps.perPage
+  //      @setState lastPage: true
+  //    else
+  //      @setState lastPage: false
 
   componentDidMount() {
     return $(window).on('scroll.infinite-scroll', () => {
-      if (!this.state.lastPage && !this.state.loading && (($(window).scrollTop() + $(window).height()) > ($(document).height() - (this.props.scrollOffset || 100)))) {
-        return this._fetch();
+      if (
+        !this.state.lastPage &&
+        !this.state.loading &&
+        $(window).scrollTop() + $(window).height() >
+          $(document).height() - (this.props.scrollOffset || 100)
+      ) {
+        return this._fetch()
       }
-    });
+    })
   },
 
   componentWillUnmount() {
-    return $(window).off('scroll.infinite-scroll');
+    return $(window).off('scroll.infinite-scroll')
   },
 
   _fetch() {
-    const fetchUrl = StateUtils.getFetchUrl(this.props.stateLink, {params: (this.props.match != null ? this.props.match.params : undefined)});
-    const data = {page: parseInt(this.state.page) + 1};
+    const fetchUrl = StateUtils.getFetchUrl(this.props.stateLink, {
+      params: this.props.match != null ? this.props.match.params : undefined,
+    })
+    const data = { page: parseInt(this.state.page) + 1 }
 
-    return this.setState({loading: true}, () => {
+    return this.setState({ loading: true }, () => {
       return Model.request('GET', fetchUrl, data, fetchData => {
-        const path = typeof this.props.stateLink === 'function' ? this.props.stateLink().statePath : this.props.stateLink.statePath;
-        const items = ObjectPath.get(fetchData, path);
-        const meta  = fetchData.$meta;
+        const path =
+          typeof this.props.stateLink === 'function'
+            ? this.props.stateLink().statePath
+            : this.props.stateLink.statePath
+        const items = ObjectPath.get(fetchData, path)
+        const meta = fetchData.$meta
 
-        console.debug("Infinite done:", items, meta);
+        console.debug('Infinite done:', items, meta)
 
-        const lastPage = items.length < (this.props.perPage || 24);
-        return this.setState({page: meta.page, lastPage, loading: false}, () => {
-          return this.props.onLoad(items);
-        });
-      });
-    });
+        const lastPage = items.length < (this.props.perPage || 24)
+        return this.setState(
+          { page: meta.page, lastPage, loading: false },
+          () => {
+            return this.props.onLoad(items)
+          }
+        )
+      })
+    })
   },
 
   _loadMore(e) {
-    this._fetch();
-    return e.preventDefault();
+    this._fetch()
+    return e.preventDefault()
   },
 
   render() {
-    return <div className='infinite-scroll'>
-        { !this.state.lastPage && !this.state.loading &&
-            <div className='margin-top--large center'>
-                <Button href='#' onClick={ this._loadMore } large block className='btn-flat grey darken-4 white-text'>Load More...</Button>
-            </div> }
+    return (
+      <div className="infinite-scroll">
+        {!this.state.lastPage && !this.state.loading && (
+          <div className="margin-top--large center">
+            <Button
+              href="#"
+              onClick={this._loadMore}
+              large
+              block
+              className="btn-flat grey darken-4 white-text"
+            >
+              Load More...
+            </Button>
+          </div>
+        )}
 
-        { this.state.loading &&
-            <div className='margin-top--large center'>
-                <Spinner small />
-            </div> }
-    </div>;
-  }
-});
-
+        {this.state.loading && (
+          <div className="margin-top--large center">
+            <Spinner small />
+          </div>
+        )}
+      </div>
+    )
+  },
+})

@@ -20,25 +20,43 @@ this.IdentityAvatar = React.createClass({
       name: React.PropTypes.string.isRequired,
       username: React.PropTypes.string.isRequired,
       type: React.PropTypes.string,
-      avatar_url: React.PropTypes.string
+      avatar_url: React.PropTypes.string,
     }),
-    avatarUrl: React.PropTypes.string
+    avatarUrl: React.PropTypes.string,
   },
 
   render() {
-    let imgShadow, nameColor;
-    const to = StringUtils.indifferentKeys(this.props.src);
-    if (!to.type) { to.type = 'user'; }
-
-    if (to.is_admin || (typeof user !== 'undefined' && user !== null ? user.is_admin : undefined)) {
-      imgShadow = '0 0 3px 1px #2480C8';
-      nameColor = '#2480C8';
-
-    } else if (to.is_patron || (typeof user !== 'undefined' && user !== null ? user.is_patron : undefined)) {
-      imgShadow = '0 0 3px 1px #F96854';
-      nameColor = '#F96854';
+    let imgShadow, nameColor
+    const to = StringUtils.indifferentKeys(this.props.src)
+    if (!to.type) {
+      to.type = 'user'
     }
 
-    return <img src={ this.props.avatarUrl || to.avatarUrl } alt={ this.props.name || to.name } className='avatar circle' style={{ boxShadow: imgShadow }} height={48} width={48} />;
-  }
-});
+    if (
+      to.is_admin ||
+      (typeof user !== 'undefined' && user !== null ? user.is_admin : undefined)
+    ) {
+      imgShadow = '0 0 3px 1px #2480C8'
+      nameColor = '#2480C8'
+    } else if (
+      to.is_patron ||
+      (typeof user !== 'undefined' && user !== null
+        ? user.is_patron
+        : undefined)
+    ) {
+      imgShadow = '0 0 3px 1px #F96854'
+      nameColor = '#F96854'
+    }
+
+    return (
+      <img
+        src={this.props.avatarUrl || to.avatarUrl}
+        alt={this.props.name || to.name}
+        className="avatar circle"
+        style={{ boxShadow: imgShadow }}
+        height={48}
+        width={48}
+      />
+    )
+  },
+})

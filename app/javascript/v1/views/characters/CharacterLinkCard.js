@@ -13,16 +13,33 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 this.CharacterLinkCard = function(props) {
-  const colorData = (props.colorScheme != null ? props.colorScheme.color_data : undefined) || {};
+  const colorData =
+    (props.colorScheme != null ? props.colorScheme.color_data : undefined) || {}
 
-  return <div className='character-link-card' style={{ backgroundColor: colorData['image-background'] || '#000000' }}>
-      <Link to={ props.link } className='image'>
-          <img src={ props.profileImageUrl } />
+  return (
+    <div
+      className="character-link-card"
+      style={{ backgroundColor: colorData['image-background'] || '#000000' }}
+    >
+      <Link to={props.link} className="image">
+        <img src={props.profileImageUrl} />
       </Link>
 
-      <div className='details' style={{ backgroundColor: colorData['card-background'] }}>
-        <Link to={ props.link } className='name' style={{ color: colorData['accent1'] }}>{ props.name }</Link>
-        <div className='species' style={{ color: colorData['text'] }}>{ props.species || 'Unknown Species' }</div>
+      <div
+        className="details"
+        style={{ backgroundColor: colorData['card-background'] }}
+      >
+        <Link
+          to={props.link}
+          className="name"
+          style={{ color: colorData['accent1'] }}
+        >
+          {props.name}
+        </Link>
+        <div className="species" style={{ color: colorData['text'] }}>
+          {props.species || 'Unknown Species'}
+        </div>
       </div>
-  </div>;
-};
+    </div>
+  )
+}

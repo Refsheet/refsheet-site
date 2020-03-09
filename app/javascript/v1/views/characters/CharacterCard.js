@@ -15,112 +15,138 @@
  */
 this.CharacterCard = React.createClass({
   getInitialState() {
-    return {character: this.props.character};
+    return { character: this.props.character }
   },
 
   componentWillUpdate(newProps) {
     if (newProps.character !== this.props.character) {
-      return this.setState({character: newProps.character});
+      return this.setState({ character: newProps.character })
     }
   },
 
   handleAttributeChange(data, onSuccess, onError) {
-    const postData =
-      {character: {}};
-    postData.character[data.id] = data.value;
+    const postData = { character: {} }
+    postData.character[data.id] = data.value
 
     return $.ajax({
       url: this.state.character.path,
       type: 'PATCH',
       data: postData,
       success: data => {
-        this.setState({character: data});
-        return onSuccess();
+        this.setState({ character: data })
+        return onSuccess()
       },
       error: error => {
-        return onError({value: (error.JSONData != null ? error.JSONData.errors[data.id] : undefined)});
-      }
-    });
+        return onError({
+          value:
+            error.JSONData != null ? error.JSONData.errors[data.id] : undefined,
+        })
+      },
+    })
   },
 
   handleSpecialNotesChange(markup, onSuccess, onError) {
     return $.ajax({
       url: this.state.character.path,
       type: 'PATCH',
-      data: { character: {special_notes: markup}
-    },
+      data: { character: { special_notes: markup } },
       success: data => {
-        this.setState({character: data});
-        return onSuccess();
+        this.setState({ character: data })
+        return onSuccess()
       },
 
       error: error => {
-        return onError(error.JSONData != null ? error.JSONData.errors['special_notes'] : undefined);
-      }
-    });
+        return onError(
+          error.JSONData != null
+            ? error.JSONData.errors['special_notes']
+            : undefined
+        )
+      },
+    })
   },
 
   handleProfileImageEdit() {
-    return $(document).trigger('app:character:profileImage:edit');
+    return $(document).trigger('app:character:profileImage:edit')
   },
 
   _handleFollow(f) {
-    return this.setState(HashUtils.set(this.state, 'character.followed', f), () => Materialize.toast({ html: `Character ${f ? 'followed!' : 'unfollowed.'}`, displayLength: 3000, classes: 'green' }));
+    return this.setState(
+      HashUtils.set(this.state, 'character.followed', f),
+      () =>
+        Materialize.toast({
+          html: `Character ${f ? 'followed!' : 'unfollowed.'}`,
+          displayLength: 3000,
+          classes: 'green',
+        })
+    )
   },
-      
+
   _handleChange(char) {
-    if (this.props.onChange) { this.props.onChange(char); }
-    return this.setState({character: char});
+    if (this.props.onChange) {
+      this.props.onChange(char)
+    }
+    return this.setState({ character: char })
   },
 
   render() {
-    let attributeUpdate, editable, nickname, notesUpdate;
+    let attributeUpdate, editable, nickname, notesUpdate
     if (this.props.edit) {
-      attributeUpdate = this.handleAttributeChange;
-      notesUpdate = this.handleSpecialNotesChange;
-      editable = true;
+      attributeUpdate = this.handleAttributeChange
+      notesUpdate = this.handleSpecialNotesChange
+      editable = true
     }
 
-    const description =
-      <div className='description'>
-          <AttributeTable onAttributeUpdate={ attributeUpdate }
-                          defaultValue='Unspecified'
-                          freezeName
-                          hideEmpty={ !this.props.edit }
-                          hideNotesForm>
-
-              <Attribute id='species' name='Species' value={ this.state.character.species } />
-          </AttributeTable>
-          
-          <Views.Character.Attributes characterPath={ this.state.character.path }
-                                      attributes={ this.state.character.custom_attributes }
-                                      onChange={ this._handleChange }
-                                      editable={ editable }
+    const description = (
+      <div className="description">
+        <AttributeTable
+          onAttributeUpdate={attributeUpdate}
+          defaultValue="Unspecified"
+          freezeName
+          hideEmpty={!this.props.edit}
+          hideNotesForm
+        >
+          <Attribute
+            id="species"
+            name="Species"
+            value={this.state.character.species}
           />
+        </AttributeTable>
 
-          { (this.state.character.special_notes || editable) &&
-              <div className='important-notes margin-top--large margin-bottom--medium'>
-                  <h2>Important Notes</h2>
-                  <RichText content={ this.state.character.special_notes_html }
-                            markup={ this.state.character.special_notes }
-                            onChange={ notesUpdate } />
-              </div>
-          }
-      </div>;
+        <Views.Character.Attributes
+          characterPath={this.state.character.path}
+          attributes={this.state.character.custom_attributes}
+          onChange={this._handleChange}
+          editable={editable}
+        />
+
+        {(this.state.character.special_notes || editable) && (
+          <div className="important-notes margin-top--large margin-bottom--medium">
+            <h2>Important Notes</h2>
+            <RichText
+              content={this.state.character.special_notes_html}
+              markup={this.state.character.special_notes}
+              onChange={notesUpdate}
+            />
+          </div>
+        )}
+      </div>
+    )
 
     if (this.props.nickname) {
-      nickname = <span className='nickname'> ({ this.state.character.nickname })</span>;
+      nickname = (
+        <span className="nickname"> ({this.state.character.nickname})</span>
+      )
     }
 
-    let prefixClass = 'title-prefix';
-    const suffixClass = 'title-suffix';
+    let prefixClass = 'title-prefix'
+    const suffixClass = 'title-suffix'
 
     if (this.props.officialPrefix) {
-      prefixClass += ' official';
+      prefixClass += ' official'
     }
 
     if (this.props.officialSuffix) {
-      prefixClass += ' official';
+      prefixClass += ' official'
     }
 
     const gravity_crop = {
@@ -128,28 +154,31 @@ this.CharacterCard = React.createClass({
       north: { objectPosition: 'top' },
       south: { objectPosition: 'bottom' },
       east: { objectPosition: 'right' },
-      west: { objectPosition: 'left' }
-    };
+      west: { objectPosition: 'left' },
+    }
 
-    return <div className='character-card' style={{ minHeight: 400 }}>
-        <div className='character-details'>
-            <div className='heading'>
-                <div className='right'>
-                    <Views.User.Follow followed={ this.state.character.followed }
-                                       username={ this.state.character.user_id }
-                                       onFollow={ this._handleFollow }
-                                       short />
-                </div>
-
-                <h1 className='name'>
-                    <span className={ prefixClass }>{ this.props.titlePrefix } </span>
-                    <span className='real-name'>{ this.state.character.name }</span>
-                    { nickname }
-                    <span className={ suffixClass }> { this.props.titleSuffix }</span>
-                </h1>
+    return (
+      <div className="character-card" style={{ minHeight: 400 }}>
+        <div className="character-details">
+          <div className="heading">
+            <div className="right">
+              <Views.User.Follow
+                followed={this.state.character.followed}
+                username={this.state.character.user_id}
+                onFollow={this._handleFollow}
+                short
+              />
             </div>
 
-            { description }
+            <h1 className="name">
+              <span className={prefixClass}>{this.props.titlePrefix} </span>
+              <span className="real-name">{this.state.character.name}</span>
+              {nickname}
+              <span className={suffixClass}> {this.props.titleSuffix}</span>
+            </h1>
+          </div>
+
+          {description}
         </div>
 
         {/*<div className='user-icon'>
@@ -158,20 +187,27 @@ this.CharacterCard = React.createClass({
             </Link>
         </div>*/}
 
-        <div className='character-image' onClick={ this.handleImageClick }>
-            <div className='slant' />
-            <img src={ this.state.character.profile_image.medium }
-                 data-image-id={ this.state.character.profile_image.id }
-                 style={ gravity_crop[this.state.character.profile_image.gravity] } />
+        <div className="character-image" onClick={this.handleImageClick}>
+          <div className="slant" />
+          <img
+            src={this.state.character.profile_image.medium}
+            data-image-id={this.state.character.profile_image.id}
+            style={gravity_crop[this.state.character.profile_image.gravity]}
+          />
 
-            { editable &&
-                <a className='image-edit-overlay' onClick={ this.handleProfileImageEdit }>
-                    <div className='content'>
-                        <i className='material-icons'>photo_camera</i>
-                        Change Image
-                    </div>
-                </a> }
+          {editable && (
+            <a
+              className="image-edit-overlay"
+              onClick={this.handleProfileImageEdit}
+            >
+              <div className="content">
+                <i className="material-icons">photo_camera</i>
+                Change Image
+              </div>
+            </a>
+          )}
         </div>
-    </div>;
-  }
-});
+      </div>
+    )
+  },
+})

@@ -19,114 +19,131 @@ this.UserCharacterGroupLink = React.createClass({
       group: React.PropTypes.object.isRequired,
       editable: React.PropTypes.bool,
       onChange: React.PropTypes.func,
-      active: React.PropTypes.bool
-    };
+      active: React.PropTypes.bool,
+    }
   },
 
   getInitialState() {
     return {
       edit: false,
-      dropOver: false
-    };
+      dropOver: false,
+    }
   },
 
   componentDidMount() {
-    return this._initialize();
+    return this._initialize()
   },
 
   componentDidUpdate() {
-    return this._initialize();
+    return this._initialize()
   },
 
-
   _initialize() {
-    if (!this.props.editable) { return; }
+    if (!this.props.editable) {
+      return
+    }
 
-    const $link = $(this.refs.link);
+    const $link = $(this.refs.link)
 
     return $link.droppable({
       tolerance: 'pointer',
       accept: '.character-drag',
       over: (_, ui) => {
-        $(ui.draggable).siblings('.drop-target').hide();
-        return this.setState({dropOver: true});
+        $(ui.draggable)
+          .siblings('.drop-target')
+          .hide()
+        return this.setState({ dropOver: true })
       },
 
       out: (_, ui) => {
-        $(ui.draggable).siblings('.drop-target').show();
-        return this.setState({dropOver: false});
+        $(ui.draggable)
+          .siblings('.drop-target')
+          .show()
+        return this.setState({ dropOver: false })
       },
 
       drop: (event, ui) => {
-        const $source = ui.draggable;
-        $source.addClass('dropped');
-        const sourceId = $source.data('character-id');
-        this._handleDrop(sourceId);
-        return this.setState({dropOver: false});
-      }
-    });
+        const $source = ui.draggable
+        $source.addClass('dropped')
+        const sourceId = $source.data('character-id')
+        this._handleDrop(sourceId)
+        return this.setState({ dropOver: false })
+      },
+    })
   },
 
-
   _handleEdit(e) {
-    this.setState({edit: true});
-    return e.preventDefault();
+    this.setState({ edit: true })
+    return e.preventDefault()
   },
 
   _handleChange(data) {
-    this.setState({edit: false});
-    return this.props.onChange(data);
+    this.setState({ edit: false })
+    return this.props.onChange(data)
   },
 
   _handleDrop(characterId) {
-    return Model.post(this.props.group.path + '/characters', {id: characterId}, data => {
-      return this.props.onChange(data, characterId);
-    });
+    return Model.post(
+      this.props.group.path + '/characters',
+      { id: characterId },
+      data => {
+        return this.props.onChange(data, characterId)
+      }
+    )
   },
 
-
   render() {
-    const { editable, active } = this.props;
+    const { editable, active } = this.props
 
     if (this.state.edit) {
-      return <UserCharacterGroupForm group={ this.props.group }
-                               onChange={ this._handleChange } />;
-
+      return (
+        <UserCharacterGroupForm
+          group={this.props.group}
+          onChange={this._handleChange}
+        />
+      )
     } else {
-      let count, folder;
-      const classNames = ['sortable-link', 'character-group-drop'];
-      if (active) { classNames.push('active'); }
+      let count, folder
+      const classNames = ['sortable-link', 'character-group-drop']
+      if (active) {
+        classNames.push('active')
+      }
 
       if (editable) {
-        count = this.props.group.characters_count;
+        count = this.props.group.characters_count
       } else {
-        count = this.props.group.visible_characters_count;
+        count = this.props.group.visible_characters_count
       }
 
       if (this.state.dropOver) {
-        folder = 'add';
+        folder = 'add'
       } else if (active) {
-        folder = 'folder_open';
+        folder = 'folder_open'
       } else {
-        folder = 'folder';
+        folder = 'folder'
       }
 
-      return <li className={ classNames.join(' ') } ref='link' data-group-id={ this.props.group.slug }>
-          <i className='material-icons left folder'>{ folder }</i>
+      return (
+        <li
+          className={classNames.join(' ')}
+          ref="link"
+          data-group-id={this.props.group.slug}
+        >
+          <i className="material-icons left folder">{folder}</i>
 
-          <Link to={ this.props.group.link } className='name'>
-              { this.props.group.name }
+          <Link to={this.props.group.link} className="name">
+            {this.props.group.name}
           </Link>
 
-          <span className='count'>
-              { NumberUtils.format(count) }
-          </span>
+          <span className="count">{NumberUtils.format(count)}</span>
 
-          { editable &&
-              <a href='#' onClick={ this._handleEdit } className='action'>
-                  <i className='material-icons'>edit</i>
-              </a> }
-      </li>;
+          {editable && (
+            <a href="#" onClick={this._handleEdit} className="action">
+              <i className="material-icons">edit</i>
+            </a>
+          )}
+        </li>
+      )
     }
-  }
-});
+  },
+})

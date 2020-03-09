@@ -23,47 +23,64 @@ this.User.Characters = React.createClass({
     onGroupSort: React.PropTypes.func.isRequired,
     onGroupDelete: React.PropTypes.func.isRequired,
     onCharacterDelete: React.PropTypes.func.isRequired,
-    onCharacterSort: React.PropTypes.func.isRequired
-},
-
+    onCharacterSort: React.PropTypes.func.isRequired,
+  },
 
   render() {
-    let listEditable;
-    const { groups, characters, editable, userLink, activeGroupId, onGroupChange, onGroupSort, onGroupDelete, onCharacterDelete, onCharacterSort } = this.props;
+    let listEditable
+    const {
+      groups,
+      characters,
+      editable,
+      userLink,
+      activeGroupId,
+      onGroupChange,
+      onGroupSort,
+      onGroupDelete,
+      onCharacterDelete,
+      onCharacterSort,
+    } = this.props
 
     if (activeGroupId) {
-      listEditable = false;
+      listEditable = false
     } else {
-      listEditable = editable;
-  }
+      listEditable = editable
+    }
 
-    return <div className='sidebar-container'>
-        <div className='sidebar'>
-            { editable &&
-                <a href='#character-form' className='margin-bottom--large btn btn-block center waves-effect waves-light modal-trigger'>
-                    New Character
-                </a>
-            }
+    return (
+      <div className="sidebar-container">
+        <div className="sidebar">
+          {editable && (
+            <a
+              href="#character-form"
+              className="margin-bottom--large btn btn-block center waves-effect waves-light modal-trigger"
+            >
+              New Character
+            </a>
+          )}
 
-            <User.Characters.Groups groups={ groups }
-                                    editable={ editable }
-                                    totalCount={ characters.length }
-                                    onChange={ onGroupChange }
-                                    onSort={ onGroupSort }
-                                    onGroupDelete={ onGroupDelete }
-                                    onCharacterDelete={ onCharacterDelete }
-                                    activeGroupId={ activeGroupId }
-                                    userLink={ userLink }
-            />
+          <User.Characters.Groups
+            groups={groups}
+            editable={editable}
+            totalCount={characters.length}
+            onChange={onGroupChange}
+            onSort={onGroupSort}
+            onGroupDelete={onGroupDelete}
+            onCharacterDelete={onCharacterDelete}
+            activeGroupId={activeGroupId}
+            userLink={userLink}
+          />
         </div>
 
-        <div className='main-content'>
-            <User.Characters.List characters={ characters }
-                                  activeGroupId={ activeGroupId }
-                                  onSort={ onCharacterSort }
-                                  editable={ listEditable }
-            />
+        <div className="main-content">
+          <User.Characters.List
+            characters={characters}
+            activeGroupId={activeGroupId}
+            onSort={onCharacterSort}
+            editable={listEditable}
+          />
         </div>
-    </div>;
-}
-});
+      </div>
+    )
+  },
+})

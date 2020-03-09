@@ -23,7 +23,7 @@ this.Views.Account.ActivityCard = React.createClass({
     activities: React.PropTypes.array,
     user: React.PropTypes.object.isRequired,
     character: React.PropTypes.object,
-    timestamp: React.PropTypes.number.isRequired
+    timestamp: React.PropTypes.number.isRequired,
   },
 
   _getIdentity() {
@@ -35,9 +35,8 @@ this.Views.Account.ActivityCard = React.createClass({
         is_admin: this.props.user.is_admin,
         is_patron: this.props.user.is_patron,
         username: this.props.user.username,
-        type: 'character'
-      };
-
+        type: 'character',
+      }
     } else {
       return {
         avatarUrl: this.props.user.avatar_url,
@@ -46,69 +45,106 @@ this.Views.Account.ActivityCard = React.createClass({
         username: this.props.user.username,
         is_admin: this.props.user.is_admin,
         is_patron: this.props.user.is_patron,
-        type: 'user'
-      };
+        type: 'user',
+      }
     }
   },
 
   _getActivities() {
-    return this.props.activities || [ this.props.activity ];
+    return this.props.activities || [this.props.activity]
   },
 
   _getActivity() {
-    if (!this.props.activity && !this.props.comment) { return; }
+    if (!this.props.activity && !this.props.comment) {
+      return
+    }
 
     switch (this.props.activityType) {
       case 'Image':
-        return <Views.Account.Activities.Image images={ this._getActivities() } character={ this.props.character } />;
+        return (
+          <Views.Account.Activities.Image
+            images={this._getActivities()}
+            character={this.props.character}
+          />
+        )
 
       case 'Media::Comment':
-        return <Views.Account.Activities.Comment comments={ this._getActivities() } />;
+        return (
+          <Views.Account.Activities.Comment comments={this._getActivities()} />
+        )
 
       case 'Character':
-        return <Views.Account.Activities.Character characters={ this._getActivities() } username={ this.props.user.username } />;
+        return (
+          <Views.Account.Activities.Character
+            characters={this._getActivities()}
+            username={this.props.user.username}
+          />
+        )
 
       case 'Forum::Discussion':
-        return <Views.Account.Activities.ForumDiscussion discussions={ this._getActivities() } />;
+        return (
+          <Views.Account.Activities.ForumDiscussion
+            discussions={this._getActivities()}
+          />
+        )
 
       default:
         if (this.props.comment) {
-          return <Views.Account.Activities.StatusUpdate comment={ this.props.comment } />;
+          return (
+            <Views.Account.Activities.StatusUpdate
+              comment={this.props.comment}
+            />
+          )
         } else {
-          return <div className='red-text padding-bottom--medium'>Unsupported activity type: {this.props.activityType}.{this.props.activityMethod}</div>;
+          return (
+            <div className="red-text padding-bottom--medium">
+              Unsupported activity type: {this.props.activityType}.
+              {this.props.activityMethod}
+            </div>
+          )
         }
     }
   },
 
   render() {
-    let imgShadow, nameColor;
-    return <ActivityCard {...this.props} />;
+    let imgShadow, nameColor
+    return <ActivityCard {...this.props} />
 
-    const { date, dateHuman } = this.props;
-    const identity = this._getIdentity();
+    const { date, dateHuman } = this.props
+    const identity = this._getIdentity()
 
     if (identity.is_admin) {
-      imgShadow = '0 0 3px 1px #2480C8';
-      nameColor = '#2480C8';
-
+      imgShadow = '0 0 3px 1px #2480C8'
+      nameColor = '#2480C8'
     } else if (identity.is_patron) {
-      imgShadow = '0 0 3px 1px #F96854';
-      nameColor = '#F96854';
+      imgShadow = '0 0 3px 1px #F96854'
+      nameColor = '#F96854'
     }
 
-    return <div className='card sp with-avatar margin-bottom--medium'>
-        <img className='avatar circle' src={ identity.avatarUrl } alt={ identity.name } style={{ boxShadow: imgShadow }} />
+    return (
+      <div className="card sp with-avatar margin-bottom--medium">
+        <img
+          className="avatar circle"
+          src={identity.avatarUrl}
+          alt={identity.name}
+          style={{ boxShadow: imgShadow }}
+        />
 
-        <div className='card-content padding-bottom--medium'>
-            <IdentityLink to={ identity } /> uploaded four images
-            <div className='date'>
-              <DateFormat className='muted' timestamp={ this.props.timestamp } fuzzy />
-            </div>
+        <div className="card-content padding-bottom--medium">
+          <IdentityLink to={identity} /> uploaded four images
+          <div className="date">
+            <DateFormat
+              className="muted"
+              timestamp={this.props.timestamp}
+              fuzzy
+            />
+          </div>
         </div>
 
-        { this._getActivity() }
+        {this._getActivity()}
 
-        <div className='clearfix' />
-    </div>;
-  }
-});
+        <div className="clearfix" />
+      </div>
+    )
+  },
+})

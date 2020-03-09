@@ -15,76 +15,110 @@
  */
 this.CharacterNotice = React.createClass({
   contextTypes: {
-    currentUser: React.PropTypes.object
+    currentUser: React.PropTypes.object,
   },
 
   propTypes: {
-    transfer: React.PropTypes.object
+    transfer: React.PropTypes.object,
   },
 
-
   getInitialState() {
-    return {transfer: (this.props != null ? this.props.transfer : undefined)};
+    return { transfer: this.props != null ? this.props.transfer : undefined }
   },
 
   componentWillReceiveProps(newProps) {
-    return this.setState({transfer: newProps.transfer});
+    return this.setState({ transfer: newProps.transfer })
   },
-
 
   _handleAcceptTransfer(e) {
     $.ajax({
       url: this.state.transfer.path,
-      data: { status: 'claimed'
-    },
+      data: { status: 'claimed' },
       type: 'PATCH',
       success: data => {
-        return $(document).trigger('app:character:reload', data.character_path, character => {
-          window.history.replaceState({}, '', data.character_path);
-          return Materialize.toast({ html: "Transfer claimed!", displayLength: 3000, classes: 'green' });
-        });
+        return $(document).trigger(
+          'app:character:reload',
+          data.character_path,
+          character => {
+            window.history.replaceState({}, '', data.character_path)
+            return Materialize.toast({
+              html: 'Transfer claimed!',
+              displayLength: 3000,
+              classes: 'green',
+            })
+          }
+        )
       },
       error: data => {
-        console.error(data);
-        return Materialize.toast({ html: "Something went wrong :(", displayLength: 3000, classes: 'red' });
-      }
-    });
-    return e.preventDefault();
+        console.error(data)
+        return Materialize.toast({
+          html: 'Something went wrong :(',
+          displayLength: 3000,
+          classes: 'red',
+        })
+      },
+    })
+    return e.preventDefault()
   },
 
   _handleRejectTransfer(e) {
     $.ajax({
       url: this.state.transfer.path,
-      data: { status: 'rejected'
-    },
+      data: { status: 'rejected' },
       type: 'PATCH',
       success: data => {
-        this.setState({transfer: null});
-        return Materialize.toast({ html: "Transfer rejected.", displayLength: 3000, classes: 'green' });
+        this.setState({ transfer: null })
+        return Materialize.toast({
+          html: 'Transfer rejected.',
+          displayLength: 3000,
+          classes: 'green',
+        })
       },
       error: data => {
-        console.error(data);
-        return Materialize.toast({ html: "Something went wrong :(", displayLength: 3000, classes: 'red' });
-      }
-    });
-    return e.preventDefault();
+        console.error(data)
+        return Materialize.toast({
+          html: 'Something went wrong :(',
+          displayLength: 3000,
+          classes: 'red',
+        })
+      },
+    })
+    return e.preventDefault()
   },
 
   render() {
-    if (this.state.transfer && ((this.state.transfer != null ? this.state.transfer.destination_username : undefined) === (this.context.currentUser != null ? this.context.currentUser.username : undefined))) {
-      return <div className='character-notice'>
-          <div className='notice-text'>
-              { this.state.transfer.sender_username } wishes to transfer this character to you.
+    if (
+      this.state.transfer &&
+      (this.state.transfer != null
+        ? this.state.transfer.destination_username
+        : undefined) ===
+        (this.context.currentUser != null
+          ? this.context.currentUser.username
+          : undefined)
+    ) {
+      return (
+        <div className="character-notice">
+          <div className="notice-text">
+            {this.state.transfer.sender_username} wishes to transfer this
+            character to you.
           </div>
 
-          <div className='notice-action'>
-              <a href='#' className='btn-flat margin-right--medium' onClick={ this._handleRejectTransfer }>Reject</a>
-              <a href='#' className='btn' onClick={ this._handleAcceptTransfer }>Accept</a>
+          <div className="notice-action">
+            <a
+              href="#"
+              className="btn-flat margin-right--medium"
+              onClick={this._handleRejectTransfer}
+            >
+              Reject
+            </a>
+            <a href="#" className="btn" onClick={this._handleAcceptTransfer}>
+              Accept
+            </a>
           </div>
-      </div>;
-
+        </div>
+      )
     } else {
-      return null;
+      return null
     }
-  }
-});
+  },
+})
