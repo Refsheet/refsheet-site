@@ -14,7 +14,7 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.InfiniteScroll = React.createClass({
+this.InfiniteScroll = createReactClass({
   propTypes: {
     onLoad: PropTypes.func.isRequired,
     params: PropTypes.object.isRequired,

@@ -6,6 +6,9 @@
     react/no-string-refs,
     react/react-in-jsx-scope,
 */
+import React from 'react'
+import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -14,7 +17,7 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.CharacterTransferModal = React.createClass({
+this.CharacterTransferModal = createReactClass({
   propTypes: {
     character: PropTypes.object.isRequired,
   },

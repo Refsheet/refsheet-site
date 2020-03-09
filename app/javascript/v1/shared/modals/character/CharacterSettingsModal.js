@@ -14,7 +14,7 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.CharacterSettingsModal = React.createClass({
+this.CharacterSettingsModal = createReactClass({
   propTypes: {
     character: PropTypes.object.isRequired,
   },

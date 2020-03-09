@@ -13,7 +13,7 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.FixedActionButton = React.createClass({
+this.FixedActionButton = createReactClass({
   componentDidMount(e) {
     return $('.fixed-action-btn').floatingActionButton()
   },

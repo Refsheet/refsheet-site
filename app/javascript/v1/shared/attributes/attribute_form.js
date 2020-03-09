@@ -13,7 +13,7 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.AttributeForm = React.createClass({
+this.AttributeForm = createReactClass({
   getInitialState() {
     return {
       name: this.props.name,

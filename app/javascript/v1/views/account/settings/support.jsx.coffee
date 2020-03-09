@@ -1,3 +1,7 @@
+import React from 'react'
+import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types'
+
 namespace 'Views.Account.Settings'
 
 class @Views.Account.Settings.Support extends React.Component

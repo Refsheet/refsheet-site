@@ -7,6 +7,9 @@
     react/no-deprecated,
     react/react-in-jsx-scope,
 */
+import React from 'react'
+import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -16,9 +19,7 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-namespace('Views.Account.Settings')
-
-const Cls = (this.Views.Account.Settings.Show = class Show extends React.Component {
+const Cls = (class Show extends React.Component {
   static initClass() {
     this.contextTypes = {
       currentUser: PropTypes.object.isRequired,
@@ -146,3 +147,4 @@ const Cls = (this.Views.Account.Settings.Show = class Show extends React.Compone
   }
 })
 Cls.initClass()
+export default Show

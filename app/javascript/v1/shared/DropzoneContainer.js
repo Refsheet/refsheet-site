@@ -20,7 +20,7 @@
 // @prop method [String]
 // @prop paramName [String]
 //
-this.DropzoneContainer = React.createClass({
+this.DropzoneContainer = createReactClass({
   getInitialState() {
     return {
       uploading: false,

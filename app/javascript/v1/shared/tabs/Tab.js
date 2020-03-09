@@ -11,7 +11,7 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.Tab = React.createClass({
+this.Tab = createReactClass({
   propTypes: {
     id: PropTypes.string.isRequired,
     name: PropTypes.string,

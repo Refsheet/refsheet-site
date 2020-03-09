@@ -13,7 +13,7 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.SwatchPanel = React.createClass({
+this.SwatchPanel = createReactClass({
   getInitialState() {
     return { swatches: this.props.swatches }
   },

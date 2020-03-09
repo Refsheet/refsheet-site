@@ -13,7 +13,7 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.Row = React.createClass({
+this.Row = createReactClass({
   propTypes: {
     hidden: PropTypes.bool,
     oneColumn: PropTypes.bool,

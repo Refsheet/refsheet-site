@@ -13,7 +13,7 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.CharacterDeleteModal = React.createClass({
+this.CharacterDeleteModal = createReactClass({
   contextTypes: {
     router: PropTypes.object.isRequired,
   },

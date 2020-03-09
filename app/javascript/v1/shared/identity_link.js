@@ -15,7 +15,7 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.IdentityLink = React.createClass({
+this.IdentityLink = createReactClass({
   contextTypes: {
     currentUser: PropTypes.object,
   },

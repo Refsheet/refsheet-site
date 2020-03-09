@@ -59,3 +59,4 @@ const Cls = (this.StringUtils = class StringUtils {
   }
 });
 Cls.initClass();
+export default this.StringUtils

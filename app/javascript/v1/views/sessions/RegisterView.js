@@ -109,3 +109,5 @@ const RegisterView = createReactClass({
     )
   },
 })
+
+export default RegisterView

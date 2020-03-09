@@ -13,7 +13,7 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.Attribute = React.createClass({
+this.Attribute = createReactClass({
   getInitialState() {
     return { edit: this.props.onCommit != null && this.props.editorActive }
   },
