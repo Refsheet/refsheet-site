@@ -16,7 +16,7 @@
  */
 this.Forums.Show = React.createClass({
   contextTypes: {
-    eagerLoad: React.PropTypes.object,
+    eagerLoad: PropTypes.object,
   },
 
   dataPath: '/forums/:forumId',

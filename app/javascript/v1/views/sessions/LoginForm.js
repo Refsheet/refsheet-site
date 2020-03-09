@@ -5,6 +5,9 @@
     react/no-deprecated,
     react/react-in-jsx-scope,
 */
+import React from 'react'
+import PropTypes from 'prop-types'
+import createReactClass from 'create-react-class'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -13,7 +16,7 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.LoginForm = React.createClass({
+const LoginForm = createReactClass({
   getInitialState() {
     return {
       user: {
@@ -75,3 +78,5 @@ this.LoginForm = React.createClass({
     )
   },
 })
+
+export default LoginForm

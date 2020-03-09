@@ -14,16 +14,16 @@
  */
 this.User.Characters = React.createClass({
   propTypes: {
-    groups: React.PropTypes.array.isRequired,
-    characters: React.PropTypes.array.isRequired,
-    editable: React.PropTypes.bool,
-    userLink: React.PropTypes.string,
-    activeGroupId: React.PropTypes.string,
-    onGroupChange: React.PropTypes.func.isRequired,
-    onGroupSort: React.PropTypes.func.isRequired,
-    onGroupDelete: React.PropTypes.func.isRequired,
-    onCharacterDelete: React.PropTypes.func.isRequired,
-    onCharacterSort: React.PropTypes.func.isRequired,
+    groups: PropTypes.array.isRequired,
+    characters: PropTypes.array.isRequired,
+    editable: PropTypes.bool,
+    userLink: PropTypes.string,
+    activeGroupId: PropTypes.string,
+    onGroupChange: PropTypes.func.isRequired,
+    onGroupSort: PropTypes.func.isRequired,
+    onGroupDelete: PropTypes.func.isRequired,
+    onCharacterDelete: PropTypes.func.isRequired,
+    onCharacterSort: PropTypes.func.isRequired,
   },
 
   render() {

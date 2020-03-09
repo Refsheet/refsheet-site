@@ -16,15 +16,15 @@
  */
 this.User.Characters.Groups = React.createClass({
   propTypes: {
-    userLink: React.PropTypes.string.isRequired,
-    groups: React.PropTypes.array.isRequired,
-    editable: React.PropTypes.bool,
-    totalCount: React.PropTypes.number,
-    onChange: React.PropTypes.func.isRequired,
-    onSort: React.PropTypes.func.isRequired,
-    onGroupDelete: React.PropTypes.func.isRequired,
-    onCharacterDelete: React.PropTypes.func.isRequired,
-    activeGroupId: React.PropTypes.string,
+    userLink: PropTypes.string.isRequired,
+    groups: PropTypes.array.isRequired,
+    editable: PropTypes.bool,
+    totalCount: PropTypes.number,
+    onChange: PropTypes.func.isRequired,
+    onSort: PropTypes.func.isRequired,
+    onGroupDelete: PropTypes.func.isRequired,
+    onCharacterDelete: PropTypes.func.isRequired,
+    activeGroupId: PropTypes.string,
   },
 
   getInitialState() {

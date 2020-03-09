@@ -15,8 +15,8 @@
  */
 this.Row = React.createClass({
   propTypes: {
-    hidden: React.PropTypes.bool,
-    oneColumn: React.PropTypes.bool,
+    hidden: PropTypes.bool,
+    oneColumn: PropTypes.bool,
   },
 
   componentWillReceiveProps(newProps) {
@@ -52,7 +52,7 @@ this.Row = React.createClass({
     if (this.props.oneColumn) {
       children = <Column>{this.props.children}</Column>
     } else {
-      ({ children } = this.props)
+      ;({ children } = this.props)
     }
 
     return (

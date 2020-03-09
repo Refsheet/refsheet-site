@@ -17,8 +17,8 @@
  */
 this.CharacterColorSchemeModal = React.createClass({
   propTypes: {
-    characterPath: React.PropTypes.string.isRequired,
-    colorScheme: React.PropTypes.object,
+    characterPath: PropTypes.string.isRequired,
+    colorScheme: PropTypes.object,
   },
 
   getInitialState() {

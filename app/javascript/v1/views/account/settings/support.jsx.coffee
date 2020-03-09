@@ -2,8 +2,8 @@ namespace 'Views.Account.Settings'
 
 class @Views.Account.Settings.Support extends React.Component
   @contextTypes:
-    currentUser: React.PropTypes.object.isRequired
-    setCurrentUser: React.PropTypes.func.isRequired
+    currentUser: PropTypes.object.isRequired
+    setCurrentUser: PropTypes.func.isRequired
 
   constructor: (props, context) ->
     @state =

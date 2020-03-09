@@ -15,7 +15,7 @@
  */
 this.NagBar = React.createClass({
   contextTypes: {
-    environment: React.PropTypes.string,
+    environment: PropTypes.string,
   },
 
   _handleClear(e) {

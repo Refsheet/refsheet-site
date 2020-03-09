@@ -14,16 +14,16 @@
  */
 this.NavLink = React.createClass({
   contextTypes: {
-    router: React.PropTypes.object,
+    router: PropTypes.object,
   },
 
   propTypes: {
-    to: React.PropTypes.string.isRequired,
-    text: React.PropTypes.string.isRequired,
-    icon: React.PropTypes.string,
-    disabled: React.PropTypes.bool,
-    className: React.PropTypes.string,
-    activeClassName: React.PropTypes.string,
+    to: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+    icon: PropTypes.string,
+    disabled: PropTypes.bool,
+    className: PropTypes.string,
+    activeClassName: PropTypes.string,
   },
 
   render() {

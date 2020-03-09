@@ -17,20 +17,20 @@
  */
 this.IdentityLink = React.createClass({
   contextTypes: {
-    currentUser: React.PropTypes.object,
+    currentUser: PropTypes.object,
   },
 
   propTypes: {
-    to: React.PropTypes.shape({
-      link: React.PropTypes.string.isRequired,
-      name: React.PropTypes.string.isRequired,
-      username: React.PropTypes.string.isRequired,
-      type: React.PropTypes.string,
-      avatar_url: React.PropTypes.string,
+    to: PropTypes.shape({
+      link: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      username: PropTypes.string.isRequired,
+      type: PropTypes.string,
+      avatar_url: PropTypes.string,
     }),
-    name: React.PropTypes.string,
-    link: React.PropTypes.string,
-    avatarUrl: React.PropTypes.string,
+    name: PropTypes.string,
+    link: PropTypes.string,
+    avatarUrl: PropTypes.string,
   },
 
   timer: null,
@@ -111,7 +111,7 @@ this.IdentityLink = React.createClass({
     }
 
     if (user) {
-      ({ followed, follower } = user)
+      ;({ followed, follower } = user)
 
       mutual = followed || follower
       followColor = followed ? '#ffca28' : 'rgba(255, 255, 255, 0.7)'

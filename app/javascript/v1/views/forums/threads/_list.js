@@ -14,8 +14,8 @@
  */
 this.Forums.Threads.List = React.createClass({
   propTypes: {
-    threads: React.PropTypes.array,
-    activeThreadId: React.PropTypes.string,
+    threads: PropTypes.array,
+    activeThreadId: PropTypes.string,
   },
 
   _nudgeClick(e) {

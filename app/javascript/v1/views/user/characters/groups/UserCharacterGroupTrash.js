@@ -14,10 +14,10 @@
  */
 this.UserCharacterGroupTrash = React.createClass({
   propTypes: {
-    onGroupDelete: React.PropTypes.func.isRequired,
-    onCharacterDelete: React.PropTypes.func.isRequired,
-    activeGroupId: React.PropTypes.string,
-    characterDragActive: React.PropTypes.bool,
+    onGroupDelete: PropTypes.func.isRequired,
+    onCharacterDelete: PropTypes.func.isRequired,
+    activeGroupId: PropTypes.string,
+    characterDragActive: PropTypes.bool,
   },
 
   getInitialState() {

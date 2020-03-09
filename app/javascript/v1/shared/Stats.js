@@ -13,7 +13,7 @@
  */
 this.Stats = React.createClass({
   propTypes: {
-    className: React.PropTypes.string,
+    className: PropTypes.string,
   },
 
   render() {
@@ -28,7 +28,7 @@ this.Stats = React.createClass({
 
 this.Stats.Item = React.createClass({
   propTypes: {
-    label: React.PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
   },
 
   render() {

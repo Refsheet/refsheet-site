@@ -16,13 +16,13 @@
  */
 this.GalleryFeature = React.createClass({
   propTypes: {
-    editable: React.PropTypes.bool,
-    first: React.PropTypes.object,
-    second: React.PropTypes.object,
-    third: React.PropTypes.object,
-    onImageSwap: React.PropTypes.func,
-    onImageClick: React.PropTypes.func,
-    gallery: React.PropTypes.array,
+    editable: PropTypes.bool,
+    first: PropTypes.object,
+    second: PropTypes.object,
+    third: PropTypes.object,
+    onImageSwap: PropTypes.func,
+    onImageClick: PropTypes.func,
+    gallery: PropTypes.array,
   },
 
   componentDidMount() {

@@ -14,7 +14,7 @@
  */
 this.Views.Account.Show = React.createClass({
   contextTypes: {
-    currentUser: React.PropTypes.object,
+    currentUser: PropTypes.object,
   },
 
   render() {

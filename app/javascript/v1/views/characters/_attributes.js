@@ -14,10 +14,10 @@
  */
 this.Views.Character.Attributes = React.createClass({
   propTypes: {
-    characterPath: React.PropTypes.string.isRequired,
-    attributes: React.PropTypes.array.isRequired,
-    onChange: React.PropTypes.func.isRequired,
-    editable: React.PropTypes.bool,
+    characterPath: PropTypes.string.isRequired,
+    attributes: PropTypes.array.isRequired,
+    onChange: PropTypes.func.isRequired,
+    editable: PropTypes.bool,
   },
 
   _handleAttributeUpdate(attr, complete, error) {

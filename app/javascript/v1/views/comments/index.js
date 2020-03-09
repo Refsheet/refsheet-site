@@ -17,15 +17,15 @@ this.Comments = {}
 
 this.Comments.Index = React.createClass({
   contextTypes: {
-    currentUser: React.PropTypes.object,
+    currentUser: PropTypes.object,
   },
 
   propTypes: {
-    mediaId: React.PropTypes.string.isRequired,
-    comments: React.PropTypes.array,
-    poll: React.PropTypes.bool,
-    onCommentChange: React.PropTypes.func,
-    onCommentsChange: React.PropTypes.func,
+    mediaId: PropTypes.string.isRequired,
+    comments: PropTypes.array,
+    poll: PropTypes.bool,
+    onCommentChange: PropTypes.func,
+    onCommentsChange: PropTypes.func,
   },
 
   getInitialState() {

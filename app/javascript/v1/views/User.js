@@ -4,6 +4,11 @@
     react/no-deprecated,
     react/react-in-jsx-scope,
 */
+import React from 'react'
+import PropTypes from 'prop-types'
+import createReactClass from 'create-react-class'
+
+import Header from './user/Header'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -13,14 +18,16 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.User = {}
+const User = {
+  Header
+}
 
-this.User.View = React.createClass({
+User.View = createReactClass({
   contextTypes: {
-    router: React.PropTypes.object.isRequired,
-    currentUser: React.PropTypes.object,
-    eagerLoad: React.PropTypes.object,
-    setCurrentUser: React.PropTypes.func.isRequired,
+    router: PropTypes.object.isRequired,
+    currentUser: PropTypes.object,
+    eagerLoad: PropTypes.object,
+    setCurrentUser: PropTypes.func.isRequired,
   },
 
   dataPath: '/users/:userId',

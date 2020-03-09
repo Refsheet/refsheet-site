@@ -14,7 +14,7 @@
  */
 this.Views.Account.Activities.ForumDiscussion = React.createClass({
   propTypes: {
-    discussions: React.PropTypes.array.isRequired,
+    discussions: PropTypes.array.isRequired,
   },
 
   render() {

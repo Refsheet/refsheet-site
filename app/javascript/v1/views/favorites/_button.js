@@ -14,15 +14,15 @@
  */
 this.FavoriteButton = React.createClass({
   contextTypes: {
-    currentUser: React.PropTypes.object,
+    currentUser: PropTypes.object,
   },
 
   propTypes: {
-    mediaId: React.PropTypes.string.isRequired,
-    favorites: React.PropTypes.array,
-    isFavorite: React.PropTypes.bool,
-    onChange: React.PropTypes.func,
-    onFavorite: React.PropTypes.func,
+    mediaId: PropTypes.string.isRequired,
+    favorites: PropTypes.array,
+    isFavorite: PropTypes.bool,
+    onChange: PropTypes.func,
+    onFavorite: PropTypes.func,
   },
 
   _isFavFromProps(props) {

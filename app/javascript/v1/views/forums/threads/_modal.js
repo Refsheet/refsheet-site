@@ -15,11 +15,11 @@
  */
 this.Forums.Threads.Modal = React.createClass({
   contextTypes: {
-    router: React.PropTypes.object.isRequired,
+    router: PropTypes.object.isRequired,
   },
 
   propTypes: {
-    forumId: React.PropTypes.string.isRequired,
+    forumId: PropTypes.string.isRequired,
   },
 
   getInitialState() {

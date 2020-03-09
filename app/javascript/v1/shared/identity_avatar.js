@@ -15,14 +15,14 @@
  */
 this.IdentityAvatar = React.createClass({
   propTypes: {
-    src: React.PropTypes.shape({
-      link: React.PropTypes.string.isRequired,
-      name: React.PropTypes.string.isRequired,
-      username: React.PropTypes.string.isRequired,
-      type: React.PropTypes.string,
-      avatar_url: React.PropTypes.string,
+    src: PropTypes.shape({
+      link: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      username: PropTypes.string.isRequired,
+      type: PropTypes.string,
+      avatar_url: PropTypes.string,
     }),
-    avatarUrl: React.PropTypes.string,
+    avatarUrl: PropTypes.string,
   },
 
   render() {

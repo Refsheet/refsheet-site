@@ -14,15 +14,15 @@
  */
 this.Main = React.createClass({
   propTypes: {
-    style: React.PropTypes.object,
-    className: React.PropTypes.string,
-    bodyClassName: React.PropTypes.string,
-    fadeEffect: React.PropTypes.bool,
-    slideEffect: React.PropTypes.bool,
-    id: React.PropTypes.string,
-    title: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.array,
+    style: PropTypes.object,
+    className: PropTypes.string,
+    bodyClassName: PropTypes.string,
+    fadeEffect: PropTypes.bool,
+    slideEffect: PropTypes.bool,
+    id: PropTypes.string,
+    title: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.array,
     ]),
   },
 

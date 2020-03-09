@@ -105,7 +105,7 @@ const Routes = createReactClass({
                 notice={this.props.notice}
               >
                 <Switch>
-                  <Route exact path="/" component={Home} title="Home" />
+                  <Route exact path="/" component={Static.Home} title="Home" />
 
                   <Route path="/login" component={LoginView} />
                   <Route path="/register" component={RegisterView} />

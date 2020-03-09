@@ -15,11 +15,11 @@
  */
 this.CharacterNotice = React.createClass({
   contextTypes: {
-    currentUser: React.PropTypes.object,
+    currentUser: PropTypes.object,
   },
 
   propTypes: {
-    transfer: React.PropTypes.object,
+    transfer: PropTypes.object,
   },
 
   getInitialState() {

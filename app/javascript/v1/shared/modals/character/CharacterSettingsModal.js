@@ -16,7 +16,7 @@
  */
 this.CharacterSettingsModal = React.createClass({
   propTypes: {
-    character: React.PropTypes.object.isRequired,
+    character: PropTypes.object.isRequired,
   },
 
   getInitialState() {

@@ -18,11 +18,11 @@ namespace('Views.Account.Notifications')
 
 this.Views.Account.Notifications.Feed = React.createClass({
   contextTypes: {
-    currentUser: React.PropTypes.object,
+    currentUser: PropTypes.object,
   },
 
   propTypes: {
-    filter: React.PropTypes.string,
+    filter: PropTypes.string,
   },
 
   timer: null,

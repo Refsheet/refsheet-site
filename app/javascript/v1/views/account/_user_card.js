@@ -14,9 +14,9 @@
  */
 this.Views.Account.UserCard = React.createClass({
   propTypes: {
-    user: React.PropTypes.object.isRequired,
-    onFollow: React.PropTypes.func,
-    smaller: React.PropTypes.bool,
+    user: PropTypes.object.isRequired,
+    onFollow: PropTypes.func,
+    smaller: PropTypes.bool,
   },
 
   render() {

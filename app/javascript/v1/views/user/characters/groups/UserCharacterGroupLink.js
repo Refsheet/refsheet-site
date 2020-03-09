@@ -16,10 +16,10 @@
 this.UserCharacterGroupLink = React.createClass({
   propTypes() {
     return {
-      group: React.PropTypes.object.isRequired,
-      editable: React.PropTypes.bool,
-      onChange: React.PropTypes.func,
-      active: React.PropTypes.bool,
+      group: PropTypes.object.isRequired,
+      editable: PropTypes.bool,
+      onChange: PropTypes.func,
+      active: PropTypes.bool,
     }
   },
 

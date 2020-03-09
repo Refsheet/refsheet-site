@@ -14,7 +14,7 @@
  */
 this.Views.Account.SideNav = React.createClass({
   contextTypes: {
-    currentUser: React.PropTypes.object.isRequired,
+    currentUser: PropTypes.object.isRequired,
   },
 
   render() {

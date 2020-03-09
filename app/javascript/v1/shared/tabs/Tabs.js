@@ -15,7 +15,7 @@
  */
 this.Tabs = React.createClass({
   propTypes: {
-    className: React.PropTypes.string,
+    className: PropTypes.string,
   },
 
   componentDidMount() {
