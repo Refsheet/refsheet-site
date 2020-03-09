@@ -11,7 +11,8 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let Input; export default Input = createReactClass({
+let Input
+export default Input = createReactClass({
   propTypes: {
     name: PropTypes.string,
     id: PropTypes.string,
@@ -31,15 +32,9 @@ let Input; export default Input = createReactClass({
     icon: PropTypes.string,
     onSubmit: PropTypes.func,
 
-    value: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.bool,
-    ]),
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
 
-    error: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.array,
-    ]),
+    error: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   },
 
   getInitialState() {

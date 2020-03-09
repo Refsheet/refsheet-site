@@ -10,7 +10,8 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let ImageGravityModal; export default ImageGravityModal = createReactClass({
+let ImageGravityModal
+export default ImageGravityModal = createReactClass({
   getInitialState() {
     return {
       gravity: this.props.image.gravity || 'center',

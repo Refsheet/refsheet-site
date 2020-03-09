@@ -11,7 +11,8 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let DateFormat; export default DateFormat = createReactClass({
+let DateFormat
+export default DateFormat = createReactClass({
   propTypes: {
     timestamp: PropTypes.number.isRequired,
     fuzzy: PropTypes.bool,

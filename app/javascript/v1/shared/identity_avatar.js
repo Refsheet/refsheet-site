@@ -11,7 +11,8 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let IdentityAvatar; export default IdentityAvatar = createReactClass({
+let IdentityAvatar
+export default IdentityAvatar = createReactClass({
   propTypes: {
     src: PropTypes.shape({
       link: PropTypes.string.isRequired,

@@ -17,7 +17,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import createReactClass from 'create-react-class'
 
-let View; export default View = createReactClass({
+let View
+export default View = createReactClass({
   contextTypes: {
     router: PropTypes.object.isRequired,
     eagerLoad: PropTypes.object,

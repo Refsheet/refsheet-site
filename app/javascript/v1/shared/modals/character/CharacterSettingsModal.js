@@ -10,7 +10,8 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let CharacterSettingsModal; export default CharacterSettingsModal = createReactClass({
+let CharacterSettingsModal
+export default CharacterSettingsModal = createReactClass({
   propTypes: {
     character: PropTypes.object.isRequired,
   },

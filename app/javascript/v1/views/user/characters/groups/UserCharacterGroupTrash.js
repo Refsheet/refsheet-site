@@ -15,7 +15,8 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let UserCharacterGroupTrash; export default UserCharacterGroupTrash = createReactClass({
+let UserCharacterGroupTrash
+export default UserCharacterGroupTrash = createReactClass({
   propTypes: {
     onGroupDelete: PropTypes.func.isRequired,
     onCharacterDelete: PropTypes.func.isRequired,

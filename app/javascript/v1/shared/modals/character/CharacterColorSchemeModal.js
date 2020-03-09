@@ -11,7 +11,8 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let CharacterColorSchemeModal; export default CharacterColorSchemeModal = createReactClass({
+let CharacterColorSchemeModal
+export default CharacterColorSchemeModal = createReactClass({
   propTypes: {
     characterPath: PropTypes.string.isRequired,
     colorScheme: PropTypes.object,

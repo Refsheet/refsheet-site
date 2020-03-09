@@ -1,9 +1,9 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
-import {connect} from "react-redux"
-import {Link} from "react-router-dom"
-import Main from "../../../components/Shared/Main"
-import Jumbotron from "../../../components/Shared/Jumbotron"
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import Main from '../../../components/Shared/Main'
+import Jumbotron from '../../../components/Shared/Jumbotron'
 
 const Home = createReactClass({
   componentDidMount() {

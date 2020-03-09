@@ -11,7 +11,8 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let Modal; export default Modal = createReactClass({
+let Modal
+export default Modal = createReactClass({
   componentDidMount() {
     const $modal = M.Modal.init(this.refs.modal, {
       onCloseEnd: args => {

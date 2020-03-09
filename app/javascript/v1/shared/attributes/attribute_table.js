@@ -11,7 +11,8 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let AttributeTable; export default AttributeTable = createReactClass({
+let AttributeTable
+export default AttributeTable = createReactClass({
   getInitialState() {
     return {
       activeEditor: this.props.activeEditor,

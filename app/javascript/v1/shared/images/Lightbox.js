@@ -10,7 +10,8 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let Lightbox; export default Lightbox = createReactClass({
+let Lightbox
+export default Lightbox = createReactClass({
   contextTypes: {
     router: PropTypes.object.isRequired,
     currentUser: PropTypes.object,

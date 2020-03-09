@@ -1,7 +1,7 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
-import {connect} from "react-redux"
+import { connect } from 'react-redux'
 
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
@@ -232,4 +232,5 @@ const mapStateToProps = state => ({
   session: state.session,
 })
 
-let GalleryImage; export default GalleryImage = connect(mapStateToProps)(gallery_image)
+let GalleryImage
+export default GalleryImage = connect(mapStateToProps)(gallery_image)

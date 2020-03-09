@@ -10,7 +10,8 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let PageHeader; export default PageHeader = createReactClass({
+let PageHeader
+export default PageHeader = createReactClass({
   componentDidMount() {
     return $(window).scroll(function() {
       const offset = $(window).scrollTop() * 0.8

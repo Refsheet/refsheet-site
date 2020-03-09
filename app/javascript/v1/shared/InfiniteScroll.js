@@ -11,7 +11,8 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let InfiniteScroll; export default InfiniteScroll = createReactClass({
+let InfiniteScroll
+export default InfiniteScroll = createReactClass({
   propTypes: {
     onLoad: PropTypes.func.isRequired,
     params: PropTypes.object.isRequired,
@@ -19,10 +20,8 @@ let InfiniteScroll; export default InfiniteScroll = createReactClass({
     scrollOffset: PropTypes.number,
     count: PropTypes.number,
 
-    stateLink: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.func,
-    ]).isRequired,
+    stateLink: PropTypes.oneOfType([PropTypes.object, PropTypes.func])
+      .isRequired,
   },
 
   getDefaultProps() {

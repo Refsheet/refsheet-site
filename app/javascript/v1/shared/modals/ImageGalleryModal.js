@@ -10,7 +10,8 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let ImageGalleryModal; export default ImageGalleryModal = createReactClass({
+let ImageGalleryModal
+export default ImageGalleryModal = createReactClass({
   handleUploadClick() {
     return this.props.onUploadClick()
   },
