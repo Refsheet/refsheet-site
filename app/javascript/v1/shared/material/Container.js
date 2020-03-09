@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-export default Container = function(props) {
+let Container; export default Container = function(props) {
   const classNames = ['container']
   if (props.className) {
     classNames.push(props.className)

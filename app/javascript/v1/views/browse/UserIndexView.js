@@ -14,7 +14,7 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.UserIndexView = createReactClass({
+let UserIndexView; export default UserIndexView = createReactClass({
   render() {
     return <div />
   },

@@ -16,7 +16,7 @@ import PropTypes from 'prop-types'
 // @prop method [String]
 // @prop paramName [String]
 //
-export default DropzoneContainer = createReactClass({
+let DropzoneContainer; export default DropzoneContainer = createReactClass({
   getInitialState() {
     return {
       uploading: false,

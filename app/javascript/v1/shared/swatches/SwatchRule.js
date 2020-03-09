@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-export default SwatchRule = function(props) {
+let SwatchRule; export default SwatchRule = function(props) {
   const swatches = props.swatches.map(swatch => (
     <div
       className="swatch"

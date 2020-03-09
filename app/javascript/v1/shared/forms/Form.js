@@ -13,7 +13,7 @@ import Materialize from 'materialize-css'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-export default Form = createReactClass({
+let Form; export default Form = createReactClass({
   propTypes: {
     action: PropTypes.string.isRequired,
     method: PropTypes.string,

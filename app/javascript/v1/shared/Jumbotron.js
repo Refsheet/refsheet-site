@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-export default Jumbotron = function(props) {
+let Jumbotron; export default Jumbotron = function(props) {
   const classNames = ['jumbotron']
   if (props.className) {
     classNames.push(props.className)

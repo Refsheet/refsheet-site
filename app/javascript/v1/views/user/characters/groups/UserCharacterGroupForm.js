@@ -17,7 +17,7 @@ import PropTypes from 'prop-types'
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 //@User.CharacterGroups.Form = createReactClass
-this.UserCharacterGroupForm = createReactClass({
+let UserCharacterGroupForm; export default UserCharacterGroupForm = createReactClass({
   propTypes: {
     group: PropTypes.object,
     onChange: PropTypes.func,

@@ -232,4 +232,4 @@ const mapStateToProps = state => ({
   session: state.session,
 })
 
-export default GalleryImage = connect(mapStateToProps)(gallery_image)
+let GalleryImage; export default GalleryImage = connect(mapStateToProps)(gallery_image)

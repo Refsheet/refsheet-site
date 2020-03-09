@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-export default Section = props => (
+let Section; export default Section = props => (
   <section className={props.className}>
     <div className="container">{props.children}</div>
   </section>

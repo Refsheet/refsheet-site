@@ -17,7 +17,7 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.LegacyApp = createReactClass({
+let LegacyApp; export default LegacyApp = createReactClass({
   childContextTypes: {
     currentUser: PropTypes.object,
     session: PropTypes.object,

@@ -10,41 +10,29 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
+import Form from "../../../shared/forms/Form"
+import Row from "../../../shared/material/Row"
+import Column from "../../../shared/material/Column"
+import Input from "../../../shared/forms/Input"
+import Submit from "../../../shared/forms/Submit"
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
  * decaffeinate suggestions:
- * DS001: Remove Babel/TypeScript constructor workaround
  * DS102: Remove unnecessary code created because of implicit returns
- * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-const Cls = (class Show extends React.Component {
-  static initClass() {
-    this.contextTypes = {
-      currentUser: PropTypes.object.isRequired,
-      setCurrentUser: PropTypes.func.isRequired,
-    }
+class Show extends React.Component {
+  static contextTypes = {
+    currentUser: PropTypes.object.isRequired,
+    setCurrentUser: PropTypes.func.isRequired,
   }
 
   constructor(props, context) {
-    {
-      // Hack: trick Babel/TypeScript into allowing this before super.
-      if (false) {
-        super()
-      }
-      let thisFn = (() => {
-        return this
-      }).toString()
-      let thisName = thisFn.match(
-        /return (?:_assertThisInitialized\()*(\w+)\)*;/
-      )[1]
-      eval(`${thisName} = this;`)
-    }
+    super(props)
+
     this._handleFormChange = this._handleFormChange.bind(this)
     this.state = { user: context.currentUser }
-
-    super(props)
   }
 
   _handleFormChange(user) {
@@ -145,6 +133,6 @@ const Cls = (class Show extends React.Component {
       </div>
     )
   }
-})
-Cls.initClass()
+}
+
 export default Show
