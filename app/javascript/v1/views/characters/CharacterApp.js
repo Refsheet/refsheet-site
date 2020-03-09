@@ -8,6 +8,27 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
+import {connect} from "react-redux"
+import {openUploadModal, setUploadTarget} from "../../../actions"
+import Section from "../../shared/material/Section"
+import ImageGallery from "../../shared/images/ImageGallery"
+import Column from "../../shared/material/Column"
+import Row from "../../shared/material/Row"
+import SwatchPanel from "../../shared/swatches/SwatchPanel"
+import CharacterCard from "./CharacterCard"
+import ActionButton from "../../shared/ActionButton"
+import CharacterNotice from "./CharacterNotice"
+import PageHeader from "../../shared/PageHeader"
+import CharacterSettingsModal from "../../shared/modals/character/CharacterSettingsModal"
+import CharacterTransferModal from "./CharacterTransferModal"
+import CharacterDeleteModal from "../../shared/modals/character/CharacterDeleteModal"
+import CharacterColorSchemeModal from "../../shared/modals/character/CharacterColorSchemeModal"
+import ImageGalleryModal from "../../shared/modals/ImageGalleryModal"
+import FixedActionButton from "../../shared/FixedActionButton"
+import PageStylesheet from "../../shared/PageStylesheet"
+import NotFound from "../static/NotFound"
+import * as Materialize from "materialize-css"
+import Main from "../../shared/Main"
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -445,9 +466,10 @@ const Component = createReactClass({
 
 const mapDispatchToProps = {
   setUploadTarget,
-  openUploadModal: Actions.openUploadModal,
+  openUploadModal,
 }
 
 const mapStateToProps = state => state
 
-this.CharacterApp = connect(mapStateToProps, mapDispatchToProps)(Component)
+const CharacterApp = connect(mapStateToProps, mapDispatchToProps)(Component)
+export default CharacterApp

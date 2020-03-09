@@ -18,7 +18,7 @@ import PropTypes from 'prop-types'
  */
 this.Comments = {}
 
-this.Comments.Index = createReactClass({
+let Index; export default Index = createReactClass({
   contextTypes: {
     currentUser: PropTypes.object,
   },

@@ -17,7 +17,7 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.Explore.Index = createReactClass({
+let Index; export default Index = createReactClass({
   contextTypes: {
     eagerLoad: PropTypes.object,
     currentUser: PropTypes.object,

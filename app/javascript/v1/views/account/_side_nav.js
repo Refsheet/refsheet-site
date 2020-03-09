@@ -15,7 +15,7 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.Views.Account.SideNav = createReactClass({
+let SideNav; export default SideNav = createReactClass({
   contextTypes: {
     currentUser: PropTypes.object.isRequired,
   },

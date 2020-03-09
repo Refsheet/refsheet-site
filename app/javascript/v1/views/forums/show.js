@@ -17,7 +17,7 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.Forums.Show = createReactClass({
+let Show; export default Show = createReactClass({
   contextTypes: {
     eagerLoad: PropTypes.object,
   },

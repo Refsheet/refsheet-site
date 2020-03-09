@@ -16,7 +16,7 @@ import PropTypes from 'prop-types'
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 this.Favorites = {}
-this.Favorites.Index = createReactClass({
+let Index; export default Index = createReactClass({
   contextTypes: {
     currentUser: PropTypes.object,
   },

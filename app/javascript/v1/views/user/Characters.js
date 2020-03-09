@@ -15,7 +15,7 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.User.Characters = createReactClass({
+let Characters; export default Characters = createReactClass({
   propTypes: {
     groups: PropTypes.array.isRequired,
     characters: PropTypes.array.isRequired,

@@ -15,7 +15,7 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.Views.Account.Activities.ForumPost = createReactClass({
+let ForumPost; export default ForumPost = createReactClass({
   propTypes: {
     posts: PropTypes.array.isRequired,
     action: PropTypes.string,

@@ -15,7 +15,7 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.Views.User.Follow = createReactClass({
+let Follow; export default Follow = createReactClass({
   contextTypes: {
     currentUser: PropTypes.object,
   },

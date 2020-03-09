@@ -16,9 +16,8 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-namespace('Views.Account.Notifications')
 
-this.Views.Account.Notifications.Card = createReactClass({
+let Card; export default Card = createReactClass({
   propTypes: {
     type: PropTypes.string.isRequired,
     actionable: PropTypes.object,

@@ -16,7 +16,7 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.Forums.Threads.Modal = createReactClass({
+let Modal; export default Modal = createReactClass({
   contextTypes: {
     router: PropTypes.object.isRequired,
   },
