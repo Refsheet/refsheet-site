@@ -12,13 +12,17 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 this.Column = function(props) {
-  const classes = ['col'];
-  classes.push(props.className);
-  if (!props['s']) { classes.push('s12'); }
+  const classes = ['col']
+  classes.push(props.className)
+  if (!props['s']) {
+    classes.push('s12')
+  }
 
   for (let s of ['s', 'm', 'l', 'xl', 'offset-s', 'offset-m', 'offset-l']) {
-    if (props[s]) { classes.push(`${s}${props[s]}`); }
+    if (props[s]) {
+      classes.push(`${s}${props[s]}`)
+    }
   }
-    
-  return <div className={ classes.join(' ') }>{ props.children }</div>;
-};
+
+  return <div className={classes.join(' ')}>{props.children}</div>
+}

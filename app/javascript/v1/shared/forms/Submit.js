@@ -12,14 +12,21 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 this.Submit = function(props) {
-  const classNames = ['btn'];
-  classNames.push(props.className);
-  if (!props.noWaves) { classNames.push('waves-effect waves-light'); }
-  if (props.flat) { classNames.push('btn-flat'); }
-  if (props.link) { classNames.push('btn-link'); }
+  const classNames = ['btn']
+  classNames.push(props.className)
+  if (!props.noWaves) {
+    classNames.push('waves-effect waves-light')
+  }
+  if (props.flat) {
+    classNames.push('btn-flat')
+  }
+  if (props.link) {
+    classNames.push('btn-link')
+  }
 
-  return <button type={ props.type || 'submit' }
-           className={ classNames.join(' ') }>
-      { props.children || 'Submit' }
-  </button>;
-};
+  return (
+    <button type={props.type || 'submit'} className={classNames.join(' ')}>
+      {props.children || 'Submit'}
+    </button>
+  )
+}

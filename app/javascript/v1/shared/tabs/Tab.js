@@ -17,16 +17,19 @@ this.Tab = React.createClass({
     name: React.PropTypes.string,
     icon: React.PropTypes.string,
     count: React.PropTypes.number,
-    className: React.PropTypes.string
+    className: React.PropTypes.string,
   },
 
   render() {
-    const classNames = ['tab-content'];
-    if (this.props.className) { classNames.push(this.props.className); }
+    const classNames = ['tab-content']
+    if (this.props.className) {
+      classNames.push(this.props.className)
+    }
 
-    return <div className={ classNames.join(' ') }
-          id={ this.props.id }>
-        { this.props.children }
-    </div>;
-  }
-});
+    return (
+      <div className={classNames.join(' ')} id={this.props.id}>
+        {this.props.children}
+      </div>
+    )
+  },
+})

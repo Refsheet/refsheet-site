@@ -20,20 +20,31 @@ this.Button = function(props) {
     large,
     noWaves,
     className,
-    target
-  } = props;
+    target,
+  } = props
 
-  const classNames = ['btn'];
-  if (className) { classNames.push(className); }
-  if (!noWaves) { classNames.push('waves-effect waves-light'); }
-  if (block) { classNames.push('btn-block'); }
-  if (large) { classNames.push('btn-large'); }
+  const classNames = ['btn']
+  if (className) {
+    classNames.push(className)
+  }
+  if (!noWaves) {
+    classNames.push('waves-effect waves-light')
+  }
+  if (block) {
+    classNames.push('btn-block')
+  }
+  if (large) {
+    classNames.push('btn-large')
+  }
 
-  return <a className={ classNames.join(' ') }
-      href={ href }
-      onClick={ onClick }
-      target={ target }
-  >
-      { children }
-  </a>;
-};
+  return (
+    <a
+      className={classNames.join(' ')}
+      href={href}
+      onClick={onClick}
+      target={target}
+    >
+      {children}
+    </a>
+  )
+}

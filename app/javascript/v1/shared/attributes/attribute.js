@@ -15,100 +15,123 @@
  */
 this.Attribute = React.createClass({
   getInitialState() {
-    return {edit: (this.props.onCommit != null) && this.props.editorActive};
+    return { edit: this.props.onCommit != null && this.props.editorActive }
   },
 
   componentWillReceiveProps(newProps) {
-    if (this.state.edit && (newProps.editorActive === false)) {
-      return this.setState({edit: false});
+    if (this.state.edit && newProps.editorActive === false) {
+      return this.setState({ edit: false })
     }
   },
 
   deleteAttribute(e) {
-    this.props.onDelete(this.props.id);
-    return e.preventDefault();
+    this.props.onDelete(this.props.id)
+    return e.preventDefault()
   },
 
   startEdit(e) {
-    this.setState({edit: true});
-    if (this.props.onEditStart != null) { this.props.onEditStart(); }
-    if (e != null) { return e.preventDefault(); }
+    this.setState({ edit: true })
+    if (this.props.onEditStart != null) {
+      this.props.onEditStart()
+    }
+    if (e != null) {
+      return e.preventDefault()
+    }
   },
 
   cancelEdit(e) {
-    this.setState({edit: false});
-    if (this.props.onEditStop != null) { this.props.onEditStop(); }
-    if (e != null) { return e.preventDefault(); }
+    this.setState({ edit: false })
+    if (this.props.onEditStop != null) {
+      this.props.onEditStop()
+    }
+    if (e != null) {
+      return e.preventDefault()
+    }
   },
 
   handleAttributeClick(e) {
     if (this.props.onCommit) {
-      return this.startEdit(e);
+      return this.startEdit(e)
     }
   },
 
   render() {
-    let defaultValue, edit, icon, trash;
+    let defaultValue, edit, icon, trash
     if (this.props.defaultValue != null) {
-      defaultValue =
-        <span className='default-value'>{ this.props.defaultValue }</span>;
+      defaultValue = (
+        <span className="default-value">{this.props.defaultValue}</span>
+      )
     }
-      
+
     if (this.props.icon != null) {
-      icon =
-        <div className='icon'>
-            <i className='material-icons' style={{color: this.props.iconColor}}>{ this.props.icon }</i>
-        </div>;
+      icon = (
+        <div className="icon">
+          <i className="material-icons" style={{ color: this.props.iconColor }}>
+            {this.props.icon}
+          </i>
+        </div>
+      )
     }
 
     if (this.props.onDelete != null) {
-      trash =
-        <a className='attr-delete' onClick={ this.deleteAttribute } href='#'>
-            <i className='material-icons'>delete</i>
-        </a>;
+      trash = (
+        <a className="attr-delete" onClick={this.deleteAttribute} href="#">
+          <i className="material-icons">delete</i>
+        </a>
+      )
     }
 
     if (this.props.onCommit != null) {
-      edit =
-        <a className='attr-start-edit' onClick={ this.startEdit } href='#'>
-            <i className='material-icons'>edit</i>
-        </a>;
+      edit = (
+        <a className="attr-start-edit" onClick={this.startEdit} href="#">
+          <i className="material-icons">edit</i>
+        </a>
+      )
     }
 
     if (this.state.edit) {
-      return <AttributeForm name={ this.props.name }
-                      value={ this.props.value }
-                      notes={ this.props.notes }
-                      id={ this.props.id }
-                      onCancel={ this.cancelEdit }
-                      onCommit={ this.props.onCommit }
-                      valueType={ this.props.valueType }
-                      hideIcon={ this.props.icon == null }
-                      freezeName={ this.props.freezeName }
-                      hideNotes={ this.props.hideNotesForm }
-      />;
-
+      return (
+        <AttributeForm
+          name={this.props.name}
+          value={this.props.value}
+          notes={this.props.notes}
+          id={this.props.id}
+          onCancel={this.cancelEdit}
+          onCommit={this.props.onCommit}
+          valueType={this.props.valueType}
+          hideIcon={this.props.icon == null}
+          freezeName={this.props.freezeName}
+          hideNotes={this.props.hideNotesForm}
+        />
+      )
     } else {
-      let notesTag;
+      let notesTag
       if (!this.props.hideNotesForm) {
-        notesTag =
-          <div className='notes' onClick={ this.handleAttributeClick }>{ this.props.notes }</div>;
+        notesTag = (
+          <div className="notes" onClick={this.handleAttributeClick}>
+            {this.props.notes}
+          </div>
+        )
       }
 
-      return <li data-attribute-id={ this.props.id }>
-          { icon }
+      return (
+        <li data-attribute-id={this.props.id}>
+          {icon}
 
-          <div className='attribute-data'>
-              <div className='key'>{ this.props.name }</div>
-              <div className='value' onClick={ this.handleAttributeClick }>{ this.props.value || defaultValue }</div>
-              { notesTag }
+          <div className="attribute-data">
+            <div className="key">{this.props.name}</div>
+            <div className="value" onClick={this.handleAttributeClick}>
+              {this.props.value || defaultValue}
+            </div>
+            {notesTag}
           </div>
 
-          <div className='actions'>
-              { edit }
-              { trash }
+          <div className="actions">
+            {edit}
+            {trash}
           </div>
-      </li>;
+        </li>
+      )
     }
-  }
-});
+  },
+})

@@ -5,23 +5,27 @@
  * DS102: Remove unnecessary code created because of implicit returns
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import _ from 'lodash';
+import _ from 'lodash'
 
 export var changes = function(a, b) {
-  const changedData = {};
+  const changedData = {}
   for (let k in b) {
-    const v = b[k];
-    if (a[k] !== v) { changedData[k] = v; }
+    const v = b[k]
+    if (a[k] !== v) {
+      changedData[k] = v
+    }
   }
-  return changedData;
-};
+  return changedData
+}
 
 export var camelize = function(obj) {
-  if (!_.isObject(obj)) { return obj; }
-  const out = {};
-  for (let k in obj) {
-    const v = obj[k];
-    out[_.camelCase(k)] = camelize(v);
+  if (!_.isObject(obj)) {
+    return obj
   }
-  return out;
-};
+  const out = {}
+  for (let k in obj) {
+    const v = obj[k]
+    out[_.camelCase(k)] = camelize(v)
+  }
+  return out
+}

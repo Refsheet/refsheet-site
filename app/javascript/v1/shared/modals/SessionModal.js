@@ -16,50 +16,65 @@
  */
 this.SessionModal = React.createClass({
   getInitialState() {
-    return {view: 'login'};
+    return { view: 'login' }
   },
 
   close() {
-    return M.Modal.getInstance(document.getElementById('session-modal')).close();
+    return M.Modal.getInstance(document.getElementById('session-modal')).close()
   },
 
   view(view) {
     return $(this.refs.view).fadeOut(300, () => {
-      return this.setState({view}, () => {
-        return $(this.refs.view).fadeIn(300);
-      });
-    });
+      return this.setState({ view }, () => {
+        return $(this.refs.view).fadeIn(300)
+      })
+    })
   },
 
   _handleHelpClick(e) {
-    this.view('help');
-    return e.preventDefault();
+    this.view('help')
+    return e.preventDefault()
   },
 
   _handleComplete() {
-    return this.view('login');
+    return this.view('login')
   },
 
   render() {
-    const view = (() => { switch (this.state.view) {
-      case 'help':
-        return <PasswordResetForm onComplete={ this.close } onSignInClick={ this._handleComplete } />;
+    const view = (() => {
+      switch (this.state.view) {
+        case 'help':
+          return (
+            <PasswordResetForm
+              onComplete={this.close}
+              onSignInClick={this._handleComplete}
+            />
+          )
 
-      default:
-        return <LoginForm onLogin={ this.close }>
-            <div className='right-align'>
-                <a href='/login' onClick={ this._handleHelpClick }>Forgot password?</a>
-            </div>
-        </LoginForm>;
-    } })();
+        default:
+          return (
+            <LoginForm onLogin={this.close}>
+              <div className="right-align">
+                <a href="/login" onClick={this._handleHelpClick}>
+                  Forgot password?
+                </a>
+              </div>
+            </LoginForm>
+          )
+      }
+    })()
 
-    return <Modal id='session-modal'
-            title='Welcome back!'
-            onClose={ this._handleComplete }
-            className='narrow'>
-        <div ref='view' className='flex'>
-            { view }
+    return (
+      <Modal
+        id="session-modal"
+        title="Welcome back!"
+        onClose={this._handleComplete}
+        className="narrow"
+      >
+        <div ref="view" className="flex">
+          {view}
         </div>
-    </Modal>;
-  }
-});
+      </Modal>
+    )
+  },
+})

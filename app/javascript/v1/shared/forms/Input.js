@@ -34,125 +34,137 @@ this.Input = React.createClass({
 
     value: React.PropTypes.oneOfType([
       React.PropTypes.string,
-      React.PropTypes.bool
+      React.PropTypes.bool,
     ]),
 
     error: React.PropTypes.oneOfType([
       React.PropTypes.string,
-      React.PropTypes.array
-    ])
+      React.PropTypes.array,
+    ]),
   },
 
   getInitialState() {
     return {
-      value: this.props.type === 'radio' ? ('') : (this.props.value || this.props.default),
+      value:
+        this.props.type === 'radio'
+          ? ''
+          : this.props.value || this.props.default,
       error: this.props.error,
-      dirty: false
-    };
+      dirty: false,
+    }
   },
-
 
   componentWillReceiveProps(newProps) {
     if (newProps.value !== this.state.value) {
-      this.setState({value: (newProps.value || newProps.default)});
+      this.setState({ value: newProps.value || newProps.default })
     }
 
     if (newProps.error !== this.state.error) {
-      return this.setState({error: newProps.error});
+      return this.setState({ error: newProps.error })
     }
   },
 
   componentDidMount() {
     if (this.props.type === 'textarea') {
-      Materialize.textareaAutoResize(this.refs.input);
+      Materialize.textareaAutoResize(this.refs.input)
     }
 
     if (this.props.type === 'color') {
-      const tcp =
-        $(this.refs.input).colorPicker({
-          doRender: false,
-          renderCallback: (e, toggle) => {
-            if ((typeof toggle === 'undefined') && e.text) {
-              return this._handleInputChange({target: {value: e.text}});
-            }
+      const tcp = $(this.refs.input).colorPicker({
+        doRender: false,
+        renderCallback: (e, toggle) => {
+          if (typeof toggle === 'undefined' && e.text) {
+            return this._handleInputChange({ target: { value: e.text } })
           }
-        });
+        },
+      })
 
-      window.tcp = tcp;
+      window.tcp = tcp
 
       $(this.refs.input)
-        .blur(() => tcp.colorPicker.$UI.hide()).focus(() => tcp.colorPicker.$UI.show());
+        .blur(() => tcp.colorPicker.$UI.hide())
+        .focus(() => tcp.colorPicker.$UI.show())
     }
 
     if (this.props.focusSelectAll) {
       return $(this.refs.input).focus(function() {
-        return $(this).select();
-      });
+        return $(this).select()
+      })
     }
   },
 
   componentDidUpdate(newProps, newState) {
-    if ((this.props.type === 'textarea') && this.props.browserDefault && (this.state.value !== newState.value)) {
-      $(this.refs.input).css({height: 0});
-      $(this.refs.input).css({height: this.refs.input.scrollHeight + 10});
+    if (
+      this.props.type === 'textarea' &&
+      this.props.browserDefault &&
+      this.state.value !== newState.value
+    ) {
+      $(this.refs.input).css({ height: 0 })
+      $(this.refs.input).css({ height: this.refs.input.scrollHeight + 10 })
     }
 
-    if ((this.props.type === 'textarea') && !this.props.browserDefault) {
-      return Materialize.textareaAutoResize(this.refs.input);
+    if (this.props.type === 'textarea' && !this.props.browserDefault) {
+      return Materialize.textareaAutoResize(this.refs.input)
     }
   },
 
-
   _handleInputChange(e) {
-    let value;
+    let value
     if (this.props.type === 'checkbox') {
-      value = e.target.checked;
+      value = e.target.checked
     } else if (this.props.type === 'radio') {
-      if (e.target.checked) { value = this.props.default; }
+      if (e.target.checked) {
+        value = this.props.default
+      }
     } else {
-      ({
-        value
-      } = e.target);
+      ({ value } = e.target)
     }
 
-    this.setState({error: null, value, dirty: true});
-    if (this.props.onChange) { return this.props.onChange(this.props.name, value); }
+    this.setState({ error: null, value, dirty: true })
+    if (this.props.onChange) {
+      return this.props.onChange(this.props.name, value)
+    }
   },
 
   _handleKeyPress(e) {
     switch (false) {
-      case !e.ctrlKey || (e.keyCode !== 13):
-        if (this.props.onSubmit) { return this.props.onSubmit(); }
-        break;
+      case !e.ctrlKey || e.keyCode !== 13:
+        if (this.props.onSubmit) {
+          return this.props.onSubmit()
+        }
+        break
     }
   },
 
-
   render() {
-    let icon, id, inputField;
-    let {
-      className
-    } = this.props;
-    if (this.props.error != null) { className += ' invalid'; }
-    if (this.props.browserDefault) { className += ' browser-default'; }
-    if (this.props.autoFocus) { className += ' autofocus'; }
-    if (this.props.noMargin) { className += ' margin-bottom--none'; }
+    let icon, id, inputField
+    let { className } = this.props
+    if (this.props.error != null) {
+      className += ' invalid'
+    }
+    if (this.props.browserDefault) {
+      className += ' browser-default'
+    }
+    if (this.props.autoFocus) {
+      className += ' autofocus'
+    }
+    if (this.props.noMargin) {
+      className += ' margin-bottom--none'
+    }
 
-    let {
-      error
-    } = this.props;
-    if (error != null ? error.length : undefined) { error = error[0]; }
+    let { error } = this.props
+    if (error != null ? error.length : undefined) {
+      error = error[0]
+    }
 
-    let inputFieldInsideLabel = false;
+    let inputFieldInsideLabel = false
 
     if (this.props.id) {
-      ({
-        id
-      } = this.props);
+      ({ id } = this.props)
     } else if (this.props.modelName) {
-      id = `${this.props.modelName}_${this.props.name}`;
+      id = `${this.props.modelName}_${this.props.name}`
     } else {
-      id = this.props.name;
+      id = this.props.name
     }
 
     const commonProps = {
@@ -165,88 +177,103 @@ this.Input = React.createClass({
       autoFocus: this.props.autoFocus,
       onChange: this._handleInputChange,
       className,
-      noValidate: true
-    };
-
+      noValidate: true,
+    }
 
     if (this.props.type === 'textarea') {
       if (!this.props.browserDefault) {
-        className += ' materialize-textarea';
+        className += ' materialize-textarea'
       }
 
-      inputField =
-        <textarea {...commonProps}
-                   value={ this.state.value || '' }
-                   onKeyDown={ this._handleKeyPress }
-                   className={ className }
-        />;
-
+      inputField = (
+        <textarea
+          {...commonProps}
+          value={this.state.value || ''}
+          onKeyDown={this._handleKeyPress}
+          className={className}
+        />
+      )
     } else if (this.props.type === 'checkbox') {
-      inputFieldInsideLabel = true;
-      inputField =
-        <input {...commonProps}
-                type={ this.props.type }
-                checked={ this.state.value || false }
-        />;
-
+      inputFieldInsideLabel = true
+      inputField = (
+        <input
+          {...commonProps}
+          type={this.props.type}
+          checked={this.state.value || false}
+        />
+      )
     } else if (this.props.type === 'radio') {
-      inputFieldInsideLabel = true;
-      inputField =
-        <input {...commonProps}
-                value={ this.props.default }
-                type={ this.props.type }
-                checked={ this.state.value == this.props.default }
-        />;
-
+      inputFieldInsideLabel = true
+      inputField = (
+        <input
+          {...commonProps}
+          value={this.props.default}
+          type={this.props.type}
+          checked={this.state.value == this.props.default}
+        />
+      )
     } else if (this.props.type === 'color') {
-      inputField =
-        <input {...commonProps}
-                value={ this.state.value || '#000000' }
-                type='text'
-        />;
+      inputField = (
+        <input
+          {...commonProps}
+          value={this.state.value || '#000000'}
+          type="text"
+        />
+      )
 
       if (this.props.icon !== '') {
-        icon =
-          <i className='material-icons prefix shadow' style={{ color: this.state.value }}>{ this.props.icon || 'palette' }</i>;
+        icon = (
+          <i
+            className="material-icons prefix shadow"
+            style={{ color: this.state.value }}
+          >
+            {this.props.icon || 'palette'}
+          </i>
+        )
       }
-
     } else {
-      inputField =
-        <input {...commonProps}
-                type={ this.props.type || 'text' }
-                value={ this.state.value || '' }
-        />;
+      inputField = (
+        <input
+          {...commonProps}
+          type={this.props.type || 'text'}
+          value={this.state.value || ''}
+        />
+      )
     }
 
     if (this.props.icon) {
-      icon =
-        <i className='material-icons prefix'>{ this.props.icon }</i>;
+      icon = <i className="material-icons prefix">{this.props.icon}</i>
     }
 
-    const wrapperClassNames = [];
-    if ((this.props.type !== 'radio') && (this.props.type !== 'checkbox')) { wrapperClassNames.push('input-field'); }
-    if (this.props.noMargin || !this.props.label) { wrapperClassNames.push('margin-top--none'); }
-    if ((this.props.type === 'radio') || (this.props.type === 'checkbox')) { wrapperClassNames.push('check-field'); }
+    const wrapperClassNames = []
+    if (this.props.type !== 'radio' && this.props.type !== 'checkbox') {
+      wrapperClassNames.push('input-field')
+    }
+    if (this.props.noMargin || !this.props.label) {
+      wrapperClassNames.push('margin-top--none')
+    }
+    if (this.props.type === 'radio' || this.props.type === 'checkbox') {
+      wrapperClassNames.push('check-field')
+    }
 
-    return <div className={ wrapperClassNames.join(' ') }>
-        { icon }
-        { !inputFieldInsideLabel && inputField }
+    return (
+      <div className={wrapperClassNames.join(' ')}>
+        {icon}
+        {!inputFieldInsideLabel && inputField}
 
-        { this.props.label &&
-            <label htmlFor={ id }>
-              { inputFieldInsideLabel && inputField }
-              <span>{ this.props.label }</span>
-            </label> }
+        {this.props.label && (
+          <label htmlFor={id}>
+            {inputFieldInsideLabel && inputField}
+            <span>{this.props.label}</span>
+          </label>
+        )}
 
-        { error &&
-            <div className='error-block'>
-                { error }
-            </div> }
+        {error && <div className="error-block">{error}</div>}
 
-        { !error && this.props.hint &&
-            <div className='hint-block'>
-                { this.props.hint }
-            </div> }
-    </div>;
-  }
-});
+        {!error && this.props.hint && (
+          <div className="hint-block">{this.props.hint}</div>
+        )}
+      </div>
+    )
+  },
+})

@@ -14,47 +14,65 @@
  */
 this.Forums.Threads.Reply = React.createClass({
   contextTypes: {
-    currentUser: React.PropTypes.object
+    currentUser: React.PropTypes.object,
   },
 
   propTypes: {
     forumId: React.PropTypes.string.isRequired,
     threadId: React.PropTypes.string.isRequired,
-    onPost: React.PropTypes.func
+    onPost: React.PropTypes.func,
   },
 
   getInitialState() {
     return {
       post: {
-        content: null
-      }
-    };
+        content: null,
+      },
+    }
   },
 
   _handlePost(post) {
-    if (this.props.onPost) { return this.props.onPost(post); }
+    if (this.props.onPost) {
+      return this.props.onPost(post)
+    }
   },
 
   render() {
-    if (!this.context.currentUser) { return null; }
+    if (!this.context.currentUser) {
+      return null
+    }
 
-    return <Form className='card sp with-avatar reply-box'
-           action={ '/forums/' + this.props.forumId + '/threads/' + this.props.threadId + '/posts' }
-           method='POST'
-           model={ this.state.post }
-           modelName='post'
-           onChange={ this._handlePost }
-           resetOnSubmit
-    >
-        <IdentityAvatar src={ this.context.currentUser } />
+    return (
+      <Form
+        className="card sp with-avatar reply-box"
+        action={
+          '/forums/' +
+          this.props.forumId +
+          '/threads/' +
+          this.props.threadId +
+          '/posts'
+        }
+        method="POST"
+        model={this.state.post}
+        modelName="post"
+        onChange={this._handlePost}
+        resetOnSubmit
+      >
+        <IdentityAvatar src={this.context.currentUser} />
 
-        <div className='card-content'>
-            <Input type='textarea' browserDefault name='content' placeholder='Leave a reply...' />
+        <div className="card-content">
+          <Input
+            type="textarea"
+            browserDefault
+            name="content"
+            placeholder="Leave a reply..."
+          />
 
-            <div className='right-align'>
-                <Submit>Reply</Submit>
-            </div>
+          <div className="right-align">
+            <Submit>Reply</Submit>
+          </div>
         </div>
-    </Form>;
-  }
-});
+      </Form>
+    )
+  },
+})

@@ -11,8 +11,8 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.Section = props => <section className={ props.className }>
-    <div className='container'>
-        { props.children }
-    </div>
-</section>;
+this.Section = props => (
+  <section className={props.className}>
+    <div className="container">{props.children}</div>
+  </section>
+)

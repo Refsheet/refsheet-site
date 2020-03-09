@@ -14,17 +14,19 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 this.Forums.Table = function(props) {
-  const { forums, title } = props;
+  const { forums, title } = props
 
-  const forumCards = forums.map(forum => <Column l={4} xl={3} key={ forum.slug }>
+  const forumCards = forums.map(forum => (
+    <Column l={4} xl={3} key={forum.slug}>
       <Forums.Card {...StringUtils.camelizeKeys(forum)} />
-  </Column>);
+    </Column>
+  ))
 
-  return <div className='collection-group'>
-      <h3 className='group-title margin-top--none'>{ title }</h3>
+  return (
+    <div className="collection-group">
+      <h3 className="group-title margin-top--none">{title}</h3>
 
-      <Row>
-          { forumCards }
-      </Row>
-  </div>;
-};
+      <Row>{forumCards}</Row>
+    </div>
+  )
+}

@@ -13,53 +13,84 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import React from 'react';
-import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
+import React from 'react'
+import PropTypes from 'prop-types'
+import createReactClass from 'create-react-class'
 
 this.View = createReactClass({
   contextTypes: {
     router: PropTypes.object.isRequired,
-    eagerLoad: PropTypes.object
+    eagerLoad: PropTypes.object,
   },
 
   dataPath: '/static/:pageId',
 
   paramMap: {
-    pageId: 'id'
+    pageId: 'id',
   },
-
 
   getInitialState() {
     return {
       page: null,
-      error: null
-    };
+      error: null,
+    }
   },
 
-
   componentDidMount() {
-    const props = {match: {params: {pageId: ( (this.props.match != null ? this.props.match.params.pageId : undefined) || this.props.location.pathname.replace(/^\//, '') )}}};
-    return StateUtils.load(this, 'page', props);
+    const props = {
+      match: {
+        params: {
+          pageId:
+            (this.props.match != null
+              ? this.props.match.params.pageId
+              : undefined) || this.props.location.pathname.replace(/^\//, ''),
+        },
+      },
+    }
+    return StateUtils.load(this, 'page', props)
   },
 
   componentWillReceiveProps(newProps) {
-    if ((newProps.location.pathname && (newProps.location.pathname === this.props.location.pathname)) || ((newProps.match != null ? newProps.match.params.pageId : undefined) && ((newProps.match != null ? newProps.match.params.pageId : undefined) === (this.props.match != null ? this.props.match.params.pageId : undefined)))) { return; }
-    const props = {match: {params: {pageId: ( (newProps.match != null ? newProps.match.params.pageId : undefined) || newProps.location.pathname.replace(/^\//, '') )}}};
-    return StateUtils.reload(this, 'page', props, {params: {pageId: (this.state.page != null ? this.state.page.id : undefined)}});
+    if (
+      (newProps.location.pathname &&
+        newProps.location.pathname === this.props.location.pathname) ||
+      ((newProps.match != null ? newProps.match.params.pageId : undefined) &&
+        (newProps.match != null ? newProps.match.params.pageId : undefined) ===
+          (this.props.match != null
+            ? this.props.match.params.pageId
+            : undefined))
+    ) {
+      return
+    }
+    const props = {
+      match: {
+        params: {
+          pageId:
+            (newProps.match != null
+              ? newProps.match.params.pageId
+              : undefined) || newProps.location.pathname.replace(/^\//, ''),
+        },
+      },
+    }
+    return StateUtils.reload(this, 'page', props, {
+      params: {
+        pageId: this.state.page != null ? this.state.page.id : undefined,
+      },
+    })
   },
 
   //== Render
 
   render() {
     if (this.state.page) {
-      return <Main title={ this.state.page.title }>
-          <div dangerouslySetInnerHTML={{__html: this.state.page.content }} />
-      </Main>;
-
+      return (
+        <Main title={this.state.page.title}>
+          <div dangerouslySetInnerHTML={{ __html: this.state.page.content }} />
+        </Main>
+      )
     } else {
-      return <Main />;
+      return <Main />
     }
-  }
-});
-export default this.View;
+  },
+})
+export default this.View

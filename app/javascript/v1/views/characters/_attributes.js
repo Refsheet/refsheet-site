@@ -17,46 +17,61 @@ this.Views.Character.Attributes = React.createClass({
     characterPath: React.PropTypes.string.isRequired,
     attributes: React.PropTypes.array.isRequired,
     onChange: React.PropTypes.func.isRequired,
-    editable: React.PropTypes.bool
+    editable: React.PropTypes.bool,
   },
 
   _handleAttributeUpdate(attr, complete, error) {
-    return Model.post(this.props.characterPath + '/attributes', {custom_attributes: attr}, data => {
-      this.props.onChange(data);
-      if (complete) { return complete(); }
-    }
-    , error);
+    return Model.post(
+      this.props.characterPath + '/attributes',
+      { custom_attributes: attr },
+      data => {
+        this.props.onChange(data)
+        if (complete) {
+          return complete()
+        }
+      },
+      error
+    )
   },
 
   _handleAttributeDelete(id) {
-    return Model.delete(this.props.characterPath + '/attributes/' + id, data => {
-      return this.props.onChange(data);
-    });
+    return Model.delete(
+      this.props.characterPath + '/attributes/' + id,
+      data => {
+        return this.props.onChange(data)
+      }
+    )
   },
 
   render() {
-    let deleteCallback, updateCallback;
+    let deleteCallback, updateCallback
     if (this.props.editable) {
-      updateCallback = this._handleAttributeUpdate;
-      deleteCallback = this._handleAttributeDelete;
-
+      updateCallback = this._handleAttributeUpdate
+      deleteCallback = this._handleAttributeDelete
     } else {
-      if (!this.props.attributes || (this.props.attributes.length <= 0)) { return null; }
+      if (!this.props.attributes || this.props.attributes.length <= 0) {
+        return null
+      }
     }
 
-    const attributes = this.props.attributes.map(attr => <Attribute key={ attr.id } {...attr} />);
+    const attributes = this.props.attributes.map(attr => (
+      <Attribute key={attr.id} {...attr} />
+    ))
 
-    return <AttributeTable onAttributeUpdate={ updateCallback }
-                     onAttributeDelete={ deleteCallback }
-                     onAttributeCreate={ updateCallback }
-                     defaultValue='Unspecified'
-                     className='char-custom-attrs'
-                     editable={ this.props.editable }
-                     hideNotesForm
-                     hideIcon
-                     sortable
-    >
-        { attributes }
-    </AttributeTable>;
-  }
-});
+    return (
+      <AttributeTable
+        onAttributeUpdate={updateCallback}
+        onAttributeDelete={deleteCallback}
+        onAttributeCreate={updateCallback}
+        defaultValue="Unspecified"
+        className="char-custom-attrs"
+        editable={this.props.editable}
+        hideNotesForm
+        hideIcon
+        sortable
+      >
+        {attributes}
+      </AttributeTable>
+    )
+  },
+})

@@ -13,28 +13,30 @@
  */
 this.Stats = React.createClass({
   propTypes: {
-    className: React.PropTypes.string
+    className: React.PropTypes.string,
   },
 
   render() {
-    const classNames = ['stats'];
-    if (this.props.className) { classNames.push(this.props.className); }
+    const classNames = ['stats']
+    if (this.props.className) {
+      classNames.push(this.props.className)
+    }
 
-    return <ul className={ classNames.join(' ') }>
-        { this.props.children }
-    </ul>;
-  }
-});
+    return <ul className={classNames.join(' ')}>{this.props.children}</ul>
+  },
+})
 
 this.Stats.Item = React.createClass({
   propTypes: {
-    label: React.PropTypes.string.isRequired
+    label: React.PropTypes.string.isRequired,
   },
 
   render() {
-    return <li>
-        <div className='label'>{ this.props.label }</div>
-        <div className='value'>{ this.props.children }</div>
-    </li>;
-  }
-});
+    return (
+      <li>
+        <div className="label">{this.props.label}</div>
+        <div className="value">{this.props.children}</div>
+      </li>
+    )
+  },
+})

@@ -12,23 +12,33 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 this.Spinner = function(props) {
-  const classNames = ['preloader-wrapper'];
-  if (!props.inactive) { classNames.push('active'); }
-  if (!props.small) { classNames.push('big'); }
-  if (props.center) { classNames.push('center-by-margin'); }
-  if (props.className) { classNames.push(props.className); }
+  const classNames = ['preloader-wrapper']
+  if (!props.inactive) {
+    classNames.push('active')
+  }
+  if (!props.small) {
+    classNames.push('big')
+  }
+  if (props.center) {
+    classNames.push('center-by-margin')
+  }
+  if (props.className) {
+    classNames.push(props.className)
+  }
 
-  return <div className={ classNames.join(' ') }>
+  return (
+    <div className={classNames.join(' ')}>
       <div className="spinner-layer spinner-teal">
-          <div className="circle-clipper left">
-              <div className="circle"></div>
-          </div>
-          <div className="gap-patch">
-              <div className="circle"></div>
-          </div>
-          <div className="circle-clipper right">
-              <div className="circle"></div>
-          </div>
+        <div className="circle-clipper left">
+          <div className="circle"></div>
+        </div>
+        <div className="gap-patch">
+          <div className="circle"></div>
+        </div>
+        <div className="circle-clipper right">
+          <div className="circle"></div>
+        </div>
       </div>
-  </div>;
-};
+    </div>
+  )
+}

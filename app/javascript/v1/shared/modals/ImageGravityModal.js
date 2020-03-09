@@ -16,78 +16,135 @@ this.ImageGravityModal = React.createClass({
   getInitialState() {
     return {
       gravity: this.props.image.gravity || 'center',
-      loading: false
-    };
+      loading: false,
+    }
   },
-    
+
   handleGravityChange(e) {
-    const gravity = $(e.target).closest('[data-gravity]').data('gravity');
-    return this.setState({gravity});
+    const gravity = $(e.target)
+      .closest('[data-gravity]')
+      .data('gravity')
+    return this.setState({ gravity })
   },
 
   handleSave(e) {
-    this.setState({loading: true});
+    this.setState({ loading: true })
     $.ajax({
       url: this.props.image.path,
       type: 'PATCH',
-      data: { image: {gravity: this.state.gravity}
-    },
+      data: { image: { gravity: this.state.gravity } },
       success: data => {
-        $(document).trigger('app:image:update', data);
-        Materialize.toast({ html: 'Cropping settings saved. It may take a second to rebuild your thumbnails.', displayLength: 3000, classes: 'green' });
-        this.setState({loading: false});
-        return M.Modal.getInstance(document.getElementById('image-gravity-modal')).close();
+        $(document).trigger('app:image:update', data)
+        Materialize.toast({
+          html:
+            'Cropping settings saved. It may take a second to rebuild your thumbnails.',
+          displayLength: 3000,
+          classes: 'green',
+        })
+        this.setState({ loading: false })
+        return M.Modal.getInstance(
+          document.getElementById('image-gravity-modal')
+        ).close()
       },
       error: error => {
-        Materialize.toast({ html: 'Something bad happened', displayLength: 3000, classes: 'red' });
-        this.setState({loading: false});
-        return console.log(error);
-      }
-    });
-    return e.preventDefault();
+        Materialize.toast({
+          html: 'Something bad happened',
+          displayLength: 3000,
+          classes: 'red',
+        })
+        this.setState({ loading: false })
+        return console.log(error)
+      },
+    })
+    return e.preventDefault()
   },
 
   handleClose(e) {
-    $('#image-gravity-modal').modal('close');
-    this.setState({gravity: this.getInitialState()});
-    return e.preventDefault();
+    $('#image-gravity-modal').modal('close')
+    this.setState({ gravity: this.getInitialState() })
+    return e.preventDefault()
   },
-    
+
   render() {
     const gravity_crop = {
       center: { objectPosition: 'center' },
       north: { objectPosition: 'top' },
       south: { objectPosition: 'bottom' },
       east: { objectPosition: 'right' },
-      west: { objectPosition: 'left' }
-    };
+      west: { objectPosition: 'left' },
+    }
 
-    return <Modal id='image-gravity-modal' title='Change Image Cropping'>
-        <p>Images can crop with a focus on the top, bottom, left, right or center. Ideally, the most important
-            part of the image will be visible when cropped to a square or circle.</p>
+    return (
+      <Modal id="image-gravity-modal" title="Change Image Cropping">
+        <p>
+          Images can crop with a focus on the top, bottom, left, right or
+          center. Ideally, the most important part of the image will be visible
+          when cropped to a square or circle.
+        </p>
 
-        <div className='image-crop margin-top--large'>
-            <img src={ this.props.image.url } style={ gravity_crop[this.state.gravity] } />
-            <a onClick={ this.handleGravityChange } className='btn g-north' data-gravity='north'><i className='material-icons'>keyboard_arrow_up</i></a>
-            <a onClick={ this.handleGravityChange } className='btn g-east' data-gravity='east'><i className='material-icons'>keyboard_arrow_right</i></a>
-            <a onClick={ this.handleGravityChange } className='btn g-south' data-gravity='south'><i className='material-icons'>keyboard_arrow_down</i></a>
-            <a onClick={ this.handleGravityChange } className='btn g-west' data-gravity='west'><i className='material-icons'>keyboard_arrow_left</i></a>
-            <a onClick={ this.handleGravityChange } className='btn g-center' data-gravity='center'><i className='material-icons'>close</i></a>
+        <div className="image-crop margin-top--large">
+          <img
+            src={this.props.image.url}
+            style={gravity_crop[this.state.gravity]}
+          />
+          <a
+            onClick={this.handleGravityChange}
+            className="btn g-north"
+            data-gravity="north"
+          >
+            <i className="material-icons">keyboard_arrow_up</i>
+          </a>
+          <a
+            onClick={this.handleGravityChange}
+            className="btn g-east"
+            data-gravity="east"
+          >
+            <i className="material-icons">keyboard_arrow_right</i>
+          </a>
+          <a
+            onClick={this.handleGravityChange}
+            className="btn g-south"
+            data-gravity="south"
+          >
+            <i className="material-icons">keyboard_arrow_down</i>
+          </a>
+          <a
+            onClick={this.handleGravityChange}
+            className="btn g-west"
+            data-gravity="west"
+          >
+            <i className="material-icons">keyboard_arrow_left</i>
+          </a>
+          <a
+            onClick={this.handleGravityChange}
+            className="btn g-center"
+            data-gravity="center"
+          >
+            <i className="material-icons">close</i>
+          </a>
         </div>
 
-        <Row className='actions'>
-            <Column>
-                <div className='right'>
-                    { this.state.loading
-                        ? <a className='btn disabled'>Saving...</a>
-                        : <a className='btn waves-effect waves-light' onClick={ this.handleSave }>Save</a> }
-                </div>
-
-                <a className='btn grey darken-3' onClick={ this.handleClose }>
-                    <i className='material-icons'>cancel</i>
+        <Row className="actions">
+          <Column>
+            <div className="right">
+              {this.state.loading ? (
+                <a className="btn disabled">Saving...</a>
+              ) : (
+                <a
+                  className="btn waves-effect waves-light"
+                  onClick={this.handleSave}
+                >
+                  Save
                 </a>
-            </Column>
+              )}
+            </div>
+
+            <a className="btn grey darken-3" onClick={this.handleClose}>
+              <i className="material-icons">cancel</i>
+            </a>
+          </Column>
         </Row>
-    </Modal>;
-  }
-});
+      </Modal>
+    )
+  },
+})

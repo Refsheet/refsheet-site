@@ -17,7 +17,7 @@
 const gallery_image = React.createClass({
   contextTypes: {
     currentUser: React.PropTypes.object,
-    session: React.PropTypes.object
+    session: React.PropTypes.object,
   },
 
   propTypes: {
@@ -28,57 +28,69 @@ const gallery_image = React.createClass({
     size: React.PropTypes.string,
     onSwap: React.PropTypes.func,
     onClick: React.PropTypes.func,
-    gallery: React.PropTypes.array
+    gallery: React.PropTypes.array,
   },
-
 
   getInitialState() {
-    return {image: this.props.image};
+    return { image: this.props.image }
   },
 
-
   load(image) {
-    return this.setState({image}, this._initialize);
+    return this.setState({ image }, this._initialize)
   },
 
   _handleFavoriteClick(e) {
-    const action = (this.state.image != null ? this.state.image.is_favorite : undefined) ? 'delete' : 'post';
-    Model.request(action, '/media/' + this.state.image.id + '/favorites', {}, data => {
-      return this._handleFavorite(!!data.media_id);
-    });
-    return e.preventDefault();
+    const action = (this.state.image != null
+    ? this.state.image.is_favorite
+    : undefined)
+      ? 'delete'
+      : 'post'
+    Model.request(
+      action,
+      '/media/' + this.state.image.id + '/favorites',
+      {},
+      data => {
+        return this._handleFavorite(!!data.media_id)
+      }
+    )
+    return e.preventDefault()
   },
 
-
   _handleFavorite(fav) {
-    const o = this.state.image;
-    o.is_favorite = fav;
-    this.setState({image: o});
-    return $(document).trigger('app:image:update', o);
+    const o = this.state.image
+    o.is_favorite = fav
+    this.setState({ image: o })
+    return $(document).trigger('app:image:update', o)
   },
 
   _handleClick(e) {
-    const $target = $(e.target);
+    const $target = $(e.target)
     if ($target.prop('tagName') === 'IMG') {
       if (this.props.onClick && this.props.onClick(this.state.image)) {
-        true;
+        true
       } else {
-        this.props.dispatch({type: "OPEN_LIGHTBOX", mediaId: (this.state.image != null ? this.state.image.id : undefined), gallery: this.props.gallery});
+        this.props.dispatch({
+          type: 'OPEN_LIGHTBOX',
+          mediaId: this.state.image != null ? this.state.image.id : undefined,
+          gallery: this.props.gallery,
+        })
       }
     } else if (this.state.image.nsfw && !this.props.session.nsfwOk) {
-      this.props.dispatch({type: "SET_NSFW_MODE", nsfwOk: true});
+      this.props.dispatch({ type: 'SET_NSFW_MODE', nsfwOk: true })
     }
 
-    return e.preventDefault();
+    return e.preventDefault()
   },
 
   _initialize() {
-    if (!this.state.image) { return; }
+    if (!this.state.image) {
+      return
+    }
 
-    const $image = $(this.refs.image);
+    const $image = $(this.refs.image)
 
     if (this.props.editable) {
-      const _this = this;
+      const _this = this
 
       $image.draggable({
         revert: true,
@@ -86,120 +98,140 @@ const gallery_image = React.createClass({
         appendTo: 'body',
         cursorAt: {
           top: 5,
-          left: 5
+          left: 5,
         },
         helper: () => {
-          return $(`<div class='card-panel'>${this.state.image.title}</div>`);
-        }
-      });
+          return $(`<div class='card-panel'>${this.state.image.title}</div>`)
+        },
+      })
 
       return $image.droppable({
         tolerance: 'pointer',
         drop: (event, ui) => {
-          const $source = ui.draggable;
-          const sourceId = $source.data('gallery-image-id');
-          if (_this.props.onSwap) { return _this.props.onSwap(sourceId, this.state.image.id); }
-        }
-      });
+          const $source = ui.draggable
+          const sourceId = $source.data('gallery-image-id')
+          if (_this.props.onSwap) {
+            return _this.props.onSwap(sourceId, this.state.image.id)
+          }
+        },
+      })
     }
   },
 
-
   _updateEvent(e, image) {
-    if (!this.state.image || !image || (this.state.image.id !== image.id)) { return; }
-    return this.load(image);
+    if (!this.state.image || !image || this.state.image.id !== image.id) {
+      return
+    }
+    return this.load(image)
   },
 
-
   componentDidMount() {
-    this._initialize();
+    this._initialize()
 
-    return $(document).on('app:image:update', this._updateEvent);
+    return $(document).on('app:image:update', this._updateEvent)
   },
 
   componentWillUnmount() {
-    return $(document).off('app:image:update', this._updateEvent);
+    return $(document).off('app:image:update', this._updateEvent)
   },
 
   componentWillReceiveProps(newProps) {
     if (newProps.image != null) {
-      return this.load(newProps.image);
+      return this.load(newProps.image)
     }
   },
 
-
   render() {
-    let contents;
-    const classNames = ['gallery-image'];
-    if (this.props.className) { classNames.push(this.props.className); }
-    if (this.props.editable) { classNames.push('draggable'); }
+    let contents
+    const classNames = ['gallery-image']
+    if (this.props.className) {
+      classNames.push(this.props.className)
+    }
+    if (this.props.editable) {
+      classNames.push('draggable')
+    }
 
     if (this.state.image) {
-      let imageSrc;
+      let imageSrc
       if (typeof this.state.image.url === 'object') {
-        imageSrc = this.state.image.url[this.props.size] || this.state.image.url['large'];
+        imageSrc =
+          this.state.image.url[this.props.size] || this.state.image.url['large']
       } else {
-        imageSrc = this.state.image[this.props.size] || this.state.image['large'];
+        imageSrc =
+          this.state.image[this.props.size] || this.state.image['large']
       }
 
-      const showNsfwWarning = this.state.image.nsfw && !(this.context.session != null ? this.context.session.nsfw_ok : undefined);
+      const showNsfwWarning =
+        this.state.image.nsfw &&
+        !(this.context.session != null
+          ? this.context.session.nsfw_ok
+          : undefined)
 
-      contents =
-        <a ref='image'
-            className={ classNames.join(' ') }
-            onClick={ this._handleClick }
-            href={ this.state.image.path }
-            data-gallery-image-id={ this.state.image.id }
-            style={{ backgroundColor: this.state.image.background_color }}
+      contents = (
+        <a
+          ref="image"
+          className={classNames.join(' ')}
+          onClick={this._handleClick}
+          href={this.state.image.path}
+          data-gallery-image-id={this.state.image.id}
+          style={{ backgroundColor: this.state.image.background_color }}
         >
-            { showNsfwWarning &&
-              <div className='nsfw-cover'>
-                  <Icon>remove_circle_outline</Icon>
-                  <div className='caption'>Click to show NSFW content.</div>
-              </div> }
+          {showNsfwWarning && (
+            <div className="nsfw-cover">
+              <Icon>remove_circle_outline</Icon>
+              <div className="caption">Click to show NSFW content.</div>
+            </div>
+          )}
 
-            <div className='overlay'>
-                <div className='interactions'>
-                    <div className='favs clickable' onClick={ this._handleFavoriteClick }>
-                        <Icon>{ this.state.image.is_favorite ? 'star' : 'star_outline' }</Icon>
-                        &nbsp;{ NumberUtils.format(this.state.image.favorites_count) }
-                    </div>
-                    &nbsp;
-                    <div className='favs'>
-                        <Icon>comment</Icon>
-                        &nbsp;{ NumberUtils.format(this.state.image.comments_count) }
-                    </div>
-                </div>
-
-                <div className='image-title'>
-                    <div className='truncate'>{ this.state.image.title }</div>
-                    <div className='muted truncate'>By: { this.state.image.character.name }</div>
-                </div>
+          <div className="overlay">
+            <div className="interactions">
+              <div
+                className="favs clickable"
+                onClick={this._handleFavoriteClick}
+              >
+                <Icon>
+                  {this.state.image.is_favorite ? 'star' : 'star_outline'}
+                </Icon>
+                &nbsp;{NumberUtils.format(this.state.image.favorites_count)}
+              </div>
+              &nbsp;
+              <div className="favs">
+                <Icon>comment</Icon>
+                &nbsp;{NumberUtils.format(this.state.image.comments_count)}
+              </div>
             </div>
 
-            <img src={ imageSrc } alt={ this.state.image.title } title={ this.state.image.title } />
-        </a>;
+            <div className="image-title">
+              <div className="truncate">{this.state.image.title}</div>
+              <div className="muted truncate">
+                By: {this.state.image.character.name}
+              </div>
+            </div>
+          </div>
 
+          <img
+            src={imageSrc}
+            alt={this.state.image.title}
+            title={this.state.image.title}
+          />
+        </a>
+      )
     } else {
-      classNames.push('image-placeholder');
+      classNames.push('image-placeholder')
 
-      contents =
-        <div className={ classNames.join(' ') } />;
+      contents = <div className={classNames.join(' ')} />
     }
 
     if (this.props.wrapperClassName) {
-      return <div className={ this.props.wrapperClassName }>
-          { contents }
-      </div>;
-
+      return <div className={this.props.wrapperClassName}>{contents}</div>
     } else {
-      return contents;
+      return contents
     }
-  }
-});
+  },
+})
 
 const mapStateToProps = state => ({
-  session: state.session
-});
+  session: state.session,
+})
 
-this.GalleryImage = connect(mapStateToProps)(gallery_image);
+this.GalleryImage = connect(mapStateToProps)(gallery_image)

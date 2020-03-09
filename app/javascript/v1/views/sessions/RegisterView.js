@@ -17,94 +17,92 @@ this.RegisterView = React.createClass({
   contextTypes: {
     router: React.PropTypes.object.isRequired,
     setCurrentUser: React.PropTypes.func.isRequired,
-    currentUser: React.PropTypes.object
-},
-
+    currentUser: React.PropTypes.object,
+  },
 
   getInitialState() {
     return {
-        user: {
-          username: this.props.location.query.username,
-          email: null,
-          password: null,
-          password_confirmation: null
-      }
-    };
-},
-
+      user: {
+        username: this.props.location.query.username,
+        email: null,
+        password: null,
+        password_confirmation: null,
+      },
+    }
+  },
 
   _handleChange(user) {
     ReactGA.event({
       category: 'User',
-      action: 'Sign Up'
-    });
+      action: 'Sign Up',
+    })
 
-    return this.context.setCurrentUser(user);
-},
+    return this.context.setCurrentUser(user)
+  },
 
   componentDidUpdate(oldProps) {
     if (this.context.currentUser) {
-      return this.context.router.history.push('/');
-  }
-},
-
+      return this.context.router.history.push('/')
+    }
+  },
 
   componentDidMount() {
-    return $('body').addClass('no-footer');
-},
+    return $('body').addClass('no-footer')
+  },
 
   componentWillUnmount() {
-    return $('body').removeClass('no-footer');
-},
+    return $('body').removeClass('no-footer')
+  },
 
   render() {
-    return <Main title='Register'>
-        <div className='modal-page-content'>
-            <div className='narrow-container'>
-                <h1>Sign Up</h1>
+    return (
+      <Main title="Register">
+        <div className="modal-page-content">
+          <div className="narrow-container">
+            <h1>Sign Up</h1>
 
-                <Form
-                    action='/users'
-                    method='POST'
-                    model={ this.state.user }
-                    onChange={ this._handleChange }
-                    modelName='user'
-                >
+            <Form
+              action="/users"
+              method="POST"
+              model={this.state.user}
+              onChange={this._handleChange}
+              modelName="user"
+            >
+              <Input
+                name="username"
+                value={this.state.username}
+                label="Username"
+                autoFocus
+              />
 
-                    <Input
-                        name='username'
-                        value={ this.state.username }
-                        label='Username'
-                        autoFocus
-                    />
+              <Input
+                name="email"
+                type="email"
+                value={this.state.email}
+                label="Email"
+              />
 
-                    <Input
-                        name='email'
-                        type='email'
-                        value={ this.state.email }
-                        label='Email'
-                    />
+              <Input
+                name="password"
+                value={this.state.password}
+                type="password"
+                label="Password"
+              />
 
-                    <Input
-                        name='password'
-                        value={ this.state.password }
-                        type='password'
-                        label='Password'
-                    />
+              <Input
+                name="password_confirmation"
+                value={this.state.password_confirmation}
+                type="password"
+                label="Confirm Password"
+              />
 
-                    <Input
-                        name='password_confirmation'
-                        value={ this.state.password_confirmation }
-                        type='password'
-                        label='Confirm Password'
-                    />
-
-                    <div className='form-actions margin-top--large'>
-                        <Submit>Sign Up</Submit>
-                    </div>
-                </Form>
-            </div>
+              <div className="form-actions margin-top--large">
+                <Submit>Sign Up</Submit>
+              </div>
+            </Form>
+          </div>
         </div>
-    </Main>;
-}
-});
+      </Main>
+    )
+  },
+})

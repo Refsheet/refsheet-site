@@ -7,10 +7,10 @@
  */
 this.Views = {
   Account: {
-    Activities: {}
+    Activities: {},
   },
   Explore: {},
   User: {},
   Character: {},
-  Static: {}
-};
+  Static: {},
+}

@@ -23,114 +23,166 @@ this.BrowseApp = React.createClass({
       results: null,
       totalResults: null,
       page: null,
-      lastPage: false
-    };
+      lastPage: false,
+    }
   },
 
-
   componentDidMount() {
-    this.doSearch(this.props.location.query.q);
+    this.doSearch(this.props.location.query.q)
 
     return $(window).on('scroll.browse', () => {
-      if (!this.state.lastPage && !this.state.searching && (($(window).scrollTop() + $(window).height()) > ($(document).height() - this.scrollOffset))) {
-        return this._loadMore();
+      if (
+        !this.state.lastPage &&
+        !this.state.searching &&
+        $(window).scrollTop() + $(window).height() >
+          $(document).height() - this.scrollOffset
+      ) {
+        return this._loadMore()
       }
-    });
+    })
   },
 
   componentWillUnmount() {
-    return $(window).off('scroll.browse');
+    return $(window).off('scroll.browse')
   },
 
   componentWillReceiveProps(newProps) {
     if (newProps.location.query.q !== this.props.location.query.q) {
-      return this.doSearch(newProps.location.query.q);
+      return this.doSearch(newProps.location.query.q)
     }
   },
 
   _loadMore() {
-    console.log(`[BrowseApp] Loading more content: page ${this.state.page + 1}`);
-    return this.doSearch(this.props.location.query.q, this.state.page + 1);
+    console.log(`[BrowseApp] Loading more content: page ${this.state.page + 1}`)
+    return this.doSearch(this.props.location.query.q, this.state.page + 1)
   },
 
   doSearch(query, page) {
-    let s;
-    if (query == null) { query = ''; }
-    if (page == null) { page = 1; }
+    let s
+    if (query == null) {
+      query = ''
+    }
+    if (page == null) {
+      page = 1
+    }
     if (page > 1) {
-      s = {searching: true};
+      s = { searching: true }
     } else {
-      s = {results: null, searching: true, page: null, lastPage: true, totalResults: 0};
+      s = {
+        results: null,
+        searching: true,
+        page: null,
+        lastPage: true,
+        totalResults: 0,
+      }
     }
 
     return this.setState(s, () => {
       return $.ajax({
         url: '/characters.json',
-        data: { q: query, page
-      },
+        data: { q: query, page },
         success: data => {
-          let results = [];
-          if (page > 1) { results = results.concat(this.state.results); }
-          results = results.concat(data.characters);
-          const lastPage = data.characters.length < this.perPage;
-          const totalResults = data.$meta.total;
-          this.setState({ results, page, lastPage, totalResults, searching: false });
-          return console.debug(`[BrowseApp] Loaded ${data.characters.length} new records, ${results.length} total.`, data.$meta);
+          let results = []
+          if (page > 1) {
+            results = results.concat(this.state.results)
+          }
+          results = results.concat(data.characters)
+          const lastPage = data.characters.length < this.perPage
+          const totalResults = data.$meta.total
+          this.setState({
+            results,
+            page,
+            lastPage,
+            totalResults,
+            searching: false,
+          })
+          return console.debug(
+            `[BrowseApp] Loaded ${data.characters.length} new records, ${results.length} total.`,
+            data.$meta
+          )
         },
 
         error: error => {
-          console.error(error);
-          this.setState({results: [], searching: false, page: null, lastPage: true, totalResults: 0});
-          return Materialize.toast({ html: error.responseText, displayLength: 3000, classes: 'red' });
-        }
-      });
-    });
+          console.error(error)
+          this.setState({
+            results: [],
+            searching: false,
+            page: null,
+            lastPage: true,
+            totalResults: 0,
+          })
+          return Materialize.toast({
+            html: error.responseText,
+            displayLength: 3000,
+            classes: 'red',
+          })
+        },
+      })
+    })
   },
 
   render() {
-    let results, title;
+    let results, title
     if (this.props.location.query.q) {
-      title = 'Search Results';
+      title = 'Search Results'
     } else {
-      title = 'Browse';
+      title = 'Browse'
     }
 
     if (this.state.results !== null) {
-      results = this.state.results.map(character => <div className='col m3 s6' key={ character.slug }>
+      results = this.state.results.map(character => (
+        <div className="col m3 s6" key={character.slug}>
           <CharacterLinkCard {...StringUtils.camelizeKeys(character)} />
-      </div>);
+        </div>
+      ))
     }
 
-    return <Main title={ title }>
-        <Section className='search-results'>
-            { this.state.searching
-                ? <div>Searching...</div>
-                : this.state.results &&
-                    <div>
-                        Exactly { this.state.totalResults } results
-                        { this.props.location.query.q &&
-                            <span> | <Link to='/browse'>Clear Search</Link></span>
-                        }
-                    </div>
-            }
+    return (
+      <Main title={title}>
+        <Section className="search-results">
+          {this.state.searching ? (
+            <div>Searching...</div>
+          ) : (
+            this.state.results && (
+              <div>
+                Exactly {this.state.totalResults} results
+                {this.props.location.query.q && (
+                  <span>
+                    {' '}
+                    | <Link to="/browse">Clear Search</Link>
+                  </span>
+                )}
+              </div>
+            )
+          )}
         </Section>
 
-        { this.state.results == 0 &&
-            <p className='caption center'>No search results :(</p>
-        }
+        {this.state.results == 0 && (
+          <p className="caption center">No search results :(</p>
+        )}
 
-        <Section className='results'>
-            <div className='row'>
-                { results }
+        <Section className="results">
+          <div className="row">{results}</div>
+
+          {this.state.searching && (
+            <Loading className="margin-top--large" message={false} />
+          )}
+
+          {!this.state.searching && !this.state.lastPage && (
+            <div className="margin-top--large center">
+              <Button
+                href="#"
+                onClick={this._loadMore}
+                large
+                block
+                className="btn-flat grey darken-4 white-text"
+              >
+                Load More...
+              </Button>
             </div>
-
-            { this.state.searching && <Loading className='margin-top--large' message={ false } /> }
-
-            { !this.state.searching && !this.state.lastPage &&
-                <div className='margin-top--large center'>
-                    <Button href='#' onClick={ this._loadMore } large block className='btn-flat grey darken-4 white-text'>Load More...</Button>
-                </div> }
+          )}
         </Section>
-    </Main>;
-  }
-});
+      </Main>
+    )
+  },
+})
