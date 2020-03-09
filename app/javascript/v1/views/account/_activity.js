@@ -16,11 +16,11 @@
  */
 this.Views.Account.Activity = React.createClass({
   contextTypes: {
-    currentUser: React.PropTypes.object,
+    currentUser: PropTypes.object,
   },
 
   propTypes: {
-    filter: React.PropTypes.string,
+    filter: PropTypes.string,
   },
 
   timer: null,

@@ -16,14 +16,14 @@
  */
 this.Views.Account.ActivityCard = React.createClass({
   propTypes: {
-    activityType: React.PropTypes.string,
-    activityMethod: React.PropTypes.string,
-    activityField: React.PropTypes.string,
-    activity: React.PropTypes.object,
-    activities: React.PropTypes.array,
-    user: React.PropTypes.object.isRequired,
-    character: React.PropTypes.object,
-    timestamp: React.PropTypes.number.isRequired,
+    activityType: PropTypes.string,
+    activityMethod: PropTypes.string,
+    activityField: PropTypes.string,
+    activity: PropTypes.object,
+    activities: PropTypes.array,
+    user: PropTypes.object.isRequired,
+    character: PropTypes.object,
+    timestamp: PropTypes.number.isRequired,
   },
 
   _getIdentity() {

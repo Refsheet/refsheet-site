@@ -19,13 +19,13 @@ namespace('Views.Account')
 
 class Layout extends React.Component {
   static initClass() {
-    this.contextTypes = { router: React.PropTypes.object.isRequired }
+    this.contextTypes = { router: PropTypes.object.isRequired }
   }
 
   _findTitle(props) {
     let c
     if (props == null) {
-      ({ props } = this)
+      ;({ props } = this)
     }
     if (props.children && props.children.props) {
       c = this._findTitle(props.children.props)

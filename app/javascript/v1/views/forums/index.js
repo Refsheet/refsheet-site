@@ -14,11 +14,11 @@
  */
 this.Forums.Index = React.createClass({
   contextTypes: {
-    eagerLoad: React.PropTypes.object,
+    eagerLoad: PropTypes.object,
   },
 
   propTypes: {
-    forums: React.PropTypes.object,
+    forums: PropTypes.object,
   },
 
   dataPath: '/forums',

@@ -17,9 +17,9 @@
  */
 this.Lightbox = React.createClass({
   contextTypes: {
-    router: React.PropTypes.object.isRequired,
-    currentUser: React.PropTypes.object,
-    reportImage: React.PropTypes.func.isRequired,
+    router: PropTypes.object.isRequired,
+    currentUser: PropTypes.object,
+    reportImage: PropTypes.func.isRequired,
   },
 
   getInitialState() {

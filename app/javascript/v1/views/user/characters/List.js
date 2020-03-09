@@ -15,9 +15,9 @@
  */
 this.User.Characters.List = React.createClass({
   propTypes: {
-    characters: React.PropTypes.array.isRequired,
-    onSort: React.PropTypes.func.isRequired,
-    editable: React.PropTypes.bool,
+    characters: PropTypes.array.isRequired,
+    onSort: PropTypes.func.isRequired,
+    editable: PropTypes.bool,
   },
 
   componentDidMount() {

@@ -26,11 +26,11 @@ namespace('Views.Images.ReportModal')
 const Cls = (this.Views.Images.ReportModal = class ReportModal extends React.Component {
   static initClass() {
     this.contextTypes = {
-      currentUser: React.PropTypes.object,
-      reportImage: React.PropTypes.func,
+      currentUser: PropTypes.object,
+      reportImage: PropTypes.func,
     }
 
-    this.propTypes = { imageId: React.PropTypes.string }
+    this.propTypes = { imageId: PropTypes.string }
   }
 
   constructor(props, context) {

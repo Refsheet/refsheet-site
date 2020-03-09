@@ -16,9 +16,9 @@
  */
 this.Views.Account.Activities.Image = React.createClass({
   propTypes: {
-    images: React.PropTypes.array.isRequired,
-    character: React.PropTypes.object,
-    action: React.PropTypes.string,
+    images: PropTypes.array.isRequired,
+    character: PropTypes.object,
+    action: PropTypes.string,
   },
 
   _getGallery() {
@@ -112,13 +112,13 @@ this.Views.Account.Activities.Image = React.createClass({
       images.length === 4 ||
       images.length >= 7
     ) {
-      [one, two, ...images] = Array.from(images)
+      ;[one, two, ...images] = Array.from(images)
       grid.push(this._buildDouble(key, one, two))
       this._buildImageGrid(images, grid)
 
       // Single: 1
     } else if (images.length === 1) {
-      [one] = Array.from(images)
+      ;[one] = Array.from(images)
       grid.push(this._buildSingle(key, one))
     }
 

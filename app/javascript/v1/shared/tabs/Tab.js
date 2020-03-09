@@ -13,11 +13,11 @@
  */
 this.Tab = React.createClass({
   propTypes: {
-    id: React.PropTypes.string.isRequired,
-    name: React.PropTypes.string,
-    icon: React.PropTypes.string,
-    count: React.PropTypes.number,
-    className: React.PropTypes.string,
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string,
+    icon: PropTypes.string,
+    count: PropTypes.number,
+    className: PropTypes.string,
   },
 
   render() {

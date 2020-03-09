@@ -14,13 +14,13 @@
  */
 this.Forums.Threads.Reply = React.createClass({
   contextTypes: {
-    currentUser: React.PropTypes.object,
+    currentUser: PropTypes.object,
   },
 
   propTypes: {
-    forumId: React.PropTypes.string.isRequired,
-    threadId: React.PropTypes.string.isRequired,
-    onPost: React.PropTypes.func,
+    forumId: PropTypes.string.isRequired,
+    threadId: PropTypes.string.isRequired,
+    onPost: PropTypes.func,
   },
 
   getInitialState() {

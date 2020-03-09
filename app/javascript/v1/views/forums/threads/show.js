@@ -14,12 +14,12 @@
  */
 this.Forums.Threads.Show = React.createClass({
   contextTypes: {
-    currentUser: React.PropTypes.object,
-    eagerLoad: React.PropTypes.object,
+    currentUser: PropTypes.object,
+    eagerLoad: PropTypes.object,
   },
 
   propTypes: {
-    onReply: React.PropTypes.func,
+    onReply: PropTypes.func,
   },
 
   dataPath: '/forums/:forumId/:threadId',

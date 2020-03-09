@@ -2,7 +2,7 @@ import View from './static/View'
 import NotFound from './static/NotFound'
 import Home from './static/Home'
 
-Static = {
+const Static = {
   Home,
   NotFound,
   View,

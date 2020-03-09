@@ -15,14 +15,14 @@
 this.Favorites = {}
 this.Favorites.Index = React.createClass({
   contextTypes: {
-    currentUser: React.PropTypes.object,
+    currentUser: PropTypes.object,
   },
 
   propTypes: {
-    mediaId: React.PropTypes.string.isRequired,
-    favorites: React.PropTypes.array,
-    poll: React.PropTypes.bool,
-    onFavoriteChange: React.PropTypes.func,
+    mediaId: PropTypes.string.isRequired,
+    favorites: PropTypes.array,
+    poll: PropTypes.bool,
+    onFavoriteChange: PropTypes.func,
   },
 
   _poll() {

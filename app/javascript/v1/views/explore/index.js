@@ -16,12 +16,12 @@
  */
 this.Explore.Index = React.createClass({
   contextTypes: {
-    eagerLoad: React.PropTypes.object,
-    currentUser: React.PropTypes.object,
+    eagerLoad: PropTypes.object,
+    currentUser: PropTypes.object,
   },
 
   propTypes: {
-    media: React.PropTypes.object,
+    media: PropTypes.object,
   },
 
   // new syntax

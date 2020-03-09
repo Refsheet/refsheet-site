@@ -16,12 +16,12 @@
  */
 this.LegacyApp = React.createClass({
   childContextTypes: {
-    currentUser: React.PropTypes.object,
-    session: React.PropTypes.object,
-    setCurrentUser: React.PropTypes.func,
-    eagerLoad: React.PropTypes.object,
-    environment: React.PropTypes.string,
-    reportImage: React.PropTypes.func,
+    currentUser: PropTypes.object,
+    session: PropTypes.object,
+    setCurrentUser: PropTypes.func,
+    eagerLoad: PropTypes.object,
+    environment: PropTypes.string,
+    reportImage: PropTypes.func,
   },
 
   getInitialState() {

@@ -14,12 +14,12 @@
  */
 this.NewCharacterForm = React.createClass({
   contextTypes: {
-    currentUser: React.PropTypes.object.isRequired,
+    currentUser: PropTypes.object.isRequired,
   },
 
   propTypes: {
-    newCharacterPath: React.PropTypes.string.isRequired,
-    className: React.PropTypes.string,
+    newCharacterPath: PropTypes.string.isRequired,
+    className: PropTypes.string,
   },
 
   getInitialState() {

@@ -5,6 +5,9 @@
     react/no-deprecated,
     react/react-in-jsx-scope,
 */
+import React from 'react'
+import PropTypes from 'prop-types'
+import createReactClass from 'create-react-class'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -15,9 +18,9 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.LoginView = React.createClass({
+const LoginView = createReactClass({
   contextTypes: {
-    router: React.PropTypes.object.isRequired,
+    router: PropTypes.object.isRequired,
   },
 
   getInitialState() {
@@ -107,3 +110,5 @@ function __guard__(value, transform) {
     ? transform(value)
     : undefined
 }
+
+export default LoginView

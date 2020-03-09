@@ -16,8 +16,8 @@
 //@User.CharacterGroups.Form = React.createClass
 this.UserCharacterGroupForm = React.createClass({
   propTypes: {
-    group: React.PropTypes.object,
-    onChange: React.PropTypes.func,
+    group: PropTypes.object,
+    onChange: PropTypes.func,
   },
 
   getInitialState() {

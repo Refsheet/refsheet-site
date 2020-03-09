@@ -14,8 +14,8 @@
  */
 this.Views.Account.Activities.ForumPost = React.createClass({
   propTypes: {
-    posts: React.PropTypes.array.isRequired,
-    action: React.PropTypes.string,
+    posts: PropTypes.array.isRequired,
+    action: PropTypes.string,
   },
 
   render() {

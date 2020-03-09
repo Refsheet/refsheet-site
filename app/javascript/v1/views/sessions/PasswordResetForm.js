@@ -6,6 +6,9 @@
     react/no-string-refs,
     react/react-in-jsx-scope,
 */
+import React from 'react'
+import PropTypes from 'prop-types'
+import createReactClass from 'create-react-class'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -14,7 +17,7 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.PasswordResetForm = React.createClass({
+const PasswordResetForm = createReactClass({
   getInitialState() {
     return {
       email: null,
@@ -157,3 +160,5 @@ this.PasswordResetForm = React.createClass({
     }
   },
 })
+
+export default PasswordResetForm

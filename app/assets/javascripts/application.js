@@ -34,7 +34,6 @@
 //= require jquery.justifiedGallery
 //= require js.cookie
 //
-//= require highcharts-init
 //= require cable
 //= require_tree ./utils
 //= require serviceworker-companion
@@ -74,7 +73,7 @@ function exportPackGlobals() {
     window[globalVar] = app[globalVar]
   });
 
-  window.React.PropTypes = window.PropTypes
+  window.PropTypes = window.PropTypes
   window.React.createClass = window.createReactClass
 
   return true

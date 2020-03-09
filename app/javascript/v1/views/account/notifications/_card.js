@@ -17,13 +17,13 @@ namespace('Views.Account.Notifications')
 
 this.Views.Account.Notifications.Card = React.createClass({
   propTypes: {
-    type: React.PropTypes.string.isRequired,
-    actionable: React.PropTypes.object,
-    actionables: React.PropTypes.array,
-    user: React.PropTypes.object.isRequired,
-    character: React.PropTypes.object,
-    timestamp: React.PropTypes.number.isRequired,
-    onReadChange: React.PropTypes.func.isRequired,
+    type: PropTypes.string.isRequired,
+    actionable: PropTypes.object,
+    actionables: PropTypes.array,
+    user: PropTypes.object.isRequired,
+    character: PropTypes.object,
+    timestamp: PropTypes.number.isRequired,
+    onReadChange: PropTypes.func.isRequired,
   },
 
   getInitialState() {

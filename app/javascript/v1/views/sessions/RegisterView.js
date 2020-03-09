@@ -5,6 +5,9 @@
     react/no-deprecated,
     react/react-in-jsx-scope,
 */
+import React from 'react'
+import PropTypes from 'prop-types'
+import createReactClass from 'create-react-class'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -13,11 +16,11 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.RegisterView = React.createClass({
+const RegisterView = createReactClass({
   contextTypes: {
-    router: React.PropTypes.object.isRequired,
-    setCurrentUser: React.PropTypes.func.isRequired,
-    currentUser: React.PropTypes.object,
+    router: PropTypes.object.isRequired,
+    setCurrentUser: PropTypes.func.isRequired,
+    currentUser: PropTypes.object,
   },
 
   getInitialState() {

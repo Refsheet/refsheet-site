@@ -18,13 +18,13 @@
  */
 this.ImageGallery = React.createClass({
   propTypes: {
-    editable: React.PropTypes.bool,
-    noFeature: React.PropTypes.bool,
-    noSquare: React.PropTypes.bool,
-    imagesPath: React.PropTypes.string,
-    images: React.PropTypes.array,
-    onImageClick: React.PropTypes.func,
-    onImagesLoaded: React.PropTypes.func,
+    editable: PropTypes.bool,
+    noFeature: PropTypes.bool,
+    noSquare: PropTypes.bool,
+    imagesPath: PropTypes.string,
+    images: PropTypes.array,
+    onImageClick: PropTypes.func,
+    onImagesLoaded: PropTypes.func,
   },
 
   getInitialState() {
@@ -226,7 +226,7 @@ this.ImageGallery = React.createClass({
     }
 
     if (!this.props.noFeature) {
-      [first, second, third, ...overflow] = Array.from(this.state.images)
+      ;[first, second, third, ...overflow] = Array.from(this.state.images)
       imageSize = 'medium'
     } else if (this.props.noSquare) {
       overflow = this.state.images

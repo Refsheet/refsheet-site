@@ -16,7 +16,7 @@
  */
 this.FeedbackModal = React.createClass({
   propTypes: {
-    name: React.PropTypes.string,
+    name: PropTypes.string,
   },
 
   getInitialState() {

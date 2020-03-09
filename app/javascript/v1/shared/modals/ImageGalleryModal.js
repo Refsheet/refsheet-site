@@ -23,7 +23,7 @@ this.ImageGalleryModal = React.createClass({
     if (this.props.hideNsfw && this.props.images) {
       images = $.grep(this.props.images, i => !i.nsfw)
     } else {
-      ({ images } = this.props)
+      ;({ images } = this.props)
     }
 
     return (

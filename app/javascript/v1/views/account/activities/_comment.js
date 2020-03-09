@@ -14,7 +14,7 @@
  */
 this.Views.Account.Activities.Comment = React.createClass({
   propTypes: {
-    comments: React.PropTypes.array.isRequired,
+    comments: PropTypes.array.isRequired,
   },
 
   render() {

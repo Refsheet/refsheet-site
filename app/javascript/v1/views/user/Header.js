@@ -5,6 +5,9 @@
     react/no-deprecated,
     react/react-in-jsx-scope,
 */
+import React from 'react'
+import PropTypes from 'prop-types'
+import createReactClass from 'create-react-class'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -14,13 +17,13 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.User.Header = React.createClass({
+const Header = createReactClass({
   contextTypes: {
-    currentUser: React.PropTypes.object,
+    currentUser: PropTypes.object,
   },
 
   propTypes: {
-    onFollow: React.PropTypes.func.isRequired,
+    onFollow: PropTypes.func.isRequired,
   },
 
   handleBioChange(markup, success) {
@@ -163,3 +166,5 @@ this.User.Header = React.createClass({
     )
   },
 })
+
+export default Header

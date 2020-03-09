@@ -14,11 +14,11 @@
  */
 this.DateFormat = React.createClass({
   propTypes: {
-    timestamp: React.PropTypes.number.isRequired,
-    fuzzy: React.PropTypes.bool,
-    dateOnly: React.PropTypes.bool,
-    short: React.PropTypes.bool,
-    className: React.PropTypes.string,
+    timestamp: PropTypes.number.isRequired,
+    fuzzy: PropTypes.bool,
+    dateOnly: PropTypes.bool,
+    short: PropTypes.bool,
+    className: PropTypes.string,
   },
 
   getInitialState() {
@@ -44,7 +44,7 @@ this.DateFormat = React.createClass({
 
   _initialize(props) {
     if (props == null) {
-      ({ props } = this)
+      ;({ props } = this)
     }
     if (this.state.timer) {
       clearTimeout(this.state.timer)

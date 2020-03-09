@@ -15,7 +15,7 @@
  */
 this.PageStylesheet = React.createClass({
   propTypes: {
-    colorData: React.PropTypes.object.isRequired,
+    colorData: PropTypes.object.isRequired,
   },
 
   getInitialState() {

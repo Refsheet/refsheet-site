@@ -16,19 +16,19 @@
  */
 const gallery_image = React.createClass({
   contextTypes: {
-    currentUser: React.PropTypes.object,
-    session: React.PropTypes.object,
+    currentUser: PropTypes.object,
+    session: PropTypes.object,
   },
 
   propTypes: {
-    image: React.PropTypes.object,
-    editable: React.PropTypes.bool,
-    wrapperClassName: React.PropTypes.string,
-    className: React.PropTypes.string,
-    size: React.PropTypes.string,
-    onSwap: React.PropTypes.func,
-    onClick: React.PropTypes.func,
-    gallery: React.PropTypes.array,
+    image: PropTypes.object,
+    editable: PropTypes.bool,
+    wrapperClassName: PropTypes.string,
+    className: PropTypes.string,
+    size: PropTypes.string,
+    onSwap: PropTypes.func,
+    onClick: PropTypes.func,
+    gallery: PropTypes.array,
   },
 
   getInitialState() {

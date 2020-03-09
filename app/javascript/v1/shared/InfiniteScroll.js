@@ -16,15 +16,15 @@
  */
 this.InfiniteScroll = React.createClass({
   propTypes: {
-    onLoad: React.PropTypes.func.isRequired,
-    params: React.PropTypes.object.isRequired,
-    perPage: React.PropTypes.number,
-    scrollOffset: React.PropTypes.number,
-    count: React.PropTypes.number,
+    onLoad: PropTypes.func.isRequired,
+    params: PropTypes.object.isRequired,
+    perPage: PropTypes.number,
+    scrollOffset: PropTypes.number,
+    count: PropTypes.number,
 
-    stateLink: React.PropTypes.oneOfType([
-      React.PropTypes.object,
-      React.PropTypes.func,
+    stateLink: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.func,
     ]).isRequired,
   },
 

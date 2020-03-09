@@ -14,16 +14,16 @@
  */
 this.Form = React.createClass({
   propTypes: {
-    action: React.PropTypes.string.isRequired,
-    method: React.PropTypes.string,
-    modelName: React.PropTypes.string.isRequired,
-    model: React.PropTypes.object.isRequired,
-    onChange: React.PropTypes.func,
-    onError: React.PropTypes.func,
-    errors: React.PropTypes.object,
-    className: React.PropTypes.string,
-    changeEvent: React.PropTypes.string,
-    resetOnSubmit: React.PropTypes.bool,
+    action: PropTypes.string.isRequired,
+    method: PropTypes.string,
+    modelName: PropTypes.string.isRequired,
+    model: PropTypes.object.isRequired,
+    onChange: PropTypes.func,
+    onError: PropTypes.func,
+    errors: PropTypes.object,
+    className: PropTypes.string,
+    changeEvent: PropTypes.string,
+    resetOnSubmit: PropTypes.bool,
   },
 
   getInitialState() {

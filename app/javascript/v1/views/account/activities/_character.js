@@ -14,8 +14,8 @@
  */
 this.Views.Account.Activities.Character = React.createClass({
   propTypes: {
-    characters: React.PropTypes.array.isRequired,
-    username: React.PropTypes.string.isRequired,
+    characters: PropTypes.array.isRequired,
+    username: PropTypes.string.isRequired,
   },
 
   render() {

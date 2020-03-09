@@ -15,11 +15,11 @@
  */
 this.CharacterDeleteModal = React.createClass({
   contextTypes: {
-    router: React.PropTypes.object.isRequired,
+    router: PropTypes.object.isRequired,
   },
 
   propTypes: {
-    character: React.PropTypes.object.isRequired,
+    character: PropTypes.object.isRequired,
   },
 
   _handleCharacterDelete(e) {

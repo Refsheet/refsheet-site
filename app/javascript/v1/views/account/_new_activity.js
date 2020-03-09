@@ -15,7 +15,7 @@
  */
 this.Views.Account.NewActivity = React.createClass({
   contextTypes: {
-    currentUser: React.PropTypes.object,
+    currentUser: PropTypes.object,
   },
 
   getInitialState() {

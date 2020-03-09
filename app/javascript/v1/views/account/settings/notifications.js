@@ -23,8 +23,8 @@ namespace('Views.Account.Settings')
 const Cls = (this.Views.Account.Settings.Notifications = class Notifications extends React.Component {
   static initClass() {
     this.contextTypes = {
-      currentUser: React.PropTypes.object.isRequired,
-      setCurrentUser: React.PropTypes.func.isRequired,
+      currentUser: PropTypes.object.isRequired,
+      setCurrentUser: PropTypes.func.isRequired,
     }
   }
 

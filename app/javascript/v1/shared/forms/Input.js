@@ -14,32 +14,32 @@
  */
 this.Input = React.createClass({
   propTypes: {
-    name: React.PropTypes.string,
-    id: React.PropTypes.string,
-    onChange: React.PropTypes.func,
-    type: React.PropTypes.string,
-    placeholder: React.PropTypes.string,
-    label: React.PropTypes.string,
-    disabled: React.PropTypes.bool,
-    selected: React.PropTypes.bool,
-    readOnly: React.PropTypes.bool,
-    autoFocus: React.PropTypes.bool,
-    className: React.PropTypes.string,
-    modelName: React.PropTypes.string,
-    default: React.PropTypes.string,
-    browserDefault: React.PropTypes.bool,
-    focusSelectAll: React.PropTypes.bool,
-    icon: React.PropTypes.string,
-    onSubmit: React.PropTypes.func,
+    name: PropTypes.string,
+    id: PropTypes.string,
+    onChange: PropTypes.func,
+    type: PropTypes.string,
+    placeholder: PropTypes.string,
+    label: PropTypes.string,
+    disabled: PropTypes.bool,
+    selected: PropTypes.bool,
+    readOnly: PropTypes.bool,
+    autoFocus: PropTypes.bool,
+    className: PropTypes.string,
+    modelName: PropTypes.string,
+    default: PropTypes.string,
+    browserDefault: PropTypes.bool,
+    focusSelectAll: PropTypes.bool,
+    icon: PropTypes.string,
+    onSubmit: PropTypes.func,
 
-    value: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.bool,
+    value: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.bool,
     ]),
 
-    error: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.array,
+    error: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.array,
     ]),
   },
 
@@ -117,7 +117,7 @@ this.Input = React.createClass({
         value = this.props.default
       }
     } else {
-      ({ value } = e.target)
+      ;({ value } = e.target)
     }
 
     this.setState({ error: null, value, dirty: true })
@@ -160,7 +160,7 @@ this.Input = React.createClass({
     let inputFieldInsideLabel = false
 
     if (this.props.id) {
-      ({ id } = this.props)
+      ;({ id } = this.props)
     } else if (this.props.modelName) {
       id = `${this.props.modelName}_${this.props.name}`
     } else {

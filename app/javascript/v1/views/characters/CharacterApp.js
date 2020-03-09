@@ -16,9 +16,9 @@
  */
 const Component = React.createClass({
   contextTypes: {
-    router: React.PropTypes.object.isRequired,
-    eagerLoad: React.PropTypes.object,
-    currentUser: React.PropTypes.object,
+    router: PropTypes.object.isRequired,
+    eagerLoad: PropTypes.object,
+    currentUser: PropTypes.object,
   },
 
   getInitialState() {

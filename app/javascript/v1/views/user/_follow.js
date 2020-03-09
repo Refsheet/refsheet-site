@@ -14,14 +14,14 @@
  */
 this.Views.User.Follow = React.createClass({
   contextTypes: {
-    currentUser: React.PropTypes.object,
+    currentUser: PropTypes.object,
   },
 
   propTypes: {
-    username: React.PropTypes.string.isRequired,
-    followed: React.PropTypes.bool,
-    onFollow: React.PropTypes.func,
-    short: React.PropTypes.bool,
+    username: PropTypes.string.isRequired,
+    followed: PropTypes.bool,
+    onFollow: PropTypes.func,
+    short: PropTypes.bool,
   },
 
   _handleFollowClick(e) {
