@@ -1,4 +1,7 @@
-Home = React.createClass
+import React from 'react'
+import createReactClass from 'create-react-class'
+
+Home = createReactClass
   componentDidMount: ->
     $('.materialboxed').materialbox()
 
@@ -163,3 +166,4 @@ Home = React.createClass
 
 mapStateToProps = (state) => currentUser: state.session.currentUser
 @Home = connect(mapStateToProps)(Home)
+export default @Home

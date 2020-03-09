@@ -55,6 +55,9 @@ export { setUploadTarget }
 export { Actions }
 export { UserUtils }
 
+// V1 Entrypoint
+export { default as Routes } from 'v1/routes'
+
 // NOT GLOBAL
 export { default as V2Wrapper } from 'App'
 export { default as Chat } from 'Chat/ConversationTray'

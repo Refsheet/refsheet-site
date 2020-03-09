@@ -9041,6 +9041,11 @@ react-emoji-render@^0.4.6:
     prop-types "^15.5.8"
     string-replace-to-array "^1.0.1"
 
+react-ga@^2.7.0:
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/react-ga/-/react-ga-2.7.0.tgz#24328f157f31e8cffbf4de74a3396536679d8d7c"
+  integrity sha512-AjC7UOZMvygrWTc2hKxTDvlMXEtbmA0IgJjmkhgmQQ3RkXrWR11xEagLGFGaNyaPnmg24oaIiaNPnEoftUhfXA==
+
 react-guard@^0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/react-guard/-/react-guard-0.5.0.tgz#4878b1fa3006327901f7fe2efb02b569182ccb77"

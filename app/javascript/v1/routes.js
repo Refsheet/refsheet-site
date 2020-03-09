@@ -1,70 +1,90 @@
-{ @Router, @Redirect, @Switch, @Route, @Link } = ReactRouter
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS205: Consider reworking code to avoid use of IIFEs
+ * DS207: Consider shorter variations of null checks
+ * DS208: Avoid top-level this
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
+import { Router, Redirect, Switch, Route, Link } from 'react-router-dom';
+import createBrowserHistory from 'history/createBrowserHistory';
+import qs from 'querystring';
+import ReactGA from 'react-ga'
 
+import App from "../components/App"
+import Static from '../v1/views/Static.js.jsx.coffee'
 
-# Backfill for Router V4 not parsing query strings.
-`const history = createBrowserHistory();
-  function addLocationQuery(history){
+// Backfill for Router V4 not parsing query strings.
+const history = createBrowserHistory();
+function addLocationQuery(history){
   history.location = Object.assign(
-      history.location,
-      {
-        query: qs.parse(history.location.search)
-      }
-  )
+    history.location,
+    {
+      query: qs.parse(history.location.search)
+    }
+  );
 }
 
 addLocationQuery(history);
 
 history.listen(() => {
-  addLocationQuery(history)
-})`
+  addLocationQuery(history);
+});
 
-@Routes = React.createClass
-  propTypes:
-    gaPropertyID: React.PropTypes.string
-    eagerLoad: React.PropTypes.object
-    flash: React.PropTypes.object
+const Routes = createReactClass({
+  propTypes: {
+    gaPropertyID: PropTypes.string,
+    eagerLoad: PropTypes.object,
+    flash: PropTypes.object
+  },
 
-  componentDidMount: ->
-    console.log "Loading #{@props.environment} environment."
+  componentDidMount() {
+    console.log(`Loading ${this.props.environment} environment.`);
 
-    this.unlisten = history.listen =>
-      this._handleRouteUpdate()
+    this.unlisten = history.listen(() => {
+      return this._handleRouteUpdate();
+    });
 
-    $ ->
-      $('#rootAppLoader').fadeOut(300)
+    $(() => $('#rootAppLoader').fadeOut(300));
 
-    if @props.gaPropertyID
-      ReactGA.initialize(@props.gaPropertyID)
-      ReactGA.set page: window.location.pathname
-      ReactGA.pageview window.location.pathname
+    if (this.props.gaPropertyID) {
+      ReactGA.initialize(this.props.gaPropertyID);
+      ReactGA.set({page: window.location.pathname});
+      ReactGA.pageview(window.location.pathname);
+    }
 
-    if @props.flash
-      for level, message of @props.flash
-        color =
-          switch level
-            when 'error' then 'red'
-            when 'warn' then 'yellow darken-1'
-            when 'notice' then 'green'
-            else 'grey darken-2'
+    if (this.props.flash) {
+      for (var level in this.props.flash) {
+        const message = this.props.flash[level];
+        const color =
+          (() => { switch (level) {
+            case 'error': return 'red';
+            case 'warn': return 'yellow darken-1';
+            case 'notice': return 'green';
+            default: return 'grey darken-2';
+          } })();
 
-        Materialize.toast({html: message, displayLength: 3000, classes: color})
+        Materialize.toast({html: message, displayLength: 3000, classes: color});
+      }
+    }
+  },
 
-  _handleRouteUpdate: ->
-    if @props.gaPropertyID
-      ReactGA.set page: window.location.pathname
-      ReactGA.pageview window.location.pathname
+  _handleRouteUpdate() {
+    if (this.props.gaPropertyID) {
+      ReactGA.set({page: window.location.pathname});
+      ReactGA.pageview(window.location.pathname);
+    }
 
-    $(document).trigger 'navigate'
+    return $(document).trigger('navigate');
+  },
 
-  render: ->
-    if typeof Packs is 'undefined'
-      console.log "Pack sync: Skipping render, JS v2 not loaded."
-      return null
+  render() {
+    const staticPaths = ['privacy', 'terms', 'support'].map(path => <Route key={ path } path={ '/' + path } component={ Static.View } />);
 
-    staticPaths = ['privacy', 'terms', 'support'].map (path) ->
-      `<Route key={ path } path={ '/' + path } component={ Static.View } />`
-
-    router = `<Router history={ history } onUpdate={ this._handleRouteUpdate }>
+    const router = <Router history={ history } onUpdate={ this._handleRouteUpdate }>
       <Switch>
         <Route path='/' render={(props) =>
           <App {...props} eagerLoad={ this.props.eagerLoad } environment={ this.props.environment } notice={ this.props.notice }>
@@ -135,14 +155,18 @@ history.listen(() => {
           </App>}>
         </Route>
       </Switch>
-    </Router>`
+    </Router>;
 
-    session = @props.eagerLoad?.session || {}
+    const session = (this.props.eagerLoad != null ? this.props.eagerLoad.session : undefined) || {};
 
-    defaultState = {
+    const defaultState = {
       session: StringUtils.camelizeKeys(session)
-    }
+    };
 
-    `<Packs.application.V2Wrapper state={defaultState} assets={this.props.assets}>
+    return <Packs.application.V2Wrapper state={defaultState} assets={this.props.assets}>
       { router }
-    </Packs.application.V2Wrapper>`
+    </Packs.application.V2Wrapper>;
+  }
+});
+
+export default Routes;
