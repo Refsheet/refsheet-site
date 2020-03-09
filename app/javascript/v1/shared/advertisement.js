@@ -13,7 +13,7 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.Advertisement = React.createClass({
+this.Advertisement = createReactClass({
   dataPath: '/our_friends/next',
 
   getInitialState() {

@@ -13,7 +13,7 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.IdentityAvatar = React.createClass({
+this.IdentityAvatar = createReactClass({
   propTypes: {
     src: PropTypes.shape({
       link: PropTypes.string.isRequired,

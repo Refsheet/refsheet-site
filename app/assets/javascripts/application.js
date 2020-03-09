@@ -35,7 +35,6 @@
 //= require js.cookie
 //
 //= require cable
-//= require_tree ./utils
 //= require serviceworker-companion
 
 window.namespace = function(ns_path, parent) {
@@ -74,7 +73,7 @@ function exportPackGlobals() {
   });
 
   window.PropTypes = window.PropTypes
-  window.React.createClass = window.createReactClass
+  window.createReactClass = window.createReactClass
 
   return true
 }

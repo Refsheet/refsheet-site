@@ -11,7 +11,7 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.Stats = React.createClass({
+this.Stats = createReactClass({
   propTypes: {
     className: PropTypes.string,
   },
@@ -26,7 +26,7 @@ this.Stats = React.createClass({
   },
 })
 
-this.Stats.Item = React.createClass({
+this.Stats.Item = createReactClass({
   propTypes: {
     label: PropTypes.string.isRequired,
   },

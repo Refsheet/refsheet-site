@@ -15,7 +15,7 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.Lightbox = React.createClass({
+this.Lightbox = createReactClass({
   contextTypes: {
     router: PropTypes.object.isRequired,
     currentUser: PropTypes.object,

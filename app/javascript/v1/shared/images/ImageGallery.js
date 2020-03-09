@@ -16,7 +16,7 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.ImageGallery = React.createClass({
+this.ImageGallery = createReactClass({
   propTypes: {
     editable: PropTypes.bool,
     noFeature: PropTypes.bool,

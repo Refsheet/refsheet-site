@@ -5,6 +5,9 @@
     react/no-string-refs,
     react/react-in-jsx-scope,
 */
+import React from 'react'
+import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -15,7 +18,7 @@
  */
 this.Comments = {}
 
-this.Comments.Index = React.createClass({
+this.Comments.Index = createReactClass({
   contextTypes: {
     currentUser: PropTypes.object,
   },

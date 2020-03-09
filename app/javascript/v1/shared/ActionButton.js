@@ -12,7 +12,7 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.ActionButton = React.createClass({
+this.ActionButton = createReactClass({
   componentDidUpdate() {
     return Materialize.Tooltip.init(this.refs.actionButton, {
       delay: 0,

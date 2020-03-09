@@ -5,6 +5,9 @@
     react/no-deprecated,
     react/react-in-jsx-scope,
 */
+import React from 'react'
+import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -15,7 +18,7 @@
  */
 namespace('Views.Account.Notifications')
 
-this.Views.Account.Notifications.Card = React.createClass({
+this.Views.Account.Notifications.Card = createReactClass({
   propTypes: {
     type: PropTypes.string.isRequired,
     actionable: PropTypes.object,

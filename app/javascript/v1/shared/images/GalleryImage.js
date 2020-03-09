@@ -14,7 +14,7 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-const gallery_image = React.createClass({
+const gallery_image = createReactClass({
   contextTypes: {
     currentUser: PropTypes.object,
     session: PropTypes.object,

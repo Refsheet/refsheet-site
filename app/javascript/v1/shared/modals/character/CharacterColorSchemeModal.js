@@ -15,7 +15,7 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.CharacterColorSchemeModal = React.createClass({
+this.CharacterColorSchemeModal = createReactClass({
   propTypes: {
     characterPath: PropTypes.string.isRequired,
     colorScheme: PropTypes.object,

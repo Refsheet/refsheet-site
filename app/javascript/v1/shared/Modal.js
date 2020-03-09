@@ -13,7 +13,7 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.Modal = React.createClass({
+this.Modal = createReactClass({
   componentDidMount() {
     const $modal = M.Modal.init(this.refs.modal, {
       onCloseEnd: args => {
