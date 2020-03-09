@@ -14,7 +14,8 @@ import Input from '../forms/Input'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let AttributeForm; export default AttributeForm = createReactClass({
+let AttributeForm
+export default AttributeForm = createReactClass({
   getInitialState() {
     return {
       name: this.props.name,

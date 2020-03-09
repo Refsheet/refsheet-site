@@ -11,7 +11,8 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let SwatchPanel; export default SwatchPanel = createReactClass({
+let SwatchPanel
+export default SwatchPanel = createReactClass({
   getInitialState() {
     return { swatches: this.props.swatches }
   },

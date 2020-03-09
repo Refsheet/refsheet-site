@@ -10,7 +10,8 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let Row; export default Row = createReactClass({
+let Row
+export default Row = createReactClass({
   propTypes: {
     hidden: PropTypes.bool,
     oneColumn: PropTypes.bool,

@@ -12,8 +12,8 @@ const Views = {
   Account: {
     ShowAccount,
     Settings: {
-      ShowSettings
-    }
+      ShowSettings,
+    },
   },
   Explore: {},
   User: {},

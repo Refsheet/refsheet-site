@@ -100,136 +100,136 @@ const Routes = createReactClass({
       <Router history={history} onUpdate={this._handleRouteUpdate}>
         <Switch>
           <Route
-  path="/"
-  render={props => (
-    <App
-      {...props}
-      eagerLoad={this.props.eagerLoad}
-      environment={this.props.environment}
-      notice={this.props.notice}
-    >
-      <Switch>
-        <Route exact path="/" component={Static.Home} title="Home"/>
+            path="/"
+            render={props => (
+              <App
+                {...props}
+                eagerLoad={this.props.eagerLoad}
+                environment={this.props.environment}
+                notice={this.props.notice}
+              >
+                <Switch>
+                  <Route exact path="/" component={Static.Home} title="Home" />
 
-        <Route path="/login" component={LoginView}/>
-        <Route path="/register" component={RegisterView}/>
+                  <Route path="/login" component={LoginView} />
+                  <Route path="/register" component={RegisterView} />
 
-        <Route
-          path="/account"
-          title="Account"
-          render={props2 => (
-            <Views.Account.Layout {...props2}>
-              <Switch>
-                <Redirect
-                  exact
-                  from="/account"
-                  to="/account/settings"
-                />
-                <Route
-                  path="/account/settings"
-                  title="Account Settings"
-                  component={Views.Account.Settings.Show}
-                />
-                <Route
-                  path="/account/support"
-                  title="Support Settings"
-                  component={Views.Account.Settings.Support}
-                />
-                <Route
-                  path="/account/notifications"
-                  title="Notification Settings"
-                  component={Views.Account.Settings.Notifications}
-                />
-              </Switch>
-            </Views.Account.Layout>
-          )}
-        />
-
-        <Route
-          path="/myrefs"
-          component={Packs.application.CharacterController}
-        />
-        <Route
-          path="/myrefs/new"
-          component={Packs.application.CharacterController}
-        />
-
-        <Route
-          path="/moderate"
-          component={Packs.application.CharacterController}
-        />
-
-        <Route
-          path="/notifications"
-          title="Notifications"
-          component={Views.Account.Notifications.Show}
-        />
-
-        <Route path="/browse" component={BrowseApp}/>
-        <Route path="/explore/:scope?" component={Explore.Index}/>
-
-        <Route path="/forums">
-          <Switch>
-            <Route exact path="/forums" component={Forums.Index}/>
-
-            <Route
-              path="/forums/:forumId"
-              render={props2 => (
-                <Forums.Show {...props2}>
                   <Route
-                    path="/forums/:forumId/:threadId"
-                    component={Forums.Threads.Show}
+                    path="/account"
+                    title="Account"
+                    render={props2 => (
+                      <Views.Account.Layout {...props2}>
+                        <Switch>
+                          <Redirect
+                            exact
+                            from="/account"
+                            to="/account/settings"
+                          />
+                          <Route
+                            path="/account/settings"
+                            title="Account Settings"
+                            component={Views.Account.Settings.Show}
+                          />
+                          <Route
+                            path="/account/support"
+                            title="Support Settings"
+                            component={Views.Account.Settings.Support}
+                          />
+                          <Route
+                            path="/account/notifications"
+                            title="Notification Settings"
+                            component={Views.Account.Settings.Notifications}
+                          />
+                        </Switch>
+                      </Views.Account.Layout>
+                    )}
                   />
-                </Forums.Show>
-              )}
-            />
-          </Switch>
-        </Route>
 
-        <Route
-          path="/v2/forums"
-          component={Packs.application.CharacterController}
-        />
+                  <Route
+                    path="/myrefs"
+                    component={Packs.application.CharacterController}
+                  />
+                  <Route
+                    path="/myrefs/new"
+                    component={Packs.application.CharacterController}
+                  />
 
-        <Route
-          path="/artists"
-          component={Packs.application.CharacterController}
-        />
-        <Route
-          path="/artists/:slug"
-          component={Packs.application.CharacterController}
-        />
+                  <Route
+                    path="/moderate"
+                    component={Packs.application.CharacterController}
+                  />
 
-        {/*== Static Routes */}
+                  <Route
+                    path="/notifications"
+                    title="Notifications"
+                    component={Views.Account.Notifications.Show}
+                  />
 
-        {staticPaths}
-        <Route path="/static/:pageId" component={Static.View}/>
+                  <Route path="/browse" component={BrowseApp} />
+                  <Route path="/explore/:scope?" component={Explore.Index} />
 
-        {/*== Profile Content */}
+                  <Route path="/forums">
+                    <Switch>
+                      <Route exact path="/forums" component={Forums.Index} />
 
-        <Route
-          path="/v2/:userId/:characterId"
-          component={Packs.application.CharacterController}
-        />
+                      <Route
+                        path="/forums/:forumId"
+                        render={props2 => (
+                          <Forums.Show {...props2}>
+                            <Route
+                              path="/forums/:forumId/:threadId"
+                              component={Forums.Threads.Show}
+                            />
+                          </Forums.Show>
+                        )}
+                      />
+                    </Switch>
+                  </Route>
 
-        <Route path="/images/:imageId" component={ImageApp}/>
-        <Route path="/media/:imageId" component={ImageApp}/>
-        <Route
-          path="/:userId/:characterId"
-          component={CharacterApp}
-        />
-        <Route path="/:userId" component={User.View}/>
+                  <Route
+                    path="/v2/forums"
+                    component={Packs.application.CharacterController}
+                  />
 
-        {/*== Fallback */}
+                  <Route
+                    path="/artists"
+                    component={Packs.application.CharacterController}
+                  />
+                  <Route
+                    path="/artists/:slug"
+                    component={Packs.application.CharacterController}
+                  />
 
-        <Route
-          path="*"
-          component={Packs.application.CharacterController}
-        />
-      </Switch>
-    </App>
-  )}
-  />
+                  {/*== Static Routes */}
+
+                  {staticPaths}
+                  <Route path="/static/:pageId" component={Static.View} />
+
+                  {/*== Profile Content */}
+
+                  <Route
+                    path="/v2/:userId/:characterId"
+                    component={Packs.application.CharacterController}
+                  />
+
+                  <Route path="/images/:imageId" component={ImageApp} />
+                  <Route path="/media/:imageId" component={ImageApp} />
+                  <Route
+                    path="/:userId/:characterId"
+                    component={CharacterApp}
+                  />
+                  <Route path="/:userId" component={User.View} />
+
+                  {/*== Fallback */}
+
+                  <Route
+                    path="*"
+                    component={Packs.application.CharacterController}
+                  />
+                </Switch>
+              </App>
+            )}
+          />
         </Switch>
       </Router>
     )

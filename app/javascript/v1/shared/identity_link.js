@@ -11,7 +11,8 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let IdentityLink; export default IdentityLink = createReactClass({
+let IdentityLink
+export default IdentityLink = createReactClass({
   contextTypes: {
     currentUser: PropTypes.object,
   },

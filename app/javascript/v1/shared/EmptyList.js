@@ -10,7 +10,8 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let EmptyList; export default EmptyList = function(props) {
+let EmptyList
+export default EmptyList = function(props) {
   const { coffee, caption } = props
 
   return (

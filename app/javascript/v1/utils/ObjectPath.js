@@ -10,24 +10,36 @@
  */
 this.ObjectPath = {
   get(obj, path) {
-    path = path.split('.');
-    let parent = obj;
+    path = path.split('.')
+    let parent = obj
 
     if (path.length > 1) {
-      for (let i = 0, end = path.length - 2, asc = 0 <= end; asc ? i <= end : i >= end; asc ? i++ : i--) { parent = parent[path[i]]; }
+      for (
+        let i = 0, end = path.length - 2, asc = 0 <= end;
+        asc ? i <= end : i >= end;
+        asc ? i++ : i--
+      ) {
+        parent = parent[path[i]]
+      }
     }
 
-    return (parent != null ? parent[path[path.length - 1]] : undefined);
+    return parent != null ? parent[path[path.length - 1]] : undefined
   },
 
   set(obj, path, value) {
-    path = path.split('.');
-    let parent = obj;
+    path = path.split('.')
+    let parent = obj
 
     if (path.length > 1) {
-      for (let i = 0, end = path.length - 2, asc = 0 <= end; asc ? i <= end : i >= end; asc ? i++ : i--) { parent = (parent[path[i]] || (parent[path[i]] = {})); }
+      for (
+        let i = 0, end = path.length - 2, asc = 0 <= end;
+        asc ? i <= end : i >= end;
+        asc ? i++ : i--
+      ) {
+        parent = parent[path[i]] || (parent[path[i]] = {})
+      }
     }
 
-    return parent[path[path.length - 1]] = value;
-  }
-};
+    return (parent[path[path.length - 1]] = value)
+  },
+}

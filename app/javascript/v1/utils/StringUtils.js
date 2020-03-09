@@ -11,52 +11,54 @@ const Cls = (this.StringUtils = class StringUtils {
       //
       // by http://stackoverflo.com/users/140811/scott
       // at http://stackoverflow.com/a/2970588/6776673
-  
+
       return string
         .toLowerCase()
         .replace(/_(.)/g, $1 => $1.toUpperCase())
-        .replace(/_/g, '');
-    };
-  
+        .replace(/_/g, '')
+    }
+
     this.camelizeKeys = object => {
-      const out = {};
-  
+      const out = {}
+
       for (let k in object) {
-        const v = object[k];
-        out[this.camelize(k)] = v;
+        const v = object[k]
+        out[this.camelize(k)] = v
       }
-  
-      return out;
-    };
-  
+
+      return out
+    }
+
     this.unCamelize = string => {
-      return string
-        .replace(/([a-z])([A-Z])/g, (a, $0, $1) =>  $0 + "_" + $1.toLowerCase());
-    };
-  
+      return string.replace(
+        /([a-z])([A-Z])/g,
+        (a, $0, $1) => $0 + '_' + $1.toLowerCase()
+      )
+    }
+
     this.unCamelizeKeys = object => {
-      const out = {};
-  
+      const out = {}
+
       for (let k in object) {
-        const v = object[k];
-        out[this.unCamelize(k)] = v;
+        const v = object[k]
+        out[this.unCamelize(k)] = v
       }
-  
-      return out;
-    };
-  
+
+      return out
+    }
+
     this.indifferentKeys = object => {
-      const out = {};
-  
+      const out = {}
+
       for (let k in object) {
-        const v = object[k];
-        out[k] = v;
-        out[this.camelize(k)] = v;
+        const v = object[k]
+        out[k] = v
+        out[this.camelize(k)] = v
       }
-  
-      return out;
-    };
+
+      return out
+    }
   }
-});
-Cls.initClass();
+})
+Cls.initClass()
 export default this.StringUtils

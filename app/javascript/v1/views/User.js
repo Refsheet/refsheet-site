@@ -19,7 +19,7 @@ import Header from './user/Header'
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 const User = {
-  Header
+  Header,
 }
 
 User.View = createReactClass({

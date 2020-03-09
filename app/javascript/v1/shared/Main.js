@@ -10,7 +10,8 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let Main; export default Main = createReactClass({
+let Main
+export default Main = createReactClass({
   propTypes: {
     style: PropTypes.object,
     className: PropTypes.string,
@@ -18,10 +19,7 @@ let Main; export default Main = createReactClass({
     fadeEffect: PropTypes.bool,
     slideEffect: PropTypes.bool,
     id: PropTypes.string,
-    title: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.array,
-    ]),
+    title: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   },
 
   _updateTitle(title) {

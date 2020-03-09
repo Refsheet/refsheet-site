@@ -10,7 +10,8 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let FeedbackModal; export default FeedbackModal = createReactClass({
+let FeedbackModal
+export default FeedbackModal = createReactClass({
   propTypes: {
     name: PropTypes.string,
   },
