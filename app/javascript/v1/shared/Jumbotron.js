@@ -1,8 +1,7 @@
-/* eslint-disable
-    react/display-name,
-    react/prop-types,
-    react/react-in-jsx-scope,
-*/
+import React from 'react'
+import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types'
+
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -11,7 +10,7 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.Jumbotron = function(props) {
+export default Jumbotron = function(props) {
   const classNames = ['jumbotron']
   if (props.className) {
     classNames.push(props.className)

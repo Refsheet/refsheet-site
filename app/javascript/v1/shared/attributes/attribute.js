@@ -1,9 +1,9 @@
-/* eslint-disable
-    no-undef,
-    react/jsx-no-undef,
-    react/no-deprecated,
-    react/react-in-jsx-scope,
-*/
+import React from 'react'
+import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types'
+
+import AttributeForm from './attribute_form'
+
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -13,7 +13,7 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.Attribute = createReactClass({
+const Attribute = createReactClass({
   getInitialState() {
     return { edit: this.props.onCommit != null && this.props.editorActive }
   },
@@ -135,3 +135,5 @@ this.Attribute = createReactClass({
     }
   },
 })
+
+export default Attribute

@@ -1,9 +1,8 @@
-/* eslint-disable
-    react/display-name,
-    react/jsx-no-undef,
-    react/prop-types,
-    react/react-in-jsx-scope,
-*/
+import React from 'react'
+import createReactClass from 'create-react-class'
+import PropTypes from 'prop-types'
+import {Link} from "react-router-dom"
+
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -12,7 +11,7 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.LightboxCharacterBox = props => (
+export default LightboxCharacterBox = props => (
   <div className="character-box">
     <Link to={props.character.link} className="character-avatar">
       <img src={props.character.profile_image_url} />
