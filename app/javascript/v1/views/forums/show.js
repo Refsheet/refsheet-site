@@ -36,7 +36,7 @@ let Show; export default Show = createReactClass({
     }
   },
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     return StateUtils.load(this, 'forum', this.props, forum => {
       if (forum) {
         return this._poll()
@@ -59,7 +59,7 @@ let Show; export default Show = createReactClass({
     }, 15000))
   },
 
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     return StateUtils.reload(this, 'forum', newProps)
   },
 

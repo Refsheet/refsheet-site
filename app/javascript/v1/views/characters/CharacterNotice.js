@@ -30,7 +30,7 @@ export default CharacterNotice = createReactClass({
     return { transfer: this.props != null ? this.props.transfer : undefined }
   },
 
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     return this.setState({ transfer: newProps.transfer })
   },
 

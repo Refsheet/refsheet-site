@@ -39,7 +39,7 @@ export default InfiniteScroll = createReactClass({
     }
   },
 
-  componentWillReceiveProps(newProps) {},
+  UNSAFE_componentWillReceiveProps(newProps) {},
   //    if newProps.count < newProps.perPage
   //      @setState lastPage: true
   //    else

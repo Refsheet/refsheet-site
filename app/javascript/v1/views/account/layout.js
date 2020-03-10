@@ -38,7 +38,7 @@ class cLayout extends React.Component {
     return c || (props.route != null ? props.route.title : undefined)
   }
 
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (!newProps.currentUser) {
       return this.context.router.history.push('/')
     }

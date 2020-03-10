@@ -21,7 +21,7 @@ export default PageStylesheet = createReactClass({
     return { colorData: this.props.colorData }
   },
 
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     return { colorData: this.props.colorData }
   },
 

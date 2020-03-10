@@ -50,7 +50,7 @@ export default BrowseApp = createReactClass({
     return $(window).off('scroll.browse')
   },
 
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (newProps.location.query.q !== this.props.location.query.q) {
       return this.doSearch(newProps.location.query.q)
     }

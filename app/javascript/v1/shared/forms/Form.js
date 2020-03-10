@@ -38,7 +38,7 @@ export default Form = createReactClass({
     }
   },
 
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (newProps.model !== this.props.model) {
       return this.setState({
         model: $.extend({}, newProps.model),

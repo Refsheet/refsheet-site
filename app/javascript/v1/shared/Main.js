@@ -29,7 +29,7 @@ export default Main = createReactClass({
     return (document.title = [].concat.apply([], titles).join(' - '))
   },
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (this.props.title && this._updateTitle) {
       this._updateTitle(this.props.title)
     }
@@ -37,7 +37,7 @@ export default Main = createReactClass({
     return $('body').addClass(this.props.bodyClassName)
   },
 
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (newProps.title && this._updateTitle) {
       this._updateTitle(newProps.title)
     }

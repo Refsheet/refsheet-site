@@ -51,7 +51,7 @@ export default View = createReactClass({
     return StateUtils.load(this, 'page', props)
   },
 
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (
       (newProps.location.pathname &&
         newProps.location.pathname === this.props.location.pathname) ||

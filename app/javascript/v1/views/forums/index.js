@@ -30,7 +30,7 @@ let Index; export default Index = createReactClass({
     return { forums: null }
   },
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     return StateUtils.load(this, 'forums')
   },
 

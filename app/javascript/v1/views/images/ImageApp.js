@@ -36,13 +36,13 @@ export default ImageApp = createReactClass({
     return Model.get(`/images/${imageId}.json`, this.load)
   },
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     return this.fetch(
       this.props.match != null ? this.props.match.params.imageId : undefined
     )
   },
 
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (
       (newProps.match != null ? newProps.match.params.imageId : undefined) &&
       this.state.image &&

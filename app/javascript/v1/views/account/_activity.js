@@ -74,7 +74,7 @@ let Activity; export default Activity = createReactClass({
     }
   },
 
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (this.props.filter !== newProps.filter) {
       if (this.timer) {
         clearTimeout(this.timer)
@@ -100,7 +100,7 @@ let Activity; export default Activity = createReactClass({
     }
   },
 
-  componentWillUpdate(newProps, newState) {
+  UNSAFE_componentWillUpdate(newProps, newState) {
     if (newState.newActivity !== this.state.newActivity) {
       document.title = document.title.replace(/^\(\d+\)\s+/, '')
       if (newState.newActivity && newState.newActivity.length > 0) {

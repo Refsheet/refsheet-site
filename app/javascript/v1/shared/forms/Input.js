@@ -48,7 +48,7 @@ export default Input = createReactClass({
     }
   },
 
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (newProps.value !== this.state.value) {
       this.setState({ value: newProps.value || newProps.default })
     }

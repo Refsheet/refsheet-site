@@ -22,7 +22,7 @@ export default CharacterCard = createReactClass({
     return { character: this.props.character }
   },
 
-  componentWillUpdate(newProps) {
+  UNSAFE_componentWillUpdate(newProps) {
     if (newProps.character !== this.props.character) {
       return this.setState({ character: newProps.character })
     }

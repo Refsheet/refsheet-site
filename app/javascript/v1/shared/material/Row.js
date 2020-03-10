@@ -17,7 +17,7 @@ export default Row = createReactClass({
     oneColumn: PropTypes.bool,
   },
 
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (newProps.hidden !== this.props.hidden) {
       if (newProps.hidden) {
         return $(this.refs.row)

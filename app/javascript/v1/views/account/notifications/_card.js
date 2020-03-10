@@ -107,7 +107,7 @@ let Card; export default Card = createReactClass({
     }
   },
 
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (newProps.is_read !== this.state.is_read) {
       return this.setState({ is_read: newProps.is_read })
     }

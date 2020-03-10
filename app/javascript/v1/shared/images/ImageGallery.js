@@ -71,7 +71,7 @@ export default ImageGallery = createReactClass({
     return $(window).off('resize', this._resizeJg)
   },
 
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (newProps.images) {
       return this.load(newProps.images, false)
     }
