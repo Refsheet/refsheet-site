@@ -1,4 +1,4 @@
-/* eslint-disable
+/* do-not-disable-eslint
     constructor-super,
     no-constant-condition,
     no-this-before-super,

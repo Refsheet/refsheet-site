@@ -20,5 +20,5 @@
 
 //= require_tree ./admin
 //= require cable
-//= require_tree ./utils
+//x require_tree ./utils
 //= require serviceworker-companion

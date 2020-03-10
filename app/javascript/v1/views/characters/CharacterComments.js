@@ -1,4 +1,4 @@
-/* eslint-disable
+/* do-not-disable-eslint
     react/display-name,
     react/react-in-jsx-scope,
 */

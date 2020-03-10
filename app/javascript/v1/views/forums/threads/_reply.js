@@ -1,4 +1,4 @@
-/* eslint-disable
+/* do-not-disable-eslint
     no-undef,
     react/jsx-no-undef,
     react/no-deprecated,

@@ -1,4 +1,4 @@
-/* eslint-disable
+/* do-not-disable-eslint
     react/jsx-no-undef,
     react/prop-types,
     react/react-in-jsx-scope,

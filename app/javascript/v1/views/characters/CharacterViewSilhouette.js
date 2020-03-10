@@ -1,4 +1,4 @@
-/* eslint-disable
+/* do-not-disable-eslint
     react/display-name,
     react/jsx-no-undef,
     react/prop-types,

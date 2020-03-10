@@ -1,4 +1,4 @@
-/* eslint-disable
+/* do-not-disable-eslint
     no-cond-assign,
     no-undef,
     no-unused-vars,
@@ -219,3 +219,5 @@ this.StateUtils = {
     return fetchUrl.replace(/\/\/+|\/$/g, '')
   },
 }
+
+export default this.StateUtils

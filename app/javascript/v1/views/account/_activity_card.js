@@ -1,4 +1,4 @@
-/* eslint-disable
+/* do-not-disable-eslint
     no-undef,
     no-unreachable,
     no-unused-vars,
