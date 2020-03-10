@@ -6,8 +6,16 @@
     react/react-in-jsx-scope,
 */
 import React from 'react'
+import ReactGA from 'react-ga'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
+import StringUtils from "../utils/StringUtils"
+import LoadingOverlay from "../shared/LoadingOverlay"
+import SessionModal from "../shared/modals/SessionModal"
+import Lightbox from "../shared/images/Lightbox"
+import Footer from "../../components/Layout/Footer"
+import {setCurrentUser} from "../../actions"
+import {connect} from "react-redux"
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -17,8 +25,7 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let LegacyApp
-export default LegacyApp = createReactClass({
+const LegacyApp = createReactClass({
   childContextTypes: {
     currentUser: PropTypes.object,
     session: PropTypes.object,
@@ -145,4 +152,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = { setCurrentUser }
 
-this.App = connect(mapStateToProps, mapDispatchToProps)(this.LegacyApp)
+window.React = React;
+
+const App = connect(mapStateToProps, mapDispatchToProps)(LegacyApp)
+export default App
