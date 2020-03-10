@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import Icon from 'v1/shared/material/Icon'
 
 class ProfileWidgetHeader extends Component {
   constructor(props) {

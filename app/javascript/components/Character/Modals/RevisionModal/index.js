@@ -9,6 +9,8 @@ import Error from '../../../Shared/Error'
 import { Query } from 'react-apollo'
 import getCharacterVersions from './getCharacterVersions.graphql'
 
+import Modal from 'v1/shared/Modal'
+
 class RevisionModal extends Component {
   constructor(props) {
     super(props)

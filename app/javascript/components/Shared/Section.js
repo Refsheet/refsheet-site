@@ -10,6 +10,7 @@ import { Sticky, StickyContainer } from 'react-sticky'
 import c from 'classnames'
 import EditableHeader from 'Shared/EditableHeader'
 import styled from 'styled-components'
+import Icon from 'v1/shared/material/Icon'
 
 const H2 = styled.h2`
   color: ${props => props.theme.primary};

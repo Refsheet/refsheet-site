@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Mutation } from 'react-apollo'
 import * as M from 'materialize-css'
 import createWidget from './createWidget.graphql'
+import Modal from 'v1/shared/Modal'
 
 class NewWidgetModal extends Component {
   constructor(props) {

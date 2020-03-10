@@ -12,6 +12,8 @@ import { withNamespaces } from 'react-i18next'
 import WindowAlert from 'utils/WindowAlert'
 import { div as Card } from '../Styled/Card'
 import c from 'classnames'
+import Icon from 'v1/shared/material/Icon'
+import Input from 'v1/shared/forms/Input'
 
 // TODO: This class has now 3 different styles that it produces,
 //       this should be refactored into a generic wrapper that handles

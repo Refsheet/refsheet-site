@@ -1,6 +1,8 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
-import PropTypes from 'prop-types'
+import Modal from 'v1/shared/Modal'
+import AttributeTable from 'v1/shared/attributes/attribute_table'
+import Attribute from 'v1/shared/attributes/attribute'
 
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.

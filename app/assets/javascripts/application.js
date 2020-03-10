@@ -10,16 +10,16 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require_self
+//x require_self
 //
-//= require react_ujs
+//x require react_ujs
 // xrequire react_router
 // xrequire react_router_ujs
 //
 //= require jquery2
-//= require jquery_ujs
-//= require jquery-tmpl
-//= require jquery-ui
+//x require jquery_ujs
+//x require jquery-tmpl
+//x require jquery-ui
 //
 //x require materialize-sprockets
 //x require masonry.pkgd
@@ -34,8 +34,8 @@
 //x require jquery.justifiedGallery
 //x require js.cookie
 //
-//= require cable
-//= require serviceworker-companion
+//x require cable
+//x require serviceworker-companion
 
 // window.namespace = function(ns_path, parent) {
 //     var spaces, final, current;

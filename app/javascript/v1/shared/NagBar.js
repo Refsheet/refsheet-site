@@ -2,6 +2,9 @@ import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
 
+import Button from 'v1/shared/material/Button'
+import Icon from 'v1/shared/material/Icon'
+
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*

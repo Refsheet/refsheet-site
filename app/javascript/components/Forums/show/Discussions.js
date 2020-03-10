@@ -11,6 +11,8 @@ import Restrict from '../../Shared/Restrict'
 import { Loading } from '../../Shared/V1'
 import c from 'classnames'
 
+import Advertisement from 'v1/shared/advertisement'
+
 class Discussions extends Component {
   constructor(props) {
     super(props)

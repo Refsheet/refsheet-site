@@ -1,16 +1,14 @@
-/* eslint-disable
-    no-undef,
-    react/jsx-no-undef,
-    react/no-deprecated,
-    react/prop-types,
-    react/react-in-jsx-scope,
-*/
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
 import {connect} from "react-redux"
 import Main from "../../shared/Main"
 import Container from "../../shared/material/Container"
+import UserCard from "./_user_card"
+import SideNav from "./_side_nav"
+import Advertisement from '../../shared/advertisement'
+import Suggestions from './_suggestions'
+
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -27,14 +25,18 @@ class cLayout extends React.Component {
     this.contextTypes = { router: PropTypes.object.isRequired }
   }
 
-  _findTitle(props) {
-    let c
-    if (props == null) {
-      ;({ props } = this)
+  _findTitle(inProps) {
+    let c, props
+    props = inProps
+
+    if (!props) {
+      props = this.props
     }
+
     if (props.children && props.children.props) {
       c = this._findTitle(props.children.props)
     }
+
     return c || (props.route != null ? props.route.title : undefined)
   }
 
@@ -61,7 +63,7 @@ class cLayout extends React.Component {
           <div className="content">{this.props.children}</div>
 
           <div className="sidebar aside transparent">
-            {typeof Advertisement != 'undefined' && <Advertisement />}
+            <Advertisement />
             <Suggestions />
           </div>
         </Container>

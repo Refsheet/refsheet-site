@@ -13,6 +13,9 @@ import { withNamespaces } from 'react-i18next'
 import compose from '../../utils/compose'
 import * as Materialize from 'materialize-css'
 
+import Icon from 'v1/shared/material/Icon'
+import Modal from 'v1/shared/Modal'
+
 class UploadModal extends Component {
   constructor(props, context) {
     super(props, context)

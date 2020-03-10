@@ -83,6 +83,7 @@ export default Advertisement = createReactClass({
             href={this._generateLink()}
             target="_blank"
             onClick={this._handleLinkClick}
+            rel="noopener noreferrer"
           >
             <img
               className="responsive-img"
@@ -99,6 +100,7 @@ export default Advertisement = createReactClass({
             target="_blank"
             className="grey-text text-darken-2 block"
             onClick={this._handleLinkClick}
+            rel="noopener noreferrer"
             style={{
               textDecoration: 'underline',
               fontSize: '0.9rem',

@@ -8,6 +8,8 @@ import PostTags, { DropdownTag, Tag } from '../shared/PostTags'
 import { Link } from 'react-router-dom'
 import Restrict from '../../Shared/Restrict'
 
+import Advertisement from 'v1/shared/advertisement'
+
 class About extends Component {
   render() {
     const { forum, t } = this.props

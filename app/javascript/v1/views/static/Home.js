@@ -4,10 +4,18 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Main from '../../../components/Shared/Main'
 import Jumbotron from '../../../components/Shared/Jumbotron'
+import Section from "../../../components/Shared/Section"
+import Row from "../../shared/material/Row"
+import Column from "../../shared/material/Column"
+import PageHeader from "../../shared/PageHeader"
+import Attribute from "../../shared/attributes/attribute"
+import SwatchPanel from "../../shared/swatches/SwatchPanel"
+import Views from "../../views/_views"
+import AttributeTable from "../../shared/attributes/attribute_table"
 
 const Home = createReactClass({
   componentDidMount() {
-    return $('.materialboxed').materialbox()
+    // return $('.materialboxed').materialbox()
   },
 
   render() {

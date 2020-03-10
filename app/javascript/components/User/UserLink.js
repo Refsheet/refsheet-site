@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { createIdentity, identitySourceType } from '../../utils/IdentityUtils'
 
+import IdentityLink from 'v1/shared/identity_link'
+
 // TODO - This passes through to the Global IdentityLink component, please convert to V2 standards.
 
 class UserLink extends Component {

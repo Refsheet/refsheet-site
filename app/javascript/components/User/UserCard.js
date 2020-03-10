@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+import Views from 'v1/views/_views'
+
 const UserCard = ({ smaller, user, onFollow }) => {
   let imgShadow, nameColor
   const nameClassNames = ['strong truncate']
