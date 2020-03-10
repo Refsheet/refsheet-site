@@ -2,6 +2,9 @@ import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
 
+import Modal from 'v1/shared/Modal'
+import ImageGallery from 'v1/shared/images/ImageGallery'
+
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -36,7 +39,8 @@ export default ImageGalleryModal = createReactClass({
           After uploading images to V1 character pages,{' '}
           <strong>you will have to reload the page</strong>.{' '}
           <a
-            href="https://refsheet.net/forums/support/uploading-to-v1-profiles"
+            href="https://refsheet.net/v2/forums/support/uploading-to-v1-profiles"
+            rel="noopener noreferrer"
             target="_blank"
           >
             Here is a forum post

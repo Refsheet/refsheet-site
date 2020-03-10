@@ -10,6 +10,8 @@ import LinkUtils from 'utils/LinkUtils'
 import { withRouter } from 'react-router'
 import Restrict from '../../Shared/Restrict'
 
+import Advertisement from 'v1/shared/advertisement'
+
 class NewDiscussion extends Component {
   constructor(props) {
     super(props)

@@ -2,6 +2,13 @@ import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
 
+import Modal from 'v1/shared/Modal'
+import Form from 'v1/shared/forms/Form'
+import Row from 'v1/shared/material/Row'
+import Column from 'v1/shared/material/Column'
+import Input from 'v1/shared/forms/Input'
+import Submit from 'v1/shared/forms/Submit'
+
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*

@@ -5,6 +5,7 @@ import { withNamespaces } from 'react-i18next'
 import SearchForCharacter from 'ActivityFeed/searchForCharacter.graphql'
 import { setIdentity } from '../../../actions'
 import { connect } from 'react-redux'
+import Modal from 'v1/shared/Modal'
 
 class IdentityModal extends Component {
   constructor(props) {

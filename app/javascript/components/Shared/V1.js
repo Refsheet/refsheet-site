@@ -9,8 +9,8 @@ function v1(component) {
 export { default as Modal } from '../../v1/shared/Modal'
 export { default as Loading } from '../../v1/shared/Loading'
 export { default as App } from '../../v1/views/_App'
+export { default as Home } from '../../v1/views/static/Home'
 
-const Home = v1('Home')
 const LoginView = v1('LoginView')
 const RegisterView = v1('RegisterView')
 const BrowseApp = v1('BrowseApp')
@@ -52,7 +52,6 @@ const Views = {
 }
 
 export {
-  Home,
   LoginView,
   RegisterView,
   Views,

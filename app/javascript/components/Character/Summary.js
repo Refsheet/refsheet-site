@@ -8,6 +8,11 @@ import updateCharacter from './updateCharacter.graphql'
 import * as M from 'materialize-css'
 import WindowAlert from '../../utils/WindowAlert'
 
+import AttributeTable from 'v1/shared/attributes/attribute_table'
+import Attribute from 'v1/shared/attributes/attribute'
+import Views from 'v1/views/_views'
+import RichText from 'v1/shared/RichText.js.jsx.coffee'
+
 class Summary extends Component {
   constructor(props) {
     super(props)

@@ -5,6 +5,8 @@ import { Query } from 'react-apollo'
 import { getArtist } from './getArtist.graphql'
 import Error from '../../Shared/Error'
 
+import Loading from 'v1/shared/Loading'
+
 class Show extends Component {
   render() {
     const variables = {

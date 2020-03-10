@@ -1,6 +1,8 @@
 import React from 'react'
 import StatusUpdate from './StatusUpdate'
 
+import Views from 'v1/views/_views'
+
 export function getText(t, { activities, activityType }) {
   const count = activities ? activities.length : 1
 
