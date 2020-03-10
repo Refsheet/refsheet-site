@@ -3,6 +3,7 @@ import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
 
 import Materialize from 'materialize-css'
+import Input from "./Input"
 
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
