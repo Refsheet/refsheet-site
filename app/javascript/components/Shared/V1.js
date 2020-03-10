@@ -1,48 +1,23 @@
 import React from 'react'
 
-// Helper for re-importing V1 code
-function v1(componentName) {
-  const wrap = props => {
-    const path = componentName.split('.')
-    let component = window
-
-    path.map(entry => {
-      component = component && component[entry]
-    })
-
-    console.warn(
-      `Use of "${componentName}" from V1 javascript package ` +
-        'is deprecated. Please migrate this component to V2 or stop using it. ' +
-        '(See Shared/V1.js for details and re-exports.)'
-    )
-
-    console.debug('Resolved ' + componentName + ' to ', component)
-
-    if (component) {
-      return React.createElement(component, props)
-    } else {
-      return <div>{componentName} not found in V1?</div>
-    }
+function v1(component) {
+  return () => {
+    throw "Don't export: " + component
   }
-
-  wrap.displayName = componentName
-  return wrap
 }
 
-// Define V1 imports here, turning them into factories which can be resolved
-// at runtime. There is a helper for this which will print a deprecation warning.
-// See existing examples for details.
+export { default as Modal } from '../../v1/shared/Modal'
+export { default as Loading } from '../../v1/shared/Loading'
+export { default as App } from '../../v1/views/_App'
 
-const Modal = v1('Modal')
-const Loading = v1('Loading')
-const App = v1('App')
 const Home = v1('Home')
 const LoginView = v1('LoginView')
 const RegisterView = v1('RegisterView')
 const BrowseApp = v1('BrowseApp')
 const ImageApp = v1('ImageApp')
 const CharacterApp = v1('CharacterApp')
-const SessionModal = v1('SessionModal')
+
+export { default as SessionModal } from '../../v1/shared/modals/SessionModal'
 
 const User = {
   View: v1('User'),
@@ -77,9 +52,6 @@ const Views = {
 }
 
 export {
-  Modal,
-  Loading,
-  App,
   Home,
   LoginView,
   RegisterView,
@@ -91,5 +63,4 @@ export {
   ImageApp,
   CharacterApp,
   User,
-  SessionModal,
 }
