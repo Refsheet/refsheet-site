@@ -1,11 +1,5 @@
-<%= react_component 'Packs.application.Routes',
-                    gaPropertyID: ENV['GA_PROPERTY_ID'],
-                    eagerLoad: @eager_load,
-                    flash: flash.to_hash,
-                    environment: Rails.env,
-                    notice: ENV['MAINTENANCE_NOTICE'],
-                    assets: render_asset_paths
-%>
+<div id="rootApp">
+</div>
 
 <div class="shaded-background" id="rootAppLoader">
   <main id="loading-screen">
@@ -15,11 +9,15 @@
           <div class="loading-icon">
             <%= image_tag 'logos/RefsheetLogo_White_200.png', width: 100, height: 100, alt: 'Loading...', title: 'Loading...' %>
           </div>
-          <h1>loading</h1>
-          <script>
+
+          <h1 id="loadstatus">Loading...</h1>
+          <p id="loadmessage" style="color: rgba(255,255,255,0.5);">Fetching scripts</p>
+
+          <script type="text/javascript">
             document.getElementById('script-on').style.display = '';
           </script>
         </div>
+
         <noscript>
           <%= image_tag 'logos/RefsheetLogo_White_200.png', width: 100, height: 100, alt: 'Refsheet.net', title: 'Refsheet.net' %>
           <h1>Javascript Required</h1>
@@ -32,3 +30,27 @@
     </div>
   </main>
 </div>
+
+<script type="text/javascript">
+  var props = <%= ({
+    gaPropertyID: ENV['GA_PROPERTY_ID'],
+    eagerLoad: @eager_load,
+    flash: flash.to_hash,
+    environment: Rails.env,
+    notice: ENV['MAINTENANCE_NOTICE'],
+    assets: render_asset_paths
+  }.to_json).html_safe %>;
+
+  console.log({props: props});
+
+  function loadMessage(message) {
+    document.getElementById('loadmessage').innerHTML = message;
+  }
+
+  function init() {
+    Packs.application.init('rootApp', props);
+  }
+
+  // This is the last thing in our body, call it:
+  init();
+</script>
