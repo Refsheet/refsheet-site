@@ -28,11 +28,11 @@ export default DateFormat = createReactClass({
     }
   },
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     return this._initialize()
   },
 
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     return this._initialize(newProps)
   },
 

@@ -54,7 +54,7 @@ User.View = createReactClass({
     )
   },
 
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (
       (newProps.match != null ? newProps.match.params.userId : undefined) !==
       (this.state.user != null ? this.state.user.username : undefined)

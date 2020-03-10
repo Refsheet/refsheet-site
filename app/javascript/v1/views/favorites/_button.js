@@ -48,7 +48,7 @@ export default FavoriteButton = createReactClass({
     return { isFavorite: this._isFavFromProps(this.props) }
   },
 
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     return this.setState({ isFavorite: this._isFavFromProps(this.props) })
   },
 

@@ -38,7 +38,7 @@ let Show; export default Show = createReactClass({
     return { thread: null }
   },
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     return StateUtils.load(this, 'thread', this.props, thread => {
       if (thread) {
         this._poll()
@@ -75,7 +75,7 @@ let Show; export default Show = createReactClass({
     }, 3000))
   },
 
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     return StateUtils.reload(this, 'thread', newProps)
   },
 

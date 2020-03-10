@@ -68,7 +68,7 @@ export default AttributeForm = createReactClass({
       .click()
   },
 
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     const state = []
     if (newProps.name != null) {
       state.name = newProps.name
@@ -82,7 +82,7 @@ export default AttributeForm = createReactClass({
     return this.setState(state)
   },
 
-  componentWillUpdate() {
+  UNSAFE_componentWillUpdate() {
     if (Materialize.updateTextFields != null) {
       return Materialize.updateTextFields()
     }

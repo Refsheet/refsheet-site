@@ -72,7 +72,7 @@ const Cls = (this.Views.Images.ReportModal = class ReportModal extends React.Com
     super(props)
   }
 
-  componentWillReceiveProps(newProps, newContext) {
+  UNSAFE_componentWillReceiveProps(newProps, newContext) {
     if (newProps.imageId !== this.state.report.image_id) {
       console.log('Reporting imageID changed:', newProps.imageId)
       return StateUtils.update(

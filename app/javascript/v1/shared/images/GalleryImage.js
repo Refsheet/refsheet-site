@@ -133,7 +133,7 @@ const gallery_image = createReactClass({
     return $(document).off('app:image:update', this._updateEvent)
   },
 
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (newProps.image != null) {
       return this.load(newProps.image)
     }

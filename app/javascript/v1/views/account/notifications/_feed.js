@@ -69,7 +69,7 @@ let Feed; export default Feed = createReactClass({
     }
   },
 
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (this.props.filter !== newProps.filter) {
       if (this.timer) {
         clearTimeout(this.timer)
@@ -95,7 +95,7 @@ let Feed; export default Feed = createReactClass({
     }
   },
 
-  componentWillUpdate(newProps, newState) {
+  UNSAFE_componentWillUpdate(newProps, newState) {
     if (newState.newActivity !== this.state.newActivity) {
       document.title = document.title.replace(/^\(\d+\)\s+/, '')
       if (newState.newActivity && newState.newActivity.length > 0) {

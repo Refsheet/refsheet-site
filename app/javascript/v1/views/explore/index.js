@@ -47,7 +47,7 @@ let Index; export default Index = createReactClass({
     return { media: null }
   },
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     return StateUtils.load(this, 'media')
   },
 
@@ -58,7 +58,7 @@ let Index; export default Index = createReactClass({
     })
   },
 
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (
       (this.props.match != null ? this.props.match.params.scope : undefined) !==
       (newProps.match != null ? newProps.match.params.scope : undefined)

@@ -62,11 +62,11 @@ const Component = createReactClass({
     userId: 'user_id',
   },
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     return StateUtils.load(this, 'character')
   },
 
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     return StateUtils.reload(this, 'character', newProps)
   },
 
@@ -119,7 +119,7 @@ const Component = createReactClass({
     return $(document).off('app:image:delete')
   },
 
-  componentWillUpdate(newProps, newState) {
+  UNSAFE_componentWillUpdate(newProps, newState) {
     if (
       newState.character &&
       this.state.character &&

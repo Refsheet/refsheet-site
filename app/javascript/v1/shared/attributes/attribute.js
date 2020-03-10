@@ -18,7 +18,7 @@ const Attribute = createReactClass({
     return { edit: this.props.onCommit != null && this.props.editorActive }
   },
 
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (this.state.edit && newProps.editorActive === false) {
       return this.setState({ edit: false })
     }
