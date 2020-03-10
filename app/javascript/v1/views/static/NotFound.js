@@ -1,4 +1,4 @@
-/* eslint-disable
+/* do-not-disable-eslint
     react/display-name,
 */
 // TODO: This file was created by bulk-decaffeinate.

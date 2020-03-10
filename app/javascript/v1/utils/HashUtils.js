@@ -1,4 +1,4 @@
-/* eslint-disable
+/* do-not-disable-eslint
     no-undef,
 */
 // TODO: This file was created by bulk-decaffeinate.
