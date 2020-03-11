@@ -7,6 +7,9 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
+import Row from "../../../shared/material/Row"
+import Column from "../../../shared/material/Column"
+import GalleryImage from "../../../shared/images/GalleryImage"
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*

@@ -7,6 +7,12 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
+import Forums from 'v1/views/Forums'
+import Main from "../../shared/Main"
+import Jumbotron from "../../../components/Shared/Jumbotron"
+import Container from "../../shared/material/Container"
+import EmptyList from "../../shared/EmptyList"
+import Loading from "../../shared/Loading"
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -31,7 +37,7 @@ let Index; export default Index = createReactClass({
   },
 
   UNSAFE_componentWillMount() {
-    return StateUtils.load(this, 'forums')
+    StateUtils.load(this, 'forums')
   },
 
   render() {

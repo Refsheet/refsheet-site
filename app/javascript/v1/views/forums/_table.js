@@ -8,6 +8,11 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
+import Column from 'v1/shared/material/Column'
+import Row from 'v1/shared/material/Row'
+import StringUtils from "../../../utils/StringUtils"
+import Forums from 'v1/views/Forums'
+
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*

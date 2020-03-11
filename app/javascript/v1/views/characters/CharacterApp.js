@@ -29,6 +29,9 @@ import PageStylesheet from "../../shared/PageStylesheet"
 import NotFound from "../static/NotFound"
 import * as Materialize from "materialize-css"
 import Main from "../../shared/Main"
+import CharacterViewSilhouette from "./CharacterViewSilhouette"
+import RichText from "../../../components/Shared/RichText"
+import App from "../../../components/App"
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -274,7 +277,7 @@ const Component = createReactClass({
     }
 
     if (this.state.character.version === 2) {
-      return <Packs.application.CharacterController />
+      return <App />
     }
 
     if (

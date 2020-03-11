@@ -8,6 +8,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import createReactClass from 'create-react-class'
+import * as ReactGA from "react-ga"
+import Main from "../../shared/Main"
+import Form from "../../shared/forms/Form"
+import Input from "../../shared/forms/Input"
+import Submit from "../../shared/forms/Submit"
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*

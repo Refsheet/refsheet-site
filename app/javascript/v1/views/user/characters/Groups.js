@@ -9,6 +9,10 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
+import UserCharacterGroupLink from "./groups/UserCharacterGroupLink"
+import UserCharacterGroupTrash from "./groups/UserCharacterGroupTrash"
+import {Link} from "react-router-dom"
+import UserCharacterGroupForm from "./groups/UserCharacterGroupForm"
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -99,7 +103,7 @@ let Groups; export default Groups = createReactClass({
           group={group}
           editable={editable}
           onChange={onChange}
-          active={_this.props.activeGroupId == group.slug}
+          active={_this.props.activeGroupId === group.slug}
           key={group.slug}
         />
       ))

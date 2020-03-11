@@ -15,6 +15,7 @@ import Row from '../../../shared/material/Row'
 import Column from '../../../shared/material/Column'
 import Input from '../../../shared/forms/Input'
 import Submit from '../../../shared/forms/Submit'
+import {DeleteUser} from "../../../../components/Settings/Account/DeleteUser"
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -129,7 +130,7 @@ class Show extends React.Component {
           </div>
         </Form>
 
-        <Packs.application.DeleteUser user={this.state.user} />
+        <DeleteUser user={this.state.user} />
       </div>
     )
   }

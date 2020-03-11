@@ -8,6 +8,14 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
+import Main from "../../shared/Main"
+import Jumbotron from "../../../components/Shared/Jumbotron"
+import Container from "../../shared/material/Container"
+import FixedActionButton from "../../shared/FixedActionButton"
+import EmptyList from "../../shared/EmptyList"
+import Loading from "../../shared/Loading"
+import Forums from 'v1/views/Forums'
+
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
