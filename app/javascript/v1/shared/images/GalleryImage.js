@@ -3,6 +3,8 @@ import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Icon from 'v1/shared/material/Icon'
+import Model from "../../utils/Model"
+import NumberUtils from "../../utils/NumberUtils"
 
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.

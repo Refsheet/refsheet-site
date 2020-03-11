@@ -2,9 +2,7 @@ import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
 
-namespace 'Views.Account.Settings'
-
-class @Views.Account.Settings.Support extends React.Component
+class Support extends React.Component
   @contextTypes:
     currentUser: PropTypes.object.isRequired
     setCurrentUser: PropTypes.func.isRequired
@@ -98,3 +96,5 @@ class @Views.Account.Settings.Support extends React.Component
     `<div className='account-settings'>
         { patreonStatus }
     </div>`
+
+export default Support
