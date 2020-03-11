@@ -8,7 +8,7 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
-import StringUtils from "../../../../utils/StringUtils"
+import StringUtils from '../../../../utils/StringUtils'
 import CharacterLinkCard from 'v1/views/characters/CharacterLinkCard'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
@@ -18,7 +18,8 @@ import CharacterLinkCard from 'v1/views/characters/CharacterLinkCard'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let List; export default List = createReactClass({
+let List
+export default List = createReactClass({
   propTypes: {
     characters: PropTypes.array.isRequired,
     onSort: PropTypes.func.isRequired,

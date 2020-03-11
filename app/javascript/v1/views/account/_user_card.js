@@ -17,7 +17,8 @@ import { Link } from 'react-router-dom'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let UserCard; export default UserCard = createReactClass({
+let UserCard
+export default UserCard = createReactClass({
   propTypes: {
     user: PropTypes.object.isRequired,
     onFollow: PropTypes.func,

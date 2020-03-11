@@ -1,9 +1,9 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
-import PasswordResetForm from "../../views/sessions/PasswordResetForm"
-import LoginForm from "../../views/sessions/LoginForm"
-import Modal from "../Modal"
+import PasswordResetForm from '../../views/sessions/PasswordResetForm'
+import LoginForm from '../../views/sessions/LoginForm'
+import Modal from '../Modal'
 
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.

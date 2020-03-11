@@ -16,7 +16,8 @@ import User from 'v1/views/User'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let Characters; export default Characters = createReactClass({
+let Characters
+export default Characters = createReactClass({
   propTypes: {
     groups: PropTypes.array.isRequired,
     characters: PropTypes.array.isRequired,

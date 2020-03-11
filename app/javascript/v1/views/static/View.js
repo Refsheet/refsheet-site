@@ -16,7 +16,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import createReactClass from 'create-react-class'
-import Main from "../../shared/Main"
+import Main from '../../shared/Main'
 
 let View
 export default View = createReactClass({

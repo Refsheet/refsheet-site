@@ -10,8 +10,8 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
-import * as Materialize from "materialize-css"
-import Bowser from "bowser"
+import * as Materialize from 'materialize-css'
+import Bowser from 'bowser'
 import Attribute from 'v1/shared/attributes/attribute'
 import AttributeTable from 'v1/shared/attributes/attribute_table'
 // TODO: This file was created by bulk-decaffeinate.

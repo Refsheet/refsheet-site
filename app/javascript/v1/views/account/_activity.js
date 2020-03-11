@@ -7,11 +7,11 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
-import Spinner from "../../shared/material/Spinner"
-import StringUtils from "../../../utils/StringUtils"
-import Restrict from "../../../components/Shared/Restrict"
-import CommentForm from "../../../components/Shared/CommentForm"
-import InfiniteScroll from "../../shared/InfiniteScroll"
+import Spinner from '../../shared/material/Spinner'
+import StringUtils from '../../../utils/StringUtils'
+import Restrict from '../../../components/Shared/Restrict'
+import CommentForm from '../../../components/Shared/CommentForm'
+import InfiniteScroll from '../../shared/InfiniteScroll'
 import Views from 'v1/views/_views'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
@@ -23,7 +23,8 @@ import Views from 'v1/views/_views'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let Activity; export default Activity = createReactClass({
+let Activity
+export default Activity = createReactClass({
   contextTypes: {
     currentUser: PropTypes.object,
   },

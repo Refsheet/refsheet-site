@@ -7,9 +7,9 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
-import Form from "../../../shared/forms/Form"
-import Input from "../../../shared/forms/Input"
-import Submit from "../../../shared/forms/Submit"
+import Form from '../../../shared/forms/Form'
+import Input from '../../../shared/forms/Input'
+import Submit from '../../../shared/forms/Submit'
 import IdentityAvatar from 'v1/shared/identity_avatar'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
@@ -19,7 +19,8 @@ import IdentityAvatar from 'v1/shared/identity_avatar'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let Reply; export default Reply = createReactClass({
+let Reply
+export default Reply = createReactClass({
   contextTypes: {
     currentUser: PropTypes.object,
   },

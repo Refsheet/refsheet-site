@@ -21,9 +21,7 @@ class Show extends React.Component {
   render() {
     return (
       <Layout {...this.props}>
-        <Feed
-          filter={this.props.location.query.feed}
-        />
+        <Feed filter={this.props.location.query.feed} />
       </Layout>
     )
   }

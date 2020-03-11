@@ -7,8 +7,8 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
-import Column from "../../shared/material/Column"
-import Row from "../../shared/material/Row"
+import Column from '../../shared/material/Column'
+import Row from '../../shared/material/Row'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -18,7 +18,8 @@ import Row from "../../shared/material/Row"
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 this.Favorites = {}
-let Index; export default Index = createReactClass({
+let Index
+export default Index = createReactClass({
   contextTypes: {
     currentUser: PropTypes.object,
   },

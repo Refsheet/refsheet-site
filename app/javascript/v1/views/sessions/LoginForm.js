@@ -8,12 +8,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import createReactClass from 'create-react-class'
-import Form from "../../shared/forms/Form"
-import Input from "../../shared/forms/Input"
-import Row from "../../shared/material/Row"
-import Column from "../../shared/material/Column"
-import {Link} from "react-router-dom"
-import Submit from "../../shared/forms/Submit"
+import Form from '../../shared/forms/Form'
+import Input from '../../shared/forms/Input'
+import Row from '../../shared/material/Row'
+import Column from '../../shared/material/Column'
+import { Link } from 'react-router-dom'
+import Submit from '../../shared/forms/Submit'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*

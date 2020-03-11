@@ -70,7 +70,7 @@ export { default as LegacyForumReply } from 'Forums/LegacyForumReply'
 export { default as StatusUpdate } from 'ActivityFeed/Activities/StatusUpdate'
 export { default as ActivityCard } from 'ActivityFeed/ActivityCard'
 export { default as Footer } from 'Layout/Footer'
-  ;(function() {
+;(function() {
   if (Refsheet.environment === 'production') {
     Sentry.init({
       dsn: Refsheet.sentryDsn,
@@ -89,10 +89,12 @@ function init(id, props) {
   ReactDOM.render(<App {...props} />, document.getElementById(id))
 }
 
-export { init }
+export {
+  init,
 
-//== Trigger loader
-  ;(function() {
+  //== Trigger loader
+}
+;(function() {
   window._jsV2 = true
   console.log('Pack loaded: Refsheet JS v2')
   const event = new CustomEvent('jsload.pack')

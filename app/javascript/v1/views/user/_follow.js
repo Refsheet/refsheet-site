@@ -7,7 +7,7 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
-import Icon from "../../shared/material/Icon"
+import Icon from '../../shared/material/Icon'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -16,7 +16,8 @@ import Icon from "../../shared/material/Icon"
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let Follow; export default Follow = createReactClass({
+let Follow
+export default Follow = createReactClass({
   contextTypes: {
     currentUser: PropTypes.object,
   },

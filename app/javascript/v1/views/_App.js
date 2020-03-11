@@ -9,16 +9,16 @@ import React from 'react'
 import ReactGA from 'react-ga'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
-import StringUtils from "../utils/StringUtils"
-import LoadingOverlay from "../shared/LoadingOverlay"
-import SessionModal from "../shared/modals/SessionModal"
-import Lightbox from "../shared/images/Lightbox"
-import Footer from "../../components/Layout/Footer"
-import {setCurrentUser} from "../../actions"
-import {connect} from "react-redux"
+import StringUtils from '../utils/StringUtils'
+import LoadingOverlay from '../shared/LoadingOverlay'
+import SessionModal from '../shared/modals/SessionModal'
+import Lightbox from '../shared/images/Lightbox'
+import Footer from '../../components/Layout/Footer'
+import { setCurrentUser } from '../../actions'
+import { connect } from 'react-redux'
 import Views from 'v1/views/_views'
-import UploadModal from "../../components/Image/UploadModal"
-import NavBar from "../../components/NavBar"
+import UploadModal from '../../components/Image/UploadModal'
+import NavBar from '../../components/NavBar'
 import Chat from 'components/Chat/ConversationTray'
 import NewLightbox from 'components/Lightbox'
 
@@ -158,7 +158,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = { setCurrentUser }
 
-window.React = React;
+window.React = React
 
 const App = connect(mapStateToProps, mapDispatchToProps)(LegacyApp)
 export default App

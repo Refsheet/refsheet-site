@@ -7,9 +7,9 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
-import {Link} from "react-router-dom"
-import DateFormat from "../../../shared/utils/DateFormat"
-import EmptyList from "../../../shared/EmptyList"
+import { Link } from 'react-router-dom'
+import DateFormat from '../../../shared/utils/DateFormat'
+import EmptyList from '../../../shared/EmptyList'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -18,7 +18,8 @@ import EmptyList from "../../../shared/EmptyList"
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let List; export default List = createReactClass({
+let List
+export default List = createReactClass({
   propTypes: {
     threads: PropTypes.array,
     activeThreadId: PropTypes.string,

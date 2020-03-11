@@ -7,9 +7,9 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
-import Row from "../../../shared/material/Row"
-import Column from "../../../shared/material/Column"
-import GalleryImage from "../../../shared/images/GalleryImage"
+import Row from '../../../shared/material/Row'
+import Column from '../../../shared/material/Column'
+import GalleryImage from '../../../shared/images/GalleryImage'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -18,7 +18,8 @@ import GalleryImage from "../../../shared/images/GalleryImage"
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let Comment; export default Comment = createReactClass({
+let Comment
+export default Comment = createReactClass({
   propTypes: {
     comments: PropTypes.array.isRequired,
   },
