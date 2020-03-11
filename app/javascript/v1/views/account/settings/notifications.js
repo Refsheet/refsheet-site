@@ -25,9 +25,8 @@ import AttributeTable from 'v1/shared/attributes/attribute_table'
  * DS207: Consider shorter variations of null checks
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-namespace('Views.Account.Settings')
 
-const Cls = (this.Views.Account.Settings.Notifications = class Notifications extends React.Component {
+class Notifications extends React.Component {
   static initClass() {
     this.contextTypes = {
       currentUser: PropTypes.object.isRequired,
@@ -224,11 +223,13 @@ const Cls = (this.Views.Account.Settings.Notifications = class Notifications ext
 
     return <div>{vapidSettings}</div>
   }
-})
-Cls.initClass()
+}
+Notifications.initClass()
 
 function __guard__(value, transform) {
   return typeof value !== 'undefined' && value !== null
     ? transform(value)
     : undefined
 }
+
+export default Notifications

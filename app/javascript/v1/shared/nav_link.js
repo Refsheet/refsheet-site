@@ -3,6 +3,7 @@ import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import Icon from 'v1/shared/material/Icon'
+import * as ReactRouter from 'react-router'
 
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.

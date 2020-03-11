@@ -11,7 +11,9 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.HashUtils = {
+import ObjectPath from "./ObjectPath"
+
+const HashUtils = {
   deepUpdateCollectionItem(object, collectionPath, item, primaryKey) {
     const collection = ObjectPath.get(object, collectionPath)
     if (!collection) {
@@ -128,3 +130,5 @@ this.HashUtils = {
     return final
   },
 }
+
+export default HashUtils
