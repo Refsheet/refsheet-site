@@ -8,7 +8,7 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.ObjectPath = {
+const ObjectPath = {
   get(obj, path) {
     path = path.split('.')
     let parent = obj
@@ -43,3 +43,5 @@ this.ObjectPath = {
     return (parent[path[path.length - 1]] = value)
   },
 }
+
+export default ObjectPath
