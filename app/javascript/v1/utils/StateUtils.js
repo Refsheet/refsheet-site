@@ -1,4 +1,5 @@
 import ObjectPath from 'v1/utils/ObjectPath'
+import Model from 'v1/utils/Model'
 
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
@@ -9,7 +10,7 @@ import ObjectPath from 'v1/utils/ObjectPath'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.StateUtils = {
+const StateUtils = {
   page(context, path, page, props) {
     if (props == null) {
       ;({ props } = context)
@@ -217,4 +218,4 @@ this.StateUtils = {
   },
 }
 
-export default this.StateUtils
+export default StateUtils

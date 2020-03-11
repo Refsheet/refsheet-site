@@ -6,7 +6,7 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.NumberUtils = {
+const NumberUtils = {
   format(i) {
     const n = Math.abs(i)
     switch (false) {
@@ -23,3 +23,5 @@ this.NumberUtils = {
     }
   },
 }
+
+export default NumberUtils
