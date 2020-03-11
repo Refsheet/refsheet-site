@@ -9,9 +9,9 @@ import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
 import Views from 'v1/views/_views'
-import {Link} from "react-router-dom"
-import Icon from "../../../shared/material/Icon"
-import DateFormat from "../../../shared/utils/DateFormat"
+import { Link } from 'react-router-dom'
+import Icon from '../../../shared/material/Icon'
+import DateFormat from '../../../shared/utils/DateFormat'
 import IdentityLink from 'v1/shared/identity_link'
 
 // TODO: This file was created by bulk-decaffeinate.
@@ -23,7 +23,8 @@ import IdentityLink from 'v1/shared/identity_link'
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 
-let Card; export default Card = createReactClass({
+let Card
+export default Card = createReactClass({
   propTypes: {
     type: PropTypes.string.isRequired,
     actionable: PropTypes.object,

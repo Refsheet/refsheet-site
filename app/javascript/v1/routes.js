@@ -21,11 +21,11 @@ import StringUtils from '../v1/utils/StringUtils'
 import LoginView from '../v1/views/sessions/LoginView'
 import RegisterView from '../v1/views/sessions/RegisterView'
 import Views from '../v1/views/_views'
-import BrowseApp from "./views/browse/BrowseApp"
-import Forums from "./views/Forums"
-import ImageApp from "./views/images/ImageApp"
-import CharacterApp from "./views/characters/CharacterApp"
-import * as Materialize from "materialize-css"
+import BrowseApp from './views/browse/BrowseApp'
+import Forums from './views/Forums'
+import ImageApp from './views/images/ImageApp'
+import CharacterApp from './views/characters/CharacterApp'
+import * as Materialize from 'materialize-css'
 import User from './views/User'
 
 // Backfill for Router V4 not parsing query strings.
@@ -173,7 +173,10 @@ const Routes = createReactClass({
                   />
 
                   <Route path="/browse" component={BrowseApp} />
-                  <Route path="/explore/:scope?" component={Views.Explore.Index} />
+                  <Route
+                    path="/explore/:scope?"
+                    component={Views.Explore.Index}
+                  />
 
                   <Route path="/forums">
                     <Switch>
@@ -251,10 +254,7 @@ const Routes = createReactClass({
     }
 
     return (
-      <App
-        state={defaultState}
-        assets={this.props.assets}
-      >
+      <App state={defaultState} assets={this.props.assets}>
         {router}
       </App>
     )

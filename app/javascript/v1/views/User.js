@@ -9,15 +9,15 @@ import PropTypes from 'prop-types'
 import createReactClass from 'create-react-class'
 
 import Header from './user/Header'
-import NotFound from "./static/NotFound"
-import FixedActionButton from "../shared/FixedActionButton"
-import ActionButton from "../shared/ActionButton"
-import Main from "../shared/Main"
-import DropzoneContainer from "../shared/DropzoneContainer"
-import Modal from "../shared/Modal"
-import NewCharacterForm from "./characters/NewCharacterForm"
-import UserSettingsModal from "../shared/modals/UserSettingsModal"
-import Section from "../../components/Shared/Section"
+import NotFound from './static/NotFound'
+import FixedActionButton from '../shared/FixedActionButton'
+import ActionButton from '../shared/ActionButton'
+import Main from '../shared/Main'
+import DropzoneContainer from '../shared/DropzoneContainer'
+import Modal from '../shared/Modal'
+import NewCharacterForm from './characters/NewCharacterForm'
+import UserSettingsModal from '../shared/modals/UserSettingsModal'
+import Section from '../../components/Shared/Section'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*

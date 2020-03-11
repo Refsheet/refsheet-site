@@ -16,7 +16,8 @@ import Views from 'v1/views/_views'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let Suggestions; export default Suggestions = createReactClass({
+let Suggestions
+export default Suggestions = createReactClass({
   getInitialState() {
     return { suggested: null }
   },

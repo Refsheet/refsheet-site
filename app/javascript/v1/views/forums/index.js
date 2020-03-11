@@ -8,11 +8,11 @@ import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
 import Forums from 'v1/views/Forums'
-import Main from "../../shared/Main"
-import Jumbotron from "../../../components/Shared/Jumbotron"
-import Container from "../../shared/material/Container"
-import EmptyList from "../../shared/EmptyList"
-import Loading from "../../shared/Loading"
+import Main from '../../shared/Main'
+import Jumbotron from '../../../components/Shared/Jumbotron'
+import Container from '../../shared/material/Container'
+import EmptyList from '../../shared/EmptyList'
+import Loading from '../../shared/Loading'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -21,7 +21,8 @@ import Loading from "../../shared/Loading"
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let Index; export default Index = createReactClass({
+let Index
+export default Index = createReactClass({
   contextTypes: {
     eagerLoad: PropTypes.object,
   },

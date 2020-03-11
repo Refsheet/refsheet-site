@@ -8,8 +8,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import createReactClass from 'create-react-class'
-import Icon from "../../shared/material/Icon"
-import RichText from "../../../components/Shared/RichText"
+import Icon from '../../shared/material/Icon'
+import RichText from '../../../components/Shared/RichText'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*

@@ -9,10 +9,10 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
-import UserCharacterGroupLink from "./groups/UserCharacterGroupLink"
-import UserCharacterGroupTrash from "./groups/UserCharacterGroupTrash"
-import {Link} from "react-router-dom"
-import UserCharacterGroupForm from "./groups/UserCharacterGroupForm"
+import UserCharacterGroupLink from './groups/UserCharacterGroupLink'
+import UserCharacterGroupTrash from './groups/UserCharacterGroupTrash'
+import { Link } from 'react-router-dom'
+import UserCharacterGroupForm from './groups/UserCharacterGroupForm'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -21,7 +21,8 @@ import UserCharacterGroupForm from "./groups/UserCharacterGroupForm"
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let Groups; export default Groups = createReactClass({
+let Groups
+export default Groups = createReactClass({
   propTypes: {
     userLink: PropTypes.string.isRequired,
     groups: PropTypes.array.isRequired,

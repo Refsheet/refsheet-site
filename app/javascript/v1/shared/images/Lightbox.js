@@ -1,18 +1,18 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
-import * as Materialize from "materialize-css"
-import LightboxCharacterBox from "./LightboxCharacterBox"
-import RichText from "../../../components/Shared/RichText"
-import Tabs from "../tabs/Tabs"
-import Tab from "../tabs/Tab"
-import Form from "../forms/Form"
-import Input from "../forms/Input"
-import Row from "../material/Row"
-import Column from "react-virtualized/dist/commonjs/Table/Column"
-import Submit from "../forms/Submit"
-import Modal from "../Modal"
-import ImageGravityModal from "../modals/ImageGravityModal"
+import * as Materialize from 'materialize-css'
+import LightboxCharacterBox from './LightboxCharacterBox'
+import RichText from '../../../components/Shared/RichText'
+import Tabs from '../tabs/Tabs'
+import Tab from '../tabs/Tab'
+import Form from '../forms/Form'
+import Input from '../forms/Input'
+import Row from '../material/Row'
+import Column from 'react-virtualized/dist/commonjs/Table/Column'
+import Submit from '../forms/Submit'
+import Modal from '../Modal'
+import ImageGravityModal from '../modals/ImageGravityModal'
 
 import FavoriteButton from 'v1/views/favorites/_button'
 import Comments from 'v1/views/comments'
@@ -342,7 +342,11 @@ export default Lightbox = createReactClass({
               <li className="divider" />
 
               <li>
-                <a href={this.state.image.path + '/full'} target="_blank" rel="noopener noreferrer">
+                <a
+                  href={this.state.image.path + '/full'}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <i className="material-icons left">file_download</i>
                   <span>Download</span>
                 </a>
@@ -418,7 +422,11 @@ export default Lightbox = createReactClass({
               {this.state.image.source_url && (
                 <div className="source-url">
                   <i className="material-icons left">link</i>
-                  <a href={this.state.image.source_url} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={this.state.image.source_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     {this.state.image.source_url_display}
                   </a>
                 </div>

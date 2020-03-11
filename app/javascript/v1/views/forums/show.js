@@ -8,12 +8,12 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
-import Main from "../../shared/Main"
-import Jumbotron from "../../../components/Shared/Jumbotron"
-import Container from "../../shared/material/Container"
-import FixedActionButton from "../../shared/FixedActionButton"
-import EmptyList from "../../shared/EmptyList"
-import Loading from "../../shared/Loading"
+import Main from '../../shared/Main'
+import Jumbotron from '../../../components/Shared/Jumbotron'
+import Container from '../../shared/material/Container'
+import FixedActionButton from '../../shared/FixedActionButton'
+import EmptyList from '../../shared/EmptyList'
+import Loading from '../../shared/Loading'
 import Forums from 'v1/views/Forums'
 
 // TODO: This file was created by bulk-decaffeinate.
@@ -25,7 +25,8 @@ import Forums from 'v1/views/Forums'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let Show; export default Show = createReactClass({
+let Show
+export default Show = createReactClass({
   contextTypes: {
     eagerLoad: PropTypes.object,
   },

@@ -10,7 +10,7 @@ import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
 import Views from 'v1/views/_views'
-import DateFormat from "../../shared/utils/DateFormat"
+import DateFormat from '../../shared/utils/DateFormat'
 import IdentityLink from 'v1/shared/identity_link'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
@@ -20,7 +20,8 @@ import IdentityLink from 'v1/shared/identity_link'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let ActivityCard; export default ActivityCard = createReactClass({
+let ActivityCard
+export default ActivityCard = createReactClass({
   propTypes: {
     activityType: PropTypes.string,
     activityMethod: PropTypes.string,

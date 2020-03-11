@@ -1,11 +1,11 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
-import {connect} from "react-redux"
-import Main from "../../shared/Main"
-import Container from "../../shared/material/Container"
-import UserCard from "./_user_card"
-import SideNav from "./_side_nav"
+import { connect } from 'react-redux'
+import Main from '../../shared/Main'
+import Container from '../../shared/material/Container'
+import UserCard from './_user_card'
+import SideNav from './_side_nav'
 import Advertisement from '../../shared/advertisement'
 import Suggestions from './_suggestions'
 

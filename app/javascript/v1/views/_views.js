@@ -17,11 +17,11 @@ const Views = {
       Show: ShowSettings,
     },
     Notifications: {
-      Show: ShowNotifications
-    }
+      Show: ShowNotifications,
+    },
   },
   Explore: {
-    Index: ExploreIndex
+    Index: ExploreIndex,
   },
   Character: {},
   Static: {},

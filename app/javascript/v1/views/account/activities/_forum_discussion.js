@@ -7,7 +7,7 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
-import {Link} from "react-router-dom"
+import { Link } from 'react-router-dom'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -16,7 +16,8 @@ import {Link} from "react-router-dom"
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let ForumDiscussion; export default ForumDiscussion = createReactClass({
+let ForumDiscussion
+export default ForumDiscussion = createReactClass({
   propTypes: {
     discussions: PropTypes.array.isRequired,
   },

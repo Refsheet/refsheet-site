@@ -14,12 +14,12 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
-import * as Materialize from "materialize-css"
-import Input from "../../shared/forms/Input"
-import Modal from "../../shared/Modal"
-import Form from "../../shared/forms/Form"
-import Row from "../../shared/material/Row"
-import Submit from "../../shared/forms/Submit"
+import * as Materialize from 'materialize-css'
+import Input from '../../shared/forms/Input'
+import Modal from '../../shared/Modal'
+import Form from '../../shared/forms/Form'
+import Row from '../../shared/material/Row'
+import Submit from '../../shared/forms/Submit'
 import Column from 'v1/shared/material/Column'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
@@ -127,7 +127,11 @@ const Cls = (this.Views.Images.ReportModal = class ReportModal extends React.Com
 
         <p>
           We also strongly encourage all users to review our{' '}
-          <a href="https://refsheet.net/terms" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://refsheet.net/terms"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Terms and Conditions
           </a>{' '}
           to better understand what content is acceptable on this website.

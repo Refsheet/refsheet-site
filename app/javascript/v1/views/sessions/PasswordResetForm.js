@@ -10,12 +10,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import createReactClass from 'create-react-class'
 
-import Form from "../../shared/forms/Form"
-import Input from "../../shared/forms/Input"
-import Submit from "../../shared/forms/Submit"
+import Form from '../../shared/forms/Form'
+import Input from '../../shared/forms/Input'
+import Submit from '../../shared/forms/Submit'
 import Row from 'v1/shared/material/Row'
 import Column from 'v1/shared/material/Column'
-import {Link} from "react-router-dom"
+import { Link } from 'react-router-dom'
 
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.

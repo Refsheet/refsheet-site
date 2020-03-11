@@ -13,8 +13,8 @@ const Forums = {
   Index,
   Show,
   Threads: {
-    Show: ThreadsShow
-  }
+    Show: ThreadsShow,
+  },
 }
 
 export default Forums

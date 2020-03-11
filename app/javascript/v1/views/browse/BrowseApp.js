@@ -7,13 +7,13 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
-import CharacterLinkCard from "../characters/CharacterLinkCard"
-import StringUtils from "../../../utils/StringUtils"
-import Main from "../../shared/Main"
-import Section from "../../../components/Shared/Section"
-import Loading from "../../shared/Loading"
-import Button from "../../shared/material/Button"
-import {Link} from "react-router-dom"
+import CharacterLinkCard from '../characters/CharacterLinkCard'
+import StringUtils from '../../../utils/StringUtils'
+import Main from '../../shared/Main'
+import Section from '../../../components/Shared/Section'
+import Loading from '../../shared/Loading'
+import Button from '../../shared/material/Button'
+import { Link } from 'react-router-dom'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*

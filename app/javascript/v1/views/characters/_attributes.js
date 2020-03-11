@@ -7,7 +7,7 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
-import Attribute from "../../shared/attributes/attribute"
+import Attribute from '../../shared/attributes/attribute'
 import AttributeTable from 'v1/shared/attributes/attribute_table'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
@@ -17,7 +17,8 @@ import AttributeTable from 'v1/shared/attributes/attribute_table'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let Attributes; export default Attributes = createReactClass({
+let Attributes
+export default Attributes = createReactClass({
   propTypes: {
     characterPath: PropTypes.string.isRequired,
     attributes: PropTypes.array.isRequired,

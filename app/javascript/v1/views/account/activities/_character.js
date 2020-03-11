@@ -7,8 +7,8 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
-import Row from "../../../shared/material/Row"
-import Attribute from "../../../shared/attributes/attribute"
+import Row from '../../../shared/material/Row'
+import Attribute from '../../../shared/attributes/attribute'
 import IdentityLink from 'v1/shared/identity_link'
 import AttributeTable from 'v1/shared/attributes/attribute_table'
 
@@ -20,7 +20,8 @@ import AttributeTable from 'v1/shared/attributes/attribute_table'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let Character; export default Character = createReactClass({
+let Character
+export default Character = createReactClass({
   propTypes: {
     characters: PropTypes.array.isRequired,
     username: PropTypes.string.isRequired,
