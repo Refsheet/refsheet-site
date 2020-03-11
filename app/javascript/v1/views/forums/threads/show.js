@@ -7,6 +7,12 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
+import Loading from "../../../shared/Loading"
+import RichText from "../../../../components/Shared/RichText"
+import Main from "../../../shared/Main"
+import LegacyForumReply from "../../../../components/Forums/LegacyForumReply"
+import IdentityLink from 'v1/shared/identity_link'
+import IdentityAvatar from 'v1/shared/identity_avatar'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*

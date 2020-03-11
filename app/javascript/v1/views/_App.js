@@ -16,6 +16,12 @@ import Lightbox from "../shared/images/Lightbox"
 import Footer from "../../components/Layout/Footer"
 import {setCurrentUser} from "../../actions"
 import {connect} from "react-redux"
+import Views from 'v1/views/_views'
+import UploadModal from "../../components/Image/UploadModal"
+import NavBar from "../../components/NavBar"
+import Chat from 'components/Chat/ConversationTray'
+import NewLightbox from 'components/Lightbox'
+
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -107,15 +113,15 @@ const LegacyApp = createReactClass({
       <div id="rootApp">
         {this.state.loading > 0 && <LoadingOverlay />}
 
-        {Packs.application.Chat && <Packs.application.Chat />}
-        {Packs.application.NewLightbox && <Packs.application.NewLightbox />}
-        {Packs.application.UploadModal && <Packs.application.UploadModal />}
+        <Chat />
+        <NewLightbox />
+        <UploadModal />
 
         <SessionModal />
         <Views.Images.ReportModal imageId={this.state.reportImageId} />
         <Lightbox currentUser={currentUser} history={this.props.history} />
 
-        <Packs.application.NavBar
+        <NavBar
           query={this.props.location.query.q}
           onUserChange={this._onLogin}
           notice={this.props.notice}

@@ -10,6 +10,10 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
+import * as Materialize from "materialize-css"
+import Bowser from "bowser"
+import Attribute from 'v1/shared/attributes/attribute'
+import AttributeTable from 'v1/shared/attributes/attribute_table'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -32,19 +36,8 @@ const Cls = (this.Views.Account.Settings.Notifications = class Notifications ext
   }
 
   constructor(props) {
-    {
-      // Hack: trick Babel/TypeScript into allowing this before super.
-      if (false) {
-        super()
-      }
-      let thisFn = (() => {
-        return this
-      }).toString()
-      let thisName = thisFn.match(
-        /return (?:_assertThisInitialized\()*(\w+)\)*;/
-      )[1]
-      eval(`${thisName} = this;`)
-    }
+    super(props)
+
     this._enableBrowserNotifications = this._enableBrowserNotifications.bind(
       this
     )
@@ -54,8 +47,6 @@ const Cls = (this.Views.Account.Settings.Notifications = class Notifications ext
       Notification.permission === 'granted'
 
     this.state = { browserGranted: bp }
-
-    super(props)
   }
 
   _enableBrowserNotifications(e) {

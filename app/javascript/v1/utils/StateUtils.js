@@ -1,8 +1,5 @@
-/* do-not-disable-eslint
-    no-cond-assign,
-    no-undef,
-    no-unused-vars,
-*/
+import ObjectPath from 'v1/utils/ObjectPath'
+
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
