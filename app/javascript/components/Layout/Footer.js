@@ -8,6 +8,7 @@ import c from 'classnames'
 import SessionService from '../../services/SessionService'
 import { H3 } from '../Styled/Headings'
 import styled from 'styled-components'
+import GoogleAd from "../Shared/GoogleAd"
 
 class _Footer extends Component {
   constructor(props) {
@@ -101,19 +102,8 @@ class _Footer extends Component {
               </p>
             </Col>
           </Row>
-    
-          <div className="margin-top--large">&nbsp;</div>
-    
-          <ins className="adsbygoogle"
-               style={{ display: "block" }}
-               data-ad-client="ca-pub-4929509110499022"
-               data-ad-slot="9500968119"
-               data-ad-format="auto"
-               data-full-width-responsive="true"></ins>
-    
-          <script>
-               (adsbygoogle = window.adsbygoogle || []).push({});
-          </script>
+
+          <GoogleAd slot={"9500968119"} format={"auto"} data-full-width-responsive={"true"} />
 
           <hr />
 

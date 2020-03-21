@@ -202,8 +202,13 @@ export default Activity = createReactClass({
       // TODO: Set ad frequency to a variable
       if (activityIndex++ % 10 === 0) {
         out.push(
-          <Card>
-            <GoogleAd key={'ad-' + adCount++} />
+          <Card className={'card'}>
+            <GoogleAd
+              key={'ad-' + adCount++}
+              format={"fluid"}
+              layoutKey={"-f5+66+2b-d1+eu"}
+              slot={"3997004779"}
+            />
           </Card>
         )
       }

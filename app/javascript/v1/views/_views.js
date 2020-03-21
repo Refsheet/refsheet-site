@@ -30,7 +30,6 @@ import AccountUserCard from './account/_user_card'
 
 import Suggestions from './account/_suggestions'
 import SideNav from './account/_side_nav'
-import NewActivity from './account/_new_activity'
 
 const Views = {
   Account: {
@@ -57,7 +56,6 @@ const Views = {
     UserCard: AccountUserCard,
     Suggestions,
     SideNav,
-    NewActivity,
     ActivityCard,
   },
   Explore: {
