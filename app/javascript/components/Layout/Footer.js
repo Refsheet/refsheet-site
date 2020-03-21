@@ -102,11 +102,10 @@ class _Footer extends Component {
             </Col>
           </Row>
     
-          <div class="margin-top--large">&nbsp;</div>
+          <div className="margin-top--large">&nbsp;</div>
     
-          <!-- Footer Support Box -->
-          <ins class="adsbygoogle"
-               style="display:block"
+          <ins className="adsbygoogle"
+               style={{ display: "block" }}
                data-ad-client="ca-pub-4929509110499022"
                data-ad-slot="9500968119"
                data-ad-format="auto"
