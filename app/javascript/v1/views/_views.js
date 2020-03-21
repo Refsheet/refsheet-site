@@ -10,9 +10,9 @@ import ShowSettings from '../../v1/views/account/settings/show'
 
 import ShowNotifications from './account/notifications/show'
 import ExploreIndex from './explore/index'
-import Layout from "./account/layout"
+import Layout from './account/layout'
 import Activity from './account/_activity'
-import User from "./User"
+import User from './User'
 
 import CharacterActivity from './account/activities/_character'
 import CommentActivity from './account/activities/_comment'
@@ -25,7 +25,7 @@ import Support from './account/settings/support.jsx.coffee'
 
 import Card from './account/notifications/_card'
 import Feed from './account/notifications/_feed'
-import ActivityCard from "../../components/ActivityFeed/ActivityCard"
+import ActivityCard from '../../components/ActivityFeed/ActivityCard'
 import AccountUserCard from './account/_user_card'
 
 import Suggestions from './account/_suggestions'
@@ -50,7 +50,7 @@ const Views = {
     Notifications: {
       Show: ShowNotifications,
       Card,
-      Feed
+      Feed,
     },
     Layout,
     Activity,
@@ -58,7 +58,7 @@ const Views = {
     Suggestions,
     SideNav,
     NewActivity,
-    ActivityCard
+    ActivityCard,
   },
   Explore: {
     Index: ExploreIndex,
@@ -70,7 +70,7 @@ const Views = {
   Static: {},
   Images: {
     // ReportModal
-  }
+  },
 }
 
 export default Views
