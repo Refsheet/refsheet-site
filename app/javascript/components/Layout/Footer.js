@@ -24,6 +24,12 @@ class _Footer extends Component {
     }
 
     i18n.on('languageChanged', apply.bind(this))
+    
+    try {
+      (window.adsbygoogle || []).push({})
+    } catch(e) {
+      console.warn(e)
+    }
   }
 
   setLocale(locale) {
