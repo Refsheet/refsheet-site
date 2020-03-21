@@ -1,4 +1,4 @@
-<div id="rootApp">
+<div id="root">
 </div>
 
 <div class="shaded-background" id="rootAppLoader">
@@ -41,14 +41,12 @@
     assets: render_asset_paths
   }.to_json).html_safe %>;
 
-  console.log({props: props});
-
   function loadMessage(message) {
     document.getElementById('loadmessage').innerHTML = message;
   }
 
   function init() {
-    Packs.application.init('rootApp', props);
+    Packs.application.init('root', props);
   }
 
   // This is the last thing in our body, call it:
