@@ -9,7 +9,7 @@ import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
 import Views from 'v1/views/_views'
 import StateUtils from '../../utils/StateUtils'
-import HashUtils from "../../utils/HashUtils"
+import HashUtils from '../../utils/HashUtils'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*

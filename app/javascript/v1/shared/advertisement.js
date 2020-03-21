@@ -2,7 +2,7 @@ import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
 import StateUtils from 'v1/utils/StateUtils'
-import GoogleAd from "../../components/Shared/GoogleAd"
+import GoogleAd from '../../components/Shared/GoogleAd'
 
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
@@ -124,7 +124,7 @@ export default Advertisement = createReactClass({
   render() {
     return (
       <div>
-        { this.renderNativeAd() }
+        {this.renderNativeAd()}
 
         <div
           className="sponsor-blurb"
@@ -139,9 +139,13 @@ export default Advertisement = createReactClass({
           From the Internet:
         </div>
         <div className={'z-depth-1 margin-bottom--large'}>
-          <GoogleAd slot={"6770862997"} format={"auto"} data-full-width-responsive={"true"} />
+          <GoogleAd
+            slot={'6770862997'}
+            format={'auto'}
+            data-full-width-responsive={'true'}
+          />
         </div>
       </div>
     )
-  }
+  },
 })
