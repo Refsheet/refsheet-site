@@ -21,7 +21,7 @@ import Forums from 'v1/views/Forums'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.Forums.Table = function(props) {
+const Table = function(props) {
   const { forums, title } = props
 
   const forumCards = forums.map(forum => (
@@ -38,3 +38,5 @@ this.Forums.Table = function(props) {
     </div>
   )
 }
+
+export default Table
