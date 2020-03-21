@@ -21,7 +21,7 @@ import Form from '../../shared/forms/Form'
 import Row from '../../shared/material/Row'
 import Submit from '../../shared/forms/Submit'
 import Column from 'v1/shared/material/Column'
-import StateUtils from "../../utils/StateUtils"
+import StateUtils from '../../utils/StateUtils'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
