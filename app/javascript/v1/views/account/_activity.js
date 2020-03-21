@@ -17,7 +17,7 @@ import StateUtils from '../../utils/StateUtils'
 import Model from '../../utils/Model'
 import HashUtils from 'v1/utils/HashUtils'
 import GoogleAd from '../../../components/Shared/GoogleAd'
-import { Card } from '../../../components/Styled/Card'
+import { div as Card } from '../../../components/Styled/Card'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
