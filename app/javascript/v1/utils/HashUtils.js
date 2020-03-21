@@ -11,7 +11,7 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import ObjectPath from "./ObjectPath"
+import ObjectPath from './ObjectPath'
 
 const HashUtils = {
   deepUpdateCollectionItem(object, collectionPath, item, primaryKey) {
