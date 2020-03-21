@@ -26,7 +26,25 @@
   <% #= javascript_include_tag 'https://js.stripe.com/v2/' %>
   
   <%- unless ENV['FEAT_GOOGLE_ADS'] == "off" %>
-  <script data-ad-client="<%= ENV.fetch("GOOGLE_AD_CLIENT", "ca-pub-4929509110499022") %>" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script type="text/javascript">
+      window.initializeAds = function() {
+        if (window.adsbygoogle) {
+          [].forEach.call(document.getElementsByClassName('adsbygoogle'), function (el) {
+            if (el.dataset.adsbygoogleStatus !== "done") {
+              try {
+                var result = window.adsbygoogle.push({});
+                console.log("Force-initialized ads: ", result, el);
+              } catch(e) {
+                console.warn(e);
+              }
+            }
+          });
+        } else {
+          console.warn("Adsbygoogle is not available yet?");
+        }
+      }
+    </script>
+    <script data-ad-client="<%= ENV.fetch("GOOGLE_AD_CLIENT", "ca-pub-4929509110499022") %>" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" onload="window.initializeAds()"></script>
   <% end %>
 </head>
 

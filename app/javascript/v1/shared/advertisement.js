@@ -2,6 +2,7 @@ import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
 import StateUtils from 'v1/utils/StateUtils'
+import GoogleAd from "../../components/Shared/GoogleAd"
 
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
@@ -41,7 +42,7 @@ export default Advertisement = createReactClass({
     return 'https://ref.st/l/' + this.state.campaign.id
   },
 
-  render() {
+  renderNativeAd() {
     if (!this.state.campaign) {
       return null
     }
@@ -119,4 +120,28 @@ export default Advertisement = createReactClass({
       </div>
     )
   },
+
+  render() {
+    return (
+      <div>
+        { this.renderNativeAd() }
+
+        <div
+          className="sponsor-blurb"
+          style={{
+            fontSize: '0.9rem',
+            color: 'rgba(255, 255, 255, 0.3)',
+            paddingBottom: '0.2rem',
+            marginBottom: '1rem',
+            borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+          }}
+        >
+          From the Internet:
+        </div>
+        <div className={'z-depth-1 margin-bottom--large'}>
+          <GoogleAd slot={"6770862997"} format={"auto"} data-full-width-responsive={"true"} />
+        </div>
+      </div>
+    )
+  }
 })
