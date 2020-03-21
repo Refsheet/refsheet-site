@@ -110,7 +110,7 @@ const LegacyApp = createReactClass({
     const currentUser = this.props.session.currentUser || {}
 
     return (
-      <div id="rootApp">
+      <div id="RefsheetApp">
         {this.state.loading > 0 && <LoadingOverlay />}
 
         <Chat />
