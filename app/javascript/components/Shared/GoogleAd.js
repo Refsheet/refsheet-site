@@ -19,6 +19,7 @@ class GoogleAd extends Component {
   render() {
     const { format, layoutKey, slot, className, ...rest } = this.props
 
+    // TODO: The adblock default text is uh, not so friendly when google doesn't have any ads to serve up.
     return (
       <div
         className={c('google-ad', className)}
