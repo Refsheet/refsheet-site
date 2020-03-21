@@ -16,6 +16,7 @@ import Views from 'v1/views/_views'
 import StateUtils from '../../utils/StateUtils'
 import Model from '../../utils/Model'
 import HashUtils from 'v1/utils/HashUtils'
+import GoogleAd from '../../../components/Shared/GoogleAd'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -152,12 +153,15 @@ export default Activity = createReactClass({
   },
 
   _groupedActivity() {
+    // TODO: Set grouping enable to a variable. Limit by ad frequency maybe?
+    const groupedEnable = false
     const grouped = []
 
     for (let item of Array.from(this.state.activity)) {
       const last = grouped[grouped.length - 1]
 
       if (
+        groupedEnable &&
         item.activity &&
         last &&
         HashUtils.compare(
@@ -189,12 +193,26 @@ export default Activity = createReactClass({
       return <Spinner className="margin-top--large" small center />
     }
 
-    const out = this._groupedActivity().map(item => (
-      <Views.Account.ActivityCard
-        {...StringUtils.camelizeKeys(item)}
-        key={item.id}
-      />
-    ))
+    let adCount = 0
+    let activityIndex = 0
+
+    const out = this._groupedActivity().map(item => {
+      let fin = []
+
+      // TODO: Set ad frequency to a variable
+      if (activityIndex++ % 10 === 0) {
+        fin.push(<GoogleAd key={'ad-' + adCount++} />)
+      }
+
+      fin.push(
+        <Views.Account.ActivityCard
+          {...StringUtils.camelizeKeys(item)}
+          key={item.id}
+        />
+      )
+
+      return fin
+    })
 
     return (
       <div className="feed-item-stream">
