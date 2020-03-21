@@ -17,6 +17,7 @@ import StateUtils from '../../utils/StateUtils'
 import Model from '../../utils/Model'
 import HashUtils from 'v1/utils/HashUtils'
 import GoogleAd from '../../../components/Shared/GoogleAd'
+import {Card} from "../../../components/Styled/Card"
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -201,7 +202,9 @@ export default Activity = createReactClass({
 
       // TODO: Set ad frequency to a variable
       if (activityIndex++ % 10 === 0) {
-        fin.push(<GoogleAd key={'ad-' + adCount++} />)
+        fin.push(<Card>
+          <GoogleAd key={'ad-' + adCount++} />
+        </Card>)
       }
 
       fin.push(

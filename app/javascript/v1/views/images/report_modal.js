@@ -21,6 +21,7 @@ import Form from '../../shared/forms/Form'
 import Row from '../../shared/material/Row'
 import Submit from '../../shared/forms/Submit'
 import Column from 'v1/shared/material/Column'
+import StateUtils from "../../utils/StateUtils"
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -32,16 +33,7 @@ import Column from 'v1/shared/material/Column'
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 
-const Cls = (this.Views.Images.ReportModal = class ReportModal extends React.Component {
-  static initClass() {
-    this.contextTypes = {
-      currentUser: PropTypes.object,
-      reportImage: PropTypes.func,
-    }
-
-    this.propTypes = { imageId: PropTypes.string }
-  }
-
+class ReportModal extends React.Component {
   constructor(props, context) {
     super(props)
 
@@ -73,7 +65,6 @@ const Cls = (this.Views.Images.ReportModal = class ReportModal extends React.Com
         'report.image_id',
         newProps.imageId,
         () => {
-          console.log('Chagned to:', this.state.report)
           return this.refs.form.reload()
         }
       )
@@ -91,7 +82,7 @@ const Cls = (this.Views.Images.ReportModal = class ReportModal extends React.Com
 
   _handleSubmit(data) {
     this.context.reportImage(null)
-    M.Modal.getInstance(this.refs.modal).close()
+    Materialize.Modal.getInstance(this.refs.modal).close()
     return Materialize.toast({
       html: 'Thank you for your report, we will look into it shortly.',
       displayLength: 3000,
@@ -176,5 +167,13 @@ const Cls = (this.Views.Images.ReportModal = class ReportModal extends React.Com
       </Modal>
     )
   }
-})
-Cls.initClass()
+}
+
+ReportModal.contextTypes = {
+  currentUser: PropTypes.object,
+  reportImage: PropTypes.func,
+}
+
+ReportModal.propTypes = { imageId: PropTypes.string }
+
+export default ReportModal
