@@ -8,7 +8,7 @@ import c from 'classnames'
 import SessionService from '../../services/SessionService'
 import { H3 } from '../Styled/Headings'
 import styled from 'styled-components'
-import GoogleAd from "../Shared/GoogleAd"
+import GoogleAd from '../Shared/GoogleAd'
 
 class _Footer extends Component {
   constructor(props) {
@@ -25,12 +25,6 @@ class _Footer extends Component {
     }
 
     i18n.on('languageChanged', apply.bind(this))
-    
-    try {
-      (window.adsbygoogle || []).push({})
-    } catch(e) {
-      console.warn(e)
-    }
   }
 
   setLocale(locale) {
@@ -109,7 +103,14 @@ class _Footer extends Component {
             </Col>
           </Row>
 
-          <GoogleAd slot={"9500968119"} format={"auto"} data-full-width-responsive={"true"} />
+          <div style={{ margin: '1.5rem auto', maxWidth: 750 }}>
+            <GoogleAd
+              slot={'9500968119'}
+              format={'auto'}
+              className={'z-depth-1'}
+              data-full-width-responsive={'true'}
+            />
+          </div>
 
           <hr />
 

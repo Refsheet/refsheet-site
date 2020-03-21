@@ -205,9 +205,9 @@ export default Activity = createReactClass({
           <Card className={'card'}>
             <GoogleAd
               key={'ad-' + adCount++}
-              format={"fluid"}
-              layoutKey={"-f5+66+2b-d1+eu"}
-              slot={"3997004779"}
+              format={'fluid'}
+              layoutKey={'-f5+66+2b-d1+eu'}
+              slot={'3997004779'}
             />
           </Card>
         )
