@@ -1,3 +1,5 @@
+/* global h1 */
+
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
@@ -98,7 +100,7 @@ class EditableHeader extends Component {
   }
 
   render() {
-    const ComponentRef = this.props.component || H1
+    const ComponentRef = this.props.component || h1
 
     if (!this.props.editable) {
       return (

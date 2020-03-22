@@ -3,6 +3,8 @@ import createReactClass from 'create-react-class'
 import Modal from 'v1/shared/Modal'
 import AttributeTable from 'v1/shared/attributes/attribute_table'
 import Attribute from 'v1/shared/attributes/attribute'
+import $ from 'jquery'
+import * as Materialize from 'materialize-css'
 
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
@@ -20,7 +22,7 @@ export default UserSettingsModal = createReactClass({
   },
 
   handleSettingsClose(e) {
-    return M.Modal.getInstance(
+    return Materialize.Modal.getInstance(
       document.getElementById('user-settings-modal')
     ).close()
   },

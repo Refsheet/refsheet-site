@@ -5,6 +5,9 @@ import Modal from 'v1/shared/Modal'
 import Row from 'v1/shared/material/Row'
 import Column from 'v1/shared/material/Column'
 
+import $ from 'jquery'
+import * as Materialize from 'materialize-css'
+
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -44,7 +47,7 @@ export default ImageGravityModal = createReactClass({
           classes: 'green',
         })
         this.setState({ loading: false })
-        return M.Modal.getInstance(
+        return Materialize.Modal.getInstance(
           document.getElementById('image-gravity-modal')
         ).close()
       },

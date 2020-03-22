@@ -8,6 +8,9 @@ import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
 import CharacterViewSilhouette from 'v1/views/characters/CharacterViewSilhouette'
+
+import $ from 'jquery'
+import Model from "../../utils/Model"
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -38,7 +41,7 @@ export default ImageApp = createReactClass({
   },
 
   UNSAFE_componentWillMount() {
-    return this.fetch(
+    this.fetch(
       this.props.match != null ? this.props.match.params.imageId : undefined
     )
   },
@@ -50,7 +53,7 @@ export default ImageApp = createReactClass({
       (newProps.match != null ? newProps.match.params.imageId : undefined) !==
         (this.state.image != null ? this.state.image.id : undefined)
     ) {
-      return this.fetch(
+      this.fetch(
         newProps.match != null ? newProps.match.params.imageId : undefined
       )
     }

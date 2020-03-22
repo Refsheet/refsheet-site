@@ -79,7 +79,7 @@ const ImageMeta = ({
               <Link to={characterTag.character.link}>
                 {characterTag.character.name}
               </Link>
-              {i + 1 < characterTags.length ? ', ' : ''}
+              {i + 1 < tags.length ? ', ' : ''}
             </span>
           ))}
         </li>

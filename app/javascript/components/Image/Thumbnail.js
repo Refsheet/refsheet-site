@@ -5,6 +5,7 @@ import { Subscription } from 'react-apollo'
 import { Icon } from 'react-materialize'
 import { connect } from 'react-redux'
 import { openLightbox } from '../../actions'
+import NumberUtils from "../../v1/utils/NumberUtils"
 
 class Thumbnail extends Component {
   constructor(props) {

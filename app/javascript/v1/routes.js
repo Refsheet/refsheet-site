@@ -28,6 +28,8 @@ import CharacterApp from './views/characters/CharacterApp'
 import * as Materialize from 'materialize-css'
 import User from './views/User'
 
+import $ from 'jquery'
+
 // Backfill for Router V4 not parsing query strings.
 const history = createBrowserHistory()
 function addLocationQuery(history) {
@@ -154,16 +156,16 @@ const Routes = createReactClass({
 
                   <Route
                     path="/myrefs"
-                    component={Packs.application.CharacterController}
+                    component={App}
                   />
                   <Route
                     path="/myrefs/new"
-                    component={Packs.application.CharacterController}
+                    component={App}
                   />
 
                   <Route
                     path="/moderate"
-                    component={Packs.application.CharacterController}
+                    component={App}
                   />
 
                   <Route
@@ -198,16 +200,16 @@ const Routes = createReactClass({
 
                   <Route
                     path="/v2/forums"
-                    component={Packs.application.CharacterController}
+                    component={App}
                   />
 
                   <Route
                     path="/artists"
-                    component={Packs.application.CharacterController}
+                    component={App}
                   />
                   <Route
                     path="/artists/:slug"
-                    component={Packs.application.CharacterController}
+                    component={App}
                   />
 
                   {/*== Static Routes */}
@@ -219,7 +221,7 @@ const Routes = createReactClass({
 
                   <Route
                     path="/v2/:userId/:characterId"
-                    component={Packs.application.CharacterController}
+                    component={App}
                   />
 
                   <Route path="/images/:imageId" component={ImageApp} />
@@ -234,7 +236,7 @@ const Routes = createReactClass({
 
                   <Route
                     path="*"
-                    component={Packs.application.CharacterController}
+                    component={App}
                   />
                 </Switch>
               </LegacyApp>

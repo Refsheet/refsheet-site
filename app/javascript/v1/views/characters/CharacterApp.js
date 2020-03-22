@@ -32,6 +32,8 @@ import Main from '../../shared/Main'
 import CharacterViewSilhouette from './CharacterViewSilhouette'
 import RichText from '../../../components/Shared/RichText'
 import App from '../../../components/App'
+import $ from 'jquery'
+import StateUtils from "../../utils/StateUtils"
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -89,12 +91,12 @@ const Component = createReactClass({
           galleryTitle: 'Select Profile Picture',
           onGallerySelect: imageId => {
             this.setProfileImage(imageId)
-            return M.Modal.getInstance(
+            return Materialize.Modal.getInstance(
               document.getElementById('image-gallery-modal')
             ).close()
           },
         })
-        return M.Modal.getInstance(
+        return Materialize.Modal.getInstance(
           document.getElementById('image-gallery-modal')
         ).open()
       })
@@ -233,12 +235,12 @@ const Component = createReactClass({
       galleryTitle: 'Select Header Image',
       onGallerySelect: imageId => {
         this.setFeaturedImage(imageId)
-        return M.Modal.getInstance(
+        return Materialize.Modal.getInstance(
           document.getElementById('image-gallery-modal')
         ).close()
       },
     })
-    return M.Modal.getInstance(
+    return Materialize.Modal.getInstance(
       document.getElementById('image-gallery-modal')
     ).open()
   },

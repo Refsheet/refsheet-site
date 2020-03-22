@@ -12,6 +12,9 @@ import Attribute from 'v1/shared/attributes/attribute'
 import Tabs from 'v1/shared/tabs/Tabs'
 import Tab from 'v1/shared/tabs/Tab'
 
+import * as Materialize from 'materialize-css'
+import $ from 'jquery'
+
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -39,7 +42,7 @@ export default CharacterColorSchemeModal = createReactClass({
   },
 
   _handleColorSchemeClose(e) {
-    return M.Modal.getInstance(
+    return Materialize.Modal.getInstance(
       document.getElementById('color-scheme-form')
     ).close()
   },

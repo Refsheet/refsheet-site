@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 
 import Modal from 'v1/shared/Modal'
 import ImageGallery from 'v1/shared/images/ImageGallery'
+import $ from 'jquery'
 
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.

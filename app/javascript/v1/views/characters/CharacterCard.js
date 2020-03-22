@@ -12,6 +12,8 @@ import Attribute from '../../shared/attributes/attribute'
 import RichText from '../../../components/Shared/RichText'
 import Views from 'v1/views/_views'
 import AttributeTable from 'v1/shared/attributes/attribute_table'
+import $ from 'jquery'
+import HashUtils from "../../utils/HashUtils"
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*

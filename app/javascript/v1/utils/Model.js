@@ -10,6 +10,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import * as Materialize from 'materialize-css'
+import $ from 'jquery'
 
 const Model = {
   get(path, success, error) {

@@ -19,6 +19,11 @@ import Comments from 'v1/views/comments'
 import Favorites from 'v1/views/favorites'
 import Spinner from 'v1/shared/material/Spinner'
 
+import $ from 'jquery'
+import ObjectPath from "../../utils/ObjectPath"
+import StateUtils from "../../utils/StateUtils"
+import HashUtils from "../../utils/HashUtils"
+
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -138,10 +143,10 @@ export default Lightbox = createReactClass({
         if (this.props.onDelete) {
           this.props.onDelete(id)
         }
-        M.Modal.getInstance(
+        Materialize.Modal.getInstance(
           document.getElementById('lightbox-delete-form')
         ).close()
-        return M.Modal.getInstance(document.getElementById('lightbox')).close()
+        return Materialize.Modal.getInstance(document.getElementById('lightbox')).close()
       },
       error: () => {
         return Materialize.toast({
@@ -217,7 +222,7 @@ export default Lightbox = createReactClass({
         window.history.pushState({}, '', imageId.path)
       }
 
-      return M.Modal.getInstance(document.getElementById('lightbox')).open()
+      return Materialize.Modal.getInstance(document.getElementById('lightbox')).open()
     })
   },
 

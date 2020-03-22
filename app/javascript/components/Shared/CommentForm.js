@@ -14,6 +14,7 @@ import { div as Card } from '../Styled/Card'
 import c from 'classnames'
 import Icon from 'v1/shared/material/Icon'
 import Input from 'v1/shared/forms/Input'
+import * as Materialize from 'materialize-css'
 
 // TODO: This class has now 3 different styles that it produces,
 //       this should be refactored into a generic wrapper that handles
@@ -89,7 +90,7 @@ class CommentForm extends Component {
     this.setState({ submitting: true })
 
     if (!this.state.comment) {
-      M.toast({
+      Materialize.toast({
         html: 'Please enter a comment!',
         displayLength: 3000,
         classes: 'red',

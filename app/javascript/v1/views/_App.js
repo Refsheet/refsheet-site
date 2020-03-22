@@ -22,6 +22,7 @@ import NavBar from '../../components/NavBar'
 import Chat from 'components/Chat/ConversationTray'
 import NewLightbox from 'components/Lightbox'
 
+import $ from 'jquery'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*

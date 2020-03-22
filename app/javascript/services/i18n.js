@@ -1,3 +1,5 @@
+/* global Refsheet */
+
 import i18n from 'i18next'
 import Backend from 'i18next-locize-backend'
 import LngDetector from 'i18next-browser-languagedetector'

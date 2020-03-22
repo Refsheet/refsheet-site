@@ -12,6 +12,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import ObjectPath from './ObjectPath'
+import $ from 'jquery'
 
 const HashUtils = {
   deepUpdateCollectionItem(object, collectionPath, item, primaryKey) {

@@ -8,6 +8,9 @@ import Column from 'v1/shared/material/Column'
 import Input from 'v1/shared/forms/Input'
 import Submit from 'v1/shared/forms/Submit'
 
+import $ from 'jquery'
+import * as Materialize from 'materialize-css'
+
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -27,7 +30,7 @@ export default CharacterSettingsModal = createReactClass({
   },
 
   _handleSettingsClose(e) {
-    return M.Modal.getInstance(
+    return Materialize.Modal.getInstance(
       document.getElementById('character-settings-form')
     ).close()
   },

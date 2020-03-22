@@ -14,6 +14,7 @@ import Submit from '../../shared/forms/Submit'
 import Icon from '../../shared/material/Icon'
 import RichText from '../../../components/Shared/RichText'
 import { Link } from 'react-router-dom'
+import Model from "../../utils/Model"
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*

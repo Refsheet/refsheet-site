@@ -16,6 +16,8 @@ import Submit from '../../shared/forms/Submit'
 import Row from 'v1/shared/material/Row'
 import Column from 'v1/shared/material/Column'
 import { Link } from 'react-router-dom'
+import $ from 'jquery'
+import * as Materialize from 'materialize-css'
 
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.

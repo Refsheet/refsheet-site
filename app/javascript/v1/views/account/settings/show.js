@@ -16,6 +16,8 @@ import Column from '../../../shared/material/Column'
 import Input from '../../../shared/forms/Input'
 import Submit from '../../../shared/forms/Submit'
 import { DeleteUser } from '../../../../components/Settings/Account/DeleteUser'
+
+import Materialize from 'materialize-css'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
