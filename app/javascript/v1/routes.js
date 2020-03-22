@@ -154,19 +154,10 @@ const Routes = createReactClass({
                     )}
                   />
 
-                  <Route
-                    path="/myrefs"
-                    component={App}
-                  />
-                  <Route
-                    path="/myrefs/new"
-                    component={App}
-                  />
+                  <Route path="/myrefs" component={App} />
+                  <Route path="/myrefs/new" component={App} />
 
-                  <Route
-                    path="/moderate"
-                    component={App}
-                  />
+                  <Route path="/moderate" component={App} />
 
                   <Route
                     path="/notifications"
@@ -198,19 +189,10 @@ const Routes = createReactClass({
                     </Switch>
                   </Route>
 
-                  <Route
-                    path="/v2/forums"
-                    component={App}
-                  />
+                  <Route path="/v2/forums" component={App} />
 
-                  <Route
-                    path="/artists"
-                    component={App}
-                  />
-                  <Route
-                    path="/artists/:slug"
-                    component={App}
-                  />
+                  <Route path="/artists" component={App} />
+                  <Route path="/artists/:slug" component={App} />
 
                   {/*== Static Routes */}
 
@@ -219,10 +201,7 @@ const Routes = createReactClass({
 
                   {/*== Profile Content */}
 
-                  <Route
-                    path="/v2/:userId/:characterId"
-                    component={App}
-                  />
+                  <Route path="/v2/:userId/:characterId" component={App} />
 
                   <Route path="/images/:imageId" component={ImageApp} />
                   <Route path="/media/:imageId" component={ImageApp} />
@@ -234,10 +213,7 @@ const Routes = createReactClass({
 
                   {/*== Fallback */}
 
-                  <Route
-                    path="*"
-                    component={App}
-                  />
+                  <Route path="*" component={App} />
                 </Switch>
               </LegacyApp>
             )}

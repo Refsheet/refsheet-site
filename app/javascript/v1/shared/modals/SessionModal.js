@@ -23,7 +23,9 @@ export default SessionModal = createReactClass({
   },
 
   close() {
-    return Materialize.Modal.getInstance(document.getElementById('session-modal')).close()
+    return Materialize.Modal.getInstance(
+      document.getElementById('session-modal')
+    ).close()
   },
 
   view(view) {

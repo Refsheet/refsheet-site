@@ -1,7 +1,7 @@
 import ObjectPath from 'v1/utils/ObjectPath'
 import Model from 'v1/utils/Model'
 import $ from 'jquery'
-import HashUtils from "./HashUtils"
+import HashUtils from './HashUtils'
 
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.

@@ -13,8 +13,8 @@ import { Link } from 'react-router-dom'
 
 import $ from 'jquery'
 import 'jquery-ui/ui/widgets/droppable'
-import Model from "../../../../utils/Model"
-import NumberUtils from "../../../../utils/NumberUtils"
+import Model from '../../../../utils/Model'
+import NumberUtils from '../../../../utils/NumberUtils'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*

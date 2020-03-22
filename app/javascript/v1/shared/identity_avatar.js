@@ -1,7 +1,7 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
-import StringUtils from "../../utils/StringUtils"
+import StringUtils from '../../utils/StringUtils'
 
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
@@ -28,7 +28,7 @@ export default IdentityAvatar = createReactClass({
   render() {
     let imgShadow, nameColor
     const to = StringUtils.indifferentKeys(this.props.src)
-    const user = undefined;
+    const user = undefined
     if (!to.type) {
       to.type = 'user'
     }

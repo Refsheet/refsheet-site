@@ -17,7 +17,7 @@ import { Link } from 'react-router-dom'
 import Container from '../../shared/material/Container'
 
 import $ from 'jquery'
-import StateUtils from "../../utils/StateUtils"
+import StateUtils from '../../utils/StateUtils'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*

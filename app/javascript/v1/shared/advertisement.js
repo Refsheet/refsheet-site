@@ -140,7 +140,13 @@ export default Advertisement = createReactClass({
         >
           From the Internet:
         </div>
-        <div className={'z-depth-1 margin-bottom--large'}>
+        <div
+          className={'z-depth-1 margin-bottom--large'}
+          style={{
+            margin: '0 auto',
+            maxWidth: 200,
+          }}
+        >
           <GoogleAd
             slot={'6770862997'}
             format={'auto'}

@@ -33,7 +33,7 @@ import CharacterViewSilhouette from './CharacterViewSilhouette'
 import RichText from '../../../components/Shared/RichText'
 import App from '../../../components/App'
 import $ from 'jquery'
-import StateUtils from "../../utils/StateUtils"
+import StateUtils from '../../utils/StateUtils'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
