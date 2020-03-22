@@ -5,6 +5,9 @@ import PropTypes from 'prop-types'
 import AttributeForm from './attribute_form'
 import Attribute from './attribute'
 
+import $ from 'jquery'
+import 'jquery-ui/ui/widgets/sortable'
+
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*

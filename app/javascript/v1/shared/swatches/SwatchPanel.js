@@ -4,6 +4,9 @@ import PropTypes from 'prop-types'
 import Attribute from 'v1/shared/attributes/attribute'
 import AttributeTable from 'v1/shared/attributes/attribute_table'
 
+import $ from 'jquery'
+import 'jquery-ui/ui/widgets/accordion'
+
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -88,11 +91,11 @@ export default SwatchPanel = createReactClass({
   },
 
   componentDidMount() {
-    return $('#swatch-menu').collapsible()
+    return $('#swatch-menu').accordion()
   },
 
   componentDidUpdate() {
-    return $('#swatch-menu').collapsible()
+    return $('#swatch-menu').accordion()
   },
 
   render() {

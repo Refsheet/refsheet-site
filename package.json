@@ -26,6 +26,8 @@
     "i18next": "^13.0.1",
     "i18next-browser-languagedetector": "^2.2.4",
     "i18next-locize-backend": "^1.7.0",
+    "jquery": "^3.4.1",
+    "jquery-ui": "^1.12.1",
     "justified-layout": "^2.1.1",
     "lodash": "^4.17.5",
     "magic-snowflakes": "^4.0.2",
