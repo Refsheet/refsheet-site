@@ -16,6 +16,8 @@ import Row from '../../shared/material/Row'
 import Column from '../../shared/material/Column'
 import Input from '../../shared/forms/Input'
 import Submit from '../../shared/forms/Submit'
+
+import $ from 'jquery'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -40,7 +42,7 @@ export default CharacterTransferModal = createReactClass({
   },
 
   _handleModalClose(e) {
-    return M.Modal.getInstance(
+    return Materialize.Modal.getInstance(
       document.getElementById('character-transfer-modal')
     ).close()
   },

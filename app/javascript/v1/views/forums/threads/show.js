@@ -13,6 +13,8 @@ import Main from '../../../shared/Main'
 import LegacyForumReply from '../../../../components/Forums/LegacyForumReply'
 import IdentityLink from 'v1/shared/identity_link'
 import IdentityAvatar from 'v1/shared/identity_avatar'
+import StateUtils from "../../../utils/StateUtils"
+import Model from "../../../utils/Model"
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -83,7 +85,7 @@ export default Show = createReactClass({
   },
 
   UNSAFE_componentWillReceiveProps(newProps) {
-    return StateUtils.reload(this, 'thread', newProps)
+    StateUtils.reload(this, 'thread', newProps)
   },
 
   _handleReply(post) {

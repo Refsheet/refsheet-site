@@ -18,6 +18,11 @@ import Modal from '../shared/Modal'
 import NewCharacterForm from './characters/NewCharacterForm'
 import UserSettingsModal from '../shared/modals/UserSettingsModal'
 import Section from '../../components/Shared/Section'
+
+import $ from 'jquery'
+import * as Materialize from 'materialize-css'
+import StateUtils from "../utils/StateUtils"
+import HashUtils from "../utils/HashUtils"
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -81,7 +86,7 @@ User.View = createReactClass({
   },
 
   goToCharacter(character) {
-    M.Modal.getInstance(document.getElementById('character-form')).close()
+    Materialize.Modal.getInstance(document.getElementById('character-form')).close()
     return this.context.router.history.push(character.link)
   },
 

@@ -14,6 +14,8 @@ import Section from '../../../components/Shared/Section'
 import Loading from '../../shared/Loading'
 import Button from '../../shared/material/Button'
 import { Link } from 'react-router-dom'
+import $ from 'jquery'
+import Materialize from 'materialize-css'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*

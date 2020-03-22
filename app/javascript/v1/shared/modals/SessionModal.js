@@ -4,6 +4,8 @@ import PropTypes from 'prop-types'
 import PasswordResetForm from '../../views/sessions/PasswordResetForm'
 import LoginForm from '../../views/sessions/LoginForm'
 import Modal from '../Modal'
+import * as Materialize from 'materialize-css'
+import $ from 'jquery'
 
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
@@ -21,7 +23,7 @@ export default SessionModal = createReactClass({
   },
 
   close() {
-    return M.Modal.getInstance(document.getElementById('session-modal')).close()
+    return Materialize.Modal.getInstance(document.getElementById('session-modal')).close()
   },
 
   view(view) {

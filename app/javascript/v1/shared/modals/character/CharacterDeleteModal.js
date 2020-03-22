@@ -2,7 +2,8 @@ import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
 import Modal from 'v1/shared/Modal'
-
+import * as Materialize from 'materialize-css'
+import $ from 'jquery'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -26,7 +27,7 @@ export default CharacterDeleteModal = createReactClass({
       url: this.props.character.path,
       type: 'DELETE',
       success: data => {
-        M.Modal.getInstance(document.getElementById('delete-form')).close()
+        Materialize.Modal.getInstance(document.getElementById('delete-form')).close()
         Materialize.toast({
           html: `${data.name} deleted. :(`,
           displayLength: 3000,

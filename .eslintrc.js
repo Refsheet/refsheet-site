@@ -9,7 +9,7 @@ module.exports = {
   rules: {
     // ES6
     "no-unused-vars": 'warn',
-    "no-undef": 'warn',
+    "no-undef": 'error',
     "no-constant-condition": 'warn',
     "no-unreachable": 'warn',
     "no-prototype-builtins": 'warn',

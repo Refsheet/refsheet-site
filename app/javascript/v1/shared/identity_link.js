@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom'
 import Icon from 'v1/shared/material/Icon'
 import StringUtils from '../../utils/StringUtils'
 import NumberUtils from '../utils/NumberUtils'
-
+import $ from 'jquery'
+import Model from "../utils/Model"
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*

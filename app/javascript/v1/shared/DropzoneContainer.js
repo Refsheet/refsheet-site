@@ -3,7 +3,8 @@ import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
 
 import Spinner from 'v1/shared/material/Spinner'
-
+import $ from 'jquery'
+import * as Materialize from 'materialize-css'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -99,7 +100,7 @@ export default DropzoneContainer = createReactClass({
 
   componentWillUnmount() {
     if (this.props.url != null && this.state.initialized) {
-      return Dropzone.forElement(this.refs.dropzone).destroy()
+      // return Dropzone.forElement(this.refs.dropzone).destroy()
     }
   },
 

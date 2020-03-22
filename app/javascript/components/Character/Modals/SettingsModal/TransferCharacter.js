@@ -8,6 +8,8 @@ import { withCurrentUser, withMutations } from '../../../../utils/compose'
 import authorize from 'policies'
 import validate, { errorProps, isRequired } from '../../../../utils/validate'
 
+import * as Materialize from 'materialize-css'
+
 class TransferCharacter extends Component {
   constructor(props) {
     super(props)
@@ -49,7 +51,7 @@ class TransferCharacter extends Component {
       },
     })
       .then(({ transferCharacter }) => {
-        M.toast({
+        Materialize.toast({
           html: 'Character transfer initiated',
           displayLength: 3000,
           classes: 'green',

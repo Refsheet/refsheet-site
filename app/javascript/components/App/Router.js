@@ -6,6 +6,8 @@ import Forums from 'Forums'
 import Forum from 'Forums/Forum'
 import Artists from 'Artists'
 import Discussion from '../Forums/Discussion'
+import {Loading} from "../Shared/V1"
+import NotFound from "../Shared/views/NotFound"
 
 const Router = () => (
   <BrowserRouter>

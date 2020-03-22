@@ -10,6 +10,8 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import DateFormat from '../../../shared/utils/DateFormat'
 import EmptyList from '../../../shared/EmptyList'
+
+import $ from 'jquery'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*

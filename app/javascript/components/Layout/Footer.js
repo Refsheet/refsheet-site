@@ -1,3 +1,5 @@
+/* global Refsheet */
+
 import React, { Component } from 'react'
 import compose from 'utils/compose'
 import { Link } from 'react-router-dom'

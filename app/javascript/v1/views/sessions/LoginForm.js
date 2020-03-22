@@ -14,6 +14,8 @@ import Row from '../../shared/material/Row'
 import Column from '../../shared/material/Column'
 import { Link } from 'react-router-dom'
 import Submit from '../../shared/forms/Submit'
+
+import $ from 'jquery'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*

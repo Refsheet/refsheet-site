@@ -1,7 +1,7 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
-
+import $ from 'jquery'
 import Button from 'v1/shared/material/Button'
 import Icon from 'v1/shared/material/Icon'
 
@@ -20,16 +20,16 @@ export default NagBar = createReactClass({
   },
 
   _handleClear(e) {
-    Cookies.set('_noNagPlease', 1)
+    // Cookies.set('_noNagPlease', 1)
     $(this.refs.nag).fadeOut()
     return e.preventDefault()
   },
 
   render() {
     let actionButton
-    if (this.context.environment === 'test' || Cookies.get('_noNagPlease')) {
-      return null
-    }
+    // if (this.context.environment === 'test' || Cookies.get('_noNagPlease')) {
+    //   return null
+    // }
 
     const { children, action, type } = this.props
 

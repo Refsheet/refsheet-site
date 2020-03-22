@@ -7,6 +7,9 @@
     react/no-deprecated,
     react/react-in-jsx-scope,
 */
+// TODO: This should be window.requestNotifications?
+/* global requestNotifications */
+
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
@@ -14,6 +17,7 @@ import * as Materialize from 'materialize-css'
 import Bowser from 'bowser'
 import Attribute from 'v1/shared/attributes/attribute'
 import AttributeTable from 'v1/shared/attributes/attribute_table'
+import Model from "../../../utils/Model"
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*

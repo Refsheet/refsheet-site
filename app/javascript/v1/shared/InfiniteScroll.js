@@ -7,7 +7,7 @@ import Spinner from 'v1/shared/material/Spinner'
 import ObjectPath from '../utils/ObjectPath'
 import Model from '../utils/Model'
 import StateUtils from '../utils/StateUtils'
-
+import $ from 'jquery'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*

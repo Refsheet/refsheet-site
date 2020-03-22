@@ -13,6 +13,8 @@ import Form from '../../shared/forms/Form'
 import Input from '../../shared/forms/Input'
 import Submit from '../../shared/forms/Submit'
 import { Link } from 'react-router-dom'
+
+import $ from 'jquery'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*

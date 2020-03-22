@@ -1,7 +1,8 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
-
+import $ from 'jquery'
+import * as Materialize from 'materialize-css'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -14,7 +15,7 @@ import PropTypes from 'prop-types'
 let Modal
 export default Modal = createReactClass({
   componentDidMount() {
-    const $modal = M.Modal.init(this.refs.modal, {
+    const $modal = Materialize.Modal.init(this.refs.modal, {
       onCloseEnd: args => {
         if (this.props.sideSheet) {
           document.body.classList.remove(
@@ -59,7 +60,7 @@ export default Modal = createReactClass({
         // Fix incorrect tab indicator after modal open:
         const tabs = this.refs.modal.querySelectorAll('.tabs')
         return tabs.forEach(function(tab) {
-          const inst = M.Tabs.getInstance(tab)
+          const inst = Materialize.Tabs.getInstance(tab)
           return inst != null ? inst.updateTabIndicator() : undefined
         })
       },
@@ -75,13 +76,13 @@ export default Modal = createReactClass({
   },
 
   componentWillUnmount() {
-    const $modal = M.Modal.getInstance(this.refs.modal)
+    const $modal = Materialize.Modal.getInstance(this.refs.modal)
     $modal.close()
     return $modal.destroy()
   },
 
   close() {
-    const $modal = M.Modal.getInstance(this.refs.modal)
+    const $modal = Materialize.Modal.getInstance(this.refs.modal)
     return $modal.close()
   },
 
