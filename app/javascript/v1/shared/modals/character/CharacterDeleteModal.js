@@ -27,7 +27,9 @@ export default CharacterDeleteModal = createReactClass({
       url: this.props.character.path,
       type: 'DELETE',
       success: data => {
-        Materialize.Modal.getInstance(document.getElementById('delete-form')).close()
+        Materialize.Modal.getInstance(
+          document.getElementById('delete-form')
+        ).close()
         Materialize.toast({
           html: `${data.name} deleted. :(`,
           displayLength: 3000,

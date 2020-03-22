@@ -13,7 +13,7 @@ import CharacterLinkCard from 'v1/views/characters/CharacterLinkCard'
 
 import $ from 'jquery'
 import 'jquery-ui/ui/widgets/sortable'
-import Model from "../../../utils/Model"
+import Model from '../../../utils/Model'
 
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.

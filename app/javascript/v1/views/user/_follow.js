@@ -8,7 +8,7 @@ import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
 import Icon from '../../shared/material/Icon'
-import Model from "../../utils/Model"
+import Model from '../../utils/Model'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*

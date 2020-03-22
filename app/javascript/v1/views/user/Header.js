@@ -11,8 +11,8 @@ import createReactClass from 'create-react-class'
 import Icon from '../../shared/material/Icon'
 import RichText from '../../../components/Shared/RichText'
 import $ from 'jquery'
-import Model from "../../utils/Model"
-import * as UserUtils from "../../../utils/UserUtils"
+import Model from '../../utils/Model'
+import * as UserUtils from '../../../utils/UserUtils'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*

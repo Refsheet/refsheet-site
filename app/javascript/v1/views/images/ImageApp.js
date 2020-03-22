@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
 import CharacterViewSilhouette from 'v1/views/characters/CharacterViewSilhouette'
 
 import $ from 'jquery'
-import Model from "../../utils/Model"
+import Model from '../../utils/Model'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*

@@ -17,7 +17,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import createReactClass from 'create-react-class'
 import Main from '../../shared/Main'
-import StateUtils from "../../utils/StateUtils"
+import StateUtils from '../../utils/StateUtils'
 
 let View
 export default View = createReactClass({

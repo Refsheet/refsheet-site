@@ -15,9 +15,9 @@ import $ from 'jquery'
 
 $.ajaxSetup({
   headers: {
-    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-  }
-});
+    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
+  },
+})
 
 if (Refsheet.environment === 'production') {
   Sentry.init({
@@ -36,9 +36,7 @@ function init(id, props) {
   ReactDOM.render(<App {...props} />, document.getElementById(id))
 }
 
-export {
-  init
-}
+export { init }
 
 window._jsV2 = true
 console.log('Pack loaded: Refsheet JS v2')

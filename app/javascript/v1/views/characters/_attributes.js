@@ -9,7 +9,7 @@ import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
 import Attribute from '../../shared/attributes/attribute'
 import AttributeTable from 'v1/shared/attributes/attribute_table'
-import Model from "../../utils/Model"
+import Model from '../../utils/Model'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
