@@ -11,76 +11,21 @@
 
 import 'whatwg-fetch'
 import * as Sentry from '@sentry/browser'
-import * as ReactRouter from 'react-router-dom'
-import * as UserUtils from 'utils/UserUtils'
-import { setCurrentUser, setUploadTarget } from 'actions'
-import * as Actions from 'actions'
+import $ from 'jquery'
 
-export const __globals = [
-  'React',
-  'ReactRouter',
-  'PropTypes',
-  'createReactClass',
-  'ReactDOM',
-  'Bowser',
-  'Sentry',
-  'qs',
-  'createBrowserHistory',
-  'connect',
-  'setCurrentUser',
-  'setUploadTarget',
-  'Actions',
-  'NewLightbox',
-  'Restrict',
-  'UserUtils',
-  'CommentForm',
-  'LegacyForumReply',
-  'StatusUpdate',
-  'ActivityCard',
-  'Materialize',
-  'Footer',
-  'Link',
-]
-
-export { default as React } from 'react'
-export { default as PropTypes } from 'prop-types'
-export { default as createReactClass } from 'create-react-class'
-export { default as ReactDOM } from 'react-dom'
-export { default as Bowser } from 'bowser'
-export { Link } from 'react-router-dom'
-export { default as qs } from 'query-string'
-export { default as createBrowserHistory } from 'history/createBrowserHistory'
-export { default as Materialize } from 'materialize-css'
-export { connect } from 'react-redux'
-export { ReactRouter }
-export { Sentry }
-export { setCurrentUser }
-export { setUploadTarget }
-export { Actions }
-export { UserUtils }
-
-// NOT GLOBAL
-export { default as V2Wrapper } from 'App'
-export { default as Chat } from 'Chat/ConversationTray'
-export { default as NavBar } from 'NavBar'
-export { default as DeleteUser } from 'Settings/Account/DeleteUser'
-export { default as NewLightbox } from 'Lightbox'
-export { default as UploadModal } from 'Image/UploadModal'
-export { default as Restrict } from 'Shared/Restrict'
-export { default as CommentForm } from 'ActivityFeed/StatusUpdate'
-export { default as LegacyForumReply } from 'Forums/LegacyForumReply'
-export { default as StatusUpdate } from 'ActivityFeed/Activities/StatusUpdate'
-export { default as ActivityCard } from 'ActivityFeed/ActivityCard'
-export { default as Footer } from 'Layout/Footer'
-;(function() {
-  if (Refsheet.environment === 'production') {
-    Sentry.init({
-      dsn: Refsheet.sentryDsn,
-      release: Refsheet.version,
-      stage: Refsheet.environment,
-    })
+$.ajaxSetup({
+  headers: {
+    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
   }
-})()
+});
+
+if (Refsheet.environment === 'production') {
+  Sentry.init({
+    dsn: Refsheet.sentryDsn,
+    release: Refsheet.version,
+    stage: Refsheet.environment,
+  })
+}
 
 //== V2 Init Code
 import React from 'react'
@@ -92,13 +37,10 @@ function init(id, props) {
 }
 
 export {
-  init,
-
-  //== Trigger loader
+  init
 }
-;(function() {
-  window._jsV2 = true
-  console.log('Pack loaded: Refsheet JS v2')
-  const event = new CustomEvent('jsload.pack')
-  window.dispatchEvent(event)
-})()
+
+window._jsV2 = true
+console.log('Pack loaded: Refsheet JS v2')
+const event = new CustomEvent('jsload.pack')
+window.dispatchEvent(event)
