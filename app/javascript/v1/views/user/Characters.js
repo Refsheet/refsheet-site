@@ -7,7 +7,8 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
-import User from 'v1/views/User'
+import Groups from "./characters/Groups"
+import List from "./characters/List"
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -64,7 +65,7 @@ export default Characters = createReactClass({
             </a>
           )}
 
-          <User.Characters.Groups
+          <Groups
             groups={groups}
             editable={editable}
             totalCount={characters.length}
@@ -78,7 +79,7 @@ export default Characters = createReactClass({
         </div>
 
         <div className="main-content">
-          <User.Characters.List
+          <List
             characters={characters}
             activeGroupId={activeGroupId}
             onSort={onCharacterSort}
