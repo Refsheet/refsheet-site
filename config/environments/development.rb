@@ -1,5 +1,5 @@
 Rails.application.configure do
-  # # Test gcloud logging
+  # Test gcloud logging
   config.google_cloud.project_id = "refsheet-239409"
   config.google_cloud.keyfile = "refsheet-prod.json"
   config.google_cloud.use_logging = false

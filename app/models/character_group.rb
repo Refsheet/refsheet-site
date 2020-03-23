@@ -47,6 +47,6 @@ class CharacterGroup < ApplicationRecord
         hidden_characters_count: self.characters.hidden.count
     }
 
-    self.update_attributes counters
+    self.update counters
   end
 end

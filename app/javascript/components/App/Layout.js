@@ -50,5 +50,4 @@ Layout.propTypes = {
 export default compose(
   // withNamespaces('common'),
   withRouter
-  // TODO: Add HOC bindings here
 )(Layout)
