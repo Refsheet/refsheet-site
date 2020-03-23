@@ -96,7 +96,7 @@ const Section = function({
 
   return (
     <StickyContainer>
-      <section id={id} className={c(className, { container })}>
+      <section id={id} className={c(className)}>
         {(title || editable) && <Sticky topOffset={-66}>{renderTitle}</Sticky>}
 
         <div className={c({ container })}>{children}</div>

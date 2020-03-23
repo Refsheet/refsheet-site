@@ -17,12 +17,13 @@ import DropzoneContainer from '../shared/DropzoneContainer'
 import Modal from '../shared/Modal'
 import NewCharacterForm from './characters/NewCharacterForm'
 import UserSettingsModal from '../shared/modals/UserSettingsModal'
-import Section from '../../components/Shared/Section'
 
 import $ from 'jquery'
 import * as Materialize from 'materialize-css'
 import StateUtils from '../utils/StateUtils'
 import HashUtils from '../utils/HashUtils'
+import Characters from "./user/Characters"
+import Section from "../../components/Shared/Section"
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -32,11 +33,8 @@ import HashUtils from '../utils/HashUtils'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-const User = {
-  Header,
-}
 
-User.View = createReactClass({
+const User = createReactClass({
   contextTypes: {
     router: PropTypes.object.isRequired,
     currentUser: PropTypes.object,
@@ -249,14 +247,14 @@ User.View = createReactClass({
             />
           )}
 
-          <User.Header
+          <Header
             {...this.state.user}
             onFollow={this._handleUserFollow}
             onUserChange={userChangeCallback}
           />
 
-          <Section className="margin-top--large padding-bottom--none">
-            <User.Characters
+          <Section container className="margin-top--large padding-bottom--none">
+            <Characters
               groups={this.state.user.character_groups}
               characters={this.state.user.characters}
               editable={editable}

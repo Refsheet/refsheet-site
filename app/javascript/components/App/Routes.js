@@ -19,6 +19,7 @@ import Views from "../../v1/views/_views"
 import ImageApp from "../../v1/views/images/ImageApp"
 import Static from "../../v1/views/Static"
 import CharacterApp from "../../v1/views/characters/CharacterApp"
+import User from 'v1/views/User'
 
 const Routes = () => (
   <Switch>
@@ -112,7 +113,7 @@ const Routes = () => (
     {/** Character Profiles **/}
     <Route path="/v2/:username/:slug" component={Character} />
     <Route path="/:userId/:characterId" component={CharacterApp} />
-    <Route path="/:userId" component={Views.User.View} />
+    <Route path="/:userId" component={User} />
 
     {/*== Fallback */}
 
