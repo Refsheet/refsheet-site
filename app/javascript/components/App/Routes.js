@@ -3,27 +3,22 @@ import PropTypes from 'prop-types'
 import { Router as BrowserRouter, Route, Switch } from 'react-router-dom'
 import { Redirect } from 'react-router'
 
-import {
-  Home,
-  Forums as V1Forums,
-  Loading,
-  LoginView,
-  RegisterView,
-  Views,
-  BrowseApp,
-  Explore,
-  User,
-  Static,
-  ImageApp,
-  CharacterApp,
-} from '../Shared/V1'
-
 import NotFound from '../Shared/views/NotFound'
+import Loading from '../Shared/views/Loading'
 import Character from '../Character'
 import Moderate from '../Moderate'
 import Forums from '../Forums'
 import Forum from '../Forums/Forum'
 import Artists from '../Artists'
+import Home from "../../v1/views/static/Home"
+import LoginView from "../../v1/views/sessions/LoginView"
+import RegisterView from "../../v1/views/sessions/RegisterView"
+import BrowseApp from "../../v1/views/browse/BrowseApp"
+import V1Forums from "../../v1/views/Forums"
+import Views from "../../v1/views/_views"
+import ImageApp from "../../v1/views/images/ImageApp"
+import Static from "../../v1/views/Static"
+import CharacterApp from "../../v1/views/characters/CharacterApp"
 
 const Routes = () => (
   <Switch>
@@ -40,16 +35,9 @@ const Routes = () => (
     <Route path={'/artists/:slug'} component={Artists.Show} />
     <Route path={'/artists'} component={Artists.Index} />
 
-    {/** Character Profiles **/}
-    <Route path="/v2/:username/:slug" component={Character} />
-    <Route path={'/:username/:slug'} component={Character} />
-
     {/** Account **/}
     <Route path="/myrefs/new" component={Loading} />
     <Route path="/myrefs" component={Loading} />
-
-    {/** Misc **/}
-    <Route path="*" component={NotFound} />
 
     {/** V1 **/}
 
@@ -90,7 +78,7 @@ const Routes = () => (
     />
 
     <Route path="/browse" component={BrowseApp} />
-    <Route path="/explore/:scope?" component={Explore.Index} />
+    <Route path="/explore/:scope?" component={Views.Explore.Index} />
 
     <Route path="/forums">
       <Switch>
@@ -119,8 +107,12 @@ const Routes = () => (
 
     <Route path="/images/:imageId" component={ImageApp} />
     <Route path="/media/:imageId" component={ImageApp} />
+
+
+    {/** Character Profiles **/}
+    <Route path="/v2/:username/:slug" component={Character} />
     <Route path="/:userId/:characterId" component={CharacterApp} />
-    <Route path="/:userId" component={User.View} />
+    <Route path="/:userId" component={Views.User.View} />
 
     {/*== Fallback */}
 

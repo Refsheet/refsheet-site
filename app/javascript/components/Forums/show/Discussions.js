@@ -8,12 +8,12 @@ import Error from '../../Shared/Error'
 import { Link } from 'react-router-dom'
 import PostTags, { DropdownTag } from '../shared/PostTags'
 import Restrict from '../../Shared/Restrict'
-import { Loading } from '../../Shared/V1'
 import c from 'classnames'
 
 import NumberUtils from 'v1/utils/NumberUtils'
 
 import Advertisement from 'v1/shared/advertisement'
+import Loading from "../../Shared/views/Loading"
 
 class Discussions extends Component {
   constructor(props) {

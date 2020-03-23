@@ -1,3 +1,4 @@
+/* global Refsheet */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import c from 'classnames'
@@ -16,33 +17,42 @@ class GoogleAd extends Component {
     }
   }
 
+  renderAdBlocked() {
+    return (
+      <div
+        style={{
+          position: 'absolute',
+          zIndex: 0,
+          textAlign: 'center',
+          top: '50%',
+          left: '1rem',
+          right: '1rem',
+          transform: 'translateY(-50%)',
+        }}
+      >
+        <strong>Are you using an ad blocker?</strong>
+        <br />
+        <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.5)' }}>
+          That's cool. I totally get it. But, perhaps you should consider
+          becoming a Patron? Patrons can turn off ads and feel good about it.
+        </p>
+      </div>
+    )
+  }
+
   render() {
     const { format, layoutKey, slot, className, ...rest } = this.props
+
+    if (Refsheet.environment === "test") {
+      return null
+    }
 
     // TODO: The adblock default text is uh, not so friendly when google doesn't have any ads to serve up.
     return (
       <div
         className={c('google-ad', className)}
-        style={{ position: 'relative', minHeight: '5rem' }}
+        style={{ position: 'relative' }}
       >
-        <div
-          style={{
-            position: 'absolute',
-            zIndex: 0,
-            textAlign: 'center',
-            top: '50%',
-            left: '1rem',
-            right: '1rem',
-            transform: 'translateY(-50%)',
-          }}
-        >
-          <strong>Are you using an ad blocker?</strong>
-          <br />
-          <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.5)' }}>
-            That's cool. I totally get it. But, perhaps you should consider
-            becoming a Patron? Patrons can turn off ads and feel good about it.
-          </p>
-        </div>
         <ins
           className="adsbygoogle"
           style={{ display: 'block' }}

@@ -7,9 +7,9 @@ import NavBar from '../NavBar'
 import Chat from '../Chat/ConversationTray'
 import Lightbox from '../Lightbox'
 import UploadModal from '../Image/UploadModal'
-import { SessionModal } from '../Shared/V1'
 import Routes from './Routes'
 import { withRouter } from 'react-router'
+import SessionModal from "../../v1/shared/modals/SessionModal"
 
 class Layout extends Component {
   constructor(props) {
