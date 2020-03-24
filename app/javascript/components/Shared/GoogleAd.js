@@ -43,7 +43,7 @@ class GoogleAd extends Component {
   render() {
     const { format, layoutKey, slot, className, ...rest } = this.props
 
-    if (Refsheet.environment === "test") {
+    if (Refsheet.environment === "test" || Refsheet.environment === "development") {
       return null
     }
 

@@ -87,7 +87,6 @@ export default Show = createReactClass({
     if (!this.state.forum) {
       return <Loading />
     }
-    console.log(this.props)
 
     const childrenWithProps = React.Children.map(this.props.children, child => {
       return React.cloneElement(child, { onReply: this._handleThreadReply })
@@ -110,9 +109,9 @@ export default Show = createReactClass({
           </div>
 
           <div className="content">
-            {childrenWithProps || (
-              <EmptyList caption="Select a thread to start chatting." />
-            )}
+            {/*{childrenWithProps || (*/}
+            {/*  <EmptyList caption="Select a thread to start chatting." />*/}
+            {/*)}*/}
           </div>
         </Container>
 

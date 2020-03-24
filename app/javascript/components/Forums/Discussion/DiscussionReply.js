@@ -34,7 +34,7 @@ class DiscussionReply extends Component {
 
   handleSubmit(post) {
     this.setState({ editing: false })
-    this.props.refetch()
+    this.props.refetch && this.props.refetch()
   }
 
   render() {

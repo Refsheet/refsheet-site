@@ -109,7 +109,7 @@
     "prettier": "prettier --write \"app/javascript/**/*.js\" \"spec/javascript/**/*.js\"",
     "prettier-check": "prettier --check \"app/javascript/**/*.js\" \"spec/javascript/**/*.js\"",
     "eslint": "eslint ./app/javascript/ --ext .js --ext .gql --ext .graphql",
-    "rspec-integration":  "RAILS_ENV=test bundle exec rspec --pattern \"**/{features,requests,integration}/**/*_spec.rb\"",
+    "rspec-integration": "RAILS_ENV=test bundle exec rspec --pattern \"**/{features,requests,integration}/**/*_spec.rb\"",
     "rspec": "RAILS_ENV=test bundle exec rspec --exclude-pattern \"**/{features,requests,integration}/**/*_spec.rb\""
   }
 }

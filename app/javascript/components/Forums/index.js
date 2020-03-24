@@ -21,17 +21,6 @@ class Forums extends Component {
   }
 }
 
-export const forumType = PropTypes.shape({
-  slug: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  summary: PropTypes.string,
-  description: PropTypes.string,
-  system_owned: PropTypes.bool,
-  rules: PropTypes.string,
-  prepost_message: PropTypes.string,
-  open: PropTypes.bool,
-})
-
 Forums.propTypes = {}
 
 export default graphql(getForums, {

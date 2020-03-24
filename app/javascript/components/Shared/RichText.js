@@ -8,7 +8,7 @@ import React, { Component } from 'react'
 import replace from 'react-string-replace'
 import { Link } from 'react-router-dom'
 
-export default class RichText extends Component {
+class RichText extends Component {
   constructor(props) {
     super(props)
 
@@ -89,3 +89,5 @@ export default class RichText extends Component {
     )
   }
 }
+
+export default RichText

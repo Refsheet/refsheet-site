@@ -1,18 +1,11 @@
-/* eslint-disable
-    react/jsx-no-undef,
-    react/prop-types,
-*/
-// TODO: This file was created by bulk-decaffeinate.
-// Fix any style issues and re-enable lint.
-/*
- * decaffeinate suggestions:
- * DS102: Remove unnecessary code created because of implicit returns
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
 import React from 'react'
 import PropTypes from 'prop-types'
 import Card, { div as Slant } from 'Styled/Card'
 import { H1, H2 } from 'Styled/Headings'
+import AttributeTable from 'v1/shared/attributes/attribute_table'
+import Attribute from 'v1/shared/attributes/attribute'
+import RichText from "../Shared/RichText"
+import Views from 'v1/views/_views'
 
 const gravityCrop = {
   center: { objectPosition: 'center' },

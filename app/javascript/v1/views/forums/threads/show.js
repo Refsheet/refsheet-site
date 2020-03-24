@@ -7,14 +7,15 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
-import Loading from '../../../shared/Loading'
 import RichText from '../../../../components/Shared/RichText'
-import Main from '../../../shared/Main'
+import Main from 'v1/shared/Main'
 import LegacyForumReply from '../../../../components/Forums/LegacyForumReply'
 import IdentityLink from 'v1/shared/identity_link'
 import IdentityAvatar from 'v1/shared/identity_avatar'
 import StateUtils from '../../../utils/StateUtils'
 import Model from '../../../utils/Model'
+import HashUtils from "../../../utils/HashUtils"
+import Loading from "../../../../components/Shared/views/Loading"
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -47,8 +48,8 @@ export default Show = createReactClass({
     return { thread: null }
   },
 
-  UNSAFE_componentWillMount() {
-    return StateUtils.load(this, 'thread', this.props, thread => {
+  componentDidMount() {
+    StateUtils.load(this, 'thread', this.props, thread => {
       if (thread) {
         this._poll()
       }
@@ -84,8 +85,9 @@ export default Show = createReactClass({
     }, 3000))
   },
 
-  UNSAFE_componentWillReceiveProps(newProps) {
-    StateUtils.reload(this, 'thread', newProps)
+  componentDidUpdate(prevProps) {
+    if (!HashUtils.compare(prevProps, this.props, 'forumId', 'threadId'))
+      StateUtils.reload(this, 'thread', this.props)
   },
 
   _handleReply(post) {
@@ -98,6 +100,8 @@ export default Show = createReactClass({
   },
 
   render() {
+    return <Loading />
+
     if (!this.state.thread) {
       return <Loading />
     }
@@ -140,7 +144,7 @@ export default Show = createReactClass({
     return (
       <Main title={this.state.thread.topic}>
         <div className="card margin-top--none sp with-avatar">
-          <IdentityAvatar src={this.state.thread.user} />
+          {/*<IdentityAvatar src={this.state.thread.user} />*/}
 
           <div className="card-content">
             <div className="right muted right-align">
@@ -148,7 +152,7 @@ export default Show = createReactClass({
             </div>
 
             <div className="author">
-              <IdentityLink to={this.state.thread.user} />
+              {/*<IdentityLink to={this.state.thread.user} />*/}
               <div className="muted">
                 @{this.state.thread.user.username}{' '}
                 {this.state.thread.user.is_admin && <span>&bull; Admin</span>}
@@ -158,23 +162,23 @@ export default Show = createReactClass({
 
           <div className="card-header">
             <h2 className="title">{this.state.thread.topic}</h2>
-            <RichText
-              markup={this.state.thread.content}
-              content={this.state.thread.content_html}
-            />
+            {/*<RichText*/}
+            {/*  markup={this.state.thread.content}*/}
+            {/*  content={this.state.thread.content_html}*/}
+            {/*/>*/}
           </div>
         </div>
 
-        {posts}
+        {/*{posts}*/}
 
         <div id="scroll-to-here" />
 
-        {this.context.currentUser && (
-          <LegacyForumReply
-            discussionId={this.state.thread.guid}
-            onPost={this._handleReply}
-          />
-        )}
+        {/*{this.context.currentUser && (*/}
+        {/*  // <LegacyForumReply*/}
+        {/*  //   discussionId={this.state.thread.guid}*/}
+        {/*  //   onPost={this._handleReply}*/}
+        {/*  // />*/}
+        {/*)}*/}
       </Main>
     )
   },
