@@ -1,4 +1,4 @@
-/* eslint-disable
+/* do-not-disable-eslint
     constructor-super,
     no-constant-condition,
     no-this-before-super,
@@ -21,24 +21,12 @@ import PropTypes from 'prop-types'
 import { graphql } from 'react-apollo'
 import { getCharacterProfile } from 'queries/getCharacterProfile.graphql'
 import { connect } from 'react-redux'
+import Loading from "../Shared/views/Loading"
 
 class Character extends Component {
   constructor(props) {
-    {
-      // Hack: trick Babel/TypeScript into allowing this before super.
-      if (false) {
-        super()
-      }
-      let thisFn = (() => {
-        return this
-      }).toString()
-      let thisName = thisFn.match(
-        /return (?:_assertThisInitialized\()*(\w+)\)*;/
-      )[1]
-      eval(`${thisName} = this;`)
-    }
-    this.refetch = this.refetch.bind(this)
     super(props)
+    this.refetch = this.refetch.bind(this)
 
     this.state = { editable: false }
   }

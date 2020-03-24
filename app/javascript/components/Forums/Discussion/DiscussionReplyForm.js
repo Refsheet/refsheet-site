@@ -16,6 +16,7 @@ class DiscussionReplyForm extends Component {
   }
 
   canReply(user) {
+    // TODO: Use a policy for this.
     const { forum, discussion, edit } = this.props
     if (!user) return false
     if (edit) return true
@@ -146,7 +147,7 @@ DiscussionReplyForm.propTypes = {
   forum: PropTypes.object,
   inCharacter: PropTypes.bool,
   refetch: PropTypes.func,
-  onSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func,
 }
 
 export default compose(

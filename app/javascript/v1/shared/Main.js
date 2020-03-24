@@ -29,14 +29,6 @@ export default Main = createReactClass({
     return (document.title = [].concat.apply([], titles).join(' - '))
   },
 
-  UNSAFE_componentWillMount() {
-    if (this.props.title && this._updateTitle) {
-      this._updateTitle(this.props.title)
-    }
-
-    return $('body').addClass(this.props.bodyClassName)
-  },
-
   UNSAFE_componentWillReceiveProps(newProps) {
     if (newProps.title && this._updateTitle) {
       this._updateTitle(newProps.title)
@@ -44,7 +36,7 @@ export default Main = createReactClass({
 
     if (newProps.bodyClassName !== this.props.bodyClassName) {
       $('body').removeClass(this.props.bodyClassName)
-      return $('body').addClass(newProps.bodyClassName)
+      $('body').addClass(newProps.bodyClassName)
     }
   },
 
@@ -54,8 +46,14 @@ export default Main = createReactClass({
     }
 
     if (this.props.slideEffect) {
-      return $(this.refs.main).slideDown()
+      $(this.refs.main).slideDown()
     }
+
+    if (this.props.title && this._updateTitle) {
+      this._updateTitle(this.props.title)
+    }
+
+    $('body').addClass(this.props.bodyClassName)
   },
 
   componentWillUnmount() {

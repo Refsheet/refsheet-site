@@ -88,12 +88,12 @@ const Routes = () => (
         <Route
           path="/forums/:forumId"
           render={props2 => (
-            <Forums.Show {...props2}>
+            <V1Forums.Show {...props2}>
               <Route
                 path="/forums/:forumId/:threadId"
                 component={V1Forums.Threads.Show}
               />
-            </Forums.Show>
+            </V1Forums.Show>
           )}
         />
       </Switch>

@@ -1,4 +1,4 @@
-/* eslint-disable
+/* do-not-disable-eslint
     react/display-name,
     react/jsx-no-undef,
     react/prop-types,
@@ -11,6 +11,9 @@
  * DS102: Remove unnecessary code created because of implicit returns
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
+import React from 'react'
+import Main from "./Main"
+
 export default ({ message }) => {
   const classNames = ['modal-page-content']
 
