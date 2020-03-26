@@ -12,7 +12,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import React from 'react'
-import Main from "./Main"
+import Main from './Main'
 
 export default ({ message }) => {
   const classNames = ['modal-page-content']

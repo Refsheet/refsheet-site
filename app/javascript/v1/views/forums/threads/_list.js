@@ -29,9 +29,7 @@ export default ThreadList = createReactClass({
 
   _nudgeClick(e) {
     const $el = $(e.target)
-    let link = $el
-      .parents('li')
-      .children('a')[0]
+    let link = $el.parents('li').children('a')[0]
 
     if (!link) {
       link = $el.children('a')[0]

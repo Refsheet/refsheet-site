@@ -13,7 +13,7 @@ import Form from '../../../shared/forms/Form'
 import Input from '../../../shared/forms/Input'
 import Row from '../../../shared/material/Row'
 import Submit from '../../../shared/forms/Submit'
-import Modal from "../../../shared/Modal"
+import Modal from '../../../shared/Modal'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*

@@ -13,7 +13,7 @@ import c from 'classnames'
 import NumberUtils from 'v1/utils/NumberUtils'
 
 import Advertisement from 'v1/shared/advertisement'
-import Loading from "../../Shared/views/Loading"
+import Loading from '../../Shared/views/Loading'
 
 class Discussions extends Component {
   constructor(props) {

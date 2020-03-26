@@ -4,7 +4,7 @@ import { graphql } from 'react-apollo'
 import getForums from './getForums.graphql'
 import Error from '../Shared/Error'
 import View from './index/View'
-import Loading from "../Shared/views/Loading"
+import Loading from '../Shared/views/Loading'
 
 class Forums extends Component {
   render() {

@@ -21,7 +21,7 @@ import PropTypes from 'prop-types'
 import { graphql } from 'react-apollo'
 import { getCharacterProfile } from 'queries/getCharacterProfile.graphql'
 import { connect } from 'react-redux'
-import Loading from "../Shared/views/Loading"
+import Loading from '../Shared/views/Loading'
 
 class Character extends Component {
   constructor(props) {

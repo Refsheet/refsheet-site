@@ -14,8 +14,8 @@ import IdentityLink from 'v1/shared/identity_link'
 import IdentityAvatar from 'v1/shared/identity_avatar'
 import StateUtils from '../../../utils/StateUtils'
 import Model from '../../../utils/Model'
-import HashUtils from "../../../utils/HashUtils"
-import Loading from "../../../../components/Shared/views/Loading"
+import HashUtils from '../../../utils/HashUtils'
+import Loading from '../../../../components/Shared/views/Loading'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -86,7 +86,14 @@ export default Show = createReactClass({
   },
 
   componentDidUpdate(prevProps) {
-    if (! HashUtils.compare(prevProps.match.params, this.props.match.params, 'forumId', 'threadId')) {
+    if (
+      !HashUtils.compare(
+        prevProps.match.params,
+        this.props.match.params,
+        'forumId',
+        'threadId'
+      )
+    ) {
       StateUtils.reload(this, 'thread', this.props, prevProps)
     }
   },

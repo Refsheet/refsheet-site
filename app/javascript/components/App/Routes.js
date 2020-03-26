@@ -10,15 +10,15 @@ import Moderate from '../Moderate'
 import Forums from '../Forums'
 import Forum from '../Forums/Forum'
 import Artists from '../Artists'
-import Home from "../../v1/views/static/Home"
-import LoginView from "../../v1/views/sessions/LoginView"
-import RegisterView from "../../v1/views/sessions/RegisterView"
-import BrowseApp from "../../v1/views/browse/BrowseApp"
-import V1Forums from "../../v1/views/Forums"
-import Views from "../../v1/views/_views"
-import ImageApp from "../../v1/views/images/ImageApp"
-import Static from "../../v1/views/Static"
-import CharacterApp from "../../v1/views/characters/CharacterApp"
+import Home from '../../v1/views/static/Home'
+import LoginView from '../../v1/views/sessions/LoginView'
+import RegisterView from '../../v1/views/sessions/RegisterView'
+import BrowseApp from '../../v1/views/browse/BrowseApp'
+import V1Forums from '../../v1/views/Forums'
+import Views from '../../v1/views/_views'
+import ImageApp from '../../v1/views/images/ImageApp'
+import Static from '../../v1/views/Static'
+import CharacterApp from '../../v1/views/characters/CharacterApp'
 import User from 'v1/views/User'
 
 const Routes = () => (
@@ -108,7 +108,6 @@ const Routes = () => (
 
     <Route path="/images/:imageId" component={ImageApp} />
     <Route path="/media/:imageId" component={ImageApp} />
-
 
     {/** Character Profiles **/}
     <Route path="/v2/:username/:slug" component={Character} />
