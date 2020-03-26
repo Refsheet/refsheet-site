@@ -20,8 +20,8 @@ import $ from 'jquery'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let List
-export default List = createReactClass({
+let ThreadList
+export default ThreadList = createReactClass({
   propTypes: {
     threads: PropTypes.array,
     activeThreadId: PropTypes.string,
@@ -29,10 +29,15 @@ export default List = createReactClass({
 
   _nudgeClick(e) {
     const $el = $(e.target)
-    $el
+    let link = $el
       .parents('li')
       .children('a')[0]
-      .click()
+
+    if (!link) {
+      link = $el.children('a')[0]
+    }
+
+    link && link.click()
     return e.preventDefault()
   },
 
@@ -91,7 +96,7 @@ export default List = createReactClass({
       <div className="thread-list">
         {/* All | Subscribed | Sort v */}
         <ul className="message-list margin--none">
-          {threads.length == 0 && <EmptyList coffee />}
+          {threads.length === 0 && <EmptyList coffee />}
 
           {/* sticky */}
           {/* sponsored */}

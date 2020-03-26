@@ -86,8 +86,9 @@ export default Show = createReactClass({
   },
 
   componentDidUpdate(prevProps) {
-    if (!HashUtils.compare(prevProps, this.props, 'forumId', 'threadId'))
-      StateUtils.reload(this, 'thread', this.props)
+    if (! HashUtils.compare(prevProps.match.params, this.props.match.params, 'forumId', 'threadId')) {
+      StateUtils.reload(this, 'thread', this.props, prevProps)
+    }
   },
 
   _handleReply(post) {
@@ -100,8 +101,6 @@ export default Show = createReactClass({
   },
 
   render() {
-    return <Loading />
-
     if (!this.state.thread) {
       return <Loading />
     }
@@ -134,8 +133,8 @@ export default Show = createReactClass({
           />
           <RichText
             className="margin-top--small"
-            content={post.content_html}
-            markup={post.content}
+            contentHtml={post.content_html}
+            content={post.content}
           />
         </div>
       </div>
@@ -144,7 +143,7 @@ export default Show = createReactClass({
     return (
       <Main title={this.state.thread.topic}>
         <div className="card margin-top--none sp with-avatar">
-          {/*<IdentityAvatar src={this.state.thread.user} />*/}
+          <IdentityAvatar src={this.state.thread.user} />
 
           <div className="card-content">
             <div className="right muted right-align">
@@ -152,7 +151,7 @@ export default Show = createReactClass({
             </div>
 
             <div className="author">
-              {/*<IdentityLink to={this.state.thread.user} />*/}
+              <IdentityLink to={this.state.thread.user} />
               <div className="muted">
                 @{this.state.thread.user.username}{' '}
                 {this.state.thread.user.is_admin && <span>&bull; Admin</span>}
@@ -162,23 +161,23 @@ export default Show = createReactClass({
 
           <div className="card-header">
             <h2 className="title">{this.state.thread.topic}</h2>
-            {/*<RichText*/}
-            {/*  markup={this.state.thread.content}*/}
-            {/*  content={this.state.thread.content_html}*/}
-            {/*/>*/}
+            <RichText
+              content={this.state.thread.content}
+              contentHtml={this.state.thread.content_html}
+            />
           </div>
         </div>
 
-        {/*{posts}*/}
+        {posts}
 
         <div id="scroll-to-here" />
 
-        {/*{this.context.currentUser && (*/}
-        {/*  // <LegacyForumReply*/}
-        {/*  //   discussionId={this.state.thread.guid}*/}
-        {/*  //   onPost={this._handleReply}*/}
-        {/*  // />*/}
-        {/*)}*/}
+        {this.context.currentUser && (
+          <LegacyForumReply
+            discussionId={this.state.thread.guid}
+            onPost={this._handleReply}
+          />
+        )}
       </Main>
     )
   },

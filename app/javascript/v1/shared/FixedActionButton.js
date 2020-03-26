@@ -3,7 +3,7 @@ import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
 
 import ActionButton from 'v1/shared/ActionButton'
-import $ from 'jquery'
+import * as Materialize from 'materialize-css'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -15,7 +15,7 @@ import $ from 'jquery'
 let FixedActionButton
 export default FixedActionButton = createReactClass({
   componentDidMount(e) {
-    return $('.fixed-action-btn').floatingActionButton()
+    Materialize.FloatingActionButton.init(this.fab)
   },
 
   render() {
@@ -29,7 +29,7 @@ export default FixedActionButton = createReactClass({
     }
 
     return (
-      <div className={className}>
+      <div className={className} ref={r => this.fab = r}>
         <ActionButton large={true} {...this.props} />
         <ul>{children}</ul>
       </div>
