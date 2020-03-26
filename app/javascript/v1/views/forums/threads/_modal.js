@@ -13,6 +13,7 @@ import Form from '../../../shared/forms/Form'
 import Input from '../../../shared/forms/Input'
 import Row from '../../../shared/material/Row'
 import Submit from '../../../shared/forms/Submit'
+import Modal from "../../../shared/Modal"
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -21,8 +22,8 @@ import Submit from '../../../shared/forms/Submit'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let Modal
-export default Modal = createReactClass({
+let ThreadModal
+export default ThreadModal = createReactClass({
   contextTypes: {
     router: PropTypes.object.isRequired,
   },

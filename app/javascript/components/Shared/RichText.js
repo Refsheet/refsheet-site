@@ -5,6 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import replace from 'react-string-replace'
 import { Link } from 'react-router-dom'
 
@@ -88,6 +89,13 @@ class RichText extends Component {
       </div>
     )
   }
+}
+
+RichText.propTypes = {
+  contentHtml: PropTypes.string.isRequired,
+  content: PropTypes.string,
+  title: PropTypes.string,
+  placeholder: PropTypes.string,
 }
 
 export default RichText

@@ -19,8 +19,8 @@ import IdentityAvatar from 'v1/shared/identity_avatar'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let Reply
-export default Reply = createReactClass({
+let ThreadReply
+export default ThreadReply = createReactClass({
   contextTypes: {
     currentUser: PropTypes.object,
   },

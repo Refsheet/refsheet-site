@@ -14,10 +14,12 @@ import Container from '../../shared/material/Container'
 import FixedActionButton from '../../shared/FixedActionButton'
 import EmptyList from '../../shared/EmptyList'
 import Loading from '../../shared/Loading'
-import Forums from 'v1/views/Forums'
 import StateUtils from '../../utils/StateUtils'
 import Model from '../../utils/Model'
 import HashUtils from '../../utils/HashUtils'
+
+import ThreadList from './threads/_list'
+import ThreadModal from './threads/_modal'
 
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
@@ -48,8 +50,8 @@ export default Show = createReactClass({
     }
   },
 
-  UNSAFE_componentWillMount() {
-    return StateUtils.load(this, 'forum', this.props, forum => {
+  componentDidMount() {
+    StateUtils.load(this, 'forum', this.props, forum => {
       if (forum) {
         return this._poll()
       }
@@ -72,7 +74,7 @@ export default Show = createReactClass({
   },
 
   UNSAFE_componentWillReceiveProps(newProps) {
-    return StateUtils.reload(this, 'forum', newProps)
+    StateUtils.reload(this, 'forum', newProps)
   },
 
   _handleThreadReply(post) {
@@ -94,14 +96,14 @@ export default Show = createReactClass({
 
     return (
       <Main title={this.state.forum.name} fadeEffect flex>
-        <Jumbotron className="short">
+        <Jumbotron short>
           <h1>{this.state.forum.name}</h1>
           <p>{this.state.forum.description}</p>
         </Jumbotron>
 
         <Container flex>
           <div className="sidebar sidebar-flex">
-            <Forums.Threads.List
+            <ThreadList
               forumId={this.props.match.params.forumId}
               threads={this.state.forum.threads}
               activeThreadId={this.props.match.params.threadId}
@@ -109,9 +111,7 @@ export default Show = createReactClass({
           </div>
 
           <div className="content">
-            {/*{childrenWithProps || (*/}
-            {/*  <EmptyList caption="Select a thread to start chatting." />*/}
-            {/*)}*/}
+            { childrenWithProps }
           </div>
         </Container>
 
@@ -121,7 +121,7 @@ export default Show = createReactClass({
           className="modal-trigger"
           tooltip="New Thread"
         />
-        <Forums.Threads.Modal forumId={this.state.forum.slug} />
+        <ThreadModal forumId={this.state.forum.slug} />
       </Main>
     )
   },
