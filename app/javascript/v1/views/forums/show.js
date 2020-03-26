@@ -110,9 +110,7 @@ export default Show = createReactClass({
             />
           </div>
 
-          <div className="content">
-            { childrenWithProps }
-          </div>
+          <div className="content">{childrenWithProps}</div>
         </Container>
 
         <FixedActionButton

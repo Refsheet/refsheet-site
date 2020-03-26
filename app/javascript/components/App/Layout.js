@@ -9,7 +9,7 @@ import Lightbox from '../Lightbox'
 import UploadModal from '../Image/UploadModal'
 import Routes from './Routes'
 import { withRouter } from 'react-router'
-import SessionModal from "../../v1/shared/modals/SessionModal"
+import SessionModal from '../../v1/shared/modals/SessionModal'
 
 class Layout extends Component {
   constructor(props) {

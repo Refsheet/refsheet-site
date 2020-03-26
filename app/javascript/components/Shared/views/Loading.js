@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Spinner from "../../../v1/shared/material/Spinner"
+import Spinner from '../../../v1/shared/material/Spinner'
 
 const Loading = function(props) {
   const classNames = ['modal-page-content']
@@ -26,8 +26,8 @@ Loading.propTypes = {
   className: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.array,
-    PropTypes.object
-  ])
+    PropTypes.object,
+  ]),
 }
 
 export default Loading

@@ -29,7 +29,7 @@ export default FixedActionButton = createReactClass({
     }
 
     return (
-      <div className={className} ref={r => this.fab = r}>
+      <div className={className} ref={r => (this.fab = r)}>
         <ActionButton large={true} {...this.props} />
         <ul>{children}</ul>
       </div>

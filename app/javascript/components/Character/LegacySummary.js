@@ -4,7 +4,7 @@ import Card, { div as Slant } from 'Styled/Card'
 import { H1, H2 } from 'Styled/Headings'
 import AttributeTable from 'v1/shared/attributes/attribute_table'
 import Attribute from 'v1/shared/attributes/attribute'
-import RichText from "../Shared/RichText"
+import RichText from '../Shared/RichText'
 import Views from 'v1/views/_views'
 
 const gravityCrop = {

@@ -22,8 +22,8 @@ import $ from 'jquery'
 import * as Materialize from 'materialize-css'
 import StateUtils from '../utils/StateUtils'
 import HashUtils from '../utils/HashUtils'
-import Characters from "./user/Characters"
-import Section from "../../components/Shared/Section"
+import Characters from './user/Characters'
+import Section from '../../components/Shared/Section'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
