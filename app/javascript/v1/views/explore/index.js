@@ -9,7 +9,6 @@ import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
 import Loading from '../../shared/Loading'
-import ImageGallery from '../../shared/images/ImageGallery'
 import InfiniteScroll from '../../shared/InfiniteScroll'
 import Main from '../../shared/Main'
 import Jumbotron from '../../../components/Shared/Jumbotron'
@@ -18,6 +17,7 @@ import Container from '../../shared/material/Container'
 
 import $ from 'jquery'
 import StateUtils from '../../utils/StateUtils'
+import Gallery from "../../../components/Character/Gallery"
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -63,10 +63,10 @@ export default Index = createReactClass({
   },
 
   componentDidMount() {
-    return $(this.refs.tabRow).pushpin({
-      top: $(this.refs.tabRow).offset().top,
-      offset: 56,
-    })
+    // return $(this.refs.tabRow).pushpin({
+    //   top: $(this.refs.tabRow).offset().top,
+    //   offset: 56,
+    // })
   },
 
   UNSAFE_componentWillReceiveProps(newProps) {
@@ -88,9 +88,11 @@ export default Index = createReactClass({
       return <Loading />
     }
 
+    console.log(this.state.media)
+
     return (
       <div key={this.props.match && this.props.match.params.scope}>
-        <ImageGallery images={this.state.media} noFeature noSquare />
+        <Gallery v1Data noHeader images={this.state.media} />
         <InfiniteScroll
           onLoad={this._append}
           stateLink={this.stateLink}
@@ -124,7 +126,7 @@ export default Index = createReactClass({
 
     return (
       <Main title={title}>
-        <Jumbotron className="short">
+        <Jumbotron short>
           <h1>{title}</h1>
           <p>{description}</p>
         </Jumbotron>
