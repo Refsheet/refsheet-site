@@ -8,7 +8,30 @@ import compose from '../../utils/compose'
 import { connect } from 'react-redux'
 import { openUploadModal } from '../../actions'
 
-const Gallery = function({ images, openUploadModal }) {
+function convertData(images) {
+  return images.map(image => ({
+    ...image,
+    url: {
+      small: image.small,
+      medium: image.medium,
+      large: image.large,
+    },
+  }))
+}
+
+const Gallery = function({ v1Data, noHeader, images, openUploadModal }) {
+  let imageData = images;
+
+  if (v1Data) {
+    imageData = convertData(images);
+  }
+
+  if (noHeader) {
+    return (
+      <Measure bounds>{renderGallery(imageData)}</Measure>
+    )
+  }
+
   const galleryTabs = [
     { id: 'baz', title: 'Scraps' },
     { id: 'bar', title: 'Hidden' },
@@ -27,7 +50,7 @@ const Gallery = function({ images, openUploadModal }) {
       buttons={galleryActions}
       onTabClick={id => console.log(id)}
     >
-      <Measure bounds>{renderGallery(images)}</Measure>
+      <Measure bounds>{renderGallery(imageData)}</Measure>
     </Section>
   )
 }
@@ -61,6 +84,8 @@ var renderGallery = images =>
   }
 
 Gallery.propTypes = {
+  v1Data: PropTypes.bool,
+  noHeader: PropTypes.bool,
   images: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
