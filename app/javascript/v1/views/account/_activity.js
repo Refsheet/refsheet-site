@@ -18,6 +18,7 @@ import Model from '../../utils/Model'
 import HashUtils from 'v1/utils/HashUtils'
 import GoogleAd from '../../../components/Shared/GoogleAd'
 import { div as Card } from '../../../components/Styled/Card'
+import StatusUpdate from "../../../components/ActivityFeed/StatusUpdate"
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -194,7 +195,7 @@ export default Activity = createReactClass({
       return <Spinner className="margin-top--large" small center />
     }
 
-    let adCount = 0
+    let adCount = 1
     let activityIndex = 0
     let out = []
 
@@ -202,9 +203,8 @@ export default Activity = createReactClass({
       // TODO: Set ad frequency to a variable
       if (activityIndex++ % 10 === 0) {
         out.push(
-          <Card className={'card'}>
+          <Card className={'card'} key={'ad-' + ++adCount}>
             <GoogleAd
-              key={'ad-' + adCount++}
               format={'fluid'}
               layoutKey={'-f5+66+2b-d1+eu'}
               slot={'3997004779'}
@@ -224,7 +224,7 @@ export default Activity = createReactClass({
     return (
       <div className="feed-item-stream">
         <Restrict patron>
-          <CommentForm />
+          <StatusUpdate />
         </Restrict>
 
         {this.state.newActivity && this.state.newActivity.length > 0 && (
