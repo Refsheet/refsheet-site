@@ -13,6 +13,7 @@ import 'whatwg-fetch'
 import * as Sentry from '@sentry/browser'
 import $ from 'jquery'
 
+// TODO: Kill this after jQuery fetching is disabled.
 $.ajaxSetup({
   headers: {
     'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),

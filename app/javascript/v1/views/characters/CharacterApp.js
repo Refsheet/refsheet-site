@@ -31,7 +31,7 @@ import * as Materialize from 'materialize-css'
 import Main from '../../shared/Main'
 import CharacterViewSilhouette from './CharacterViewSilhouette'
 import RichText from '../../../components/Shared/RichText'
-import App from '../../../components/App'
+import Character from 'components/Character'
 import $ from 'jquery'
 import StateUtils from '../../utils/StateUtils'
 // TODO: This file was created by bulk-decaffeinate.
@@ -279,7 +279,16 @@ const Component = createReactClass({
     }
 
     if (this.state.character.version === 2) {
-      return <App />
+      let props = this.props
+
+      props.match.params = {
+        ...props.match.params,
+        username: props.match.params.userId,
+        slug: props.match.params.characterId,
+      }
+
+      console.log("V2 in V1 bodge. Reverse this direction soon.", { props });
+      return <Character {...props} />
     }
 
     if (

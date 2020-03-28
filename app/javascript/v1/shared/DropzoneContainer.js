@@ -21,7 +21,7 @@ import * as Materialize from 'materialize-css'
 //
 let DropzoneContainer
 export default DropzoneContainer = createReactClass({
-  getInitialState() {
+  x_getInitialState() {
     return {
       uploading: false,
       uploadPercent: 0,
@@ -29,7 +29,7 @@ export default DropzoneContainer = createReactClass({
     }
   },
 
-  componentDidMount() {
+  x_componentDidMount() {
     if (this.props.url != null) {
       const ___this = this
 
@@ -98,13 +98,16 @@ export default DropzoneContainer = createReactClass({
     }
   },
 
-  componentWillUnmount() {
+  x_componentWillUnmount() {
     if (this.props.url != null && this.state.initialized) {
       // return Dropzone.forElement(this.refs.dropzone).destroy()
     }
   },
 
   render() {
+    console.warn("DropzoneContainer relies on jquery-dropzone which is no longer used in V2 JS pack. This component will do nothing now.")
+    return (this.props.children);
+
     let className, dropZoneContent
     if (this.state.uploading) {
       let statusMessage

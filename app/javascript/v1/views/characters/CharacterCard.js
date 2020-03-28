@@ -10,7 +10,8 @@ import PropTypes from 'prop-types'
 import * as Materialize from 'materialize-css'
 import Attribute from '../../shared/attributes/attribute'
 import RichText from '../../../components/Shared/RichText'
-import Views from 'v1/views/_views'
+import Follow from 'v1/views/user/_follow'
+import Attributes from './_attributes'
 import AttributeTable from 'v1/shared/attributes/attribute_table'
 import $ from 'jquery'
 import HashUtils from '../../utils/HashUtils'
@@ -123,7 +124,7 @@ export default CharacterCard = createReactClass({
           />
         </AttributeTable>
 
-        <Views.Character.Attributes
+        <Attributes
           characterPath={this.state.character.path}
           attributes={this.state.character.custom_attributes}
           onChange={this._handleChange}
@@ -134,8 +135,8 @@ export default CharacterCard = createReactClass({
           <div className="important-notes margin-top--large margin-bottom--medium">
             <h2>Important Notes</h2>
             <RichText
-              content={this.state.character.special_notes_html}
-              markup={this.state.character.special_notes}
+              contentHtml={this.state.character.special_notes_html}
+              content={this.state.character.special_notes}
               onChange={notesUpdate}
             />
           </div>
@@ -173,7 +174,7 @@ export default CharacterCard = createReactClass({
         <div className="character-details">
           <div className="heading">
             <div className="right">
-              <Views.User.Follow
+              <Follow
                 followed={this.state.character.followed}
                 username={this.state.character.user_id}
                 onFollow={this._handleFollow}
