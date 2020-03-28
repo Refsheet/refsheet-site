@@ -10,7 +10,7 @@ import WindowAlert from '../../utils/WindowAlert'
 
 import AttributeTable from 'v1/shared/attributes/attribute_table'
 import Attribute from 'v1/shared/attributes/attribute'
-import Views from 'v1/views/_views'
+import Attributes from 'v1/views/characters/_attributes'
 import RichText from 'v1/shared/RichText.js.jsx.coffee'
 
 class Summary extends Component {
@@ -120,7 +120,7 @@ class Summary extends Component {
               />
             </AttributeTable>
 
-            <Views.Character.Attributes
+            <Attributes
               characterPath={`/users/${character.username}/characters/${character.slug}`}
               attributes={this.state.attributes}
               onChange={this.handleAttributesChange.bind(this)}

@@ -70,6 +70,7 @@ reactGuard(React, (error, componentInfo) => {
 
 class App extends Component {
   constructor(props) {
+    console.debug({props})
     super(props)
 
     this.state = {
@@ -78,6 +79,7 @@ class App extends Component {
 
     this.store = this.buildStore(this.buildState(props.state))
     this.history = this.buildHistory()
+    this.eagerLoad = props.eagerLoad
 
     this.initWindowAlert()
   }
@@ -91,9 +93,7 @@ class App extends Component {
   }
 
   buildState(state = {}) {
-    let {
-      eagerLoad: { session = {} },
-    } = this.props
+    let session = this.props.eagerLoad && this.props.eagerLoad.session || {};
     session = StringUtils.camelizeKeys(session)
 
     const newState = {
@@ -201,6 +201,20 @@ class App extends Component {
       </I18nextProvider>
     )
   }
+
+
+  // TODO: Find which components are using this and send them to Redux.
+  getChildContext() {
+    const state = this.store.getState();
+
+    return {
+      eagerLoad: this.eagerLoad,
+      currentUser: (state.session || {}).currentUser,
+      setCurrentUser: function(user) {
+        console.log({user})
+      }
+    }
+  }
 }
 
 App.propTypes = {
@@ -210,6 +224,12 @@ App.propTypes = {
   environment: PropTypes.string,
   notice: PropTypes.string,
   assets: PropTypes.object,
+}
+
+App.childContextTypes = {
+  eagerLoad: PropTypes.object,
+  currentUser: PropTypes.object,
+  setCurrentUser: PropTypes.func,
 }
 
 export default App

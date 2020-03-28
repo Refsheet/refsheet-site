@@ -160,8 +160,8 @@ const Header = createReactClass({
             </div>
             <div className="user-bio">
               <RichText
-                content={this.props.profile}
-                markup={this.props.profile_markup}
+                contentHtml={this.props.profile}
+                content={this.props.profile_markup}
                 onChange={bioChangeCallback}
               />
             </div>

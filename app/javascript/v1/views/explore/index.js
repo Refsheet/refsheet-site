@@ -59,7 +59,7 @@ export default Index = createReactClass({
   },
 
   UNSAFE_componentWillMount() {
-    return StateUtils.load(this, 'media')
+    StateUtils.load(this, 'media')
   },
 
   componentDidMount() {
@@ -76,7 +76,7 @@ export default Index = createReactClass({
     ) {
       this.setState({ media: null })
     }
-    return StateUtils.reload(this, 'media', newProps)
+    StateUtils.reload(this, 'media', newProps)
   },
 
   _append(data) {
@@ -123,6 +123,8 @@ export default Index = createReactClass({
         description =
           'Explore recent artwork uploads across all of Refsheet.net!'
     }
+
+    console.log(this.context);
 
     return (
       <Main title={title}>
