@@ -2,6 +2,7 @@ import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
 import $ from 'jquery'
+import * as Materialize from 'materialize-css'
 import NumberUtils from '../../utils/NumberUtils'
 import Tab from './Tab'
 
@@ -21,9 +22,10 @@ export default Tabs = createReactClass({
   },
 
   componentDidMount() {
-    $(this.refs.tabs).tabs()
+    Materialize.Tabs.init(this.refs.tabs)
+    // $(this.refs.tabs).tabs()
     // https://github.com/Dogfalo/materialize/issues/2102
-    return $(document).on('materialize:modal:ready', () =>
+    $(document).on('materialize:modal:ready', () =>
       $(window).trigger('resize')
     )
   },

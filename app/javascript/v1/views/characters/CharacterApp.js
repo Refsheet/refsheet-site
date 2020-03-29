@@ -287,7 +287,7 @@ const Component = createReactClass({
         slug: props.match.params.characterId,
       }
 
-      console.log("V2 in V1 bodge. Reverse this direction soon.", { props });
+      console.log('V2 in V1 bodge. Reverse this direction soon.', { props })
       return <Character {...props} />
     }
 
@@ -433,8 +433,8 @@ const Component = createReactClass({
                 <RichText
                   placeholder="No biography written."
                   onChange={profileChange}
-                  content={this.state.character.profile_html}
-                  markup={this.state.character.profile}
+                  contentHtml={this.state.character.profile_html}
+                  content={this.state.character.profile}
                 />
               </div>
             </Column>
@@ -446,8 +446,8 @@ const Component = createReactClass({
                 <RichText
                   placeholder="No likes specified."
                   onChange={likesChange}
-                  content={this.state.character.likes_html}
-                  markup={this.state.character.likes}
+                  contentHtml={this.state.character.likes_html}
+                  content={this.state.character.likes}
                 />
               </div>
             </Column>
@@ -457,8 +457,8 @@ const Component = createReactClass({
                 <RichText
                   placeholder="No dislikes specified."
                   onChange={dislikesChange}
-                  content={this.state.character.dislikes_html}
-                  markup={this.state.character.dislikes}
+                  contentHtml={this.state.character.dislikes_html}
+                  content={this.state.character.dislikes}
                 />
               </div>
             </Column>

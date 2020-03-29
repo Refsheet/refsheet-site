@@ -31,8 +31,8 @@ const Details = ({ character, editable }) => (
         <H2>Important Notes</H2>
 
         <RichText
-          content={character.special_notes_html}
-          markup={character.special_notes}
+          contentHtml={character.special_notes_html}
+          content={character.special_notes}
         />
       </div>
     )}

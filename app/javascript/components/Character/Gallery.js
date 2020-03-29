@@ -20,16 +20,14 @@ function convertData(images) {
 }
 
 const Gallery = function({ v1Data, noHeader, images, openUploadModal }) {
-  let imageData = images;
+  let imageData = images
 
   if (v1Data) {
-    imageData = convertData(images);
+    imageData = convertData(images)
   }
 
   if (noHeader) {
-    return (
-      <Measure bounds>{renderGallery(imageData)}</Measure>
-    )
+    return <Measure bounds>{renderGallery(imageData)}</Measure>
   }
 
   const galleryTabs = [

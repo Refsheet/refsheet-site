@@ -70,7 +70,7 @@ reactGuard(React, (error, componentInfo) => {
 
 class App extends Component {
   constructor(props) {
-    console.debug({props})
+    console.debug({ props })
     super(props)
 
     this.state = {
@@ -93,7 +93,7 @@ class App extends Component {
   }
 
   buildState(state = {}) {
-    let session = this.props.eagerLoad && this.props.eagerLoad.session || {};
+    let session = (this.props.eagerLoad && this.props.eagerLoad.session) || {}
     session = StringUtils.camelizeKeys(session)
 
     const newState = {
@@ -202,17 +202,16 @@ class App extends Component {
     )
   }
 
-
   // TODO: Find which components are using this and send them to Redux.
   getChildContext() {
-    const state = this.store.getState();
+    const state = this.store.getState()
 
     return {
       eagerLoad: this.eagerLoad,
       currentUser: (state.session || {}).currentUser,
       setCurrentUser: function(user) {
-        console.log({user})
-      }
+        console.log({ user })
+      },
     }
   }
 }
