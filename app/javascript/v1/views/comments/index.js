@@ -85,7 +85,10 @@ export default Index = createReactClass({
                 {comment.created_at_human}
               </div>
               <Link to={comment.user.link}>{comment.user.name}</Link>
-              <RichText contentHtml={comment.comment} content={comment.comment} />
+              <RichText
+                contentHtml={comment.comment}
+                content={comment.comment}
+              />
             </div>
           </div>
         )

@@ -25,9 +25,7 @@ export default Tabs = createReactClass({
     Materialize.Tabs.init(this.refs.tabs)
     // $(this.refs.tabs).tabs()
     // https://github.com/Dogfalo/materialize/issues/2102
-    $(document).on('materialize:modal:ready', () =>
-      $(window).trigger('resize')
-    )
+    $(document).on('materialize:modal:ready', () => $(window).trigger('resize'))
   },
   // We'll try this and see if it works.
   // window.dispatchEvent(new Event('resize'))

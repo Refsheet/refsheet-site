@@ -73,9 +73,7 @@ export default Input = createReactClass({
       //     }
       //   },
       // })
-
       // window.tcp = tcp
-
       // $(this.refs.input)
       //   .blur(() => tcp.colorPicker.$UI.hide())
       //   .focus(() => tcp.colorPicker.$UI.show())
