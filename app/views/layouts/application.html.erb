@@ -25,7 +25,7 @@
   <%= javascript_include_tag 'application' %>
   <% #= javascript_include_tag 'https://js.stripe.com/v2/' %>
   
-  <%- unless ENV['FEAT_GOOGLE_ADS'] == "off" %>
+  <%- unless ENV['FEAT_GOOGLE_ADS'] == "off" || Rails.env.test? %>
     <script type="text/javascript">
       window.initializeAds = function() {
         if (window.adsbygoogle) {

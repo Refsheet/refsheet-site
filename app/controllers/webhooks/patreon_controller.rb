@@ -5,7 +5,7 @@ class Webhooks::PatreonController < ApplicationController
   def create
     Rails.logger.tagged 'PATREON' do
       Rails.logger.info create_params.as_json
-      Patreon::Pledge.find_or_initialize_by(patreon_id: pledge_params[:patreon_id]).update_attributes(create_params)
+      Patreon::Pledge.find_or_initialize_by(patreon_id: pledge_params[:patreon_id]).update(create_params)
     end
 
     head :ok
@@ -15,11 +15,11 @@ class Webhooks::PatreonController < ApplicationController
 
   def create_params
     patron = Patreon::Patron.find_or_initialize_by(patreon_id: patron_params[:patreon_id])
-    patron.update_attributes(patron_params)
+    patron.update(patron_params)
 
     if reward_params
       reward = Patreon::Reward.find_or_initialize_by(patreon_id: reward_params[:patreon_id])
-      reward.update_attributes(reward_params)
+      reward.update(reward_params)
     else
       reward = nil
     end

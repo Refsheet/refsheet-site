@@ -54,7 +54,7 @@ class UsersController < ApplicationController
   def update
     head :unauthorized and return unless @user == current_user
 
-    if @user.update_attributes user_params
+    if @user.update user_params
       render json: @user, serializer: UserSerializer
     else
       render json: { errors: @user.errors }, status: :bad_request
