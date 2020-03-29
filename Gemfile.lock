@@ -156,6 +156,9 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (~> 1.5)
       xpath (~> 3.2)
+    capybara-screenshot (1.0.24)
+      capybara (>= 1.0, < 4)
+      launchy
     capybara-selenium (0.0.6)
       capybara
       selenium-webdriver
@@ -775,6 +778,7 @@ DEPENDENCIES
   bullet
   byebug
   capybara
+  capybara-screenshot
   capybara-selenium
   carrierwave
   chartkick

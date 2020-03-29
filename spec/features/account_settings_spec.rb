@@ -6,7 +6,7 @@ feature 'Account Settings', js: true do
 
   before(:each) do
     sign_in user if user
-    visit account_path(params)
+    visit "/account"
   end
 
   it 'renders' do
@@ -17,7 +17,7 @@ feature 'Account Settings', js: true do
     let(:user) { nil }
 
     it 'renders' do
-      expect(page).to have_content "Not authorized"
+      expect(page).to have_content "Signed out, redirecting..."
     end
   end
 end

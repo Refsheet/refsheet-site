@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'Messages Page', js: true do
+xfeature 'Messages Page', js: true do
   let(:params) { {} }
   let(:user) { create :user }
 

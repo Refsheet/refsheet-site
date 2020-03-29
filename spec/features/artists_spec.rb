@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'Artists Pages', js: true do
+xfeature 'Artists Pages', js: true do
   let(:params) { {} }
   let(:path) { artists_path(params) }
   let(:user) { create :user }
