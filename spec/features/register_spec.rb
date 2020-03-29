@@ -79,15 +79,15 @@ feature 'Register', js: true do
     try_register 'can\'t be blank'
   end
 
-  xcontext 'dob' do
-    scenario 'missing' do
-      enter dob: ''
-      try_register 'can\'t be blank'
-    end
-
-    scenario 'kiddo' do
-      enter dob: 12.years.ago
-      try_register 'must be 18 years or older'
-    end
-  end
+  # xcontext 'dob' do
+  #   scenario 'missing' do
+  #     enter dob: ''
+  #     try_register 'can\'t be blank'
+  #   end
+  #
+  #   scenario 'kiddo' do
+  #     enter dob: 12.years.ago
+  #     try_register 'must be 18 years or older'
+  #   end
+  # end
 end
