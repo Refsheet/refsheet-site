@@ -65,20 +65,20 @@ export default Input = createReactClass({
     }
 
     if (this.props.type === 'color') {
-      const tcp = $(this.refs.input).colorPicker({
-        doRender: false,
-        renderCallback: (e, toggle) => {
-          if (typeof toggle === 'undefined' && e.text) {
-            return this._handleInputChange({ target: { value: e.text } })
-          }
-        },
-      })
+      // const tcp = $(this.refs.input).colorPicker({
+      //   doRender: false,
+      //   renderCallback: (e, toggle) => {
+      //     if (typeof toggle === 'undefined' && e.text) {
+      //       return this._handleInputChange({ target: { value: e.text } })
+      //     }
+      //   },
+      // })
 
-      window.tcp = tcp
+      // window.tcp = tcp
 
-      $(this.refs.input)
-        .blur(() => tcp.colorPicker.$UI.hide())
-        .focus(() => tcp.colorPicker.$UI.show())
+      // $(this.refs.input)
+      //   .blur(() => tcp.colorPicker.$UI.hide())
+      //   .focus(() => tcp.colorPicker.$UI.show())
     }
 
     if (this.props.focusSelectAll) {

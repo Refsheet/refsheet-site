@@ -423,8 +423,8 @@ export default Lightbox = createReactClass({
               <RichText
                 className="image-caption"
                 onChange={captionCallback}
-                content={this.state.image.caption_html}
-                markup={this.state.image.caption}
+                contentHtml={this.state.image.caption_html}
+                content={this.state.image.caption}
                 placeholder="No caption."
               />
 

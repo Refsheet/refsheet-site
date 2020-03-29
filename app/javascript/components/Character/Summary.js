@@ -132,8 +132,8 @@ class Summary extends Component {
                 <H2>Important Notes</H2>
 
                 <RichText
-                  content={this.state.special_notes_html}
-                  markup={this.state.special_notes}
+                  contentHtml={this.state.special_notes_html}
+                  content={this.state.special_notes}
                   onChange={
                     editable ? this.handleNotesChange.bind(this) : undefined
                   }

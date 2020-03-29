@@ -105,8 +105,10 @@ export default DropzoneContainer = createReactClass({
   },
 
   render() {
-    console.warn("DropzoneContainer relies on jquery-dropzone which is no longer used in V2 JS pack. This component will do nothing now.")
-    return (this.props.children);
+    console.warn(
+      'DropzoneContainer relies on jquery-dropzone which is no longer used in V2 JS pack. This component will do nothing now.'
+    )
+    return this.props.children
 
     let className, dropZoneContent
     if (this.state.uploading) {

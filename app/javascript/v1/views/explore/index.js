@@ -17,7 +17,7 @@ import Container from '../../shared/material/Container'
 
 import $ from 'jquery'
 import StateUtils from '../../utils/StateUtils'
-import Gallery from "../../../components/Character/Gallery"
+import Gallery from '../../../components/Character/Gallery'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -124,7 +124,7 @@ export default Index = createReactClass({
           'Explore recent artwork uploads across all of Refsheet.net!'
     }
 
-    console.log(this.context);
+    console.log(this.context)
 
     return (
       <Main title={title}>

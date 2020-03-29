@@ -18,7 +18,7 @@ import Model from '../../utils/Model'
 import HashUtils from 'v1/utils/HashUtils'
 import GoogleAd from '../../../components/Shared/GoogleAd'
 import { div as Card } from '../../../components/Styled/Card'
-import StatusUpdate from "../../../components/ActivityFeed/StatusUpdate"
+import StatusUpdate from '../../../components/ActivityFeed/StatusUpdate'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
