@@ -32,6 +32,7 @@ import { base as debugTheme } from 'themes/debug'
 // Children
 import Layout from './Layout'
 import { Router as BrowserRouter } from 'react-router-dom'
+import { setCurrentUser } from '../../actions'
 
 reactGuard(React, (error, componentInfo) => {
   const errorString = `Failed to render <${componentInfo.displayName} />!`
@@ -205,12 +206,13 @@ class App extends Component {
   // TODO: Find which components are using this and send them to Redux.
   getChildContext() {
     const state = this.store.getState()
+    const store = this.store
 
     return {
       eagerLoad: this.eagerLoad,
       currentUser: (state.session || {}).currentUser,
       setCurrentUser: function(user) {
-        console.log({ user })
+        store.dispatch(setCurrentUser(user))
       },
     }
   }

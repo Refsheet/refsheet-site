@@ -14,6 +14,7 @@ import Form from '../../shared/forms/Form'
 import Input from '../../shared/forms/Input'
 import Submit from '../../shared/forms/Submit'
 import $ from 'jquery'
+import Flash from '../../../utils/Flash'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -46,13 +47,11 @@ const RegisterView = createReactClass({
       action: 'Sign Up',
     })
 
-    return this.context.setCurrentUser(user)
-  },
-
-  componentDidUpdate(oldProps) {
-    if (this.context.currentUser) {
-      return this.context.router.history.push('/')
-    }
+    Flash.info(
+      'Thank you for registering! Please check your email for confirmation.'
+    )
+    this.context.setCurrentUser(user)
+    this.context.router.history.push('/')
   },
 
   componentDidMount() {
