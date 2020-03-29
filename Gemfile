@@ -135,6 +135,7 @@ group :development, :test do
   gem 'bullet'
   gem 'byebug', platform: :mri
   gem 'capybara'
+  gem 'capybara-screenshot', require: false
   gem 'capybara-selenium'
   gem 'webdrivers'
   gem 'codecov', require: false

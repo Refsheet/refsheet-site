@@ -34,3 +34,7 @@ Capybara.configure do |config|
   config.raise_server_errors = true
   config.default_max_wait_time = 7.seconds
 end
+
+Capybara::Screenshot.register_driver(:headless_chrome) do |driver, path|
+  driver.browser.save_screenshot(path)
+end

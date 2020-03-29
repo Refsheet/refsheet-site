@@ -17,7 +17,7 @@ feature 'Notifications Page', js: true do
     let(:user) { nil }
 
     it 'renders' do
-      expect(page).to have_content "Not Authorized"
+      expect(page).to have_content "You need to be signed in"
     end
   end
 end
