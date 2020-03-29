@@ -128,15 +128,5 @@ describe '/characters' do
         expect(character.reload.name).to_not eq 'This is Updated'
       end
     end
-
-    context 'when admin' do
-      let(:active_user) { create :admin }
-
-      # TODO: Allow admins full control??
-      xit 'returns 200' do
-        expect(subject).to be_successful
-        expect(character.reload.name).to eq 'This is Updated'
-      end
-    end
   end
 end
