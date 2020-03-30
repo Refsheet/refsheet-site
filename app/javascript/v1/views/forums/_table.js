@@ -8,10 +8,10 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
+import Card from './_card'
 import Column from 'v1/shared/material/Column'
 import Row from 'v1/shared/material/Row'
 import StringUtils from '../../../utils/StringUtils'
-import Forums from 'v1/views/Forums'
 
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
@@ -26,7 +26,7 @@ const Table = function(props) {
 
   const forumCards = forums.map(forum => (
     <Column l={4} xl={3} key={forum.slug}>
-      <Forums.Card {...StringUtils.camelizeKeys(forum)} />
+      <Card {...StringUtils.camelizeKeys(forum)} />
     </Column>
   ))
 
