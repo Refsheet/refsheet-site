@@ -56,38 +56,48 @@
         %td
         %td.red-text.text-darkent-1.right-align{colspan: 3}= e
 
-:coffeescript
+:javascript
   Stripe.setPublishableKey('#{Rails.configuration.x.stripe['publishable_key']}')
 
-  $ ->
-    $('#new_payment').submit (e) ->
+  $(function() {
+    $('#new_payment').submit(function (e) {
       $form = $(this)
-      $form.find('input[type=submit]').prop 'disabled', true
+      $form.find('input[type=submit]').prop('disabled', true)
 
-      Stripe.card.createToken $form, (status, response) ->
-        if response.error
-          Materialize.toast response.error.message, 3000, 'red'
-          $form.find('input[type=submit]').prop 'disabled', false
+      Stripe.card.createToken($form, function(status, response) {
+        if (response.error) {
+          Materialize.toast(response.error.message, 3000, 'red')
+          $form.find('input[type=submit]').prop('disabled', false)
 
-        else
-          $('input#card_token').val response.id
+        } else {
+          $('input#card_token').val(response.id)
           $('[data-stripe]').remove()
           $form[0].submit()
+        }
+      });
 
       e.preventDefault()
-      false
+      return false
+    });
 
-    $('input[data-stripe=number]').keyup ->
+    $('input[data-stripe=number]').keyup(function() {
       cc = $(this).val().replace(/[^\d]/g, '').substring(0,16)
       $(this).val cc.match(/.{1,4}/g)?.join(' ')
-      $('input[data-stripe=exp-month]').focus() if cc.length == 16
+      if (cc.length === 16)
+        $('input[data-stripe=exp-month]').focus()
+    });
 
-    $('input[data-stripe=exp-month]').keyup ->
+    $('input[data-stripe=exp-month]').keyup(function() {
       cc = $(this).val().replace(/[^\d]/g, '').substring(0,2)
-      $(this).val cc
-      $('input[data-stripe=exp-year]').focus() if cc.length == 2
+      $(this).val(cc)
+      if (cc.length === 2)
+        $('input[data-stripe=exp-year]').focus()
+    });
 
-    $('input[data-stripe=exp-year]').keyup ->
+    $('input[data-stripe=exp-year]').keyup(function() {
       cc = $(this).val().replace(/[^\d]/g, '').substring(0,2)
-      $(this).val cc
-      $('input[data-stripe=cvv]').focus() if cc.length == 2
+      $(this).val(cc)
+      if (cc.length === 2)
+        $('input[data-stripe=cvv]').focus()
+    });
+  })

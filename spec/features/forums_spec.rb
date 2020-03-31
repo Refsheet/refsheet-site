@@ -61,4 +61,8 @@ feature 'Forums', js: true do
       end
     end
   end
+
+  describe 'V2' do
+
+  end
 end
