@@ -71,76 +71,89 @@
 
       = f.submit 'Become Seller', class: 'btn'
 
-:coffeescript
+:javascript
   Stripe.setPublishableKey('#{Rails.configuration.x.stripe['publishable_key']}')
 
-  $ ->
-    $('#new_stripe_bank_account').submit (e) ->
-      e.preventDefault()
+  /*
+   * decaffeinate suggestions:
+   * DS102: Remove unnecessary code created because of implicit returns
+   * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+   */
+  $(function() {
+    $('#new_stripe_bank_account').submit(function(e) {
+      e.preventDefault();
 
-      $form = $(this)
-      $form.find('input[type=submit]').prop 'disabled', true
+      const $form = $(this);
+      $form.find('input[type=submit]').prop('disabled', true);
 
-      Stripe.bankAccount.createToken $form, (status, response) ->
-        console.log response
+      Stripe.bankAccount.createToken($form, function(status, response) {
+        console.log(response);
 
-        if response.error
-          Materialize.toast response.error.message, 3000, 'red'
-          $form.find('input[type=submit]').prop 'disabled', false
+        if (response.error) {
+          Materialize.toast(response.error.message, 3000, 'red');
+          return $form.find('input[type=submit]').prop('disabled', false);
 
-        else
-          $('input#bank_account_token').val response.id
-          $('[data-stripe]').remove()
-          Materialize.toast 'Tokenized Bank Account: ' + response.id
-          $form[0].submit()
+        } else {
+          $('input#bank_account_token').val(response.id);
+          $('[data-stripe]').remove();
+          Materialize.toast('Tokenized Bank Account: ' + response.id);
+          return $form[0].submit();
+        }
+      });
 
-      false
+      return false;
+    });
 
-    $('#edit_seller').submit (e) ->
-      e.preventDefault()
+    $('#edit_seller').submit(function(e) {
+      e.preventDefault();
 
-      $form = $(this)
-      $form.find('input[type=submit]').prop 'disabled', true
+      const $form = $(this);
+      $form.find('input[type=submit]').prop('disabled', true);
 
-      Stripe.pii.createToken $form, (status, response) ->
-        console.log response
+      Stripe.pii.createToken($form, function(status, response) {
+        console.log(response);
 
-        if response.error
-          Materialize.toast response.error.message, 3000, 'red'
-          $form.find('input[type=submit]').prop 'disabled', false
+        if (response.error) {
+          Materialize.toast(response.error.message, 3000, 'red');
+          return $form.find('input[type=submit]').prop('disabled', false);
 
-        else
-          $('input#personal_id_token').val response.id
-          $('[data-stripe]').remove()
-          Materialize.toast 'Tokenized SSN: ' + response.id
-          $form[0].submit()
+        } else {
+          $('input#personal_id_token').val(response.id);
+          $('[data-stripe]').remove();
+          Materialize.toast('Tokenized SSN: ' + response.id);
+          return $form[0].submit();
+        }
+      });
 
-      false
+      return false;
+    });
 
-    $('#personal_id_number')
-    .keydown (e) ->
-      joinstr = '-'
-      lastchars = @value.substr(0 - joinstr.length)
-      bksp = e.keyCode == 8 && lastchars == joinstr
-      console.log { bksp, lastchars, joinstr }
+    return $('#personal_id_number')
+    .keydown(function(e) {
+      const joinstr = '-';
+      const lastchars = this.value.substr(0 - joinstr.length);
+      const bksp = (e.keyCode === 8) && (lastchars === joinstr);
+      console.log({ bksp, lastchars, joinstr });
 
-      @value = @value.substr(0, @value.length - joinstr.length) if bksp
+      if (bksp) { return this.value = this.value.substr(0, this.value.length - joinstr.length); }}).keyup(function(e) {
+      const sizes = [3, 2, 4];
+      const maxlen = sizes.reduce(((a, b) => a+b), 0);
+      const joinstr = '-';
 
-    .keyup (e) ->
-      sizes = [3, 2, 4]
-      maxlen = sizes.reduce(((a,b) -> a+b), 0)
-      joinstr = '-'
+      let val = this.value.replace(/\D/g, '').substr(0, maxlen);
+      let newVal = '';
 
-      val = @value.replace(/\D/g, '').substr(0, maxlen)
-      newVal = ''
+      for (let i in sizes) {
+        if (val.length >= sizes[i]) {
+          newVal += val.substr(0, sizes[i]);
+          if (i < (sizes.length - 1)) { newVal += joinstr; }
+          val = val.substr(sizes[i]);
+        } else {
+          break;
+        }
+      }
 
-      for i of sizes
-        if val.length >= sizes[i]
-          newVal += val.substr(0, sizes[i])
-          newVal += joinstr if i < sizes.length - 1
-          val = val.substr(sizes[i])
-        else
-          break
-
-      newVal += val
-      @value = newVal
+      newVal += val;
+      return this.value = newVal;
+    });
+  });
