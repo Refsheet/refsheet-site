@@ -25,7 +25,11 @@ export default Submit = function(props) {
   }
 
   return (
-    <button type={props.type || 'submit'} className={classNames.join(' ')} id={props.id}>
+    <button
+      type={props.type || 'submit'}
+      className={classNames.join(' ')}
+      id={props.id}
+    >
       {props.children || 'Submit'}
     </button>
   )
