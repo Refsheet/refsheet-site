@@ -1,5 +1,9 @@
 module SessionHelper
   def sign_in(user, remember: true)
+    if user.nil?
+      return
+    end
+
     session[UserSession::COOKIE_USER_ID_NAME] = user.id
     session[:nsfw_ok] = !!user.settings(:view)[:nsfw_ok]
 
