@@ -1,8 +1,8 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
   # Test gcloud logging
-  config.google_cloud.use_logging = false
-  config.google_cloud.use_trace = false
+  # config.google_cloud.use_logging = false
+  # config.google_cloud.use_trace = false
 
   # The test environment is used exclusively to run your application's
   # test suite. You never need to work with it otherwise. Remember that

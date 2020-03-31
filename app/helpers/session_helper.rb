@@ -158,7 +158,7 @@ module SessionHelper
       if serializer.nil?
         value = resource
       elsif resource.is_a? ActiveRecord::Relation
-        value = ActiveModel::SerializableResource.new(resource, each_serializer: serializer, scope: view_context)
+        value = ActiveModelSerializers::SerializableResource.new(resource, each_serializer: serializer, scope: view_context)
       else
         value = serializer.new(resource, scope: view_context)
       end

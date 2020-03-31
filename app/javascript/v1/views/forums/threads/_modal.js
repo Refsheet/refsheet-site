@@ -72,7 +72,7 @@ export default ThreadModal = createReactClass({
           />
 
           <Row className="actions right-align" oneColumn>
-            <Submit>Start Thread</Submit>
+            <Submit id={"thread_submit"}>Start Thread</Submit>
           </Row>
         </Form>
       </Modal>
