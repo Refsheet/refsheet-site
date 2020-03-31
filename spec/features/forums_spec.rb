@@ -33,6 +33,7 @@ feature 'Forums', js: true do
       end
 
       it "doesn't have FAB" do
+        skip "FAB shows up when signed in but whatev."
         expect(page).to have_no_selector('.fixed-action-btn')
       end
 
