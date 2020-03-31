@@ -24,6 +24,10 @@ class ForumsSerializer < ActiveModel::Serializer
              :thread_count,
              :path
 
+  def thread_count
+    object.discussions_count
+  end
+
   def path
     "/forums/#{object.slug}"
   end

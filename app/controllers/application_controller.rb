@@ -230,7 +230,11 @@ class ApplicationController < ActionController::Base
   end
 
   def tag_logs(&block)
-    Google::Cloud::Trace.in_span("#{params[:controller]}##{params[:action]}") do
+    if defined? Google
+      Google::Cloud::Trace.in_span("#{params[:controller]}##{params[:action]}") do
+        Rails.logger.tagged("#{params[:controller]}##{params[:action]}", &block)
+      end
+    else
       Rails.logger.tagged("#{params[:controller]}##{params[:action]}", &block)
     end
   end

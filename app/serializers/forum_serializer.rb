@@ -45,9 +45,13 @@ class ForumSerializer < ActiveModel::Serializer
   # has_many :threads, serializer: Forum::ThreadsSerializer
 
   def threads
-    object.threads.with_unread_count(scope.current_user).with_last_post_at.collect do |thread|
-      Forum::ThreadsSerializer.new thread, scope: scope
+    object.discussions.with_unread_count(scope.current_user).with_last_post_at.collect do |discussion|
+      Forum::ThreadsSerializer.new discussion, scope: scope
     end
+  end
+
+  def thread_count
+    object.discussions_count
   end
 
   def path

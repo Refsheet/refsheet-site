@@ -8,7 +8,7 @@ class Forum::ThreadsController < ApplicationController
 
   def show
     @thread = @forum
-                  .threads
+                  .discussions
                   .includes(:user, posts: [:user, :forum, :character])
                   .with_unread_count(current_user)
                   .lookup! params[:id]
