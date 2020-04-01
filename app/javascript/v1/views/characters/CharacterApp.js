@@ -248,12 +248,6 @@ const Component = createReactClass({
     ).open()
   },
 
-  handleDropzoneUpload(data) {
-    const i = this.state.images
-    i.push(data)
-    return this.setState({ images: i })
-  },
-
   _handleGalleryLoad(data) {
     return this.setState({ images: data })
   },
@@ -313,12 +307,10 @@ const Component = createReactClass({
 
       if (this.state.editable) {
         editable = true
-        const dropzoneUpload = this.handleDropzoneUpload
         profileChange = this.handleProfileChange
         likesChange = this.handleLikesChange
         dislikesChange = this.handleDislikesChange
         headerImageEditCallback = this.handleHeaderImageEdit
-        const dropzoneTriggerId = ['#image-upload']
       }
     }
 
