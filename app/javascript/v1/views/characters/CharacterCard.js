@@ -135,7 +135,7 @@ export default CharacterCard = createReactClass({
           <div className="important-notes margin-top--large margin-bottom--medium">
             <h2>Important Notes</h2>
             <RichText
-              contentHtml={this.state.character.special_notes_html}
+              contentHtml={this.state.character.special_notes_html || ''}
               content={this.state.character.special_notes}
               onChange={notesUpdate}
             />
