@@ -1,0 +1,34 @@
+query getCharacterImages($username: String!, $slug: String!) {
+    getCharacterByUrl(username: $username, slug: $slug) {
+        id
+        images {
+            id
+            title
+            nsfw
+            hidden
+            background_color
+            aspect_ratio
+            comments_count
+            favorites_count
+            image_processing
+            is_favorite
+            is_managed
+            width
+            height
+            url {
+                small
+                medium
+            }
+            size {
+                small {
+                    width
+                    height
+                }
+                medium {
+                    width
+                    height
+                }
+            }
+        }
+    }
+}

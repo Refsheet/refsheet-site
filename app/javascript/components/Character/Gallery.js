@@ -31,8 +31,8 @@ const Gallery = function({ v1Data, noHeader, images, openUploadModal }) {
   }
 
   const galleryTabs = [
-    { id: 'baz', title: 'Scraps' },
-    { id: 'bar', title: 'Hidden' },
+    // { id: 'baz', title: 'Scraps' },
+    // { id: 'bar', title: 'Hidden' },
   ]
 
   const galleryActions = [
@@ -84,10 +84,19 @@ var renderGallery = images =>
 Gallery.propTypes = {
   v1Data: PropTypes.bool,
   noHeader: PropTypes.bool,
+  loading: PropTypes.bool,
+  folders: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      id: PropTypes.string,
+      slug: PropTypes.string,
+      description: PropTypes.string,
+    })
+  ),
   images: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
-      aspect_ratio: PropTypes.number.isRequired,
+      aspect_ratio: PropTypes.number,
       url: PropTypes.shape({
         small: PropTypes.string.isRequired,
       }).isRequired,

@@ -4,6 +4,7 @@ import xmljs from 'xml-js'
 // TODO: Make this a mutation too, it deserves it.
 import getImageUploadToken from 'graphql/queries/getImageUploadToken.graphql'
 import uploadImage from 'graphql/mutations/uploadImage.graphql'
+import gql from 'graphql-tag'
 
 class ImageHandler {
   static upload(image, characterId, onChange) {
@@ -102,7 +103,37 @@ class ImageHandler {
 
     console.debug('Telling Refsheet all about this!', variables)
 
-    return client.mutate({ mutation: uploadImage, variables })
+    return client.mutate({
+      mutation: uploadImage,
+      variables,
+      update: (store, { data: { uploadImage } }) => {
+        console.log('Updating Apollo cache: ', uploadImage)
+        const fragment = gql`
+          fragment getCharacterImages on Character {
+            id
+            images {
+              id
+            }
+          }
+        `
+
+        let data = store.readFragment({
+          fragment,
+          id: 'Character:' + uploadImage.character.id,
+        })
+
+        console.log('Read fragment: ', { data, store, fragment })
+
+        data.images.push(uploadImage)
+        console.log({ data })
+
+        store.writeFragment({
+          fragment,
+          id: 'Character:' + uploadImage.character.id,
+          data: data,
+        })
+      },
+    })
   }
 
   finalize(response) {

@@ -34,6 +34,9 @@ import RichText from '../../../components/Shared/RichText'
 import Character from 'components/Character'
 import $ from 'jquery'
 import StateUtils from '../../utils/StateUtils'
+import Gallery from '../../../components/Character/Gallery'
+import { Query } from 'react-apollo'
+import getCharacterImages from './getCharacterImages.graphql'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -260,7 +263,16 @@ const Component = createReactClass({
   },
 
   _openUploads() {
-    return this.props.openUploadModal()
+    return this.props.openUploadModal({
+      characterId: this.state.character && this.state.character.id,
+    })
+  },
+
+  renderGallery({ data, loading, error }) {
+    const images =
+      (data.getCharacterByUrl && data.getCharacterByUrl.images) || []
+
+    return <Gallery images={images} loading={loading} />
   },
 
   render() {
@@ -433,7 +445,7 @@ const Component = createReactClass({
                 <RichText
                   placeholder="No biography written."
                   onChange={profileChange}
-                  contentHtml={this.state.character.profile_html}
+                  contentHtml={this.state.character.profile_html || ''}
                   content={this.state.character.profile}
                 />
               </div>
@@ -446,7 +458,7 @@ const Component = createReactClass({
                 <RichText
                   placeholder="No likes specified."
                   onChange={likesChange}
-                  contentHtml={this.state.character.likes_html}
+                  contentHtml={this.state.character.likes_html || ''}
                   content={this.state.character.likes}
                 />
               </div>
@@ -457,7 +469,7 @@ const Component = createReactClass({
                 <RichText
                   placeholder="No dislikes specified."
                   onChange={dislikesChange}
-                  contentHtml={this.state.character.dislikes_html}
+                  contentHtml={this.state.character.dislikes_html || ''}
                   content={this.state.character.dislikes}
                 />
               </div>
@@ -466,12 +478,12 @@ const Component = createReactClass({
         </Section>
 
         <Section className="margin-bottom--large">
-          <ImageGallery
-            editable={editable}
-            imagesPath={this.state.character.path + '/images/'}
-            images={this.state.images}
-            onImagesLoad={this._handleGalleryLoad}
-          />
+          <Query
+            query={getCharacterImages}
+            variables={{ slug: 'asdfasdf', username: 'administrator' }}
+          >
+            {this.renderGallery}
+          </Query>
         </Section>
       </Main>
     )
