@@ -21,7 +21,7 @@ class ConversationMenu extends Component {
     const { openConversation } = this.props
 
     const click = e => {
-      e.preventDefault()
+      e && e.preventDefault && e.preventDefault()
       openConversation(c.guid)
     }
 
