@@ -12,7 +12,7 @@
 
 - V1 character galleries now use the V2 image gallery component. For now, the top-3 feature is removed,
   but the images will now auto-update when processing is done.
-
+- Text modules in V1 profiles now use the V2 profile widget, kinda. This means you get the fun markdown editor.
 
 # 03/08/2020
 
