@@ -136,6 +136,7 @@ const renderAction = ({ title, id, onClick, icon, hide }, i) => {
       className="btn btn-flat"
       onClick={actionHandler(onClick, id)}
       key={i}
+      id={id}
     >
       {icon && <Icon className={title ? 'left' : ''}>{icon}</Icon>}
       {title}

@@ -13,6 +13,19 @@ import introspectionQueryResultData from '../config/fragmentTypes.json'
 
 const cable = createConsumer()
 
+export const csrf = function() {
+  const meta = document.getElementsByName('csrf-token')[0]
+
+  if (!meta) {
+    console.warn('CSRF Meta tag not found!')
+    return {}
+  }
+
+  return {
+    'X-CSRF-Token': meta.content,
+  }
+}
+
 const HOST =
   (window && window.location && window.location.origin) ||
   'http://dev1.refsheet.net:5000'
@@ -31,7 +44,7 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      'X-CSRF-Token': document.getElementsByName('csrf-token')[0].content,
+      ...csrf(),
       Accept: 'application/json',
     },
   }

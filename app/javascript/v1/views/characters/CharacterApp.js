@@ -258,13 +258,13 @@ const Component = createReactClass({
 
   _openUploads() {
     return this.props.openUploadModal({
-      characterId: this.state.character && this.state.character.id,
+      characterId: this.state.character && this.state.character.real_id,
     })
   },
 
   renderGallery({ data, loading, error }) {
     const images =
-      (data.getCharacterByUrl && data.getCharacterByUrl.images) || []
+      (data && data.getCharacterByUrl && data.getCharacterByUrl.images) || []
 
     return <Gallery images={images} loading={loading} />
   },

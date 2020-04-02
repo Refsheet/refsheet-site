@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import JustifiedLayout from 'react-justified-layout'
 import Measure from 'react-measure'
-import Section from 'Shared/Section'
-import Thumbnail from 'Image/Thumbnail'
+import Section from 'components/Shared/Section'
+import Thumbnail from 'components/Image/Thumbnail'
 import compose from '../../utils/compose'
 import { connect } from 'react-redux'
 import { openUploadModal } from '../../actions'
@@ -36,7 +36,12 @@ const Gallery = function({ v1Data, noHeader, images, openUploadModal }) {
   ]
 
   const galleryActions = [
-    { icon: 'file_upload', title: 'Upload', onClick: openUploadModal },
+    {
+      icon: 'file_upload',
+      title: 'Upload',
+      id: 'galleryUpload',
+      onClick: openUploadModal,
+    },
   ]
 
   return (

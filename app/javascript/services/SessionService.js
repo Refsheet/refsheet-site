@@ -1,12 +1,7 @@
 import superagent from 'superagent'
+import { csrf } from './ApplicationService'
 
 const SESSION_PATH = '/session'
-
-const csrf = function() {
-  return {
-    'X-CSRF-Token': document.getElementsByName('csrf-token')[0].content,
-  }
-}
 
 const SessionService = {
   login: function(username, password) {
