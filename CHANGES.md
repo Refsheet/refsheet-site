@@ -6,7 +6,8 @@
 
 ## Bug Fixes
 
-- Fixed a bug where conversations couldn't open when you clicked them
+- Fixed a bug where conversations couldn't open when you clicked them.
+- Fixed some pages causing an "Aw, Snap!" error in Chrome. Hopefully.
 
 ## Major Things
 

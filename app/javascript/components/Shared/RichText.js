@@ -12,6 +12,7 @@ import MarkdownEditor from './MarkdownEditor'
 import c from 'classnames'
 import * as Showdown from 'showdown'
 import Button from '../../v1/shared/material/Button'
+import WindowAlert from '../../utils/WindowAlert'
 
 class RichText extends Component {
   constructor(props) {
@@ -23,6 +24,8 @@ class RichText extends Component {
     this.state = {
       content: props.content,
       editing: false,
+      saving: false,
+      dirty: false,
     }
 
     this.Showdown = new Showdown.Converter({
@@ -33,21 +36,47 @@ class RichText extends Component {
     })
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.dirty !== prevState.dirty) {
+      const dirtyKey = 'richtext:' + this.props.name
+      if (this.state.dirty) {
+        WindowAlert.dirty(dirtyKey)
+      } else {
+        WindowAlert.clean(dirtyKey)
+      }
+    }
+  }
+
   UNSAFE_componentWillReceiveProps(newProps) {
     if (this.state.content !== newProps.content) {
-      return this.setState({ content: newProps.content })
+      return this.setState({ content: newProps.content, dirty: false })
     }
   }
 
   handleSubmit(e) {
     e.preventDefault()
+
     const data = {}
-    data[this.props.name] = this.state.content
-    return this.props.onChange(data)
+    data[this.props.name || 'value'] = this.state.content
+
+    return this.props
+      .onChange(data)
+      .then(newData => {
+        this.setState({
+          content: newData[this.props.name],
+          editing: false,
+          dirty: false,
+          saving: false,
+        })
+      })
+      .catch(e => {
+        this.setState({ saving: false })
+        console.error(e)
+      })
   }
 
   handleMarkdownChange(name, content) {
-    this.setState({ content })
+    this.setState({ content, dirty: true })
   }
 
   handleChange(e) {
@@ -80,7 +109,7 @@ class RichText extends Component {
 
   handleEditStop(e) {
     e.preventDefault()
-    this.setState({ editing: false })
+    this.setState({ editing: false, dirty: false, content: this.props.content })
   }
 
   render() {
@@ -113,9 +142,9 @@ class RichText extends Component {
               style={{
                 height: '3.2rem',
                 padding: '1rem',
-                margin: '-1rem',
+                margin: '-1rem' + (this.props.renderAsCard ? '' : ' 0 -1rem 0'),
                 lineHeight: '1.2rem',
-                borderRadius: 0,
+                borderRadius: this.props.renderAsCard ? 0 : undefined,
               }}
               data-test-id={'rt-cancel'}
               onClick={this.handleEditStop.bind(this)}
@@ -135,7 +164,7 @@ class RichText extends Component {
           </div>
 
           <MarkdownEditor
-            content={this.state.content}
+            content={this.state.content || ''}
             onChange={this.handleMarkdownChange.bind(this)}
           />
 
@@ -154,6 +183,8 @@ class RichText extends Component {
       )
     }
 
+    const contentPresent = content && /\S/.test(content)
+
     // TODO: Don't DangerouslySet, but use a proper render function. Yes, this broke Hashtags.
     return (
       <div className={outerClassNames.join(' ')}>
@@ -165,9 +196,10 @@ class RichText extends Component {
                 style={{
                   height: '3.2rem',
                   padding: '1rem',
-                  margin: '-1rem',
+                  margin:
+                    '-1rem' + (this.props.renderAsCard ? '' : ' 0 -1rem 0'),
                   lineHeight: '1.2rem',
-                  borderRadius: 0,
+                  borderRadius: this.props.renderAsCard ? 0 : undefined,
                 }}
                 onClick={this.handleEditClick.bind(this)}
                 data-test-id={'rt-edit'}
@@ -189,7 +221,7 @@ class RichText extends Component {
         )}
 
         <div className={bodyClassNames.join(' ')}>
-          {content && content.length > 0 ? (
+          {contentPresent ? (
             <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
           ) : (
             <p className="caption">

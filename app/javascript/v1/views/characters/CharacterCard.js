@@ -57,23 +57,25 @@ export default CharacterCard = createReactClass({
     })
   },
 
-  handleSpecialNotesChange(markup, onSuccess, onError) {
-    return $.ajax({
-      url: this.state.character.path,
-      type: 'PATCH',
-      data: { character: { special_notes: markup } },
-      success: data => {
-        this.setState({ character: data })
-        return onSuccess()
-      },
+  handleSpecialNotesChange(data) {
+    return new Promise((resolve, reject) => {
+      $.ajax({
+        url: this.state.character.path,
+        type: 'PATCH',
+        data: { character: data },
+        success: data => {
+          this.setState({ character: data })
+          resolve(data)
+        },
 
-      error: error => {
-        return onError(
-          error.JSONData != null
-            ? error.JSONData.errors['special_notes']
-            : undefined
-        )
-      },
+        error: error => {
+          reject(
+            error.JSONData != null
+              ? error.JSONData.errors['special_notes']
+              : undefined
+          )
+        },
+      })
     })
   },
 
@@ -102,6 +104,7 @@ export default CharacterCard = createReactClass({
 
   render() {
     let attributeUpdate, editable, nickname, notesUpdate
+
     if (this.props.edit) {
       attributeUpdate = this.handleAttributeChange
       notesUpdate = this.handleSpecialNotesChange
@@ -136,6 +139,7 @@ export default CharacterCard = createReactClass({
             <RichText
               title={'Important Notes'}
               slim
+              name={'special_notes'}
               contentHtml={this.state.character.special_notes_html || ''}
               content={this.state.character.special_notes}
               onChange={notesUpdate}
