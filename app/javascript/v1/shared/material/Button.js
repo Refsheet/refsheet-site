@@ -21,6 +21,7 @@ export default Button = function(props) {
     noWaves,
     className,
     target,
+    ...others
   } = props
 
   const classNames = ['btn']
@@ -43,6 +44,7 @@ export default Button = function(props) {
       href={href}
       onClick={onClick}
       target={target}
+      {...others}
     >
       {children}
     </a>

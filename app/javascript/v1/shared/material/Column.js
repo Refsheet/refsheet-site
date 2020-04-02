@@ -24,5 +24,9 @@ export default Column = function(props) {
     }
   }
 
-  return <div className={classes.join(' ')}>{props.children}</div>
+  return (
+    <div className={classes.join(' ')} id={props.id} style={props.style}>
+      {props.children}
+    </div>
+  )
 }

@@ -6,6 +6,18 @@ def wait_until
   end
 end
 
+def find_testid(testid)
+  find("[data-testid=\"#{testid}\"]")
+end
+
+def expect_testid(testid)
+  expect(page).to have_css("[data-testid=\"#{testid}\"]")
+end
+
+def expect_no_testid(testid)
+  expect(page).to have_no_css("[data-testid=\"#{testid}\"]")
+end
+
 class JavascriptError < StandardError; end
 
 Webdrivers::Chromedriver.required_version = "79.0.3945.36"
