@@ -6,7 +6,7 @@
 
 ## Bug Fixes
 
-- 
+- Fixed a bug where conversations couldn't open when you clicked them
 
 ## Major Things
 
