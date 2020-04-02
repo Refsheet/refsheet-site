@@ -1,3 +1,19 @@
+# TDB
+
+## Active Projects
+
+- Moving old JavaScript to new bundle
+
+## Bug Fixes
+
+- 
+
+## Major Things
+
+- V1 character galleries now use the V2 image gallery component. For now, the top-3 feature is removed,
+  but the images will now auto-update when processing is done.
+
+
 # 03/08/2020
 
 ## Active Projects
