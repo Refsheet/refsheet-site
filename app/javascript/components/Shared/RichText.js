@@ -8,6 +8,10 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import replace from 'react-string-replace'
 import { Link } from 'react-router-dom'
+import MarkdownEditor from './MarkdownEditor'
+import c from 'classnames'
+import * as Showdown from 'showdown'
+import Button from '../../v1/shared/material/Button'
 
 class RichText extends Component {
   constructor(props) {
@@ -15,7 +19,18 @@ class RichText extends Component {
 
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
-    this.state = { content: props.content }
+
+    this.state = {
+      content: props.content,
+      editing: false,
+    }
+
+    this.Showdown = new Showdown.Converter({
+      tables: true,
+      simplifiedAutoLink: true,
+      strikethrough: true,
+      tasklists: true,
+    })
   }
 
   UNSAFE_componentWillReceiveProps(newProps) {
@@ -29,6 +44,10 @@ class RichText extends Component {
     const data = {}
     data[this.props.name] = this.state.content
     return this.props.onChange(data)
+  }
+
+  handleMarkdownChange(name, content) {
+    this.setState({ content })
   }
 
   handleChange(e) {
@@ -54,8 +73,25 @@ class RichText extends Component {
     return filtered
   }
 
+  handleEditClick(e) {
+    e.preventDefault()
+    this.setState({ editing: true })
+  }
+
+  handleEditStop(e) {
+    e.preventDefault()
+    this.setState({ editing: false })
+  }
+
   render() {
-    const { contentHtml, title, placeholder } = this.props
+    const {
+      contentHtml,
+      title,
+      placeholder,
+      onChange,
+      titleComponent: Title = 'h2',
+    } = this.props
+
     const { content } = this.state
 
     const outerClassNames = []
@@ -68,12 +104,87 @@ class RichText extends Component {
       bodyClassNames.push('card-content')
     }
 
+    if (this.state.editing) {
+      return (
+        <div className={c('editing', outerClassNames)}>
+          <div className={headerClassNames.join(' ')}>
+            <a
+              className={'right btn btn-flat'}
+              style={{
+                height: '3.2rem',
+                padding: '1rem',
+                margin: '-1rem',
+                lineHeight: '1.2rem',
+                borderRadius: 0,
+              }}
+              data-test-id={'rt-cancel'}
+              onClick={this.handleEditStop.bind(this)}
+            >
+              <i
+                className={'material-icons'}
+                style={{
+                  height: '1.2rem',
+                  lineHeight: '1.2rem',
+                }}
+              >
+                cancel
+              </i>
+            </a>
+
+            <Title>{title}</Title>
+          </div>
+
+          <MarkdownEditor
+            content={this.state.content}
+            onChange={this.handleMarkdownChange.bind(this)}
+          />
+
+          <div className={'card-action'}>
+            <div className={'right-align'}>
+              <Button
+                onClick={this.handleSubmit.bind(this)}
+                data-test-id={'rt-save'}
+              >
+                <i className={'material-icons left'}>save</i>
+                Save
+              </Button>
+            </div>
+          </div>
+        </div>
+      )
+    }
+
     // TODO: Don't DangerouslySet, but use a proper render function. Yes, this broke Hashtags.
     return (
       <div className={outerClassNames.join(' ')}>
-        {title && (
+        {(title || onChange) && (
           <div className={headerClassNames.join(' ')}>
-            <h2>{title}</h2>
+            {onChange && (
+              <a
+                className={'right btn btn-flat'}
+                style={{
+                  height: '3.2rem',
+                  padding: '1rem',
+                  margin: '-1rem',
+                  lineHeight: '1.2rem',
+                  borderRadius: 0,
+                }}
+                onClick={this.handleEditClick.bind(this)}
+                data-test-id={'rt-edit'}
+              >
+                <i
+                  className={'material-icons'}
+                  style={{
+                    height: '1.2rem',
+                    lineHeight: '1.2rem',
+                  }}
+                >
+                  edit
+                </i>
+              </a>
+            )}
+
+            <Title>{title}</Title>
           </div>
         )}
 
@@ -95,7 +206,10 @@ RichText.propTypes = {
   contentHtml: PropTypes.string.isRequired,
   content: PropTypes.string,
   title: PropTypes.string,
+  titleComponent: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   placeholder: PropTypes.string,
+  onChange: PropTypes.func,
+  name: PropTypes.string,
 }
 
 export default RichText

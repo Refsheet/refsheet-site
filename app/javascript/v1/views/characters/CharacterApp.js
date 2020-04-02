@@ -432,39 +432,36 @@ const Component = createReactClass({
         <Section>
           <Row className="rowfix">
             <Column m={12}>
-              <div className="card-panel margin--none">
-                <h1>About {this.state.character.name}</h1>
-                <RichText
-                  placeholder="No biography written."
-                  onChange={profileChange}
-                  contentHtml={this.state.character.profile_html || ''}
-                  content={this.state.character.profile}
-                />
-              </div>
+              <RichText
+                renderAsCard
+                title={`About ${this.state.character.name}`}
+                placeholder="No biography written."
+                onChange={profileChange}
+                contentHtml={this.state.character.profile_html || ''}
+                content={this.state.character.profile}
+              />
             </Column>
           </Row>
           <Row className="rowfix">
             <Column m={6}>
-              <div className="card-panel margin--none">
-                <h2>Likes</h2>
-                <RichText
-                  placeholder="No likes specified."
-                  onChange={likesChange}
-                  contentHtml={this.state.character.likes_html || ''}
-                  content={this.state.character.likes}
-                />
-              </div>
+              <RichText
+                renderAsCard
+                title={'Likes'}
+                placeholder="No likes specified."
+                onChange={likesChange}
+                contentHtml={this.state.character.likes_html || ''}
+                content={this.state.character.likes}
+              />
             </Column>
             <Column m={6}>
-              <div className="card-panel margin--none">
-                <h2>Dislikes</h2>
-                <RichText
-                  placeholder="No dislikes specified."
-                  onChange={dislikesChange}
-                  contentHtml={this.state.character.dislikes_html || ''}
-                  content={this.state.character.dislikes}
-                />
-              </div>
+              <RichText
+                renderAsCard
+                title={'Dislikes'}
+                placeholder="No dislikes specified."
+                onChange={dislikesChange}
+                contentHtml={this.state.character.dislikes_html || ''}
+                content={this.state.character.dislikes}
+              />
             </Column>
           </Row>
         </Section>

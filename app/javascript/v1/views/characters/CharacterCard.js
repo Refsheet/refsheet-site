@@ -133,8 +133,9 @@ export default CharacterCard = createReactClass({
 
         {(this.state.character.special_notes || editable) && (
           <div className="important-notes margin-top--large margin-bottom--medium">
-            <h2>Important Notes</h2>
             <RichText
+              title={'Important Notes'}
+              slim
               contentHtml={this.state.character.special_notes_html || ''}
               content={this.state.character.special_notes}
               onChange={notesUpdate}
