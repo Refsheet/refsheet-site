@@ -397,7 +397,7 @@ const Component = createReactClass({
 
         <Section>
           <Row className="rowfix">
-            <Column m={12}>
+            <Column m={12} id={'profile_about'}>
               <RichText
                 renderAsCard
                 name="profile"
@@ -410,7 +410,7 @@ const Component = createReactClass({
             </Column>
           </Row>
           <Row className="rowfix">
-            <Column m={6}>
+            <Column m={6} id={'profile_likes'}>
               <RichText
                 renderAsCard
                 title={'Likes'}
@@ -421,7 +421,7 @@ const Component = createReactClass({
                 content={this.state.character.likes}
               />
             </Column>
-            <Column m={6}>
+            <Column m={6} id={'profile_dislikes'}>
               <RichText
                 renderAsCard
                 title={'Dislikes'}

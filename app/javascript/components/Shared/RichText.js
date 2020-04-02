@@ -146,7 +146,7 @@ class RichText extends Component {
                 lineHeight: '1.2rem',
                 borderRadius: this.props.renderAsCard ? 0 : undefined,
               }}
-              data-test-id={'rt-cancel'}
+              data-testid={'rt-cancel'}
               onClick={this.handleEditStop.bind(this)}
             >
               <i
@@ -172,7 +172,7 @@ class RichText extends Component {
             <div className={'right-align'}>
               <Button
                 onClick={this.handleSubmit.bind(this)}
-                data-test-id={'rt-save'}
+                data-testid={'rt-save'}
               >
                 <i className={'material-icons left'}>save</i>
                 Save
@@ -202,7 +202,7 @@ class RichText extends Component {
                   borderRadius: this.props.renderAsCard ? 0 : undefined,
                 }}
                 onClick={this.handleEditClick.bind(this)}
-                data-test-id={'rt-edit'}
+                data-testid={'rt-edit'}
               >
                 <i
                   className={'material-icons'}
