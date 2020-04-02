@@ -188,48 +188,20 @@ const Component = createReactClass({
     })
   },
 
-  handleProfileChange(data, onSuccess, onError) {
-    return $.ajax({
-      url: this.state.character.path,
-      data: { character: { profile: data } },
-      type: 'PATCH',
-      success: data => {
-        this.setState({ character: data })
-        return onSuccess()
-      },
-      error: error => {
-        return onError(error)
-      },
-    })
-  },
-
-  handleLikesChange(data, onSuccess, onError) {
-    return $.ajax({
-      url: this.state.character.path,
-      data: { character: { likes: data } },
-      type: 'PATCH',
-      success: data => {
-        this.setState({ character: data })
-        return onSuccess()
-      },
-      error: error => {
-        return onError(error)
-      },
-    })
-  },
-
-  handleDislikesChange(data, onSuccess, onError) {
-    return $.ajax({
-      url: this.state.character.path,
-      data: { character: { dislikes: data } },
-      type: 'PATCH',
-      success: data => {
-        this.setState({ character: data })
-        return onSuccess()
-      },
-      error: error => {
-        return onError(error)
-      },
+  handleRichTextChange(data) {
+    return new Promise((resolve, reject) => {
+      $.ajax({
+        url: this.state.character.path,
+        data: { character: data },
+        type: 'PATCH',
+        success: data => {
+          this.setState({ character: data })
+          resolve(data)
+        },
+        error: error => {
+          reject(error)
+        },
+      })
     })
   },
 
@@ -270,12 +242,8 @@ const Component = createReactClass({
   },
 
   render() {
-    let dislikesChange,
-      editable,
-      headerImageEditCallback,
-      likesChange,
-      profileChange,
-      showMenu
+    let richTextChange, editable, headerImageEditCallback, showMenu
+
     if (this.state.error != null) {
       return <NotFound />
     }
@@ -307,9 +275,7 @@ const Component = createReactClass({
 
       if (this.state.editable) {
         editable = true
-        profileChange = this.handleProfileChange
-        likesChange = this.handleLikesChange
-        dislikesChange = this.handleDislikesChange
+        richTextChange = this.handleRichTextChange
         headerImageEditCallback = this.handleHeaderImageEdit
       }
     }
@@ -434,9 +400,10 @@ const Component = createReactClass({
             <Column m={12}>
               <RichText
                 renderAsCard
+                name="profile"
                 title={`About ${this.state.character.name}`}
                 placeholder="No biography written."
-                onChange={profileChange}
+                onChange={richTextChange}
                 contentHtml={this.state.character.profile_html || ''}
                 content={this.state.character.profile}
               />
@@ -447,8 +414,9 @@ const Component = createReactClass({
               <RichText
                 renderAsCard
                 title={'Likes'}
+                name={'likes'}
                 placeholder="No likes specified."
-                onChange={likesChange}
+                onChange={richTextChange}
                 contentHtml={this.state.character.likes_html || ''}
                 content={this.state.character.likes}
               />
@@ -457,8 +425,9 @@ const Component = createReactClass({
               <RichText
                 renderAsCard
                 title={'Dislikes'}
+                name={'dislikes'}
                 placeholder="No dislikes specified."
-                onChange={dislikesChange}
+                onChange={richTextChange}
                 contentHtml={this.state.character.dislikes_html || ''}
                 content={this.state.character.dislikes}
               />
