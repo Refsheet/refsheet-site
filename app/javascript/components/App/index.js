@@ -71,7 +71,6 @@ reactGuard(React, (error, componentInfo) => {
 
 class App extends Component {
   constructor(props) {
-    console.debug({ props })
     super(props)
 
     this.state = {
@@ -158,6 +157,8 @@ class App extends Component {
   componentDidMount() {
     this.unlisten = this.history.listen(this.handleRouteUpdate.bind(this))
 
+    console.log('App mounted with props: ', this.props)
+
     // Fade Out Loader
     const $loader = document.getElementById('rootAppLoader')
     $loader.style.opacity = 1
@@ -176,9 +177,11 @@ class App extends Component {
 
     // Show Flashes
     if (this.props.flash) {
-      for (const level in this.props.flash) {
-        Flash.now(level, this.props.flash[level])
-      }
+      Object.keys(this.props.flash).map(level => {
+        const flash = this.props.flash[level]
+        console.log('Flash[' + level + ']: ' + flash)
+        Flash.now(level, flash)
+      })
     }
   }
 

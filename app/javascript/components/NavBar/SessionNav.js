@@ -8,16 +8,20 @@ const SessionNav = ({ nsfwOk, onLoginClick, onNsfwClick }) => {
 
   return (
     <ul className="right">
-      <DropdownLink icon="person" text="Sign In">
+      <DropdownLink icon="person" text="Sign In" data-testid={'session-nav'}>
         <ul className="dropdown-menu">
           <li>
-            <a href="#session-modal" className="modal-trigger">
+            <a
+              href="#session-modal"
+              className="modal-trigger"
+              data-testid={'login-modal'}
+            >
               <i className="material-icons left">person</i>
               <span>Sign In</span>
             </a>
           </li>
           <li>
-            <Link to="/register">
+            <Link to="/register" data-testid={'register-link'}>
               <i className="material-icons left">create</i>
               <span>Register</span>
             </Link>

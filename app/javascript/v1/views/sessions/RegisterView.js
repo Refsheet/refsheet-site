@@ -15,6 +15,7 @@ import Input from '../../shared/forms/Input'
 import Submit from '../../shared/forms/Submit'
 import $ from 'jquery'
 import Flash from '../../../utils/Flash'
+import { Link } from 'react-router-dom'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -64,14 +65,15 @@ const RegisterView = createReactClass({
 
   render() {
     return (
-      <Main title="Register">
+      <Main title="Register" className="modal-page-content shaded-background">
         <div className="modal-page-content">
           <div className="narrow-container">
-            <h1>Sign Up</h1>
+            <h1>Register</h1>
 
             <Form
               action="/users"
               method="POST"
+              formName={'register_full'}
               model={this.state.user}
               onChange={this._handleChange}
               modelName="user"
@@ -105,7 +107,14 @@ const RegisterView = createReactClass({
               />
 
               <div className="form-actions margin-top--large">
-                <Submit>Sign Up</Submit>
+                <Link
+                  to="/login"
+                  query={{ username: this.state.username }}
+                  className="btn grey darken-3"
+                >
+                  Log In
+                </Link>
+                <Submit className={'right'}>Register</Submit>
               </div>
             </Form>
           </div>
