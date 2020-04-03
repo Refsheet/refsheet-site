@@ -182,7 +182,7 @@ class _Footer extends Component {
                   <i className="fa fa-fw fa-envelope" />
                 </a>
                 <a
-                  href={'https://discord.gg/dnGYbt'}
+                  href={'https://discord.gg/nzdEHub'}
                   target={'_blank'}
                   rel="noopener noreferrer"
                   title={'Join us on Discord!'}
