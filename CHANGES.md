@@ -2,18 +2,26 @@
 
 ## Active Projects
 
-- Moving old JavaScript to new bundle
+- Moving old JavaScript to new bundle, which is honestly a huge refactor but it had to be done.
 
 ## Bug Fixes
 
 - Fixed a bug where conversations couldn't open when you clicked them.
 - Fixed some pages causing an "Aw, Snap!" error in Chrome. Hopefully.
+- Fixed the Discord link in the page footer.
 
 ## Major Things
 
 - V1 character galleries now use the V2 image gallery component. For now, the top-3 feature is removed,
   but the images will now auto-update when processing is done.
 - Text modules in V1 profiles now use the V2 profile widget, kinda. This means you get the fun markdown editor.
+
+# Framework
+
+- Expanded automated testing to cover more areas of the site, hopefully preventing more bugs from happening.
+- Temporarily removed bug reporting and logging to save costs. This will be re-enabled when Patreon reaches about
+  $1200/mo or so.
+
 
 # 03/08/2020
 
