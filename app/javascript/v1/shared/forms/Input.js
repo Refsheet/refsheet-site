@@ -27,6 +27,7 @@ export default Input = createReactClass({
     autoFocus: PropTypes.bool,
     className: PropTypes.string,
     modelName: PropTypes.string,
+    formName: PropTypes.string,
     default: PropTypes.string,
     browserDefault: PropTypes.bool,
     focusSelectAll: PropTypes.bool,
@@ -158,6 +159,10 @@ export default Input = createReactClass({
       id = `${this.props.modelName}_${this.props.name}`
     } else {
       id = this.props.name
+    }
+
+    if (this.props.formName) {
+      id = this.props.formName + '_' + id
     }
 
     const commonProps = {

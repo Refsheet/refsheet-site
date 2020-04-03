@@ -10,6 +10,10 @@ def find_testid(testid)
   find("[data-testid=\"#{testid}\"]")
 end
 
+def click_testid(testid)
+  find_testid(testid)&.click
+end
+
 def expect_testid(testid)
   expect(page).to have_css("[data-testid=\"#{testid}\"]")
 end

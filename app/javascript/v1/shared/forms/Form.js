@@ -28,6 +28,7 @@ export default Form = createReactClass({
     className: PropTypes.string,
     changeEvent: PropTypes.string,
     resetOnSubmit: PropTypes.bool,
+    formName: PropTypes.string,
   },
 
   getInitialState() {
@@ -210,6 +211,7 @@ export default Form = createReactClass({
             onChange: this._handleInputChange,
             onSubmit: this._handleFormSubmit,
             modelName: this.props.modelName,
+            formName: this.props.formName,
           }
         } else {
           childProps = { key: child.props.id }

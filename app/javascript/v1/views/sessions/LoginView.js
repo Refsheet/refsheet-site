@@ -15,6 +15,9 @@ import Submit from '../../shared/forms/Submit'
 import { Link } from 'react-router-dom'
 
 import $ from 'jquery'
+import { setCurrentUser } from '../../../actions'
+import compose from '../../../utils/compose'
+import { connect } from 'react-redux'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -53,13 +56,13 @@ const LoginView = createReactClass({
 
   _handleLogin(session) {
     const user = session.current_user
-    $(document).trigger('app:session:update', session)
-    const next = __guard__(
-      this.context.router.history.location != null
-        ? this.context.router.history.location.query
-        : undefined,
-      x => x.next
-    )
+
+    this.props.setCurrentUser(user)
+
+    const next =
+      this.context.router.history.location &&
+      this.context.router.history.location.query &&
+      this.context.router.history.location.query.next
 
     if (next) {
       return (window.location = next)
@@ -78,7 +81,7 @@ const LoginView = createReactClass({
 
   render() {
     return (
-      <Main title="Login">
+      <Main title="Login" className="shaded-background modal-page-content">
         <div className="modal-page-content">
           <div className="narrow-container">
             <h1>Log In</h1>
@@ -87,6 +90,7 @@ const LoginView = createReactClass({
               action="/session"
               method="POST"
               modelName="user"
+              formName={'login_full'}
               model={this.state.user}
               onError={this._handleError}
               onChange={this._handleLogin}
@@ -94,15 +98,22 @@ const LoginView = createReactClass({
               <Input name="username" label="Username" autoFocus />
               <Input name="password" type="password" label="Password" />
 
+              <Input
+                type="checkbox"
+                name="remember"
+                label="Keep me signed in"
+              />
+
               <div className="margin-top--medium">
-                <Submit>Log In</Submit>
                 <Link
                   to="/register"
                   query={{ username: this.state.username }}
-                  className="btn grey darken-3 right"
+                  className="btn grey darken-3"
                 >
-                  Sign Up
+                  Register
                 </Link>
+
+                <Submit className={'right'}>Log In</Submit>
               </div>
             </Form>
           </div>
@@ -112,10 +123,12 @@ const LoginView = createReactClass({
   },
 })
 
-function __guard__(value, transform) {
-  return typeof value !== 'undefined' && value !== null
-    ? transform(value)
-    : undefined
+const mapStateToProps = ({ session }) => ({
+  session,
+})
+
+const mapDispatchToProps = {
+  setCurrentUser,
 }
 
-export default LoginView
+export default compose(connect(mapStateToProps, mapDispatchToProps))(LoginView)
