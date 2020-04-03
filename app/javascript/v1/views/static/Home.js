@@ -47,7 +47,7 @@ const Home = createReactClass({
           </div>
         </Jumbotron>
 
-        <Section className="pop-out">
+        <Section container className="pop-out">
           <div className="flow-text center">
             A new, convenient way to organize your character designs and art.
           </div>
@@ -140,7 +140,7 @@ const Home = createReactClass({
           </div>
         </PageHeader>
 
-        <Section id="easy-to-use" className="padded-bottom">
+        <Section container id="easy-to-use" className="padded-bottom">
           <div className="row">
             <div className="col m5 s12">
               <div className="card-panel">
@@ -179,7 +179,7 @@ const Home = createReactClass({
           </div>
         </Section>
 
-        <Section className="padded-bottom" id="detailed-reference">
+        <Section container className="padded-bottom" id="detailed-reference">
           <div className="padding-bottom--large">
             <SwatchPanel swatches={demoSwatches} expand={true} />
           </div>
@@ -208,7 +208,7 @@ const Home = createReactClass({
           </Row>
         </Section>
 
-        <Section className="center padded-bottom">
+        <Section container className="center padded-bottom">
           <h2>Ready to show off your characters?</h2>
           <Link to="/register" className="btn">
             Sign Up
