@@ -4,8 +4,7 @@ import PropTypes from 'prop-types'
 import Attribute from 'v1/shared/attributes/attribute'
 import AttributeTable from 'v1/shared/attributes/attribute_table'
 
-import $ from 'jquery'
-import 'jquery-ui/ui/widgets/accordion'
+import * as Materialize from 'materialize-css'
 
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
@@ -18,6 +17,9 @@ import 'jquery-ui/ui/widgets/accordion'
  */
 let SwatchPanel
 export default SwatchPanel = createReactClass({
+  tooltipped: [],
+  collapsible: undefined,
+
   getInitialState() {
     return { swatches: this.props.swatches }
   },
@@ -91,11 +93,13 @@ export default SwatchPanel = createReactClass({
   },
 
   componentDidMount() {
-    return $('#swatch-menu').accordion()
+    Materialize.Collapsible.init(this.collapsible)
+    Materialize.Tooltip.init(this.tooltipped)
   },
 
   componentDidUpdate() {
-    return $('#swatch-menu').accordion()
+    Materialize.Collapsible.init(this.collapsible)
+    Materialize.Tooltip.init(this.tooltipped)
   },
 
   render() {
@@ -131,7 +135,11 @@ export default SwatchPanel = createReactClass({
     }
 
     return (
-      <ul id="swatch-menu" className="collapsible character-swatches">
+      <ul
+        id="swatch-menu"
+        className="collapsible character-swatches"
+        ref={r => (this.collapsible = r)}
+      >
         <li>
           <div className={'collapsible-header swatch-container ' + activeClass}>
             <div className="swatch-row">
@@ -140,6 +148,7 @@ export default SwatchPanel = createReactClass({
                 className="swatch tooltipped"
                 data-tooltip="More Details"
                 data-position="top"
+                ref={r => this.tooltipped.push(r)}
               >
                 <i className="material-icons">palette</i>
               </div>
