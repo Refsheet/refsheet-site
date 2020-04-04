@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import Attribute from 'v1/shared/attributes/attribute'
 import AttributeTable from 'v1/shared/attributes/attribute_table'
 
+import $ from 'jquery'
 import * as Materialize from 'materialize-css'
 
 // TODO: This file was created by bulk-decaffeinate.
