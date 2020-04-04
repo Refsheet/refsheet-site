@@ -438,7 +438,10 @@ const Component = createReactClass({
         <Section className="margin-bottom--large">
           <Query
             query={getCharacterImages}
-            variables={{ slug: 'asdfasdf', username: 'administrator' }}
+            variables={{
+              slug: this.state.character.slug,
+              username: this.state.character.user_id,
+            }}
           >
             {this.renderGallery}
           </Query>

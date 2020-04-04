@@ -106,8 +106,12 @@ class ImageHandler {
     return client.mutate({
       mutation: uploadImage,
       variables,
-      update: (store, { data: { uploadImage } }) => {
-        console.log('Updating Apollo cache: ', uploadImage)
+      update: (store, result) => {
+        const {
+          data: { uploadImage },
+        } = result
+
+        console.log('Updating Apollo cache: ', uploadImage, data)
         const fragment = gql`
           fragment getCharacterImages on Character {
             id
@@ -117,12 +121,27 @@ class ImageHandler {
           }
         `
 
-        let data = store.readFragment({
-          fragment,
-          id: 'Character:' + uploadImage.character.id,
-        })
+        let data
+
+        try {
+          data = store.readFragment({
+            fragment,
+            id: 'Character:' + uploadImage.character.id,
+          })
+        } catch (e) {
+          console.warn(e)
+          console.warn('Store contained', store.data)
+        }
 
         console.log('Read fragment: ', { data, store, fragment })
+
+        if (!data) {
+          data = {}
+        }
+
+        if (!data.images) {
+          data.images = []
+        }
 
         data.images.push(uploadImage)
         console.log({ data })
