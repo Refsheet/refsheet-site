@@ -49,6 +49,35 @@ class CharacterSerializer < ActiveModel::Serializer
   has_one :pending_transfer, serializer: CharacterTransferSerializer
   has_many :images, serializer: ImageSerializer
 
+  has_one :avatar
+  has_one :cover_image
+
+  def avatar
+    img = object&.avatar
+    return unless img
+
+    styles = {}
+    img.styles.each { |k| styles[k] = img.url(k) }
+
+    {
+        isAttached: img.attached?,
+        url: styles
+    }
+  end
+
+  def cover_image
+    img = object&.cover_image
+    return unless img
+
+    styles = {}
+    img.styles.each { |k| styles[k] = img.url(k) }
+
+    {
+        isAttached: img.attached?,
+        url: styles
+    }
+  end
+
   def profile_sections
     [
         {
@@ -128,7 +157,7 @@ class CharacterSerializer < ActiveModel::Serializer
   end
 
   def id
-    object.slug
+    object&.slug
   end
 
   def real_id
