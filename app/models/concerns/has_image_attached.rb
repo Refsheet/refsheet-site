@@ -72,6 +72,12 @@ module HasImageAttached
       @instance = instance
     end
 
+
+    # Returns a list of styles associated with this attachment.
+    def styles
+      @options[:styles]&.keys
+    end
+
     def style(key)
       unless key === :original || @options[:styles].include?(key)
         raise NoStyleError, "Attachment :#{name} does not define style :#{key}, consider: #{@options[:styles].keys.join(', ')}"

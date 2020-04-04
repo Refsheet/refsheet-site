@@ -9,10 +9,38 @@ class Activity::CharacterSerializer < ActiveModel::Serializer
              :profile_image_url,
              :featured_image_url,
              :path,
-             :link
+             :link,
+             :avatar,
+             :cover_image
 
   def id
     object.shortcode
+  end
+
+  def avatar
+    img = object&.avatar
+    return unless img
+
+    styles = {}
+    img.styles.each { |k| styles[k] = img.url(k) }
+
+    {
+        isAttached: img.attached?,
+        url: styles
+    }
+  end
+
+  def cover_image
+    img = object&.cover_image
+    return unless img
+
+    styles = {}
+    img.styles.each { |k| styles[k] = img.url(k) }
+
+    {
+        isAttached: img.attached?,
+        url: styles
+    }
   end
 
   def profile_image_url
