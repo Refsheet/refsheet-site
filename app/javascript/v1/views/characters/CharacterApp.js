@@ -37,6 +37,7 @@ import StateUtils from '../../utils/StateUtils'
 import Gallery from '../../../components/Character/Gallery'
 import { Query } from 'react-apollo'
 import getCharacterImages from './getCharacterImages.graphql'
+import Flash from '../../../utils/Flash'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -141,50 +142,42 @@ const Component = createReactClass({
   },
 
   setFeaturedImage(imageId) {
-    return $.ajax({
-      url: this.state.character.path,
-      type: 'PATCH',
-      data: { character: { featured_image_guid: imageId } },
-      success: data => {
-        Materialize.toast({
-          html: 'Cover image changed!',
-          displayLength: 3000,
-          classes: 'green',
-        })
-        return this.setState({ character: data })
-      },
-      error: error => {
-        const { errors } = error.responseJSON
-        return Materialize.toast({
-          html: errors.featured_image,
-          displayLength: 3000,
-          classes: 'red',
-        })
-      },
+    return new Promise((resolve, reject) => {
+      $.ajax({
+        url: this.state.character.path,
+        type: 'PATCH',
+        data: { character: { featured_image_guid: imageId } },
+        success: data => {
+          Flash.info('Header image updated!')
+          this.setState({ character: data })
+          resolve(data)
+        },
+        error: error => {
+          const { errors } = error.responseJSON
+          Flash.error(errors.featured_image.join(', '))
+          reject(errors)
+        },
+      })
     })
   },
 
   setProfileImage(imageId) {
-    return $.ajax({
-      url: this.state.character.path,
-      type: 'PATCH',
-      data: { character: { profile_image_guid: imageId } },
-      success: data => {
-        Materialize.toast({
-          html: 'Profile image changed!',
-          displayLength: 3000,
-          classes: 'green',
-        })
-        return this.setState({ character: data })
-      },
-      error: error => {
-        const { errors } = error.responseJSON
-        return Materialize.toast({
-          html: errors.profile_image,
-          displayLength: 3000,
-          classes: 'red',
-        })
-      },
+    return new Promise((resolve, reject) => {
+      $.ajax({
+        url: this.state.character.path,
+        type: 'PATCH',
+        data: { character: { profile_image_guid: imageId } },
+        success: data => {
+          Flash.info('Profile picture updated!')
+          this.setState({ character: data })
+          resolve(data)
+        },
+        error: error => {
+          const { errors } = error.responseJSON
+          Flash.error(errors.profile_image.join(', '))
+          reject(errors)
+        },
+      })
     })
   },
 
@@ -209,19 +202,16 @@ const Component = createReactClass({
     this.setState({
       galleryTitle: 'Select Header Image',
       onGallerySelect: imageId => {
-        this.setFeaturedImage(imageId)
-        return Materialize.Modal.getInstance(
-          document.getElementById('image-gallery-modal')
-        ).close()
+        this.setFeaturedImage(imageId).then(_data => {
+          Materialize.Modal.getInstance(
+            document.getElementById('image-gallery-modal')
+          ).close()
+        })
       },
     })
     return Materialize.Modal.getInstance(
       document.getElementById('image-gallery-modal')
     ).open()
-  },
-
-  _handleGalleryLoad(data) {
-    return this.setState({ images: data })
   },
 
   _toggleEditable() {
@@ -238,7 +228,19 @@ const Component = createReactClass({
     const images =
       (data && data.getCharacterByUrl && data.getCharacterByUrl.images) || []
 
-    return <Gallery images={images} loading={loading} />
+    return (
+      <div>
+        <ImageGalleryModal
+          v2Data
+          images={images}
+          title={this.state.galleryTitle}
+          onClick={this.state.onGallerySelect}
+          onUploadClick={this._openUploads}
+        />
+
+        <Gallery images={images} loading={loading} />
+      </div>
+    )
   },
 
   render() {
@@ -338,13 +340,6 @@ const Component = createReactClass({
                 />
               )}
             </FixedActionButton>
-
-            <ImageGalleryModal
-              images={this.state.images}
-              title={this.state.galleryTitle}
-              onClick={this.state.onGallerySelect}
-              onUploadClick={this._openUploads}
-            />
 
             <CharacterColorSchemeModal
               colorScheme={this.state.character.color_scheme}

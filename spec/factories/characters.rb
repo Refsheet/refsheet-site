@@ -46,5 +46,13 @@ FactoryBot.define do
         character.swatches << build_list(:swatch, 5, character: character)
       end
     end
+
+    trait :with_images do
+      after(:build) do |character, _evaluator|
+        character.images << build_list(:image, 3, character: character)
+        character.images << build_list(:image, 2, character: character, nsfw: true)
+        character.images << build_list(:image, 1, character: character, hidden: true)
+      end
+    end
   end
 end
