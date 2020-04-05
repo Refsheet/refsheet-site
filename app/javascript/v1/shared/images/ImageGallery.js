@@ -26,6 +26,7 @@ export default ImageGallery = createReactClass({
   propTypes: {
     editable: PropTypes.bool,
     noFeature: PropTypes.bool,
+    noOverlay: PropTypes.bool,
     noSquare: PropTypes.bool,
     imagesPath: PropTypes.string,
     images: PropTypes.array,
@@ -220,6 +221,8 @@ export default ImageGallery = createReactClass({
     let wrapperClassName = ''
     const _this = this
 
+    const { noOverlay } = this.props
+
     const imageIds =
       this.state.images != null ? this.state.images.map(i => i.id) : undefined
 
@@ -255,6 +258,7 @@ export default ImageGallery = createReactClass({
           onSwap={_this._handleImageSwap}
           wrapperClassName={wrapperClassName}
           className={imageClassName}
+          noOverlay={noOverlay}
           gallery={imageIds}
           editable={editable}
         />
@@ -272,6 +276,7 @@ export default ImageGallery = createReactClass({
               onImageClick={this._handleImageClick}
               onImageSwap={this._handleImageSwap}
               gallery={imageIds}
+              noOverlay={noOverlay}
               editable={editable}
             />
           )}

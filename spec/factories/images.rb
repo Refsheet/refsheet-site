@@ -43,7 +43,7 @@ FactoryBot.define do
   factory :image do
     character
     caption { Faker::Lorem.sentence }
-    image { File.new("app/assets/images/default.png") }
+    image { asset "fox.jpg" }
 
     trait :nsfw do
       nsfw { true }

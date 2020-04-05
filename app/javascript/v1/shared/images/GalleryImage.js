@@ -145,6 +145,8 @@ const gallery_image = createReactClass({
   },
 
   render() {
+    const { noOverlay } = this.props
+
     let contents
     const classNames = ['gallery-image']
     if (this.props.className) {
@@ -186,31 +188,35 @@ const gallery_image = createReactClass({
             </div>
           )}
 
-          <div className="overlay">
-            <div className="interactions">
-              <div
-                className="favs clickable"
-                onClick={this._handleFavoriteClick}
-              >
-                <Icon>
-                  {this.state.image.is_favorite ? 'star' : 'star_outline'}
-                </Icon>
-                &nbsp;{NumberUtils.format(this.state.image.favorites_count)}
+          {!noOverlay && (
+            <div className="overlay">
+              <div className="interactions">
+                <div
+                  className="favs clickable"
+                  onClick={this._handleFavoriteClick}
+                >
+                  <Icon>
+                    {this.state.image.is_favorite ? 'star' : 'star_outline'}
+                  </Icon>
+                  &nbsp;{NumberUtils.format(this.state.image.favorites_count)}
+                </div>
+                &nbsp;
+                <div className="favs">
+                  <Icon>comment</Icon>
+                  &nbsp;{NumberUtils.format(this.state.image.comments_count)}
+                </div>
               </div>
-              &nbsp;
-              <div className="favs">
-                <Icon>comment</Icon>
-                &nbsp;{NumberUtils.format(this.state.image.comments_count)}
-              </div>
-            </div>
 
-            <div className="image-title">
-              <div className="truncate">{this.state.image.title}</div>
-              <div className="muted truncate">
-                By: {this.state.image.character.name}
+              <div className="image-title">
+                <div className="truncate">{this.state.image.title}</div>
+                {this.state.image.character && (
+                  <div className="muted truncate">
+                    By: {this.state.image.character.name}
+                  </div>
+                )}
               </div>
             </div>
-          </div>
+          )}
 
           <img
             src={imageSrc}
