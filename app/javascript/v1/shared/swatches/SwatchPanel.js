@@ -110,6 +110,7 @@ export default SwatchPanel = createReactClass({
         className="swatch tooltipped"
         key={swatch.id}
         style={{ backgroundColor: swatch.color }}
+        ref={r => this.tooltipped.push(r)}
         data-tooltip={swatch.name + ' - ' + swatch.color}
         data-position="top"
       />
@@ -149,6 +150,7 @@ export default SwatchPanel = createReactClass({
                 className="swatch tooltipped"
                 data-tooltip="More Details"
                 data-position="top"
+                data-testid={'swatch-panel-open'}
                 ref={r => this.tooltipped.push(r)}
               >
                 <i className="material-icons">palette</i>

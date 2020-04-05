@@ -40,5 +40,11 @@ FactoryBot.define do
     trait :hidden do
       hidden { true }
     end
+
+    trait :with_swatches do
+      after(:build) do |character, _evaluator|
+        character.swatches << build_list(:swatch, 5, character: character)
+      end
+    end
   end
 end
