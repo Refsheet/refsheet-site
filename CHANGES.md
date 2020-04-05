@@ -4,11 +4,16 @@
 
 - Moving old JavaScript to new bundle, which is honestly a huge refactor but it had to be done.
 
+## Known Bugs
+
+- Some cases of the attributes panel fail to render, but I don't have enough data to reproduce.
+
 ## Bug Fixes
 
 - Fixed a bug where conversations couldn't open when you clicked them.
 - Fixed some pages causing an "Aw, Snap!" error in Chrome. Hopefully.
 - Fixed the Discord link in the page footer.
+- Fixed the tooltip on the swatch bar, so hovering a color shows you the name and hex code again!
 
 ## Major Things
 

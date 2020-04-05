@@ -95,12 +95,24 @@ export default SwatchPanel = createReactClass({
 
   componentDidMount() {
     Materialize.Collapsible.init(this.collapsible)
-    Materialize.Tooltip.init(this.tooltipped)
+    this.tooltipped.map(tooltip => {
+      if (!tooltip) return
+      Materialize.Tooltip.init(tooltip, {
+        html: tooltip.dataset.tooltip,
+        position: tooltip.dataset.position,
+      })
+    })
   },
 
   componentDidUpdate() {
     Materialize.Collapsible.init(this.collapsible)
-    Materialize.Tooltip.init(this.tooltipped)
+    this.tooltipped.map(tooltip => {
+      if (!tooltip) return
+      Materialize.Tooltip.init(tooltip, {
+        html: tooltip.dataset.tooltip,
+        position: tooltip.dataset.position,
+      })
+    })
   },
 
   render() {
