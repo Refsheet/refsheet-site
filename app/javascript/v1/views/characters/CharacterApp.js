@@ -225,6 +225,10 @@ const Component = createReactClass({
   },
 
   renderGallery({ data, loading, error }) {
+    if (error) {
+      console.error('renderGallery failed:', error)
+    }
+
     const images =
       (data && data.getCharacterByUrl && data.getCharacterByUrl.images) || []
 

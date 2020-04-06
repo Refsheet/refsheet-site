@@ -74,11 +74,11 @@ export default ImageGallery = createReactClass({
   },
 
   componentWillUnmount() {
-    if (this.refs.gallery) {
-      $(this.refs.gallery).justifiedGallery('destroy')
-    }
-
-    return $(window).off('resize', this._resizeJg)
+    // if (this.refs.gallery) {
+    //   $(this.refs.gallery).justifiedGallery('destroy')
+    // }
+    //
+    // return $(window).off('resize', this._resizeJg)
   },
 
   UNSAFE_componentWillReceiveProps(newProps) {
@@ -88,12 +88,12 @@ export default ImageGallery = createReactClass({
   },
 
   _resizeJg() {
-    if (this.props.noFeature && !this.props.noSquare) {
-      return
-    }
-    if (this.refs.gallery) {
-      return $(this.refs.gallery).justifiedGallery(this._getJgRowHeight())
-    }
+    // if (this.props.noFeature && !this.props.noSquare) {
+    //   return
+    // }
+    // if (this.refs.gallery) {
+    //   return $(this.refs.gallery).justifiedGallery(this._getJgRowHeight())
+    // }
   },
 
   _handleImageSwap(source, target) {
@@ -191,11 +191,11 @@ export default ImageGallery = createReactClass({
 
     if (this.state.append) {
       console.debug('[ImageGallery] Init with norewind.')
-      try {
-        $(this.refs.gallery).justifiedGallery('norewind')
-      } catch (e) {
-        console.warn('Attempted to set norewind on an empty gallery.', e)
-      }
+      // try {
+      //   $(this.refs.gallery).justifiedGallery('norewind')
+      // } catch (e) {
+      //   console.warn('Attempted to set norewind on an empty gallery.', e)
+      // }
 
       return
     }
@@ -210,7 +210,7 @@ export default ImageGallery = createReactClass({
     }
 
     opts = $.extend({}, opts, this._getJgRowHeight())
-    $(this.refs.gallery).justifiedGallery(opts)
+    // $(this.refs.gallery).justifiedGallery(opts)
     return this.setState({ append: true })
   },
 
