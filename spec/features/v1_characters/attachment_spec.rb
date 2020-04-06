@@ -8,9 +8,9 @@ feature 'Characters / Image Attachments', js: true do
                            name: "Image Attachment Test Char",
                            version: 1 }
 
-  let(:sfw_img) { character.images.first { |i| !i.nsfw } }
-  let(:nsfw_img) { character.images.first { |i| i.nsfw } }
-  let(:hidden_img) { character.images.first { |i| i.hidden } }
+  let(:sfw_img) { character.images.to_a.find { |i| !i.nsfw } }
+  let(:nsfw_img) { character.images.to_a.find { |i| i.nsfw } }
+  let(:hidden_img) { character.images.to_a.find { |i| i.hidden } }
 
   let(:user) { character.user }
 
