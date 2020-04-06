@@ -1,4 +1,6 @@
-fragment CharacterImages on Character {
+fragment getCharacterImages on Character {
+    id
+    # TODO: This should be GalleryImageFields but importing within an import is not working.
     images {
         id
         title

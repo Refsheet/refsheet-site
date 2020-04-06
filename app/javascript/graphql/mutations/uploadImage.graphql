@@ -1,36 +1,11 @@
+#import 'fragments/GalleryImageFields.graphql'
+
 mutation uploadImage($characterId: ID!, $folder: String, $title: String, $nsfw: Boolean, $key: String!, $location: String!) {
     uploadImage(characterId: $characterId, folder: $folder, title: $title, nsfw: $nsfw, key: $key, location: $location) {
-        id
-
         character {
             id
         }
 
-        title
-        nsfw
-        hidden
-        background_color
-        aspect_ratio
-        comments_count
-        favorites_count
-        image_processing
-        is_favorite
-        is_managed
-        width
-        height
-        url {
-            small
-            medium
-        }
-        size {
-            small {
-                width
-                height
-            }
-            medium {
-                width
-                height
-            }
-        }
+        ...GalleryImageFields
     }
 }

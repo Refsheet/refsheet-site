@@ -1,0 +1,34 @@
+fragment GalleryImageFields on Image {
+    id
+    title
+    nsfw
+    hidden
+    background_color
+    aspect_ratio
+    comments_count
+    favorites_count
+    image_processing
+    is_favorite
+    is_managed
+    width
+    height
+    url {
+        small
+        small_square
+        medium
+    }
+    size {
+        small {
+            width
+            height
+        }
+        small_square {
+            width
+            height
+        }
+        medium {
+            width
+            height
+        }
+    }
+}
