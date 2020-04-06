@@ -22,6 +22,18 @@ def expect_no_testid(testid)
   expect(page).to have_no_css("[data-testid=\"#{testid}\"]")
 end
 
+def expect_data(data)
+  expect(page).to have_css(data_attr(data))
+end
+
+def data_attr(data)
+  data.collect { |k,v| "[data-#{k.to_s.gsub('_', '-')}=\"#{v}\"]" }.join('')
+end
+
+def expect_no_data(data)
+  expect(page).to have_no_css(data_attr(data))
+end
+
 class JavascriptError < StandardError; end
 
 Webdrivers::Chromedriver.required_version = "79.0.3945.36"
@@ -38,7 +50,7 @@ Capybara.register_driver :headless_chrome do |app|
   browser_options.args << '--disable-gpu'
   browser_options.args << '--allow-insecure-localhost'
   browser_options.args << '--no-sandbox'
-  browser_options.args << '--window-size=1920,1080'
+  browser_options.args << '--window-size=1920,2160'
   browser_options.args << '--disable-dev-shm-usage'
   browser_options.args << '--enable-features=NetworkService,NetworkServiceInProcess'
 

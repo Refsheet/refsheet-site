@@ -8,7 +8,11 @@ Types::CharacterType = GraphQL::ObjectType.define do
   field :dislikes_html, types.String
   field :featured_image, Types::ImageType
   field :hidden, types.Boolean
-  field :images, types[Types::ImageType]
+  field :images, types[Types::ImageType] do
+    resolve -> (obj, _args, ctx) {
+      obj.images.visible_to(ctx[:current_user].call)
+    }
+  end
   field :likes, types.String
   field :likes_html, types.String
   field :name, !types.String
