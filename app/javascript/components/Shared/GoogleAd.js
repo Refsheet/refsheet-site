@@ -17,29 +17,6 @@ class GoogleAd extends Component {
     }
   }
 
-  renderAdBlocked() {
-    return (
-      <div
-        style={{
-          position: 'absolute',
-          zIndex: 0,
-          textAlign: 'center',
-          top: '50%',
-          left: '1rem',
-          right: '1rem',
-          transform: 'translateY(-50%)',
-        }}
-      >
-        <strong>Are you using an ad blocker?</strong>
-        <br />
-        <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.5)' }}>
-          That's cool. I totally get it. But, perhaps you should consider
-          becoming a Patron? Patrons can turn off ads and feel good about it.
-        </p>
-      </div>
-    )
-  }
-
   render() {
     const { format, layoutKey, slot, className, ...rest } = this.props
 
@@ -50,7 +27,6 @@ class GoogleAd extends Component {
       return null
     }
 
-    // TODO: The adblock default text is uh, not so friendly when google doesn't have any ads to serve up.
     return (
       <div
         className={c('google-ad', className)}
@@ -71,9 +47,10 @@ class GoogleAd extends Component {
 }
 
 GoogleAd.propTypes = {
-  adFormat: PropTypes.string,
+  format: PropTypes.string,
   layoutKey: PropTypes.string,
-  adSlot: PropTypes.string,
+  slot: PropTypes.string,
+  className: PropTypes.string,
 }
 
 export default GoogleAd

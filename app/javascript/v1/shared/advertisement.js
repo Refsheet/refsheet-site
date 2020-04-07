@@ -141,7 +141,7 @@ export default Advertisement = createReactClass({
           From the Internet:
         </div>
         <div
-          className={'z-depth-1 margin-bottom--large'}
+          className={'margin-bottom--large'}
           style={{
             margin: '0 auto',
             maxWidth: 200,
