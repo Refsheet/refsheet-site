@@ -72,29 +72,30 @@ const Component = createReactClass({
   },
 
   componentDidUpdate(prevProps, prevState) {
-    console.error({
-      prevProps,
-      prevState,
-      props: this.props,
-      state: this.state,
-    })
     StateUtils.reload(this, 'character', this.props, prevProps)
 
     if (
-      prevState.character &&
       this.state.character &&
-      prevState.character.link !== this.state.character.link
+      (prevState.character || {}).real_id !==
+        (this.state.character || {}).real_id
     ) {
       this.props.setUploadTarget(this.state.character.real_id)
 
       // Handle URL changes:
-      if (prevState.character.real_id !== this.state.character.real_id)
+      if (
+        prevState.character &&
+        prevState.character.link !== this.state.character.link
+      )
         window.history.replaceState({}, '', this.state.character.link)
     }
   },
 
   componentDidMount() {
     StateUtils.load(this, 'character')
+
+    if (this.state.character) {
+      this.props.setUploadTarget(this.state.character.real_id)
+    }
 
     return $(document)
       .on('app:character:update', (e, character) => {
@@ -256,7 +257,7 @@ const Component = createReactClass({
       return <NotFound />
     }
 
-    if (this.state.character == null) {
+    if (!this.state.character) {
       return <CharacterViewSilhouette />
     }
 

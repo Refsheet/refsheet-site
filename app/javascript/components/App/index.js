@@ -75,11 +75,11 @@ class App extends Component {
 
     this.state = {
       theme: defaultTheme,
+      eagerLoad: props.eagerLoad,
     }
 
     this.store = this.buildStore(this.buildState(props.state))
     this.history = this.buildHistory()
-    this.eagerLoad = props.eagerLoad
 
     this.initWindowAlert()
   }
@@ -185,7 +185,7 @@ class App extends Component {
     }
 
     // Clear Eager Load
-    this.eagerLoad = null
+    this.setState({ eagerLoad: null })
   }
 
   render() {
@@ -215,7 +215,7 @@ class App extends Component {
     const store = this.store
 
     return {
-      eagerLoad: this.eagerLoad,
+      eagerLoad: this.state.eagerLoad,
       currentUser: (state.session || {}).currentUser,
       setCurrentUser: function(user) {
         store.dispatch(setCurrentUser(user))
