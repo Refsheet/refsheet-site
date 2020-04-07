@@ -7,9 +7,9 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
-import Views from 'v1/views/_views'
 import StateUtils from '../../utils/StateUtils'
 import HashUtils from '../../utils/HashUtils'
+import UserCard from 'components/User/UserCard'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -52,7 +52,7 @@ export default Suggestions = createReactClass({
           style={{ padding: '0.5rem 0' }}
           key={user.username}
         >
-          <Views.Account.UserCard
+          <UserCard
             user={user}
             onFollow={_this._handleFollow}
             smaller
