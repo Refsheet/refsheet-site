@@ -38,28 +38,18 @@ export function render(props) {
 
   switch (activityType) {
     case 'Image':
-      return (
-        <Image
-          images={activities}
-          character={props.character}
-        />
-      )
+      return <Image images={activities} character={props.character} />
 
     case 'Media::Comment':
       return <Comment comments={activities} />
 
     case 'Character':
       return (
-        <Character
-          characters={activities}
-          username={props.user.username}
-        />
+        <Character characters={activities} username={props.user.username} />
       )
 
     case 'Forum::Discussion':
-      return (
-        <ForumDiscussion discussions={activities} />
-      )
+      return <ForumDiscussion discussions={activities} />
 
     default:
       return <StatusUpdate comment={comment} />
