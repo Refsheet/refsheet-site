@@ -6,7 +6,7 @@ feature 'New Character', js: true do
 
   before(:each) do
     visit user_profile_path user, anchor: '#character-form'
-    evaluate_script "M.Modal.getInstance(document.getElementById('character-form')).open()"
+    click_href('#character-form')
     expect(page).to have_selector('#character-form', visible: true)
   end
 

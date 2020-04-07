@@ -34,6 +34,10 @@ def expect_no_data(data)
   expect(page).to have_no_css(data_attr(data))
 end
 
+def click_href(href)
+  find("[href=\"#{href}\"]").click
+end
+
 class JavascriptError < StandardError; end
 
 Webdrivers::Chromedriver.required_version = "79.0.3945.36"

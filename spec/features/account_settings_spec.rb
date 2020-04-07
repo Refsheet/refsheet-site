@@ -16,8 +16,8 @@ feature 'Account Settings', js: true do
   context 'when signed out' do
     let(:user) { nil }
 
-    it 'renders' do
-      expect(page).to have_content "Signed out, redirecting..."
+    it 'redirects to home page' do
+      expect(page).to have_content "Your characters, organized."
     end
   end
 end

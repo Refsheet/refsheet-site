@@ -7,12 +7,12 @@
 ## Known Bugs
 
 - Some cases of the attributes panel fail to render, but I don't have enough data to reproduce.
-- Upload target isn't being set after character creation -> V1
-- V1 profiles don't refetch on re-enter with new props?
 
 ## TODO
 
 - V2 gallery module doesn't show anything when there is nothing to show.
+- V1 Character pages don't have loading shadow anymore
+- User profiles don't render loading spinner anymore
 
 ## Bug Fixes
 

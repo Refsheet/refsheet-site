@@ -50,13 +50,13 @@ feature 'Forums', js: true do
           count = Forum::Discussion.count
           page.find('.fixed-action-btn').find('a').click
           expect(page).to have_content("New Thread")
-          fill_in(:thread_topic, with: "This is a new thread")
+          fill_in(:thread_topic, with: "Dragoons")
           fill_in(:thread_content, with: "Hello, how are you?")
           click_button(:thread_submit)
           expect(page).to have_content("Thread created")
           expect(page).to have_no_content("New Thread")
-          expect(page).to have_content("This is a new thread")
-          expect(page).to have_current_path("/forums/#{forum.slug}/this-is-a-new-thread")
+          expect(page).to have_content("Dragoons")
+          expect(page).to have_current_path("/forums/#{forum.slug}/dragoons")
           expect(Forum::Discussion.count).to eq count + 1
         end
       end
