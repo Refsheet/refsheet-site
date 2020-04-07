@@ -52,11 +52,7 @@ export default Suggestions = createReactClass({
           style={{ padding: '0.5rem 0' }}
           key={user.username}
         >
-          <UserCard
-            user={user}
-            onFollow={_this._handleFollow}
-            smaller
-          />
+          <UserCard user={user} onFollow={_this._handleFollow} smaller />
         </li>
       )
     })
