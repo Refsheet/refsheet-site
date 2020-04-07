@@ -45,6 +45,7 @@ const StateUtils = {
     console.debug('[StateUtils] Eager Loading:', eagerLoad, context.context)
 
     if ((elItem = ObjectPath.get(eagerLoad, path))) {
+      let match = true
       for (let k in paramMap) {
         const p = paramMap[k]
         const a = ObjectPath.get(
@@ -53,12 +54,13 @@ const StateUtils = {
         )
         const b = ObjectPath.get(elItem, p)
         console.debug('[StateUtils] Comparing:', a, b)
-        if (a && b && a.toUpperCase() === b.toUpperCase()) {
-          fetch = false
+        if (!a || !b || a.toUpperCase() !== b.toUpperCase()) {
+          match = false
         }
       }
 
-      if (!fetch) {
+      if (match) {
+        fetch = false
         console.debug('[StateUtils] Eager Loading:', elItem)
         ObjectPath.set(state, path, elItem)
         context.setState(state, function() {

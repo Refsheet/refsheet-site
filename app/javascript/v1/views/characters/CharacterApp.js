@@ -71,26 +71,40 @@ const Component = createReactClass({
     userId: 'user_id',
   },
 
-  UNSAFE_componentWillMount() {
-    return StateUtils.load(this, 'character')
-  },
+  componentDidUpdate(prevProps, prevState) {
+    console.error({
+      prevProps,
+      prevState,
+      props: this.props,
+      state: this.state,
+    })
+    StateUtils.reload(this, 'character', this.props, prevProps)
 
-  UNSAFE_componentWillReceiveProps(newProps) {
-    return StateUtils.reload(this, 'character', newProps)
+    if (
+      prevState.character &&
+      this.state.character &&
+      prevState.character.link !== this.state.character.link
+    ) {
+      this.props.setUploadTarget(this.state.character.real_id)
+
+      // Handle URL changes:
+      if (prevState.character.real_id !== this.state.character.real_id)
+        window.history.replaceState({}, '', this.state.character.link)
+    }
   },
 
   componentDidMount() {
-    this.props.setUploadTarget(
-      this.state.character != null ? this.state.character.real_id : undefined
-    )
+    StateUtils.load(this, 'character')
 
     return $(document)
       .on('app:character:update', (e, character) => {
+        console.warn('jQuery events are deprecated, find a better way.', e)
         if (this.state.character.real_id === character.real_id) {
           return this.setState({ character })
         }
       })
-      .on('app:character:profileImage:edit', () => {
+      .on('app:character:profileImage:edit', e => {
+        console.warn('jQuery events are deprecated, find a better way.', e)
         this.setState({
           galleryTitle: 'Select Profile Picture',
           onGallerySelect: imageId => {
@@ -107,6 +121,7 @@ const Component = createReactClass({
       .on(
         'app:character:reload app:image:delete',
         (e, newPath, callback = null) => {
+          console.warn('jQuery events are deprecated, find a better way.', e)
           if (newPath == null) {
             newPath = this.state.character.path
           }
@@ -125,20 +140,7 @@ const Component = createReactClass({
     $(document).off('app:character:update')
     $(document).off('app:character:profileImage:edit')
     $(document).off('app:character:reload')
-    return $(document).off('app:image:delete')
-  },
-
-  UNSAFE_componentWillUpdate(newProps, newState) {
-    if (
-      newState.character &&
-      this.state.character &&
-      newState.character.link !== this.state.character.link
-    ) {
-      window.history.replaceState({}, '', newState.character.link)
-      return this.props.setUploadTarget(
-        this.state.character != null ? this.state.character.real_id : undefined
-      )
-    }
+    $(document).off('app:image:delete')
   },
 
   setFeaturedImage(imageId) {

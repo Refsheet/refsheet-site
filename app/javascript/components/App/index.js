@@ -183,6 +183,9 @@ class App extends Component {
         Flash.now(level, flash)
       })
     }
+
+    // Clear Eager Load
+    this.eagerLoad = null
   }
 
   render() {
