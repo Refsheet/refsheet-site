@@ -1,14 +1,8 @@
-/* do-not-disable-eslint
-    no-undef,
-    react/jsx-no-undef,
-    react/no-deprecated,
-    react/react-in-jsx-scope,
-*/
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
-import Row from '../../../shared/material/Row'
-import Attribute from '../../../shared/attributes/attribute'
+import Row from 'v1/shared/material/Row'
+import Attribute from 'v1/shared/attributes/attribute'
 import IdentityLink from 'v1/shared/identity_link'
 import AttributeTable from 'v1/shared/attributes/attribute_table'
 
