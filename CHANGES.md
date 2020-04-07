@@ -10,6 +10,12 @@
 
 ## TODO
 
+High Priority:
+
+- Gallery no longer supports re-ordering of images.
+
+Low Priority:
+
 - V2 gallery module doesn't show anything when there is nothing to show.
 - V1 Character pages don't have loading shadow anymore
 - User profiles don't render loading spinner anymore
