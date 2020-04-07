@@ -40,7 +40,8 @@ class _Main extends Component {
     const style = this.props.style || {}
 
     if (this.props.fadeEffect || this.props.slideEffect) {
-      style.display = 'none'
+      // TODO: Animations on Main are disabled.
+      //style.display = 'none'
     }
 
     return (
