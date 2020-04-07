@@ -40,6 +40,7 @@ export default Suggestions = createReactClass({
   },
 
   render() {
+    const _this = this
     if (!this.state.suggested) {
       return null
     }
@@ -53,7 +54,7 @@ export default Suggestions = createReactClass({
         >
           <Views.Account.UserCard
             user={user}
-            onFollow={this._handleFollow}
+            onFollow={_this._handleFollow}
             smaller
           />
         </li>
