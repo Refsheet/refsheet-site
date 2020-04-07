@@ -16,7 +16,7 @@ import Main from '../../../components/Shared/Main'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.CharacterViewSilhouette = props => (
+const CharacterViewSilhouette = props => (
   <Main
     title={props.title || 'Loading...'}
     className="silhouette"
@@ -73,4 +73,4 @@ this.CharacterViewSilhouette = props => (
   </Main>
 )
 
-export default this.CharacterViewSilhouette
+export default CharacterViewSilhouette
