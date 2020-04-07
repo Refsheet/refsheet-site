@@ -52,7 +52,11 @@ class cLayout extends React.Component {
     }
 
     return (
-      <Main title={this._findTitle()} flex className="with-sidebar">
+      <Main
+        title={this._findTitle() || 'Refsheet.net: Your Characters, Organized.'}
+        flex
+        className="with-sidebar"
+      >
         <Container flex className="activity-feed">
           <div className="sidebar">
             <UserCard user={this.props.currentUser} />

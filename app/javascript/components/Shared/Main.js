@@ -1,49 +1,56 @@
-/*
- * decaffeinate suggestions:
- * DS102: Remove unnecessary code created because of implicit returns
- * DS206: Consider reworking classes to avoid initClass
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import WindowAlert from 'WindowAlert'
 import styled from 'styled-components'
+import c from 'classnames'
 
 class _Main extends Component {
   constructor(props) {
     super(props)
   }
 
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
     if (this.props.title) {
-      return WindowAlert.addNow('main', this.props.title)
+      WindowAlert.addNow('main', this.props.title)
+    }
+
+    if (this.props.bodyClassName) {
+      document.body.addClass(this.props.bodyClassName)
     }
   }
 
-  //    document.body.addClass @props.bodyClassName
+  componentDidUpdate(prevProps) {
+    if (prevProps.title !== this.props.title) {
+      WindowAlert.addNow('main', this.props.title)
+    }
 
-  UNSAFE_componentWillReceiveProps(newProps) {
-    if (newProps.title) {
-      return WindowAlert.addNow('main', this.props.title)
+    if (prevProps.bodyClassName !== this.props.bodyClassName) {
+      document.body.removeClass(prevProps.bodyClassName)
+      document.body.addClass(this.props.bodyClassName)
     }
   }
 
-  //    if newProps.bodyClassName != @props.bodyClassName
-  //      document.body.removeClass @props.bodyClassName
-  //      document.body.addClass newProps.bodyClassName
-  //
-  //  componentWillUnmount: ->
-  //    document.body.removeClass @props.bodyClassName
+  componentWillUnmount() {
+    if (this.props.bodyClassName) {
+      document.body.removeClass(this.props.bodyClassName)
+    }
+  }
 
   render() {
     const style = this.props.style || {}
-    const classNames = ['z-depth-1', this.props.className]
-    if (this.props.flex) {
-      classNames.push('main-flex')
+
+    if (this.props.fadeEffect || this.props.slideEffect) {
+      style.display = 'none'
     }
 
     return (
-      <main style={style} id={this.props.id} className={classNames.join(' ')}>
+      <main
+        style={style}
+        id={this.props.id}
+        className={c('z-depth-1', this.props.className, {
+          'main-flex': this.props.flex,
+        })}
+      >
         {this.props.children}
       </main>
     )
@@ -84,10 +91,14 @@ const Main = styled(_Main)`
   }
 `
 
-Main.propTypes = {
+_Main.propTypes = {
   style: PropTypes.object,
   className: PropTypes.string,
   bodyClassName: PropTypes.string,
+  flex: PropTypes.bool,
+  fadeEffect: PropTypes.bool,
+  slideEffect: PropTypes.bool,
+  children: PropTypes.node,
   id: PropTypes.string,
   title: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
 }

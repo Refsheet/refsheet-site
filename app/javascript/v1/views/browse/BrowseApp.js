@@ -152,7 +152,7 @@ export default BrowseApp = createReactClass({
 
     return (
       <Main title={title}>
-        <Section className="search-results">
+        <Section container className="search-results">
           {this.state.searching ? (
             <div>Searching...</div>
           ) : (
@@ -174,7 +174,7 @@ export default BrowseApp = createReactClass({
           <p className="caption center">No search results :(</p>
         )}
 
-        <Section className="results">
+        <Section container className="results">
           <div className="row">{results}</div>
 
           {this.state.searching && (

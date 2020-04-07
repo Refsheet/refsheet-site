@@ -195,8 +195,8 @@ export default Activity = createReactClass({
       return <Spinner className="margin-top--large" small center />
     }
 
-    let adCount = 1
-    let activityIndex = 0
+    let adCount = 0
+    let activityIndex = 7
     let out = []
 
     this._groupedActivity().map(item => {

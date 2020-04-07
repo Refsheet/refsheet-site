@@ -113,7 +113,6 @@ class _Footer extends Component {
                 <GoogleAd
                   slot={'9500968119'}
                   format={'auto'}
-                  className={'z-depth-1'}
                   data-full-width-responsive={'true'}
                 />
               </div>
