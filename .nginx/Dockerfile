@@ -4,7 +4,7 @@ FROM nginx
 RUN apt-get update -qq && apt-get -y install apache2-utils
 # establish where Nginx should look for files
 ENV PORT 3200
-ENV RAILS_CONTAINER refsheet-prod-staging
+ENV RAILS_CONTAINER localhost
 ENV RAILS_PORT 5000
 ENV RAILS_ROOT /app
 # Set our working directory inside the image
