@@ -97,8 +97,10 @@ Rails.application.configure do
 
   config.action_cable.allowed_request_origins = %w(
     http://localhost
-    http://dev.refsheet.net
-    http://dev1.refsheet.net
+    http://dev.refsheet.net:5000
+    http://dev1.refsheet.net:5000
+    http://dev.refsheet.net:3200
+    http://dev1.refsheet.net:3200
     https://websocket.org
   )
 
