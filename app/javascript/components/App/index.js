@@ -7,6 +7,8 @@ import { Provider as ReduxProvider } from 'react-redux'
 import DropzoneProvider from '../Dropzone'
 import { ThemeProvider } from 'styled-components'
 import { I18nextProvider } from 'react-i18next'
+import Backend from 'react-dnd-html5-backend'
+import { DndProvider } from 'react-dnd'
 
 // Initialization
 import reactGuard from 'react-guard'
@@ -195,12 +197,14 @@ class App extends Component {
           <ApolloProvider client={client} store={this.store}>
             <ReduxProvider store={this.store}>
               <DropzoneProvider>
-                <BrowserRouter
-                  history={this.history}
-                  onUpdate={this.handleRouteUpdate}
-                >
-                  <Layout />
-                </BrowserRouter>
+                <DndProvider backend={Backend}>
+                  <BrowserRouter
+                    history={this.history}
+                    onUpdate={this.handleRouteUpdate}
+                  >
+                    <Layout />
+                  </BrowserRouter>
+                </DndProvider>
               </DropzoneProvider>
             </ReduxProvider>
           </ApolloProvider>

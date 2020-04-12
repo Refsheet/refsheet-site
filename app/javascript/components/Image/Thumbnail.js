@@ -6,6 +6,7 @@ import { Icon } from 'react-materialize'
 import { connect } from 'react-redux'
 import { openLightbox } from '../../actions'
 import NumberUtils from '../../v1/utils/NumberUtils'
+import c from 'classnames'
 
 class Thumbnail extends Component {
   constructor(props) {
@@ -95,6 +96,8 @@ class Thumbnail extends Component {
           </div>
         )}
 
+        {this.props.children}
+
         <div className="overlay">
           <div className="interactions">
             <div
@@ -123,16 +126,28 @@ class Thumbnail extends Component {
   }
 
   render() {
-    const { style } = this.props
+    const { className, style, connectorFunc, innerRef } = this.props
 
-    return (
-      <div
-        style={style}
-        className="gallery-image image-thumbnail black z-depth-1"
-      >
-        {this.renderImage()}
-      </div>
-    )
+    const preReturn = () => {
+      return (
+        <div
+          ref={innerRef}
+          style={style}
+          className={c(
+            'gallery-image image-thumbnail black z-depth-1',
+            className
+          )}
+        >
+          {this.renderImage()}
+        </div>
+      )
+    }
+
+    if (connectorFunc) {
+      return connectorFunc(preReturn())
+    } else {
+      return preReturn()
+    }
   }
 }
 

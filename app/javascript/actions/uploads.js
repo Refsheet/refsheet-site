@@ -54,3 +54,17 @@ export function setUploadTarget(characterId, uploadCallback = null) {
     uploadCallback,
   }
 }
+
+export const DISABLE_DROPZONE = 'DISABLE_DROPZONE'
+export function disableDropzone() {
+  return {
+    type: DISABLE_DROPZONE,
+  }
+}
+
+export const ENABLE_DROPZONE = 'ENABLE_DROPZONE'
+export function enableDropzone() {
+  return {
+    type: ENABLE_DROPZONE,
+  }
+}

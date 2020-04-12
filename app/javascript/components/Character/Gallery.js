@@ -5,8 +5,10 @@ import Measure from 'react-measure'
 import Section from 'components/Shared/Section'
 import Thumbnail from 'components/Image/Thumbnail'
 import compose from '../../utils/compose'
+import { DragSource, DropTarget } from 'react-dnd'
 import { connect } from 'react-redux'
 import { openUploadModal } from '../../actions'
+import SortableThumbnail from '../Image/SortableThumbnail'
 
 function convertData(images) {
   return images.map(image => ({
@@ -58,7 +60,7 @@ const Gallery = function({ v1Data, noHeader, images, openUploadModal }) {
   )
 }
 
-var renderGallery = images =>
+const renderGallery = images =>
   function({ measureRef, contentRect }) {
     const { width } = contentRect.bounds
 
@@ -68,7 +70,7 @@ var renderGallery = images =>
       const { id, aspect_ratio } = image
 
       return (
-        <Thumbnail
+        <SortableThumbnail
           key={id}
           aspectRatio={aspect_ratio || 1}
           image={image}

@@ -8,7 +8,8 @@ module.exports = {
       {
         loader: 'sass-loader',
         options: {
-          sourceMap: true,
+          sourceMap: false,
+          allChunks: true,
           includePaths: [
             'app/javascript/sass',
             'app/assets/stylesheets',
@@ -17,6 +18,7 @@ module.exports = {
         }
       },
     ],
+    allChunks: true,
     fallback: 'style-loader'
   })
 }
