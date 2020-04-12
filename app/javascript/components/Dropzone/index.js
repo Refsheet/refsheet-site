@@ -89,6 +89,7 @@ class Dropzone extends Component {
       return this.props.children
     } else {
       const { dropzoneActive } = this.state
+      const { disabled } = this.props
 
       const overlayStyle = {
         position: 'fixed',
@@ -115,6 +116,7 @@ class Dropzone extends Component {
         <ReactDropzone
           ref={r => (this.dropzone = r)}
           disableClick
+          disabled={disabled}
           style={{}}
           accept={'image/*'}
           onDrop={this.onDrop.bind(this)}
@@ -140,9 +142,10 @@ Dropzone.childContextTypes = {
   getDropzone: PropTypes.func,
 }
 
-const mapStateToProps = ({ session }) => {
+const mapStateToProps = ({ session, uploads }) => {
   return {
     currentUser: session.currentUser,
+    disabled: uploads.dropzoneDisabled,
   }
 }
 

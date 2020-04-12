@@ -13,6 +13,7 @@ fragment GalleryImageFields on Image {
     width
     height
     url {
+        thumbnail
         small
         small_square
         medium

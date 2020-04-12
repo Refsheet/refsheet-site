@@ -82,6 +82,20 @@ const handlers = {
       uploadCallback: action.uploadCallback,
     }
   },
+
+  [Actions.DISABLE_DROPZONE]: state => {
+    return {
+      ...state,
+      dropzoneDisabled: true,
+    }
+  },
+
+  [Actions.ENABLE_DROPZONE]: state => {
+    return {
+      ...state,
+      dropzoneDisabled: false,
+    }
+  },
 }
 
 export default createReducer({}, handlers)
