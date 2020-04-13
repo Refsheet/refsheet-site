@@ -21,8 +21,9 @@ export default PageStylesheet = createReactClass({
     return { colorData: this.props.colorData }
   },
 
-  UNSAFE_componentWillReceiveProps(newProps) {
-    return { colorData: this.props.colorData }
+  componentDidUpdate(oldProps) {
+    if (oldProps.colorData !== this.props.colorData)
+      this.setState({ colorData: this.props.colorData })
   },
 
   componentDidMount() {
@@ -138,10 +139,11 @@ export default PageStylesheet = createReactClass({
 
     let css = ''
 
-    for (let color in this.state.colorData) {
+    for (const color in this.state.colorData) {
+      const colorProp = color.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
       const value = this.state.colorData[color]
       for (let property of ['background-color', 'color', 'border-color']) {
-        let className = `.cs-${color}--${property}`
+        let className = `.cs-${colorProp}--${property}`
         const moreClasses =
           otherClasses[className] != null
             ? otherClasses[className].join(', ')
@@ -192,11 +194,11 @@ nav a.patreon {
 `
 
     if (
-      this.state.colorData['card-background'] != null &&
-      this.state.colorData['card-background'] !== ''
+      this.state.colorData['cardBackground'] != null &&
+      this.state.colorData['cardBackground'] !== ''
     ) {
-      hasWhiteLogo = isDark(this.state.colorData['card-background'])
-      hasDarkLogo = !isDark(this.state.colorData['card-background'])
+      hasWhiteLogo = isDark(this.state.colorData['cardBackground'])
+      hasDarkLogo = !hasWhiteLogo
     }
 
     return (

@@ -293,18 +293,13 @@ const Component = createReactClass({
     }
 
     const colors =
-      (this.state.character.color_scheme &&
-        this.state.character.color_scheme.color_data) ||
-      {}
+      this.state.character.color_scheme &&
+      this.state.character.color_scheme.color_data
 
     return (
-      <ThemeProvider theme={defaultTheme.apply(colors)}>
+      <ThemeProvider theme={defaultTheme.apply(colors || {})}>
         <ThemedMain title={[this.state.character.name, 'Characters']}>
-          {this.state.character.color_scheme && (
-            <PageStylesheet
-              colorData={this.state.character.color_scheme.color_data}
-            />
-          )}
+          {colors && <PageStylesheet colorData={colors} />}
 
           {/*<CharacterEditMenu onEditClick={ this._toggleEditable }
                                 images={ this.state.images }
