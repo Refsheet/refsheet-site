@@ -10,10 +10,6 @@
 
 ## TODO
 
-High Priority:
-
-- Gallery no longer supports re-ordering of images.
-
 Low Priority:
 
 - V2 gallery module doesn't show anything when there is nothing to show.
@@ -32,6 +28,7 @@ Low Priority:
 - V1 character galleries now use the V2 image gallery component. For now, the top-3 feature is removed,
   but the images will now auto-update when processing is done.
 - Text modules in V1 profiles now use the V2 profile widget, kinda. This means you get the fun markdown editor.
+- Ordering images in your gallery is now 0.2% less frustrating.
 
 # Framework
 
