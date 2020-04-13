@@ -38,6 +38,9 @@ import Gallery from '../../../components/Character/Gallery'
 import { Query } from 'react-apollo'
 import getCharacterImages from './getCharacterImages.graphql'
 import Flash from '../../../utils/Flash'
+import { ThemedMain } from '../../../components/Styled/Global'
+import defaultTheme from '../../../themes/default'
+import { ThemeProvider } from 'styled-components'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -289,166 +292,173 @@ const Component = createReactClass({
       }
     }
 
+    const colors =
+      (this.state.character.color_scheme &&
+        this.state.character.color_scheme.color_data) ||
+      {}
+
     return (
-      <Main title={[this.state.character.name, 'Characters']}>
-        {this.state.character.color_scheme && (
-          <PageStylesheet
-            colorData={this.state.character.color_scheme.color_data}
-          />
-        )}
-
-        {/*<CharacterEditMenu onEditClick={ this._toggleEditable }
-                              images={ this.state.images }
-                              galleryTitle={ this.state.galleryTitle } <-- THIS SHOULD NOT HAPPEN
-                              onGallerySelect={ this.onGallerySelect }
-                              character={ this.state.character } */}
-
-        {showMenu && (
-          <div className="edit-container">
-            <FixedActionButton
-              clickToToggle
-              className="red"
-              tooltip="Menu"
-              icon="menu"
-            >
-              <ActionButton
-                className="indigo lighten-1"
-                tooltip="Upload Images"
-                id="image-upload"
-                onClick={this._openUploads}
-                icon="file_upload"
-              />
-              <ActionButton
-                className="green lighten-1 modal-trigger"
-                tooltip="Edit Page Colors"
-                href="#color-scheme-form"
-                icon="palette"
-              />
-              <ActionButton
-                className="blue darken-1 modal-trigger"
-                tooltip="Character Settings"
-                href="#character-settings-form"
-                icon="settings"
-              />
-
-              {editable ? (
-                <ActionButton
-                  className="red lighten-1"
-                  tooltip="Lock Page"
-                  icon="lock"
-                  onClick={this._toggleEditable}
-                />
-              ) : (
-                <ActionButton
-                  className="red lighten-1"
-                  tooltip="Edit Page"
-                  icon="edit"
-                  onClick={this._toggleEditable}
-                />
-              )}
-            </FixedActionButton>
-
-            <CharacterColorSchemeModal
-              colorScheme={this.state.character.color_scheme}
-              characterPath={this.state.character.path}
+      <ThemeProvider theme={defaultTheme.apply(colors)}>
+        <ThemedMain title={[this.state.character.name, 'Characters']}>
+          {this.state.character.color_scheme && (
+            <PageStylesheet
+              colorData={this.state.character.color_scheme.color_data}
             />
-            <CharacterDeleteModal character={this.state.character} />
-            <CharacterTransferModal character={this.state.character} />
-            <CharacterSettingsModal character={this.state.character} />
-          </div>
-        )}
+          )}
 
-        <PageHeader
-          backgroundImage={(this.state.character.featured_image || {}).url}
-          onHeaderImageEdit={headerImageEditCallback}
-        >
-          <CharacterNotice transfer={this.state.character.pending_transfer} />
+          {/*<CharacterEditMenu onEditClick={ this._toggleEditable }
+                                images={ this.state.images }
+                                galleryTitle={ this.state.galleryTitle } <-- THIS SHOULD NOT HAPPEN
+                                onGallerySelect={ this.onGallerySelect }
+                                character={ this.state.character } */}
 
           {showMenu && (
-            <div className="button-group">
-              {editable ? (
+            <div className="edit-container">
+              <FixedActionButton
+                clickToToggle
+                className="red"
+                tooltip="Menu"
+                icon="menu"
+              >
                 <ActionButton
-                  className="red lighten-1"
-                  tooltip="Lock Page"
-                  icon="lock"
-                  onClick={this._toggleEditable}
+                  className="indigo lighten-1"
+                  tooltip="Upload Images"
+                  id="image-upload"
+                  onClick={this._openUploads}
+                  icon="file_upload"
                 />
-              ) : (
                 <ActionButton
-                  className="red lighten-1"
-                  tooltip="Edit Page"
-                  icon="edit"
-                  onClick={this._toggleEditable}
+                  className="green lighten-1 modal-trigger"
+                  tooltip="Edit Page Colors"
+                  href="#color-scheme-form"
+                  icon="palette"
                 />
-              )}
+                <ActionButton
+                  className="blue darken-1 modal-trigger"
+                  tooltip="Character Settings"
+                  href="#character-settings-form"
+                  icon="settings"
+                />
+
+                {editable ? (
+                  <ActionButton
+                    className="red lighten-1"
+                    tooltip="Lock Page"
+                    icon="lock"
+                    onClick={this._toggleEditable}
+                  />
+                ) : (
+                  <ActionButton
+                    className="red lighten-1"
+                    tooltip="Edit Page"
+                    icon="edit"
+                    onClick={this._toggleEditable}
+                  />
+                )}
+              </FixedActionButton>
+
+              <CharacterColorSchemeModal
+                colorScheme={this.state.character.color_scheme}
+                characterPath={this.state.character.path}
+              />
+              <CharacterDeleteModal character={this.state.character} />
+              <CharacterTransferModal character={this.state.character} />
+              <CharacterSettingsModal character={this.state.character} />
             </div>
           )}
 
-          <CharacterCard
-            edit={editable}
-            detailView={true}
-            character={this.state.character}
-            onLightbox={this.props.onLightbox}
-          />
-          <SwatchPanel
-            edit={editable}
-            swatchesPath={this.state.character.path + '/swatches/'}
-            swatches={this.state.character.swatches}
-          />
-        </PageHeader>
-
-        <Section>
-          <Row className="rowfix">
-            <Column m={12} id={'profile_about'}>
-              <RichText
-                renderAsCard
-                name="profile"
-                title={`About ${this.state.character.name}`}
-                placeholder="No biography written."
-                onChange={richTextChange}
-                contentHtml={this.state.character.profile_html || ''}
-                content={this.state.character.profile}
-              />
-            </Column>
-          </Row>
-          <Row className="rowfix">
-            <Column m={6} id={'profile_likes'}>
-              <RichText
-                renderAsCard
-                title={'Likes'}
-                name={'likes'}
-                placeholder="No likes specified."
-                onChange={richTextChange}
-                contentHtml={this.state.character.likes_html || ''}
-                content={this.state.character.likes}
-              />
-            </Column>
-            <Column m={6} id={'profile_dislikes'}>
-              <RichText
-                renderAsCard
-                title={'Dislikes'}
-                name={'dislikes'}
-                placeholder="No dislikes specified."
-                onChange={richTextChange}
-                contentHtml={this.state.character.dislikes_html || ''}
-                content={this.state.character.dislikes}
-              />
-            </Column>
-          </Row>
-        </Section>
-
-        <Section className="margin-bottom--large">
-          <Query
-            query={getCharacterImages}
-            variables={{
-              slug: this.state.character.slug,
-              username: this.state.character.user_id,
-            }}
+          <PageHeader
+            backgroundImage={(this.state.character.featured_image || {}).url}
+            onHeaderImageEdit={headerImageEditCallback}
           >
-            {this.renderGallery}
-          </Query>
-        </Section>
-      </Main>
+            <CharacterNotice transfer={this.state.character.pending_transfer} />
+
+            {showMenu && (
+              <div className="button-group">
+                {editable ? (
+                  <ActionButton
+                    className="red lighten-1"
+                    tooltip="Lock Page"
+                    icon="lock"
+                    onClick={this._toggleEditable}
+                  />
+                ) : (
+                  <ActionButton
+                    className="red lighten-1"
+                    tooltip="Edit Page"
+                    icon="edit"
+                    onClick={this._toggleEditable}
+                  />
+                )}
+              </div>
+            )}
+
+            <CharacterCard
+              edit={editable}
+              detailView={true}
+              character={this.state.character}
+              onLightbox={this.props.onLightbox}
+            />
+            <SwatchPanel
+              edit={editable}
+              swatchesPath={this.state.character.path + '/swatches/'}
+              swatches={this.state.character.swatches}
+            />
+          </PageHeader>
+
+          <Section>
+            <Row className="rowfix">
+              <Column m={12} id={'profile_about'}>
+                <RichText
+                  renderAsCard
+                  name="profile"
+                  title={`About ${this.state.character.name}`}
+                  placeholder="No biography written."
+                  onChange={richTextChange}
+                  contentHtml={this.state.character.profile_html || ''}
+                  content={this.state.character.profile}
+                />
+              </Column>
+            </Row>
+            <Row className="rowfix">
+              <Column m={6} id={'profile_likes'}>
+                <RichText
+                  renderAsCard
+                  title={'Likes'}
+                  name={'likes'}
+                  placeholder="No likes specified."
+                  onChange={richTextChange}
+                  contentHtml={this.state.character.likes_html || ''}
+                  content={this.state.character.likes}
+                />
+              </Column>
+              <Column m={6} id={'profile_dislikes'}>
+                <RichText
+                  renderAsCard
+                  title={'Dislikes'}
+                  name={'dislikes'}
+                  placeholder="No dislikes specified."
+                  onChange={richTextChange}
+                  contentHtml={this.state.character.dislikes_html || ''}
+                  content={this.state.character.dislikes}
+                />
+              </Column>
+            </Row>
+          </Section>
+
+          <Section className="margin-bottom--large">
+            <Query
+              query={getCharacterImages}
+              variables={{
+                slug: this.state.character.slug,
+                username: this.state.character.user_id,
+              }}
+            >
+              {this.renderGallery}
+            </Query>
+          </Section>
+        </ThemedMain>
+      </ThemeProvider>
     )
   },
 })
