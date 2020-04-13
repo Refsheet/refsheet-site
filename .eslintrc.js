@@ -9,17 +9,19 @@ module.exports = {
   rules: {
     // ES6
     "no-unused-vars": 'warn',
-    "no-undef": 'warn',
+    "no-undef": 'error',
     "no-constant-condition": 'warn',
     "no-unreachable": 'warn',
     "no-prototype-builtins": 'warn',
+    "no-extra-semi": 'warn',
 
     // React
     "react/no-deprecated": 'error',
     "react/display-name": 'warn',
-    "react/jsx-no-undef": 'warn',
+    "react/jsx-no-undef": 'error',
     "react/prop-types": 'warn',
     "react/no-unescaped-entities": 'off',
+    "react/no-string-refs": 'warn',
 
     // GraphQL
     "graphql/template-strings": ['error', {

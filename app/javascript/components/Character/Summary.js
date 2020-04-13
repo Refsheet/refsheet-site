@@ -8,6 +8,11 @@ import updateCharacter from './updateCharacter.graphql'
 import * as M from 'materialize-css'
 import WindowAlert from '../../utils/WindowAlert'
 
+import AttributeTable from 'v1/shared/attributes/attribute_table'
+import Attribute from 'v1/shared/attributes/attribute'
+import Attributes from 'v1/views/characters/_attributes'
+import RichText from 'v1/shared/RichText.js.jsx.coffee'
+
 class Summary extends Component {
   constructor(props) {
     super(props)
@@ -115,7 +120,7 @@ class Summary extends Component {
               />
             </AttributeTable>
 
-            <Views.Character.Attributes
+            <Attributes
               characterPath={`/users/${character.username}/characters/${character.slug}`}
               attributes={this.state.attributes}
               onChange={this.handleAttributesChange.bind(this)}
@@ -127,8 +132,8 @@ class Summary extends Component {
                 <H2>Important Notes</H2>
 
                 <RichText
-                  content={this.state.special_notes_html}
-                  markup={this.state.special_notes}
+                  contentHtml={this.state.special_notes_html}
+                  content={this.state.special_notes}
                   onChange={
                     editable ? this.handleNotesChange.bind(this) : undefined
                   }

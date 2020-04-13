@@ -8,6 +8,8 @@ import { withRouter } from 'react-router'
 import FormUtils from '../../../utils/FormUtils'
 import LinkUtils from '../../../utils/LinkUtils'
 
+import Icon from 'v1/shared/material/Icon'
+
 class SearchForm extends Component {
   constructor(props) {
     super(props)

@@ -6,6 +6,8 @@ import compose, { withMutations } from '../../../utils/compose'
 import gdQuery from '../getDiscussions.graphql'
 import M from 'materialize-css'
 
+import Icon from 'v1/shared/material/Icon'
+
 class KarmaButton extends Component {
   constructor(props) {
     super(props)

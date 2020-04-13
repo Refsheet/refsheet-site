@@ -1,4 +1,4 @@
-version: '2'
+version: '2.3'
 
 services:
   postgres:
@@ -22,14 +22,28 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     ports:
-      - '5000:5000'
+      - '3200:5000'
+      - '3035:3035'
     volumes:
       - '.:/app'
       - 'bundle:/usr/local/bundle'
     env_file:
       - '.env'
     environment:
-      FORMATION: web=1 webpacker=1
+      FORMATION: web=1,webpacker=1
+
+  nginx:
+    depends_on:
+      - 'website'
+    build:
+      context: .
+      dockerfile: .nginx/Dockerfile
+    ports:
+      - '5000:3200'
+    volumes:
+      - './public:/app/public'
+    env_file:
+      - '.env'
 
   worker:
     depends_on:

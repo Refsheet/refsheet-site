@@ -21,8 +21,35 @@ spec:
         secret:
           secretName: refsheet-prod-storage
       containers:
+      - name: refsheet-prod-staging-nginx
+        image: gcr.io/refsheet-239409/refsheet-site-nginx:bb7c0063121bce5885632829fdc77dbd67ea15c8
+        imagePullPolicy: Always
+        livenessProbe:
+          periodSeconds: 120
+          timeoutSeconds: 120
+          httpGet:
+            path: /nhealth
+            port: 3200
+            scheme: HTTP
+        readinessProbe:
+          periodSeconds: 120
+          timeoutSeconds: 120
+          httpGet:
+            path: /nhealth
+            port: 3200
+            scheme: HTTP
+        ports:
+          - containerPort: 3000
+            protocol: TCP
+        resources:
+          requests:
+            cpu: "0.1"
+            memory: 64M
+          limits:
+            cpu: "0.6"
+            memory: 256M
       - name: refsheet-prod-staging
-        image: gcr.io/refsheet-239409/refsheet-site:bb7c0063121bce5885632829fdc77dbd67ea15c8
+        image: gcr.io/refsheet-239409/refsheet-site:ec0878bc35398957ef78c8bfe77c4fe3b1a71812
         imagePullPolicy: Always
         livenessProbe:
           periodSeconds: 120
@@ -69,8 +96,8 @@ spec:
           protocol: TCP
         resources:
           requests:
-            cpu: "0.15"
+            cpu: "0.5"
             memory: 500M
           limits:
-            cpu: "0.6"
+            cpu: "1"
             memory: 1G

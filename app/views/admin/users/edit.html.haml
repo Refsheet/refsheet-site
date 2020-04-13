@@ -34,7 +34,8 @@
 
     = f.submit class: 'btn'
 
-:coffeescript
-  $ ->
-    Materialize.updateTextFields()
-    $('select').formSelect()
+:javascript
+  $(function() {
+    Materialize.updateTextFields();
+    $('select').formSelect();
+  });

@@ -9,6 +9,8 @@ import deleteMedia from './deleteMedia.graphql'
 import { getCharacterProfile as gcp } from 'queries/getCharacterProfile.graphql'
 import M from 'materialize-css'
 
+import Modal from 'v1/shared/Modal'
+
 class ImageActions extends Component {
   constructor(props) {
     super(props)

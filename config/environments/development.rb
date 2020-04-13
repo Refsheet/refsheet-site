@@ -1,15 +1,18 @@
 Rails.application.configure do
-  # # Test gcloud logging
-  config.google_cloud.project_id = "refsheet-239409"
-  config.google_cloud.keyfile = "refsheet-prod.json"
-  config.google_cloud.use_logging = false
+  # Test gcloud logging
+  # config.google_cloud.project_id = "refsheet-239409"
+  # config.google_cloud.keyfile = "refsheet-prod.json"
+  # config.google_cloud.use_logging = false
   # config.google_cloud.logging.log_name = "refsheet-dev"
   # config.google_cloud.logging.resource = "global"
   #
   # Gcloud Trace
-  config.google_cloud.use_trace = true
-  config.google_cloud.trace.capture_stack = true
-  config.google_cloud.trace.sampler = -> (_x) { true }
+  config.google_cloud.use_logging = false
+  config.google_cloud.use_trace = false
+  config.google_cloud.use_error_reporting = false
+  config.google_cloud.use_debugger = false
+  # config.google_cloud.trace.capture_stack = true
+  # config.google_cloud.trace.sampler = -> (_x) { true }
 
   # Verifies that versions and hashed value of the package contents in the project's package.json
   config.webpacker.check_yarn_integrity = false
@@ -26,8 +29,8 @@ Rails.application.configure do
   }
 
   config.rails_semantic_logger.add_file_appender = false
-  config.rails_semantic_logger.format = Refsheet::LogFormatter.new
-  config.semantic_logger.add_appender(io: STDOUT, level: config.log_level, formatter: config.rails_semantic_logger.format)
+  # config.rails_semantic_logger.format = Refsheet::LogFormatter.new
+  # config.semantic_logger.add_appender(io: STDOUT, level: config.log_level, formatter: config.rails_semantic_logger.format)
 
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
@@ -97,8 +100,10 @@ Rails.application.configure do
 
   config.action_cable.allowed_request_origins = %w(
     http://localhost
-    http://dev.refsheet.net
-    http://dev1.refsheet.net
+    http://dev.refsheet.net:5000
+    http://dev1.refsheet.net:5000
+    http://dev.refsheet.net:3200
+    http://dev1.refsheet.net:3200
     https://websocket.org
   )
 

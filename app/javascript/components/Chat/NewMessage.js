@@ -84,7 +84,7 @@ class NewMessage extends Component {
             this.props.onCreate({
               nonce: nonce,
               status: 'error',
-              error: error.message,
+              error: errors[0].message,
             })
           }
         } else if (messageGuid) {

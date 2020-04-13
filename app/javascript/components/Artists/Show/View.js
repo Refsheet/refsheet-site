@@ -5,6 +5,8 @@ import Header from './Header'
 import TabbedContent from '../../Shared/TabbedContent'
 import DiscussionLink from '../../Forums/show/DiscussionLink'
 
+import Advertisement from 'v1/shared/advertisement'
+
 class View extends Component {
   render() {
     const {

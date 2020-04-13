@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+import Follow from 'v1/views/user/Follow'
+
 const UserCard = ({ smaller, user, onFollow }) => {
   let imgShadow, nameColor
   const nameClassNames = ['strong truncate']
@@ -35,7 +37,7 @@ const UserCard = ({ smaller, user, onFollow }) => {
 
       <div className="user-details">
         {onFollow && (
-          <Views.User.Follow
+          <Follow
             username={user.username}
             followed={user.followed}
             short={smaller}

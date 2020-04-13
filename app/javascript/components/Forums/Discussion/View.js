@@ -14,6 +14,8 @@ import { MutedAnchor } from '../../Styled/Muted'
 import LinkUtils from 'utils/LinkUtils'
 import { H2 } from '../../Styled/Headings'
 
+import Advertisement from 'v1/shared/advertisement'
+
 class View extends Component {
   render() {
     const { discussion, forum, t, refetch } = this.props

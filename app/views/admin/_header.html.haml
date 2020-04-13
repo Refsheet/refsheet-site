@@ -15,10 +15,12 @@
               = text_field_tag :q, params[:q], type: :search, id: 'search', class: (params[:q].present? ? 'active' : '')
               = label_tag :q, material_icon(:search)
 
-:coffeescript
-  $ ->
-    $('nav .search input[type=search]').change ->
-      if $(this).val() == ''
+:javascript
+  $(function() {
+    $('nav .search input[type=search]').change(function() {
+      if ($(this).val() === '')
         $(this).removeClass 'active'
       else
         $(this).addClass 'active'
+    });
+  });

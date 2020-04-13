@@ -3,6 +3,7 @@ import View from './View'
 import { Error } from 'Shared'
 import { Query } from 'react-apollo'
 import { getNextModeration } from 'queries/getNextModeration.graphql'
+import Loading from 'v1/shared/Loading'
 
 class Moderate extends Component {
   constructor(props) {

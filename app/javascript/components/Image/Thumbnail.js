@@ -5,6 +5,8 @@ import { Subscription } from 'react-apollo'
 import { Icon } from 'react-materialize'
 import { connect } from 'react-redux'
 import { openLightbox } from '../../actions'
+import NumberUtils from '../../v1/utils/NumberUtils'
+import c from 'classnames'
 
 class Thumbnail extends Component {
   constructor(props) {
@@ -122,16 +124,29 @@ class Thumbnail extends Component {
   }
 
   render() {
-    const { style } = this.props
+    const { className, style, connectorFunc, innerRef, children } = this.props
 
-    return (
-      <div
-        style={style}
-        className="gallery-image image-thumbnail black z-depth-1"
-      >
-        {this.renderImage()}
-      </div>
-    )
+    const preReturn = () => {
+      return (
+        <div
+          ref={innerRef}
+          style={style}
+          className={c(
+            'gallery-image image-thumbnail black z-depth-1',
+            className
+          )}
+        >
+          {children}
+          {this.renderImage()}
+        </div>
+      )
+    }
+
+    if (connectorFunc) {
+      return connectorFunc(preReturn())
+    } else {
+      return preReturn()
+    }
   }
 }
 

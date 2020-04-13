@@ -36,6 +36,6 @@ FactoryBot.define do
     forum
     user
     topic { Faker::Movies::LordOfTheRings.location }
-    content { Faker::Lorem.paragraph(2) }
+    content { Faker::Lorem.paragraph(sentence_count: 2) }
   end
 end

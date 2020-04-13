@@ -7,7 +7,6 @@ import lightbox from './lightbox'
 export function createReducer(initialState, handlers) {
   return function reducer(state = initialState, action) {
     if (handlers.hasOwnProperty(action.type)) {
-      console.log({ action })
       return handlers[action.type](state, action)
     } else {
       return state

@@ -11,7 +11,9 @@ class ImageCharacterSerializer < ActiveModel::Serializer
              :featured_image_url,
              :group_ids,
              :path,
-             :link
+             :link,
+             :avatar,
+             :cover_image
 
   has_one :color_scheme, serializer: ColorSchemeSerializer
 
@@ -41,6 +43,32 @@ class ImageCharacterSerializer < ActiveModel::Serializer
 
   def featured_image_url
     object.featured_image&.image&.url(:large)
+  end
+
+  def avatar
+    img = object&.avatar
+    return unless img
+
+    styles = {}
+    img.styles.each { |k| styles[k] = img.url(k) }
+
+    {
+        isAttached: img.attached?,
+        url: styles
+    }
+  end
+
+  def cover_image
+    img = object&.cover_image
+    return unless img
+
+    styles = {}
+    img.styles.each { |k| styles[k] = img.url(k) }
+
+    {
+        isAttached: img.attached?,
+        url: styles
+    }
   end
 
   def link

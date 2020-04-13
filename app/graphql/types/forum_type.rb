@@ -12,7 +12,7 @@ Types::ForumType = GraphQL::ObjectType.define do
   interfaces [Interfaces::ApplicationRecordInterface]
 
   field :name, !types.String
-  field :summary, !types.String
+  field :summary, types.String
   field :description, types.String
   field :slug, types.String
   field :locked, types.Boolean

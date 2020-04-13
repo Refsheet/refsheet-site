@@ -53,7 +53,11 @@ class DropdownLink extends Component {
 
     return (
       <li ref={r => (this.ref = r)}>
-        <a className={classNames} onClick={this.handleMenuToggle}>
+        <a
+          className={classNames}
+          onClick={this.handleMenuToggle}
+          data-testid={this.props['data-testid']}
+        >
           {imageSrc ? (
             <img src={imageSrc} className="circle" />
           ) : icon ? (

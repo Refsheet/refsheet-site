@@ -12,7 +12,7 @@ import compose from '../../../../utils/compose'
 import ColorTheme from '../../../../utils/ColorTheme'
 import SimpleSchemeForm from './SimpleSchemeForm'
 import AdvancedSchemeForm from './AdvancedSchemeForm'
-// import Modal from Global
+import Modal from 'v1/shared/Modal'
 
 // TODO: Move simple / advanced to tabs
 // TODO: Cleanup callback hell.

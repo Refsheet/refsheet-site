@@ -70,6 +70,7 @@
             .col.s12
               = render partial: 'admin/shared/changelog', locals: { changes: Changelog.for_image(@image).last(10).reverse }
 
-:coffeescript
-  $ ->
-    $('.tabs').tabs()
+:javascript
+  $(function() {
+    $('.tabs').tabs();
+  });

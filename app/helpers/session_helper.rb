@@ -1,5 +1,9 @@
 module SessionHelper
   def sign_in(user, remember: true)
+    if user.nil?
+      return
+    end
+
     session[UserSession::COOKIE_USER_ID_NAME] = user.id
     session[:nsfw_ok] = !!user.settings(:view)[:nsfw_ok]
 
@@ -158,7 +162,7 @@ module SessionHelper
       if serializer.nil?
         value = resource
       elsif resource.is_a? ActiveRecord::Relation
-        value = ActiveModel::SerializableResource.new(resource, each_serializer: serializer, scope: view_context)
+        value = ActiveModelSerializers::SerializableResource.new(resource, each_serializer: serializer, scope: view_context)
       else
         value = serializer.new(resource, scope: view_context)
       end

@@ -10,6 +10,7 @@ import { Sticky, StickyContainer } from 'react-sticky'
 import c from 'classnames'
 import EditableHeader from 'Shared/EditableHeader'
 import styled from 'styled-components'
+import Icon from 'v1/shared/material/Icon'
 
 const H2 = styled.h2`
   color: ${props => props.theme.primary};
@@ -95,7 +96,7 @@ const Section = function({
 
   return (
     <StickyContainer>
-      <section id={id} className={c(className, { container })}>
+      <section id={id} className={c(className)}>
         {(title || editable) && <Sticky topOffset={-66}>{renderTitle}</Sticky>}
 
         <div className={c({ container })}>{children}</div>
@@ -135,6 +136,7 @@ const renderAction = ({ title, id, onClick, icon, hide }, i) => {
       className="btn btn-flat"
       onClick={actionHandler(onClick, id)}
       key={i}
+      id={id}
     >
       {icon && <Icon className={title ? 'left' : ''}>{icon}</Icon>}
       {title}

@@ -3,8 +3,11 @@ import Error from 'Shared/Error'
 import { Row, Col } from 'react-materialize'
 import { Mutation } from 'react-apollo'
 import updateModeration from 'graphql/mutations/updateModeration.graphql'
-//import Main from 'legacy'
-//import Container from 'legacy'
+
+import Jumbotron from 'components/Shared/Jumbotron'
+import Main from 'v1/shared/Main'
+import Spinner from 'v1/shared/material/Spinner'
+import Container from 'v1/shared/material/Container'
 
 const Resolution = ({ id, updateModeration, data, loading, error }) => {
   if (loading) {

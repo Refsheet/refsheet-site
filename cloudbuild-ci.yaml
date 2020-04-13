@@ -56,6 +56,8 @@ steps:
     waitFor:
       - Migrate
 
+  # Can't run both Rails tests at the same time, since they'll cause some not so fun database concurrency issues.
+  # This is related to the issue of db cleaner, and there's nothing we can do but partition the database or something.
   - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
     id: RSpec Integration
     dir: /app
@@ -63,6 +65,7 @@ steps:
     secretEnv:
       - CODECOV_TOKEN
     waitFor:
+      - RSpec Unit
       - Migrate
 
   - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'

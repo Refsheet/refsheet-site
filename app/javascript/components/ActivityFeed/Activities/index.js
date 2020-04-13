@@ -1,5 +1,9 @@
 import React from 'react'
 import StatusUpdate from './StatusUpdate'
+import Image from './Image'
+import Comment from './Comment'
+import Character from './Character'
+import ForumDiscussion from './ForumDiscussion'
 
 export function getText(t, { activities, activityType }) {
   const count = activities ? activities.length : 1
@@ -34,28 +38,18 @@ export function render(props) {
 
   switch (activityType) {
     case 'Image':
-      return (
-        <Views.Account.Activities.Image
-          images={activities}
-          character={props.character}
-        />
-      )
+      return <Image images={activities} character={props.character} />
 
     case 'Media::Comment':
-      return <Views.Account.Activities.Comment comments={activities} />
+      return <Comment comments={activities} />
 
     case 'Character':
       return (
-        <Views.Account.Activities.Character
-          characters={activities}
-          username={props.user.username}
-        />
+        <Character characters={activities} username={props.user.username} />
       )
 
     case 'Forum::Discussion':
-      return (
-        <Views.Account.Activities.ForumDiscussion discussions={activities} />
-      )
+      return <ForumDiscussion discussions={activities} />
 
     default:
       return <StatusUpdate comment={comment} />
