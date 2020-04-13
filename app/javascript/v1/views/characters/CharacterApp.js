@@ -41,6 +41,7 @@ import Flash from '../../../utils/Flash'
 import { ThemedMain } from '../../../components/Styled/Global'
 import defaultTheme from '../../../themes/default'
 import { ThemeProvider } from 'styled-components'
+import ColorUtils from '../../../utils/ColorUtils'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -297,7 +298,9 @@ const Component = createReactClass({
       this.state.character.color_scheme.color_data
 
     return (
-      <ThemeProvider theme={defaultTheme.apply(colors || {})}>
+      <ThemeProvider
+        theme={defaultTheme.apply(ColorUtils.convertV1(colors || {}))}
+      >
         <ThemedMain title={[this.state.character.name, 'Characters']}>
           {colors && <PageStylesheet colorData={colors} />}
 
