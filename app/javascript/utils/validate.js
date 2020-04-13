@@ -44,7 +44,25 @@ const isSlug = {
   messageKey: 'validation.is_slug',
 }
 
-export { isRequired, isNumber, isEmail, isSluggable, isSlug }
+/**
+ * A validator to ensure a proper color string
+ */
+const isColor = {
+  match: /^#([\da-f]{3}){1,2}$|^#([\da-f]{4}){1,2}$|(rgb|hsl)a?\((\s*-?\d+%?\s*,){2}(\s*-?\d+%?\s*,?\s*\)?)(,\s*(0?\.\d+)?|1)?\)/i,
+  message: 'must be a hex, rgb, or hsl color',
+  messageKey: 'validation.is_css_color',
+}
+
+/**
+ * A validator to ensure only HEX is allowed
+ */
+const isHexColor = {
+  match: /^#?(?:[0-9A-F]{3}){1,2}$/i,
+  message: 'must be hexadecimal color',
+  messageKey: 'validation.is_hex_color',
+  transform: (value) => (value[0] === "#" ? value : `#${value}`),
+}
+export { isRequired, isNumber, isEmail, isSluggable, isSlug, isHexColor, isColor }
 
 /**
  * Validates a model and generates validation errors. Validators should be an object
