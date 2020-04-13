@@ -1,15 +1,66 @@
-import React, { Component, createRef, Fragment, useEffect, useRef } from 'react'
+import React, { Component, createRef } from 'react'
 import PropTypes from 'prop-types'
 import { DragPreviewImage, DragSource, DropTarget } from 'react-dnd'
 import Thumbnail from './Thumbnail'
 import compose from '../../utils/compose'
 import { connect } from 'react-redux'
 import { disableDropzone, enableDropzone } from '../../actions'
+import styled from 'styled-components'
+import Spinner from '../../v1/shared/material/Spinner'
 
 // TODO: Move this to constants somewhere nice.
 const Types = {
   THUMBNAIL: 'thumbnail',
 }
+
+const SavingOverlay = styled.div`
+  position: absolute;
+  width: 100%;
+  top: 0;
+  height: 100%;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, 0.3);
+
+  & > div {
+    top: calc(50% - 32px);
+  }
+`
+
+const DragPlaceholder = styled.div`
+  width: 3px;
+  height: 100%;
+  position: absolute;
+  background-color: ${props => props.theme.primary};
+
+  &.before {
+    left: -9px;
+  }
+
+  &.after {
+    right: -9px;
+  }
+
+  &:before,
+  &:after {
+    display: block;
+    position: absolute;
+    content: '';
+    left: -2px;
+    width: 7px;
+    border-left: 2px solid transparent;
+    border-right: 2px solid transparent;
+  }
+
+  &:before {
+    top: -5px;
+    border-top: 5px solid ${props => props.theme.primary};
+  }
+
+  &:after {
+    bottom: -5px;
+    border-bottom: 5px solid ${props => props.theme.primary};
+  }
+`
 
 /**
  * Sortable wrapper around the standard image Thumbnail component. Works well in
@@ -49,9 +100,7 @@ class SortableThumbnail extends Component {
   }
 
   render() {
-    const {
-      dropBefore
-    } = this.state
+    const { dropBefore } = this.state
 
     // Obtain a copy of our child params
     const {
@@ -64,6 +113,8 @@ class SortableThumbnail extends Component {
       isDragging,
       clientOffset,
       isOver,
+      canDrop,
+      moving,
       connectDragSource,
       connectDropTarget,
       connectDragPreview,
@@ -84,18 +135,13 @@ class SortableThumbnail extends Component {
         connectorFunc={connector}
         innerRef={this.thumbRef}
       >
-        {isOver && (
-          <div
-            style={{
-              left: dropBefore ? 0 : '50%',
-              width: '50%',
-              height: '100%',
-              position: 'absolute',
-              backgroundColor: 'rgba(0,0,0,0.1)',
-            }}
-          >
-            Move { dropBefore ? "before" : "after" } this image.
-          </div>
+        {isOver && canDrop && (
+          <DragPlaceholder className={dropBefore ? 'before' : 'after'} />
+        )}
+        {moving && (
+          <SavingOverlay>
+            <Spinner />
+          </SavingOverlay>
         )}
         <DragPreviewImage
           src={url.thumbnail || url.small_square}
@@ -114,9 +160,7 @@ const DragHelpers = {
   dragSource: {
     beginDrag({ image, disableDropzone }) {
       disableDropzone()
-      // Return the data describing the dragged item
-      const item = { id: image.id, type: Types.THUMBNAIL }
-      return item
+      return { id: image.id, type: Types.THUMBNAIL }
     },
 
     endDrag({ enableDropzone }, monitor, component) {
@@ -126,72 +170,65 @@ const DragHelpers = {
       }
 
       // When dropped on a compatible target, do something
-      const item = monitor.getItem()
-      const dropResult = monitor.getDropResult()
-      console.log('Dropped: ', { item, dropResult })
+      // const item = monitor.getItem()
+      // const dropResult = monitor.getDropResult()
+      // console.log('Dropped: ', { item, dropResult })
     },
   },
   dropTarget: {
     canDrop(props, monitor) {
-      // You can disallow drop based on props or item
       const item = monitor.getItem()
-      return item.type === Types.THUMBNAIL
+      return item.type === Types.THUMBNAIL && item.id !== props.image.id
     },
 
     hover(props, monitor, component) {
       const thumbRef = component.thumbRef
       const clientOffset = monitor.getClientOffset()
+      const item = monitor.getItem()
 
       if (thumbRef.current && clientOffset) {
         const { x } = clientOffset
         const { left, width } = thumbRef.current.getBoundingClientRect()
-        const dropBefore = x < left + (width / 2)
+        const dropBefore = x < left + width / 2
+        item.dropBefore = dropBefore
         component.setDropBefore(dropBefore)
       }
     },
 
     drop(props, monitor, component) {
       if (monitor.didDrop()) {
-        // If you want, you can check whether some nested
-        // target already handled drop
         return
       }
 
-      const { image } = props
+      const { image, onImageSort } = props
 
       // Obtain the dragged item
       const item = monitor.getItem()
 
       // You can do something with it
-      console.log('Dropped in Target: ', { image, item })
-
-      // You can also do nothing and return a drop result,
-      // which will be available as monitor.getDropResult()
-      // in the drag source's endDrag() method
-      return { sortBefore: image.id }
+      const result = {
+        targetImageId: image.id,
+        sourceImageId: item.id,
+        dropBefore: item.dropBefore,
+      }
+      onImageSort && onImageSort(result)
+      return result
     },
   },
   dragCollect(connect, monitor) {
     return {
-      // Call this function inside render()
-      // to let React DnD handle the drag events:
       connectDragSource: connect.dragSource(),
       connectDragPreview: connect.dragPreview(),
-      // You can ask the monitor about the current drag state:
       isDragging: monitor.isDragging(),
     }
   },
   dropCollect(connect, monitor) {
     return {
-      // Call this function inside render()
-      // to let React DnD handle the drag events:
       connectDropTarget: connect.dropTarget(),
-      // You can ask the monitor about the current drag state:
       isOver: monitor.isOver(),
       isOverCurrent: monitor.isOver({ shallow: true }),
       canDrop: monitor.canDrop(),
       itemType: monitor.getItemType(),
-      dropBefore: false,
     }
   },
 }
@@ -204,6 +241,7 @@ SortableThumbnail.propTypes = {
       small_square: PropTypes.string.isRequired,
     }),
   }).isRequired,
+  moving: PropTypes.bool,
   style: PropTypes.object,
   isDragging: PropTypes.bool,
   enableDropzone: PropTypes.func,
@@ -211,6 +249,7 @@ SortableThumbnail.propTypes = {
   connectDragSource: PropTypes.func,
   connectDropTarget: PropTypes.func,
   connectDragPreview: PropTypes.func,
+  onImageSort: PropTypes.func,
 }
 
 const mapDispatchToProps = {
