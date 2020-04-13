@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import JustifiedLayout from 'react-justified-layout'
 import Measure from 'react-measure'
 import Section from 'components/Shared/Section'
 import Thumbnail from 'components/Image/Thumbnail'
-import compose from '../../utils/compose'
-import { DragSource, DropTarget } from 'react-dnd'
+import compose, { withMutations } from '../../utils/compose'
 import { connect } from 'react-redux'
 import { openUploadModal } from '../../actions'
 import SortableThumbnail from '../Image/SortableThumbnail'
+import gql from 'graphql-tag'
+import ArrayUtils from '../../utils/ArrayUtils'
 
 function convertData(images) {
   return images.map(image => ({
@@ -21,15 +22,60 @@ function convertData(images) {
   }))
 }
 
-const Gallery = function({ v1Data, noHeader, images, openUploadModal }) {
+const Gallery = function({
+  v1Data,
+  noHeader,
+  images,
+  openUploadModal,
+  sortGalleryImage,
+}) {
   let imageData = images
+
+  const [imageOrder, updateImageOrder] = useState(images.map(i => i.id))
+  const [pendingChanges, updatePendingChanges] = useState([])
+
+  useEffect(() => {
+    updateImageOrder(images.map(i => i.id))
+  }, [images])
 
   if (v1Data) {
     imageData = convertData(images)
   }
 
+  const onImageSort = ({ targetImageId, sourceImageId, dropBefore }) => {
+    // console.log('onImageSort', { targetImageId, sourceImageId, dropBefore })
+
+    updateImageOrder(
+      ArrayUtils.move(imageOrder, sourceImageId, targetImageId, dropBefore)
+    )
+
+    updatePendingChanges([...pendingChanges, sourceImageId])
+
+    sortGalleryImage({
+      wrapped: true,
+      variables: {
+        targetImageId,
+        sourceImageId,
+        dropBefore,
+      },
+    })
+      .then(({ data: { sortGalleryImage } }) => {
+        updatePendingChanges(
+          pendingChanges.slice(pendingChanges.indexOf(sourceImageId), 1)
+        )
+      })
+      .catch(e => {
+        console.error(e)
+        updateImageOrder(images.map(i => i.id))
+      })
+  }
+
   if (noHeader) {
-    return <Measure bounds>{renderGallery(imageData)}</Measure>
+    return (
+      <Measure bounds>
+        {renderGallery(imageData, onImageSort, imageOrder, pendingChanges)}
+      </Measure>
+    )
   }
 
   const galleryTabs = [
@@ -55,33 +101,43 @@ const Gallery = function({ v1Data, noHeader, images, openUploadModal }) {
       buttons={galleryActions}
       onTabClick={id => console.log(id)}
     >
-      <Measure bounds>{renderGallery(imageData)}</Measure>
+      <Measure bounds>
+        {renderGallery(imageData, onImageSort, imageOrder, pendingChanges)}
+      </Measure>
     </Section>
   )
 }
 
-const renderGallery = images =>
+const renderGallery = (images, onImageSort, imageOrder, pendingChanges) =>
   function({ measureRef, contentRect }) {
     const { width } = contentRect.bounds
 
-    const gallery = images.map(i => i.id)
+    const sorted = [...images].sort(
+      (a, b) => imageOrder.indexOf(a.id) - imageOrder.indexOf(b.id)
+    )
 
-    const imageTiles = images.map(function(image) {
+    const imageTiles = sorted.map(function(image) {
       const { id, aspect_ratio } = image
 
       return (
         <SortableThumbnail
           key={id}
+          onImageSort={onImageSort}
           aspectRatio={aspect_ratio || 1}
           image={image}
-          gallery={gallery}
+          moving={pendingChanges.indexOf(id) >= 0}
+          gallery={imageOrder}
         />
       )
     })
 
     return (
       <div className="gallery-sizer margin-top--medium" ref={measureRef}>
-        <JustifiedLayout containerWidth={width} containerPadding={0}>
+        <JustifiedLayout
+          containerWidth={width}
+          boxSpacing={15}
+          containerPadding={0}
+        >
           {imageTiles}
         </JustifiedLayout>
       </div>
@@ -121,4 +177,26 @@ const mapDispatchToProps = {
   openUploadModal,
 }
 
-export default compose(connect(undefined, mapDispatchToProps))(Gallery)
+const sortGalleryImage = gql`
+  mutation sortGalleryImage(
+    $sourceImageId: ID!
+    $targetImageId: ID!
+    $dropBefore: Boolean
+  ) {
+    sortGalleryImage(
+      sourceImageId: $sourceImageId
+      targetImageId: $targetImageId
+      dropBefore: $dropBefore
+    ) {
+      id
+      images {
+        id
+      }
+    }
+  }
+`
+
+export default compose(
+  connect(undefined, mapDispatchToProps),
+  withMutations({ sortGalleryImage })
+)(Gallery)

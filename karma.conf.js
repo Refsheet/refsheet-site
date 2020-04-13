@@ -61,6 +61,10 @@ module.exports = function(config) {
       stats: 'errors-only'
     },
 
+    browserDisconnectTimeout: 60000,
+    browserDisconnectTolerance: 3,
+    browserNoActivityTimeout: 120000,
+
     webpack: webpackConfig
   })
 }

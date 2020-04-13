@@ -151,7 +151,7 @@ type Forum implements ApplicationRecord {
     prepost_message: String
     rules: String
     slug: String
-    summary: String!
+    summary: String
     system_owned: Boolean
     updated_at: Int
 }
@@ -391,6 +391,7 @@ type Mutation {
     sendMessage(conversationId: ID, message: String!, recipientId: ID): Message
     setCharacterAvatarBlob(blob: String, id: ID!): Character
     setCharacterCoverBlob(blob: String, id: ID!): Character
+    sortGalleryImage(dropBefore: Boolean, sourceImageId: ID!, targetImageId: ID!): Character
     transferCharacter(destination: String!, id: ID!): Character
     updateCharacter(color_scheme_id: ID, hidden: Boolean, id: ID!, name: String, nsfw: Boolean, shortcode: String, slug: String, special_notes: String, species: String): Character
     updateConversation(conversation_id: ID!, read: Boolean): Conversation
@@ -419,9 +420,13 @@ type Notification implements ApplicationRecord {
     updated_at: Int
 }
 
-type NotificationCollection {
+type NotificationCollection implements ApplicationRecord {
+    created_at: Int
+    deleted_at: Int
+    id: ID
     notifications: [Notification]
     unreadCount: Int
+    updated_at: Int
 }
 
 type ProfileSection {
@@ -449,7 +454,7 @@ type Query {
     getMedia(mediaId: ID!): Image
     getMessages(conversationId: ID!): [Message]
     getNextModeration: Moderation
-    getNotifications: NotificationCollection
+    getNotifications(page: Int): NotificationCollection
     getSession: Session
     searchForCharacter(slug: String, username: String): [Character]
     searchForUser(username: String): [User]

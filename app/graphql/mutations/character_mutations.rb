@@ -1,7 +1,8 @@
 # TODO: Is this mutation trying too hard?
 #
 class Mutations::CharacterMutations < Mutations::ApplicationMutation
-  before_action :get_character, only: [:update, :convert, :destroy, :transfer, :set_avatar_blob, :set_cover_blob]
+  before_action :get_character, only: [
+      :update, :convert, :destroy, :transfer, :set_avatar_blob, :set_cover_blob]
 
   action :update do
     type Types::CharacterType
@@ -123,6 +124,40 @@ class Mutations::CharacterMutations < Mutations::ApplicationMutation
       @character.cover_image.attach(params[:blob])
     end
     @character.save!
+    @character
+  end
+
+  action :sort_gallery_image do
+    type Types::CharacterType
+
+    argument :sourceImageId, !types.ID
+    argument :targetImageId, !types.ID
+    argument :dropBefore, types.Boolean
+  end
+
+  def sort_gallery_image
+    @source_image = Image.find_by!(guid: params[:sourceImageId])
+    @target_image = Image.find_by!(guid: params[:targetImageId])
+
+    @character = @source_image.character
+    authorize @character, :update?
+
+    if @target_image.character_id != @character.id
+      @target_character = @target_image.character
+      authorize @target_character, :update?
+
+      # Handle image transfers here:
+      @source_image.character = @target_character
+    end
+
+    position = if @target_image.row_order_rank > @source_image.row_order_rank
+                 @target_image.row_order_rank + (params[:dropBefore] ? -1 : 0)
+               else
+                 @target_image.row_order_rank + (params[:dropBefore] ? 0 : 1)
+               end
+
+    Rails.logger.info({position: position, trr: @target_image.row_order_rank, srr: @source_image.row_order_rank, db: params[:dropBefore]}.inspect)
+    @source_image.update(row_order_position: position)
     @character
   end
 

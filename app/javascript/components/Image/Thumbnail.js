@@ -96,8 +96,6 @@ class Thumbnail extends Component {
           </div>
         )}
 
-        {this.props.children}
-
         <div className="overlay">
           <div className="interactions">
             <div
@@ -126,7 +124,7 @@ class Thumbnail extends Component {
   }
 
   render() {
-    const { className, style, connectorFunc, innerRef } = this.props
+    const { className, style, connectorFunc, innerRef, children } = this.props
 
     const preReturn = () => {
       return (
@@ -138,6 +136,7 @@ class Thumbnail extends Component {
             className
           )}
         >
+          {children}
           {this.renderImage()}
         </div>
       )
