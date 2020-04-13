@@ -3,6 +3,7 @@ import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
 import * as Materialize from 'materialize-css'
 import $ from 'jquery'
+import validate, { errorString, isHexColor, isColor } from '../../../utils/validate'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -46,6 +47,7 @@ export default Input = createReactClass({
           ? ''
           : this.props.value || this.props.default,
       error: this.props.error,
+      validationErrors: [],
       dirty: false,
     }
   },
@@ -66,24 +68,19 @@ export default Input = createReactClass({
     }
 
     if (this.props.type === 'color') {
-      // const tcp = $(this.refs.input).colorPicker({
-      //   doRender: false,
-      //   renderCallback: (e, toggle) => {
-      //     if (typeof toggle === 'undefined' && e.text) {
-      //       return this._handleInputChange({ target: { value: e.text } })
-      //     }
-      //   },
-      // })
-      // window.tcp = tcp
-      // $(this.refs.input)
-      //   .blur(() => tcp.colorPicker.$UI.hide())
-      //   .focus(() => tcp.colorPicker.$UI.show())
+
     }
 
     if (this.props.focusSelectAll) {
       return $(this.refs.input).focus(function() {
         return $(this).select()
       })
+    }
+  },
+
+  handleFocus(e) {
+    if (this.props.focusSelectAll) {
+      e.target.select();
     }
   },
 
@@ -111,10 +108,29 @@ export default Input = createReactClass({
         value = this.props.default
       }
     } else {
-      ;({ value } = e.target)
+      value = e.target.value
     }
 
-    this.setState({ error: null, value, dirty: true })
+    let model = {}
+    model[this.props.name] = value
+
+    let validations = []
+
+    // Assign validators here.
+    if (this.props.type === 'color') {
+      if (this.props.hexOnly) {
+        validations.push(isHexColor)
+        value = isHexColor.transform(value)
+      } else {
+        validations.push(isColor)
+      }
+    }
+
+    let validators = {}
+    validators[this.props.name] = validations
+    const errors = validate(model, validators)[this.props.name]
+
+    this.setState({ error: null, validationErrors: errors, value, dirty: true })
     if (this.props.onChange) {
       return this.props.onChange(this.props.name, value)
     }
@@ -133,8 +149,20 @@ export default Input = createReactClass({
   render() {
     let icon, id, inputField
     let { className } = this.props
-    if (this.props.error != null) {
+
+    let errors = this.state.validationErrors || []
+    let error
+    if (this.state.error) {
+      if (this.state.error.map) {
+        errors = [...errors, ...this.state.error]
+      } else {
+        errors = [...errors, this.state.error]
+      }
+    }
+
+    if (errors.length > 0) {
       className += ' invalid'
+      error = errorString(errors)
     }
     if (this.props.browserDefault) {
       className += ' browser-default'
@@ -144,11 +172,6 @@ export default Input = createReactClass({
     }
     if (this.props.noMargin) {
       className += ' margin-bottom--none'
-    }
-
-    let { error } = this.props
-    if (error != null ? error.length : undefined) {
-      error = error[0]
     }
 
     let inputFieldInsideLabel = false
@@ -174,6 +197,7 @@ export default Input = createReactClass({
       placeholder: this.props.placeholder,
       autoFocus: this.props.autoFocus,
       onChange: this._handleInputChange,
+      onFocus: this.handleFocus,
       className,
       noValidate: true,
     }
@@ -207,25 +231,33 @@ export default Input = createReactClass({
           {...commonProps}
           value={this.props.default}
           type={this.props.type}
-          checked={this.state.value == this.props.default}
+          checked={this.state.value === this.props.default}
         />
       )
     } else if (this.props.type === 'color') {
       inputField = (
         <input
           {...commonProps}
-          value={this.state.value || '#000000'}
+          value={this.state.value || ""}
           type="text"
         />
       )
 
       if (this.props.icon !== '') {
+        let iconName = this.props.icon || 'palette'
+        let color = this.state.value
+
+        if (error) {
+          iconName = "error"
+          color = "inherit"
+        }
+
         icon = (
           <i
             className="material-icons prefix shadow"
-            style={{ color: this.state.value }}
+            style={{ color }}
           >
-            {this.props.icon || 'palette'}
+            {iconName}
           </i>
         )
       }
