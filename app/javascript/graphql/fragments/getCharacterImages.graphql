@@ -1,0 +1,6 @@
+fragment getCharacterImages on Character {
+    id
+    images {
+        id
+    }
+}

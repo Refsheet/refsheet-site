@@ -15,10 +15,15 @@ fragment CharacterImages on Character {
         height
         url {
             small
+            small_square
             medium
         }
         size {
             small {
+                width
+                height
+            }
+            small_square {
                 width
                 height
             }

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Main from '../../Shared/Main'
-import { forumType } from '../index'
 import { StickyContainer } from 'react-sticky'
 import { Col, Container, Row } from 'react-materialize'
 import Jumbotron from '../../Shared/Jumbotron'
@@ -67,6 +66,17 @@ class View extends Component {
     )
   }
 }
+
+export const forumType = PropTypes.shape({
+  slug: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  summary: PropTypes.string,
+  description: PropTypes.string,
+  system_owned: PropTypes.bool,
+  rules: PropTypes.string,
+  prepost_message: PropTypes.string,
+  open: PropTypes.bool,
+})
 
 View.propTypes = {
   forums: PropTypes.arrayOf(forumType),

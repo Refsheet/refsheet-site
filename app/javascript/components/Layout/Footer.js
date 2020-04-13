@@ -1,3 +1,5 @@
+/* global Refsheet */
+
 import React, { Component } from 'react'
 import compose from 'utils/compose'
 import { Link } from 'react-router-dom'
@@ -8,6 +10,7 @@ import c from 'classnames'
 import SessionService from '../../services/SessionService'
 import { H3 } from '../Styled/Headings'
 import styled from 'styled-components'
+import GoogleAd from '../Shared/GoogleAd'
 
 class _Footer extends Component {
   constructor(props) {
@@ -24,12 +27,6 @@ class _Footer extends Component {
     }
 
     i18n.on('languageChanged', apply.bind(this))
-    
-    try {
-      (window.adsbygoogle || []).push({})
-    } catch(e) {
-      console.warn(e)
-    }
   }
 
   setLocale(locale) {
@@ -50,78 +47,79 @@ class _Footer extends Component {
     return (
       <footer className="page-footer">
         <div className="container margin-top--large">
-          <Row>
-            <Col s={12}>
-              <H3 className="center">
-                Would you like to support Refsheet.net?
-              </H3>
-              <p>
-                It seems you like this website (or you like scrolling to the
-                bottom of pages)! Did you know that this whole site is developed
-                by <strong>one person</strong> with a tiny army of helpful
-                people? I love making this site possible, but I could use your
-                help. <strong>Here are 3 really easy ways to help out:</strong>
-              </p>
-              <ul className="browser-default">
-                <li className="padding-bottom--small">
-                  <strong>
-                    <a
-                      href="https://patreon.com/refsheet"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="primary-text"
-                    >
-                      Patreon!
-                    </a>
-                  </strong>{' '}
-                  Recurring monthly donations help cover the costs of running
-                  the website, and one day might pay for other people to help
-                  develop, too!
-                </li>
-                <li className="padding-bottom--small">
-                  <strong>
-                    <a
-                      href="https://ko-fi.com/refsheet"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="primary-text"
-                    >
-                      Buy a Coffee!
-                    </a>
-                  </strong>{' '}
-                  One-time donations through Ko-fi really help, and are a great
-                  way to show your appreciation!
-                </li>
-                <li>
-                  <strong className="white-text">Spread the word!</strong> This
-                  website is free to use, and spreading the word is a great free
-                  way to invite your friends and followers to join. Bonus points
-                  if you share our Patreon or Ko-fi links around!
-                </li>
-              </ul>
-              <p>
-                Honestly, without the help and donations I've received so far,
-                this site wouldn't be possible. If you like what you see, and
-                want to see more, I'd really appreciate some help any way you
-                can.
-              </p>
-            </Col>
-          </Row>
-    
-          <div className="margin-top--large">&nbsp;</div>
-    
-          <ins className="adsbygoogle"
-               style={{ display: "block" }}
-               data-ad-client="ca-pub-4929509110499022"
-               data-ad-slot="9500968119"
-               data-ad-format="auto"
-               data-full-width-responsive="true"></ins>
-    
-          <script>
-               (adsbygoogle = window.adsbygoogle || []).push({});
-          </script>
+          {Refsheet.environment !== 'test' ? (
+            <div>
+              <Row>
+                <Col s={12}>
+                  <H3 className="center">
+                    Would you like to support Refsheet.net?
+                  </H3>
+                  <p>
+                    It seems you like this website (or you like scrolling to the
+                    bottom of pages)! Did you know that this whole site is
+                    developed by <strong>one person</strong> with a tiny army of
+                    helpful people? I love making this site possible, but I
+                    could use your help.{' '}
+                    <strong>Here are 3 really easy ways to help out:</strong>
+                  </p>
+                  <ul className="browser-default">
+                    <li className="padding-bottom--small">
+                      <strong>
+                        <a
+                          href="https://patreon.com/refsheet"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="primary-text"
+                        >
+                          Patreon!
+                        </a>
+                      </strong>{' '}
+                      Recurring monthly donations help cover the costs of
+                      running the website, and one day might pay for other
+                      people to help develop, too!
+                    </li>
+                    <li className="padding-bottom--small">
+                      <strong>
+                        <a
+                          href="https://ko-fi.com/refsheet"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="primary-text"
+                        >
+                          Buy a Coffee!
+                        </a>
+                      </strong>{' '}
+                      One-time donations through Ko-fi really help, and are a
+                      great way to show your appreciation!
+                    </li>
+                    <li>
+                      <strong className="white-text">Spread the word!</strong>{' '}
+                      This website is free to use, and spreading the word is a
+                      great free way to invite your friends and followers to
+                      join. Bonus points if you share our Patreon or Ko-fi links
+                      around!
+                    </li>
+                  </ul>
+                  <p>
+                    Honestly, without the help and donations I've received so
+                    far, this site wouldn't be possible. If you like what you
+                    see, and want to see more, I'd really appreciate some help
+                    any way you can.
+                  </p>
+                </Col>
+              </Row>
 
-          <hr />
+              <div style={{ margin: '1.5rem auto', maxWidth: 750 }}>
+                <GoogleAd
+                  slot={'9500968119'}
+                  format={'auto'}
+                  data-full-width-responsive={'true'}
+                />
+              </div>
+
+              <hr />
+            </div>
+          ) : null}
 
           <Row>
             <Col s={12} m={4}>
@@ -183,7 +181,7 @@ class _Footer extends Component {
                   <i className="fa fa-fw fa-envelope" />
                 </a>
                 <a
-                  href={'https://discord.gg/dnGYbt'}
+                  href={'https://discord.gg/nzdEHub'}
                   target={'_blank'}
                   rel="noopener noreferrer"
                   title={'Join us on Discord!'}

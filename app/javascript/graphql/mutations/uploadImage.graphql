@@ -1,7 +1,11 @@
+#import 'fragments/GalleryImageFields.graphql'
+
 mutation uploadImage($characterId: ID!, $folder: String, $title: String, $nsfw: Boolean, $key: String!, $location: String!) {
     uploadImage(characterId: $characterId, folder: $folder, title: $title, nsfw: $nsfw, key: $key, location: $location) {
-        id
-        title
-        nsfw
+        character {
+            id
+        }
+
+        ...GalleryImageFields
     }
 }

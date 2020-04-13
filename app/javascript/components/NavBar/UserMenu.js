@@ -28,10 +28,14 @@ class UserMenu extends Component {
     const nsfwClassName = nsfwOk ? 'nsfw' : 'no-nsfw'
 
     return (
-      <DropdownLink imageSrc={identity.avatarUrl} className={nsfwClassName}>
+      <DropdownLink
+        imageSrc={identity.avatarUrl}
+        className={nsfwClassName}
+        data-testid={'user-menu'}
+      >
         <ul className="dropdown-menu">
           <li>
-            <Link to={'/' + user.username}>
+            <Link to={'/' + user.username} data-testid={'user-profile-link'}>
               <i className="material-icons left">
                 {identity.characterId !== null ? 'people' : 'person'}
               </i>

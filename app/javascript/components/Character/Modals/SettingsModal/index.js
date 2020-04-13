@@ -6,6 +6,8 @@ import { withNamespaces } from 'react-i18next'
 import compose from '../../../../utils/compose'
 import DeleteCharacter from './DeleteCharacter'
 
+import Modal from 'v1/shared/Modal'
+
 class SettingsModal extends Component {
   constructor(props) {
     super(props)

@@ -45,6 +45,7 @@
         %section#changes
           = render partial: 'admin/shared/changelog', locals: { changes: Changelog.for_user(@user).last(10).reverse }
 
-:coffeescript
-  $ ->
-    $('.tabs').tabs()
+:javascript
+  $(function() {
+    $('.tabs').tabs();
+  });

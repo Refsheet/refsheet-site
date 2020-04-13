@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { forumType } from '../index'
 import compose from '../../../utils/compose'
 import { withNamespaces } from 'react-i18next'
 
@@ -110,6 +109,17 @@ class View extends Component {
     )
   }
 }
+
+export const forumType = PropTypes.shape({
+  slug: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  summary: PropTypes.string,
+  description: PropTypes.string,
+  system_owned: PropTypes.bool,
+  rules: PropTypes.string,
+  prepost_message: PropTypes.string,
+  open: PropTypes.bool,
+})
 
 View.propTypes = {
   forum: forumType,

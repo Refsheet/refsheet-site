@@ -13,6 +13,9 @@ import { withNamespaces } from 'react-i18next'
 import compose from '../../utils/compose'
 import * as Materialize from 'materialize-css'
 
+import Icon from 'v1/shared/material/Icon'
+import Modal from 'v1/shared/Modal'
+
 class UploadModal extends Component {
   constructor(props, context) {
     super(props, context)
@@ -51,12 +54,13 @@ class UploadModal extends Component {
     }
 
     if (prevProps.characterId !== this.props.characterId) {
-      this.setCharacter(this.props.characterId)
+      this.setCharacter({ id: this.props.characterId })
     }
   }
 
   setCharacter(character) {
     this.setState({ characterId: character.id, identityModalOpen: false })
+    console.error('setCharacter(' + this.state.characterId + ')')
   }
 
   handleChangeCharacterClick(e) {
@@ -231,6 +235,11 @@ class UploadModal extends Component {
         className={c('modal-notice', 'character-select', { alert: !character })}
       >
         {t('actions.upload_to', 'Upload To')}: <strong>{characterName}</strong>
+        {error && (
+          <div className={'red-text'}>
+            {error.message || JSON.stringify(error)}
+          </div>
+        )}
         {!loading && (
           <a
             className={'right btn-flat'}
@@ -279,32 +288,36 @@ class UploadModal extends Component {
         query={getCharacterForUpload}
         variables={{ id: this.state.characterId }}
       >
-        {({ data: { getCharacter }, loading, error }) => (
-          <div>
-            {this.state.identityModalOpen && (
-              <IdentityModal
-                requireCharacter
-                temporary
-                title={t('actions.upload_to', 'Upload To')}
-                onClose={this.handleIdentityClose.bind(this)}
-                onCharacterSelect={this.setCharacter.bind(this)}
-              />
-            )}
+        {({ data, loading, error, ...props }) => {
+          const getCharacter = data && data.getCharacter
 
-            <Modal
-              id="upload-images"
-              title={title}
-              noContainer
-              autoOpen
-              onClose={this.handleClose.bind(this)}
-            >
-              {this.renderCharacterTarget(getCharacter, loading, error)}
-              {this.renderCurrent(activeImage, getCharacter)}
-              {this.renderPending(this.props.files)}
-              {this.renderPlaceholder()}
-            </Modal>
-          </div>
-        )}
+          return (
+            <div>
+              {this.state.identityModalOpen && (
+                <IdentityModal
+                  requireCharacter
+                  temporary
+                  title={t('actions.upload_to', 'Upload To')}
+                  onClose={this.handleIdentityClose.bind(this)}
+                  onCharacterSelect={this.setCharacter.bind(this)}
+                />
+              )}
+
+              <Modal
+                id="upload-images"
+                title={title}
+                noContainer
+                autoOpen
+                onClose={this.handleClose.bind(this)}
+              >
+                {this.renderCharacterTarget(getCharacter, loading, error)}
+                {this.renderCurrent(activeImage, getCharacter)}
+                {this.renderPending(this.props.files)}
+                {this.renderPlaceholder()}
+              </Modal>
+            </div>
+          )
+        }}
       </Query>
     )
   }

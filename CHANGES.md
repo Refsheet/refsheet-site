@@ -1,4 +1,43 @@
-# TBD
+# TDB
+
+## Active Projects
+
+- Moving old JavaScript to new bundle, which is honestly a huge refactor but it had to be done.
+
+## Known Bugs
+
+- Some cases of the attributes panel fail to render, but I don't have enough data to reproduce.
+
+## TODO
+
+Low Priority:
+
+- V2 gallery module doesn't show anything when there is nothing to show.
+- V1 Character pages don't have loading shadow anymore
+- User profiles don't render loading spinner anymore
+
+## Bug Fixes
+
+- Fixed a bug where conversations couldn't open when you clicked them.
+- Fixed some pages causing an "Aw, Snap!" error in Chrome. Hopefully.
+- Fixed the Discord link in the page footer.
+- Fixed the tooltip on the swatch bar, so hovering a color shows you the name and hex code again!
+
+## Major Things
+
+- V1 character galleries now use the V2 image gallery component. For now, the top-3 feature is removed,
+  but the images will now auto-update when processing is done.
+- Text modules in V1 profiles now use the V2 profile widget, kinda. This means you get the fun markdown editor.
+- Ordering images in your gallery is now 0.2% less frustrating.
+
+# Framework
+
+- Expanded automated testing to cover more areas of the site, hopefully preventing more bugs from happening.
+- Temporarily removed bug reporting and logging to save costs. This will be re-enabled when Patreon reaches about
+  $1200/mo or so.
+
+
+# 03/08/2020
 
 ## Active Projects
 

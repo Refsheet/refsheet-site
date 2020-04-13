@@ -28,7 +28,14 @@ class GraphqlController < ApplicationController
 
     result = nil
 
-    Google::Cloud::Trace.in_span(operation_name) do |_span|
+    if defined? Google
+      Google::Cloud::Trace.in_span(operation_name) do |_span|
+        result = RefsheetSchema.execute(query,
+                                        variables: variables,
+                                        context: context,
+                                        operation_name: operation_name)
+      end
+    else
       result = RefsheetSchema.execute(query,
                                       variables: variables,
                                       context: context,

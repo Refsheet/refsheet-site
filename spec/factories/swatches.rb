@@ -15,11 +15,9 @@
 
 FactoryBot.define do
   factory :swatch do
-    character_id { 1 }
-    name { "MyString" }
-    color { "MyString" }
-    notes { "MyText" }
-    row_order { 1 }
-    guid { "MyString" }
+    character
+    name { "Swatch Name" }
+    color { "#00FF00" }
+    notes { nil }
   end
 end

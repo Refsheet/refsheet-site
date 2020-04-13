@@ -1,13 +1,15 @@
 require 'rails_helper'
 
 feature 'Register', js: true do
+  let(:id_prefix) { "register_full" }
+
   before(:each) do
     visit register_path
-    expect(page).to have_content 'Sign Up'
+    expect(page).to have_content 'Register'
   end
 
   def try_register(expected_error=nil)
-    click_button 'Sign Up'
+    click_button 'Register'
 
     if expected_error == nil
       expect(page).to have_content '@john_doe'
@@ -18,10 +20,10 @@ feature 'Register', js: true do
   end
 
   def enter(values={})
-    fill_in :user_username, with: values[:username] || 'john_doe'
-    fill_in :user_email, with: values[:email] || 'john@example.com'
-    fill_in :user_password, with: values[:password] || 'fishsticks'
-    fill_in :user_password_confirmation, with: values[:password_confirmation] || 'fishsticks'
+    fill_in id_prefix + "_user_username", with: values[:username] || 'john_doe'
+    fill_in id_prefix + "_user_email", with: values[:email] || 'john@example.com'
+    fill_in id_prefix + "_user_password", with: values[:password] || 'fishsticks'
+    fill_in id_prefix + "_user_password_confirmation", with: values[:password_confirmation] || 'fishsticks'
 
     # dob = values[:dob] || 20.years.ago
     #
@@ -79,15 +81,15 @@ feature 'Register', js: true do
     try_register 'can\'t be blank'
   end
 
-  xcontext 'dob' do
-    scenario 'missing' do
-      enter dob: ''
-      try_register 'can\'t be blank'
-    end
-
-    scenario 'kiddo' do
-      enter dob: 12.years.ago
-      try_register 'must be 18 years or older'
-    end
-  end
+  # xcontext 'dob' do
+  #   scenario 'missing' do
+  #     enter dob: ''
+  #     try_register 'can\'t be blank'
+  #   end
+  #
+  #   scenario 'kiddo' do
+  #     enter dob: 12.years.ago
+  #     try_register 'must be 18 years or older'
+  #   end
+  # end
 end

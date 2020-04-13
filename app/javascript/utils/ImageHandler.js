@@ -4,6 +4,7 @@ import xmljs from 'xml-js'
 // TODO: Make this a mutation too, it deserves it.
 import getImageUploadToken from 'graphql/queries/getImageUploadToken.graphql'
 import uploadImage from 'graphql/mutations/uploadImage.graphql'
+import getCharacterImages from 'graphql/fragments/getCharacterImages.graphql'
 
 class ImageHandler {
   static upload(image, characterId, onChange) {
@@ -102,7 +103,46 @@ class ImageHandler {
 
     console.debug('Telling Refsheet all about this!', variables)
 
-    return client.mutate({ mutation: uploadImage, variables })
+    return client.mutate({
+      mutation: uploadImage,
+      variables,
+      update: (store, result) => {
+        const {
+          data: { uploadImage },
+        } = result
+
+        let data
+
+        try {
+          data = store.readFragment({
+            fragment: getCharacterImages,
+            id: 'Character:' + uploadImage.character.id,
+          })
+        } catch (e) {
+          console.warn(e)
+          console.warn('Store contained', store.data)
+        }
+
+        if (!data) {
+          data = {}
+        }
+
+        if (!data.images) {
+          data.images = []
+        }
+
+        data.images.push({
+          id: uploadImage.id,
+          __typename: uploadImage.__typename,
+        })
+
+        store.writeFragment({
+          fragment: getCharacterImages,
+          id: 'Character:' + uploadImage.character.id,
+          data: data,
+        })
+      },
+    })
   }
 
   finalize(response) {

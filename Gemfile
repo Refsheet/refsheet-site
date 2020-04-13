@@ -30,34 +30,34 @@ gem 'mini_magick'
 gem 'paper_trail'
 
 # == Instrumentation
-gem 'stackdriver'
+gem 'stackdriver', group: [:development, :production]
 
 # == FRONT END
 
 gem 'uglifier', '>= 1.3.0'
 gem 'sass-rails', '~> 6.0'
-gem 'coffee-rails', '~> 4.2'
+# gem 'coffee-rails', '~> 4.2'
 gem 'haml'
-gem 'react-rails', github: 'reactjs/react-rails', branch: 'master'
+# gem 'react-rails', github: 'reactjs/react-rails', branch: 'master'
 gem 'materialize-sass', '~> 1.0.0'
 
 gem 'rails-ujs'
-gem 'turbolinks', '~> 5'
-gem 'jquery-rails'
-gem 'jquery-ui-rails'
-gem 'jquery-turbolinks'
-gem 'jquery-masonry-rails'
+# gem 'turbolinks', '~> 5'
+# gem 'jquery-rails'
+# gem 'jquery-ui-rails'
+# gem 'jquery-turbolinks'
+# gem 'jquery-masonry-rails'
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass'
 gem 'meta-tags'
 gem 'gravatar_image_tag'
 gem 'chartkick'
 gem 'breadcrumbs_on_rails'
-gem 'jquery-tmpl-rails'
-gem 'jquery-justified-gallery-rails'
-gem 'imagesLoaded_rails'
+# gem 'jquery-tmpl-rails'
+# gem 'jquery-justified-gallery-rails'
+# gem 'imagesLoaded_rails'
 gem 'highcharts-rails'
-gem 'js_cookie_rails'
+# gem 'js_cookie_rails'
 gem 'serviceworker-rails'
 
 # == UTILITY
@@ -81,7 +81,7 @@ gem 'premailer-rails'
 gem 'ranked-model'
 gem 'ledermann-rails-settings'
 gem 'redcarpet'
-gem 'ruby-progressbar'
+gem 'ruby-progressbar', require: false
 gem 'scoped_search'
 gem 'semantic'
 gem 'simple_form'
@@ -110,13 +110,6 @@ gem 'sendgrid-actionmailer'
 gem "google-cloud-storage", "~> 1.11", require: false
 gem 'xivapi', git: 'https://github.com/Refsheet/xivapi-ruby.git', branch: 'extended-character'
 
-# == BOWER ASSETS
-
-source 'http://insecure.rails-assets.org' do
-  # gem 'rails-assets-highcharts'
-  gem 'rails-assets-tinyColorPicker'
-end
-
 # == MAINTENANCE
 
 gem 'puma_worker_killer', require: false
@@ -135,6 +128,7 @@ group :development, :test do
   gem 'bullet'
   gem 'byebug', platform: :mri
   gem 'capybara'
+  gem 'capybara-screenshot', require: false
   gem 'capybara-selenium'
   gem 'webdrivers'
   gem 'codecov', require: false

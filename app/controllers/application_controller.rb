@@ -185,6 +185,15 @@ class ApplicationController < ActionController::Base
             description: :description
         }
     )
+
+    if params[:flashtest]
+      Rails.logger.info("Flashtest")
+      flash.now[:error] = "Error flash"
+      flash.now[:warn] = "warn flash"
+      flash.now[:info] = "info flash"
+      flash.now[:debug] = "debug flash"
+      flash.now[:success] = "success flash"
+    end
   end
 
   def set_raven_context
@@ -230,7 +239,11 @@ class ApplicationController < ActionController::Base
   end
 
   def tag_logs(&block)
-    Google::Cloud::Trace.in_span("#{params[:controller]}##{params[:action]}") do
+    if defined? Google
+      Google::Cloud::Trace.in_span("#{params[:controller]}##{params[:action]}") do
+        Rails.logger.tagged("#{params[:controller]}##{params[:action]}", &block)
+      end
+    else
       Rails.logger.tagged("#{params[:controller]}##{params[:action]}", &block)
     end
   end

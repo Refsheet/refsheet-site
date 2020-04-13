@@ -20,6 +20,8 @@ class FollowsController < ApplicationController
     scope = scope.first(params[:limit].to_i) if params[:limit]
 
     render json: scope, each_serializer: UserIndexSerializer
+  rescue ArgumentError => e
+    render json: { error: e }, status: :bad_request
   end
 
   def create

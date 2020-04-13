@@ -20,4 +20,4 @@ metadata:
   name: com-refsheet-staging
 spec:
   domains:
-    - staging.refsheet.com
+    - staging.refsheet.net

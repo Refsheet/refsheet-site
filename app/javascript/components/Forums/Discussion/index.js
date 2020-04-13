@@ -7,6 +7,8 @@ import View from './View'
 import compose from '../../../utils/compose'
 import { withRouter } from 'react-router'
 
+import Loading from 'v1/shared/Loading'
+
 class Discussion extends Component {
   render() {
     const { data = {} } = this.props

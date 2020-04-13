@@ -23,6 +23,21 @@ steps:
     waitFor:
       - Pull Cache
 
+  - name: 'gcr.io/kaniko-project/executor:a1af057f997316bfb1c4d2d82719d78481a02a79'
+    id: Build Nginx
+    args:
+      - --dockerfile=.nginx/Dockerfile
+      - --destination=gcr.io/$PROJECT_ID/refsheet-site-nginx:$REVISION_ID
+      - --cache=true
+      - --cache-dir=/kaniko-cache
+    volumes:
+      - name: 'cache'
+        path: '/cache'
+      - name: 'artifacts'
+        path: '/artifacts'
+    waitFor:
+      - Pull Cache
+
   #== Asset Pipeline
 
   - name: 'gcr.io/cloud-builders/gsutil'
@@ -77,6 +92,14 @@ steps:
     waitFor:
       - Upload Artifacts
 
+  - name: 'gcr.io/cloud-builders/kubectl'
+    id: Deploy Nginx
+    args: ['set', 'image', 'deployment', 'refsheet-prod-staging', "refsheet-prod-staging-nginx=gcr.io/$PROJECT_ID/refsheet-site-nginx:$REVISION_ID"]
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=refsheet-prod-clone-1'
+    waitFor:
+      - Build Nginx
 options:
   machineType: 'N1_HIGHCPU_8'
 

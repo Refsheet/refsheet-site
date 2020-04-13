@@ -6,6 +6,7 @@
         %option{value: 'name'} Name
         %option{value: 'created_at'} Created At
 
-:coffeescript
-  $ ->
-    $('.filter-form select').select()
+:javascript
+  $(function() {
+    $('.filter-form select').select();
+  })

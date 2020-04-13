@@ -9,6 +9,9 @@ import Error from '../../../Shared/Error'
 import { Query } from 'react-apollo'
 import getCharacterVersions from './getCharacterVersions.graphql'
 
+import Modal from 'v1/shared/Modal'
+import * as Materialize from 'materialize-css'
+
 class RevisionModal extends Component {
   constructor(props) {
     super(props)
@@ -21,7 +24,7 @@ class RevisionModal extends Component {
   }
 
   componentDidUpdate() {
-    M.Collapsible.init(this.collapsible)
+    Materialize.Collapsible.init(this.collapsible)
   }
 
   handleVersionClick(version) {

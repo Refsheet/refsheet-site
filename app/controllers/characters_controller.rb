@@ -59,7 +59,7 @@ class CharactersController < ApplicationController
   def update
     head :unauthorized and return unless @character.managed_by? current_user
 
-    if @character.update_attributes character_params
+    if @character.update character_params
       render json: @character, serializer: CharacterSerializer
     else
       render json: { errors: @character.errors }, status: :bad_request

@@ -1,4 +1,8 @@
 def sign_in(user)
+  if user.nil?
+    return
+  end
+
   if defined? page
     page.set_rack_session UserSession::COOKIE_USER_ID_NAME => user.id
   elsif defined? post and (!defined? controller or controller.nil?)

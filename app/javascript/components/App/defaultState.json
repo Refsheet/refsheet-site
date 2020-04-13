@@ -14,7 +14,8 @@
     "characterId": null,
     "modalOpen": false,
     "activeImageId": null,
-    "uploadCallback": null
+    "uploadCallback": null,
+    "dropzoneDisabled": false
   },
   "lightbox": {
     "mediaId": null,

@@ -53,7 +53,7 @@ class Forum < ApplicationRecord
   end
 
   def thread_count
-    ActiveSupport::Deprecation.warn("Forum#thread_count is not right, use Forum#discussion_count")
+    ActiveSupport::Deprecation.warn("Forum#thread_count is not right, use Forum#discussions_count")
     discussions_count
   end
 

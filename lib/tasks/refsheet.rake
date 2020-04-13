@@ -1,5 +1,10 @@
 namespace :refsheet do
   namespace :image do
+    desc "Run ImageRedriveJob"
+    task :redrive => :environment do
+      ImageRedriveJob.perform_now
+    end
+
     desc 'Incrementally rebuild thumbnails. START=0 & BATCH_SIZE=10 & VERBOSE=false'
     task :reprocess => :environment do
       batch_size = (ENV['BATCH_SIZE'] || ENV['batch_size'] || 10).to_i

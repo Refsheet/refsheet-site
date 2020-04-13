@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import compose from 'utils/compose'
 
+import Advertisement from 'v1/shared/advertisement'
+
 class Members extends Component {
   constructor(props) {
     super(props)

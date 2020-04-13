@@ -36,15 +36,16 @@ const handlers = {
     }
   },
 
-  [Actions.MODIFY_UPLOAD]: (state, action) => {
+  [Actions.MODIFY_UPLOAD]: (state, { file }) => {
     let files = state.files
-    let fileIndex = state.files.findIndex(i => i.id === action.file.id)
+    let fileIndex = state.files.findIndex(i => i.id === file.id)
 
     if (fileIndex !== -1) {
-      files[fileIndex] = Object.assign(files[fileIndex], action.file)
+      const fields = (({ nsfw, title, hidden }) => ({ nsfw, title, hidden }))(
+        file
+      )
+      files[fileIndex] = Object.assign(files[fileIndex], fields)
     }
-
-    console.log({ files, fileIndex })
 
     return {
       ...state,
@@ -79,6 +80,20 @@ const handlers = {
       ...state,
       characterId: action.characterId,
       uploadCallback: action.uploadCallback,
+    }
+  },
+
+  [Actions.DISABLE_DROPZONE]: state => {
+    return {
+      ...state,
+      dropzoneDisabled: true,
+    }
+  },
+
+  [Actions.ENABLE_DROPZONE]: state => {
+    return {
+      ...state,
+      dropzoneDisabled: false,
     }
   },
 }
