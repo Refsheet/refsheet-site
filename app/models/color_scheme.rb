@@ -19,6 +19,7 @@ class ColorScheme < ApplicationRecord
   belongs_to :user
   has_many :characters
 
+  before_validation :normalize_color_data
   validate :validate_color_data
 
   has_guid
@@ -85,6 +86,23 @@ class ColorScheme < ApplicationRecord
 
   def normalize_color(color)
     color
+  end
+
+  def normalize_color_data
+    if color_data.is_a? Hash
+      new_data = {}
+
+      color_data.reject { |k,_v| k =~ /-/ }.collect do |k, v|
+        new_data[normalize_key(k)] = normalize_color(v)
+      end
+
+      # Colors with - take priority since those were probably V1 values:
+      color_data.select { |k,_v| k =~ /-/ }.collect do |k, v|
+        new_data[normalize_key(k)] = normalize_color(v)
+      end
+
+      self.color_data = new_data
+    end
   end
 
   def validate_color_data
