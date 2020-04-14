@@ -96,10 +96,10 @@ function validate(model, validators = {}) {
     const value = (model[k] || '').toString()
 
     validators[k].map(validator => {
-      console.debug("Validating '" + value + "' against validator:", validator)
+      // console.debug("Validating '" + value + "' against validator:", validator)
 
       if (!value && !validator.required) {
-        console.debug('- Valid, blank allowed.')
+        // console.debug('- Valid, blank allowed.')
         return true
       }
 
@@ -107,11 +107,11 @@ function validate(model, validators = {}) {
       if (!errors[k]) errors[k] = []
 
       if (value.match(validator.match)) {
-        console.debug('- Valid, match OK.')
+        // console.debug('- Valid, match OK.')
         return true
       }
 
-      console.debug("Validation error: '" + value + "' " + validator.message)
+      // console.debug("Validation error: '" + value + "' " + validator.message)
 
       errors[k].push(validator.message)
       return false
