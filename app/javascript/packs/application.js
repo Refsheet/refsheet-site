@@ -36,7 +36,7 @@ import App from '../components/App'
 import { AppContainer } from 'react-hot-loader'
 
 function init(id, props) {
-  const render = (Component) => {
+  const render = Component => {
     ReactDOM.render(
       <AppContainer>
         <Component {...props} />
@@ -50,11 +50,11 @@ function init(id, props) {
   if (module.hot) {
     module.hot.accept('../components/App/index.js', () => {
       try {
-        console.log("Accepted a new App!")
-        const NextApp = require('../components/App/index.js').default;
-        console.log({NextApp})
+        console.log('Accepted a new App!')
+        const NextApp = require('../components/App/index.js').default
+        console.log({ NextApp })
         render(NextApp)
-      } catch(e) {
+      } catch (e) {
         console.error(e)
       }
     })

@@ -60,9 +60,17 @@ const isHexColor = {
   match: /^#?(?:[0-9A-F]{3}){1,2}$/i,
   message: 'must be hexadecimal color',
   messageKey: 'validation.is_hex_color',
-  transform: (value) => (value[0] === "#" ? value : `#${value}`),
+  transform: value => (value[0] === '#' ? value : `#${value}`),
 }
-export { isRequired, isNumber, isEmail, isSluggable, isSlug, isHexColor, isColor }
+export {
+  isRequired,
+  isNumber,
+  isEmail,
+  isSluggable,
+  isSlug,
+  isHexColor,
+  isColor,
+}
 
 /**
  * Validates a model and generates validation errors. Validators should be an object
