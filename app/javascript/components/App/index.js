@@ -11,7 +11,6 @@ import Backend from 'react-dnd-html5-backend'
 import { DndProvider } from 'react-dnd'
 
 // Initialization
-import reactGuard from 'react-guard'
 import { createStore } from 'redux'
 import rootReducer from 'reducers'
 import client from 'ApplicationService'
@@ -19,7 +18,6 @@ import { createBrowserHistory } from 'history'
 import i18n from '../../services/i18n.js'
 
 // Utilities
-import * as Sentry from '@sentry/browser'
 import ReactGA from 'react-ga'
 import WindowAlert from '../../utils/WindowAlert'
 import StringUtils from 'utils/StringUtils'
@@ -35,41 +33,7 @@ import { base as debugTheme } from 'themes/debug'
 import Layout from './Layout'
 import { Router as BrowserRouter } from 'react-router-dom'
 import { setCurrentUser } from '../../actions'
-
-// reactGuard(React, (error, componentInfo) => {
-//   const errorString = `Failed to render <${componentInfo.displayName} />!`
-//   let eventId = null
-//
-//   if (console && console.error) {
-//     console.error(error)
-//     console.error(errorString, componentInfo)
-//     console.error(error.stack)
-//   }
-//
-//   if (Sentry) {
-//     eventId = Sentry.captureException(error)
-//   }
-//
-//   if (eventId) {
-//     const report = e => {
-//       e.preventDefault()
-//       Sentry.showReportDialog({ eventId })
-//     }
-//
-//     return (
-//       <span className={'render-error'}>
-//         {errorString}
-//         <br />(
-//         <a onClick={report} href={'#bugreport'}>
-//           Report Bug?
-//         </a>
-//         )
-//       </span>
-//     )
-//   } else {
-//     return <span className={'render-error'}>{errorString}</span>
-//   }
-// })
+import { withErrorBoundary } from '../Shared/ErrorBoundary'
 
 class App extends Component {
   constructor(props) {
@@ -82,6 +46,13 @@ class App extends Component {
 
     this.store = this.buildStore(this.buildState(props.state))
     this.history = this.buildHistory()
+
+    // Set Google Analytics
+    if (props.gaPropertyId && typeof ReactGA !== 'undefined') {
+      ReactGA.initialize(this.props.gaPropertyID)
+      ReactGA.set({ page: window.location.pathname })
+      ReactGA.pageview(window.location.pathname)
+    }
 
     this.initWindowAlert()
   }
@@ -151,15 +122,13 @@ class App extends Component {
       })
 
       ReactGA.pageview(window.location.pathname)
-      // TODO: Deprecate jQuery and see if we need this?
-      // $(document).trigger('navigate')
     }
   }
 
   componentDidMount() {
     this.unlisten = this.history.listen(this.handleRouteUpdate.bind(this))
 
-    console.log('App mounted with props: ', this.props)
+    console.debug('App mounted with props: ', this.props)
 
     // Fade Out Loader
     const $loader = document.getElementById('rootAppLoader')
@@ -169,13 +138,6 @@ class App extends Component {
         ? ($loader.style.display = 'none')
         : setTimeout(fade, 40)
     })()
-
-    // Set Google Analytics
-    if (this.props.gaPropertyId && typeof ReactGA !== 'undefined') {
-      ReactGA.initialize(this.props.gaPropertyID)
-      ReactGA.set({ page: window.location.pathname })
-      ReactGA.pageview(window.location.pathname)
-    }
 
     // Show Flashes
     if (this.props.flash) {
@@ -243,4 +205,4 @@ App.childContextTypes = {
   setCurrentUser: PropTypes.func,
 }
 
-export default App
+export default withErrorBoundary(App)

@@ -11,6 +11,7 @@ import SessionService from '../../services/SessionService'
 import { H3 } from '../Styled/Headings'
 import styled from 'styled-components'
 import GoogleAd from '../Shared/GoogleAd'
+import { withErrorBoundary } from '../Shared/ErrorBoundary'
 
 class _Footer extends Component {
   constructor(props) {
@@ -286,5 +287,4 @@ const Footer = styled(_Footer)`
   color: ${props => props.theme.text};
 `
 
-export default compose()(Footer)
-// TODO: Add HOC bindings here
+export default compose(withErrorBoundary)(Footer)

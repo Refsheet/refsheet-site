@@ -20,6 +20,7 @@ import ImageApp from '../../v1/views/images/ImageApp'
 import Static from '../../v1/views/Static'
 import CharacterApp from '../../v1/views/characters/CharacterApp'
 import User from 'v1/views/User'
+import { withErrorBoundary } from '../Shared/ErrorBoundary'
 
 const Routes = () => (
   <Switch>
@@ -122,4 +123,4 @@ const Routes = () => (
 
 Routes.propTypes = {}
 
-export default Routes
+export default withErrorBoundary(Routes)

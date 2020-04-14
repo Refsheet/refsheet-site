@@ -9,6 +9,7 @@ import Silhouette from './Silhouette'
 import { Error, Loading } from './Status'
 import { withRouter } from 'react-router-dom'
 import compose from '../../utils/compose'
+import { withErrorBoundary } from '../Shared/ErrorBoundary'
 
 class Lightbox extends Component {
   constructor(props) {
@@ -228,6 +229,7 @@ const mapDispatchToProps = {
 }
 
 export default compose(
+  withErrorBoundary,
   connect(mapStateToProps, mapDispatchToProps),
   withRouter
 )(Wrapped)

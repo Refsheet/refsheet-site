@@ -10,6 +10,7 @@ import UploadModal from '../Image/UploadModal'
 import Routes from './Routes'
 import { withRouter } from 'react-router'
 import SessionModal from '../../v1/shared/modals/SessionModal'
+import { withErrorBoundary } from '../Shared/ErrorBoundary'
 
 class Layout extends Component {
   constructor(props) {
@@ -47,7 +48,4 @@ Layout.propTypes = {
   notice: PropTypes.string,
 }
 
-export default compose(
-  // withNamespaces('common'),
-  withRouter
-)(Layout)
+export default compose(withErrorBoundary, withRouter)(Layout)

@@ -50,9 +50,8 @@ function init(id, props) {
   if (module.hot) {
     module.hot.accept('../components/App/index.js', () => {
       try {
-        console.log('Accepted a new App!')
+        console.log('[HMR] Accepting a new App component...')
         const NextApp = require('../components/App/index.js').default
-        console.log({ NextApp })
         render(NextApp)
       } catch (e) {
         console.error(e)
@@ -64,6 +63,6 @@ function init(id, props) {
 export { init }
 
 window._jsV2 = true
-console.log('Pack loaded: Refsheet JS v2')
+console.debug('Pack loaded: Refsheet JS v2')
 const event = new CustomEvent('jsload.pack')
 window.dispatchEvent(event)
