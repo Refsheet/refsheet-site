@@ -6,6 +6,7 @@ import LoginForm from '../../views/sessions/LoginForm'
 import Modal from '../Modal'
 import * as Materialize from 'materialize-css'
 import $ from 'jquery'
+import { withErrorBoundary } from '../../../components/Shared/ErrorBoundary'
 
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
@@ -16,8 +17,7 @@ import $ from 'jquery'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let SessionModal
-export default SessionModal = createReactClass({
+const SessionModal = createReactClass({
   getInitialState() {
     return { view: 'login' }
   },
@@ -83,3 +83,5 @@ export default SessionModal = createReactClass({
     )
   },
 })
+
+export default withErrorBoundary(SessionModal)

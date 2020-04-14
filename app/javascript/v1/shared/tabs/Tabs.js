@@ -5,6 +5,7 @@ import $ from 'jquery'
 import * as Materialize from 'materialize-css'
 import NumberUtils from '../../utils/NumberUtils'
 import Tab from './Tab'
+import { captureException } from '@sentry/minimal'
 
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
@@ -27,6 +28,7 @@ export default Tabs = createReactClass({
     try {
       Materialize.Tabs.init(this.tabRef)
     } catch (e) {
+      captureException(e)
       console.error(e)
     }
     // https://github.com/Dogfalo/materialize/issues/2102
