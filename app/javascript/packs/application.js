@@ -9,6 +9,7 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
+import 'react-hot-loader/patch'
 import 'whatwg-fetch'
 import * as Sentry from '@sentry/browser'
 import $ from 'jquery'
@@ -32,9 +33,32 @@ if (Refsheet.environment === 'production') {
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from '../components/App'
+import { AppContainer } from 'react-hot-loader'
 
 function init(id, props) {
-  ReactDOM.render(<App {...props} />, document.getElementById(id))
+  const render = (Component) => {
+    ReactDOM.render(
+      <AppContainer>
+        <Component {...props} />
+      </AppContainer>,
+      document.getElementById(id)
+    )
+  }
+
+  render(App)
+
+  if (module.hot) {
+    module.hot.accept('../components/App/index.js', () => {
+      try {
+        console.log("Accepted a new App!")
+        const NextApp = require('../components/App/index.js').default;
+        console.log({NextApp})
+        render(NextApp)
+      } catch(e) {
+        console.error(e)
+      }
+    })
+  }
 }
 
 export { init }

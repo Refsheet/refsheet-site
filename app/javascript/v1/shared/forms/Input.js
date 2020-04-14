@@ -4,6 +4,8 @@ import PropTypes from 'prop-types'
 import * as Materialize from 'materialize-css'
 import $ from 'jquery'
 import validate, { errorString, isHexColor, isColor } from '../../../utils/validate'
+import { ChromePicker, SketchPicker } from 'react-color'
+import ColorPicker from '../../../components/Shared/ColorPicker'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -20,6 +22,10 @@ export default Input = createReactClass({
     id: PropTypes.string,
     onChange: PropTypes.func,
     type: PropTypes.string,
+    /**
+     * Use to allow only hexadecimal color codes. type === 'color' required.
+     */
+    hexOnly: PropTypes.bool,
     placeholder: PropTypes.string,
     label: PropTypes.string,
     disabled: PropTypes.bool,
@@ -49,6 +55,7 @@ export default Input = createReactClass({
       error: this.props.error,
       validationErrors: [],
       dirty: false,
+      showColorPicker: false,
     }
   },
 
@@ -66,21 +73,21 @@ export default Input = createReactClass({
     if (this.props.type === 'textarea') {
       Materialize.textareaAutoResize(this.refs.input)
     }
-
-    if (this.props.type === 'color') {
-
-    }
-
-    if (this.props.focusSelectAll) {
-      return $(this.refs.input).focus(function() {
-        return $(this).select()
-      })
-    }
   },
 
   handleFocus(e) {
     if (this.props.focusSelectAll) {
       e.target.select();
+    }
+
+    if (this.props.type === 'color') {
+      this.setState({showColorPicker: true})
+    }
+  },
+
+  handleBlur(e) {
+    if (this.props.type === 'color') {
+      // this.setState({showColorPicker: false})
     }
   },
 
@@ -97,6 +104,14 @@ export default Input = createReactClass({
     if (this.props.type === 'textarea' && !this.props.browserDefault) {
       return Materialize.textareaAutoResize(this.refs.input)
     }
+  },
+
+  handleColorChange(data) {
+    this._handleInputChange({
+      target: {
+        value: data.hex
+      }
+    })
   },
 
   _handleInputChange(e) {
@@ -149,6 +164,7 @@ export default Input = createReactClass({
   render() {
     let icon, id, inputField
     let { className } = this.props
+    const { showColorPicker } = this.state
 
     let errors = this.state.validationErrors || []
     let error
@@ -198,6 +214,7 @@ export default Input = createReactClass({
       autoFocus: this.props.autoFocus,
       onChange: this._handleInputChange,
       onFocus: this.handleFocus,
+      onBlur: this.handleBlur,
       className,
       noValidate: true,
     }
@@ -303,6 +320,8 @@ export default Input = createReactClass({
         {!error && this.props.hint && (
           <div className="hint-block">{this.props.hint}</div>
         )}
+
+        {showColorPicker && <ColorPicker overlay color={this.state.value} onClick={this.handleFocus} onChangeComplete={this.handleColorChange} /> }
       </div>
     )
   },
