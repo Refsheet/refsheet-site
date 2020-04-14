@@ -63,27 +63,18 @@ export default Input = createReactClass({
     }
   },
 
-  UNSAFE_componentWillReceiveProps(newProps) {
-    if (newProps.value !== this.state.value) {
-      this.setState({ value: newProps.value || newProps.default })
-    }
-
-    if (newProps.error !== this.state.error) {
-      return this.setState({ error: newProps.error })
-    }
-  },
-
   componentDidMount() {
     if (this.props.type === 'textarea') {
-      Materialize.textareaAutoResize(this.refs.input)
+      Materialize.textareaAutoResize(this.inputRef)
     }
   },
 
   handleFocus(e) {
     clearTimeout(this._blurTimeout)
+    this.inputRef.focus()
 
     if (this.props.focusSelectAll) {
-      e.target.select()
+      this.inputRef.select()
     }
 
     if (this.props.type === 'color') {
@@ -94,29 +85,37 @@ export default Input = createReactClass({
   handleBlur(e) {
     this._blurTimeout = setTimeout(() => {
       if (this.props.type === 'color') {
-        // TODO: We would, normally, close the color picker here.
-        // this.setState({showColorPicker: false})
+        this.setState({ showColorPicker: false })
       }
-    }, 1)
+      // A timeout of 0 might be a problem here. If we see issues where the color picker keeps closing when you click it,
+      // this might need to be increased. System specs play a role here.
+    }, 0)
   },
 
-  componentDidUpdate(newProps, newState) {
+  componentDidUpdate(prevProps, prevState) {
     if (
       this.props.type === 'textarea' &&
       this.props.browserDefault &&
-      this.state.value !== newState.value
+      this.state.value !== prevState.value
     ) {
-      $(this.refs.input).css({ height: 0 })
-      $(this.refs.input).css({ height: this.refs.input.scrollHeight + 10 })
+      this.inputRef.style.height = this.inputRef.scrollHeight + 10
     }
 
     if (this.props.type === 'textarea' && !this.props.browserDefault) {
-      return Materialize.textareaAutoResize(this.refs.input)
+      return Materialize.textareaAutoResize(this.inputRef)
+    }
+
+    if (prevProps.value !== this.props.value) {
+      this.setState({ value: this.props.value || this.props.default })
+    }
+
+    if (prevProps.error !== this.props.error) {
+      return this.setState({ error: this.props.error })
     }
   },
 
   handleColorClose() {
-    this.setState({showColorPicker: false})
+    this.setState({ showColorPicker: false })
   },
 
   handleColorChange(data) {
@@ -220,7 +219,7 @@ export default Input = createReactClass({
     const commonProps = {
       id,
       name: this.props.name,
-      ref: 'input',
+      ref: r => (this.inputRef = r),
       disabled: this.props.disabled,
       readOnly: this.props.readOnly,
       placeholder: this.props.placeholder,
@@ -277,7 +276,11 @@ export default Input = createReactClass({
         }
 
         icon = (
-          <i className="material-icons prefix shadow" style={{ color }}>
+          <i
+            className="material-icons prefix shadow"
+            style={{ color }}
+            onClick={this.handleFocus}
+          >
             {iconName}
           </i>
         )
@@ -293,7 +296,11 @@ export default Input = createReactClass({
     }
 
     if (this.props.icon) {
-      icon = <i className="material-icons prefix">{this.props.icon}</i>
+      icon = (
+        <i className="material-icons prefix" onClick={this.handleFocus}>
+          {this.props.icon}
+        </i>
+      )
     }
 
     const wrapperClassNames = []
@@ -308,7 +315,11 @@ export default Input = createReactClass({
     }
 
     return (
-      <div className={wrapperClassNames.join(' ')} onFocus={this.handleFocus} onBlur={this.handleBlur}>
+      <div
+        className={wrapperClassNames.join(' ')}
+        onFocus={this.handleFocus}
+        onBlur={this.handleBlur}
+      >
         {icon}
         {!inputFieldInsideLabel && inputField}
 
@@ -330,8 +341,8 @@ export default Input = createReactClass({
             overlay
             color={this.state.value}
             onClose={this.handleColorClose}
-            onClick={this.handleFocus}
-            onChangeComplete={this.handleColorChange}
+            onFocus={this.handleFocus}
+            onChange={this.handleColorChange}
           />
         )}
       </div>

@@ -47,6 +47,7 @@ const ColorPickerOverlay = styled.div`
       i.material-icons {
         line-height: 2.5rem;
         height: 2.5rem;
+        font-size: 1.2rem;
       }
 
       &:hover {
@@ -89,18 +90,23 @@ function ColorPicker({
   hsv,
   rgb,
   hex,
-  colors,
+  colors = [],
   alpha,
   onClose,
-  onClick,
+  onFocus,
 }) {
-  colors = [
-    'green', 'purple', 'cyan', 'blue', 'red'
-  ]
-
   const handleClose = e => {
     e.preventDefault()
     onClose && onClose()
+  }
+
+  const applyColor = color => e => {
+    e.preventDefault()
+    onChange && onChange(color)
+  }
+
+  const handleFocus = e => {
+    onFocus && onFocus(e)
   }
 
   return (
@@ -108,7 +114,8 @@ function ColorPicker({
       className={'color-picker-overlay z-depth-2'}
       color={hex}
       hsl={hsl}
-      onClick={onClick}
+      onFocus={handleFocus}
+      tabIndex={-1}
       noColors={colors.length === 0}
     >
       <div className={'header'}>
@@ -128,22 +135,26 @@ function ColorPicker({
           <Alpha hsl={hsl} hsv={hsv} hex={hex} rgb={rgb} onChange={onChange} />
         </div>
       )}
-      { colors.length > 0 && <div className="colors">
-        {colors.map(color => (
-          <div
-            key={color}
-            className={'color'}
-            style={{ backgroundColor: color }}
-          />
-        ))}
-        <br className="clearfix" />
-      </div> }
+      {colors.length > 0 && (
+        <div className="colors">
+          {colors.map(color => (
+            <a
+              key={color}
+              href={'#'}
+              className={'color'}
+              onClick={applyColor(color)}
+              style={{ backgroundColor: color }}
+            />
+          ))}
+          <br className="clearfix" />
+        </div>
+      )}
     </ColorPickerOverlay>
   )
 }
 
 ColorPicker.propTypes = {
-  color: PropTypes.string,
+  color: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   colors: PropTypes.arrayOf(PropTypes.string),
   onChangeComplete: PropTypes.func,
 }
