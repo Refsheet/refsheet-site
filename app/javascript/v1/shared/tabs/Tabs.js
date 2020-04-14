@@ -26,7 +26,7 @@ export default Tabs = createReactClass({
   componentDidMount() {
     try {
       Materialize.Tabs.init(this.tabRef)
-    } catch(e) {
+    } catch (e) {
       console.error(e)
     }
     // https://github.com/Dogfalo/materialize/issues/2102
@@ -78,7 +78,7 @@ export default Tabs = createReactClass({
 
     return (
       <div className="tabs-container">
-        <ul ref={r => this.tabRef = r} className={className}>
+        <ul ref={r => (this.tabRef = r)} className={className}>
           {tabs}
         </ul>
 

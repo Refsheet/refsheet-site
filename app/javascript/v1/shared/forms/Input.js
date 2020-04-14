@@ -3,7 +3,11 @@ import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
 import * as Materialize from 'materialize-css'
 import $ from 'jquery'
-import validate, { errorString, isHexColor, isColor } from '../../../utils/validate'
+import validate, {
+  errorString,
+  isHexColor,
+  isColor,
+} from '../../../utils/validate'
 import { ChromePicker, SketchPicker } from 'react-color'
 import ColorPicker from '../../../components/Shared/ColorPicker'
 // TODO: This file was created by bulk-decaffeinate.
@@ -76,19 +80,24 @@ export default Input = createReactClass({
   },
 
   handleFocus(e) {
+    clearTimeout(this._blurTimeout)
+
     if (this.props.focusSelectAll) {
-      e.target.select();
+      e.target.select()
     }
 
     if (this.props.type === 'color') {
-      this.setState({showColorPicker: true})
+      this.setState({ showColorPicker: true })
     }
   },
 
   handleBlur(e) {
-    if (this.props.type === 'color') {
-      // this.setState({showColorPicker: false})
-    }
+    this._blurTimeout = setTimeout(() => {
+      if (this.props.type === 'color') {
+        // TODO: We would, normally, close the color picker here.
+        // this.setState({showColorPicker: false})
+      }
+    }, 1)
   },
 
   componentDidUpdate(newProps, newState) {
@@ -106,11 +115,15 @@ export default Input = createReactClass({
     }
   },
 
+  handleColorClose() {
+    this.setState({showColorPicker: false})
+  },
+
   handleColorChange(data) {
     this._handleInputChange({
       target: {
-        value: data.hex
-      }
+        value: data.hex,
+      },
     })
   },
 
@@ -213,8 +226,6 @@ export default Input = createReactClass({
       placeholder: this.props.placeholder,
       autoFocus: this.props.autoFocus,
       onChange: this._handleInputChange,
-      onFocus: this.handleFocus,
-      onBlur: this.handleBlur,
       className,
       noValidate: true,
     }
@@ -253,11 +264,7 @@ export default Input = createReactClass({
       )
     } else if (this.props.type === 'color') {
       inputField = (
-        <input
-          {...commonProps}
-          value={this.state.value || ""}
-          type="text"
-        />
+        <input {...commonProps} value={this.state.value || ''} type="text" />
       )
 
       if (this.props.icon !== '') {
@@ -265,15 +272,12 @@ export default Input = createReactClass({
         let color = this.state.value
 
         if (error) {
-          iconName = "error"
-          color = "inherit"
+          iconName = 'error'
+          color = 'inherit'
         }
 
         icon = (
-          <i
-            className="material-icons prefix shadow"
-            style={{ color }}
-          >
+          <i className="material-icons prefix shadow" style={{ color }}>
             {iconName}
           </i>
         )
@@ -304,7 +308,7 @@ export default Input = createReactClass({
     }
 
     return (
-      <div className={wrapperClassNames.join(' ')}>
+      <div className={wrapperClassNames.join(' ')} onFocus={this.handleFocus} onBlur={this.handleBlur}>
         {icon}
         {!inputFieldInsideLabel && inputField}
 
@@ -321,7 +325,15 @@ export default Input = createReactClass({
           <div className="hint-block">{this.props.hint}</div>
         )}
 
-        {showColorPicker && <ColorPicker overlay color={this.state.value} onClick={this.handleFocus} onChangeComplete={this.handleColorChange} /> }
+        {showColorPicker && (
+          <ColorPicker
+            overlay
+            color={this.state.value}
+            onClose={this.handleColorClose}
+            onClick={this.handleFocus}
+            onChangeComplete={this.handleColorChange}
+          />
+        )}
       </div>
     )
   },
