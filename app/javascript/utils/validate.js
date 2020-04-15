@@ -62,6 +62,7 @@ const isHexColor = {
   messageKey: 'validation.is_hex_color',
   transform: value => (value[0] === '#' ? value : `#${value}`),
 }
+
 export {
   isRequired,
   isNumber,
