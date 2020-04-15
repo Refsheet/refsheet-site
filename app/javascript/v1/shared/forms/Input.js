@@ -71,10 +71,10 @@ export default Input = createReactClass({
 
   handleFocus(e) {
     clearTimeout(this._blurTimeout)
-    this.inputRef.focus()
+    this.inputRef && this.inputRef.focus()
 
     if (this.props.focusSelectAll) {
-      this.inputRef.select()
+      this.inputRef && this.inputRef.select()
     }
 
     if (this.props.type === 'color') {
