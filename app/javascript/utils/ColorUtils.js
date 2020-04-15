@@ -2,6 +2,23 @@ import Color from 'color'
 
 const ColorUtils = {
   /**
+   * Rejects V1 style color data keys from an object. This is used when we're sure that we want to use the V2 styles
+   * in a mixed object.
+   *
+   * @param v2ColorData
+   * @returns {{}}
+   */
+  rejectV1(v2ColorData) {
+    let clean = {}
+
+    Object.keys(v2ColorData)
+      .filter(k => !/-/.test(k))
+      .map(k => (clean[k] = v2ColorData[k]))
+
+    return clean
+  },
+
+  /**
    * Converts V1 to V2 color data. This clobbers any existing V2 syntax.
    * @param v1ColorData
    */

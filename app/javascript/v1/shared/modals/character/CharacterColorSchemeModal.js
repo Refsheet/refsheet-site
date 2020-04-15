@@ -13,7 +13,7 @@ import Tabs from 'v1/shared/tabs/Tabs'
 import Tab from 'v1/shared/tabs/Tab'
 
 import * as Materialize from 'materialize-css'
-import $ from 'jquery'
+import ColorUtils from '../../../../utils/ColorUtils'
 
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
@@ -29,6 +29,20 @@ export default CharacterColorSchemeModal = createReactClass({
   propTypes: {
     characterPath: PropTypes.string.isRequired,
     colorScheme: PropTypes.object,
+  },
+
+  defaultColors: {
+    primary: ['Primary Color', '#80cbc4'],
+    accent1: ['Secondary Color', '#26a69a'],
+    accent2: ['Accent Color', '#ee6e73'],
+    text: ['Main Text', 'rgba(255,255,255,0.9)'],
+    textMedium: ['Muted Text', 'rgba(255,255,255,0.5)'],
+    textLight: ['Subtle Text', 'rgba(255,255,255,0.3)'],
+    background: ['Page Background', '#262626'],
+    cardBackground: ['Card Background', '#212121'],
+    cardHeaderBackground: ['Card Header', 'rgba(0,0,0,0.2)'],
+    border: ['Border Colors', 'rgba(255,255,255,0.1)'],
+    imageBackground: ['Image Background', '#000000'],
   },
 
   getInitialState() {
@@ -58,11 +72,9 @@ export default CharacterColorSchemeModal = createReactClass({
 
   _handleChange(data) {
     return this.setState({ color_data: data.color_scheme.color_data }, () => {
-      this.props.onChange && this.props.onChange(data.color_scheme.color_data)
-      $(document).trigger(
-        'app:color_scheme:update',
-        data.color_scheme.color_data
-      )
+      this.props.onChange &&
+        this.props.onChange(ColorUtils.rejectV1(data.color_scheme.color_data))
+
       Materialize.toast({
         html: 'Color scheme saved.',
         displayLength: 3000,
@@ -74,8 +86,7 @@ export default CharacterColorSchemeModal = createReactClass({
 
   _handleUpdate(data) {
     this.setState({ color_data: data })
-    this.props.onChange && this.props.onChange(data)
-    return $(document).trigger('app:color_scheme:update', data)
+    this.props.onChange && this.props.onChange(ColorUtils.rejectV1(data))
   },
 
   _handleDirty(dirty) {
@@ -90,21 +101,8 @@ export default CharacterColorSchemeModal = createReactClass({
   render() {
     const colorSchemeFields = []
 
-    const object = {
-      primary: ['Primary Color', '#80cbc4'],
-      accent1: ['Secondary Color', '#26a69a'],
-      accent2: ['Accent Color', '#ee6e73'],
-      text: ['Main Text', 'rgba(255,255,255,0.9)'],
-      textMedium: ['Muted Text', 'rgba(255,255,255,0.5)'],
-      textLight: ['Subtle Text', 'rgba(255,255,255,0.3)'],
-      background: ['Page Background', '#262626'],
-      cardBackground: ['Card Background', '#212121'],
-      cardHeaderBackground: ['Card Header', 'rgba(0,0,0,0.2)'],
-      border: ['Border Colors', 'rgba(255,255,255,0.1)'],
-      imageBackground: ['Image Background', '#000000'],
-    }
-    for (let key in object) {
-      const attr = object[key]
+    for (let key in this.defaultColors) {
+      const attr = this.defaultColors[key]
       const name = attr[0]
       const def = attr[1]
       let value
