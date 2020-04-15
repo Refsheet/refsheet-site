@@ -49,7 +49,7 @@ export default class ErrorBoundary extends Component {
         left: 0,
         right: 0,
         bottom: 0,
-        zIndex: 99999,
+        zIndex: 995,
         backgroundColor: 'rgba(0,0,0,0.8)',
       },
       container: {
@@ -69,7 +69,9 @@ export default class ErrorBoundary extends Component {
     if (eventId) {
       const report = e => {
         e.preventDefault()
-        Sentry.showReportDialog({ eventId })
+        Sentry.showReportDialog({
+          eventId,
+        })
       }
 
       return (
