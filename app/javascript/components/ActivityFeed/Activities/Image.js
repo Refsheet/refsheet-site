@@ -133,14 +133,16 @@ export default Image = createReactClass({
   },
 
   render() {
+    let images = this.props.images
+
     if (this.props.character) {
-      for (let i of Array.from(this.props.images)) {
-        i.character = this.props.character
-      }
+      images = this.props.images.map(i => {
+        let img = i || {}
+        img.character = this.props.character
+        return img
+      })
     }
 
-    return (
-      <div className="activity">{this._buildImageGrid(this.props.images)}</div>
-    )
+    return <div className="activity">{this._buildImageGrid(images)}</div>
   },
 })
