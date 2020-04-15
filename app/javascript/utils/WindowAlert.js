@@ -1,5 +1,6 @@
 import Favico from 'favico.js-slevomat'
 import { Howl, Howler } from 'howler'
+import { captureException } from '@sentry/minimal'
 
 const CYCLE_ENABLED = true
 
@@ -128,6 +129,7 @@ class WindowAlert {
       try {
         window.RS_SOUND[key].play()
       } catch (e) {
+        captureException(e)
         console.error(e)
       }
     }
