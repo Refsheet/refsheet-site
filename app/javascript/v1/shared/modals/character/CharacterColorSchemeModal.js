@@ -47,10 +47,11 @@ export default CharacterColorSchemeModal = createReactClass({
 
   getInitialState() {
     return {
-      color_data:
+      color_data: ColorUtils.rejectV1(
         (this.props.colorScheme != null
           ? this.props.colorScheme.color_data
-          : undefined) || {},
+          : undefined) || {}
+      ),
       dirty: false,
     }
   },
@@ -65,7 +66,8 @@ export default CharacterColorSchemeModal = createReactClass({
     const obj = JSON.parse(data)
 
     if (typeof obj === 'object') {
-      this.setState({ color_data: obj })
+      const data = ColorUtils.rejectV1(ColorUtils.convertV1(obj))
+      this.setState({ color_data: data })
       return this.refs.form.setModel(obj)
     }
   },
