@@ -156,7 +156,7 @@ export default Activity = createReactClass({
 
   _groupedActivity() {
     // TODO: Set grouping enable to a variable. Limit by ad frequency maybe?
-    const groupedEnable = false
+    const groupedEnable = true
     const grouped = []
 
     for (let item of Array.from(this.state.activity)) {

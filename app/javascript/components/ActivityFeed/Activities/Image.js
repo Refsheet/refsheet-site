@@ -29,7 +29,11 @@ export default Image = createReactClass({
   },
 
   _getGallery() {
-    return (this.props.images && this.props.images.map(i => i.id)) || []
+    return (
+      (this.props.images &&
+        this.props.images.filter(i => !!i).map(i => i.id)) ||
+      []
+    )
   },
 
   _buildSingle(key, one) {
@@ -100,18 +104,17 @@ export default Image = createReactClass({
   },
 
   _buildImageGrid(images, grid) {
-    let one, two
     if (grid == null) {
       grid = []
     }
+
     const key = images.length
 
     // 3 Block: 3, 5, 6
     if ((images.length > 4 && images.length < 7) || images.length === 3) {
-      let three
-      ;[one, two, three, ...images] = Array.from(images)
+      const [one, two, three, ...more] = Array.from(images)
       grid.push(this._buildTriple(key, one, two, three))
-      this._buildImageGrid(images, grid)
+      this._buildImageGrid(more, grid)
 
       // 2 Block: 2, 4, 7+
     } else if (
@@ -119,13 +122,13 @@ export default Image = createReactClass({
       images.length === 4 ||
       images.length >= 7
     ) {
-      ;[one, two, ...images] = Array.from(images)
+      const [one, two, ...more] = Array.from(images)
       grid.push(this._buildDouble(key, one, two))
-      this._buildImageGrid(images, grid)
+      this._buildImageGrid(more, grid)
 
       // Single: 1
     } else if (images.length === 1) {
-      ;[one] = Array.from(images)
+      const [one] = Array.from(images)
       grid.push(this._buildSingle(key, one))
     }
 
@@ -133,13 +136,12 @@ export default Image = createReactClass({
   },
 
   render() {
-    let images = this.props.images
+    // Reject NULLs here, see: REFST-2DP
+    let images = this.props.images.filter(i => !!i)
 
     if (this.props.character) {
-      images = this.props.images.map(i => {
-        let img = i || {}
-        img.character = this.props.character
-        return img
+      images.map(i => {
+        i.character = this.props.character
       })
     }
 
