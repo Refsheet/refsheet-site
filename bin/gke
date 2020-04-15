@@ -30,15 +30,23 @@ function do_ssh() {
       select container in $containers; do
         echo
         echo "Connecting to $container on $pod"
-        kubectl exec "$pod" -it -c "$container" -- bash
+        kubectl exec "$pod" -it -c "$container" -- "$@"
         return
       done
     else
       echo "Connecting to $containers on $pod"
-      kubectl exec "$pod" -it -c "$containers" -- bash
+      kubectl exec "$pod" -it -c "$containers" -- "$@"
       return
     fi
 	done
+}
+
+function do_console() {
+  do_ssh bundle exec rails c
+}
+
+function do_bash() {
+  do_ssh "bash"
 }
 
 function do_logs() {
@@ -73,8 +81,11 @@ case "$1" in
 		  kubectl get pods --no-headers=true | grep Running
 		  ;;
 	ssh)
-		  do_ssh
+		  do_bash
 	  	;;
+	console)
+	   do_console
+	   ;;
 	logs)
       do_logs
       ;;

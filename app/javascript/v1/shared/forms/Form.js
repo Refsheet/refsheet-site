@@ -33,7 +33,7 @@ export default Form = createReactClass({
 
   getInitialState() {
     return {
-      model: $.extend({}, this.props.model),
+      model: { ...this.props.model },
       errors: this.props.errors || {},
       dirty: false,
       invalid: Object.keys(this.props.errors || {}).length,
@@ -43,7 +43,7 @@ export default Form = createReactClass({
   UNSAFE_componentWillReceiveProps(newProps) {
     if (newProps.model !== this.props.model) {
       return this.setState({
-        model: $.extend({}, newProps.model),
+        model: { ...newProps.model },
         errors: newProps.errors || {},
         dirty: false,
       })
@@ -52,7 +52,7 @@ export default Form = createReactClass({
 
   reload() {
     return this.setState({
-      model: $.extend({}, this.props.model),
+      model: { ...this.props.model },
       errors: this.props.errors || {},
       dirty: false,
     })
@@ -67,7 +67,7 @@ export default Form = createReactClass({
   },
 
   reset() {
-    this.setState({ model: $.extend({}, this.props.model), dirty: false })
+    this.setState({ model: { ...this.props.model }, dirty: false })
     if (this.props.onDirty) {
       return this.props.onDirty(false)
     }
@@ -81,7 +81,7 @@ export default Form = createReactClass({
     if (dirty == null) {
       dirty = true
     }
-    return this.setState({ model: $.extend({}, data), dirty }, () => {
+    return this.setState({ model: { ...data }, dirty }, () => {
       if (this.props.onDirty) {
         this.props.onDirty(dirty)
       }
@@ -95,9 +95,9 @@ export default Form = createReactClass({
   },
 
   _handleInputChange(name, value) {
-    const newModel = $.extend({}, this.state.model)
+    const newModel = { ...this.state.model }
     newModel[name] = value
-    const errors = $.extend({}, this.state.errors)
+    const errors = { ...this.state.errors }
     errors[name] = undefined
     let dirty = false
     let invalid = false
@@ -124,8 +124,6 @@ export default Form = createReactClass({
   },
 
   _handleFormSubmit(e) {
-    $(document).trigger('app:loading')
-
     const data = {}
     ObjectPath.set(data, this.props.modelName, this.state.model)
 
@@ -180,9 +178,7 @@ export default Form = createReactClass({
         }
       },
 
-      complete() {
-        return $(document).trigger('app:loading:done')
-      },
+      complete() {},
     })
 
     if (e != null) {
@@ -198,7 +194,7 @@ export default Form = createReactClass({
         return child
       }
 
-      if (child.type === Input) {
+      if (child.type.displayName === 'Input') {
         if (child.props.name) {
           const errorKey = child.props.errorPath
             ? child.props.errorPath + '.' + child.props.name
