@@ -1,5 +1,6 @@
 import React from 'react'
 import { Icon } from 'react-materialize'
+import ImageHandler from '../../utils/ImageHandler'
 
 export const Loading = () => (
   <div className={'image-status loading'}>
@@ -8,10 +9,14 @@ export const Loading = () => (
   </div>
 )
 
-export const Error = ({ error }) => (
-  <div className={'image-status loading'}>
-    <Icon>warning</Icon>
-    <h2>Error!</h2>
-    {error && <div className={'muted margin-top--large'}>{error}</div>}
-  </div>
-)
+export const Error = ({ error: errorObj }) => {
+  const error = ImageHandler.findError(errorObj)
+
+  return (
+    <div className={'image-status loading'}>
+      <Icon>warning</Icon>
+      <h2>Error!</h2>
+      {error && <div className={'muted margin-top--large'}>{error}</div>}
+    </div>
+  )
+}
