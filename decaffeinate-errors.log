@@ -29,7 +29,7 @@ Error: unexpected EOF while in context PAREN
     at _combinedTickCallback (internal/process/next_tick.js:138:11)
     at process._tickCallback (internal/process/next_tick.js:180:9)
 
-===== /home/weisert/RubymineProjects/refsheet-site/app/javascript/v1/views/account/settings/support.jsx.coffee
+===== /home/weisert/RubymineProjects/refsheet-site/app/javascript/v1/views/account/settings/support.js
 
 
 #
