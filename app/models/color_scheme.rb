@@ -16,6 +16,20 @@ class ColorScheme < ApplicationRecord
 
   COLOR_MATCH = /\A((rgb|hsl)a?\((\s*[\d.]+,?){3,4}\s*\)|#?([a-f0-9]{3}|[a-f0-9]{6}|[a-f0-9]{8}))\z/i
 
+  DEFAULT_COLOR_DATA = {
+      primary: "#80cbc4",
+      accent1: "#26a69a",
+      accent2: "#ee6e73",
+      text: "rgba(255,255,255,0.9)",
+      textMedium: "rgba(255,255,255,0.5)",
+      textLight: "rgba(255,255,255,0.3)",
+      background: "#262626",
+      cardBackground: "#212121",
+      cardHeaderBackground: "rgba(0,0,0,0.2)",
+      imageBackground: "#000000",
+      border: "rgba(255,255,255,0.1)",
+  }.freeze
+
   belongs_to :user
   has_many :characters
 
@@ -26,19 +40,7 @@ class ColorScheme < ApplicationRecord
   serialize :color_data
 
   def self.default
-    new color_data: {
-            primary: "#80cbc4",
-            accent1: "#26a69a",
-            accent2: "#ee6e73",
-            text: "rgba(255,255,255,0.9)",
-            textMedium: "rgba(255,255,255,0.5)",
-            textLight: "rgba(255,255,255,0.3)",
-            background: "#262626",
-            cardBackground: "#212121",
-            cardHeaderBackground: "rgba(0,0,0,0.2)",
-            imageBackground: "#000000",
-            border: "rgba(255,255,255,0.1)",
-        }
+    new color_data: DEFAULT_COLOR_DATA
   end
 
   def color_data
@@ -73,7 +75,6 @@ class ColorScheme < ApplicationRecord
       return color
     end
 
-
     super
   end
 
@@ -89,9 +90,11 @@ class ColorScheme < ApplicationRecord
   end
 
   def normalize_color_data
+    return
     if color_data.is_a? Hash
       new_data = {}
 
+      # Normalize non-v1 values:
       color_data.reject { |k,_v| k =~ /-/ }.collect do |k, v|
         new_data[normalize_key(k)] = normalize_color(v)
       end
@@ -99,6 +102,11 @@ class ColorScheme < ApplicationRecord
       # Colors with - take priority since those were probably V1 values:
       color_data.select { |k,_v| k =~ /-/ }.collect do |k, v|
         new_data[normalize_key(k)] = normalize_color(v)
+      end
+
+      # Apply defaults:
+      (DEFAULT_COLOR_DATA.keys - new_data.keys).each do |k|
+        new_data[k] = DEFAULT_COLOR_DATA[k]
       end
 
       self.color_data = new_data
