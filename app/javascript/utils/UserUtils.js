@@ -28,24 +28,18 @@ export const userClasses = (user, className = 'user-color') => {
   })
 }
 
-export const userFgColor = ({
-  is_admin,
-  is_patron,
-  is_moderator,
-  is_supporter,
-}) => {
+export const userFgColor = user => {
+  if (!user) return ''
+  const { is_admin, is_patron, is_moderator, is_supporter } = user
   if (is_admin) return USER_FG_COLOR.admin
   if (is_moderator) return USER_FG_COLOR.moderator
   if (is_patron) return USER_FG_COLOR.patron
   if (is_supporter) return USER_FG_COLOR.supporter
 }
 
-export const userBgColor = ({
-  is_admin,
-  is_patron,
-  is_moderator,
-  is_supporter,
-}) => {
+export const userBgColor = user => {
+  if (!user) return ''
+  const { is_admin, is_patron, is_moderator, is_supporter } = user
   return undefined
   if (is_admin) return USER_BG_COLOR.admin
   if (is_moderator) return USER_BG_COLOR.moderator
