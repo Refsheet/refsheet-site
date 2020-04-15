@@ -5,6 +5,7 @@ import xmljs from 'xml-js'
 import getImageUploadToken from 'graphql/queries/getImageUploadToken.graphql'
 import uploadImage from 'graphql/mutations/uploadImage.graphql'
 import getCharacterImages from 'graphql/fragments/getCharacterImages.graphql'
+import Sentry from '@sentry/browser'
 
 class ImageHandler {
   static upload(image, characterId, onChange) {
@@ -136,11 +137,16 @@ class ImageHandler {
           __typename: uploadImage.__typename,
         })
 
-        store.writeFragment({
-          fragment: getCharacterImages,
-          id: 'Character:' + uploadImage.character.id,
-          data: data,
-        })
+        try {
+          store.writeFragment({
+            fragment: getCharacterImages,
+            id: 'Character:' + uploadImage.character.id,
+            data: data,
+          })
+        } catch (e) {
+          console.warn(e)
+          Sentry.captureException(e)
+        }
       },
     })
   }
@@ -183,18 +189,33 @@ class ImageHandler {
     return Promise.reject(error)
   }
 
+  /**
+   * Finds an error string given an error response from a server or exception.
+   * @TODO: This should be moved to a generic util class?
+   * @param error
+   * @returns {*|string}
+   */
   static findError(error) {
     if (error.map) {
       return error.map(e => e.message).join(', ')
     }
 
-    return (
+    let friendlyText =
       (error.response &&
         error.response.body &&
         (error.response.body.error || error.response.body)) ||
       error.error ||
-      'Something went wrong.'
-    )
+      error.message ||
+      null
+
+    if (!friendlyText) {
+      const eventId = Sentry.captureException(error)
+      friendlyText =
+        'Something went wrong. If you report this issue, please include this ID: ' +
+        eventId
+    }
+
+    return friendlyText
   }
 }
 
