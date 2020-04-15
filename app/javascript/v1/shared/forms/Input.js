@@ -3,6 +3,13 @@ import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
 import * as Materialize from 'materialize-css'
 import $ from 'jquery'
+import validate, {
+  errorString,
+  isHexColor,
+  isColor,
+} from '../../../utils/validate'
+import { ChromePicker, SketchPicker } from 'react-color'
+import ColorPicker from '../../../components/Shared/ColorPicker'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -19,6 +26,10 @@ export default Input = createReactClass({
     id: PropTypes.string,
     onChange: PropTypes.func,
     type: PropTypes.string,
+    /**
+     * Use to allow only hexadecimal color codes. type === 'color' required.
+     */
+    hexOnly: PropTypes.bool,
     placeholder: PropTypes.string,
     label: PropTypes.string,
     disabled: PropTypes.bool,
@@ -46,60 +57,73 @@ export default Input = createReactClass({
           ? ''
           : this.props.value || this.props.default,
       error: this.props.error,
+      validationErrors: [],
       dirty: false,
-    }
-  },
-
-  UNSAFE_componentWillReceiveProps(newProps) {
-    if (newProps.value !== this.state.value) {
-      this.setState({ value: newProps.value || newProps.default })
-    }
-
-    if (newProps.error !== this.state.error) {
-      return this.setState({ error: newProps.error })
+      showColorPicker: false,
     }
   },
 
   componentDidMount() {
     if (this.props.type === 'textarea') {
-      Materialize.textareaAutoResize(this.refs.input)
-    }
-
-    if (this.props.type === 'color') {
-      // const tcp = $(this.refs.input).colorPicker({
-      //   doRender: false,
-      //   renderCallback: (e, toggle) => {
-      //     if (typeof toggle === 'undefined' && e.text) {
-      //       return this._handleInputChange({ target: { value: e.text } })
-      //     }
-      //   },
-      // })
-      // window.tcp = tcp
-      // $(this.refs.input)
-      //   .blur(() => tcp.colorPicker.$UI.hide())
-      //   .focus(() => tcp.colorPicker.$UI.show())
-    }
-
-    if (this.props.focusSelectAll) {
-      return $(this.refs.input).focus(function() {
-        return $(this).select()
-      })
+      Materialize.textareaAutoResize(this.inputRef)
     }
   },
 
-  componentDidUpdate(newProps, newState) {
+  handleFocus(e) {
+    clearTimeout(this._blurTimeout)
+    this.inputRef.focus()
+
+    if (this.props.focusSelectAll) {
+      this.inputRef.select()
+    }
+
+    if (this.props.type === 'color') {
+      this.setState({ showColorPicker: true })
+    }
+  },
+
+  handleBlur(e) {
+    this._blurTimeout = setTimeout(() => {
+      if (this.props.type === 'color') {
+        this.setState({ showColorPicker: false })
+      }
+      // A timeout of 0 might be a problem here. If we see issues where the color picker keeps closing when you click it,
+      // this might need to be increased. System specs play a role here.
+    }, 0)
+  },
+
+  componentDidUpdate(prevProps, prevState) {
     if (
       this.props.type === 'textarea' &&
       this.props.browserDefault &&
-      this.state.value !== newState.value
+      this.state.value !== prevState.value
     ) {
-      $(this.refs.input).css({ height: 0 })
-      $(this.refs.input).css({ height: this.refs.input.scrollHeight + 10 })
+      this.inputRef.style.height = this.inputRef.scrollHeight + 10
     }
 
     if (this.props.type === 'textarea' && !this.props.browserDefault) {
-      return Materialize.textareaAutoResize(this.refs.input)
+      return Materialize.textareaAutoResize(this.inputRef)
     }
+
+    if (prevProps.value !== this.props.value) {
+      this.setState({ value: this.props.value || this.props.default })
+    }
+
+    if (prevProps.error !== this.props.error) {
+      return this.setState({ error: this.props.error })
+    }
+  },
+
+  handleColorClose() {
+    this.setState({ showColorPicker: false })
+  },
+
+  handleColorChange(data) {
+    this._handleInputChange({
+      target: {
+        value: data.hex,
+      },
+    })
   },
 
   _handleInputChange(e) {
@@ -111,10 +135,29 @@ export default Input = createReactClass({
         value = this.props.default
       }
     } else {
-      ;({ value } = e.target)
+      value = e.target.value
     }
 
-    this.setState({ error: null, value, dirty: true })
+    let model = {}
+    model[this.props.name] = value
+
+    let validations = []
+
+    // Assign validators here.
+    if (this.props.type === 'color') {
+      if (this.props.hexOnly) {
+        validations.push(isHexColor)
+        value = isHexColor.transform(value)
+      } else {
+        validations.push(isColor)
+      }
+    }
+
+    let validators = {}
+    validators[this.props.name] = validations
+    const errors = validate(model, validators)[this.props.name]
+
+    this.setState({ error: null, validationErrors: errors, value, dirty: true })
     if (this.props.onChange) {
       return this.props.onChange(this.props.name, value)
     }
@@ -133,8 +176,21 @@ export default Input = createReactClass({
   render() {
     let icon, id, inputField
     let { className } = this.props
-    if (this.props.error != null) {
+    const { showColorPicker } = this.state
+
+    let errors = this.state.validationErrors || []
+    let error
+    if (this.state.error) {
+      if (this.state.error.map) {
+        errors = [...errors, ...this.state.error]
+      } else {
+        errors = [...errors, this.state.error]
+      }
+    }
+
+    if (errors.length > 0) {
       className += ' invalid'
+      error = errorString(errors)
     }
     if (this.props.browserDefault) {
       className += ' browser-default'
@@ -144,11 +200,6 @@ export default Input = createReactClass({
     }
     if (this.props.noMargin) {
       className += ' margin-bottom--none'
-    }
-
-    let { error } = this.props
-    if (error != null ? error.length : undefined) {
-      error = error[0]
     }
 
     let inputFieldInsideLabel = false
@@ -168,7 +219,7 @@ export default Input = createReactClass({
     const commonProps = {
       id,
       name: this.props.name,
-      ref: 'input',
+      ref: r => (this.inputRef = r),
       disabled: this.props.disabled,
       readOnly: this.props.readOnly,
       placeholder: this.props.placeholder,
@@ -207,25 +258,30 @@ export default Input = createReactClass({
           {...commonProps}
           value={this.props.default}
           type={this.props.type}
-          checked={this.state.value == this.props.default}
+          checked={this.state.value === this.props.default}
         />
       )
     } else if (this.props.type === 'color') {
       inputField = (
-        <input
-          {...commonProps}
-          value={this.state.value || '#000000'}
-          type="text"
-        />
+        <input {...commonProps} value={this.state.value || ''} type="text" />
       )
 
       if (this.props.icon !== '') {
+        let iconName = this.props.icon || 'palette'
+        let color = this.state.value
+
+        if (error) {
+          iconName = 'error'
+          color = 'inherit'
+        }
+
         icon = (
           <i
             className="material-icons prefix shadow"
-            style={{ color: this.state.value }}
+            style={{ color }}
+            onClick={this.handleFocus}
           >
-            {this.props.icon || 'palette'}
+            {iconName}
           </i>
         )
       }
@@ -240,7 +296,11 @@ export default Input = createReactClass({
     }
 
     if (this.props.icon) {
-      icon = <i className="material-icons prefix">{this.props.icon}</i>
+      icon = (
+        <i className="material-icons prefix" onClick={this.handleFocus}>
+          {this.props.icon}
+        </i>
+      )
     }
 
     const wrapperClassNames = []
@@ -255,7 +315,11 @@ export default Input = createReactClass({
     }
 
     return (
-      <div className={wrapperClassNames.join(' ')}>
+      <div
+        className={wrapperClassNames.join(' ')}
+        onFocus={this.handleFocus}
+        onBlur={this.handleBlur}
+      >
         {icon}
         {!inputFieldInsideLabel && inputField}
 
@@ -270,6 +334,16 @@ export default Input = createReactClass({
 
         {!error && this.props.hint && (
           <div className="hint-block">{this.props.hint}</div>
+        )}
+
+        {showColorPicker && (
+          <ColorPicker
+            overlay
+            color={this.state.value}
+            onClose={this.handleColorClose}
+            onFocus={this.handleFocus}
+            onChangeComplete={this.handleColorChange}
+          />
         )}
       </div>
     )

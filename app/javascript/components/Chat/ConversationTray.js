@@ -4,6 +4,8 @@ import Conversation from './Conversation'
 import { connect } from 'react-redux'
 import NewConversation from './NewConversation'
 import { closeConversation, openConversation } from '../../actions'
+import { withErrorBoundary } from '../Shared/ErrorBoundary'
+import compose from '../../utils/compose'
 
 const ConversationTray = ({
   openConversations,
@@ -59,4 +61,7 @@ const mapDispatchToProps = {
   closeConversation,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ConversationTray)
+export default compose(
+  withErrorBoundary,
+  connect(mapStateToProps, mapDispatchToProps)
+)(ConversationTray)

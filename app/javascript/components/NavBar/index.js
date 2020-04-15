@@ -11,6 +11,8 @@ import c from 'classnames'
 import { setCurrentUser, setNsfwMode } from 'actions'
 import SessionService from '../../services/SessionService'
 import IdentityModal from '../Shared/CommentForm/IdentityModal'
+import compose from '../../utils/compose'
+import { withErrorBoundary } from '../Shared/ErrorBoundary'
 
 class NavBar extends Component {
   constructor(props) {
@@ -194,9 +196,7 @@ const options = {
   pure: false,
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-  null,
-  options
+export default compose(
+  withErrorBoundary,
+  connect(mapStateToProps, mapDispatchToProps, null, options)
 )(NavBar)

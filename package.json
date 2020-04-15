@@ -50,7 +50,7 @@
     "react-dropzone": "^4.3.0",
     "react-emoji-render": "^0.4.6",
     "react-ga": "^2.7.0",
-    "react-guard": "^0.5.0",
+    "react-hot-loader": "^4.12.20",
     "react-i18next": "^8.4.0",
     "react-justified-layout": "^0.1.0",
     "react-load-image": "^0.1.7",
