@@ -15,6 +15,7 @@ import * as Materialize from 'materialize-css'
 
 import Icon from 'v1/shared/material/Icon'
 import Modal from 'v1/shared/Modal'
+import { withErrorBoundary } from '../Shared/ErrorBoundary'
 
 class UploadModal extends Component {
   constructor(props, context) {
@@ -360,6 +361,7 @@ const Wrapped = props => {
 }
 
 export default compose(
+  withErrorBoundary,
   connect(mapStateToProps, mapDispatchToProps, null, { pure: false }),
   withNamespaces('common')
 )(Wrapped)

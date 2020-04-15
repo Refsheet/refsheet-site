@@ -293,14 +293,13 @@ const Component = createReactClass({
       }
     }
 
-    const colors =
+    let colors =
       this.state.character.color_scheme &&
-      this.state.character.color_scheme.color_data
+      this.state.character.color_scheme.color_data &&
+      ColorUtils.indifferent(this.state.character.color_scheme.color_data)
 
     return (
-      <ThemeProvider
-        theme={defaultTheme.apply(ColorUtils.convertV1(colors || {}))}
-      >
+      <ThemeProvider theme={defaultTheme.apply(colors || {})}>
         <ThemedMain title={[this.state.character.name, 'Characters']}>
           {colors && <PageStylesheet colorData={colors} />}
 
@@ -356,8 +355,22 @@ const Component = createReactClass({
               </FixedActionButton>
 
               <CharacterColorSchemeModal
-                colorScheme={this.state.character.color_scheme}
+                colorScheme={{ color_data: colors }}
                 characterPath={this.state.character.path}
+                onChange={data =>
+                  this.setState(
+                    {
+                      character: {
+                        ...this.state.character,
+                        color_scheme: {
+                          ...this.state.character.color_scheme,
+                          color_data: data,
+                        },
+                      },
+                    },
+                    console.log
+                  )
+                }
               />
               <CharacterDeleteModal character={this.state.character} />
               <CharacterTransferModal character={this.state.character} />

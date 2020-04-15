@@ -5,6 +5,7 @@ import $ from 'jquery'
 import * as Materialize from 'materialize-css'
 import NumberUtils from '../../utils/NumberUtils'
 import Tab from './Tab'
+import { captureException } from '@sentry/minimal'
 
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
@@ -21,9 +22,15 @@ export default Tabs = createReactClass({
     className: PropTypes.string,
   },
 
+  tabRef: null,
+
   componentDidMount() {
-    Materialize.Tabs.init(this.refs.tabs)
-    // $(this.refs.tabs).tabs()
+    try {
+      Materialize.Tabs.init(this.tabRef)
+    } catch (e) {
+      captureException(e)
+      console.error(e)
+    }
     // https://github.com/Dogfalo/materialize/issues/2102
     $(document).on('materialize:modal:ready', () => $(window).trigger('resize'))
   },
@@ -73,7 +80,7 @@ export default Tabs = createReactClass({
 
     return (
       <div className="tabs-container">
-        <ul ref="tabs" className={className}>
+        <ul ref={r => (this.tabRef = r)} className={className}>
           {tabs}
         </ul>
 
