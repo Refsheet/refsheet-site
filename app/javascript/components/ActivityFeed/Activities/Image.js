@@ -29,7 +29,7 @@ export default Image = createReactClass({
   },
 
   _getGallery() {
-    return this.props.images.map(i => i.id)
+    return (this.props.images && this.props.images.map(i => i.id)) || []
   },
 
   _buildSingle(key, one) {
