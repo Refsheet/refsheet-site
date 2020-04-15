@@ -21,7 +21,7 @@ import ForumPostActivity from '../../components/ActivityFeed/Activities/ForumPos
 import ImageActivity from '../../components/ActivityFeed/Activities/Image'
 
 import Notifications from './account/settings/notifications'
-import Support from './account/settings/support.jsx.coffee'
+import Support from './account/settings/support.js'
 
 import Card from './account/notifications/_card'
 import Feed from './account/notifications/_feed'
