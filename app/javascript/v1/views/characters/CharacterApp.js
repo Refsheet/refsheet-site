@@ -357,6 +357,20 @@ const Component = createReactClass({
               <CharacterColorSchemeModal
                 colorScheme={{ color_data: colors }}
                 characterPath={this.state.character.path}
+                onChange={data =>
+                  this.setState(
+                    {
+                      character: {
+                        ...this.state.character,
+                        color_scheme: {
+                          ...this.state.character.color_scheme,
+                          color_data: data,
+                        },
+                      },
+                    },
+                    console.log
+                  )
+                }
               />
               <CharacterDeleteModal character={this.state.character} />
               <CharacterTransferModal character={this.state.character} />

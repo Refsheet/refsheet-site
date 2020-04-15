@@ -342,7 +342,7 @@ export default Input = createReactClass({
             color={this.state.value}
             onClose={this.handleColorClose}
             onFocus={this.handleFocus}
-            onChange={this.handleColorChange}
+            onChangeComplete={this.handleColorChange}
           />
         )}
       </div>
