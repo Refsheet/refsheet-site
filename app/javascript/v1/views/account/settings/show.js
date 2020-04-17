@@ -18,6 +18,7 @@ import Submit from '../../../shared/forms/Submit'
 import { DeleteUser } from '../../../../components/Settings/Account/DeleteUser'
 
 import Materialize from 'materialize-css'
+import Error from '../../../../components/Shared/Error'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -35,7 +36,9 @@ class Show extends React.Component {
     super(props)
 
     this._handleFormChange = this._handleFormChange.bind(this)
-    this.state = { user: context.currentUser }
+    this.state = {
+      user: context.currentUser,
+    }
   }
 
   _handleFormChange(user) {
@@ -48,6 +51,17 @@ class Show extends React.Component {
   }
 
   render() {
+    if (!this.state.user) {
+      return (
+        <div className={'account-settings'}>
+          <Error
+            error={
+              'Refsheet thinks, for whatever reason, that you are not signed in. If you are actually signed in, please report this via Twitter.'
+            }
+          />
+        </div>
+      )
+    }
     return (
       <div className="account-settings">
         <Form
