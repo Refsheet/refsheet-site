@@ -44,7 +44,7 @@ const Header = createReactClass({
         error: reject
       })
     })
-  }
+  },
 
   _handleFollowClick(e) {
     const action = this.props.followed ? 'delete' : 'post'
