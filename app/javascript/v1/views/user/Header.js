@@ -39,7 +39,7 @@ const Header = createReactClass({
         data: { user: { profile: data.value } },
         success: user => {
           this.props.onUserChange(user)
-          return resolve({value: user.profile})
+          return resolve({value: user.profile_markup})
         },
         error: reject
       })
