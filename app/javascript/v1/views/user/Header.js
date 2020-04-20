@@ -31,15 +31,18 @@ const Header = createReactClass({
     onFollow: PropTypes.func.isRequired,
   },
 
-  handleBioChange(markup, success) {
-    return $.ajax({
-      url: this.props.path,
-      type: 'PATCH',
-      data: { user: { profile: markup } },
-      success: user => {
-        this.props.onUserChange(user)
-        return success(user)
-      },
+  handleBioChange(data) {
+    return new Promise((resolve, reject) => {
+      $.ajax({
+        url: this.props.path,
+        type: 'PATCH',
+        data: { user: { profile: data.value } },
+        success: user => {
+          this.props.onUserChange(user)
+          return resolve({ value: user.profile_markup })
+        },
+        error: reject,
+      })
     })
   },
 
@@ -163,6 +166,8 @@ const Header = createReactClass({
                 contentHtml={this.props.profile}
                 content={this.props.profile_markup}
                 onChange={bioChangeCallback}
+                title={'About ' + this.props.name}
+                titleComponent={'p'}
               />
             </div>
           </div>
