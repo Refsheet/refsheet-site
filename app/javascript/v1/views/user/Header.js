@@ -167,6 +167,7 @@ const Header = createReactClass({
                 content={this.props.profile_markup}
                 onChange={bioChangeCallback}
                 title={"About " + this.props.name}
+                titleComponent={"p"}
               />
             </div>
           </div>
