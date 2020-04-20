@@ -2,11 +2,11 @@ import PropTypes from 'prop-types'
 
 export function createIdentity({ user, character, identity }) {
   let result = {
-    name: "deleted user", 
-    avatarUrl: "",
-    username: "",
-    path: "/",
-    type: "user",
+    name: 'deleted user',
+    avatarUrl: '',
+    username: '',
+    path: '/',
+    type: 'user',
     characterId: null,
   }
 

@@ -39,9 +39,9 @@ const Header = createReactClass({
         data: { user: { profile: data.value } },
         success: user => {
           this.props.onUserChange(user)
-          return resolve({value: user.profile_markup})
+          return resolve({ value: user.profile_markup })
         },
-        error: reject
+        error: reject,
       })
     })
   },
@@ -166,8 +166,8 @@ const Header = createReactClass({
                 contentHtml={this.props.profile}
                 content={this.props.profile_markup}
                 onChange={bioChangeCallback}
-                title={"About " + this.props.name}
-                titleComponent={"p"}
+                title={'About ' + this.props.name}
+                titleComponent={'p'}
               />
             </div>
           </div>
