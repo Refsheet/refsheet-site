@@ -31,17 +31,20 @@ const Header = createReactClass({
     onFollow: PropTypes.func.isRequired,
   },
 
-  handleBioChange(markup, success) {
-    return $.ajax({
-      url: this.props.path,
-      type: 'PATCH',
-      data: { user: { profile: markup } },
-      success: user => {
-        this.props.onUserChange(user)
-        return success({value: user})
-      },
+  handleBioChange(data) {
+    return new Promise((resolve, reject) => {
+      $.ajax({
+        url: this.props.path,
+        type: 'PATCH',
+        data: { user: { profile: data.value } },
+        success: user => {
+          this.props.onUserChange({value: user})
+          return resolve(user.profile)
+        },
+        error: reject
+      })
     })
-  },
+  }
 
   _handleFollowClick(e) {
     const action = this.props.followed ? 'delete' : 'post'
