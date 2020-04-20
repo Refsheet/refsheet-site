@@ -38,8 +38,8 @@ const Header = createReactClass({
         type: 'PATCH',
         data: { user: { profile: data.value } },
         success: user => {
-          this.props.onUserChange({value: user})
-          return resolve(user.profile)
+          this.props.onUserChange(user)
+          return resolve({value: user.profile})
         },
         error: reject
       })
