@@ -52,7 +52,7 @@ class App extends Component {
       ReactGA.initialize(this.props.gaPropertyID, {
         debug: true,
       })
-      
+
       ReactGA.set({ page: window.location.pathname })
       ReactGA.pageview(window.location.pathname)
     }
