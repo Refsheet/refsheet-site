@@ -49,6 +49,7 @@ class App extends Component {
 
     // Set Google Analytics
     if (props.gaPropertyId && typeof ReactGA !== 'undefined') {
+      console.debug("init ReactGA: " + this.props.gaPropertyID, this.props)
       ReactGA.initialize(this.props.gaPropertyID, {
         debug: true,
       })
