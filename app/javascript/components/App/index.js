@@ -48,11 +48,8 @@ class App extends Component {
     this.history = this.buildHistory()
 
     // Set Google Analytics
-    if (props.gaPropertyId && typeof ReactGA !== 'undefined') {
-      console.debug("init ReactGA: " + this.props.gaPropertyID, this.props)
-      ReactGA.initialize(this.props.gaPropertyID, {
-        debug: true,
-      })
+    if (props.gaPropertyID && typeof ReactGA !== 'undefined') {
+      ReactGA.initialize(this.props.gaPropertyID)
 
       ReactGA.set({ page: window.location.pathname })
       ReactGA.pageview(window.location.pathname)
