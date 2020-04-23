@@ -194,7 +194,7 @@ class Image < ApplicationRecord # < Media
     color = if super
               super
             elsif self.character&.color_scheme
-              c = self.character.color_scheme['image-background']
+              c = self.character.color_scheme['imageBackground']
               c&.match(ColorScheme::COLOR_MATCH) ? c : nil
             end
 
