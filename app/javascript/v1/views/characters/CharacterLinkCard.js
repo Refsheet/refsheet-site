@@ -23,7 +23,7 @@ this.CharacterLinkCard = function(props) {
   return (
     <div
       className="character-link-card"
-      style={{ backgroundColor: colorData['image-background'] || '#000000' }}
+      style={{ backgroundColor: colorData['imageBackground'] || '#000000' }}
     >
       <Link to={props.link} className="image">
         <img src={props.profileImageUrl} />
@@ -31,7 +31,7 @@ this.CharacterLinkCard = function(props) {
 
       <div
         className="details"
-        style={{ backgroundColor: colorData['card-background'] }}
+        style={{ backgroundColor: colorData['cardBackground'] }}
       >
         <Link
           to={props.link}
