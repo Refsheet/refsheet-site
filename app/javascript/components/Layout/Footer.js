@@ -110,14 +110,6 @@ class _Footer extends Component {
                 </Col>
               </Row>
 
-              <div style={{ margin: '1.5rem auto', maxWidth: 750 }}>
-                <GoogleAd
-                  slot={'9500968119'}
-                  format={'auto'}
-                  data-full-width-responsive={'true'}
-                />
-              </div>
-
               <hr />
             </div>
           ) : null}
