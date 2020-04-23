@@ -27,17 +27,14 @@ class AddIndexesToEverything < ActiveRecord::Migration[6.0]
     # Slugs
     remove_index :artists, :slug
     add_index :artists, 'LOWER(artists.slug) varchar_pattern_ops',
-              name: 'index_artists_on_lower_slug',
-              unique: true
+              name: 'index_artists_on_lower_slug'
 
     add_index :characters, :user_id
     add_index :characters, 'LOWER(characters.slug) varchar_pattern_ops',
-              name: 'index_characters_on_lower_slug',
-              unique: true
+              name: 'index_characters_on_lower_slug'
 
     add_index :characters, 'LOWER(characters.shortcode)',
-              name: 'index_characters_on_lower_shortcode',
-              unique: true
+              name: 'index_characters_on_lower_shortcode'
 
     add_index :characters, :deleted_at
     add_index :characters, :hidden
@@ -45,18 +42,15 @@ class AddIndexesToEverything < ActiveRecord::Migration[6.0]
 
     remove_index :forum_threads, :shortcode
     add_index :forum_threads, 'LOWER(forum_threads.shortcode)',
-              name: 'index_forum_threads_on_lower_shortcode',
-              unique: true
+              name: 'index_forum_threads_on_lower_shortcode'
 
     remove_index :forum_threads, :slug
     add_index :forum_threads, 'LOWER(forum_threads.slug) varchar_pattern_ops',
-              name: 'index_forum_threads_on_lower_slug',
-              unique: true
+              name: 'index_forum_threads_on_lower_slug'
 
     remove_index :forums, :slug
     add_index :forums, 'LOWER(forums.slug) varchar_pattern_ops',
-              name: 'index_forums_on_lower_slug',
-              unique: true
+              name: 'index_forums_on_lower_slug'
 
     # Search Things
     add_index :artists, 'LOWER(artists.name) varchar_pattern_ops',
@@ -90,6 +84,7 @@ class AddIndexesToEverything < ActiveRecord::Migration[6.0]
     add_index :patreon_patrons, :patreon_id
     add_index :patreon_patrons, 'LOWER(patreon_patrons.email) varchar_pattern_ops',
               name: 'index_patreon_patrons_on_lower_email'
+
     add_index :patreon_patrons, :user_id
     add_index :patreon_patrons, :pending_user_id
     add_index :patreon_patrons, :status
@@ -121,12 +116,10 @@ class AddIndexesToEverything < ActiveRecord::Migration[6.0]
     add_index :transfers, :status
 
     add_index :users, 'LOWER(users.username) varchar_pattern_ops',
-              name: 'index_users_on_lower_username',
-              unique: true
+              name: 'index_users_on_lower_username'
 
     add_index :users, 'LOWER(users.email) varchar_pattern_ops',
-              name: 'index_users_on_lower_email',
-              unique: true
+              name: 'index_users_on_lower_email'
 
     add_index :users, 'LOWER(users.unconfirmed_email) varchar_pattern_ops',
               name: 'index_users_on_lower_unconfirmed_email'
