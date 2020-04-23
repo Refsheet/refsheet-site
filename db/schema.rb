@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_15_183219) do
+ActiveRecord::Schema.define(version: 2020_04_23_210313) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,7 +76,9 @@ ActiveRecord::Schema.define(version: 2020_02_15_183219) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "slots_requested", default: 0
+    t.index ["ends_at"], name: "index_advertisement_campaigns_on_ends_at"
     t.index ["guid"], name: "index_advertisement_campaigns_on_guid"
+    t.index ["starts_at"], name: "index_advertisement_campaigns_on_starts_at"
     t.index ["user_id"], name: "index_advertisement_campaigns_on_user_id"
   end
 
@@ -87,6 +89,7 @@ ActiveRecord::Schema.define(version: 2020_02_15_183219) do
     t.datetime "updated_at", null: false
     t.datetime "last_impression_at"
     t.index ["active_campaign_id"], name: "index_advertisement_slots_on_active_campaign_id"
+    t.index ["last_impression_at"], name: "index_advertisement_slots_on_last_impression_at"
     t.index ["reserved_campaign_id"], name: "index_advertisement_slots_on_reserved_campaign_id"
   end
 
@@ -141,6 +144,7 @@ ActiveRecord::Schema.define(version: 2020_02_15_183219) do
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["deleted_at"], name: "index_api_keys_on_deleted_at"
     t.index ["guid"], name: "index_api_keys_on_guid"
     t.index ["user_id"], name: "index_api_keys_on_user_id"
   end
@@ -160,8 +164,9 @@ ActiveRecord::Schema.define(version: 2020_02_15_183219) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index "lower((name)::text) varchar_pattern_ops", name: "index_artists_on_lower_name"
+    t.index "lower((slug)::text) varchar_pattern_ops", name: "index_artists_on_lower_slug", unique: true
     t.index ["guid"], name: "index_artists_on_guid"
-    t.index ["slug"], name: "index_artists_on_slug"
     t.index ["user_id"], name: "index_artists_on_user_id"
   end
 
@@ -191,6 +196,7 @@ ActiveRecord::Schema.define(version: 2020_02_15_183219) do
     t.datetime "updated_at", null: false
     t.index ["approved_by_id"], name: "index_artists_links_on_approved_by_id"
     t.index ["artist_id"], name: "index_artists_links_on_artist_id"
+    t.index ["guid"], name: "index_artists_links_on_guid"
     t.index ["submitted_by_id"], name: "index_artists_links_on_submitted_by_id"
   end
 
@@ -218,6 +224,8 @@ ActiveRecord::Schema.define(version: 2020_02_15_183219) do
     t.datetime "ends_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["ends_at"], name: "index_auctions_on_ends_at"
+    t.index ["starts_at"], name: "index_auctions_on_starts_at"
   end
 
   create_table "bank_accounts", id: :serial, force: :cascade do |t|
@@ -245,6 +253,8 @@ ActiveRecord::Schema.define(version: 2020_02_15_183219) do
     t.string "amount_currency", default: "USD", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["auction_id"], name: "index_bids_on_auction_id"
+    t.index ["user_id"], name: "index_bids_on_user_id"
   end
 
   create_table "blocked_users", id: :serial, force: :cascade do |t|
@@ -266,6 +276,7 @@ ActiveRecord::Schema.define(version: 2020_02_15_183219) do
     t.json "change_data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_changelogs_on_user_id"
   end
 
   create_table "character_groups", id: :serial, force: :cascade do |t|
@@ -279,6 +290,8 @@ ActiveRecord::Schema.define(version: 2020_02_15_183219) do
     t.integer "characters_count", default: 0, null: false
     t.integer "visible_characters_count", default: 0, null: false
     t.integer "hidden_characters_count", default: 0, null: false
+    t.index ["hidden"], name: "index_character_groups_on_hidden"
+    t.index ["row_order"], name: "index_character_groups_on_row_order"
     t.index ["slug"], name: "index_character_groups_on_slug"
     t.index ["user_id"], name: "index_character_groups_on_user_id"
   end
@@ -317,6 +330,13 @@ ActiveRecord::Schema.define(version: 2020_02_15_183219) do
     t.datetime "deleted_at"
     t.text "custom_attributes"
     t.integer "version", default: 1
+    t.index "lower((name)::text) varchar_pattern_ops", name: "index_characters_on_lower_name"
+    t.index "lower((shortcode)::text)", name: "index_characters_on_lower_shortcode", unique: true
+    t.index "lower((slug)::text) varchar_pattern_ops", name: "index_characters_on_lower_slug", unique: true
+    t.index ["deleted_at"], name: "index_characters_on_deleted_at"
+    t.index ["hidden"], name: "index_characters_on_hidden"
+    t.index ["secret"], name: "index_characters_on_secret"
+    t.index ["user_id"], name: "index_characters_on_user_id"
   end
 
   create_table "characters_profile_sections", id: :serial, force: :cascade do |t|
@@ -360,6 +380,8 @@ ActiveRecord::Schema.define(version: 2020_02_15_183219) do
     t.string "guid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["guid"], name: "index_color_schemes_on_guid"
+    t.index ["user_id"], name: "index_color_schemes_on_user_id"
   end
 
   create_table "conversations", id: :serial, force: :cascade do |t|
@@ -511,11 +533,11 @@ ActiveRecord::Schema.define(version: 2020_02_15_183219) do
     t.boolean "admin_post"
     t.boolean "moderator_post"
     t.integer "posts_count", default: 0, null: false
+    t.index "lower((shortcode)::text)", name: "index_forum_threads_on_lower_shortcode", unique: true
+    t.index "lower((slug)::text) varchar_pattern_ops", name: "index_forum_threads_on_lower_slug", unique: true
     t.index ["character_id"], name: "index_forum_threads_on_character_id"
     t.index ["forum_id"], name: "index_forum_threads_on_forum_id"
     t.index ["karma_total"], name: "index_forum_threads_on_karma_total"
-    t.index ["shortcode"], name: "index_forum_threads_on_shortcode"
-    t.index ["slug"], name: "index_forum_threads_on_slug"
     t.index ["sticky"], name: "index_forum_threads_on_sticky"
     t.index ["user_id"], name: "index_forum_threads_on_user_id"
   end
@@ -539,9 +561,9 @@ ActiveRecord::Schema.define(version: 2020_02_15_183219) do
     t.integer "discussions_count", default: 0, null: false
     t.integer "members_count", default: 0, null: false
     t.integer "posts_count", default: 0, null: false
+    t.index "lower((slug)::text) varchar_pattern_ops", name: "index_forums_on_lower_slug", unique: true
     t.index ["fandom_id"], name: "index_forums_on_fandom_id"
     t.index ["owner_id"], name: "index_forums_on_owner_id"
-    t.index ["slug"], name: "index_forums_on_slug"
     t.index ["system_owned"], name: "index_forums_on_system_owned"
   end
 
@@ -575,8 +597,14 @@ ActiveRecord::Schema.define(version: 2020_02_15_183219) do
     t.boolean "annotation"
     t.string "custom_annotation"
     t.bit "image_phash", limit: 64
+    t.index ["character_id"], name: "index_images_on_character_id"
     t.index ["custom_watermark_id"], name: "index_images_on_custom_watermark_id"
+    t.index ["deleted_at"], name: "index_images_on_deleted_at"
+    t.index ["gallery_id"], name: "index_images_on_gallery_id"
     t.index ["guid"], name: "index_images_on_guid"
+    t.index ["hidden"], name: "index_images_on_hidden"
+    t.index ["image_processing"], name: "index_images_on_image_processing"
+    t.index ["row_order"], name: "index_images_on_row_order"
   end
 
   create_table "images_media_hashtags", id: false, force: :cascade do |t|
@@ -594,6 +622,7 @@ ActiveRecord::Schema.define(version: 2020_02_15_183219) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "auth_code_digest"
+    t.index "lower((email)::text) varchar_pattern_ops", name: "index_invitations_on_lower_email"
   end
 
   create_table "items", id: :serial, force: :cascade do |t|
@@ -611,6 +640,8 @@ ActiveRecord::Schema.define(version: 2020_02_15_183219) do
     t.datetime "updated_at", null: false
     t.boolean "sold"
     t.integer "seller_id"
+    t.index ["seller_id"], name: "index_items_on_seller_id"
+    t.index ["seller_user_id"], name: "index_items_on_seller_user_id"
     t.index ["sold"], name: "index_items_on_sold"
   end
 
@@ -667,6 +698,7 @@ ActiveRecord::Schema.define(version: 2020_02_15_183219) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index "lower((name)::text) varchar_pattern_ops", name: "index_lodestone_races_on_lower_name"
     t.index ["lodestone_id"], name: "index_lodestone_races_on_lodestone_id"
   end
 
@@ -677,6 +709,7 @@ ActiveRecord::Schema.define(version: 2020_02_15_183219) do
     t.integer "characters_count"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index "lower((name)::text) varchar_pattern_ops", name: "index_lodestone_servers_on_lower_name"
     t.index ["lodestone_id"], name: "index_lodestone_servers_on_lodestone_id"
   end
 
@@ -707,6 +740,7 @@ ActiveRecord::Schema.define(version: 2020_02_15_183219) do
     t.string "tag"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index "lower((tag)::text) varchar_pattern_ops", name: "index_media_hashtags_on_lower_tag"
   end
 
   create_table "media_tags", id: :serial, force: :cascade do |t|
@@ -809,6 +843,11 @@ ActiveRecord::Schema.define(version: 2020_02_15_183219) do
     t.datetime "updated_at", null: false
     t.string "auth_code_digest"
     t.integer "pending_user_id"
+    t.index "lower((email)::text) varchar_pattern_ops", name: "index_patreon_patrons_on_lower_email"
+    t.index ["patreon_id"], name: "index_patreon_patrons_on_patreon_id"
+    t.index ["pending_user_id"], name: "index_patreon_patrons_on_pending_user_id"
+    t.index ["status"], name: "index_patreon_patrons_on_status"
+    t.index ["user_id"], name: "index_patreon_patrons_on_user_id"
   end
 
   create_table "patreon_pledges", id: :serial, force: :cascade do |t|
@@ -821,6 +860,8 @@ ActiveRecord::Schema.define(version: 2020_02_15_183219) do
     t.integer "patreon_patron_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["patreon_id"], name: "index_patreon_pledges_on_patreon_id"
+    t.index ["patreon_patron_id"], name: "index_patreon_pledges_on_patreon_patron_id"
   end
 
   create_table "patreon_rewards", id: :serial, force: :cascade do |t|
@@ -834,6 +875,7 @@ ActiveRecord::Schema.define(version: 2020_02_15_183219) do
     t.boolean "grants_badge"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["patreon_id"], name: "index_patreon_rewards_on_patreon_id"
   end
 
   create_table "payment_transfers", id: :serial, force: :cascade do |t|
@@ -849,6 +891,7 @@ ActiveRecord::Schema.define(version: 2020_02_15_183219) do
     t.datetime "updated_at", null: false
     t.index ["order_id"], name: "index_payment_transfers_on_order_id"
     t.index ["payment_id"], name: "index_payment_transfers_on_payment_id"
+    t.index ["processor_id"], name: "index_payment_transfers_on_processor_id"
     t.index ["seller_id"], name: "index_payment_transfers_on_seller_id"
     t.index ["type"], name: "index_payment_transfers_on_type"
   end
@@ -864,6 +907,8 @@ ActiveRecord::Schema.define(version: 2020_02_15_183219) do
     t.datetime "updated_at", null: false
     t.string "type"
     t.integer "processor_fee_cents"
+    t.index ["order_id"], name: "index_payments_on_order_id"
+    t.index ["processor_id"], name: "index_payments_on_processor_id"
     t.index ["type"], name: "index_payments_on_type"
   end
 
@@ -872,10 +917,14 @@ ActiveRecord::Schema.define(version: 2020_02_15_183219) do
     t.integer "role_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["role_id"], name: "index_permissions_on_role_id"
+    t.index ["user_id", "role_id"], name: "index_permissions_on_user_id_and_role_id"
+    t.index ["user_id"], name: "index_permissions_on_user_id"
   end
 
   create_table "roles", id: :serial, force: :cascade do |t|
     t.string "name"
+    t.index ["name"], name: "index_roles_on_name"
   end
 
   create_table "sellers", id: :serial, force: :cascade do |t|
@@ -929,6 +978,9 @@ ActiveRecord::Schema.define(version: 2020_02_15_183219) do
     t.string "guid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["character_id"], name: "index_swatches_on_character_id"
+    t.index ["guid"], name: "index_swatches_on_guid"
+    t.index ["row_order"], name: "index_swatches_on_row_order"
   end
 
   create_table "transaction_resources", id: :serial, force: :cascade do |t|
@@ -969,7 +1021,12 @@ ActiveRecord::Schema.define(version: 2020_02_15_183219) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "guid"
+    t.index ["character_id"], name: "index_transfers_on_character_id"
+    t.index ["destination_user_id"], name: "index_transfers_on_destination_user_id"
     t.index ["guid"], name: "index_transfers_on_guid"
+    t.index ["item_id"], name: "index_transfers_on_item_id"
+    t.index ["sender_user_id"], name: "index_transfers_on_sender_user_id"
+    t.index ["status"], name: "index_transfers_on_status"
   end
 
   create_table "user_followers", id: :serial, force: :cascade do |t|
@@ -1019,6 +1076,9 @@ ActiveRecord::Schema.define(version: 2020_02_15_183219) do
     t.boolean "patron"
     t.boolean "supporter"
     t.boolean "moderator"
+    t.index "lower((email)::text) varchar_pattern_ops", name: "index_users_on_lower_email", unique: true
+    t.index "lower((unconfirmed_email)::text) varchar_pattern_ops", name: "index_users_on_lower_unconfirmed_email"
+    t.index "lower((username)::text) varchar_pattern_ops", name: "index_users_on_lower_username", unique: true
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["guid"], name: "index_users_on_guid"
     t.index ["parent_user_id"], name: "index_users_on_parent_user_id"
