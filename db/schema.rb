@@ -165,7 +165,7 @@ ActiveRecord::Schema.define(version: 2020_04_23_210313) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index "lower((name)::text) varchar_pattern_ops", name: "index_artists_on_lower_name"
-    t.index "lower((slug)::text) varchar_pattern_ops", name: "index_artists_on_lower_slug", unique: true
+    t.index "lower((slug)::text) varchar_pattern_ops", name: "index_artists_on_lower_slug"
     t.index ["guid"], name: "index_artists_on_guid"
     t.index ["user_id"], name: "index_artists_on_user_id"
   end
@@ -331,8 +331,8 @@ ActiveRecord::Schema.define(version: 2020_04_23_210313) do
     t.text "custom_attributes"
     t.integer "version", default: 1
     t.index "lower((name)::text) varchar_pattern_ops", name: "index_characters_on_lower_name"
-    t.index "lower((shortcode)::text)", name: "index_characters_on_lower_shortcode", unique: true
-    t.index "lower((slug)::text) varchar_pattern_ops", name: "index_characters_on_lower_slug", unique: true
+    t.index "lower((shortcode)::text)", name: "index_characters_on_lower_shortcode"
+    t.index "lower((slug)::text) varchar_pattern_ops", name: "index_characters_on_lower_slug"
     t.index ["deleted_at"], name: "index_characters_on_deleted_at"
     t.index ["hidden"], name: "index_characters_on_hidden"
     t.index ["secret"], name: "index_characters_on_secret"
@@ -533,8 +533,8 @@ ActiveRecord::Schema.define(version: 2020_04_23_210313) do
     t.boolean "admin_post"
     t.boolean "moderator_post"
     t.integer "posts_count", default: 0, null: false
-    t.index "lower((shortcode)::text)", name: "index_forum_threads_on_lower_shortcode", unique: true
-    t.index "lower((slug)::text) varchar_pattern_ops", name: "index_forum_threads_on_lower_slug", unique: true
+    t.index "lower((shortcode)::text)", name: "index_forum_threads_on_lower_shortcode"
+    t.index "lower((slug)::text) varchar_pattern_ops", name: "index_forum_threads_on_lower_slug"
     t.index ["character_id"], name: "index_forum_threads_on_character_id"
     t.index ["forum_id"], name: "index_forum_threads_on_forum_id"
     t.index ["karma_total"], name: "index_forum_threads_on_karma_total"
@@ -561,7 +561,7 @@ ActiveRecord::Schema.define(version: 2020_04_23_210313) do
     t.integer "discussions_count", default: 0, null: false
     t.integer "members_count", default: 0, null: false
     t.integer "posts_count", default: 0, null: false
-    t.index "lower((slug)::text) varchar_pattern_ops", name: "index_forums_on_lower_slug", unique: true
+    t.index "lower((slug)::text) varchar_pattern_ops", name: "index_forums_on_lower_slug"
     t.index ["fandom_id"], name: "index_forums_on_fandom_id"
     t.index ["owner_id"], name: "index_forums_on_owner_id"
     t.index ["system_owned"], name: "index_forums_on_system_owned"
@@ -1076,9 +1076,9 @@ ActiveRecord::Schema.define(version: 2020_04_23_210313) do
     t.boolean "patron"
     t.boolean "supporter"
     t.boolean "moderator"
-    t.index "lower((email)::text) varchar_pattern_ops", name: "index_users_on_lower_email", unique: true
+    t.index "lower((email)::text) varchar_pattern_ops", name: "index_users_on_lower_email"
     t.index "lower((unconfirmed_email)::text) varchar_pattern_ops", name: "index_users_on_lower_unconfirmed_email"
-    t.index "lower((username)::text) varchar_pattern_ops", name: "index_users_on_lower_username", unique: true
+    t.index "lower((username)::text) varchar_pattern_ops", name: "index_users_on_lower_username"
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["guid"], name: "index_users_on_guid"
     t.index ["parent_user_id"], name: "index_users_on_parent_user_id"
