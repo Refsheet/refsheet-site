@@ -63,7 +63,7 @@ class RichText extends Component {
       .onChange(data)
       .then(newData => {
         this.setState({
-          content: newData[this.props.name],
+          content: newData[this.props.name || 'value'],
           editing: false,
           dirty: false,
           saving: false,
