@@ -142,8 +142,12 @@ module HasImageAttached
 
       unless @base.attached?
         if !opts[:allow_nil] && @options[:default_url]
+          if @options[:default_url].respond_to? :call
+            return image_url(@options[:default_url].call(@instance, style))
+          end
           return image_url(@options[:default_url])
         end
+
 
         return nil
       end

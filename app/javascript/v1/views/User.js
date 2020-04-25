@@ -213,13 +213,6 @@ const User = createReactClass({
 
     return (
       <Main title={[this.state.user.name, 'Users']}>
-        <DropzoneContainer
-          url={editPath}
-          method="PATCH"
-          clickable=".user-avatar"
-          paramName="user[avatar]"
-          onUpload={this.handleUserChange}
-        >
           {editable && (
             <Modal id="character-form" title="New Character">
               <p>
@@ -267,7 +260,6 @@ const User = createReactClass({
               onCharacterSort={this._handleCharacterSort}
             />
           </Section>
-        </DropzoneContainer>
       </Main>
     )
   },
