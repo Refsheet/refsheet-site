@@ -213,53 +213,53 @@ const User = createReactClass({
 
     return (
       <Main title={[this.state.user.name, 'Users']}>
-          {editable && (
-            <Modal id="character-form" title="New Character">
-              <p>
-                It all starts with the basics. Give us a name and a species, and
-                we'll set up a profile.
-              </p>
-              <NewCharacterForm
-                onCancel={function(e) {
-                  $('#character-form').modal('close')
-                  e.preventDefault()
-                }}
-                onCreate={this.goToCharacter}
-                className="margin-top--large"
-                newCharacterPath={this.state.user.path + '/characters'}
-              />
-            </Modal>
-          )}
-
-          {actionButtons}
-
-          {editable && (
-            <UserSettingsModal
-              user={this.state.user}
-              onChange={this.handleUserChange}
+        {editable && (
+          <Modal id="character-form" title="New Character">
+            <p>
+              It all starts with the basics. Give us a name and a species, and
+              we'll set up a profile.
+            </p>
+            <NewCharacterForm
+              onCancel={function(e) {
+                $('#character-form').modal('close')
+                e.preventDefault()
+              }}
+              onCreate={this.goToCharacter}
+              className="margin-top--large"
+              newCharacterPath={this.state.user.path + '/characters'}
             />
-          )}
+          </Modal>
+        )}
 
-          <Header
-            {...this.state.user}
-            onFollow={this._handleUserFollow}
-            onUserChange={userChangeCallback}
+        {actionButtons}
+
+        {editable && (
+          <UserSettingsModal
+            user={this.state.user}
+            onChange={this.handleUserChange}
           />
+        )}
 
-          <Section container className="margin-top--large padding-bottom--none">
-            <Characters
-              groups={this.state.user.character_groups}
-              characters={this.state.user.characters}
-              editable={editable}
-              userLink={this.state.user.link}
-              activeGroupId={this.state.activeGroupId}
-              onGroupChange={this._handleGroupChange}
-              onGroupSort={this._handleGroupSort}
-              onGroupDelete={this._handleGroupDelete}
-              onCharacterDelete={this._handleGroupCharacterDelete}
-              onCharacterSort={this._handleCharacterSort}
-            />
-          </Section>
+        <Header
+          {...this.state.user}
+          onFollow={this._handleUserFollow}
+          onUserChange={userChangeCallback}
+        />
+
+        <Section container className="margin-top--large padding-bottom--none">
+          <Characters
+            groups={this.state.user.character_groups}
+            characters={this.state.user.characters}
+            editable={editable}
+            userLink={this.state.user.link}
+            activeGroupId={this.state.activeGroupId}
+            onGroupChange={this._handleGroupChange}
+            onGroupSort={this._handleGroupSort}
+            onGroupDelete={this._handleGroupDelete}
+            onCharacterDelete={this._handleGroupCharacterDelete}
+            onCharacterSort={this._handleCharacterSort}
+          />
+        </Section>
       </Main>
     )
   },
