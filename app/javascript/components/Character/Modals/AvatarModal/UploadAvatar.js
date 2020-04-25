@@ -157,5 +157,4 @@ UploadAvatar.propTypes = {
 export default compose(
   withNamespaces('common'),
   withMutations({ setCharacterAvatarBlob })
-  // TODO: Add HOC bindings here
 )(UploadAvatar)
