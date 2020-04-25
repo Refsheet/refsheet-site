@@ -59,6 +59,11 @@ const Header = createReactClass({
     return e.preventDefault()
   },
 
+  handleAvatarClick(e) {
+    e.preventDefault()
+    console.log('Editing avatar...')
+  },
+
   render() {
     let bioChangeCallback, canFollow, editable, followColor, imageStyle
     if (this.props.onUserChange != null) {
@@ -87,8 +92,11 @@ const Header = createReactClass({
         <div className="container flex">
           <div className="user-avatar">
             <div className="image" style={imageStyle}>
-              {editable && (
-                <div className="image-edit-overlay">
+              {editable && false && (
+                <div
+                  className="image-edit-overlay"
+                  onClick={this.handleAvatarClick}
+                >
                   <div className="content">
                     <i className="material-icons">photo_camera</i>
                     Change Avatar
@@ -161,6 +169,16 @@ const Header = createReactClass({
                 )}
               </div>
             </div>
+
+            {editable && (
+              <div className={'card-panel blue darken-3'}>
+                We're currently reworking user avatars. You will be unable to
+                change your avatar until this migration is complete on all
+                users. If you have previously set an avatar, it will re-appear
+                soon.
+              </div>
+            )}
+
             <div className="user-bio">
               <RichText
                 contentHtml={this.props.profile}
