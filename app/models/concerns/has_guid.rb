@@ -61,7 +61,8 @@ module HasGuid
   def generate_guid
     return unless self.respond_to? guid_column_name
     return true unless self.send(guid_column_name).blank?
-
+    attempts = 0
+    
     begin
       guid = case guid_options[:type]&.to_s
         when 'token'
@@ -72,8 +73,14 @@ module HasGuid
           SecureRandom.hex(guid_options[:length] || 8)
       end
 
-      self.assign_attributes(guid_column_name => guid)
-    end while self.class.unscoped.where(guid_scope).exists?(guid_column_name => self.send(guid_column_name))
+      self.update_columns(guid_column_name => guid)
+    rescue ActiveRecord::RecordNotUnique => e
+      Rails.logger.warn(e)
+      raise e if attempts > 10
+      attempts += 1
+      Rails.logger.warn("Retrying GUID generation, attempt: #{attempt}")
+      retry
+    end
 
     true
   end
