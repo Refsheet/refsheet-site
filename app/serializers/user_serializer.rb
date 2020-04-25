@@ -63,7 +63,9 @@ class UserSerializer < ActiveModel::Serializer
            serializer: CharacterGroupSerializer
 
   def characters
-    object.characters.visible_to(scope.current_user).rank(:row_order)
+    object.characters
+        .visible_to(scope.current_user).rank(:row_order)
+        .includes([:profile_image, :featured_image, :color_scheme, :avatar_attachment, :cover_image_attachment])
   end
 
   def characters_count
