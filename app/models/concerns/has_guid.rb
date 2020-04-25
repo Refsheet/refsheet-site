@@ -13,7 +13,7 @@ module HasGuid
       if self.persisted? and
           self.has_attribute? guid_column_name and
           self.send(guid_column_name).blank?
-        generate_guid && self.save!
+        generate_guid(save: true)
       end
     end
 
@@ -58,7 +58,7 @@ module HasGuid
     guid_options[:scope] ? {guid_options[:scope] => self.send(guid_options[:scope])} : '1=1'
   end
 
-  def generate_guid
+  def generate_guid(save: false)
     return unless self.respond_to? guid_column_name
     return true unless self.send(guid_column_name).blank?
     attempts = 0
@@ -73,7 +73,14 @@ module HasGuid
           SecureRandom.hex(guid_options[:length] || 8)
       end
 
-      self.update_columns(guid_column_name => guid)
+      if save && self.persisted?
+        self.update_columns(guid_column_name => guid)
+      else
+        if self.class.unscoped.where(guid_scope).exists?(guid_column_name => self.send(guid_column_name))
+          raise ActiveRecord::RecordNotUnique, "guid already taken"
+        end
+        self.assign_attributes(guid_column_name => guid)
+      end
     rescue ActiveRecord::RecordNotUnique => e
       Rails.logger.warn(e)
       raise e if attempts > 10
