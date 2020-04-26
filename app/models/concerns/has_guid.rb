@@ -85,7 +85,7 @@ module HasGuid
       Rails.logger.warn(e)
       raise e if attempts > 10
       attempts += 1
-      Rails.logger.warn("Retrying GUID generation, attempt: #{attempt}")
+      Rails.logger.warn("Retrying GUID generation, attempt: #{attempts}")
       retry
     end
 
