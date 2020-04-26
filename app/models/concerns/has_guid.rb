@@ -76,8 +76,8 @@ module HasGuid
       if save && self.persisted?
         self.update_columns(guid_column_name => guid)
       else
-        if self.class.unscoped.where(guid_scope).exists?(guid_column_name => self.send(guid_column_name))
-          raise ActiveRecord::RecordNotUnique, "guid already taken"
+        if self.class.unscoped.where(guid_scope).exists?(guid_column_name => guid)
+          raise ActiveRecord::RecordNotUnique, "guid already taken: #{guid.inspect}"
         end
         self.assign_attributes(guid_column_name => guid)
       end
