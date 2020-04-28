@@ -297,11 +297,32 @@ type Lodestone_Character implements ApplicationRecord {
     name: String
     nameday: String
     portrait_url: String
+    race: Lodestone_Race
     remote_updated_at: Int
+    server: Lodestone_Server
     title: String
     title_top: Boolean
     town: String
     tribe: String
+    updated_at: Int
+}
+
+type Lodestone_Race implements ApplicationRecord {
+    created_at: Int
+    deleted_at: Int
+    id: ID
+    lodestone_id: String
+    name: String
+    updated_at: Int
+}
+
+type Lodestone_Server implements ApplicationRecord {
+    created_at: Int
+    datacenter: String
+    deleted_at: Int
+    id: ID
+    lodestone_id: String
+    name: String
     updated_at: Int
 }
 

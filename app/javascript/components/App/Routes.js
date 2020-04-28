@@ -106,7 +106,7 @@ const Routes = () => (
 
     {/*== Static Routes */}
 
-    { staticPaths }
+    {staticPaths}
     <Route path="/static/:pageId" component={Static.View} />
 
     {/*== Profile Content */}

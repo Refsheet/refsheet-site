@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Card, { div as Slant } from 'Styled/Card'
+import { div as Card } from 'Styled/Card'
 import { H1, H2 } from 'Styled/Headings'
 import EditableHeader from '../Shared/EditableHeader'
 import { Mutation } from 'react-apollo'
@@ -12,6 +12,7 @@ import AttributeTable from 'v1/shared/attributes/attribute_table'
 import Attribute from 'v1/shared/attributes/attribute'
 import Attributes from 'v1/views/characters/_attributes'
 import RichText from 'v1/shared/RichText.js.jsx.coffee'
+import { Caption } from '../Styled/Caption'
 
 class Summary extends Component {
   constructor(props) {
@@ -79,8 +80,51 @@ class Summary extends Component {
   render() {
     const { character, editable, onAvatarEdit } = this.props
 
-    const { profile_image, avatar_url } = character
+    const { profile_image, avatar_url, lodestone_character } = character
     const image = avatar_url || profile_image.url.medium
+
+    let title,
+      titleBefore,
+      staticAttributes = [
+        {
+          id: 'species',
+          name: 'Species',
+          value: this.state.species,
+        },
+      ],
+      lockStaticAttributes = false,
+      dataLinkName
+
+    if (lodestone_character) {
+      title = lodestone_character.title
+      titleBefore = !lodestone_character.title_top
+      dataLinkName = lodestone_character.name
+
+      lockStaticAttributes = true
+
+      staticAttributes = [
+        {
+          id: 'race',
+          name: 'Race',
+          value: lodestone_character.race.name,
+        },
+        {
+          id: 'tribe',
+          name: 'Tribe',
+          value: lodestone_character.tribe,
+        },
+        {
+          id: 'server',
+          name: 'Server',
+          value: lodestone_character.server.name,
+        },
+        {
+          id: 'datacenter',
+          name: 'datacenter',
+          value: lodestone_character.server.datacenter,
+        },
+      ]
+    }
 
     const gravityCrop = {
       center: { objectPosition: 'center' },
@@ -91,17 +135,27 @@ class Summary extends Component {
     }
 
     return (
-      <Card className="character-card">
+      <Card className="character-card" noPadding>
         <div className="character-details">
           <div className="heading">
+            {title && titleBefore && (
+              <Caption className={'margin-top--none margin-bottom--none'}>
+                &laquo; {title} &raquo;
+              </Caption>
+            )}
             <EditableHeader
               className="name margin-bottom--none"
               component={H1}
-              editable={editable}
+              editable={editable && !dataLinkName}
               onValueChange={this.handleNameChange.bind(this)}
             >
-              {this.state.name}
+              {dataLinkName || this.state.name}
             </EditableHeader>
+            {title && !titleBefore && (
+              <Caption className={'margin-top--none margin-bottom--none'}>
+                &laquo; {title} &raquo;
+              </Caption>
+            )}
           </div>
 
           <div className="details">
@@ -110,14 +164,14 @@ class Summary extends Component {
               freezeName
               hideNotesForm
               onAttributeUpdate={
-                editable ? this.handleSpeciesChange.bind(this) : undefined
+                editable && !lockStaticAttributes
+                  ? this.handleSpeciesChange.bind(this)
+                  : undefined
               }
             >
-              <Attribute
-                id="species"
-                name="Species"
-                value={this.state.species}
-              />
+              {staticAttributes.map(a => (
+                <Attribute key={a.id} id={a.id} name={a.name} value={a.value} />
+              ))}
             </AttributeTable>
 
             <Attributes
@@ -144,7 +198,7 @@ class Summary extends Component {
         </div>
 
         <div className="character-image">
-          <Slant className="slant" />
+          <Card className="slant" />
           <img
             src={image}
             data-image-id={image.id || 'v2-image'}
