@@ -38,33 +38,11 @@ query getForum($id: String!) {
                 id
                 topic
                 slug
-                locked
                 updated_at
                 created_at
-                preview
-                last_read_at
-                unread_posts_count
-                last_post_at
-                reply_count
-
-                user {
-                    username
-                    name
-                    is_admin
-                    is_patron
-                    is_supporter
-                    avatar_url
-                }
-
-                character {
-                    name
-                    slug
-                    profile_image {
-                        url {
-                            thumbnail
-                        }
-                    }
-                }
+                admin_post
+                moderator_post
+                sticky
             }
         }
     }

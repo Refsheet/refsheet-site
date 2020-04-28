@@ -157,6 +157,7 @@ class Discussions extends Component {
                   key={discussion.id}
                   forum={forum}
                   discussion={discussion}
+                  slim
                 />
               ))}
             </div>
