@@ -20,6 +20,15 @@ fragment LodestoneFields on Lodestone_Character {
   diety
   gc_name
   gc_rank_name
+
+  race {
+    name
+  }
+
+  server {
+    name
+    datacenter
+  }
 }
 
 fragment DefaultCharacterFields on Character {

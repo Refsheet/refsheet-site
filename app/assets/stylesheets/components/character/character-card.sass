@@ -2,6 +2,10 @@
   @extend .card
   @extend .z-depth-2
 
+  @at-root
+    .slant
+      background-color: $card-bg-color
+
   .character-meta
     font-size: 0.9rem
     color: $text-light-color
@@ -22,7 +26,6 @@
 
     .slant
       position: absolute
-      background-color: #212121
       width: 100%
       transform: rotate(-5deg)
       transform-origin: top right

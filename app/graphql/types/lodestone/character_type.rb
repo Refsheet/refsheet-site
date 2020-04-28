@@ -51,8 +51,9 @@ module Types
 
       # active_class_job
       # class_jobs
-      # server
-      # race
+      field :server, Types::Lodestone::ServerType
+      field :race, Types::Lodestone::RaceType
+
     end
   end
 end
