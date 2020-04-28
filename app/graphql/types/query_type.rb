@@ -116,8 +116,8 @@ Types::QueryType = GraphQL::ObjectType.define do
 
   #== AUTOCOMPLETE
 
-  field :searchForUser, field: Mutations::UserMutations::Search
-  field :searchForCharacter, field: Mutations::CharacterMutations::Search
+  field :autocompleteUser, field: Mutations::UserMutations::Autocomplete
+  field :autocompleteCharacter, field: Mutations::CharacterMutations::Autocomplete
   field :autocompleteHashtags, field: Mutations::MediaHashtagMutations::Autocomplete
 
   #== Forums
@@ -133,4 +133,8 @@ Types::QueryType = GraphQL::ObjectType.define do
   #== Media
 
   field :getComments, field: Mutations::MediaCommentMutations::Index
+
+  #== Activity
+
+  field :getActivity, field: Mutations::ActivityMutations::Index
 end

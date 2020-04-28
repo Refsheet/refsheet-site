@@ -1,12 +1,12 @@
-query searchForUser($username: String) {
-    searchForUser(username: $username) {
+query autcompleteUser($username: String) {
+    autocompleteUser(username: $username) {
         name
         username
     }
 }
 
-query searchForCharacter($username: String, $slug: String) {
-    searchForCharacter(username: $username, slug: $slug) {
+query autocompleteCharacter($username: String, $slug: String) {
+    autocompleteCharacter(username: $username, slug: $slug) {
         name
         username
         slug
