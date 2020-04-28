@@ -115,6 +115,14 @@ type Character implements ApplicationRecord {
     versions: [Version]
 }
 
+type CharactersCollection {
+    characters: [Character]!
+    count: Int
+    current_page: Int
+    total_entries: Int
+    total_pages: Int
+}
+
 type ChatCount {
     unread: Int
 }
@@ -480,9 +488,12 @@ type ProfileSection {
 }
 
 type Query {
+    autocompleteCharacter(slug: String, username: String): [Character]
     autocompleteHashtags(hashtag: String!): [MediaHashtag]
+    autocompleteUser(username: String): [User]
     chatCounts: ChatCount
     findUser(username: String!): User
+    getActivity(page: Int, since: Int, type: String): [Activity]
     getArtist(slug: String!): Artist
     getCharacter(id: ID!): Character
     getCharacterByUrl(slug: String!, username: String!): Character
@@ -498,8 +509,7 @@ type Query {
     getNextModeration: Moderation
     getNotifications(page: Int): NotificationCollection
     getSession: Session
-    searchForCharacter(slug: String, username: String): [Character]
-    searchForUser(username: String): [User]
+    searchForCharacter(page: Int, query: String!): CharactersCollection
 }
 
 type RichText {

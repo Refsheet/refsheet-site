@@ -1,5 +1,5 @@
-query SearchForCharacter($slug: String!, $username: String!) {
-    searchForCharacter(slug: $slug, username: $username) {
+query AutocompleteCharacter($slug: String!, $username: String!) {
+    autocompleteCharacter(slug: $slug, username: $username) {
         id
         name
         shortcode
