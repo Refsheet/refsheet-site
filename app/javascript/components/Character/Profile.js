@@ -39,9 +39,8 @@ class Profile extends Component {
 
     let lastId = 'main'
 
-    const sorted = profileSections.sort(
-      (a, b) => (a.row_order || 0) - (b.row_order || 0)
-    )
+    let sorted = [...profileSections]
+    sorted.sort((a, b) => (a.row_order || 0) - (b.row_order || 0))
 
     sorted.map((section, i) => {
       if (section.title || editable) {

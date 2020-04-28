@@ -29,27 +29,31 @@
 #  index_lodestone_characters_on_race_id              (race_id)
 #  index_lodestone_characters_on_server_id            (server_id)
 #
+module Types
+  module Lodestone
+    CharacterType = GraphQL::ObjectType.define do
+      name "Lodestone_Character"
+      interfaces [Interfaces::ApplicationRecordInterface]
 
-class Lodestone::Character < ApplicationRecord
-  belongs_to :character, class_name: '::Character'
-  belongs_to :active_class_job, class_name: 'Lodestone::ClassJob', autosave: true
-  belongs_to :server, class_name: 'Lodestone::Server', autosave: true
-  belongs_to :race, class_name: 'Lodestone::Race', autosave: true
-  has_many :class_jobs, class_name: 'Lodestone::ClassJob', foreign_key: :lodestone_character_id, autosave: true
+      field :bio, types.String
+      field :lodestone_id, types.String
+      field :name, types.String
+      field :nameday, types.String
+      field :remote_updated_at, types.Int
+      field :portrait_url, types.String
+      field :title, types.String
+      field :title_top, types.Boolean
+      field :town, types.String
+      field :tribe, types.String
+      field :diety, types.String
+      field :gc_name, types.String
+      field :gc_rank_name, types.String
 
-  validates_presence_of :lodestone_id
-  validates_presence_of :name
+      # active_class_job
+      # class_jobs
+      field :server, Types::Lodestone::ServerType
+      field :race, Types::Lodestone::RaceType
 
-  after_create :log_activity
-
-  counter_culture :server
-
-  private
-
-  def log_activity
-    Activity.create activity: self,
-                    user_id: character.user_id,
-                    character: character,
-                    activity_method: 'create'
+    end
   end
 end
