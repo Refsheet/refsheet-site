@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Query } from 'react-apollo'
 import { withNamespaces } from 'react-i18next'
-import SearchForCharacter from 'ActivityFeed/searchForCharacter.graphql'
-import { setIdentity } from '../../../actions'
+import AutocompleteCharacter from 'components/ActivityFeed/autocompleteCharacter.graphql'
+import { setIdentity } from 'actions'
 import { connect } from 'react-redux'
 import Modal from 'v1/shared/Modal'
 
@@ -100,7 +100,7 @@ class IdentityModal extends Component {
         </form>
 
         <Query
-          query={SearchForCharacter}
+          query={AutocompleteCharacter}
           variables={{ slug: this.state.query, username: 'me' }}
         >
           {({ data, loading, errors }) => {
@@ -117,7 +117,7 @@ class IdentityModal extends Component {
                 </div>
               )
             } else {
-              return this.renderCharacterList(data.searchForCharacter)
+              return this.renderCharacterList(data.autocompleteCharacter)
             }
           }}
         </Query>

@@ -8,10 +8,11 @@ import UserAvatar from '../../User/UserAvatar'
 import c from 'classnames'
 import KarmaCounter from '../shared/KarmaCounter'
 import PostMeta from '../shared/PostMeta'
+import compose from '../../../utils/compose'
 
 class DiscussionLink extends Component {
   render() {
-    const { forum, discussion, t } = this.props
+    const { forum, discussion, slim } = this.props
 
     return (
       <div
@@ -19,13 +20,16 @@ class DiscussionLink extends Component {
           new: discussion.is_unread,
           admin: discussion.admin_post,
           moderator: discussion.moderator_post,
+          slim: slim,
         })}
       >
-        <KarmaCounter
-          discussion={discussion}
-          forum={forum}
-          className={'shade'}
-        />
+        {!slim && (
+          <KarmaCounter
+            discussion={discussion}
+            forum={forum}
+            className={'shade'}
+          />
+        )}
 
         <div className={'forum-post--summary'}>
           <div className="forum-post--title">
@@ -43,19 +47,27 @@ class DiscussionLink extends Component {
             </Link>
           </div>
 
-          <div className={'forum-post--preview'}>{discussion.preview}</div>
-
-          <PostMeta forum={forum} discussion={discussion} />
+          {!slim && (
+            <div className={'forum-post--preview'}>{discussion.preview}</div>
+          )}
+          {!slim && <PostMeta forum={forum} discussion={discussion} />}
         </div>
 
         <div className="forum-post--date">
-          <div className={'user-summary'}>
-            <UserAvatar
-              user={discussion.user}
-              character={discussion.character}
-            />
+          <div className={c('user-summary', { 'padding-right--none': slim })}>
+            {!slim && (
+              <UserAvatar
+                user={discussion.user}
+                character={discussion.character}
+              />
+            )}
 
-            <UserLink user={discussion.user} character={discussion.character} />
+            {!slim && (
+              <UserLink
+                user={discussion.user}
+                character={discussion.character}
+              />
+            )}
 
             <div className={'time'}>
               <Trans
@@ -78,8 +90,24 @@ class DiscussionLink extends Component {
   }
 }
 
-DiscussionLink.propTypes = {}
+DiscussionLink.propTypes = {
+  slim: PropTypes.bool,
+  forum: PropTypes.shape({
+    slug: PropTypes.string,
+  }),
+  discussion: PropTypes.shape({
+    created_at: PropTypes.number,
+    character: PropTypes.object,
+    user: PropTypes.object,
+    preview: PropTypes.string,
+    slug: PropTypes.string,
+    topic: PropTypes.string,
+    is_unread: PropTypes.bool,
+    sticky: PropTypes.bool,
+    is_resolved: PropTypes.bool,
+    admin_post: PropTypes.bool,
+    moderator_post: PropTypes.bool,
+  }),
+}
 
-const translated = withNamespaces('common')(DiscussionLink)
-
-export default translated
+export default compose(withNamespaces('common'))(DiscussionLink)

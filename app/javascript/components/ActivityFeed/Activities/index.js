@@ -51,8 +51,19 @@ export function render(props) {
     case 'Forum::Discussion':
       return <ForumDiscussion discussions={activities} />
 
-    default:
+    case null:
       return <StatusUpdate comment={comment} />
+
+    default:
+      return (
+        <pre className={'card-content'}>
+          {JSON.stringify(
+            { activity, activities, activityType, comment },
+            undefined,
+            2
+          )}
+        </pre>
+      )
   }
 }
 
