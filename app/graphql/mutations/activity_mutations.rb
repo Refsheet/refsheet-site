@@ -1,4 +1,16 @@
 class Mutations::ActivityMutations < Mutations::ApplicationMutation
+  action :index do
+    type types[Types::ActivityType]
+
+    argument :since, types.Int
+    argument :page, types.Int
+    argument :type, types.String
+  end
+
+  def index
+    current_user.activity.page(params[:page] || 1)
+  end
+
   action :create do
     type Types::ActivityType
 
