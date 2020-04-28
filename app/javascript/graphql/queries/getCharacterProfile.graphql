@@ -6,6 +6,22 @@
 #import 'fragments/CharacterUser.graphql'
 #import 'fragments/CharacterTheme.graphql'
 
+fragment LodestoneFields on Lodestone_Character {
+  name
+  bio
+  lodestone_id
+  nameday
+  remote_updated_at
+  portrait_url
+  title
+  title_top
+  town
+  tribe
+  diety
+  gc_name
+  gc_rank_name
+}
+
 fragment DefaultCharacterFields on Character {
   ...CharacterFields
   ...CharacterAttributes
@@ -29,6 +45,10 @@ fragment DefaultCharacterFields on Character {
 
   avatar_url(style: "medium")
   cover_image_url(style: "large")
+
+  lodestone_character {
+    ...LodestoneFields
+  }
 }
 
 query getCharacterProfile($username: String!, $slug: String!) {

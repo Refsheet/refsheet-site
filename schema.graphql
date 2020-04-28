@@ -92,6 +92,7 @@ type Character implements ApplicationRecord {
     images: [Image]
     likes: String
     likes_html: String
+    lodestone_character: Lodestone_Character
     name: String!
     nsfw: Boolean
     path: String!
@@ -282,6 +283,26 @@ type ImageUrl {
 
 type Json {
     json: String
+}
+
+type Lodestone_Character implements ApplicationRecord {
+    bio: String
+    created_at: Int
+    deleted_at: Int
+    diety: String
+    gc_name: String
+    gc_rank_name: String
+    id: ID
+    lodestone_id: String
+    name: String
+    nameday: String
+    portrait_url: String
+    remote_updated_at: Int
+    title: String
+    title_top: Boolean
+    town: String
+    tribe: String
+    updated_at: Int
 }
 
 type MediaComment implements ApplicationRecord {
