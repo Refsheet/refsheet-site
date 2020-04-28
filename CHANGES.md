@@ -1,3 +1,21 @@
+# TBD
+
+## Bug Fixes
+
+- Fixed an issue that caused the Photoshop extenson to break when searching for characters.
+- Fixed an issue preventing user bios from being edited.
+- Various crash fixes, thanks to people who reported the bugs with the included bug ID.
+
+## Minor Things
+
+- Added some FFXIV Lodestone data to V2 profiles using the Lodestone as a datasource.
+
+## Framework
+
+- Moved user avatars to new, "processing-free" image storage.
+
+---
+
 # 04/13/2020
 
 ## Active Projects
