@@ -4,11 +4,15 @@ import { connect } from 'react-redux'
 import compose, { withCurrentUser } from 'utils/compose'
 import { withNamespaces } from 'react-i18next'
 import Modal from '../Styled/Modal'
+import { closeSupportModal } from '../../actions'
 
 class SupportModal extends Component {
+  handleClose() {
+    this.props.closeSupportModal()
+  }
+
   render() {
     const { isOpen, currentUser, t } = this.props
-    console.log(this.props)
 
     if (!isOpen) {
       return null
@@ -17,6 +21,7 @@ class SupportModal extends Component {
     return (
       <Modal
         autoOpen
+        onClose={this.handleClose.bind(this)}
         title={t('SupportModal.title', 'Change Supporter Status')}
       >
         {currentUser.username}
@@ -38,7 +43,9 @@ const mapStateToProps = ({ supportModal }, props) => ({
   ...supportModal,
 })
 
-const mapDispatchToProps = {}
+const mapDispatchToProps = {
+  closeSupportModal
+}
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
