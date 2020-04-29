@@ -30,7 +30,7 @@ import { base as defaultTheme } from 'themes/default'
 import { base as debugTheme } from 'themes/debug'
 
 // Children
-import Layout from './Layout'
+import Layout from '../Layout'
 import { Router as BrowserRouter } from 'react-router-dom'
 import { setCurrentUser } from '../../actions'
 import { withErrorBoundary } from '../Shared/ErrorBoundary'
