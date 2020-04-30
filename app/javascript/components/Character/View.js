@@ -108,6 +108,7 @@ class View extends Component {
             <ColorModal
               onClose={this.handleModalClose('color').bind(this)}
               colorScheme={character.theme}
+              characterId={character.id}
               colorSchemeOverride={this.state.colorSchemeOverride}
               onChange={this.handleColorSchemeOverride.bind(this)}
             />
