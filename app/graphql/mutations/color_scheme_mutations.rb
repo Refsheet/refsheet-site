@@ -13,7 +13,7 @@ module Mutations
       authorize @color_scheme
 
       @color_scheme.assign_attributes(update_params)
-      @color_scheme.color_data.merge! params[:colorData].permit!
+      @color_scheme.merge params[:colorData].permit!
       @color_scheme.save!
       @color_scheme
     end
@@ -36,7 +36,7 @@ module Mutations
       authorize @color_scheme, :create?
 
       @color_scheme.assign_attributes(create_params)
-      @color_scheme.color_data.merge! params[:colorData].permit!
+      @color_scheme.merge params[:colorData].permit!
       @color_scheme.save!
 
       if @character

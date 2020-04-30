@@ -22,6 +22,7 @@ class ColorModal extends Component {
     this.state = {
       mode: 'simple',
       base: 'dark',
+      loading: false,
     }
 
     this.themeLabels = {
@@ -123,6 +124,7 @@ class ColorModal extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
+    this.setState({ loading: true })
 
     const {
       t,
@@ -133,33 +135,33 @@ class ColorModal extends Component {
       colorSchemeOverride: { colors: colorData },
     } = this.props
 
-    console.log({ id, characterId, colorData })
+    let result
 
     if (id) {
-      updateColorScheme({
+      result = updateColorScheme({
         wrapped: true,
         variables: {
           id,
           colorData,
         },
+      }).then(data => {
+        Flash.info(t('flash.color_scheme_saved', 'Color scheme saved!'))
       })
-        .then(data => {
-          Flash.info(t('flash.color_scheme_saved', 'Color scheme saved!'))
-        })
-        .catch(console.error)
     } else {
-      createColorScheme({
+      result = createColorScheme({
         wrapped: true,
         variables: {
           characterId,
           colorData,
         },
+      }).then(data => {
+        Flash.info(t('flash.color_scheme_created', 'Color scheme created!'))
       })
-        .then(data => {
-          Flash.info(t('flash.color_scheme_created', 'Color scheme created!'))
-        })
-        .catch(console.error)
     }
+
+    result.catch(console.error).finally(() => {
+      this.setState({ loading: false })
+    })
   }
 
   renderColor(key) {
@@ -206,6 +208,7 @@ class ColorModal extends Component {
         key={key}
         label={t(`colorScheme.${key}`, this.themeLabels[key])}
         value={color}
+        disabled={this.state.loading}
         onChange={this.handleColorChange.bind(this)}
         s={8}
       />
@@ -222,10 +225,12 @@ class ColorModal extends Component {
         name: 'Reset',
         className: 'btn-secondary left',
         action: this.handleReset.bind(this),
+        disabled: this.state.loading,
       },
       {
         name: 'Save',
         action: this.handleSubmit.bind(this),
+        disabled: this.state.loading,
       },
     ]
 
@@ -247,6 +252,7 @@ class ColorModal extends Component {
                 onLabel={'Advanced'}
                 onChange={this.changeMode.bind(this)}
                 checked={advanced}
+                disabled={this.state.loading}
               />
             </div>
             {!advanced && (
@@ -257,6 +263,7 @@ class ColorModal extends Component {
                   onLabel={'Light'}
                   onChange={this.changeBase.bind(this)}
                   checked={light}
+                  disabled={this.state.loading}
                 />
               </div>
             )}
