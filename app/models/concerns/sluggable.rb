@@ -38,8 +38,12 @@ module Sluggable
     end
   end
 
-  def self.to_slug(*arg)
-    to_slug *arg
+  def self.to_slug(string, tail=nil)
+    return if string.nil?
+    slug = string.downcase.gsub(/[^a-z0-9-]+/, '-').gsub(/^-+|-+$/, '')
+    slug = "blank" if slug.blank?
+    slug = [slug, tail].join('-') if tail
+    slug
   end
 
   private
@@ -52,18 +56,10 @@ module Sluggable
     count = 0
 
     begin
-      self.slug = to_slug(self.send(slug_source), count > 0 ? count : nil)
+      self.slug = Sluggable.to_slug(self.send(slug_source), count > 0 ? count : nil)
       count += 1
     end while self.class.where(slug_scope).exists?(slug: self.slug)
 
     true
-  end
-
-  def to_slug(string, tail=nil)
-    return if string.nil?
-    slug = string.downcase.gsub(/[^a-z0-9-]+/, '-').gsub(/^-+|-+$/, '')
-    slug = "blank" if slug.blank?
-    slug = [slug, tail].join('-') if tail
-    slug
   end
 end
