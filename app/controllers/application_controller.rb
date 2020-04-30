@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
   def self.in_beta!
     before_action do
       unless signed_in? and current_user.patron?
-        raise ActionController::RoutingError.new 'This is available to Patrons only!'
+        raise ApplicationController::Unauthorized, 'This is available to Patrons only!'
       end
     end
   end
@@ -59,6 +59,7 @@ class ApplicationController < ActionController::Base
   #== Error Handling
 
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
+  rescue_from ActiveStorage::FileNotFoundError, with: :not_found
   rescue_from ActionController::UnknownFormat, with: :not_found
   rescue_from ActionController::InvalidAuthenticityToken, with: :bad_request
   rescue_from ActionController::ParameterMissing, with: :bad_request
@@ -159,7 +160,9 @@ class ApplicationController < ActionController::Base
   end
 
   def eager_load_session
-    eager_load session: session_hash
+    Rails.logger.tagged "eager_load_session" do
+      eager_load session: session_hash
+    end
   end
 
   def set_default_meta
@@ -185,15 +188,6 @@ class ApplicationController < ActionController::Base
             description: :description
         }
     )
-
-    if params[:flashtest]
-      Rails.logger.info("Flashtest")
-      flash.now[:error] = "Error flash"
-      flash.now[:warn] = "warn flash"
-      flash.now[:info] = "info flash"
-      flash.now[:debug] = "debug flash"
-      flash.now[:success] = "success flash"
-    end
   end
 
   def set_raven_context

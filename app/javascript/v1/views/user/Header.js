@@ -31,15 +31,18 @@ const Header = createReactClass({
     onFollow: PropTypes.func.isRequired,
   },
 
-  handleBioChange(markup, success) {
-    return $.ajax({
-      url: this.props.path,
-      type: 'PATCH',
-      data: { user: { profile: markup } },
-      success: user => {
-        this.props.onUserChange(user)
-        return success(user)
-      },
+  handleBioChange(data) {
+    return new Promise((resolve, reject) => {
+      $.ajax({
+        url: this.props.path,
+        type: 'PATCH',
+        data: { user: { profile: data.value } },
+        success: user => {
+          this.props.onUserChange(user)
+          return resolve({ value: user.profile_markup })
+        },
+        error: reject,
+      })
     })
   },
 
@@ -54,6 +57,11 @@ const Header = createReactClass({
       }
     )
     return e.preventDefault()
+  },
+
+  handleAvatarClick(e) {
+    e.preventDefault()
+    console.log('Editing avatar...')
   },
 
   render() {
@@ -84,8 +92,11 @@ const Header = createReactClass({
         <div className="container flex">
           <div className="user-avatar">
             <div className="image" style={imageStyle}>
-              {editable && (
-                <div className="image-edit-overlay">
+              {editable && false && (
+                <div
+                  className="image-edit-overlay"
+                  onClick={this.handleAvatarClick}
+                >
                   <div className="content">
                     <i className="material-icons">photo_camera</i>
                     Change Avatar
@@ -158,11 +169,23 @@ const Header = createReactClass({
                 )}
               </div>
             </div>
+
+            {editable && (
+              <div className={'card-panel blue darken-3'}>
+                We're currently reworking user avatars. You will be unable to
+                change your avatar until this migration is complete on all
+                users. If you have previously set an avatar, it will re-appear
+                soon.
+              </div>
+            )}
+
             <div className="user-bio">
               <RichText
                 contentHtml={this.props.profile}
                 content={this.props.profile_markup}
                 onChange={bioChangeCallback}
+                title={'About ' + this.props.name}
+                titleComponent={'p'}
               />
             </div>
           </div>

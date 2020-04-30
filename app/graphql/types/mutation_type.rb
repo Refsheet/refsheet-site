@@ -39,6 +39,9 @@ Types::MutationType = GraphQL::ObjectType.define do
   field :destroyCharacter, field: Mutations::CharacterMutations::Destroy
   field :transferCharacter, field: Mutations::CharacterMutations::Transfer
 
+  # Color Scheme
+  field :udpateColorScheme, field: Mutations::ColorSchemeMutations::Update
+
   # Upload Mutations
   field :setCharacterAvatarBlob, field: Mutations::CharacterMutations::SetAvatarBlob
   field :setCharacterCoverBlob, field: Mutations::CharacterMutations::SetCoverBlob

@@ -6,6 +6,8 @@ class PublicController < ApplicationController
   skip_before_action :set_raven_context
 
   def health
+    resque_info = Resque.info rescue {}
+    
     # Ensure we have a connection to our database and that everything
     # is functioning correctly:
     counts = {
@@ -14,6 +16,12 @@ class PublicController < ApplicationController
         images: {
             total: Image.unscoped.count,
             queued: Image.processing.count
+        },
+        queue: {
+          pending: resque_info[:pending],
+          processed: resque_info[:processed],
+          workers: resque_info[:workers],
+          working: resque_info[:working]
         }
     }
 

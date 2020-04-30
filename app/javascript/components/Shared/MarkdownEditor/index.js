@@ -33,14 +33,17 @@ class MarkdownEditor extends Component {
     console.debug('searchForUser', { username })
     return new Promise(resolve => {
       client
-        .query({ query: Autocomplete.searchForUser, variables: { username } })
+        .query({
+          query: Autocomplete.autocompleteUser,
+          variables: { username },
+        })
         .then(({ data, error }) => {
           if (!data) {
             console.error(error)
             resolve([])
           }
 
-          const { searchForUser: users } = data
+          const { autocompleteUser: users } = data
 
           resolve(
             (users || []).map(user => ({
@@ -68,7 +71,7 @@ class MarkdownEditor extends Component {
     return new Promise(resolve => {
       client
         .query({
-          query: Autocomplete.searchForCharacter,
+          query: Autocomplete.autocompleteCharacter,
           variables: { username, slug },
         })
         .then(({ data, error }) => {
@@ -77,7 +80,7 @@ class MarkdownEditor extends Component {
             resolve([])
           }
 
-          const { searchForCharacter: characters } = data
+          const { autocompleteCharacter: characters } = data
           resolve(
             (characters || []).map(character => ({
               preview: (

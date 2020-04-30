@@ -5,6 +5,8 @@ class GraphqlController < ApplicationController
 
   if Rails.env.development?
     rescue_from Exception do |e|
+      Rails.logger.error(e)
+
       render json: {
           error: e.message,
           backtrace: e.backtrace

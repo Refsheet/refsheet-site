@@ -22,6 +22,10 @@ import CharacterApp from '../../v1/views/characters/CharacterApp'
 import User from 'v1/views/User'
 import { withErrorBoundary } from '../Shared/ErrorBoundary'
 
+const staticPaths = ['privacy', 'terms', 'support'].map(path => (
+  <Route key={path} path={'/' + path} component={Static.View} />
+))
+
 const Routes = () => (
   <Switch>
     <Route exact path="/" component={Home} title="Home" />
@@ -102,7 +106,7 @@ const Routes = () => (
 
     {/*== Static Routes */}
 
-    {/*{ staticPaths }*/}
+    {staticPaths}
     <Route path="/static/:pageId" component={Static.View} />
 
     {/*== Profile Content */}
