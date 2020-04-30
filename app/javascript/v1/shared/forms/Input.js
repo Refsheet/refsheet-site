@@ -3,12 +3,12 @@ import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
 import * as Materialize from 'materialize-css'
 import $ from 'jquery'
+import c from 'classnames'
 import validate, {
   errorString,
   isHexColor,
   isColor,
 } from '../../../utils/validate'
-import { ChromePicker, SketchPicker } from 'react-color'
 import ColorPicker from '../../../components/Shared/ColorPicker'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
@@ -324,7 +324,15 @@ export default Input = createReactClass({
         {!inputFieldInsideLabel && inputField}
 
         {this.props.label && (
-          <label htmlFor={id}>
+          <label
+            htmlFor={id}
+            className={c({
+              active:
+                this.state.value ||
+                commonProps.placeholder ||
+                commonProps.default,
+            })}
+          >
             {inputFieldInsideLabel && inputField}
             <span>{this.props.label}</span>
           </label>
@@ -340,6 +348,7 @@ export default Input = createReactClass({
           <ColorPicker
             overlay
             color={this.state.value}
+            colors={this.props.colors}
             onClose={this.handleColorClose}
             onFocus={this.handleFocus}
             onChangeComplete={this.handleColorChange}
