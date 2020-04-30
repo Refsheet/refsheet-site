@@ -1,18 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Row, Col, Icon, TextInput, Switch, Tabs, Tab } from 'react-materialize'
-import {
-  BlockPicker,
-  ChromePicker,
-  SketchPicker,
-  TwitterPicker,
-} from 'react-color'
 import { withNamespaces } from 'react-i18next'
-import compose from '../../../../utils/compose'
+import compose, { withMutations } from '../../../../utils/compose'
 import ColorTheme from '../../../../utils/ColorTheme'
-import SimpleSchemeForm from './SimpleSchemeForm'
-import AdvancedSchemeForm from './AdvancedSchemeForm'
-import Modal from 'v1/shared/Modal'
+import Modal from 'Styled/Modal'
+import Input from '../../../../v1/shared/forms/Input'
+import updateColorScheme from './updateColorScheme.graphql'
 
 // TODO: Move simple / advanced to tabs
 // TODO: Cleanup callback hell.
@@ -26,6 +20,20 @@ class ColorModal extends Component {
     this.state = {
       mode: 'simple',
       base: 'dark',
+    }
+
+    this.themeLabels = {
+      primary: 'Primary Color',
+      accent1: 'Secondary Color',
+      accent2: 'Accent Color',
+      text: 'Main Text',
+      textMedium: 'Muted Text',
+      textLight: 'Subtle Text',
+      background: 'Page Background',
+      cardBackground: 'Card Background',
+      cardHeaderBackground: 'Card Header',
+      border: 'Border Colors',
+      imageBackground: 'Image Background',
     }
 
     this.colorKeys = {
@@ -50,7 +58,7 @@ class ColorModal extends Component {
         background: '#262626',
       },
       light: {
-        text: '#212121',
+        text: '#323232',
         background: '#eeeeee',
       },
     }
@@ -67,10 +75,7 @@ class ColorModal extends Component {
 
   applyBaseColors() {
     const base = this.simpleBase[this.state.base]
-    const _this = this
-    this.handleColorChange('background')({ hex: base.background }, () => {
-      _this.handleColorChange.bind(_this)('text')({ hex: base.text })
-    })
+    this.handleColorChanges({ background: base.background, text: base.text })
   }
 
   handleClose() {
@@ -78,17 +83,25 @@ class ColorModal extends Component {
     this.props.onClose()
   }
 
-  handleColorChange(key) {
-    return (color, callback) => {
-      let theme = { ...this.props.colorSchemeOverride }
-      let colors = { ...theme.colors }
-      colors[key] = color.hex
+  handleColorChanges(changes) {
+    let theme = { ...this.props.colorSchemeOverride }
+    let colors = { ...theme.colors }
+
+    Object.keys(changes).map(key => {
+      colors[key] = changes[key]
       theme.colors = this.extrapolateColors(key, colors)
-      this.props.onChange(
-        theme,
-        typeof callback === 'object' ? undefined : callback
-      )
-    }
+    })
+
+    this.props.onChange(theme)
+  }
+
+  handleColorChange(key, value) {
+    let theme = { ...this.props.colorSchemeOverride }
+    let colors = { ...theme.colors }
+    colors[key] = value
+    theme.colors = this.extrapolateColors(key, colors)
+
+    this.props.onChange(theme)
   }
 
   changeMode(e) {
@@ -103,6 +116,22 @@ class ColorModal extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
+
+    const {
+      updateColorScheme,
+      colorScheme: { id },
+      colorSchemeOverride: { colors: colorData },
+    } = this.props
+
+    updateColorScheme({
+      wrapped: true,
+      variables: {
+        id,
+        colorData,
+      },
+    })
+      .then(console.log)
+      .catch(console.error)
   }
 
   renderColor(key) {
@@ -114,8 +143,6 @@ class ColorModal extends Component {
       colorSchemeOverride: { colors },
     } = this.props
 
-    const advanced = this.state.mode === 'advanced'
-
     const color = colors[key] || ''
     let suggestion
 
@@ -126,7 +153,7 @@ class ColorModal extends Component {
         desaturate: 0.4,
         darken: 0.7,
         lighten: 2.3,
-        count: 7,
+        count: 6,
       })
     } else if (key.match(/text/i)) {
       suggestion = this.theme().getSuggestions({
@@ -135,7 +162,7 @@ class ColorModal extends Component {
         desaturate: 0.4,
         darken: 0.6,
         lighten: 0.4,
-        count: 7,
+        count: 6,
         highContrast: true,
       })
     } else {
@@ -143,37 +170,17 @@ class ColorModal extends Component {
     }
 
     return (
-      <Row key={key} className={'color-picker'}>
-        <TextInput
-          id={`theme_${key}`}
-          name={key}
-          label={key}
-          value={color}
-          readOnly
-          s={8}
-        />
-        <Col s={4}>
-          <Icon>grid</Icon>
-          <Icon>palette</Icon>
-        </Col>
-        <Col s={12}>
-          {advanced ? (
-            <SketchPicker
-              color={color}
-              width={232}
-              presetColors={suggestion}
-              onChangeComplete={this.handleColorChange(key).bind(this)}
-            />
-          ) : (
-            <TwitterPicker
-              color={color}
-              width={240}
-              colors={suggestion}
-              onChangeComplete={this.handleColorChange(key).bind(this)}
-            />
-          )}
-        </Col>
-      </Row>
+      <Input
+        type={'color'}
+        colors={suggestion}
+        id={`theme_${key}`}
+        name={key}
+        key={key}
+        label={t(`colorScheme.${key}`, this.themeLabels[key])}
+        value={color}
+        onChange={this.handleColorChange.bind(this)}
+        s={8}
+      />
     )
   }
 
@@ -182,6 +189,13 @@ class ColorModal extends Component {
     const advanced = this.state.mode === 'advanced'
     const light = this.state.base === 'light'
 
+    const actions = [
+      {
+        name: 'Save',
+        action: this.handleSubmit.bind(this),
+      },
+    ]
+
     return (
       <Modal
         autoOpen
@@ -189,16 +203,11 @@ class ColorModal extends Component {
         id="character-color"
         title={t('labels.edit_color_scheme', 'Edit Color Scheme')}
         onClose={this.handleClose.bind(this)}
+        actions={actions}
       >
-        <Tabs className={'modal-tabs'}>
-          <Tab title={'Simple'} active={this.state.mode === 'simple'}>
-            <SimpleSchemeForm />
-          </Tab>
-          <Tab title={'Advanced'} active={this.state.mode === 'advanced'}>
-            <AdvancedSchemeForm />
-          </Tab>
-          <Tab title={'Share'}>
-            <form onSubmit={this.handleSubmit.bind(this)}>
+        <form onSubmit={this.handleSubmit.bind(this)}>
+          <div className={'margin-bottom--large'}>
+            <div className={'center margin-bottom--medium'}>
               <Switch
                 id={'theme_advanced'}
                 offLabel={'Simple'}
@@ -206,7 +215,9 @@ class ColorModal extends Component {
                 onChange={this.changeMode.bind(this)}
                 checked={advanced}
               />
-              {advanced || (
+            </div>
+            {!advanced && (
+              <div className={'margin-bottom--medium center'}>
                 <Switch
                   id={'theme_light'}
                   offLabel={'Dark'}
@@ -214,11 +225,13 @@ class ColorModal extends Component {
                   onChange={this.changeBase.bind(this)}
                   checked={light}
                 />
-              )}
-              {this.colorKeys[this.state.mode].map(this.renderColor.bind(this))}
-            </form>
-          </Tab>
-        </Tabs>
+              </div>
+            )}
+          </div>
+          <div className={'margin-top--large'}>
+            {this.colorKeys[this.state.mode].map(this.renderColor.bind(this))}
+          </div>
+        </form>
       </Modal>
     )
   }
@@ -231,4 +244,9 @@ ColorModal.propTypes = {
   onChange: PropTypes.func,
 }
 
-export default compose(withNamespaces('common'))(ColorModal)
+export default compose(
+  withNamespaces('common'),
+  withMutations({
+    updateColorScheme,
+  })
+)(ColorModal)

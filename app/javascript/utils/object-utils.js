@@ -1,11 +1,4 @@
-// TODO: This file was created by bulk-decaffeinate.
-// Sanity-check the conversion and remove this comment.
-/*
- * decaffeinate suggestions:
- * DS102: Remove unnecessary code created because of implicit returns
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
-import _ from 'lodash'
+import StringUtils from './StringUtils'
 
 export var changes = function(a, b) {
   const changedData = {}
@@ -19,13 +12,24 @@ export var changes = function(a, b) {
 }
 
 export var camelize = function(obj) {
-  if (!_.isObject(obj)) {
+  if (!obj || typeof obj !== 'object') {
     return obj
   }
   const out = {}
   for (let k in obj) {
     const v = obj[k]
-    out[_.camelCase(k)] = camelize(v)
+    out[StringUtils.camelize(k)] = camelize(v)
   }
   return out
+}
+
+export function deepRemoveKeys(object, key) {
+  if (!object || typeof object !== 'object') {
+    return object
+  }
+
+  let obj = { ...object }
+  delete obj[key]
+  Object.keys(obj).map(k => (obj[k] = deepRemoveKeys(obj[k], key)))
+  return obj
 }

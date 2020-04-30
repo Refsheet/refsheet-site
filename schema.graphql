@@ -443,6 +443,7 @@ type Mutation {
     setCharacterCoverBlob(blob: String, id: ID!): Character
     sortGalleryImage(dropBefore: Boolean, sourceImageId: ID!, targetImageId: ID!): Character
     transferCharacter(destination: String!, id: ID!): Character
+    udpateColorScheme(colorData: ThemeColorDataInput, id: ID!): Theme
     updateCharacter(color_scheme_id: ID, hidden: Boolean, id: ID!, name: String, nsfw: Boolean, shortcode: String, slug: String, special_notes: String, species: String): Character
     updateConversation(conversation_id: ID!, read: Boolean): Conversation
     updateDiscussion(content: String, id: ID!, locked: Boolean, sticky: Boolean, topic: String): ForumDiscussion
@@ -633,4 +634,16 @@ type Widget {
 
 type Youtube {
     url: String
+}
+
+input ThemeColorDataInput {
+    accent1: String
+    accent2: String
+    background: String
+    cardBackground: String
+    imageBackground: String
+    primary: String
+    text: String
+    textLight: String
+    textMedium: String
 }
