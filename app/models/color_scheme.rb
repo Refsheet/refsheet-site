@@ -47,14 +47,10 @@ class ColorScheme < ApplicationRecord
     (super || {}).with_indifferent_access
   end
 
-  def color_data=(new_data)
+  def merge(new_data)
     new_data.each do |key, value|
       set_color(key, value)
     end
-  end
-
-  def merge(new_data)
-    self.color_data = self.color_data.merge(new_data)
   end
 
   def [](key)
@@ -109,6 +105,8 @@ class ColorScheme < ApplicationRecord
 
   def normalize_color_data
     return
+    # TODO: I skipped this but I have no idea why.
+    #
     if color_data.is_a? Hash
       new_data = {}
 
