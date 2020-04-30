@@ -1,0 +1,17 @@
+mutation updateColorScheme($id: ID!, $colorData: ThemeColorDataInput!) {
+    udpateColorScheme(id: $id, colorData: $colorData) {
+        id
+        name
+        colors {
+            primary
+            accent1
+            accent2
+            background
+            cardBackground
+            imageBackground
+            text
+            textLight
+            textMedium
+        }
+    }
+}

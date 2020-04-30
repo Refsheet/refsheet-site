@@ -2,7 +2,6 @@ import Color from 'color'
 
 class ColorTheme {
   constructor({ primary: accent, text, background, base: mode }) {
-    console.log({ accent, text, background })
     this.accent = Color(accent)
     this.text = Color(text)
     this.background = Color(background)
