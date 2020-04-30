@@ -7,6 +7,8 @@ import ColorTheme from '../../../../utils/ColorTheme'
 import Modal from 'Styled/Modal'
 import Input from '../../../../v1/shared/forms/Input'
 import updateColorScheme from './updateColorScheme.graphql'
+import createColorScheme from './createColorScheme.graphql'
+import Flash from '../../../../utils/Flash'
 
 // TODO: Move simple / advanced to tabs
 // TODO: Cleanup callback hell.
@@ -20,6 +22,7 @@ class ColorModal extends Component {
     this.state = {
       mode: 'simple',
       base: 'dark',
+      loading: false,
     }
 
     this.themeLabels = {
@@ -37,18 +40,18 @@ class ColorModal extends Component {
     }
 
     this.colorKeys = {
-      simple: ['primary', 'text', 'background'],
+      simple: ['primary', 'background', 'text'],
 
       advanced: [
         'primary',
         'accent1',
         'accent2',
-        'text',
-        'textLight',
-        'textMedium',
         'background',
         'cardBackground',
         'imageBackground',
+        'text',
+        'textLight',
+        'textMedium',
       ],
     }
 
@@ -114,24 +117,51 @@ class ColorModal extends Component {
     })
   }
 
+  handleReset(e) {
+    e.preventDefault()
+    this.props.onChange(this.props.colorScheme)
+  }
+
   handleSubmit(e) {
     e.preventDefault()
+    this.setState({ loading: true })
 
     const {
+      t,
       updateColorScheme,
+      createColorScheme,
+      characterId,
       colorScheme: { id },
       colorSchemeOverride: { colors: colorData },
     } = this.props
 
-    updateColorScheme({
-      wrapped: true,
-      variables: {
-        id,
-        colorData,
-      },
+    let result
+
+    if (id) {
+      result = updateColorScheme({
+        wrapped: true,
+        variables: {
+          id,
+          colorData,
+        },
+      }).then(data => {
+        Flash.info(t('flash.color_scheme_saved', 'Color scheme saved!'))
+      })
+    } else {
+      result = createColorScheme({
+        wrapped: true,
+        variables: {
+          characterId,
+          colorData,
+        },
+      }).then(data => {
+        Flash.info(t('flash.color_scheme_created', 'Color scheme created!'))
+      })
+    }
+
+    result.catch(console.error).finally(() => {
+      this.setState({ loading: false })
     })
-      .then(console.log)
-      .catch(console.error)
   }
 
   renderColor(key) {
@@ -178,6 +208,7 @@ class ColorModal extends Component {
         key={key}
         label={t(`colorScheme.${key}`, this.themeLabels[key])}
         value={color}
+        disabled={this.state.loading}
         onChange={this.handleColorChange.bind(this)}
         s={8}
       />
@@ -185,14 +216,21 @@ class ColorModal extends Component {
   }
 
   render() {
-    const { t, colorSchemeOverride } = this.props
+    const { t } = this.props
     const advanced = this.state.mode === 'advanced'
     const light = this.state.base === 'light'
 
     const actions = [
       {
+        name: 'Reset',
+        className: 'btn-secondary left',
+        action: this.handleReset.bind(this),
+        disabled: this.state.loading,
+      },
+      {
         name: 'Save',
         action: this.handleSubmit.bind(this),
+        disabled: this.state.loading,
       },
     ]
 
@@ -214,6 +252,7 @@ class ColorModal extends Component {
                 onLabel={'Advanced'}
                 onChange={this.changeMode.bind(this)}
                 checked={advanced}
+                disabled={this.state.loading}
               />
             </div>
             {!advanced && (
@@ -224,6 +263,7 @@ class ColorModal extends Component {
                   onLabel={'Light'}
                   onChange={this.changeBase.bind(this)}
                   checked={light}
+                  disabled={this.state.loading}
                 />
               </div>
             )}
@@ -242,11 +282,13 @@ ColorModal.propTypes = {
   colorScheme: PropTypes.object,
   colorSchemeOverride: PropTypes.object,
   onChange: PropTypes.func,
+  characterId: PropTypes.string,
 }
 
 export default compose(
   withNamespaces('common'),
   withMutations({
     updateColorScheme,
+    createColorScheme,
   })
 )(ColorModal)

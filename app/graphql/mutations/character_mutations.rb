@@ -163,7 +163,7 @@ class Mutations::CharacterMutations < Mutations::ApplicationMutation
   private
 
   def get_character
-    @character = Character.find_by! shortcode: params[:id]
+    @character = Character.find_by! guid: params[:id]
   end
 
   def update_params
