@@ -11,8 +11,8 @@ import WindowAlert from '../../utils/WindowAlert'
 import AttributeTable from 'v1/shared/attributes/attribute_table'
 import Attribute from 'v1/shared/attributes/attribute'
 import Attributes from 'v1/views/characters/_attributes'
-import RichText from 'v1/shared/RichText.js.jsx.coffee'
 import { Caption } from '../Styled/Caption'
+import RichText from '../Shared/RichText'
 
 class Summary extends Component {
   constructor(props) {

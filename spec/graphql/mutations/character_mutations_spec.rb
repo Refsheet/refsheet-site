@@ -13,7 +13,7 @@ describe Mutations::CharacterMutations do
 
     let(:query) { <<-GRAPHQL }
       mutation {
-        updateCharacter(id: "#{character.shortcode}", name: "#{new_name}") {
+        updateCharacter(id: "#{character.guid}", name: "#{new_name}") {
           name
         }
       }
@@ -47,7 +47,7 @@ describe Mutations::CharacterMutations do
   describe 'convertCharacter' do
     let(:query) { <<-GRAPHQL }
       mutation {
-        convertCharacter(id: "#{character.shortcode}") {
+        convertCharacter(id: "#{character.guid}") {
           id
           version
         }
@@ -75,7 +75,7 @@ describe Mutations::CharacterMutations do
 
     let(:query) { <<-GRAPHQL }
       mutation {
-        destroyCharacter(id: "#{character.shortcode}", confirmation: "#{confirmation}") {
+        destroyCharacter(id: "#{character.guid}", confirmation: "#{confirmation}") {
           id
           deleted_at
         }

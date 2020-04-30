@@ -51,4 +51,13 @@ describe ColorScheme, type: :model do
     s = create :color_scheme
     expect(s['id']).to eq s.id
   end
+
+  it 'merges' do
+    s = create :color_scheme
+    s.merge(test_color: '#00FF00')
+    expect(s).to be_valid
+    s.save!
+    s.reload
+    expect(s[:testColor]).to eq '#00FF00'
+  end
 end

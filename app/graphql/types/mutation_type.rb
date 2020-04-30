@@ -41,6 +41,7 @@ Types::MutationType = GraphQL::ObjectType.define do
 
   # Color Scheme
   field :udpateColorScheme, field: Mutations::ColorSchemeMutations::Update
+  field :createColorScheme, field: Mutations::ColorSchemeMutations::Create
 
   # Upload Mutations
   field :setCharacterAvatarBlob, field: Mutations::CharacterMutations::SetAvatarBlob
