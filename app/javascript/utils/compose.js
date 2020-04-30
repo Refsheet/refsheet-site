@@ -2,6 +2,7 @@ import React from 'react'
 import { Mutation } from 'react-apollo'
 import { connect } from 'react-redux'
 import M from 'materialize-css'
+import { deepRemoveKeys } from './object-utils'
 
 function compose() {
   return component => {
@@ -21,6 +22,8 @@ function wrapMutation(fn) {
   return attrs => {
     if (attrs && attrs.wrapped) {
       delete attrs.wrapped
+
+      attrs.variables = deepRemoveKeys(attrs.variables, '__typename')
 
       return new Promise((resolve, reject) => {
         fn(attrs)

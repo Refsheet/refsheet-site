@@ -54,15 +54,14 @@ class Mutations::CharacterMutations < Mutations::ApplicationMutation
     @character
   end
 
-  # TODO: Rename to :autocomplete, update mutation type.
-  action :search do
+  action :autocomplete do
     type types[Types::CharacterType]
 
     argument :username, type: types.String
     argument :slug, type: types.String
   end
 
-  def search
+  def autocomplete
     q = params[:slug].downcase + '%'
     user = if params[:username] == "me"
              context.current_user.call

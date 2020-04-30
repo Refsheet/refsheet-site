@@ -3,6 +3,7 @@ import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
 import $ from 'jquery'
 import * as Materialize from 'materialize-css'
+import Button from '../../components/Styled/Button'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -92,7 +93,7 @@ export default Modal = createReactClass({
   },
 
   render() {
-    const classes = ['modal']
+    const classes = ['modal', this.props.className]
     if (this.props.wide) {
       classes.push('wide')
     }
@@ -101,6 +102,7 @@ export default Modal = createReactClass({
     }
     if (this.props.sideSheet) {
       classes.push('side-sheet')
+      classes.push('flex')
     }
     if (this.props.className) {
       classes.push(this.props.className)
@@ -115,7 +117,7 @@ export default Modal = createReactClass({
     }
 
     const actions = (this.props.actions || []).map(action => (
-      <a
+      <Button
         className={
           'modal-action waves-effect waves-light btn ' + action.className
         }
@@ -123,12 +125,15 @@ export default Modal = createReactClass({
         onClick={action.action}
       >
         {action.name}
-      </a>
+      </Button>
     ))
 
     return (
       <div ref="modal" className={classes.join(' ')} id={this.props.id}>
-        <div className="modal-body">
+        <div
+          className="modal-body"
+          style={{ flexGrow: 1, display: 'flex', height: '100%' }}
+        >
           {this.props.title && (
             <div className="modal-header-wrap">
               <div className="modal-header">

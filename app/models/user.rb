@@ -47,6 +47,8 @@ class User < ApplicationRecord
   include Users::NotificationsDecorator
   include Users::RoleDecorator
 
+  include HasImageAttached
+
   has_many :characters, dependent: :destroy
   has_many :character_groups, dependent: :destroy
   has_many :permissions, dependent: :destroy
@@ -91,6 +93,18 @@ class User < ApplicationRecord
   has_secure_password
   acts_as_paranoid
   has_guid
+
+  has_image_attached :as_avatar,
+                     default_url: -> (u, _style) {
+                       GravatarImageTag.gravatar_url(u.email, size: 480)
+                     },
+                     styles: {
+                         thumbnail: { fill: [64, 64] },
+                         small_square: { fill: [480, 480] },
+                         small: { fit: [480, 480] },
+                         medium_square: { fill: [720, 720] },
+                         medium: { fit: [720, 720] }
+                     }
 
   has_attached_file :avatar,
                     styles: {
@@ -146,10 +160,12 @@ class User < ApplicationRecord
   end
 
   def avatar_url
+    return self.as_avatar.url(:thumbnail)
     self.avatar? ? self.avatar.url(:thumbnail) : GravatarImageTag.gravatar_url(self.email)
   end
 
   def profile_image_url
+    return self.as_avatar.url(:small_square)
     self.avatar? ? self.avatar.url(:small_square) : GravatarImageTag.gravatar_url(self.email, size: 200)
   end
 

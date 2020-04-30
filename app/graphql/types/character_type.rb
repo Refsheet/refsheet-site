@@ -3,6 +3,8 @@ Types::CharacterType = GraphQL::ObjectType.define do
 
   interfaces [Interfaces::ApplicationRecordInterface]
 
+  field :lodestone_character, Types::Lodestone::CharacterType
+
   field :custom_attributes, types[Types::AttributeType]
   field :dislikes, types.String
   field :dislikes_html, types.String

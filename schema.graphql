@@ -92,6 +92,7 @@ type Character implements ApplicationRecord {
     images: [Image]
     likes: String
     likes_html: String
+    lodestone_character: Lodestone_Character
     name: String!
     nsfw: Boolean
     path: String!
@@ -112,6 +113,14 @@ type Character implements ApplicationRecord {
     username: String!
     version: Int
     versions: [Version]
+}
+
+type CharactersCollection {
+    characters: [Character]!
+    count: Int
+    current_page: Int
+    total_entries: Int
+    total_pages: Int
 }
 
 type ChatCount {
@@ -284,6 +293,47 @@ type Json {
     json: String
 }
 
+type Lodestone_Character implements ApplicationRecord {
+    bio: String
+    created_at: Int
+    deleted_at: Int
+    diety: String
+    gc_name: String
+    gc_rank_name: String
+    id: ID
+    lodestone_id: String
+    name: String
+    nameday: String
+    portrait_url: String
+    race: Lodestone_Race
+    remote_updated_at: Int
+    server: Lodestone_Server
+    title: String
+    title_top: Boolean
+    town: String
+    tribe: String
+    updated_at: Int
+}
+
+type Lodestone_Race implements ApplicationRecord {
+    created_at: Int
+    deleted_at: Int
+    id: ID
+    lodestone_id: String
+    name: String
+    updated_at: Int
+}
+
+type Lodestone_Server implements ApplicationRecord {
+    created_at: Int
+    datacenter: String
+    deleted_at: Int
+    id: ID
+    lodestone_id: String
+    name: String
+    updated_at: Int
+}
+
 type MediaComment implements ApplicationRecord {
     comment: String!
     created_at: Int
@@ -393,6 +443,7 @@ type Mutation {
     setCharacterCoverBlob(blob: String, id: ID!): Character
     sortGalleryImage(dropBefore: Boolean, sourceImageId: ID!, targetImageId: ID!): Character
     transferCharacter(destination: String!, id: ID!): Character
+    udpateColorScheme(colorData: ThemeColorDataInput, id: ID!): Theme
     updateCharacter(color_scheme_id: ID, hidden: Boolean, id: ID!, name: String, nsfw: Boolean, shortcode: String, slug: String, special_notes: String, species: String): Character
     updateConversation(conversation_id: ID!, read: Boolean): Conversation
     updateDiscussion(content: String, id: ID!, locked: Boolean, sticky: Boolean, topic: String): ForumDiscussion
@@ -438,9 +489,12 @@ type ProfileSection {
 }
 
 type Query {
+    autocompleteCharacter(slug: String, username: String): [Character]
     autocompleteHashtags(hashtag: String!): [MediaHashtag]
+    autocompleteUser(username: String): [User]
     chatCounts: ChatCount
     findUser(username: String!): User
+    getActivity(page: Int, since: Int, type: String): [Activity]
     getArtist(slug: String!): Artist
     getCharacter(id: ID!): Character
     getCharacterByUrl(slug: String!, username: String!): Character
@@ -456,8 +510,7 @@ type Query {
     getNextModeration: Moderation
     getNotifications(page: Int): NotificationCollection
     getSession: Session
-    searchForCharacter(slug: String, username: String): [Character]
-    searchForUser(username: String): [User]
+    searchForCharacter(page: Int, query: String!): CharactersCollection
 }
 
 type RichText {
@@ -581,4 +634,16 @@ type Widget {
 
 type Youtube {
     url: String
+}
+
+input ThemeColorDataInput {
+    accent1: String
+    accent2: String
+    background: String
+    cardBackground: String
+    imageBackground: String
+    primary: String
+    text: String
+    textLight: String
+    textMedium: String
 }

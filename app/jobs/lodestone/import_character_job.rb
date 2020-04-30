@@ -93,7 +93,9 @@ class Lodestone::ImportCharacterJob < ApplicationJob
   def find_active_job(character, rc)
     rclass = rc.gear_set[:class]&.name
     class_job = character.class_jobs.find { |cj| cj.class_name.downcase == rclass }
-    class_job.assign_attributes(job_active: rc.gear_set[:job]&.name)
-    class_job
+    if class_job
+      class_job.assign_attributes(job_active: rc.gear_set[:job]&.name)
+      class_job
+    end
   end
 end
