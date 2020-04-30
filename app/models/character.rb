@@ -121,6 +121,7 @@ class Character < ApplicationRecord
                      }
 
   has_guid :shortcode, type: :token
+  has_guid :guid
   slugify :name, scope: :user_id
   scoped_search on: [:name, :species, :profile, :likes, :dislikes]
   ranks :row_order, with_same: :user_id
