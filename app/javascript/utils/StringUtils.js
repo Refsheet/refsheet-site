@@ -12,7 +12,7 @@ class StringUtils {
    * @returns {string} - iAmAString
    */
   static camelize(string) {
-    return string.replace(/(_(.))/g, ($1, $2) => $2.toUpperCase())
+    return string.replace(/(_(.))/g, ($0, $1, $2) => $2.toUpperCase())
   }
 
   /**
