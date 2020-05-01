@@ -33,7 +33,7 @@ class Summary extends Component {
       .update({
         variables: {
           ...variables,
-          id: this.props.character.shortcode,
+          id: this.props.character.id,
         },
       })
       .then(({ data, errors }) => {
@@ -105,23 +105,13 @@ class Summary extends Component {
       staticAttributes = [
         {
           id: 'race',
-          name: 'Race',
-          value: lodestone_character.race.name,
-        },
-        {
-          id: 'tribe',
-          name: 'Tribe',
-          value: lodestone_character.tribe,
+          name: 'Race / Tribe',
+          value: `${lodestone_character.race.name} / ${lodestone_character.tribe}`,
         },
         {
           id: 'server',
-          name: 'Server',
-          value: lodestone_character.server.name,
-        },
-        {
-          id: 'datacenter',
-          name: 'datacenter',
-          value: lodestone_character.server.datacenter,
+          name: 'Server / Datacenter',
+          value: `${lodestone_character.server.name} / ${lodestone_character.server.datacenter}`,
         },
       ]
     }

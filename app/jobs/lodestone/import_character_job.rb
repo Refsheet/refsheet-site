@@ -2,20 +2,33 @@ class Lodestone::ImportCharacterJob < ApplicationJob
   queue_as :default
 
   # @param [String] lodestone_id
-  def perform(character_id:, lodestone_id:)
+  def perform(character_id: nil, lodestone_id: nil, lodestone_character_id: nil)
+    character = nil
+
+    if !lodestone_character_id
+      if !character_id || !lodestone_id
+        raise ArgumentError, "character_id and lodestone_id required"
+      end
+    else
+      character = Lodestone::Character.find(lodestone_character_id)
+      character.touch
+      lodestone_id = character.lodestone_id
+      character_id = character.character.id
+    end
+
     Rails.logger.info("Fetching character #{lodestone_id} from the Lodestone...")
     xiv = XIVAPI::Client.new(api_key: ENV['XIVAPI_API_KEY'])
-    remote = xiv.character(id: lodestone_id, extended: true)
+    remote = xiv.character(id: lodestone_id, extended: true, data: %w(CJ))
     rc = remote.character
 
-    character = build_character(rc, character_id)
+    character ||= build_character(rc, character_id)
     character.server = build_server(rc)
     character.race = build_race(rc)
     character.class_jobs = build_class_jobs(character, rc)
     character.active_class_job = find_active_job(character, rc)
 
     character.save!
-    [rc, character]
+    character
   end
 
   private

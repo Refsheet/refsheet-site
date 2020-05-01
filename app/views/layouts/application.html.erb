@@ -33,14 +33,13 @@
             if (el.dataset.adsbygoogleStatus !== "done") {
               try {
                 var result = window.adsbygoogle.push({});
-                console.log("Force-initialized ads: ", result, el);
               } catch(e) {
                 console.warn(e);
               }
             }
           });
         } else {
-          console.warn("Adsbygoogle is not available yet?");
+          // console.warn("Adsbygoogle is not available yet?");
         }
       }
     </script>

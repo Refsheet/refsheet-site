@@ -6,7 +6,9 @@ import { withNamespaces } from 'react-i18next'
 import compose from '../../../../utils/compose'
 import DeleteCharacter from './DeleteCharacter'
 
-import Modal from 'v1/shared/Modal'
+import Modal from 'Styled/Modal'
+import Tabs, { Tab } from '../../../Styled/Tabs'
+import DataLink from './DataLink'
 
 class SettingsModal extends Component {
   constructor(props) {
@@ -22,6 +24,11 @@ class SettingsModal extends Component {
       if (e) e.preventDefault()
       this.setState({ view })
     }
+  }
+
+  goToTab(view) {
+    console.log({ view })
+    this.setState({ view })
   }
 
   getTitle() {
@@ -48,11 +55,20 @@ class SettingsModal extends Component {
             goTo={this.goTo.bind(this)}
           />
         )
+      case 'dataLink':
+        return (
+          <DataLink
+            character={this.props.character}
+            onSave={this.props.refetch}
+            goTo={this.goTo.bind(this)}
+          />
+        )
       default:
         return (
           <EditCharacter
             character={this.props.character}
             onSave={this.props.refetch}
+            onClose={this.props.onClose}
             goTo={this.goTo.bind(this)}
           />
         )
@@ -67,6 +83,11 @@ class SettingsModal extends Component {
         title={this.getTitle()}
         onClose={this.props.onClose}
       >
+        <Tabs onChange={this.goToTab.bind(this)}>
+          <Tab id={'settings'} title={'Settings'} />
+          <Tab id={'dataLink'} title={'Data Link'} />
+        </Tabs>
+
         {this.renderContent()}
       </Modal>
     )
