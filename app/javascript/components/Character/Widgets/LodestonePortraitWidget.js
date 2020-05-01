@@ -1,11 +1,18 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { Caption } from '../../Styled/Caption'
 
 class LodestonePortraitWidget extends Component {
   render() {
     const {
       character: { lodestone_character },
     } = this.props
+
+    if (!lodestone_character) {
+      return (
+        <Caption className={'center card-content'}>No Lodestone Link!</Caption>
+      )
+    }
 
     return (
       <img
