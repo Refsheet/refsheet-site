@@ -46,7 +46,7 @@ class TransferCharacter extends Component {
     transferCharacter({
       wrapped: true,
       variables: {
-        id: character.shortcode,
+        id: character,
         destination: this.state.destination,
       },
     })

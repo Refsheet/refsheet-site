@@ -7,18 +7,18 @@ class RichTextWidget extends Component {
     super(props)
   }
 
-  handleMarkdownChange(content) {
+  handleMarkdownChange(name, content) {
     this.props.onChange({ content })
   }
 
   render() {
-    const { contentHtml } = this.props
+    const { contentHtml, content, editing } = this.props
 
-    if (this.props.editing) {
+    if (editing) {
       return (
         <div className={'rich-text-widget editing'}>
           <MarkdownEditor
-            content={this.props.content}
+            content={content}
             onChange={this.handleMarkdownChange.bind(this)}
           />
         </div>
