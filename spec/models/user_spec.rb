@@ -52,7 +52,7 @@ describe User, type: :model do
       :favorites
     ],
     have_one: [
-      :patron,
+      :patreon_patron,
       :invitation
     ],
     validate_presence_of: [

@@ -74,9 +74,9 @@ class User < ApplicationRecord
   has_many :followed_users, through: :following, source: :following, class_name: "User"
   has_many :blocked_users
 
-  has_one  :patron, class_name: "Patreon::Patron", dependent: :nullify
+  has_one  :patreon_patron, class_name: "Patreon::Patron", dependent: :nullify
   has_one  :invitation, dependent: :destroy
-  has_many :pledges, through: :patron
+  has_many :pledges, through: :patreon_patron
 
   attr_accessor :skip_emails
 
@@ -130,6 +130,7 @@ class User < ApplicationRecord
   has_markdown_field :profile
 
   before_validation :downcase_email
+  before_validation :adjust_role_flags
   before_update :handle_email_change
   after_update :send_email_change_notice, unless: -> (u) { u.skip_emails }
   after_create :send_welcome_email, unless: -> (u) { u.skip_emails }
@@ -288,5 +289,10 @@ class User < ApplicationRecord
       invitation.claim!
       self.invitation = invitation
     end
+  end
+
+  def adjust_role_flags
+    self.supporter = self.support_pledge_amount > 0
+    self.patron = self.pledges.active.any?
   end
 end

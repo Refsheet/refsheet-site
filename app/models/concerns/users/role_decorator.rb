@@ -3,7 +3,7 @@ module Users::RoleDecorator
 
   included do
     attr_accessor :no_cache
-    scope :patrons, -> { joins(:patron).order('patreon_patrons.created_at DESC').where.not patreon_patrons: { id: nil } }
+    scope :patrons, -> { joins(:patreon_patron).order('patreon_patrons.created_at DESC').where.not patreon_patrons: { id: nil } }
     scope :with_role, -> (r) { joins(:roles).where(roles: { name: [r, Role::ADMIN] }) }
   end
 
