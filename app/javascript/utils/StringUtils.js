@@ -53,7 +53,7 @@ class StringUtils {
    */
   static humanize(string) {
     const uncamel = this.unCamelize(string)
-    return uncamel.replace(/(^([a-z])|[_.]([a-z]))/gi, (a, $0, $1, $2) =>
+    return uncamel.replace(/(^([a-z0-9])|[_.]([a-z0-9]))/gi, (a, $0, $1, $2) =>
       ($1 || ' ' + $2).toUpperCase()
     )
   }
