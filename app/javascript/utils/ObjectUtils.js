@@ -33,3 +33,29 @@ export function deepRemoveKeys(object, key) {
   Object.keys(obj).map(k => (obj[k] = deepRemoveKeys(obj[k], key)))
   return obj
 }
+
+export function flatten(object, path = '') {
+  /**
+   * @param object - { foo: { bar: "Baz" } }
+   * @return { "foo.bar" : "Baz" }
+   */
+
+  if (!object || typeof object !== 'object') {
+    return object
+  }
+
+  let out = {}
+
+  Object.keys(object).map(k => {
+    const currentPath = [path, k].filter(p => !!p).join('.')
+    const child = object[k]
+
+    if (!child || typeof child !== 'object') {
+      out[currentPath] = child
+    } else {
+      out = { ...out, ...flatten(object[k], currentPath) }
+    }
+  })
+
+  return out
+}

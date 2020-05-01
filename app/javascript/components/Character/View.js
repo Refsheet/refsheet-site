@@ -174,6 +174,7 @@ class View extends Component {
                     profileSections={character.profile_sections}
                     editable={this.state.editable}
                     refetch={this.props.refetch}
+                    character={character}
                     characterId={this.props.character.shortcode}
                   />
 
