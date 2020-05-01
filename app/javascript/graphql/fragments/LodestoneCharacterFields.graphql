@@ -26,4 +26,24 @@ fragment LodestoneCharacterFields on Lodestone_Character {
         name
         datacenter
     }
+
+    active_class_job {
+        id
+    }
+
+    class_jobs {
+        id
+        name
+        class_abbr
+        class_icon_url
+        class_name
+        job_abbr
+        job_name
+        level
+        exp_level
+        exp_level_max
+        exp_level_togo
+        specialized
+        job_active
+    }
 }

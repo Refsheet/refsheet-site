@@ -294,7 +294,9 @@ type Json {
 }
 
 type Lodestone_Character implements ApplicationRecord {
+    active_class_job: Lodestone_ClassJob
     bio: String
+    class_jobs: [Lodestone_ClassJob]
     created_at: Int
     deleted_at: Int
     diety: String
@@ -312,6 +314,26 @@ type Lodestone_Character implements ApplicationRecord {
     title_top: Boolean
     town: String
     tribe: String
+    updated_at: Int
+}
+
+type Lodestone_ClassJob implements ApplicationRecord {
+    class_abbr: String
+    class_icon_url: String
+    class_name: String
+    created_at: Int
+    deleted_at: Int
+    exp_level: Int
+    exp_level_max: Int
+    exp_level_togo: Int
+    id: ID
+    job_abbr: String
+    job_active: Boolean
+    job_name: String
+    level: Int
+    lodestone_character: Lodestone_Character
+    name: String
+    specialized: Boolean
     updated_at: Int
 }
 
