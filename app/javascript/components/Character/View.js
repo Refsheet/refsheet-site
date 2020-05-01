@@ -157,7 +157,7 @@ class View extends Component {
                     editable={this.state.editable}
                     onEditableChange={this.handleEditableChange}
                     characterVersion={character.version}
-                    characterId={character.shortcode}
+                    characterId={character.id}
                     refetch={this.props.refetch}
                     onSettingsClick={this.handleModalOpen('settings').bind(
                       this
@@ -175,7 +175,7 @@ class View extends Component {
                     editable={this.state.editable}
                     refetch={this.props.refetch}
                     character={character}
-                    characterId={this.props.character.shortcode}
+                    characterId={this.props.character.id}
                   />
 
                   {/*<Reference />*/}

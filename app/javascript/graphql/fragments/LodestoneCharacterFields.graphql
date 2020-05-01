@@ -1,0 +1,29 @@
+fragment LodestoneCharacterFields on Lodestone_Character {
+    id
+    name
+    bio
+    lodestone_id
+    nameday
+    remote_updated_at
+    portrait_url
+    title
+    title_top
+    town
+    tribe
+    diety
+    gc_name
+    gc_rank_name
+    created_at
+    updated_at
+
+    race {
+        id
+        name
+    }
+
+    server {
+        id
+        name
+        datacenter
+    }
+}

@@ -33,7 +33,7 @@ class Summary extends Component {
       .update({
         variables: {
           ...variables,
-          id: this.props.character.shortcode,
+          id: this.props.character.id,
         },
       })
       .then(({ data, errors }) => {

@@ -423,9 +423,11 @@ type Mutation {
     createColorScheme(characterId: ID, colorData: ThemeColorDataInput, name: String): Theme
     createDiscussion(content: String!, forumId: String!, locked: Boolean, sticky: Boolean, topic: String!): ForumDiscussion
     createForum: Forum
+    createLodestoneLink(characterId: ID!, lodestoneId: String!): Lodestone_Character
     createProfileSection(characterId: ID!, createAfterSectionId: ID): ProfileSection
     createProfileWidget(characterId: ID!, columnId: ID!, sectionId: ID!, type: String!): Widget
     createSession(password: String!, remember: Boolean, username: String!): Session
+    deleteLodestoneLink(characterId: ID!): Lodestone_Character
     deleteMedia(mediaId: ID!): Image
     deleteProfileSection(id: ID!): ProfileSection
     deleteProfileWidget(id: ID!): Widget
@@ -450,6 +452,7 @@ type Mutation {
     updateDiscussion(content: String, id: ID!, locked: Boolean, sticky: Boolean, topic: String): ForumDiscussion
     updateForum: Forum
     updateImage(caption: String, characterId: ID, folder: String, gravity: String, hidden: Boolean, mediaId: ID, nsfw: Boolean, source_url: String, title: String, watermark: Boolean): Image
+    updateLodestoneLink(characterId: ID!): Lodestone_Character
     updateModeration(id: ID!, resolution: String!): Moderation
     updateProfileSection(id: ID!, row_order_position: String, title: String): ProfileSection
     updateProfileWidget(column: Int, data: String, id: ID!, row_order_position: String, title: String): Widget

@@ -60,6 +60,11 @@ Types::MutationType = GraphQL::ObjectType.define do
   field :createProfileWidget, field: Mutations::ProfileWidgetMutations::Create
   field :deleteProfileWidget, field: Mutations::ProfileWidgetMutations::Delete
 
+  # Data Sources
+  field :createLodestoneLink, field: Mutations::LodestoneCharacterMutations::Create
+  field :updateLodestoneLink, field: Mutations::LodestoneCharacterMutations::Update
+  field :deleteLodestoneLink, field: Mutations::LodestoneCharacterMutations::Delete
+
   #== Forums
 
   field :createForum, field: Mutations::ForumMutations::Create

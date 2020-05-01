@@ -120,7 +120,7 @@ class UploadAvatar extends Component {
       wrapped: true,
       variables: {
         blob,
-        id: character.shortcode,
+        id: character.id,
       },
     })
       .then(({ setCharacterAvatarBlob }) => {
