@@ -5,31 +5,7 @@
 #import 'fragments/CharacterImages.graphql'
 #import 'fragments/CharacterUser.graphql'
 #import 'fragments/CharacterTheme.graphql'
-
-fragment LodestoneFields on Lodestone_Character {
-  name
-  bio
-  lodestone_id
-  nameday
-  remote_updated_at
-  portrait_url
-  title
-  title_top
-  town
-  tribe
-  diety
-  gc_name
-  gc_rank_name
-
-  race {
-    name
-  }
-
-  server {
-    name
-    datacenter
-  }
-}
+#import 'fragments/LodestoneCharacterFields.graphql'
 
 fragment DefaultCharacterFields on Character {
   ...CharacterFields
@@ -56,7 +32,7 @@ fragment DefaultCharacterFields on Character {
   cover_image_url(style: "large")
 
   lodestone_character {
-    ...LodestoneFields
+    ...LodestoneCharacterFields
   }
 }
 

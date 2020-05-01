@@ -1,0 +1,7 @@
+#import "fragments/LodestoneCharacterFields.graphql"
+
+mutation createLodestoneLink($characterId: ID!, $lodestoneId: String!) {
+    createLodestoneLink(characterId: $characterId, lodestoneId: $lodestoneId) {
+        ...LodestoneCharacterFields
+    }
+}
