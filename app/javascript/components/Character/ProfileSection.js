@@ -108,6 +108,7 @@ class ProfileSection extends Component {
 
   renderSectionColumns(columns, widgets, editable) {
     const _this = this
+    const { character } = this.props
     return columns.map(function(width, id) {
       const columnWidgets = widgets.filter(w => w.column === id)
 
@@ -119,6 +120,7 @@ class ProfileSection extends Component {
           widgets={columnWidgets}
           editable={editable}
           last={id >= columns.length - 1}
+          character={character}
           onNewClick={_this.handleNewWidgetClick(id).bind(_this)}
           onWidgetDelete={_this.handleDeletedWidget.bind(_this)}
         />

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { camelize } from 'object-utils'
+import { camelize } from 'utils/ObjectUtils'
 import widgets, { SerializerWidget } from './Widgets'
 import ProfileWidgetHeader from './ProfileWidgetHeader'
 import { Mutation } from 'react-apollo'
@@ -116,6 +116,7 @@ class ProfileWidget extends Component {
       firstColumn,
       first,
       last,
+      character,
     } = this.props
     const Widget = widgets[widgetType] || SerializerWidget
 
@@ -139,6 +140,7 @@ class ProfileWidget extends Component {
 
         <Widget
           {...camelize(data)}
+          character={character}
           onChange={this.handleWidgetChange.bind(this)}
           editing={this.state.editing}
         />

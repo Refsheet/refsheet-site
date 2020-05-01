@@ -63,7 +63,7 @@ class Profile extends Component {
   }
 
   renderProfileSections() {
-    const { editable, refetch, characterId } = this.props
+    const { editable, refetch, characterId, character } = this.props
     const [groups, groupOrder] = this.groupProfileSections()
     const render = []
 
@@ -88,6 +88,7 @@ class Profile extends Component {
             refetch={refetch}
             characterId={characterId}
             onChange={refetch}
+            character={character}
           />
         )
       })

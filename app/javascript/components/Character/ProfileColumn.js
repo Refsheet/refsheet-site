@@ -6,7 +6,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ProfileWidget from './ProfileWidget'
-import { camelize } from 'object-utils'
+import { camelize } from 'utils/ObjectUtils'
 
 const ProfileColumn = function({
   id,
@@ -16,6 +16,7 @@ const ProfileColumn = function({
   onNewClick,
   onWidgetDelete,
   last,
+  character,
 }) {
   const widgetCards = widgets
     .sort((a, b) => (a.row_order || 0) - (b.row_order || 0))
@@ -27,6 +28,7 @@ const ProfileColumn = function({
         onDelete={onWidgetDelete}
         firstColumn={id === 0}
         lastColumn={last}
+        character={character}
         first={i === 0}
         last={i >= widgets.length - 1}
       />
