@@ -274,7 +274,6 @@ const Component = createReactClass({
         slug: props.match.params.characterId,
       }
 
-      console.log('V2 in V1 bodge. Reverse this direction soon.', { props })
       return <Character {...props} />
     }
 

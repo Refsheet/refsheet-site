@@ -29,7 +29,7 @@ class Mutations::ActivityMutations < Mutations::ApplicationMutation
     character = nil
 
     if params[:character_id].present?
-      character = user.characters.find(params[:character_id])
+      character = user.characters.find_by!(guid: params[:character_id])
     end
 
     params
