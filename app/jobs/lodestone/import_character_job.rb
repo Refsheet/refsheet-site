@@ -21,7 +21,7 @@ class Lodestone::ImportCharacterJob < ApplicationJob
     remote = xiv.character(id: lodestone_id, extended: true, data: %w(CJ))
     rc = remote.character
 
-    character ||= build_character(rc, character_id)
+    character = build_character(rc, character_id)
     character.server = build_server(rc)
     character.race = build_race(rc)
     character.class_jobs = build_class_jobs(character, rc)
