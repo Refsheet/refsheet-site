@@ -6,7 +6,7 @@ module Lodestone
 
     def update?
       user && (
-        (user.supporter? && object&.character&.managed_by?(user)) ||
+        (user.supporter? && record&.character&.managed_by?(user)) ||
         user.admin?
       )
     end
