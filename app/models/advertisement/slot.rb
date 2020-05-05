@@ -12,6 +12,7 @@
 # Indexes
 #
 #  index_advertisement_slots_on_active_campaign_id    (active_campaign_id)
+#  index_advertisement_slots_on_last_impression_at    (last_impression_at)
 #  index_advertisement_slots_on_reserved_campaign_id  (reserved_campaign_id)
 #
 

@@ -11,6 +11,7 @@
 # Indexes
 #
 #  index_lodestone_races_on_lodestone_id  (lodestone_id)
+#  index_lodestone_races_on_lower_name    (lower((name)::text) varchar_pattern_ops)
 #
 
 class Lodestone::Race < ApplicationRecord

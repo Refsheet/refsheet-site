@@ -18,7 +18,12 @@
 #
 # Indexes
 #
-#  index_transfers_on_guid  (guid)
+#  index_transfers_on_character_id         (character_id)
+#  index_transfers_on_destination_user_id  (destination_user_id)
+#  index_transfers_on_guid                 (guid)
+#  index_transfers_on_item_id              (item_id)
+#  index_transfers_on_sender_user_id       (sender_user_id)
+#  index_transfers_on_status               (status)
 #
 
 FactoryBot.define do
