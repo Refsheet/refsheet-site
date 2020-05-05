@@ -13,6 +13,7 @@
 # Indexes
 #
 #  index_lodestone_servers_on_lodestone_id  (lodestone_id)
+#  index_lodestone_servers_on_lower_name    (lower((name)::text) varchar_pattern_ops)
 #
 
 require 'rails_helper'

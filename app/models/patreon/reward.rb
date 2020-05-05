@@ -14,6 +14,10 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #
+# Indexes
+#
+#  index_patreon_rewards_on_patreon_id  (patreon_id)
+#
 
 class Patreon::Reward < ApplicationRecord
   has_many :pledges, class_name: "Patreon::Pledge", foreign_key: :patreon_reward_id
