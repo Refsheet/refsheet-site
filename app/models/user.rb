@@ -295,7 +295,8 @@ class User < ApplicationRecord
   end
 
   def adjust_role_flags
-    self.supporter = self.support_pledge_amount > 0
-    self.patron = self.pledges.active.any?
+    if self.support_pledge_amount_changed?
+      self.supporter = self.support_pledge_amount > 0
+    end
   end
 end

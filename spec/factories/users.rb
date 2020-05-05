@@ -95,13 +95,12 @@ FactoryBot.define do
 
     factory :admin do
       roles {[ Role.find_or_initialize_by(name: 'admin') ]}
+      admin { true }
     end
 
     factory :patron do
-      after(:build) do |user, _evaluator|
-        user.patron_patron = create(:patreon_patron)
-        user.patron = true
-      end
+      patreon_patron { build :patreon_patron }
+      patron { true }
     end
   end
 end
