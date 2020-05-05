@@ -25,8 +25,8 @@
 # Indexes
 #
 #  index_forums_on_fandom_id     (fandom_id)
+#  index_forums_on_lower_slug    (lower((slug)::text) varchar_pattern_ops)
 #  index_forums_on_owner_id      (owner_id)
-#  index_forums_on_slug          (slug)
 #  index_forums_on_system_owned  (system_owned)
 #
 

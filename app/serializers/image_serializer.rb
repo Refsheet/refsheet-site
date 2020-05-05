@@ -35,8 +35,14 @@
 #
 # Indexes
 #
+#  index_images_on_character_id         (character_id)
 #  index_images_on_custom_watermark_id  (custom_watermark_id)
+#  index_images_on_deleted_at           (deleted_at)
+#  index_images_on_gallery_id           (gallery_id)
 #  index_images_on_guid                 (guid)
+#  index_images_on_hidden               (hidden)
+#  index_images_on_image_processing     (image_processing)
+#  index_images_on_row_order            (row_order)
 #
 
 class ImageSerializer < ActiveModel::Serializer
