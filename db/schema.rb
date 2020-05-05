@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_30_160422) do
+ActiveRecord::Schema.define(version: 2020_05_05_004300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -569,6 +569,22 @@ ActiveRecord::Schema.define(version: 2020_04_30_160422) do
     t.index ["system_owned"], name: "index_forums_on_system_owned"
   end
 
+  create_table "guestbook_entries", force: :cascade do |t|
+    t.bigint "character_id"
+    t.bigint "author_user_id"
+    t.bigint "author_character_id"
+    t.text "message"
+    t.datetime "deleted_at"
+    t.string "guid"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["author_character_id"], name: "index_guestbook_entries_on_author_character_id"
+    t.index ["author_user_id"], name: "index_guestbook_entries_on_author_user_id"
+    t.index ["character_id"], name: "index_guestbook_entries_on_character_id"
+    t.index ["deleted_at"], name: "index_guestbook_entries_on_deleted_at"
+    t.index ["guid"], name: "index_guestbook_entries_on_guid"
+  end
+
   create_table "images", id: :serial, force: :cascade do |t|
     t.integer "character_id"
     t.integer "artist_id"
@@ -1115,6 +1131,9 @@ ActiveRecord::Schema.define(version: 2020_04_30_160422) do
   add_foreign_key "conversations_read_bookmarks", "conversations"
   add_foreign_key "conversations_read_bookmarks", "conversations_messages", column: "message_id"
   add_foreign_key "conversations_read_bookmarks", "users"
+  add_foreign_key "guestbook_entries", "characters"
+  add_foreign_key "guestbook_entries", "characters", column: "author_character_id"
+  add_foreign_key "guestbook_entries", "users", column: "author_user_id"
   add_foreign_key "images", "custom_watermarks"
   add_foreign_key "lodestone_characters", "characters"
   add_foreign_key "media_tags", "characters"
