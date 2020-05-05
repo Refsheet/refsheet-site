@@ -14,6 +14,8 @@ import 'whatwg-fetch'
 import * as Sentry from '@sentry/browser'
 import $ from 'jquery'
 
+import '../scss'
+
 // TODO: Kill this after jQuery fetching is disabled.
 $.ajaxSetup({
   headers: {
