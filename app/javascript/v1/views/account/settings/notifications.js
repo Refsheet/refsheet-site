@@ -1,43 +1,13 @@
-/* do-not-disable-eslint
-    constructor-super,
-    no-constant-condition,
-    no-this-before-super,
-    no-undef,
-    react/jsx-no-undef,
-    react/no-deprecated,
-    react/react-in-jsx-scope,
-*/
-// TODO: This should be window.requestNotifications?
-/* global requestNotifications */
-
 import React from 'react'
-import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
 import * as Materialize from 'materialize-css'
 import Bowser from 'bowser'
 import Attribute from 'v1/shared/attributes/attribute'
 import AttributeTable from 'v1/shared/attributes/attribute_table'
 import Model from '../../../utils/Model'
-// TODO: This file was created by bulk-decaffeinate.
-// Fix any style issues and re-enable lint.
-/*
- * decaffeinate suggestions:
- * DS001: Remove Babel/TypeScript constructor workaround
- * DS102: Remove unnecessary code created because of implicit returns
- * DS103: Rewrite code to no longer use __guard__
- * DS206: Consider reworking classes to avoid initClass
- * DS207: Consider shorter variations of null checks
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
+import compose, { withCurrentUser } from 'utils/compose'
 
 class Notifications extends React.Component {
-  static initClass() {
-    this.contextTypes = {
-      currentUser: PropTypes.object.isRequired,
-      setCurrentUser: PropTypes.func.isRequired,
-    }
-  }
-
   constructor(props) {
     super(props)
 
@@ -45,6 +15,7 @@ class Notifications extends React.Component {
       this
     )
     this._jiggleLever = this._jiggleLever.bind(this)
+
     const bp =
       typeof Notification !== 'undefined' &&
       Notification.permission === 'granted'
@@ -78,7 +49,7 @@ class Notifications extends React.Component {
     } else {
       console.log('Requesting permissions.')
       const __this = this
-      return requestNotifications(() =>
+      return window.requestNotifications(() =>
         Notification.requestPermission(function(permission) {
           if (permission !== 'granted') {
             return
@@ -118,7 +89,7 @@ class Notifications extends React.Component {
       return false
     }
 
-    return requestNotifications(() => {
+    return window.requestNotifications(() => {
       return navigator.serviceWorker.ready.then(registration => {
         return registration.pushManager.getSubscription().then(subscription => {
           console.debug('Got subscription:', subscription)
@@ -132,7 +103,7 @@ class Notifications extends React.Component {
             '/account/notifications/browser_push',
             { subscription: subscription.toJSON(), nickname: browserName },
             data => {
-              this.context.setCurrentUser(data)
+              this.props.setCurrentUser(data)
               return this.setState({ browserGranted: true }, callback)
             }
           )
@@ -141,23 +112,25 @@ class Notifications extends React.Component {
     })
   }
 
-  renderSubscriptions() {
-    return __guard__(
-      __guard__(
-        this.context.currentUser.settings != null
-          ? this.context.currentUser.settings.notifications
-          : undefined,
-        x1 => x1.vapid
-      ),
-      x =>
-        x.map(browser => {
-          if (!browser) {
-            return null
-          }
-          const value = browser.nickname || browser.auth
-          return <Attribute key={browser.auth} name="Browser" value={value} />
-        })
+  getVapidSettings() {
+    const { currentUser } = this.props
+    return (
+      (currentUser &&
+        currentUser.settings &&
+        currentUser.settings.notifications &&
+        currentUser.settings.notifications.vapid) ||
+      []
     )
+  }
+
+  renderSubscriptions() {
+    this.getVapidSettings().map(browser => {
+      if (!browser) {
+        return null
+      }
+      const value = browser.nickname || browser.auth
+      return <Attribute key={browser.auth} name="Browser" value={value} />
+    })
   }
 
   render() {
@@ -165,15 +138,7 @@ class Notifications extends React.Component {
       typeof Notification !== 'undefined' && navigator.serviceWorker
     const browserEnabled = this.state.browserGranted
     const canRegister = browserSupported && !browserEnabled
-    const userRegistered = __guard__(
-      __guard__(
-        this.context.currentUser.settings != null
-          ? this.context.currentUser.settings.notifications
-          : undefined,
-        x1 => x1.vapid
-      ),
-      x => x.length
-    )
+    const userRegistered = this.getVapidSettings().length
 
     const vapidSettings = (
       <div className="card sp margin-bottom--none">
@@ -186,7 +151,7 @@ class Notifications extends React.Component {
             Browser push notifications are VERY experimental! If you've enabled
             them and they don't seem to be working, you can try poking "fix it".
             You should see a notification after you enable or fix. If you don't,{' '}
-            <a href="mailto:mau@refsheet.net">yell at Mau</a>.
+            <a href="mailto:mau@refsheet.net">very politely email Mau</a>.
           </p>
 
           <AttributeTable>
@@ -228,12 +193,5 @@ class Notifications extends React.Component {
     return <div>{vapidSettings}</div>
   }
 }
-Notifications.initClass()
 
-function __guard__(value, transform) {
-  return typeof value !== 'undefined' && value !== null
-    ? transform(value)
-    : undefined
-}
-
-export default Notifications
+export default compose(withCurrentUser(true))(Notifications)

@@ -3,6 +3,7 @@ import { Mutation } from 'react-apollo'
 import { connect } from 'react-redux'
 import M from 'materialize-css'
 import { deepRemoveKeys } from './ObjectUtils'
+import { setCurrentUser } from '../actions'
 
 function compose() {
   return component => {
@@ -115,13 +116,21 @@ function withMutations(mutations) {
   }
 }
 
-function withCurrentUser() {
+function withCurrentUser(set = false) {
   const mapStateToProps = (state, props) => ({
     currentUser: state.session.currentUser,
     ...props,
   })
 
-  return connect(mapStateToProps)
+  let mapDispatchToProps
+
+  if (set) {
+    mapDispatchToProps = {
+      setCurrentUser,
+    }
+  }
+
+  return connect(mapStateToProps, mapDispatchToProps)
 }
 
 export { withMutations, withCurrentUser }
