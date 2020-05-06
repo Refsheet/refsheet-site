@@ -5,6 +5,10 @@
 #  id   :integer          not null, primary key
 #  name :string
 #
+# Indexes
+#
+#  index_roles_on_name  (name)
+#
 
 class Role < ApplicationRecord
   has_many :permissions
