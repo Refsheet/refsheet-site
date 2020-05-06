@@ -11,6 +11,10 @@
 #  updated_at       :datetime         not null
 #  auth_code_digest :string
 #
+# Indexes
+#
+#  index_invitations_on_lower_email  (lower((email)::text) varchar_pattern_ops)
+#
 
 class Invitation < ApplicationRecord
   belongs_to :user

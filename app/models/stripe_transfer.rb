@@ -16,10 +16,11 @@
 #
 # Indexes
 #
-#  index_payment_transfers_on_order_id    (order_id)
-#  index_payment_transfers_on_payment_id  (payment_id)
-#  index_payment_transfers_on_seller_id   (seller_id)
-#  index_payment_transfers_on_type        (type)
+#  index_payment_transfers_on_order_id      (order_id)
+#  index_payment_transfers_on_payment_id    (payment_id)
+#  index_payment_transfers_on_processor_id  (processor_id)
+#  index_payment_transfers_on_seller_id     (seller_id)
+#  index_payment_transfers_on_type          (type)
 #
 
 class StripeTransfer < PaymentTransfer

@@ -10,6 +10,11 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+# Indexes
+#
+#  index_color_schemes_on_guid     (guid)
+#  index_color_schemes_on_user_id  (user_id)
+#
 
 require 'rails_helper'
 
@@ -50,5 +55,14 @@ describe ColorScheme, type: :model do
   it 'does not clobber ["id"]' do
     s = create :color_scheme
     expect(s['id']).to eq s.id
+  end
+
+  it 'merges' do
+    s = create :color_scheme
+    s.merge(test_color: '#00FF00')
+    expect(s).to be_valid
+    s.save!
+    s.reload
+    expect(s[:testColor]).to eq '#00FF00'
   end
 end

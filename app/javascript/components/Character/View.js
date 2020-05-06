@@ -108,6 +108,7 @@ class View extends Component {
             <ColorModal
               onClose={this.handleModalClose('color').bind(this)}
               colorScheme={character.theme}
+              characterId={character.id}
               colorSchemeOverride={this.state.colorSchemeOverride}
               onChange={this.handleColorSchemeOverride.bind(this)}
             />
@@ -156,7 +157,7 @@ class View extends Component {
                     editable={this.state.editable}
                     onEditableChange={this.handleEditableChange}
                     characterVersion={character.version}
-                    characterId={character.shortcode}
+                    characterId={character.id}
                     refetch={this.props.refetch}
                     onSettingsClick={this.handleModalOpen('settings').bind(
                       this
@@ -173,7 +174,8 @@ class View extends Component {
                     profileSections={character.profile_sections}
                     editable={this.state.editable}
                     refetch={this.props.refetch}
-                    characterId={this.props.character.shortcode}
+                    character={character}
+                    characterId={this.props.character.id}
                   />
 
                   {/*<Reference />*/}

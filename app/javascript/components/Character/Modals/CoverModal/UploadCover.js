@@ -119,7 +119,7 @@ class UploadCover extends Component {
       wrapped: true,
       variables: {
         blob,
-        id: character.shortcode,
+        id: character.id,
       },
     })
       .then(({ setCharacterCoverBlob }) => {

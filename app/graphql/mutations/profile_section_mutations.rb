@@ -52,7 +52,7 @@ class Mutations::ProfileSectionMutations < Mutations::ApplicationMutation
   end
 
   def get_character
-    @character = Character.find_by!(shortcode: params[:characterId])
+    @character = Character.find_by!(guid: params[:characterId])
     authorize! @character.managed_by? current_user
   end
 

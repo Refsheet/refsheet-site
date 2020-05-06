@@ -1,4 +1,4 @@
-import { Tabs as MaterialTabs } from 'react-materialize'
+import { default as MaterialTabs, Tab as MaterialTab } from 'Shared/Tabs'
 import styled from 'styled-components'
 
 const Tabs = styled(MaterialTabs)`
@@ -24,5 +24,9 @@ const Tabs = styled(MaterialTabs)`
     background-color: ${props => props.theme.primary};
   }
 `
+
+const Tab = styled(MaterialTab)``
+
+export { Tab }
 
 export default Tabs

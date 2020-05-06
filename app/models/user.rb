@@ -31,10 +31,13 @@
 #
 # Indexes
 #
-#  index_users_on_deleted_at      (deleted_at)
-#  index_users_on_guid            (guid)
-#  index_users_on_parent_user_id  (parent_user_id)
-#  index_users_on_type            (type)
+#  index_users_on_deleted_at               (deleted_at)
+#  index_users_on_guid                     (guid)
+#  index_users_on_lower_email              (lower((email)::text) varchar_pattern_ops)
+#  index_users_on_lower_unconfirmed_email  (lower((unconfirmed_email)::text) varchar_pattern_ops)
+#  index_users_on_lower_username           (lower((username)::text) varchar_pattern_ops)
+#  index_users_on_parent_user_id           (parent_user_id)
+#  index_users_on_type                     (type)
 #
 
 class User < ApplicationRecord
@@ -74,9 +77,9 @@ class User < ApplicationRecord
   has_many :followed_users, through: :following, source: :following, class_name: "User"
   has_many :blocked_users
 
-  has_one  :patron, class_name: "Patreon::Patron", dependent: :nullify
+  has_one  :patreon_patron, class_name: "Patreon::Patron", dependent: :nullify
   has_one  :invitation, dependent: :destroy
-  has_many :pledges, through: :patron
+  has_many :pledges, through: :patreon_patron
 
   attr_accessor :skip_emails
 
@@ -130,6 +133,7 @@ class User < ApplicationRecord
   has_markdown_field :profile
 
   before_validation :downcase_email
+  before_validation :adjust_role_flags
   before_update :handle_email_change
   after_update :send_email_change_notice, unless: -> (u) { u.skip_emails }
   after_create :send_welcome_email, unless: -> (u) { u.skip_emails }
@@ -287,6 +291,12 @@ class User < ApplicationRecord
       invitation.user = self
       invitation.claim!
       self.invitation = invitation
+    end
+  end
+
+  def adjust_role_flags
+    if self.support_pledge_amount_changed?
+      self.supporter = self.support_pledge_amount > 0
     end
   end
 end

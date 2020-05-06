@@ -7,7 +7,7 @@ describe Mutations::ImageMutations do
 
   let(:query) { <<-GRAPHQL }
     mutation {
-      uploadImage(characterId: "#{character.id}", title: "Image of John Doe", location: "https://test.com/image.png") {
+      uploadImage(characterId: "#{character.guid}", title: "Image of John Doe", location: "https://test.com/image.png") {
         id title
       }
     }

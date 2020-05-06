@@ -294,7 +294,9 @@ type Json {
 }
 
 type Lodestone_Character implements ApplicationRecord {
+    active_class_job: Lodestone_ClassJob
     bio: String
+    class_jobs: [Lodestone_ClassJob]
     created_at: Int
     deleted_at: Int
     diety: String
@@ -312,6 +314,26 @@ type Lodestone_Character implements ApplicationRecord {
     title_top: Boolean
     town: String
     tribe: String
+    updated_at: Int
+}
+
+type Lodestone_ClassJob implements ApplicationRecord {
+    class_abbr: String
+    class_icon_url: String
+    class_name: String
+    created_at: Int
+    deleted_at: Int
+    exp_level: Int
+    exp_level_max: Int
+    exp_level_togo: Int
+    id: ID
+    job_abbr: String
+    job_active: Boolean
+    job_name: String
+    level: Int
+    lodestone_character: Lodestone_Character
+    name: String
+    specialized: Boolean
     updated_at: Int
 }
 
@@ -420,11 +442,14 @@ type Mutation {
     convertCharacter(id: ID!): Character
     createActivity(character_id: ID, comment: String): Activity
     createApiKey(name: String, read_only: Boolean): ApiKey
+    createColorScheme(characterId: ID, colorData: ThemeColorDataInput, name: String): Theme
     createDiscussion(content: String!, forumId: String!, locked: Boolean, sticky: Boolean, topic: String!): ForumDiscussion
     createForum: Forum
+    createLodestoneLink(characterId: ID!, lodestoneId: String!): Lodestone_Character
     createProfileSection(characterId: ID!, createAfterSectionId: ID): ProfileSection
     createProfileWidget(characterId: ID!, columnId: ID!, sectionId: ID!, type: String!): Widget
     createSession(password: String!, remember: Boolean, username: String!): Session
+    deleteLodestoneLink(characterId: ID!): Lodestone_Character
     deleteMedia(mediaId: ID!): Image
     deleteProfileSection(id: ID!): ProfileSection
     deleteProfileWidget(id: ID!): Widget
@@ -443,12 +468,13 @@ type Mutation {
     setCharacterCoverBlob(blob: String, id: ID!): Character
     sortGalleryImage(dropBefore: Boolean, sourceImageId: ID!, targetImageId: ID!): Character
     transferCharacter(destination: String!, id: ID!): Character
-    udpateColorScheme(colorData: ThemeColorDataInput, id: ID!): Theme
+    udpateColorScheme(colorData: ThemeColorDataInput, id: ID!, name: String): Theme
     updateCharacter(color_scheme_id: ID, hidden: Boolean, id: ID!, name: String, nsfw: Boolean, shortcode: String, slug: String, special_notes: String, species: String): Character
     updateConversation(conversation_id: ID!, read: Boolean): Conversation
     updateDiscussion(content: String, id: ID!, locked: Boolean, sticky: Boolean, topic: String): ForumDiscussion
     updateForum: Forum
     updateImage(caption: String, characterId: ID, folder: String, gravity: String, hidden: Boolean, mediaId: ID, nsfw: Boolean, source_url: String, title: String, watermark: Boolean): Image
+    updateLodestoneLink(characterId: ID!): Lodestone_Character
     updateModeration(id: ID!, resolution: String!): Moderation
     updateProfileSection(id: ID!, row_order_position: String, title: String): ProfileSection
     updateProfileWidget(column: Int, data: String, id: ID!, row_order_position: String, title: String): Widget

@@ -61,7 +61,7 @@ class UploadModal extends Component {
 
   setCharacter(character) {
     this.setState({ characterId: character.id, identityModalOpen: false })
-    console.error('setCharacter(' + this.state.characterId + ')')
+    console.debug('setCharacter(' + this.state.characterId + ')')
   }
 
   handleChangeCharacterClick(e) {
@@ -83,7 +83,7 @@ class UploadModal extends Component {
 
   selectNextImage() {
     if (this.props.files.length === 0) {
-      console.log('Clearing active image.')
+      console.debug('Clearing active image.')
       return this.setActiveImage(null)
     }
 

@@ -51,6 +51,20 @@ class NewWidgetModal extends Component {
         description: 'Add a Youtube video as a widget.',
         accessLevel: 5,
       },
+      {
+        name: 'Lodestone Class / Job Data',
+        type: 'LodestoneClassJob',
+        description:
+          "If synced, a place to show off your FFXIV character's class and job!",
+        accessLevel: 5,
+      },
+      {
+        name: 'Lodestone Portrait',
+        type: 'LodestonePortrait',
+        description:
+          "Display and capture your character's most recent Lodestone selfie!",
+        accessLevel: 5,
+      },
     ]
 
     return (
