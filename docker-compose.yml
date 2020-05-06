@@ -22,7 +22,21 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     ports:
-      - '3200:5000'
+      - '3200:3200'
+    volumes:
+      - '.:/app'
+      - 'bundle:/usr/local/bundle'
+    env_file:
+      - '.env'
+    environment:
+      PORT: 3200
+      FORMATION: web=1
+
+  webpacker:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
       - '3035:3035'
     volumes:
       - '.:/app'
@@ -30,7 +44,7 @@ services:
     env_file:
       - '.env'
     environment:
-      FORMATION: web=1,webpacker=1
+      FORMATION: webpacker=1
 
   nginx:
     depends_on:
@@ -39,7 +53,7 @@ services:
       context: .
       dockerfile: .nginx/Dockerfile
     ports:
-      - '5000:3200'
+      - '5000:5000'
     volumes:
       - './public:/app/public'
     env_file:
