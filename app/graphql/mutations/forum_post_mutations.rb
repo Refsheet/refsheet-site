@@ -80,7 +80,7 @@ module Mutations
       character = nil
 
       if params[:characterId]
-        character = user.characters.find(params[:characterId])
+        character = user.characters.find_by!(guid: params[:characterId])
       end
 
       params

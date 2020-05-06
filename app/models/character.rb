@@ -29,6 +29,18 @@
 #  deleted_at        :datetime
 #  custom_attributes :text
 #  version           :integer          default(1)
+#  guid              :string
+#
+# Indexes
+#
+#  index_characters_on_deleted_at       (deleted_at)
+#  index_characters_on_guid             (guid)
+#  index_characters_on_hidden           (hidden)
+#  index_characters_on_lower_name       (lower((name)::text) varchar_pattern_ops)
+#  index_characters_on_lower_shortcode  (lower((shortcode)::text))
+#  index_characters_on_lower_slug       (lower((slug)::text) varchar_pattern_ops)
+#  index_characters_on_secret           (secret)
+#  index_characters_on_user_id          (user_id)
 #
 
 class Character < ApplicationRecord
@@ -74,9 +86,12 @@ class Character < ApplicationRecord
             presence: true,
             format: { with: /[a-z0-9]/i, message: 'must have at least one letter or number' }
 
+  validates_uniqueness_of :shortcode
+
   validate :validate_profile_image
   validate :validate_featured_image
 
+  before_validation :initialize_shortcode
   before_validation :initiate_transfer, if: -> (c) { c.transfer_to_user.present? }
   before_create :initialize_custom_attributes
   after_create :create_default_sections, if: -> (c) { c.version == 2 }
@@ -120,7 +135,7 @@ class Character < ApplicationRecord
                          large: { fit: [1280, 1280] },
                      }
 
-  has_guid :shortcode, type: :token
+  has_guid :guid
   slugify :name, scope: :user_id
   scoped_search on: [:name, :species, :profile, :likes, :dislikes]
   ranks :row_order, with_same: :user_id
@@ -335,6 +350,28 @@ class Character < ApplicationRecord
         { id: 'height', name: 'Height / Weight', value: nil },
         { id: 'body-type', name: 'Body Type', value: nil }
     ] if !self.custom_attributes || self.custom_attributes.count == 0
+  end
+
+  def initialize_shortcode
+    if self.shortcode.blank?
+      attempts = 0
+      shortcode = nil
+
+      begin
+        shortcode = Sluggable.to_slug(self.name, attempts > 0 ? attempts : nil)
+      rescue ActiveRecord::RecordNotUnique => e
+        Rails.logger.warn(e)
+        if attempts < 15
+          retry
+        end
+      end
+
+      if shortcode.nil?
+        self.errors.add(:shortcode, "should be unique")
+      else
+        self.shortcode = shortcode
+      end
+    end
   end
 
   def create_default_sections

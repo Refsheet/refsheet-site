@@ -27,7 +27,7 @@ class DeleteCharacter extends Component {
 
     const {
       archiveCharacter,
-      character: { shortcode: id, username },
+      character: { id, username },
       t,
       history,
     } = this.props

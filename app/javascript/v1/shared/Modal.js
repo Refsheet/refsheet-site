@@ -123,6 +123,7 @@ export default Modal = createReactClass({
         }
         key={action.name}
         onClick={action.action}
+        disabled={action.disabled}
       >
         {action.name}
       </Button>

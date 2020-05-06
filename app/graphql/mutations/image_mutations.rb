@@ -78,7 +78,7 @@ class Mutations::ImageMutations < Mutations::ApplicationMutation
   end
 
   def get_character
-    @character = Character.find(params[:characterId])
+    @character = Character.find_by!(guid: params[:characterId])
     authorize! @character.managed_by? current_user
     @character
   end

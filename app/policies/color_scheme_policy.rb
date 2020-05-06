@@ -1,5 +1,9 @@
 class ColorSchemePolicy < ApplicationPolicy
   def update?
-    record.user_id == user.id || user.admin?
+    user && (record.user_id == user.id || user.admin?)
+  end
+
+  def create?
+    !!user
   end
 end

@@ -28,9 +28,13 @@ class Characters::ProfileWidget < ApplicationRecord
   module Types
     RICH_TEXT = 'RichText'
     YOUTUBE = 'Youtube'
+    LODESTONE_CLASS_JOB = 'LodestoneClassJob'
+    LODESTONE_PORTRAIT = 'LodestonePortrait'
 
     PREMIUM_LEVELS = {
-        YOUTUBE => User::SupporterLevel::GOLD
+        YOUTUBE => SupporterLevel::GOLD,
+        LODESTONE_CLASS_JOB => SupporterLevel::GOLD,
+        LODESTONE_PORTRAIT => SupporterLevel::GOLD,
     }
   end
 
@@ -86,10 +90,6 @@ class Characters::ProfileWidget < ApplicationRecord
 
   def serialize_rich_text_widget
     content = data[:content]&.to_md
-
-    Rails.logger.info(content.inspect)
-    Rails.logger.info(content)
-
     self.data[:content_html] = content&.to_html
   end
 

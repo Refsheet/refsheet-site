@@ -42,4 +42,8 @@ export const MutedAnchor = styled.a`
   }
 `
 
+export const TextLight = styled.span`
+  color: ${props => props.theme.textLight};
+`
+
 export default Muted
