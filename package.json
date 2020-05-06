@@ -34,6 +34,7 @@
     "magic-snowflakes": "^4.0.2",
     "materialize-css": "^1.0.0-beta",
     "moment": "^2.22.2",
+    "node-sass-glob-importer": "^5.3.2",
     "prop-types": "^15.7.2",
     "query-string": "^6.2.0",
     "rails-erb-loader": "^5.4.1",

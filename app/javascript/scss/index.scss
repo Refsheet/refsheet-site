@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+@import '~materialize-css/sass/components/color-variables';
+@import '~materialize-css/sass/components/variables';
+@import '../scss/_variables';
+@import '~materialize-css/sass/materialize';
+
+@import '../../assets/stylesheets/shared/*.sass';
+@import '../../assets/stylesheets/components/**/*.sass';
+@import '../scss/*.sass';
