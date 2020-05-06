@@ -21,10 +21,12 @@
 #  gc_rank_name        :string
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  character_id        :bigint
 #
 # Indexes
 #
 #  index_lodestone_characters_on_active_class_job_id  (active_class_job_id)
+#  index_lodestone_characters_on_character_id         (character_id)
 #  index_lodestone_characters_on_lodestone_id         (lodestone_id)
 #  index_lodestone_characters_on_race_id              (race_id)
 #  index_lodestone_characters_on_server_id            (server_id)

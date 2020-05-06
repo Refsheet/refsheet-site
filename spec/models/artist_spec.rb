@@ -20,9 +20,10 @@
 #
 # Indexes
 #
-#  index_artists_on_guid     (guid)
-#  index_artists_on_slug     (slug)
-#  index_artists_on_user_id  (user_id)
+#  index_artists_on_guid        (guid)
+#  index_artists_on_lower_name  (lower((name)::text) varchar_pattern_ops)
+#  index_artists_on_lower_slug  (lower((slug)::text) varchar_pattern_ops)
+#  index_artists_on_user_id     (user_id)
 #
 
 require 'rails_helper'

@@ -31,10 +31,13 @@
 #
 # Indexes
 #
-#  index_users_on_deleted_at      (deleted_at)
-#  index_users_on_guid            (guid)
-#  index_users_on_parent_user_id  (parent_user_id)
-#  index_users_on_type            (type)
+#  index_users_on_deleted_at               (deleted_at)
+#  index_users_on_guid                     (guid)
+#  index_users_on_lower_email              (lower((email)::text) varchar_pattern_ops)
+#  index_users_on_lower_unconfirmed_email  (lower((unconfirmed_email)::text) varchar_pattern_ops)
+#  index_users_on_lower_username           (lower((username)::text) varchar_pattern_ops)
+#  index_users_on_parent_user_id           (parent_user_id)
+#  index_users_on_type                     (type)
 #
 
 FactoryBot.define do
@@ -92,13 +95,12 @@ FactoryBot.define do
 
     factory :admin do
       roles {[ Role.find_or_initialize_by(name: 'admin') ]}
+      admin { true }
     end
 
     factory :patron do
-      after(:build) do |user, _evaluator|
-        user.patron_patron = create(:patreon_patron)
-        user.patron = true
-      end
+      patreon_patron { build :patreon_patron }
+      patron { true }
     end
   end
 end
