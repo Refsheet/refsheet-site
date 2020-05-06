@@ -14,8 +14,9 @@
 #
 # Indexes
 #
-#  index_api_keys_on_guid     (guid)
-#  index_api_keys_on_user_id  (user_id)
+#  index_api_keys_on_deleted_at  (deleted_at)
+#  index_api_keys_on_guid        (guid)
+#  index_api_keys_on_user_id     (user_id)
 #
 
 require 'rails_helper'

@@ -13,8 +13,24 @@ feature 'Timeline', js: true do
     expect(page).to have_content "ACTIVITY FEED"
   end
 
-  context "when supporter" do
+  context "when admin" do
     let(:user) { create :admin }
+
+    it 'renders status box' do
+      expect(page).to have_content "As: #{user.name}"
+    end
+  end
+
+  context "when patron" do
+    let(:user) { create :patron }
+
+    it 'renders status box' do
+      expect(page).to have_content "As: #{user.name}"
+    end
+  end
+
+  context "when supporter" do
+    let(:user) { create :user, support_pledge_amount: 5 }
 
     it 'renders status box' do
       expect(page).to have_content "As: #{user.name}"

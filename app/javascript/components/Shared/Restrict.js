@@ -31,12 +31,14 @@ const Restrict = ({
     hide = true
   }
 
-  if (admin && !is_admin) {
-    hide = true
-  }
+  if (!is_admin) {
+    if (admin) {
+      hide = true
+    }
 
-  if (patron && !is_patron && !is_supporter) {
-    hide = true
+    if (patron && !is_patron && !is_supporter) {
+      hide = true
+    }
   }
 
   if (invert) {
