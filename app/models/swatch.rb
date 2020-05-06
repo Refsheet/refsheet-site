@@ -12,6 +12,12 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
+# Indexes
+#
+#  index_swatches_on_character_id  (character_id)
+#  index_swatches_on_guid          (guid)
+#  index_swatches_on_row_order     (row_order)
+#
 
 class Swatch < ApplicationRecord
   include HasGuid
