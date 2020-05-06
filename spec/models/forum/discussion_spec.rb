@@ -22,13 +22,13 @@
 #
 # Indexes
 #
-#  index_forum_threads_on_character_id  (character_id)
-#  index_forum_threads_on_forum_id      (forum_id)
-#  index_forum_threads_on_karma_total   (karma_total)
-#  index_forum_threads_on_shortcode     (shortcode)
-#  index_forum_threads_on_slug          (slug)
-#  index_forum_threads_on_sticky        (sticky)
-#  index_forum_threads_on_user_id       (user_id)
+#  index_forum_threads_on_character_id     (character_id)
+#  index_forum_threads_on_forum_id         (forum_id)
+#  index_forum_threads_on_karma_total      (karma_total)
+#  index_forum_threads_on_lower_shortcode  (lower((shortcode)::text))
+#  index_forum_threads_on_lower_slug       (lower((slug)::text) varchar_pattern_ops)
+#  index_forum_threads_on_sticky           (sticky)
+#  index_forum_threads_on_user_id          (user_id)
 #
 
 require 'rails_helper'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_23_210313) do
+ActiveRecord::Schema.define(version: 2020_04_30_160422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -330,10 +330,12 @@ ActiveRecord::Schema.define(version: 2020_04_23_210313) do
     t.datetime "deleted_at"
     t.text "custom_attributes"
     t.integer "version", default: 1
+    t.string "guid"
     t.index "lower((name)::text) varchar_pattern_ops", name: "index_characters_on_lower_name"
     t.index "lower((shortcode)::text)", name: "index_characters_on_lower_shortcode"
     t.index "lower((slug)::text) varchar_pattern_ops", name: "index_characters_on_lower_slug"
     t.index ["deleted_at"], name: "index_characters_on_deleted_at"
+    t.index ["guid"], name: "index_characters_on_guid"
     t.index ["hidden"], name: "index_characters_on_hidden"
     t.index ["secret"], name: "index_characters_on_secret"
     t.index ["user_id"], name: "index_characters_on_user_id"

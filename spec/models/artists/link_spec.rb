@@ -17,6 +17,7 @@
 #
 #  index_artists_links_on_approved_by_id   (approved_by_id)
 #  index_artists_links_on_artist_id        (artist_id)
+#  index_artists_links_on_guid             (guid)
 #  index_artists_links_on_submitted_by_id  (submitted_by_id)
 #
 

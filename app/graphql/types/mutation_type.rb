@@ -41,6 +41,7 @@ Types::MutationType = GraphQL::ObjectType.define do
 
   # Color Scheme
   field :udpateColorScheme, field: Mutations::ColorSchemeMutations::Update
+  field :createColorScheme, field: Mutations::ColorSchemeMutations::Create
 
   # Upload Mutations
   field :setCharacterAvatarBlob, field: Mutations::CharacterMutations::SetAvatarBlob
@@ -58,6 +59,11 @@ Types::MutationType = GraphQL::ObjectType.define do
   field :updateProfileWidget, field: Mutations::ProfileWidgetMutations::Update
   field :createProfileWidget, field: Mutations::ProfileWidgetMutations::Create
   field :deleteProfileWidget, field: Mutations::ProfileWidgetMutations::Delete
+
+  # Data Sources
+  field :createLodestoneLink, field: Mutations::LodestoneCharacterMutations::Create
+  field :updateLodestoneLink, field: Mutations::LodestoneCharacterMutations::Update
+  field :deleteLodestoneLink, field: Mutations::LodestoneCharacterMutations::Delete
 
   #== Forums
 

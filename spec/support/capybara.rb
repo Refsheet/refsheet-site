@@ -40,7 +40,8 @@ end
 
 class JavascriptError < StandardError; end
 
-Webdrivers::Chromedriver.required_version = "81.0.4044.69"
+# ugh...
+# Webdrivers::Chromedriver.required_version = "81.0.4044.69"
 
 Capybara.register_driver :chrome do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome)

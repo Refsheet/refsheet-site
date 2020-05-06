@@ -16,7 +16,9 @@
 #
 # Indexes
 #
-#  index_payments_on_type  (type)
+#  index_payments_on_order_id      (order_id)
+#  index_payments_on_processor_id  (processor_id)
+#  index_payments_on_type          (type)
 #
 
 class StripePayment < Payment

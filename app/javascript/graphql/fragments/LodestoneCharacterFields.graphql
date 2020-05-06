@@ -1,0 +1,49 @@
+fragment LodestoneCharacterFields on Lodestone_Character {
+    id
+    name
+    bio
+    lodestone_id
+    nameday
+    remote_updated_at
+    portrait_url
+    title
+    title_top
+    town
+    tribe
+    diety
+    gc_name
+    gc_rank_name
+    created_at
+    updated_at
+
+    race {
+        id
+        name
+    }
+
+    server {
+        id
+        name
+        datacenter
+    }
+
+    active_class_job {
+        id
+    }
+
+    class_jobs {
+        id
+        name
+        class_abbr
+        class_icon_url
+        class_name
+        job_abbr
+        job_name
+        level
+        exp_level
+        exp_level_max
+        exp_level_togo
+        specialized
+        job_active
+    }
+}

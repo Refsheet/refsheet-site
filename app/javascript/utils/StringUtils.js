@@ -12,10 +12,10 @@ class StringUtils {
    * @returns {string} - iAmAString
    */
   static camelize(string) {
-    return string
-      .toLowerCase()
-      .replace(/_(.)/g, $1 => $1.toUpperCase())
-      .replace(/_/g, '')
+    return string.replace(
+      /(([a-z0-9])_(.))/g,
+      ($0, $1, $2, $3) => $2 + $3.toUpperCase()
+    )
   }
 
   /**
@@ -43,6 +43,18 @@ class StringUtils {
     return string.replace(
       /([a-z])([A-Z])/g,
       (a, $0, $1) => $0 + '_' + $1.toLowerCase()
+    )
+  }
+
+  /**
+   * Humanize a string.
+   * @param string {string} - iAmAString
+   * @returns {string} - I Am A String
+   */
+  static humanize(string) {
+    const uncamel = this.unCamelize(string)
+    return uncamel.replace(/(^([a-z0-9])|[_.]([a-z0-9]))/gi, (a, $0, $1, $2) =>
+      ($1 || ' ' + $2).toUpperCase()
     )
   }
 

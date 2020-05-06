@@ -5,6 +5,10 @@
 #  id   :integer          not null, primary key
 #  name :string
 #
+# Indexes
+#
+#  index_roles_on_name  (name)
+#
 
 require 'rails_helper'
 
