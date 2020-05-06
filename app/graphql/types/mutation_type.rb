@@ -81,4 +81,7 @@ Types::MutationType = GraphQL::ObjectType.define do
 
   # Activity Feed
   field :createActivity, field: Mutations::ActivityMutations::Create
+
+  # Guestbook
+  field :createGuestbookEntry, field: Mutations::GuestbookEntryMutations::Create
 end

@@ -74,6 +74,8 @@ class Character < ApplicationRecord
   # Remote Links
   has_one :lodestone_character, class_name: "Lodestone::Character"
 
+  has_many :guestbook_entries
+
   # counter_culture :user
 
   accepts_nested_attributes_for :color_scheme

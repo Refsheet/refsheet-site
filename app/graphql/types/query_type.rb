@@ -114,6 +114,10 @@ Types::QueryType = GraphQL::ObjectType.define do
     }
   end
 
+  # Guestbook
+
+  field :getGuestbookEntries, field: Mutations::GuestbookEntryMutations::Index
+
   #== AUTOCOMPLETE
 
   field :autocompleteUser, field: Mutations::UserMutations::Autocomplete
