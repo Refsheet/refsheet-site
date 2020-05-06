@@ -80,8 +80,7 @@ const Component = createReactClass({
 
     if (
       this.state.character &&
-      (prevState.character || {}).id !==
-        (this.state.character || {}).id
+      (prevState.character || {}).id !== (this.state.character || {}).id
     ) {
       this.props.setUploadTarget(this.state.character.id)
 
