@@ -16,8 +16,10 @@
 #
 # Indexes
 #
-#  index_character_groups_on_slug     (slug)
-#  index_character_groups_on_user_id  (user_id)
+#  index_character_groups_on_hidden     (hidden)
+#  index_character_groups_on_row_order  (row_order)
+#  index_character_groups_on_slug       (slug)
+#  index_character_groups_on_user_id    (user_id)
 #
 
 class CharacterGroup < ApplicationRecord

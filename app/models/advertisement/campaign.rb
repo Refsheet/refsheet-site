@@ -27,8 +27,10 @@
 #
 # Indexes
 #
-#  index_advertisement_campaigns_on_guid     (guid)
-#  index_advertisement_campaigns_on_user_id  (user_id)
+#  index_advertisement_campaigns_on_ends_at    (ends_at)
+#  index_advertisement_campaigns_on_guid       (guid)
+#  index_advertisement_campaigns_on_starts_at  (starts_at)
+#  index_advertisement_campaigns_on_user_id    (user_id)
 #
 
 class Advertisement::Campaign < ApplicationRecord

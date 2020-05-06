@@ -29,6 +29,18 @@
 #  deleted_at        :datetime
 #  custom_attributes :text
 #  version           :integer          default(1)
+#  guid              :string
+#
+# Indexes
+#
+#  index_characters_on_deleted_at       (deleted_at)
+#  index_characters_on_guid             (guid)
+#  index_characters_on_hidden           (hidden)
+#  index_characters_on_lower_name       (lower((name)::text) varchar_pattern_ops)
+#  index_characters_on_lower_shortcode  (lower((shortcode)::text))
+#  index_characters_on_lower_slug       (lower((slug)::text) varchar_pattern_ops)
+#  index_characters_on_secret           (secret)
+#  index_characters_on_user_id          (user_id)
 #
 
 FactoryBot.define do
