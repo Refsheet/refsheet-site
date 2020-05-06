@@ -14,6 +14,10 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #
+# Indexes
+#
+#  index_patreon_rewards_on_patreon_id  (patreon_id)
+#
 
 FactoryBot.define do
   factory :patreon_reward, class: 'Patreon::Reward' do

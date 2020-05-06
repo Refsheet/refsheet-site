@@ -14,6 +14,11 @@
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #
+# Indexes
+#
+#  index_auctions_on_ends_at    (ends_at)
+#  index_auctions_on_starts_at  (starts_at)
+#
 
 require 'rails_helper'
 

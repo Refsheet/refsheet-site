@@ -13,6 +13,11 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #
+# Indexes
+#
+#  index_patreon_pledges_on_patreon_id         (patreon_id)
+#  index_patreon_pledges_on_patreon_patron_id  (patreon_patron_id)
+#
 
 class Patreon::PledgeSerializer < ActiveModel::Serializer
   attributes :patreon_id,

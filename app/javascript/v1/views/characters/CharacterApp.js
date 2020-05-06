@@ -80,10 +80,9 @@ const Component = createReactClass({
 
     if (
       this.state.character &&
-      (prevState.character || {}).real_id !==
-        (this.state.character || {}).real_id
+      (prevState.character || {}).id !== (this.state.character || {}).id
     ) {
-      this.props.setUploadTarget(this.state.character.real_id)
+      this.props.setUploadTarget(this.state.character.id)
 
       // Handle URL changes:
       if (
@@ -98,13 +97,13 @@ const Component = createReactClass({
     StateUtils.load(this, 'character')
 
     if (this.state.character) {
-      this.props.setUploadTarget(this.state.character.real_id)
+      this.props.setUploadTarget(this.state.character.id)
     }
 
     return $(document)
       .on('app:character:update', (e, character) => {
         console.warn('jQuery events are deprecated, find a better way.', e)
-        if (this.state.character.real_id === character.real_id) {
+        if (this.state.character.id === character.id) {
           return this.setState({ character })
         }
       })
@@ -227,7 +226,7 @@ const Component = createReactClass({
 
   _openUploads() {
     return this.props.openUploadModal({
-      characterId: this.state.character && this.state.character.real_id,
+      characterId: this.state.character && this.state.character.id,
     })
   },
 
