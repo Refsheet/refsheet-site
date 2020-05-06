@@ -10,6 +10,11 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+# Indexes
+#
+#  index_color_schemes_on_guid     (guid)
+#  index_color_schemes_on_user_id  (user_id)
+#
 
 class ColorSchemeSerializer < ActiveModel::Serializer
   attributes :name, :user_id, :color_data

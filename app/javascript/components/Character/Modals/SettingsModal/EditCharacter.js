@@ -28,6 +28,11 @@ class EditCharacter extends Component {
     }
   }
 
+  handleCancelClick(e) {
+    e.preventDefault()
+    this.props.onClose()
+  }
+
   handleInputChange(e) {
     let character = { ...this.state.character }
     let value = e.target.value
@@ -53,7 +58,7 @@ class EditCharacter extends Component {
       wrapped: true,
       variables: {
         ...this.state.character,
-        id: character.shortcode,
+        id: character.id,
       },
     })
       .then(({ data: { updateCharacter } }) => {
@@ -227,7 +232,11 @@ class EditCharacter extends Component {
 
         <Row className={'actions'}>
           <Col s={6}>
-            <button type={'button'} className={'btn btn-secondary'}>
+            <button
+              type={'button'}
+              onClick={this.handleCancelClick.bind(this)}
+              className={'btn btn-secondary'}
+            >
               {t('actions.cancel', 'Cancel')}
             </button>
           </Col>

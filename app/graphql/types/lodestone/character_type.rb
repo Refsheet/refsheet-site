@@ -49,11 +49,10 @@ module Types
       field :gc_name, types.String
       field :gc_rank_name, types.String
 
-      # active_class_job
-      # class_jobs
+      field :active_class_job, Types::Lodestone::ClassJobType
+      field :class_jobs, types[Types::Lodestone::ClassJobType]
       field :server, Types::Lodestone::ServerType
       field :race, Types::Lodestone::RaceType
-
     end
   end
 end

@@ -23,6 +23,14 @@
 #  auth_code_digest :string
 #  pending_user_id  :integer
 #
+# Indexes
+#
+#  index_patreon_patrons_on_lower_email      (lower((email)::text) varchar_pattern_ops)
+#  index_patreon_patrons_on_patreon_id       (patreon_id)
+#  index_patreon_patrons_on_pending_user_id  (pending_user_id)
+#  index_patreon_patrons_on_status           (status)
+#  index_patreon_patrons_on_user_id          (user_id)
+#
 
 class Patreon::PatronSerializer < ActiveModel::Serializer
   attributes :email,

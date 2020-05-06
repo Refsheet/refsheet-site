@@ -1,0 +1,17 @@
+mutation createColorScheme($characterId: ID!, $colorData: ThemeColorDataInput) {
+    createColorScheme(characterId: $characterId, colorData: $colorData) {
+        id
+        name
+        colors {
+            primary
+            accent1
+            accent2
+            background
+            cardBackground
+            imageBackground
+            text
+            textLight
+            textMedium
+        }
+    }
+}

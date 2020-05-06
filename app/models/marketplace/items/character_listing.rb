@@ -20,7 +20,9 @@
 #
 # Indexes
 #
-#  index_items_on_sold  (sold)
+#  index_items_on_seller_id       (seller_id)
+#  index_items_on_seller_user_id  (seller_user_id)
+#  index_items_on_sold            (sold)
 #
 
 class Marketplace::Items::CharacterListing < Item

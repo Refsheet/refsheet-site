@@ -21,19 +21,19 @@ class CoverModal extends Component {
     return (
       <Modal
         autoOpen
-        id="upload-avatar"
-        title={t('labels.change_profile_image', 'Change Profile Image')}
+        id="upload-cover"
+        title={t('labels.change_cover_image', 'Change Cover Image')}
         onClose={onClose}
       >
         <Tabs className={'modal-tabs'}>
-          <Tab id={'upload-avatar_upload'} title={'Upload File'} active>
+          <Tab id={'upload-cover_upload'} title={'Upload File'} active>
             <UploadCover
               character={character}
               onSave={onSave}
               onClose={onClose}
             />
           </Tab>
-          <Tab id={'upload-avatar_gallery'} title={'Pick from Gallery'}></Tab>
+          <Tab id={'upload-cover_gallery'} title={'Pick from Gallery'}></Tab>
         </Tabs>
       </Modal>
     )

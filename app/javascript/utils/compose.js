@@ -2,7 +2,7 @@ import React from 'react'
 import { Mutation } from 'react-apollo'
 import { connect } from 'react-redux'
 import M from 'materialize-css'
-import { deepRemoveKeys } from './object-utils'
+import { deepRemoveKeys } from './ObjectUtils'
 
 function compose() {
   return component => {
