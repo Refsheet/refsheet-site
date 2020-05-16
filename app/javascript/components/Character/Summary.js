@@ -28,7 +28,7 @@ class Summary extends Component {
     }
   }
 
-  updateCharacter(variables, done) {
+  updateCharacter(variables, done, reject) {
     this.props
       .update({
         variables: {
@@ -39,6 +39,7 @@ class Summary extends Component {
       .then(({ data, errors }) => {
         if (errors) {
           console.error(errors)
+          reject && reject(errors)
           errors.map(e =>
             M.toast({ html: e.message, classes: 'red', displayLength: 3000 })
           )
@@ -46,7 +47,7 @@ class Summary extends Component {
           done(data.updateCharacter)
         }
       })
-      .catch(console.error)
+      .catch(reject || console.error)
   }
 
   handleNameChange(name) {
@@ -63,13 +64,19 @@ class Summary extends Component {
     })
   }
 
-  handleNotesChange(notes, done) {
-    this.updateCharacter({ special_notes: notes }, data => {
-      done()
-      this.setState({
-        special_notes: data.special_notes,
-        special_notes_html: data.special_notes_html,
-      })
+  handleNotesChange({ value }) {
+    return new Promise((resolve, reject) => {
+      this.updateCharacter(
+        { special_notes: value },
+        data => {
+          resolve({ value: data.special_notes })
+          this.setState({
+            special_notes: data.special_notes,
+            special_notes_html: data.special_notes_html,
+          })
+        },
+        reject
+      )
     })
   }
 
@@ -173,9 +180,8 @@ class Summary extends Component {
 
             {(character.special_notes || editable) && (
               <div className="important-notes margin-top--large margin-bottom--medium">
-                <H2>Important Notes</H2>
-
                 <RichText
+                  title={'Important Notes'}
                   contentHtml={this.state.special_notes_html}
                   content={this.state.special_notes}
                   onChange={

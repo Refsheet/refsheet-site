@@ -63,7 +63,8 @@ export default AttributeTable = createReactClass({
       if (this.props.hideEmpty && !child.props.value) {
         return
       }
-      if ((child != null ? child.type : undefined) !== Attribute) {
+
+      if (!child || !child.type || child.type.displayName !== 'Attribute') {
         return child
       }
 
