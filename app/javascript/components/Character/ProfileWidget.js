@@ -8,6 +8,8 @@ import updateProfileWidget from './updateProfileWidget.graphql'
 import deleteProfileWidget from './deleteProfileWidget.graphql'
 import * as M from 'materialize-css'
 import { div as Card } from '../Styled/Card'
+import compose from '../../utils/compose'
+import { withErrorBoundary } from '../Shared/ErrorBoundary'
 
 class ProfileWidget extends Component {
   constructor(props) {
@@ -15,6 +17,7 @@ class ProfileWidget extends Component {
 
     this.state = {
       editing: false,
+      saving: false,
       widgetData: props.data,
     }
   }
@@ -23,8 +26,14 @@ class ProfileWidget extends Component {
     this.setState({ editing: true })
   }
 
-  handleEditStop() {
-    this.setState({ editing: false })
+  handleEditStop(save = true) {
+    let state = { editing: false, saving: false }
+
+    if (!save) {
+      state.widgetData = this.props.data
+    }
+
+    this.setState(state)
   }
 
   handleDelete() {
@@ -84,6 +93,8 @@ class ProfileWidget extends Component {
       title: title,
     }
 
+    this.setState({ saving: true })
+
     this.props
       .update({ variables: payload })
       .then(({ data, errors }) => {
@@ -95,6 +106,7 @@ class ProfileWidget extends Component {
         } else {
           const { updateProfileWidget: widgetData } = data
 
+          this.setState({ saving: false, widgetData: widgetData.data })
           this.props.onChange && this.props.onChange(widgetData)
           this.handleEditStop()
         }
@@ -103,14 +115,18 @@ class ProfileWidget extends Component {
   }
 
   handleWidgetChange(widgetData) {
-    this.setState({ widgetData })
+    this.setState({
+      widgetData: {
+        ...this.state.widgetData,
+        ...widgetData,
+      },
+    })
   }
 
   render() {
     const {
       widgetType,
       title,
-      data,
       editable,
       lastColumn,
       firstColumn,
@@ -132,6 +148,7 @@ class ProfileWidget extends Component {
           onSave={this.handleSave.bind(this)}
           onMove={this.handleMove.bind(this)}
           onDelete={this.handleDelete.bind(this)}
+          saving={this.state.saving}
           lastColumn={lastColumn}
           firstColumn={firstColumn}
           first={first}
@@ -139,10 +156,11 @@ class ProfileWidget extends Component {
         />
 
         <Widget
-          {...camelize(data)}
+          {...camelize(this.state.widgetData)}
           character={character}
           onChange={this.handleWidgetChange.bind(this)}
           editing={this.state.editing}
+          saving={this.state.saving}
         />
       </Card>
     )
@@ -175,4 +193,4 @@ const DeleteMutation = props => (
   </Mutation>
 )
 
-export default DeleteMutation
+export default compose(withErrorBoundary)(DeleteMutation)

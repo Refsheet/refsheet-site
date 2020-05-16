@@ -18,6 +18,7 @@ class RichTextWidget extends Component {
       return (
         <div className={'rich-text-widget editing'}>
           <MarkdownEditor
+            name={'value'}
             content={content}
             onChange={this.handleMarkdownChange.bind(this)}
           />
