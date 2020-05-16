@@ -115,10 +115,12 @@ class ProfileWidget extends Component {
   }
 
   handleWidgetChange(widgetData) {
-    this.setState({ widgetData: {
-      ...this.state.widgetData,
-      ...widgetData
-    }})
+    this.setState({
+      widgetData: {
+        ...this.state.widgetData,
+        ...widgetData,
+      },
+    })
   }
 
   render() {
@@ -191,6 +193,4 @@ const DeleteMutation = props => (
   </Mutation>
 )
 
-export default compose(
-  withErrorBoundary
-)(DeleteMutation)
+export default compose(withErrorBoundary)(DeleteMutation)

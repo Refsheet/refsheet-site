@@ -65,7 +65,6 @@ export default AttributeTable = createReactClass({
       }
 
       if (!child || !child.type || child.type.displayName !== 'Attribute') {
-        console.log({ child })
         return child
       }
 
