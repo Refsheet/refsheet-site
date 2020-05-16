@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Icon from 'v1/shared/material/Icon'
+import Button from '../Styled/Button'
 
 class ProfileWidgetHeader extends Component {
   constructor(props) {
@@ -19,7 +20,7 @@ class ProfileWidgetHeader extends Component {
   handleCancelClick(e) {
     e.preventDefault()
     this.setState({ title: this.props.title })
-    this.props.onEditStop()
+    this.props.onEditStop(false)
   }
 
   handleDeleteClick(e) {
@@ -181,10 +182,10 @@ class ProfileWidgetHeader extends Component {
     return (
       <div className={'muted card-header fix-height'}>
         <div className="right btn-group">
-          <a
+          <Button
             href="#"
-            className={'btn'}
             onClick={this.handleSaveClick.bind(this)}
+            disabled={this.props.saving}
           >
             <Icon
               className="muted left"
@@ -195,8 +196,8 @@ class ProfileWidgetHeader extends Component {
             >
               save
             </Icon>{' '}
-            Save
-          </a>
+            { this.props.saving ? "Saving..." : "Save" }
+          </Button>
         </div>
 
         <div className={'center'}>

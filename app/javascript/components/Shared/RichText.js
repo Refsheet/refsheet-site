@@ -13,6 +13,7 @@ import c from 'classnames'
 import * as Showdown from 'showdown'
 import Button from '../../v1/shared/material/Button'
 import WindowAlert from '../../utils/WindowAlert'
+import { H2 } from '../Styled/Headings'
 
 class RichText extends Component {
   constructor(props) {
@@ -118,7 +119,7 @@ class RichText extends Component {
       title,
       placeholder,
       onChange,
-      titleComponent: Title = 'h2',
+      titleComponent: Title = H2,
     } = this.props
 
     const { content } = this.state
