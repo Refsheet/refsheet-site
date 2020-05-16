@@ -66,13 +66,17 @@ class Summary extends Component {
 
   handleNotesChange({ value }) {
     return new Promise((resolve, reject) => {
-      this.updateCharacter({ special_notes: value }, data => {
-        resolve({ value: data.special_notes })
-        this.setState({
-          special_notes: data.special_notes,
-          special_notes_html: data.special_notes_html,
-        })
-      }, reject)
+      this.updateCharacter(
+        { special_notes: value },
+        data => {
+          resolve({ value: data.special_notes })
+          this.setState({
+            special_notes: data.special_notes,
+            special_notes_html: data.special_notes_html,
+          })
+        },
+        reject
+      )
     })
   }
 
@@ -177,7 +181,7 @@ class Summary extends Component {
             {(character.special_notes || editable) && (
               <div className="important-notes margin-top--large margin-bottom--medium">
                 <RichText
-                  title={"Important Notes"}
+                  title={'Important Notes'}
                   contentHtml={this.state.special_notes_html}
                   content={this.state.special_notes}
                   onChange={

@@ -196,7 +196,7 @@ class ProfileWidgetHeader extends Component {
             >
               save
             </Icon>{' '}
-            { this.props.saving ? "Saving..." : "Save" }
+            {this.props.saving ? 'Saving...' : 'Save'}
           </Button>
         </div>
 
