@@ -466,6 +466,7 @@ type Mutation {
     sendMessage(conversationId: ID, message: String!, recipientId: ID): Message
     setCharacterAvatarBlob(blob: String, id: ID!): Character
     setCharacterCoverBlob(blob: String, id: ID!): Character
+    setUserAvatarBlob(blob: String, id: ID): User
     sortGalleryImage(dropBefore: Boolean, sourceImageId: ID!, targetImageId: ID!): Character
     transferCharacter(destination: String!, id: ID!): Character
     udpateColorScheme(colorData: ThemeColorDataInput, id: ID!, name: String): Theme
@@ -613,7 +614,7 @@ type Transfer implements ApplicationRecord {
 
 type User implements ApplicationRecord {
     apiKeys: [ApiKey]
-    avatar_url: String
+    avatar_url(style: String): String
     characters: [Character]
     characters_count: String
     created_at: Int

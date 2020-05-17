@@ -163,14 +163,12 @@ class User < ApplicationRecord
     username
   end
 
-  def avatar_url
-    return self.as_avatar.url(:thumbnail)
-    self.avatar? ? self.avatar.url(:thumbnail) : GravatarImageTag.gravatar_url(self.email)
+  def avatar_url(style = :thumbnail)
+    self.as_avatar.url(style)
   end
 
   def profile_image_url
-    return self.as_avatar.url(:small_square)
-    self.avatar? ? self.avatar.url(:small_square) : GravatarImageTag.gravatar_url(self.email, size: 200)
+    self.as_avatar.url(:small_square)
   end
 
 
