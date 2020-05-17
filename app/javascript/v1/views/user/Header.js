@@ -13,6 +13,8 @@ import RichText from '../../../components/Shared/RichText'
 import $ from 'jquery'
 import Model from '../../utils/Model'
 import * as UserUtils from '../../../utils/UserUtils'
+import AvatarModal from '../../../components/User/Modals/AvatarModal'
+import compose, { withCurrentUser } from '../../../utils/compose'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -23,12 +25,23 @@ import * as UserUtils from '../../../utils/UserUtils'
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 const Header = createReactClass({
-  contextTypes: {
-    currentUser: PropTypes.object,
-  },
-
   propTypes: {
     onFollow: PropTypes.func.isRequired,
+  },
+
+  getInitialState(props) {
+    return {
+      avatarModalOpen: false,
+    }
+  },
+
+  handleAvatarChange(data) {
+    const user = {
+      ...this.props.user,
+      ...data,
+    }
+
+    this.props.onUserChange(user)
   },
 
   handleBioChange(data) {
@@ -61,7 +74,11 @@ const Header = createReactClass({
 
   handleAvatarClick(e) {
     e.preventDefault()
-    console.log('Editing avatar...')
+    this.setState({ avatarModalOpen: true })
+  },
+
+  handleAvatarClose() {
+    this.setState({ avatarModalOpen: false })
   },
 
   render() {
@@ -73,8 +90,8 @@ const Header = createReactClass({
     }
 
     if (
-      this.context.currentUser &&
-      this.props.username !== this.context.currentUser.username
+      this.props.currentUser &&
+      this.props.username !== this.props.currentUser.username
     ) {
       canFollow = true
       followColor = this.props.followed ? '#ffca28' : 'rgba(255, 255, 255, 0.7)'
@@ -89,10 +106,17 @@ const Header = createReactClass({
 
     return (
       <div className="user-header" style={{ backgroundColor: userBgColor }}>
+        {this.state.avatarModalOpen && (
+          <AvatarModal
+            user={this.props.currentUser}
+            onSave={this.handleAvatarChange}
+            onClose={this.handleAvatarClose}
+          />
+        )}
         <div className="container flex">
           <div className="user-avatar">
             <div className="image" style={imageStyle}>
-              {editable && false && (
+              {editable && (
                 <div
                   className="image-edit-overlay"
                   onClick={this.handleAvatarClick}
@@ -170,15 +194,6 @@ const Header = createReactClass({
               </div>
             </div>
 
-            {editable && (
-              <div className={'card-panel blue darken-3'}>
-                We're currently reworking user avatars. You will be unable to
-                change your avatar until this migration is complete on all
-                users. If you have previously set an avatar, it will re-appear
-                soon.
-              </div>
-            )}
-
             <div className="user-bio">
               <RichText
                 contentHtml={this.props.profile}
@@ -195,4 +210,4 @@ const Header = createReactClass({
   },
 })
 
-export default Header
+export default compose(withCurrentUser())(Header)

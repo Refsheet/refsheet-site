@@ -12,7 +12,14 @@ Types::UserType = GraphQL::ObjectType.define do
   field :is_moderator, types.Boolean
   field :is_supporter, types.Boolean
 
-  field :avatar_url, types.String
+  field :avatar_url, types.String do
+    argument :style, types.String
+
+    resolve -> (obj, args, _ctx) {
+      obj.avatar_url(args[:style] || :thumbnail)
+    }
+  end
+
   field :profile_image_url, types.String
 
   field :is_managed, types.Boolean do
