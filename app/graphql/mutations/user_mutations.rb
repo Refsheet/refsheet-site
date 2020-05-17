@@ -1,4 +1,6 @@
 class Mutations::UserMutations < Mutations::ApplicationMutation
+  before_action :get_current_user, only: [:set_avatar_blob]
+
   action :autocomplete do
     type types[Types::UserType]
 
@@ -27,5 +29,35 @@ class Mutations::UserMutations < Mutations::ApplicationMutation
     end
 
     not_allowed! "Invalid username or password."
+  end
+
+  action :set_avatar_blob do
+    type Types::UserType
+
+    argument :id, types.ID
+    argument :blob, types.String
+  end
+
+  def set_avatar_blob
+    authorize @user, :update?
+
+    if params[:blob].blank?
+      @user.as_avatar.detach
+    else
+      @user.as_avatar.attach(params[:blob])
+    end
+
+    @user.save!
+    @user
+  end
+
+  private
+
+  def get_current_user
+    if params[:id].present?
+      @user = User.find_by(guid: params[:id])
+    else
+      @user = current_user
+    end
   end
 end

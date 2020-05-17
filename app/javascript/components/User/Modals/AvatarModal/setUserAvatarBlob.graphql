@@ -1,0 +1,7 @@
+mutation setUserAvatarBlob($id: ID, $blob: String) {
+    setUserAvatarBlob(id: $id, blob: $blob) {
+        id
+        avatar_url(style: "thumbnail")
+        profile_image_url
+    }
+}

@@ -79,6 +79,8 @@ module HasImageAttached
     end
 
     def style(key)
+      key = key.to_sym
+
       unless key === :original || @options[:styles].include?(key)
         raise NoStyleError, "Attachment :#{name} does not define style :#{key}, consider: #{@options[:styles].keys.join(', ')}"
       end
