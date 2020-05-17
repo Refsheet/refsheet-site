@@ -242,6 +242,7 @@ const User = createReactClass({
 
         <Header
           {...this.state.user}
+          user={this.state.user}
           onFollow={this._handleUserFollow}
           onUserChange={userChangeCallback}
         />
