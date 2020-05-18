@@ -14,6 +14,7 @@ import Column from '../../shared/material/Column'
 import Input from '../../shared/forms/Input'
 import Restrict from '../../../components/Shared/Restrict'
 import Submit from '../../shared/forms/Submit'
+import compose, { withCurrentUser } from '../../../utils/compose'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -22,12 +23,7 @@ import Submit from '../../shared/forms/Submit'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let NewCharacterForm
-export default NewCharacterForm = createReactClass({
-  contextTypes: {
-    currentUser: PropTypes.object.isRequired,
-  },
-
+const NewCharacterForm = createReactClass({
   propTypes: {
     newCharacterPath: PropTypes.string.isRequired,
     className: PropTypes.string,
@@ -80,7 +76,7 @@ export default NewCharacterForm = createReactClass({
           <Column m={6}>
             <Input
               name="slug"
-              label={'refsheet.net/' + this.context.currentUser.username + '/'}
+              label={'refsheet.net/' + this.props.currentUser.username + '/'}
             />
           </Column>
           <Column m={6}>
@@ -122,3 +118,5 @@ export default NewCharacterForm = createReactClass({
     )
   },
 })
+
+export default compose(withCurrentUser())(NewCharacterForm)

@@ -111,6 +111,7 @@
     "test": "NODE_ENV=test ./node_modules/karma/bin/karma start --single-run",
     "config-lint": "./node_modules/yaml-lint/bin/yamllint --verbose .kubernetes/*.{yml,yaml} config/*.{yml,yaml} .ebextensions/*.config --ignore config/database.yml",
     "prettier": "prettier --write \"app/javascript/**/*.js\" \"spec/javascript/**/*.js\"",
+    "prettier-quick": "prettier --write $(git diff --name-only -- \"app/javascript/**/*.js\" \"spec/javascript/**/*.js\")",
     "prettier-check": "prettier --check \"app/javascript/**/*.js\" \"spec/javascript/**/*.js\"",
     "eslint": "eslint ./app/javascript/ --ext .js --ext .gql --ext .graphql",
     "eslint-graphql": "eslint ./app/javascript/ --ext .gql --ext .graphql",

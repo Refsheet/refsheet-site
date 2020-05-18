@@ -21,10 +21,6 @@ import Model from '../../utils/Model'
 this.Favorites = {}
 let Index
 export default Index = createReactClass({
-  contextTypes: {
-    currentUser: PropTypes.object,
-  },
-
   propTypes: {
     mediaId: PropTypes.string.isRequired,
     favorites: PropTypes.array,

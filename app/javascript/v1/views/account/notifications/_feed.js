@@ -22,10 +22,6 @@ import HashUtils from '../../../utils/HashUtils'
 
 let Feed
 export default Feed = createReactClass({
-  contextTypes: {
-    currentUser: PropTypes.object,
-  },
-
   propTypes: {
     filter: PropTypes.string,
   },

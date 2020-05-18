@@ -19,10 +19,6 @@ import Restrict from '../../../components/Shared/Restrict'
  */
 let SideNav
 export default SideNav = createReactClass({
-  contextTypes: {
-    currentUser: PropTypes.object.isRequired,
-  },
-
   render() {
     return (
       <ul className="side-nav fixed in-page margin-top--large">
