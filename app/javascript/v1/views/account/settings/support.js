@@ -13,23 +13,17 @@ import Input from '../../../shared/forms/Input'
 import Submit from '../../../shared/forms/Submit'
 import Attribute from '../../../shared/attributes/attribute'
 import AttributeTable from '../../../shared/attributes/attribute_table'
+import compose, { withCurrentUser } from '../../../../utils/compose'
 
 class Support extends React.Component {
-  static initClass() {
-    this.contextTypes = {
-      currentUser: PropTypes.object.isRequired,
-      setCurrentUser: PropTypes.func.isRequired,
-    }
-  }
-
   constructor(props, context) {
     super(props)
     this._handleFormChange = this._handleFormChange.bind(this)
     this.state = {
-      user: context.currentUser,
-      patron: context.currentUser.patron,
+      user: props.currentUser,
+      patron: props.currentUser.patron,
       lookup: {
-        lookup_email: context.currentUser.email,
+        lookup_email: props.currentUser.email,
       },
     }
   }
@@ -133,6 +127,5 @@ class Support extends React.Component {
     return <div className="account-settings">{patreonStatus}</div>
   }
 }
-Support.initClass()
 
-export default Support
+export default compose(withCurrentUser(true))(Support)

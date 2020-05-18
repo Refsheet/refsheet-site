@@ -18,6 +18,7 @@ import Container from '../../shared/material/Container'
 import $ from 'jquery'
 import StateUtils from '../../utils/StateUtils'
 import Gallery from '../../../components/Character/Gallery'
+import compose, { withCurrentUser } from '../../../utils/compose'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -27,11 +28,9 @@ import Gallery from '../../../components/Character/Gallery'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let Index
-export default Index = createReactClass({
+const Index = createReactClass({
   contextTypes: {
     eagerLoad: PropTypes.object,
-    currentUser: PropTypes.object,
   },
 
   propTypes: {
@@ -167,7 +166,7 @@ export default Index = createReactClass({
                   </Link>
                 </li>
 
-                {this.context.currentUser && (
+                {this.props.currentUser && (
                   <li
                     className={
                       this.props.match.params.scope == 'favorites'
@@ -199,3 +198,5 @@ export default Index = createReactClass({
     )
   },
 })
+
+export default compose(withCurrentUser())(Index)

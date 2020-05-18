@@ -23,6 +23,7 @@ import $ from 'jquery'
 import ObjectPath from '../../utils/ObjectPath'
 import StateUtils from '../../utils/StateUtils'
 import HashUtils from '../../utils/HashUtils'
+import compose, { withCurrentUser } from '../../../utils/compose'
 
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
@@ -33,8 +34,7 @@ import HashUtils from '../../utils/HashUtils'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let Lightbox
-export default Lightbox = createReactClass({
+const Lightbox = createReactClass({
   contextTypes: {
     router: PropTypes.object.isRequired,
     currentUser: PropTypes.object,
@@ -318,8 +318,8 @@ export default Lightbox = createReactClass({
       let captionCallback, imgActionMenu
       if (
         this.state.image.user_id ===
-        (this.context.currentUser != null
-          ? this.context.currentUser.username
+        (this.props.currentUser != null
+          ? this.props.currentUser.username
           : undefined)
       ) {
         imgActionMenu = (
@@ -402,7 +402,7 @@ export default Lightbox = createReactClass({
           <div className="image-details-container">
             <div className="image-details">
               <div className="image-actions">
-                {this.context.currentUser && (
+                {this.props.currentUser && (
                   <FavoriteButton
                     mediaId={this.state.image.id}
                     favorites={this.state.image.favorites}
@@ -591,3 +591,5 @@ export default Lightbox = createReactClass({
     )
   },
 })
+
+export default compose(withCurrentUser())(Lightbox)

@@ -9,6 +9,7 @@ import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
 import Icon from '../../shared/material/Icon'
 import Model from '../../utils/Model'
+import compose, { withCurrentUser } from '../../../utils/compose'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -17,12 +18,7 @@ import Model from '../../utils/Model'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let Follow
-export default Follow = createReactClass({
-  contextTypes: {
-    currentUser: PropTypes.object,
-  },
-
+const Follow = createReactClass({
   propTypes: {
     username: PropTypes.string.isRequired,
     followed: PropTypes.bool,
@@ -47,8 +43,8 @@ export default Follow = createReactClass({
 
   render() {
     if (
-      this.context.currentUser &&
-      this.props.username !== this.context.currentUser.username
+      this.props.currentUser &&
+      this.props.username !== this.props.currentUser.username
     ) {
       const followColor = this.props.followed
         ? '#ffca28'
@@ -83,3 +79,5 @@ export default Follow = createReactClass({
     }
   },
 })
+
+export default compose(withCurrentUser())(Follow)

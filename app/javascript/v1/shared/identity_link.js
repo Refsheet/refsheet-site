@@ -8,6 +8,7 @@ import StringUtils from '../../utils/StringUtils'
 import NumberUtils from '../utils/NumberUtils'
 import $ from 'jquery'
 import Model from '../utils/Model'
+import compose, { withCurrentUser } from '../../utils/compose'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -17,12 +18,7 @@ import Model from '../utils/Model'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let IdentityLink
-export default IdentityLink = createReactClass({
-  contextTypes: {
-    currentUser: PropTypes.object,
-  },
-
+const IdentityLink = createReactClass({
   propTypes: {
     to: PropTypes.shape({
       link: PropTypes.string.isRequired,
@@ -120,10 +116,10 @@ export default IdentityLink = createReactClass({
       followColor = followed ? '#ffca28' : 'rgba(255, 255, 255, 0.7)'
       isYou =
         to.username ===
-        (this.context.currentUser != null
-          ? this.context.currentUser.username
+        (this.props.currentUser != null
+          ? this.props.currentUser.username
           : undefined)
-      canFollow = !!this.context.currentUser && !isYou
+      canFollow = !!this.props.currentUser && !isYou
 
       if (to.type === 'character') {
         byline = (
@@ -283,3 +279,5 @@ export default IdentityLink = createReactClass({
     )
   },
 })
+
+export default compose(withCurrentUser())(IdentityLink)

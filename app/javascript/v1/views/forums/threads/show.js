@@ -16,6 +16,7 @@ import StateUtils from '../../../utils/StateUtils'
 import Model from '../../../utils/Model'
 import HashUtils from '../../../utils/HashUtils'
 import Loading from '../../../../components/Shared/views/Loading'
+import compose, { withCurrentUser } from '../../../../utils/compose'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -24,8 +25,7 @@ import Loading from '../../../../components/Shared/views/Loading'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let Show
-export default Show = createReactClass({
+const Show = createReactClass({
   contextTypes: {
     currentUser: PropTypes.object,
     eagerLoad: PropTypes.object,
@@ -179,7 +179,7 @@ export default Show = createReactClass({
 
         <div id="scroll-to-here" />
 
-        {this.context.currentUser && (
+        {this.props.currentUser && (
           <LegacyForumReply
             discussionId={this.state.thread.guid}
             onPost={this._handleReply}
@@ -189,3 +189,5 @@ export default Show = createReactClass({
     )
   },
 })
+
+export default compose(withCurrentUser())(Show)
