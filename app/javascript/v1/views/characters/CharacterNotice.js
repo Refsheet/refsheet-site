@@ -9,6 +9,7 @@ import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
 import * as Materialize from 'materialize-css'
 import $ from 'jquery'
+import compose, { withCurrentUser } from '../../../utils/compose'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -18,12 +19,7 @@ import $ from 'jquery'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let CharacterNotice
-export default CharacterNotice = createReactClass({
-  contextTypes: {
-    currentUser: PropTypes.object,
-  },
-
+const CharacterNotice = createReactClass({
   propTypes: {
     transfer: PropTypes.object,
   },
@@ -98,8 +94,8 @@ export default CharacterNotice = createReactClass({
       (this.state.transfer != null
         ? this.state.transfer.destination_username
         : undefined) ===
-        (this.context.currentUser != null
-          ? this.context.currentUser.username
+        (this.props.currentUser != null
+          ? this.props.currentUser.username
           : undefined)
     ) {
       return (
@@ -128,3 +124,5 @@ export default CharacterNotice = createReactClass({
     }
   },
 })
+
+export default compose(withCurrentUser())(CharacterNotice)

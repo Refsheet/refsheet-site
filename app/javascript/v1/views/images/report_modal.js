@@ -22,6 +22,7 @@ import Row from '../../shared/material/Row'
 import Submit from '../../shared/forms/Submit'
 import Column from 'v1/shared/material/Column'
 import StateUtils from '../../utils/StateUtils'
+import compose, { withCurrentUser } from '../../../utils/compose'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -34,14 +35,14 @@ import StateUtils from '../../utils/StateUtils'
  */
 
 class ReportModal extends React.Component {
-  constructor(props, context) {
+  constructor(props) {
     super(props)
 
     this._handleSubmit = this._handleSubmit.bind(this)
     this.state = {
       report: {
         sender_user_id:
-          context.currentUser != null ? context.currentUser.id : undefined,
+          props.currentUser != null ? props.currentUser.id : undefined,
         violation_type: 'other',
         comment: null,
         dmca_source_url: null,
@@ -69,12 +70,8 @@ class ReportModal extends React.Component {
         }
       )
     } else if (
-      (newContext.currentUser != null
-        ? newContext.currentUser.id
-        : undefined) !==
-      (this.context.currentUser != null
-        ? this.context.currentUser.id
-        : undefined)
+      (newProps.currentUser != null ? newProps.currentUser.id : undefined) !==
+      (this.props.currentUser != null ? this.props.currentUser.id : undefined)
     ) {
       return StateUtils.update(this, 'report.sender_user_id', newProps.imageId)
     }
@@ -170,10 +167,9 @@ class ReportModal extends React.Component {
 }
 
 ReportModal.contextTypes = {
-  currentUser: PropTypes.object,
   reportImage: PropTypes.func,
 }
 
 ReportModal.propTypes = { imageId: PropTypes.string }
 
-export default ReportModal
+export default compose(withCurrentUser())(ReportModal)

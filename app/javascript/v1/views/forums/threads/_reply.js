@@ -11,6 +11,7 @@ import Form from '../../../shared/forms/Form'
 import Input from '../../../shared/forms/Input'
 import Submit from '../../../shared/forms/Submit'
 import IdentityAvatar from 'v1/shared/identity_avatar'
+import compose, { withCurrentUser } from '../../../../utils/compose'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -19,12 +20,7 @@ import IdentityAvatar from 'v1/shared/identity_avatar'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let ThreadReply
-export default ThreadReply = createReactClass({
-  contextTypes: {
-    currentUser: PropTypes.object,
-  },
-
+const ThreadReply = createReactClass({
   propTypes: {
     forumId: PropTypes.string.isRequired,
     threadId: PropTypes.string.isRequired,
@@ -46,7 +42,7 @@ export default ThreadReply = createReactClass({
   },
 
   render() {
-    if (!this.context.currentUser) {
+    if (!this.props.currentUser) {
       return null
     }
 
@@ -66,7 +62,7 @@ export default ThreadReply = createReactClass({
         onChange={this._handlePost}
         resetOnSubmit
       >
-        <IdentityAvatar src={this.context.currentUser} />
+        <IdentityAvatar src={this.props.currentUser} />
 
         <div className="card-content">
           <Input
@@ -84,3 +80,5 @@ export default ThreadReply = createReactClass({
     )
   },
 })
+
+export default compose(withCurrentUser())(ThreadReply)

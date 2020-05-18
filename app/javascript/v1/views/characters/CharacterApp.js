@@ -42,6 +42,7 @@ import { ThemedMain } from '../../../components/Styled/Global'
 import defaultTheme from '../../../themes/default'
 import { ThemeProvider } from 'styled-components'
 import ColorUtils from '../../../utils/ColorUtils'
+import compose, { withCurrentUser } from '../../../utils/compose'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -55,7 +56,6 @@ const Component = createReactClass({
   contextTypes: {
     router: PropTypes.object.isRequired,
     eagerLoad: PropTypes.object,
-    currentUser: PropTypes.object,
   },
 
   getInitialState() {
@@ -278,8 +278,8 @@ const Component = createReactClass({
 
     if (
       this.state.character.user_id ===
-      (this.context.currentUser != null
-        ? this.context.currentUser.username
+      (this.props.currentUser != null
+        ? this.props.currentUser.username
         : undefined)
     ) {
       showMenu = true
@@ -479,5 +479,7 @@ const mapDispatchToProps = {
 
 const mapStateToProps = state => state
 
-const CharacterApp = connect(mapStateToProps, mapDispatchToProps)(Component)
-export default CharacterApp
+export default compose(
+  withCurrentUser(),
+  connect(mapStateToProps, mapDispatchToProps)
+)(Component)
