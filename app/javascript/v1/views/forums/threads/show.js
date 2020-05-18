@@ -27,7 +27,6 @@ import compose, { withCurrentUser } from '../../../../utils/compose'
  */
 const Show = createReactClass({
   contextTypes: {
-    currentUser: PropTypes.object,
     eagerLoad: PropTypes.object,
   },
 

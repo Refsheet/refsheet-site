@@ -37,7 +37,6 @@ import compose, { withCurrentUser } from '../../../utils/compose'
 const Lightbox = createReactClass({
   contextTypes: {
     router: PropTypes.object.isRequired,
-    currentUser: PropTypes.object,
     reportImage: PropTypes.func.isRequired,
   },
 

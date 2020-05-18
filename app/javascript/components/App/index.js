@@ -178,15 +178,8 @@ class App extends Component {
 
   // TODO: Find which components are using this and send them to Redux.
   getChildContext() {
-    const state = this.store.getState()
-    const store = this.store
-
     return {
       eagerLoad: this.state.eagerLoad,
-      currentUser: (state.session || {}).currentUser,
-      setCurrentUser: function(user) {
-        store.dispatch(setCurrentUser(user))
-      },
     }
   }
 }
@@ -202,8 +195,6 @@ App.propTypes = {
 
 App.childContextTypes = {
   eagerLoad: PropTypes.object,
-  currentUser: PropTypes.object,
-  setCurrentUser: PropTypes.func,
 }
 
 export default withErrorBoundary(App)
