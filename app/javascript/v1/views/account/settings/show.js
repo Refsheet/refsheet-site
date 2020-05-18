@@ -19,6 +19,7 @@ import { DeleteUser } from '../../../../components/Settings/Account/DeleteUser'
 
 import Materialize from 'materialize-css'
 import Error from '../../../../components/Shared/Error'
+import compose, { withCurrentUser } from '../../../../utils/compose'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -27,22 +28,17 @@ import Error from '../../../../components/Shared/Error'
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 class Show extends React.Component {
-  static contextTypes = {
-    currentUser: PropTypes.object.isRequired,
-    setCurrentUser: PropTypes.func.isRequired,
-  }
-
-  constructor(props, context) {
+  constructor(props) {
     super(props)
 
     this._handleFormChange = this._handleFormChange.bind(this)
     this.state = {
-      user: context.currentUser,
+      user: props.currentUser,
     }
   }
 
   _handleFormChange(user) {
-    this.context.setCurrentUser(user)
+    this.props.setCurrentUser(user)
     return Materialize.toast({
       html: 'Settings Saved',
       displayLength: 3000,
@@ -152,4 +148,4 @@ class Show extends React.Component {
   }
 }
 
-export default Show
+export default compose(withCurrentUser(true))(Show)

@@ -17,10 +17,6 @@ import Views from 'v1/views/_views'
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 const Show = createReactClass({
-  contextTypes: {
-    currentUser: PropTypes.object,
-  },
-
   render() {
     return (
       <Views.Account.Layout {...this.props}>

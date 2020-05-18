@@ -31,10 +31,6 @@ import StatusUpdate from '../../../components/ActivityFeed/StatusUpdate'
  */
 let Activity
 export default Activity = createReactClass({
-  contextTypes: {
-    currentUser: PropTypes.object,
-  },
-
   propTypes: {
     filter: PropTypes.string,
   },

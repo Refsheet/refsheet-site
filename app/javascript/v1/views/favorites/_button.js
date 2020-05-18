@@ -9,6 +9,7 @@ import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
 
 import $ from 'jquery'
+import compose, { withCurrentUser } from '../../../utils/compose'
 
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
@@ -18,12 +19,7 @@ import $ from 'jquery'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let FavoriteButton
-export default FavoriteButton = createReactClass({
-  contextTypes: {
-    currentUser: PropTypes.object,
-  },
-
+const FavoriteButton = createReactClass({
   propTypes: {
     mediaId: PropTypes.string.isRequired,
     favorites: PropTypes.array,
@@ -39,7 +35,7 @@ export default FavoriteButton = createReactClass({
       }
       return (
         props.favorites.filter(fav => {
-          return fav.user_id === this.context.currentUser.username
+          return fav.user_id === this.props.currentUser.username
         }).length > 0
       )
     } else {
@@ -101,3 +97,5 @@ export default FavoriteButton = createReactClass({
     )
   },
 })
+
+export default compose(withCurrentUser())(FavoriteButton)

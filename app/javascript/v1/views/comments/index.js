@@ -15,6 +15,7 @@ import Icon from '../../shared/material/Icon'
 import RichText from '../../../components/Shared/RichText'
 import { Link } from 'react-router-dom'
 import Model from '../../utils/Model'
+import compose, { withCurrentUser } from '../../../utils/compose'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -25,12 +26,7 @@ import Model from '../../utils/Model'
  */
 this.Comments = {}
 
-let Index
-export default Index = createReactClass({
-  contextTypes: {
-    currentUser: PropTypes.object,
-  },
-
+const Index = createReactClass({
   propTypes: {
     mediaId: PropTypes.string.isRequired,
     comments: PropTypes.array,
@@ -112,7 +108,7 @@ export default Index = createReactClass({
           )}
         </div>
 
-        {this.context.currentUser && (
+        {this.props.currentUser && (
           <div className="flex-fixed">
             <Form
               className="reply-box"
@@ -140,3 +136,5 @@ export default Index = createReactClass({
     )
   },
 })
+
+export default compose(withCurrentUser())(Index)

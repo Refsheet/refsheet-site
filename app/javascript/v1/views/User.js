@@ -24,6 +24,7 @@ import StateUtils from '../utils/StateUtils'
 import HashUtils from '../utils/HashUtils'
 import Characters from './user/Characters'
 import Section from '../../components/Shared/Section'
+import compose, { withCurrentUser } from '../../utils/compose'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -37,9 +38,7 @@ import Section from '../../components/Shared/Section'
 const User = createReactClass({
   contextTypes: {
     router: PropTypes.object.isRequired,
-    currentUser: PropTypes.object,
     eagerLoad: PropTypes.object,
-    setCurrentUser: PropTypes.func.isRequired,
   },
 
   dataPath: '/users/:userId',
@@ -93,8 +92,8 @@ const User = createReactClass({
   handleUserChange(user) {
     this.setState({ user })
 
-    if (user.username === this.context.currentUser.username) {
-      return this.context.setCurrentUser(user)
+    if (user.username === this.props.currentUser.username) {
+      return this.props.setCurrentUser(user)
     }
   },
 
@@ -177,8 +176,8 @@ const User = createReactClass({
     }
 
     if (
-      (this.context.currentUser != null
-        ? this.context.currentUser.username
+      (this.props.currentUser != null
+        ? this.props.currentUser.username
         : undefined) === this.state.user.username
     ) {
       actionButtons = (
@@ -266,4 +265,4 @@ const User = createReactClass({
   },
 })
 
-export default User
+export default compose(withCurrentUser(true))(User)

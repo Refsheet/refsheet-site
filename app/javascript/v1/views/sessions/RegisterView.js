@@ -16,6 +16,7 @@ import Submit from '../../shared/forms/Submit'
 import $ from 'jquery'
 import Flash from '../../../utils/Flash'
 import { Link } from 'react-router-dom'
+import compose, { withCurrentUser } from '../../../utils/compose'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -27,8 +28,6 @@ import { Link } from 'react-router-dom'
 const RegisterView = createReactClass({
   contextTypes: {
     router: PropTypes.object.isRequired,
-    setCurrentUser: PropTypes.func.isRequired,
-    currentUser: PropTypes.object,
   },
 
   getInitialState() {
@@ -51,7 +50,7 @@ const RegisterView = createReactClass({
     Flash.info(
       'Thank you for registering! Please check your email for confirmation.'
     )
-    this.context.setCurrentUser(user)
+    this.props.setCurrentUser(user)
     this.context.router.history.push('/')
   },
 
@@ -124,4 +123,4 @@ const RegisterView = createReactClass({
   },
 })
 
-export default RegisterView
+export default compose(withCurrentUser(true))(RegisterView)

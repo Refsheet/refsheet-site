@@ -7,6 +7,7 @@ import Model from '../../utils/Model'
 import NumberUtils from '../../utils/NumberUtils'
 
 import $ from 'jquery'
+import compose from '../../../utils/compose'
 
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
@@ -18,11 +19,6 @@ import $ from 'jquery'
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 const gallery_image = createReactClass({
-  contextTypes: {
-    currentUser: PropTypes.object,
-    session: PropTypes.object,
-  },
-
   propTypes: {
     image: PropTypes.object,
     editable: PropTypes.bool,
@@ -168,9 +164,7 @@ const gallery_image = createReactClass({
 
       const showNsfwWarning =
         this.state.image.nsfw &&
-        !(this.context.session != null
-          ? this.context.session.nsfw_ok
-          : undefined)
+        !(this.props.session != null ? this.props.session.nsfw_ok : undefined)
 
       contents = (
         <a
@@ -240,8 +234,8 @@ const gallery_image = createReactClass({
 })
 
 const mapStateToProps = state => ({
+  currentUser: state.session.currentUser,
   session: state.session,
 })
 
-let GalleryImage
-export default GalleryImage = connect(mapStateToProps)(gallery_image)
+export default compose(connect(mapStateToProps))(gallery_image)

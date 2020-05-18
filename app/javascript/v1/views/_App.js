@@ -34,9 +34,6 @@ import $ from 'jquery'
  */
 const LegacyApp = createReactClass({
   childContextTypes: {
-    currentUser: PropTypes.object,
-    session: PropTypes.object,
-    setCurrentUser: PropTypes.func,
     eagerLoad: PropTypes.object,
     environment: PropTypes.string,
     reportImage: PropTypes.func,
