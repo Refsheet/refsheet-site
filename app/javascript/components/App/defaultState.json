@@ -21,7 +21,12 @@
     "mediaId": null,
     "gallery": []
   },
-  "supportModal": {
-    "isOpen": false
+  "modals": {
+    "newCharacter": {
+      "open": false
+    },
+    "support": {
+      "open": false
+    }
   }
 }
