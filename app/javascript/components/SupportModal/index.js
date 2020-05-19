@@ -12,9 +12,9 @@ class SupportModal extends Component {
   }
 
   render() {
-    const { isOpen, currentUser, t } = this.props
+    const { open, currentUser, t } = this.props
 
-    if (!isOpen) {
+    if (!open) {
       return null
     }
 
@@ -32,19 +32,19 @@ class SupportModal extends Component {
 
 SupportModal.propTypes = {
   t: PropTypes.func.isRequired,
-  isOpen: PropTypes.bool,
-  currentUser: {
+  open: PropTypes.bool,
+  currentUser: PropTypes.shape({
     username: PropTypes.string,
-  },
+  }),
 }
 
-const mapStateToProps = ({ supportModal }, props) => ({
+const mapStateToProps = ({ modals: { support } }, props) => ({
   ...props,
-  ...supportModal,
+  ...support,
 })
 
 const mapDispatchToProps = {
-  closeSupportModal
+  closeSupportModal,
 }
 
 export default compose(
