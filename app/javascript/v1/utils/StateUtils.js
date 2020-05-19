@@ -116,7 +116,7 @@ const StateUtils = {
     )
   },
 
-  reload(context, path, newProps, oldProps) {
+  reload(context, path, newProps, oldProps, callback) {
     if (oldProps == null) {
       oldProps = context.props
     }
@@ -144,7 +144,7 @@ const StateUtils = {
     }
 
     if (fetch) {
-      StateUtils.load(context, path, newProps)
+      StateUtils.load(context, path, newProps, callback)
       console.debug('[StateUtils] Scrolling up!')
       return $(window).scrollTop(0)
     }
