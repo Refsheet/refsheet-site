@@ -20,5 +20,8 @@
   "lightbox": {
     "mediaId": null,
     "gallery": []
+  },
+  "supportModal": {
+    "isOpen": false
   }
 }

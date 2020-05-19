@@ -63,3 +63,4 @@ export function setIdentity({ user, character }) {
 }
 
 export * from './uploads'
+export * from './support_modal'
