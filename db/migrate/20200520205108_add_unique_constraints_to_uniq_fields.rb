@@ -1,9 +1,9 @@
 class AddUniqueConstraintsToUniqFields < ActiveRecord::Migration[6.0]
   def change
     # Remove Old
-    add_index :users, name: 'index_users_on_lower_username'
-    add_index :users, name: 'index_users_on_lower_email'
-    add_index :users, name: 'index_users_on_lower_unconfirmed_email'
+    remove_index :users, name: 'index_users_on_lower_username'
+    remove_index :users, name: 'index_users_on_lower_email'
+    remove_index :users, name: 'index_users_on_lower_unconfirmed_email'
 
     # Add Uniq
     add_index :users, 'LOWER(users.username) varchar_pattern_ops',
