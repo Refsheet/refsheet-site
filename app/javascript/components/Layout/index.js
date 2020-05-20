@@ -2,15 +2,18 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withNamespaces } from 'react-i18next'
 import compose from 'utils/compose'
-import Footer from '../Layout/Footer'
+import Footer from './Footer'
 import NavBar from '../NavBar'
 import Chat from '../Chat/ConversationTray'
 import Lightbox from '../Lightbox'
 import UploadModal from '../Image/UploadModal'
-import Routes from './Routes'
+import Routes from '../App/Routes'
 import { withRouter } from 'react-router'
 import SessionModal from '../../v1/shared/modals/SessionModal'
 import { withErrorBoundary } from '../Shared/ErrorBoundary'
+import SupportModal from '../SupportModal'
+import { connect } from 'react-redux'
+import { openNewCharacterModal, openSupportModal } from '../../actions'
 import NewCharacterModal from '../User/Modals/NewCharacterModal'
 
 class Layout extends Component {
@@ -18,6 +21,32 @@ class Layout extends Component {
     super(props)
 
     this.state = {}
+
+    this.handleKeyDown = this.handleKeyDown.bind(this)
+  }
+
+  // TODO: Refactor this to a keystroke provider or somethn
+  componentDidMount() {
+    document.addEventListener('keydown', this.handleKeyDown)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyDown)
+  }
+
+  handleKeyDown(e) {
+    const { openNewCharacterModal } = this.props
+
+    const key = e.key.toLowerCase()
+
+    if (
+      ['INPUT', 'TEXTAREA'].indexOf(e.target.nodeName) ||
+      e.target.contentEditable !== 'inherit'
+    ) {
+      if (key === '/') {
+        openNewCharacterModal()
+      }
+    }
   }
 
   render() {
@@ -28,6 +57,7 @@ class Layout extends Component {
         <Lightbox />
         <UploadModal />
         <SessionModal />
+        <SupportModal />
         <NewCharacterModal />
 
         <NavBar
@@ -37,9 +67,7 @@ class Layout extends Component {
         />
 
         <Routes />
-
         <Footer />
-
         <Chat />
       </div>
     )
@@ -50,4 +78,12 @@ Layout.propTypes = {
   notice: PropTypes.string,
 }
 
-export default compose(withErrorBoundary, withRouter)(Layout)
+const mapDispatchToProps = {
+  openNewCharacterModal,
+}
+
+export default compose(
+  withErrorBoundary,
+  withRouter,
+  connect(undefined, mapDispatchToProps)
+)(Layout)

@@ -358,13 +358,14 @@ class Character < ApplicationRecord
       shortcode = nil
 
       begin
-        shortcode = Sluggable.to_slug(self.name, attempts > 0 ? attempts : nil)
-      rescue ActiveRecord::RecordNotUnique => e
-        Rails.logger.warn(e)
-        if attempts < 15
-          retry
+        tmp_shortcode = Sluggable.to_slug(self.name, attempts > 0 ? attempts : nil)
+
+        unless self.class.exists?(shortcode: tmp_shortcode)
+          shortcode = tmp_shortcode
         end
-      end
+
+        attempts += 1
+      end while attempts < 10 && shortcode.nil?
 
       if shortcode.nil?
         self.errors.add(:shortcode, "should be unique")
