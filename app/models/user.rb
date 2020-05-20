@@ -87,11 +87,11 @@ class User < ApplicationRecord
             length: { minimum: 3, maximum: 50 },
             format: { with: /\A[a-z0-9][a-z0-9_]+[a-z0-9]\z/i, message: 'no special characters' },
             exclusion: { in: RouteRecognizer.instance.initial_path_segments, message: 'is reserved' },
-            uniqueness: { case_sensitive: false }
+            uniqueness: { case_sensitive: false, conditions: -> { with_deleted } }
 
   validates :email, presence: true,
             format: { with: /@/, message: 'must have @ sign' },
-            uniqueness: { case_sensitive: false }
+            uniqueness: { case_sensitive: false, conditions: -> { with_deleted } }
 
   has_secure_password
   acts_as_paranoid
