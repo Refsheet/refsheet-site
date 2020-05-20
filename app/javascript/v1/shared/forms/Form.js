@@ -147,6 +147,7 @@ export default Form = createReactClass({
     ObjectPath.set(data, this.props.modelName, this.state.model)
 
     this.setState({ submitting: true })
+    const _this = this
 
     $.ajax({
       url: this.props.action,
@@ -199,8 +200,8 @@ export default Form = createReactClass({
         }
       },
 
-      complete() {
-        this.setState({ submitting: false })
+      complete: () => {
+        _this.setState({ submitting: false })
       },
     })
   },
