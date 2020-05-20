@@ -6,6 +6,7 @@ import Materialize from 'materialize-css'
 import Input from './Input'
 import $ from 'jquery'
 import ObjectPath from '../../utils/ObjectPath'
+import Flash from '../../../utils/Flash'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -36,6 +37,7 @@ export default Form = createReactClass({
       model: { ...this.props.model },
       errors: this.props.errors || {},
       dirty: false,
+      submitting: false,
       invalid: Object.keys(this.props.errors || {}).length,
     }
   },
@@ -45,6 +47,7 @@ export default Form = createReactClass({
       return this.setState({
         model: { ...newProps.model },
         errors: newProps.errors || {},
+        submitting: false,
         dirty: false,
       })
     }
@@ -54,6 +57,7 @@ export default Form = createReactClass({
     return this.setState({
       model: { ...this.props.model },
       errors: this.props.errors || {},
+      submitting: false,
       dirty: false,
     })
   },
@@ -67,7 +71,11 @@ export default Form = createReactClass({
   },
 
   reset() {
-    this.setState({ model: { ...this.props.model }, dirty: false })
+    this.setState({
+      model: { ...this.props.model },
+      dirty: false,
+      submitting: false,
+    })
     if (this.props.onDirty) {
       return this.props.onDirty(false)
     }
@@ -124,8 +132,21 @@ export default Form = createReactClass({
   },
 
   _handleFormSubmit(e) {
+    if (e != null) {
+      e.preventDefault()
+    }
+
+    if (this.state.submitting) {
+      Flash.error(
+        'Another form submission is in progress, please wait a little bit longer...'
+      )
+      return false
+    }
+
     const data = {}
     ObjectPath.set(data, this.props.modelName, this.state.model)
+
+    this.setState({ submitting: true })
 
     $.ajax({
       url: this.props.action,
@@ -178,12 +199,10 @@ export default Form = createReactClass({
         }
       },
 
-      complete() {},
+      complete() {
+        this.setState({ submitting: false })
+      },
     })
-
-    if (e != null) {
-      return e.preventDefault()
-    }
   },
 
   _processChildren(children) {
@@ -208,9 +227,19 @@ export default Form = createReactClass({
             onSubmit: this._handleFormSubmit,
             modelName: this.props.modelName,
             formName: this.props.formName,
+            disabled: this.state.submitting || child.props.disabled,
           }
         } else {
           childProps = { key: child.props.id }
+        }
+      }
+
+      if (
+        child.type.displayName === 'Submit' ||
+        child.type.displayName === 'Button'
+      ) {
+        childProps = {
+          disabled: this.state.submitting || child.props.disabled,
         }
       }
 
