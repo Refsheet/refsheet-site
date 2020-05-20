@@ -89,7 +89,7 @@ const User = createReactClass({
     Materialize.Modal.getInstance(
       document.getElementById('character-form')
     ).close()
-    return this.props.router.history.push(character.link)
+    return this.props.history.push(character.link)
   },
 
   handleUserChange(user) {
@@ -137,7 +137,7 @@ const User = createReactClass({
 
   _handleGroupDelete(groupId) {
     if (groupId === this.state.activeGroupId) {
-      this.props.router.history.push(this.state.user.link)
+      this.props.history.push(this.state.user.link)
     }
     return StateUtils.removeItem(this, 'user.character_groups', groupId, 'slug')
   },
