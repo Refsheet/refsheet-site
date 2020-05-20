@@ -4,6 +4,8 @@ import { Input, Row, Col, Button } from 'react-materialize'
 import c from 'classnames'
 import { Mutation } from 'react-apollo'
 import { gql } from 'apollo-client-preset'
+import { withRouter } from 'react-router'
+import compose, { withCurrentUser } from '../../../utils/compose'
 
 class DeleteUser extends Component {
   constructor(props) {
@@ -58,8 +60,7 @@ class DeleteUser extends Component {
         if (errors && errors.length) {
           this.setState({ errors })
         } else {
-          console.log(`I'm sorry to see you go, ${data.deleteUser.username} :(`)
-          window.location = '/'
+          this.props.setCurrentUser(null)
         }
       })
 
@@ -105,6 +106,7 @@ class DeleteUser extends Component {
                 autoComplete="false"
                 value={usernameConfirm}
                 onChange={this.handleUserChange}
+                disabled={this.state.isSubmitting}
               />
               <label htmlFor="delete_username">Username Confirmation</label>
               {disabled && !usernameConfirm && (
@@ -124,6 +126,7 @@ class DeleteUser extends Component {
                 autoComplete="current-password"
                 value={password}
                 onChange={this.handlePasswordChange}
+                disabled={this.state.isSubmitting}
               />
               <label htmlFor="delete_password">Password Confirmation</label>
               {disabled && !password && (
@@ -140,9 +143,11 @@ class DeleteUser extends Component {
           data-disable-with="Hang on..."
           className="red"
           type="submit"
-          disabled={disabled}
+          disabled={disabled || this.state.isSubmitting}
         >
-          Delete Account
+          {this.state.isSubmitting
+            ? 'Deleting everything...'
+            : 'Delete Account'}
         </Button>
       </div>,
     ]
@@ -158,7 +163,9 @@ class DeleteUser extends Component {
           onClick={this.toggleOpen}
           style={{ cursor: 'pointer' }}
         >
-          <h2 className="red-text">Delete Account</h2>
+          <h2 className="red-text">
+            {this.state.isSubmitting ? 'Deleting Account...' : 'Delete Account'}
+          </h2>
         </div>
 
         {isOpen && body}
@@ -193,4 +200,4 @@ const Wrapped = props => (
 )
 
 export { DeleteUser }
-export default Wrapped
+export default compose(withRouter, withCurrentUser(true))(Wrapped)

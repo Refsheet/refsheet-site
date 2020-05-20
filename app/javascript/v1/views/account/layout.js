@@ -40,7 +40,6 @@ class Layout extends React.Component {
 
   componentDidMount() {
     if (!this.props.currentUser) {
-      console.log('bye')
       this.props.history.push('/')
     }
   }

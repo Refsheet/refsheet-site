@@ -15,7 +15,7 @@ import Row from '../../../shared/material/Row'
 import Column from '../../../shared/material/Column'
 import Input from '../../../shared/forms/Input'
 import Submit from '../../../shared/forms/Submit'
-import { DeleteUser } from '../../../../components/Settings/Account/DeleteUser'
+import DeleteUser from '../../../../components/Settings/Account/DeleteUser'
 
 import Materialize from 'materialize-css'
 import Error from '../../../../components/Shared/Error'
