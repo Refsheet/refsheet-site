@@ -27,6 +27,7 @@ const NewCharacterForm = createReactClass({
   propTypes: {
     newCharacterPath: PropTypes.string.isRequired,
     className: PropTypes.string,
+    onCreate: PropTypes.func.isRequired,
   },
 
   getInitialState() {

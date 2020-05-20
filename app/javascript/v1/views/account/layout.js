@@ -8,6 +8,8 @@ import UserCard from './_user_card'
 import SideNav from './_side_nav'
 import Advertisement from '../../shared/advertisement'
 import Suggestions from './_suggestions'
+import compose, { withCurrentUser } from '../../../utils/compose'
+import { withRouter } from 'react-router'
 
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
@@ -20,11 +22,7 @@ import Suggestions from './_suggestions'
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 
-class cLayout extends React.Component {
-  static initClass() {
-    this.contextTypes = { router: PropTypes.object.isRequired }
-  }
-
+class Layout extends React.Component {
   _findTitle(inProps) {
     let c, props
     props = inProps
@@ -40,9 +38,16 @@ class cLayout extends React.Component {
     return c || (props.route != null ? props.route.title : undefined)
   }
 
+  componentDidMount() {
+    if (!this.props.currentUser) {
+      console.log('bye')
+      this.props.history.push('/')
+    }
+  }
+
   UNSAFE_componentWillReceiveProps(newProps) {
     if (!newProps.currentUser) {
-      return this.context.router.history.push('/')
+      return this.props.history.push('/')
     }
   }
 
@@ -75,8 +80,5 @@ class cLayout extends React.Component {
     )
   }
 }
-cLayout.initClass()
 
-const mapStateToProps = state => ({ currentUser: state.session.currentUser })
-const Layout = connect(mapStateToProps)(cLayout)
-export default Layout
+export default compose(withCurrentUser(), withRouter)(Layout)

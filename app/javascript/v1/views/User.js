@@ -25,6 +25,7 @@ import HashUtils from '../utils/HashUtils'
 import Characters from './user/Characters'
 import Section from '../../components/Shared/Section'
 import compose, { withCurrentUser } from '../../utils/compose'
+import { withRouter } from 'react-router'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -37,7 +38,6 @@ import compose, { withCurrentUser } from '../../utils/compose'
 
 const User = createReactClass({
   contextTypes: {
-    router: PropTypes.object.isRequired,
     eagerLoad: PropTypes.object,
   },
 
@@ -56,37 +56,40 @@ const User = createReactClass({
     }
   },
 
-  componentDidMount() {
-    return this.setState(
-      { activeGroupId: window.location.hash.substring(1) },
-      function() {
-        return StateUtils.load(this, 'user')
-      }
-    )
-  },
+  setActiveGroupId(id, cb) {
+    const activeGroupId = id || window.location.hash.substring(1).toLowerCase()
 
-  UNSAFE_componentWillReceiveProps(newProps) {
-    if (
-      (newProps.match != null ? newProps.match.params.userId : undefined) !==
-      (this.state.user != null ? this.state.user.username : undefined)
-    ) {
-      StateUtils.reload(this, 'user', newProps)
+    if (activeGroupId === '') {
+      this.setState({ activeGroupId: null }, cb)
       return
     }
 
-    return this.setState(
-      { activeGroupId: window.location.hash.substring(1) },
-      function() {
-        return StateUtils.reload(this, 'user', newProps)
-      }
-    )
+    const slugs =
+      this.state.user &&
+      this.state.user.character_groups.map(g => g.slug.toLowerCase())
+
+    if (slugs.indexOf(activeGroupId) !== -1) {
+      this.setState({ activeGroupId }, cb)
+    } else if (cb) {
+      cb(this.state)
+    }
+  },
+
+  componentDidMount() {
+    StateUtils.load(this, 'user', undefined, this.setActiveGroupId)
+  },
+
+  UNSAFE_componentWillReceiveProps(newProps) {
+    this.setActiveGroupId(undefined, () => {
+      StateUtils.reload(this, 'user', newProps)
+    })
   },
 
   goToCharacter(character) {
     Materialize.Modal.getInstance(
       document.getElementById('character-form')
     ).close()
-    return this.context.router.history.push(character.link)
+    return this.props.history.push(character.link)
   },
 
   handleUserChange(user) {
@@ -134,7 +137,7 @@ const User = createReactClass({
 
   _handleGroupDelete(groupId) {
     if (groupId === this.state.activeGroupId) {
-      this.context.router.history.push(this.state.user.link)
+      this.props.history.push(this.state.user.link)
     }
     return StateUtils.removeItem(this, 'user.character_groups', groupId, 'slug')
   },
@@ -254,6 +257,7 @@ const User = createReactClass({
             userLink={this.state.user.link}
             activeGroupId={this.state.activeGroupId}
             onGroupChange={this._handleGroupChange}
+            onGroupClick={this.setActiveGroupId}
             onGroupSort={this._handleGroupSort}
             onGroupDelete={this._handleGroupDelete}
             onCharacterDelete={this._handleGroupCharacterDelete}
@@ -265,4 +269,4 @@ const User = createReactClass({
   },
 })
 
-export default compose(withCurrentUser(true))(User)
+export default compose(withCurrentUser(true), withRouter)(User)
