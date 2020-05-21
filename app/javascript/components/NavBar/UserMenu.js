@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom'
 import DropdownLink from './DropdownLink'
 import Restrict from '../Shared/Restrict'
 import { withNamespaces } from 'react-i18next'
-import IdentityModal from '../Shared/CommentForm/IdentityModal'
+import { connect } from 'react-redux'
+import { openNewCharacterModal } from '../../actions'
+import compose from '../../utils/compose'
 
 class UserMenu extends Component {
   constructor(props) {
@@ -13,6 +15,11 @@ class UserMenu extends Component {
     this.state = {
       identityModalOpen: false,
     }
+  }
+
+  handleNewCharacterClick(e) {
+    e.preventDefault()
+    this.props.openNewCharacterModal()
   }
 
   render() {
@@ -53,6 +60,13 @@ class UserMenu extends Component {
               </a>
             </li>
           </Restrict>
+
+          <li>
+            <a href={'#'} onClick={this.handleNewCharacterClick.bind(this)}>
+              <i className={'material-icons left'}>note_add</i>
+              <span>{t('actions.new_character', 'New Character')}</span>
+            </a>
+          </li>
 
           <Restrict admin>
             <li>
@@ -100,4 +114,7 @@ UserMenu.propTypes = {
   onIdentityClick: PropTypes.func.isRequired,
 }
 
-export default withNamespaces('common')(UserMenu)
+export default compose(
+  connect(undefined, { openNewCharacterModal }),
+  withNamespaces('common')
+)(UserMenu)
