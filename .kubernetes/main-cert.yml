@@ -21,3 +21,11 @@ metadata:
 spec:
   domains:
     - staging.refsheet.net
+---
+apiVersion: networking.gke.io/v1beta1
+kind: ManagedCertificate
+metadata:
+  name: net-refsheet-www
+spec:
+  domains:
+    - www.refsheet.net
