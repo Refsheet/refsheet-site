@@ -1,5 +1,4 @@
 import React from 'react'
-import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Main from '../../shared/Main'
@@ -10,6 +9,9 @@ import Advertisement from '../../shared/advertisement'
 import Suggestions from './_suggestions'
 import compose, { withCurrentUser } from '../../../utils/compose'
 import { withRouter } from 'react-router'
+import Button from '../../../components/Styled/Button'
+import { openNewCharacterModal } from '../../../actions'
+import { withNamespaces } from 'react-i18next'
 
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
@@ -51,7 +53,9 @@ class Layout extends React.Component {
   }
 
   render() {
-    if (!this.props.currentUser) {
+    const { currentUser, openNewCharacterModal, t } = this.props
+
+    if (!currentUser) {
       return <span>Signed out, redirecting...</span>
     }
 
@@ -63,8 +67,15 @@ class Layout extends React.Component {
       >
         <Container flex className="activity-feed">
           <div className="sidebar">
-            <UserCard user={this.props.currentUser} />
-
+            <UserCard user={currentUser} />
+            <Button
+              className={'margin-top--medium'}
+              small
+              onClick={openNewCharacterModal}
+            >
+              <i className={'material-icons left'}>note_add</i>
+              <span>{t('actions.new_character', 'New Character')}</span>
+            </Button>
             <SideNav />
           </div>
 
@@ -80,4 +91,9 @@ class Layout extends React.Component {
   }
 }
 
-export default compose(withCurrentUser(), withRouter)(Layout)
+export default compose(
+  withCurrentUser(),
+  withRouter,
+  withNamespaces('common'),
+  connect(undefined, { openNewCharacterModal })
+)(Layout)

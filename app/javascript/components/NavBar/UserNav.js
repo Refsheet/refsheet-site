@@ -7,6 +7,7 @@ import NotificationMenu from './NotificationMenu'
 import ConversationMenu from './ConversationMenu'
 import UploadMenu from './UploadMenu'
 import Restrict from '../Shared/Restrict'
+import compose from '../../utils/compose'
 
 const UserNav = props => (
   <ul className="right">
@@ -30,4 +31,4 @@ UserNav.propTypes = {
   onLogoutClick: PropTypes.func.isRequired,
 }
 
-export default UserNav
+export default compose()(UserNav)
