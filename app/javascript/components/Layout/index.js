@@ -35,6 +35,10 @@ class Layout extends Component {
   }
 
   handleKeyDown(e) {
+    return
+
+    // TODO: Input filtering isn't filtering.
+
     const { openNewCharacterModal } = this.props
 
     const key = e.key.toLowerCase()
@@ -43,9 +47,11 @@ class Layout extends Component {
       ['INPUT', 'TEXTAREA'].indexOf(e.target.nodeName) ||
       e.target.contentEditable !== 'inherit'
     ) {
-      if (key === '/') {
-        openNewCharacterModal()
-      }
+      return
+    }
+
+    if (key === '/') {
+      openNewCharacterModal()
     }
   }
 
