@@ -61,9 +61,9 @@ export default Attributes = createReactClass({
       }
     }
 
-    const attributes = this.props.attributes.map(attr => (
-      <Attribute key={attr.id} {...attr} />
-    ))
+    const attributes = this.props.attributes
+      .filter(attr => !!attr)
+      .map(attr => <Attribute key={attr.id} {...attr} />)
 
     return (
       <AttributeTable
