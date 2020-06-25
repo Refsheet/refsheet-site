@@ -169,14 +169,16 @@ class Image < ApplicationRecord # < Media
     SQL
   }
 
-  scope :visible_to, -> (user) {
+  scope :visible_to, -> (user, include_hidden_characters = false) {
     if user
       joins(:character).
       where(<<-SQL.squish, user.id)
         ( characters.user_id = ? ) OR (
-            characters.hidden = 'f' AND images.hidden = 'f'
+            #{ include_hidden_characters ? "" : "characters.hidden = 'f' AND " } images.hidden = 'f'
         )
       SQL
+    elsif include_hidden_characters
+      visible
     else
       joins(:character).
       where(characters: { hidden: false }).

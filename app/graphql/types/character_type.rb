@@ -12,7 +12,7 @@ Types::CharacterType = GraphQL::ObjectType.define do
   field :hidden, types.Boolean
   field :images, types[Types::ImageType] do
     resolve -> (obj, _args, ctx) {
-      obj.images.rank(:row_order).visible_to(ctx[:current_user].call)
+      obj.images.rank(:row_order).visible_to(ctx[:current_user].call, true)
     }
   end
   field :likes, types.String
