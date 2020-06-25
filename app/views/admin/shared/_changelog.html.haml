@@ -13,7 +13,10 @@
         .muted
           On
           = change.created_at.strftime('%d %b %Y:')
-          = change.change_data.keys.to_sentence
+          - if change.change_data.respond_to? :keys
+            = change.change_data.keys.to_sentence
+          - else
+            Unknown Change
 
         = change.reason.presence || 'No reason!'
 

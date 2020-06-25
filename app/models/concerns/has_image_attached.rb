@@ -85,7 +85,7 @@ module HasImageAttached
         raise NoStyleError, "Attachment :#{name} does not define style :#{key}, consider: #{@options[:styles].keys.join(', ')}"
       end
 
-      unless @base.attached?
+      unless @base.attached? && @base.representable?
         return nil
       end
 
@@ -142,14 +142,13 @@ module HasImageAttached
     def url(style, opts={})
       variant = self.style(style)
 
-      unless @base.attached?
+      unless @base.attached? && @base.representable?
         if !opts[:allow_nil] && @options[:default_url]
           if @options[:default_url].respond_to? :call
             return image_url(@options[:default_url].call(@instance, style))
           end
           return image_url(@options[:default_url])
         end
-
 
         return nil
       end
