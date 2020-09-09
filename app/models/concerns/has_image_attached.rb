@@ -160,6 +160,9 @@ module HasImageAttached
       end
 
       Rails.application.routes.url_helpers.rails_representation_url(variant, url_opts)
+    rescue => e
+      Rails.logger.error(e)
+      return nil
     end
 
     def method_missing(sym, *args)
