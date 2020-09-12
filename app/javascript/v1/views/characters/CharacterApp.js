@@ -43,6 +43,7 @@ import defaultTheme from '../../../themes/default'
 import { ThemeProvider } from 'styled-components'
 import ColorUtils from '../../../utils/ColorUtils'
 import compose, { withCurrentUser } from '../../../utils/compose'
+import GoogleAd from '../../../components/Shared/GoogleAd'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -453,6 +454,17 @@ const Component = createReactClass({
                 />
               </Column>
             </Row>
+          </Section>'
+
+          <Section className="margin-bottom--large i-am-really-sorry-but-ads-support-the-site-you-can-add-this-class-to-your-ad-blocker">
+            <div style={{ margin: '1.5rem auto', maxWidth: 750 }}>
+              <GoogleAd
+                slot={'9500968119'}
+                format={'auto'}
+                className={'z-depth-1'}
+                data-full-width-responsive={'true'}
+              />
+            </div>
           </Section>
 
           <Section className="margin-bottom--large">
