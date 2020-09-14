@@ -51,7 +51,7 @@ const User = createReactClass({
     return {
       user: null,
       error: null,
-      activeGroupId: null,
+      activeGroupId: window.location.hash.substring(1).toLowerCase(),
       characterName: null,
     }
   },
