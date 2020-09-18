@@ -1,7 +1,7 @@
 class ImageProcessingJob < ApplicationJob
   def perform(image)
     Rails.logger.tagged 'ImageProcessingJob' do
-      image.image.reprocess_without_delay!
+      image.image.process_delayed!
     end
   end
 end
