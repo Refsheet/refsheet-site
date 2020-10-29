@@ -22,8 +22,7 @@ import Model from '../../utils/Model'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let ImageApp
-export default ImageApp = createReactClass({
+const ImageApp = createReactClass({
   getInitialState() {
     return { image: null }
   },
@@ -78,6 +77,8 @@ export default ImageApp = createReactClass({
     }
   },
 })
+    
+export default connect(undefined, { openLightbox })(ImageApp)
 
 // BROKEN THINGS FOR TOMRROW
 
