@@ -219,9 +219,7 @@ export default Activity = createReactClass({
 
     return (
       <div className="feed-item-stream">
-        <Restrict patron>
-          <StatusUpdate />
-        </Restrict>
+        <StatusUpdate />
 
         {this.state.newActivity && this.state.newActivity.length > 0 && (
           <a

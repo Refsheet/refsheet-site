@@ -188,14 +188,12 @@ class CommentForm extends Component {
               </Button>
             )}
 
-            <Restrict patron>
-              {inCharacter && (
-                <IdentitySelect
-                  onClick={this.handleIdentityOpen.bind(this)}
-                  name={identity.name}
-                />
-              )}
-            </Restrict>
+            {inCharacter && (
+              <IdentitySelect
+                onClick={this.handleIdentityOpen.bind(this)}
+                name={identity.name}
+              />
+            )}
           </Col>
           <Col s={4}>
             <Button

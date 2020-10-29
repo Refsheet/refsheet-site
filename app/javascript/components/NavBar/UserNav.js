@@ -14,9 +14,7 @@ const UserNav = props => (
     <CartMenu />
     <TransferMenu />
     <UploadMenu />
-    <Restrict patron>
-      <ConversationMenu />
-    </Restrict>
+    <ConversationMenu />
     <NotificationMenu />
     <UserMenu {...props} />
   </ul>

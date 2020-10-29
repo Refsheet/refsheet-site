@@ -52,14 +52,12 @@ class UserMenu extends Component {
             </Link>
           </li>
 
-          <Restrict patron>
-            <li>
-              <a href={'#identity-select'} onClick={onIdentityClick}>
-                <i className={'material-icons left'}>swap_horiz</i>
-                <span>{t('identity.change', 'Change Identity')}</span>
-              </a>
-            </li>
-          </Restrict>
+          <li>
+            <a href={'#identity-select'} onClick={onIdentityClick}>
+              <i className={'material-icons left'}>swap_horiz</i>
+              <span>{t('identity.change', 'Change Identity')}</span>
+            </a>
+          </li>
 
           <li>
             <a href={'#'} onClick={this.handleNewCharacterClick.bind(this)}>
