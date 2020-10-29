@@ -7,6 +7,7 @@ services:
       - 'postgres:/var/lib/postgresql/data'
     env_file:
       - '.env'
+      - '.env.local'
 
   redis:
     image: 'redis:4.0-alpine'
@@ -28,6 +29,7 @@ services:
       - 'bundle:/usr/local/bundle'
     env_file:
       - '.env'
+      - '.env.local'
     environment:
       PORT: 3200
       FORMATION: web=1
@@ -43,6 +45,7 @@ services:
       - 'bundle:/usr/local/bundle'
     env_file:
       - '.env'
+      - '.env.local'
     environment:
       FORMATION: webpacker=1
 
@@ -58,6 +61,7 @@ services:
       - './public:/app/public'
     env_file:
       - '.env'
+      - '.env.local'
 
   worker:
     depends_on:
@@ -71,6 +75,7 @@ services:
       - 'bundle:/usr/local/bundle'
     env_file:
       - '.env'
+      - '.env.local'
     environment:
       FORMATION: worker=1
 
@@ -86,6 +91,7 @@ services:
 #      - '.:/app'
 #    env_file:
 #      - '.env'
+#      - '.env.local'
 #    environment:
 #      FORMATION: cable=1
 
