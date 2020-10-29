@@ -3,9 +3,9 @@
 
 @import '~materialize-css/sass/components/color-variables';
 @import '~materialize-css/sass/components/variables';
-@import './_variables';
+@import '../scss/_variables';
 @import '~materialize-css/sass/materialize';
 
 @import '../../assets/stylesheets/shared/*.sass';
 @import '../../assets/stylesheets/components/**/*.sass';
-@import './*.sass';
+@import '../scss/*.sass';

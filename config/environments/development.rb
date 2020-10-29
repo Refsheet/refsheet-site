@@ -100,6 +100,7 @@ Rails.application.configure do
 
   config.action_cable.allowed_request_origins = %w(
     http://localhost
+    http://localhost:5000
     http://dev.refsheet.net:5000
     http://dev1.refsheet.net:5000
     http://dev.refsheet.net:3200

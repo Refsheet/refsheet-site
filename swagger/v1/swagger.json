@@ -5,7 +5,7 @@
     "description": "The Refsheet.net API allows another application to view and manipulate data on behalf of a user. To get started,\n[generate an API Key from your account settings](https://refsheet.net/account/settings/api).\n\n<div id='refsheet-auth-root'></div>\n\n## Authentication\n\nThe API requires two values, `api_key_id` and `api_key_secret` to be sent either as query parameters or via headers.\n\n|Field|URL Param|Header|\n|---|---|---|\n|API Key ID|`api_key_id`|`X-ApiKeyId`|\n|API Key Secret|`api_key_secret`|`X-ApiKeySecret`|\n\n\nAn example request using CURL:\n\n```\ncurl -H \"X-ApiKeyId: $REFSHEET_API_KEY_ID\" \\\n     -H \"X-ApiKeySecret: $REFSHEET_API_KEY_SECRET\" \\\n     https://refsheet.net/api/v1/users/me\n```\n\n\n## Response Format\n\nThis API responds with a simple JSON representation of the requested object, which you can see in the examples\nprovided. Some resources include special keys which can be used however you'd like. A summary of fields to expect:\n\n|Property|Required|Description|\n|---|---|---|\n|`id`|Yes|The ID of the resource requested|\n|`_type`|Yes|A type associated with the resource|\n\n### Collections\n\nTBD\n\n### Errors\n\nTBD\n\n\n## Client Libraries\n\nAside from the Swagger definition of the API, there are a few client libraries that are generated. More will be added\nas they are created:\n\n|Language|Link|\n|---|---|\n|Ruby|https://rubygems.org/gems/refsheet|\n\n",
     "version": "v1"
   },
-  "host": "http://dev1.refsheet.net",
+  "host": "http://localhost",
   "basePath": "/api/v1",
   "paths": {
     "/users/{id}": {

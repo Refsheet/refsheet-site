@@ -75,7 +75,7 @@ as they are created:
         description: description,
         version: 'v1'
       },
-      host: (Rails.env.production? ? 'https://refsheet.net' : 'http://dev1.refsheet.net'),
+      host: (Rails.env.production? ? 'https://refsheet.net' : 'http://localhost'),
       basePath: '/api/v1',
       paths: {},
       definitions: {},

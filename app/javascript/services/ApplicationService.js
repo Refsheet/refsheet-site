@@ -28,7 +28,7 @@ export const csrf = function() {
 
 const HOST =
   (window && window.location && window.location.origin) ||
-  'http://dev1.refsheet.net:5000'
+  'http://localhostt:5000'
 
 const fragmentMatcher = new IntrospectionFragmentMatcher({
   introspectionQueryResultData,

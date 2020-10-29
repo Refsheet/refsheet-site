@@ -29,7 +29,7 @@ CORS_DEV = _cors(
     'dev1.refsheet.net',
     '127.0.0.1',
     'localhost',
-    ports: [3000, 5000]
+    ports: [3000, 5000, 3200]
 )
 
 if defined? Rack::Cors

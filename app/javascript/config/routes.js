@@ -1,5 +1,5 @@
 export default {
-  baseUrl: 'http://dev1.refsheet.net:5000',
+  baseUrl: 'http://localhost:5000',
 
   // Users
   userRoute: '/:username',
