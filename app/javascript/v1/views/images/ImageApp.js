@@ -8,6 +8,8 @@ import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
 import CharacterViewSilhouette from 'v1/views/characters/CharacterViewSilhouette'
+import { connect } from 'react-redux'
+import { openLightbox } from '../../../actions'
 
 import $ from 'jquery'
 import Model from '../../utils/Model'
@@ -20,16 +22,18 @@ import Model from '../../utils/Model'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let ImageApp
-export default ImageApp = createReactClass({
+const ImageApp = createReactClass({
   getInitialState() {
     return { image: null }
   },
 
   load(data) {
-    return this.setState({ image: data }, function() {
+    const { openLightbox } = this.props;
+    this.setState({ image: data }, function() {
       data.directLoad = true
-      return $(document).trigger('app:lightbox', data)
+      // TODO: We can direct load here.
+      openLightbox(data.id)
+      //       return $(document).trigger('app:lightbox', data)
     })
   },
 
@@ -73,6 +77,8 @@ export default ImageApp = createReactClass({
     }
   },
 })
+    
+export default connect(undefined, { openLightbox })(ImageApp)
 
 // BROKEN THINGS FOR TOMRROW
 
