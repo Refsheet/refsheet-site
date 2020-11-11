@@ -19,7 +19,7 @@ spec:
         tier: frontend
         run: refsheet-prod
       annotations:
-        configHash: b6434529026540e58e2751ed60fcfe48ccee9201aa8a9294c7742e58b3a3d66c
+        configHash: b6434529026540e58e2751ed60fcfe48ccee9201aa8a9294c7742e58b3a3d66c3
     spec:
       volumes:
       - name: refsheet-prod-storage
@@ -27,7 +27,7 @@ spec:
           secretName: refsheet-prod-storage
       containers:
       - name: refsheet-prod
-        image: gcr.io/refsheet-239409/refsheet-site:6df4b2e821323ed8a9935f378b60a2af6528627a
+        image: gcr.io/refsheet-239409/refsheet-site:ee337fd717b1f8cbeeb4731f903e4d215331f448
         imagePullPolicy: Always
         livenessProbe:
           periodSeconds: 120
@@ -67,8 +67,8 @@ spec:
           protocol: TCP
         resources:
           requests:
-            cpu: "0.2"
-            memory: 600M
-          limits:
-            cpu: "0.4"
+            cpu: "0.5"
             memory: 1G
+          limits:
+            cpu: "1"
+            memory: 2G
