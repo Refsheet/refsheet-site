@@ -72,7 +72,7 @@ const Component = createReactClass({
 
   dataPath: '/users/:userId/characters/:characterId',
   paramMap: {
-    characterId: 'id',
+    characterId: 'slug',
     userId: 'user_id',
   },
 
@@ -277,12 +277,12 @@ const Component = createReactClass({
       return <Character {...props} />
     }
 
-    if (
-      this.state.character.user_id ===
-      (this.props.currentUser != null
-        ? this.props.currentUser.username
-        : undefined)
-    ) {
+    let canEdit = this.state.character.user_id === (this.props.currentUser || {}).username
+      || this.props.currentUser.is_admin
+
+    console.log(this.props.currentUser, "rrrr")
+
+    if (canEdit) {
       showMenu = true
 
       if (this.state.editable) {

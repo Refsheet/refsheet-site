@@ -20,8 +20,6 @@ const CharacterViewSilhouette = props => (
   <Main
     title={props.title || 'Loading...'}
     className="silhouette"
-    style={{ display: props.immediate ? 'block' : 'none' }}
-    fadeEffect={!props.immediate}
   >
     <section className="page-header">
       <div
