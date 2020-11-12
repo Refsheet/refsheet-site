@@ -186,10 +186,6 @@ class Image < ApplicationRecord # < Media
     end
   }
 
-  def gravity
-    super || 'North'
-  end
-
   def processed?
     !self.image_processing?
   end
@@ -277,7 +273,8 @@ class Image < ApplicationRecord # < Media
 
   def contemplate_reprocessing
     if saved_change_to_gravity? or saved_change_to_watermark?
-      self.image.reprocess!
+      self.update_column(:image_processing, true)
+      ImageProcessingJob.perform_later(self)
     end
   end
 

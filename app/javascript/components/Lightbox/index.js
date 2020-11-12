@@ -89,8 +89,17 @@ class Lightbox extends Component {
       this.unlisten()
     }
 
-    if (this.previousPath) {
+    if (this.previousPath && !this.previousPath.match(/^\/media\//)) {
       window.history.replaceState({}, null, this.previousPath)
+    } else {
+      let newPath = '/'
+
+      if (this.props.data && this.props.data.getMedia) {
+        const character = this.props.data.getMedia.character
+        newPath = character.path
+      }
+
+      this.props.history.push(newPath)
     }
 
     document.body.classList.remove('lightbox-open')
