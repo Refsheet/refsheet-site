@@ -37,11 +37,13 @@ query getMedia($mediaId: ID!) {
             position_y
 
             character {
+                id
                 name
             }
         }
 
       character {
+        id
         name
         path
         profile_image {

@@ -36,6 +36,7 @@ query getDiscussions($forumId: String!, $page: Int, $sort: String, $query: Strin
                 }
 
                 character {
+                    id
                     name
                     slug
                     profile_image {

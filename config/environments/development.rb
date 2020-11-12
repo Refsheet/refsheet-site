@@ -90,6 +90,7 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+  config.file_watcher = ActiveSupport::FileUpdateChecker
 
   config.active_job.queue_adapter = :resque
 
@@ -110,8 +111,6 @@ Rails.application.configure do
 
   config.hosts << 'dev.refsheet.net'
   config.hosts << 'dev1.refsheet.net'
-
-  config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.web_console.permissions = '192.168.0.0/16'
   config.web_console.whiny_requests = false

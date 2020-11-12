@@ -15,6 +15,7 @@ import Attributes from './_attributes'
 import AttributeTable from 'v1/shared/attributes/attribute_table'
 import $ from 'jquery'
 import HashUtils from '../../utils/HashUtils'
+import Flash from "../../../utils/Flash"
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -49,9 +50,12 @@ export default CharacterCard = createReactClass({
         return onSuccess()
       },
       error: error => {
+        if (error.status === 401 || error.status === 500) {
+          Flash.error(error.statusText)
+        }
         return onError({
           value:
-            error.JSONData != null ? error.JSONData.errors[data.id] : undefined,
+            error.JSONData != null ? error.JSONData.errors[data.id] : error.statusText,
         })
       },
     })

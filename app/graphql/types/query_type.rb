@@ -49,7 +49,8 @@ Types::QueryType = GraphQL::ObjectType.define do
     resolve -> (_obj, args, ctx) {
       raise GraphQL::ExecutionError.new "Not authorized!" unless ctx[:current_user].call
 
-      character = ctx[:current_user].call.characters.find_by!(guid: args[:characterId])
+      character = Character.find_by!(guid: args[:characterId])
+      raise GraphQL::ExecutionError.new "Not authorized!" unless character.managed_by?(ctx[:current_user].call)
 
       presigned_post = character.images.new.image_presigned_post
 

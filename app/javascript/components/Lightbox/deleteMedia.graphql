@@ -2,6 +2,7 @@ mutation deleteMedia($mediaId: ID!) {
     deleteMedia(mediaId: $mediaId) {
         id
         character {
+            id
             username
             slug
         }

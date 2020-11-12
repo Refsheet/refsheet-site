@@ -66,7 +66,7 @@ const Component = createReactClass({
       galleryTitle: null,
       onGallerySelect: null,
       images: null,
-      editable: true,
+      editable: false,
     }
   },
 
@@ -277,8 +277,8 @@ const Component = createReactClass({
       return <Character {...props} />
     }
 
-    let canEdit = this.state.character.user_id === (this.props.currentUser || {}).username
-      || this.props.currentUser.is_admin
+    const isOwner = this.state.character.user_id === (this.props.currentUser || {}).username
+    const canEdit = isOwner || this.props.currentUser.is_admin
 
     if (canEdit) {
       showMenu = true

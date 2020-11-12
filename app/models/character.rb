@@ -209,8 +209,8 @@ class Character < ApplicationRecord
     super || Image.new
   end
 
-  def managed_by?(user)
-    self.user == user
+  def managed_by?(user, no_admin = false)
+    self.user == user || (!no_admin && user.admin?)
   end
 
   def self.lookup(slug)

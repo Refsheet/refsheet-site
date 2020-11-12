@@ -31,6 +31,7 @@ query getDiscussion($forumId: String!, $discussionId: String!) {
         }
 
         character {
+            id
             name
             slug
             profile_image {

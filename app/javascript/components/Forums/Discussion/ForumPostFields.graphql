@@ -19,6 +19,7 @@ fragment ForumPostFields on ForumPost {
     }
 
     character {
+        id
         name
         slug
         profile_image {

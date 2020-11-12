@@ -72,7 +72,7 @@ class Mutations::ImageMutations < Mutations::ApplicationMutation
   end
 
   def get_image
-    @image = Image.find_by(guid: params[:mediaId])
+    @image = Image.find_by!(guid: params[:mediaId])
     authorize! @image.character.managed_by? current_user
     @image
   end
