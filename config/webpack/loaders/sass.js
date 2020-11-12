@@ -1,26 +1,26 @@
 const globImporter = require('node-sass-glob-importer');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   test: /\.(css|sass|scss)$/i,
-  loader: ExtractTextPlugin.extract({
-    use: [
-      'css-loader',
-      {
-        loader: 'sass-loader',
-        options: {
-          importer: globImporter(),
-          sourceMap: false,
+  use: [
+    MiniCssExtractPlugin.loader,
+    'css-loader',
+    {
+      loader: 'sass-loader',
+      options: {
+        sourceMap: false,
+        sassOptions: {
           allChunks: true,
+          importer: globImporter(),
           includePaths: [
             'app/javascript/sass',
             'app/assets/stylesheets',
             'app/assets'
-          ]
+          ],
+          outputStyle: 'compressed'
         }
-      },
-    ],
-    allChunks: true,
-    fallback: 'style-loader'
-  })
+      }
+    },
+  ]
 }

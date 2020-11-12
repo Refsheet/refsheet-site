@@ -36,7 +36,7 @@ export default CharacterCard = createReactClass({
     }
   },
 
-  handleAttributeChange(data, onSuccess, onError) {
+  handleAttributeChange(data, onSuccess = ()=>{}, onError = ()=>{}) {
     const postData = { character: {} }
     postData.character[data.id] = data.value
 

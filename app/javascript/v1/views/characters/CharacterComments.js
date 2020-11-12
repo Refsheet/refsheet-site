@@ -13,7 +13,7 @@ import PropTypes from 'prop-types'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.CharacterComments = () => (
+const CharacterComments = () => (
   <section className="character-comments">
     <div className="container">
       <div className="row">
@@ -27,3 +27,4 @@ this.CharacterComments = () => (
     </div>
   </section>
 )
+export default CharacterComments

@@ -11,7 +11,7 @@
  */
 import React from 'react'
 
-this.NotFound = () => (
+const NotFound = () => (
   <main className="modal-page-content">
     <div className="container">
       <h1>404 - Not Found</h1>
@@ -19,4 +19,4 @@ this.NotFound = () => (
     </div>
   </main>
 )
-export default this.NotFound
+export default NotFound

@@ -24,8 +24,6 @@ import compose, { withCurrentUser } from '../../../utils/compose'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.Comments = {}
-
 const Index = createReactClass({
   propTypes: {
     mediaId: PropTypes.string.isRequired,

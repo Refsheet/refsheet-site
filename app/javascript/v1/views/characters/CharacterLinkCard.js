@@ -16,7 +16,7 @@ import { Link } from 'react-router-dom'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.CharacterLinkCard = function(props) {
+const CharacterLinkCard = function(props) {
   const colorData =
     (props.colorScheme != null ? props.colorScheme.color_data : undefined) || {}
 
@@ -48,4 +48,4 @@ this.CharacterLinkCard = function(props) {
   )
 }
 
-export default this.CharacterLinkCard
+export default CharacterLinkCard

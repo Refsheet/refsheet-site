@@ -3,6 +3,7 @@ const coffee = require('./loaders/coffee')
 const erb = require('./loaders/erb')
 const graphql = require('./loaders/graphql')
 const sass = require('./loaders/sass')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 // Export Defaults
 
@@ -11,7 +12,11 @@ let output = {
   libraryTarget: 'var'
 }
 
-environment.config.merge({output})
+let plugins = [
+  new MiniCssExtractPlugin()
+]
+
+environment.config.merge({plugins, output})
 
 // Drink Coffee
 

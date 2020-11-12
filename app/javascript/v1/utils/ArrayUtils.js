@@ -6,7 +6,7 @@
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-this.ArrayUtils = {
+const ArrayUtils = {
   pluck(array, key) {
     return array.map(o => o[key])
   },
@@ -15,3 +15,5 @@ this.ArrayUtils = {
     return array_1.filter(i => array_2.indexOf(i) < 0)
   },
 }
+
+export default ArrayUtils

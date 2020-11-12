@@ -13,7 +13,7 @@ import SwatchPanel from '../../shared/swatches/SwatchPanel'
 import Views from '../../views/_views'
 import AttributeTable from '../../shared/attributes/attribute_table'
 
-const Home = createReactClass({
+const cHome = createReactClass({
   componentDidMount() {
     // return $('.materialboxed').materialbox()
   },
@@ -220,5 +220,5 @@ const Home = createReactClass({
 })
 
 const mapStateToProps = state => ({ currentUser: state.session.currentUser })
-this.Home = connect(mapStateToProps)(Home)
-export default this.Home
+const Home = connect(mapStateToProps)(cHome)
+export default Home

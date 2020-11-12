@@ -43,7 +43,7 @@ export default AttributeForm = createReactClass({
           }
         }
       },
-      data => {
+      (data) => {
         console.log(data)
         return this.setState({ errors: data })
       }
