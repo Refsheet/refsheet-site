@@ -208,6 +208,7 @@ class Thumbnail extends Component {
   render() {
     const { className, style, connectorFunc, innerRef, children, image = {} } = this.props
     style.backgroundColor = image.background_color || 'rgb(0,0,0)'
+    //break artifact cache
 
     const preReturn = () => {
       return (
