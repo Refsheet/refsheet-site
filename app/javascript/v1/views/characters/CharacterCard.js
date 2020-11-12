@@ -15,7 +15,7 @@ import Attributes from './_attributes'
 import AttributeTable from 'v1/shared/attributes/attribute_table'
 import $ from 'jquery'
 import HashUtils from '../../utils/HashUtils'
-import Flash from "../../../utils/Flash"
+import Flash from '../../../utils/Flash'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -37,7 +37,7 @@ export default CharacterCard = createReactClass({
     }
   },
 
-  handleAttributeChange(data, onSuccess = ()=>{}, onError = ()=>{}) {
+  handleAttributeChange(data, onSuccess = () => {}, onError = () => {}) {
     const postData = { character: {} }
     postData.character[data.id] = data.value
 
@@ -55,7 +55,9 @@ export default CharacterCard = createReactClass({
         }
         return onError({
           value:
-            error.JSONData != null ? error.JSONData.errors[data.id] : error.statusText,
+            error.JSONData != null
+              ? error.JSONData.errors[data.id]
+              : error.statusText,
         })
       },
     })

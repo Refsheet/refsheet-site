@@ -169,7 +169,7 @@ class ImageEditForm extends Component {
                 onChange={this.handleInputChange.bind(this)}
                 value={image.gravity}
               >
-                <option key={'null'} value={""}>
+                <option key={'null'} value={''}>
                   {t('image_gravity.default', 'Default')}
                 </option>
 

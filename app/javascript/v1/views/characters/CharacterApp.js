@@ -277,7 +277,8 @@ const Component = createReactClass({
       return <Character {...props} />
     }
 
-    const isOwner = this.state.character.user_id === (this.props.currentUser || {}).username
+    const isOwner =
+      this.state.character.user_id === (this.props.currentUser || {}).username
     const canEdit = isOwner || this.props.currentUser.is_admin
 
     if (canEdit) {
@@ -299,13 +300,11 @@ const Component = createReactClass({
       <ThemeProvider theme={defaultTheme.apply(colors || {})}>
         <ThemedMain title={[this.state.character.name, 'Characters']}>
           {colors && <PageStylesheet colorData={colors} />}
-
           {/*<CharacterEditMenu onEditClick={ this._toggleEditable }
                                 images={ this.state.images }
                                 galleryTitle={ this.state.galleryTitle } <-- THIS SHOULD NOT HAPPEN
                                 onGallerySelect={ this.onGallerySelect }
                                 character={ this.state.character } */}
-
           {showMenu && (
             <div className="edit-container">
               <FixedActionButton
@@ -374,7 +373,6 @@ const Component = createReactClass({
               <CharacterSettingsModal character={this.state.character} />
             </div>
           )}
-
           <PageHeader
             backgroundImage={(this.state.character.featured_image || {}).url}
             onHeaderImageEdit={headerImageEditCallback}
@@ -413,7 +411,6 @@ const Component = createReactClass({
               swatches={this.state.character.swatches}
             />
           </PageHeader>
-
           <Section>
             <Row className="rowfix">
               <Column m={12} id={'profile_about'}>
@@ -452,8 +449,8 @@ const Component = createReactClass({
                 />
               </Column>
             </Row>
-          </Section>'
-
+          </Section>
+          '
           <Section className="margin-bottom--large i-am-really-sorry-but-ads-support-the-site-you-can-add-this-class-to-your-ad-blocker">
             <div style={{ margin: '1.5rem auto', maxWidth: 750 }}>
               <GoogleAd
@@ -464,7 +461,6 @@ const Component = createReactClass({
               />
             </div>
           </Section>
-
           <Section className="margin-bottom--large">
             <Query
               query={getCharacterImages}

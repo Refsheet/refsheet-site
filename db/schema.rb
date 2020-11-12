@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_20_205108) do
+ActiveRecord::Schema.define(version: 2020_11_12_064050) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -615,6 +615,7 @@ ActiveRecord::Schema.define(version: 2020_05_20_205108) do
     t.boolean "annotation"
     t.string "custom_annotation"
     t.bit "image_phash", limit: 64
+    t.text "image_processing_error"
     t.index ["character_id"], name: "index_images_on_character_id"
     t.index ["custom_watermark_id"], name: "index_images_on_custom_watermark_id"
     t.index ["deleted_at"], name: "index_images_on_deleted_at"

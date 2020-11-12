@@ -9,6 +9,7 @@ fragment CharacterImages on Character {
         comments_count
         favorites_count
         image_processing
+        image_processing_error
         is_favorite
         is_managed
         width

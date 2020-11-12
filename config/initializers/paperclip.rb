@@ -29,12 +29,15 @@ end
 
 class DelayedPaperclip::ProcessJob < ActiveJob::Base
   def perform(instance_klass, instance_id, attachment_name)
-    DelayedPaperclip.process_job(instance_klass, instance_id, attachment_name.to_sym)
-
     begin
-      instance_klass.constantize.unscoped.find(instance_id).send(:delayed_complete)
+      DelayedPaperclip.process_job(instance_klass, instance_id, attachment_name.to_sym)
+      instance = instance_klass.constantize.unscoped.find(instance_id)
+      Rails.logger.info(instance.send(attachment_name + '_processing_error').inspect)
     rescue => e
       Rails.logger.error(e)
+      raise e
     end
+  ensure
+    instance_klass.constantize.unscoped.find(instance_id).send(:delayed_complete)
   end
 end

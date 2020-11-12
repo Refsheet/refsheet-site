@@ -17,10 +17,7 @@ import Main from '../../../components/Shared/Main'
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 const CharacterViewSilhouette = props => (
-  <Main
-    title={props.title || 'Loading...'}
-    className="silhouette"
-  >
+  <Main title={props.title || 'Loading...'} className="silhouette">
     <section className="page-header">
       <div
         className="page-header-backdrop silhouette-backdrop"

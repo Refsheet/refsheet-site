@@ -68,6 +68,8 @@ module Paperclip
         begin
           Paperclip.run(command, params.join(' '))
         rescue Exception => e
+          # REPORT HERE
+          image.update_column(:image_processing_error, e.message)
           raise Paperclip::Error.new("Unknown error: #{e}")
         rescue ArgumentError
           raise Paperclip::Error.new("There was an error processing the image for #{@basename}") if @whiny

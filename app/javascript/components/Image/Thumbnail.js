@@ -7,6 +7,11 @@ import { connect } from 'react-redux'
 import { openLightbox } from '../../actions'
 import NumberUtils from '../../v1/utils/NumberUtils'
 import c from 'classnames'
+import compose, { withMutations } from '../../utils/compose'
+import deleteMedia from '../Lightbox/deleteMedia.graphql'
+import updateImage from '../Lightbox/updateImage.graphql'
+import CacheUtils from "../../utils/CacheUtils"
+import Flash from "../../utils/Flash"
 
 class Thumbnail extends Component {
   constructor(props) {
@@ -36,12 +41,74 @@ class Thumbnail extends Component {
     console.log('Favorite ' + id)
   }
 
-  renderNotification(icon, title, message, className) {
+  handleReprocessClick(e) {
+    e.preventDefault()
+
+    const {
+      image: { id },
+      updateImage
+    } = this.props
+
+    updateImage({
+      wrapped: true,
+      variables: {
+        id,
+        reprocess: true
+      }
+    })
+  }
+
+  handleDeleteClick(e) {
+    e.preventDefault()
+
+    const {
+      image: { id, title },
+      deleteMedia
+    } = this.props
+
+    if (confirm(`Really delete ${title}?`)) {
+      deleteMedia({
+        wrapped: true,
+        variables: {
+          mediaId: id
+        },
+        update: CacheUtils.deleteMedia
+      })
+        .then(data => {
+          Flash.info("Image deleted.")
+        })
+        .catch(error => {
+          console.error({ error })
+          Flash.error("Something went wrong.")
+        })
+    }
+  }
+
+  renderNotification(icon, title, message, className, redrive = false) {
     return (
       <div className={'message center-align ' + className}>
-        <i className={'material-icons'}>{icon}</i>
-        <div className="caption margin-top--large">{title}</div>
-        <div className="muted margin-top--medium">{message}</div>
+        <i className={'material-icons ' + className}>{icon}</i>
+        <div className={'caption margin-top--large ' + className}>{title}</div>
+        <div className={'muted margin-top--medium ' + className}>{message}</div>
+        {redrive && (
+          <div className={'actions margin-top--small'}>
+            <a
+              href={'#'}
+              onClick={this.handleReprocessClick.bind(this)}
+              className={className}
+            >
+              Reprocess
+            </a>{' '}
+            |{' '}
+            <a
+              onClick={this.handleDeleteClick.bind(this)}
+              href={'#'}
+              className={className}
+            >
+              Delete
+            </a>
+          </div>
+        )}
       </div>
     )
   }
@@ -50,7 +117,9 @@ class Thumbnail extends Component {
     const {
       session: { nsfwOk },
       image: {
+        created_at,
         image_processing,
+        image_processing_error,
         aspect_ratio,
         id,
         path,
@@ -64,19 +133,32 @@ class Thumbnail extends Component {
       },
     } = this.props
 
-    if (image_processing) {
+    if (image_processing_error) {
+      return this.renderNotification(
+        'error',
+        'Processing Error',
+        `An error happened for image #${id}, and our system was unable to resize it.`,
+        'red-text',
+        true
+      )
+    } else if (image_processing) {
+      console.log({ cap: this.props })
+      const image_age = (Date.now()/1000) - created_at
       return this.renderNotification(
         'hourglass_empty',
         'Image processing...',
         'Thumbnails are being generated for this image, and should be available soon. ' +
-          'You might need to reload this page.'
+          'You might need to reload this page. ' + image_age,
+        undefined,
+        created_at < (Date.now()/1000 - 3600)
       )
     } else if (!aspect_ratio) {
       return this.renderNotification(
         'warning',
         'Invalid image :(',
         `Something's not quite right. This might be a bug. Report Image #${id}.`,
-        'red-text'
+        'red-text',
+        true
       )
     }
 
@@ -124,7 +206,8 @@ class Thumbnail extends Component {
   }
 
   render() {
-    const { className, style, connectorFunc, innerRef, children } = this.props
+    const { className, style, connectorFunc, innerRef, children, image = {} } = this.props
+    style.backgroundColor = image.background_color || 'rgb(0,0,0)'
 
     const preReturn = () => {
       return (
@@ -132,7 +215,7 @@ class Thumbnail extends Component {
           ref={innerRef}
           style={style}
           className={c(
-            'gallery-image image-thumbnail black z-depth-1',
+            'gallery-image image-thumbnail z-depth-1',
             className
           )}
         >
@@ -199,4 +282,7 @@ const mapStateToProps = ({ session }) => ({
   session,
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Subscribed)
+export default compose(
+  withMutations({ updateImage, deleteMedia }),
+  connect(mapStateToProps, mapDispatchToProps)
+)(Subscribed)

@@ -11,6 +11,7 @@ mutation updateImage($id: ID!, $caption: String, $title: String, $nsfw: Boolean,
         watermark
         gravity
         image_processing
+        image_processing_error
 
         hashtags {
             tag

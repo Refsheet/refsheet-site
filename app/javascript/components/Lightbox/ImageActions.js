@@ -10,6 +10,7 @@ import { getCharacterProfile as gcp } from 'queries/getCharacterProfile.graphql'
 import M from 'materialize-css'
 
 import Modal from 'v1/shared/Modal'
+import CacheUtils from "../../utils/CacheUtils"
 
 class ImageActions extends Component {
   constructor(props) {
@@ -39,26 +40,7 @@ class ImageActions extends Component {
         variables: {
           mediaId: this.props.mediaId,
         },
-        update: (cache, { data: { deleteMedia } }) => {
-          const { getCharacterByUrl } = cache.readQuery({
-            query: gcp,
-            variables: {
-              username: deleteMedia.character.username,
-              slug: deleteMedia.character.slug,
-            },
-          })
-          cache.writeQuery({
-            query: gcp,
-            data: {
-              getCharacterByUrl: {
-                ...getCharacterByUrl,
-                images: getCharacterByUrl.images.filter(
-                  i => i.id !== deleteMedia.id
-                ),
-              },
-            },
-          })
-        },
+        update: CacheUtils.deleteMedia,
       })
       .then(({ data, errors }) => {
         if (!errors || errors.length === 0) {

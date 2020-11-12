@@ -52,7 +52,8 @@ class Image < ApplicationRecord # < Media
   include RankedModel
   include HasDirectUpload
 
-  IMAGE_GRAVITIES = %w(NorthWest North NorthEast West Center East SouthWest South SouthEast)
+  IMAGE_GRAVITIES = %w(NorthWest North NorthEast West Center East SouthWest South SouthEast).freeze
+  DEFAULT_GRAVITY = IMAGE_GRAVITIES[1].freeze
 
   belongs_to :character, inverse_of: :images
   has_one :user, through: :character
@@ -89,10 +90,10 @@ class Image < ApplicationRecord # < Media
                         original: :private
                     },
                     convert_options: {
-                       thumbnail:     -> (i) { "+repage -gravity '#{i.gravity}' -crop '#{SIZE[:thumbnail]}x#{SIZE[:thumbnail]}+0+0'" },
-                       small_square:  -> (i) { "+repage -gravity '#{i.gravity}' -crop '#{SIZE[:small]}x#{SIZE[:small]}+0+0'" },
-                       medium_square: -> (i) { "+repage -gravity '#{i.gravity}' -crop '#{SIZE[:medium]}x#{SIZE[:medium]}+0+0'" },
-                       large_square:  -> (i) { "+repage -gravity '#{i.gravity}' -crop '#{SIZE[:large]}x#{SIZE[:large]}+0+0'" }
+                       thumbnail:     -> (i) { "+repage -gravity '#{i.gravity.presence || 'Nord'}' -crop '#{SIZE[:thumbnail]}x#{SIZE[:thumbnail]}+0+0'" },
+                       small_square:  -> (i) { "+repage -gravity '#{i.gravity.presence || 'North'}' -crop '#{SIZE[:small]}x#{SIZE[:small]}+0+0'" },
+                       medium_square: -> (i) { "+repage -gravity '#{i.gravity.presence || 'North'}' -crop '#{SIZE[:medium]}x#{SIZE[:medium]}+0+0'" },
+                       large_square:  -> (i) { "+repage -gravity '#{i.gravity.presence || 'North'}' -crop '#{SIZE[:large]}x#{SIZE[:large]}+0+0'" }
                     }
 
 

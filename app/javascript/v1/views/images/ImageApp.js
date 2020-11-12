@@ -28,7 +28,7 @@ const ImageApp = createReactClass({
   },
 
   load(data) {
-    const { openLightbox } = this.props;
+    const { openLightbox } = this.props
     this.setState({ image: data }, function() {
       data.directLoad = true
       // TODO: We can direct load here.
@@ -77,7 +77,7 @@ const ImageApp = createReactClass({
     }
   },
 })
-    
+
 export default connect(undefined, { openLightbox })(ImageApp)
 
 // BROKEN THINGS FOR TOMRROW
