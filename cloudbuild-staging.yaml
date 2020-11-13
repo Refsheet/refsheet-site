@@ -4,6 +4,8 @@ steps:
     volumes:
       - name: 'cache'
         path: '/cache'
+      - name: 'artifacts'
+        path: '/artifacts'
     entrypoint: bash
     args:
       - -c

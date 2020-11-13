@@ -3,6 +3,10 @@
 CACHE_BUCKET="gs://refsheet-build-cache"
 BRANCH="${2:-master}"
 
+echo "Forcing artifacts..."
+mkdir -p /artifacts
+echo "BRANCH=$BRANCH" > /artifacts/LAST_BUILD
+
 if [ "$1" == "pull" ]; then
   echo "Finding cache..."
   if gsutil ls "$CACHE_BUCKET/cache-$BRANCH.tar.gz" > /dev/null; then

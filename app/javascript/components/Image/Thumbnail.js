@@ -10,8 +10,8 @@ import c from 'classnames'
 import compose, { withMutations } from '../../utils/compose'
 import deleteMedia from '../Lightbox/deleteMedia.graphql'
 import updateImage from '../Lightbox/updateImage.graphql'
-import CacheUtils from "../../utils/CacheUtils"
-import Flash from "../../utils/Flash"
+import CacheUtils from '../../utils/CacheUtils'
+import Flash from '../../utils/Flash'
 
 class Thumbnail extends Component {
   constructor(props) {
@@ -46,15 +46,15 @@ class Thumbnail extends Component {
 
     const {
       image: { id },
-      updateImage
+      updateImage,
     } = this.props
 
     updateImage({
       wrapped: true,
       variables: {
         id,
-        reprocess: true
-      }
+        reprocess: true,
+      },
     })
   }
 
@@ -63,23 +63,23 @@ class Thumbnail extends Component {
 
     const {
       image: { id, title },
-      deleteMedia
+      deleteMedia,
     } = this.props
 
     if (confirm(`Really delete ${title}?`)) {
       deleteMedia({
         wrapped: true,
         variables: {
-          mediaId: id
+          mediaId: id,
         },
-        update: CacheUtils.deleteMedia
+        update: CacheUtils.deleteMedia,
       })
         .then(data => {
-          Flash.info("Image deleted.")
+          Flash.info('Image deleted.')
         })
         .catch(error => {
           console.error({ error })
-          Flash.error("Something went wrong.")
+          Flash.error('Something went wrong.')
         })
     }
   }
@@ -143,14 +143,15 @@ class Thumbnail extends Component {
       )
     } else if (image_processing) {
       console.log({ cap: this.props })
-      const image_age = (Date.now()/1000) - created_at
+      const image_age = Date.now() / 1000 - created_at
       return this.renderNotification(
         'hourglass_empty',
         'Image processing...',
         'Thumbnails are being generated for this image, and should be available soon. ' +
-          'You might need to reload this page. ' + image_age,
+          'You might need to reload this page. ' +
+          image_age,
         undefined,
-        created_at < (Date.now()/1000 - 3600)
+        created_at < Date.now() / 1000 - 3600
       )
     } else if (!aspect_ratio) {
       return this.renderNotification(
@@ -206,7 +207,14 @@ class Thumbnail extends Component {
   }
 
   render() {
-    const { className, style, connectorFunc, innerRef, children, image = {} } = this.props
+    const {
+      className,
+      style,
+      connectorFunc,
+      innerRef,
+      children,
+      image = {},
+    } = this.props
     style.backgroundColor = image.background_color || 'rgb(0,0,0)'
     //break artifact cache
 
@@ -215,10 +223,7 @@ class Thumbnail extends Component {
         <div
           ref={innerRef}
           style={style}
-          className={c(
-            'gallery-image image-thumbnail z-depth-1',
-            className
-          )}
+          className={c('gallery-image image-thumbnail z-depth-1', className)}
         >
           {children}
           {this.renderImage()}
