@@ -33,7 +33,7 @@ steps:
       - --cache=true
       - --cache-dir=/kaniko-cache
       - --build-arg
-      - rails_container=refsheet-staging
+      - rails_container=refsheet-prod-staging
       - --build-arg
       - rails_port=3000
       - --build-arg
