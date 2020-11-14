@@ -63,8 +63,13 @@ function init(id, props) {
 }
 
 export { init }
+export default init
 
 window._jsV2 = true
+window.___init = init
 console.debug('Pack loaded: Refsheet JS v2')
 const event = new CustomEvent('jsload.pack')
 window.dispatchEvent(event)
+window.Packs || (window.Packs = {})
+window.Packs.application || (window.Packs.application = {})
+window.Packs.application.init = init

@@ -1,7 +1,8 @@
 import * as Actions from '../actions'
 import { createReducer } from './index'
 
-import { modals as defaultState } from 'App/defaultState.json'
+import defaultState from 'App/defaultState.json'
+
 
 const handlers = {
   [Actions.OPEN_MODAL]: (state, action) => ({
@@ -13,4 +14,4 @@ const handlers = {
   }),
 }
 
-export default createReducer(defaultState, handlers)
+export default createReducer(defaultState.modals, handlers)

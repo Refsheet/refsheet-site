@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import compose from 'utils/compose'
 import { DirectUploadProvider } from 'react-activestorage-provider'
 import { TextInput, Button, Row, Col, ProgressBar } from 'react-materialize'
@@ -154,7 +154,7 @@ UploadCover.propTypes = {
 }
 
 export default compose(
-  withNamespaces('common'),
+  withTranslation('common'),
   withMutations({ setCharacterCoverBlob })
   // TODO: Add HOC bindings here
 )(UploadCover)

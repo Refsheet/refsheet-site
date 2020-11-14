@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import compose from 'utils/compose'
 import { Tab } from 'react-materialize'
 import Tabs from '../../../Styled/Tabs'
@@ -35,6 +35,6 @@ AvatarModal.propTypes = {
 }
 
 export default compose(
-  withNamespaces('common')
+  withTranslation('common')
   // TODO: Add HOC bindings here
 )(AvatarModal)

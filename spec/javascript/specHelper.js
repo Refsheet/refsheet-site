@@ -1,4 +1,4 @@
-import 'babel-polyfill'
+//import 'babel-polyfill'
 import Adapter from 'enzyme-adapter-react-16'
 import Chai from 'chai'
 import chaiEnzyme from 'chai-enzyme'

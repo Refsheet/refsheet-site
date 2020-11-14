@@ -3,6 +3,8 @@
 
 const webpackConfig = require('./config/webpack/test.js');
 
+console.log({ webpackConfig })
+
 webpackConfig.externals = {
   cheerio: 'window',
   'react/addons': 'react',

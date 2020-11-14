@@ -64,10 +64,10 @@ export default function buildSubscriptionRender(args) {
     </Query>
   )
 
-  Wrapped.propTypes = {
-    Component: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
-      .isRequired,
-  }
+  // Wrapped.propTypes = {
+  //   Component: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
+  //     .isRequired,
+  // }
 
   return Component => {
     return props => <Wrapped {...props} Component={Component} />

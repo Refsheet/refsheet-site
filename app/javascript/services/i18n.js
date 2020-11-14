@@ -20,6 +20,9 @@ i18n
     fallbackLng: 'en',
     ns: ['common'],
     defaultNS: 'common',
+    react: {
+      useSuspense: false
+    },
     interpolation: {
       escapeValue: false,
     },

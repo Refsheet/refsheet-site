@@ -55,6 +55,10 @@ services:
     build:
       context: .
       dockerfile: .nginx/Dockerfile
+      args:
+        rails_container: website
+        rails_port: 3200
+        port: 5000
     ports:
       - '5000:5000'
     volumes:

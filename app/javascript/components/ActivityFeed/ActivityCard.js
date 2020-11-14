@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import Moment from 'react-moment'
 import UserAvatar from '../User/UserAvatar'
 import UserLink from '../User/UserLink'
@@ -48,4 +48,4 @@ ActivityCard.propTypes = {
   activityText: PropTypes.string,
 }
 
-export default withNamespaces('common')(ActivityCard)
+export default withTranslation('common')(ActivityCard)

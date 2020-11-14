@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import compose from '../../../utils/compose'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import DiscussionLink from './DiscussionLink'
 import { Query } from 'react-apollo'
 import getDiscussions from '../getDiscussions.graphql'
@@ -204,4 +204,4 @@ class Discussions extends Component {
   }
 }
 
-export default compose(withNamespaces('common'))(Discussions)
+export default compose(withTranslation('common'))(Discussions)

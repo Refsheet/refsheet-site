@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, { withTheme } from 'styled-components'
-import Style from 'react-style-tag'
+import { Style } from 'react-style-tag'
 import Main from 'Shared/Main'
 
 const GlobalStyle = ({ theme }) => (

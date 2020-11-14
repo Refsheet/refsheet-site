@@ -2,7 +2,7 @@ import React from 'react'
 import { Icon } from 'react-materialize'
 import RichText from '../Shared/RichText'
 import replace from 'react-string-replace'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 const artists = []
@@ -100,4 +100,4 @@ const ImageMeta = ({
   </div>
 )
 
-export default withNamespaces('common')(ImageMeta)
+export default withTranslation('common')(ImageMeta)

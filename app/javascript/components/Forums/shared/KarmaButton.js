@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import sendKarma from './sendKarma.graphql'
 import compose, { withMutations } from '../../../utils/compose'
 import gdQuery from '../getDiscussions.graphql'
@@ -109,5 +109,5 @@ KarmaButton.propTypes = {
 
 export default compose(
   withMutations({ sendKarma }),
-  withNamespaces('common')
+  withTranslation('common')
 )(KarmaButton)

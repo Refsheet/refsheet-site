@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import compose from '../../../utils/compose'
-import { Trans, withNamespaces } from 'react-i18next'
+import { Trans, withTranslation } from 'react-i18next'
 import KarmaCounter from '../shared/KarmaCounter'
 import Moment from 'react-moment'
 import UserAvatar from '../../User/UserAvatar'
@@ -112,4 +112,4 @@ class View extends Component {
   }
 }
 
-export default compose(withNamespaces('common'))(View)
+export default compose(withTranslation('common'))(View)

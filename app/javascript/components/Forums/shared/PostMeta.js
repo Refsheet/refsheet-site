@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import compose from 'utils/compose'
 import { Link } from 'react-router-dom'
 import Moment from 'react-moment'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import c from 'classnames'
 import Muted, { MutedLink } from '../../Styled/Muted'
 
@@ -45,4 +45,4 @@ PostMeta.propTypes = {
   className: PropTypes.string,
 }
 
-export default compose(withNamespaces('common'))(PostMeta)
+export default compose(withTranslation('common'))(PostMeta)

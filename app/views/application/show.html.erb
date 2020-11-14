@@ -41,14 +41,7 @@
     assets: render_asset_paths
   }.to_json).html_safe %>;
 
-  function loadMessage(message) {
-    document.getElementById('loadmessage').innerHTML = message;
-  }
-
-  function init() {
-    Packs.application.init('root', props);
-  }
-
-  // This is the last thing in our body, call it:
-  init();
+  // This is broken after Webpack 5 upgrade???
+  // Packs.application.init('root', props);
+  ___init('root', props);
 </script>

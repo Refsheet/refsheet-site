@@ -1,6 +1,6 @@
 import { createReducer } from 'reducers'
 import * as Actions from 'actions'
-import { conversations as defaultState } from 'App/defaultState.json'
+import defaultState from 'App/defaultState.json'
 
 const handlers = {
   [Actions.OPEN_CONVERSATION]: (state, action) => {
@@ -26,4 +26,4 @@ const handlers = {
   },
 }
 
-export default createReducer(defaultState, handlers)
+export default createReducer(defaultState.conversations, handlers)

@@ -243,6 +243,7 @@ type Image implements ApplicationRecord {
     hidden: Boolean
     id: ID
     image_processing: Boolean
+    image_processing_error: String
     is_favorite: Boolean
     is_managed: Boolean
     nsfw: Boolean

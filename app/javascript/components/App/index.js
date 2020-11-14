@@ -7,7 +7,7 @@ import { Provider as ReduxProvider } from 'react-redux'
 import DropzoneProvider from '../Dropzone'
 import { ThemeProvider } from 'styled-components'
 import { I18nextProvider } from 'react-i18next'
-import Backend from 'react-dnd-html5-backend'
+import { HTML5Backend as Backend } from 'react-dnd-html5-backend'
 import { DndProvider } from 'react-dnd'
 
 // Initialization

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import { Icon } from 'react-materialize'
 import { Link } from 'react-router-dom'
 import c from 'classnames'
@@ -144,6 +144,6 @@ const mapStateToProps = (state, props) => ({
 
 export default compose(
   withMutations({ addFavorite, removeFavorite }),
-  withNamespaces('common'),
+  withTranslation('common'),
   connect(mapStateToProps)
 )(Favorites)

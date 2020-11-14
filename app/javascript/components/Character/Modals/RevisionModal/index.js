@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import compose from 'utils/compose'
-import { Trans, withNamespaces } from 'react-i18next'
+import { Trans, withTranslation } from 'react-i18next'
 import Diff from 'react-stylable-diff'
 import TimelineEntry from '../../../Shared/Timeline/TimelineEntry'
 import { Loading } from '../../../Lightbox/Status'
@@ -130,4 +130,4 @@ RevisionModal.propTypes = {
     .isRequired,
 }
 
-export default compose(withNamespaces('common'))(RevisionModal)
+export default compose(withTranslation('common'))(RevisionModal)

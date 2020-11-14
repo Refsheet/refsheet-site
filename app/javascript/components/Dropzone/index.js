@@ -123,15 +123,18 @@ class Dropzone extends Component {
           onDragEnter={this.onDragEnter.bind(this)}
           onDragLeave={this.onDragLeave.bind(this)}
         >
-          {dropzoneActive && (
-            <div style={overlayStyle}>
-              <i className={'material-icons'} style={iconStyle}>
-                cloud_upload
-              </i>
-              <h1>Drop files...</h1>
-            </div>
-          )}
-          {this.props.children}
+          {({getRootProps, getInputProps}) => (<React.Fragment>
+              {dropzoneActive && (
+                <div style={overlayStyle}>
+                  <i className={'material-icons'} style={iconStyle}>
+                    cloud_upload
+                  </i>
+                  <h1>Drop files...</h1>
+                </div>
+              )}
+              <input {...getInputProps} />
+              {this.props.children}
+            </React.Fragment>)}
         </ReactDropzone>
       )
     }

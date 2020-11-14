@@ -9,7 +9,7 @@ import c from 'classnames'
 import { Query } from 'react-apollo'
 import getCharacterForUpload from './getCharacterForUpload.graphql'
 import IdentityModal from '../Shared/CommentForm/IdentityModal'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import compose from '../../utils/compose'
 import * as Materialize from 'materialize-css'
 
@@ -363,5 +363,5 @@ const Wrapped = props => {
 export default compose(
   withErrorBoundary,
   connect(mapStateToProps, mapDispatchToProps, null, { pure: false }),
-  withNamespaces('common')
+  withTranslation('common')
 )(Wrapped)

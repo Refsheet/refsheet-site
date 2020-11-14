@@ -9,7 +9,7 @@ import Comments from './Comments'
 import Favorites from './Favorites'
 import ImageActions from './ImageActions'
 import ImageEditForm from './ImageEditForm'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import compose from '../../utils/compose'
 import Restrict from '../Shared/Restrict'
 import ImageTagForm from './ImageTags/ImageTagForm'
@@ -240,4 +240,4 @@ View.propTypes = {
   media: PropTypes.object.isRequired,
 }
 
-export default compose(withNamespaces('common'))(View)
+export default compose(withTranslation('common'))(View)
