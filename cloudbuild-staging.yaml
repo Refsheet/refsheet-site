@@ -35,9 +35,9 @@ steps:
       - --build-arg
       - rails_container=refsheet-prod-staging
       - --build-arg
-      - rails_port=3000
+      - rails_port=5000
       - --build-arg
-      - port=80
+      - port=3200
     volumes:
       - name: 'cache'
         path: '/cache'
