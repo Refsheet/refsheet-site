@@ -39,6 +39,7 @@ class Dropzone extends Component {
         nsfw: false,
         state: 'pending',
         progress: 0,
+        preview: URL.createObjectURL(file)
       }
 
       Object.assign(file, image)
@@ -115,26 +116,28 @@ class Dropzone extends Component {
       return (
         <ReactDropzone
           ref={r => (this.dropzone = r)}
-          disableClick
+          noClick
+          noKeyboard
           disabled={disabled}
           style={{}}
           accept={'image/*'}
+          maxFiles={10}
           onDrop={this.onDrop.bind(this)}
           onDragEnter={this.onDragEnter.bind(this)}
           onDragLeave={this.onDragLeave.bind(this)}
         >
-          {({getRootProps, getInputProps}) => (<React.Fragment>
+          {({getRootProps, getInputProps}) => (<div {...getRootProps()}>
               {dropzoneActive && (
                 <div style={overlayStyle}>
                   <i className={'material-icons'} style={iconStyle}>
                     cloud_upload
                   </i>
-                  <h1>Drop files...</h1>
+                  <h1>Drop up to 10 files...</h1>
                 </div>
               )}
-              <input {...getInputProps} />
+              <input {...getInputProps()} />
               {this.props.children}
-            </React.Fragment>)}
+            </div>)}
         </ReactDropzone>
       )
     }

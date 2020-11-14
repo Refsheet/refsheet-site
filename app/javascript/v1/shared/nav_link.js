@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import Icon from 'v1/shared/material/Icon'
 import * as ReactRouter from 'react-router'
+import {withRouter} from "react-router"
 
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
@@ -13,12 +14,7 @@ import * as ReactRouter from 'react-router'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let NavLink
-export default NavLink = createReactClass({
-  contextTypes: {
-    router: PropTypes.object,
-  },
-
+const NavLink = createReactClass({
   propTypes: {
     to: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
@@ -37,14 +33,14 @@ export default NavLink = createReactClass({
     }
 
     if (this.props.noStrict) {
-      currentPath = this.context.router.route.match.path
+      currentPath = this.props.match.path
       active = currentPath.indexOf(to) === 0
     } else if (to.match(/\?/)) {
       currentPath =
-        this.context.router.route.location.pathname +
-        (this.context.router.route.location.search || '')
+        this.props.location.pathname +
+        (this.props.location.search || '')
     } else {
-      currentPath = this.context.router.route.location.pathname
+      currentPath = this.props.location.pathname
     }
 
     if (!this.props.noStrict) {
@@ -97,3 +93,6 @@ export default NavLink = createReactClass({
     )
   },
 })
+
+
+export default withRouter(NavLink)

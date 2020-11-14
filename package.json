@@ -88,6 +88,7 @@
     "superagent": "^6.1.0",
     "underscore": "^1.11.0",
     "webpack": "^5",
+    "webpack-cli": "4.2.0",
     "whatwg-fetch": "^3.5.0",
     "xml-js": "^1.6.11"
   },
@@ -116,7 +117,6 @@
     "react-test-renderer": "16.8.0",
     "rosie": "^2.0.1",
     "sinon": "^9.2.1",
-    "webpack-cli": "3.3.12",
     "webpack-dev-server": "^3.11.0",
     "yaml-lint": "https://github.com/eiwi1101/yaml-lint"
   },
@@ -129,6 +129,7 @@
     "eslint": "eslint ./app/javascript/ --ext .js --ext .gql --ext .graphql",
     "eslint-graphql": "eslint ./app/javascript/ --ext .gql --ext .graphql",
     "rspec-integration": "RAILS_ENV=test bundle exec rspec --pattern \"**/{features,requests,integration}/**/*_spec.rb\"",
-    "rspec": "RAILS_ENV=test bundle exec rspec --exclude-pattern \"**/{features,requests,integration}/**/*_spec.rb\""
+    "rspec": "RAILS_ENV=test bundle exec rspec --exclude-pattern \"**/{features,requests,integration}/**/*_spec.rb\"",
+    "webpack-dev-server": "webpack serve"
   }
 }
