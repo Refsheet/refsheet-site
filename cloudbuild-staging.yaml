@@ -32,9 +32,12 @@ steps:
       - --destination=gcr.io/$PROJECT_ID/refsheet-site-nginx:$REVISION_ID
       - --cache=true
       - --cache-dir=/kaniko-cache
-      - --build-arg rails_container=refsheet-staging
-      - --build-arg rails_port=3000
-      - --build-arg port=80
+      - --build-arg
+      - rails_container=refsheet-staging
+      - --build-arg
+      - rails_port=3000
+      - --build-arg
+      - port=80
     volumes:
       - name: 'cache'
         path: '/cache'
