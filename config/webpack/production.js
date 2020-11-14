@@ -1,9 +1,10 @@
 const environment = require('./environment')
 
 environment.config.merge({
-  devtool: null
+  devtool: 'cheap-module-source-map'
 })
 
-environment.plugins.delete('OptimizeCSSAssets')
+// webpack-5
+// environment.plugins.delete('OptimizeCSSAssets')
 
 module.exports = environment.toWebpackConfig()

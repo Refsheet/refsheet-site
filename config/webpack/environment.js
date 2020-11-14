@@ -16,35 +16,36 @@ let config = {
   },
 
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
+    // webpack-5
+    // new webpack.HotModuleReplacementPlugin(),
     new MiniCssExtractPlugin()
   ],
 
-  node: false,
+  // webpack-5
+  // node: false,
 
   resolve: {
-    fallback: {
-      stream: require.resolve("stream-browserify"),
-      crypto: false,
-      https: false,
-      http: false,
-      fs: false,
-      path: require.resolve("path-browserify"),
-    },
-    alias: {
-      graphql$: path.resolve(__dirname, '../../node_modules/graphql/index.js'),
-    }
+    // webpack-5
+    // fallback: {
+    //   stream: require.resolve("stream-browserify"),
+    //   crypto: false,
+    //   https: false,
+    //   http: false,
+    //   fs: false,
+    //   path: require.resolve("path-browserify"),
+    // },
   },
 
   module: {
     rules: [
-      {
-        test: /\.m?js/,
-        type: "javascript/auto",
-        resolve: {
-          fullySpecified: false
-        }
-      },
+      // webpack-5
+      // {
+      //   test: /\.m?js/,
+      //   type: "javascript/auto",
+      //   resolve: {
+      //     fullySpecified: false
+      //   }
+      // },
     ]
   }
 }
@@ -57,7 +58,8 @@ environment.loaders.append('coffee', coffee)
 environment.loaders.append('erb', erb)
 environment.loaders.append('graphql', graphql)
 environment.loaders.append('sass', sass)
-environment.loaders.append('json', json)
+// webpack-5
+// environment.loaders.append('json', json)
 
 const babelLoader = environment.loaders.get('babel')
 babelLoader.test = /\.(coffee|m?js|jsx)(\.erb)?$/
