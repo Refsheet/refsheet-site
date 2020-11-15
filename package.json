@@ -109,7 +109,7 @@
     "karma-mocha": "^2.0.1",
     "karma-mocha-reporter": "^2.2.5",
     "karma-sourcemap-loader": "^0.3.8",
-    "karma-webpack": "^4.0.2",
+    "karma-webpack": "^5.0.0-alpha.3.0",
     "mocha": "^8.2.1",
     "nock": "^13.0.5",
     "prettier": "2.1.2",

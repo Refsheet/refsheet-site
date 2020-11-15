@@ -26,7 +26,7 @@ module.exports = function(config) {
     ],
 
     preprocessors: {
-      'spec/javascript/specHelper.js': ['webpack', 'sourcemap']
+      'spec/javascript/specHelper.js': ['webpack']
     },
 
     client: {
@@ -59,9 +59,9 @@ module.exports = function(config) {
       userBrowserName: false
     },
 
-    webpackMiddleware: {
-      stats: 'errors-only'
-    },
+    // webpackMiddleware: {
+    //   stats: 'errors-only'
+    // },
 
     browserDisconnectTimeout: 60000,
     browserDisconnectTolerance: 3,
