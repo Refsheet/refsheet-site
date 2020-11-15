@@ -1,105 +1,116 @@
-#!/bin/bash
+#!/usr/bin/env ruby
+
+require 'tty-prompt'
 
 DEFAULT_CLUSTER="refsheet-prod"
 
-function get_nodes() {
-    pools=$(gcloud container node-pools list --cluster "$DEFAULT_CLUSTER" | grep -vP '^NAME' | cut -d' ' -f1 | tr '\n' '\t')
+def select(list, msg = "Choose one:")
+  prompt = TTY::Prompt.new
+  prompt.select(msg) do |menu|
+    list.each do |item|
+      menu.choice name: "#{item}", value: item
+    end
+  end
+end
 
-    select pool in $pools; do
-        kubectl get nodes -l cloud.google.com/gke-nodepool=$pool -o=name
-        return
-    done
-}
+def get_nodes
+    pools=`gcloud container node-pools list --cluster "#{DEFAULT_CLUSTER}"`
+    #` | grep -vP '^NAME' | cut -d' ' -f1 | tr '\n' '\t'`
+    puts pools.inspect
+    exit 0
+    pool = select pools
+    `kubectl get nodes -l cloud.google.com/gke-nodepool=#{pool} -o=name`
+end
 
-function do_ssh() {
-	echo "Select a pod:"
+def do_ssh(command, search = nil)
+  print "Loading...\r"
+
+	pod_lists=`kubectl get pods --field-selector=status.phase=Running -o=jsonpath="{range .items[*]}{\\"\\n\\"}{.metadata.name}{\\"\\t\\"}{range .spec.containers[*]}{.name}{\\"\\t\\"}{end}{end}`.split(/\n/)
+	pods = pod_lists.collect { |l| l.split(/\s+/)[0] }.reject(&:nil?).sort
+
+  pod = nil
+  container = nil
+
+  if search
+    pod_lists.reject { |l| l == ""}.each do |line|
+      mpod, *containers = line.split(/\s+/)
+      if containers.include? search
+        pod = mpod
+        container = search
+      end
+    end
+  end
+
+  print "          \r"
+	pod ||= select pods, "Select a Pod:"
+
+  containers = pod_lists.grep(/^#{pod}/).first.split("\t")
+  containers.shift
+
+  if !container && containers.length > 1
+    puts
+    container = select containers, "Select a running container:"
+  end
+
+  puts "Connecting to #{container} on #{pod}"
+  system("kubectl exec \"#{pod}\" -it -c \"#{container}\" -- #{command}")
+end
+
+def do_console(search = nil)
+  do_ssh "bundle exec rails c", search
+end
+
+def do_bash(search = nil)
+  do_ssh "bash", search
+end
+
+def do_migrations(search = nil)
+  do_ssh "bundle exec rails db:migrate", search
+end
+
+def do_logs(search = nil)
+  puts "Select a pod:"
   printf "Loading...\r"
-	container="refsheet-prod"
 
-	pod_lists=$(kubectl get pods --field-selector=status.phase=Running -o=jsonpath='{range .items[*]}{"\n"}{.metadata.name}{"\t"}{range .spec.containers[*]}{.name}{"\t"}{end}{end}' | sort | awk 'NF > 0')
-	pods=$(echo "$pod_lists" | cut -d $'\t' -f1 | tr '\n' '\t')
+  pods=`kubectl get pods -o=jsonpath='{.items[*].metadata.name}' | sort`.split(/\n/)
+  pod = select pods
+  puts
+  puts `kubectl logs "$pod" | less`
+end
 
-  printf "          \r"
-	select pod in $pods; do
-	  containers=$(echo "$pod_lists" | grep "^$pod" | cut -d $'\t' -f2- | head -n1 | xargs)
+def do_cordon_all
+    puts "Fetching node pools..."
+    get_nodes.split('\t').each do |node|
+        puts `kubectl cordon "#{node}"`
+    end
+end
 
-    echo
+def do_drain_all
+    puts "Fetching node pools..."
+    get_nodes.split('\t').each do |node|
+        puts `kubectl drain --force --ignore-daemonsets --delete-local-data --grace-period=10 "#{node}"`
+    end
+end
 
-    if [[ "$containers" =~ '\t' ]]; then
-      echo "Select a running container:"
-      select container in $containers; do
-        echo
-        echo "Connecting to $container on $pod"
-        kubectl exec "$pod" -it -c "$container" -- "$@"
-        return
-      done
-    else
-      echo "Connecting to $containers on $pod"
-      kubectl exec "$pod" -it -c "$containers" -- "$@"
-      return
-    fi
-	done
-}
-
-function do_console() {
-  do_ssh bundle exec rails c
-}
-
-function do_bash() {
-  do_ssh "bash"
-}
-
-function do_logs() {
-  echo "Select a pod:"
-  printf "Loading...\r"
-
-  pods=$(kubectl get pods -o=jsonpath='{.items[*].metadata.name}' | sort)
-
-  select pod in $pods; do
-    echo
-    kubectl logs "$pod" | less
-    return
-  done
-}
-
-function do_cordon_all() {
-    echo "Fetching node pools..."
-    for node in $(get_nodes); do
-        kubectl cordon "$node"
-    done
-}
-
-function do_drain_all() {
-    echo "Fetching node pools..."
-    for node in $(get_nodes); do
-        kubectl drain --force --ignore-daemonsets --delete-local-data --grace-period=10 "$node"
-    done
-}
-
-case "$1" in
-	list-pods)
-		  kubectl get pods --no-headers=true | grep Running
-		  ;;
-	ssh)
-		  do_bash
-	  	;;
-	console)
-	   do_console
-	   ;;
-	logs)
-      do_logs
-      ;;
-	cordon-all)
+case ARGV[0]
+when "list-pods"
+  print "Fetching data...\r"
+		  puts `kubectl get pods --no-headers=true`.split("\n").grep(/Running/)
+	when "ssh"
+		  do_bash(ARGV[1])
+	when "console"
+	   do_console(ARGV[1])
+	when "logs"
+      do_logs(ARGV[1])
+	when "cordon-all"
 	    do_cordon_all
-	    ;;
-  drain-all)
+  when "drain-all"
       do_drain_all
-      ;;
-  apply)
-      bin/rb rake kube:update_config
-      ;;
-	*)
-	    echo "Usage:"
-	    echo "  gke list-pods|ssh|logs|cordon-all|drain-all|apply"
-	    ;;
-esac
+when "migrate"
+      do_migrations(ARGV[1])
+  when "apply"
+      puts `bin/rb rake kube:update_config`
+	else
+	    puts "Usage:"
+	    puts "  gke list-pods|ssh|logs|migrate|cordon-all|drain-all|apply"
+end
