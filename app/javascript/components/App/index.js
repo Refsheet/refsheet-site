@@ -67,9 +67,9 @@ class App extends Component {
   }
 
   checkForUpdates() {
-    fetch(host + "/health.json")
-      .then(data => {
-        console.log("Version is: " + data.version)
+    fetch(host + '/health.json')
+      .then((data) => {
+        console.log('Version is: ' + data.version)
       })
       .catch(console.error)
   }
@@ -140,7 +140,10 @@ class App extends Component {
     console.debug('App mounted with props: ', this.props)
 
     // Check for updates every 10 minutes
-    this.updateInterval = setInterval(this.checkForUpdates.bind(this), 600 * 1000)
+    this.updateInterval = setInterval(
+      this.checkForUpdates.bind(this),
+      600 * 1000
+    )
     this.checkForUpdates()
 
     // Fade Out Loader
