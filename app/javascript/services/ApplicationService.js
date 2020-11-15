@@ -29,7 +29,7 @@ export const csrf = function() {
 
 const HOST =
   (window && window.location && window.location.origin) ||
-  'http://localhostt:5000'
+  'http://localhost:5000'
 
 const fragmentMatcher = new IntrospectionFragmentMatcher({
   introspectionQueryResultData,
