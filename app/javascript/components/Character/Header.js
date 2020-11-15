@@ -4,7 +4,7 @@ import Summary from './Summary'
 import styled from 'styled-components'
 
 const Backdrop = styled.div`
-  background-color: ${props => props.theme.imageBackground} !important;
+  background-color: ${(props) => props.theme.imageBackground} !important;
 `
 
 class Header extends Component {

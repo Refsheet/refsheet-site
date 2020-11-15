@@ -47,7 +47,7 @@ class View extends Component {
               </tr>
             </thead>
             <tbody>
-              {forums.map(forum => (
+              {forums.map((forum) => (
                 <tr key={forum.id}>
                   <td>
                     <Link to={`/v2/forums/${forum.slug}`}>{forum.name}</Link>

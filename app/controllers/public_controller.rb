@@ -7,7 +7,7 @@ class PublicController < ApplicationController
 
   def health
     resque_info = Resque.info rescue {}
-    
+
     # Ensure we have a connection to our database and that everything
     # is functioning correctly:
     counts = {
@@ -25,14 +25,15 @@ class PublicController < ApplicationController
         }
     }
 
-    Rails.logger.info("HEALTH_CHECK", counts)
+    Rails.logger.info({message: "HEALTH_CHECK", **counts})
 
     render json: {
         status: "OK",
         counts: counts,
         version: Refsheet::VERSION
     }, status: 200
-  rescue => _e
+  rescue => e
+    Rails.logger.error(e)
     head :internal_server_error
   end
 

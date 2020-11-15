@@ -31,7 +31,7 @@ export default Image = createReactClass({
   _getGallery() {
     return (
       (this.props.images &&
-        this.props.images.filter(i => !!i).map(i => i.id)) ||
+        this.props.images.filter((i) => !!i).map((i) => i.id)) ||
       []
     )
   },
@@ -137,10 +137,10 @@ export default Image = createReactClass({
 
   render() {
     // Reject NULLs here, see: REFST-2DP
-    let images = this.props.images.filter(i => !!i)
+    let images = this.props.images.filter((i) => !!i)
 
     if (this.props.character) {
-      images.map(i => {
+      images.map((i) => {
         i.character = this.props.character
       })
     }

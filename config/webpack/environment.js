@@ -13,7 +13,8 @@ const config = {
   },
 
   plugins: [
-    new MiniCssExtractPlugin()
+    // Apparently this is already included... rails?
+    // new MiniCssExtractPlugin()
   ]
 }
 

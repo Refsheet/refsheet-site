@@ -21,7 +21,7 @@ i18n
     ns: ['common'],
     defaultNS: 'common',
     react: {
-      useSuspense: false
+      useSuspense: false,
     },
     interpolation: {
       escapeValue: false,
@@ -39,7 +39,7 @@ i18n
     detection: detectionOptions,
   })
 
-i18n.on('languageChanged', function(locale) {
+i18n.on('languageChanged', function (locale) {
   moment.locale(locale)
 })
 

@@ -43,7 +43,7 @@ export default AttributeForm = createReactClass({
           }
         }
       },
-      data => {
+      (data) => {
         console.log(data)
         return this.setState({ errors: data })
       }
@@ -63,9 +63,7 @@ export default AttributeForm = createReactClass({
   },
 
   colorPickerClick(e) {
-    return $(e.target)
-      .children('input')
-      .click()
+    return $(e.target).children('input').click()
   },
 
   UNSAFE_componentWillReceiveProps(newProps) {

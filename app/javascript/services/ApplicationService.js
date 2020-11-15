@@ -14,7 +14,7 @@ import introspectionQueryResultData from '../config/fragmentTypes.json'
 
 const cable = createConsumer()
 
-export const csrf = function() {
+export const csrf = function () {
   const meta = document.getElementsByName('csrf-token')[0]
 
   if (!meta) {
@@ -89,5 +89,8 @@ export const client = new ApolloClient({
 })
 
 export { default as subscribe } from './buildSubscriptionRender'
+export {
+  HOST as host
+}
 
 export default client

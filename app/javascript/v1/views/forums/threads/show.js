@@ -48,7 +48,7 @@ const Show = createReactClass({
   },
 
   componentDidMount() {
-    StateUtils.load(this, 'thread', this.props, thread => {
+    StateUtils.load(this, 'thread', this.props, (thread) => {
       if (thread) {
         this._poll()
       }
@@ -63,7 +63,7 @@ const Show = createReactClass({
 
   _poll() {
     return (this.poller = setTimeout(() => {
-      return Model.poll(this.state.thread.path, {}, data => {
+      return Model.poll(this.state.thread.path, {}, (data) => {
         if (data.id === this.state.thread.id) {
           const willScroll =
             this.state.thread.posts.length < data.posts.length &&
@@ -111,7 +111,7 @@ const Show = createReactClass({
       return <Loading />
     }
 
-    const posts = this.state.thread.posts.map(post => (
+    const posts = this.state.thread.posts.map((post) => (
       <div className="card sp with-avatar" key={post.id}>
         <IdentityAvatar
           src={post.user}

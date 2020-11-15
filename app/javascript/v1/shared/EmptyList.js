@@ -13,7 +13,7 @@ import Icon from 'v1/shared/material/Icon'
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let EmptyList
-export default EmptyList = function(props) {
+export default EmptyList = function (props) {
   const { coffee, caption } = props
 
   return (

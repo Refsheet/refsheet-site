@@ -8,11 +8,11 @@
  */
 const ArrayUtils = {
   pluck(array, key) {
-    return array.map(o => o[key])
+    return array.map((o) => o[key])
   },
 
   diff(array_1, array_2) {
-    return array_1.filter(i => array_2.indexOf(i) < 0)
+    return array_1.filter((i) => array_2.indexOf(i) < 0)
   },
 }
 

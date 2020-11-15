@@ -37,11 +37,11 @@ const CharacterNotice = createReactClass({
       url: this.state.transfer.path,
       data: { status: 'claimed' },
       type: 'PATCH',
-      success: data => {
+      success: (data) => {
         return $(document).trigger(
           'app:character:reload',
           data.character_path,
-          character => {
+          (character) => {
             window.history.replaceState({}, '', data.character_path)
             return Materialize.toast({
               html: 'Transfer claimed!',
@@ -51,7 +51,7 @@ const CharacterNotice = createReactClass({
           }
         )
       },
-      error: data => {
+      error: (data) => {
         console.error(data)
         return Materialize.toast({
           html: 'Something went wrong :(',
@@ -68,7 +68,7 @@ const CharacterNotice = createReactClass({
       url: this.state.transfer.path,
       data: { status: 'rejected' },
       type: 'PATCH',
-      success: data => {
+      success: (data) => {
         this.setState({ transfer: null })
         return Materialize.toast({
           html: 'Transfer rejected.',
@@ -76,7 +76,7 @@ const CharacterNotice = createReactClass({
           classes: 'green',
         })
       },
-      error: data => {
+      error: (data) => {
         console.error(data)
         return Materialize.toast({
           html: 'Something went wrong :(',

@@ -219,7 +219,7 @@ export default Input = createReactClass({
     const commonProps = {
       id,
       name: this.props.name,
-      ref: r => (this.inputRef = r),
+      ref: (r) => (this.inputRef = r),
       disabled: this.props.disabled,
       readOnly: this.props.readOnly,
       placeholder: this.props.placeholder,

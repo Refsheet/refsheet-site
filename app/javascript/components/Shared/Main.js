@@ -59,34 +59,34 @@ class _Main extends Component {
 }
 
 const Main = styled(_Main)`
-  color: ${props => props.theme.text};
-  background-color: ${props => props.theme.background};
+  color: ${(props) => props.theme.text};
+  background-color: ${(props) => props.theme.background};
 
   &.main-flex {
     &.split-bg-right {
       background: linear-gradient(
         to right,
-        ${props => props.theme.background} 50%,
-        ${props => props.theme.cardBackground} 50%
+        ${(props) => props.theme.background} 50%,
+        ${(props) => props.theme.cardBackground} 50%
       );
     }
 
     &.split-bg-left {
       background: linear-gradient(
         to left,
-        ${props => props.theme.background} 50%,
-        ${props => props.theme.cardBackground} 50%
+        ${(props) => props.theme.background} 50%,
+        ${(props) => props.theme.cardBackground} 50%
       );
     }
 
     .container.container-flex {
       .content,
       .content-left {
-        background-color: ${props => props.theme.background};
+        background-color: ${(props) => props.theme.background};
       }
 
       .sidebar {
-        background-color: ${props => props.theme.cardBackground};
+        background-color: ${(props) => props.theme.cardBackground};
       }
     }
   }

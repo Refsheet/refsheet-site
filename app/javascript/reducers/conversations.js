@@ -5,7 +5,7 @@ import defaultState from 'App/defaultState.json'
 const handlers = {
   [Actions.OPEN_CONVERSATION]: (state, action) => {
     const openConversations = state.openConversations.filter(
-      i => i !== action.conversationId
+      (i) => i !== action.conversationId
     )
 
     return {
@@ -16,7 +16,7 @@ const handlers = {
 
   [Actions.CLOSE_CONVERSATION]: (state, action) => {
     const openConversations = state.openConversations.filter(
-      i => i !== action.conversationId
+      (i) => i !== action.conversationId
     )
 
     return {

@@ -22,7 +22,7 @@ class IdentityModal extends Component {
   }
 
   handleCharacterSelect(character) {
-    return e => {
+    return (e) => {
       e.preventDefault()
 
       if (!this.props.temporary) {
@@ -40,7 +40,7 @@ class IdentityModal extends Component {
   renderCharacterList(characters) {
     return (
       <ul className={'collection margin--none'}>
-        {characters.map(character => (
+        {characters.map((character) => (
           <li key={character.id} className={'collection-item avatar'}>
             <img
               src={character.profile_image.url.thumbnail}

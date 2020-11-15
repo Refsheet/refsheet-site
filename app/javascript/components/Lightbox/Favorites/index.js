@@ -84,7 +84,7 @@ class Favorites extends Component {
           count -= 1
 
           favorites = favorites.filter(
-            f => this.state.ignoreIds.indexOf(f.id) === -1
+            (f) => this.state.ignoreIds.indexOf(f.id) === -1
           )
         }
       }
@@ -106,7 +106,7 @@ class Favorites extends Component {
           </a>
         )}
 
-        {favorites.map(favorite => (
+        {favorites.map((favorite) => (
           <Link
             to={`/${favorite.user.username}`}
             title={`${favorite.user.name} (@${favorite.user.username})`}

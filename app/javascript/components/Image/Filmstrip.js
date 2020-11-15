@@ -22,7 +22,7 @@ class Filmstrip extends Component {
     const activeImage = this.activeImageRef
 
     const requestAnimationFrame =
-      requestAnimationFrame || (s => setTimeout(s, 1000 / 60))
+      requestAnimationFrame || ((s) => setTimeout(s, 1000 / 60))
 
     if (activeImage) {
       const left = activeImage.offsetLeft + activeImage.width / 2
@@ -45,7 +45,7 @@ class Filmstrip extends Component {
   }
 
   imageClickHandler(id) {
-    return e => {
+    return (e) => {
       this.select(id)
       e.preventDefault()
     }
@@ -63,7 +63,7 @@ class Filmstrip extends Component {
           key={id}
           data-id={id}
           onClick={this.imageClickHandler(id)}
-          ref={r => active && (this.activeImageRef = r)}
+          ref={(r) => active && (this.activeImageRef = r)}
         />
 
         {state === 'uploading' && (
@@ -79,7 +79,7 @@ class Filmstrip extends Component {
     if (images.length === 0 && autoHide) return null
 
     return (
-      <div className="filmstrip" ref={r => (this.filmstripRef = r)}>
+      <div className="filmstrip" ref={(r) => (this.filmstripRef = r)}>
         {images.map(this.renderImage)}
       </div>
     )

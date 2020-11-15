@@ -5,34 +5,38 @@ import styled from 'styled-components'
 
 export const div = styled.div`
   && {
-    background-color: ${props => props.theme.cardBackground};
-    
+    background-color: ${(props) => props.theme.cardBackground};
+
     &.admin {
     }
-    
+
     &.moderator {
     }
-    
-    .card-header, .card-footer, .card-action {
-      // background-color: ${props => props.theme.cardBackground};
-      background-color: rgba(0,0,0,0.1);
+
+    .card-header,
+    .card-footer,
+    .card-action {
+      // background-color: ${(props) => props.theme.cardBackground};
+      background-color: rgba(0, 0, 0, 0.1);
     }
   }
 `
 
 export default styled(Card)`
   && {
-    background-color: ${props => props.theme.cardBackground};
-    
+    background-color: ${(props) => props.theme.cardBackground};
+
     &.admin {
     }
-    
+
     &.moderator {
     }
-    
-    .card-header, .card-footer, .card-action {
-      // background-color: ${props => props.theme.cardBackground} 
-      background-color: rgba(0,0,0,0.1);
+
+    .card-header,
+    .card-footer,
+    .card-action {
+      // background-color: ${(props) => props.theme.cardBackground}
+      background-color: rgba(0, 0, 0, 0.1);
     }
   }
 `

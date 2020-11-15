@@ -11,7 +11,7 @@ import PropTypes from 'prop-types'
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let Spinner
-export default Spinner = function(props) {
+export default Spinner = function (props) {
   const classNames = ['preloader-wrapper']
   if (!props.inactive) {
     classNames.push('active')

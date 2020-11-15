@@ -62,7 +62,7 @@ class RichText extends Component {
 
     return this.props
       .onChange(data)
-      .then(newData => {
+      .then((newData) => {
         this.setState({
           content: newData[this.props.name || 'value'],
           editing: false,
@@ -70,7 +70,7 @@ class RichText extends Component {
           saving: false,
         })
       })
-      .catch(e => {
+      .catch((e) => {
         this.setState({ saving: false })
         console.error(e)
       })

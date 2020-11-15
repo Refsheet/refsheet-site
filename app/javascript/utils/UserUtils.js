@@ -28,7 +28,7 @@ export const userClasses = (user, className = 'user-color') => {
   })
 }
 
-export const userFgColor = user => {
+export const userFgColor = (user) => {
   if (!user) return ''
   const { is_admin, is_patron, is_moderator, is_supporter } = user
   if (is_admin) return USER_FG_COLOR.admin
@@ -37,7 +37,7 @@ export const userFgColor = user => {
   if (is_supporter) return USER_FG_COLOR.supporter
 }
 
-export const userBgColor = user => {
+export const userBgColor = (user) => {
   if (!user) return ''
   const { is_admin, is_patron, is_moderator, is_supporter } = user
   return undefined

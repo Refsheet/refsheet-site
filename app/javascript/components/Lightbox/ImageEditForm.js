@@ -173,7 +173,7 @@ class ImageEditForm extends Component {
                   {t('image_gravity.default', 'Default')}
                 </option>
 
-                {gravities.map(gravity => (
+                {gravities.map((gravity) => (
                   <option key={gravity} value={gravity}>
                     {t(`image_gravity.${gravity}`, gravity)}
                   </option>

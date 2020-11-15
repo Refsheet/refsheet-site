@@ -35,13 +35,13 @@ export default UserSettingsModal = createReactClass({
       url: this.state.user.path,
       type: 'PATCH',
       data: { user: o },
-      success: data => {
+      success: (data) => {
         this.setState({ user: data })
         if (onSuccess != null) {
           return onSuccess({ value: data[setting.id] })
         }
       },
-      error: error => {
+      error: (error) => {
         if (onError != null) {
           return onError({
             value:

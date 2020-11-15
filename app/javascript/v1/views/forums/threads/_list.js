@@ -42,7 +42,7 @@ export default ThreadList = createReactClass({
   render() {
     const __this = this
 
-    const sortedThreads = this.props.threads.sort(function(a, b) {
+    const sortedThreads = this.props.threads.sort(function (a, b) {
       switch (false) {
         case !(a.last_post_at > b.last_post_at):
           return -1
@@ -53,7 +53,7 @@ export default ThreadList = createReactClass({
       }
     })
 
-    const threads = sortedThreads.map(thread => {
+    const threads = sortedThreads.map((thread) => {
       const classNames = []
       if (thread.id === this.props.activeThreadId) {
         classNames.push('active')

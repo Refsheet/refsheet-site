@@ -4,7 +4,7 @@ import qs from 'querystring'
 function buildHelpers(object) {
   let obj = { ...object }
 
-  Object.keys(obj).map(key => {
+  Object.keys(obj).map((key) => {
     const match = key.match(/^(\w+)Route$/i)
     if (match) {
       const name = match[1]

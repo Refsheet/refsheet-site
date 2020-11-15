@@ -63,7 +63,7 @@ class ImageActions extends Component {
   }
 
   openModal(name) {
-    return e => {
+    return (e) => {
       e && e.preventDefault && e.preventDefault()
       let state = {}
       state[name + 'ModalOpen'] = true
@@ -72,7 +72,7 @@ class ImageActions extends Component {
   }
 
   closeModal(name) {
-    return e => {
+    return (e) => {
       e && e.preventDefault && e.preventDefault()
       let state = {}
       state[name + 'ModalOpen'] = false

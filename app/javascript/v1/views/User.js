@@ -66,7 +66,7 @@ const User = createReactClass({
 
     const slugs =
       this.state.user &&
-      this.state.user.character_groups.map(g => g.slug.toLowerCase())
+      this.state.user.character_groups.map((g) => g.slug.toLowerCase())
 
     if (slugs.indexOf(activeGroupId) !== -1) {
       this.setState({ activeGroupId }, cb)
@@ -114,13 +114,13 @@ const User = createReactClass({
       'user.character_groups',
       group,
       'slug',
-      function() {
+      function () {
         if (character) {
           return HashUtils.findItem(
             this.state.user.characters,
             character,
             'slug',
-            c => {
+            (c) => {
               const i = c.group_ids.indexOf(group.slug)
               if (i >= 0) {
                 c.group_ids.splice(i, 1)
@@ -222,7 +222,7 @@ const User = createReactClass({
               we'll set up a profile.
             </p>
             <NewCharacterForm
-              onCancel={function(e) {
+              onCancel={function (e) {
                 $('#character-form').modal('close')
                 e.preventDefault()
               }}

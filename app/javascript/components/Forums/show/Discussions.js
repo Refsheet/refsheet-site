@@ -47,7 +47,7 @@ class Discussions extends Component {
           </p>
         )
       } else {
-        content = discussions.map(discussion => (
+        content = discussions.map((discussion) => (
           <DiscussionLink
             key={discussion.id}
             forum={forum}
@@ -79,7 +79,7 @@ class Discussions extends Component {
   }
 
   handleSortClick(sortBy) {
-    return e => {
+    return (e) => {
       e.preventDefault()
       this.setState({ sort: sortBy })
     }
@@ -152,7 +152,7 @@ class Discussions extends Component {
                 {t('forums.sticky_posts', 'Sticky Posts')}
               </div>
 
-              {discussions.map(discussion => (
+              {discussions.map((discussion) => (
                 <DiscussionLink
                   key={discussion.id}
                   forum={forum}

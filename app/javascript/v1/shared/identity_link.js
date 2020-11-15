@@ -39,9 +39,12 @@ const IdentityLink = createReactClass({
   },
 
   _load() {
-    return $.get('/users/' + this.props.to.username + '/follow.json', user => {
-      return this.setState({ user })
-    })
+    return $.get(
+      '/users/' + this.props.to.username + '/follow.json',
+      (user) => {
+        return this.setState({ user })
+      }
+    )
   },
 
   _handleFollowClick(e) {
@@ -50,7 +53,7 @@ const IdentityLink = createReactClass({
       action,
       '/users/' + this.props.to.username + '/follow.json',
       {},
-      user => {
+      (user) => {
         return this.setState({ user })
       }
     )

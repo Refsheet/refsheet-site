@@ -150,7 +150,7 @@ const LegacyApp = createReactClass({
 // HACK : Redux bridge for session
 console.log('Bridging redux to session.')
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   session: state.session,
 })
 

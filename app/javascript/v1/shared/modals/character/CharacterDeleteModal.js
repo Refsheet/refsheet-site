@@ -26,7 +26,7 @@ export default CharacterDeleteModal = createReactClass({
     $.ajax({
       url: this.props.character.path,
       type: 'DELETE',
-      success: data => {
+      success: (data) => {
         Materialize.Modal.getInstance(
           document.getElementById('delete-form')
         ).close()
@@ -37,7 +37,7 @@ export default CharacterDeleteModal = createReactClass({
         return this.context.router.history.push('/' + data.user_id)
       },
 
-      error: error => {
+      error: (error) => {
         return Materialize.toast({
           html: 'Something went wrong.',
           displayLength: 3000,

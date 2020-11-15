@@ -45,11 +45,11 @@ export default CharacterCard = createReactClass({
       url: this.state.character.path,
       type: 'PATCH',
       data: postData,
-      success: data => {
+      success: (data) => {
         this.setState({ character: data })
         return onSuccess()
       },
-      error: error => {
+      error: (error) => {
         if (error.status === 401 || error.status === 500) {
           Flash.error(error.statusText)
         }
@@ -69,12 +69,12 @@ export default CharacterCard = createReactClass({
         url: this.state.character.path,
         type: 'PATCH',
         data: { character: data },
-        success: data => {
+        success: (data) => {
           this.setState({ character: data })
           resolve(data)
         },
 
-        error: error => {
+        error: (error) => {
           reject(
             error.JSONData != null
               ? error.JSONData.errors['special_notes']

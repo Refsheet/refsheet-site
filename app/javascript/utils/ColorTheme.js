@@ -127,7 +127,7 @@ class ColorTheme {
       }
     }
 
-    return suggestions.map(s => s.hex())
+    return suggestions.map((s) => s.hex())
   }
 }
 

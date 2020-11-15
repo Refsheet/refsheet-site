@@ -146,7 +146,7 @@ const cHome = createReactClass({
               <div className="card-panel">
                 <h2 className="name">James the Hunter</h2>
                 <AttributeTable
-                  onAttributeUpdate={function(e, cb) {
+                  onAttributeUpdate={function (e, cb) {
                     if (cb) {
                       cb(e)
                     }
@@ -219,6 +219,6 @@ const cHome = createReactClass({
   },
 })
 
-const mapStateToProps = state => ({ currentUser: state.session.currentUser })
+const mapStateToProps = (state) => ({ currentUser: state.session.currentUser })
 const Home = connect(mapStateToProps)(cHome)
 export default Home

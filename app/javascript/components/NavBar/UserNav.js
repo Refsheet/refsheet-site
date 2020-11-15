@@ -9,7 +9,7 @@ import UploadMenu from './UploadMenu'
 import Restrict from '../Shared/Restrict'
 import compose from '../../utils/compose'
 
-const UserNav = props => (
+const UserNav = (props) => (
   <ul className="right">
     <CartMenu />
     <TransferMenu />

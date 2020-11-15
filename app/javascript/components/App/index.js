@@ -13,7 +13,7 @@ import { DndProvider } from 'react-dnd'
 // Initialization
 import { createStore } from 'redux'
 import rootReducer from 'reducers'
-import client from 'ApplicationService'
+import client, { host } from 'ApplicationService'
 import { createBrowserHistory } from 'history'
 import i18n from '../../services/i18n.js'
 
@@ -66,6 +66,14 @@ class App extends Component {
     })
   }
 
+  checkForUpdates() {
+    fetch(host + "/health.json")
+      .then(data => {
+        console.log("Version is: " + data.version)
+      })
+      .catch(console.error)
+  }
+
   buildState(state = {}) {
     let session = (this.props.eagerLoad && this.props.eagerLoad.session) || {}
     session = StringUtils.camelizeKeys(session)
@@ -101,7 +109,7 @@ class App extends Component {
   buildHistory() {
     const history = createBrowserHistory()
 
-    const addLocationQuery = hist => {
+    const addLocationQuery = (hist) => {
       hist.location = Object.assign(hist.location, {
         query: qs.parse(hist.location.search),
       })
@@ -131,6 +139,10 @@ class App extends Component {
 
     console.debug('App mounted with props: ', this.props)
 
+    // Check for updates every 10 minutes
+    this.updateInterval = setInterval(this.checkForUpdates.bind(this), 600 * 1000)
+    this.checkForUpdates()
+
     // Fade Out Loader
     const $loader = document.getElementById('rootAppLoader')
     $loader.style.opacity = 1
@@ -142,7 +154,7 @@ class App extends Component {
 
     // Show Flashes
     if (this.props.flash) {
-      Object.keys(this.props.flash).map(level => {
+      Object.keys(this.props.flash).map((level) => {
         const flash = this.props.flash[level]
         console.log('Flash[' + level + ']: ' + flash)
         Flash.now(level, flash)

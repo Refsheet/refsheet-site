@@ -106,7 +106,7 @@ export default ImageGallery = createReactClass({
       url: '/images/' + source,
       type: 'PATCH',
       data: { image: { swap_target_image_id: target } },
-      success: data => {
+      success: (data) => {
         Materialize.toast({
           html: 'Image moved!',
           displayLength: 3000,
@@ -114,7 +114,7 @@ export default ImageGallery = createReactClass({
         })
         return this.load(data)
       },
-      error: error => {
+      error: (error) => {
         return console.log(error)
       },
       complete() {
@@ -224,7 +224,7 @@ export default ImageGallery = createReactClass({
     const { noOverlay } = this.props
 
     const imageIds =
-      this.state.images != null ? this.state.images.map(i => i.id) : undefined
+      this.state.images != null ? this.state.images.map((i) => i.id) : undefined
 
     if (this.state.images == null) {
       return <Spinner />
@@ -248,7 +248,7 @@ export default ImageGallery = createReactClass({
       imageSize = 'small_square'
     }
 
-    const imagesOverflow = overflow.map(image => {
+    const imagesOverflow = overflow.map((image) => {
       return (
         <GalleryImage
           key={image.id}

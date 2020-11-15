@@ -43,7 +43,7 @@ const Index = createReactClass({
 
   _poll() {
     return (this.poller = setTimeout(() => {
-      return Model.poll(`/media/${this.props.mediaId}/comments`, {}, data => {
+      return Model.poll(`/media/${this.props.mediaId}/comments`, {}, (data) => {
         if (this.props.onCommentsChange) {
           this.props.onCommentsChange(data)
         }
@@ -69,7 +69,7 @@ const Index = createReactClass({
   },
 
   render() {
-    const comments = this.props.comments.map(function(comment) {
+    const comments = this.props.comments.map(function (comment) {
       if (comment.user) {
         return (
           <div className="card flat with-avatar" key={comment.id}>

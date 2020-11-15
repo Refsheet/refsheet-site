@@ -3,7 +3,6 @@ import { createReducer } from './index'
 
 import defaultState from 'App/defaultState.json'
 
-
 const handlers = {
   [Actions.OPEN_MODAL]: (state, action) => ({
     ...state,

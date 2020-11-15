@@ -13,7 +13,7 @@ class StringUtils {
 
     return string
       .toLowerCase()
-      .replace(/_(.)/g, $1 => $1.toUpperCase())
+      .replace(/_(.)/g, ($1) => $1.toUpperCase())
       .replace(/_/g, '')
   }
 

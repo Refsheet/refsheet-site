@@ -60,7 +60,7 @@ class View extends Component {
   }
 
   handleModalOpen(modal) {
-    return e => {
+    return (e) => {
       e && e.preventDefault && e.preventDefault()
       let state = {}
       state[modal + 'Open'] = true
@@ -69,7 +69,7 @@ class View extends Component {
   }
 
   handleModalClose(modal) {
-    return e => {
+    return (e) => {
       e && e.preventDefault && e.preventDefault()
       let state = {}
       state[modal + 'Open'] = false

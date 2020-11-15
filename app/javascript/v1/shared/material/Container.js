@@ -11,7 +11,7 @@ import PropTypes from 'prop-types'
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let Container
-export default Container = function(props) {
+export default Container = function (props) {
   const classNames = ['container']
   if (props.className) {
     classNames.push(props.className)

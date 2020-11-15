@@ -9,7 +9,7 @@ import './react-mde-overrides.scss'
 import styled from 'styled-components'
 
 const SRM = styled(ReactMde)`
-  background-color: ${props => props.theme.cardBackground} !important;
+  background-color: ${(props) => props.theme.cardBackground} !important;
 `
 
 class MarkdownEditor extends Component {
@@ -30,7 +30,7 @@ class MarkdownEditor extends Component {
 
   searchForUser(username) {
     console.debug('searchForUser', { username })
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       client
         .query({
           query: Autocomplete.autocompleteUser,
@@ -45,7 +45,7 @@ class MarkdownEditor extends Component {
           const { autocompleteUser: users } = data
 
           resolve(
-            (users || []).map(user => ({
+            (users || []).map((user) => ({
               preview: (
                 <span className={'markdown-editor--suggestion'}>
                   <span className={'value'}>{user.name}</span>
@@ -56,7 +56,7 @@ class MarkdownEditor extends Component {
             }))
           )
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error)
           resolve([])
         })
@@ -67,7 +67,7 @@ class MarkdownEditor extends Component {
     const [username = '', slug = ''] = text.split('/', 2)
     console.debug('searchForCharacter', { username, slug })
 
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       client
         .query({
           query: Autocomplete.autocompleteCharacter,
@@ -81,7 +81,7 @@ class MarkdownEditor extends Component {
 
           const { autocompleteCharacter: characters } = data
           resolve(
-            (characters || []).map(character => ({
+            (characters || []).map((character) => ({
               preview: (
                 <span className={'markdown-editor--suggestion'}>
                   <span className={'value'}>{character.name}</span>
@@ -94,7 +94,7 @@ class MarkdownEditor extends Component {
             }))
           )
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error)
           resolve([])
         })
@@ -104,7 +104,7 @@ class MarkdownEditor extends Component {
   searchForHashtag(hashtag) {
     console.debug('searchForHashtag', { hashtag })
 
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       client
         .query({
           query: Autocomplete.autocompleteHashtags,
@@ -118,7 +118,7 @@ class MarkdownEditor extends Component {
 
           const { autocompleteHashtags: hashtags } = data
           resolve(
-            (hashtags || []).map(hashtag => ({
+            (hashtags || []).map((hashtag) => ({
               preview: (
                 <span className={'markdown-editor--suggestion'}>
                   <span className={'value'}>{hashtag.tag}</span>
@@ -129,7 +129,7 @@ class MarkdownEditor extends Component {
             }))
           )
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error)
           resolve([])
         })
@@ -207,7 +207,7 @@ class MarkdownEditor extends Component {
 
         <SRM
           value={content}
-          onChange={v => onChange(name, v)}
+          onChange={(v) => onChange(name, v)}
           readOnly={readOnly}
           selectedTab={this.state.selectedTab}
           onTabChange={this.handleTabChange.bind(this)}
@@ -218,7 +218,7 @@ class MarkdownEditor extends Component {
             preview: 'rich-text card-content',
             suggestionsDropdown: 'z-depth-2',
           }}
-          generateMarkdownPreview={markdown =>
+          generateMarkdownPreview={(markdown) =>
             Promise.resolve(this.Showdown.makeHtml(markdown))
           }
         />

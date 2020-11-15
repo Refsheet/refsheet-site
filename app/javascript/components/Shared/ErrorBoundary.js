@@ -67,7 +67,7 @@ export default class ErrorBoundary extends Component {
     }
 
     if (eventId) {
-      const report = e => {
+      const report = (e) => {
         e.preventDefault()
         Sentry.showReportDialog({
           eventId,
@@ -122,7 +122,7 @@ export default class ErrorBoundary extends Component {
   }
 }
 
-export const withErrorBoundary = WrappedComponent => props => (
+export const withErrorBoundary = (WrappedComponent) => (props) => (
   <ErrorBoundary>
     <WrappedComponent {...props} />
   </ErrorBoundary>

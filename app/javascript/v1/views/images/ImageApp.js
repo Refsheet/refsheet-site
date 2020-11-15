@@ -29,7 +29,7 @@ const ImageApp = createReactClass({
 
   load(data) {
     const { openLightbox } = this.props
-    this.setState({ image: data }, function() {
+    this.setState({ image: data }, function () {
       data.directLoad = true
       // TODO: We can direct load here.
       openLightbox(data.id)

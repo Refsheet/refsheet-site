@@ -75,7 +75,7 @@ export default InfiniteScroll = createReactClass({
     const data = { page: parseInt(this.state.page) + 1 }
 
     return this.setState({ loading: true }, () => {
-      return Model.request('GET', fetchUrl, data, fetchData => {
+      return Model.request('GET', fetchUrl, data, (fetchData) => {
         const path =
           typeof this.props.stateLink === 'function'
             ? this.props.stateLink().statePath

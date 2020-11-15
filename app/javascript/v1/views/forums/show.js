@@ -51,7 +51,7 @@ export default Show = createReactClass({
   },
 
   componentDidMount() {
-    StateUtils.load(this, 'forum', this.props, forum => {
+    StateUtils.load(this, 'forum', this.props, (forum) => {
       if (forum) {
         return this._poll()
       }
@@ -64,7 +64,7 @@ export default Show = createReactClass({
 
   _poll() {
     return (this.poller = setTimeout(() => {
-      return Model.poll(this.state.forum.path, {}, data => {
+      return Model.poll(this.state.forum.path, {}, (data) => {
         if (data.id === this.state.forum.id) {
           this.setState({ forum: data })
         }
@@ -90,9 +90,12 @@ export default Show = createReactClass({
       return <Loading />
     }
 
-    const childrenWithProps = React.Children.map(this.props.children, child => {
-      return React.cloneElement(child, { onReply: this._handleThreadReply })
-    })
+    const childrenWithProps = React.Children.map(
+      this.props.children,
+      (child) => {
+        return React.cloneElement(child, { onReply: this._handleThreadReply })
+      }
+    )
 
     return (
       <Main title={this.state.forum.name} fadeEffect flex>

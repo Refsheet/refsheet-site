@@ -26,7 +26,7 @@ class Dropzone extends Component {
   onDrop(acceptedFiles, rejectedFiles) {
     let pending = []
 
-    acceptedFiles.forEach(file => {
+    acceptedFiles.forEach((file) => {
       const filename = file.name
         .replace(/\..*?$/, '')
         .replace(/[-_]+/g, ' ')
@@ -39,7 +39,7 @@ class Dropzone extends Component {
         nsfw: false,
         state: 'pending',
         progress: 0,
-        preview: URL.createObjectURL(file)
+        preview: URL.createObjectURL(file),
       }
 
       Object.assign(file, image)
@@ -52,7 +52,7 @@ class Dropzone extends Component {
 
     this.setState({ dropzoneActive: false })
 
-    rejectedFiles.forEach(file => {
+    rejectedFiles.forEach((file) => {
       console.warn('File invalid:', file)
 
       if (file.name) {
@@ -115,7 +115,7 @@ class Dropzone extends Component {
 
       return (
         <ReactDropzone
-          ref={r => (this.dropzone = r)}
+          ref={(r) => (this.dropzone = r)}
           noClick
           noKeyboard
           disabled={disabled}
@@ -126,7 +126,8 @@ class Dropzone extends Component {
           onDragEnter={this.onDragEnter.bind(this)}
           onDragLeave={this.onDragLeave.bind(this)}
         >
-          {({getRootProps, getInputProps}) => (<div {...getRootProps()}>
+          {({ getRootProps, getInputProps }) => (
+            <div {...getRootProps()}>
               {dropzoneActive && (
                 <div style={overlayStyle}>
                   <i className={'material-icons'} style={iconStyle}>
@@ -137,7 +138,8 @@ class Dropzone extends Component {
               )}
               <input {...getInputProps()} />
               {this.props.children}
-            </div>)}
+            </div>
+          )}
         </ReactDropzone>
       )
     }

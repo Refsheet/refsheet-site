@@ -13,7 +13,7 @@ import Loading from 'v1/shared/Loading'
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let LoadingOverlay
-export default LoadingOverlay = props => (
+export default LoadingOverlay = (props) => (
   <div className="loading-overlay">
     <Loading />
   </div>

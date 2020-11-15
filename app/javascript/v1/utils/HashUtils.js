@@ -77,7 +77,7 @@ const HashUtils = {
     }
     const targetKey = typeof item === 'object' ? item[primaryKey] : item
     return !!collection.filter(
-      i => (i != null ? i[primaryKey] : undefined) === targetKey
+      (i) => (i != null ? i[primaryKey] : undefined) === targetKey
     )[0]
   },
 
@@ -91,7 +91,7 @@ const HashUtils = {
     }
     const targetKey = typeof item === 'object' ? item[primaryKey] : item
     const old = collection.filter(
-      i => (i != null ? i[primaryKey] : undefined) === targetKey
+      (i) => (i != null ? i[primaryKey] : undefined) === targetKey
     )[0]
     if (old) {
       index = collection.indexOf(old)

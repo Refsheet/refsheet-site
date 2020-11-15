@@ -28,7 +28,7 @@ class RevisionModal extends Component {
   }
 
   handleVersionClick(version) {
-    return e => {
+    return (e) => {
       e.preventDefault()
       this.setState({ activeVersion: version })
     }
@@ -51,7 +51,7 @@ class RevisionModal extends Component {
     return (
       <ul
         className={'timeline collapsible accordion'}
-        ref={r => (this.collapsible = r)}
+        ref={(r) => (this.collapsible = r)}
       >
         <TimelineEntry
           key={'current'}
@@ -61,10 +61,10 @@ class RevisionModal extends Component {
           summary={t('revisions.current_caption', 'You are here.')}
         />
 
-        {versions.map(version => {
+        {versions.map((version) => {
           const changes = JSON.parse(version.object_changes)
           const changed_fields = Object.keys(changes).filter(
-            k => this.ignoredFields.indexOf(k) === -1
+            (k) => this.ignoredFields.indexOf(k) === -1
           )
 
           return (
@@ -79,7 +79,7 @@ class RevisionModal extends Component {
               } fields`}
             >
               <div className={'change-table'}>
-                {changed_fields.map(changeKey => (
+                {changed_fields.map((changeKey) => (
                   <div className={'change'} key={changeKey}>
                     <div className={'label'}>{changeKey}</div>
                     <Diff

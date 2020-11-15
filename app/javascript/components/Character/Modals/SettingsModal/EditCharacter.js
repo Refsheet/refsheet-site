@@ -52,7 +52,12 @@ class EditCharacter extends Component {
   handleSubmit(e) {
     e.preventDefault()
 
-    const { history, updateSettings, character, onSave = _c => {} } = this.props
+    const {
+      history,
+      updateSettings,
+      character,
+      onSave = (_c) => {},
+    } = this.props
 
     updateSettings({
       wrapped: true,

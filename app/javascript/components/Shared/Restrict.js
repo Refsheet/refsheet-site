@@ -57,7 +57,7 @@ Restrict.propTypes = {
   invert: PropTypes.bool,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   currentUser: state.session.currentUser,
 })
 

@@ -54,7 +54,7 @@ const Model = {
       dataType: 'json',
       success,
 
-      error: e => {
+      error: (e) => {
         const msg = e.responseJSON || e.responseText
         console.warn(`Error sending request: ${JSON.stringify(msg)}`)
 

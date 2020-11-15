@@ -25,7 +25,7 @@ class ConversationLink extends Component {
 
     const isUnread = unreadCount > 0
 
-    const handleClick = e => {
+    const handleClick = (e) => {
       e.preventDefault()
       onClick({ id: guid, name: user.name, user: user })
     }
@@ -103,7 +103,7 @@ class Wrapped extends Component {
         subscription={CONVERSATION_SUBSCRIPTION}
         variables={{ conversationId: this.props.conversation.guid }}
       >
-        {subscriptionData => (
+        {(subscriptionData) => (
           <ConversationLink
             {...this.props}
             subscriptionData={subscriptionData}

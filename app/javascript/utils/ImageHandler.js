@@ -25,13 +25,13 @@ class ImageHandler {
     console.debug('ImageHandler#upload', this.image, this.characterId)
 
     return this.getS3Token()
-      .then(response => {
+      .then((response) => {
         return this.postToS3(response)
       })
-      .then(response => {
+      .then((response) => {
         return this.updateImageRecord(response)
       })
-      .then(response => {
+      .then((response) => {
         return this.finalize(response)
       })
       .catch(this.error)
@@ -62,7 +62,7 @@ class ImageHandler {
 
     const formData = new FormData()
 
-    Object.keys(awsHeaders).forEach(key => {
+    Object.keys(awsHeaders).forEach((key) => {
       formData.append(key.replace(/^x_amz_/, 'x-amz-'), awsHeaders[key])
     })
 
@@ -72,11 +72,11 @@ class ImageHandler {
     return request
       .post(url)
       .send(formData)
-      .on('progress', e => {
+      .on('progress', (e) => {
         this.image.progress = Math.ceil(e.percent)
         this.onChange(this.image)
       })
-      .then(response => {
+      .then((response) => {
         const data = xmljs.xml2js(response.text, { compact: true })
         const obj = data && data.PostResponse
 
@@ -197,7 +197,7 @@ class ImageHandler {
    */
   static findError(error) {
     if (error.map) {
-      return error.map(e => e.message).join(', ')
+      return error.map((e) => e.message).join(', ')
     }
 
     let friendlyText =

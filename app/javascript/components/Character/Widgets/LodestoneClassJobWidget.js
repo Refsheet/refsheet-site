@@ -23,7 +23,7 @@ class LodestoneClassJobWidget extends Component {
     return (
       <div className={'card-content padding-bottom--none'}>
         <Row>
-          {class_jobs.map(cj => (
+          {class_jobs.map((cj) => (
             <Col key={cj.id} s={3} m={2}>
               <div className={c('center-align', { faded: cj.level === 0 })}>
                 <img

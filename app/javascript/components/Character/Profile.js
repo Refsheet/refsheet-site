@@ -8,7 +8,7 @@ import * as M from 'materialize-css'
 
 class Profile extends Component {
   handleNewSection(lastSection) {
-    return e => {
+    return (e) => {
       e.preventDefault()
       this.props
         .createProfileSection({
@@ -20,7 +20,7 @@ class Profile extends Component {
         .then(({ data, errors }) => {
           if (errors) {
             console.error(errors)
-            errors.map(e =>
+            errors.map((e) =>
               M.toast({ html: e.message, classes: 'red', displayLength: 3000 })
             )
           } else {
@@ -71,7 +71,7 @@ class Profile extends Component {
       const sections = groups[id]
       let lastSectionId = null
 
-      const renderedSections = sections.map(function(section, i) {
+      const renderedSections = sections.map(function (section, i) {
         lastSectionId = section.id
 
         const classNames = c({
@@ -132,9 +132,9 @@ Profile.propTypes = {
   characterId: PropTypes.string.isRequired,
 }
 
-const CreateSectionMutation = props => (
+const CreateSectionMutation = (props) => (
   <Mutation mutation={createProfileSection}>
-    {createProfileSection => (
+    {(createProfileSection) => (
       <Profile {...props} createProfileSection={createProfileSection} />
     )}
   </Mutation>

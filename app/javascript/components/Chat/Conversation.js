@@ -87,7 +87,7 @@ class Conversation extends Component {
           conversationId: this.props.id,
         },
       })
-      .then(e => {
+      .then((e) => {
         if (e.errors) {
           e.errors.map(console.error)
         } else {
@@ -113,7 +113,7 @@ class Conversation extends Component {
   handlePendingMessage(message) {
     const { nonce } = message
     const messages = [...this.state.pendingMessages]
-    const i = messages.map(e => e.nonce).indexOf(nonce)
+    const i = messages.map((e) => e.nonce).indexOf(nonce)
 
     if (i !== -1) {
       messages[i] = {
@@ -147,7 +147,7 @@ class Conversation extends Component {
 
     const postedGuids = []
 
-    _.sortBy(allMessages, 'created_at').map(message => {
+    _.sortBy(allMessages, 'created_at').map((message) => {
       if (message.guid && postedGuids.indexOf(message.guid) !== -1) return
 
       if (message.unread && message.id > this.state.lastReadMessage && isRead) {
@@ -155,7 +155,7 @@ class Conversation extends Component {
           <li
             key="EOM"
             className="chat-end-of-messages more"
-            ref={r => (this.unreadBookmark = r)}
+            ref={(r) => (this.unreadBookmark = r)}
           >
             Unread:
           </li>
@@ -177,7 +177,7 @@ class Conversation extends Component {
       <li
         key="EOF"
         className="chat-end-of-messages clearfix"
-        ref={r => (this.endOfMessages = r)}
+        ref={(r) => (this.endOfMessages = r)}
       />
     )
 
@@ -206,7 +206,7 @@ class Conversation extends Component {
             <ul
               className={c('message-list chat-list')}
               onScroll={this.handleScroll}
-              ref={r => (this.messageWindow = r)}
+              ref={(r) => (this.messageWindow = r)}
             >
               {renderedMessages}
             </ul>
@@ -214,7 +214,7 @@ class Conversation extends Component {
             {this.state.isAtBottom || (
               <div
                 className="chat-more-pill"
-                onClick={e => this.scrollToBottom(false, true)}
+                onClick={(e) => this.scrollToBottom(false, true)}
               >
                 <Icon>keyboard_arrow_down</Icon>
               </div>
@@ -232,7 +232,7 @@ class Conversation extends Component {
   }
 }
 
-const renderConversation = props => ({
+const renderConversation = (props) => ({
   loading,
   data,
   error,
@@ -331,7 +331,7 @@ const GET_CONVERSATION_QUERY = gql`
   }
 `
 
-const Wrapped = props => (
+const Wrapped = (props) => (
   <Query
     query={GET_CONVERSATION_QUERY}
     variables={{

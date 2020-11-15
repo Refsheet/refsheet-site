@@ -35,7 +35,7 @@ class WindowAlert {
     if (!window.RS_ALERTS) return
     const keys = Object.keys(window.RS_ALERTS)
     let count = 0
-    keys.map(k => (count += window.RS_ALERTS[k].count || 0))
+    keys.map((k) => (count += window.RS_ALERTS[k].count || 0))
     return count
   }
 

@@ -38,10 +38,7 @@ export default AttributeTable = createReactClass({
         forcePlaceholderSize: true,
         stop: (_, el) => {
           const $item = $(el.item[0])
-          const position = $item
-            .parent()
-            .children()
-            .index($item)
+          const position = $item.parent().children().index($item)
 
           return this.props.onAttributeUpdate({
             id: $item.data('attribute-id'),
@@ -59,7 +56,7 @@ export default AttributeTable = createReactClass({
 
   render() {
     let newForm
-    const children = React.Children.map(this.props.children, child => {
+    const children = React.Children.map(this.props.children, (child) => {
       if (this.props.hideEmpty && !child.props.value) {
         return
       }

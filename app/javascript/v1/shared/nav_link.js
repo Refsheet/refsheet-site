@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import Icon from 'v1/shared/material/Icon'
 import * as ReactRouter from 'react-router'
-import {withRouter} from "react-router"
+import { withRouter } from 'react-router'
 
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
@@ -37,8 +37,7 @@ const NavLink = createReactClass({
       active = currentPath.indexOf(to) === 0
     } else if (to.match(/\?/)) {
       currentPath =
-        this.props.location.pathname +
-        (this.props.location.search || '')
+        this.props.location.pathname + (this.props.location.search || '')
     } else {
       currentPath = this.props.location.pathname
     }
@@ -93,6 +92,5 @@ const NavLink = createReactClass({
     )
   },
 })
-
 
 export default withRouter(NavLink)

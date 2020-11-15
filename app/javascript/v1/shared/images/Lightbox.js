@@ -53,11 +53,11 @@ const Lightbox = createReactClass({
       url: this.state.image.path,
       type: 'PATCH',
       data: { image: { caption: data } },
-      success: data => {
+      success: (data) => {
         this.setState({ image: data })
         return onSuccess()
       },
-      error: error => {
+      error: (error) => {
         return onError(error)
       },
     })
@@ -68,7 +68,7 @@ const Lightbox = createReactClass({
       url: this.state.image.character.path,
       type: 'PATCH',
       data: { character: { featured_image_guid: this.state.image.id } },
-      success: data => {
+      success: (data) => {
         Materialize.toast({
           html: 'Cover image changed!',
           displayLength: 3000,
@@ -77,7 +77,7 @@ const Lightbox = createReactClass({
         return $(document).trigger('app:character:update', data)
       },
 
-      error: error => {
+      error: (error) => {
         console.log(error)
         return Materialize.toast({
           html: 'Error?',
@@ -95,7 +95,7 @@ const Lightbox = createReactClass({
       url: this.state.image.character.path,
       type: 'PATCH',
       data: { character: { profile_image_guid: this.state.image.id } },
-      success: data => {
+      success: (data) => {
         Materialize.toast({
           html: 'Profile image changed!',
           displayLength: 3000,
@@ -104,7 +104,7 @@ const Lightbox = createReactClass({
         return $(document).trigger('app:character:update', data)
       },
 
-      error: error => {
+      error: (error) => {
         console.error(error)
         return Materialize.toast({
           html: 'Error?',
@@ -179,12 +179,10 @@ const Lightbox = createReactClass({
       starting_top: '4%',
       ending_top: '10%',
       ready() {
-        $(this)
-          .find('.autofocus')
-          .focus()
+        $(this).find('.autofocus').focus()
         return $(document).trigger('materialize:modal:ready')
       },
-      complete: e => {
+      complete: (e) => {
         return this.handleClose(e)
       },
     })
@@ -204,12 +202,12 @@ const Lightbox = createReactClass({
       if (typeof imageId !== 'object') {
         $.ajax({
           url: `/images/${imageId}.json`,
-          success: data => {
+          success: (data) => {
             this.setState({ image: data, onChange, onDelete })
             return window.history.pushState({}, '', data.path)
           },
 
-          error: error => {
+          error: (error) => {
             return this.setState({ error: `Image ${error.statusText}` })
           },
         })
@@ -564,7 +562,7 @@ const Lightbox = createReactClass({
                 <a
                   href="#"
                   className="btn"
-                  onClick={function(e) {
+                  onClick={function (e) {
                     $('#lightbox-delete-form').modal('close')
                     e.preventDefault()
                   }}

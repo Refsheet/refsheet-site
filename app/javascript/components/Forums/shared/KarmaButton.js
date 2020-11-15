@@ -43,7 +43,7 @@ class KarmaButton extends Component {
           data: {
             getForum: {
               ...getForum,
-              discussions: getForum.discussions.map(d => {
+              discussions: getForum.discussions.map((d) => {
                 if (d.id === sendKarma.id) {
                   return { ...d, karma_total: sendKarma.karma_total }
                 } else {

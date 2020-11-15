@@ -48,7 +48,7 @@ export default SwatchPanel = createReactClass({
       url: '/swatches/' + data.id,
       data: this.swatchParams(data),
       type: 'PATCH',
-      success: _data => {
+      success: (_data) => {
         this.setState({ swatches: _data })
         if (onSuccess != null) {
           return onSuccess(_data)
@@ -68,7 +68,7 @@ export default SwatchPanel = createReactClass({
       url: this.props.swatchesPath,
       data: this.swatchParams(data),
       type: 'POST',
-      success: _data => {
+      success: (_data) => {
         this.setState({ swatches: _data })
         if (onSuccess != null) {
           return onSuccess(_data)
@@ -87,7 +87,7 @@ export default SwatchPanel = createReactClass({
     return $.ajax({
       url: '/swatches/' + key,
       type: 'DELETE',
-      success: _data => {
+      success: (_data) => {
         return this.setState({ swatches: _data })
       },
     })
@@ -95,7 +95,7 @@ export default SwatchPanel = createReactClass({
 
   componentDidMount() {
     Materialize.Collapsible.init(this.collapsible)
-    this.tooltipped.map(tooltip => {
+    this.tooltipped.map((tooltip) => {
       if (!tooltip) return
       Materialize.Tooltip.init(tooltip, {
         html: tooltip.dataset.tooltip,
@@ -106,7 +106,7 @@ export default SwatchPanel = createReactClass({
 
   componentDidUpdate() {
     Materialize.Collapsible.init(this.collapsible)
-    this.tooltipped.map(tooltip => {
+    this.tooltipped.map((tooltip) => {
       if (!tooltip) return
       Materialize.Tooltip.init(tooltip, {
         html: tooltip.dataset.tooltip,
@@ -117,18 +117,18 @@ export default SwatchPanel = createReactClass({
 
   render() {
     let activeClass, createCallback, deleteCallback, updateCallback
-    const swatches = this.state.swatches.map(swatch => (
+    const swatches = this.state.swatches.map((swatch) => (
       <div
         className="swatch tooltipped"
         key={swatch.id}
         style={{ backgroundColor: swatch.color }}
-        ref={r => this.tooltipped.push(r)}
+        ref={(r) => this.tooltipped.push(r)}
         data-tooltip={swatch.name + ' - ' + swatch.color}
         data-position="top"
       />
     ))
 
-    const swatchDetails = this.state.swatches.map(swatch => (
+    const swatchDetails = this.state.swatches.map((swatch) => (
       <Attribute
         key={swatch.id}
         value={swatch.color}
@@ -152,7 +152,7 @@ export default SwatchPanel = createReactClass({
       <ul
         id="swatch-menu"
         className="collapsible character-swatches"
-        ref={r => (this.collapsible = r)}
+        ref={(r) => (this.collapsible = r)}
       >
         <li>
           <div className={'collapsible-header swatch-container ' + activeClass}>
@@ -163,7 +163,7 @@ export default SwatchPanel = createReactClass({
                 data-tooltip="More Details"
                 data-position="top"
                 data-testid={'swatch-panel-open'}
-                ref={r => this.tooltipped.push(r)}
+                ref={(r) => this.tooltipped.push(r)}
               >
                 <i className="material-icons">palette</i>
               </div>

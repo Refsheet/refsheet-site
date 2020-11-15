@@ -17,7 +17,7 @@ let Modal
 export default Modal = createReactClass({
   componentDidMount() {
     const $modal = Materialize.Modal.init(this.refs.modal, {
-      onCloseEnd: args => {
+      onCloseEnd: (args) => {
         if (this.props.sideSheet) {
           document.body.classList.remove(
             'side-sheet-open',
@@ -60,7 +60,7 @@ export default Modal = createReactClass({
         $(document).trigger('materialize:modal:ready')
         // Fix incorrect tab indicator after modal open:
         const tabs = this.refs.modal.querySelectorAll('.tabs')
-        return tabs.forEach(function(tab) {
+        return tabs.forEach(function (tab) {
           const inst = Materialize.Tabs.getInstance(tab)
           return inst != null ? inst.updateTabIndicator() : undefined
         })
@@ -116,7 +116,7 @@ export default Modal = createReactClass({
       containerClasses.push('container')
     }
 
-    const actions = (this.props.actions || []).map(action => (
+    const actions = (this.props.actions || []).map((action) => (
       <Button
         className={
           'modal-action waves-effect waves-light btn ' + action.className

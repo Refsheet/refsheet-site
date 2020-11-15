@@ -31,7 +31,7 @@ export default Attributes = createReactClass({
     return Model.post(
       this.props.characterPath + '/attributes',
       { custom_attributes: attr },
-      data => {
+      (data) => {
         this.props.onChange(data)
         if (complete) {
           return complete()
@@ -44,7 +44,7 @@ export default Attributes = createReactClass({
   _handleAttributeDelete(id) {
     return Model.delete(
       this.props.characterPath + '/attributes/' + id,
-      data => {
+      (data) => {
         return this.props.onChange(data)
       }
     )
@@ -62,8 +62,8 @@ export default Attributes = createReactClass({
     }
 
     const attributes = this.props.attributes
-      .filter(attr => !!attr)
-      .map(attr => <Attribute key={attr.id} {...attr} />)
+      .filter((attr) => !!attr)
+      .map((attr) => <Attribute key={attr.id} {...attr} />)
 
     return (
       <AttributeTable

@@ -85,7 +85,7 @@ class View extends Component {
           </div>
 
           <div className={'forum-post--replies'}>
-            {discussion.posts.map(post => (
+            {discussion.posts.map((post) => (
               <DiscussionReply
                 key={post.id}
                 post={post}

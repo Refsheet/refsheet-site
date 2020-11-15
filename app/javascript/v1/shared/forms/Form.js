@@ -154,7 +154,7 @@ export default Form = createReactClass({
       type: this.props.method || 'POST',
       data,
       dataType: 'json',
-      success: data => {
+      success: (data) => {
         this.setState({ dirty: false, errors: {} })
         if (this.props.onChange) {
           this.props.onChange(data)
@@ -171,7 +171,7 @@ export default Form = createReactClass({
         return console.log('Complete:', data)
       },
 
-      error: data => {
+      error: (data) => {
         if (this.props.onError) {
           this.props.onError(data)
         }
@@ -207,7 +207,7 @@ export default Form = createReactClass({
   },
 
   _processChildren(children) {
-    return React.Children.map(children, child => {
+    return React.Children.map(children, (child) => {
       let childProps = {}
 
       if (!React.isValidElement(child)) {

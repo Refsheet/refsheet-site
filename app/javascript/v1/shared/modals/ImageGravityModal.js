@@ -26,9 +26,7 @@ export default ImageGravityModal = createReactClass({
   },
 
   handleGravityChange(e) {
-    const gravity = $(e.target)
-      .closest('[data-gravity]')
-      .data('gravity')
+    const gravity = $(e.target).closest('[data-gravity]').data('gravity')
     return this.setState({ gravity })
   },
 
@@ -38,7 +36,7 @@ export default ImageGravityModal = createReactClass({
       url: this.props.image.path,
       type: 'PATCH',
       data: { image: { gravity: this.state.gravity } },
-      success: data => {
+      success: (data) => {
         $(document).trigger('app:image:update', data)
         Materialize.toast({
           html:
@@ -51,7 +49,7 @@ export default ImageGravityModal = createReactClass({
           document.getElementById('image-gravity-modal')
         ).close()
       },
-      error: error => {
+      error: (error) => {
         Materialize.toast({
           html: 'Something bad happened',
           displayLength: 3000,

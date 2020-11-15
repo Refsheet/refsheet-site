@@ -40,7 +40,7 @@ class Summary extends Component {
         if (errors) {
           console.error(errors)
           reject && reject(errors)
-          errors.map(e =>
+          errors.map((e) =>
             M.toast({ html: e.message, classes: 'red', displayLength: 3000 })
           )
         } else {
@@ -51,14 +51,14 @@ class Summary extends Component {
   }
 
   handleNameChange(name) {
-    this.updateCharacter({ name }, data => {
+    this.updateCharacter({ name }, (data) => {
       this.setState({ name: data.name })
       WindowAlert.add('main', data.name)
     })
   }
 
   handleSpeciesChange(attribute, done) {
-    this.updateCharacter({ species: attribute.value }, data => {
+    this.updateCharacter({ species: attribute.value }, (data) => {
       done()
       this.setState({ species: data.species })
     })
@@ -68,7 +68,7 @@ class Summary extends Component {
     return new Promise((resolve, reject) => {
       this.updateCharacter(
         { special_notes: value },
-        data => {
+        (data) => {
           resolve({ value: data.special_notes })
           this.setState({
             special_notes: data.special_notes,
@@ -166,7 +166,7 @@ class Summary extends Component {
                   : undefined
               }
             >
-              {staticAttributes.map(a => (
+              {staticAttributes.map((a) => (
                 <Attribute key={a.id} id={a.id} name={a.name} value={a.value} />
               ))}
             </AttributeTable>
@@ -219,7 +219,7 @@ Summary.propTypes = {
   character: PropTypes.object.isRequired,
 }
 
-const Mutated = props => (
+const Mutated = (props) => (
   <Mutation mutation={updateCharacter}>
     {(update, { data }) => (
       <Summary {...props} update={update} mutationData={data} />

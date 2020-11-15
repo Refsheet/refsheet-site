@@ -50,7 +50,7 @@ class Notifications extends React.Component {
       console.log('Requesting permissions.')
       const __this = this
       return window.requestNotifications(() =>
-        Notification.requestPermission(function(permission) {
+        Notification.requestPermission(function (permission) {
           if (permission !== 'granted') {
             return
           }
@@ -90,24 +90,26 @@ class Notifications extends React.Component {
     }
 
     return window.requestNotifications(() => {
-      return navigator.serviceWorker.ready.then(registration => {
-        return registration.pushManager.getSubscription().then(subscription => {
-          console.debug('Got subscription:', subscription)
+      return navigator.serviceWorker.ready.then((registration) => {
+        return registration.pushManager
+          .getSubscription()
+          .then((subscription) => {
+            console.debug('Got subscription:', subscription)
 
-          const browser = Bowser.getParser(window.navigator.userAgent)
-            .parsedResult
-          const browserName = `${browser.browser.name} ${browser.browser.version} on ${browser.os.name} ${browser.os.version} (${browser.platform.type})`
-          console.debug(browserName)
+            const browser = Bowser.getParser(window.navigator.userAgent)
+              .parsedResult
+            const browserName = `${browser.browser.name} ${browser.browser.version} on ${browser.os.name} ${browser.os.version} (${browser.platform.type})`
+            console.debug(browserName)
 
-          return Model.put(
-            '/account/notifications/browser_push',
-            { subscription: subscription.toJSON(), nickname: browserName },
-            data => {
-              this.props.setCurrentUser(data)
-              return this.setState({ browserGranted: true }, callback)
-            }
-          )
-        })
+            return Model.put(
+              '/account/notifications/browser_push',
+              { subscription: subscription.toJSON(), nickname: browserName },
+              (data) => {
+                this.props.setCurrentUser(data)
+                return this.setState({ browserGranted: true }, callback)
+              }
+            )
+          })
       })
     })
   }
@@ -124,7 +126,7 @@ class Notifications extends React.Component {
   }
 
   renderSubscriptions() {
-    this.getVapidSettings().map(browser => {
+    this.getVapidSettings().map((browser) => {
       if (!browser) {
         return null
       }

@@ -60,16 +60,12 @@ export default UserCharacterGroupLink = createReactClass({
       tolerance: 'pointer',
       accept: '.character-drag',
       over: (_, ui) => {
-        $(ui.draggable)
-          .siblings('.drop-target')
-          .hide()
+        $(ui.draggable).siblings('.drop-target').hide()
         return this.setState({ dropOver: true })
       },
 
       out: (_, ui) => {
-        $(ui.draggable)
-          .siblings('.drop-target')
-          .show()
+        $(ui.draggable).siblings('.drop-target').show()
         return this.setState({ dropOver: false })
       },
 
@@ -97,7 +93,7 @@ export default UserCharacterGroupLink = createReactClass({
     return Model.post(
       this.props.group.path + '/characters',
       { id: characterId },
-      data => {
+      (data) => {
         return this.props.onChange(data, characterId)
       }
     )

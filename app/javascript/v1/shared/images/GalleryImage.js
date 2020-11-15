@@ -39,16 +39,16 @@ const gallery_image = createReactClass({
   },
 
   _handleFavoriteClick(e) {
-    const action = (this.state.image != null
-    ? this.state.image.is_favorite
-    : undefined)
+    const action = (
+      this.state.image != null ? this.state.image.is_favorite : undefined
+    )
       ? 'delete'
       : 'post'
     Model.request(
       action,
       '/media/' + this.state.image.id + '/favorites',
       {},
-      data => {
+      (data) => {
         return this._handleFavorite(!!data.media_id)
       }
     )
@@ -233,7 +233,7 @@ const gallery_image = createReactClass({
   },
 })
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   currentUser: state.session.currentUser,
   session: state.session,
 })

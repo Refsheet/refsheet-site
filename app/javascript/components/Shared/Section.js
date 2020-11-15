@@ -13,22 +13,22 @@ import styled from 'styled-components'
 import Icon from 'v1/shared/material/Icon'
 
 const H2 = styled.h2`
-  color: ${props => props.theme.primary};
+  color: ${(props) => props.theme.primary};
   line-height: 48px;
   margin: 0;
 `
 
 const Button = styled.a`
-  background-color: ${props => props.theme.cardBackground} !important;
+  background-color: ${(props) => props.theme.cardBackground} !important;
   display: inline-block;
   margin: 6px 0 6px 1.5rem;
 `
 
 const SectionTitle = styled.div`
-  background-color: ${props => props.theme.background};
+  background-color: ${(props) => props.theme.background};
 `
 
-const Section = function({
+const Section = function ({
   id,
   className,
   titleClassName,
@@ -41,7 +41,7 @@ const Section = function({
   editable,
   onTitleChange,
 }) {
-  const renderTitle = function({ style, isSticky }) {
+  const renderTitle = function ({ style, isSticky }) {
     let titleStyle
     if (isSticky) {
       style = {
@@ -106,15 +106,15 @@ const Section = function({
 }
 
 const actionHandler = (onClick, id) =>
-  function(e) {
+  function (e) {
     e.preventDefault()
     if (onClick) {
       return onClick(id)
     }
   }
 
-const renderTab = onTabClick =>
-  function({ title, id, onClick }) {
+const renderTab = (onTabClick) =>
+  function ({ title, id, onClick }) {
     if (!onClick) {
       onClick = onTabClick
     }

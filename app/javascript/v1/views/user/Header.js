@@ -50,7 +50,7 @@ const Header = createReactClass({
         url: this.props.path,
         type: 'PATCH',
         data: { user: { profile: data.value } },
-        success: user => {
+        success: (user) => {
           this.props.onUserChange(user)
           return resolve({ value: user.profile_markup })
         },
@@ -65,7 +65,7 @@ const Header = createReactClass({
       action,
       '/users/' + this.props.username + '/follow.json',
       {},
-      user => {
+      (user) => {
         return this.props.onFollow(user.followed)
       }
     )

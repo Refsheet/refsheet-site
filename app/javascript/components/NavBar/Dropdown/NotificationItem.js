@@ -10,7 +10,7 @@ import { Icon } from 'react-materialize'
  * returned we assume it's a GraphQL mutation call, and will call the
  * refetch handler if provided. Promise catches go to console.error.
  */
-const NotificationItem = props => {
+const NotificationItem = (props) => {
   const {
     id,
     link = '#',
@@ -42,7 +42,7 @@ const NotificationItem = props => {
     time = null
   }
 
-  const more = e => {
+  const more = (e) => {
     if (!onMoreClick) return
 
     e.preventDefault()
@@ -55,14 +55,14 @@ const NotificationItem = props => {
 
     if (result && result.then) {
       result
-        .then(data => {
+        .then((data) => {
           if (data && refetch) refetch()
         })
         .catch(console.error)
     }
   }
 
-  const dismiss = e => {
+  const dismiss = (e) => {
     if (!onDismiss) return
 
     e.preventDefault()
@@ -75,14 +75,14 @@ const NotificationItem = props => {
 
     if (result && result.then) {
       result
-        .then(data => {
+        .then((data) => {
           if (data && refetch) refetch()
         })
         .catch(console.error)
     }
   }
 
-  const click = e => {
+  const click = (e) => {
     if (!onClick) return
 
     e.preventDefault()
@@ -95,7 +95,7 @@ const NotificationItem = props => {
 
     if (result && result.then) {
       result
-        .then(data => {
+        .then((data) => {
           if (data && refetch) refetch()
         })
         .catch(console.error)

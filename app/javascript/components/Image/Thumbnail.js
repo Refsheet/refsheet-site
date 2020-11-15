@@ -74,10 +74,10 @@ class Thumbnail extends Component {
         },
         update: CacheUtils.deleteMedia,
       })
-        .then(data => {
+        .then((data) => {
           Flash.info('Image deleted.')
         })
-        .catch(error => {
+        .catch((error) => {
           console.error({ error })
           Flash.error('Something went wrong.')
         })
@@ -219,7 +219,10 @@ class Thumbnail extends Component {
       return (
         <div
           ref={innerRef}
-          style={{...style, backgroundColor: image.background_color || 'rgb(0,0,0)'}}
+          style={{
+            ...style,
+            backgroundColor: image.background_color || 'rgb(0,0,0)',
+          }}
           className={c('gallery-image image-thumbnail z-depth-1', className)}
         >
           {children}
@@ -252,7 +255,7 @@ Thumbnail.propTypes = {
   gallery: PropTypes.arrayOf(PropTypes.string),
 }
 
-const renderSubscribed = props => ({ data, loading, error }) => {
+const renderSubscribed = (props) => ({ data, loading, error }) => {
   let image = props.image
 
   if (!loading && data && data.imageProcessingComplete) {
@@ -262,7 +265,7 @@ const renderSubscribed = props => ({ data, loading, error }) => {
   return <Thumbnail {...props} image={image} />
 }
 
-const Subscribed = props => {
+const Subscribed = (props) => {
   if (props.image.image_processing) {
     return (
       <Subscription

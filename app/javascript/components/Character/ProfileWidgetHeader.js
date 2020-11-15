@@ -40,7 +40,7 @@ class ProfileWidgetHeader extends Component {
   }
 
   handleMove(direction) {
-    return e => {
+    return (e) => {
       e.preventDefault()
       this.props.onMove(direction)
     }

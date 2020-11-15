@@ -23,7 +23,7 @@ export default ForumDiscussion = createReactClass({
   },
 
   render() {
-    const discussions = this.props.discussions.map(discussion => {
+    const discussions = this.props.discussions.map((discussion) => {
       return (
         <div
           key={discussion.id}

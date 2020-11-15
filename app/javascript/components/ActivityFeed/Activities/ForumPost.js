@@ -33,7 +33,7 @@ export default ForumPost = createReactClass({
 
     const action = this.props.action || 'Replied to'
 
-    const posts = this.props.posts.map(post => {
+    const posts = this.props.posts.map((post) => {
       return (
         <div
           key={post.id}

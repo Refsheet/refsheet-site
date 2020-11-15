@@ -60,10 +60,7 @@ export default List = createReactClass({
           $item.removeClass('dropped')
           return $list.sortable('cancel')
         } else {
-          const position = $item
-            .parent()
-            .children()
-            .index($item)
+          const position = $item.parent().children().index($item)
           return this._handleSwap($item.data('character-id'), position)
         }
       },
@@ -72,13 +69,13 @@ export default List = createReactClass({
 
   _handleSwap(characterId, position) {
     const character = this.props.characters.filter(
-      c => c.slug === characterId
+      (c) => c.slug === characterId
     )[0]
 
     return Model.put(
       character.path,
       { character: { row_order_position: position } },
-      data => {
+      (data) => {
         return this.props.onSort(data, position)
       }
     )
@@ -88,14 +85,14 @@ export default List = createReactClass({
     if (this.props.characters.length) {
       let characterScope
       if (this.props.activeGroupId) {
-        characterScope = this.props.characters.filter(c => {
+        characterScope = this.props.characters.filter((c) => {
           return c.group_ids.indexOf(this.props.activeGroupId) !== -1
         })
       } else {
         characterScope = this.props.characters
       }
 
-      const characters = characterScope.map(character => (
+      const characters = characterScope.map((character) => (
         <li
           className="character-drag col s6 m4 xl3"
           key={character.slug}
