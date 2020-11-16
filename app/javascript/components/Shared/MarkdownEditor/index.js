@@ -180,13 +180,14 @@ class MarkdownEditor extends Component {
     }
 
     if (emoji) {
-      suggestionTriggers.push(':')
+      //emoji not support
+      //suggestionTriggers.push(':')
     }
 
     if (slim) {
       commands = ['bold', 'italic', 'strikethrough']
     } else {
-      commands = undefined
+      commands = ['bold', 'italic', 'strikethrough']
     }
 
     return (

@@ -3,8 +3,6 @@ Rails.application.configure do
     Resque.logger = ActiveSupport::Logger.new(STDOUT)
     Resque.logger.formatter = Resque::VerboseFormatter.new
     Resque.logger.level = Logger::DEBUG
-
-    Rails.logger = ActiveSupport::TaggedLogging.new(Resque.logger)
   end
 
   resque_config = config_for(:resque)

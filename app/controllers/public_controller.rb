@@ -25,7 +25,8 @@ class PublicController < ApplicationController
         }
     }
 
-    Rails.logger.info({message: "HEALTH_CHECK", **counts})
+    Rails.logger.info(Rails.logger.inspect)
+    Rails.logger.info("HEALTH_CHECK", counts)
 
     render json: {
         status: "OK",
