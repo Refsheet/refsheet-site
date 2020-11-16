@@ -36,28 +36,17 @@ gem 'stackdriver', group: [:development, :production]
 
 gem 'uglifier', '>= 1.3.0'
 gem 'sass-rails', '~> 6.0'
-# gem 'coffee-rails', '~> 4.2'
 gem 'haml'
-# gem 'react-rails', github: 'reactjs/react-rails', branch: 'master'
 gem 'materialize-sass', '~> 1.0.0'
 
 gem 'rails-ujs'
-# gem 'turbolinks', '~> 5'
-# gem 'jquery-rails'
-# gem 'jquery-ui-rails'
-# gem 'jquery-turbolinks'
-# gem 'jquery-masonry-rails'
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass'
 gem 'meta-tags'
 gem 'gravatar_image_tag'
 gem 'chartkick'
 gem 'breadcrumbs_on_rails'
-# gem 'jquery-tmpl-rails'
-# gem 'jquery-justified-gallery-rails'
-# gem 'imagesLoaded_rails'
 gem 'highcharts-rails'
-# gem 'js_cookie_rails'
 gem 'serviceworker-rails'
 
 # == UTILITY

@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   include CollectionHelper
   include ResponseHelper
   include ParamsHelper
+  include Pundit
 
   class Unauthorized < RuntimeError; end
 
