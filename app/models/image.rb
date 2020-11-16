@@ -90,7 +90,7 @@ class Image < ApplicationRecord # < Media
                         original: :private
                     },
                     convert_options: {
-                       thumbnail:     -> (i) { "+repage -gravity '#{i.gravity.presence || 'Nord'}' -crop '#{SIZE[:thumbnail]}x#{SIZE[:thumbnail]}+0+0'" },
+                       thumbnail:     -> (i) { "+repage -gravity '#{i.gravity.presence || 'North'}' -crop '#{SIZE[:thumbnail]}x#{SIZE[:thumbnail]}+0+0'" },
                        small_square:  -> (i) { "+repage -gravity '#{i.gravity.presence || 'North'}' -crop '#{SIZE[:small]}x#{SIZE[:small]}+0+0'" },
                        medium_square: -> (i) { "+repage -gravity '#{i.gravity.presence || 'North'}' -crop '#{SIZE[:medium]}x#{SIZE[:medium]}+0+0'" },
                        large_square:  -> (i) { "+repage -gravity '#{i.gravity.presence || 'North'}' -crop '#{SIZE[:large]}x#{SIZE[:large]}+0+0'" }
