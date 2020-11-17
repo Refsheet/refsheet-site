@@ -31,14 +31,23 @@ module SessionHelper
   def current_user
     if defined? cookies and cookies[UserSession::COOKIE_SESSION_TOKEN_NAME]
       @current_user ||= get_remembered_user
-      return @current_user if @current_user
+
+      if @current_user
+        Raven.user_context(id: @current_user&.id, username: @current_user&.username)
+        PaperTrail.request.whodunnit = @current_user&.to_global_id
+        return @current_user
+      end
     end
 
     if (user_id = session[UserSession::COOKIE_USER_ID_NAME] ||
         (defined? cookies and cookies.signed[UserSession::COOKIE_USER_ID_NAME]))
       @current_user ||= User.unscoped.find_by id: user_id
-    else
-      nil
+
+      if @current_user
+        Raven.user_context(id: @current_user&.id, username: @current_user&.username)
+        PaperTrail.request.whodunnit = @current_user&.to_global_id
+        return @current_user
+      end
     end
   end
 
@@ -174,6 +183,8 @@ module SessionHelper
   end
 
   def self.user_jar(request)
+    # disabling the user jar to see if it speeds up requests.
+    return nil
     @@user_jar ||= {}
     user_id = request.cookie_jar.signed[UserSession::COOKIE_USER_ID_NAME]
 

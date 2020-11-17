@@ -17,10 +17,13 @@ end
 CORS_PROD = _cors(
     'refsheet.net',
     'www.refsheet.net',
-    'ref.st'
+    'ref.st',
+    'staging.refsheet.net',
+    'kube.refsheet.net',
 )
 
 CORS_EXT = _cors(
+    'admin.refsheet.net',
     'extension.refsheet.net'
 )
 
@@ -29,7 +32,7 @@ CORS_DEV = _cors(
     'dev1.refsheet.net',
     '127.0.0.1',
     'localhost',
-    ports: [3000, 5000, 3200]
+    ports: [3000, 5000, 3200, 3300]
 )
 
 if defined? Rack::Cors

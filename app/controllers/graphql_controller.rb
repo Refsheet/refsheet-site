@@ -2,6 +2,10 @@ class GraphqlController < ApplicationController
   include GraphqlHelper
 
   skip_before_action :verify_authenticity_token
+  skip_before_action :eager_load_session
+  skip_before_action :set_default_meta
+  skip_before_action :set_user_locale
+  skip_before_action :track_ahoy_visit
 
   if Rails.env.development?
     rescue_from Exception do |e|
@@ -44,7 +48,7 @@ class GraphqlController < ApplicationController
                                       operation_name: operation_name)
     end
 
-    # Rails.logger.debug("Result: #{result.to_json}")
+    Rails.logger.debug("Result: #{result.to_json}")
 
     render json: result
   end
