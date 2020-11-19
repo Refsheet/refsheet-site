@@ -8,6 +8,6 @@ class UserPolicy < ApplicationPolicy
   end
 
   def update?
-    user === record or user.admin?
+    user === record or user&.admin?
   end
 end

@@ -23,7 +23,7 @@ class ApplicationPolicy
   end
 
   def update?
-    false
+    user&.admin?
   end
 
   def edit?
@@ -32,6 +32,16 @@ class ApplicationPolicy
 
   def destroy?
     false
+  end
+
+  # Attributes
+
+  def show_private?
+    update?
+  end
+
+  def update_private?
+    show_private?
   end
 
   class Scope
