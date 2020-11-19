@@ -1,6 +1,35 @@
 class Mutations::UserMutations < Mutations::ApplicationMutation
   before_action :get_current_user, only: [:set_avatar_blob]
 
+  action :index do
+    type types[Types::UserType]
+
+    argument :with_deleted, type: types.Boolean
+    argument :order, type: types.String
+    argument :ascending, type: types.Boolean
+    argument :page, type: types.Int
+    argument :query, type: types.String
+  end
+
+  def index
+    authorize User, :index?
+    scope = User.all
+
+    if params[:with_deleted]
+      authorize User, :show_deleted?
+      scope = scope.with_deleted
+    end
+
+    if params[:query]
+      scope = scope.search_for(params[:query])
+    end
+
+    scope = scope.order(created_at: :desc)
+
+    scope = scope.page(params[:page] || 1)
+    scope
+  end
+
   action :autocomplete do
     type types[Types::UserType]
 

@@ -137,6 +137,9 @@ Types::QueryType = GraphQL::ObjectType.define do
 
   field :getArtist, field: Mutations::ArtistMutations::Show
 
+  #== Users
+  field :getUsers, field: Mutations::UserMutations::Index
+
   #== Media
 
   field :getComments, field: Mutations::MediaCommentMutations::Index
