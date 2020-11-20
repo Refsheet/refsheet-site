@@ -42,13 +42,17 @@ class UserMenu extends Component {
       >
         <ul className="dropdown-menu">
           <li>
-            <Link to={'/' + user.username} data-testid={'user-profile-link'}>
-              <i className="material-icons left">
-                {identity.characterId !== null ? 'people' : 'person'}
-              </i>
-              <span>{identity.name}</span>
-              <br />
-              <span className="muted">@{user.username}</span>
+            <Link className="flex align-center" to={'/' + user.username} data-testid={'user-profile-link'}>
+              <div className="no-grow">
+                <i className="material-icons left">
+                  {identity.characterId !== null ? 'people' : 'person'}
+                </i>
+              </div>
+              <div className="flex-grow-1">
+                <span>{identity.name}</span>
+                <br />
+                <span className="muted">@{user.username}</span>
+              </div>
             </Link>
           </li>
 
