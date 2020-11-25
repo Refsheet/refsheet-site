@@ -13,7 +13,7 @@ class Lodestone::ImportCharacterJob < ApplicationJob
       character = Lodestone::Character.find(lodestone_character_id)
       character.touch
       lodestone_id = character.lodestone_id
-      character_id = character.character.id
+      character_id = character.character_id
     end
 
     Rails.logger.info("Fetching character #{lodestone_id} from the Lodestone...")
