@@ -1,0 +1,34 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: lodestone-sync-character-job
+spec:
+  schedule: '*/30 * * * *'
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: refsheet-prod
+            tier: refsheet-prod-job
+          annotations:
+            configHash: b6434529026540e58e2751ed60fcfe48ccee9201aa8a9294c7742e58b3a3d66c
+        spec:
+          restartPolicy: Never
+          containers:
+          - name: lodestone-sync-character-job
+            image: gcr.io/refsheet-239409/refsheet-site:6df4b2e821323ed8a9935f378b60a2af6528627a
+            imagePullPolicy: Always
+            command:
+            - bundle
+            args:
+            - exec
+            - rails
+            - runner
+            - Lodestone::SyncCharacterJob.perform_now
+            envFrom:
+            - configMapRef:
+                name: refsheet-prod
+            - secretRef:
+                name: refsheet-prod-secret
