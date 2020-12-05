@@ -98,6 +98,7 @@ gem 'sentry-raven'
 gem 'sendgrid-actionmailer'
 gem "google-cloud-storage", "~> 1.11", require: false
 gem 'xivapi', git: 'https://github.com/Refsheet/xivapi-ruby.git', branch: 'extended-character'
+gem 'recaptcha'
 
 # == MAINTENANCE
 

@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import M from 'materialize-css'
 import { deepRemoveKeys } from './ObjectUtils'
 import { setCurrentUser } from '../actions'
+import { ConfigContext } from '../components/App'
 
 function compose() {
   return (component) => {
@@ -133,6 +134,16 @@ function withCurrentUser(set = false) {
   return connect(mapStateToProps, mapDispatchToProps)
 }
 
-export { withMutations, withCurrentUser }
+function withConfig(Component) {
+  const WithContext = (props) => (
+    <ConfigContext.Consumer>
+      {(config) => <Component {...props} config={config} />}
+    </ConfigContext.Consumer>
+  )
+
+  return WithContext
+}
+
+export { withMutations, withCurrentUser, withConfig }
 
 export default compose

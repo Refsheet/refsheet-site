@@ -42,7 +42,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new user_params
 
-    if @user.save
+    captcha_data = params[:user][:captchaData]
+
+    if verify_recaptcha(model: @user, response: captcha_data) && @user.save
       sign_in @user
       render json: @user, serializer: UserIndexSerializer
     else

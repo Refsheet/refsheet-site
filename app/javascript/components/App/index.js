@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, createContext } from 'react'
 import PropTypes from 'prop-types'
 
 // Providers
@@ -35,6 +35,10 @@ import { Router as BrowserRouter } from 'react-router-dom'
 import { setCurrentUser } from '../../actions'
 import { withErrorBoundary } from '../Shared/ErrorBoundary'
 
+const ConfigContext = createContext({
+  loading: true,
+})
+
 class App extends Component {
   constructor(props) {
     super(props)
@@ -42,6 +46,10 @@ class App extends Component {
     this.state = {
       theme: defaultTheme,
       eagerLoad: props.eagerLoad,
+      config: {
+        ...props.config,
+        loading: false,
+      },
     }
 
     this.store = this.buildStore(this.buildState(props.state))
@@ -170,24 +178,26 @@ class App extends Component {
 
   render() {
     return (
-      <I18nextProvider i18n={i18n}>
-        <ThemeProvider theme={this.state.theme}>
-          <ApolloProvider client={client} store={this.store}>
-            <ReduxProvider store={this.store}>
-              <DropzoneProvider>
-                <DndProvider backend={Backend}>
-                  <BrowserRouter
-                    history={this.history}
-                    onUpdate={this.handleRouteUpdate}
-                  >
-                    <Layout />
-                  </BrowserRouter>
-                </DndProvider>
-              </DropzoneProvider>
-            </ReduxProvider>
-          </ApolloProvider>
-        </ThemeProvider>
-      </I18nextProvider>
+      <ConfigContext.Provider value={this.state.config}>
+        <I18nextProvider i18n={i18n}>
+          <ThemeProvider theme={this.state.theme}>
+            <ApolloProvider client={client} store={this.store}>
+              <ReduxProvider store={this.store}>
+                <DropzoneProvider>
+                  <DndProvider backend={Backend}>
+                    <BrowserRouter
+                      history={this.history}
+                      onUpdate={this.handleRouteUpdate}
+                    >
+                      <Layout />
+                    </BrowserRouter>
+                  </DndProvider>
+                </DropzoneProvider>
+              </ReduxProvider>
+            </ApolloProvider>
+          </ThemeProvider>
+        </I18nextProvider>
+      </ConfigContext.Provider>
     )
   }
 
@@ -211,5 +221,7 @@ App.propTypes = {
 App.childContextTypes = {
   eagerLoad: PropTypes.object,
 }
+
+export { ConfigContext }
 
 export default withErrorBoundary(App)

@@ -1,13 +1,5 @@
-/* do-not-disable-eslint
-    no-undef,
-    no-unused-vars,
-    react/jsx-no-undef,
-    react/no-deprecated,
-    react/react-in-jsx-scope,
-*/
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import createReactClass from 'create-react-class'
 import * as ReactGA from 'react-ga'
 import Main from '../../shared/Main'
 import Form from '../../shared/forms/Form'
@@ -16,30 +8,26 @@ import Submit from '../../shared/forms/Submit'
 import $ from 'jquery'
 import Flash from '../../../utils/Flash'
 import { Link } from 'react-router-dom'
-import compose, { withCurrentUser } from '../../../utils/compose'
-// TODO: This file was created by bulk-decaffeinate.
-// Fix any style issues and re-enable lint.
-/*
- * decaffeinate suggestions:
- * DS102: Remove unnecessary code created because of implicit returns
- * DS208: Avoid top-level this
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
-const RegisterView = createReactClass({
-  contextTypes: {
-    router: PropTypes.object.isRequired,
-  },
+import compose, { withConfig, withCurrentUser } from '../../../utils/compose'
+import ReCAPTCHA from 'react-google-recaptcha'
+import { withRouter } from 'react-router'
 
-  getInitialState() {
-    return {
+class RegisterView extends Component {
+  constructor(props) {
+    super(props)
+
+    this.captchaRef = React.createRef()
+
+    this.state = {
       user: {
         username: this.props.location.query.username,
         email: null,
         password: null,
         password_confirmation: null,
+        captchaData: null,
       },
     }
-  },
+  }
 
   _handleChange(user) {
     ReactGA.event({
@@ -50,19 +38,34 @@ const RegisterView = createReactClass({
     Flash.info(
       'Thank you for registering! Please check your email for confirmation.'
     )
+
     this.props.setCurrentUser(user)
-    this.context.router.history.push('/')
-  },
+    this.props.history.push('/')
+  }
 
   componentDidMount() {
     return $('body').addClass('no-footer')
-  },
+  }
 
   componentWillUnmount() {
     return $('body').removeClass('no-footer')
-  },
+  }
+
+  handleCaptchaChange(data) {
+    this.setState({
+      user: {
+        ...this.state.user,
+        captchaData: data,
+      },
+    })
+  }
+
+  _handleError(e) {
+    this.captchaRef.current && this.captchaRef.current.reset()
+  }
 
   render() {
+    const { config } = this.props
     return (
       <Main title="Register" className="modal-page-content shaded-background">
         <div className="modal-page-content">
@@ -74,7 +77,8 @@ const RegisterView = createReactClass({
               method="POST"
               formName={'register_full'}
               model={this.state.user}
-              onChange={this._handleChange}
+              onChange={this._handleChange.bind(this)}
+              onError={this._handleError.bind(this)}
               modelName="user"
             >
               <Input
@@ -105,6 +109,21 @@ const RegisterView = createReactClass({
                 label="Confirm Password"
               />
 
+              {config.recaptchaSiteKey && (
+                <React.Fragment>
+                  <ReCAPTCHA
+                    ref={this.captchaRef}
+                    sitekey={config.recaptchaSiteKey}
+                    theme={'dark'}
+                    onChange={this.handleCaptchaChange.bind(this)}
+                  />
+                  <div className={'muted margin-top--small'}>
+                    ^- We &lt;3 all robotic creatures, but we must ensure that
+                    you are a good, sentient robot.
+                  </div>
+                </React.Fragment>
+              )}
+
               <div className="form-actions margin-top--large">
                 <Link
                   to="/login"
@@ -120,7 +139,11 @@ const RegisterView = createReactClass({
         </div>
       </Main>
     )
-  },
-})
+  }
+}
 
-export default compose(withCurrentUser(true))(RegisterView)
+export default compose(
+  withCurrentUser(true),
+  withRouter,
+  withConfig
+)(RegisterView)

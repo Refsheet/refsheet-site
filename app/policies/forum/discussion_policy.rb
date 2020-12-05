@@ -1,5 +1,6 @@
 class Forum::DiscussionPolicy < ApplicationPolicy
   def create?
-    ! record.forum.locked? or user.admin?
+    return true if user.admin?
+    (!record.forum.locked?) && user.confirmed?
   end
 end

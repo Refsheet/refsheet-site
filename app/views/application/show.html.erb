@@ -38,7 +38,10 @@
     flash: flash.to_hash,
     environment: Rails.env,
     notice: ENV['MAINTENANCE_NOTICE'],
-    assets: render_asset_paths
+    assets: render_asset_paths,
+    config: {
+      recaptchaSiteKey: Rails.configuration.x.recaptcha.site_key
+    }
   }.to_json).html_safe %>;
 
   // This is broken after Webpack 5 upgrade???
