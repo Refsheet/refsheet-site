@@ -12,7 +12,7 @@ class Lodestone::SyncCharacterJob < ApplicationJob
 
     scope.find_each do |record|
       Lodestone::ImportCharacterJob.perform_now(lodestone_character_id: record.id)
-      if (elapsed = Time.now - last) > rate
+      if (elapsed = Time.now - last) < rate
         sleep(rate - elapsed)
       end
       last = Time.now
