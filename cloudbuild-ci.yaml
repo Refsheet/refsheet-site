@@ -6,7 +6,7 @@ steps:
   # Kaniko 0.17.1 fixes /var/run issue in Google Cloud: https://github.com/GoogleContainerTools/kaniko/issues/1001
   # OPEN: Kaniko 0.17.x produces invalid images (whiteout?): https://github.com/GoogleContainerTools/kaniko/issues/1039
   # CLOSED?: New Kaniko version SHOULD fix this, pinning tot he debug tag mentioned here: https://github.com/GoogleContainerTools/kaniko/issues/1039#issuecomment-590954787
-  - name: 'gcr.io/kaniko-project/executor:a1af057f997316bfb1c4d2d82719d78481a02a79'
+  - name: 'gcr.io/kaniko-project/executor'
     id: Build Container
     args:
       - --destination=gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID
