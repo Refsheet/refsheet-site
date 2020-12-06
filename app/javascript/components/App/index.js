@@ -46,6 +46,7 @@ class App extends Component {
     this.state = {
       theme: defaultTheme,
       eagerLoad: props.eagerLoad,
+      updateAvailable: false,
       config: {
         ...props.config,
         loading: false,
@@ -75,10 +76,15 @@ class App extends Component {
   }
 
   checkForUpdates() {
+    const _this = this;
     fetch(host + '/health.json')
       .then(response => response.json())
       .then(data => {
-        console.log('Version is: ' + data.version, data)
+        console.log('Version is: ' + data.version)
+        if (data.version !== window.Refsheet.version) {
+          console.log("Update is available!");
+          _this.setState({ updateAvailable: true })
+        }
       })
       .catch(console.error)
   }
@@ -190,7 +196,7 @@ class App extends Component {
                       history={this.history}
                       onUpdate={this.handleRouteUpdate}
                     >
-                      <Layout />
+                      <Layout updateAvailable={this.state.updateAvailable} />
                     </BrowserRouter>
                   </DndProvider>
                 </DropzoneProvider>

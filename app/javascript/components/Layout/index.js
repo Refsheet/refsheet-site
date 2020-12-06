@@ -25,7 +25,7 @@ class Layout extends Component {
   }
 
   render() {
-    const { t, location, notice } = this.props
+    const { t, location, updateAvailable, notice } = this.props
 
     return (
       <div id={'rootApp'}>
@@ -44,6 +44,11 @@ class Layout extends Component {
 
         <Routes />
         <Footer />
+
+        { updateAvailable && <div className={'update-notice card-panel cyan darken-4 white-text'} style={{ position: "fixed", bottom: '1rem', left: '1rem' }}>
+          { t('system.update_available', "An update is available. Please reload your browser.") }
+        </div>}
+
         <Chat />
       </div>
     )
@@ -52,6 +57,7 @@ class Layout extends Component {
 
 Layout.propTypes = {
   notice: PropTypes.string,
+  updateAvailable: PropTypes.bool
 }
 
 const mapDispatchToProps = {
@@ -61,5 +67,6 @@ const mapDispatchToProps = {
 export default compose(
   withErrorBoundary,
   withRouter,
+  withTranslation('common'),
   connect(undefined, mapDispatchToProps)
 )(Layout)
