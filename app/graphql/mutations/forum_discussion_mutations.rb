@@ -1,6 +1,7 @@
 module Mutations
   class ForumDiscussionMutations < ApplicationMutation
     before_action :get_forum, only: [:show, :create]
+    before_action :get_discussion, only: [:update, :destroy]
 
     action :show do
       type Types::ForumDiscussionType
@@ -47,6 +48,18 @@ module Mutations
       @discussion
     end
 
+    action :destroy do
+      type Types::ForumDiscussionType
+
+      argument :id, !types.ID
+    end
+
+    def destroy
+      authorize @discussion
+      @discussion.destroy
+      @discussion
+    end
+
     private
 
     def discussion_props
@@ -77,6 +90,10 @@ module Mutations
 
     def get_forum
       @forum = Forum.find_by!(slug: params[:forumId])
+    end
+
+    def get_discussion
+      @discussion = Forum::Discussion.find_by!(id: params[:id])
     end
   end
 end

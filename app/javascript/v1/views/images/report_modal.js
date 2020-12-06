@@ -9,7 +9,7 @@ import Submit from '../../shared/forms/Submit'
 import Column from 'v1/shared/material/Column'
 import StateUtils from '../../utils/StateUtils'
 import compose, { withCurrentUser } from '../../../utils/compose'
-import {closeReportModal} from "../../../actions"
+import { closeReportModal } from '../../../actions'
 import { connect } from 'react-redux'
 
 class ReportModal extends React.Component {
@@ -49,7 +49,7 @@ class ReportModal extends React.Component {
   render() {
     console.log(this.props)
     const { open, id, type } = this.props
-    if (!open) return null;
+    if (!open) return null
 
     const violationTypes = []
 
@@ -69,7 +69,13 @@ class ReportModal extends React.Component {
     }
 
     return (
-      <Modal autoOpen onClose={this.props.closeReportModal} title="Report Image" id="report-modal" ref="modal">
+      <Modal
+        autoOpen
+        onClose={this.props.closeReportModal}
+        title="Report Image"
+        id="report-modal"
+        ref="modal"
+      >
         <p>
           Refsheet.net values a strong and welcoming community for all. If you
           find any content that you believe is unwelcome in this community,
@@ -137,7 +143,7 @@ ReportModal.propTypes = { imageId: PropTypes.string }
 
 const mapStateToProps = (state, ownProps) => ({
   ...ownProps,
-  ...state.modals.report
+  ...state.modals.report,
 })
 
 export default compose(

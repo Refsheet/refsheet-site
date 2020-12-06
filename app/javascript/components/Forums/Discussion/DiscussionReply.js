@@ -13,7 +13,7 @@ import { Divider, Icon, Dropdown } from 'react-materialize'
 import Muted, { MutedAnchor } from '../../Styled/Muted'
 import { div as Card } from '../../Styled/Card'
 import DiscussionReplyForm from './DiscussionReplyForm'
-import {openReportModal} from "../../../actions"
+import { openReportModal } from '../../../actions'
 import { connect } from 'react-redux'
 
 class DiscussionReply extends Component {
@@ -28,12 +28,12 @@ class DiscussionReply extends Component {
   handleEditStart(e) {
     e.preventDefault()
     this.setState({ editing: true })
-    this.props.onEditStart && this.props.onEditStart();
+    this.props.onEditStart && this.props.onEditStart()
   }
 
   handleEditStop() {
     this.setState({ editing: false })
-    this.props.onEditStop && this.props.onEditStop();
+    this.props.onEditStop && this.props.onEditStop()
   }
 
   handleSubmit(post) {
@@ -103,7 +103,7 @@ class DiscussionReply extends Component {
               <Dropdown
                 id={`DiscussionReply_${post.id}`}
                 options={{
-                  alignment: "right",
+                  alignment: 'right',
                   constrainWidth: false,
                 }}
                 trigger={
@@ -112,14 +112,22 @@ class DiscussionReply extends Component {
                   </MutedAnchor>
                 }
               >
-                { can_edit && <a key="edit" href={'#'} onClick={this.handleEditStart.bind(this)}>
-                  <Icon left>edit</Icon>
-                  <span>Edit</span>
-                </a> }
-                { can_destroy && <a key="delete" href={'#'}>
-                  <Icon left>delete</Icon>
-                  <span>Delete</span>
-                </a> }
+                {can_edit && (
+                  <a
+                    key="edit"
+                    href={'#'}
+                    onClick={this.handleEditStart.bind(this)}
+                  >
+                    <Icon left>edit</Icon>
+                    <span>Edit</span>
+                  </a>
+                )}
+                {can_destroy && (
+                  <a key="delete" href={'#'}>
+                    <Icon left>delete</Icon>
+                    <span>Delete</span>
+                  </a>
+                )}
                 <Divider />
                 <a key="report" href={'#'}>
                   <Icon left>flag</Icon>
@@ -145,9 +153,7 @@ DiscussionReply.propTypes = {
   discussion: PropTypes.object,
   onEditStart: PropTypes.func,
   onEditStop: PropTypes.func,
-  refetch: PropTypes.func
+  refetch: PropTypes.func,
 }
 
-export default compose(
-  connect(undefined, { openReportModal })
-)(DiscussionReply)
+export default compose(connect(undefined, { openReportModal }))(DiscussionReply)

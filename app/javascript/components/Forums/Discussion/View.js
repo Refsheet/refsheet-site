@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import compose from '../../../utils/compose'
+import compose, { withMutations } from '../../../utils/compose'
 import { Trans, withTranslation } from 'react-i18next'
 import KarmaCounter from '../shared/KarmaCounter'
 import Moment from 'react-moment'
@@ -15,25 +15,29 @@ import LinkUtils from 'utils/LinkUtils'
 import { H2 } from '../../Styled/Headings'
 
 import Advertisement from 'v1/shared/advertisement'
-import { Divider, Dropdown, Icon} from "react-materialize"
-import Restrict from "../../Shared/Restrict"
-import NewDiscussionForm from "../NewDiscussion/NewDiscussionForm"
-import {openReportModal} from "../../../actions"
+import { Divider, Dropdown, Icon } from 'react-materialize'
+import Restrict from '../../Shared/Restrict'
+import NewDiscussionForm from '../NewDiscussion/NewDiscussionForm'
+import { openReportModal } from '../../../actions'
 import { connect } from 'react-redux'
 import e from 'utils/e'
+import destroyDiscussion from './destroyDiscussion.graphql'
+import { withRouter } from 'react-router'
+import NotFound from '../../Shared/views/NotFound'
 
 class View extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       editing: false,
-      editingReply: false
+      editingReply: false,
+      pendingAction: false,
     }
   }
 
   handleEditStart(e) {
-    e.preventDefault();
+    e.preventDefault()
     this.setState({ editing: true })
   }
 
@@ -42,15 +46,41 @@ class View extends Component {
   }
 
   handleReplyEditStart() {
-    this.setState({ editingReply: true });
+    this.setState({ editingReply: true })
   }
 
   handleReplyEditStop() {
-    this.setState({ editingReply: false });
+    this.setState({ editingReply: false })
+  }
+
+  handleDestroyDiscussion(e) {
+    e.preventDefault()
+    this.setState({ pendingAction: true })
+
+    this.props
+      .destroyDiscussion({
+        wrapped: true,
+        variables: {
+          id: this.props.discussion.id,
+        },
+      })
+      .then(() => {
+        this.props.history.push(
+          LinkUtils.forumPath({ forumId: this.props.discussion.forum.slug })
+        )
+      })
+      .finally(() => {
+        this.setState({ pendingAction: false })
+      })
   }
 
   render() {
     const { discussion, forum, t, refetch, openReportModal } = this.props
+
+    if (!discussion || discussion.deleted_at) {
+      return <NotFound />
+    }
+
     const { can_edit, can_destroy } = discussion
 
     if (this.state.editing) {
@@ -67,7 +97,12 @@ class View extends Component {
     return (
       <div className={'container container-flex'}>
         <main className={'content-left'}>
-          <div className={'forum-post--main forum-post'}>
+          <div
+            className={c('forum-post--main forum-post', {
+              loading: this.state.pendingAction,
+              destroyed: discussion.deleted_at,
+            })}
+          >
             <UserAvatar
               user={discussion.user}
               character={discussion.character}
@@ -116,7 +151,7 @@ class View extends Component {
                   <Dropdown
                     id={`Discussion_${discussion.id}`}
                     options={{
-                      alignment: "right",
+                      alignment: 'right',
                       constrainWidth: false,
                     }}
                     trigger={
@@ -125,28 +160,44 @@ class View extends Component {
                       </MutedAnchor>
                     }
                   >
-                    { can_edit && <a key="edit" href={'#'} onClick={this.handleEditStart.bind(this)}>
-                      <Icon left>edit</Icon>
-                      <span>Edit</span>
-                    </a> }
-                    { can_destroy && <a key="delete" href={'#'}>
-                      <Icon left>delete</Icon>
-                      <span>Delete</span>
-                    </a> }
+                    {can_edit && (
+                      <a
+                        key="edit"
+                        href={'#'}
+                        onClick={this.handleEditStart.bind(this)}
+                      >
+                        <Icon left>edit</Icon>
+                        <span>Edit</span>
+                      </a>
+                    )}
+                    {can_destroy && (
+                      <a
+                        key="delete"
+                        href={'#'}
+                        onClick={this.handleDestroyDiscussion.bind(this)}
+                      >
+                        <Icon left>delete</Icon>
+                        <span>Delete</span>
+                      </a>
+                    )}
                     <Restrict admin>
-                      <a key={"lock"} href={"#"}>
+                      <a key={'lock'} href={'#'}>
                         <Icon left>lock</Icon>
                         <span>Lock</span>
                       </a>
                     </Restrict>
                     <Restrict admin>
-                      <a key={"sticky"} href={"#"}>
+                      <a key={'sticky'} href={'#'}>
                         <Icon left>push_pin</Icon>
                         <span>Make Sticky</span>
                       </a>
                     </Restrict>
                     <Divider />
-                    <a key="report" href={'#'} onClick={e(() => openReportModal(discussion))}>
+                    <a
+                      key="report"
+                      href={'#'}
+                      onClick={e(() => openReportModal(discussion))}
+                    >
                       <Icon left>flag</Icon>
                       <span>Report</span>
                     </a>
@@ -189,13 +240,15 @@ class View extends Component {
               />
             ))}
 
-            {!this.state.editingReply && <DiscussionReplyForm
-              key={'new-reply'}
-              discussion={discussion}
-              forum={forum}
-              inCharacter={!forum.no_rp}
-              refetch={refetch}
-            /> }
+            {!this.state.editingReply && (
+              <DiscussionReplyForm
+                key={'new-reply'}
+                discussion={discussion}
+                forum={forum}
+                inCharacter={!forum.no_rp}
+                refetch={refetch}
+              />
+            )}
           </div>
         </main>
 
@@ -209,5 +262,7 @@ class View extends Component {
 
 export default compose(
   withTranslation('common'),
-  connect(undefined, { openReportModal })
+  connect(undefined, { openReportModal }),
+  withMutations({ destroyDiscussion }),
+  withRouter
 )(View)

@@ -1,0 +1,6 @@
+mutation destroyDiscussion($id: ID!) {
+    destroyDiscussion(id: $id) {
+        id
+        deleted_at
+    }
+}

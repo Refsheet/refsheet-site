@@ -15,7 +15,7 @@ import SupportModal from '../SupportModal'
 import { connect } from 'react-redux'
 import { openNewCharacterModal, openSupportModal } from '../../actions'
 import NewCharacterModal from '../User/Modals/NewCharacterModal'
-import ReportModal from "../../v1/views/images/report_modal"
+import ReportModal from '../../v1/views/images/report_modal'
 
 class Layout extends Component {
   constructor(props) {

@@ -22,6 +22,11 @@ interface Paginated {
     totalPages: Int
 }
 
+interface Policy {
+    can_destroy: Boolean
+    can_edit: Boolean
+}
+
 "Various data attached to a particular moderation item"
 union ModerationItem = Image
 
@@ -165,8 +170,10 @@ type Forum implements ApplicationRecord {
     updated_at: Int
 }
 
-type ForumDiscussion implements ApplicationRecord {
+type ForumDiscussion implements ApplicationRecord & Policy {
     admin_post: Boolean
+    can_destroy: Boolean
+    can_edit: Boolean
     character: Character
     content: String
     content_html: String
@@ -201,8 +208,10 @@ type ForumDiscussionCollection implements Paginated {
     totalPages: Int
 }
 
-type ForumPost implements ApplicationRecord {
+type ForumPost implements ApplicationRecord & Policy {
     admin_post: Boolean
+    can_destroy: Boolean
+    can_edit: Boolean
     character: Character
     content: String
     content_html: String
@@ -456,6 +465,7 @@ type Mutation {
     deleteProfileWidget(id: ID!): Widget
     deleteUser(password: String!, username: String!): User
     destroyCharacter(confirmation: String!, id: ID!): Character
+    destroyDiscussion(id: ID!): ForumDiscussion
     destroySession: Session
     editReply(content: String!, postId: ID!): ForumPost
     markAllNotificationsAsRead: NotificationCollection
@@ -538,7 +548,14 @@ type Query {
     getNextModeration: Moderation
     getNotifications(page: Int): NotificationCollection
     getSession: Session
+    getUser(id: ID, username: String): User
+    getUsers(ascending: Boolean, ids: [ID], order: String, page: Int, query: String, with_deleted: Boolean): [User]
+    getVersion: RefsheetMeta
     searchForCharacter(page: Int, query: String!): CharactersCollection
+}
+
+type RefsheetMeta {
+    version: String
 }
 
 type RichText {
@@ -620,6 +637,7 @@ type User implements ApplicationRecord {
     characters_count: String
     created_at: Int
     deleted_at: Int
+    email: String
     id: ID
     is_admin: Boolean
     is_followed: Boolean
@@ -632,6 +650,8 @@ type User implements ApplicationRecord {
     profile: String
     profile_html: String
     profile_image_url: String
+    support_pledge_amount: Int
+    unconfirmed_email: String
     updated_at: Int
     username: String
 }

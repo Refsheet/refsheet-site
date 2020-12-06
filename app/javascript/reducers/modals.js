@@ -5,14 +5,14 @@ import defaultState from 'App/defaultState.json'
 
 const handlers = {
   [Actions.OPEN_MODAL]: (state, action) => {
-    return ({
+    return {
       ...state,
       [action.modal]: {
         ...state[action.modal],
         open: action.open,
-        args: action.args
+        args: action.args,
       },
-    });
+    }
   },
 }
 
