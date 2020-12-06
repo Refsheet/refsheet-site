@@ -60,7 +60,7 @@ export default Modal = createReactClass({
         $(document).trigger('materialize:modal:ready')
         // Fix incorrect tab indicator after modal open:
         const tabs = this.refs.modal.querySelectorAll('.tabs')
-        return tabs.forEach(function(tab) {
+        return tabs.forEach(function (tab) {
           const inst = Materialize.Tabs.getInstance(tab)
           return inst != null ? inst.updateTabIndicator() : undefined
         })

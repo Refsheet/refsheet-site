@@ -146,7 +146,7 @@ const cHome = createReactClass({
               <div className="card-panel">
                 <h2 className="name">James the Hunter</h2>
                 <AttributeTable
-                  onAttributeUpdate={function(e, cb) {
+                  onAttributeUpdate={function (e, cb) {
                     if (cb) {
                       cb(e)
                     }

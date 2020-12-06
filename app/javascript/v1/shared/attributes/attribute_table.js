@@ -38,10 +38,7 @@ export default AttributeTable = createReactClass({
         forcePlaceholderSize: true,
         stop: (_, el) => {
           const $item = $(el.item[0])
-          const position = $item
-            .parent()
-            .children()
-            .index($item)
+          const position = $item.parent().children().index($item)
 
           return this.props.onAttributeUpdate({
             id: $item.data('attribute-id'),

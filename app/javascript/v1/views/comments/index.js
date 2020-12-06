@@ -69,7 +69,7 @@ const Index = createReactClass({
   },
 
   render() {
-    const comments = this.props.comments.map(function(comment) {
+    const comments = this.props.comments.map(function (comment) {
       if (comment.user) {
         return (
           <div className="card flat with-avatar" key={comment.id}>

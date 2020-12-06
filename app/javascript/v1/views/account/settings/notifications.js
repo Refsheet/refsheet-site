@@ -50,7 +50,7 @@ class Notifications extends React.Component {
       console.log('Requesting permissions.')
       const __this = this
       return window.requestNotifications(() =>
-        Notification.requestPermission(function(permission) {
+        Notification.requestPermission(function (permission) {
           if (permission !== 'granted') {
             return
           }

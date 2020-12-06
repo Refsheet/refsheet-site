@@ -4,22 +4,19 @@ import { csrf } from './ApplicationService'
 const SESSION_PATH = '/session'
 
 const SessionService = {
-  login: function(username, password) {
+  login: function (username, password) {
     return superagent
       .post(SESSION_PATH)
       .set(csrf())
       .send({ username, password })
   },
 
-  logout: function() {
+  logout: function () {
     return superagent.delete(SESSION_PATH).set(csrf())
   },
 
-  set: function(params) {
-    return superagent
-      .put(SESSION_PATH)
-      .set(csrf())
-      .send(params)
+  set: function (params) {
+    return superagent.put(SESSION_PATH).set(csrf()).send(params)
   },
 }
 

@@ -179,9 +179,7 @@ const Lightbox = createReactClass({
       starting_top: '4%',
       ending_top: '10%',
       ready() {
-        $(this)
-          .find('.autofocus')
-          .focus()
+        $(this).find('.autofocus').focus()
         return $(document).trigger('materialize:modal:ready')
       },
       complete: e => {
@@ -564,7 +562,7 @@ const Lightbox = createReactClass({
                 <a
                   href="#"
                   className="btn"
-                  onClick={function(e) {
+                  onClick={function (e) {
                     $('#lightbox-delete-form').modal('close')
                     e.preventDefault()
                   }}

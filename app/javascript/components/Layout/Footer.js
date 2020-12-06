@@ -36,9 +36,7 @@ class _Footer extends Component {
       i18n
         .changeLanguage(locale)
         .then(() => {
-          SessionService.set({ locale })
-            .then(console.log)
-            .catch(console.error)
+          SessionService.set({ locale }).then(console.log).catch(console.error)
         })
         .catch(console.error)
     }

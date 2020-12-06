@@ -22,13 +22,9 @@ export default Row = createReactClass({
   UNSAFE_componentWillReceiveProps(newProps) {
     if (newProps.hidden !== this.props.hidden) {
       if (newProps.hidden) {
-        return $(this.refs.row)
-          .hide(0)
-          .addClass('hidden')
+        return $(this.refs.row).hide(0).addClass('hidden')
       } else {
-        return $(this.refs.row)
-          .fadeIn(300)
-          .removeClass('hidden')
+        return $(this.refs.row).fadeIn(300).removeClass('hidden')
       }
     }
   },
