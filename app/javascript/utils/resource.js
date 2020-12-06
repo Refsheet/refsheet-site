@@ -9,11 +9,11 @@
 import Axios from 'axios'
 import { CancelToken } from 'axios'
 
-export var get = function ({ path, request }) {
+export var get = function({ path, request }) {
   const source = CancelToken.source()
   console.log(`GET ${path}`)
 
-  return new Promise(function (resolve, reject) {
+  return new Promise(function(resolve, reject) {
     Axios.get(path, { cancelToken: source.token })
       .then(req => {
         const { data } = req
@@ -32,11 +32,11 @@ export var get = function ({ path, request }) {
   })
 }
 
-export var put = function ({ path, params, request }) {
+export var put = function({ path, params, request }) {
   const source = CancelToken.source()
   console.log(`PUT ${path}: ${JSON.stringify(params)}`)
 
-  return new Promise(function (resolve, reject) {
+  return new Promise(function(resolve, reject) {
     Axios.put(path, params, { cancelToken: source.token })
       .then(req => {
         const { data } = req

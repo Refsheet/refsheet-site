@@ -114,7 +114,7 @@ const User = createReactClass({
       'user.character_groups',
       group,
       'slug',
-      function () {
+      function() {
         if (character) {
           return HashUtils.findItem(
             this.state.user.characters,
@@ -222,7 +222,7 @@ const User = createReactClass({
               we'll set up a profile.
             </p>
             <NewCharacterForm
-              onCancel={function (e) {
+              onCancel={function(e) {
                 $('#character-form').modal('close')
                 e.preventDefault()
               }}

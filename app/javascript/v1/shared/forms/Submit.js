@@ -11,7 +11,7 @@ import PropTypes from 'prop-types'
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let Submit
-export default Submit = function (props) {
+export default Submit = function(props) {
   const classNames = ['btn']
   classNames.push(props.className)
   if (!props.noWaves) {

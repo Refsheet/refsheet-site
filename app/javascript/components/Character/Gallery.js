@@ -22,7 +22,7 @@ function convertData(images) {
   }))
 }
 
-const Gallery = function ({
+const Gallery = function({
   v1Data,
   noHeader,
   images,
@@ -109,14 +109,14 @@ const Gallery = function ({
 }
 
 const renderGallery = (images, onImageSort, imageOrder, pendingChanges) =>
-  function ({ measureRef, contentRect }) {
+  function({ measureRef, contentRect }) {
     const { width } = contentRect.bounds
 
     const sorted = [...images].sort(
       (a, b) => imageOrder.indexOf(a.id) - imageOrder.indexOf(b.id)
     )
 
-    const imageTiles = sorted.map(function (image) {
+    const imageTiles = sorted.map(function(image) {
       const { id, aspect_ratio } = image
 
       return (

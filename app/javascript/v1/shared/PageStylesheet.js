@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 const PageStylesheet = ({ colorData }) => {
   let hasDarkLogo, hasWhiteLogo
-  const isDark = function (c) {
+  const isDark = function(c) {
     if (c[0] === '#') {
       c = c.substring(1)
     }

@@ -71,7 +71,7 @@ class Profile extends Component {
       const sections = groups[id]
       let lastSectionId = null
 
-      const renderedSections = sections.map(function (section, i) {
+      const renderedSections = sections.map(function(section, i) {
         lastSectionId = section.id
 
         const classNames = c({

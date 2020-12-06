@@ -26,7 +26,9 @@ export default ImageGravityModal = createReactClass({
   },
 
   handleGravityChange(e) {
-    const gravity = $(e.target).closest('[data-gravity]').data('gravity')
+    const gravity = $(e.target)
+      .closest('[data-gravity]')
+      .data('gravity')
     return this.setState({ gravity })
   },
 

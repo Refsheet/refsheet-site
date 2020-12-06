@@ -36,7 +36,7 @@ i18n
     detection: detectionOptions,
   })
 
-i18n.on('languageChanged', function (locale) {
+i18n.on('languageChanged', function(locale) {
   moment.locale(locale)
 })
 

@@ -11,7 +11,7 @@ import PropTypes from 'prop-types'
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let Jumbotron
-export default Jumbotron = function (props) {
+export default Jumbotron = function(props) {
   const classNames = ['jumbotron']
   if (props.className) {
     classNames.push(props.className)

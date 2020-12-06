@@ -13,7 +13,7 @@ import $ from 'jquery'
 let PageHeader
 export default PageHeader = createReactClass({
   componentDidMount() {
-    return $(window).scroll(function () {
+    return $(window).scroll(function() {
       const offset = $(window).scrollTop() * 0.8
       return $('.page-header-backdrop').css({
         backgroundPosition: `50% ${offset}px`,

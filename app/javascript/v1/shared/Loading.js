@@ -12,7 +12,7 @@ import Spinner from './material/Spinner'
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let Loading
-export default Loading = function (props) {
+export default Loading = function(props) {
   const classNames = ['modal-page-content']
   if (props.className) {
     classNames.push(props.className)

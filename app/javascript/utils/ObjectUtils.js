@@ -1,6 +1,6 @@
 import StringUtils from './StringUtils'
 
-export var changes = function (a, b) {
+export var changes = function(a, b) {
   const changedData = {}
   for (let k in b) {
     const v = b[k]
@@ -11,7 +11,7 @@ export var changes = function (a, b) {
   return changedData
 }
 
-export var camelize = function (obj) {
+export var camelize = function(obj) {
   if (!obj || typeof obj !== 'object') {
     return obj
   }

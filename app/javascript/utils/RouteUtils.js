@@ -12,9 +12,9 @@ function withQuery(Component) {
     return React.createElement(Component, { ...props, query })
   }
 
-  Wrapped.displayName = `withQuery(${
-    Component.displayName || Component.name || 'Component'
-  })`
+  Wrapped.displayName = `withQuery(${Component.displayName ||
+    Component.name ||
+    'Component'})`
 
   return withRouter(Wrapped)
 }

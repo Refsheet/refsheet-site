@@ -66,7 +66,7 @@ export default DropzoneContainer = createReactClass({
         init() {
           ___this.setState({ initialized: true })
 
-          this.on('error', function (_, error) {
+          this.on('error', function(_, error) {
             if (error.errors != null ? error.errors.image : undefined) {
               return Materialize.toast({
                 html: `Image ${error.errors.image}`,
@@ -83,7 +83,7 @@ export default DropzoneContainer = createReactClass({
             }
           })
 
-          return this.on('success', function (_, data) {
+          return this.on('success', function(_, data) {
             Materialize.toast({
               html: 'Image uploaded!',
               displayLength: 3000,

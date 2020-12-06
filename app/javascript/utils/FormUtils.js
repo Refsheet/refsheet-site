@@ -1,8 +1,8 @@
 import validate from './validate'
 
 const FormUtils = {
-  handleInputChange: function (modelName) {
-    return function (e) {
+  handleInputChange: function(modelName) {
+    return function(e) {
       let model = { ...this.state[modelName] }
       let value = e.target.value
       let name = e.target.name

@@ -11,7 +11,7 @@ import PropTypes from 'prop-types'
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let Column
-export default Column = function (props) {
+export default Column = function(props) {
   const classes = ['col']
   classes.push(props.className)
   if (!props['s']) {

@@ -13,7 +13,7 @@ import introspectionQueryResultData from '../config/fragmentTypes.json'
 
 const cable = createConsumer()
 
-export const csrf = function () {
+export const csrf = function() {
   const meta = document.getElementsByName('csrf-token')[0]
 
   if (!meta) {

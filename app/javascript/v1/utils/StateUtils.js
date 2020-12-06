@@ -63,7 +63,7 @@ const StateUtils = {
         fetch = false
         console.debug('[StateUtils] Eager Loading:', elItem)
         ObjectPath.set(state, path, elItem)
-        context.setState(state, function () {
+        context.setState(state, function() {
           if (callback) {
             return callback(elItem)
           }
@@ -94,13 +94,13 @@ const StateUtils = {
       'GET',
       fetchUrl,
       data,
-      function (data) {
+      function(data) {
         if (data.$meta) {
           data = ObjectPath.get(data, path)
         }
 
         ObjectPath.set(state, path, data)
-        return context.setState(state, function () {
+        return context.setState(state, function() {
           if (callback) {
             return callback(data)
           }
@@ -108,7 +108,7 @@ const StateUtils = {
       },
 
       error =>
-        context.setState({ error }, function () {
+        context.setState({ error }, function() {
           if (callback) {
             return callback()
           }
@@ -210,7 +210,7 @@ const StateUtils = {
     }
     const { dataPath, paramMap } = stateLink
 
-    const fetchUrl = dataPath.replace(/(:[a-zA-Z]+)/g, function (m) {
+    const fetchUrl = dataPath.replace(/(:[a-zA-Z]+)/g, function(m) {
       const param = ObjectPath.get(
         props.match != null ? props.match.params : undefined,
         m.substring(1)

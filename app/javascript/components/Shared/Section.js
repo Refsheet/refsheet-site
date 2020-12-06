@@ -28,7 +28,7 @@ const SectionTitle = styled.div`
   background-color: ${props => props.theme.background};
 `
 
-const Section = function ({
+const Section = function({
   id,
   className,
   titleClassName,
@@ -41,7 +41,7 @@ const Section = function ({
   editable,
   onTitleChange,
 }) {
-  const renderTitle = function ({ style, isSticky }) {
+  const renderTitle = function({ style, isSticky }) {
     let titleStyle
     if (isSticky) {
       style = {
@@ -106,7 +106,7 @@ const Section = function ({
 }
 
 const actionHandler = (onClick, id) =>
-  function (e) {
+  function(e) {
     e.preventDefault()
     if (onClick) {
       return onClick(id)
@@ -114,7 +114,7 @@ const actionHandler = (onClick, id) =>
   }
 
 const renderTab = onTabClick =>
-  function ({ title, id, onClick }) {
+  function({ title, id, onClick }) {
     if (!onClick) {
       onClick = onTabClick
     }

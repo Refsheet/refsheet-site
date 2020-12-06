@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 import ProfileWidget from './ProfileWidget'
 import { camelize } from 'utils/ObjectUtils'
 
-const ProfileColumn = function ({
+const ProfileColumn = function({
   id,
   widgets,
   width,

@@ -191,7 +191,7 @@ export default Feed = createReactClass({
       const ids = this.state.notifications.map(n => n.id)
 
       return Model.put('/notifications/bulk_update', { read, ids }, data => {
-        const newNotes = this.state.notifications.map(function (n) {
+        const newNotes = this.state.notifications.map(function(n) {
           const note = $.extend({}, n)
           note.is_read = data.read
           return note

@@ -11,7 +11,7 @@ import PropTypes from 'prop-types'
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let Icon
-export default Icon = function (props) {
+export default Icon = function(props) {
   const { children, title, className, style } = props
   const classNames = ['material-icons']
   if (className) {

@@ -39,9 +39,9 @@ const gallery_image = createReactClass({
   },
 
   _handleFavoriteClick(e) {
-    const action = (
-      this.state.image != null ? this.state.image.is_favorite : undefined
-    )
+    const action = (this.state.image != null
+    ? this.state.image.is_favorite
+    : undefined)
       ? 'delete'
       : 'post'
     Model.request(

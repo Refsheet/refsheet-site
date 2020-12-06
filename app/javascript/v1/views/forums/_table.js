@@ -21,7 +21,7 @@ import StringUtils from '../../../utils/StringUtils'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-const Table = function (props) {
+const Table = function(props) {
   const { forums, title } = props
 
   const forumCards = forums.map(forum => (

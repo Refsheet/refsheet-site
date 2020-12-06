@@ -11,7 +11,7 @@ import PropTypes from 'prop-types'
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let Button
-export default Button = function (props) {
+export default Button = function(props) {
   const {
     children,
     href,
