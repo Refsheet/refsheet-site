@@ -7,7 +7,7 @@ DEFAULT_CLUSTER="refsheet-prod"
 
 def sh(*args)
   puts "$ #{args.join(' ')}"
-  system(*args)
+  system(*args) or raise "Command exited with status: #{$?}"
 end
 
 def select(list, msg = "Choose one:")
@@ -99,7 +99,7 @@ def do_drain_all
 end
 
 def yq!(file, path, value)
-  sh "yq", "w", "-i", file, path, value
+  sh "yq", "w", "-i", file, path, value.gsub(/^["']+|['"]+$/, "")
 end
 
 def apply!(config_file)

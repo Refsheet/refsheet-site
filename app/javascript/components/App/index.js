@@ -76,8 +76,9 @@ class App extends Component {
 
   checkForUpdates() {
     fetch(host + '/health.json')
-      .then((data) => {
-        console.log('Version is: ' + data.version)
+      .then(response => response.json())
+      .then(data => {
+        console.log('Version is: ' + data.version, data)
       })
       .catch(console.error)
   }
