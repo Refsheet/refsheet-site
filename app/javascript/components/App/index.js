@@ -76,13 +76,13 @@ class App extends Component {
   }
 
   checkForUpdates() {
-    const _this = this;
+    const _this = this
     fetch(host + '/health.json')
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         console.log('Version is: ' + data.version)
         if (data.version !== window.Refsheet.version) {
-          console.log("Update is available!");
+          console.log('Update is available!')
           _this.setState({ updateAvailable: true })
         }
       })
