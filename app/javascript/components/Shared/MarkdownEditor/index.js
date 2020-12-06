@@ -185,9 +185,9 @@ class MarkdownEditor extends Component {
     }
 
     if (slim) {
-      commands = ['bold', 'italic', 'strikethrough']
+      commands = [['bold', 'italic', 'strikethrough']]
     } else {
-      commands = ['bold', 'italic', 'strikethrough']
+      commands = [['bold', 'italic', 'strikethrough']]
     }
 
     return (

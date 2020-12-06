@@ -8842,10 +8842,8 @@ react-load-image@^0.1.7:
   resolved "https://registry.yarnpkg.com/react-load-image/-/react-load-image-0.1.7.tgz#508243c8a80f0af2007ac9099430230e6ba4a2d4"
   integrity sha512-egW6vKvS/mG0onDx1t4XG6L2rgvZa/iO16ia+fomJN0UXjnwvvq/on7ttPR8ctohD7DGK7laXGSku00ifUJeig==
 
-react-materialize@^3.9.3:
+"react-materialize@file:.yalc/react-materialize":
   version "3.9.3"
-  resolved "https://registry.yarnpkg.com/react-materialize/-/react-materialize-3.9.3.tgz#7dc8c71ca103b1560395807b057d93f4afe619d8"
-  integrity sha512-Xyr1us1eXJQDp1UTs9CCIn/YoXPp1P8BA1oc17sUWQtXlAJg5/H20s185QXT4fCWFBwDAbnSQnIwGLkMb/lsRQ==
   dependencies:
     classnames "^2.2.6"
 

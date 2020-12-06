@@ -10,15 +10,30 @@ import DiscussionReply from './DiscussionReply'
 import RichText from '../../Shared/RichText'
 import DiscussionReplyForm from './DiscussionReplyForm'
 import c from 'classnames'
-import { MutedAnchor } from '../../Styled/Muted'
+import Muted, { MutedAnchor } from '../../Styled/Muted'
 import LinkUtils from 'utils/LinkUtils'
 import { H2 } from '../../Styled/Headings'
 
 import Advertisement from 'v1/shared/advertisement'
+import { Divider, Dropdown, Icon} from "react-materialize"
 
 class View extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      editing: false
+    }
+  }
+
+  handleEditStart(e) {
+    e.preventDefault();
+    this.setState({ editing: true })
+  }
+
   render() {
     const { discussion, forum, t, refetch } = this.props
+    const { can_edit, can_destroy } = discussion
 
     return (
       <div className={'container container-flex'}>
@@ -58,6 +73,42 @@ class View extends Component {
                       ]}
                     />
                   </MutedAnchor>
+
+                  {discussion.is_edited && (
+                    <Muted className={'margin-left--small inline'}>
+                      (
+                      <a href={'#'} title={'Show edit history...'}>
+                        Edited
+                      </a>
+                      )
+                    </Muted>
+                  )}
+
+                  <Dropdown
+                    id={`Discussion_${discussion.id}`}
+                    options={{
+                      alignment: "right",
+                      constrainWidth: false,
+                    }}
+                    trigger={
+                      <MutedAnchor href={'#'}>
+                        <Icon className={'right smaller'}>more_vert</Icon>
+                      </MutedAnchor>
+                    }
+                  >
+                    {[ can_edit && <a key="edit" href={'#'} onClick={this.handleEditStart.bind(this)}>
+                      <Icon left>edit</Icon>
+                      <span>Edit</span>
+                    </a>,
+                    can_destroy && <a key="delete" href={'#'}>
+                      <Icon left>delete</Icon>
+                      <span>Delete</span>
+                    </a>, 
+                    <a key="report" href={'#'}>
+                      <Icon left>flag</Icon>
+                      <span>Report</span>
+                    </a>].filter(Boolean)}
+                  </Dropdown>
                 </div>
 
                 <UserLink

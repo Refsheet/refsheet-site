@@ -15,7 +15,15 @@ const config = {
   plugins: [
     // Apparently this is already included... rails?
     // new MiniCssExtractPlugin()
-  ]
+  ],
+
+  resolve: {
+    symlinks: false,
+  },
+
+  watchOptions: {
+    ignored: []
+  }
 }
 
 environment.loaders.append('coffee', coffee)
