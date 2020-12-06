@@ -18,7 +18,7 @@ spec:
           restartPolicy: Never
           containers:
             - name: lodestone-sync-character-job
-              image: gcr.io/refsheet-239409/refsheet-site-nginx:bb7c0063121bce5885632829fdc77dbd67ea15c8
+              image: gcr.io/refsheet-239409/refsheet-site:0565db0ab18a0ff6159332d32eba8662068ec833
               imagePullPolicy: Always
               command:
                 - bundle

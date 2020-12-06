@@ -3,7 +3,7 @@
 require 'tty-prompt'
 require 'digest'
 
-DEFAULT_CLUSTER="refsheet-prod"
+DEFAULT_CLUSTER = "refsheet-prod"
 
 def sh(*args)
   puts "$ #{args.join(' ')}"
@@ -20,25 +20,25 @@ def select(list, msg = "Choose one:")
 end
 
 def get_nodes
-    pools=`gcloud container node-pools list --cluster "#{DEFAULT_CLUSTER}"`
-    #` | grep -vP '^NAME' | cut -d' ' -f1 | tr '\n' '\t'`
-    puts pools.inspect
-    exit 0
-    pool = select pools
-    `kubectl get nodes -l cloud.google.com/gke-nodepool=#{pool} -o=name`
+  pools = `gcloud container node-pools list --cluster "#{DEFAULT_CLUSTER}"`
+  #` | grep -vP '^NAME' | cut -d' ' -f1 | tr '\n' '\t'`
+  puts pools.inspect
+  exit 0
+  pool = select pools
+  `kubectl get nodes -l cloud.google.com/gke-nodepool=#{pool} -o=name`
 end
 
 def do_ssh(command, search = nil)
   print "Loading...\r"
 
-	pod_lists=`kubectl get pods --field-selector=status.phase=Running -o=jsonpath="{range .items[*]}{\\"\\n\\"}{.metadata.name}{\\"\\t\\"}{range .spec.containers[*]}{.name}{\\"\\t\\"}{end}{end}`.split(/\n/)
-	pods = pod_lists.collect { |l| l.split(/\s+/)[0] }.reject(&:nil?).sort
+  pod_lists = `kubectl get pods --field-selector=status.phase=Running -o=jsonpath="{range .items[*]}{\\"\\n\\"}{.metadata.name}{\\"\\t\\"}{range .spec.containers[*]}{.name}{\\"\\t\\"}{end}{end}`.split(/\n/)
+  pods = pod_lists.collect { |l| l.split(/\s+/)[0] }.reject(&:nil?).sort
 
   pod = nil
   container = nil
 
   if search
-    pod_lists.reject { |l| l == ""}.each do |line|
+    pod_lists.reject { |l| l == "" }.each do |line|
       mpod, *containers = line.split(/\s+/)
       if containers.include? search
         pod = mpod
@@ -48,7 +48,7 @@ def do_ssh(command, search = nil)
   end
 
   print "          \r"
-	pod ||= select pods, "Select a Pod:"
+  pod ||= select pods, "Select a Pod:"
 
   containers = pod_lists.grep(/^#{pod}/).first.split("\t")
   containers.shift
@@ -78,24 +78,24 @@ def do_logs(search = nil)
   puts "Select a pod:"
   printf "Loading...\r"
 
-  pods=`kubectl get pods -o=jsonpath='{.items[*].metadata.name}' | sort`.split(/\n/)
+  pods = `kubectl get pods -o=jsonpath='{.items[*].metadata.name}' | sort`.split(/\n/)
   pod = select pods
   puts
   puts `kubectl logs "$pod" | less`
 end
 
 def do_cordon_all
-    puts "Fetching node pools..."
-    get_nodes.split('\t').each do |node|
-        puts `kubectl cordon "#{node}"`
-    end
+  puts "Fetching node pools..."
+  get_nodes.split('\t').each do |node|
+    puts `kubectl cordon "#{node}"`
+  end
 end
 
 def do_drain_all
-    puts "Fetching node pools..."
-    get_nodes.split('\t').each do |node|
-        puts `kubectl drain --force --ignore-daemonsets --delete-local-data --grace-period=10 "#{node}"`
-    end
+  puts "Fetching node pools..."
+  get_nodes.split('\t').each do |node|
+    puts `kubectl drain --force --ignore-daemonsets --delete-local-data --grace-period=10 "#{node}"`
+  end
 end
 
 def yq!(file, path, value)
@@ -136,7 +136,7 @@ def do_apply
   # Jobs:
   Dir['.kubernetes/jobs/*.yml'].each do |file|
     yq! file, "spec.jobTemplate.spec.template.metadata.annotations.configHash", config_hash
-    yq! file, "spec.jobTemplate.spec.template.spec.containers[*].image", staging_image[0]
+    yq! file, "spec.jobTemplate.spec.template.spec.containers[*].image", staging_image[1]
     apply! file
   end
 end
@@ -144,22 +144,24 @@ end
 case ARGV[0]
 when "list-pods"
   print "Fetching data...\r"
-		  puts `kubectl get pods --no-headers=true`.split("\n").grep(/Running/)
-	when "ssh"
-		  do_bash(ARGV[1])
-	when "console"
-	   do_console(ARGV[1])
-	when "logs"
-      do_logs(ARGV[1])
-	when "cordon-all"
-	    do_cordon_all
-  when "drain-all"
-      do_drain_all
-  when "migrate"
-      do_migrations(ARGV[1])
-  when "apply"
-      do_apply
-	else
-	    puts "Usage:"
-	    puts "  gke list-pods|ssh|logs|migrate|cordon-all|drain-all|apply"
+  puts `kubectl get pods --no-headers=true`.split("\n").grep(/Running/)
+when "ssh"
+  do_bash(ARGV[1])
+when "console"
+  do_console(ARGV[1])
+when "logs"
+  do_logs(ARGV[1])
+when "cordon-all"
+  do_cordon_all
+when "drain-all"
+  do_drain_all
+when "migrate"
+  do_migrations(ARGV[1])
+when "apply"
+  do_apply
+when "cors"
+  sh "gsutil", "cors", "set", ".kubernetes/gsutil/asset-cors.json", "gs://assets.refsheet.net"
+else
+  puts "Usage:"
+  puts "  gke list-pods|ssh|logs|migrate|cordon-all|drain-all|apply"
 end

@@ -22,7 +22,7 @@ spec:
             secretName: refsheet-prod-storage
       containers:
         - name: refsheet-prod-staging-nginx
-          image: gcr.io/refsheet-239409/refsheet-site-nginx:5ce2136a6db5945031d9fbbd4d07af1ce77aa6be
+          image: gcr.io/refsheet-239409/refsheet-site-nginx:0565db0ab18a0ff6159332d32eba8662068ec833
           imagePullPolicy: Always
           livenessProbe:
             periodSeconds: 120
@@ -49,21 +49,21 @@ spec:
               cpu: "0.6"
               memory: 256M
         - name: refsheet-prod-staging
-          image: gcr.io/refsheet-239409/refsheet-site:8d4c11107dfa5c9a63715ad6a79dac3536a6c00e
+          image: gcr.io/refsheet-239409/refsheet-site:0565db0ab18a0ff6159332d32eba8662068ec833
           imagePullPolicy: Always
           livenessProbe:
             periodSeconds: 120
             timeoutSeconds: 120
             httpGet:
               path: /health.json
-              port: 3000
+              port: 5000
               scheme: HTTP
           readinessProbe:
             periodSeconds: 120
             timeoutSeconds: 120
             httpGet:
               path: /health.json
-              port: 3000
+              port: 5000
               scheme: HTTP
           command:
             - bundle
@@ -74,7 +74,7 @@ spec:
             - -b
             - 0.0.0.0
             - -p
-            - "3000"
+            - "5000"
           env:
             - name: DEFAULT_URL_HOST
               value: kube.refsheet.net
