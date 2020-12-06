@@ -22,7 +22,7 @@ spec:
             secretName: refsheet-prod-storage
       containers:
         - name: refsheet-prod-staging-nginx
-          image: gcr.io/refsheet-239409/refsheet-site-nginx:8d4c11107dfa5c9a63715ad6a79dac3536a6c00e
+          image: gcr.io/refsheet-239409/refsheet-site-nginx:5ce2136a6db5945031d9fbbd4d07af1ce77aa6be
           imagePullPolicy: Always
           livenessProbe:
             periodSeconds: 120
