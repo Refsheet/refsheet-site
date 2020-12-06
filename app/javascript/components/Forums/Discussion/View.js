@@ -16,13 +16,19 @@ import { H2 } from '../../Styled/Headings'
 
 import Advertisement from 'v1/shared/advertisement'
 import { Divider, Dropdown, Icon} from "react-materialize"
+import Restrict from "../../Shared/Restrict"
+import NewDiscussionForm from "../NewDiscussion/NewDiscussionForm"
+import {openReportModal} from "../../../actions"
+import { connect } from 'react-redux'
+import e from 'utils/e'
 
 class View extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      editing: false
+      editing: false,
+      editingReply: false
     }
   }
 
@@ -31,9 +37,32 @@ class View extends Component {
     this.setState({ editing: true })
   }
 
+  handleEditStop() {
+    this.setState({ editing: false })
+  }
+
+  handleReplyEditStart() {
+    this.setState({ editingReply: true });
+  }
+
+  handleReplyEditStop() {
+    this.setState({ editingReply: false });
+  }
+
   render() {
-    const { discussion, forum, t, refetch } = this.props
+    const { discussion, forum, t, refetch, openReportModal } = this.props
     const { can_edit, can_destroy } = discussion
+
+    if (this.state.editing) {
+      return (
+        <NewDiscussionForm
+          edit
+          discussion={discussion}
+          onSubmit={console.log}
+          onCancel={console.log}
+        />
+      )
+    }
 
     return (
       <div className={'container container-flex'}>
@@ -96,18 +125,31 @@ class View extends Component {
                       </MutedAnchor>
                     }
                   >
-                    {[ can_edit && <a key="edit" href={'#'} onClick={this.handleEditStart.bind(this)}>
+                    { can_edit && <a key="edit" href={'#'} onClick={this.handleEditStart.bind(this)}>
                       <Icon left>edit</Icon>
                       <span>Edit</span>
-                    </a>,
-                    can_destroy && <a key="delete" href={'#'}>
+                    </a> }
+                    { can_destroy && <a key="delete" href={'#'}>
                       <Icon left>delete</Icon>
                       <span>Delete</span>
-                    </a>, 
-                    <a key="report" href={'#'}>
+                    </a> }
+                    <Restrict admin>
+                      <a key={"lock"} href={"#"}>
+                        <Icon left>lock</Icon>
+                        <span>Lock</span>
+                      </a>
+                    </Restrict>
+                    <Restrict admin>
+                      <a key={"sticky"} href={"#"}>
+                        <Icon left>push_pin</Icon>
+                        <span>Make Sticky</span>
+                      </a>
+                    </Restrict>
+                    <Divider />
+                    <a key="report" href={'#'} onClick={e(() => openReportModal(discussion))}>
                       <Icon left>flag</Icon>
                       <span>Report</span>
-                    </a>].filter(Boolean)}
+                    </a>
                   </Dropdown>
                 </div>
 
@@ -142,16 +184,18 @@ class View extends Component {
                 post={post}
                 forumId={forum.slug}
                 discussionId={discussion.slug}
+                onEditStart={this.handleReplyEditStart.bind(this)}
+                onEditStop={this.handleReplyEditStop.bind(this)}
               />
             ))}
 
-            <DiscussionReplyForm
+            {!this.state.editingReply && <DiscussionReplyForm
               key={'new-reply'}
               discussion={discussion}
               forum={forum}
               inCharacter={!forum.no_rp}
               refetch={refetch}
-            />
+            /> }
           </div>
         </main>
 
@@ -163,4 +207,7 @@ class View extends Component {
   }
 }
 
-export default compose(withTranslation('common'))(View)
+export default compose(
+  withTranslation('common'),
+  connect(undefined, { openReportModal })
+)(View)

@@ -15,44 +15,13 @@ import SupportModal from '../SupportModal'
 import { connect } from 'react-redux'
 import { openNewCharacterModal, openSupportModal } from '../../actions'
 import NewCharacterModal from '../User/Modals/NewCharacterModal'
+import ReportModal from "../../v1/views/images/report_modal"
 
 class Layout extends Component {
   constructor(props) {
     super(props)
 
     this.state = {}
-
-    this.handleKeyDown = this.handleKeyDown.bind(this)
-  }
-
-  // TODO: Refactor this to a keystroke provider or somethn
-  componentDidMount() {
-    document.addEventListener('keydown', this.handleKeyDown)
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('keydown', this.handleKeyDown)
-  }
-
-  handleKeyDown(e) {
-    return
-
-    // TODO: Input filtering isn't filtering.
-
-    const { openNewCharacterModal } = this.props
-
-    const key = e.key.toLowerCase()
-
-    if (
-      ['INPUT', 'TEXTAREA'].indexOf(e.target.nodeName) ||
-      e.target.contentEditable !== 'inherit'
-    ) {
-      return
-    }
-
-    if (key === '/') {
-      openNewCharacterModal()
-    }
   }
 
   render() {
@@ -65,6 +34,7 @@ class Layout extends Component {
         <SessionModal />
         <SupportModal />
         <NewCharacterModal />
+        <ReportModal />
 
         <NavBar
           query={location.query.q}

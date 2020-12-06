@@ -13,6 +13,8 @@ import { Divider, Icon, Dropdown } from 'react-materialize'
 import Muted, { MutedAnchor } from '../../Styled/Muted'
 import { div as Card } from '../../Styled/Card'
 import DiscussionReplyForm from './DiscussionReplyForm'
+import {openReportModal} from "../../../actions"
+import { connect } from 'react-redux'
 
 class DiscussionReply extends Component {
   constructor(props) {
@@ -26,10 +28,12 @@ class DiscussionReply extends Component {
   handleEditStart(e) {
     e.preventDefault()
     this.setState({ editing: true })
+    this.props.onEditStart && this.props.onEditStart();
   }
 
   handleEditStop() {
     this.setState({ editing: false })
+    this.props.onEditStop && this.props.onEditStop();
   }
 
   handleSubmit(post) {
@@ -139,7 +143,11 @@ class DiscussionReply extends Component {
 DiscussionReply.propTypes = {
   post: PropTypes.object.isRequired,
   discussion: PropTypes.object,
+  onEditStart: PropTypes.func,
+  onEditStop: PropTypes.func,
+  refetch: PropTypes.func
 }
 
-export default compose()(DiscussionReply)
-// TODO: Add HOC bindings here
+export default compose(
+  connect(undefined, { openReportModal })
+)(DiscussionReply)

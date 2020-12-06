@@ -1,5 +1,10 @@
 class Forum::PostPolicy < ApplicationPolicy
   def update?
-    (user.id == record.user_id) || user.admin?
+    return true if user.admin?
+    (user.id == record.user_id) && (!record.forum.locked?)
+  end
+
+  def destroy?
+    update?
   end
 end
