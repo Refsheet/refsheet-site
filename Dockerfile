@@ -84,6 +84,7 @@ RUN bundle install --without="development test" --deployment
 
 COPY package.json /app/package.json
 COPY yarn.lock    /app/yarn.lock
+COPY .yalc        /app/.yalc
 
 RUN yarn --pure-lockfile
 
