@@ -1,8 +1,14 @@
 #!/usr/bin/env ruby
 
 require 'tty-prompt'
+require 'digest'
 
 DEFAULT_CLUSTER="refsheet-prod"
+
+def sh(*args)
+  puts "$ #{args.join(' ')}"
+  system(*args)
+end
 
 def select(list, msg = "Choose one:")
   prompt = TTY::Prompt.new
@@ -92,6 +98,49 @@ def do_drain_all
     end
 end
 
+def yq!(file, path, value)
+  sh "yq", "w", "-i", file, path, value
+end
+
+def apply!(config_file)
+  config_file = ".kubernetes/" + config_file unless config_file =~ /^\.kubernetes/
+  sh "kubectl", "apply", "-f", config_file
+end
+
+def do_apply
+  apply! "configmap.yml"
+
+  # Fetch update values:
+  config_hash = Digest::SHA2.hexdigest %x[kubectl get cm/refsheet-prod -oyaml]
+  latest_image = %x[kubectl get deployment refsheet-prod -o=jsonpath='{$.spec.template.spec.containers[*].image}'].split(/\s+/)
+  staging_image = %x[kubectl get deployment refsheet-prod-staging -o=jsonpath='{$.spec.template.spec.containers[*].image}'].split(/\s+/)
+
+  # Deployments:
+  %w[refsheet-prod refsheet-prod-worker].each do |deployment|
+    file = ".kubernetes/#{deployment}.yml"
+    yq! file, "spec.template.metadata.annotations.configHash", config_hash
+    yq! file, "spec.template.spec.containers[0].image", latest_image[0]
+    apply! file
+  end
+
+  # Staging
+  %w[refsheet-prod-staging].each do |deployment|
+    file = ".kubernetes/#{deployment}.yml"
+    yq! file, "spec.template.metadata.annotations.configHash", config_hash
+    staging_image.each_with_index do |img, i|
+      yq! file, "spec.template.spec.containers[#{i}].image", img
+    end
+    apply! file
+  end
+
+  # Jobs:
+  Dir['.kubernetes/jobs/*.yml'].each do |file|
+    yq! file, "spec.jobTemplate.spec.template.metadata.annotations.configHash", config_hash
+    yq! file, "spec.jobTemplate.spec.template.spec.containers[*].image", staging_image[0]
+    apply! file
+  end
+end
+
 case ARGV[0]
 when "list-pods"
   print "Fetching data...\r"
@@ -106,10 +155,10 @@ when "list-pods"
 	    do_cordon_all
   when "drain-all"
       do_drain_all
-when "migrate"
+  when "migrate"
       do_migrations(ARGV[1])
   when "apply"
-      puts `bin/rb rake kube:update_config`
+      do_apply
 	else
 	    puts "Usage:"
 	    puts "  gke list-pods|ssh|logs|migrate|cordon-all|drain-all|apply"
