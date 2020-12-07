@@ -36,7 +36,7 @@ class StripePayment < Payment
                                    currency: self.order.total.currency,
                                    expand: ['balance_transaction']
 
-    self.update_attributes(
+    self.update(
         state: charge.status,
         failure_reason: charge.failure_message,
         amount_currency: charge.currency,

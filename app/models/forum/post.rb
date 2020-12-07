@@ -72,13 +72,13 @@ class Forum::Post < ApplicationRecord
   # on the parent discussion association. If you are not, pass a user. Beware N+1
   #
   def read_by?(user=nil)
-    with self.thread.last_read_at(user), true do |last_read_at|
+    with self.discussion.last_read_at(user), true do |last_read_at|
       created_at <= last_read_at
     end
   end
 
   def notify_user
-    Notifications::ForumReply.notify! thread.user, user, self
+    Notifications::ForumReply.notify! discussion.user, user, self
   end
 
   private
@@ -88,7 +88,7 @@ class Forum::Post < ApplicationRecord
     usernames = tags.collect { |t| t[:username].downcase }
 
     User.lookup(usernames).each do |tagged_user|
-      next if tagged_user.id == thread.user.id
+      next if tagged_user.id == discussion.user.id
       Notifications::ForumTag.notify! tagged_user, user, self
     end
   end

@@ -132,7 +132,7 @@ class Advertisement::Slot < ApplicationRecord
   def assign(campaign)
     return false if self.active?
 
-    self.update_attributes active_campaign: campaign,
+    self.update active_campaign: campaign,
                            last_impression_at: nil
   end
 
@@ -147,7 +147,7 @@ class Advertisement::Slot < ApplicationRecord
   def reserve(campaign)
     return false if self.reserved?
 
-    self.update_attributes reserved_campaign: campaign
+    self.update reserved_campaign: campaign
   end
 
   def reserve!(campaign)
@@ -163,7 +163,7 @@ class Advertisement::Slot < ApplicationRecord
   # that campaign will now run.
   #
   def expire
-    self.update_attributes active_campaign_id: self.reserved_campaign_id,
+    self.update active_campaign_id: self.reserved_campaign_id,
                            reserved_campaign_id: nil,
                            last_impression_at: nil
   end
@@ -176,6 +176,6 @@ class Advertisement::Slot < ApplicationRecord
   #== Impressive.
 
   def set_impression
-    self.update_attributes last_impression_at: Time.zone.now
+    self.update last_impression_at: Time.zone.now
   end
 end

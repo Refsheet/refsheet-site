@@ -45,7 +45,7 @@ describe Changelog, type: :model do
     admin = create :admin
     user = create :user, username: 'john'
 
-    user.update_attributes username: 'joe'
+    user.update username: 'joe'
     change = Changelog.create user: admin, changed_user: user, change_data: user.previous_changes
 
     expect(user.username).to eq 'joe'

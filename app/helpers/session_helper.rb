@@ -89,7 +89,7 @@ module SessionHelper
 
   def nsfw_on!
     if signed_in?
-      current_user.settings(:view).update_attributes nsfw_ok: true
+      current_user.settings(:view).update nsfw_ok: true
     end
 
     session[:nsfw_ok] = true
@@ -97,7 +97,7 @@ module SessionHelper
 
   def nsfw_off!
     if signed_in?
-      current_user.settings(:view).update_attributes nsfw_ok: false
+      current_user.settings(:view).update nsfw_ok: false
     end
 
     session[:nsfw_ok] = false

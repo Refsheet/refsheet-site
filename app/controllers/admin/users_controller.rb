@@ -23,7 +23,7 @@ class Admin::UsersController < AdminController
   end
 
   def update
-    if @user.update_attributes(user_params)
+    if @user.update(user_params)
       Changelog.create changelog_params
     end
 

@@ -18,7 +18,7 @@ class Admin::CharactersController < AdminController
       @character.paper_trail_event = 'rollback'
       @character.save
     else
-      if @character.update_attributes(character_params)
+      if @character.update(character_params)
         Changelog.create changelog_params
       end
     end

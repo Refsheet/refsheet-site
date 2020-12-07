@@ -12,13 +12,13 @@ module Users::NotificationsDecorator
     vapid.reject! { |v| v[:auth] == new_registration[:auth] }
     vapid.push new_registration
 
-    settings(:notifications).update_attributes vapid: vapid
+    settings(:notifications).update vapid: vapid
   end
 
   def remove_vapid_auth!(auth)
     vapid = settings(:notifications).vapid.dup
     vapid.reject! { |v| v[:auth] == auth }
-    settings(:notifications).update_attributes vapid: vapid
+    settings(:notifications).update vapid: vapid
   end
 
   def notify!(title, body=nil, options={})

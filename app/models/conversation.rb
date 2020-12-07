@@ -124,7 +124,7 @@ class Conversation < ApplicationRecord
   end
 
   def read_by!(user)
-    self.read_bookmarks.for(user).update_attributes(message: self.messages.last)
+    self.read_bookmarks.for(user).update(message: self.messages.last)
 
     trigger! "chatCountsChanged",
              {},

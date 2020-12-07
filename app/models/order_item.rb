@@ -35,7 +35,7 @@ class OrderItem < ApplicationRecord
     Rails.logger.tagged 'OrderItem#complete!' do
       Rails.logger.info 'Selling item: ' + item.inspect
 
-      self.update_attributes amount_cents: self.item.amount.cents,
+      self.update amount_cents: self.item.amount.cents,
                              amount_currency: self.item.amount.currency,
                              processor_fee_cents: self.order.calculate_processor_fee(self.item).cents,
                              marketplace_fee_cents: self.order.calculate_marketplace_fee(self.item).cents

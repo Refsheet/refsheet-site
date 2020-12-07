@@ -45,7 +45,7 @@ module Mutations
 
     def update
       authorize @post
-      @post.update_attributes!(post_update_params)
+      @post.update!(post_update_params)
       @post
     end
 

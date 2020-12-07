@@ -13,7 +13,7 @@ class Mutations::ProfileWidgetMutations < Mutations::ApplicationMutation
   end
 
   def update
-    @widget.update_attributes! widget_params
+    @widget.update! widget_params
     @widget
   end
 

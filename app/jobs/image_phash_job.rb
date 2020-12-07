@@ -27,7 +27,7 @@ class ImagePhashJob < ApplicationJob
         bits = "%064b" % hash
 
         Rails.logger.info("Calculated pHash of #{image.guid} (#{image.image_file_name}): #{bits}")
-        image.update_attributes(image_phash: bits)
+        image.update(image_phash: bits)
       ensure
         tempfile.close
         tempfile.unlink

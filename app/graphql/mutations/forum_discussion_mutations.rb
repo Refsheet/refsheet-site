@@ -44,7 +44,7 @@ module Mutations
 
     def update
       authorize @discussion
-      @discussion.update_attributes!(discussion_params)
+      @discussion.update!(discussion_params)
       @discussion
     end
 

@@ -23,7 +23,7 @@ class Admin::ForumsController < AdminController
   end
 
   def update
-    @forum.update_attributes forum_params
+    @forum.update forum_params
     respond_with :admin, @forum, action: :show
   end
 

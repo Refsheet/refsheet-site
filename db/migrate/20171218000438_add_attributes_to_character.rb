@@ -23,7 +23,7 @@ class AddAttributesToCharacter < ActiveRecord::Migration[5.0]
               { id: 'body-type', name: 'Body Type', value: c.body_type }
           ]
 
-          c.update_attributes custom_attributes: attr
+          c.update custom_attributes: attr
           puts '  -> DONE: ' + attr.inspect
         end
       end

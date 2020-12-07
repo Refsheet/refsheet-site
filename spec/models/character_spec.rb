@@ -137,7 +137,7 @@ describe Character, type: :model do
     context 'after flag' do
       before do
         character.save
-        image.update_attributes(nsfw: true)
+        image.update(nsfw: true)
         character.reload
       end
 
@@ -166,7 +166,7 @@ describe Character, type: :model do
     context 'after flag' do
       before do
         character.save
-        image.update_attributes(nsfw: true)
+        image.update(nsfw: true)
         character.reload
       end
 

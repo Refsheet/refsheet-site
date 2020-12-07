@@ -35,7 +35,7 @@ class Account::NotificationsController < AccountController
       Rails.logger.info "READ: " + notification.read_at.inspect
       if params.include? :read
         read = params[:read] == 'true' ? Time.zone.now : nil
-        notification.update_attributes read_at: read
+        notification.update read_at: read
       end
       Rails.logger.info "POST: " + notification.read_at.inspect
       notification.broadcast!

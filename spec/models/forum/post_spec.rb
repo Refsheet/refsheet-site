@@ -73,11 +73,11 @@ describe Forum::Post, type: :model do
     expect(post).to_not be_edited
     expect(post).to_not be_admin_post
 
-    post.update_attributes(user: create(:admin))
+    post.update(user: create(:admin))
     expect(post).to_not be_edited
     expect(post).to be_admin_post
 
-    post.update_attributes(content: 'Okay I changed it.')
+    post.update(content: 'Okay I changed it.')
     expect(post).to be_edited
   end
 end

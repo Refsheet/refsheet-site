@@ -15,7 +15,7 @@ class Mutations::ConversationMutations < Mutations::ApplicationMutation
     @conversation = Conversation.with(sender, recipient)
 
     unless @conversation.persisted?
-      @conversation.update_attributes(conversation_params)
+      @conversation.update(conversation_params)
     end
 
     @conversation
