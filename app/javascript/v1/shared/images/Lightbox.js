@@ -24,7 +24,7 @@ import ObjectPath from '../../utils/ObjectPath'
 import StateUtils from '../../utils/StateUtils'
 import HashUtils from '../../utils/HashUtils'
 import compose, { withCurrentUser } from '../../../utils/compose'
-import {withRouter} from "react-router"
+import { withRouter } from 'react-router'
 
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
@@ -589,7 +589,4 @@ const Lightbox = createReactClass({
   },
 })
 
-export default compose(
-  withCurrentUser(),
-  withRouter
-)(Lightbox)
+export default compose(withCurrentUser(), withRouter)(Lightbox)

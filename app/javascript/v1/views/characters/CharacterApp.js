@@ -278,7 +278,8 @@ const Component = createReactClass({
 
     const isOwner =
       this.state.character.user_id === (this.props.currentUser || {}).username
-    const canEdit = isOwner || (this.props.currentUser && this.props.currentUser.is_admin)
+    const canEdit =
+      isOwner || (this.props.currentUser && this.props.currentUser.is_admin)
 
     if (canEdit) {
       showMenu = true

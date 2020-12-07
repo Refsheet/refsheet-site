@@ -4,8 +4,8 @@ import PropTypes from 'prop-types'
 import Modal from 'v1/shared/Modal'
 import * as Materialize from 'materialize-css'
 import $ from 'jquery'
-import compose from "../../../../utils/compose"
-import {withRouter} from "react-router"
+import compose from '../../../../utils/compose'
+import { withRouter } from 'react-router'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -70,6 +70,4 @@ const CharacterDeleteModal = createReactClass({
   },
 })
 
-export default compose(
-  withRouter
-)(CharacterDeleteModal)
+export default compose(withRouter)(CharacterDeleteModal)

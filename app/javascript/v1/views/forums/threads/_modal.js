@@ -14,8 +14,8 @@ import Input from '../../../shared/forms/Input'
 import Row from '../../../shared/material/Row'
 import Submit from '../../../shared/forms/Submit'
 import Modal from '../../../shared/Modal'
-import {withRouter} from "react-router"
-import compose from "../../../../utils/compose"
+import { withRouter } from 'react-router'
+import compose from '../../../../utils/compose'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*

@@ -1,6 +1,6 @@
 /* global describe,def,it */
 
-import ArrayUtils from 'utils/ArrayUtils';
+import ArrayUtils from 'utils/ArrayUtils'
 
 describe('ArrayUtils', () => {
   def('list', () => [

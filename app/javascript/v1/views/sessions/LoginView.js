@@ -12,7 +12,7 @@ import Main from '../../shared/Main'
 import Form from '../../shared/forms/Form'
 import Input from '../../shared/forms/Input'
 import Submit from '../../shared/forms/Submit'
-import {Link, withRouter} from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 
 import $ from 'jquery'
 import { setCurrentUser } from '../../../actions'
