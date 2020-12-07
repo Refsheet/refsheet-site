@@ -22,7 +22,6 @@ import StateUtils from '../../utils/StateUtils'
 let View
 export default View = createReactClass({
   contextTypes: {
-    router: PropTypes.object.isRequired,
     eagerLoad: PropTypes.object,
   },
 

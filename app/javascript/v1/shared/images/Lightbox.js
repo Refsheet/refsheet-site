@@ -24,6 +24,7 @@ import ObjectPath from '../../utils/ObjectPath'
 import StateUtils from '../../utils/StateUtils'
 import HashUtils from '../../utils/HashUtils'
 import compose, { withCurrentUser } from '../../../utils/compose'
+import {withRouter} from "react-router"
 
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
@@ -36,7 +37,6 @@ import compose, { withCurrentUser } from '../../../utils/compose'
  */
 const Lightbox = createReactClass({
   contextTypes: {
-    router: PropTypes.object.isRequired,
     reportImage: PropTypes.func.isRequired,
   },
 
@@ -166,7 +166,7 @@ const Lightbox = createReactClass({
     }
 
     if (this.state.directLoad) {
-      this.context.router.history.push(this.state.image.character.link)
+      this.props.history.push(this.state.image.character.link)
     } else {
       window.history.back()
     }
@@ -589,4 +589,7 @@ const Lightbox = createReactClass({
   },
 })
 
-export default compose(withCurrentUser())(Lightbox)
+export default compose(
+  withCurrentUser(),
+  withRouter
+)(Lightbox)

@@ -44,7 +44,7 @@ class Characters::AttributesController < AccountController
 
   def get_character
     @user = User.lookup! params[:user_id]
-    @character = user.characters.lookup! params[:character_id]
+    @character = @user.characters.lookup! params[:character_id]
     @character.custom_attributes ||= []
   end
 

@@ -123,7 +123,7 @@
     "yaml-lint": "https://github.com/eiwi1101/yaml-lint"
   },
   "scripts": {
-    "test": "jest",
+    "test": "NODE_ENV=test jest",
     "config-lint": "./node_modules/yaml-lint/bin/yamllint --verbose .kubernetes/*.{yml,yaml} config/*.{yml,yaml} .ebextensions/*.config --ignore config/database.yml",
     "prettier": "prettier --write \"app/javascript/**/*.js\" \"spec/javascript/**/*.js\"",
     "prettier-quick": "prettier --write $(git diff --name-only -- \"app/javascript/**/*.js\" \"spec/javascript/**/*.js\")",
