@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 export const div = styled.div`
   && {
-    background-color: ${(props) => props.theme.cardBackground};
+    background-color: ${props => props.theme.cardBackground};
 
     &.admin {
     }
@@ -16,7 +16,7 @@ export const div = styled.div`
     .card-header,
     .card-footer,
     .card-action {
-      // background-color: ${(props) => props.theme.cardBackground};
+      // background-color: ${props => props.theme.cardBackground};
       background-color: rgba(0, 0, 0, 0.1);
     }
   }
@@ -24,7 +24,7 @@ export const div = styled.div`
 
 export default styled(Card)`
   && {
-    background-color: ${(props) => props.theme.cardBackground};
+    background-color: ${props => props.theme.cardBackground};
 
     &.admin {
     }
@@ -35,7 +35,7 @@ export default styled(Card)`
     .card-header,
     .card-footer,
     .card-action {
-      // background-color: ${(props) => props.theme.cardBackground}
+      // background-color: ${props => props.theme.cardBackground}
       background-color: rgba(0, 0, 0, 0.1);
     }
   }

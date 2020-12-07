@@ -4,5 +4,6 @@
   "useTabs": false,
   "semi": false,
   "singleQuote": true,
-  "jsxBracketSameLine": false
+  "jsxBracketSameLine": false,
+  "arrowParens": "avoid"
 }
