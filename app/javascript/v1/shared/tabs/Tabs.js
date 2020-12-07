@@ -43,7 +43,7 @@ export default Tabs = createReactClass({
       className += ' ' + this.props.className
     }
 
-    const tabs = React.Children.map(this.props.children, (child) => {
+    const tabs = React.Children.map(this.props.children, child => {
       if ((child != null ? child.type : undefined) === Tab) {
         const liClasses = ['tab']
         if (!child.props.name) {
@@ -80,7 +80,7 @@ export default Tabs = createReactClass({
 
     return (
       <div className="tabs-container">
-        <ul ref={(r) => (this.tabRef = r)} className={className}>
+        <ul ref={r => (this.tabRef = r)} className={className}>
           {tabs}
         </ul>
 

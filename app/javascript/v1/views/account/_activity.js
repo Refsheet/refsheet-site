@@ -124,7 +124,7 @@ export default Activity = createReactClass({
       return Model.poll(
         this.dataPath,
         { since: this.state.since, filter: this.props.filter },
-        (data) => {
+        data => {
           return this.setState(
             {
               newActivity: data.activity,
@@ -195,7 +195,7 @@ export default Activity = createReactClass({
     let activityIndex = 7
     let out = []
 
-    this._groupedActivity().map((item) => {
+    this._groupedActivity().map(item => {
       // TODO: Set ad frequency to a variable
       if (activityIndex++ % 10 === 0) {
         out.push(

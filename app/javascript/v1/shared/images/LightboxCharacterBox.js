@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom'
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let LightboxCharacterBox
-export default LightboxCharacterBox = (props) => (
+export default LightboxCharacterBox = props => (
   <div className="character-box">
     <Link to={props.character.link} className="character-avatar">
       <img src={props.character.profile_image_url} />

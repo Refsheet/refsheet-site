@@ -28,11 +28,11 @@ class ProfileSection extends Component {
           title,
         },
       })
-      .then((data) => {
+      .then(data => {
         console.log(data)
         this.props.refetch()
       })
-      .catch((error) => console.error(error))
+      .catch(error => console.error(error))
   }
 
   handleNewWidgetClose() {
@@ -40,7 +40,7 @@ class ProfileSection extends Component {
   }
 
   handleNewWidgetClick(column) {
-    return (e) => {
+    return e => {
       e.preventDefault()
 
       this.setState({
@@ -73,7 +73,7 @@ class ProfileSection extends Component {
       .then(({ data, errors }) => {
         if (errors) {
           console.error(errors)
-          errors.map((e) =>
+          errors.map(e =>
             M.toast({ html: e.message, classes: 'red', displayLength: 3000 })
           )
         } else {
@@ -95,7 +95,7 @@ class ProfileSection extends Component {
       .then(({ data, errors }) => {
         if (errors) {
           console.error(errors)
-          errors.map((e) =>
+          errors.map(e =>
             M.toast({ html: e.message, classes: 'red', displayLength: 3000 })
           )
         } else {
@@ -110,7 +110,7 @@ class ProfileSection extends Component {
     const _this = this
     const { character } = this.props
     return columns.map(function (width, id) {
-      const columnWidgets = widgets.filter((w) => w.column === id)
+      const columnWidgets = widgets.filter(w => w.column === id)
 
       return (
         <ProfileColumn
@@ -213,11 +213,11 @@ const UPDATE_SECTION_MUTATION = gql`
   }
 `
 
-const Wrapped = (props) => (
+const Wrapped = props => (
   <Mutation mutation={UPDATE_SECTION_MUTATION}>
     {(updateSection, { mutationData }) => (
       <Mutation mutation={deleteProfileSection}>
-        {(deleteSection) => (
+        {deleteSection => (
           <ProfileSection
             {...props}
             deleteSection={deleteSection}

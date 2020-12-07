@@ -53,7 +53,7 @@ export default ThreadList = createReactClass({
       }
     })
 
-    const threads = sortedThreads.map((thread) => {
+    const threads = sortedThreads.map(thread => {
       const classNames = []
       if (thread.id === this.props.activeThreadId) {
         classNames.push('active')

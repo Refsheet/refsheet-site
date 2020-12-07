@@ -25,7 +25,7 @@ export default Comment = createReactClass({
   },
 
   render() {
-    const comments = this.props.comments.map((comment) => {
+    const comments = this.props.comments.map(comment => {
       return (
         <Row key={comment.id} noMargin className="padding-top--small">
           <Column s={6} m={4}>

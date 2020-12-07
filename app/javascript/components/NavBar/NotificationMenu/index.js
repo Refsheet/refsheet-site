@@ -34,7 +34,7 @@ class NotificationMenu extends Component {
 
     if (unreadCount !== 0 && !loading && markAllAsRead) {
       markAllAsRead()
-        .then((_data) => {
+        .then(_data => {
           if (refetch) refetch()
           this.setState({ markAllLoading: false })
         })
@@ -53,7 +53,7 @@ class NotificationMenu extends Component {
       t,
     } = this.props
 
-    const renderNotification = (n) => (
+    const renderNotification = n => (
       <NotificationItem
         key={n.id}
         {...n}

@@ -75,7 +75,7 @@ class CommentForm extends Component {
     let message = ''
 
     if (error.map) {
-      message = error.map((e) => e.message).join(', ')
+      message = error.map(e => e.message).join(', ')
     } else {
       message = error.message || '' + error
     }
@@ -103,7 +103,7 @@ class CommentForm extends Component {
         comment: this.state.comment,
         identity: this.props.identity,
       })
-      .then((data) => {
+      .then(data => {
         if (data && data.errors) {
           this.handleError(data.errors[0])
         } else {

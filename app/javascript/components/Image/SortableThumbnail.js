@@ -30,7 +30,7 @@ const DragPlaceholder = styled.div`
   width: 3px;
   height: 100%;
   position: absolute;
-  background-color: ${(props) => props.theme.primary};
+  background-color: ${props => props.theme.primary};
 
   &.before {
     left: -9px;
@@ -53,12 +53,12 @@ const DragPlaceholder = styled.div`
 
   &:before {
     top: -5px;
-    border-top: 5px solid ${(props) => props.theme.primary};
+    border-top: 5px solid ${props => props.theme.primary};
   }
 
   &:after {
     bottom: -5px;
-    border-bottom: 5px solid ${(props) => props.theme.primary};
+    border-bottom: 5px solid ${props => props.theme.primary};
   }
 `
 
@@ -126,7 +126,7 @@ class SortableThumbnail extends Component {
       opacity: isDragging ? 0.5 : 1,
     }
 
-    const connector = (c) => connectDragSource(connectDropTarget(c))
+    const connector = c => connectDragSource(connectDropTarget(c))
 
     return (
       <Thumbnail

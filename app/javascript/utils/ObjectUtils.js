@@ -30,7 +30,7 @@ export function deepRemoveKeys(object, key) {
 
   let obj = { ...object }
   delete obj[key]
-  Object.keys(obj).map((k) => (obj[k] = deepRemoveKeys(obj[k], key)))
+  Object.keys(obj).map(k => (obj[k] = deepRemoveKeys(obj[k], key)))
   return obj
 }
 
@@ -46,8 +46,8 @@ export function flatten(object, path = '') {
 
   let out = {}
 
-  Object.keys(object).map((k) => {
-    const currentPath = [path, k].filter((p) => !!p).join('.')
+  Object.keys(object).map(k => {
+    const currentPath = [path, k].filter(p => !!p).join('.')
     const child = object[k]
 
     if (!child || typeof child !== 'object') {

@@ -1,5 +1,5 @@
 export default function e(cb, getArgs = null) {
-  return (e) => {
+  return e => {
     e.preventDefault()
     cb && cb(getArgs && getArgs())
   }

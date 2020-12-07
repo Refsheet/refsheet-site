@@ -78,7 +78,7 @@ class UploadModal extends Component {
   }
 
   getActiveImage() {
-    return this.props.files.filter((i) => i.id === this.state.activeImageId)[0]
+    return this.props.files.filter(i => i.id === this.state.activeImageId)[0]
   }
 
   selectNextImage() {
@@ -125,7 +125,7 @@ class UploadModal extends Component {
       this.state.characterId,
       this.handleImageChange.bind(this)
     )
-      .then((image) => {
+      .then(image => {
         Materialize.toast({
           html: image.title + ' uploaded!',
           displayLength: 3000,
@@ -141,7 +141,7 @@ class UploadModal extends Component {
   }
 
   renderPending(images) {
-    const imageArray = images.map((image) => {
+    const imageArray = images.map(image => {
       const { state, progress } = image
       return { src: image.preview, id: image.id, state, progress }
     })
@@ -350,7 +350,7 @@ const mapDispatchToProps = {
   closeUploadModal,
 }
 
-const Wrapped = (props) => {
+const Wrapped = props => {
   const { alwaysOpen = false, modalOpen = false } = props
 
   if (!alwaysOpen && !modalOpen) {

@@ -115,7 +115,7 @@ export default Feed = createReactClass({
       return Model.poll(
         this.dataPath,
         { since: this.state.since, filter: this.props.filter },
-        (data) => {
+        data => {
           return this.setState(
             {
               newActivity: data.notifications,
@@ -177,20 +177,20 @@ export default Feed = createReactClass({
   },
 
   _markRead(read, path) {
-    return (e) => {
+    return e => {
       e.preventDefault()
-      return Model.put(path, { read }, (data) => {
+      return Model.put(path, { read }, data => {
         return StateUtils.updateItem(this, 'notifications', data, 'id')
       })
     }
   },
 
   _markAllRead(read) {
-    return (e) => {
+    return e => {
       e.preventDefault()
-      const ids = this.state.notifications.map((n) => n.id)
+      const ids = this.state.notifications.map(n => n.id)
 
-      return Model.put('/notifications/bulk_update', { read, ids }, (data) => {
+      return Model.put('/notifications/bulk_update', { read, ids }, data => {
         const newNotes = this.state.notifications.map(function (n) {
           const note = $.extend({}, n)
           note.is_read = data.read
@@ -207,7 +207,7 @@ export default Feed = createReactClass({
     }
     const __this = this
 
-    const out = this._groupedActivity().map((item) => (
+    const out = this._groupedActivity().map(item => (
       <Views.Account.Notifications.Card
         {...item}
         key={item.id}

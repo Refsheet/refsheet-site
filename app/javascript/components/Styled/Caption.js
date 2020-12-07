@@ -12,11 +12,11 @@ import styled from 'styled-components'
 export const Caption = styled.div`
   font-size: 1.2rem;
   font-weight: 300;
-  color: ${(props) => props.theme.accent1};
+  color: ${props => props.theme.accent1};
 `
 
 export const MutedCaption = styled.div`
   font-size: 1.2rem;
   font-weight: 300;
-  color: ${(props) => props.theme.textLight};
+  color: ${props => props.theme.textLight};
 `

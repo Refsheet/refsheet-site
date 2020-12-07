@@ -13,7 +13,7 @@ class Forum extends Component {
     if (data.loading) {
       return <Loading />
     } else if (data.error) {
-      const message = data.error.graphQLErrors.map((e) => e.message).join(', ')
+      const message = data.error.graphQLErrors.map(e => e.message).join(', ')
       return <Error message={message} />
     } else {
       return <View forum={data.getForum} {...this.state} />
@@ -24,7 +24,7 @@ class Forum extends Component {
 Forum.propTypes = {}
 
 export default graphql(getForum, {
-  options: (props) => ({
+  options: props => ({
     variables: props.match.params,
     errorPolicy: 'all',
   }),

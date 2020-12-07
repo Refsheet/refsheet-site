@@ -35,7 +35,7 @@ class TransferCharacter extends Component {
       character,
       currentUser,
       transferCharacter,
-      onSave = (_c) => {},
+      onSave = _c => {},
     } = this.props
 
     if (!authorize(character, 'transfer', { user: currentUser })) {

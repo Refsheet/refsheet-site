@@ -12,7 +12,7 @@ const ConversationTray = ({
   openConversation,
   closeConversation,
 }) => {
-  const newConversation = (conversation) => {
+  const newConversation = conversation => {
     closeConversation()
 
     if (typeof conversation !== 'undefined') {
@@ -21,7 +21,7 @@ const ConversationTray = ({
     }
   }
 
-  const renderConversation = (id) => {
+  const renderConversation = id => {
     if (typeof id !== 'undefined') {
       return (
         <div key={id} className="chat-popout">
@@ -44,7 +44,7 @@ const ConversationTray = ({
 
   return (
     <div className="chat-tray">
-      {openConversations.map((id) => renderConversation(id))}
+      {openConversations.map(id => renderConversation(id))}
     </div>
   )
 }

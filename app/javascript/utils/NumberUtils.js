@@ -1,4 +1,4 @@
-export const format = (i) => {
+export const format = i => {
   const n = Math.abs(i)
   switch (false) {
     case !(n < 1e3):

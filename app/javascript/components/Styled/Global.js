@@ -29,36 +29,36 @@ const GlobalStyle = ({ theme }) => (
 )
 
 export const ThemedMain = styled(Main)`
-  color: ${(props) => props.theme.text} !important;
-  background-color: ${(props) => props.theme.background} !important;
+  color: ${props => props.theme.text} !important;
+  background-color: ${props => props.theme.background} !important;
 
   a,
   a:link,
   a:visited,
   .tabs .tab a {
-    color: ${(props) => props.theme.accent1};
+    color: ${props => props.theme.accent1};
   }
 
   a:hover,
   a:active,
   .tabs .tab a:hover {
-    color: ${(props) => props.theme.accent2};
+    color: ${props => props.theme.accent2};
   }
 
   .card {
-    background-color: ${(props) => props.theme.cardBackground} !important;
+    background-color: ${props => props.theme.cardBackground} !important;
   }
 
   .card .card-header {
-    background-color: ${(props) => props.theme.cardHeaderBackground};
+    background-color: ${props => props.theme.cardHeaderBackground};
   }
 
   .attribute-data .key {
-    color: ${(props) => props.theme.accent2} !important;
+    color: ${props => props.theme.accent2} !important;
   }
 
   ul li:before {
-    background-color: ${(props) => props.theme.accent1} !important;
+    background-color: ${props => props.theme.accent1} !important;
   }
 `
 

@@ -17,7 +17,7 @@ const handlers = {
   [Actions.CLEAR_UPLOAD]: (state, action) => {
     let selectedIndex = state.selectedIndex
 
-    const files = state.files.filter((f) => f.id !== action.fileId)
+    const files = state.files.filter(f => f.id !== action.fileId)
 
     if (files.length <= selectedIndex) selectedIndex = files.length - 1
 
@@ -38,7 +38,7 @@ const handlers = {
 
   [Actions.MODIFY_UPLOAD]: (state, { file }) => {
     let files = state.files
-    let fileIndex = state.files.findIndex((i) => i.id === file.id)
+    let fileIndex = state.files.findIndex(i => i.id === file.id)
 
     if (fileIndex !== -1) {
       const fields = (({ nsfw, title, hidden }) => ({ nsfw, title, hidden }))(
@@ -55,7 +55,7 @@ const handlers = {
 
   [Actions.OPEN_UPLOAD_MODAL]: (state, action) => {
     let selectedIndex = state.files.findIndex(
-      (file) => file.id === state.uploadId
+      file => file.id === state.uploadId
     )
 
     return {
@@ -83,14 +83,14 @@ const handlers = {
     }
   },
 
-  [Actions.DISABLE_DROPZONE]: (state) => {
+  [Actions.DISABLE_DROPZONE]: state => {
     return {
       ...state,
       dropzoneDisabled: true,
     }
   },
 
-  [Actions.ENABLE_DROPZONE]: (state) => {
+  [Actions.ENABLE_DROPZONE]: state => {
     return {
       ...state,
       dropzoneDisabled: false,

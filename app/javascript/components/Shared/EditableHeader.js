@@ -9,7 +9,7 @@ const InputField = styled.input`
   font: inherit !important;
   margin: 0 !important;
   padding: 0 0.25rem !important;
-  border: 1px solid ${(props) => props.theme.border} !important;
+  border: 1px solid ${props => props.theme.border} !important;
   border-right: none !important;
   display: block;
   flex: 1 1 auto;
@@ -26,7 +26,7 @@ const InputButton = styled.button`
   background-color: transparent;
 
   &:not(.inactive) {
-    border: 1px solid ${(props) => props.theme.border} !important;
+    border: 1px solid ${props => props.theme.border} !important;
     border-left: none !important;
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
@@ -35,7 +35,7 @@ const InputButton = styled.button`
 
   &.inactive {
     border: none !important;
-    color: ${(props) => props.theme.textLight} !important;
+    color: ${props => props.theme.textLight} !important;
   }
 `
 

@@ -2,7 +2,7 @@ import { subscribe } from 'ApplicationService'
 import getConversations from './getConversations.graphql'
 import subscribeToConversations from './subscribeToConversations.graphql'
 
-const mapDataToProps = (data) => ({
+const mapDataToProps = data => ({
   conversations: data.getConversations,
 })
 

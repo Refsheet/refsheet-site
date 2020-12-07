@@ -87,12 +87,12 @@ export default Groups = createReactClass({
   },
 
   _handleSwap(id, position) {
-    const group = this.props.groups.filter((g) => g.slug === id)[0]
+    const group = this.props.groups.filter(g => g.slug === id)[0]
 
     return Model.put(
       group.path,
       { character_group: { row_order_position: position } },
-      (data) => {
+      data => {
         return this.props.onSort(data, position)
       }
     )
@@ -106,7 +106,7 @@ export default Groups = createReactClass({
     if (this.props.groups.length) {
       const _this = this
 
-      groups = this.props.groups.map((group) => (
+      groups = this.props.groups.map(group => (
         <UserCharacterGroupLink
           group={group}
           editable={editable}

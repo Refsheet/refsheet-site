@@ -107,7 +107,7 @@ const StateUtils = {
         })
       },
 
-      (error) =>
+      error =>
         context.setState({ error }, function () {
           if (callback) {
             return callback()
@@ -172,7 +172,7 @@ const StateUtils = {
     let { state } = context
 
     items.map(
-      (item) =>
+      item =>
         (state = HashUtils.deepUpdateCollectionItem(
           state,
           path,

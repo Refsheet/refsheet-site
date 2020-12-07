@@ -23,7 +23,7 @@ class _Footer extends Component {
   }
 
   componentDidMount() {
-    const apply = (locale) => {
+    const apply = locale => {
       this.setState({ locale })
     }
 
@@ -31,7 +31,7 @@ class _Footer extends Component {
   }
 
   setLocale(locale) {
-    return (e) => {
+    return e => {
       e.preventDefault()
       i18n
         .changeLanguage(locale)
@@ -282,8 +282,8 @@ class _Footer extends Component {
 }
 
 const Footer = styled(_Footer)`
-  background-color: ${(props) => props.theme.cardBackground};
-  color: ${(props) => props.theme.text};
+  background-color: ${props => props.theme.cardBackground};
+  color: ${props => props.theme.text};
 `
 
 export default compose(withErrorBoundary)(Footer)

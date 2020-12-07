@@ -7,12 +7,12 @@ import { setCurrentUser } from '../actions'
 import { ConfigContext } from '../components/App'
 
 function compose() {
-  return (component) => {
+  return component => {
     let func = component
 
     Array.from(arguments)
       .reverse()
-      .map((arg) => {
+      .map(arg => {
         func = arg(func)
       })
 
@@ -21,7 +21,7 @@ function compose() {
 }
 
 function wrapMutation(fn) {
-  return (attrs) => {
+  return attrs => {
     if (attrs && attrs.wrapped) {
       delete attrs.wrapped
 
@@ -29,14 +29,14 @@ function wrapMutation(fn) {
 
       return new Promise((resolve, reject) => {
         fn(attrs)
-          .then((data) => {
+          .then(data => {
             if (data.errors && data.errors.length > 0) {
               data.validationErrors = {}
               data.errorStrings = []
-              data.errors.map((err) => {
+              data.errors.map(err => {
                 data.errorStrings.push(err.msg)
                 if (err.extensions && err.extensions.validation) {
-                  Object.keys(err.extensions.validation).map((k) => {
+                  Object.keys(err.extensions.validation).map(k => {
                     if (!data.validationErrors[k]) data.validationErrors[k] = []
                     data.validationErrors[k] = [
                       ...data.validationErrors[k],
@@ -48,7 +48,7 @@ function wrapMutation(fn) {
 
               // Join errors and flatten
               data.formErrors = {}
-              Object.keys(data.validationErrors).map((k) => {
+              Object.keys(data.validationErrors).map(k => {
                 data.formErrors[k] = data.validationErrors[k].join(', ')
               })
 
@@ -59,11 +59,11 @@ function wrapMutation(fn) {
                 data.errors,
                 data.validationErrors
               )
-              data.errors.map((e) =>
+              data.errors.map(e =>
                 M.toast({
                   html: e.message.replace(
                     /[&<>]/g,
-                    (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c])
+                    c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c])
                   ),
                   classes: 'red',
                   displayLength: 6000,
@@ -74,7 +74,7 @@ function wrapMutation(fn) {
 
             resolve(data)
           })
-          .catch((e) => {
+          .catch(e => {
             console.error(e)
             reject(e)
           })
@@ -88,21 +88,21 @@ function wrapMutation(fn) {
 function withMutations(mutations) {
   const mutationNames = Object.keys(mutations)
 
-  const getDisplayName = (Component) =>
+  const getDisplayName = Component =>
     Component.displayName || Component.name || 'Component'
 
-  return (Component) => {
-    let Result = (props) => <Component {...props} />
+  return Component => {
+    let Result = props => <Component {...props} />
     Result.displayName = 'withMutation(' + getDisplayName(Component) + ')'
 
-    mutationNames.map((mutationName) => {
+    mutationNames.map(mutationName => {
       const mutation = mutations[mutationName]
       const PreviousResult = Result
       PreviousResult.displayName = Result.displayName
 
-      Result = (props) => (
+      Result = props => (
         <Mutation mutation={mutation}>
-          {(func) => {
+          {func => {
             let newProps = { ...props }
             newProps[mutationName] = wrapMutation(func)
             return <PreviousResult {...newProps} />
@@ -135,9 +135,9 @@ function withCurrentUser(set = false) {
 }
 
 function withConfig(Component) {
-  const WithContext = (props) => (
+  const WithContext = props => (
     <ConfigContext.Consumer>
-      {(config) => <Component {...props} config={config} />}
+      {config => <Component {...props} config={config} />}
     </ConfigContext.Consumer>
   )
 

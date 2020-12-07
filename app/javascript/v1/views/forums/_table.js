@@ -24,7 +24,7 @@ import StringUtils from '../../../utils/StringUtils'
 const Table = function (props) {
   const { forums, title } = props
 
-  const forumCards = forums.map((forum) => (
+  const forumCards = forums.map(forum => (
     <Column l={4} xl={3} key={forum.slug}>
       <Card {...StringUtils.camelizeKeys(forum)} />
     </Column>

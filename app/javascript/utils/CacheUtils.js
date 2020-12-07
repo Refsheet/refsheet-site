@@ -14,9 +14,7 @@ const CacheUtils = {
       data: {
         getCharacterByUrl: {
           ...getCharacterByUrl,
-          images: getCharacterByUrl.images.filter(
-            (i) => i.id !== deleteMedia.id
-          ),
+          images: getCharacterByUrl.images.filter(i => i.id !== deleteMedia.id),
         },
       },
     })

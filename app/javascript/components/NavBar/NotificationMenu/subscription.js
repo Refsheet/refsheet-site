@@ -13,11 +13,11 @@ const updateQuery = (prev, data) => {
   const notifications = [
     newNotification,
     ...prev.getNotifications.notifications.filter(
-      (n) => n.id !== newNotification.id
+      n => n.id !== newNotification.id
     ),
   ]
 
-  const unreadCount = notifications.filter((n) => n.is_unread).length
+  const unreadCount = notifications.filter(n => n.is_unread).length
 
   return {
     ...prev,

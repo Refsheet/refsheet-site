@@ -11,7 +11,7 @@ class NewWidgetModal extends Component {
   }
 
   handleWidgetClick(type) {
-    return (e) => {
+    return e => {
       e.preventDefault()
       this.props
         .createWidget({
@@ -25,7 +25,7 @@ class NewWidgetModal extends Component {
         .then(({ data, errors }) => {
           if (errors) {
             console.error(errors)
-            errors.map((e) =>
+            errors.map(e =>
               M.toast({ html: e.message, classes: 'red', displayLength: 3000 })
             )
           } else {
@@ -75,7 +75,7 @@ class NewWidgetModal extends Component {
         onClose={this.props.onClose}
       >
         <ul className={'widget-list row no-margin'}>
-          {widgets.map((widget) => (
+          {widgets.map(widget => (
             <li key={widget.type} className={'widget col s6 m3'}>
               <a
                 href={'#'}
@@ -99,7 +99,7 @@ NewWidgetModal.propTypes = {
   onCreate: PropTypes.func.isRequired,
 }
 
-const Mutated = (props) => (
+const Mutated = props => (
   <Mutation mutation={createWidget}>
     {(createWidget, { data }) => (
       <NewWidgetModal

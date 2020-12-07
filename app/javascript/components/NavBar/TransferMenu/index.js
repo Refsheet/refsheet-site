@@ -13,7 +13,7 @@ const TransferMenu = ({
   subscribe,
   refetch,
 }) => {
-  const renderNotification = (n) => <NotificationItem key={n.id} {...n} />
+  const renderNotification = n => <NotificationItem key={n.id} {...n} />
 
   if (!loading && !error) if (subscribe) subscribe()
 
@@ -29,7 +29,7 @@ const TransferMenu = ({
     }
   }
 
-  const unreadCount = transfers.filter((n) => n.is_unread).length
+  const unreadCount = transfers.filter(n => n.is_unread).length
 
   if (!unreadCount) {
     return null

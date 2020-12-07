@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { userFgColor } from '../../utils/UserUtils'
 import { createIdentity } from '../../utils/IdentityUtils'
 
-const UserLink = (props) => {
+const UserLink = props => {
   const { user } = props
   const identity = createIdentity(props)
 

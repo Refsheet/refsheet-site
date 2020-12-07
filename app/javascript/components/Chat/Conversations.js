@@ -46,10 +46,10 @@ class Conversations extends Component {
         <ul className="chat-list padding--none">
           {_.sortBy(
             conversations,
-            (c) => c.lastMessage && c.lastMessage.created_at
+            c => c.lastMessage && c.lastMessage.created_at
           )
             .reverse()
-            .map((conversation) => (
+            .map(conversation => (
               <ConversationLink
                 key={conversation.id}
                 conversation={conversation}
@@ -75,7 +75,7 @@ class Conversations extends Component {
   }
 }
 
-const renderConversations = (props) => ({ loading, data, subscribeToMore }) => {
+const renderConversations = props => ({ loading, data, subscribeToMore }) => {
   if (loading) {
     return <div className="chat-loading">Loading...</div>
   } else if (!data) {
@@ -105,7 +105,7 @@ const renderConversations = (props) => ({ loading, data, subscribeToMore }) => {
   }
 }
 
-const Wrapped = (props) => (
+const Wrapped = props => (
   <Query query={getConversations}>{renderConversations(props)}</Query>
 )
 

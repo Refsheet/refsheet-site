@@ -5,7 +5,7 @@ import { Hue, Saturation, Alpha } from 'react-color/lib/components/common'
 import styled from 'styled-components'
 
 const ColorPickerOverlay = styled.div`
-  background-color: ${(props) => props.theme.cardBackground};
+  background-color: ${props => props.theme.cardBackground};
   position: absolute;
   top: 3rem;
   left: 0;
@@ -22,7 +22,7 @@ const ColorPickerOverlay = styled.div`
     left: 0.5rem;
     height: 0.75rem;
     width: 0.75rem;
-    background-color: ${(props) => props.color};
+    background-color: ${props => props.color};
     transform: rotate(45deg);
     box-shadow: 0 0 4px -1px rgba(0, 0, 0, 0.3);
     z-index: -1;
@@ -31,13 +31,13 @@ const ColorPickerOverlay = styled.div`
   .header {
     padding: 0rem 1rem;
     line-height: 2.5rem;
-    background-color: ${(props) => props.color};
-    color: ${(props) => (props.hsl.l > 0.7 ? 'black' : 'white')} !important;
+    background-color: ${props => props.color};
+    color: ${props => (props.hsl.l > 0.7 ? 'black' : 'white')} !important;
     border-top-right-radius: 2px;
     border-top-left-radius: 2px;
 
     a {
-      color: ${(props) => (props.hsl.l > 0.7 ? 'black' : 'white')} !important;
+      color: ${props => (props.hsl.l > 0.7 ? 'black' : 'white')} !important;
       display: block;
       float: right;
       border-top-right-radius: 2px;
@@ -67,8 +67,8 @@ const ColorPickerOverlay = styled.div`
     position: relative;
     height: 1.5rem;
     width: 100%;
-    border-bottom-left-radius: ${(props) => (props.noColors ? '2px' : '0')};
-    border-bottom-right-radius: ${(props) => (props.noColors ? '2px' : '0')};
+    border-bottom-left-radius: ${props => (props.noColors ? '2px' : '0')};
+    border-bottom-right-radius: ${props => (props.noColors ? '2px' : '0')};
   }
 
   .colors {
@@ -95,17 +95,17 @@ function ColorPicker({
   onClose,
   onFocus,
 }) {
-  const handleClose = (e) => {
+  const handleClose = e => {
     e.preventDefault()
     onClose && onClose()
   }
 
-  const applyColor = (color) => (e) => {
+  const applyColor = color => e => {
     e.preventDefault()
     onChange && onChange(color)
   }
 
-  const handleFocus = (e) => {
+  const handleFocus = e => {
     onFocus && onFocus(e)
   }
 
@@ -137,7 +137,7 @@ function ColorPicker({
       )}
       {colors.length > 0 && (
         <div className="colors">
-          {colors.map((color) => (
+          {colors.map(color => (
             <a
               key={color}
               href={'#'}

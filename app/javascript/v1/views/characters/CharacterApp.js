@@ -108,11 +108,11 @@ const Component = createReactClass({
           return this.setState({ character })
         }
       })
-      .on('app:character:profileImage:edit', (e) => {
+      .on('app:character:profileImage:edit', e => {
         console.warn('jQuery events are deprecated, find a better way.', e)
         this.setState({
           galleryTitle: 'Select Profile Picture',
-          onGallerySelect: (imageId) => {
+          onGallerySelect: imageId => {
             this.setProfileImage(imageId)
             return Materialize.Modal.getInstance(
               document.getElementById('image-gallery-modal')
@@ -131,7 +131,7 @@ const Component = createReactClass({
             newPath = this.state.character.path
           }
           console.debug('[CharacterApp] Reloading character...')
-          return $.get(`${newPath}.json`, (data) => {
+          return $.get(`${newPath}.json`, data => {
             this.setState({ character: data })
             if (callback != null) {
               return callback(data)
@@ -154,12 +154,12 @@ const Component = createReactClass({
         url: this.state.character.path,
         type: 'PATCH',
         data: { character: { featured_image_guid: imageId } },
-        success: (data) => {
+        success: data => {
           Flash.info('Header image updated!')
           this.setState({ character: data })
           resolve(data)
         },
-        error: (error) => {
+        error: error => {
           const { errors } = error.responseJSON
           Flash.error(errors.featured_image.join(', '))
           reject(errors)
@@ -174,12 +174,12 @@ const Component = createReactClass({
         url: this.state.character.path,
         type: 'PATCH',
         data: { character: { profile_image_guid: imageId } },
-        success: (data) => {
+        success: data => {
           Flash.info('Profile picture updated!')
           this.setState({ character: data })
           resolve(data)
         },
-        error: (error) => {
+        error: error => {
           const { errors } = error.responseJSON
           Flash.error(errors.profile_image.join(', '))
           reject(errors)
@@ -194,11 +194,11 @@ const Component = createReactClass({
         url: this.state.character.path,
         data: { character: data },
         type: 'PATCH',
-        success: (data) => {
+        success: data => {
           this.setState({ character: data })
           resolve(data)
         },
-        error: (error) => {
+        error: error => {
           reject(error)
         },
       })
@@ -208,8 +208,8 @@ const Component = createReactClass({
   handleHeaderImageEdit() {
     this.setState({
       galleryTitle: 'Select Header Image',
-      onGallerySelect: (imageId) => {
-        this.setFeaturedImage(imageId).then((_data) => {
+      onGallerySelect: imageId => {
+        this.setFeaturedImage(imageId).then(_data => {
           Materialize.Modal.getInstance(
             document.getElementById('image-gallery-modal')
           ).close()
@@ -353,7 +353,7 @@ const Component = createReactClass({
               <CharacterColorSchemeModal
                 colorScheme={{ color_data: colors }}
                 characterPath={this.state.character.path}
-                onChange={(data) =>
+                onChange={data =>
                   this.setState(
                     {
                       character: {
@@ -483,7 +483,7 @@ const mapDispatchToProps = {
   openUploadModal,
 }
 
-const mapStateToProps = (state) => state
+const mapStateToProps = state => state
 
 export default compose(
   withCurrentUser(),

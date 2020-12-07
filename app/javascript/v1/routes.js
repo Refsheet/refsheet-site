@@ -101,7 +101,7 @@ const Routes = createReactClass({
   },
 
   render() {
-    const staticPaths = ['privacy', 'terms', 'support'].map((path) => (
+    const staticPaths = ['privacy', 'terms', 'support'].map(path => (
       <Route key={path} path={'/' + path} component={Static.View} />
     ))
 
@@ -110,7 +110,7 @@ const Routes = createReactClass({
         <Switch>
           <Route
             path="/"
-            render={(props) => (
+            render={props => (
               <LegacyApp
                 {...props}
                 eagerLoad={this.props.eagerLoad}
@@ -126,7 +126,7 @@ const Routes = createReactClass({
                   <Route
                     path="/account"
                     title="Account"
-                    render={(props2) => (
+                    render={props2 => (
                       <Views.Account.Layout {...props2}>
                         <Switch>
                           <Redirect
@@ -177,7 +177,7 @@ const Routes = createReactClass({
 
                       <Route
                         path="/forums/:forumId"
-                        render={(props2) => (
+                        render={props2 => (
                           <Forums.Show {...props2}>
                             <Route
                               path="/forums/:forumId/:threadId"

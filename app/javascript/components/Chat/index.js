@@ -148,7 +148,7 @@ const CHAT_COUNT_QUERY = gql`
   }
 `
 
-const Wrapped = (props) => {
+const Wrapped = props => {
   return (
     <Subscription subscription={CHAT_COUNT_SUBSCRIPTION}>
       {({ data: subscriptionData }) => (

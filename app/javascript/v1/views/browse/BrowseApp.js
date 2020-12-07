@@ -94,7 +94,7 @@ export default BrowseApp = createReactClass({
       return $.ajax({
         url: '/characters.json',
         data: { q: query, page },
-        success: (data) => {
+        success: data => {
           let results = []
           if (page > 1) {
             results = results.concat(this.state.results)
@@ -115,7 +115,7 @@ export default BrowseApp = createReactClass({
           )
         },
 
-        error: (error) => {
+        error: error => {
           console.error(error)
           this.setState({
             results: [],
@@ -143,7 +143,7 @@ export default BrowseApp = createReactClass({
     }
 
     if (this.state.results !== null) {
-      results = this.state.results.map((character) => (
+      results = this.state.results.map(character => (
         <div className="col m3 s6" key={character.slug}>
           <CharacterLinkCard {...StringUtils.camelizeKeys(character)} />
         </div>

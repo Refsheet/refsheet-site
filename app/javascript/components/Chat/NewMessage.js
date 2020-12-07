@@ -72,7 +72,7 @@ class NewMessage extends Component {
         }
 
         if (errors) {
-          errors.map((error) => {
+          errors.map(error => {
             M.toast({
               html: error.message,
               classes: 'red',
@@ -97,7 +97,7 @@ class NewMessage extends Component {
           }
         }
       })
-      .catch((error) => {
+      .catch(error => {
         console.error(error)
 
         if (this.props.onCreate) {
@@ -170,7 +170,7 @@ const MESSAGE_MUTATION = gql`
     }
   }
 `
-const Wrapped = (props) => (
+const Wrapped = props => (
   <Mutation mutation={MESSAGE_MUTATION}>
     {(send, { mutationData }) => (
       <NewMessage {...props} send={send} mutationData={mutationData} />

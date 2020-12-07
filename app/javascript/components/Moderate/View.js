@@ -14,7 +14,7 @@ const Resolution = ({ id, updateModeration, data, loading, error }) => {
     return <Spinner />
   }
 
-  const resolve = (type) => (e) => {
+  const resolve = type => e => {
     e.preventDefault()
     updateModeration({ variables: { id: id, resolution: type } })
   }
@@ -51,7 +51,7 @@ const View = ({ moderation, refetch }) => {
     return <Error message="No moderation items in queue" />
   }
 
-  const next = (e) => {
+  const next = e => {
     e.preventDefault()
     refetch()
   }

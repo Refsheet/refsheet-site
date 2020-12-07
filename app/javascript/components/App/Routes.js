@@ -22,7 +22,7 @@ import CharacterApp from '../../v1/views/characters/CharacterApp'
 import User from 'v1/views/User'
 import { withErrorBoundary } from '../Shared/ErrorBoundary'
 
-const staticPaths = ['privacy', 'terms', 'support'].map((path) => (
+const staticPaths = ['privacy', 'terms', 'support'].map(path => (
   <Route key={path} path={'/' + path} component={Static.View} />
 ))
 
@@ -53,7 +53,7 @@ const Routes = () => (
     <Route
       path="/account"
       title="Account"
-      render={(props2) => (
+      render={props2 => (
         <Views.Account.Layout {...props2}>
           <Switch>
             <Redirect exact from="/account" to="/account/settings" />
@@ -92,7 +92,7 @@ const Routes = () => (
 
         <Route
           path="/forums/:forumId"
-          render={(props2) => (
+          render={props2 => (
             <V1Forums.Show {...props2}>
               <Route
                 path="/forums/:forumId/:threadId"

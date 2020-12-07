@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { userFgColor } from '../../utils/UserUtils'
 import { createIdentity, identitySourceType } from '../../utils/IdentityUtils'
 
-const UserAvatar = (props) => {
+const UserAvatar = props => {
   const { user, onIdentityChangeClick } = props
   const identity = createIdentity(props)
 

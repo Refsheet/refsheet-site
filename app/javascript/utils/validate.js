@@ -60,7 +60,7 @@ const isHexColor = {
   match: /^#?(?:[0-9A-F]{3}){1,2}$/i,
   message: 'must be hexadecimal color',
   messageKey: 'validation.is_hex_color',
-  transform: (value) => (value[0] === '#' ? value : `#${value}`),
+  transform: value => (value[0] === '#' ? value : `#${value}`),
 }
 
 export {
@@ -101,10 +101,10 @@ export {
 function validate(model, validators = {}) {
   let errors = {}
 
-  Object.keys(validators).map((k) => {
+  Object.keys(validators).map(k => {
     const value = (model[k] || '').toString()
 
-    validators[k].map((validator) => {
+    validators[k].map(validator => {
       // console.debug("Validating '" + value + "' against validator:", validator)
 
       if (!value && !validator.required) {

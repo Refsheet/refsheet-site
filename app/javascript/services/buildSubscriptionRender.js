@@ -2,9 +2,9 @@ import PropTypes from 'prop-types'
 import { Query } from 'react-apollo'
 import React from 'react'
 
-const defaultMapDataToProps = (data) => data
-const defaultUpdateQuery = (prev) => prev
-const defaultMapPropsToVariables = (props) => props
+const defaultMapDataToProps = data => data
+const defaultUpdateQuery = prev => prev
+const defaultMapPropsToVariables = props => props
 
 export default function buildSubscriptionRender(args) {
   const {
@@ -58,7 +58,7 @@ export default function buildSubscriptionRender(args) {
     return <Component {...wrappedProps} />
   }
 
-  const Wrapped = (props) => (
+  const Wrapped = props => (
     <Query query={query} variables={mapPropsToVariables(props)}>
       {render(props)}
     </Query>
@@ -69,7 +69,7 @@ export default function buildSubscriptionRender(args) {
   //     .isRequired,
   // }
 
-  return (Component) => {
-    return (props) => <Wrapped {...props} Component={Component} />
+  return Component => {
+    return props => <Wrapped {...props} Component={Component} />
   }
 }

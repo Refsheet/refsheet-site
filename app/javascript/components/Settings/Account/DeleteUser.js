@@ -54,7 +54,7 @@ class DeleteUser extends Component {
           password: this.state.password,
         },
       })
-      .then((response) => {
+      .then(response => {
         const { data, errors } = response
 
         if (errors && errors.length) {
@@ -64,7 +64,7 @@ class DeleteUser extends Component {
         }
       })
 
-      .catch((data) => console.error(data))
+      .catch(data => console.error(data))
 
       .finally(() => {
         this.setState({ isSubmitting: false })
@@ -191,7 +191,7 @@ const DELETE_USER_MUTATION = gql`
   }
 `
 
-const Wrapped = (props) => (
+const Wrapped = props => (
   <Mutation mutation={DELETE_USER_MUTATION}>
     {(send, { mutationData }) => (
       <DeleteUser {...props} deleteUser={send} deleteResult={mutationData} />

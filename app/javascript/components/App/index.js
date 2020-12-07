@@ -78,8 +78,8 @@ class App extends Component {
   checkForUpdates() {
     const _this = this
     fetch(host + '/health.json')
-      .then((response) => response.json())
-      .then((data) => {
+      .then(response => response.json())
+      .then(data => {
         console.log('Version is: ' + data.version)
         if (data.version !== window.Refsheet.version) {
           console.log('Update is available!')
@@ -124,7 +124,7 @@ class App extends Component {
   buildHistory() {
     const history = createBrowserHistory()
 
-    const addLocationQuery = (hist) => {
+    const addLocationQuery = hist => {
       hist.location = Object.assign(hist.location, {
         query: qs.parse(hist.location.search),
       })
@@ -172,7 +172,7 @@ class App extends Component {
 
     // Show Flashes
     if (this.props.flash) {
-      Object.keys(this.props.flash).map((level) => {
+      Object.keys(this.props.flash).map(level => {
         const flash = this.props.flash[level]
         console.log('Flash[' + level + ']: ' + flash)
         Flash.now(level, flash)

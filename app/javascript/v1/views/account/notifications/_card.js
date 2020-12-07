@@ -66,7 +66,7 @@ export default Card = createReactClass({
   _getActionables(key) {
     let out = this.props.actionables || [this.props.actionable]
     if (typeof key !== 'undefined') {
-      out = out.map((out) => out[key])
+      out = out.map(out => out[key])
     }
     return out
   },

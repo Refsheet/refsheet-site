@@ -15,7 +15,7 @@ const handlers = {
       gallery,
     }
   },
-  [Actions.CLOSE_LIGHTBOX]: (state) => ({ ...state, mediaId: null }),
+  [Actions.CLOSE_LIGHTBOX]: state => ({ ...state, mediaId: null }),
 }
 
 export default createReducer({}, handlers)

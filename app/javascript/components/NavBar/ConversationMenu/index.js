@@ -20,7 +20,7 @@ class ConversationMenu extends Component {
   renderConversation(c) {
     const { openConversation } = this.props
 
-    const click = (e) => {
+    const click = e => {
       e && e.preventDefault && e.preventDefault()
       openConversation(c.guid)
     }
@@ -53,7 +53,7 @@ class ConversationMenu extends Component {
   render() {
     const { conversations = [], loading = false, refetch } = this.props
 
-    const unreadCount = conversations.filter((c) => c.unreadCount > 0).length
+    const unreadCount = conversations.filter(c => c.unreadCount > 0).length
 
     const tryRefetch = () => {
       if (refetch) refetch()

@@ -77,7 +77,7 @@ class Thumbnail extends Component {
         .then(data => {
           Flash.info('Image deleted.')
         })
-        .catch((error) => {
+        .catch(error => {
           console.error({ error })
           Flash.error('Something went wrong.')
         })
@@ -256,7 +256,7 @@ Thumbnail.propTypes = {
   gallery: PropTypes.arrayOf(PropTypes.string),
 }
 
-const renderSubscribed = (props) => ({ data, loading, error }) => {
+const renderSubscribed = props => ({ data, loading, error }) => {
   let image = props.image
 
   if (!loading && data && data.imageProcessingComplete) {
@@ -266,7 +266,7 @@ const renderSubscribed = (props) => ({ data, loading, error }) => {
   return <Thumbnail {...props} image={image} />
 }
 
-const Subscribed = (props) => {
+const Subscribed = props => {
   if (props.image.image_processing) {
     return (
       <Subscription

@@ -26,7 +26,7 @@ class Dropzone extends Component {
   onDrop(acceptedFiles, rejectedFiles) {
     let pending = []
 
-    acceptedFiles.forEach((file) => {
+    acceptedFiles.forEach(file => {
       const filename = file.name
         .replace(/\..*?$/, '')
         .replace(/[-_]+/g, ' ')
@@ -52,7 +52,7 @@ class Dropzone extends Component {
 
     this.setState({ dropzoneActive: false })
 
-    rejectedFiles.forEach((file) => {
+    rejectedFiles.forEach(file => {
       console.warn('File invalid:', file)
 
       if (file.name) {
@@ -115,7 +115,7 @@ class Dropzone extends Component {
 
       return (
         <ReactDropzone
-          ref={(r) => (this.dropzone = r)}
+          ref={r => (this.dropzone = r)}
           noClick
           noKeyboard
           disabled={disabled}

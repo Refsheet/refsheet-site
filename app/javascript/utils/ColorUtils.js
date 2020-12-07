@@ -12,8 +12,8 @@ const ColorUtils = {
     let clean = {}
 
     Object.keys(v2ColorData)
-      .filter((k) => !/-/.test(k))
-      .map((k) => (clean[k] = v2ColorData[k]))
+      .filter(k => !/-/.test(k))
+      .map(k => (clean[k] = v2ColorData[k]))
 
     return clean
   },
@@ -26,8 +26,8 @@ const ColorUtils = {
     let v2ColorData = { ...v1ColorData }
 
     Object.keys(v1ColorData)
-      .filter((k) => /-/.test(k))
-      .map((k) => {
+      .filter(k => /-/.test(k))
+      .map(k => {
         v2ColorData[
           k.replace(
             /([a-z])-([a-z])/g,
@@ -47,8 +47,8 @@ const ColorUtils = {
     let v1ColorData = { ...v2ColorData }
 
     Object.keys(v2ColorData)
-      .filter((k) => /[a-z][A-Z]/.test(k))
-      .map((k) => {
+      .filter(k => /[a-z][A-Z]/.test(k))
+      .map(k => {
         const key = k.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
         if (!v1ColorData[key]) v1ColorData[key] = v2ColorData[k]
       })

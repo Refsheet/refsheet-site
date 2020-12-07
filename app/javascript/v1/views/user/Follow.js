@@ -32,7 +32,7 @@ const Follow = createReactClass({
       action,
       '/users/' + this.props.username + '/follow.json',
       {},
-      (user) => {
+      user => {
         if (this.props.onFollow) {
           return this.props.onFollow(user.followed, this.props.username, user)
         }

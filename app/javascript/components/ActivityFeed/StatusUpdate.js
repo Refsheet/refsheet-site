@@ -32,7 +32,7 @@ class StatusUpdate extends Component {
 
 StatusUpdate.propTypes = {}
 
-const withMutation = (props) => (
+const withMutation = props => (
   <Mutation mutation={CreateActivity}>
     {(post, data) => <StatusUpdate post={post} data={data} {...props} />}
   </Mutation>

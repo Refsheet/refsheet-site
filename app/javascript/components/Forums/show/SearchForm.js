@@ -66,14 +66,14 @@ SearchForm.propTypes = {}
 
 // TODO: Should I only use styled for theme application, and move the rest into a .sass that lives
 //       alongside this component in the JS tree? Or leave it all here?
-const withStyle = (c) => styled(c)`
+const withStyle = c => styled(c)`
   display: flex;
   height: 40px;
   margin: 4px 0;
 
   input[type='search']:not(.browser-default) {
-    background-color: ${(props) => props.theme.cardHeaderBackground};
-    border: 1px solid ${(props) => props.theme.border};
+    background-color: ${props => props.theme.cardHeaderBackground};
+    border: 1px solid ${props => props.theme.border};
     border-right: none;
     border-radius: 2px;
     border-top-right-radius: 0;
@@ -87,22 +87,22 @@ const withStyle = (c) => styled(c)`
     padding: 0 1rem;
 
     &:focus:not([readonly]) {
-      background-color: ${(props) => props.theme.cardHeaderBackground};
-      border: 1px solid ${(props) => props.theme.border};
-      border-bottom-color: ${(props) => props.theme.primary};
-      box-shadow: 0 1px 0 0 ${(props) => props.theme.primary};
+      background-color: ${props => props.theme.cardHeaderBackground};
+      border: 1px solid ${props => props.theme.border};
+      border-bottom-color: ${props => props.theme.primary};
+      box-shadow: 0 1px 0 0 ${props => props.theme.primary};
       border-right: none;
 
       & + button {
-        border-bottom-color: ${(props) => props.theme.primary};
-        box-shadow: 0 1px 0 0 ${(props) => props.theme.primary};
+        border-bottom-color: ${props => props.theme.primary};
+        box-shadow: 0 1px 0 0 ${props => props.theme.primary};
       }
     }
   }
 
   button {
-    background-color: ${(props) => props.theme.cardHeaderBackground};
-    border: 1px solid ${(props) => props.theme.border};
+    background-color: ${props => props.theme.cardHeaderBackground};
+    border: 1px solid ${props => props.theme.border};
     border-left: none;
     border-radius: 2px;
     border-bottom-left-radius: 0;
@@ -117,7 +117,7 @@ const withStyle = (c) => styled(c)`
     transition: box-shadow 0.3s, border 0.3s;
 
     &:hover {
-      background-color: ${(props) => props.theme.secondary};
+      background-color: ${props => props.theme.secondary};
     }
   }
 `

@@ -53,7 +53,7 @@ class DropdownLink extends Component {
     })
 
     return (
-      <li ref={(r) => (this.ref = r)}>
+      <li ref={r => (this.ref = r)}>
         <a
           className={classNames}
           onClick={this.handleMenuToggle}

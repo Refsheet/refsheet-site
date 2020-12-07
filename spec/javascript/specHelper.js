@@ -8,7 +8,7 @@ Enzyme.configure({ adapter: new Adapter() })
 Chai.use(chaiEnzyme())
 
 // function to require all modules for a given context
-let requireAll = (requireContext) => {
+let requireAll = requireContext => {
   requireContext.keys().forEach(requireContext)
 }
 

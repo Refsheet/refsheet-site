@@ -93,7 +93,7 @@ export default UserCharacterGroupLink = createReactClass({
     return Model.post(
       this.props.group.path + '/characters',
       { id: characterId },
-      (data) => {
+      data => {
         return this.props.onChange(data, characterId)
       }
     )

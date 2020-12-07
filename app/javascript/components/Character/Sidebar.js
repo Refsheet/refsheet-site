@@ -52,10 +52,10 @@ class Sidebar extends Component {
 
   renderSections() {
     const sections = this.props.profileSections
-      .filter((s) => s.title)
+      .filter(s => s.title)
       .sort((a, b) => (a.row_order || 0) - (b.row_order || 0))
 
-    return sections.map((s) => (
+    return sections.map(s => (
       <li key={s.id}>
         <TocLink to={`#s:${s.id}`}>{s.title}</TocLink>
       </li>
@@ -172,7 +172,7 @@ Sidebar.propTypes = {
   canEdit: PropTypes.bool,
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   currentUser: state.currentUser,
 })
 

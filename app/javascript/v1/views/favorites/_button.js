@@ -34,7 +34,7 @@ const FavoriteButton = createReactClass({
         return false
       }
       return (
-        props.favorites.filter((fav) => {
+        props.favorites.filter(fav => {
           return fav.user_id === this.props.currentUser.username
         }).length > 0
       )
@@ -55,7 +55,7 @@ const FavoriteButton = createReactClass({
     const path = `/media/${this.props.mediaId}`
 
     if (!this.state.isFavorite) {
-      $.post(path + '/favorites', (data) => {
+      $.post(path + '/favorites', data => {
         this.setState({ isFavorite: true })
         if (this.props.onChange) {
           this.props.onChange(true)
@@ -68,7 +68,7 @@ const FavoriteButton = createReactClass({
       $.ajax({
         url: path + '/favorite',
         type: 'DELETE',
-        success: (data) => {
+        success: data => {
           this.setState({ isFavorite: false })
           if (this.props.onChange) {
             this.props.onChange(false)

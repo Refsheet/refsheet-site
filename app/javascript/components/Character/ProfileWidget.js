@@ -46,7 +46,7 @@ class ProfileWidget extends Component {
       .then(({ data, errors }) => {
         if (errors) {
           console.error(errors)
-          errors.map((e) =>
+          errors.map(e =>
             M.toast({ html: e.message, classes: 'red', displayLength: 3000 })
           )
         } else {
@@ -54,7 +54,7 @@ class ProfileWidget extends Component {
           this.props.onDelete && this.props.onDelete(widgetData.id)
         }
       })
-      .catch((error) => console.error(error))
+      .catch(error => console.error(error))
   }
 
   handleMove(direction) {
@@ -75,7 +75,7 @@ class ProfileWidget extends Component {
       .then(({ data, errors }) => {
         if (errors) {
           console.error(errors)
-          errors.map((e) =>
+          errors.map(e =>
             M.toast({ html: e.message, classes: 'red', displayLength: 3000 })
           )
         } else {
@@ -83,7 +83,7 @@ class ProfileWidget extends Component {
           this.props.onChange && this.props.onChange(widgetData)
         }
       })
-      .catch((error) => console.error(error))
+      .catch(error => console.error(error))
   }
 
   handleSave(title) {
@@ -100,7 +100,7 @@ class ProfileWidget extends Component {
       .then(({ data, errors }) => {
         if (errors) {
           console.error(errors)
-          errors.map((e) =>
+          errors.map(e =>
             M.toast({ html: e.message, classes: 'red', displayLength: 3000 })
           )
         } else {
@@ -111,7 +111,7 @@ class ProfileWidget extends Component {
           this.handleEditStop()
         }
       })
-      .catch((error) => console.error(error))
+      .catch(error => console.error(error))
   }
 
   handleWidgetChange(widgetData) {
@@ -181,15 +181,15 @@ ProfileWidget.propTypes = {
   last: PropTypes.bool,
 }
 
-const Mutated = (props) => (
+const Mutated = props => (
   <Mutation mutation={updateProfileWidget}>
-    {(update) => <ProfileWidget {...props} update={update} />}
+    {update => <ProfileWidget {...props} update={update} />}
   </Mutation>
 )
 
-const DeleteMutation = (props) => (
+const DeleteMutation = props => (
   <Mutation mutation={deleteProfileWidget}>
-    {(deleteWidget) => <Mutated {...props} deleteWidget={deleteWidget} />}
+    {deleteWidget => <Mutated {...props} deleteWidget={deleteWidget} />}
   </Mutation>
 )
 

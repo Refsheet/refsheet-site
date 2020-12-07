@@ -50,7 +50,7 @@ LegacyForumReply.propTypes = {
   onPost: PropTypes.func,
 }
 
-const withMutation = (props) => (
+const withMutation = props => (
   <Mutation mutation={postReply}>
     {(post, data) => <LegacyForumReply {...props} post={post} data={data} />}
   </Mutation>

@@ -219,6 +219,6 @@ const cHome = createReactClass({
   },
 })
 
-const mapStateToProps = (state) => ({ currentUser: state.session.currentUser })
+const mapStateToProps = state => ({ currentUser: state.session.currentUser })
 const Home = connect(mapStateToProps)(cHome)
 export default Home

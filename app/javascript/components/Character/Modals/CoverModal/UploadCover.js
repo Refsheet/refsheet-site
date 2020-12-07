@@ -41,7 +41,7 @@ class UploadCover extends Component {
     return (
       <form
         className={'file-upload-input'}
-        onSubmit={(e) => this.handleSubmit(e, handleUpload)}
+        onSubmit={e => this.handleSubmit(e, handleUpload)}
       >
         {!this.state.loading && uploads.length === 0 && (
           <Row>
@@ -58,7 +58,7 @@ class UploadCover extends Component {
 
         {uploads.length > 0 && (
           <Row className={'margin-top--large'}>
-            {uploads.map((upload) => (
+            {uploads.map(upload => (
               <Col s={12} key={upload.id}>
                 <p>
                   <Muted className={'right'}>{upload.state}</Muted>

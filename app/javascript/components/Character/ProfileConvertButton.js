@@ -3,12 +3,12 @@ import { Mutation } from 'react-apollo'
 import { gql } from 'apollo-client-preset'
 
 const Button = ({ id, convert, onConvert, data }) => {
-  const handleConvert = (e) => {
+  const handleConvert = e => {
     e.preventDefault()
     convert({
       variables: { id },
     })
-      .then((data) => {
+      .then(data => {
         console.log(data)
         onConvert(data)
       })
@@ -47,7 +47,7 @@ const CONVERT_PROFILE_MUTATION = gql`
   }
 `
 
-const ProfileConvertButton = (props) => {
+const ProfileConvertButton = props => {
   return (
     <Mutation mutation={CONVERT_PROFILE_MUTATION}>
       {(convert, data) => <Button {...props} convert={convert} data={data} />}

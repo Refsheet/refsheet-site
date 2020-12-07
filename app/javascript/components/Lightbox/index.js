@@ -211,7 +211,7 @@ class Lightbox extends Component {
   }
 }
 
-const Wrapped = (props) => {
+const Wrapped = props => {
   const { mediaId } = props
 
   if (mediaId === null) {

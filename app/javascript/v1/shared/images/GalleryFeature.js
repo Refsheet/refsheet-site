@@ -54,17 +54,17 @@ export default GalleryFeature = createReactClass({
     console.debug('[GalleryFeature] Initializing featured gallery...')
 
     return $(this.refs.galleryFeature).imagesLoaded(() => {
-      const select = (selector) => {
+      const select = selector => {
         return $(this.refs.galleryFeature).find(selector)
       }
-      const width = (selector) => {
+      const width = selector => {
         return select(selector).width()
       }
-      const height = (selector) => {
+      const height = selector => {
         return select(selector).height()
       }
 
-      const ratio = (selector) => {
+      const ratio = selector => {
         let end
         if (select(selector).data('aspect-ratio')) {
           end = select(selector).data('aspect-ratio')

@@ -66,7 +66,7 @@ const User = createReactClass({
 
     const slugs =
       this.state.user &&
-      this.state.user.character_groups.map((g) => g.slug.toLowerCase())
+      this.state.user.character_groups.map(g => g.slug.toLowerCase())
 
     if (slugs.indexOf(activeGroupId) !== -1) {
       this.setState({ activeGroupId }, cb)
@@ -120,7 +120,7 @@ const User = createReactClass({
             this.state.user.characters,
             character,
             'slug',
-            (c) => {
+            c => {
               const i = c.group_ids.indexOf(group.slug)
               if (i >= 0) {
                 c.group_ids.splice(i, 1)

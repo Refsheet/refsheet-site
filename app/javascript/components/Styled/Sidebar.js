@@ -14,20 +14,20 @@ const SidebarLink = styled(_SidebarLink)`
   vertical-align: middle;
   padding: 0;
   display: block;
-  color: ${(props) => props.theme.textMedium} !important;
+  color: ${props => props.theme.textMedium} !important;
 
   i.material-icons {
     height: 2.5rem;
     line-height: 2.5rem;
-    color: ${(props) => props.theme.textLight} !important;
+    color: ${props => props.theme.textLight} !important;
   }
 
   &:hover {
-    color: ${(props) => props.theme.text} !important;
+    color: ${props => props.theme.text} !important;
   }
 
   &.active {
-    color: ${(props) => props.theme.accent1} !important;
+    color: ${props => props.theme.accent1} !important;
   }
 `
 

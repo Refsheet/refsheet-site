@@ -22,7 +22,7 @@ export default Character = createReactClass({
   },
 
   render() {
-    const characters = this.props.characters.map((character) => {
+    const characters = this.props.characters.map(character => {
       const identity = {
         username: this.props.username,
         name: character.name,

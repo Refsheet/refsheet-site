@@ -70,7 +70,7 @@ class Comments extends Component {
       )
     } else {
       const pending = this.state.pendingComments.filter(
-        (c) => comments.findIndex((x) => x.id === c.id) === -1
+        c => comments.findIndex(x => x.id === c.id) === -1
       )
 
       const sorted = [...comments, ...pending].sort(
@@ -111,7 +111,7 @@ Comments.propTypes = {
   mediaId: PropTypes.string.isRequired,
 }
 
-const mapDataToProps = (data) => ({
+const mapDataToProps = data => ({
   comments: data.getComments && data.getComments.comments,
   page: data.getComments && data.getComments.currentPage,
   totalPages: data.getComments && data.getComments.totalPages,

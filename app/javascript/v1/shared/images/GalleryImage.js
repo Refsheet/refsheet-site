@@ -48,7 +48,7 @@ const gallery_image = createReactClass({
       action,
       '/media/' + this.state.image.id + '/favorites',
       {},
-      (data) => {
+      data => {
         return this._handleFavorite(!!data.media_id)
       }
     )
@@ -233,7 +233,7 @@ const gallery_image = createReactClass({
   },
 })
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   currentUser: state.session.currentUser,
   session: state.session,
 })

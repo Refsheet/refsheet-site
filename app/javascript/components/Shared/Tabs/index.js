@@ -30,8 +30,8 @@ class Tabs extends Component {
 
     return (
       <React.Fragment>
-        <ul className={'tabs'} ref={(r) => (this.tabRef = r)}>
-          {React.Children.map(children, (child) => {
+        <ul className={'tabs'} ref={r => (this.tabRef = r)}>
+          {React.Children.map(children, child => {
             const { id, title } = child.props
             return (
               <li className={'tab'}>

@@ -12,7 +12,7 @@ import gql from 'graphql-tag'
 import ArrayUtils from '../../utils/ArrayUtils'
 
 function convertData(images) {
-  return images.map((image) => ({
+  return images.map(image => ({
     ...image,
     url: {
       small: image.small,
@@ -31,11 +31,11 @@ const Gallery = function ({
 }) {
   let imageData = images
 
-  const [imageOrder, updateImageOrder] = useState(images.map((i) => i.id))
+  const [imageOrder, updateImageOrder] = useState(images.map(i => i.id))
   const [pendingChanges, updatePendingChanges] = useState([])
 
   useEffect(() => {
-    updateImageOrder(images.map((i) => i.id))
+    updateImageOrder(images.map(i => i.id))
   }, [images])
 
   if (v1Data) {
@@ -64,9 +64,9 @@ const Gallery = function ({
           pendingChanges.slice(pendingChanges.indexOf(sourceImageId), 1)
         )
       })
-      .catch((e) => {
+      .catch(e => {
         console.error(e)
-        updateImageOrder(images.map((i) => i.id))
+        updateImageOrder(images.map(i => i.id))
       })
   }
 
@@ -99,7 +99,7 @@ const Gallery = function ({
       className="profile-scrollspy"
       tabs={galleryTabs}
       buttons={galleryActions}
-      onTabClick={(id) => console.log(id)}
+      onTabClick={id => console.log(id)}
     >
       <Measure bounds>
         {renderGallery(imageData, onImageSort, imageOrder, pendingChanges)}

@@ -29,18 +29,14 @@ export default Index = createReactClass({
 
   _poll() {
     return (this.poller = setTimeout(() => {
-      return Model.poll(
-        `/media/${this.props.mediaId}/favorites`,
-        {},
-        (data) => {
-          data.map((favorite) => {
-            if (this.props.onFavoriteChange) {
-              return this.props.onFavoriteChange(favorite)
-            }
-          })
-          return this._poll()
-        }
-      )
+      return Model.poll(`/media/${this.props.mediaId}/favorites`, {}, data => {
+        data.map(favorite => {
+          if (this.props.onFavoriteChange) {
+            return this.props.onFavoriteChange(favorite)
+          }
+        })
+        return this._poll()
+      })
     }, 15000))
   },
 
@@ -61,7 +57,7 @@ export default Index = createReactClass({
   },
 
   render() {
-    const favorites = this.props.favorites.map((favorite) => (
+    const favorites = this.props.favorites.map(favorite => (
       <Column key={favorite.user_id} s={3}>
         <img
           src={favorite.user_avatar_url}

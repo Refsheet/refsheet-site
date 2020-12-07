@@ -43,7 +43,7 @@ export default DropzoneContainer = createReactClass({
         },
         paramName: this.props.paramName || 'image[image]',
 
-        addedfile: (file) => {
+        addedfile: file => {
           return this.setState({ uploading: true })
         },
 

@@ -56,7 +56,7 @@ export default AttributeTable = createReactClass({
 
   render() {
     let newForm
-    const children = React.Children.map(this.props.children, (child) => {
+    const children = React.Children.map(this.props.children, child => {
       if (this.props.hideEmpty && !child.props.value) {
         return
       }

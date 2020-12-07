@@ -22,7 +22,7 @@ class TabbedContent extends Component {
       <div className="tab-row-container">
         <div className="tab-row pushpin">
           <div className="container">
-            <ul className={'tabs'} ref={(r) => (this.tabs = r)}>
+            <ul className={'tabs'} ref={r => (this.tabs = r)}>
               <li className={true ? 'active tab' : 'tab'}>
                 <a className={true ? 'active' : ''} href="#commission-info">
                   Profile

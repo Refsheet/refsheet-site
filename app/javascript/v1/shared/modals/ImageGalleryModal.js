@@ -23,7 +23,7 @@ export default ImageGalleryModal = createReactClass({
   render() {
     let images
     if (this.props.hideNsfw && this.props.images) {
-      images = this.props.images.filter((i) => !i.nsfw)
+      images = this.props.images.filter(i => !i.nsfw)
     } else {
       images = this.props.images
     }

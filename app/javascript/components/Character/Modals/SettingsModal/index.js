@@ -20,7 +20,7 @@ class SettingsModal extends Component {
   }
 
   goTo(view) {
-    return (e) => {
+    return e => {
       if (e) e.preventDefault()
       this.setState({ view })
     }

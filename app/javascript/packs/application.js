@@ -38,7 +38,7 @@ import App from '../components/App'
 import { AppContainer } from 'react-hot-loader'
 
 function init(id, props) {
-  const render = (Component) => {
+  const render = Component => {
     ReactDOM.render(
       <AppContainer>
         <Component {...props} />

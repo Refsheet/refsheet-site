@@ -90,7 +90,7 @@ class ColorModal extends Component {
     let theme = { ...this.props.colorSchemeOverride }
     let colors = { ...theme.colors }
 
-    Object.keys(changes).map((key) => {
+    Object.keys(changes).map(key => {
       colors[key] = changes[key]
       theme.colors = this.extrapolateColors(key, colors)
     })
@@ -144,7 +144,7 @@ class ColorModal extends Component {
           id,
           colorData,
         },
-      }).then((data) => {
+      }).then(data => {
         Flash.info(t('flash.color_scheme_saved', 'Color scheme saved!'))
       })
     } else {
@@ -154,7 +154,7 @@ class ColorModal extends Component {
           characterId,
           colorData,
         },
-      }).then((data) => {
+      }).then(data => {
         Flash.info(t('flash.color_scheme_created', 'Color scheme created!'))
       })
     }

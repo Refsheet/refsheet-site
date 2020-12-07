@@ -2,7 +2,7 @@ import { createReducer } from 'reducers'
 import * as Actions from 'actions'
 import SessionService from '../services/SessionService'
 
-const identityFromUser = (user) => {
+const identityFromUser = user => {
   if (!user) return null
   return {
     name: user.name,

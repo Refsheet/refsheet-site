@@ -17,7 +17,7 @@ let Modal
 export default Modal = createReactClass({
   componentDidMount() {
     const $modal = Materialize.Modal.init(this.refs.modal, {
-      onCloseEnd: (args) => {
+      onCloseEnd: args => {
         if (this.props.sideSheet) {
           document.body.classList.remove(
             'side-sheet-open',
@@ -116,7 +116,7 @@ export default Modal = createReactClass({
       containerClasses.push('container')
     }
 
-    const actions = (this.props.actions || []).map((action) => (
+    const actions = (this.props.actions || []).map(action => (
       <Button
         className={
           'modal-action waves-effect waves-light btn ' + action.className

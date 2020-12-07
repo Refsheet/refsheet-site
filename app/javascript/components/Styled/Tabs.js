@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 const Tabs = styled(MaterialTabs)`
   && > li.tab > a {
-    color: ${(props) => props.theme.accent1};
+    color: ${props => props.theme.accent1};
 
     &:focus,
     &.active:focus {
@@ -12,16 +12,16 @@ const Tabs = styled(MaterialTabs)`
 
     &.active,
     &.active:hover {
-      color: ${(props) => props.theme.primary};
+      color: ${props => props.theme.primary};
     }
 
     &:not(.active):hover {
-      color: ${(props) => props.theme.accent2};
+      color: ${props => props.theme.accent2};
     }
   }
 
   & > li.indicator {
-    background-color: ${(props) => props.theme.primary};
+    background-color: ${props => props.theme.primary};
   }
 `
 

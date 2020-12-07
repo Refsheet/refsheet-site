@@ -12,7 +12,7 @@ import PropTypes from 'prop-types'
  */
 let SwatchRule
 export default SwatchRule = function (props) {
-  const swatches = props.swatches.map((swatch) => (
+  const swatches = props.swatches.map(swatch => (
     <div
       className="swatch"
       key={swatch.id}

@@ -43,7 +43,7 @@ const Index = createReactClass({
 
   _poll() {
     return (this.poller = setTimeout(() => {
-      return Model.poll(`/media/${this.props.mediaId}/comments`, {}, (data) => {
+      return Model.poll(`/media/${this.props.mediaId}/comments`, {}, data => {
         if (this.props.onCommentsChange) {
           this.props.onCommentsChange(data)
         }
