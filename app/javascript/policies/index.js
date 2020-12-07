@@ -27,8 +27,10 @@ const policies = {
  */
 function authorize(
   object,
+  user = null,
   action = 'update',
-  { user = null, policy = null, args = [] }
+  policy = null,
+  args = []
 ) {
   let activePolicy
 

@@ -1,7 +1,6 @@
 /* global describe,def,it */
 
-import { expect } from 'chai'
-import ArrayUtils from 'utils/ArrayUtils'
+import ArrayUtils from 'utils/ArrayUtils';
 
 describe('ArrayUtils', () => {
   def('list', () => [
@@ -38,7 +37,7 @@ describe('ArrayUtils', () => {
 
   it('returns same list on missing', () => {
     const newList = ArrayUtils.move($list, 'nacho', 'frenchfry')
-    expect(newList).to.eql($list)
+    expect(newList).toEqual($list)
   })
 
   it('places before, moving up', () => {
@@ -48,9 +47,9 @@ describe('ArrayUtils', () => {
       '8154c2547189b463',
       true
     )
-    expect(newList[0]).to.eql('9b4cc73602c112ec')
-    expect(newList[1]).to.eql('8154c2547189b463')
-    expect(newList[3]).to.eql('3e5d46af962d83ed')
+    expect(newList[0]).toBe('9b4cc73602c112ec')
+    expect(newList[1]).toBe('8154c2547189b463')
+    expect(newList[3]).toBe('3e5d46af962d83ed')
   })
 
   it('places after, moving up', () => {
@@ -60,9 +59,9 @@ describe('ArrayUtils', () => {
       '8154c2547189b463',
       false
     )
-    expect(newList[0]).to.eql('8154c2547189b463')
-    expect(newList[1]).to.eql('9b4cc73602c112ec')
-    expect(newList[3]).to.eql('3e5d46af962d83ed')
+    expect(newList[0]).toBe('8154c2547189b463')
+    expect(newList[1]).toBe('9b4cc73602c112ec')
+    expect(newList[3]).toBe('3e5d46af962d83ed')
   })
 
   it('places before, moving down', () => {
@@ -72,9 +71,9 @@ describe('ArrayUtils', () => {
       '9b4cc73602c112ec',
       true
     )
-    expect(newList[0]).to.eql('3737e1da6eb5b383')
-    expect(newList[2]).to.eql('8154c2547189b463')
-    expect(newList[3]).to.eql('9b4cc73602c112ec')
+    expect(newList[0]).toBe('3737e1da6eb5b383')
+    expect(newList[2]).toBe('8154c2547189b463')
+    expect(newList[3]).toBe('9b4cc73602c112ec')
   })
 
   it('places after, moving down', () => {
@@ -84,8 +83,8 @@ describe('ArrayUtils', () => {
       '9b4cc73602c112ec',
       false
     )
-    expect(newList[0]).to.eql('3737e1da6eb5b383')
-    expect(newList[2]).to.eql('9b4cc73602c112ec')
-    expect(newList[3]).to.eql('8154c2547189b463')
+    expect(newList[0]).toBe('3737e1da6eb5b383')
+    expect(newList[2]).toBe('9b4cc73602c112ec')
+    expect(newList[3]).toBe('8154c2547189b463')
   })
 })

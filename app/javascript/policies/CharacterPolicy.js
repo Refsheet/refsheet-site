@@ -1,6 +1,10 @@
 import Policy from './Policy'
 
 class CharacterPolicy extends Policy {
+  show() {
+    return true
+  }
+
   create() {
     return false
   }

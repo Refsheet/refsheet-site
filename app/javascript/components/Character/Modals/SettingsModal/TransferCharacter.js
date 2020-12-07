@@ -38,7 +38,7 @@ class TransferCharacter extends Component {
       onSave = _c => {},
     } = this.props
 
-    if (!authorize(character, 'transfer', { user: currentUser })) {
+    if (!authorize(character, currentUser, 'transfer')) {
       console.warn('Not authorized!')
       return false
     }
