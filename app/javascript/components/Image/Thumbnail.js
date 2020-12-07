@@ -74,7 +74,7 @@ class Thumbnail extends Component {
         },
         update: CacheUtils.deleteMedia,
       })
-        .then((data) => {
+        .then(data => {
           Flash.info('Image deleted.')
         })
         .catch((error) => {
@@ -223,6 +223,7 @@ class Thumbnail extends Component {
             ...style,
             backgroundColor: image.background_color || 'rgb(0,0,0)',
           }}
+          style={style}
           className={c('gallery-image image-thumbnail z-depth-1', className)}
         >
           {children}
