@@ -65,6 +65,9 @@ steps:
     args: ['bin/entrypoint.ci.sh', 'bundle', 'exec', 'rspec', '--pattern', '**/{features,requests,integration}/**/*_spec.rb']
     secretEnv:
       - CODECOV_TOKEN
+    env:
+      - NODE_ENV=development
+      - RAILS_ENV=test
     waitFor:
       - RSpec Unit
       - Migrate
@@ -91,6 +94,13 @@ steps:
     waitFor:
       - Build Container
 
+  - name: 'gcr.io/$PROJECT_ID/refsheet-site-ci:$REVISION_ID'
+    id: Jest
+    dir: /app
+    args: [ 'bin/entrypoint.ci.sh', 'yarn', 'run', 'test' ]
+    waitFor:
+      - Build Container
+
   #== TEARDOWN
 
   - name: 'gcr.io/cloud-builders/docker'
@@ -104,7 +114,6 @@ options:
   env:
     - RAILS_ENV=test
     - RACK_ENV=test
-    - NODE_ENV=test
     - DB_HOST=postgres
     - DB_USERNAME=postgres
     - DB_PASSWORD=fishsticks
