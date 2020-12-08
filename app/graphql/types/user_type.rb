@@ -1,4 +1,6 @@
 Types::UserType = GraphQL::ObjectType.define do
+  extend Helpers::PrivateFields
+
   name "User"
   interfaces [Interfaces::ApplicationRecordInterface]
 
@@ -11,6 +13,7 @@ Types::UserType = GraphQL::ObjectType.define do
   field :is_patron, types.Boolean
   field :is_moderator, types.Boolean
   field :is_supporter, types.Boolean
+
 
   field :avatar_url, types.String do
     argument :style, types.String
@@ -58,4 +61,8 @@ Types::UserType = GraphQL::ObjectType.define do
 
   # has_many :character_groups,
   #          serializer: CharacterGroupSerializer
+
+  private_field :email, types.String
+  private_field :unconfirmed_email, types.String
+  private_field :support_pledge_amount, types.Int
 end

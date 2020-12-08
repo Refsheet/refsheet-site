@@ -16,11 +16,11 @@ class Admin::FeedbacksController < AdminController
 
   def update
     if params[:done]
-      @feedback.update_attributes done: true
+      @feedback.update done: true
       return redirect_to admin_feedbacks_path done: false
     end
 
-    @feedback.update_attributes feedback_params
+    @feedback.update feedback_params
     respond_with :admin, @feedback
   end
 

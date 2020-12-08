@@ -209,22 +209,22 @@ class User < ApplicationRecord
 
   #== Lookups
 
-  def self.lookup(username)
+  def self.lookup(username, allow_email = true)
     return nil if username.nil?
     return lookup_list(username) if username.is_a? Array
-    column = username =~ /@/ ? 'email' : 'username'
+    column = username =~ /@/ && allow_email ? 'email' : 'username'
     find_by("LOWER(users.#{column}) = ?", username&.downcase)
   end
 
-  def self.lookup!(username)
+  def self.lookup!(username, allow_email = true)
     return nil if username.nil?
-    column = username =~ /@/ ? 'email' : 'username'
+    column = username =~ /@/ && allow_email ? 'email' : 'username'
     find_by!("LOWER(users.#{column}) = ?", username&.downcase)
   end
 
-  def self.lookup_list(usernames)
+  def self.lookup_list(usernames, allow_email = true)
     usernames = usernames.collect { |u| u.to_s.downcase }
-    column = usernames.any? { |u| u =~ /@/ } ? 'email' : 'username'
+    column = allow_email && usernames.any? { |u| u =~ /@/ } ? 'email' : 'username'
     where("LOWER(users.#{column}) IN (?)", usernames)
   end
 

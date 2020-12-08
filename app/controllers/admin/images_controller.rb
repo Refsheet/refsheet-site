@@ -14,7 +14,7 @@ class Admin::ImagesController < AdminController
   def edit; end
 
   def update
-    if @image.update_attributes(image_params)
+    if @image.update(image_params)
       Changelog.create changelog_params
     end
 

@@ -9,10 +9,12 @@ import PostMeta from '../shared/PostMeta'
 import RichText from '../../Shared/RichText'
 import LinkUtils from 'utils/LinkUtils'
 import c from 'classnames'
-import { Icon, Dropdown } from 'react-materialize'
+import { Divider, Icon, Dropdown } from 'react-materialize'
 import Muted, { MutedAnchor } from '../../Styled/Muted'
 import { div as Card } from '../../Styled/Card'
 import DiscussionReplyForm from './DiscussionReplyForm'
+import { openReportModal } from '../../../actions'
+import { connect } from 'react-redux'
 
 class DiscussionReply extends Component {
   constructor(props) {
@@ -26,10 +28,12 @@ class DiscussionReply extends Component {
   handleEditStart(e) {
     e.preventDefault()
     this.setState({ editing: true })
+    this.props.onEditStart && this.props.onEditStart()
   }
 
   handleEditStop() {
     this.setState({ editing: false })
+    this.props.onEditStop && this.props.onEditStop()
   }
 
   handleSubmit(post) {
@@ -39,6 +43,7 @@ class DiscussionReply extends Component {
 
   render() {
     const { post, discussionId, forumId } = this.props
+    const { can_edit, can_destroy } = post
 
     if (this.state.editing) {
       return (
@@ -96,17 +101,38 @@ class DiscussionReply extends Component {
               )}
 
               <Dropdown
+                id={`DiscussionReply_${post.id}`}
+                options={{
+                  alignment: 'right',
+                  constrainWidth: false,
+                }}
                 trigger={
                   <MutedAnchor href={'#'}>
                     <Icon className={'right smaller'}>more_vert</Icon>
                   </MutedAnchor>
                 }
               >
-                <a href={'#'} onClick={this.handleEditStart.bind(this)}>
-                  Edit
+                {can_edit && (
+                  <a
+                    key="edit"
+                    href={'#'}
+                    onClick={this.handleEditStart.bind(this)}
+                  >
+                    <Icon left>edit</Icon>
+                    <span>Edit</span>
+                  </a>
+                )}
+                {can_destroy && (
+                  <a key="delete" href={'#'}>
+                    <Icon left>delete</Icon>
+                    <span>Delete</span>
+                  </a>
+                )}
+                <Divider />
+                <a key="report" href={'#'}>
+                  <Icon left>flag</Icon>
+                  <span>Report</span>
                 </a>
-                <a href={'#'}>Delete</a>
-                <a href={'#'}>Report</a>
               </Dropdown>
             </div>
 
@@ -125,7 +151,9 @@ class DiscussionReply extends Component {
 DiscussionReply.propTypes = {
   post: PropTypes.object.isRequired,
   discussion: PropTypes.object,
+  onEditStart: PropTypes.func,
+  onEditStop: PropTypes.func,
+  refetch: PropTypes.func,
 }
 
-export default compose()(DiscussionReply)
-// TODO: Add HOC bindings here
+export default compose(connect(undefined, { openReportModal }))(DiscussionReply)

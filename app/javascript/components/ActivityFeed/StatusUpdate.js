@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import CommentForm from '../Shared/CommentForm'
 import CreateActivity from './createActivity.graphql'
 import { Mutation } from 'react-apollo'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 
 class StatusUpdate extends Component {
   handleSubmit({ comment, identity }) {
@@ -38,4 +38,4 @@ const withMutation = props => (
   </Mutation>
 )
 
-export default withNamespaces('common')(withMutation)
+export default withTranslation('common')(withMutation)

@@ -11,7 +11,7 @@ import compose, { withCurrentUser } from '../../../utils/compose'
 import { withRouter } from 'react-router'
 import Button from '../../../components/Styled/Button'
 import { openNewCharacterModal } from '../../../actions'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
@@ -94,6 +94,6 @@ class Layout extends React.Component {
 export default compose(
   withCurrentUser(),
   withRouter,
-  withNamespaces('common'),
+  withTranslation('common'),
   connect(undefined, { openNewCharacterModal })
 )(Layout)

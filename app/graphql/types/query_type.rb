@@ -9,6 +9,12 @@ Types::QueryType = GraphQL::ObjectType.define do
   # Add root-level fields here.
   # They will be entry points for queries on your schema.
 
+  field :getVersion, Types::RefsheetMetaType do
+    resolve -> (_obj, _args, _ctx) {{
+        version: Refsheet::VERSION
+    }}
+  end
+
   field :findUser, Types::UserType do
     argument :username, !types.String
     resolve -> (_obj, args, _cts) { User.lookup! args[:username] }
@@ -130,6 +136,10 @@ Types::QueryType = GraphQL::ObjectType.define do
   #== Artists
 
   field :getArtist, field: Mutations::ArtistMutations::Show
+
+  #== Users
+  field :getUsers, field: Mutations::UserMutations::Index
+  field :getUser, field: Mutations::UserMutations::Show
 
   #== Media
 

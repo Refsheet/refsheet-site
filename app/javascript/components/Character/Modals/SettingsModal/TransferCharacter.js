@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import compose from 'utils/compose'
-import { Trans, withNamespaces } from 'react-i18next'
+import { Trans, withTranslation } from 'react-i18next'
 import { Row, Col, TextInput } from 'react-materialize'
 import transferCharacter from './transferCharacter.graphql'
 import { withCurrentUser, withMutations } from '../../../../utils/compose'
@@ -38,7 +38,7 @@ class TransferCharacter extends Component {
       onSave = _c => {},
     } = this.props
 
-    if (!authorize(character, 'transfer', { user: currentUser })) {
+    if (!authorize(character, currentUser, 'transfer')) {
       console.warn('Not authorized!')
       return false
     }
@@ -142,7 +142,7 @@ TransferCharacter.propTypes = {
 }
 
 export default compose(
-  withNamespaces('common'),
+  withTranslation('common'),
   withMutations({ transferCharacter }),
   withCurrentUser()
 )(TransferCharacter)

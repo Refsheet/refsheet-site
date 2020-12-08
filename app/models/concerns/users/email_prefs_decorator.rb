@@ -27,16 +27,16 @@ module Users::EmailPrefsDecorator
       blacklist.push key
     end
 
-    email_prefs.update_attributes! internal_blacklist: blacklist
+    email_prefs.update! internal_blacklist: blacklist
   end
 
   def block_all_email!
-    email_prefs.update_attributes! opt_out_all: true
+    email_prefs.update! opt_out_all: true
     block_email! :all
   end
 
   def allow_all_email!
-    email_prefs.update_attributes! opt_out_all: false
+    email_prefs.update! opt_out_all: false
     allow_email! :all
   end
 

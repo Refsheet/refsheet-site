@@ -6,7 +6,9 @@
       "http://ref.st",
       "https://ref.st",
       "http://kube.refsheet.net",
-      "https://kube.refsheet.net"
+      "https://kube.refsheet.net",
+      "https://staging.refsheet.net",
+      "http://staging.refsheet.net"
     ],
     "responseHeader": ["Content-Type", "Content-Md5"],
     "method": ["GET", "HEAD", "DELETE", "OPTIONS", "PUT"],

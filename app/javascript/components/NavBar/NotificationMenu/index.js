@@ -9,7 +9,7 @@ import markAllNotificationsAsRead from './markAllNotificationsAsRead.graphql'
 import readNotification from './readNotification.graphql'
 import WindowAlert from '../../../utils/WindowAlert'
 import compose, { withMutations } from '../../../utils/compose'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 
 class NotificationMenu extends Component {
   constructor(props) {
@@ -120,6 +120,6 @@ export { NotificationMenu }
 
 export default compose(
   subscription,
-  withNamespaces('common'),
+  withTranslation('common'),
   withMutations({ markAllAsRead: markAllNotificationsAsRead, readNotification })
 )(NotificationMenu)

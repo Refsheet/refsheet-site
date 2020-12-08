@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import compose from 'utils/compose'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import Stats, { Stat } from '../../Shared/Stats'
 import { Icon, Dropdown } from 'react-materialize'
 import PostTags, { DropdownTag, Tag } from '../shared/PostTags'
@@ -95,4 +95,4 @@ class About extends Component {
 
 About.propTypes = {}
 
-export default compose(withNamespaces('common'))(About)
+export default compose(withTranslation('common'))(About)

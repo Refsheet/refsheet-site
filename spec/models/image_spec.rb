@@ -128,7 +128,7 @@ describe Image, type: :model do
     character = create :character
     image = create :image, character: character
 
-    character.update_attributes featured_image: image
+    character.update featured_image: image
     expect(character.reload.featured_image_id).to eq image.id
     image.destroy
 
@@ -215,21 +215,21 @@ describe Image, type: :model do
       image = create :image, image: asset('fox.jpg')
       expect(image).to receive(:contemplate_reprocessing).and_call_original
       expect(image.image).to_not receive(:reprocess!)
-      image.update_attributes(caption: 'bleh')
+      image.update(caption: 'bleh')
     end
 
     it 'triggers reprocess on gravity change', paperclip: true do
       image = create :image, image: asset('fox.jpg')
+      image.image_processing = false
       expect(image).to receive(:contemplate_reprocessing).and_call_original
-      expect(image.image).to receive(:reprocess!)
-      image.update_attributes(gravity: 'South')
+      expect { image.update(gravity: 'South') }.to change { image.image_processing? }
     end
 
     it 'triggers reprocess on watermark change', paperclip: true do
       image = create :image, image: asset('fox.jpg')
+      image.image_processing = false
       expect(image).to receive(:contemplate_reprocessing).and_call_original
-      expect(image.image).to receive(:reprocess!)
-      image.update_attributes(watermark: true)
+      expect { image.update(watermark: true) }.to change { image.image_processing? }
     end
 
     it 'validates gravity' do
@@ -248,7 +248,7 @@ describe Image, type: :model do
       expect_any_instance_of(Image).to receive(:contemplate_reprocessing)
 
       expect {
-        image.update_attributes(gravity: 'South')
+        image.update(gravity: 'South')
         image.send(:delayed_complete)
       }.to_not change { Activity.count }
     end
@@ -289,7 +289,7 @@ describe Image, type: :model do
       expect(image).to have_exactly(2).hashtags
       expect(image.hashtags.first.tag).to eq 'one'
 
-      image.update_attributes(caption: '#three')
+      image.update(caption: '#three')
       image.reload
       expect(image).to have_exactly(1).hashtags
       expect(image.hashtags.first.tag).to eq 'three'
@@ -301,7 +301,7 @@ describe Image, type: :model do
       expect(image).to have_exactly(2).hashtags
       expect(image.hashtags.first.tag).to eq 'one'
 
-      image.update_attributes(caption: nil)
+      image.update(caption: nil)
       image.reload
       expect(image).to have_exactly(0).hashtags
     end

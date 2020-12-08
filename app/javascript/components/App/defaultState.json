@@ -27,6 +27,11 @@
     },
     "support": {
       "open": false
+    },
+    "report": {
+      "open": false,
+      "id": null,
+      "type": null
     }
   }
 }

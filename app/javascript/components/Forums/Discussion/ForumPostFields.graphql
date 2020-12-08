@@ -8,6 +8,8 @@ fragment ForumPostFields on ForumPost {
     admin_post
     moderator_post
     is_edited
+    can_edit
+    can_destroy
 
     user {
         username

@@ -18,28 +18,28 @@ spec:
         app: refsheet-prod
         tier: refsheet-prod-worker
       annotations:
-        configHash: b6434529026540e58e2751ed60fcfe48ccee9201aa8a9294c7742e58b3a3d66c
+        configHash: b9a73fa65ef40e5e2001b694ffa924910fc3c63a17bd0d9cc4fbe6042b6bf225
     spec:
       containers:
-      - name: refsheet-prod-worker
-        image: gcr.io/refsheet-239409/refsheet-site:6df4b2e821323ed8a9935f378b60a2af6528627a
-        imagePullPolicy: Always
-        command:
-        - bundle
-        args:
-        - exec
-        - rake
-        - resque:work
-        - QUEUE=priority,refsheet_image_processing,refsheet_application_queue
-        envFrom:
-        - configMapRef:
-            name: refsheet-prod
-        - secretRef:
-            name: refsheet-prod-secret
-        resources:
-          requests:
-            cpu: "2"
-            memory: 2G
-          limits:
-            cpu: "4"
-            memory: 4G
+        - name: refsheet-prod-worker
+          image: gcr.io/refsheet-239409/refsheet-site:ee337fd717b1f8cbeeb4731f903e4d215331f448
+          imagePullPolicy: Always
+          command:
+            - bundle
+          args:
+            - exec
+            - rake
+            - resque:work
+            - QUEUE=priority,refsheet_image_processing,refsheet_application_queue
+          envFrom:
+            - configMapRef:
+                name: refsheet-prod
+            - secretRef:
+                name: refsheet-prod-secret
+          resources:
+            requests:
+              cpu: "1"
+              memory: 1G
+            limits:
+              cpu: "2"
+              memory: 4G

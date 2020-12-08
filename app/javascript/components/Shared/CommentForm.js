@@ -8,7 +8,7 @@ import Restrict from './Restrict'
 import MarkdownEditor from './MarkdownEditor'
 import { Row, Col, Button } from 'react-materialize'
 import compose from 'utils/compose'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import WindowAlert from 'utils/WindowAlert'
 import { div as Card } from '../Styled/Card'
 import c from 'classnames'
@@ -327,5 +327,5 @@ const mapStateToProps = (state, props) => ({
 
 export default compose(
   connect(mapStateToProps),
-  withNamespaces('common')
+  withTranslation('common')
 )(CommentForm)

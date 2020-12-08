@@ -55,7 +55,6 @@ import GoogleAd from '../../../components/Shared/GoogleAd'
  */
 const Component = createReactClass({
   contextTypes: {
-    router: PropTypes.object.isRequired,
     eagerLoad: PropTypes.object,
   },
 
@@ -66,7 +65,7 @@ const Component = createReactClass({
       galleryTitle: null,
       onGallerySelect: null,
       images: null,
-      editable: false,
+      editable: true,
     }
   },
 
@@ -279,7 +278,8 @@ const Component = createReactClass({
 
     const isOwner =
       this.state.character.user_id === (this.props.currentUser || {}).username
-    const canEdit = isOwner || this.props.currentUser.is_admin
+    const canEdit =
+      isOwner || (this.props.currentUser && this.props.currentUser.is_admin)
 
     if (canEdit) {
       showMenu = true

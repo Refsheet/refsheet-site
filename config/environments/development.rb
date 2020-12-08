@@ -21,7 +21,6 @@ Rails.application.configure do
   # config.logger = Refsheet::Logger.new(STDOUT)
   STDOUT.sync = true
 
-  config.rails_semantic_logger.format = :color
   config.log_tags = {
       request_id: :request_id,
       ip: :remote_ip,

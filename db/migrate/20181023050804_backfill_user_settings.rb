@@ -15,8 +15,8 @@ class BackfillUserSettings < ActiveRecord::Migration[5.0]
           vapid: [settings['vapid']]
       }
 
-      user.settings(:view).update_attributes view
-      user.settings(:notifications).update_attributes notifications
+      user.settings(:view).update view
+      user.settings(:notifications).update notifications
     end
   end
 end

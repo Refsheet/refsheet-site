@@ -25,3 +25,4 @@ data:
   GKE_PROJECT: refsheet-239409
   GKE_CREDENTIALS: /secrets/storage/refsheet-prod-storage.json
   GKE_STORAGE_BUCKET: cloud1.refsheet.net
+  RECAPTCHA_SITE_KEY: 6LdKyPoZAAAAAExxN2X80CNdxds7tzVstBpuSTH-

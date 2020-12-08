@@ -30,7 +30,7 @@ class Account::PatronsController < AccountController
       flash = { error: 'Invalid auth code.' }
 
     else
-      @patron.update_attributes user: current_user
+      @patron.update user: current_user
       flash = { notice: 'Patron linked successfully!' }
     end
 

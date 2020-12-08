@@ -4,6 +4,8 @@ import PropTypes from 'prop-types'
 import Modal from 'v1/shared/Modal'
 import * as Materialize from 'materialize-css'
 import $ from 'jquery'
+import compose from '../../../../utils/compose'
+import { withRouter } from 'react-router'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -12,12 +14,7 @@ import $ from 'jquery'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let CharacterDeleteModal
-export default CharacterDeleteModal = createReactClass({
-  contextTypes: {
-    router: PropTypes.object.isRequired,
-  },
-
+const CharacterDeleteModal = createReactClass({
   propTypes: {
     character: PropTypes.object.isRequired,
   },
@@ -34,7 +31,7 @@ export default CharacterDeleteModal = createReactClass({
           html: `${data.name} deleted. :(`,
           displayLength: 3000,
         })
-        return this.context.router.history.push('/' + data.user_id)
+        return this.props.history.push('/' + data.user_id)
       },
 
       error: error => {
@@ -72,3 +69,5 @@ export default CharacterDeleteModal = createReactClass({
     )
   },
 })
+
+export default compose(withRouter)(CharacterDeleteModal)

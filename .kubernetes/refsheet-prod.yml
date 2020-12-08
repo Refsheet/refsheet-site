@@ -19,56 +19,56 @@ spec:
         tier: frontend
         run: refsheet-prod
       annotations:
-        configHash: b6434529026540e58e2751ed60fcfe48ccee9201aa8a9294c7742e58b3a3d66c3
+        configHash: b9a73fa65ef40e5e2001b694ffa924910fc3c63a17bd0d9cc4fbe6042b6bf225
     spec:
       volumes:
-      - name: refsheet-prod-storage
-        secret:
-          secretName: refsheet-prod-storage
-      containers:
-      - name: refsheet-prod
-        image: gcr.io/refsheet-239409/refsheet-site:ee337fd717b1f8cbeeb4731f903e4d215331f448
-        imagePullPolicy: Always
-        livenessProbe:
-          periodSeconds: 120
-          timeoutSeconds: 120
-          httpGet:
-            path: /health.json
-            port: 3000
-            scheme: HTTP
-        readinessProbe:
-          periodSeconds: 120
-          timeoutSeconds: 120
-          httpGet:
-            path: /health.json
-            port: 3000
-            scheme: HTTP
-        command:
-        - bundle
-        args:
-        - exec
-        - rails
-        - server
-        - -b
-        - 0.0.0.0
-        - -p
-        - "3000"
-        envFrom:
-        - configMapRef:
-            name: refsheet-prod
-        - secretRef:
-            name: refsheet-prod-secret
-        volumeMounts:
         - name: refsheet-prod-storage
-          mountPath: /secrets/storage
-          readOnly: true
-        ports:
-        - containerPort: 3000
-          protocol: TCP
-        resources:
-          requests:
-            cpu: "0.5"
-            memory: 1G
-          limits:
-            cpu: "1"
-            memory: 2G
+          secret:
+            secretName: refsheet-prod-storage
+      containers:
+        - name: refsheet-prod
+          image: gcr.io/refsheet-239409/refsheet-site:ee337fd717b1f8cbeeb4731f903e4d215331f448
+          imagePullPolicy: Always
+          livenessProbe:
+            periodSeconds: 120
+            timeoutSeconds: 120
+            httpGet:
+              path: /health.json
+              port: 3000
+              scheme: HTTP
+          readinessProbe:
+            periodSeconds: 120
+            timeoutSeconds: 120
+            httpGet:
+              path: /health.json
+              port: 3000
+              scheme: HTTP
+          command:
+            - bundle
+          args:
+            - exec
+            - rails
+            - server
+            - -b
+            - 0.0.0.0
+            - -p
+            - "3000"
+          envFrom:
+            - configMapRef:
+                name: refsheet-prod
+            - secretRef:
+                name: refsheet-prod-secret
+          volumeMounts:
+            - name: refsheet-prod-storage
+              mountPath: /secrets/storage
+              readOnly: true
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          resources:
+            requests:
+              cpu: "0.5"
+              memory: 1G
+            limits:
+              cpu: "1"
+              memory: 2G

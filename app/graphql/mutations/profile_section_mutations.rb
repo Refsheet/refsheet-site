@@ -30,7 +30,7 @@ class Mutations::ProfileSectionMutations < Mutations::ApplicationMutation
   end
 
   def update
-    @profile_section.update_attributes! profile_section_params
+    @profile_section.update! profile_section_params
     @profile_section
   end
 

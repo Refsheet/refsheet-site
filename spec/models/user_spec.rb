@@ -83,7 +83,7 @@ describe User, type: :model do
     old_email = user.email
     new_email = 'test2@example.com'
 
-    user.update_attributes email: new_email
+    user.update email: new_email
     expect(user.email).to eq old_email
     expect(user.unconfirmed_email).to eq new_email
 

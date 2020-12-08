@@ -4,12 +4,14 @@ steps:
     volumes:
       - name: 'cache'
         path: '/cache'
+      - name: 'artifacts'
+        path: '/artifacts'
     entrypoint: bash
     args:
       - -c
-      - './bin/build-cache.sh pull && printf "$REVISION_ID" > /workspace/VERSION'
+      - './bin/build-cache.sh pull && printf "$REVISION_ID" > /workspace/VERSION && touch /cache/warm'
 
-  - name: 'gcr.io/kaniko-project/executor:a1af057f997316bfb1c4d2d82719d78481a02a79'
+  - name: 'gcr.io/kaniko-project/executor'
     id: Build Container
     args:
       - --destination=gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID
@@ -23,13 +25,19 @@ steps:
     waitFor:
       - Pull Cache
 
-  - name: 'gcr.io/kaniko-project/executor:a1af057f997316bfb1c4d2d82719d78481a02a79'
+  - name: 'gcr.io/kaniko-project/executor'
     id: Build Nginx
     args:
       - --dockerfile=.nginx/Dockerfile
       - --destination=gcr.io/$PROJECT_ID/refsheet-site-nginx:$REVISION_ID
       - --cache=true
       - --cache-dir=/kaniko-cache
+      - --build-arg
+      - rails_container=localhost
+      - --build-arg
+      - rails_port=5000
+      - --build-arg
+      - port=3200
     volumes:
       - name: 'cache'
         path: '/cache'

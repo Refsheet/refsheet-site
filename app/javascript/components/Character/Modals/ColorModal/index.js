@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Row, Col, Icon, TextInput, Switch, Tabs, Tab } from 'react-materialize'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import compose, { withMutations } from '../../../../utils/compose'
 import ColorTheme from '../../../../utils/ColorTheme'
 import Modal from 'Styled/Modal'
@@ -286,7 +286,7 @@ ColorModal.propTypes = {
 }
 
 export default compose(
-  withNamespaces('common'),
+  withTranslation('common'),
   withMutations({
     updateColorScheme,
     createColorScheme,

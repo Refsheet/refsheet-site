@@ -20,7 +20,7 @@ class Admin::AdsController < AdminController
 
   def update
     if params[:advertisement_campaign]
-      @ad.update_attributes ad_params
+      @ad.update ad_params
     elsif params[:assign]
       if Advertisement::Slot.assign @ad
         flash[:notice] = 'Advertisement is now love!'

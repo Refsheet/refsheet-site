@@ -22,7 +22,7 @@ class Mutations::CharacterMutations < Mutations::ApplicationMutation
   def update
     authorize @character
 
-    @character.update_attributes! update_params
+    @character.update! update_params
     @character
   end
 

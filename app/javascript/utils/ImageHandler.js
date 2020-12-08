@@ -5,7 +5,7 @@ import xmljs from 'xml-js'
 import getImageUploadToken from 'graphql/queries/getImageUploadToken.graphql'
 import uploadImage from 'graphql/mutations/uploadImage.graphql'
 import getCharacterImages from 'graphql/fragments/getCharacterImages.graphql'
-import Sentry from '@sentry/browser'
+import * as Sentry from '@sentry/browser'
 
 class ImageHandler {
   static upload(image, characterId, onChange) {

@@ -33,7 +33,7 @@ export default Suggestions = createReactClass({
   },
 
   _handleFollow(f, id) {
-    return HashUtils.findItem(this.state.suggested, id, function(u) {
+    return HashUtils.findItem(this.state.suggested, id, function (u) {
       u.followed = f
       return StateUtils.updateItem(this, 'suggested', u)
     })
@@ -45,7 +45,7 @@ export default Suggestions = createReactClass({
       return null
     }
 
-    const suggestions = this.state.suggested.map(function(user) {
+    const suggestions = this.state.suggested.map(function (user) {
       return (
         <li
           className="collection-item margin-bottom--small"

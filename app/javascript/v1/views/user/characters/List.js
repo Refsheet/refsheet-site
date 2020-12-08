@@ -60,10 +60,7 @@ export default List = createReactClass({
           $item.removeClass('dropped')
           return $list.sortable('cancel')
         } else {
-          const position = $item
-            .parent()
-            .children()
-            .index($item)
+          const position = $item.parent().children().index($item)
           return this._handleSwap($item.data('character-id'), position)
         }
       },

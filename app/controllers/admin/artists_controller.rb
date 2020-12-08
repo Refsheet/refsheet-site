@@ -32,7 +32,7 @@ module Admin
     end
 
     def update
-      if @artist.update_attributes artist_params
+      if @artist.update artist_params
         redirect_to admin_artist_path(@artist.slug)
       else
         render 'edit', status: :bad_request

@@ -12,7 +12,7 @@ import Main from '../../shared/Main'
 import Form from '../../shared/forms/Form'
 import Input from '../../shared/forms/Input'
 import Submit from '../../shared/forms/Submit'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 
 import $ from 'jquery'
 import { setCurrentUser } from '../../../actions'
@@ -29,10 +29,6 @@ import { connect } from 'react-redux'
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 const LoginView = createReactClass({
-  contextTypes: {
-    router: PropTypes.object.isRequired,
-  },
-
   getInitialState() {
     return {
       user: {
@@ -60,14 +56,14 @@ const LoginView = createReactClass({
     this.props.setCurrentUser(user)
 
     const next =
-      this.context.router.history.location &&
-      this.context.router.history.location.query &&
-      this.context.router.history.location.query.next
+      this.props.history.location &&
+      this.props.history.location.query &&
+      this.props.history.location.query.next
 
     if (next) {
       return (window.location = next)
     } else {
-      return this.context.router.history.push(user.link)
+      return this.props.history.push(user.link)
     }
   },
 
@@ -131,4 +127,7 @@ const mapDispatchToProps = {
   setCurrentUser,
 }
 
-export default compose(connect(mapStateToProps, mapDispatchToProps))(LoginView)
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withRouter
+)(LoginView)

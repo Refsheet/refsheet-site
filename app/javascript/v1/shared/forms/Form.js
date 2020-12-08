@@ -269,6 +269,13 @@ export default Form = createReactClass({
         method={this.props.method}
         noValidate
       >
+        {this.state.errors.base && (
+          <ul className={'errors red-text'}>
+            {this.state.errors.base.map((e, i) => (
+              <li key={i}>{e}</li>
+            ))}
+          </ul>
+        )}
         {children}
       </form>
     )

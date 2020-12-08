@@ -6,19 +6,25 @@ const sass = require('./loaders/sass')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 // Export Defaults
+const config = {
+  output: {
+    library: ['Packs', 'application'],
+    libraryTarget: 'var'
+  },
 
-let output = {
-  library: ['Packs', 'application'],
-  libraryTarget: 'var'
+  plugins: [
+    // Apparently this is already included... rails?
+    // new MiniCssExtractPlugin()
+  ],
+
+  resolve: {
+    symlinks: false,
+  },
+
+  watchOptions: {
+    ignored: []
+  }
 }
-
-let plugins = [
-  new MiniCssExtractPlugin()
-]
-
-environment.config.merge({plugins, output})
-
-// Drink Coffee
 
 environment.loaders.append('coffee', coffee)
 environment.loaders.append('erb', erb)
@@ -28,7 +34,8 @@ environment.loaders.append('sass', sass)
 const babelLoader = environment.loaders.get('babel')
 babelLoader.test = /\.(coffee|js|jsx)(\.erb)?$/
 babelLoader.exclude = [
-    /node_modules\/(?!superagent|query-string|strict-uri-encode)/
+  /node_modules\/(?!superagent|query-string|strict-uri-encode)/
 ]
 
+environment.config.merge(config)
 module.exports = environment

@@ -20,7 +20,7 @@ import NumberUtils from '../../utils/NumberUtils'
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let Card
-export default Card = function(props) {
+export default Card = function (props) {
   let {
     icon,
     name,

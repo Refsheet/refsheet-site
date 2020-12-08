@@ -16,7 +16,7 @@ class Api::V1::UsersController < ApiController
 
   def update
     authorize @user
-    @user.update_attributes(user_params)
+    @user.update(user_params)
     respond_with @user
   end
 

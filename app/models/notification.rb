@@ -166,7 +166,7 @@ class Notification < ApplicationRecord
       permissions[permission_key]
     else
       new_perms = permissions.merge permission_key => true
-      user.settings(:notifications).update_attributes medium: new_perms
+      user.settings(:notifications).update medium: new_perms
       true
     end
   end

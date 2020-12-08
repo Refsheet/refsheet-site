@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import DropdownLink from './DropdownLink'
 import Restrict from '../Shared/Restrict'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import { openNewCharacterModal } from '../../actions'
 import compose from '../../utils/compose'
@@ -114,5 +114,5 @@ UserMenu.propTypes = {
 
 export default compose(
   connect(undefined, { openNewCharacterModal }),
-  withNamespaces('common')
+  withTranslation('common')
 )(UserMenu)

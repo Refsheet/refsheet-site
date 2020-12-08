@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Spinner from '../../../v1/shared/material/Spinner'
 
-const Loading = function(props) {
+const Loading = function (props) {
   const classNames = ['modal-page-content']
   if (props.className) {
     classNames.push(props.className)

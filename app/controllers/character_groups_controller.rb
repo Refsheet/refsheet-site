@@ -9,7 +9,7 @@ class CharacterGroupsController < ApplicationController
   end
 
   def update
-    @character_group.update_attributes group_params
+    @character_group.update group_params
     respond_with @character_group, location: nil, json: @character_group, serializer: CharacterGroupSerializer
   end
 

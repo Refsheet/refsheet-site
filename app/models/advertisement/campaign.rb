@@ -129,17 +129,17 @@ class Advertisement::Campaign < ApplicationRecord
   #== Lifecycle
 
   def update_slot_counts
-    self.update_attributes slots_filled: self.active_slots.count
+    self.update slots_filled: self.active_slots.count
   end
 
   def record_impression(slot_id)
-    self.update_attributes total_impressions: self.impression_events.count
+    self.update total_impressions: self.impression_events.count
     Rails.logger.info "Updating slot #{slot_id}..."
     self.active_slots.find_by(id: slot_id)&.set_impression
   end
 
   def record_click
-    self.update_attributes total_clicks: self.click_events.count
+    self.update total_clicks: self.click_events.count
   end
 
   private

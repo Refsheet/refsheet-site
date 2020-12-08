@@ -24,10 +24,10 @@
 #
 
 class Notifications::ForumReply < Notification
-  delegate :forum, :thread, to: :actionable, allow_nil: true
+  delegate :forum, :thread, :discussion, to: :actionable, allow_nil: true
 
   def title
-    "#{sender&.name || "(deleted account)"} replied to #{actionable&.thread&.topic || "(deleted topic)"}"
+    "#{sender&.name || "(deleted account)"} replied to #{actionable&.discussion&.topic || "(deleted topic)"}"
   end
 
   def message
@@ -37,12 +37,12 @@ class Notifications::ForumReply < Notification
 
   def href
     return nil if actionable.nil?
-    forum_thread_url forum, thread.slug, anchor: actionable.guid
+    forum_thread_url forum, discussion.slug, anchor: actionable.guid
   end
 
   def link
     return nil if actionable.nil?
-    forum_thread_path forum, thread.slug, anchor: actionable.guid
+    forum_thread_path forum, discussion.slug, anchor: actionable.guid
   end
 
   protected

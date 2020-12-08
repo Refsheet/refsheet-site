@@ -33,7 +33,7 @@ class Mutations::ImageMutations < Mutations::ApplicationMutation
 
   def update
     PgLock.new(name: 'image_rank_lock').lock do
-      @image.update_attributes(image_params)
+      @image.update(image_params)
     end
 
     @image

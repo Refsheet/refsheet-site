@@ -14,6 +14,8 @@ import Input from '../../../shared/forms/Input'
 import Row from '../../../shared/material/Row'
 import Submit from '../../../shared/forms/Submit'
 import Modal from '../../../shared/Modal'
+import { withRouter } from 'react-router'
+import compose from '../../../../utils/compose'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -22,12 +24,7 @@ import Modal from '../../../shared/Modal'
  * DS208: Avoid top-level this
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let ThreadModal
-export default ThreadModal = createReactClass({
-  contextTypes: {
-    router: PropTypes.object.isRequired,
-  },
-
+const ThreadModal = createReactClass({
   propTypes: {
     forumId: PropTypes.string.isRequired,
   },
@@ -49,7 +46,7 @@ export default ThreadModal = createReactClass({
     })
     this.refs.modal.close()
     console.log(thread)
-    return this.context.router.history.push(thread.path)
+    return this.props.history.push(thread.path)
   },
 
   render() {
@@ -79,3 +76,5 @@ export default ThreadModal = createReactClass({
     )
   },
 })
+
+export default compose(withRouter)(ThreadModal)

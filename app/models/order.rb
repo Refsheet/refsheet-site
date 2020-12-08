@@ -97,7 +97,7 @@ class Order < ApplicationRecord
 
       self.line_items.collect(&:complete!).all?
 
-      self.update_attributes(
+      self.update(
           status: 'complete',
           # completed_at: Time.zone.now
       )

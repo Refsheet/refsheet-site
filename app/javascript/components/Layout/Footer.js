@@ -36,9 +36,7 @@ class _Footer extends Component {
       i18n
         .changeLanguage(locale)
         .then(() => {
-          SessionService.set({ locale })
-            .then(console.log)
-            .catch(console.error)
+          SessionService.set({ locale }).then(console.log).catch(console.error)
         })
         .catch(console.error)
     }
@@ -259,7 +257,16 @@ class _Footer extends Component {
 
           <div className="smaller center margin-bottom--large">
             Copyright &copy;2017-2020 Refsheet.net &bull; Version:{' '}
-            {Refsheet.version}
+            <a
+              href={
+                'https://github.com/Refsheet/refsheet-site/tree/' +
+                Refsheet.version
+              }
+              target={'_blank'}
+              rel={'noreferrer'}
+            >
+              {Refsheet.version.substr(0, 7)}
+            </a>
             <br />
             Character and user media ownership is subject to the copyright and
             distribution policies of the owner. Use of character and user media

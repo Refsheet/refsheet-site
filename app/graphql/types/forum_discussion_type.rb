@@ -28,7 +28,10 @@
 Types::ForumDiscussionType = GraphQL::ObjectType.define do
   name 'ForumDiscussion'
 
-  interfaces [Interfaces::ApplicationRecordInterface]
+  interfaces [
+                 Interfaces::ApplicationRecordInterface,
+                 Interfaces::PolicyInterface
+             ]
 
   field :topic, types.String
   field :slug, types.String

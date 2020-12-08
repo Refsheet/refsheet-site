@@ -7,14 +7,14 @@ namespace :kube do
 
     # Fetch update values:
     config_hash = Digest::SHA2.hexdigest %x[kubectl get cm/refsheet-prod -oyaml]
-    latest_image = %x[kubectl get deployment refsheet-prod -o=jsonpath='{$.spec.template.spec.containers[:1].image}']
-    staging_image = %x[kubectl get deployment refsheet-prod-staging -o=jsonpath='{$.spec.template.spec.containers[:1].image}']
+    latest_image = %x[kubectl get deployment refsheet-prod -o=jsonpath='{$.spec.template.spec.containers[*].image}'].split(/\s+/)
+    staging_image = %x[kubectl get deployment refsheet-prod-staging -o=jsonpath='{$.spec.template.spec.containers[*].image}'].split(/\s+/)
 
     # Deployments:
     %w[refsheet-prod refsheet-prod-worker].each do |deployment|
       file = ".kubernetes/#{deployment}.yml"
       yq! file, "spec.template.metadata.annotations.configHash", config_hash
-      yq! file, "spec.template.spec.containers[*].image", latest_image
+      yq! file, "spec.template.spec.containers[0].image", latest_image[0]
       apply! file
     end
 
@@ -22,7 +22,9 @@ namespace :kube do
     %w[refsheet-prod-staging].each do |deployment|
       file = ".kubernetes/#{deployment}.yml"
       yq! file, "spec.template.metadata.annotations.configHash", config_hash
-      yq! file, "spec.template.spec.containers[*].image", staging_image
+      staging_image.each_with_index do |img, i|
+        yq! file, "spec.template.spec.containers[#{i}].image", img
+      end
       apply! file
     end
 

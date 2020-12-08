@@ -1,11 +1,11 @@
 Rails.application.configure do
   # Test gcloud logging
-  config.google_cloud.project_id = "refsheet-239409"
-  config.google_cloud.keyfile = "refsheet-prod.json"
+  config.google_cloud.project_id = ENV.fetch('GKE_PROJECT') { "refsheet-239409" }
+  config.google_cloud.keyfile = ENV.fetch('GKE_CREDENTIALS') { Rails.root.join("refsheet-prod.json") }
   config.google_cloud.use_logging = false
   # config.google_cloud.logging.log_name = "refsheet-prod"
   # config.google_cloud.logging.resource = "global"
-  
+
   # Gcloud Trace
   config.google_cloud.use_trace = true
 

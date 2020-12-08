@@ -10,7 +10,7 @@ import {
   TextInput,
   Select,
 } from 'react-materialize'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import MarkdownEditor from '../Shared/MarkdownEditor'
 
 class ImageEditForm extends Component {
@@ -211,6 +211,6 @@ ImageEditForm.propTypes = {
 }
 
 export default compose(
-  withNamespaces('common'),
+  withTranslation('common'),
   withMutations({ updateImage })
 )(ImageEditForm)

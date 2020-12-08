@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   include CollectionHelper
   include ResponseHelper
   include ParamsHelper
+  include Pundit
 
   class Unauthorized < RuntimeError; end
 
@@ -11,14 +12,12 @@ class ApplicationController < ActionController::Base
 
   respond_to :json, :html
 
-
   #== Global Hooks
 
   before_action :set_user_locale
   before_action :set_default_meta
   before_action :eager_load_session
   before_action :set_raven_context
-  before_action :set_paper_trail_actor
   protect_from_forgery with: :exception
 
   around_action :tag_logs
@@ -191,8 +190,6 @@ class ApplicationController < ActionController::Base
   end
 
   def set_raven_context
-    Raven.user_context(id: current_user&.id, username: current_user&.username)
-
     Raven.extra_context(
         params: params.to_unsafe_h,
         url: request.url
@@ -240,9 +237,5 @@ class ApplicationController < ActionController::Base
     else
       Rails.logger.tagged("#{params[:controller]}##{params[:action]}", &block)
     end
-  end
-
-  def set_paper_trail_actor
-    PaperTrail.request.whodunnit = current_user&.to_global_id
   end
 end

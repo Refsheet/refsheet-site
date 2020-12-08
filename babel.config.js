@@ -30,16 +30,18 @@ module.exports = function(api) {
         {
           forceAllTransforms: true,
           useBuiltIns: 'entry',
-          corejs: 3,
+          corejs: 2,
           modules: false,
           exclude: ['transform-typeof-symbol']
         }
-      ]
+      ],
+      "@babel/preset-react"
     ].filter(Boolean),
     plugins: [
       'babel-plugin-macros',
       '@babel/plugin-syntax-dynamic-import',
       isTestEnv && 'babel-plugin-dynamic-import-node',
+      isTestEnv && '@babel/plugin-transform-modules-commonjs',
       '@babel/plugin-transform-destructuring',
       [
         '@babel/plugin-proposal-class-properties',

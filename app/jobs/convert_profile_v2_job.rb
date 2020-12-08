@@ -56,7 +56,7 @@ class ConvertProfileV2Job < ApplicationJob
       profile_section.save!
       like_dislike_section.save!
 
-      character.update_attributes(version: 2)
+      character.update(version: 2)
     end
   end
 end

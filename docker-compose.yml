@@ -27,6 +27,7 @@ services:
     volumes:
       - '.:/app'
       - 'bundle:/usr/local/bundle'
+      - './node_modules:/app/node_modules'
     env_file:
       - '.env'
       - '.env.local'
@@ -43,6 +44,7 @@ services:
     volumes:
       - '.:/app'
       - 'bundle:/usr/local/bundle'
+      - './node_modules:/app/node_modules'
     env_file:
       - '.env'
       - '.env.local'
@@ -55,6 +57,10 @@ services:
     build:
       context: .
       dockerfile: .nginx/Dockerfile
+      args:
+        rails_container: website
+        rails_port: 3200
+        port: 5000
     ports:
       - '5000:5000'
     volumes:

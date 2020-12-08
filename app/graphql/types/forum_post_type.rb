@@ -25,7 +25,10 @@
 Types::ForumPostType = GraphQL::ObjectType.define do
   name 'ForumPost'
 
-  interfaces [Interfaces::ApplicationRecordInterface]
+  interfaces [
+                 Interfaces::ApplicationRecordInterface,
+                 Interfaces::PolicyInterface
+             ]
 
   field :content, types.String
   field :content_html, types.String

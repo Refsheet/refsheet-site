@@ -13,5 +13,5 @@ config.merge({
   }
 })
 
-config.devtool = 'inline-source-map'
+config.devtool = 'cheap-module-source-map'
 module.exports = config

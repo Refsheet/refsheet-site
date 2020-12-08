@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import compose, { withCurrentUser } from 'utils/compose'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import Modal from '../Styled/Modal'
 import { closeSupportModal } from '../../actions'
 
@@ -49,6 +49,6 @@ const mapDispatchToProps = {
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  withNamespaces('common'),
+  withTranslation('common'),
   withCurrentUser()
 )(SupportModal)

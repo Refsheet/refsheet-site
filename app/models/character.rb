@@ -210,7 +210,7 @@ class Character < ApplicationRecord
   end
 
   def managed_by?(user, no_admin = false)
-    self.user == user || (!no_admin && user.admin?)
+    self.user == user || (!no_admin && user&.admin?)
   end
 
   def self.lookup(slug)
@@ -322,7 +322,7 @@ class Character < ApplicationRecord
         hidden_characters_count: group.characters.hidden.count
     }
 
-    group.update_attributes counters
+    group.update counters
   end
 
   def decrement_counter_cache
@@ -333,7 +333,7 @@ class Character < ApplicationRecord
           hidden_characters_count: g.characters.hidden.where.not(id: self.id).count
       }
 
-      g.update_attributes counters
+      g.update counters
     end
   end
 

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { Mutation } from 'react-apollo'
 import postReply from './postReply.graphql'
 import CommentForm from '../Shared/CommentForm'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 
 class LegacyForumReply extends Component {
   constructor(props) {
@@ -61,4 +61,4 @@ const mapStateToProps = (state, props) => ({
   currentUser: state.session.currentUser,
 })
 
-export default connect(mapStateToProps)(withNamespaces('common')(withMutation))
+export default connect(mapStateToProps)(withTranslation('common')(withMutation))

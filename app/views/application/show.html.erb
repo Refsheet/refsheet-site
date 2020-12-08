@@ -38,17 +38,13 @@
     flash: flash.to_hash,
     environment: Rails.env,
     notice: ENV['MAINTENANCE_NOTICE'],
-    assets: render_asset_paths
+    assets: render_asset_paths,
+    config: {
+      recaptchaSiteKey: Rails.configuration.x.recaptcha.site_key
+    }
   }.to_json).html_safe %>;
 
-  function loadMessage(message) {
-    document.getElementById('loadmessage').innerHTML = message;
-  }
-
-  function init() {
-    Packs.application.init('root', props);
-  }
-
-  // This is the last thing in our body, call it:
-  init();
+  // This is broken after Webpack 5 upgrade???
+  // Packs.application.init('root', props);
+  ___init('root', props);
 </script>

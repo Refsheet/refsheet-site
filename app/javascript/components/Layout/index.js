@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import compose from 'utils/compose'
 import Footer from './Footer'
 import NavBar from '../NavBar'
@@ -15,48 +15,17 @@ import SupportModal from '../SupportModal'
 import { connect } from 'react-redux'
 import { openNewCharacterModal, openSupportModal } from '../../actions'
 import NewCharacterModal from '../User/Modals/NewCharacterModal'
+import ReportModal from '../../v1/views/images/report_modal'
 
 class Layout extends Component {
   constructor(props) {
     super(props)
 
     this.state = {}
-
-    this.handleKeyDown = this.handleKeyDown.bind(this)
-  }
-
-  // TODO: Refactor this to a keystroke provider or somethn
-  componentDidMount() {
-    document.addEventListener('keydown', this.handleKeyDown)
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('keydown', this.handleKeyDown)
-  }
-
-  handleKeyDown(e) {
-    return
-
-    // TODO: Input filtering isn't filtering.
-
-    const { openNewCharacterModal } = this.props
-
-    const key = e.key.toLowerCase()
-
-    if (
-      ['INPUT', 'TEXTAREA'].indexOf(e.target.nodeName) ||
-      e.target.contentEditable !== 'inherit'
-    ) {
-      return
-    }
-
-    if (key === '/') {
-      openNewCharacterModal()
-    }
   }
 
   render() {
-    const { t, location, notice } = this.props
+    const { t, location, updateAvailable, notice } = this.props
 
     return (
       <div id={'rootApp'}>
@@ -65,6 +34,7 @@ class Layout extends Component {
         <SessionModal />
         <SupportModal />
         <NewCharacterModal />
+        <ReportModal />
 
         <NavBar
           query={location.query.q}
@@ -74,6 +44,19 @@ class Layout extends Component {
 
         <Routes />
         <Footer />
+
+        {updateAvailable && (
+          <div
+            className={'update-notice card-panel cyan darken-4 white-text'}
+            style={{ position: 'fixed', bottom: '1rem', left: '1rem' }}
+          >
+            {t(
+              'system.update_available',
+              'An update is available. Please reload your browser.'
+            )}
+          </div>
+        )}
+
         <Chat />
       </div>
     )
@@ -82,6 +65,7 @@ class Layout extends Component {
 
 Layout.propTypes = {
   notice: PropTypes.string,
+  updateAvailable: PropTypes.bool,
 }
 
 const mapDispatchToProps = {
@@ -91,5 +75,6 @@ const mapDispatchToProps = {
 export default compose(
   withErrorBoundary,
   withRouter,
+  withTranslation('common'),
   connect(undefined, mapDispatchToProps)
 )(Layout)

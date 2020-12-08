@@ -142,7 +142,6 @@ class Thumbnail extends Component {
         true
       )
     } else if (image_processing) {
-      console.log({ cap: this.props })
       const image_age = Date.now() / 1000 - created_at
       return this.renderNotification(
         'hourglass_empty',
@@ -215,13 +214,15 @@ class Thumbnail extends Component {
       children,
       image = {},
     } = this.props
-    style.backgroundColor = image.background_color || 'rgb(0,0,0)'
 
     const preReturn = () => {
       return (
         <div
           ref={innerRef}
-          style={style}
+          style={{
+            ...style,
+            backgroundColor: image.background_color || 'rgb(0,0,0)',
+          }}
           className={c('gallery-image image-thumbnail z-depth-1', className)}
         >
           {children}

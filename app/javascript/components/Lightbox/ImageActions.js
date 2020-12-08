@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Icon, Dropdown, Divider } from 'react-materialize'
 import { closeLightbox } from '../../actions'
 import compose, { withMutations } from '../../utils/compose'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import deleteMedia from './deleteMedia.graphql'
 import { getCharacterProfile as gcp } from 'queries/getCharacterProfile.graphql'
@@ -173,7 +173,7 @@ const mapDispatchToProps = {
 }
 
 export default compose(
-  withNamespaces('common'),
+  withTranslation('common'),
   connect(undefined, mapDispatchToProps),
   withMutations({ deleteMedia })
 )(ImageActions)

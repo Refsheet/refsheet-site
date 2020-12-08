@@ -8,12 +8,13 @@ import {
 } from 'apollo-cache-inmemory'
 import fetch from 'node-fetch'
 import { createConsumer } from '@rails/actioncable'
-import ActionCableLink from 'graphql-ruby-client/subscriptions/ActionCableLink'
+// import { ActionCableLink } from 'graphql-ruby-client'
+import ActionCableLink from 'graphql-ruby-client/dist/subscriptions/ActionCableLink'
 import introspectionQueryResultData from '../config/fragmentTypes.json'
 
 const cable = createConsumer()
 
-export const csrf = function() {
+export const csrf = function () {
   const meta = document.getElementsByName('csrf-token')[0]
 
   if (!meta) {
@@ -28,7 +29,7 @@ export const csrf = function() {
 
 const HOST =
   (window && window.location && window.location.origin) ||
-  'http://localhostt:5000'
+  'http://localhost:5000'
 
 const fragmentMatcher = new IntrospectionFragmentMatcher({
   introspectionQueryResultData,
@@ -88,5 +89,6 @@ export const client = new ApolloClient({
 })
 
 export { default as subscribe } from './buildSubscriptionRender'
+export { HOST as host }
 
 export default client

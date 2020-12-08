@@ -20,7 +20,7 @@ class SwatchesController < ApplicationController
   end
 
   def update
-    if @swatch.update_attributes swatch_params
+    if @swatch.update swatch_params
       render json: @swatch.character.swatches.rank(:row_order), each_serializer: SwatchSerializer
     else
       render json: { errors: @swatch.errors }, status: :bad_request

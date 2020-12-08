@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import compose from '../../../utils/compose'
-import { Trans, withNamespaces } from 'react-i18next'
+import compose, { withMutations } from '../../../utils/compose'
+import { Trans, withTranslation } from 'react-i18next'
 import KarmaCounter from '../shared/KarmaCounter'
 import Moment from 'react-moment'
 import UserAvatar from '../../User/UserAvatar'
@@ -10,20 +10,99 @@ import DiscussionReply from './DiscussionReply'
 import RichText from '../../Shared/RichText'
 import DiscussionReplyForm from './DiscussionReplyForm'
 import c from 'classnames'
-import { MutedAnchor } from '../../Styled/Muted'
+import Muted, { MutedAnchor } from '../../Styled/Muted'
 import LinkUtils from 'utils/LinkUtils'
 import { H2 } from '../../Styled/Headings'
 
 import Advertisement from 'v1/shared/advertisement'
+import { Divider, Dropdown, Icon } from 'react-materialize'
+import Restrict from '../../Shared/Restrict'
+import NewDiscussionForm from '../NewDiscussion/NewDiscussionForm'
+import { openReportModal } from '../../../actions'
+import { connect } from 'react-redux'
+import e from 'utils/e'
+import destroyDiscussion from './destroyDiscussion.graphql'
+import { withRouter } from 'react-router'
+import NotFound from '../../Shared/views/NotFound'
 
 class View extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      editing: false,
+      editingReply: false,
+      pendingAction: false,
+    }
+  }
+
+  handleEditStart(e) {
+    e.preventDefault()
+    this.setState({ editing: true })
+  }
+
+  handleEditStop() {
+    this.setState({ editing: false })
+  }
+
+  handleReplyEditStart() {
+    this.setState({ editingReply: true })
+  }
+
+  handleReplyEditStop() {
+    this.setState({ editingReply: false })
+  }
+
+  handleDestroyDiscussion(e) {
+    e.preventDefault()
+    this.setState({ pendingAction: true })
+
+    this.props
+      .destroyDiscussion({
+        wrapped: true,
+        variables: {
+          id: this.props.discussion.id,
+        },
+      })
+      .then(() => {
+        this.props.history.push(
+          LinkUtils.forumPath({ forumId: this.props.discussion.forum.slug })
+        )
+      })
+      .finally(() => {
+        this.setState({ pendingAction: false })
+      })
+  }
+
   render() {
-    const { discussion, forum, t, refetch } = this.props
+    const { discussion, forum, t, refetch, openReportModal } = this.props
+
+    if (!discussion || discussion.deleted_at) {
+      return <NotFound />
+    }
+
+    const { can_edit, can_destroy } = discussion
+
+    if (this.state.editing) {
+      return (
+        <NewDiscussionForm
+          edit
+          discussion={discussion}
+          onSubmit={console.log}
+          onCancel={console.log}
+        />
+      )
+    }
 
     return (
       <div className={'container container-flex'}>
         <main className={'content-left'}>
-          <div className={'forum-post--main forum-post'}>
+          <div
+            className={c('forum-post--main forum-post', {
+              loading: this.state.pendingAction,
+              destroyed: discussion.deleted_at,
+            })}
+          >
             <UserAvatar
               user={discussion.user}
               character={discussion.character}
@@ -58,6 +137,71 @@ class View extends Component {
                       ]}
                     />
                   </MutedAnchor>
+
+                  {discussion.is_edited && (
+                    <Muted className={'margin-left--small inline'}>
+                      (
+                      <a href={'#'} title={'Show edit history...'}>
+                        Edited
+                      </a>
+                      )
+                    </Muted>
+                  )}
+
+                  <Dropdown
+                    id={`Discussion_${discussion.id}`}
+                    options={{
+                      alignment: 'right',
+                      constrainWidth: false,
+                    }}
+                    trigger={
+                      <MutedAnchor href={'#'}>
+                        <Icon className={'right smaller'}>more_vert</Icon>
+                      </MutedAnchor>
+                    }
+                  >
+                    {can_edit && (
+                      <a
+                        key="edit"
+                        href={'#'}
+                        onClick={this.handleEditStart.bind(this)}
+                      >
+                        <Icon left>edit</Icon>
+                        <span>Edit</span>
+                      </a>
+                    )}
+                    {can_destroy && (
+                      <a
+                        key="delete"
+                        href={'#'}
+                        onClick={this.handleDestroyDiscussion.bind(this)}
+                      >
+                        <Icon left>delete</Icon>
+                        <span>Delete</span>
+                      </a>
+                    )}
+                    <Restrict admin>
+                      <a key={'lock'} href={'#'}>
+                        <Icon left>lock</Icon>
+                        <span>Lock</span>
+                      </a>
+                    </Restrict>
+                    <Restrict admin>
+                      <a key={'sticky'} href={'#'}>
+                        <Icon left>push_pin</Icon>
+                        <span>Make Sticky</span>
+                      </a>
+                    </Restrict>
+                    <Divider />
+                    <a
+                      key="report"
+                      href={'#'}
+                      onClick={e(() => openReportModal(discussion))}
+                    >
+                      <Icon left>flag</Icon>
+                      <span>Report</span>
+                    </a>
+                  </Dropdown>
                 </div>
 
                 <UserLink
@@ -91,16 +235,20 @@ class View extends Component {
                 post={post}
                 forumId={forum.slug}
                 discussionId={discussion.slug}
+                onEditStart={this.handleReplyEditStart.bind(this)}
+                onEditStop={this.handleReplyEditStop.bind(this)}
               />
             ))}
 
-            <DiscussionReplyForm
-              key={'new-reply'}
-              discussion={discussion}
-              forum={forum}
-              inCharacter={!forum.no_rp}
-              refetch={refetch}
-            />
+            {!this.state.editingReply && (
+              <DiscussionReplyForm
+                key={'new-reply'}
+                discussion={discussion}
+                forum={forum}
+                inCharacter={!forum.no_rp}
+                refetch={refetch}
+              />
+            )}
           </div>
         </main>
 
@@ -112,4 +260,9 @@ class View extends Component {
   }
 }
 
-export default compose(withNamespaces('common'))(View)
+export default compose(
+  withTranslation('common'),
+  connect(undefined, { openReportModal }),
+  withMutations({ destroyDiscussion }),
+  withRouter
+)(View)

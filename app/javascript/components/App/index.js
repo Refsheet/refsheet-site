@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, createContext } from 'react'
 import PropTypes from 'prop-types'
 
 // Providers
@@ -7,13 +7,13 @@ import { Provider as ReduxProvider } from 'react-redux'
 import DropzoneProvider from '../Dropzone'
 import { ThemeProvider } from 'styled-components'
 import { I18nextProvider } from 'react-i18next'
-import Backend from 'react-dnd-html5-backend'
+import { HTML5Backend as Backend } from 'react-dnd-html5-backend'
 import { DndProvider } from 'react-dnd'
 
 // Initialization
 import { createStore } from 'redux'
 import rootReducer from 'reducers'
-import client from 'ApplicationService'
+import client, { host } from 'ApplicationService'
 import { createBrowserHistory } from 'history'
 import i18n from '../../services/i18n.js'
 
@@ -35,6 +35,10 @@ import { Router as BrowserRouter } from 'react-router-dom'
 import { setCurrentUser } from '../../actions'
 import { withErrorBoundary } from '../Shared/ErrorBoundary'
 
+const ConfigContext = createContext({
+  loading: true,
+})
+
 class App extends Component {
   constructor(props) {
     super(props)
@@ -42,6 +46,11 @@ class App extends Component {
     this.state = {
       theme: defaultTheme,
       eagerLoad: props.eagerLoad,
+      updateAvailable: false,
+      config: {
+        ...props.config,
+        loading: false,
+      },
     }
 
     this.store = this.buildStore(this.buildState(props.state))
@@ -64,6 +73,20 @@ class App extends Component {
     WindowAlert.initSound({
       notificationSoundPaths: assets.notificationSoundPaths,
     })
+  }
+
+  checkForUpdates() {
+    const _this = this
+    fetch(host + '/health.json')
+      .then(response => response.json())
+      .then(data => {
+        console.log('Version is: ' + data.version)
+        if (data.version !== window.Refsheet.version) {
+          console.log('Update is available!')
+          _this.setState({ updateAvailable: true })
+        }
+      })
+      .catch(console.error)
   }
 
   buildState(state = {}) {
@@ -131,6 +154,13 @@ class App extends Component {
 
     console.debug('App mounted with props: ', this.props)
 
+    // Check for updates every 10 minutes
+    this.updateInterval = setInterval(
+      this.checkForUpdates.bind(this),
+      600 * 1000
+    )
+    this.checkForUpdates()
+
     // Fade Out Loader
     const $loader = document.getElementById('rootAppLoader')
     $loader.style.opacity = 1
@@ -155,24 +185,26 @@ class App extends Component {
 
   render() {
     return (
-      <I18nextProvider i18n={i18n}>
-        <ThemeProvider theme={this.state.theme}>
-          <ApolloProvider client={client} store={this.store}>
-            <ReduxProvider store={this.store}>
-              <DropzoneProvider>
-                <DndProvider backend={Backend}>
-                  <BrowserRouter
-                    history={this.history}
-                    onUpdate={this.handleRouteUpdate}
-                  >
-                    <Layout />
-                  </BrowserRouter>
-                </DndProvider>
-              </DropzoneProvider>
-            </ReduxProvider>
-          </ApolloProvider>
-        </ThemeProvider>
-      </I18nextProvider>
+      <ConfigContext.Provider value={this.state.config}>
+        <I18nextProvider i18n={i18n}>
+          <ThemeProvider theme={this.state.theme}>
+            <ApolloProvider client={client} store={this.store}>
+              <ReduxProvider store={this.store}>
+                <DropzoneProvider>
+                  <DndProvider backend={Backend}>
+                    <BrowserRouter
+                      history={this.history}
+                      onUpdate={this.handleRouteUpdate}
+                    >
+                      <Layout updateAvailable={this.state.updateAvailable} />
+                    </BrowserRouter>
+                  </DndProvider>
+                </DropzoneProvider>
+              </ReduxProvider>
+            </ApolloProvider>
+          </ThemeProvider>
+        </I18nextProvider>
+      </ConfigContext.Provider>
     )
   }
 
@@ -196,5 +228,7 @@ App.propTypes = {
 App.childContextTypes = {
   eagerLoad: PropTypes.object,
 }
+
+export { ConfigContext }
 
 export default withErrorBoundary(App)

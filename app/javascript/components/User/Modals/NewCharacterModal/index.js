@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import compose from 'utils/compose'
 import Modal from '../../../Styled/Modal'
 import { withCurrentUser } from '../../../../utils/compose'
@@ -61,7 +61,7 @@ const mapDispatchToProps = {
 }
 
 export default compose(
-  withNamespaces('common'),
+  withTranslation('common'),
   connect(mapStateToProps, mapDispatchToProps),
   withCurrentUser(),
   withRouter

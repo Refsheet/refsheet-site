@@ -71,7 +71,7 @@ class ImagesController < ApplicationController
 
       @character = @image.character
       render json: image_scope, each_serializer: ImageSerializer
-    elsif @image.update_attributes image_params
+    elsif @image.update image_params
       if image_params.include? :gravity or @image.watermark_changed?
         @image.regenerate_thumbnail!
       end
