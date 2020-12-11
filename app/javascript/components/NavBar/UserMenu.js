@@ -42,7 +42,11 @@ class UserMenu extends Component {
       >
         <ul className="dropdown-menu">
           <li>
-            <Link className="flex align-center" to={'/' + user.username} data-testid={'user-profile-link'}>
+            <Link
+              className="flex align-center"
+              to={'/' + user.username}
+              data-testid={'user-profile-link'}
+            >
               <div className="no-grow">
                 <i className="material-icons left">
                   {identity.characterId !== null ? 'people' : 'person'}
