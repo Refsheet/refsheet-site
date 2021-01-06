@@ -117,7 +117,8 @@ class Conversations::Message < ApplicationRecord
   end
 
   def check_blocked
-    if recipient&.blocked? self.user
+    # block everyone until we can play nice and block each other
+    if true #recipient&.blocked? self.user
       errors.add(:conversation, "cannot receive messages right now")
     end
   end
