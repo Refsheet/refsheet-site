@@ -7,6 +7,10 @@ import { Twemoji } from 'react-emoji-render'
 const EMOTE_PREFIX_REGEX = /^\/me\s+/
 
 export const formatBody = (message, prefixYou = false) => {
+  if (!message) {
+    return null;
+  }
+  
   let { message: body = '' } = message
 
   const {
@@ -51,6 +55,10 @@ export const timeDisplay = (created_at, full = false) => {
 }
 
 const ConversationMessage = ({ message }) => {
+  if (!message) {
+    return null;
+  }
+  
   if (message.status) {
     // Provisional message
     message.is_self = true
