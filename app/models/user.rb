@@ -156,7 +156,7 @@ class User < ApplicationRecord
   end
 
   def email_to(email=self.email)
-    "#{name} <#{email}>"
+    "\"#{name}\" <#{email}>"
   end
 
   def to_param
