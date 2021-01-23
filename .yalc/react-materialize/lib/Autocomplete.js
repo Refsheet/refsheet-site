@@ -57,6 +57,7 @@ var Autocomplete = function Autocomplete(_ref) {
   });
 
   (0, _react.useEffect)(function () {
+    M.updateTextFields();
     var instance = M.Autocomplete.init(autocompleteRef.current, options);
     return function () {
       instance && instance.destroy();

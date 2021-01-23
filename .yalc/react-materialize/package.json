@@ -1,6 +1,6 @@
 {
   "name": "react-materialize",
-  "version": "3.9.3+40d0fda6",
+  "version": "3.9.4+8d895634",
   "description": "Material design components for react",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -63,5 +63,5 @@
   "dependencies": {
     "classnames": "^2.2.6"
   },
-  "yalcSig": "40d0fda63b4ccb023147d451d4efe8f5"
+  "yalcSig": "8d895634e45ba3698fe2e8848726b89f"
 }

@@ -50,17 +50,27 @@ var Dropdown = function Dropdown(_ref) {
     });
   };
 
-  var renderItems = function renderItems() {
-    return _react.Children.map(children.filter(Boolean), function (element) {
-      if (element.type === "li") {
+  var renderItems = function renderItems(c) {
+    return _react.Children.map(c, function (element) {
+      console.log({
+        element: element
+      });
+
+      if (!element || element.type === 'li') {
+        // Skip null, undefined, or li children
         return element;
+      } else if (element.type === _react.Fragment) {
+        // Recurse here for Fragments
+        return renderItems(element.props.children);
       } else if (element.type.name === 'Divider' || element.type.displayName === 'Divider') {
+        // Replace <Divider/> component with proper semantics
         return /*#__PURE__*/_react.default.createElement("li", {
           key: (0, _idgen.default)(),
           className: "divider",
           tabIndex: "-1"
         });
       } else {
+        // Wrap child element in <li/>
         return /*#__PURE__*/_react.default.createElement("li", {
           key: (0, _idgen.default)()
         }, element);
@@ -71,7 +81,7 @@ var Dropdown = function Dropdown(_ref) {
   return /*#__PURE__*/_react.default.createElement(_react.Fragment, null, renderTrigger(), /*#__PURE__*/_react.default.createElement("ul", _extends({}, props, {
     className: (0, _classnames.default)('dropdown-content', className),
     ref: _dropdownContent
-  }), renderItems()));
+  }), renderItems(children)));
 };
 
 var dropdownOptions = _propTypes.default.shape({
