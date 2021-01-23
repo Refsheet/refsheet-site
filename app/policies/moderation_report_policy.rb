@@ -1,0 +1,2 @@
+class ModerationReportPolicy < ApplicationPolicy
+end

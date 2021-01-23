@@ -1,0 +1,2 @@
+class TransactionResourcePolicy < ApplicationPolicy
+end

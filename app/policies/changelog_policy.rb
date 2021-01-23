@@ -1,0 +1,2 @@
+class ChangelogPolicy < ApplicationPolicy
+end

@@ -1,0 +1,2 @@
+class TransferPolicy < ApplicationPolicy
+end

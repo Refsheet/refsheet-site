@@ -1,0 +1,2 @@
+class SellerPolicy < ApplicationPolicy
+end

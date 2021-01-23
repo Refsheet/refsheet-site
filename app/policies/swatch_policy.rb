@@ -1,0 +1,2 @@
+class SwatchPolicy < ApplicationPolicy
+end

@@ -1,0 +1,2 @@
+class OrderPolicy < ApplicationPolicy
+end

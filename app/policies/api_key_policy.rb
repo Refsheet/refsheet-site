@@ -1,0 +1,2 @@
+class ApiKeyPolicy < ApplicationPolicy
+end
