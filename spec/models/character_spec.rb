@@ -216,4 +216,28 @@ describe Character, type: :model do
       expect(c.profile_sections.count).to eq 0
     end
   end
+
+  describe '#shortcode' do
+    it 'generates shortcode' do
+      create(:character, name: 'john smith')
+      character = build(:character, name: 'john smith')
+      expect(character).to be_valid
+      expect(character.shortcode).to eq 'john-smith-1'
+    end
+
+    it 'gives up on shortcode generation' do
+      create_list(:character, 15, name: 'john smith')
+      character = build(:character, name: 'john smith')
+      expect(character).to be_valid
+      expect(character.shortcode).to eq 'john-smith-15'
+    end
+
+    it 'jumps absurd shortcodes' do
+      create_list(:character, 15, name: 'john smith')
+      create(:character, name: 'john smith 3000')
+      character = build(:character, name: 'john smith')
+      expect(character).to be_valid
+      expect(character.shortcode).to eq 'john-smith-3001'
+    end
+  end
 end

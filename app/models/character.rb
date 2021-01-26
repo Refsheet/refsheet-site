@@ -360,15 +360,26 @@ class Character < ApplicationRecord
       begin
         tmp_shortcode = Sluggable.to_slug(self.name, attempts > 0 ? attempts : nil)
 
-        unless self.class.exists?(shortcode: tmp_shortcode)
+        if self.class.exists?(shortcode: tmp_shortcode)
+          if attempts > 0
+            break
+          end
+
+          shortcodes = self.class.where('shortcode LIKE ?', tmp_shortcode + "-%").pluck(:shortcode)
+          shortcodes.each do |sc|
+            if sc =~ /-(\d+)$/
+              attempts = [attempts, $1.to_i].max
+            end
+          end
+        else
           shortcode = tmp_shortcode
         end
 
         attempts += 1
-      end while attempts < 10 && shortcode.nil?
+      end while shortcode.nil?
 
       if shortcode.nil?
-        self.errors.add(:shortcode, "should be unique")
+        self.shortcode = SecureRandom.hex(8)
       else
         self.shortcode = shortcode
       end
