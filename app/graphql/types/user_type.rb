@@ -65,4 +65,5 @@ Types::UserType = GraphQL::ObjectType.define do
   private_field :email, types.String
   private_field :unconfirmed_email, types.String
   private_field :support_pledge_amount, types.Int
+  private_field :email_confirmed_at, types.Int
 end
