@@ -1,6 +1,6 @@
 class CharacterPolicy < ApplicationPolicy
   def show?
-    !record.hidden or record.managed_by?(user) or user&.admin?
+    (!hidden and !blocked) or record.managed_by?(user) or user&.admin?
   end
 
   def create?
