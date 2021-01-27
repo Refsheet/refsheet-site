@@ -52,7 +52,7 @@ class Layout extends Component {
           >
             {t(
               'system.update_available',
-              'An update is available. Please reload your browser.'
+              'An update is available. Please save any work and then reload your browser.'
             )}
           </div>
         )}

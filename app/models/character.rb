@@ -86,7 +86,7 @@ class Character < ApplicationRecord
             presence: true,
             format: { with: /[a-z0-9]/i, message: 'must have at least one letter or number' }
 
-  validates_uniqueness_of :shortcode
+  # validates_uniqueness_of :shortcode
 
   validate :validate_profile_image
   validate :validate_featured_image
@@ -183,10 +183,6 @@ class Character < ApplicationRecord
   }
 
   scope :for_sale, -> { joins(:marketplace_listings).merge(Item.for_sale) }
-
-  before_validation do
-    self.shortcode = self.shortcode&.downcase
-  end
 
   after_update do
     #RefsheetSchema.subscriptions.trigger "characterChanged", { id: self.id }, self
@@ -353,33 +349,33 @@ class Character < ApplicationRecord
   end
 
   def initialize_shortcode
-    if self.shortcode.blank?
-      attempts = 0
+    if self.shortcode.blank? && !self.name.blank?
       shortcode = nil
+      tmp_shortcode = Sluggable.to_slug(self.name)
 
-      begin
-        tmp_shortcode = Sluggable.to_slug(self.name, attempts > 0 ? attempts : nil)
+      if self.class.exists?(shortcode: tmp_shortcode)
+        count = 0
 
-        if self.class.exists?(shortcode: tmp_shortcode)
-          if attempts > 0
-            break
+        shortcodes = self.class.where('shortcode LIKE ?', tmp_shortcode + "-%").pluck(:shortcode)
+        Rails.logger.info(shortcodes.inspect)
+        shortcodes.each do |sc|
+          if sc =~ /-(\d+)$/
+            count = [count, $1.to_i].max
+            Rails.logger.info(count.to_s + " - " + $1)
           end
-
-          shortcodes = self.class.where('shortcode LIKE ?', tmp_shortcode + "-%").pluck(:shortcode)
-          shortcodes.each do |sc|
-            if sc =~ /-(\d+)$/
-              attempts = [attempts, $1.to_i].max
-            end
-          end
-        else
-          shortcode = tmp_shortcode
         end
 
-        attempts += 1
-      end while shortcode.nil?
+        tmp_shortcode = Sluggable.to_slug(self.name, count + 1)
+
+        unless self.class.exists?(shortcode: tmp_shortcode)
+          shortcode = tmp_shortcode
+        end
+      else
+        shortcode = tmp_shortcode
+      end
 
       if shortcode.nil?
-        self.shortcode = SecureRandom.hex(8)
+        self.shortcode = SecureRandom.hex(6)
       else
         self.shortcode = shortcode
       end
