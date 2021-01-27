@@ -101,8 +101,6 @@ class App extends Component {
 
   buildStore(state) {
     const store = createStore(rootReducer, state)
-    console.debug('Initialized with state:', store.getState())
-
     return store
   }
 
