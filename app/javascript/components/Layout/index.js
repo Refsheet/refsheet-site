@@ -25,7 +25,7 @@ class Layout extends Component {
   }
 
   render() {
-    const { t, location, updateAvailable, notice } = this.props
+    const { location, notice } = this.props
 
     return (
       <div id={'rootApp'}>
@@ -44,18 +44,6 @@ class Layout extends Component {
 
         <Routes />
         <Footer />
-
-        {updateAvailable && (
-          <div
-            className={'update-notice card-panel cyan darken-4 white-text'}
-            style={{ position: 'fixed', bottom: '1rem', left: '1rem' }}
-          >
-            {t(
-              'system.update_available',
-              'An update is available. Please save any work and then reload your browser.'
-            )}
-          </div>
-        )}
 
         <Chat />
       </div>

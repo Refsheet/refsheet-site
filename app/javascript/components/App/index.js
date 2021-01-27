@@ -46,7 +46,6 @@ class App extends Component {
     this.state = {
       theme: defaultTheme,
       eagerLoad: props.eagerLoad,
-      updateAvailable: false,
       config: {
         ...props.config,
         loading: false,
@@ -73,20 +72,6 @@ class App extends Component {
     WindowAlert.initSound({
       notificationSoundPaths: assets.notificationSoundPaths,
     })
-  }
-
-  checkForUpdates() {
-    const _this = this
-    fetch(host + '/health.json')
-      .then(response => response.json())
-      .then(data => {
-        console.log('Version is: ' + data.version)
-        if (data.version !== window.Refsheet.version) {
-          console.log('Update is available!')
-          _this.setState({ updateAvailable: true })
-        }
-      })
-      .catch(console.error)
   }
 
   buildState(state = {}) {
@@ -154,13 +139,6 @@ class App extends Component {
 
     console.debug('App mounted with props: ', this.props)
 
-    // Check for updates every 10 minutes
-    this.updateInterval = setInterval(
-      this.checkForUpdates.bind(this),
-      600 * 1000
-    )
-    this.checkForUpdates()
-
     // Fade Out Loader
     const $loader = document.getElementById('rootAppLoader')
     $loader.style.opacity = 1
@@ -196,7 +174,7 @@ class App extends Component {
                       history={this.history}
                       onUpdate={this.handleRouteUpdate}
                     >
-                      <Layout updateAvailable={this.state.updateAvailable} />
+                      <Layout />
                     </BrowserRouter>
                   </DndProvider>
                 </DropzoneProvider>
