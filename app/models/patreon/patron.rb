@@ -81,6 +81,8 @@ class Patreon::Patron < ApplicationRecord
   private
 
   def sync_user_flag
-    self.user.patron = self.active?
+    if self.user
+      self.user.patron = self.active?
+    end
   end
 end
