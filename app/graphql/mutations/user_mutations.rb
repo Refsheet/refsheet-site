@@ -87,6 +87,31 @@ class Mutations::UserMutations < Mutations::ApplicationMutation
     not_allowed! "Invalid username or password."
   end
 
+  action :block do
+    type Types::UserType
+
+    argument :username, type: !types.String
+  end
+
+  def block
+    @user = current_user
+    @target_user = User.lookup!(params[:username])
+    @user.block! @target_user
+    @target_user
+  end
+
+  action :unblock do
+    types Types::UserType
+    argument :username, type: !types.String
+  end
+
+  def unblock
+    @user = current_user
+    @target_user = User.lookup!(params[:username])
+    @user.unblock! @target_user
+    @target_user
+  end
+
   action :set_avatar_blob do
     type Types::UserType
 
