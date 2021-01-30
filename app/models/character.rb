@@ -247,6 +247,11 @@ class Character < ApplicationRecord
     "/#{self.user.username}/#{self.slug}"
   end
 
+  def destroy_later
+    self.update_columns(deleted_at: Time.zone.now)
+    CharacterDestructionJob.perform_later(self)
+  end
+
   private
 
   #== Todo: Migrate this to the CharacterTransferService

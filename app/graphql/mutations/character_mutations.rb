@@ -84,7 +84,7 @@ class Mutations::CharacterMutations < Mutations::ApplicationMutation
     authorize @character
 
     if params[:confirmation] == @character.slug
-      @character.destroy
+      @character.destroy_later
     else
       @character.errors.add(:confirmation, "does not match slug")
     end

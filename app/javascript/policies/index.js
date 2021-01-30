@@ -83,7 +83,7 @@ function authorize(
  * @constructor
  */
 const Authorized = ({ object, action, children, user, policy, args }) => {
-  if (authorize(object, action, { user, policy, args })) {
+  if (authorize(object, user, action, policy, args)) {
     return children
   } else {
     return null

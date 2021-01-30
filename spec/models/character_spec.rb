@@ -240,4 +240,19 @@ describe Character, type: :model do
       expect(character.shortcode).to eq 'john-smith-3001'
     end
   end
+
+  describe '#destroy_later' do
+    it "destroys later" do
+      character = create(:character)
+      expect(character).to_not be_deleted
+      expect_any_instance_of(Character).to receive(:destroy)
+
+      perform_enqueued_jobs do
+        character.destroy_later
+      end
+      assert_performed_jobs 1
+
+      expect(character).to be_deleted
+    end
+  end
 end
