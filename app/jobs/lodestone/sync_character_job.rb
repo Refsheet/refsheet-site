@@ -11,10 +11,16 @@ class Lodestone::SyncCharacterJob < ApplicationJob
     last = Time.now
 
     scope.find_each do |record|
-      Lodestone::ImportCharacterJob.perform_now(lodestone_character_id: record.id)
+      begin
+        Lodestone::ImportCharacterJob.perform_now(lodestone_character_id: record.id)
+      rescue => e
+        Rails.logger.error(e)
+      end
+
       if (elapsed = Time.now - last) < rate
         sleep(rate - elapsed)
       end
+
       last = Time.now
     end
 

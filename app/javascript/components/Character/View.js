@@ -179,7 +179,10 @@ class View extends Component {
                   />
 
                   {/*<Reference />*/}
-                  <Gallery images={character.images} />
+                  <Gallery
+                    images={character.images}
+                    editable={character.can_edit}
+                  />
                 </Col>
               </Row>
             </StickyContainer>

@@ -1,4 +1,5 @@
 import CharacterPolicy from './CharacterPolicy'
+import { withCurrentUser } from '../utils/compose'
 
 const policies = {
   Character: CharacterPolicy,
@@ -82,13 +83,15 @@ function authorize(
  * @returns {null|*}
  * @constructor
  */
-const Authorized = ({ object, action, children, user, policy, args }) => {
-  if (authorize(object, user, action, policy, args)) {
-    return children
-  } else {
-    return null
+const Authorized = withCurrentUser(
+  ({ object, action, children, user, currentUser, policy, args }) => {
+    if (authorize(object, user || currentUser, action, policy, args)) {
+      return children
+    } else {
+      return null
+    }
   }
-}
+)
 
 export { Authorized }
 export default authorize

@@ -28,6 +28,7 @@ const Gallery = function ({
   images,
   openUploadModal,
   sortGalleryImage,
+  editable,
 }) {
   let imageData = images
 
@@ -44,6 +45,9 @@ const Gallery = function ({
 
   const onImageSort = ({ targetImageId, sourceImageId, dropBefore }) => {
     // console.log('onImageSort', { targetImageId, sourceImageId, dropBefore })
+    if (!editable) {
+      return
+    }
 
     updateImageOrder(
       ArrayUtils.move(imageOrder, sourceImageId, targetImageId, dropBefore)
@@ -84,13 +88,13 @@ const Gallery = function ({
   ]
 
   const galleryActions = [
-    {
+    editable && {
       icon: 'file_upload',
       title: 'Upload',
       id: 'galleryUpload',
       onClick: openUploadModal,
     },
-  ]
+  ].filter(Boolean)
 
   return (
     <Section
@@ -171,6 +175,7 @@ Gallery.propTypes = {
       }).isRequired,
     })
   ),
+  editable: PropTypes.bool,
 }
 
 const mapDispatchToProps = {
