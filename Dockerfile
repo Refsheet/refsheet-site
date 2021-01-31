@@ -99,6 +99,7 @@ RUN mkdir -p /cache && \
     cp -R /cache/* /app/tmp/cache && \
     SECRET_KEY_BASE=nothing \
     RDS_DB_ADAPTER=nulldb \
+    VERSION=$(cat /app/VERSION) \
     bundle exec rake assets:precompile RAILS_ENV=production && \
     mkdir -p /artifacts && \
     cp -R /app/public/* /artifacts && \
