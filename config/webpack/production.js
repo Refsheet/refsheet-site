@@ -9,7 +9,7 @@ console.log("Version: " + process.env.VERSION);
 
 environment.plugins.append('sentry-webpack', new SentryWebpackPlugin({
   // sentry-cli configuration
-  authToken: process.env.SENTRY_API_TOKEN,
+  authToken: process.env.SENTRY_RELEASE_TOKEN,
   org: "refsheetnet",
   project: "refex",
   release: process.env.VERSION,
