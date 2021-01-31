@@ -91,6 +91,11 @@ RUN yarn --pure-lockfile
 
 # Move App and Precompile
 
+## This will leak the token into our docker history, which is very bad
+## but I didn't feel like spending all day trying to figure out if Kaniko
+## even has a secure way to copy secrets in.
+ARG SENTRY_RELEASE_TOKEN
+
 COPY . /app
 
 RUN mkdir -p /cache && \
@@ -100,6 +105,7 @@ RUN mkdir -p /cache && \
     SECRET_KEY_BASE=nothing \
     RDS_DB_ADAPTER=nulldb \
     VERSION=$(cat /app/VERSION) \
+    SENTRY_RELEASE_TOKEN="$SENTRY_RELEASE_TOKEN" \
     bundle exec rake assets:precompile RAILS_ENV=production && \
     mkdir -p /artifacts && \
     cp -R /app/public/* /artifacts && \
