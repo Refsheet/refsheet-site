@@ -1,9 +1,9 @@
 const environment = require('./environment')
 const SentryWebpackPlugin = require('@sentry/webpack-plugin')
 
-environment.config.merge({
-  devtool: 'cheap-module-source-map'
-})
+// environment.config.merge({
+//   devtool: 'cheap-module-source-map'
+// })
 
 console.log("Version: " + process.env.VERSION);
 
