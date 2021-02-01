@@ -1,11 +1,9 @@
 const environment = require('./environment')
 const SentryWebpackPlugin = require('@sentry/webpack-plugin')
 
-// environment.config.merge({
-//   devtool: 'cheap-module-source-map'
-// })
-
-console.log("Version: " + process.env.VERSION);
+environment.config.merge({
+  devtool: 'nosources-source-map'
+})
 
 environment.plugins.append('sentry-webpack', new SentryWebpackPlugin({
   // sentry-cli configuration
