@@ -101,7 +101,7 @@ class Mutations::UserMutations < Mutations::ApplicationMutation
   end
 
   action :unblock_user do
-    types Types::UserType
+    type Types::UserType
     argument :username, type: !types.String
   end
 
