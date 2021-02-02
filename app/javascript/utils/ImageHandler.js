@@ -1,5 +1,5 @@
 import request from 'superagent'
-import clientfrom 'services/ApplicationService'
+import client from 'services/ApplicationService'
 import xmljs from 'xml-js'
 // TODO: Make this a mutation too, it deserves it.
 import getImageUploadToken from 'graphql/queries/getImageUploadToken.graphql'

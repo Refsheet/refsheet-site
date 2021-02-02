@@ -4,7 +4,7 @@ import c from 'classnames'
 import ReactMde from 'react-mde'
 import * as Showdown from 'showdown'
 import Autocomplete from './autocomplete.graphql'
-import clientfrom 'services/ApplicationService'
+import client from 'services/ApplicationService'
 import './react-mde-overrides.scss'
 import styled from 'styled-components'
 
