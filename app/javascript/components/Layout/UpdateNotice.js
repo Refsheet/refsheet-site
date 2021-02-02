@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { host } from 'ApplicationService'
+import { host }from 'services/ApplicationService'
 import compose from '../../utils/compose'
 import { withTranslation } from 'react-i18next'
 
