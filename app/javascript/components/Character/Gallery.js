@@ -45,9 +45,6 @@ const Gallery = function ({
 
   const onImageSort = ({ targetImageId, sourceImageId, dropBefore }) => {
     // console.log('onImageSort', { targetImageId, sourceImageId, dropBefore })
-    if (!editable) {
-      return
-    }
 
     updateImageOrder(
       ArrayUtils.move(imageOrder, sourceImageId, targetImageId, dropBefore)
