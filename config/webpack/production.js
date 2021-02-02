@@ -2,7 +2,7 @@ const environment = require('./environment')
 const SentryWebpackPlugin = require('@sentry/webpack-plugin')
 
 environment.config.merge({
-  devtool: 'nosources-source-map'
+  devtool: 'source-map'
 })
 
 environment.plugins.append('sentry-webpack', new SentryWebpackPlugin({
