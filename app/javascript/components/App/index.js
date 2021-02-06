@@ -13,7 +13,7 @@ import { DndProvider } from 'react-dnd'
 // Initialization
 import { createStore } from 'redux'
 import rootReducer from 'reducers'
-import client, { host }from 'services/ApplicationService'
+import client, { host } from 'services/ApplicationService'
 import { createBrowserHistory } from 'history'
 import i18n from '../../services/i18n.js'
 

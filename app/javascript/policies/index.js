@@ -83,7 +83,7 @@ function authorize(
  * @returns {null|*}
  * @constructor
  */
-const Authorized = withCurrentUser(
+const Authorized = withCurrentUser()(
   ({ object, action, children, user, currentUser, policy, args }) => {
     if (authorize(object, user || currentUser, action, policy, args)) {
       return children

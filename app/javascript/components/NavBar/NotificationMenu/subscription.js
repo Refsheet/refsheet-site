@@ -1,4 +1,4 @@
-import { subscribe }from 'services/ApplicationService'
+import { subscribe } from 'services/ApplicationService'
 import getNotifications from './getNotifications.graphql'
 import subscribeToNotifications from './subscribeToNotifications.graphql'
 

@@ -1,11 +1,11 @@
 /* global Refsheet */
 
 import React, { Component } from 'react'
-import compose from 'utils/compose'
+import compose from '../../utils/compose'
 import { Link } from 'react-router-dom'
 import { Row, Col } from 'react-materialize'
 import Restrict from '../Shared/Restrict'
-import i18n from 'services/i18n'
+import i18n from '../../services/i18n'
 import c from 'classnames'
 import SessionService from '../../services/SessionService'
 import { H3 } from '../Styled/Headings'

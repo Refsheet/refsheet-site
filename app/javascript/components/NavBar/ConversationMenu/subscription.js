@@ -1,4 +1,4 @@
-import { subscribe }from 'services/ApplicationService'
+import { subscribe } from 'services/ApplicationService'
 import getConversations from './getConversations.graphql'
 import subscribeToConversations from './subscribeToConversations.graphql'
 
