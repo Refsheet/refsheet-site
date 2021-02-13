@@ -1,3 +1,4 @@
+import React from 'react'
 import CharacterPolicy from './CharacterPolicy'
 import { withCurrentUser } from '../utils/compose'
 
@@ -93,5 +94,15 @@ const Authorized = withCurrentUser()(
   }
 )
 
-export { Authorized }
+function withAuthorize(Component) {
+  return withCurrentUser()(props => {
+    const authorizeWithUser = (object, action, policy, args) => {
+      return authorize(object, props.currentUser, action, policy, args)
+    }
+
+    return <Component {...props} authorize={authorizeWithUser} />
+  })
+}
+
+export { Authorized, withAuthorize }
 export default authorize

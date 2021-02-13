@@ -230,27 +230,29 @@ const Component = createReactClass({
     })
   },
 
-  renderGallery({ data, loading, error }) {
-    if (error) {
-      console.error('renderGallery failed:', error)
+  renderGallery(canEdit) {
+    return ({ data, loading, error }) => {
+      if (error) {
+        console.error('renderGallery failed:', error)
+      }
+
+      const images =
+        (data && data.getCharacterByUrl && data.getCharacterByUrl.images) || []
+
+      return (
+        <div>
+          <ImageGalleryModal
+            v2Data
+            images={images}
+            title={this.state.galleryTitle}
+            onClick={this.state.onGallerySelect}
+            onUploadClick={this._openUploads}
+          />
+
+          <Gallery images={images} loading={loading} editable={canEdit} />
+        </div>
+      )
     }
-
-    const images =
-      (data && data.getCharacterByUrl && data.getCharacterByUrl.images) || []
-
-    return (
-      <div>
-        <ImageGalleryModal
-          v2Data
-          images={images}
-          title={this.state.galleryTitle}
-          onClick={this.state.onGallerySelect}
-          onUploadClick={this._openUploads}
-        />
-
-        <Gallery images={images} loading={loading} />
-      </div>
-    )
   },
 
   render() {
@@ -469,7 +471,7 @@ const Component = createReactClass({
                 username: this.state.character.user_id,
               }}
             >
-              {this.renderGallery}
+              {this.renderGallery(canEdit)}
             </Query>
           </Section>
         </ThemedMain>
