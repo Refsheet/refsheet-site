@@ -28,16 +28,13 @@ import qs from 'query-string'
 import defaultState from './defaultState.json'
 import { base as defaultTheme } from 'themes/default'
 import { base as debugTheme } from 'themes/debug'
+import ConfigContext from './ConfigContext'
 
 // Children
 import Layout from '../Layout'
 import { Router as BrowserRouter } from 'react-router-dom'
 import { setCurrentUser } from '../../actions'
 import { withErrorBoundary } from '../Shared/ErrorBoundary'
-
-const ConfigContext = createContext({
-  loading: true,
-})
 
 class App extends Component {
   constructor(props) {
@@ -204,7 +201,5 @@ App.propTypes = {
 App.childContextTypes = {
   eagerLoad: PropTypes.object,
 }
-
-export { ConfigContext }
 
 export default withErrorBoundary(App)

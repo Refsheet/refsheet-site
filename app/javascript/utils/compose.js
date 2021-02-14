@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import M from 'materialize-css'
 import { deepRemoveKeys } from './ObjectUtils'
 import { setCurrentUser } from '../actions'
-import { ConfigContext } from '../components/App'
+import ConfigContext from '../components/App/ConfigContext'
 
 function compose() {
   return component => {

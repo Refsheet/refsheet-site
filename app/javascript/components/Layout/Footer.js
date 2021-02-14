@@ -10,7 +10,6 @@ import c from 'classnames'
 import SessionService from '../../services/SessionService'
 import { H3 } from '../Styled/Headings'
 import styled from 'styled-components'
-import GoogleAd from '../Shared/GoogleAd'
 import { withErrorBoundary } from '../Shared/ErrorBoundary'
 
 class _Footer extends Component {
