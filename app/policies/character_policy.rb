@@ -1,14 +1,18 @@
 class CharacterPolicy < ApplicationPolicy
+  def index?
+    admin?
+  end
+
   def show?
-    (!hidden and !blocked) or record.managed_by?(user) or user&.admin?
+    (!hidden? and !blocked?) or record.managed_by?(user) or admin?
   end
 
   def create?
-    user and (record.user_id == user.id or user.admin?)
+    user and (record.user_id == user.id or admin?)
   end
 
   def update?
-    user and (record.managed_by?(user) or user.admin?)
+    user and (record.managed_by?(user) or admin?)
   end
 
   def convert?

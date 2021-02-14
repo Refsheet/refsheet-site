@@ -4,6 +4,44 @@ class Mutations::CharacterMutations < Mutations::ApplicationMutation
   before_action :get_character, only: [
       :update, :convert, :destroy, :transfer, :set_avatar_blob, :set_cover_blob]
 
+  action :index do
+    type types[Types::CharacterType]
+
+    argument :ids, type: types[types.ID]
+    argument :with_deleted, type: types.Boolean
+    argument :order, type: types.String
+    argument :ascending, type: types.Boolean
+    argument :page, type: types.Int
+    argument :query, type: types.String
+  end
+
+  ## Todo: Normalize this to a collection query.
+  def index
+    authorize Character, :index?
+    scope = Character.all
+
+    # Eager Loading
+
+    if params[:ids] && params[:ids].length > 0
+      Rails.logger.info("Searching in IDs: #{params[:ids].join(',')}")
+      scope = scope.where(shortcode: params[:ids])
+    end
+
+    if params[:with_deleted]
+      authorize Character, :show_deleted?
+      scope = scope.with_deleted
+    end
+
+    if params[:query]
+      scope = scope.search_for(params[:query])
+    end
+
+    scope = scope.order(created_at: :desc)
+
+    scope = scope.page(params[:page] || 1)
+    scope
+  end
+
   action :update do
     type Types::CharacterType
 

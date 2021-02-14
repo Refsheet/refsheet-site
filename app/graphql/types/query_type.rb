@@ -22,7 +22,13 @@ Types::QueryType = GraphQL::ObjectType.define do
 
   field :getCharacter, Types::CharacterType do
     argument :id, !types.ID
-    resolve -> (_obj, args, _ctx) { Character.find_by!(guid: args[:id]) }
+    argument :shortcode, types.Boolean
+
+    resolve -> (_obj, args, _ctx) {
+      query = {}
+      query[args[:shortcode] ? :shortcode : :guid] = args[:id]
+      Character.find_by!(query)
+    }
   end
 
   field :getCharacterByUrl, Types::CharacterType do
@@ -42,6 +48,8 @@ Types::QueryType = GraphQL::ObjectType.define do
       paginate_scope Character.search_for(args[:query]), args
     }
   end
+
+  field :getCharacters, field: Mutations::CharacterMutations::Index
 
   field :getNextModeration, Types::ModerationType do
     resolve -> (_obj, _args, _ctx) {
