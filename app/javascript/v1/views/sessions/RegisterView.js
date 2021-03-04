@@ -24,6 +24,8 @@ class RegisterView extends Component {
         email: null,
         password: null,
         password_confirmation: null,
+      },
+      extra: {
         captchaData: null,
       },
     }
@@ -53,8 +55,7 @@ class RegisterView extends Component {
 
   handleCaptchaChange(data) {
     this.setState({
-      user: {
-        ...this.state.user,
+      extra: {
         captchaData: data,
       },
     })
@@ -77,6 +78,7 @@ class RegisterView extends Component {
               method="POST"
               formName={'register_full'}
               model={this.state.user}
+              extraData={this.state.extra}
               onChange={this._handleChange.bind(this)}
               onError={this._handleError.bind(this)}
               modelName="user"
