@@ -118,7 +118,7 @@ class Conversations::Message < ApplicationRecord
 
   def check_blocked
     # block everyone until we can play nice and block each other
-    unless Rails.env.test? #recipient&.blocked? self.user
+    if recipient&.blocked?(self.user) || Rails.env.production?
       errors.add(:conversation, "cannot receive messages right now")
     end
   end
