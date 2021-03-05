@@ -5,11 +5,11 @@ import c from 'classnames'
 
 class GoogleAd extends Component {
   componentDidMount() {
-    console.warn("A google ad was rendered here, but I am removing them.");
+    console.warn('A google ad was rendered here, but I am removing them.')
   }
 
   render() {
-    return null;
+    return null
   }
 }
 

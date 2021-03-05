@@ -126,6 +126,8 @@ class Mutations::CharacterMutations < Mutations::ApplicationMutation
     else
       @character.errors.add(:confirmation, "does not match slug")
     end
+
+    @character
   end
 
   action :set_avatar_blob do
