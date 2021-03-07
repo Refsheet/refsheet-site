@@ -14,8 +14,9 @@ import compose from '../../utils/compose'
 import Restrict from '../Shared/Restrict'
 import ImageTagForm from './ImageTags/ImageTagForm'
 import c from 'classnames'
-import { Link } from 'react-router-dom'
 import ImageTags from './ImageTags'
+import { setNsfwMode } from '../../actions'
+import { connect } from 'react-redux'
 
 class View extends Component {
   constructor(props) {
@@ -26,6 +27,16 @@ class View extends Component {
       tagging: false,
       tags: [],
     }
+
+    this.handleNsfwClick = this.handleNsfwClick.bind(this)
+    this.handlePrevClick = this.handlePrevClick.bind(this)
+    this.handleNextClick = this.handleNextClick.bind(this)
+    this.handleEditStart = this.handleEditStart.bind(this)
+    this.handleEditEnd = this.handleEditEnd.bind(this)
+    this.handleTagStart = this.handleTagStart.bind(this)
+    this.handleTagEnd = this.handleTagEnd.bind(this)
+    this.handleMediaUpdate = this.handleMediaUpdate.bind(this)
+    this.handleImageClick = this.handleImageClick.bind(this)
   }
 
   handlePrevClick(e) {
@@ -57,6 +68,11 @@ class View extends Component {
 
   handleMediaUpdate() {
     this.setState({ editing: false })
+  }
+
+  handleNsfwClick(e) {
+    e.preventDefault()
+    this.props.setNsfwMode(true)
   }
 
   handleImageClick(e) {
@@ -103,16 +119,16 @@ class View extends Component {
       return (
         <ImageEditForm
           image={this.props.media}
-          onSave={this.handleMediaUpdate.bind(this)}
-          onCancel={this.handleEditEnd.bind(this)}
+          onSave={this.handleMediaUpdate}
+          onCancel={this.handleEditEnd}
         />
       )
     } else if (this.state.tagging) {
       return (
         <ImageTagForm
           image={this.props.media}
-          onSave={this.handleMediaUpdate.bind(this)}
-          onCancel={this.handleTagEnd.bind(this)}
+          onSave={this.handleMediaUpdate}
+          onCancel={this.handleTagEnd}
         />
       )
     } else {
@@ -121,7 +137,7 @@ class View extends Component {
           <div className="image-details">
             {is_managed && (
               <ImageActions
-                onEditClick={this.handleEditStart.bind(this)}
+                onEditClick={this.handleEditStart}
                 downloadLink={download_link}
                 mediaId={this.props.media.id}
               />
@@ -152,6 +168,7 @@ class View extends Component {
       media: {
         title,
         url: { large: imageSrc },
+        nsfw,
       },
       nextMediaId,
       prevMediaId,
@@ -167,7 +184,7 @@ class View extends Component {
               className={'image-prev image-nav'}
               href={`/media/${prevMediaId}`}
               title={t('actions.previous_media', 'Previous Image')}
-              onClick={this.handlePrevClick.bind(this)}
+              onClick={this.handlePrevClick}
             >
               <Icon>keyboard_arrow_left</Icon>
             </a>
@@ -178,7 +195,7 @@ class View extends Component {
               className={'image-next image-nav'}
               href={`/media/${nextMediaId}`}
               title={t('actions.next_media', 'Next Image')}
-              onClick={this.handleNextClick.bind(this)}
+              onClick={this.handleNextClick}
             >
               <Icon>keyboard_arrow_right</Icon>
             </a>
@@ -206,7 +223,7 @@ class View extends Component {
                 <a
                   className={'block'}
                   href={'#'}
-                  onClick={this.handleTagStart.bind(this)}
+                  onClick={this.handleTagStart}
                   title={t('actions.tag_characters', 'Tag Characters')}
                 >
                   <Icon className={'left'}>tag_faces</Icon>
@@ -216,15 +233,19 @@ class View extends Component {
             </div>
           </div>
 
-          <ImageLoader src={imageSrc}>
-            <img
-              alt={title}
-              title={title}
-              onClick={this.handleImageClick.bind(this)}
-            />
-            <Error />
-            <Loading />
-          </ImageLoader>
+          <Restrict nsfw={nsfw}>
+            <ImageLoader src={imageSrc}>
+              <img alt={title} title={title} onClick={this.handleImageClick} />
+              <Error />
+              <Loading />
+            </ImageLoader>
+          </Restrict>
+          <Restrict invert nsfw={nsfw}>
+            <a className="nsfw-cover" onClick={this.handleNsfwClick}>
+              <Icon>remove_circle_outline</Icon>
+              <div className="caption">Click to show NSFW content.</div>
+            </a>
+          </Restrict>
 
           <ImageTags tags={this.state.tags} tagging={this.state.tagging} />
         </div>
@@ -240,4 +261,11 @@ View.propTypes = {
   media: PropTypes.object.isRequired,
 }
 
-export default compose(withTranslation('common'))(View)
+const mapDispatchToProps = {
+  setNsfwMode,
+}
+
+export default compose(
+  connect(undefined, mapDispatchToProps),
+  withTranslation('common')
+)(View)

@@ -13,6 +13,8 @@ const Restrict = ({
   development,
   invert,
   children,
+  nsfw,
+  nsfwOk,
 }) => {
   const { is_admin, is_patron, is_supporter } = currentUser || {}
 
@@ -41,6 +43,10 @@ const Restrict = ({
     }
   }
 
+  if (nsfw && !nsfwOk) {
+    hide = true
+  }
+
   if (invert) {
     hide = !hide
   }
@@ -59,6 +65,7 @@ Restrict.propTypes = {
 
 const mapStateToProps = state => ({
   currentUser: state.session.currentUser,
+  nsfwOk: state.session.nsfwOk,
 })
 
 export default connect(mapStateToProps)(Restrict)
