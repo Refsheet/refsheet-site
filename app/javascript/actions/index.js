@@ -7,9 +7,10 @@ export function setCurrentUser(user) {
 }
 
 export const SET_NSFW_MODE = 'SET_NSFW_MODE'
-export function setNsfwMode(nsfwOk = false) {
+export function setNsfwMode(nsfwOk = false, confirmed = false) {
   return {
     type: SET_NSFW_MODE,
+    confirmed,
     nsfwOk,
   }
 }
