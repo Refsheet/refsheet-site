@@ -144,11 +144,17 @@ class Thumbnail extends Component {
         comments_count,
         is_favorite,
         title,
-        size
+        url
       },
+      size
     } = this.props
 
-    const src = this.props.image.url[size || 'medium'];
+    let src = url[size || 'medium'];
+
+    if (!src) {
+      console.log({ size, url });
+      src = url[Object.keys[url][0]]
+    }
 
     if (image_processing_error) {
       return this.renderNotification(
