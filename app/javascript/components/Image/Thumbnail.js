@@ -4,7 +4,7 @@ import imageProcessingComplete from './imageProcessingComplete.graphql'
 import { Subscription } from 'react-apollo'
 import { Icon } from 'react-materialize'
 import { connect } from 'react-redux'
-import {openLightbox, setNsfwMode} from '../../actions'
+import { openLightbox, setNsfwMode } from '../../actions'
 import NumberUtils from '../../v1/utils/NumberUtils'
 import c from 'classnames'
 import compose, { withMutations } from '../../utils/compose'
@@ -12,7 +12,7 @@ import deleteMedia from '../Lightbox/deleteMedia.graphql'
 import updateImage from '../Lightbox/updateImage.graphql'
 import CacheUtils from '../../utils/CacheUtils'
 import Flash from '../../utils/Flash'
-import {withTranslation} from "react-i18next"
+import { withTranslation } from 'react-i18next'
 
 class Thumbnail extends Component {
   constructor(props) {
@@ -33,15 +33,22 @@ class Thumbnail extends Component {
       openLightbox,
       gallery,
       t,
-      setNsfwMode
+      setNsfwMode,
     } = this.props
 
     if (nsfw && !nsfwOk) {
-      if (confirm(t('confirmations.nsfw_ok', "By continuing, you assert that you are 18 years or older, and that it is legal for you to view explicit content."))) {
-        setNsfwMode(true, true);
+      if (
+        confirm(
+          t(
+            'confirmations.nsfw_ok',
+            'By continuing, you assert that you are 18 years or older, and that it is legal for you to view explicit content.'
+          )
+        )
+      ) {
+        setNsfwMode(true, true)
       }
     } else {
-      openLightbox(id, gallery);
+      openLightbox(id, gallery)
     }
   }
 
@@ -144,15 +151,15 @@ class Thumbnail extends Component {
         comments_count,
         is_favorite,
         title,
-        url
+        url,
       },
-      size
+      size,
     } = this.props
 
-    let src = url[size || 'medium'];
+    let src = url[size || 'medium']
 
     if (!src) {
-      console.log({ size, url });
+      console.log({ size, url })
       src = url[Object.keys[url][0]]
     }
 
@@ -195,20 +202,25 @@ class Thumbnail extends Component {
         style={{ backgroundColor: background_color }}
       >
         {showNsfwWarning && (
-          <div className="nsfw-cover" style={{ padding: "1rem" }}>
-            <div style={{ position: 'relative', top: '50%', transform: 'translateY(-50%)' }}>
+          <div className="nsfw-cover" style={{ padding: '1rem' }}>
+            <div
+              style={{
+                position: 'relative',
+                top: '50%',
+                transform: 'translateY(-50%)',
+              }}
+            >
               <Icon>remove_circle_outline</Icon>
-              <div className="caption" style={{ paddingTop: "1rem" }}>Click to show NSFW content.</div>
+              <div className="caption" style={{ paddingTop: '1rem' }}>
+                Click to show NSFW content.
+              </div>
             </div>
           </div>
         )}
 
         <div className="overlay">
           <div className="interactions">
-            <div
-              className="favs clickable"
-              onClick={this.handleFavoriteClick}
-            >
+            <div className="favs clickable" onClick={this.handleFavoriteClick}>
               <Icon>{is_favorite ? 'star' : 'star_outline'}</Icon>
               &nbsp;{NumberUtils.format(favorites_count)}
             </div>
@@ -249,7 +261,9 @@ class Thumbnail extends Component {
             ...style,
             backgroundColor: image.background_color || 'rgb(0,0,0)',
           }}
-          className={c('gallery-image image-thumbnail', className, { 'z-depth-1': !flat })}
+          className={c('gallery-image image-thumbnail', className, {
+            'z-depth-1': !flat,
+          })}
         >
           {children}
           {this.renderImage()}
@@ -308,7 +322,7 @@ const Subscribed = props => {
 
 const mapDispatchToProps = {
   openLightbox,
-  setNsfwMode
+  setNsfwMode,
 }
 
 const mapStateToProps = ({ session }) => ({
@@ -318,5 +332,5 @@ const mapStateToProps = ({ session }) => ({
 export default compose(
   withMutations({ updateImage, deleteMedia }),
   connect(mapStateToProps, mapDispatchToProps),
-  withTranslation('common'),
+  withTranslation('common')
 )(Subscribed)

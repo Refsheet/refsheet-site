@@ -8,7 +8,7 @@ import NumberUtils from '../../utils/NumberUtils'
 
 import $ from 'jquery'
 import compose from '../../../utils/compose'
-import Thumbnail from "../../../components/Image/Thumbnail"
+import Thumbnail from '../../../components/Image/Thumbnail'
 
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
@@ -241,9 +241,8 @@ const mapStateToProps = state => ({
 
 // export default compose(connect(mapStateToProps))(gallery_image)
 
-
-const V2ThumbnailWrapper = (props) => {
-  console.log({props})
+const V2ThumbnailWrapper = props => {
+  console.log({ props })
   /*
   created_at,
         image_processing,
@@ -266,11 +265,11 @@ const V2ThumbnailWrapper = (props) => {
     ...props,
     image: {
       ...props.image,
-      aspect_ratio
+      aspect_ratio,
     },
     style: {
-      paddingBottom: `${aspect_ratio * 100}%`
-    }
+      paddingBottom: `${aspect_ratio * 100}%`,
+    },
   }
 
   return <Thumbnail flat {...v2props} />

@@ -14,7 +14,7 @@ const Restrict = ({
   invert,
   children,
   nsfw,
-  nsfwOk
+  nsfwOk,
 }) => {
   const { is_admin, is_patron, is_supporter } = currentUser || {}
 

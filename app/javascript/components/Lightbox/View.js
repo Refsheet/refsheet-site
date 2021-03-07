@@ -15,7 +15,7 @@ import Restrict from '../Shared/Restrict'
 import ImageTagForm from './ImageTags/ImageTagForm'
 import c from 'classnames'
 import ImageTags from './ImageTags'
-import {setNsfwMode} from "../../actions"
+import { setNsfwMode } from '../../actions'
 import { connect } from 'react-redux'
 
 class View extends Component {
@@ -168,7 +168,7 @@ class View extends Component {
       media: {
         title,
         url: { large: imageSrc },
-        nsfw
+        nsfw,
       },
       nextMediaId,
       prevMediaId,
@@ -235,11 +235,7 @@ class View extends Component {
 
           <Restrict nsfw={nsfw}>
             <ImageLoader src={imageSrc}>
-              <img
-                alt={title}
-                title={title}
-                onClick={this.handleImageClick}
-              />
+              <img alt={title} title={title} onClick={this.handleImageClick} />
               <Error />
               <Loading />
             </ImageLoader>
@@ -266,7 +262,7 @@ View.propTypes = {
 }
 
 const mapDispatchToProps = {
-  setNsfwMode
+  setNsfwMode,
 }
 
 export default compose(
