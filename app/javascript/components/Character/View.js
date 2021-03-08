@@ -80,6 +80,7 @@ class View extends Component {
   /**
    * TODO: Refactor out the modals to their own component.
    * Consider a ModalProvider container/HOC. Yeees.
+   * That's complicated and unnecessary this is fine just let it go.
    */
   render() {
     const { character, refetch } = this.props

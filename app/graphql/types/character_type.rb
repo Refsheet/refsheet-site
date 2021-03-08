@@ -136,5 +136,6 @@ Types::CharacterType = GraphQL::ObjectType.define do
       end
     }
   end
-  # has_one :pending_transfer, serializer: CharacterTransferSerializer
+
+  field :marketplace_listing, Types::MarketplaceListingType
 end

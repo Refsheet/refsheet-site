@@ -98,6 +98,7 @@ type Character implements ApplicationRecord {
     likes: String
     likes_html: String
     lodestone_character: Lodestone_Character
+    marketplace_listing: MarketplaceListing
     name: String!
     nsfw: Boolean
     path: String!
@@ -366,6 +367,16 @@ type Lodestone_Server implements ApplicationRecord {
     updated_at: Int
 }
 
+type MarketplaceListing implements ApplicationRecord {
+    amount_cents: Int
+    amount_currency: String
+    created_at: Int
+    deleted_at: Int
+    id: ID
+    title: String
+    updated_at: Int
+}
+
 type MediaComment implements ApplicationRecord {
     comment: String!
     created_at: Int
@@ -449,6 +460,7 @@ type Moderation implements ApplicationRecord {
 type Mutation {
     addComment(comment: String!, mediaId: ID!): MediaComment
     addFavorite(mediaId: ID!): MediaFavorite
+    blockUser(username: String!): User
     convertCharacter(id: ID!): Character
     createActivity(character_id: ID, comment: String): Activity
     createApiKey(name: String, read_only: Boolean): ApiKey
@@ -481,6 +493,7 @@ type Mutation {
     sortGalleryImage(dropBefore: Boolean, sourceImageId: ID!, targetImageId: ID!): Character
     transferCharacter(destination: String!, id: ID!): Character
     udpateColorScheme(colorData: ThemeColorDataInput, id: ID!, name: String): Theme
+    unblockUser(username: String!): User
     updateCharacter(color_scheme_id: ID, hidden: Boolean, id: ID!, name: String, nsfw: Boolean, shortcode: String, slug: String, special_notes: String, species: String): Character
     updateConversation(conversation_id: ID!, read: Boolean): Conversation
     updateDiscussion(content: String, id: ID!, locked: Boolean, sticky: Boolean, topic: String): ForumDiscussion
@@ -534,8 +547,9 @@ type Query {
     findUser(username: String!): User
     getActivity(page: Int, since: Int, type: String): [Activity]
     getArtist(slug: String!): Artist
-    getCharacter(id: ID!): Character
+    getCharacter(id: ID!, shortcode: Boolean): Character
     getCharacterByUrl(slug: String!, username: String!): Character
+    getCharacters(ascending: Boolean, ids: [ID], order: String, page: Int, query: String, with_deleted: Boolean): [Character]
     getComments(mediaId: ID!, page: Int, perPage: Int, since: Int): MediaCommentCollection
     getConversation(conversationId: ID!): Conversation
     getConversations: [Conversation]
@@ -638,6 +652,7 @@ type User implements ApplicationRecord {
     created_at: Int
     deleted_at: Int
     email: String
+    email_confirmed_at: Int
     id: ID
     is_admin: Boolean
     is_followed: Boolean
