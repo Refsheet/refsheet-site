@@ -239,7 +239,7 @@ const mapStateToProps = state => ({
   session: state.session,
 })
 
-// export default compose(connect(mapStateToProps))(gallery_image)
+const V1GalleryImage = compose(connect(mapStateToProps))(gallery_image)
 
 const V2ThumbnailWrapper = props => {
   console.log({ props })
@@ -276,3 +276,5 @@ const V2ThumbnailWrapper = props => {
 }
 
 export default V2ThumbnailWrapper
+
+export { V1GalleryImage }
