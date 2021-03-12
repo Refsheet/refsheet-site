@@ -9,8 +9,8 @@ import DeleteCharacter from './DeleteCharacter'
 import Modal from 'Styled/Modal'
 import Tabs, { Tab } from '../../../Styled/Tabs'
 import DataLink from './DataLink'
-import MarketplaceListing from "./MarketplaceListing"
-import Restrict from "../../../Shared/Restrict"
+import MarketplaceListing from './MarketplaceListing'
+import Restrict from '../../../Shared/Restrict'
 
 class SettingsModal extends Component {
   constructor(props) {

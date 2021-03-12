@@ -21,9 +21,7 @@ import React from 'react'
  * @constructor
  */
 const MarketplaceListing = () => {
-  return (
-    <div>mkptlc</div>
-  )
+  return <div>mkptlc</div>
 }
 
 export default MarketplaceListing

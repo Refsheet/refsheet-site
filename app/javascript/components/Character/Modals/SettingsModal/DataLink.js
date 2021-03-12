@@ -147,10 +147,13 @@ class DataLink extends Component {
         <div>
           <h3>Final Fantasy XIV Online Lodestone Link</h3>
           <p>
-            If this character comes from Final Fantasy XIV Online, you can automatically fetch character data from
-            the Lodestone, enabling a rich set of widgets.
+            If this character comes from Final Fantasy XIV Online, you can
+            automatically fetch character data from the Lodestone, enabling a
+            rich set of widgets.
           </p>
-          <p>To start, please paste the URL of your character on the Lodestone:</p>
+          <p>
+            To start, please paste the URL of your character on the Lodestone:
+          </p>
           <form onSubmit={this.handleLodestoneLink.bind(this)}>
             <Input
               onChange={this.handleInputChange.bind(this)}
