@@ -1,7 +1,8 @@
 class Forum::DiscussionPolicy < ApplicationPolicy
   def create?
     return true if user.admin?
-    (!record.forum.locked?) && user.confirmed?
+    # TODO - User confirmation is hard also this error message isn't all that helpful
+    (!record.forum.locked?)# && user.confirmed?
   end
 
   def update?
