@@ -24,16 +24,22 @@ class ConversationMenu extends Component {
       e && e.preventDefault && e.preventDefault()
       openConversation(c.guid)
     }
+    
+    const {
+      user = {
+        name: 'Deleted User'
+      }
+    } = c
 
     return (
       <NotificationItem
         onClick={click}
         key={c.id}
-        icon={c.user.avatar_url}
+        icon={user.avatar_url}
         created_at={c.lastMessage ? c.lastMessage.created_at : c.created_at}
         title={
           <span>
-            <strong>{c.user.name}</strong>
+            <strong>{user.name}</strong>
             <br />
             {formatBody(c.lastMessage, true)}
           </span>
