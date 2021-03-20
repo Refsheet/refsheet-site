@@ -647,6 +647,7 @@ type Transfer implements ApplicationRecord {
 type User implements ApplicationRecord {
     apiKeys: [ApiKey]
     avatar_url(style: String): String
+    blocks: Boolean
     characters: [Character]
     characters_count: String
     created_at: Int
@@ -655,6 +656,7 @@ type User implements ApplicationRecord {
     email_confirmed_at: Int
     id: ID
     is_admin: Boolean
+    is_blocked: Boolean
     is_followed: Boolean
     is_managed: Boolean
     is_moderator: Boolean
