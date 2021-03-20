@@ -10,7 +10,7 @@ import c from 'classnames'
 import { userClasses } from '../../utils/UserUtils'
 import { closeConversation } from '../../actions'
 import { connect } from 'react-redux'
-import {Link} from "react-router-dom"
+import { Link } from 'react-router-dom'
 
 class Conversation extends Component {
   constructor(props) {
@@ -148,11 +148,11 @@ class Conversation extends Component {
     const postedGuids = []
 
     if (!user) {
-      return <div className="chat-body conversation">
-        <div className={'chat-title'}>
-          User not found.
+      return (
+        <div className="chat-body conversation">
+          <div className={'chat-title'}>User not found.</div>
         </div>
-      </div>
+      )
     }
 
     _.sortBy(allMessages, 'created_at').map(message => {
@@ -197,11 +197,7 @@ class Conversation extends Component {
             isRead && userClasses(user, 'user-background-light')
           )}
         >
-          <a
-            href="#"
-            className="left white-text"
-            onClick={this.handleClose}
-          >
+          <a href="#" className="left white-text" onClick={this.handleClose}>
             <Icon>close</Icon>
           </a>
           <a
@@ -213,7 +209,7 @@ class Conversation extends Component {
           </a>
           <Link to={`/${user.username}`} className="white-text truncate">
             {user.name}
-            <span className={'username muted small'}>@{ user.username }</span>
+            <span className={'username muted small'}>@{user.username}</span>
           </Link>
         </div>
 

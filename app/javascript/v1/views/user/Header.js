@@ -7,13 +7,16 @@ import $ from 'jquery'
 import Model from '../../utils/Model'
 import * as UserUtils from '../../../utils/UserUtils'
 import AvatarModal from '../../../components/User/Modals/AvatarModal'
-import compose, {withCurrentUser, withMutations} from '../../../utils/compose'
-import Button from "../../../components/Styled/Button"
+import compose, { withCurrentUser, withMutations } from '../../../utils/compose'
+import Button from '../../../components/Styled/Button'
 import { Icon as MIcon } from 'react-materialize'
-import {openConversation} from "../../../actions"
+import { openConversation } from '../../../actions'
 import { connect } from 'react-redux'
-import {blockUser, unblockUser} from '../../../graphql/mutations/blockUser.graphql'
-import Flash from "../../../utils/Flash"
+import {
+  blockUser,
+  unblockUser,
+} from '../../../graphql/mutations/blockUser.graphql'
+import Flash from '../../../utils/Flash'
 
 const Header = createReactClass({
   propTypes: {
@@ -36,8 +39,8 @@ const Header = createReactClass({
     onUserChange: PropTypes.func,
     openConversation: PropTypes.func,
     currentUser: PropTypes.shape({
-      username: PropTypes.string
-    })
+      username: PropTypes.string,
+    }),
   },
 
   getInitialState(props) {
@@ -96,30 +99,28 @@ const Header = createReactClass({
     e.preventDefault()
     const { blocked, blockUser, unblockUser } = this.props
 
-    Flash.info("Doing Something Important...")
+    Flash.info('Doing Something Important...')
 
     if (blocked) {
       unblockUser({
         wrapped: true,
         variables: {
-          username: this.props.user.username
-        }
+          username: this.props.user.username,
+        },
+      }).then(({ data: { unblockUser: user } }) => {
+        console.log(user)
+        this.props.onFollow(user.is_followed, user.is_blocked)
       })
-        .then(({data: { unblockUser: user }}) => {
-          console.log(user)
-          this.props.onFollow(user.is_followed, user.is_blocked)
-        })
     } else {
       blockUser({
         wrapped: true,
         variables: {
-          username: this.props.user.username
-        }
+          username: this.props.user.username,
+        },
+      }).then(({ data: { blockUser: user } }) => {
+        console.log(user)
+        this.props.onFollow(user.is_followed, user.is_blocked)
       })
-        .then(({data: { blockUser: user }}) => {
-          console.log(user)
-          this.props.onFollow(user.is_followed, user.is_blocked)
-        })
     }
   },
 
@@ -129,7 +130,13 @@ const Header = createReactClass({
   },
 
   render() {
-    let bioChangeCallback, canFollow, editable, followColor, imageStyle, canMessage, canBlock
+    let bioChangeCallback,
+      canFollow,
+      editable,
+      followColor,
+      imageStyle,
+      canMessage,
+      canBlock
 
     if (this.props.onUserChange != null) {
       bioChangeCallback = this.handleBioChange
@@ -228,36 +235,53 @@ const Header = createReactClass({
             </div>
 
             <div className="user-bio">
-              { !this.props.blocked && <RichText
-                contentHtml={this.props.user.profile}
-                content={this.props.user.profile_markup}
-                onChange={bioChangeCallback}
-                title={'About ' + this.props.user.name}
-                titleComponent={'p'}
-              /> }
+              {!this.props.blocked && (
+                <RichText
+                  contentHtml={this.props.user.profile}
+                  content={this.props.user.profile_markup}
+                  onChange={bioChangeCallback}
+                  title={'About ' + this.props.user.name}
+                  titleComponent={'p'}
+                />
+              )}
             </div>
           </div>
           <div className={'user-actions'} style={{ width: 200 }}>
             {canFollow && (
-              <Button className="btn-muted btn-flat btn-block margin-bottom--medium" onClick={this._handleFollowClick}>
-                    <span className="hide-on-med-and-down">
-                      {this.props.followed ? 'Following' : 'Follow'}
-                    </span>
+              <Button
+                className="btn-muted btn-flat btn-block margin-bottom--medium"
+                onClick={this._handleFollowClick}
+              >
+                <span className="hide-on-med-and-down">
+                  {this.props.followed ? 'Following' : 'Follow'}
+                </span>
                 <Icon style={{ color: followColor }} className="right">
                   person_add
                 </Icon>
               </Button>
             )}
 
-            { canMessage && <Button onClick={this._handleMessageClick} className={'btn-block btn-flat margin-bottom--medium'}>
-              <MIcon right>message</MIcon>
-              Message
-            </Button> }
+            {canMessage && (
+              <Button
+                onClick={this._handleMessageClick}
+                className={'btn-block btn-flat margin-bottom--medium'}
+              >
+                <MIcon right>message</MIcon>
+                Message
+              </Button>
+            )}
 
-            { canBlock && <Button onClick={this._handleBlockClick} className={'btn-block btn-flat btn-secondary margin-bottom--medium'}>
-              <MIcon right>block</MIcon>
-              { this.props.blocked ? 'Unblock' : 'Block' }
-            </Button> }
+            {canBlock && (
+              <Button
+                onClick={this._handleBlockClick}
+                className={
+                  'btn-block btn-flat btn-secondary margin-bottom--medium'
+                }
+              >
+                <MIcon right>block</MIcon>
+                {this.props.blocked ? 'Unblock' : 'Block'}
+              </Button>
+            )}
           </div>
         </div>
       </div>
@@ -266,7 +290,7 @@ const Header = createReactClass({
 })
 
 const mapDispatchToProps = {
-  openConversation
+  openConversation,
 }
 
 export default compose(

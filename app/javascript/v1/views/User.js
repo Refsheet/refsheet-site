@@ -26,8 +26,8 @@ import Characters from './user/Characters'
 import Section from '../../components/Shared/Section'
 import compose, { withCurrentUser } from '../../utils/compose'
 import { withRouter } from 'react-router'
-import Error from "../../components/Shared/Error"
-import Icon from "react-materialize/lib/Icon"
+import Error from '../../components/Shared/Error'
+import Icon from 'react-materialize/lib/Icon'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -103,10 +103,9 @@ const User = createReactClass({
   },
 
   _handleUserFollow(followed, blocked) {
-    const user = {...this.state.user}
+    const user = { ...this.state.user }
     user.followed = followed
-    if (blocked !== undefined)
-      user.blocked = blocked
+    if (blocked !== undefined) user.blocked = blocked
     return this.setState({ user })
   },
 
@@ -259,28 +258,34 @@ const User = createReactClass({
         />
 
         <Section container className="margin-top--large padding-bottom--none">
-          {! blocked && <Characters
-            groups={this.state.user.character_groups}
-            characters={this.state.user.characters}
-            editable={editable}
-            userLink={this.state.user.link}
-            activeGroupId={this.state.activeGroupId}
-            onGroupChange={this._handleGroupChange}
-            onGroupClick={this.setActiveGroupId}
-            onGroupSort={this._handleGroupSort}
-            onGroupDelete={this._handleGroupDelete}
-            onCharacterDelete={this._handleGroupCharacterDelete}
-            onCharacterSort={this._handleCharacterSort}
-          /> }
+          {!blocked && (
+            <Characters
+              groups={this.state.user.character_groups}
+              characters={this.state.user.characters}
+              editable={editable}
+              userLink={this.state.user.link}
+              activeGroupId={this.state.activeGroupId}
+              onGroupChange={this._handleGroupChange}
+              onGroupClick={this.setActiveGroupId}
+              onGroupSort={this._handleGroupSort}
+              onGroupDelete={this._handleGroupDelete}
+              onCharacterDelete={this._handleGroupCharacterDelete}
+              onCharacterSort={this._handleCharacterSort}
+            />
+          )}
 
-          { blocked &&
+          {blocked && (
             <div className={'caption center'}>
-              <Icon large className={'grey-text text-darken-1'}>block</Icon>
+              <Icon large className={'grey-text text-darken-1'}>
+                block
+              </Icon>
               <div className={'margin-top--large'}>
-                { this.state.user.blocks ? "This, apparently, is not the profile you are looking for." : "You have blocked this user." }
+                {this.state.user.blocks
+                  ? 'This, apparently, is not the profile you are looking for.'
+                  : 'You have blocked this user.'}
               </div>
             </div>
-          }
+          )}
         </Section>
       </Main>
     )
