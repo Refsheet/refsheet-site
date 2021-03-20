@@ -71,7 +71,8 @@ const Main = styled(_Main)`
       );
     }
 
-    &.split-bg-left {
+    &.split-bg-left,
+    &.with-sidebar {
       background: linear-gradient(
         to left,
         ${props => props.theme.background} 50%,

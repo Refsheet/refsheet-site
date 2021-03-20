@@ -7,7 +7,7 @@ import UserNav from './UserNav'
 import SessionNav from './SessionNav'
 import { connect } from 'react-redux'
 import c from 'classnames'
-
+import styled from 'styled-components'
 import { setCurrentUser, setNsfwMode } from 'actions'
 import SessionService from '../../services/SessionService'
 import IdentityModal from '../Shared/CommentForm/IdentityModal'
@@ -92,12 +92,15 @@ class NavBar extends Component {
     const {
       query,
       session: { nsfwOk, currentUser, identity },
+      className,
     } = this.props
 
     const { menuOpen } = this.state
 
     return (
-      <div className={c('NavBar navbar-fixed user-bar', { menuOpen })}>
+      <div
+        className={c('NavBar navbar-fixed user-bar', className, { menuOpen })}
+      >
         <div className="navbar-shroud" onClick={this.handleMenuClose} />
 
         {!this.state.noticeClosed && this.props.notice && (
@@ -199,4 +202,21 @@ const options = {
 export default compose(
   withErrorBoundary,
   connect(mapStateToProps, mapDispatchToProps, null, options)
-)(NavBar)
+)(styled(NavBar)`
+  nav {
+    background-color: ${props => props.theme.cardBackground};
+    color: ${props => props.theme.text};
+
+    li > a {
+      color: ${props => props.theme.text} !important;
+
+      &:hover {
+        color: ${props => props.theme.text} !important;
+      }
+    }
+
+    input[type='search'] {
+      color: ${props => props.theme.text} !important;
+    }
+  }
+`)

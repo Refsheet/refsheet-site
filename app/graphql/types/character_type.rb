@@ -112,8 +112,8 @@ Types::CharacterType = GraphQL::ObjectType.define do
   end
 
   field :theme, Types::ThemeType do
-    resolve -> (obj, _args, ctx) {
-      obj.color_scheme || ColorScheme.default
+    resolve -> (obj, _args, _ctx) {
+      obj.color_scheme# || ColorScheme.default
     }
   end
 
