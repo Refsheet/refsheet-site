@@ -59,13 +59,26 @@ class ApplicationPolicy
 
   private
 
+  def find_user
+    if record.is_a? User
+      record
+    elsif record.respond_to?(:user)
+      record.user
+    elsif record.respond_to?(:recipient)
+      record.recipient
+    end
+  end
+
   def hidden?
     record.respond_to?(:character) && record.character.hidden or record.hidden
   end
 
   def blocked?
-    target_user = record.respond_to?(:user) ? record.user : record
-    user && user.blocked_by?(target_user)
+    user && user.blocked_by?(find_user)
+  end
+
+  def blocks?
+    user && user.blocked?(find_user)
   end
 
   def admin?
