@@ -35,7 +35,11 @@ feature 'New Character', js: true do
   scenario 'taken shortcode' do
     create :character, shortcode: 'fubar'
     enter shortcode: 'fubar'
-    try_create 'taken'
+    # try_create 'taken'
+    # This was an error condition, but a large number of users complained that
+    # "must be unique" was too tough a restriction, therefore we are now just
+    # forcing a new unique name and letting them type whatever they please.
+    try_create
   end
 
   scenario 'taken slug' do

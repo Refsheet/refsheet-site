@@ -17,6 +17,7 @@ import { setUploadTarget } from '../../actions'
 import RevisionModal from './Modals/RevisionModal'
 import AvatarModal from './Modals/AvatarModal'
 import CoverModal from './Modals/CoverModal'
+import themes from '../../themes'
 
 class View extends Component {
   constructor(props) {
@@ -83,7 +84,7 @@ class View extends Component {
    * That's complicated and unnecessary this is fine just let it go.
    */
   render() {
-    const { character, refetch } = this.props
+    const { character, refetch, session } = this.props
     const {
       settingsOpen,
       colorOpen,
@@ -91,11 +92,15 @@ class View extends Component {
       uploadAvatarOpen,
       uploadCoverOpen,
     } = this.state
+
     const { colors } =
       this.state.colorSchemeOverride || this.props.character.theme || {}
 
+    const theme = themes[session.theme] || themes.dark
+    console.log(theme, colors)
+
     return (
-      <ThemeProvider theme={defaultTheme.apply(colors)}>
+      <ThemeProvider theme={theme.apply(colors)}>
         <ThemedMain title={character.name}>
           {settingsOpen && (
             <SettingsModal
@@ -203,4 +208,6 @@ const mapDispatchToProps = {
   setUploadTarget,
 }
 
-export default compose(connect(undefined, mapDispatchToProps))(View)
+export default compose(
+  connect(({ session }) => ({ session }), mapDispatchToProps)
+)(View)

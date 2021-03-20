@@ -26,14 +26,12 @@ import qs from 'query-string'
 
 // Configuration
 import defaultState from './defaultState.json'
-import { base as defaultTheme } from 'themes/default'
-import { base as debugTheme } from 'themes/debug'
+import themes from '../../themes'
 import ConfigContext from './ConfigContext'
 
 // Children
 import Layout from '../Layout'
 import { Router as BrowserRouter } from 'react-router-dom'
-import { setCurrentUser } from '../../actions'
 import { withErrorBoundary } from '../Shared/ErrorBoundary'
 
 class App extends Component {
@@ -41,7 +39,6 @@ class App extends Component {
     super(props)
 
     this.state = {
-      theme: defaultTheme,
       eagerLoad: props.eagerLoad,
       config: {
         ...props.config,
@@ -157,12 +154,15 @@ class App extends Component {
   }
 
   render() {
+    const { theme: themeName } = this.store.getState().session
+    const theme = themes[themeName] || themes.dark
+
     return (
       <ConfigContext.Provider value={this.state.config}>
         <I18nextProvider i18n={i18n}>
-          <ThemeProvider theme={this.state.theme}>
-            <ApolloProvider client={client} store={this.store}>
-              <ReduxProvider store={this.store}>
+          <ApolloProvider client={client} store={this.store}>
+            <ReduxProvider store={this.store}>
+              <ThemeProvider theme={theme.base}>
                 <DropzoneProvider>
                   <DndProvider backend={Backend}>
                     <BrowserRouter
@@ -173,9 +173,9 @@ class App extends Component {
                     </BrowserRouter>
                   </DndProvider>
                 </DropzoneProvider>
-              </ReduxProvider>
-            </ApolloProvider>
-          </ThemeProvider>
+              </ThemeProvider>
+            </ReduxProvider>
+          </ApolloProvider>
         </I18nextProvider>
       </ConfigContext.Provider>
     )

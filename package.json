@@ -133,6 +133,7 @@
     "eslint-graphql": "eslint ./app/javascript/ --ext .gql --ext .graphql",
     "rspec-integration": "RAILS_ENV=test bundle exec rspec --pattern \"**/{features,requests,integration}/**/*_spec.rb\"",
     "rspec": "RAILS_ENV=test bundle exec rspec --exclude-pattern \"**/{features,requests,integration}/**/*_spec.rb\"",
-    "webpack-dev-server": "webpack serve"
+    "webpack-dev-server": "webpack serve",
+    "prepush": "yarn run prettier && yarn run eslint --quiet"
   }
 }

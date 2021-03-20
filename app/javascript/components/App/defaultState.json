@@ -4,7 +4,8 @@
     "nsfwOk": false,
     "timeZone": null,
     "locale": null,
-    "identity": {}
+    "identity": {},
+    "theme": "dark"
   },
   "conversations": {
     "openConversations": []
