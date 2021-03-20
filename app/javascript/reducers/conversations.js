@@ -16,7 +16,11 @@ const handlers = {
 
   [Actions.CLOSE_CONVERSATION]: (state, action) => {
     const openConversations = state.openConversations.filter(
-      i => i !== action.conversationId
+      i => i !== action.conversationId && (
+        action.conversationId &&
+          action.conversationId.username &&
+            i.username !== action.conversationId.username
+      )
     )
 
     return {

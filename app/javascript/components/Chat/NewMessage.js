@@ -182,7 +182,7 @@ Wrapped.propTypes = {
   onClose: PropTypes.func.isRequired,
   onConversationStart: PropTypes.func,
   onCreate: PropTypes.func,
-  conversationId: PropTypes.string.isRequired,
+  conversationId: PropTypes.string,
   recipient: PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.string,

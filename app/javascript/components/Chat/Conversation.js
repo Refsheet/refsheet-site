@@ -7,10 +7,10 @@ import ConversationMessage from './ConversationMessage'
 import NewMessage from './NewMessage'
 import { Icon } from 'react-materialize'
 import c from 'classnames'
-import Scrollbars from 'react-custom-scrollbars'
 import { userClasses } from '../../utils/UserUtils'
 import { closeConversation } from '../../actions'
 import { connect } from 'react-redux'
+import {Link} from "react-router-dom"
 
 class Conversation extends Component {
   constructor(props) {
@@ -147,6 +147,14 @@ class Conversation extends Component {
 
     const postedGuids = []
 
+    if (!user) {
+      return <div className="chat-body conversation">
+        <div className={'chat-title'}>
+          User not found.
+        </div>
+      </div>
+    }
+
     _.sortBy(allMessages, 'created_at').map(message => {
       if (message.guid && postedGuids.indexOf(message.guid) !== -1) return
 
@@ -191,14 +199,22 @@ class Conversation extends Component {
         >
           <a
             href="#"
+            className="left white-text"
+            onClick={this.handleClose}
+          >
+            <Icon>close</Icon>
+          </a>
+          <a
+            href="#"
             className="right white-text"
             onClick={this.handleOpenClose}
           >
             <Icon>{isOpen ? 'keyboard_arrow_down' : 'keyboard_arrow_up'}</Icon>
           </a>
-          <a href="#" className="white-text" onClick={this.handleOpenClose}>
-            Conversation With {user.name}
-          </a>
+          <Link to={`/${user.username}`} className="white-text truncate">
+            {user.name}
+            <span className={'username muted small'}>@{ user.username }</span>
+          </Link>
         </div>
 
         {isOpen && (

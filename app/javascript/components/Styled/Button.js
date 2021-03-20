@@ -16,6 +16,38 @@ const Button = styled(MaterialButton)`
   &:hover {
     background-color: ${props => props.theme.accent1} !important;
   }
+  
+  &.btn-flat {
+    background-color: transparent !important;
+    color: ${props => props.theme.primary} !important;
+    border: 1px solid ${props => props.theme.borderColor} !important;
+    transition: all 0.3s ease;
+    
+    &.btn-secondary {
+      color: ${props => props.theme.accent2} !important;
+      border-color: ${props => props.theme.accent2} !important;
+    }
+    
+    &.btn-muted {
+      color: rgba(255, 255, 255, 0.6) !important;
+      border-color: rgba(255, 255, 255, 0.6) !important;
+    }
+    
+    &:hover {
+      border-color: ${props => props.theme.accent1} !important;
+      color: ${props => props.theme.accent1} !important;
+      
+      &.btn-secondary {
+        background-color: transparent !important;
+        color: ${props => props.theme.accent2} !important;
+        border-color: ${props => props.theme.accent2} !important;
+      }
+      
+      &.btn-muted {
+        color: rgba(255, 255, 255, 0.8) !important;
+        border-color: rgba(255, 255, 255, 0.8) !important;
+    }
+  }
 `
 
 export default Button

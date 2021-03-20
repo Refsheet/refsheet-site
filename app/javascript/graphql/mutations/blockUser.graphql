@@ -1,0 +1,17 @@
+mutation blockUser($username: String!) {
+    blockUser(username: $username) {
+        id
+        username
+        is_blocked
+        is_followed
+    }
+}
+
+mutation unblockUser($username: String!) {
+    unblockUser(username: $username) {
+        id
+        username
+        is_blocked
+        is_followed
+    }
+}

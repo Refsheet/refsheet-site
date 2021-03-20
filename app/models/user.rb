@@ -194,12 +194,18 @@ class User < ApplicationRecord
     self.blocked_users.exists?(blocked_user: user)
   end
 
-  def block!(user)
-    self.blocked_users.create(blocked_user: user)
+  def blocked_by?(user)
+    user.blocked? self
+  end
 
-    if followed_by? user
-      self.followers.where(follower: user).destroy_all
+  def block!(user)
+    if user.admin?
+      raise "You cannot block an admin."
     end
+
+    self.blocked_users.create(blocked_user: user)
+    self.followers.where(follower: user).destroy_all
+    self.following.where(following: user).destroy_all
   end
 
   def unblock!(user)

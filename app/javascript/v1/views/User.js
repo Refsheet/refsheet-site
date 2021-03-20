@@ -26,6 +26,8 @@ import Characters from './user/Characters'
 import Section from '../../components/Shared/Section'
 import compose, { withCurrentUser } from '../../utils/compose'
 import { withRouter } from 'react-router'
+import Error from "../../components/Shared/Error"
+import Icon from "react-materialize/lib/Icon"
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -100,9 +102,11 @@ const User = createReactClass({
     }
   },
 
-  _handleUserFollow(followed) {
-    const user = $.extend({}, this.state.user)
+  _handleUserFollow(followed, blocked) {
+    const user = {...this.state.user}
     user.followed = followed
+    if (blocked !== undefined)
+      user.blocked = blocked
     return this.setState({ user })
   },
 
@@ -169,7 +173,8 @@ const User = createReactClass({
   //== Render
 
   render() {
-    let actionButtons, editable, editPath, userChangeCallback
+    let actionButtons, editable, editPath, userChangeCallback, blocked
+
     if (this.state.error != null) {
       return <NotFound />
     }
@@ -213,6 +218,8 @@ const User = createReactClass({
       editPath = this.state.user.path
     }
 
+    blocked = this.state.user.blocked || this.state.user.blocks
+
     return (
       <Main title={[this.state.user.name, 'Users']}>
         {editable && (
@@ -243,14 +250,16 @@ const User = createReactClass({
         )}
 
         <Header
-          {...this.state.user}
           user={this.state.user}
+          blocked={this.state.user.blocked}
+          blocks={this.state.user.blocks}
+          followed={this.state.user.followed}
           onFollow={this._handleUserFollow}
           onUserChange={userChangeCallback}
         />
 
         <Section container className="margin-top--large padding-bottom--none">
-          <Characters
+          {! blocked && <Characters
             groups={this.state.user.character_groups}
             characters={this.state.user.characters}
             editable={editable}
@@ -262,7 +271,16 @@ const User = createReactClass({
             onGroupDelete={this._handleGroupDelete}
             onCharacterDelete={this._handleGroupCharacterDelete}
             onCharacterSort={this._handleCharacterSort}
-          />
+          /> }
+
+          { blocked &&
+            <div className={'caption center'}>
+              <Icon large className={'grey-text text-darken-1'}>block</Icon>
+              <div className={'margin-top--large'}>
+                { this.state.user.blocks ? "This, apparently, is not the profile you are looking for." : "You have blocked this user." }
+              </div>
+            </div>
+          }
         </Section>
       </Main>
     )

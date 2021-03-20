@@ -44,9 +44,12 @@
 
   .chat-title
     @extend .card-header
-    padding: 0.5rem 50px 0.5rem 1rem
+    padding: 0 3rem 0 3rem
     font-weight: bold
     color: white
+    line-height: 3rem
+    height: 3rem
+    vertical-align: middle
     border-top-left-radius: 2px
     border-top-right-radius: 2px
     position: relative
@@ -55,14 +58,38 @@
     white-space: nowrap
     background-color: rgba(0, 0, 0, 0.4)
 
+    a
+      line-height: 3rem
+      display: block
+
+      i.material-icons
+        height: 3rem
+        line-height: 3rem
+        vertical-align: middle
+
+      span.username
+        padding-left: 1rem
+
     a.right
       position: absolute
       right: 0
       top: 0
       height: 100%
-      padding: 0.5rem
       transition: background-color 0.3s ease
-      margin-left: 1rem
+      text-align: center
+      width: 2.5rem
+
+      &:hover
+        background-color: rgba(white, 0.1)
+
+    a.left
+      position: absolute
+      left: 0
+      top: 0
+      height: 100%
+      transition: background-color 0.3s ease
+      text-align: center
+      width: 2.5rem
 
       &:hover
         background-color: rgba(white, 0.1)
@@ -298,6 +325,9 @@
       padding: 5px 1rem
       border: none !important
       outline: none !important
+
+    input[type="text"]
+      padding: 0 0.5rem !important
 
     input, span
       background-color: rgba(0,0,0,0.1)
