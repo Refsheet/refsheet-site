@@ -233,7 +233,7 @@ class Character < ApplicationRecord
   end
 
   def for_sale?
-    Marketplace::Items::CharacterListing.for_sale.exists? character: self
+    marketplace_listing.exists?
   end
 
   def initiate_transfer!(recipient, sale=nil)

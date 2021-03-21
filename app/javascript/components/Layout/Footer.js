@@ -41,9 +41,15 @@ class _Footer extends Component {
     }
   }
 
+  setTheme(theme) {
+    return e => {
+      e.preventDefault()
+    }
+  }
+
   render() {
     return (
-      <footer className="page-footer">
+      <footer className={'page-footer ' + this.props.className}>
         <div className="container margin-top--large">
           {Refsheet.environment !== 'test' ? (
             <div>
@@ -281,8 +287,8 @@ class _Footer extends Component {
 }
 
 const Footer = styled(_Footer)`
-  background-color: ${props => props.theme.cardBackground};
-  color: ${props => props.theme.text};
+  background-color: ${props => props.theme.cardBackground} !important;
+  color: ${props => props.theme.text} !important;
 `
 
 export default compose(withErrorBoundary)(Footer)

@@ -1,18 +1,18 @@
 import { define } from './common'
 
 export const definitions = define({
-  primary: '#FF00CC',
-  accent1: '#FF00CC',
-  accent2: '#FF00CC',
-  text: '#FF00CC',
-  textMedium: '#FF00CC',
-  textLight: '#FF00CC',
-  background: '#FF00CC',
-  cardBackground: '#FF00CC',
-  cardHeaderBackground: '#FF00CC',
-  imageBackground: '#FF00CC',
-  border: '#FF00CC',
-  cardShadow: '#FF00CC',
+  primary: '#26a69a',
+  accent1: '#80cbc4',
+  accent2: '#ee6e73',
+  text: '#111111',
+  textMedium: '#222222',
+  textLight: '#333333',
+  background: '#FFFFFF',
+  cardBackground: '#FFFFFF',
+  cardHeaderBackground: '#FFFFFF',
+  imageBackground: '#FFFFFF',
+  border: '#CCCCCC',
+  cardShadow: '#FFFFFF',
 })
 
 export const apply = (otherTheme = {}) => {

@@ -62,6 +62,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::UnknownFormat, with: :not_found
   rescue_from ActionController::InvalidAuthenticityToken, with: :bad_request
   rescue_from ActionController::ParameterMissing, with: :bad_request
+  rescue_from Pundit::NotAuthorizedError, with: :unauthorized
   rescue_from ApplicationController::Unauthorized, with: :unauthorized
   rescue_from ActiveRecord::ConnectionTimeoutError, with: :thread_dump
 
@@ -73,6 +74,7 @@ class ApplicationController < ActionController::Base
   #== Published Base Routes
 
   def authorize!(user=current_user)
+    ActiveSupport::Deprecation.warn("Old authorize! used, please use Pundit.")
     unauthorized! unless user
   end
 

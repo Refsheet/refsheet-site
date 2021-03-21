@@ -196,19 +196,6 @@ export default Activity = createReactClass({
     let out = []
 
     this._groupedActivity().map(item => {
-      // TODO: Set ad frequency to a variable
-      if (activityIndex++ % 10 === 0) {
-        out.push(
-          <Card className={'card'} key={'ad-' + ++adCount}>
-            <GoogleAd
-              format={'fluid'}
-              layoutKey={'-f5+66+2b-d1+eu'}
-              slot={'3997004779'}
-            />
-          </Card>
-        )
-      }
-
       out.push(
         <Views.Account.ActivityCard
           {...StringUtils.camelizeKeys(item)}

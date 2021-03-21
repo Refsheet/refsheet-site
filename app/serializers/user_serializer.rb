@@ -57,7 +57,9 @@ class UserSerializer < ActiveModel::Serializer
              :is_patron,
              :is_supporter,
              :is_moderator,
-             :followed
+             :followed,
+             :blocked,
+             :blocks
 
   has_many :characters,
            serializer: ImageCharacterSerializer
@@ -101,5 +103,13 @@ class UserSerializer < ActiveModel::Serializer
 
   def followed
     scope.current_user&.following? object if scope&.respond_to? :current_user
+  end
+
+  def blocked
+    scope.current_user&.blocked? object if scope&.respond_to? :current_user
+  end
+
+  def blocks
+    scope.current_user&.blocked_by? object if scope&.respond_to? :current_user
   end
 end

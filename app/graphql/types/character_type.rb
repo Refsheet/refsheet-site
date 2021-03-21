@@ -112,8 +112,8 @@ Types::CharacterType = GraphQL::ObjectType.define do
   end
 
   field :theme, Types::ThemeType do
-    resolve -> (obj, _args, ctx) {
-      obj.color_scheme || ColorScheme.default
+    resolve -> (obj, _args, _ctx) {
+      obj.color_scheme# || ColorScheme.default
     }
   end
 
@@ -136,5 +136,6 @@ Types::CharacterType = GraphQL::ObjectType.define do
       end
     }
   end
-  # has_one :pending_transfer, serializer: CharacterTransferSerializer
+
+  field :marketplace_listing, Types::MarketplaceListingType
 end

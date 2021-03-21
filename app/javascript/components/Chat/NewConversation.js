@@ -10,8 +10,8 @@ class NewConversation extends Component {
     super(props)
 
     this.state = {
-      username: '',
-      doSearch: false,
+      username: this.props.username,
+      doSearch: !!this.props.username,
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)

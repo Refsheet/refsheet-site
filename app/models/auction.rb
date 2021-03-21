@@ -21,4 +21,9 @@
 #
 
 class Auction < ApplicationRecord
+  has_many :bids
+  belongs_to :item
+  belongs_to :slot
+
+  monetize :starting_bid_cents, numericality: { greater_than_or_equal_to: 1, message: 'must be at least $1' }
 end

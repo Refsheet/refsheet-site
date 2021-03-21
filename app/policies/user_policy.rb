@@ -1,13 +1,17 @@
 class UserPolicy < ApplicationPolicy
   def index?
+    false
+  end
+
+  def create?
     true
   end
 
   def show?
-    true
+    admin? or (!blocked? and !blocks?)
   end
 
   def update?
-    user === record or user&.admin?
+    user === record or admin?
   end
 end

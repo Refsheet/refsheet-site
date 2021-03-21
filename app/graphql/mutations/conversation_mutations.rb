@@ -13,6 +13,7 @@ class Mutations::ConversationMutations < Mutations::ApplicationMutation
     recipient = User.find_by!(guid: params[:recipient_id])
 
     @conversation = Conversation.with(sender, recipient)
+    authorize @conversation, :create?
 
     unless @conversation.persisted?
       @conversation.update(conversation_params)

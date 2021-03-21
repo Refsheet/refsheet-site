@@ -4,6 +4,7 @@ import conversations from './conversations'
 import uploads from './uploads'
 import lightbox from './lightbox'
 import modals from './modals'
+import theme from './theme'
 
 export function createReducer(initialState, handlers) {
   return function reducer(state = initialState, action) {
@@ -19,6 +20,7 @@ export default combineReducers({
   session,
   conversations,
   uploads,
+  theme,
   lightbox,
   modals,
 })

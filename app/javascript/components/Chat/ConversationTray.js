@@ -22,7 +22,7 @@ const ConversationTray = ({
   }
 
   const renderConversation = id => {
-    if (typeof id !== 'undefined') {
+    if (typeof id !== 'undefined' && !id.username) {
       return (
         <div key={id} className="chat-popout">
           <Conversation id={id} onClose={console.log} />
@@ -37,6 +37,7 @@ const ConversationTray = ({
         <NewConversation
           onClose={newConversation}
           onConversationStart={newConversation}
+          username={id.username}
         />
       </div>
     )

@@ -70,6 +70,7 @@ class Mutations::ApplicationMutation
   end
 
   def authorize!(check, message=nil)
+    ActiveSupport::Deprecation.warn("Old authorize! used, please use Pundit.")
     check ? nil : not_allowed!(message)
   end
 
