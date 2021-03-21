@@ -133,6 +133,24 @@ const LookAndFeel = ({ theme = {}, setThemeSettings }) => {
             onChange={handleChange}
             value={theme.allowHoliday}
           />
+
+          <div className={'row'}>
+            <Col s={12}>
+              <strong>inb4</strong>: This feature isn't finished, the color
+              scheme will revert when you reload the page, save does nothing,
+              and the two toggle buttons don't actually really work.
+              <br />
+              <br />
+              If for some reason it does start working, I forgot to remove this
+              error message. It's just that way sometimes, I'm doing like 90
+              things at once and really want to get features out but like, just
+              out enough to be *there* to play with, and I'll finish them later
+              when I've had a break and a beer.
+              <br />
+              <br />
+              If you REALLY, REALLY want this feature done, I GUESS you can ask.
+            </Col>
+          </div>
         </div>
 
         <div className={'card-action right-align'}>
