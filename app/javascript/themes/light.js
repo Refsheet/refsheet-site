@@ -7,7 +7,7 @@ export const definitions = {
   textLight: ['Subtle Text', '#444444'],
   background: ['Page Background', '#EEEEEE'],
   cardBackground: ['Card Background', '#FFFFFF'],
-  cardHeaderBackground: ['Card Header Background', 'rgba(0,0,0,0.2)'],
+  cardHeaderBackground: ['Card Header Background', 'rgba(0,0,0,0.05)'],
   imageBackground: ['Image Background', '#FFFFFF'],
   border: ['Border Colors', 'rgba(0,0,0,0.1)'],
 }

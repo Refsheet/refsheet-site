@@ -29,6 +29,7 @@ import * as Materialize from 'materialize-css'
 import User from './views/User'
 
 import $ from 'jquery'
+import Site from '../components/Settings/Site'
 
 // Backfill for Router V4 not parsing query strings.
 const history = createBrowserHistory()
@@ -138,6 +139,11 @@ const Routes = createReactClass({
                             path="/account/settings"
                             title="Account Settings"
                             component={Views.Account.Settings.Show}
+                          />
+                          <Route
+                            path="/account/site"
+                            title="Site Settings"
+                            component={Site}
                           />
                           <Route
                             path="/account/support"

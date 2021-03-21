@@ -8,6 +8,22 @@
     .card.sp .row:not(.no-margin) > .col
       margin-bottom: 1rem
 
+  &.form-fix
+    &:last-child
+      .col
+        margin-bottom: 0 !important
+
+    .input-field.col
+      margin: 0 !important
+
+    .col > .switch
+      padding: calc(1.5rem - 7px) 0
+      .lever
+        margin: 0
+
+    input
+      margin-bottom: 0
+
   &.hidden
     display: none
 
@@ -29,6 +45,12 @@
     margin-bottom: 1rem
 
   .col
+    &.input-height
+      line-height: 1rem
+      padding-top: 1rem
+      padding-bottom: 0.5rem
+      vertical-align: middle
+
     &.xl3
       @media #{$extra-large-and-up}
         width: 25%

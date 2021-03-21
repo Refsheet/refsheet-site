@@ -13,6 +13,7 @@ import SessionService from '../../services/SessionService'
 import IdentityModal from '../Shared/CommentForm/IdentityModal'
 import compose from '../../utils/compose'
 import { withErrorBoundary } from '../Shared/ErrorBoundary'
+import { buildShadow } from '../Styled/common'
 
 class NavBar extends Component {
   constructor(props) {
@@ -206,6 +207,7 @@ export default compose(
   nav {
     background-color: ${props => props.theme.cardBackground};
     color: ${props => props.theme.text};
+    box-shadow: ${props => buildShadow(props.theme.cardShadow, 2)} !important;
 
     li > a {
       color: ${props => props.theme.text} !important;

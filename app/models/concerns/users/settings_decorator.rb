@@ -8,7 +8,14 @@ module Users::SettingsDecorator
       s.key :view, defaults: {
           nsfw_ok: false,
           locale: nil,
-          time_zone: nil
+          time_zone: nil,
+      }
+
+      s.key :theme, defaults: {
+          id: nil,
+          name: "dark",
+          allow_holiday: true,
+          allow_override: true
       }
 
       s.key :notifications, defaults: {

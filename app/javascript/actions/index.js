@@ -65,3 +65,4 @@ export function setIdentity({ user, character }) {
 
 export * from './uploads'
 export * from './modals'
+export * from './theme'

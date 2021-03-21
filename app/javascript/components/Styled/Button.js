@@ -1,9 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Button as MaterialButton } from 'react-materialize'
+import { buildShadow } from './common'
 
 const Button = styled(MaterialButton)`
   background-color: ${props => props.theme.primary} !important;
+  box-shadow: ${props => buildShadow(props.theme.cardShadow, 1)};
 
   &.btn-secondary {
     background-color: ${props => props.theme.accent2} !important;
@@ -22,6 +24,7 @@ const Button = styled(MaterialButton)`
     color: ${props => props.theme.primary} !important;
     border: 1px solid ${props => props.theme.borderColor} !important;
     transition: all 0.3s ease;
+    box-shadow: none;
     
     &.btn-secondary {
       color: ${props => props.theme.accent2} !important;

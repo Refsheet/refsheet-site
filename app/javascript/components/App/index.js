@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'
 import { ApolloProvider } from 'react-apollo'
 import { Provider as ReduxProvider } from 'react-redux'
 import DropzoneProvider from '../Dropzone'
-import { ThemeProvider } from 'styled-components'
 import { I18nextProvider } from 'react-i18next'
 import { HTML5Backend as Backend } from 'react-dnd-html5-backend'
 import { DndProvider } from 'react-dnd'
@@ -26,7 +25,6 @@ import qs from 'query-string'
 
 // Configuration
 import defaultState from './defaultState.json'
-import themes from '../../themes'
 import ConfigContext from './ConfigContext'
 
 // Children
@@ -72,6 +70,10 @@ class App extends Component {
     let session = (this.props.eagerLoad && this.props.eagerLoad.session) || {}
     session = StringUtils.camelizeKeys(session)
 
+    let theme =
+      (session.currentUser && session.currentUser.settings.theme) || {}
+    theme = StringUtils.camelizeKeys(theme)
+
     const newState = {
       ...defaultState,
       ...state,
@@ -80,7 +82,13 @@ class App extends Component {
         ...session,
         ...state.session,
       },
+      theme: {
+        ...defaultState.theme,
+        ...theme,
+      },
     }
+
+    console.log({ newState })
 
     if (!newState.session.identity.name && newState.session.currentUser) {
       newState.session.identity = {
@@ -154,26 +162,21 @@ class App extends Component {
   }
 
   render() {
-    const { theme: themeName } = this.store.getState().session
-    const theme = themes[themeName] || themes.dark
-
     return (
       <ConfigContext.Provider value={this.state.config}>
         <I18nextProvider i18n={i18n}>
           <ApolloProvider client={client} store={this.store}>
             <ReduxProvider store={this.store}>
-              <ThemeProvider theme={theme.base}>
-                <DropzoneProvider>
-                  <DndProvider backend={Backend}>
-                    <BrowserRouter
-                      history={this.history}
-                      onUpdate={this.handleRouteUpdate}
-                    >
-                      <Layout />
-                    </BrowserRouter>
-                  </DndProvider>
-                </DropzoneProvider>
-              </ThemeProvider>
+              <DropzoneProvider>
+                <DndProvider backend={Backend}>
+                  <BrowserRouter
+                    history={this.history}
+                    onUpdate={this.handleRouteUpdate}
+                  >
+                    <Layout />
+                  </BrowserRouter>
+                </DndProvider>
+              </DropzoneProvider>
             </ReduxProvider>
           </ApolloProvider>
         </I18nextProvider>
