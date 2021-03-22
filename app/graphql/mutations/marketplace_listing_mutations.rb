@@ -1,4 +1,4 @@
-class MarketplaceListingMutations < ApplicationMutation
+class Mutations::MarketplaceListingMutations < Mutations::ApplicationMutation
   action :create do
     type Types::MarketplaceListingType
 
@@ -16,7 +16,7 @@ class MarketplaceListingMutations < ApplicationMutation
     )
 
     @listing = Marketplace::Items::CharacterListing.new listing_params
-    authorize! @listing
+    authorize @listing
 
     @listing.save
     @listing
