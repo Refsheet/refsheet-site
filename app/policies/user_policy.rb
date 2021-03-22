@@ -14,4 +14,8 @@ class UserPolicy < ApplicationPolicy
   def update?
     user === record or admin?
   end
+
+  def destroy?
+    update?
+  end
 end
