@@ -40,7 +40,7 @@ class DiscussionLink extends Component {
             )}
 
             <Link
-              to={`/v2/forums/${forum.slug}/${discussion.slug}`}
+              to={`/forums/${forum.slug}/${discussion.slug}`}
               title={discussion.topic}
             >
               {discussion.topic}

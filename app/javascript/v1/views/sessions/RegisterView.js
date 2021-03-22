@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom'
 import compose, { withConfig, withCurrentUser } from '../../../utils/compose'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { withRouter } from 'react-router'
+import { Checkbox } from 'react-materialize'
 
 class RegisterView extends Component {
   constructor(props) {
@@ -27,8 +28,12 @@ class RegisterView extends Component {
       },
       extra: {
         captchaData: null,
+        tosAgree: false,
       },
     }
+
+    this.handleCaptchaChange = this.handleCaptchaChange.bind(this)
+    this.handleTosAgree = this.handleTosAgree.bind(this)
   }
 
   _handleChange(user) {
@@ -55,7 +60,9 @@ class RegisterView extends Component {
 
   handleCaptchaChange(data) {
     this.setState({
+      ...this.state,
       extra: {
+        ...this.state.extra,
         captchaData: data,
       },
     })
@@ -65,8 +72,19 @@ class RegisterView extends Component {
     this.captchaRef.current && this.captchaRef.current.reset()
   }
 
+  handleTosAgree(e) {
+    this.setState({
+      ...this.state,
+      extra: {
+        ...this.state.extra,
+        tosAgree: e.target.checked,
+      },
+    })
+  }
+
   render() {
     const { config } = this.props
+
     return (
       <Main title="Register" className="modal-page-content shaded-background">
         <div className="modal-page-content">
@@ -117,7 +135,7 @@ class RegisterView extends Component {
                     ref={this.captchaRef}
                     sitekey={config.recaptchaSiteKey}
                     theme={'dark'}
-                    onChange={this.handleCaptchaChange.bind(this)}
+                    onChange={this.handleCaptchaChange}
                   />
                   <div className={'muted margin-top--small'}>
                     ^- We &lt;3 all robotic creatures, but we must ensure that
@@ -125,6 +143,28 @@ class RegisterView extends Component {
                   </div>
                 </React.Fragment>
               )}
+
+              <div className={'tos margin-top--large padding-bottom--large'}>
+                <p>
+                  <strong>One more thing,</strong> when you use this site, you
+                  have to follow the rules listed in our{' '}
+                  <a href={'/terms'} rel="noreferrer" target={'_blank'}>
+                    Terms of Service
+                  </a>
+                  . You must also be over the age of 16. Lastly, you must
+                  promise to only ever be excellent to one another when on this
+                  site.
+                </p>
+                <Checkbox
+                  id={'tos_agree_or_be_ban'}
+                  value={'agree'}
+                  checked={this.state.extra.tosAgree}
+                  onChange={this.handleTosAgree}
+                  label={
+                    'I agree to follow the ToS, I am over 16, and I will be excellent to others.'
+                  }
+                />
+              </div>
 
               <div className="form-actions margin-top--large">
                 <Link
@@ -134,7 +174,12 @@ class RegisterView extends Component {
                 >
                   Log In
                 </Link>
-                <Submit className={'right'}>Register</Submit>
+                <Submit
+                  className={'right'}
+                  disabled={!this.state.extra.tosAgree}
+                >
+                  Register
+                </Submit>
               </div>
             </Form>
           </div>
