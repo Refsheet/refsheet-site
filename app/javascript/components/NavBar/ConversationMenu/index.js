@@ -24,11 +24,11 @@ class ConversationMenu extends Component {
       e && e.preventDefault && e.preventDefault()
       openConversation(c.guid)
     }
-    
+
     const {
       user = {
-        name: 'Deleted User'
-      }
+        name: 'Deleted User',
+      },
     } = c
 
     return (

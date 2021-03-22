@@ -14,13 +14,26 @@
 import React from 'react'
 import Main from './Main'
 
-export default ({ message }) => {
+const findError = error => {
+  if (error.map) {
+    return error.map(findError).join(', ')
+  } else {
+    return error.toString()
+  }
+}
+
+export default ({ error, message }) => {
   const classNames = ['modal-page-content']
+
+  let finalText = message
+  if (!finalText) {
+    finalText = findError(error)
+  }
 
   return (
     <Main className={classNames.join(' ')}>
       <div className="container">
-        <h1>{message}</h1>
+        <h1>{finalText}</h1>
       </div>
     </Main>
   )
