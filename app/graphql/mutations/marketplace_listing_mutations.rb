@@ -1,4 +1,4 @@
-class MarketplaceListingMutations < ApplicationMutation
+class Mutations::MarketplaceListingMutations < Mutations::ApplicationMutation
   action :create do
     type Types::MarketplaceListingType
 
