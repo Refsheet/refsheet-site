@@ -24,6 +24,7 @@ feature 'Register', js: true do
     fill_in id_prefix + "_user_email", with: values[:email] || 'john@example.com'
     fill_in id_prefix + "_user_password", with: values[:password] || 'fishsticks'
     fill_in id_prefix + "_user_password_confirmation", with: values[:password_confirmation] || 'fishsticks'
+    find("label[for=tos_agree_or_be_ban]").click
 
     # dob = values[:dob] || 20.years.ago
     #
