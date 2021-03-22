@@ -9,11 +9,11 @@ export default {
 
   // Forum URLs:
 
-  forumRoute: '/v2/forums/:forumId',
-  newForumDiscussionRoute: '/v2/forums/:forumId/post',
-  forumAboutRoute: '/v2/forums/:forumId/about',
-  forumMembersRoute: '/v2/forums/:forumId/members',
+  forumRoute: '/forums/:forumId',
+  newForumDiscussionRoute: '/forums/:forumId/post',
+  forumAboutRoute: '/forums/:forumId/about',
+  forumMembersRoute: '/forums/:forumId/members',
 
-  forumDiscussionRoute: '/v2/forums/:forumId/:discussionId',
-  forumPostRoute: '/v2/forums/:forumId/:discussionId#:postId',
+  forumDiscussionRoute: '/forums/:forumId/:discussionId',
+  forumPostRoute: '/forums/:forumId/:discussionId#:postId',
 }

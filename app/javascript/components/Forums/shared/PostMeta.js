@@ -22,7 +22,7 @@ class PostMeta extends Component {
             {' '}
             (
             <MutedLink
-              to={`/v2/forums/${forum.slug}/${discussion.slug}#last`}
+              to={`/forums/${forum.slug}/${discussion.slug}#last`}
               title={t('forums.go_to_last', 'Go to last post')}
             >
               <Moment key={'date'} fromNow unix>

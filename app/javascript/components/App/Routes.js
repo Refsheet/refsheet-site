@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Router as BrowserRouter, Route, Switch } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import { Redirect } from 'react-router'
 
 import NotFound from '../Shared/views/NotFound'
@@ -14,7 +14,6 @@ import Home from '../../v1/views/static/Home'
 import LoginView from '../../v1/views/sessions/LoginView'
 import RegisterView from '../../v1/views/sessions/RegisterView'
 import BrowseApp from '../../v1/views/browse/BrowseApp'
-import V1Forums from '../../v1/views/Forums'
 import Views from '../../v1/views/_views'
 import ImageApp from '../../v1/views/images/ImageApp'
 import Static from '../../v1/views/Static'
@@ -32,8 +31,10 @@ const Routes = () => (
     <Route exact path="/" component={Home} title="Home" />
 
     {/** Forums **/}
-    <Route path={'/v2/forums/:id'} component={Forum} />
-    <Route path={'/v2/forums'} component={Forums} />
+    <Redirect from={'/v2/forums/:id'} to={'/forums/:id'} />
+    <Redirect from={'/v2/forums'} to={'/forums'} />
+    <Route path={'/forums/:id'} component={Forum} />
+    <Route path={'/forums'} component={Forums} />
 
     {/** Moderation **/}
     <Route path="/moderate" component={Moderate} />
@@ -91,24 +92,6 @@ const Routes = () => (
 
     <Route path="/browse" component={BrowseApp} />
     <Route path="/explore/:scope?" component={Views.Explore.Index} />
-
-    <Route path="/forums">
-      <Switch>
-        <Route exact path="/forums" component={V1Forums.Index} />
-
-        <Route
-          path="/forums/:forumId"
-          render={props2 => (
-            <V1Forums.Show {...props2}>
-              <Route
-                path="/forums/:forumId/:threadId"
-                component={V1Forums.Threads.Show}
-              />
-            </V1Forums.Show>
-          )}
-        />
-      </Switch>
-    </Route>
 
     {/*== Static Routes */}
 

@@ -195,7 +195,7 @@ const Routes = createReactClass({
                     </Switch>
                   </Route>
 
-                  <Route path="/v2/forums" component={App} />
+                  <Route path="/forums" component={App} />
 
                   <Route path="/artists" component={App} />
                   <Route path="/artists/:slug" component={App} />

@@ -56,6 +56,7 @@ class RegisterView extends Component {
   handleCaptchaChange(data) {
     this.setState({
       extra: {
+        ...this.state.extra,
         captchaData: data,
       },
     })
@@ -63,6 +64,15 @@ class RegisterView extends Component {
 
   _handleError(e) {
     this.captchaRef.current && this.captchaRef.current.reset()
+  }
+
+  handleTosAgree(e) {
+    this.setState({
+      extra: {
+        ...this.state.extra,
+        tosAgree: e.target.checked,
+      },
+    })
   }
 
   render() {
@@ -126,6 +136,28 @@ class RegisterView extends Component {
                 </React.Fragment>
               )}
 
+              <div className={'tos margin-top--large padding-bottom--large'}>
+                <p>
+                  <strong>One more thing,</strong> when you use this site, you
+                  have to follow the rules listed in our{' '}
+                  <a href={'/terms'} rel="noreferrer" target={'_blank'}>
+                    Terms of Service
+                  </a>
+                  . You must also be over the age of 16. Lastly, you must
+                  promise to only ever be excellent to one another when on this
+                  site.
+                </p>
+                <Input
+                  name={'tos_agree_or_be_ban'}
+                  value={this.state.tosAgree}
+                  type={'checkbox'}
+                  onChange={this.handleTosAgree}
+                  label={
+                    'I agree to follow the ToS, I am over 16, and I will be excellent to others.'
+                  }
+                />
+              </div>
+
               <div className="form-actions margin-top--large">
                 <Link
                   to="/login"
@@ -134,7 +166,9 @@ class RegisterView extends Component {
                 >
                   Log In
                 </Link>
-                <Submit className={'right'}>Register</Submit>
+                <Submit className={'right'} disabled={!this.state.tosAgree}>
+                  Register
+                </Submit>
               </div>
             </Form>
           </div>
