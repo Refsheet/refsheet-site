@@ -16,7 +16,7 @@ class Mutations::MarketplaceListingMutations < Mutations::ApplicationMutation
     )
 
     @listing = Marketplace::Items::CharacterListing.new listing_params
-    authorize! @listing
+    authorize @listing
 
     @listing.save
     @listing
