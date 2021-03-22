@@ -76,6 +76,16 @@ type Artist implements ApplicationRecord {
     website_url: String
 }
 
+type ArtistsCollection implements Paginated {
+    artists: [Artist]!
+    count: Int
+    currentPage: Int
+    offset: Int
+    perPage: Int
+    totalEntries: Int
+    totalPages: Int
+}
+
 type Attribute {
     id: String!
     name: String!
@@ -547,6 +557,7 @@ type Query {
     findUser(username: String!): User
     getActivity(page: Int, since: Int, type: String): [Activity]
     getArtist(slug: String!): Artist
+    getArtists(page: Int, perPage: Int): ArtistsCollection
     getCharacter(id: ID!, shortcode: Boolean): Character
     getCharacterByUrl(slug: String!, username: String!): Character
     getCharacters(ascending: Boolean, ids: [ID], order: String, page: Int, query: String, with_deleted: Boolean): [Character]

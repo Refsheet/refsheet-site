@@ -1,0 +1,19 @@
+query getArtists($page: Int!) {
+    getArtists(page: $page) {
+        currentPage
+        perPage
+        artists {
+            name,
+            slug,
+            guid,
+            profile_markdown,
+            commission_info_markdown,
+            locked,
+            avatar_url,
+            user {
+                name,
+                username
+            }
+        }
+    }
+}
