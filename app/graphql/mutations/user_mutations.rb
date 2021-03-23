@@ -1,8 +1,8 @@
 class Mutations::UserMutations < Mutations::ApplicationMutation
   before_action :get_current_user, only: [:set_avatar_blob]
 
-  action :index do
-    type types[Types::UserType]
+  action :index, :paginated do
+    type Types::UsersCollectionType
 
     argument :ids, type: types[types.ID]
     argument :with_deleted, type: types.Boolean
@@ -34,9 +34,7 @@ class Mutations::UserMutations < Mutations::ApplicationMutation
     end
 
     scope = scope.order(created_at: :desc)
-
-    scope = scope.page(params[:page] || 1)
-    scope
+    paginate(scope)
   end
 
   action :show do

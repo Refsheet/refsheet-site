@@ -75,7 +75,7 @@ class Image < ApplicationRecord # < Media
   }
 
   has_attached_file :image,
-                    default_url: '/assets/default.png',
+                    default_url: -> (_style) { ActionController::Base.helpers.image_url('default.png') },
                     processors: [:upload_processor],
                     styles: {
                         thumbnail: "#{SIZE[:thumbnail]}x#{SIZE[:thumbnail]}^",
