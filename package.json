@@ -28,6 +28,7 @@
     "core-js": "2",
     "create-react-class": "^15.7.0",
     "css-loader": "^5.0.1",
+    "dompurify": "^2.2.7",
     "enzyme-adapter-react-16": "^1.15.5",
     "favico.js-slevomat": "^0.3.11",
     "get-video-id": "^3.1.5",

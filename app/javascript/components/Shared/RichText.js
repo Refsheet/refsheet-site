@@ -14,6 +14,7 @@ import * as Showdown from 'showdown'
 import Button from '../../v1/shared/material/Button'
 import WindowAlert from '../../utils/WindowAlert'
 import { H2 } from '../Styled/Headings'
+import DOMPurify from 'dompurify'
 
 class RichText extends Component {
   constructor(props) {
@@ -223,7 +224,11 @@ class RichText extends Component {
 
         <div className={bodyClassNames.join(' ')}>
           {contentPresent ? (
-            <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
+            <div
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(contentHtml),
+              }}
+            />
           ) : (
             <p className="caption">
               {placeholder || 'This section unintentionally left blank.'}

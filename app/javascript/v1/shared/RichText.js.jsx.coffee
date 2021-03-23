@@ -1,6 +1,7 @@
 import React from 'react'
 import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
+import DOMPurify from 'dompurify'
 
 export default RichText = createReactClass
   getInitialState: ->
@@ -54,7 +55,7 @@ export default RichText = createReactClass
               </a>
           }
 
-          <div dangerouslySetInnerHTML={{ __html: this.props.content }} />
+          <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(this.props.content) }} />
       </div>`
 
     else
