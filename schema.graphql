@@ -574,7 +574,7 @@ type Query {
     getNotifications(page: Int): NotificationCollection
     getSession: Session
     getUser(id: ID, username: String): User
-    getUsers(ascending: Boolean, ids: [ID], order: String, page: Int, query: String, with_deleted: Boolean): [User]
+    getUsers(ascending: Boolean, ids: [ID], order: String, page: Int, perPage: Int, query: String, with_deleted: Boolean): UsersCollection
     getVersion: RefsheetMeta
     searchForCharacter(page: Int, query: String!): CharactersCollection
 }
@@ -682,6 +682,16 @@ type User implements ApplicationRecord {
     unconfirmed_email: String
     updated_at: Int
     username: String
+}
+
+type UsersCollection implements Paginated {
+    count: Int
+    currentPage: Int
+    offset: Int
+    perPage: Int
+    totalEntries: Int
+    totalPages: Int
+    users: [User]!
 }
 
 type Version implements ApplicationRecord {
