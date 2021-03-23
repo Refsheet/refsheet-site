@@ -45,6 +45,8 @@ class ModerationReport < ApplicationRecord
       :ban
   ]
 
+  attr_accessor :skip_notice
+
   belongs_to :user, -> { with_deleted }
   belongs_to :sender, -> { with_deleted }, foreign_key: :sender_user_id, class_name: "User"
   belongs_to :moderatable, -> { with_deleted }, polymorphic: true
@@ -147,6 +149,7 @@ class ModerationReport < ApplicationRecord
   end
 
   def send_moderator_email
+    return if @skip_notice
     User.with_role(Role::MODERATOR).each do |mod|
       ModeratorMailer.new_report(self, mod).deliver_later
     end

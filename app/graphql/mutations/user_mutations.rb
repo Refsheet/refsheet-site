@@ -81,10 +81,12 @@ class Mutations::UserMutations < Mutations::ApplicationMutation
     # this will not generate a ban notice.
     if @user != current_user
       authorize @user, :moderate?
+      @user.update_columns(deleted_at: Time.now)
       UserDestructionJob.perform_later(@user)
       @user
     else
       if @user.username == params[:username] && @user.authenticate(params[:password])
+        @user.update_columns(deleted_at: Time.now)
         UserDestructionJob.perform_later(@user)
         sign_out
         return @user
@@ -97,23 +99,29 @@ class Mutations::UserMutations < Mutations::ApplicationMutation
   action :ban_user do
     type Types::UserType
 
-    argument :username, type: !types.String
+    argument :id, type: !types.ID
     argument :moderation_ban, type: types.Boolean
-    argument :moderation_reason, type: !types.String
+    argument :moderation_reason, type: types.String
   end
 
   def ban_user
     authorize @user, :moderate?
+
+    if @user === current_user
+      raise "Do not ban yourself."
+    end
 
     report = ModerationReport.create(
         user: @user,
         sender: current_user,
         moderatable: @user,
         violation_type: params[:moderation_ban] ? 'ban' : 'other',
-        comment: params[:moderation_reason]
+        comment: params[:moderation_reason],
+        skip_notice: true
     )
 
     report.ban!
+    @user.update_columns(deleted_at: Time.now)
     UserDestructionJob.perform_later(@user)
     @user
   end

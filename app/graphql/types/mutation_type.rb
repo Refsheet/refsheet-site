@@ -7,6 +7,7 @@ Types::MutationType = GraphQL::ObjectType.define do
   field :createApiKey, field: Mutations::ApiKeyMutations::Create
   field :blockUser, field: Mutations::UserMutations::BlockUser
   field :unblockUser, field: Mutations::UserMutations::UnblockUser
+  field :banUser, field: Mutations::UserMutations::BanUser
 
   # Images
   field :uploadImage, field: Mutations::ImageMutations::Create
