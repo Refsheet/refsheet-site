@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import MarkdownEditor from '../../Shared/MarkdownEditor'
-import DOMPurify from 'dompurify'
+import { sanitize } from '../../../utils/sanitize'
 
 class RichTextWidget extends Component {
   constructor(props) {
@@ -33,7 +33,7 @@ class RichTextWidget extends Component {
           {contentHtml && contentHtml.length > 0 ? (
             <div
               dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(contentHtml),
+                __html: sanitize(contentHtml),
               }}
             />
           ) : (

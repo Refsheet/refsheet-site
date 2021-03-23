@@ -7,6 +7,7 @@ import Autocomplete from './autocomplete.graphql'
 import client from 'services/ApplicationService'
 import './react-mde-overrides.scss'
 import styled from 'styled-components'
+import { sanitize } from '../../../utils/sanitize'
 
 const SRM = styled(ReactMde)`
   background-color: ${props => props.theme.cardBackground} !important;
@@ -220,7 +221,7 @@ class MarkdownEditor extends Component {
             suggestionsDropdown: 'z-depth-2',
           }}
           generateMarkdownPreview={markdown =>
-            Promise.resolve(this.Showdown.makeHtml(markdown))
+            Promise.resolve(sanitize(this.Showdown.makeHtml(markdown)))
           }
         />
       </div>

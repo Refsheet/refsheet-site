@@ -14,7 +14,7 @@ import * as Showdown from 'showdown'
 import Button from '../../v1/shared/material/Button'
 import WindowAlert from '../../utils/WindowAlert'
 import { H2 } from '../Styled/Headings'
-import DOMPurify from 'dompurify'
+import { sanitize } from '../../utils/sanitize'
 
 class RichText extends Component {
   constructor(props) {
@@ -226,7 +226,7 @@ class RichText extends Component {
           {contentPresent ? (
             <div
               dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(contentHtml),
+                __html: sanitize(contentHtml),
               }}
             />
           ) : (
