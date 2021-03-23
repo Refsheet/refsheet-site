@@ -1,0 +1,24 @@
+%p
+  %strong #{@user.name},
+
+%p
+  It appears that some of your content on Refsheet.net did not comply with our
+  Terms of Service. This could have been due to posting images you do not own
+  after being asked to stop, harassment of any kind to a user, harassment on the
+  forums or another bannable offence that is listed in our
+  <a href='https://refsheet.net/terms'>Terms of Service</a>.
+
+- if @report.violation_message.present?
+  %p
+    We took this action because:
+    = @report.violation_message
+
+%p
+  As such, your account with our website has been terminated. If you believe this
+  was a mistake, please respond to this email with your case. In your response,
+  please provide supporting evidence and anything you believe that will help your appeal.
+
+%p
+  %strong Thanks,
+  %br/
+  Refsheet.net Moderators

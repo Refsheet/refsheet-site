@@ -23,7 +23,7 @@ class ApplicationPolicy
   end
 
   def update?
-    user&.admin?
+    admin?
   end
 
   def edit?
@@ -32,6 +32,14 @@ class ApplicationPolicy
 
   def destroy?
     false
+  end
+
+  def delete?
+    destroy?
+  end
+
+  def moderate?
+    admin?
   end
 
   # Attributes

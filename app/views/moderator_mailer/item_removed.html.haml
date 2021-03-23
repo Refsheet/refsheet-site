@@ -10,16 +10,21 @@
   %p
     Your image, <em>#{@report.moderatable.title}</em>, has been removed by
     a moderator.
+- when 'Media::Comment'
+  %p
+    A comment you left has been removed by a moderator:
+    %blockquote= @report.moderatable.comment
 
 %p
   We took this action because:
   = @report.violation_message
 
-%p
-  If you feel this was made in error, please reach out to the moderation
-  team by emailing <a href='mailto:mau@refsheet.net'>mau@refsheet.net</a>.
-  Your image can still be restored within 1 week of this notice if your
-  dispute is approved.
+- if @report.moderatable_type == 'Image'
+  %p
+    If you feel this was made in error, please reach out to the moderation
+    team by emailing <a href='mailto:mau@refsheet.net'>mau@refsheet.net</a>.
+    Your image can still be restored within 1 week of this notice if your
+    dispute is approved.
 
 %p
   %strong Thanks,

@@ -1,5 +1,5 @@
 class Mutations::UserMutations < Mutations::ApplicationMutation
-  before_action :get_current_user, only: [:set_avatar_blob]
+  before_action :get_current_user, only: [:set_avatar_blob, :ban_user]
 
   action :index do
     type types[Types::UserType]
@@ -76,15 +76,48 @@ class Mutations::UserMutations < Mutations::ApplicationMutation
   end
 
   def delete
-    @user = current_user
+    @user = User.lookup!(params[:username], false)
+    authorize @user
 
-    if @user.username == params[:username] && @user.authenticate(params[:password])
-      @user.destroy
-      sign_out
-      return @user
+    # Deleting a user can be done by a moderator for support cases,
+    # this will not generate a ban notice.
+    if @user != current_user
+      authorize @user, :moderate?
+      UserDestructionJob.perform_later(@user)
+      @user
+    else
+      if @user.username == params[:username] && @user.authenticate(params[:password])
+        UserDestructionJob.perform_later(@user)
+        sign_out
+        return @user
+      end
+
+      not_allowed! "Invalid username or password."
     end
+  end
 
-    not_allowed! "Invalid username or password."
+  action :ban_user do
+    type Types::UserType
+
+    argument :username, type: !types.String
+    argument :moderation_ban, type: types.Boolean
+    argument :moderation_reason, type: !types.String
+  end
+
+  def ban_user
+    authorize @user, :moderate?
+
+    report = ModerationReport.create(
+        user: @user,
+        sender: current_user,
+        moderatable: @user,
+        violation_type: params[:moderation_ban] ? 'ban' : 'other',
+        comment: params[:moderation_reason]
+    )
+
+    report.ban!
+    UserDestructionJob.perform_later(@user)
+    @user
   end
 
   action :block_user do
