@@ -238,6 +238,16 @@ type ForumPost implements ApplicationRecord & Policy {
     user: User
 }
 
+type ForumPostsCollection implements Paginated {
+    count: Int
+    currentPage: Int
+    forumPosts: [ForumPost]!
+    offset: Int
+    perPage: Int
+    totalEntries: Int
+    totalPages: Int
+}
+
 type Geometry {
     height: Int!
     width: Int!
@@ -566,6 +576,7 @@ type Query {
     getConversations: [Conversation]
     getDiscussion(forumId: String!, id: String!): ForumDiscussion
     getForum(slug: String!): Forum
+    getForumPosts(discussionId: ID, page: Int, perPage: Int, userId: ID): ForumPostsCollection
     getForums: [Forum]
     getImageUploadToken(characterId: ID!): ImageUploadToken
     getMedia(mediaId: ID!): Image

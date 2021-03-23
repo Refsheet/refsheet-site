@@ -1,16 +1,30 @@
 module Mutations
   class ForumPostMutations < ApplicationMutation
-    before_action :get_discussion, only: [:index, :create, :send_karma]
+    before_action :get_discussion, only: [:create, :send_karma]
     before_action :get_post, only: [:update]
 
-    action :index do
-      type types[Types::ForumPostType]
+    action :index, :paginated do
+      type Types::ForumPostsCollectionType
 
-      argument :discussionId, !types.ID
+      argument :discussionId, types.ID
+      argument :userId, types.ID
     end
 
     def index
-      Forum.all
+      scope = Forum::Post.all
+      authorize scope
+
+      if params[:discussionId].present?
+        scope = scope.joins(:discussion).where(forum_discussions: { guid: params[:discussionId] })
+      end
+
+      if params[:userId].present?
+        scope = scope.joins(:user).where(users: { guid: params[:userId] })
+      end
+
+      scope = scope.includes(:discussion => [:forum])
+
+      paginate(scope)
     end
 
     action :show do
