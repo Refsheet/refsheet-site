@@ -25,11 +25,9 @@ class ConversationMenu extends Component {
       openConversation(c.guid)
     }
 
-    const {
-      user = {
-        name: 'Deleted User',
-      },
-    } = c
+    const user = c.user || {
+      name: 'Deleted User',
+    }
 
     return (
       <NotificationItem

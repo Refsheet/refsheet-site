@@ -3,15 +3,18 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import c from 'classnames'
 import { Icon } from 'react-materialize'
-import Button from '../Styled/Button'
+import Button from '../../../Styled/Button'
 
-const CharacterSaleButton = ({ character, className }) => {
+const CharacterSaleButton = ({ character, className, ...props }) => {
   const {
     marketplace_listing: { amount_currency, amount_cents },
   } = character
 
   return (
-    <Button className={c(className, 'btn-secondary character-sale-button')}>
+    <Button
+      {...props}
+      className={c(className, 'btn-secondary character-sale-button')}
+    >
       <span className={'for-sale'}>
         <Icon>add_shopping_cart</Icon>
       </span>

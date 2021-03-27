@@ -6,7 +6,6 @@ import Header from './Header'
 import Profile from './Profile'
 import Gallery from './Gallery'
 import Sidebar from './Sidebar'
-import defaultTheme from 'themes/default'
 import { StickyContainer } from 'react-sticky'
 import { ThemedMain } from 'Styled/Global'
 import SettingsModal from './Modals/SettingsModal'
@@ -18,6 +17,7 @@ import RevisionModal from './Modals/RevisionModal'
 import AvatarModal from './Modals/AvatarModal'
 import CoverModal from './Modals/CoverModal'
 import themes from '../../themes'
+import MarketplaceBuyModal from './Modals/MarketplaceBuyModal'
 
 class View extends Component {
   constructor(props) {
@@ -31,6 +31,7 @@ class View extends Component {
       revisionsOpen: window.location.hash === '#character-revisions',
       uploadAvatarOpen: window.location.hash === '#upload-avatar',
       uploadCoverOpen: window.location.hash === '#upload-avatar',
+      marketplaceBuyOpen: window.location.hash === '#marketplace-buy',
     }
 
     this.handleEditableChange = this.handleEditableChange.bind(this)
@@ -91,6 +92,7 @@ class View extends Component {
       revisionsOpen,
       uploadAvatarOpen,
       uploadCoverOpen,
+      marketplaceBuyOpen,
     } = this.state
 
     const { colors } =
@@ -144,12 +146,23 @@ class View extends Component {
             />
           )}
 
+          {marketplaceBuyOpen && (
+            <MarketplaceBuyModal
+              character={character}
+              onSave={refetch}
+              onClose={this.handleModalClose('marketplaceBuy').bind(this)}
+            />
+          )}
+
           <div id="top" className="profile-scrollspy">
             <Header
               character={character}
               editable={this.state.editable}
               onHeaderImageEdit={this.handleModalOpen('uploadCover').bind(this)}
               onAvatarEdit={this.handleModalOpen('uploadAvatar').bind(this)}
+              onMarketplaceBuy={this.handleModalOpen('marketplaceBuy').bind(
+                this
+              )}
             />
           </div>
 
