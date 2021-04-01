@@ -158,6 +158,15 @@ class ApplicationController < ActionController::Base
 
     Time.zone   = current_user.settings(:view).time_zone if signed_in?
     Time.zone ||= Application.config.time_zone
+
+    # Fun Things
+    if params[:jokes] == "off"
+      @no_fun = true
+    end
+
+    if params[:jokes] == "force"
+      @force_fun = true
+    end
   end
 
   def eager_load_session

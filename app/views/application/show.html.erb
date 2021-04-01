@@ -48,3 +48,19 @@
   // Packs.application.init('root', props);
   ___init('appRoot', props);
 </script>
+
+<% unless @no_fun %>
+<% if DateTime.now.in_time_zone("Central Time (US & Canada)").date == Date.new(2021, 04, 01) or @force_fun %>
+<style type="text/css">
+    div:nth-child(even) {
+        transform: rotate(0.20deg);
+    }
+
+    div:nth-child(odd) {
+        transform: rotate(-0.3deg);
+    }
+
+    .avatar { transform: rotate(90deg); }
+</style>
+<% end %>
+<% end %>

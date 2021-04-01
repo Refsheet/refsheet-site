@@ -299,6 +299,14 @@ class User < ApplicationRecord
   end
 
   def adjust_role_flags
+    # HOLIDAY - April 1
+    if DateTime.now.in_time_zone("Central Time (US & Canada)").date == Date.new(2021, 04, 01)
+      if self.profile =~ /\buwu\b/i
+        self.support_pledge_amount = 41
+        self.supporter = true
+      end
+    end
+
     if self.support_pledge_amount_changed?
       self.supporter = self.support_pledge_amount > 0
     end
