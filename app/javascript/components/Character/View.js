@@ -23,9 +23,18 @@ class View extends Component {
   constructor(props) {
     super(props)
 
+    let colorSchemeOverride = this.props.character && this.props.character.theme
+
+    if (!colorSchemeOverride) {
+      colorSchemeOverride = {
+        id: null,
+        colors: themes.dark.base,
+      }
+    }
+
     this.state = {
       editable: false,
-      colorSchemeOverride: this.props.character && this.props.character.theme,
+      colorSchemeOverride,
       settingsOpen: window.location.hash === '#character-settings',
       colorOpen: window.location.hash === '#character-color',
       revisionsOpen: window.location.hash === '#character-revisions',
@@ -115,7 +124,7 @@ class View extends Component {
           {colorOpen && (
             <ColorModal
               onClose={this.handleModalClose('color').bind(this)}
-              colorScheme={character.theme}
+              colorScheme={character.theme || {}}
               characterId={character.id}
               colorSchemeOverride={this.state.colorSchemeOverride}
               onChange={this.handleColorSchemeOverride.bind(this)}
