@@ -54,8 +54,6 @@ Rails.application.routes.draw do
         end
       end
     end
-
-    resource :api_keys, only: [:show]
   end
 
   resources :notifications, only: [:index, :update], controller: 'account/notifications' do

@@ -21,6 +21,7 @@ import CharacterApp from '../../v1/views/characters/CharacterApp'
 import User from 'v1/views/User'
 import { withErrorBoundary } from '../Shared/ErrorBoundary'
 import Site from '../Settings/Site'
+import API from '../Settings/API'
 
 const staticPaths = ['privacy', 'terms', 'support'].map(path => (
   <Route key={path} path={'/' + path} component={Static.View} />
@@ -79,6 +80,7 @@ const Routes = () => (
               title="Notification Settings"
               component={Views.Account.Settings.Notifications}
             />
+            <Route path="/account/api_keys" title="API Keys" component={API} />
           </Switch>
         </Views.Account.Layout>
       )}

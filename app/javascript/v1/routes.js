@@ -30,6 +30,7 @@ import User from './views/User'
 
 import $ from 'jquery'
 import Site from '../components/Settings/Site'
+import API from '../components/Settings/API'
 
 // Backfill for Router V4 not parsing query strings.
 const history = createBrowserHistory()
@@ -155,6 +156,11 @@ const Routes = createReactClass({
                             title="Notification Settings"
                             component={Views.Account.Settings.Notifications}
                           />
+                          <Route
+                            path="/account/api_keys"
+                            title="API Keys"
+                            component={API}
+                          />
                         </Switch>
                       </Views.Account.Layout>
                     )}
@@ -245,4 +251,7 @@ const Routes = createReactClass({
   },
 })
 
-export default Routes
+// export default Routes
+export default function DeprecatedRouter() {
+  return <h1>Deprecated Routes!!!</h1>
+}

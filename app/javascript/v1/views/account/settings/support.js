@@ -107,6 +107,12 @@ class Support extends React.Component {
                 If you are sure you pledged, and you are seeing this message,
                 please enter the email address that you used on Patreon below,
                 and we will link your account.
+                <br />
+                <strong>Bug Alert!</strong> (because of course): This will send
+                you an email confirming the link, to the email address
+                registered with Patreon. After you submit this form, you might
+                get an error message, but sometimes it actually works. Please
+                check your email regardless. Shrug emoji.
               </p>
 
               <Input

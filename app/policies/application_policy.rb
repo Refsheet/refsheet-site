@@ -92,4 +92,8 @@ class ApplicationPolicy
   def admin?
     user&.admin?
   end
+
+  def logged_in?
+    !!user
+  end
 end

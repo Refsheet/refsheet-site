@@ -480,6 +480,7 @@ type Moderation implements ApplicationRecord {
 type Mutation {
     addComment(comment: String!, mediaId: ID!): MediaComment
     addFavorite(mediaId: ID!): MediaFavorite
+    banUser(id: ID!, moderation_ban: Boolean, moderation_reason: String): User
     blockUser(username: String!): User
     convertCharacter(id: ID!): Character
     createActivity(character_id: ID, comment: String): Activity
@@ -566,6 +567,7 @@ type Query {
     chatCounts: ChatCount
     findUser(username: String!): User
     getActivity(page: Int, since: Int, type: String): [Activity]
+    getApiKeys: [ApiKey]
     getArtist(slug: String!): Artist
     getArtists(page: Int, perPage: Int): ArtistsCollection
     getCharacter(id: ID!, shortcode: Boolean): Character

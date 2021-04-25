@@ -26,10 +26,10 @@ class Comments extends Component {
       comment.user = {
         username: '?',
         avatar_url: '',
-        name: '<Deleted User>'
+        name: '<Deleted User>',
       }
     }
-    
+
     return (
       <div className="card flat with-avatar" key={comment.id}>
         <img src={comment.user.avatar_url} className="circle avatar" />

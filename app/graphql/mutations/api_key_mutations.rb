@@ -1,4 +1,14 @@
 class Mutations::ApiKeyMutations < Mutations::ApplicationMutation
+  action :index do
+    type types[Types::ApiKeyType]
+  end
+
+  def index
+    authorize ApiKey
+    @keys = current_user.api_keys
+    @keys
+  end
+
   action :create do
     type Types::ApiKeyType
 
@@ -7,7 +17,7 @@ class Mutations::ApiKeyMutations < Mutations::ApplicationMutation
   end
 
   def create
-    authorize! current_user
+    authorize ApiKey
     @key = ApiKey.create(create_params)
     @key
   end
