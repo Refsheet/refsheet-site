@@ -26,10 +26,11 @@ class ImageCharacterSerializer < ActiveModel::Serializer
   end
 
   def username
-    object.user.username
+    object.user&.username
   end
 
   def path
+    return nil if object.user.nil?
     user_character_path object.user, object
   end
 
@@ -72,6 +73,7 @@ class ImageCharacterSerializer < ActiveModel::Serializer
   end
 
   def link
-    "/#{object.user.username}/#{object.slug}"
+    return nil if object.user.nil?
+    "/#{object.user&.username}/#{object.slug}"
   end
 end
