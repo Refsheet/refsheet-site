@@ -183,19 +183,26 @@ class ApplicationController < ActionController::Base
       site += ': Your Characters, Organized.'
     end
 
+    default_image = ActionController::Base.helpers.image_path("sandbox/RefsheetAdBanner3.png")
+
     set_meta_tags(
         site: site,
         description: desc,
         reverse: true,
         separator: '-',
+        image_src: default_image,
         og: {
             title: :title,
             description: :description,
-            site_name: site
+            site_name: site,
+            image: default_image
         },
         twitter: {
             title: :title,
-            description: :description
+            description: :description,
+            image: {
+                _: default_image
+            }
         }
     )
   end
