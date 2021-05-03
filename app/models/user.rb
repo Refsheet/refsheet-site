@@ -100,7 +100,7 @@ class User < ApplicationRecord
   has_image_attached :as_avatar,
                      default_url: -> (u, _style) {
                        ActionController::Base.helpers.image_url('default.png')
-                       # TODO: Make Gravatar an opt-in on user settings to prevent fake scares about suspicious 
+                       # TODO: Make Gravatar an opt-in on user settings to prevent fake scares about suspicious
                        #       "leaks" of account data and whatnot.
                        # GravatarImageTag.gravatar_url(u.email, size: 480)
                      },
@@ -167,11 +167,15 @@ class User < ApplicationRecord
   end
 
   def avatar_url(style = :thumbnail)
-    self.as_avatar.url(style)
+    if self.as_avatar.attached?
+      self.as_avatar.url(style)
+    else
+      self.avatar.url(style)
+    end
   end
 
   def profile_image_url
-    self.as_avatar.url(:small_square)
+    self.avatar_url(:small_square)
   end
 
 

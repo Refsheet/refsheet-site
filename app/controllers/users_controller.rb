@@ -20,15 +20,15 @@ class UsersController < ApplicationController
             twitter: {
                 card: 'photo',
                 image: {
-                    _: @user.avatar.url(:medium)
+                    _: @user.avatar_url(:medium)
                 }
             },
             og: {
-                image: @user.avatar.url(:medium)
+                image: @user.avatar_url(:medium)
             },
             title: @user.name,
             description: @user.profile.presence || 'This user is a mystery!',
-            image_src: @user.avatar.url(:medium)
+            image_src: @user.avatar_url(:medium)
         )
 
         eager_load user: UserSerializer.new(@user, scope: view_context).as_json
