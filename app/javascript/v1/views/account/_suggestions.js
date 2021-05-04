@@ -40,6 +40,10 @@ export default Suggestions = createReactClass({
   },
 
   render() {
+    return null
+
+    // TODO: Suggestions are now disabled. Dunno what else to put here.
+
     const _this = this
     if (!this.state.suggested) {
       return null
