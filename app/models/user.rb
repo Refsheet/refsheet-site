@@ -113,6 +113,12 @@ class User < ApplicationRecord
                      }
 
   has_attached_file :avatar,
+                    default_url: -> (_u) {
+                      ActionController::Base.helpers.image_url('default.png')
+                      # TODO: Make Gravatar an opt-in on user settings to prevent fake scares about suspicious
+                      #       "leaks" of account data and whatnot.
+                      # GravatarImageTag.gravatar_url(u.email, size: 480)
+                    },
                     styles: {
                         thumbnail: '64x64#',
                         small_square: '427x427#',
