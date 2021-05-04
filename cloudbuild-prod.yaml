@@ -87,6 +87,26 @@ steps:
     waitFor:
       - Upload Artifacts
 
+  # Deploy Jobs
+  - name: 'gcr.io/cloud-builders/kubectl'
+    id: Deploy Worker
+    args: [ 'set', 'image', 'deployment', 'image-redrive', "image-redrive=gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID" ]
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=refsheet-prod-clone-1'
+    waitFor:
+      - Upload Artifacts
+
+  # Deploy Jobs
+  - name: 'gcr.io/cloud-builders/kubectl'
+    id: Deploy Worker
+    args: [ 'set', 'image', 'deployment', 'lodestone-sync-character-job', "lodestone-sync-character-job=gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID" ]
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=refsheet-prod-clone-1'
+    waitFor:
+      - Upload Artifacts
+
 # Create Secrets with:
 # printf "value" | gcloud kms encrypt --plaintext-file=- --ciphertext-file=- --location=global --keyring=refsheet-ci \
 #   --key=refsheet-ci | base64 -w0
