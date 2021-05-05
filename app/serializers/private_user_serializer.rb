@@ -11,10 +11,9 @@ class PrivateUserSerializer < ActiveModel::Serializer
              :link,
              :password,
              :password_confirmation,
+             :email_confirmed_at,
+             :unconfirmed_email,
              :path
-
-  has_one :patreon_patron
-  has_many :pledges
 
   def password
   end

@@ -103,7 +103,11 @@ class Discussions extends Component {
         <main className={'content-left padding-bottom--large'}>
           <div className={'forum-posts--header'}>
             <div className={'right'}>
-              <Restrict user hideAll={!forum.is_member}>
+              <Restrict
+                user
+                confirmed={forum.slug !== 'support'}
+                hideAll={!forum.is_member}
+              >
                 <Link
                   to={`/forums/${forum.slug}/post`}
                   className={'btn btn-small'}

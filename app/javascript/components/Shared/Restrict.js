@@ -8,6 +8,7 @@ const restrict = ({
   admin,
   patron,
   user,
+  confirmed,
   currentUser,
   hideAll,
   development,
@@ -15,7 +16,8 @@ const restrict = ({
   nsfw,
   nsfwOk,
 }) => {
-  const { is_admin, is_patron, is_supporter } = currentUser || {}
+  const { is_admin, is_patron, is_supporter, email_confirmed_at } =
+    currentUser || {}
 
   let hide = false
   if (hideAll) return false
@@ -29,6 +31,10 @@ const restrict = ({
   }
 
   if (user && !currentUser) {
+    hide = true
+  }
+
+  if (confirmed && !email_confirmed_at) {
     hide = true
   }
 

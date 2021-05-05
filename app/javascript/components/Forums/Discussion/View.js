@@ -24,6 +24,7 @@ import e from 'utils/e'
 import destroyDiscussion from './destroyDiscussion.graphql'
 import { withRouter } from 'react-router'
 import NotFound from '../../Shared/views/NotFound'
+import EmailConfirmationNag from '../../User/EmailConfirmationNag'
 
 class View extends Component {
   constructor(props) {
@@ -241,13 +242,15 @@ class View extends Component {
             ))}
 
             {!this.state.editingReply && (
-              <DiscussionReplyForm
-                key={'new-reply'}
-                discussion={discussion}
-                forum={forum}
-                inCharacter={!forum.no_rp}
-                refetch={refetch}
-              />
+              <EmailConfirmationNag permit={forum.slug === 'support'}>
+                <DiscussionReplyForm
+                  key={'new-reply'}
+                  discussion={discussion}
+                  forum={forum}
+                  inCharacter={!forum.no_rp}
+                  refetch={refetch}
+                />
+              </EmailConfirmationNag>
             )}
           </div>
         </main>

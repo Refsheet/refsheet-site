@@ -242,7 +242,6 @@ const mapStateToProps = state => ({
 const V1GalleryImage = compose(connect(mapStateToProps))(gallery_image)
 
 const V2ThumbnailWrapper = props => {
-  console.log({ props })
   /*
   created_at,
         image_processing,
