@@ -71,7 +71,7 @@ const EmailConfirmationNag = ({
           We sent a validation email to{' '}
           <strong>{currentUser.unconfirmed_email || currentUser.email}</strong>.
         </p>
-        <Button error disabled={loading || sent} onClick={handleSend}>
+        <Button disabled={loading || sent} onClick={handleSend}>
           {loading ? 'Sending...' : sent ? 'Email sent.' : 'Resend Email?'}
         </Button>
       </>
