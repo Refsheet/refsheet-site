@@ -1,8 +1,25 @@
-import React from 'react'
-import { withCurrentUser } from '../../utils/compose'
+import React, { useState } from 'react'
+import { withCurrentUser, withMutations } from '../../utils/compose'
 import Button from '../Styled/Button'
+import gql from 'graphql-tag'
 
-const EmailConfirmationNag = ({ currentUser, permit, children = null }) => {
+const RESEND_EMAIL_CONFIRMATION = gql`
+  mutation resendEmailConfirmation {
+    resendEmailConfirmation {
+      id
+      email_confirmed_at
+      unconfirmed_email
+    }
+  }
+`
+
+const EmailConfirmationNag = ({
+  currentUser,
+  permit,
+  resendEmailConfirmation,
+  nosend = false,
+  children = null,
+}) => {
   if (
     permit ||
     (currentUser.email_confirmed_at && !currentUser.unconfirmed_email)
@@ -10,17 +27,28 @@ const EmailConfirmationNag = ({ currentUser, permit, children = null }) => {
     return children
   }
 
+  let [loading, setLoading] = useState(false)
+  let [sent, setCalled] = useState(false)
   let validation = null
 
-  if (false) {
+  const handleSend = e => {
+    e.preventDefault()
+    resendEmailConfirmation({
+      wrapped: true,
+      setLoading,
+      setCalled,
+    })
+  }
+
+  if (!nosend) {
     validation = (
       <>
         <p className={'margin--none right'} style={{ lineHeight: '2.5rem' }}>
           We sent a validation email to{' '}
           <strong>{currentUser.unconfirmed_email || currentUser.email}</strong>.
         </p>
-        <Button error onClick={() => false}>
-          Resend Email?
+        <Button error disabled={loading || sent} onClick={handleSend}>
+          {loading ? 'Sending...' : sent ? 'Email sent.' : 'Resend Email?'}
         </Button>
       </>
     )
@@ -42,4 +70,6 @@ const EmailConfirmationNag = ({ currentUser, permit, children = null }) => {
   )
 }
 
-export default withCurrentUser()(EmailConfirmationNag)
+export default withMutations({
+  resendEmailConfirmation: RESEND_EMAIL_CONFIRMATION,
+})(withCurrentUser()(EmailConfirmationNag))

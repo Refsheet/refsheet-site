@@ -24,10 +24,23 @@ function wrapMutation(fn) {
   return attrs => {
     if (attrs && attrs.wrapped) {
       delete attrs.wrapped
+      let setLoading, setCalled
+
+      if (attrs.setLoading) {
+        setLoading = attrs.setLoading
+        delete attrs.setLoading
+      }
+
+      if (attrs.setCalled) {
+        setCalled = attrs.setCalled
+        delete attrs.setLoading
+      }
 
       attrs.variables = deepRemoveKeys(attrs.variables, '__typename')
 
       return new Promise((resolve, reject) => {
+        setLoading && setLoading(true)
+
         fn(attrs)
           .then(data => {
             if (data.errors && data.errors.length > 0) {
@@ -72,11 +85,15 @@ function wrapMutation(fn) {
               reject(data)
             }
 
+            setCalled && setCalled(true)
             resolve(data)
           })
           .catch(e => {
             console.error(e)
             reject(e)
+          })
+          .finally(() => {
+            setLoading && setLoading(false)
           })
       })
     }

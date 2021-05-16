@@ -1,5 +1,5 @@
 class Mutations::UserMutations < Mutations::ApplicationMutation
-  before_action :get_current_user, only: [:set_avatar_blob, :ban_user]
+  before_action :get_current_user, only: [:set_avatar_blob, :ban_user, :resend_email_confirmation]
 
   action :index, :paginated do
     type Types::UsersCollectionType
