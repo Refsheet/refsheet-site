@@ -278,7 +278,14 @@ class User < ApplicationRecord
   end
 
   def send_welcome_email
-    UserMailer.welcome(id, generate_auth_code!).deliver_now
+    UserMailer.welcome(id, generate_auth_code!).deliver_later
+  end
+
+  def send_email_change_notice(force = false)
+    if @send_email_change_notice or force
+      @send_email_change_notice = false
+      UserMailer.email_changed(id, generate_auth_code!).deliver_later
+    end
   end
 
   private
@@ -296,13 +303,6 @@ class User < ApplicationRecord
     end
   end
 
-  def send_email_change_notice
-    if @send_email_change_notice
-      @send_email_change_notice = false
-      UserMailer.email_changed(id, generate_auth_code!).deliver_now
-    end
-  end
-
   def claim_invitations
     if (invitation = Invitation.find_by('LOWER(invitations.email) = ?', self.email))
       invitation.user = self
@@ -313,12 +313,12 @@ class User < ApplicationRecord
 
   def adjust_role_flags
     # HOLIDAY - April 1
-    if DateTime.now.in_time_zone("Central Time (US & Canada)").to_date == Date.new(2021, 04, 01)
-      if self.profile =~ /\buwu\b/i
-        self.support_pledge_amount = 41
-        self.supporter = true
-      end
-    end
+    # if DateTime.now.in_time_zone("Central Time (US & Canada)").to_date == Date.new(2021, 04, 01)
+    #   if self.profile =~ /\buwu\b/i
+    #     self.support_pledge_amount = 41
+    #     self.supporter = true
+    #   end
+    # end
 
     if self.support_pledge_amount_changed?
       self.supporter = self.support_pledge_amount > 0

@@ -506,6 +506,7 @@ type Mutation {
     readNotification(id: ID!): Notification
     removeComment(id: ID!, mediaId: ID!): MediaComment
     removeFavorite(mediaId: ID!): MediaFavorite
+    resendEmailConfirmation(id: ID): User
     sendKarma(discussionId: ID!, take: Boolean): ForumPost
     sendMessage(conversationId: ID, message: String!, recipientId: ID): Message
     setCharacterAvatarBlob(blob: String, id: ID!): Character

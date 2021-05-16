@@ -171,6 +171,24 @@ class Mutations::UserMutations < Mutations::ApplicationMutation
     @user
   end
 
+  action :resend_email_confirmation do
+    type Types::UserType
+
+    argument :id, types.ID
+  end
+
+  def resend_email_confirmation
+    authorize @user, :update?
+
+    if @user.email_confirmed_at.nil?
+      @user.send_welcome_email
+    elsif @user.unconfirmed_email.present?
+      @user.send_email_change_notice(true)
+    end
+
+    @user
+  end
+
   private
 
   def get_current_user
