@@ -14,6 +14,7 @@ const RESEND_EMAIL_CONFIRMATION = gql`
 `
 
 const EmailConfirmationNag = ({
+  slim,
   currentUser,
   permit,
   resendEmailConfirmation,
@@ -30,6 +31,29 @@ const EmailConfirmationNag = ({
   let [loading, setLoading] = useState(false)
   let [sent, setCalled] = useState(false)
   let validation = null
+  let message = null
+  let style = {}
+
+  if (slim) {
+    nosend = true
+    style.marginBottom = 0
+
+    message = <strong>You must confirm your email.</strong>
+  } else {
+    message = (
+      <>
+        <p>
+          <strong>Your email address is unconfirmed.</strong>
+        </p>
+        <p>
+          Some site features may not be available until you confirm your email
+          address. Confirming your email address is important, since it allows
+          us to contact you for account-related information, as well as recovery
+          for your account if you lose your password.
+        </p>
+      </>
+    )
+  }
 
   const handleSend = e => {
     e.preventDefault()
@@ -55,16 +79,8 @@ const EmailConfirmationNag = ({
   }
 
   return (
-    <div className={'card-panel red darken-3 white-text'}>
-      <p>
-        <strong>Your email address is unconfirmed.</strong>
-      </p>
-      <p>
-        Some site features may not be available until you confirm your email
-        address. Confirming your email address is important, since it allows us
-        to contact you for account-related information, as well as recovery for
-        your account if you lose your password.
-      </p>
+    <div className={'card-panel red darken-3 white-text'} style={style}>
+      {message}
       {validation}
     </div>
   )

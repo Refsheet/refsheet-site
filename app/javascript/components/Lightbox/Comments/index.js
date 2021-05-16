@@ -11,6 +11,7 @@ import subscribeToComments from './subscribeToComments.graphql'
 import Scrollbars from '../../Shared/Scrollbars'
 import { AutoSizer } from 'react-virtualized'
 import Moment from 'react-moment'
+import EmailConfirmationNag from '../../User/EmailConfirmationNag'
 
 class Comments extends Component {
   constructor(props) {
@@ -100,14 +101,16 @@ class Comments extends Component {
 
         {currentUser && (
           <div className="flex-fixed">
-            <CommentForm
-              slim
-              placeholder={'Add comment...'}
-              buttonText={'Send'}
-              onSubmit={this.handleSubmit.bind(this)}
-              onSubmitConfirm={this.handlePost.bind(this)}
-              buttonSubmittingText={'Sending'}
-            />
+            <EmailConfirmationNag slim>
+              <CommentForm
+                slim
+                placeholder={'Add comment...'}
+                buttonText={'Send'}
+                onSubmit={this.handleSubmit.bind(this)}
+                onSubmitConfirm={this.handlePost.bind(this)}
+                buttonSubmittingText={'Sending'}
+              />
+            </EmailConfirmationNag>
           </div>
         )}
       </div>
