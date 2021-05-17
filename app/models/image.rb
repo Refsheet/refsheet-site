@@ -56,6 +56,7 @@ class Image < ApplicationRecord # < Media
   DEFAULT_GRAVITY = IMAGE_GRAVITIES[1].freeze
 
   belongs_to :character, inverse_of: :images
+  belongs_to :folder, inverse_of: :media, foreign_key: :media_folder_id, class_name: "Media::Folder"
   has_one :user, through: :character
   has_many :favorites, foreign_key: :media_id, class_name: "Media::Favorite", dependent: :destroy
   has_many :comments, foreign_key: :media_id, class_name: "Media::Comment", dependent: :destroy

@@ -10,6 +10,13 @@ import { openUploadModal } from '../../actions'
 import SortableThumbnail from '../Image/SortableThumbnail'
 import gql from 'graphql-tag'
 import ArrayUtils from '../../utils/ArrayUtils'
+import { Icon } from 'react-materialize'
+import Button from '../Styled/Button'
+import styled from 'styled-components'
+import { buildShadow } from '../Styled/common'
+import SubfolderButton from '../Styled/SubfolderButton'
+import NumberUtils from '../../v1/utils/NumberUtils'
+import Restrict from '../Shared/Restrict'
 
 function convertData(images) {
   return images.map(image => ({
@@ -80,8 +87,8 @@ const Gallery = function ({
   }
 
   const galleryTabs = [
-    // { id: 'baz', title: 'Scraps' },
-    // { id: 'bar', title: 'Hidden' },
+    // { id: 'scraps', title: 'Scraps' },
+    // { id: 'hidden', title: 'Hidden' },
   ]
 
   const galleryActions = [
@@ -102,10 +109,44 @@ const Gallery = function ({
       buttons={galleryActions}
       onTabClick={id => console.log(id)}
     >
+      <Restrict development>{renderSubfolders()}</Restrict>
       <Measure bounds>
         {renderGallery(imageData, onImageSort, imageOrder, pendingChanges)}
       </Measure>
     </Section>
+  )
+}
+
+const renderSubfolders = () => {
+  const folders = [
+    {
+      id: 'subfolder',
+      slug: 'subfolder',
+      name: 'Subfolder Name',
+      media_count: 1499
+    },
+    {
+      id: 'subfolder2',
+      slug: 'subfolder2',
+      name: 'Subfolder Name but it is really quite long',
+      media_count: 1499
+    },
+  ]
+
+  return (
+    <div className={'row margin-top--medium'}>
+      {folders.map(folder => (
+        <div key={folder.id} className={'col s6 m3'}>
+          <SubfolderButton href={'#gal:' + folder.slug}>
+            <Icon left>folder</Icon>
+            <div className={'truncate gallery-name'}>{folder.name}</div>
+            <div className={'gallery-meta'}>
+              {NumberUtils.format(folder.media_count)} Items
+            </div>
+          </SubfolderButton>
+        </div>
+      ))}
+    </div>
   )
 }
 

@@ -55,6 +55,7 @@ class Character < ApplicationRecord
   belongs_to :profile_image, class_name: "Image"
   has_many :swatches, dependent: :destroy
   has_many :images, dependent: :destroy
+  has_many :media_folders, dependent: :destroy, class_name: "Media::Folder"
   has_many :transfers
   has_and_belongs_to_many :character_groups,
                           after_add: :update_counter_cache,

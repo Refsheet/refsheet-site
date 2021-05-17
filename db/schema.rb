@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_12_064050) do
+ActiveRecord::Schema.define(version: 2021_05_17_215643) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -616,6 +616,7 @@ ActiveRecord::Schema.define(version: 2020_11_12_064050) do
     t.string "custom_annotation"
     t.bit "image_phash", limit: 64
     t.text "image_processing_error"
+    t.bigint "media_folder_id"
     t.index ["character_id"], name: "index_images_on_character_id"
     t.index ["custom_watermark_id"], name: "index_images_on_custom_watermark_id"
     t.index ["deleted_at"], name: "index_images_on_deleted_at"
@@ -623,6 +624,7 @@ ActiveRecord::Schema.define(version: 2020_11_12_064050) do
     t.index ["guid"], name: "index_images_on_guid"
     t.index ["hidden"], name: "index_images_on_hidden"
     t.index ["image_processing"], name: "index_images_on_image_processing"
+    t.index ["media_folder_id"], name: "index_images_on_media_folder_id"
     t.index ["row_order"], name: "index_images_on_row_order"
   end
 
@@ -753,6 +755,30 @@ ActiveRecord::Schema.define(version: 2020_11_12_064050) do
     t.datetime "updated_at", null: false
     t.index ["media_id"], name: "index_media_favorites_on_media_id"
     t.index ["user_id"], name: "index_media_favorites_on_user_id"
+  end
+
+  create_table "media_folders", force: :cascade do |t|
+    t.bigint "parent_media_folder_id"
+    t.bigint "user_id"
+    t.bigint "character_id"
+    t.integer "media_count"
+    t.boolean "hidden"
+    t.boolean "nsfw"
+    t.integer "row_order"
+    t.string "name"
+    t.text "description"
+    t.string "guid"
+    t.string "slug"
+    t.string "password"
+    t.bigint "featured_media_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["character_id"], name: "index_media_folders_on_character_id"
+    t.index ["featured_media_id"], name: "index_media_folders_on_featured_media_id"
+    t.index ["guid"], name: "index_media_folders_on_guid"
+    t.index ["parent_media_folder_id"], name: "index_media_folders_on_parent_media_folder_id"
+    t.index ["slug"], name: "index_media_folders_on_slug"
+    t.index ["user_id"], name: "index_media_folders_on_user_id"
   end
 
   create_table "media_hashtags", id: :serial, force: :cascade do |t|
@@ -1136,7 +1162,12 @@ ActiveRecord::Schema.define(version: 2020_11_12_064050) do
   add_foreign_key "guestbook_entries", "characters", column: "author_character_id"
   add_foreign_key "guestbook_entries", "users", column: "author_user_id"
   add_foreign_key "images", "custom_watermarks"
+  add_foreign_key "images", "media_folders"
   add_foreign_key "lodestone_characters", "characters"
+  add_foreign_key "media_folders", "characters"
+  add_foreign_key "media_folders", "images", column: "featured_media_id"
+  add_foreign_key "media_folders", "media_folders", column: "parent_media_folder_id"
+  add_foreign_key "media_folders", "users"
   add_foreign_key "media_tags", "characters"
   add_foreign_key "media_tags", "images", column: "media_id"
   add_foreign_key "user_sessions", "ahoy_visits"
