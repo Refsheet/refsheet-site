@@ -36,8 +36,9 @@ export default class ErrorBoundary extends Component {
       <div>
         <h1>You've encountered a bug.</h1>
         <p className={'larger'}>
-          You've encountered a bug, and Refsheet.net has crashed. We're very sorry,
-          but this happens from time to time. Every new fix is a new bug, too.
+          You've encountered a bug, and Refsheet.net has crashed. We're very
+          sorry, but this happens from time to time. Every new fix is a new bug,
+          too.
         </p>
       </div>
     )
@@ -82,23 +83,25 @@ export default class ErrorBoundary extends Component {
           >
             {errorString}
             <p className={'caption larger strong'}>
-              PROVIDE THE ERROR CODES BELOW IF YOU ARE GOING TO REPORT THIS BUG TO THE SITE
-              ADMINISTRATORS. Thank you for helping us help you.
+              PROVIDE THE ERROR CODES BELOW IF YOU ARE GOING TO REPORT THIS BUG
+              TO THE SITE ADMINISTRATORS. Thank you for helping us help you.
             </p>
             <p>
-              Anonymous details of this bug have been logged, but we have no way to know which
-              bug you are referring to unless you give us one of the codes below, which will
-              identify it in our system and give us the details we need to fix it.
+              Anonymous details of this bug have been logged, but we have no way
+              to know which bug you are referring to unless you give us one of
+              the codes below, which will identify it in our system and give us
+              the details we need to fix it.
             </p>
             <p className={'caption center'}>
               <code>{eventId}</code>
             </p>
             <p>
-              This copypasta can also help us find it if the event ID above doesn't match anything.
-              Sometimes that happens, especially if you are using various ad blockers that prevent
-              our bug-tracking code from working.
+              This copypasta can also help us find it if the event ID above
+              doesn't match anything. Sometimes that happens, especially if you
+              are using various ad blockers that prevent our bug-tracking code
+              from working.
             </p>
-            <textarea readonly>{ btoa(error) }</textarea>                                
+            <textarea readonly>{btoa(error)}</textarea>
           </div>
         </div>
       )
