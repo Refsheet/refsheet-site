@@ -101,7 +101,7 @@ export default class ErrorBoundary extends Component {
               are using various ad blockers that prevent our bug-tracking code
               from working.
             </p>
-            <textarea readonly>{btoa(error)}</textarea>
+            <textarea readOnly>{btoa(error)}</textarea>
           </div>
         </div>
       )
