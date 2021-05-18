@@ -237,6 +237,11 @@ const Component = createReactClass({
 
       const images =
         (data && data.getCharacterByUrl && data.getCharacterByUrl.images) || []
+      const folders =
+        (data &&
+          data.getCharacterByUrl &&
+          data.getCharacterByUrl.media_folders) ||
+        []
 
       return (
         <div>
@@ -248,7 +253,12 @@ const Component = createReactClass({
             onUploadClick={this._openUploads}
           />
 
-          <Gallery images={images} loading={loading} editable={canEdit} />
+          <Gallery
+            folders={folders}
+            images={images}
+            loading={loading}
+            editable={canEdit}
+          />
         </div>
       )
     }

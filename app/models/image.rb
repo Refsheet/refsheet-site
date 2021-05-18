@@ -146,6 +146,14 @@ class Image < ApplicationRecord # < Media
   scope :processing, -> { where(image_processing: true) }
   scope :processed,  -> { where(image_processing: false) }
 
+  scope :in_folder, -> (folder_id) {
+    if folder_id.present?
+      joins(:folder).where(media_folders: { id: folder_id })
+    else
+      where(media_folder_id: nil)
+    end
+  }
+
   scope :similar_to, -> (image, distance: 7) {
     target_hash = image.image_phash
 

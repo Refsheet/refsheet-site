@@ -4,6 +4,8 @@ Types::MediaFolderType = GraphQL::ObjectType.define do
   name "MediaFolder"
   interfaces [Interfaces::ApplicationRecordInterface]
 
+  field :name, types.String
+  field :description, types.String
   field :user, Types::UserType
   field :character, Types::CharacterType
   field :parent, Types::MediaFolderType

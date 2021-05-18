@@ -16,7 +16,8 @@ import styled from 'styled-components'
 import { buildShadow } from '../Styled/common'
 import SubfolderButton from '../Styled/SubfolderButton'
 import NumberUtils from '../../v1/utils/NumberUtils'
-import Restrict from '../Shared/Restrict'
+import Restrict, { restrict } from '../Shared/Restrict'
+import NewFolderModal from './Modals/NewFolderModal'
 
 function convertData(images) {
   return images.map(image => ({
@@ -33,6 +34,7 @@ const Gallery = function ({
   v1Data,
   noHeader,
   images,
+  folders,
   openUploadModal,
   sortGalleryImage,
   editable,
@@ -41,6 +43,7 @@ const Gallery = function ({
 
   const [imageOrder, updateImageOrder] = useState(images.map(i => i.id))
   const [pendingChanges, updatePendingChanges] = useState([])
+  const [newFolderModalOpen, setNewFolderModalOpen] = useState(false)
 
   useEffect(() => {
     updateImageOrder(images.map(i => i.id))
@@ -49,6 +52,9 @@ const Gallery = function ({
   if (v1Data) {
     imageData = convertData(images)
   }
+
+  const openNewFolderModal = () => setNewFolderModalOpen(true)
+  const closeNewFolderModal = () => setNewFolderModalOpen(false)
 
   const onImageSort = ({ targetImageId, sourceImageId, dropBefore }) => {
     // console.log('onImageSort', { targetImageId, sourceImageId, dropBefore })
@@ -92,6 +98,12 @@ const Gallery = function ({
   ]
 
   const galleryActions = [
+    restrict({ patron: true }) && {
+      icon: 'create_new_folder',
+      title: 'New Folder',
+      id: 'newFolder',
+      onClick: openNewFolderModal,
+    },
     editable && {
       icon: 'file_upload',
       title: 'Upload',
@@ -109,7 +121,9 @@ const Gallery = function ({
       buttons={galleryActions}
       onTabClick={id => console.log(id)}
     >
-      <Restrict development>{renderSubfolders()}</Restrict>
+      {newFolderModalOpen && <NewFolderModal onClose={closeNewFolderModal} />}
+      <Restrict development>{renderSubfolders(folders)}</Restrict>
+
       <Measure bounds>
         {renderGallery(imageData, onImageSort, imageOrder, pendingChanges)}
       </Measure>
@@ -117,19 +131,19 @@ const Gallery = function ({
   )
 }
 
-const renderSubfolders = () => {
-  const folders = [
+const renderSubfolders = folders => {
+  const fldr = [
     {
       id: 'subfolder',
       slug: 'subfolder',
       name: 'Subfolder Name',
-      media_count: 1499
+      media_count: 1499,
     },
     {
       id: 'subfolder2',
       slug: 'subfolder2',
       name: 'Subfolder Name but it is really quite long',
-      media_count: 1499
+      media_count: 1499,
     },
   ]
 

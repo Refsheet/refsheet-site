@@ -209,6 +209,7 @@ class View extends Component {
                   {/*<Reference />*/}
                   <Gallery
                     images={character.images}
+                    folders={character.media_folders}
                     editable={character.can_edit}
                   />
                 </Col>

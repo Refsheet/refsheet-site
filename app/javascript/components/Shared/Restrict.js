@@ -2,7 +2,7 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { connect, useSelector } from 'react-redux'
 
 const restrict = ({
   admin,
@@ -16,8 +16,9 @@ const restrict = ({
   nsfw,
   nsfwOk,
 }) => {
+  const { currentUser: stateUser } = useSelector(state => state.session)
   const { is_admin, is_patron, is_supporter, email_confirmed_at } =
-    currentUser || {}
+    currentUser || stateUser || {}
 
   let hide = false
   if (hideAll) return false

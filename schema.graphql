@@ -104,11 +104,12 @@ type Character implements ApplicationRecord {
     featured_image: Image
     hidden: Boolean
     id: ID
-    images: [Image]
+    images(folder_id: ID): [Image]
     likes: String
     likes_html: String
     lodestone_character: Lodestone_Character
     marketplace_listing: MarketplaceListing
+    media_folders: [MediaFolder]
     name: String!
     nsfw: Boolean
     path: String!
@@ -420,6 +421,28 @@ type MediaFavorite implements ApplicationRecord {
     created_at: Int
     deleted_at: Int
     id: ID
+    updated_at: Int
+    user: User
+}
+
+type MediaFolder implements ApplicationRecord {
+    character: Character
+    children: [MediaFolder]
+    created_at: Int
+    deleted_at: Int
+    description: String
+    featured_media: Image
+    guid: ID
+    id: ID
+    is_hidden: Boolean
+    is_nsfw: Boolean
+    is_password_protected: Boolean
+    media: [Image]
+    media_count: Int
+    name: String
+    parent: MediaFolder
+    password: String
+    slug: String
     updated_at: Int
     user: User
 }
