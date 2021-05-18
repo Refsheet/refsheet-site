@@ -149,7 +149,7 @@ const renderSubfolders = folders => {
 
   return (
     <div className={'row margin-top--medium'}>
-      {folders.map(folder => (
+      {folders && folders.map(folder => (
         <div key={folder.id} className={'col s6 m3'}>
           <SubfolderButton href={'#gal:' + folder.slug}>
             <Icon left>folder</Icon>
