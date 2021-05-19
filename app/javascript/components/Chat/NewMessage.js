@@ -4,6 +4,7 @@ import { Icon } from 'react-materialize'
 import { Mutation } from 'react-apollo'
 import { gql } from 'apollo-client-preset'
 import * as M from 'materialize-css'
+import EmailConfirmationNag from '../User/EmailConfirmationNag'
 
 class NewMessage extends Component {
   constructor(props) {
@@ -171,11 +172,13 @@ const MESSAGE_MUTATION = gql`
   }
 `
 const Wrapped = props => (
-  <Mutation mutation={MESSAGE_MUTATION}>
-    {(send, { mutationData }) => (
-      <NewMessage {...props} send={send} mutationData={mutationData} />
-    )}
-  </Mutation>
+  <EmailConfirmationNag slim>
+    <Mutation mutation={MESSAGE_MUTATION}>
+      {(send, { mutationData }) => (
+        <NewMessage {...props} send={send} mutationData={mutationData} />
+      )}
+    </Mutation>
+  </EmailConfirmationNag>
 )
 
 Wrapped.propTypes = {
