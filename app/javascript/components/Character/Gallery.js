@@ -149,17 +149,18 @@ const renderSubfolders = folders => {
 
   return (
     <div className={'row margin-top--medium'}>
-      {folders && folders.map(folder => (
-        <div key={folder.id} className={'col s6 m3'}>
-          <SubfolderButton href={'#gal:' + folder.slug}>
-            <Icon left>folder</Icon>
-            <div className={'truncate gallery-name'}>{folder.name}</div>
-            <div className={'gallery-meta'}>
-              {NumberUtils.format(folder.media_count)} Items
-            </div>
-          </SubfolderButton>
-        </div>
-      ))}
+      {folders &&
+        folders.map(folder => (
+          <div key={folder.id} className={'col s6 m3'}>
+            <SubfolderButton href={'#gal:' + folder.slug}>
+              <Icon left>folder</Icon>
+              <div className={'truncate gallery-name'}>{folder.name}</div>
+              <div className={'gallery-meta'}>
+                {NumberUtils.format(folder.media_count)} Items
+              </div>
+            </SubfolderButton>
+          </div>
+        ))}
     </div>
   )
 }
