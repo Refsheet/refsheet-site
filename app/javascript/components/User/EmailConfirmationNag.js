@@ -18,6 +18,7 @@ const EmailConfirmationNag = ({
   currentUser,
   permit,
   resendEmailConfirmation,
+  notice,
   nosend = false,
   children = null,
 }) => {
@@ -39,6 +40,15 @@ const EmailConfirmationNag = ({
     style.marginBottom = 0
 
     message = <strong>You must confirm your email.</strong>
+  } else if (notice) {
+    message = (
+      <>
+        <p>
+          <strong>Your email address is unconfirmed.</strong>
+        </p>
+        <p>{notice}</p>
+      </>
+    )
   } else {
     message = (
       <>
