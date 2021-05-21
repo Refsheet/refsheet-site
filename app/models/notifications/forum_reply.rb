@@ -31,17 +31,17 @@ class Notifications::ForumReply < Notification
   end
 
   def message
-    return nil if actionable.nil?
+    return nil if actionable.nil? || discussion.nil?
     "\"#{actionable.content.to_text.truncate(120).chomp}\""
   end
 
   def href
-    return nil if actionable.nil?
+    return nil if actionable.nil? || discussion.nil?
     forum_thread_url forum, discussion.slug, anchor: actionable.guid
   end
 
   def link
-    return nil if actionable.nil?
+    return nil if actionable.nil? || discussion.nil?
     forum_thread_path forum, discussion.slug, anchor: actionable.guid
   end
 

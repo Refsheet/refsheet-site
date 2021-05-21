@@ -4,7 +4,7 @@ import imageProcessingComplete from './imageProcessingComplete.graphql'
 import { Subscription } from 'react-apollo'
 import { Icon } from 'react-materialize'
 import { connect } from 'react-redux'
-import { openLightbox } from '../../actions'
+import { openLightbox, setNsfwMode } from '../../actions'
 import NumberUtils from '../../v1/utils/NumberUtils'
 import c from 'classnames'
 import compose, { withMutations } from '../../utils/compose'
@@ -12,22 +12,44 @@ import deleteMedia from '../Lightbox/deleteMedia.graphql'
 import updateImage from '../Lightbox/updateImage.graphql'
 import CacheUtils from '../../utils/CacheUtils'
 import Flash from '../../utils/Flash'
+import { withTranslation } from 'react-i18next'
 
 class Thumbnail extends Component {
   constructor(props) {
     super(props)
+
+    this.handleClick = this.handleClick.bind(this)
+    this.handleDeleteClick = this.handleDeleteClick.bind(this)
+    this.handleFavoriteClick = this.handleFavoriteClick.bind(this)
+    this.handleReprocessClick = this.handleReprocessClick.bind(this)
   }
 
   handleClick(e) {
     e.preventDefault()
 
     const {
-      image: { id },
+      image: { id, nsfw },
+      session: { nsfwOk },
       openLightbox,
       gallery,
+      t,
+      setNsfwMode,
     } = this.props
 
-    openLightbox(id, gallery)
+    if (nsfw && !nsfwOk) {
+      if (
+        confirm(
+          t(
+            'confirmations.nsfw_ok',
+            'By continuing, you assert that you are 18 years or older, and that it is legal for you to view explicit content.'
+          )
+        )
+      ) {
+        setNsfwMode(true, true)
+      }
+    } else {
+      openLightbox(id, gallery)
+    }
   }
 
   handleFavoriteClick(e) {
@@ -94,14 +116,14 @@ class Thumbnail extends Component {
           <div className={'actions margin-top--small'}>
             <a
               href={'#'}
-              onClick={this.handleReprocessClick.bind(this)}
+              onClick={this.handleReprocessClick}
               className={className}
             >
               Reprocess
             </a>{' '}
             |{' '}
             <a
-              onClick={this.handleDeleteClick.bind(this)}
+              onClick={this.handleDeleteClick}
               href={'#'}
               className={className}
             >
@@ -129,9 +151,17 @@ class Thumbnail extends Component {
         comments_count,
         is_favorite,
         title,
-        url: { medium: src },
+        url,
       },
+      size,
     } = this.props
+
+    let src = url[size || 'medium']
+
+    if (!src) {
+      console.log({ size, url })
+      src = url[Object.keys[url][0]]
+    }
 
     if (image_processing_error) {
       return this.renderNotification(
@@ -166,24 +196,31 @@ class Thumbnail extends Component {
 
     return (
       <a
-        onClick={this.handleClick.bind(this)}
+        onClick={this.handleClick}
         href={path}
         data-gallery-image-id={id}
         style={{ backgroundColor: background_color }}
       >
         {showNsfwWarning && (
-          <div className="nsfw-cover">
-            <Icon>remove_circle_outline</Icon>
-            <div className="caption">Click to show NSFW content.</div>
+          <div className="nsfw-cover" style={{ padding: '1rem' }}>
+            <div
+              style={{
+                position: 'relative',
+                top: '50%',
+                transform: 'translateY(-50%)',
+              }}
+            >
+              <Icon>remove_circle_outline</Icon>
+              <div className="caption" style={{ paddingTop: '1rem' }}>
+                Click to show NSFW content.
+              </div>
+            </div>
           </div>
         )}
 
         <div className="overlay">
           <div className="interactions">
-            <div
-              className="favs clickable"
-              onClick={this.handleFavoriteClick.bind(this)}
-            >
+            <div className="favs clickable" onClick={this.handleFavoriteClick}>
               <Icon>{is_favorite ? 'star' : 'star_outline'}</Icon>
               &nbsp;{NumberUtils.format(favorites_count)}
             </div>
@@ -213,6 +250,7 @@ class Thumbnail extends Component {
       innerRef,
       children,
       image = {},
+      flat,
     } = this.props
 
     const preReturn = () => {
@@ -223,7 +261,9 @@ class Thumbnail extends Component {
             ...style,
             backgroundColor: image.background_color || 'rgb(0,0,0)',
           }}
-          className={c('gallery-image image-thumbnail z-depth-1', className)}
+          className={c('gallery-image image-thumbnail', className, {
+            'z-depth-1': !flat,
+          })}
         >
           {children}
           {this.renderImage()}
@@ -282,6 +322,7 @@ const Subscribed = props => {
 
 const mapDispatchToProps = {
   openLightbox,
+  setNsfwMode,
 }
 
 const mapStateToProps = ({ session }) => ({
@@ -290,5 +331,6 @@ const mapStateToProps = ({ session }) => ({
 
 export default compose(
   withMutations({ updateImage, deleteMedia }),
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(mapStateToProps, mapDispatchToProps),
+  withTranslation('common')
 )(Subscribed)

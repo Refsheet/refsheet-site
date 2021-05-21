@@ -23,7 +23,7 @@ class ApplicationPolicy
   end
 
   def update?
-    user&.admin?
+    admin?
   end
 
   def edit?
@@ -32,6 +32,14 @@ class ApplicationPolicy
 
   def destroy?
     false
+  end
+
+  def delete?
+    destroy?
+  end
+
+  def moderate?
+    admin?
   end
 
   # Attributes
@@ -55,5 +63,37 @@ class ApplicationPolicy
     def resolve
       scope.all
     end
+  end
+
+  private
+
+  def find_user
+    if record.is_a? User
+      record
+    elsif record.respond_to?(:user)
+      record.user
+    elsif record.respond_to?(:recipient)
+      record.recipient
+    end
+  end
+
+  def hidden?
+    record.respond_to?(:character) && record.character.hidden or record.hidden
+  end
+
+  def blocked?
+    user && user.blocked_by?(find_user)
+  end
+
+  def blocks?
+    user && user.blocked?(find_user)
+  end
+
+  def admin?
+    user&.admin?
+  end
+
+  def logged_in?
+    !!user
   end
 end

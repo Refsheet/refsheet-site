@@ -28,9 +28,10 @@
 class Item < ApplicationRecord
   belongs_to :user, class_name: "User", foreign_key: :seller_user_id
   belongs_to :seller
+  has_one :auction
+  has_many :bids, through: :auction
 
   validates_presence_of :user
-  validates_presence_of :seller
 
   before_validation :set_defaults
 

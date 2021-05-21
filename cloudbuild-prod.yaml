@@ -11,10 +11,12 @@ steps:
 
   - name: 'gcr.io/kaniko-project/executor'
     id: Build Container
+    secretEnv: ['SENTRY_RELEASE_TOKEN']
     args:
       - --destination=gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID
       - --cache=true
       - --cache-dir=/kaniko-cache
+      - --build-arg=SENTRY_RELEASE_TOKEN
     volumes:
       - name: 'cache'
         path: '/cache'
@@ -84,5 +86,34 @@ steps:
       - 'CLOUDSDK_CONTAINER_CLUSTER=refsheet-prod-clone-1'
     waitFor:
       - Upload Artifacts
+
+  # Deploy Jobs
+  - name: 'gcr.io/cloud-builders/kubectl'
+    id: Deploy ImageRedriveJob
+    args: [ 'set', 'image', 'cronjob', 'image-redrive', "image-redrive=gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID" ]
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=refsheet-prod-clone-1'
+    waitFor:
+      - Upload Artifacts
+
+  # Deploy Jobs
+  - name: 'gcr.io/cloud-builders/kubectl'
+    id: Deploy LodestoneSyncCharacterJob
+    args: [ 'set', 'image', 'cronjob', 'lodestone-sync-character-job', "lodestone-sync-character-job=gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID" ]
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=refsheet-prod-clone-1'
+    waitFor:
+      - Upload Artifacts
+
+# Create Secrets with:
+# printf "value" | gcloud kms encrypt --plaintext-file=- --ciphertext-file=- --location=global --keyring=refsheet-ci \
+#   --key=refsheet-ci | base64 -w0
+
+secrets:
+  - kmsKeyName: projects/refsheet-239409/locations/global/keyRings/refsheet-ci/cryptoKeys/refsheet-ci
+    secretEnv:
+      SENTRY_RELEASE_TOKEN: CiQA5Rk5Qwhkg8NawPC6YDtmJXE/nHXyvDPR4eVUeCCLkuEbwv8SaQBhT4yKyIFU3xeUXa7oXdn5aYURow/xYjr9Ksr5GfPiduSy5/iJEHVY4jlzOrr3xxhb/qEfNu9P2EstXsKg/BnpBlZJ4gtkB4VM5IebjWmy8JTjT03BgfB2gpDbDZseKEZZk8m2nKYiCw==
 
 timeout: 3600s

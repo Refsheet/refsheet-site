@@ -45,7 +45,6 @@
 
 class CharacterSerializer < ActiveModel::Serializer
   include RichTextHelper
-  include GravatarImageTag
   include Rails.application.routes.url_helpers
 
   attributes :name, :slug, :shortcode, :profile, :path, :user_id, :gender,
@@ -197,7 +196,7 @@ class CharacterSerializer < ActiveModel::Serializer
   end
 
   def user_avatar_url
-    gravatar_image_url object.user.email
+    nil
   end
 
   def special_notes_html

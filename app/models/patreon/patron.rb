@@ -38,6 +38,7 @@ class Patreon::Patron < ApplicationRecord
   belongs_to :user
 
   before_validation :match_user
+  after_update :sync_user_flag
 
   def email_to(email=self.email)
     "#{full_name} <#{email}>"
@@ -71,5 +72,17 @@ class Patreon::Patron < ApplicationRecord
   def match_user!
     self.match_user
     self.save!
+  end
+
+  def active?
+    !is_deleted? && !is_nuked? && !is_suspended?
+  end
+
+  private
+
+  def sync_user_flag
+    if self.user
+      self.user.patron = self.active?
+    end
   end
 end

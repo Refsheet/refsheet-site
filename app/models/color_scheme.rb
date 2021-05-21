@@ -48,6 +48,10 @@ class ColorScheme < ApplicationRecord
     new color_data: DEFAULT_COLOR_DATA
   end
 
+  def valid_color?(color_key)
+    DEFAULT_COLOR_DATA.key? normalize_key(color_key)
+  end
+
   def color_data
     (super || {}).with_indifferent_access
   end
@@ -86,12 +90,12 @@ class ColorScheme < ApplicationRecord
   def method_missing(method, *args)
     key = method.to_s.gsub(/=$/, '')
 
-    if (color = get_color(key))
+    if valid_color? key
       if method =~ /=$/
         return set_color(key, args[0])
       end
 
-      return color
+      return get_color(key)
     end
 
     super

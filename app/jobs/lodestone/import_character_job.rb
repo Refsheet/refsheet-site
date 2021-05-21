@@ -29,6 +29,12 @@ class Lodestone::ImportCharacterJob < ApplicationJob
 
     character.save!
     character
+  rescue XIVAPI::Errors::RequestError => e
+    Rails.logger.error(e)
+    if character
+      # character.sync_error = e.message
+      # character.save!
+    end
   end
 
   private

@@ -76,6 +76,16 @@ type Artist implements ApplicationRecord {
     website_url: String
 }
 
+type ArtistsCollection implements Paginated {
+    artists: [Artist]!
+    count: Int
+    currentPage: Int
+    offset: Int
+    perPage: Int
+    totalEntries: Int
+    totalPages: Int
+}
+
 type Attribute {
     id: String!
     name: String!
@@ -94,10 +104,12 @@ type Character implements ApplicationRecord {
     featured_image: Image
     hidden: Boolean
     id: ID
-    images: [Image]
+    images(folder_id: ID): [Image]
     likes: String
     likes_html: String
     lodestone_character: Lodestone_Character
+    marketplace_listing: MarketplaceListing
+    media_folders: [MediaFolder]
     name: String!
     nsfw: Boolean
     path: String!
@@ -225,6 +237,16 @@ type ForumPost implements ApplicationRecord & Policy {
     parent_post: ForumPost
     updated_at: Int
     user: User
+}
+
+type ForumPostsCollection implements Paginated {
+    count: Int
+    currentPage: Int
+    forumPosts: [ForumPost]!
+    offset: Int
+    perPage: Int
+    totalEntries: Int
+    totalPages: Int
 }
 
 type Geometry {
@@ -366,6 +388,16 @@ type Lodestone_Server implements ApplicationRecord {
     updated_at: Int
 }
 
+type MarketplaceListing implements ApplicationRecord {
+    amount_cents: Int
+    amount_currency: String
+    created_at: Int
+    deleted_at: Int
+    id: ID
+    title: String
+    updated_at: Int
+}
+
 type MediaComment implements ApplicationRecord {
     comment: String!
     created_at: Int
@@ -389,6 +421,28 @@ type MediaFavorite implements ApplicationRecord {
     created_at: Int
     deleted_at: Int
     id: ID
+    updated_at: Int
+    user: User
+}
+
+type MediaFolder implements ApplicationRecord {
+    character: Character
+    children: [MediaFolder]
+    created_at: Int
+    deleted_at: Int
+    description: String
+    featured_media: Image
+    guid: ID
+    id: ID
+    is_hidden: Boolean
+    is_nsfw: Boolean
+    is_password_protected: Boolean
+    media: [Image]
+    media_count: Int
+    name: String
+    parent: MediaFolder
+    password: String
+    slug: String
     updated_at: Int
     user: User
 }
@@ -449,6 +503,8 @@ type Moderation implements ApplicationRecord {
 type Mutation {
     addComment(comment: String!, mediaId: ID!): MediaComment
     addFavorite(mediaId: ID!): MediaFavorite
+    banUser(id: ID!, moderation_ban: Boolean, moderation_reason: String): User
+    blockUser(username: String!): User
     convertCharacter(id: ID!): Character
     createActivity(character_id: ID, comment: String): Activity
     createApiKey(name: String, read_only: Boolean): ApiKey
@@ -473,6 +529,7 @@ type Mutation {
     readNotification(id: ID!): Notification
     removeComment(id: ID!, mediaId: ID!): MediaComment
     removeFavorite(mediaId: ID!): MediaFavorite
+    resendEmailConfirmation(id: ID): User
     sendKarma(discussionId: ID!, take: Boolean): ForumPost
     sendMessage(conversationId: ID, message: String!, recipientId: ID): Message
     setCharacterAvatarBlob(blob: String, id: ID!): Character
@@ -481,6 +538,7 @@ type Mutation {
     sortGalleryImage(dropBefore: Boolean, sourceImageId: ID!, targetImageId: ID!): Character
     transferCharacter(destination: String!, id: ID!): Character
     udpateColorScheme(colorData: ThemeColorDataInput, id: ID!, name: String): Theme
+    unblockUser(username: String!): User
     updateCharacter(color_scheme_id: ID, hidden: Boolean, id: ID!, name: String, nsfw: Boolean, shortcode: String, slug: String, special_notes: String, species: String): Character
     updateConversation(conversation_id: ID!, read: Boolean): Conversation
     updateDiscussion(content: String, id: ID!, locked: Boolean, sticky: Boolean, topic: String): ForumDiscussion
@@ -533,14 +591,18 @@ type Query {
     chatCounts: ChatCount
     findUser(username: String!): User
     getActivity(page: Int, since: Int, type: String): [Activity]
+    getApiKeys: [ApiKey]
     getArtist(slug: String!): Artist
-    getCharacter(id: ID!): Character
+    getArtists(page: Int, perPage: Int): ArtistsCollection
+    getCharacter(id: ID!, shortcode: Boolean): Character
     getCharacterByUrl(slug: String!, username: String!): Character
+    getCharacters(ascending: Boolean, ids: [ID], order: String, page: Int, query: String, with_deleted: Boolean): [Character]
     getComments(mediaId: ID!, page: Int, perPage: Int, since: Int): MediaCommentCollection
     getConversation(conversationId: ID!): Conversation
     getConversations: [Conversation]
     getDiscussion(forumId: String!, id: String!): ForumDiscussion
     getForum(slug: String!): Forum
+    getForumPosts(discussionId: ID, page: Int, perPage: Int, userId: ID): ForumPostsCollection
     getForums: [Forum]
     getImageUploadToken(characterId: ID!): ImageUploadToken
     getMedia(mediaId: ID!): Image
@@ -549,7 +611,7 @@ type Query {
     getNotifications(page: Int): NotificationCollection
     getSession: Session
     getUser(id: ID, username: String): User
-    getUsers(ascending: Boolean, ids: [ID], order: String, page: Int, query: String, with_deleted: Boolean): [User]
+    getUsers(ascending: Boolean, ids: [ID], order: String, page: Int, perPage: Int, query: String, with_deleted: Boolean): UsersCollection
     getVersion: RefsheetMeta
     searchForCharacter(page: Int, query: String!): CharactersCollection
 }
@@ -633,13 +695,16 @@ type Transfer implements ApplicationRecord {
 type User implements ApplicationRecord {
     apiKeys: [ApiKey]
     avatar_url(style: String): String
+    blocks: Boolean
     characters: [Character]
     characters_count: String
     created_at: Int
     deleted_at: Int
     email: String
+    email_confirmed_at: Int
     id: ID
     is_admin: Boolean
+    is_blocked: Boolean
     is_followed: Boolean
     is_managed: Boolean
     is_moderator: Boolean
@@ -654,6 +719,16 @@ type User implements ApplicationRecord {
     unconfirmed_email: String
     updated_at: Int
     username: String
+}
+
+type UsersCollection implements Paginated {
+    count: Int
+    currentPage: Int
+    offset: Int
+    perPage: Int
+    totalEntries: Int
+    totalPages: Int
+    users: [User]!
 }
 
 type Version implements ApplicationRecord {

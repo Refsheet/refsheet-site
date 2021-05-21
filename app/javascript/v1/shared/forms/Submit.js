@@ -29,6 +29,7 @@ export default Submit = function (props) {
       type={props.type || 'submit'}
       className={classNames.join(' ')}
       id={props.id}
+      disabled={props.disabled}
     >
       {props.children || 'Submit'}
     </button>

@@ -16,6 +16,8 @@ import { connect } from 'react-redux'
 import { openNewCharacterModal, openSupportModal } from '../../actions'
 import NewCharacterModal from '../User/Modals/NewCharacterModal'
 import ReportModal from '../../v1/views/images/report_modal'
+import { ThemeProvider } from 'styled-components'
+import themes from '../../themes'
 
 class Layout extends Component {
   constructor(props) {
@@ -25,40 +27,32 @@ class Layout extends Component {
   }
 
   render() {
-    const { t, location, updateAvailable, notice } = this.props
+    const { location, notice, theme: themeSettings } = this.props
+    const { name: themeName } = themeSettings || {}
+    const theme = themes[themeName] || themes.dark
 
     return (
-      <div id={'rootApp'}>
-        <Lightbox />
-        <UploadModal />
-        <SessionModal />
-        <SupportModal />
-        <NewCharacterModal />
-        <ReportModal />
+      <ThemeProvider theme={theme.base}>
+        <div id={'rootApp'}>
+          <Lightbox />
+          <UploadModal />
+          <SessionModal />
+          <SupportModal />
+          <NewCharacterModal />
+          <ReportModal />
 
-        <NavBar
-          query={location.query.q}
-          onUserChange={this._onLogin}
-          notice={notice}
-        />
+          <NavBar
+            query={location.query.q}
+            onUserChange={this._onLogin}
+            notice={notice}
+          />
 
-        <Routes />
-        <Footer />
+          <Routes />
+          <Footer />
 
-        {updateAvailable && (
-          <div
-            className={'update-notice card-panel cyan darken-4 white-text'}
-            style={{ position: 'fixed', bottom: '1rem', left: '1rem' }}
-          >
-            {t(
-              'system.update_available',
-              'An update is available. Please reload your browser.'
-            )}
-          </div>
-        )}
-
-        <Chat />
-      </div>
+          <Chat />
+        </div>
+      </ThemeProvider>
     )
   }
 }
@@ -68,6 +62,10 @@ Layout.propTypes = {
   updateAvailable: PropTypes.bool,
 }
 
+const mapStateToProps = ({ theme }) => ({
+  theme,
+})
+
 const mapDispatchToProps = {
   openNewCharacterModal,
 }
@@ -76,5 +74,5 @@ export default compose(
   withErrorBoundary,
   withRouter,
   withTranslation('common'),
-  connect(undefined, mapDispatchToProps)
+  connect(mapStateToProps, mapDispatchToProps)
 )(Layout)

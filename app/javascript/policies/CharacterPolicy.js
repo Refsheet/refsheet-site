@@ -12,7 +12,7 @@ class CharacterPolicy extends Policy {
   update() {
     return (
       !this.object.pending_transfer &&
-      this.object.username === this.user.username
+      (this.object.username === this.user.username || this.object.can_edit)
     )
   }
 

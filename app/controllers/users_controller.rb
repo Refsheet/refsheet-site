@@ -4,8 +4,6 @@ class UsersController < ApplicationController
 
   def index
     not_allowed!
-    @users = User.all
-    respond_with @users.reverse, each_serializer: UserIndexSerializer
   end
 
   def shortcode
@@ -13,25 +11,26 @@ class UsersController < ApplicationController
   end
 
   def show
-    set_meta_tags(
-        twitter: {
-            card: 'photo',
-            image: {
-                _: @user.avatar.url(:medium)
-            }
-        },
-        og: {
-            image: @user.avatar.url(:medium)
-        },
-        title: @user.name,
-        description: @user.profile.presence || 'This user is a mystery!',
-        image_src: @user.avatar.url(:medium)
-    )
-
     @user = User.includes(:characters => [:profile_image, :featured_image, :color_scheme, :character_groups], :character_groups => [:user]).find(@user.id)
+    authorize @user
 
     respond_to do |format|
       format.html do
+        set_meta_tags(
+            twitter: {
+                card: 'photo',
+                image: {
+                    _: @user.avatar_url(:medium)
+                }
+            },
+            og: {
+                image: @user.avatar_url(:medium)
+            },
+            title: @user.name,
+            description: @user.profile.presence || 'This user is a mystery!',
+            image_src: @user.avatar_url(:medium)
+        )
+
         eager_load user: UserSerializer.new(@user, scope: view_context).as_json
         render 'application/show'
       end
@@ -41,6 +40,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new user_params
+    authorize @user
 
     captcha_data = params[:user][:captchaData]
 
@@ -54,7 +54,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    head :unauthorized and return unless @user == current_user
+    authorize @user
 
     if @user.update user_params
       render json: @user, serializer: UserSerializer

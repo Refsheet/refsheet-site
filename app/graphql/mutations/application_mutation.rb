@@ -12,8 +12,16 @@ class Mutations::ApplicationMutation
     @before_actions || []
   end
 
-  def self.action(name, &proc)
-    field = GraphQL::Field.define &proc
+  def self.action(name, *tags, &proc)
+    field = GraphQL::Field.define do
+      if tags.include? :paginated
+        argument :page, types.Int
+        argument :perPage, types.Int
+      end
+
+      instance_exec([], &proc)
+    end
+
     classy = name.to_s.classify
 
     field.name ||= self.name.gsub(/^Mutations::|Mutation$/, '') + classy
@@ -50,7 +58,6 @@ class Mutations::ApplicationMutation
 
   def run_before_actions(action_name)
     Rails.logger.info "Processing by #{self.class.name}##{action_name} as GRAPHQL"
-    # TODO: Enable this once we can get the parameter filter on here.
 
     unless Rails.env.production?
       Rails.logger.info "  Parameters: #{params.as_json}"
@@ -69,7 +76,14 @@ class Mutations::ApplicationMutation
     end
   end
 
+  def paginate(scope)
+    page = params[:page] || 1
+    per_page = params[:perPage] || 30
+    scope.paginate(page: page, per_page: per_page)
+  end
+
   def authorize!(check, message=nil)
+    ActiveSupport::Deprecation.warn("Old authorize! used, please use Pundit.")
     check ? nil : not_allowed!(message)
   end
 

@@ -22,5 +22,5 @@ class Bid < ApplicationRecord
   belongs_to :user
   belongs_to :invitation
 
-  monetize :amount_cents
+  monetize :amount_cents, numericality: { greater_than_or_equal_to: 1, message: 'must be at least $1' }
 end

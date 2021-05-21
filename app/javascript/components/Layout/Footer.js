@@ -1,16 +1,15 @@
 /* global Refsheet */
 
 import React, { Component } from 'react'
-import compose from 'utils/compose'
+import compose from '../../utils/compose'
 import { Link } from 'react-router-dom'
 import { Row, Col } from 'react-materialize'
 import Restrict from '../Shared/Restrict'
-import i18n from 'services/i18n'
+import i18n from '../../services/i18n'
 import c from 'classnames'
 import SessionService from '../../services/SessionService'
 import { H3 } from '../Styled/Headings'
 import styled from 'styled-components'
-import GoogleAd from '../Shared/GoogleAd'
 import { withErrorBoundary } from '../Shared/ErrorBoundary'
 
 class _Footer extends Component {
@@ -42,9 +41,15 @@ class _Footer extends Component {
     }
   }
 
+  setTheme(theme) {
+    return e => {
+      e.preventDefault()
+    }
+  }
+
   render() {
     return (
-      <footer className="page-footer">
+      <footer className={'page-footer ' + this.props.className}>
         <div className="container margin-top--large">
           {Refsheet.environment !== 'test' ? (
             <div>
@@ -282,8 +287,8 @@ class _Footer extends Component {
 }
 
 const Footer = styled(_Footer)`
-  background-color: ${props => props.theme.cardBackground};
-  color: ${props => props.theme.text};
+  background-color: ${props => props.theme.cardBackground} !important;
+  color: ${props => props.theme.text} !important;
 `
 
 export default compose(withErrorBoundary)(Footer)

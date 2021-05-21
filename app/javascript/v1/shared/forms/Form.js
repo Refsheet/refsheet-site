@@ -23,6 +23,7 @@ export default Form = createReactClass({
     method: PropTypes.string,
     modelName: PropTypes.string.isRequired,
     model: PropTypes.object.isRequired,
+    extraData: PropTypes.object,
     onChange: PropTypes.func,
     onError: PropTypes.func,
     errors: PropTypes.object,
@@ -144,7 +145,10 @@ export default Form = createReactClass({
     }
 
     const data = {}
-    ObjectPath.set(data, this.props.modelName, this.state.model)
+    ObjectPath.set(data, this.props.modelName, {
+      ...this.state.model,
+      ...(this.props.extraData || {}),
+    })
 
     this.setState({ submitting: true })
     const _this = this

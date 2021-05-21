@@ -15,6 +15,7 @@ import Input from '../../shared/forms/Input'
 import Restrict from '../../../components/Shared/Restrict'
 import Submit from '../../shared/forms/Submit'
 import compose, { withCurrentUser } from '../../../utils/compose'
+import EmailConfirmationNag from '../../../components/User/EmailConfirmationNag'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -61,6 +62,12 @@ const NewCharacterForm = createReactClass({
         onError={this._handleError}
         onChange={this._handleCreate}
       >
+        <EmailConfirmationNag
+          notice={
+            'If character creation fails, you have exceeded your quota for character profiles. ' +
+            'You can increase this limit by confirming your email address.'
+          }
+        />
         <Row>
           <Column m={6}>
             <Input name="name" label="Name" autoFocus />

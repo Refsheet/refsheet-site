@@ -1,0 +1,2 @@
+class PaymentTransferPolicy < ApplicationPolicy
+end

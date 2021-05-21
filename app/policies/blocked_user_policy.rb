@@ -1,0 +1,2 @@
+class BlockedUserPolicy < ApplicationPolicy
+end

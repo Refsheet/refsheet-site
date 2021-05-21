@@ -1,0 +1,2 @@
+class CharacterGroupPolicy < ApplicationPolicy
+end

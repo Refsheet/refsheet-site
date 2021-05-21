@@ -55,6 +55,7 @@ export default SideNav = createReactClass({
 
         <NavLink to="/account" noStrict icon="settings" text="Settings">
           <NavLink to="/account/settings" text="Account" />
+          <NavLink to="/account/site" text="Site Settings" />
           <NavLink to="/account/support" text="Support" />
           <NavLink to="/account/notifications" text="Notifications" />
           <NavLink to="/account/api_keys" text="API Keys" />

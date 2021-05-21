@@ -274,33 +274,35 @@ class CommentForm extends Component {
     }
 
     return (
-      <div className={'comment-form'}>
+      <Card className={'comment-form'}>
         <form
           className={c('card reply-box margin-top--none sp with-avatar')}
           onSubmit={this.handleSubmit.bind(this)}
         >
-          <UserAvatar
-            user={this.props.currentUser}
-            identity={identity}
-            onIdentityChangeClick={this.handleIdentityOpen.bind(this)}
-          />
+          <Card className={c('card reply-box margin-top--none sp with-avatar')}>
+            <UserAvatar
+              user={this.props.currentUser}
+              identity={identity}
+              onIdentityChangeClick={this.handleIdentityOpen.bind(this)}
+            />
 
-          <div className="card-content reply-box">
-            {children}
-            {input}
-            {this.state.error && (
-              <span className={'error red-text smaller'}>
-                {this.state.error}
-              </span>
-            )}
-            {submitButton}
-          </div>
+            <div className="card-content reply-box">
+              {children}
+              {input}
+              {this.state.error && (
+                <span className={'error red-text smaller'}>
+                  {this.state.error}
+                </span>
+              )}
+              {submitButton}
+            </div>
+          </Card>
         </form>
 
         {this.state.identityModalOpen && (
           <IdentityModal onClose={this.handleIdentityClose.bind(this)} />
         )}
-      </div>
+      </Card>
     )
   }
 }

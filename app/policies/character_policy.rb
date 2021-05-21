@@ -1,14 +1,22 @@
 class CharacterPolicy < ApplicationPolicy
+  UNCONFIRMED_CHARACTER_QUOTA = 5
+
+  def index?
+    admin?
+  end
+
   def show?
-    !record.hidden or record.managed_by?(user) or user&.admin?
+    (!hidden? and !blocked?) or record.managed_by?(user) or admin?
   end
 
   def create?
-    user and (record.user_id == user.id or user.admin?)
+    valid_user = user and (record.user_id == user.id or admin?)
+    confirmation_quota = user and (user.confirmed? || user.characters.count < UNCONFIRMED_CHARACTER_QUOTA)
+    valid_user && confirmation_quota
   end
 
   def update?
-    user and (record.managed_by?(user) or user.admin?)
+    user and (record.managed_by?(user) or admin?)
   end
 
   def convert?

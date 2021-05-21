@@ -19,6 +19,7 @@ import HashUtils from 'v1/utils/HashUtils'
 import GoogleAd from '../../../components/Shared/GoogleAd'
 import { div as Card } from '../../../components/Styled/Card'
 import StatusUpdate from '../../../components/ActivityFeed/StatusUpdate'
+import EmailConfirmationNag from '../../../components/User/EmailConfirmationNag'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -196,19 +197,6 @@ export default Activity = createReactClass({
     let out = []
 
     this._groupedActivity().map(item => {
-      // TODO: Set ad frequency to a variable
-      if (activityIndex++ % 10 === 0) {
-        out.push(
-          <Card className={'card'} key={'ad-' + ++adCount}>
-            <GoogleAd
-              format={'fluid'}
-              layoutKey={'-f5+66+2b-d1+eu'}
-              slot={'3997004779'}
-            />
-          </Card>
-        )
-      }
-
       out.push(
         <Views.Account.ActivityCard
           {...StringUtils.camelizeKeys(item)}
@@ -219,7 +207,9 @@ export default Activity = createReactClass({
 
     return (
       <div className="feed-item-stream">
-        <StatusUpdate />
+        <EmailConfirmationNag>
+          <StatusUpdate />
+        </EmailConfirmationNag>
 
         {this.state.newActivity && this.state.newActivity.length > 0 && (
           <a

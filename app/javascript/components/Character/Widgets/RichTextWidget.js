@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import MarkdownEditor from '../../Shared/MarkdownEditor'
+import { sanitize } from '../../../utils/sanitize'
 
 class RichTextWidget extends Component {
   constructor(props) {
@@ -30,7 +31,11 @@ class RichTextWidget extends Component {
       <div className="rich-text-widget">
         <div className="card-content rich-text">
           {contentHtml && contentHtml.length > 0 ? (
-            <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
+            <div
+              dangerouslySetInnerHTML={{
+                __html: sanitize(contentHtml),
+              }}
+            />
           ) : (
             <p className="caption">This section unintentionally left blank.</p>
           )}

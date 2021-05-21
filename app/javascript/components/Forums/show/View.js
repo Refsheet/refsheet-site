@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import compose from '../../../utils/compose'
 import { withTranslation } from 'react-i18next'
 
-import { Route, Switch } from 'react-router'
+import { Redirect, Route, Switch } from 'react-router'
 import { NavLink } from 'react-router-dom'
 import { Icon } from 'react-materialize'
 
@@ -17,6 +17,7 @@ import Members from './Members'
 import NewDiscussion from '../NewDiscussion'
 import SearchForm from './SearchForm'
 import { withQuery } from '../../../utils/RouteUtils'
+import Error from '../../Shared/Error'
 
 class View extends Component {
   constructor(props) {
@@ -27,6 +28,7 @@ class View extends Component {
 
   render() {
     const { forum, t, query } = this.props
+    if (!forum) return <Error error={'Forum undefined!'} />
 
     return (
       <Main
@@ -49,7 +51,7 @@ class View extends Component {
                   <li className={'tab'}>
                     <NavLink
                       activeClassName={'active'}
-                      to={`/v2/forums/${forum.slug}/about`}
+                      to={`/forums/${forum.slug}/about`}
                     >
                       {t('forums.about', 'About & Rules')}
                     </NavLink>
@@ -58,14 +60,12 @@ class View extends Component {
                     <NavLink
                       activeClassName={'active'}
                       isActive={(match, location) => {
-                        const subPath = location.pathname
-                          .replace(/^\/v2/, '')
-                          .split('/')[3]
+                        const subPath = location.pathname.split('/')[3]
                         return (
                           ['about', 'members', 'edit'].indexOf(subPath) === -1
                         )
                       }}
-                      to={`/v2/forums/${forum.slug}`}
+                      to={`/forums/${forum.slug}`}
                     >
                       {t('forums.posts', 'Posts')}
                     </NavLink>
@@ -73,7 +73,7 @@ class View extends Component {
                   <li className={'tab'}>
                     <NavLink
                       activeClassName={'active'}
-                      to={`/v2/forums/${forum.slug}/members`}
+                      to={`/forums/${forum.slug}/members`}
                     >
                       {t('forums.members', 'Members')}
                     </NavLink>
@@ -89,16 +89,32 @@ class View extends Component {
         </div>
 
         <Switch>
-          <Route path={'/v2/forums/:forumId/about'}>
+          <Redirect
+            from={'/v2/forums/:forumId/about'}
+            to={'/forums/:forumId/about'}
+          />
+          <Route path={'/forums/:forumId/about'}>
             <About forum={forum} />
           </Route>
-          <Route path={'/v2/forums/:forumId/members'}>
+          <Redirect
+            from={'/v2/forums/:forumId/members'}
+            to={'/forums/:forumId/members'}
+          />
+          <Route path={'/forums/:forumId/members'}>
             <Members forum={forum} />
           </Route>
-          <Route path={'/v2/forums/:forumId/post'}>
+          <Redirect
+            from={'/v2/forums/:forumId/post'}
+            to={'/forums/:forumId/post'}
+          />
+          <Route path={'/forums/:forumId/post'}>
             <NewDiscussion forum={forum} />
           </Route>
-          <Route path={'/v2/forums/:forumId/:discussionId'}>
+          <Redirect
+            from={'/v2/forums/:forumId/:discussionId'}
+            to={'/forums/:forumId/:discussionId'}
+          />
+          <Route path={'/forums/:forumId/:discussionId'}>
             <Discussion forum={forum} />
           </Route>
           <Route>

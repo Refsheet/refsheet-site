@@ -9,6 +9,7 @@ import {
   characterIdentitySourceType,
   userIdentitySourceType,
 } from '../../utils/IdentityUtils'
+import { div as Card } from '../Styled/Card'
 
 class ActivityCard extends Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class ActivityCard extends Component {
     const activityText = Activities.getText(t, this.props)
 
     return (
-      <div className="card sp with-avatar margin-bottom--medium">
+      <Card className="card sp with-avatar margin-bottom--medium">
         <UserAvatar user={user} character={character} />
 
         <div className="card-content padding-bottom--none">
@@ -36,7 +37,7 @@ class ActivityCard extends Component {
         {Activities.render(this.props)}
 
         <div className="clearfix" />
-      </div>
+      </Card>
     )
   }
 }

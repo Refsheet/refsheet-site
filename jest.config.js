@@ -69,7 +69,16 @@ module.exports = {
   moduleDirectories: [
     "node_modules",
     "app/javascript",
-    "app/javascript/components"
+    "app/javascript/components",
+    "app/javascript/actions",
+    "app/javascript/config",
+    "app/javascript/graphql",
+    "app/javascript/policies",
+    "app/javascript/scss",
+    "app/javascript/services",
+    "app/javascript/themes",
+    "app/javascript/utils",
+    "app/javascript/v1",
   ],
 
   // An array of file extensions your modules use

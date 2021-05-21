@@ -37,6 +37,18 @@ Types::UserType = GraphQL::ObjectType.define do
     }
   end
 
+  field :is_blocked, types.Boolean do
+    resolve -> (obj, _args, ctx) {
+      obj.blocked_by? ctx[:current_user].call
+    }
+  end
+
+  field :blocks, types.Boolean do
+    resolve -> (obj, _args, ctx) {
+      obj.blocked? ctx[:current_user].call
+    }
+  end
+
   field :characters, types[Types::CharacterType] do
     resolve -> (obj, _args, ctx) {
       obj.characters.visible_to(ctx[:current_user].call).rank(:row_order)
@@ -65,4 +77,5 @@ Types::UserType = GraphQL::ObjectType.define do
   private_field :email, types.String
   private_field :unconfirmed_email, types.String
   private_field :support_pledge_amount, types.Int
+  private_field :email_confirmed_at, types.Int
 end

@@ -20,6 +20,7 @@ import DeleteUser from '../../../../components/Settings/Account/DeleteUser'
 import Materialize from 'materialize-css'
 import Error from '../../../../components/Shared/Error'
 import compose, { withCurrentUser } from '../../../../utils/compose'
+import EmailConfirmationNag from '../../../../components/User/EmailConfirmationNag'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -60,6 +61,7 @@ class Show extends React.Component {
     }
     return (
       <div className="account-settings">
+        <EmailConfirmationNag />
         <Form
           action={this.state.user.path}
           className="card sp"

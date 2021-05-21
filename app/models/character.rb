@@ -55,6 +55,7 @@ class Character < ApplicationRecord
   belongs_to :profile_image, class_name: "Image"
   has_many :swatches, dependent: :destroy
   has_many :images, dependent: :destroy
+  has_many :media_folders, dependent: :destroy, class_name: "Media::Folder"
   has_many :transfers
   has_and_belongs_to_many :character_groups,
                           after_add: :update_counter_cache,
@@ -86,7 +87,7 @@ class Character < ApplicationRecord
             presence: true,
             format: { with: /[a-z0-9]/i, message: 'must have at least one letter or number' }
 
-  validates_uniqueness_of :shortcode
+  # validates_uniqueness_of :shortcode
 
   validate :validate_profile_image
   validate :validate_featured_image
@@ -184,10 +185,6 @@ class Character < ApplicationRecord
 
   scope :for_sale, -> { joins(:marketplace_listings).merge(Item.for_sale) }
 
-  before_validation do
-    self.shortcode = self.shortcode&.downcase
-  end
-
   after_update do
     #RefsheetSchema.subscriptions.trigger "characterChanged", { id: self.id }, self
   end
@@ -237,7 +234,7 @@ class Character < ApplicationRecord
   end
 
   def for_sale?
-    Marketplace::Items::CharacterListing.for_sale.exists? character: self
+    marketplace_listing.exists?
   end
 
   def initiate_transfer!(recipient, sale=nil)
@@ -249,6 +246,11 @@ class Character < ApplicationRecord
 
   def path
     "/#{self.user.username}/#{self.slug}"
+  end
+
+  def destroy_later
+    self.update_columns(deleted_at: Time.zone.now)
+    CharacterDestructionJob.perform_later(self)
   end
 
   private
@@ -353,22 +355,33 @@ class Character < ApplicationRecord
   end
 
   def initialize_shortcode
-    if self.shortcode.blank?
-      attempts = 0
+    if self.shortcode.blank? && !self.name.blank?
       shortcode = nil
+      tmp_shortcode = Sluggable.to_slug(self.name)
 
-      begin
-        tmp_shortcode = Sluggable.to_slug(self.name, attempts > 0 ? attempts : nil)
+      if self.class.exists?(shortcode: tmp_shortcode)
+        count = 0
+
+        shortcodes = self.class.where('shortcode LIKE ?', tmp_shortcode + "-%").pluck(:shortcode)
+        Rails.logger.info(shortcodes.inspect)
+        shortcodes.each do |sc|
+          if sc =~ /-(\d+)$/
+            count = [count, $1.to_i].max
+            Rails.logger.info(count.to_s + " - " + $1)
+          end
+        end
+
+        tmp_shortcode = Sluggable.to_slug(self.name, count + 1)
 
         unless self.class.exists?(shortcode: tmp_shortcode)
           shortcode = tmp_shortcode
         end
-
-        attempts += 1
-      end while attempts < 10 && shortcode.nil?
+      else
+        shortcode = tmp_shortcode
+      end
 
       if shortcode.nil?
-        self.errors.add(:shortcode, "should be unique")
+        self.shortcode = SecureRandom.hex(6)
       else
         self.shortcode = shortcode
       end

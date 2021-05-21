@@ -21,14 +21,15 @@ const handlers = {
     // TODO FIXME HACK: This should use a styled modal and not a browser confirm. Also, it shouldn't do a server call, but hey whatever.
     if (
       action.nsfwOk &&
+      !action.confirmed &&
       !confirm(
         'By continuing, you assert that you are 18 years or older, and that it is legal for you to view explicit content.'
       )
     ) {
       return state
-    } else {
-      SessionService.set({ nsfwOk: action.nsfwOk }).then()
     }
+
+    SessionService.set({ nsfwOk: action.nsfwOk }).then()
     return { ...state, nsfwOk: action.nsfwOk }
   },
   [Actions.SET_IDENTITY]: (state, action) => {

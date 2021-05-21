@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import WindowAlert from 'WindowAlert'
 import styled from 'styled-components'
 import c from 'classnames'
+import { buildShadow } from '../Styled/common'
 
 class _Main extends Component {
   constructor(props) {
@@ -61,6 +62,7 @@ class _Main extends Component {
 const Main = styled(_Main)`
   color: ${props => props.theme.text};
   background-color: ${props => props.theme.background};
+  box-shadow: ${props => buildShadow(props.theme.cardShadow, 2)} !important;
 
   &.main-flex {
     &.split-bg-right {
@@ -71,7 +73,8 @@ const Main = styled(_Main)`
       );
     }
 
-    &.split-bg-left {
+    &.split-bg-left,
+    &.with-sidebar {
       background: linear-gradient(
         to left,
         ${props => props.theme.background} 50%,

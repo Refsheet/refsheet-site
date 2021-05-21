@@ -6,7 +6,8 @@
     "@babel/preset-react": "^7.12.5",
     "@rails/actioncable": "^6.0.3-4",
     "@rails/webpacker": "^5.2.1",
-    "@sentry/browser": "^5.27.4",
+    "@sentry/browser": "^6.3.5",
+    "@sentry/webpack-plugin": "^1.15.1",
     "@types/react": "^16.8.0",
     "actioncable": "^5.2.4-4",
     "ahoy.js": "^0.3.7",
@@ -27,6 +28,7 @@
     "core-js": "2",
     "create-react-class": "^15.7.0",
     "css-loader": "^5.0.1",
+    "dompurify": "^2.2.7",
     "enzyme-adapter-react-16": "^1.15.5",
     "favico.js-slevomat": "^0.3.11",
     "get-video-id": "^3.1.5",
@@ -71,7 +73,7 @@
     "react-is": "^16.12.0",
     "react-justified-layout": "^0.1.0",
     "react-load-image": "^0.1.7",
-    "react-materialize": "file:.yalc/react-materialize",
+    "react-materialize": "^3.9.7",
     "react-mde": "^11.0.0",
     "react-measure": "^2.5.2",
     "react-moment": "^1.0.0",
@@ -132,6 +134,7 @@
     "eslint-graphql": "eslint ./app/javascript/ --ext .gql --ext .graphql",
     "rspec-integration": "RAILS_ENV=test bundle exec rspec --pattern \"**/{features,requests,integration}/**/*_spec.rb\"",
     "rspec": "RAILS_ENV=test bundle exec rspec --exclude-pattern \"**/{features,requests,integration}/**/*_spec.rb\"",
-    "webpack-dev-server": "webpack serve"
+    "webpack-dev-server": "webpack serve",
+    "prepush": "yarn run prettier && yarn run eslint --quiet"
   }
 }

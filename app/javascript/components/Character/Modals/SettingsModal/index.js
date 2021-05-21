@@ -9,6 +9,8 @@ import DeleteCharacter from './DeleteCharacter'
 import Modal from 'Styled/Modal'
 import Tabs, { Tab } from '../../../Styled/Tabs'
 import DataLink from './DataLink'
+import MarketplaceListing from './MarketplaceListing'
+import Restrict from '../../../Shared/Restrict'
 
 class SettingsModal extends Component {
   constructor(props) {
@@ -63,6 +65,14 @@ class SettingsModal extends Component {
             goTo={this.goTo.bind(this)}
           />
         )
+      case 'marketplace':
+        return (
+          <MarketplaceListing
+            character={this.props.character}
+            onSave={this.props.refetch}
+            goTo={this.goTo.bind(this)}
+          />
+        )
       default:
         return (
           <EditCharacter
@@ -86,6 +96,7 @@ class SettingsModal extends Component {
         <Tabs onChange={this.goToTab.bind(this)}>
           <Tab id={'settings'} title={'Settings'} />
           <Tab id={'dataLink'} title={'Data Link'} />
+          <Tab id={'marketplace'} title={'Marketplace'} />
         </Tabs>
 
         {this.renderContent()}

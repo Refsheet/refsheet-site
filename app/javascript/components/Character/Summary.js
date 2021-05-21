@@ -13,6 +13,8 @@ import Attribute from 'v1/shared/attributes/attribute'
 import Attributes from 'v1/views/characters/_attributes'
 import { Caption } from '../Styled/Caption'
 import RichText from '../Shared/RichText'
+import MarketplaceBuyModal from './Modals/MarketplaceBuyModal'
+import CharacterSaleButton from './Modals/MarketplaceBuyModal/CharacterSaleButton'
 
 class Summary extends Component {
   constructor(props) {
@@ -85,13 +87,20 @@ class Summary extends Component {
   }
 
   render() {
-    const { character, editable, onAvatarEdit } = this.props
+    const { character, editable, onAvatarEdit, onMarketplaceBuy } = this.props
 
-    const { profile_image, avatar_url, lodestone_character } = character
+    const {
+      profile_image,
+      avatar_url,
+      lodestone_character,
+      marketplace_listing,
+    } = character
+
     const image = avatar_url || profile_image.url.medium
 
     let title,
       titleBefore,
+      forSale = false,
       staticAttributes = [
         {
           id: 'species',
@@ -123,6 +132,10 @@ class Summary extends Component {
       ]
     }
 
+    if (marketplace_listing) {
+      forSale = true
+    }
+
     const gravityCrop = {
       center: { objectPosition: 'center' },
       north: { objectPosition: 'top' },
@@ -135,6 +148,13 @@ class Summary extends Component {
       <Card className="character-card" noPadding>
         <div className="character-details">
           <div className="heading">
+            {forSale && (
+              <CharacterSaleButton
+                character={character}
+                onClick={onMarketplaceBuy}
+              />
+            )}
+
             {title && titleBefore && (
               <Caption className={'margin-top--none margin-bottom--none'}>
                 &laquo; {title} &raquo;

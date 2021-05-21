@@ -9,7 +9,13 @@ const Backdrop = styled.div`
 
 class Header extends Component {
   render() {
-    const { character, editable, onHeaderImageEdit, onAvatarEdit } = this.props
+    const {
+      character,
+      editable,
+      onHeaderImageEdit,
+      onAvatarEdit,
+      onMarketplaceBuy,
+    } = this.props
     const backgroundImage =
       character.cover_image_url ||
       ((character.featured_image || {}).url || {}).large
@@ -39,6 +45,7 @@ class Header extends Component {
               character={character}
               editable={editable}
               onAvatarEdit={onAvatarEdit}
+              onMarketplaceBuy={onMarketplaceBuy}
             />
           </div>
         </div>
@@ -47,6 +54,12 @@ class Header extends Component {
   }
 }
 
-Header.propTypes = { character: PropTypes.object.isRequired }
+Header.propTypes = {
+  character: PropTypes.object.isRequired,
+  editable: PropTypes.bool,
+  onHeaderImageEdit: PropTypes.func,
+  onAvatarEdit: PropTypes.func,
+  onMarketplaceBuy: PropTypes.func,
+}
 
 export default Header

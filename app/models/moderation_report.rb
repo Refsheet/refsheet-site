@@ -29,18 +29,26 @@ class ModerationReport < ApplicationRecord
       dmca: "User doesn't have permission to post this.",
       improper_flag: "This item was not flagged for proper maturity level.",
       offensive: "This item is offensive or violates community standards.",
-      other: "Other, please specify in comment."
+      other: "Other, please specify in comment.",
+      ban: "Account-wide ToS Violation: Ban."
   }.with_indifferent_access.freeze
 
   VIOLATION_STRINGS = {
       dmca: "DMCA",
       improper_flag: "Improper Flag",
       offensive: "Offensive",
-      other: "Other (Comment)"
+      other: "Other (Comment)",
+      ban: "Ban Account"
   }.with_indifferent_access.freeze
 
-  belongs_to :user
-  belongs_to :sender, foreign_key: :sender_user_id, class_name: "User"
+  ADMIN_ONLY_VIOLATIONS = [
+      :ban
+  ]
+
+  attr_accessor :skip_notice
+
+  belongs_to :user, -> { with_deleted }
+  belongs_to :sender, -> { with_deleted }, foreign_key: :sender_user_id, class_name: "User"
   belongs_to :moderatable, -> { with_deleted }, polymorphic: true
 
   validates_presence_of :violation_type
@@ -64,12 +72,14 @@ class ModerationReport < ApplicationRecord
     before_transition any => :removed, do: [:auto_remove_item, :send_removal_notice]
     before_transition any => :reflagged, do: [:auto_reflag_item, :send_reflag_notice]
     before_transition any => :complete, do: [:send_generic_notice]
+    before_transition any => :banned, do: [:send_ban_notice]
 
     state :assigned
     state :dismissed
     state :removed
     state :reflagged
     state :complete
+    state :banned
 
     event :dismiss do
       transition [:pending, :assigned] => :dismissed
@@ -98,6 +108,12 @@ class ModerationReport < ApplicationRecord
     #
     event :complete do
       transition [:pending, :assigned] => :complete
+    end
+
+    # Whatever caused this, it's a ban now.
+    #
+    event :ban do
+      transition [:pending, :assigned] => :banned
     end
 
     # Lazy mods are lazy
@@ -133,21 +149,26 @@ class ModerationReport < ApplicationRecord
   end
 
   def send_moderator_email
+    return if @skip_notice
     User.with_role(Role::MODERATOR).each do |mod|
-      ModeratorMailer.new_report(self, mod).deliver_now
+      ModeratorMailer.new_report(self, mod).deliver_later
     end
   end
 
   def send_removal_notice
-    ModeratorMailer.item_removed(self).deliver_now if user
+    ModeratorMailer.item_removed(self).deliver_later if user
   end
 
   def send_reflag_notice
-    ModeratorMailer.item_reflagged(self).deliver_now if user
+    ModeratorMailer.item_reflagged(self).deliver_later if user
   end
 
   def send_generic_notice
-    ModeratorMailer.item_moderated(self).deliver_now if user
+    ModeratorMailer.item_moderated(self).deliver_later if user
+  end
+
+  def send_ban_notice
+    ModeratorMailer.user_banned(user, self).deliver_later
   end
 
   def auto_remove_item

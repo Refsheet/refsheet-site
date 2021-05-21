@@ -29,6 +29,8 @@ import * as Materialize from 'materialize-css'
 import User from './views/User'
 
 import $ from 'jquery'
+import Site from '../components/Settings/Site'
+import API from '../components/Settings/API'
 
 // Backfill for Router V4 not parsing query strings.
 const history = createBrowserHistory()
@@ -140,6 +142,11 @@ const Routes = createReactClass({
                             component={Views.Account.Settings.Show}
                           />
                           <Route
+                            path="/account/site"
+                            title="Site Settings"
+                            component={Site}
+                          />
+                          <Route
                             path="/account/support"
                             title="Support Settings"
                             component={Views.Account.Settings.Support}
@@ -148,6 +155,11 @@ const Routes = createReactClass({
                             path="/account/notifications"
                             title="Notification Settings"
                             component={Views.Account.Settings.Notifications}
+                          />
+                          <Route
+                            path="/account/api_keys"
+                            title="API Keys"
+                            component={API}
                           />
                         </Switch>
                       </Views.Account.Layout>
@@ -189,7 +201,7 @@ const Routes = createReactClass({
                     </Switch>
                   </Route>
 
-                  <Route path="/v2/forums" component={App} />
+                  <Route path="/forums" component={App} />
 
                   <Route path="/artists" component={App} />
                   <Route path="/artists/:slug" component={App} />
@@ -239,4 +251,7 @@ const Routes = createReactClass({
   },
 })
 
-export default Routes
+// export default Routes
+export default function DeprecatedRouter() {
+  return <h1>Deprecated Routes!!!</h1>
+}

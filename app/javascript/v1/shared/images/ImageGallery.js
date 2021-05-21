@@ -3,7 +3,7 @@ import createReactClass from 'create-react-class'
 import PropTypes from 'prop-types'
 
 import Spinner from 'v1/shared/material/Spinner'
-import GalleryImage from 'v1/shared/images/GalleryImage'
+import { V1GalleryImage } from 'v1/shared/images/GalleryImage'
 import GalleryFeature from 'v1/shared/images/GalleryFeature'
 
 import ArrayUtils from 'v1/utils/ArrayUtils'
@@ -250,7 +250,7 @@ export default ImageGallery = createReactClass({
 
     const imagesOverflow = overflow.map(image => {
       return (
-        <GalleryImage
+        <V1GalleryImage
           key={image.id}
           image={image}
           size={imageSize}

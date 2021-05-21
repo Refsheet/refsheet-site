@@ -84,6 +84,19 @@ def do_logs(search = nil)
   puts `kubectl logs "$pod" | less`
 end
 
+def do_deploy(image)
+  containers = %w{
+    refsheet-prod
+    refsheet-prod-worker
+    image-redrive-job
+    lodestone-sync-character-job
+  }
+
+  containers.each do |container|
+    puts `kubectl set image deployment #{container} #{container}=#{image}`
+  end
+end
+
 def do_cordon_all
   puts "Fetching node pools..."
   get_nodes.split('\t').each do |node|
@@ -159,6 +172,8 @@ when "migrate"
   do_migrations(ARGV[1])
 when "apply"
   do_apply
+when "deploy"
+  do_deploy(ARGV[1])
 when "cors"
   sh "gsutil", "cors", "set", ".kubernetes/gsutil/asset-cors.json", "gs://assets.refsheet.net"
 else

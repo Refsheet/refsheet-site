@@ -1,0 +1,2 @@
+class BidPolicy < ApplicationPolicy
+end

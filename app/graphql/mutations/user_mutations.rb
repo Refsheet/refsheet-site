@@ -1,8 +1,8 @@
 class Mutations::UserMutations < Mutations::ApplicationMutation
-  before_action :get_current_user, only: [:set_avatar_blob]
+  before_action :get_current_user, only: [:set_avatar_blob, :ban_user, :resend_email_confirmation]
 
-  action :index do
-    type types[Types::UserType]
+  action :index, :paginated do
+    type Types::UsersCollectionType
 
     argument :ids, type: types[types.ID]
     argument :with_deleted, type: types.Boolean
@@ -34,9 +34,7 @@ class Mutations::UserMutations < Mutations::ApplicationMutation
     end
 
     scope = scope.order(created_at: :desc)
-
-    scope = scope.page(params[:page] || 1)
-    scope
+    paginate(scope)
   end
 
   action :show do
@@ -76,15 +74,81 @@ class Mutations::UserMutations < Mutations::ApplicationMutation
   end
 
   def delete
-    @user = current_user
+    @user = User.lookup!(params[:username], false)
+    authorize @user
 
-    if @user.username == params[:username] && @user.authenticate(params[:password])
-      @user.destroy
-      sign_out
-      return @user
+    # Deleting a user can be done by a moderator for support cases,
+    # this will not generate a ban notice.
+    if @user != current_user
+      authorize @user, :moderate?
+      @user.update_columns(deleted_at: Time.now)
+      UserDestructionJob.perform_later(@user)
+      @user
+    else
+      if @user.username == params[:username] && @user.authenticate(params[:password])
+        @user.update_columns(deleted_at: Time.now)
+        UserDestructionJob.perform_later(@user)
+        sign_out
+        return @user
+      end
+
+      not_allowed! "Invalid username or password."
+    end
+  end
+
+  action :ban_user do
+    type Types::UserType
+
+    argument :id, type: !types.ID
+    argument :moderation_ban, type: types.Boolean
+    argument :moderation_reason, type: types.String
+  end
+
+  def ban_user
+    authorize @user, :moderate?
+
+    if @user === current_user
+      raise "Do not ban yourself."
     end
 
-    not_allowed! "Invalid username or password."
+    report = ModerationReport.create(
+        user: @user,
+        sender: current_user,
+        moderatable: @user,
+        violation_type: params[:moderation_ban] ? 'ban' : 'other',
+        comment: params[:moderation_reason],
+        skip_notice: true
+    )
+
+    report.ban!
+    @user.update_columns(deleted_at: Time.now)
+    UserDestructionJob.perform_later(@user)
+    @user
+  end
+
+  action :block_user do
+    type Types::UserType
+
+    argument :username, type: !types.String
+  end
+
+  def block_user
+    @user = current_user
+    @target_user = User.lookup!(params[:username])
+    @user.block! @target_user
+    @target_user
+  end
+
+  action :unblock_user do
+    type Types::UserType
+    argument :username, type: !types.String
+  end
+
+  def unblock_user
+    @user = current_user
+    @target_user = User.lookup!(params[:username])
+    @user.unblock! @target_user
+    @target_user
   end
 
   action :set_avatar_blob do
@@ -104,6 +168,24 @@ class Mutations::UserMutations < Mutations::ApplicationMutation
     end
 
     @user.save!
+    @user
+  end
+
+  action :resend_email_confirmation do
+    type Types::UserType
+
+    argument :id, types.ID
+  end
+
+  def resend_email_confirmation
+    authorize @user, :update?
+
+    if @user.email_confirmed_at.nil?
+      @user.send_welcome_email
+    elsif @user.unconfirmed_email.present?
+      @user.send_email_change_notice(true)
+    end
+
     @user
   end
 

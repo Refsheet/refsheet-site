@@ -43,7 +43,6 @@ import defaultTheme from '../../../themes/default'
 import { ThemeProvider } from 'styled-components'
 import ColorUtils from '../../../utils/ColorUtils'
 import compose, { withCurrentUser } from '../../../utils/compose'
-import GoogleAd from '../../../components/Shared/GoogleAd'
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
 /*
@@ -230,27 +229,39 @@ const Component = createReactClass({
     })
   },
 
-  renderGallery({ data, loading, error }) {
-    if (error) {
-      console.error('renderGallery failed:', error)
+  renderGallery(canEdit) {
+    return ({ data, loading, error }) => {
+      if (error) {
+        console.error('renderGallery failed:', error)
+      }
+
+      const images =
+        (data && data.getCharacterByUrl && data.getCharacterByUrl.images) || []
+      const folders =
+        (data &&
+          data.getCharacterByUrl &&
+          data.getCharacterByUrl.media_folders) ||
+        []
+
+      return (
+        <div>
+          <ImageGalleryModal
+            v2Data
+            images={images}
+            title={this.state.galleryTitle}
+            onClick={this.state.onGallerySelect}
+            onUploadClick={this._openUploads}
+          />
+
+          <Gallery
+            folders={folders}
+            images={images}
+            loading={loading}
+            editable={canEdit}
+          />
+        </div>
+      )
     }
-
-    const images =
-      (data && data.getCharacterByUrl && data.getCharacterByUrl.images) || []
-
-    return (
-      <div>
-        <ImageGalleryModal
-          v2Data
-          images={images}
-          title={this.state.galleryTitle}
-          onClick={this.state.onGallerySelect}
-          onUploadClick={this._openUploads}
-        />
-
-        <Gallery images={images} loading={loading} />
-      </div>
-    )
   },
 
   render() {
@@ -450,17 +461,7 @@ const Component = createReactClass({
               </Column>
             </Row>
           </Section>
-          '
-          <Section className="margin-bottom--large i-am-really-sorry-but-ads-support-the-site-you-can-add-this-class-to-your-ad-blocker">
-            <div style={{ margin: '1.5rem auto', maxWidth: 750 }}>
-              <GoogleAd
-                slot={'9500968119'}
-                format={'auto'}
-                className={'z-depth-1'}
-                data-full-width-responsive={'true'}
-              />
-            </div>
-          </Section>
+
           <Section className="margin-bottom--large">
             <Query
               query={getCharacterImages}
@@ -469,7 +470,7 @@ const Component = createReactClass({
                 username: this.state.character.user_id,
               }}
             >
-              {this.renderGallery}
+              {this.renderGallery(canEdit)}
             </Query>
           </Section>
         </ThemedMain>

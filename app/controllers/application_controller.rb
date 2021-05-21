@@ -62,6 +62,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::UnknownFormat, with: :not_found
   rescue_from ActionController::InvalidAuthenticityToken, with: :bad_request
   rescue_from ActionController::ParameterMissing, with: :bad_request
+  rescue_from Pundit::NotAuthorizedError, with: :unauthorized
   rescue_from ApplicationController::Unauthorized, with: :unauthorized
   rescue_from ActiveRecord::ConnectionTimeoutError, with: :thread_dump
 
@@ -73,6 +74,7 @@ class ApplicationController < ActionController::Base
   #== Published Base Routes
 
   def authorize!(user=current_user)
+    ActiveSupport::Deprecation.warn("Old authorize! used, please use Pundit.")
     unauthorized! unless user
   end
 
@@ -156,6 +158,15 @@ class ApplicationController < ActionController::Base
 
     Time.zone   = current_user.settings(:view).time_zone if signed_in?
     Time.zone ||= Application.config.time_zone
+
+    # Fun Things
+    if params[:jokes] == "off"
+      @no_fun = true
+    end
+
+    if params[:jokes] == "force"
+      @force_fun = true
+    end
   end
 
   def eager_load_session
@@ -172,19 +183,26 @@ class ApplicationController < ActionController::Base
       site += ': Your Characters, Organized.'
     end
 
+    default_image = ActionController::Base.helpers.image_path("sandbox/RefsheetAdBanner3.png")
+
     set_meta_tags(
         site: site,
         description: desc,
         reverse: true,
         separator: '-',
+        image_src: default_image,
         og: {
             title: :title,
             description: :description,
-            site_name: site
+            site_name: site,
+            image: default_image
         },
         twitter: {
             title: :title,
-            description: :description
+            description: :description,
+            image: {
+                _: default_image
+            }
         }
     )
   end

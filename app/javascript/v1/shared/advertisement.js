@@ -123,36 +123,6 @@ export default Advertisement = createReactClass({
   },
 
   render() {
-    return (
-      <div>
-        {this.renderNativeAd()}
-
-        <div
-          className="sponsor-blurb"
-          style={{
-            fontSize: '0.9rem',
-            color: 'rgba(255, 255, 255, 0.3)',
-            paddingBottom: '0.2rem',
-            marginBottom: '1rem',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-          }}
-        >
-          From the Internet:
-        </div>
-        <div
-          className={'margin-bottom--large'}
-          style={{
-            margin: '0 auto',
-            maxWidth: 200,
-          }}
-        >
-          <GoogleAd
-            slot={'6770862997'}
-            format={'auto'}
-            data-full-width-responsive={'true'}
-          />
-        </div>
-      </div>
-    )
+    return <div>{this.renderNativeAd()}</div>
   },
 })

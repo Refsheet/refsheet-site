@@ -3,6 +3,10 @@ form
     textarea, input
       color: $page-text-color
 
+  label.default
+    font-size: 1rem
+    color: inherit !important
+
   .input-field
     label
       width: 100%
@@ -127,6 +131,10 @@ body:not(.admin)
         margin: 0
 
     &.reply-box
+      .reply-box.card
+        display: flex
+        flex-grow: 1
+
       &:not(.not-really-tho)
         .row.no-margin .col
           margin: 0

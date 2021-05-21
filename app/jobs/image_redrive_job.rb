@@ -4,9 +4,10 @@ class ImageRedriveJob < ApplicationJob
   def perform(deep: false, skip_pending: false, deep_limit: nil, deep_start: nil)
     unless skip_pending
       Image.processing.where('images.image_updated_at < ?', 1.hour.ago).limit(1000).each do |img|
-        Rails.logger.info("Reprocessing image #{img.guid} (#{img.id})", image_updated_at: img.image_updated_at)
-        img.image.reprocess!
+        ImageProcessingJob.perform_later(img)
       end
+
+      ImageBackfillJob.perform_now
     end
 
     if deep

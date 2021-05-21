@@ -43,7 +43,7 @@ class Feedback < ApplicationRecord
   end
 
   def avatar_image_url
-    self.user&.avatar_url || GravatarImageTag.gravatar_url(email)
+    self.user&.avatar_url
   end
 
   def trello_card

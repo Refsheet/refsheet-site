@@ -18,6 +18,7 @@ import PropTypes from 'prop-types'
 import createReactClass from 'create-react-class'
 import Main from '../../shared/Main'
 import StateUtils from '../../utils/StateUtils'
+import { sanitize } from '../../../utils/sanitize'
 
 let View
 export default View = createReactClass({
@@ -87,7 +88,11 @@ export default View = createReactClass({
     if (this.state.page) {
       return (
         <Main title={this.state.page.title}>
-          <div dangerouslySetInnerHTML={{ __html: this.state.page.content }} />
+          <div
+            dangerouslySetInnerHTML={{
+              __html: sanitize(this.state.page.content),
+            }}
+          />
         </Main>
       )
     } else {

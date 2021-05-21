@@ -10,11 +10,22 @@ Types::CharacterType = GraphQL::ObjectType.define do
   field :dislikes_html, types.String
   field :featured_image, Types::ImageType
   field :hidden, types.Boolean
+
   field :images, types[Types::ImageType] do
-    resolve -> (obj, _args, ctx) {
-      obj.images.rank(:row_order).visible_to(ctx[:current_user].call, true)
+    argument :folder_id, types.ID
+
+    resolve -> (obj, args, ctx) {
+      scope = obj.images.in_folder(args[:folder_id])
+      scope.rank(:row_order).visible_to(ctx[:current_user].call, true)
     }
   end
+
+  field :media_folders, types[Types::MediaFolderType] do
+    resolve -> (obj, _args, _ctx) {
+      obj.media_folders.rank(:row_order)
+    }
+  end
+
   field :likes, types.String
   field :likes_html, types.String
   field :name, !types.String
@@ -112,8 +123,8 @@ Types::CharacterType = GraphQL::ObjectType.define do
   end
 
   field :theme, Types::ThemeType do
-    resolve -> (obj, _args, ctx) {
-      obj.color_scheme || ColorScheme.default
+    resolve -> (obj, _args, _ctx) {
+      obj.color_scheme# || ColorScheme.default
     }
   end
 
@@ -136,5 +147,6 @@ Types::CharacterType = GraphQL::ObjectType.define do
       end
     }
   end
-  # has_one :pending_transfer, serializer: CharacterTransferSerializer
+
+  field :marketplace_listing, Types::MarketplaceListingType
 end

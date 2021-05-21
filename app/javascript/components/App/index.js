@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'
 import { ApolloProvider } from 'react-apollo'
 import { Provider as ReduxProvider } from 'react-redux'
 import DropzoneProvider from '../Dropzone'
-import { ThemeProvider } from 'styled-components'
 import { I18nextProvider } from 'react-i18next'
 import { HTML5Backend as Backend } from 'react-dnd-html5-backend'
 import { DndProvider } from 'react-dnd'
@@ -13,7 +12,7 @@ import { DndProvider } from 'react-dnd'
 // Initialization
 import { createStore } from 'redux'
 import rootReducer from 'reducers'
-import client, { host } from 'ApplicationService'
+import client, { host } from 'services/ApplicationService'
 import { createBrowserHistory } from 'history'
 import i18n from '../../services/i18n.js'
 
@@ -26,27 +25,19 @@ import qs from 'query-string'
 
 // Configuration
 import defaultState from './defaultState.json'
-import { base as defaultTheme } from 'themes/default'
-import { base as debugTheme } from 'themes/debug'
+import ConfigContext from './ConfigContext'
 
 // Children
 import Layout from '../Layout'
 import { Router as BrowserRouter } from 'react-router-dom'
-import { setCurrentUser } from '../../actions'
 import { withErrorBoundary } from '../Shared/ErrorBoundary'
-
-const ConfigContext = createContext({
-  loading: true,
-})
 
 class App extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      theme: defaultTheme,
       eagerLoad: props.eagerLoad,
-      updateAvailable: false,
       config: {
         ...props.config,
         loading: false,
@@ -75,23 +66,13 @@ class App extends Component {
     })
   }
 
-  checkForUpdates() {
-    const _this = this
-    fetch(host + '/health.json')
-      .then(response => response.json())
-      .then(data => {
-        console.log('Version is: ' + data.version)
-        if (data.version !== window.Refsheet.version) {
-          console.log('Update is available!')
-          _this.setState({ updateAvailable: true })
-        }
-      })
-      .catch(console.error)
-  }
-
   buildState(state = {}) {
     let session = (this.props.eagerLoad && this.props.eagerLoad.session) || {}
     session = StringUtils.camelizeKeys(session)
+
+    let theme =
+      (session.currentUser && session.currentUser.settings.theme) || {}
+    theme = StringUtils.camelizeKeys(theme)
 
     const newState = {
       ...defaultState,
@@ -101,7 +82,13 @@ class App extends Component {
         ...session,
         ...state.session,
       },
+      theme: {
+        ...defaultState.theme,
+        ...theme,
+      },
     }
+
+    console.log({ newState })
 
     if (!newState.session.identity.name && newState.session.currentUser) {
       newState.session.identity = {
@@ -116,8 +103,6 @@ class App extends Component {
 
   buildStore(state) {
     const store = createStore(rootReducer, state)
-    console.debug('Initialized with state:', store.getState())
-
     return store
   }
 
@@ -154,13 +139,6 @@ class App extends Component {
 
     console.debug('App mounted with props: ', this.props)
 
-    // Check for updates every 10 minutes
-    this.updateInterval = setInterval(
-      this.checkForUpdates.bind(this),
-      600 * 1000
-    )
-    this.checkForUpdates()
-
     // Fade Out Loader
     const $loader = document.getElementById('rootAppLoader')
     $loader.style.opacity = 1
@@ -187,22 +165,20 @@ class App extends Component {
     return (
       <ConfigContext.Provider value={this.state.config}>
         <I18nextProvider i18n={i18n}>
-          <ThemeProvider theme={this.state.theme}>
-            <ApolloProvider client={client} store={this.store}>
-              <ReduxProvider store={this.store}>
-                <DropzoneProvider>
-                  <DndProvider backend={Backend}>
-                    <BrowserRouter
-                      history={this.history}
-                      onUpdate={this.handleRouteUpdate}
-                    >
-                      <Layout updateAvailable={this.state.updateAvailable} />
-                    </BrowserRouter>
-                  </DndProvider>
-                </DropzoneProvider>
-              </ReduxProvider>
-            </ApolloProvider>
-          </ThemeProvider>
+          <ApolloProvider client={client} store={this.store}>
+            <ReduxProvider store={this.store}>
+              <DropzoneProvider>
+                <DndProvider backend={Backend}>
+                  <BrowserRouter
+                    history={this.history}
+                    onUpdate={this.handleRouteUpdate}
+                  >
+                    <Layout />
+                  </BrowserRouter>
+                </DndProvider>
+              </DropzoneProvider>
+            </ReduxProvider>
+          </ApolloProvider>
         </I18nextProvider>
       </ConfigContext.Provider>
     )
@@ -228,7 +204,5 @@ App.propTypes = {
 App.childContextTypes = {
   eagerLoad: PropTypes.object,
 }
-
-export { ConfigContext }
 
 export default withErrorBoundary(App)

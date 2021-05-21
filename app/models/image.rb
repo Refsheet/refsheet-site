@@ -56,10 +56,13 @@ class Image < ApplicationRecord # < Media
   DEFAULT_GRAVITY = IMAGE_GRAVITIES[1].freeze
 
   belongs_to :character, inverse_of: :images
+  belongs_to :folder, inverse_of: :media, foreign_key: :media_folder_id, class_name: "Media::Folder"
   has_one :user, through: :character
   has_many :favorites, foreign_key: :media_id, class_name: "Media::Favorite", dependent: :destroy
   has_many :comments, foreign_key: :media_id, class_name: "Media::Comment", dependent: :destroy
   has_many :tags, foreign_key: :media_id, class_name: "Media::Tag", dependent: :destroy
+  has_many :artist_credits, foreign_key: :media_id, class_name: "Media::ArtistCredit", dependent: :destroy
+  has_many :artists, through: :artist_credits
   has_and_belongs_to_many :hashtags, class_name: "Media::Hashtag", association_foreign_key: :media_hashtag_id
 
   # Requires this to eager load the news feed:
@@ -75,7 +78,7 @@ class Image < ApplicationRecord # < Media
   }
 
   has_attached_file :image,
-                    default_url: '/assets/default.png',
+                    default_url: -> (_style) { ActionController::Base.helpers.image_url('default.png') },
                     processors: [:upload_processor],
                     styles: {
                         thumbnail: "#{SIZE[:thumbnail]}x#{SIZE[:thumbnail]}^",
@@ -144,6 +147,14 @@ class Image < ApplicationRecord # < Media
 
   scope :processing, -> { where(image_processing: true) }
   scope :processed,  -> { where(image_processing: false) }
+
+  scope :in_folder, -> (folder_id) {
+    if folder_id.present?
+      joins(:folder).where(media_folders: { id: folder_id })
+    else
+      where(media_folder_id: nil)
+    end
+  }
 
   scope :similar_to, -> (image, distance: 7) {
     target_hash = image.image_phash

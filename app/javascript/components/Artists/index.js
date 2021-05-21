@@ -1,8 +1,5 @@
-//import Index from './Index'
-//import Show from './Show'
-
-const Index = function () {}
-const Show = function () {}
+import Index from './Index/index.js'
+import Show from './Show'
 
 export default {
   Index,

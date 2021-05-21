@@ -34,6 +34,12 @@ fragment DefaultCharacterFields on Character {
   lodestone_character {
     ...LodestoneCharacterFields
   }
+
+  marketplace_listing {
+    id
+    amount_cents
+    amount_currency
+  }
 }
 
 query getCharacterProfile($username: String!, $slug: String!) {

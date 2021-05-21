@@ -10,6 +10,14 @@ import { openUploadModal } from '../../actions'
 import SortableThumbnail from '../Image/SortableThumbnail'
 import gql from 'graphql-tag'
 import ArrayUtils from '../../utils/ArrayUtils'
+import { Icon } from 'react-materialize'
+import Button from '../Styled/Button'
+import styled from 'styled-components'
+import { buildShadow } from '../Styled/common'
+import SubfolderButton from '../Styled/SubfolderButton'
+import NumberUtils from '../../v1/utils/NumberUtils'
+import Restrict, { restrict } from '../Shared/Restrict'
+import NewFolderModal from './Modals/NewFolderModal'
 
 function convertData(images) {
   return images.map(image => ({
@@ -26,13 +34,16 @@ const Gallery = function ({
   v1Data,
   noHeader,
   images,
+  folders,
   openUploadModal,
   sortGalleryImage,
+  editable,
 }) {
   let imageData = images
 
   const [imageOrder, updateImageOrder] = useState(images.map(i => i.id))
   const [pendingChanges, updatePendingChanges] = useState([])
+  const [newFolderModalOpen, setNewFolderModalOpen] = useState(false)
 
   useEffect(() => {
     updateImageOrder(images.map(i => i.id))
@@ -41,6 +52,9 @@ const Gallery = function ({
   if (v1Data) {
     imageData = convertData(images)
   }
+
+  const openNewFolderModal = () => setNewFolderModalOpen(true)
+  const closeNewFolderModal = () => setNewFolderModalOpen(false)
 
   const onImageSort = ({ targetImageId, sourceImageId, dropBefore }) => {
     // console.log('onImageSort', { targetImageId, sourceImageId, dropBefore })
@@ -79,18 +93,24 @@ const Gallery = function ({
   }
 
   const galleryTabs = [
-    // { id: 'baz', title: 'Scraps' },
-    // { id: 'bar', title: 'Hidden' },
+    // { id: 'scraps', title: 'Scraps' },
+    // { id: 'hidden', title: 'Hidden' },
   ]
 
   const galleryActions = [
-    {
+    restrict({ patron: true }) && {
+      icon: 'create_new_folder',
+      title: 'New Folder',
+      id: 'newFolder',
+      onClick: openNewFolderModal,
+    },
+    editable && {
       icon: 'file_upload',
       title: 'Upload',
       id: 'galleryUpload',
       onClick: openUploadModal,
     },
-  ]
+  ].filter(Boolean)
 
   return (
     <Section
@@ -101,10 +121,47 @@ const Gallery = function ({
       buttons={galleryActions}
       onTabClick={id => console.log(id)}
     >
+      {newFolderModalOpen && <NewFolderModal onClose={closeNewFolderModal} />}
+      <Restrict development>{renderSubfolders(folders)}</Restrict>
+
       <Measure bounds>
         {renderGallery(imageData, onImageSort, imageOrder, pendingChanges)}
       </Measure>
     </Section>
+  )
+}
+
+const renderSubfolders = folders => {
+  const fldr = [
+    {
+      id: 'subfolder',
+      slug: 'subfolder',
+      name: 'Subfolder Name',
+      media_count: 1499,
+    },
+    {
+      id: 'subfolder2',
+      slug: 'subfolder2',
+      name: 'Subfolder Name but it is really quite long',
+      media_count: 1499,
+    },
+  ]
+
+  return (
+    <div className={'row margin-top--medium'}>
+      {folders &&
+        folders.map(folder => (
+          <div key={folder.id} className={'col s6 m3'}>
+            <SubfolderButton href={'#gal:' + folder.slug}>
+              <Icon left>folder</Icon>
+              <div className={'truncate gallery-name'}>{folder.name}</div>
+              <div className={'gallery-meta'}>
+                {NumberUtils.format(folder.media_count)} Items
+              </div>
+            </SubfolderButton>
+          </div>
+        ))}
+    </div>
   )
 }
 
@@ -171,6 +228,7 @@ Gallery.propTypes = {
       }).isRequired,
     })
   ),
+  editable: PropTypes.bool,
 }
 
 const mapDispatchToProps = {

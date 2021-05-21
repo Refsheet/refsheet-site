@@ -6,6 +6,12 @@
     "locale": null,
     "identity": {}
   },
+  "theme": {
+    "id": null,
+    "name": "dark",
+    "allowHoliday": true,
+    "allowOverride": true
+  },
   "conversations": {
     "openConversations": []
   },

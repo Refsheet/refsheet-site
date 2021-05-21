@@ -1,0 +1,2 @@
+class LodestonePolicy < ApplicationPolicy
+end

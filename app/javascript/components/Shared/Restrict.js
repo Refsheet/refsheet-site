@@ -2,22 +2,26 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { connect, useSelector } from 'react-redux'
 
-const Restrict = ({
+const restrict = ({
   admin,
   patron,
   user,
+  confirmed,
   currentUser,
   hideAll,
   development,
   invert,
-  children,
+  nsfw,
+  nsfwOk,
 }) => {
-  const { is_admin, is_patron, is_supporter } = currentUser || {}
+  const { currentUser: stateUser } = useSelector(state => state.session)
+  const { is_admin, is_patron, is_supporter, email_confirmed_at } =
+    currentUser || stateUser || {}
 
   let hide = false
-  if (hideAll) return null
+  if (hideAll) return false
 
   if (
     development &&
@@ -31,6 +35,10 @@ const Restrict = ({
     hide = true
   }
 
+  if (confirmed && !email_confirmed_at) {
+    hide = true
+  }
+
   if (!is_admin) {
     if (admin) {
       hide = true
@@ -41,12 +49,23 @@ const Restrict = ({
     }
   }
 
+  if (nsfw && !nsfwOk) {
+    hide = true
+  }
+
   if (invert) {
     hide = !hide
   }
 
-  if (hide) return null
-  return children
+  return !hide
+}
+
+const Restrict = ({ children, ...props }) => {
+  if (restrict(props)) {
+    return children
+  } else {
+    return null
+  }
 }
 
 Restrict.propTypes = {
@@ -59,6 +78,8 @@ Restrict.propTypes = {
 
 const mapStateToProps = state => ({
   currentUser: state.session.currentUser,
+  nsfwOk: state.session.nsfwOk,
 })
 
+export { restrict }
 export default connect(mapStateToProps)(Restrict)

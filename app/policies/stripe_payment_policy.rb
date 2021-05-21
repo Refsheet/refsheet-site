@@ -1,0 +1,2 @@
+class StripePaymentPolicy < ApplicationPolicy
+end

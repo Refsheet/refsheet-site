@@ -11,12 +11,15 @@ class Media::CommentsController < ApplicationController
   end
 
   def create
-    @comment = Media::Comment.create create_params
+    @comment = Media::Comment.new create_params
+    authorize @comment
+    @comment.save
     respond_with @comment, location: nil, serializer: Media::CommentSerializer
   end
 
   def destroy
     @comment.destroy
+    authorize @comment
     respond_with @comment, location: nil
   end
 

@@ -1,0 +1,2 @@
+class InvitationPolicy < ApplicationPolicy
+end

@@ -6,7 +6,6 @@ import Header from './Header'
 import Profile from './Profile'
 import Gallery from './Gallery'
 import Sidebar from './Sidebar'
-import defaultTheme from 'themes/default'
 import { StickyContainer } from 'react-sticky'
 import { ThemedMain } from 'Styled/Global'
 import SettingsModal from './Modals/SettingsModal'
@@ -17,19 +16,31 @@ import { setUploadTarget } from '../../actions'
 import RevisionModal from './Modals/RevisionModal'
 import AvatarModal from './Modals/AvatarModal'
 import CoverModal from './Modals/CoverModal'
+import themes from '../../themes'
+import MarketplaceBuyModal from './Modals/MarketplaceBuyModal'
 
 class View extends Component {
   constructor(props) {
     super(props)
 
+    let colorSchemeOverride = this.props.character && this.props.character.theme
+
+    if (!colorSchemeOverride) {
+      colorSchemeOverride = {
+        id: null,
+        colors: themes.dark.base,
+      }
+    }
+
     this.state = {
       editable: false,
-      colorSchemeOverride: this.props.character && this.props.character.theme,
+      colorSchemeOverride,
       settingsOpen: window.location.hash === '#character-settings',
       colorOpen: window.location.hash === '#character-color',
       revisionsOpen: window.location.hash === '#character-revisions',
       uploadAvatarOpen: window.location.hash === '#upload-avatar',
       uploadCoverOpen: window.location.hash === '#upload-avatar',
+      marketplaceBuyOpen: window.location.hash === '#marketplace-buy',
     }
 
     this.handleEditableChange = this.handleEditableChange.bind(this)
@@ -80,21 +91,27 @@ class View extends Component {
   /**
    * TODO: Refactor out the modals to their own component.
    * Consider a ModalProvider container/HOC. Yeees.
+   * That's complicated and unnecessary this is fine just let it go.
    */
   render() {
-    const { character, refetch } = this.props
+    const { character, refetch, session } = this.props
     const {
       settingsOpen,
       colorOpen,
       revisionsOpen,
       uploadAvatarOpen,
       uploadCoverOpen,
+      marketplaceBuyOpen,
     } = this.state
+
     const { colors } =
       this.state.colorSchemeOverride || this.props.character.theme || {}
 
+    const theme = themes[session.theme] || themes.dark
+    console.log(theme, colors)
+
     return (
-      <ThemeProvider theme={defaultTheme.apply(colors)}>
+      <ThemeProvider theme={theme.apply(colors)}>
         <ThemedMain title={character.name}>
           {settingsOpen && (
             <SettingsModal
@@ -107,7 +124,7 @@ class View extends Component {
           {colorOpen && (
             <ColorModal
               onClose={this.handleModalClose('color').bind(this)}
-              colorScheme={character.theme}
+              colorScheme={character.theme || {}}
               characterId={character.id}
               colorSchemeOverride={this.state.colorSchemeOverride}
               onChange={this.handleColorSchemeOverride.bind(this)}
@@ -138,12 +155,23 @@ class View extends Component {
             />
           )}
 
+          {marketplaceBuyOpen && (
+            <MarketplaceBuyModal
+              character={character}
+              onSave={refetch}
+              onClose={this.handleModalClose('marketplaceBuy').bind(this)}
+            />
+          )}
+
           <div id="top" className="profile-scrollspy">
             <Header
               character={character}
               editable={this.state.editable}
               onHeaderImageEdit={this.handleModalOpen('uploadCover').bind(this)}
               onAvatarEdit={this.handleModalOpen('uploadAvatar').bind(this)}
+              onMarketplaceBuy={this.handleModalOpen('marketplaceBuy').bind(
+                this
+              )}
             />
           </div>
 
@@ -179,7 +207,11 @@ class View extends Component {
                   />
 
                   {/*<Reference />*/}
-                  <Gallery images={character.images} />
+                  <Gallery
+                    images={character.images}
+                    folders={character.media_folders}
+                    editable={character.can_edit}
+                  />
                 </Col>
               </Row>
             </StickyContainer>
@@ -199,4 +231,6 @@ const mapDispatchToProps = {
   setUploadTarget,
 }
 
-export default compose(connect(undefined, mapDispatchToProps))(View)
+export default compose(
+  connect(({ session }) => ({ session }), mapDispatchToProps)
+)(View)

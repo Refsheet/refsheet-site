@@ -1,0 +1,2 @@
+class ArtistPolicy < ApplicationPolicy
+end

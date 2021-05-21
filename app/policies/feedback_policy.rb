@@ -1,0 +1,2 @@
+class FeedbackPolicy < ApplicationPolicy
+end

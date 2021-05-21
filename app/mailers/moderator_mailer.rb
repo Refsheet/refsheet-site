@@ -37,4 +37,13 @@ class ModeratorMailer < ApplicationMailer
     mail to: @user.email_to,
          subject: '[Refsheet.net] Moderator Action: Content Moderated'
   end
+
+  def user_banned(user, report)
+    @report = report
+    @user = user
+    @preheader = 'Administrative action has been taken against your account.'
+
+    mail to: @user.email_to,
+         subject: '[Refsheet.net] Administrative Action: Account Banned'
+  end
 end

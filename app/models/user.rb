@@ -99,7 +99,10 @@ class User < ApplicationRecord
 
   has_image_attached :as_avatar,
                      default_url: -> (u, _style) {
-                       GravatarImageTag.gravatar_url(u.email, size: 480)
+                       ActionController::Base.helpers.image_url('default.png')
+                       # TODO: Make Gravatar an opt-in on user settings to prevent fake scares about suspicious
+                       #       "leaks" of account data and whatnot.
+                       # GravatarImageTag.gravatar_url(u.email, size: 480)
                      },
                      styles: {
                          thumbnail: { fill: [64, 64] },
@@ -110,6 +113,12 @@ class User < ApplicationRecord
                      }
 
   has_attached_file :avatar,
+                    default_url: -> (_u) {
+                      ActionController::Base.helpers.image_url('default.png')
+                      # TODO: Make Gravatar an opt-in on user settings to prevent fake scares about suspicious
+                      #       "leaks" of account data and whatnot.
+                      # GravatarImageTag.gravatar_url(u.email, size: 480)
+                    },
                     styles: {
                         thumbnail: '64x64#',
                         small_square: '427x427#',
@@ -156,7 +165,7 @@ class User < ApplicationRecord
   end
 
   def email_to(email=self.email)
-    "#{name} <#{email}>"
+    "\"#{name}\" <#{email}>"
   end
 
   def to_param
@@ -164,11 +173,15 @@ class User < ApplicationRecord
   end
 
   def avatar_url(style = :thumbnail)
-    self.as_avatar.url(style)
+    if self.as_avatar.attached?
+      self.as_avatar.url(style)
+    else
+      self.avatar.url(style)
+    end
   end
 
   def profile_image_url
-    self.as_avatar.url(:small_square)
+    self.avatar_url(:small_square)
   end
 
 
@@ -194,12 +207,18 @@ class User < ApplicationRecord
     self.blocked_users.exists?(blocked_user: user)
   end
 
-  def block!(user)
-    self.blocked_users.create(blocked_user: user)
+  def blocked_by?(user)
+    user.blocked? self
+  end
 
-    if followed_by? user
-      self.followers.where(follower: user).destroy_all
+  def block!(user)
+    if user.admin?
+      raise "You cannot block an admin."
     end
+
+    self.blocked_users.create(blocked_user: user)
+    self.followers.where(follower: user).destroy_all
+    self.following.where(following: user).destroy_all
   end
 
   def unblock!(user)
@@ -259,7 +278,14 @@ class User < ApplicationRecord
   end
 
   def send_welcome_email
-    UserMailer.welcome(id, generate_auth_code!).deliver_now
+    UserMailer.welcome(id, generate_auth_code!).deliver_later
+  end
+
+  def send_email_change_notice(force = false)
+    if @send_email_change_notice or force
+      @send_email_change_notice = false
+      UserMailer.email_changed(id, generate_auth_code!).deliver_later
+    end
   end
 
   private
@@ -277,13 +303,6 @@ class User < ApplicationRecord
     end
   end
 
-  def send_email_change_notice
-    if @send_email_change_notice
-      @send_email_change_notice = false
-      UserMailer.email_changed(id, generate_auth_code!).deliver_now
-    end
-  end
-
   def claim_invitations
     if (invitation = Invitation.find_by('LOWER(invitations.email) = ?', self.email))
       invitation.user = self
@@ -293,6 +312,14 @@ class User < ApplicationRecord
   end
 
   def adjust_role_flags
+    # HOLIDAY - April 1
+    # if DateTime.now.in_time_zone("Central Time (US & Canada)").to_date == Date.new(2021, 04, 01)
+    #   if self.profile =~ /\buwu\b/i
+    #     self.support_pledge_amount = 41
+    #     self.supporter = true
+    #   end
+    # end
+
     if self.support_pledge_amount_changed?
       self.supporter = self.support_pledge_amount > 0
     end

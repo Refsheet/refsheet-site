@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'Timeline', js: true do
   let(:params) {{}}
-  let(:user) { create :user }
+  let(:user) { create :user, :confirmed }
 
   before(:each) do
     sign_in user if user
@@ -14,7 +14,7 @@ feature 'Timeline', js: true do
   end
 
   context "when admin" do
-    let(:user) { create :admin }
+    let(:user) { create :admin, :confirmed }
 
     it 'renders status box' do
       expect(page).to have_content "As: #{user.name}"
@@ -22,7 +22,7 @@ feature 'Timeline', js: true do
   end
 
   context "when patron" do
-    let(:user) { create :patron }
+    let(:user) { create :patron, :confirmed }
 
     it 'renders status box' do
       expect(page).to have_content "As: #{user.name}"
@@ -30,7 +30,7 @@ feature 'Timeline', js: true do
   end
 
   context "when supporter" do
-    let(:user) { create :user, support_pledge_amount: 5 }
+    let(:user) { create :user, :confirmed, support_pledge_amount: 5 }
 
     it 'renders status box' do
       expect(page).to have_content "As: #{user.name}"
@@ -42,6 +42,15 @@ feature 'Timeline', js: true do
 
     it 'renders homepage' do
       expect(page).to have_content "Your characters, organized."
+    end
+  end
+
+  context 'without confirmation' do
+    let(:user) { create :user }
+
+    it 'does not allow status' do
+      expect(page).to have_no_content "As: #{user.name}"
+      expect(page).to have_content "Your email address is unconfirmed."
     end
   end
 end

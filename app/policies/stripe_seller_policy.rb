@@ -1,0 +1,2 @@
+class StripeSellerPolicy < ApplicationPolicy
+end

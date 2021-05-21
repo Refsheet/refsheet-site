@@ -1,4 +1,4 @@
-<div id="root">
+<div id="appRoot">
 </div>
 
 <div class="shaded-background" id="rootAppLoader">
@@ -46,5 +46,14 @@
 
   // This is broken after Webpack 5 upgrade???
   // Packs.application.init('root', props);
-  ___init('root', props);
+  ___init('appRoot', props);
 </script>
+
+<% unless @no_fun %>
+<% if DateTime.now.in_time_zone("Central Time (US & Canada)").to_date == Date.new(2021, 04, 01) or @force_fun %>
+<style type="text/css">
+    .avatar { transform: rotate(90deg); }
+    nav li > a { transform: rotate(180deg); }
+</style>
+<% end %>
+<% end %>

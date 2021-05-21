@@ -1,0 +1,2 @@
+class StripeTransferPolicy < ApplicationPolicy
+end

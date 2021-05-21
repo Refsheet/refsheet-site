@@ -4,6 +4,12 @@ Types::MutationType = GraphQL::ObjectType.define do
   # User Mutations
   field :deleteUser, field: Mutations::UserMutations::Delete
   field :setUserAvatarBlob, field: Mutations::UserMutations::SetAvatarBlob
+  field :blockUser, field: Mutations::UserMutations::BlockUser
+  field :unblockUser, field: Mutations::UserMutations::UnblockUser
+  field :banUser, field: Mutations::UserMutations::BanUser
+  field :resendEmailConfirmation, field: Mutations::UserMutations::ResendEmailConfirmation
+
+  # Api Keys
   field :createApiKey, field: Mutations::ApiKeyMutations::Create
 
   # Images

@@ -1,0 +1,8 @@
+mutation createApiKey($name: String!, $read_only: Boolean!) {
+    createApiKey(name: $name, read_only: $read_only) {
+        id
+        name
+        read_only
+        secret
+    }
+}

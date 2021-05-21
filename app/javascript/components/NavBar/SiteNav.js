@@ -33,20 +33,11 @@ const SiteNav = ({ t }) => {
         </NavLink>
       </li>
 
-      <Restrict development>
-        <li>
-          <NavLink to="/v2/forums" activeClassName="primary-text">
-            {t('nav.forums', 'Forums')} (V2)
-          </NavLink>
-        </li>
-      </Restrict>
-      <Restrict development invert>
-        <li>
-          <NavLink to="/forums" activeClassName="primary-text">
-            {t('nav.forums', 'Forums')}
-          </NavLink>
-        </li>
-      </Restrict>
+      <li>
+        <NavLink to="/forums" activeClassName="primary-text">
+          {t('nav.forums', 'Forums')}
+        </NavLink>
+      </li>
 
       {/*<li>*/}
       {/*<NavLink to='/guilds' activeClassName='primary-text'>Guilds</NavLink>*/}

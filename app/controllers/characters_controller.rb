@@ -8,26 +8,29 @@ class CharactersController < ApplicationController
   end
 
   def show
-    set_meta_tags(
-        twitter: {
-            card: 'photo',
-            image: {
-                _: @character.profile_image.image.url(:medium)
-            }
-        },
-        og: {
-            image: @character.profile_image.image.url(:medium)
-        },
-        title: @character.name,
-        description: @character.profile.presence || 'This character has no description!',
-        image_src: @character.profile_image.image.url(:medium)
-    )
+    authorize @character
 
     respond_to do |format|
       format.html do
+        set_meta_tags(
+            twitter: {
+                card: 'photo',
+                image: {
+                    _: @character.profile_image.image.url(:medium)
+                }
+            },
+            og: {
+                image: @character.profile_image.image.url(:medium)
+            },
+            title: @character.name,
+            description: @character.profile.presence || 'This character has no description!',
+            image_src: @character.profile_image.image.url(:medium)
+        )
+
         eager_load character: CharacterSerializer.new(@character, scope: view_context).as_json
         render 'application/show'
       end
+
       format.png do
         size = case params[:size]&.to_s&.downcase
                when "small"
@@ -48,6 +51,7 @@ class CharactersController < ApplicationController
 
   def create
     @character = Character.new character_params.merge(user: current_user)
+    authorize @character
 
     if @character.save
       render json: @character
@@ -57,7 +61,7 @@ class CharactersController < ApplicationController
   end
 
   def update
-    head :unauthorized and return unless @character.managed_by? current_user
+    authorize @character
 
     if @character.update character_params
       render json: @character, serializer: CharacterSerializer
@@ -67,7 +71,7 @@ class CharactersController < ApplicationController
   end
 
   def destroy
-    head :unauthorized and return unless @character.managed_by? current_user
+    authorize @character
 
     if @character.destroy
       render json: @character, serializer: CharacterSerializer

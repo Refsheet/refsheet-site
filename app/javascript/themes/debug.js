@@ -1,16 +1,19 @@
-export const definitions = {
-  primary: ['Primary Color', '#660066'],
-  accent1: ['Secondary Color', '#006666'],
-  accent2: ['Accent Color', '#666600'],
-  text: ['Main Text', '#330033'],
-  textMedium: ['Muted Text', '#003333'],
-  textLight: ['Subtle Text', '#333300'],
-  background: ['Page Background', '#FFFF99'],
-  cardBackground: ['Card Background', '#FFFFCC'],
-  cardHeaderBackground: ['Card Header Background', '#FFCCCC'],
-  imageBackground: ['Image Background', '#00FF00'],
-  border: ['Border Colors', '#009900'],
-}
+import { define } from './common'
+
+export const definitions = define({
+  primary: '#FF00CC',
+  accent1: '#FF00CC',
+  accent2: '#FF00CC',
+  text: '#FF00CC',
+  textMedium: '#FF00CC',
+  textLight: '#FF00CC',
+  background: '#FF00CC',
+  cardBackground: '#FF00CC',
+  cardHeaderBackground: '#FF00CC',
+  imageBackground: '#FF00CC',
+  border: '#FF00CC',
+  cardShadow: '#FF00CC',
+})
 
 export const apply = (otherTheme = {}) => {
   const final = {}
