@@ -33,6 +33,8 @@ class Artist < ApplicationRecord
 
   belongs_to :user, optional: true
   has_many :links, class_name: 'Artists::Link'
+  has_many :artist_credits, class_name: 'Media::ArtistCredit'
+  has_many :media, through: :artist_credits
 
   delegate :username, to: :user, allow_nil: true
 

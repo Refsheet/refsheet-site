@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_17_215643) do
+ActiveRecord::Schema.define(version: 2021_05_21_011906) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -734,6 +734,22 @@ ActiveRecord::Schema.define(version: 2021_05_17_215643) do
     t.index ["lodestone_id"], name: "index_lodestone_servers_on_lodestone_id"
   end
 
+  create_table "media_artist_credits", force: :cascade do |t|
+    t.bigint "media_id"
+    t.bigint "artist_id"
+    t.boolean "validated"
+    t.bigint "validated_by_user_id"
+    t.bigint "tagged_by_user_id"
+    t.text "notes"
+    t.datetime "validated_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["artist_id"], name: "index_media_artist_credits_on_artist_id"
+    t.index ["media_id"], name: "index_media_artist_credits_on_media_id"
+    t.index ["tagged_by_user_id"], name: "index_media_artist_credits_on_tagged_by_user_id"
+    t.index ["validated_by_user_id"], name: "index_media_artist_credits_on_validated_by_user_id"
+  end
+
   create_table "media_comments", id: :serial, force: :cascade do |t|
     t.integer "media_id"
     t.integer "user_id"
@@ -1164,6 +1180,10 @@ ActiveRecord::Schema.define(version: 2021_05_17_215643) do
   add_foreign_key "images", "custom_watermarks"
   add_foreign_key "images", "media_folders"
   add_foreign_key "lodestone_characters", "characters"
+  add_foreign_key "media_artist_credits", "artists"
+  add_foreign_key "media_artist_credits", "images", column: "media_id"
+  add_foreign_key "media_artist_credits", "users", column: "tagged_by_user_id"
+  add_foreign_key "media_artist_credits", "users", column: "validated_by_user_id"
   add_foreign_key "media_folders", "characters"
   add_foreign_key "media_folders", "images", column: "featured_media_id"
   add_foreign_key "media_folders", "media_folders", column: "parent_media_folder_id"

@@ -28,6 +28,6 @@
 
 require 'rails_helper'
 
-RSpec.describe Artist, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Artist, type: :model do
+  it_is_expected_to have_many: [:media, :artist_credits]
 end
