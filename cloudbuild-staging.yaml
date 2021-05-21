@@ -18,6 +18,7 @@ steps:
       - --destination=gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID
       - --cache=true
       - --cache-dir=/kaniko-cache
+      - --build-arg=SENTRY_RELEASE_TOKEN
     volumes:
       - name: 'cache'
         path: '/cache'
