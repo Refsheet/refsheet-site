@@ -111,4 +111,9 @@ steps:
 options:
   machineType: 'N1_HIGHCPU_8'
 
+secrets:
+  - kmsKeyName: projects/refsheet-239409/locations/global/keyRings/refsheet-ci/cryptoKeys/refsheet-ci
+    secretEnv:
+      SENTRY_RELEASE_TOKEN: CiQA5Rk5Qwhkg8NawPC6YDtmJXE/nHXyvDPR4eVUeCCLkuEbwv8SaQBhT4yKyIFU3xeUXa7oXdn5aYURow/xYjr9Ksr5GfPiduSy5/iJEHVY4jlzOrr3xxhb/qEfNu9P2EstXsKg/BnpBlZJ4gtkB4VM5IebjWmy8JTjT03BgfB2gpDbDZseKEZZk8m2nKYiCw==
+
 timeout: 3600s
