@@ -13,6 +13,7 @@ steps:
 
   - name: 'gcr.io/kaniko-project/executor'
     id: Build Container
+    secretEnv: [ 'SENTRY_RELEASE_TOKEN' ]
     args:
       - --destination=gcr.io/$PROJECT_ID/refsheet-site:$REVISION_ID
       - --cache=true
