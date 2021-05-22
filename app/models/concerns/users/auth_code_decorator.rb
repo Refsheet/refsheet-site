@@ -46,6 +46,7 @@ module Users::AuthCodeDecorator
     end
 
     UserMailer.welcome(self.id, self.email_confirmation_token).deliver_later!
+    auth_code
   end
 
   def check_email_confirmation?(auth_code)
@@ -67,6 +68,7 @@ module Users::AuthCodeDecorator
     end
 
     UserMailer.email_changed(self.id, self.email_change_token).deliver_later!
+    auth_code
   end
 
   def check_email_change?(auth_code)
@@ -86,6 +88,7 @@ module Users::AuthCodeDecorator
                    account_recovery_created_at: Time.zone.now
 
     UserMailer.password_reset(self.id, self.account_recovery_token).deliver_later!
+    auth_code
   end
 
   def check_account_recovery?(auth_code)
@@ -105,6 +108,7 @@ module Users::AuthCodeDecorator
                    otp_login_created_at: Time.zone.now
 
     # UserMailer.otp_login(self.id, self.account_recovery_token).deliver_later!
+    auth_code
   end
 
   def check_otp_login?(auth_code)

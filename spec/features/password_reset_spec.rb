@@ -38,10 +38,13 @@ feature 'Password Resets', js: true do
     end
 
     scenario 'valid code' do
-      token = user.generate_auth_code! true
+      token = user.start_account_recovery!
       expect(token).to match /\A\d{6}\z/
-      expect(user.auth_code? token).to be_truthy
+      expect(user.check_account_recovery? token).to be_truthy
+    end
 
+    scenario "valid code but ui version" do
+      token = user.start_account_recovery!
       fill_in :reset_token, with: token
       click_button 'Continue'
       expect(page).to have_content 'Enter a new password'
@@ -54,9 +57,8 @@ feature 'Password Resets', js: true do
       click_button 'Continue'
       expect(page).to have_content '6 digit code'
 
-      token = user.generate_auth_code! true
+      token = user.start_account_recovery!
       expect(token).to match /\A\d{6}\z/
-      expect(user.auth_code? token).to be_truthy
 
       fill_in :reset_token, with: token
       click_button 'Continue'
@@ -76,14 +78,14 @@ feature 'Password Resets', js: true do
       click_button 'Change Password'
       expect(page).to have_content 'Password changed'
       expect(user.reload.authenticate 'taco-tuesday').to be_truthy
-      expect(user.reload.auth_code_digest).to be_nil
+      expect(user.reload.account_recovery_token).to be_nil
       expect(page).to have_no_content 'Welcome back'
     end
   end
 
   scenario 'direct link' do
-    token = user.generate_auth_code! true
-    visit login_path email: user.email, auth: token
+    token = user.start_account_recovery!
+    visit recovery_path email: user.email, auth: token
     expect(page).to have_content user.username
     expect(page).to have_content 'signed in'
     expect(page).to have_content 'User Settings'
