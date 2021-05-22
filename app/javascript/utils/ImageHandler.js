@@ -196,6 +196,10 @@ class ImageHandler {
    * @returns {*|string}
    */
   static findError(error) {
+    if (!error) {
+      return null
+    }
+
     if (error.map) {
       return error.map(e => e.message).join(', ')
     }
