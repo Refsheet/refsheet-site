@@ -12,13 +12,12 @@
   It is important for us to know that this email address belongs to you, so we can get character transfers sent to
   the right account. Click the link below to let us know it's you.
 
-= button 'Confirm Email Address', login_url(email: @user.email, auth: @auth_code), primary: true
+= button 'Confirm Email Address', activate_url(email: @user.email, auth: @auth_code), primary: true
 
 %hr/
 
 %p.last
-  If you have any feedback, or you run into trouble, you are welcome to use the "Feedback" button on the bottom-left
-  of the site, or contact us on our social media accounts:
+  If you have any feedback, or you run into trouble, you are welcome to contact us on our social media accounts:
   = link_to 'Twitter', 'https://twitter.com/refsheet', target: '_blank'
   and
   = link_to 'Facebook', 'https://facebook.com/refsheet', target: '_blank'

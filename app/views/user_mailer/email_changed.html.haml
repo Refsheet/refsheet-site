@@ -5,4 +5,4 @@
 %p
   It looks like you've changed your email address. To start using this new email address, please click the link below.
 
-= button 'Confirm Email Address', login_url(email: @user.email, auth: @auth_code), primary: true
+= button 'Confirm Email Address', confirm_email_change_url(email: @user.email, auth: @auth_code), primary: true

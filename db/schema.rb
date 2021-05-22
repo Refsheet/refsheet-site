@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_21_011906) do
+ActiveRecord::Schema.define(version: 2021_05_22_190812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1137,11 +1137,23 @@ ActiveRecord::Schema.define(version: 2021_05_21_011906) do
     t.boolean "patron"
     t.boolean "supporter"
     t.boolean "moderator"
+    t.string "email_confirmation_token"
+    t.datetime "email_confirmation_created_at"
+    t.string "account_recovery_token"
+    t.datetime "account_recovery_created_at"
+    t.string "otp_login_token"
+    t.datetime "otp_login_created_at"
+    t.string "email_change_token"
+    t.datetime "email_change_created_at"
     t.index "lower((email)::text) varchar_pattern_ops", name: "index_users_on_lower_email", unique: true
     t.index "lower((unconfirmed_email)::text) varchar_pattern_ops", name: "index_users_on_lower_unconfirmed_email", unique: true
     t.index "lower((username)::text) varchar_pattern_ops", name: "index_users_on_lower_username", unique: true
+    t.index ["account_recovery_token"], name: "index_users_on_account_recovery_token"
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
+    t.index ["email_change_token"], name: "index_users_on_email_change_token"
+    t.index ["email_confirmation_token"], name: "index_users_on_email_confirmation_token"
     t.index ["guid"], name: "index_users_on_guid"
+    t.index ["otp_login_token"], name: "index_users_on_otp_login_token"
     t.index ["parent_user_id"], name: "index_users_on_parent_user_id"
     t.index ["type"], name: "index_users_on_type"
   end

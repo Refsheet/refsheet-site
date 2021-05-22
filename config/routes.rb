@@ -68,6 +68,10 @@ Rails.application.routes.draw do
   resource :session, only: [:show, :create, :destroy, :update], controller: 'session'
   resource :password_resets, only: [:create, :update]
   get 'login', to: 'session#new'
+  # todo: change these to POST and add second step in UI
+  get 'activate/:auth', to: 'session#activate', as: :activate
+  get 'confirm_email_change/:auth', to: 'session#confirm_email_change', as: :confirm_email_change
+  get 'recover/:auth', to: 'session#recover', as: :recover
 
 
   #== Front-End Legacy

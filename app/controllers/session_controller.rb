@@ -1,25 +1,45 @@
 class SessionController < ApplicationController
   def new
+    render 'application/show'
+  end
+
+  def activate
     if params.include?(:email) && params.include?(:auth)
       @user = User.lookup params[:email]
-
-      if @user&.auth_code? params[:auth]
-        sign_in @user
-
-        if params[:auth] =~ /\A\d{6}\z/
-          redirect_to user_profile_path(@user, anchor: 'user-settings-modal'), flash: { notice: 'You have been signed in, don\'t forget to change your password.' }
-        else
-          @user.confirm!
-          redirect_to user_profile_path(@user), flash: { notice: 'Email address confirmed!' }
-        end
-
+      if @user&.check_email_confirmation? params[:auth]
+        redirect_to user_profile_path(@user), flash: { notice: 'Email address confirmed!' }
         return
-      else
-        flash.now[:error] = 'Invalid authentication code!'
       end
     end
 
-    render 'application/show'
+    flash[:error] = 'Confirmation link invalid or expired.'
+    redirect_to :new
+  end
+
+  def confirm_email_change
+    if params.include?(:email) && params.include?(:auth)
+      @user = User.lookup params[:email]
+      if @user&.check_email_change? params[:auth]
+        redirect_to user_profile_path(@user), flash: { notice: 'Email address changed!' }
+        return
+      end
+    end
+
+    flash[:error] = 'Confirmation link invalid or expired.'
+    redirect_to :new
+  end
+
+  def recover
+    if params.include?(:email) && params.include?(:auth)
+      @user = User.lookup params[:email]
+      if @user&.check_account_recovery? params[:auth]
+        redirect_to user_profile_path(@user, anchor: 'user-settings-modal'), flash: { notice: 'You have been signed in, don\'t forget to change your password.' }
+        return
+      end
+    end
+
+    flash[:error] = 'Recovery link invalid or expired.'
+    redirect_to :new
   end
 
   def show

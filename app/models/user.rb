@@ -48,6 +48,7 @@ class User < ApplicationRecord
   include Users::SettingsDecorator
   include Users::EmailPrefsDecorator
   include Users::NotificationsDecorator
+  include Users::AuthCodeDecorator
   include Users::RoleDecorator
 
   include HasImageAttached
@@ -247,62 +248,6 @@ class User < ApplicationRecord
     where("LOWER(users.#{column}) IN (?)", usernames)
   end
 
-  #== Email Confirmation & Password Reset
-
-  def confirmed?
-    email_confirmed_at.present?
-  end
-
-  def confirm!
-    @permit_email_swap = true
-    email = self.unconfirmed_email || self.email
-    update! email_confirmed_at: Time.zone.now, email: email, auth_code_digest: nil, unconfirmed_email: nil
-    @permit_email_swap = false
-    claim_invitations
-  end
-
-  def auth_code?(cleartext)
-    return false unless auth_code_digest.present?
-    BCrypt::Password.new(auth_code_digest) == cleartext
-  end
-
-  def generate_auth_code!(number=false)
-    auth_code = if number
-                  ("%06d" % SecureRandom.random_number(1e6))
-                else
-                  SecureRandom.base58
-                end
-
-    update_columns auth_code_digest: BCrypt::Password.create(auth_code)
-    auth_code
-  end
-
-  def send_welcome_email
-    UserMailer.welcome(id, generate_auth_code!).deliver_later
-  end
-
-  def send_email_change_notice(force = false)
-    if @send_email_change_notice or force
-      @send_email_change_notice = false
-      UserMailer.email_changed(id, generate_auth_code!).deliver_later
-    end
-  end
-
-  private
-
-  def downcase_email
-    self.email&.downcase!
-  end
-
-  def handle_email_change
-    if !@permit_email_swap and changes.include? :email and changes[:email][0].present?
-      return if changes[:email][0].downcase == changes[:email][1].downcase
-      self.unconfirmed_email = self.changes[:email][1]
-      self.email = self.changes[:email][0]
-      @send_email_change_notice = true
-    end
-  end
-
   def claim_invitations
     if (invitation = Invitation.find_by('LOWER(invitations.email) = ?', self.email))
       invitation.user = self
@@ -312,14 +257,6 @@ class User < ApplicationRecord
   end
 
   def adjust_role_flags
-    # HOLIDAY - April 1
-    # if DateTime.now.in_time_zone("Central Time (US & Canada)").to_date == Date.new(2021, 04, 01)
-    #   if self.profile =~ /\buwu\b/i
-    #     self.support_pledge_amount = 41
-    #     self.supporter = true
-    #   end
-    # end
-
     if self.support_pledge_amount_changed?
       self.supporter = self.support_pledge_amount > 0
     end
