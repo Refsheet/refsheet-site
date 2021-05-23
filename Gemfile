@@ -28,6 +28,7 @@ gem 'rails_semantic_logger'
 gem 'activerecord-nulldb-adapter', '~> 0.4.0'
 gem 'mini_magick'
 gem 'paper_trail'
+gem 'activejob-uniqueness'
 
 # == Instrumentation
 gem 'stackdriver', group: [:development, :production]
