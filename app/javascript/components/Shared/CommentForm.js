@@ -21,6 +21,7 @@ import { createIdentity } from '../../utils/IdentityUtils'
 //       this should be refactored into a generic wrapper that handles
 //       functionality and passes components to a child class to render
 //       those specific variants.
+//       THIS IS BECOMING A WHOLE-ASS CRISIS
 //
 // Known Variants:
 //   - default (V1 Forums, Status Updates)
@@ -163,9 +164,10 @@ class CommentForm extends Component {
 
       input = (
         <Input
-          type={'text'}
+          type={'textarea'}
           name={'comment'}
           browserDefault
+          autoGrow
           noMargin
           disabled={this.state.submitting}
           placeholder={placeholder}
