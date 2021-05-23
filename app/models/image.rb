@@ -169,6 +169,19 @@ class Image < ApplicationRecord # < Media
     SQL
   }
 
+  scope :similar_to_optimized, -> (image, distance: 7) {
+    target_hash = image.image_phash
+
+    if target_hash.nil?
+      return all
+    end
+
+    with_phash_distance(image).
+    where(<<-SQL.squish, image.id, distance)
+      images.id != ? AND phash_distance < ?
+    SQL
+  }
+
   scope :with_phash_distance, -> (image) {
     target_hash = image.image_phash
 
