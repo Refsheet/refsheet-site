@@ -85,7 +85,7 @@ feature 'Password Resets', js: true do
 
   scenario 'direct link' do
     token = user.start_account_recovery!
-    visit recovery_path email: user.email, auth: token
+    visit recover_path email: user.email, auth: token
     expect(page).to have_content user.username
     expect(page).to have_content 'signed in'
     expect(page).to have_content 'User Settings'

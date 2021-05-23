@@ -75,30 +75,6 @@ feature 'Log In', js: true do
       try_login
     end
 
-    context 'with auth code' do
-      let(:token) { user.generate_auth_code! }
-      let(:query) {{ email: user.email, auth: token }}
-
-      context 'valid' do
-        let(:expect_redirect) { true }
-
-        scenario 'confirms email address' do
-          expect(page).to have_content 'Email address confirmed'
-          expect(page).to have_content user.username
-          expect(user.reload).to be_confirmed
-        end
-      end
-
-      context 'invalid' do
-        let(:query) {{ email: user.email, auth: token + 'nacho' }}
-
-        scenario 'fails auth confirm' do
-          expect(page).to have_content 'Invalid authentication code'
-          expect(page).to have_content 'Log In'
-        end
-      end
-    end
-
     context 'admin' do
       let(:query) {{ next: '/admin' }}
       let(:expect_redirect) { true }
@@ -114,6 +90,34 @@ feature 'Log In', js: true do
         expect(page).to have_content 'not authorized'
         enter user.username, 'fishsticks'
         try_login(true, 'Dashboard')
+      end
+    end
+  end
+
+
+
+  context 'with auth code' do
+    let(:token) { user.generate_auth_code! }
+    let(:query) {{ email: user.email, auth: token }}
+
+    before(:each) do
+      visit activate_path query
+    end
+
+    context 'valid' do
+      scenario 'confirms email address' do
+        expect(page).to have_content 'Email address confirmed'
+        expect(page).to have_content user.username
+        expect(user.reload).to be_confirmed
+      end
+    end
+
+    context 'invalid' do
+      let(:query) {{ email: user.email, auth: token + 'nacho' }}
+
+      scenario 'fails auth confirm' do
+        expect(page).to have_content 'Invalid authentication code'
+        expect(page).to have_content 'Log In'
       end
     end
   end
