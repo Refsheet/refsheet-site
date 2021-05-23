@@ -3,30 +3,8 @@ module Users::AuthCodeDecorator
   ACCOUNT_RECOVERY_EXPIRES_AT = 1.day.freeze
   OTP_LOGIN_EXPIRES_AT = 1.hour.freeze
   EMAIL_CHANGE_EXPIRES_AT = 1.week.freeze
-  # token cols:
-  #
-  # email_confirmation_token
-  # email_confirmation_created_at
-  # start_email_confirmation!
-  # check_email_confirmation?
-  #
-  # account_recovery_token
-  # account_recovery_created_at
-  # start_account_recovery!
-  # check_account_recovery?
-  #
-  # otp_login_token
-  # otp_login_created_at
-  # start_otp_login!
-  # check_otp_login?
-  #
-  # email_change_token
-  # email_change_created_at
-  # start_email_change!
-  # check_email_change?
-  #
-  #
-  def auth_expired? timestamp, expiration
+
+  def auth_expired?(timestamp, expiration)
     if timestamp.nil?
       return true
     end
@@ -45,7 +23,7 @@ module Users::AuthCodeDecorator
                      email_confirmation_created_at: Time.zone.now
     end
 
-    UserMailer.welcome(self.id, self.email_confirmation_token).deliver_later!
+    UserMailer.welcome(self.id, auth_code).deliver_later!
     auth_code
   end
 
@@ -67,7 +45,7 @@ module Users::AuthCodeDecorator
                      email_change_created_at: Time.zone.now
     end
 
-    UserMailer.email_changed(self.id, self.email_change_token).deliver_later!
+    UserMailer.email_changed(self.id, auth_code).deliver_later!
     auth_code
   end
 
@@ -87,7 +65,7 @@ module Users::AuthCodeDecorator
     update_columns account_recovery_token: BCrypt::Password.create(auth_code),
                    account_recovery_created_at: Time.zone.now
 
-    UserMailer.password_reset(self.id, self.account_recovery_token).deliver_later!
+    UserMailer.password_reset(self.id, auth_code).deliver_later!
     auth_code
   end
 
@@ -107,7 +85,7 @@ module Users::AuthCodeDecorator
     update_columns otp_login_token: BCrypt::Password.create(auth_code),
                    otp_login_created_at: Time.zone.now
 
-    # UserMailer.otp_login(self.id, self.account_recovery_token).deliver_later!
+    # UserMailer.otp_login(self.id, auth_code).deliver_later!
     auth_code
   end
 

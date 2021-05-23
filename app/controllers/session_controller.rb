@@ -7,6 +7,8 @@ class SessionController < ApplicationController
     if params.include?(:email) && params.include?(:auth)
       @user = User.lookup params[:email]
       if @user&.check_email_confirmation? params[:auth]
+        sign_in @user, remember: false unless signed_in?
+        @user.confirm!
         redirect_to user_profile_path(@user), flash: { notice: 'Email address confirmed!' }
         return
       end
@@ -20,6 +22,8 @@ class SessionController < ApplicationController
     if params.include?(:email) && params.include?(:auth)
       @user = User.lookup params[:email]
       if @user&.check_email_change? params[:auth]
+        sign_in @user, remember: false unless signed_in?
+        @user.confirm!
         redirect_to user_profile_path(@user), flash: { notice: 'Email address changed!' }
         return
       end
@@ -33,7 +37,8 @@ class SessionController < ApplicationController
     if params.include?(:email) && params.include?(:auth)
       @user = User.lookup params[:email]
       if @user&.check_account_recovery? params[:auth]
-        redirect_to user_profile_path(@user, anchor: 'user-settings-modal'), flash: { notice: 'You have been signed in, don\'t forget to change your password.' }
+        sign_in @user, remember: false
+        redirect_to account_settings_path, flash: { notice: 'You have been signed in, don\'t forget to change your password.' }
         return
       end
     end
