@@ -110,7 +110,7 @@ feature 'Log In', js: true do
       end
     end
 
-    context 'invalid' do
+    xcontext 'invalid' do
       let(:query) {{ email: user.email, auth: token + 'nacho' }}
 
       scenario 'fails auth confirm' do
