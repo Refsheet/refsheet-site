@@ -94,10 +94,8 @@ feature 'Log In', js: true do
     end
   end
 
-
-
   context 'with auth code' do
-    let(:token) { user.generate_auth_code! }
+    let(:token) { user.start_email_confirmation! }
     let(:query) {{ email: user.email, auth: token }}
 
     before(:each) do
