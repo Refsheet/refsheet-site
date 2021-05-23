@@ -327,13 +327,13 @@ class Image < ApplicationRecord # < Media
   end
 
   def delayed_complete
-    schedule_phash_job
+    schedule_phash_job true
     send_processing_notification
     log_activity
   end
 
-  def schedule_phash_job
-    if self.image_updated_at_changed?
+  def schedule_phash_job(force = false)
+    if saved_change_to_image_updated_at? or force
       Rails.logger.info("Scheduling pHash update.")
       ImagePhashJob.perform_later(self)
     end
