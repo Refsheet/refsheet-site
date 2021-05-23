@@ -1,5 +1,5 @@
 class ImageProcessingJob < ApplicationJob
-  queue :refsheet_image_processing
+  queue_as :refsheet_image_processing
   unique :until_executed, on_conflict: :log
 
   def perform(image)
