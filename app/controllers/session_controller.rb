@@ -13,7 +13,7 @@ class SessionController < ApplicationController
     end
 
     flash[:error] = 'Confirmation link invalid or expired.'
-    redirect_to :new
+    redirect_to action: 'new'
   end
 
   def confirm_email_change
@@ -26,7 +26,7 @@ class SessionController < ApplicationController
     end
 
     flash[:error] = 'Confirmation link invalid or expired.'
-    redirect_to :new
+    redirect_to action: 'new'
   end
 
   def recover
@@ -39,7 +39,7 @@ class SessionController < ApplicationController
     end
 
     flash[:error] = 'Recovery link invalid or expired.'
-    redirect_to :new
+    redirect_to action: 'new'
   end
 
   def show
