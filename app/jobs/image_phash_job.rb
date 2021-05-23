@@ -1,5 +1,5 @@
 class ImagePhashJob < ApplicationJob
-  def perform(image)
+  def perform(image, force=false)
     image.reload
 
     Raven.breadcrumbs.record do |crumb|
@@ -15,6 +15,11 @@ class ImagePhashJob < ApplicationJob
     end
 
     Rails.logger.tagged 'ImagePhashJob' do
+      if image.image_phash.present?
+        Rails.logger.info("Skipping pHash calculation of #{image.guid} (#{image.image_file_name}): #{image.image_phash}")
+        return
+      end
+
       extension = File.extname(image.image_file_name)
       basename = File.basename(image.image_file_name)
       tempfile = Tempfile.new([basename, extension])
