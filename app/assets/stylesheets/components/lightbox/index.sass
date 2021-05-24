@@ -94,7 +94,7 @@
           display: flex
           margin: 0
           background-color: rgba(black, 0.1)
-          height: 3rem
+          height: auto
 
           .avatar
             height: 2rem !important
@@ -102,6 +102,10 @@
             margin: 0.5rem
             flex: 0 0 2rem
             position: static
+
+          & > .card.reply-box
+            display: flex
+            flex-grow: 1
 
           .card-content.reply-box
             display: flex
@@ -113,9 +117,9 @@
               flex-grow: 1
               flex-shrink: 1
 
-              input
-                padding: 0 1rem !important
-                height: 3rem
+              input, textarea
+                height: auto
+                min-height: 3rem
                 line-height: 3rem
                 vertical-align: middle
                 box-sizing: border-box
@@ -125,7 +129,7 @@
 
               button
                 padding: 0 !important
-                height: 3rem
+                height: 100%
                 width: 3rem
                 text-align: center
                 line-height: 3rem
@@ -146,10 +150,11 @@
             display: block
             flex: 1 1 auto
             margin: 0 !important
-            height: auto !important
+            height: auto
             line-height: 2.5rem
             vertical-align: middle
-            padding: 0.25rem 1rem !important
+            padding: 0.25rem 0.5rem !important
+            background-color: transparent
             border: none !important
             outline: none !important
 

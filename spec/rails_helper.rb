@@ -15,6 +15,9 @@ Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 # Checks for pending migration and applies them before tests are run.
 ActiveRecord::Migration.maintain_test_schema!
 
+# Don't Lock Redis jobs:
+ActiveJob::Uniqueness.test_mode!
+
 RSpec.configure do |config|
   config.use_transactional_fixtures = false
   config.infer_spec_type_from_file_location!

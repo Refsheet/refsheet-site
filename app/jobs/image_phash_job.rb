@@ -1,4 +1,6 @@
 class ImagePhashJob < ApplicationJob
+  unique :until_executed, on_conflict: :log
+
   def perform(image, force=false)
     image.reload
 

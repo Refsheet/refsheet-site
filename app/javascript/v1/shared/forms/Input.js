@@ -44,6 +44,7 @@ export default Input = createReactClass({
     focusSelectAll: PropTypes.bool,
     icon: PropTypes.string,
     onSubmit: PropTypes.func,
+    autoGrow: PropTypes.bool,
 
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
 
@@ -98,10 +99,16 @@ export default Input = createReactClass({
       this.props.browserDefault &&
       this.state.value !== prevState.value
     ) {
-      this.inputRef.style.height = this.inputRef.scrollHeight + 10
+      const overflow = this.inputRef.style.overflow
+      this.inputRef.style.overflow = 'hidden'
+      this.inputRef.style.height = '5px'
+      this.inputRef.style.height = this.inputRef.scrollHeight + 'px'
+      this.inputRef.style.overflow = overflow
+      console.log(this.inputRef, this.inputRef.style.height)
     }
 
     if (this.props.type === 'textarea' && !this.props.browserDefault) {
+      // TODO: Is this Return correct?
       return Materialize.textareaAutoResize(this.inputRef)
     }
 

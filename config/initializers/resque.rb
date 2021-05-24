@@ -27,4 +27,11 @@ Rails.application.configure do
   end
 
   Resque.redis = redis_path
+
+  ActiveJob::Uniqueness.configure do |config|
+    config.on_conflict = :log
+    config.redlock_servers = [
+        ENV.fetch('REDIS_URL', redis_path)
+    ]
+  end
 end
