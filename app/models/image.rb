@@ -51,6 +51,7 @@ class Image < ApplicationRecord # < Media
   include HasGuid
   include RankedModel
   include HasDirectUpload
+  include HasImageAttached
 
   IMAGE_GRAVITIES = %w(NorthWest North NorthEast West Center East SouthWest South SouthEast).freeze
   DEFAULT_GRAVITY = IMAGE_GRAVITIES[1].freeze
@@ -68,7 +69,7 @@ class Image < ApplicationRecord # < Media
   # Requires this to eager load the news feed:
   has_many :activities, as: :activity, dependent: :destroy
 
-  delegate :aspect_ratio, :width, :height, to: :image
+  delegate :aspect_ratio, :width, :height, to: :active_image
 
   SIZE = {
       thumbnail: 320,
@@ -76,6 +77,21 @@ class Image < ApplicationRecord # < Media
       medium: 854,
       large: 1280
   }
+
+  has_image_attached :upload,
+                     default_url: '/assets/default.png',
+                     defaults: {
+                         crop: :attention,
+                     },
+                     styles: {
+                         thumbnail: { fill: [SIZE[:thumbnail], SIZE[:thumbnail]] },
+                         small: { fit: [SIZE[:small], SIZE[:small]] },
+                         small_square: { fill: [SIZE[:small], SIZE[:small]] },
+                         medium: { fit: [SIZE[:medium], SIZE[:medium]] },
+                         medium_square: { fill: [SIZE[:medium], SIZE[:medium]] },
+                         large: { fit: [SIZE[:large], SIZE[:large]] },
+                         large_square: { fill: [SIZE[:large], SIZE[:large]] },
+                     }
 
   has_attached_file :image,
                     default_url: -> (_style) { ActionController::Base.helpers.image_url('default.png') },
@@ -210,6 +226,14 @@ class Image < ApplicationRecord # < Media
       visible
     end
   }
+
+  def active_image
+    if self.upload.attached?
+      self.upload
+    else
+      self.image
+    end
+  end
 
   def processed?
     !self.image_processing?
