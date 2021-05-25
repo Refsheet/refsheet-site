@@ -90,7 +90,7 @@ feature 'Register', js: true do
   #
   #   scenario 'kiddo' do
   #     enter dob: 12.years.ago
-  #     try_register 'must be 18 years or older'
+  #     try_register 'must be 16 years or older'
   #   end
   # end
 end

@@ -43,11 +43,10 @@ class RegisterView extends Component {
     })
 
     Flash.info(
-      'Thank you for registering! Please check your email for confirmation.'
+      'Thank you for registering! Please check your email for your account activation link.'
     )
 
-    this.props.setCurrentUser(user)
-    this.props.history.push('/')
+    this.props.history.push('/login')
   }
 
   componentDidMount() {

@@ -45,7 +45,6 @@ class UsersController < ApplicationController
     captcha_data = params[:user][:captchaData]
 
     if verify_recaptcha(model: @user, response: captcha_data) && @user.save
-      sign_in @user
       render json: @user, serializer: UserIndexSerializer
     else
       Rails.logger.debug @user.errors.full_messages.inspect

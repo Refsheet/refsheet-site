@@ -55,8 +55,12 @@ class SessionController < ApplicationController
     @user = User.lookup user_params[:username]
 
     if @user&.authenticate(user_params[:password])
-      sign_in @user, remember: bool(params[:remember])
-      render json: session_hash
+      if @user&.confirmed?
+        sign_in @user, remember: bool(params[:remember])
+        render json: session_hash
+      else
+        render json: { error: 'Please check your email for account activation link.' }, status: :unauthorized
+      end
     else
       render json: { error: 'Invalid username or password.' }, status: :unauthorized
     end

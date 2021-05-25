@@ -94,7 +94,16 @@ class User < ApplicationRecord
             format: { with: /@/, message: 'must have @ sign' },
             uniqueness: { case_sensitive: false, conditions: -> { with_deleted } }
 
-  has_secure_password
+  # Those. Damn. Kids.
+  # Seriously though,
+  validates :email,
+            format: { without: /egusd\.net/, message: 'disabled by district administrator' }
+
+  # if we disable passwords in the future, but i've got a better idea.
+  # validates_length_of :password, maximum: ActiveModel::SecurePassword::MAX_PASSWORD_LENGTH_ALLOWED
+  # validates_confirmation_of :password, allow_blank: true
+
+  has_secure_password :password
   acts_as_paranoid
   has_guid
 
