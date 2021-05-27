@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe SessionController do
-  let(:user) { create :user, password: 'fishsticks' }
+  let(:user) { create :user, :confirmed, password: 'fishsticks' }
   let(:user_params) {{ user: { username: user.username, password: 'fishsticks' }}}
 
   describe 'Persistence' do
