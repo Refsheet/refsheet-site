@@ -5,10 +5,12 @@ feature 'Log In', js: true do
   let(:greeting) { "Log In" }
   let(:query) {{}}
   let(:expect_redirect) { false }
-  let!(:user) { create :user, email: 'jdoe@example.com', username: 'john_doe', password: 'fishsticks', password_confirmation: 'fishsticks' }
+  let!(:user) { create :user, :confirmed, email: 'jdoe@example.com', username: 'john_doe', password: 'fishsticks', password_confirmation: 'fishsticks' }
 
   def try_login(valid=true, expect=nil)
-    click_button 'Log In'
+    within "##{id_prefix}" do
+      click_button 'Log In'
+    end
 
     if valid
       expect(page).to have_content(expect || user.username)
@@ -78,7 +80,7 @@ feature 'Log In', js: true do
     context 'admin' do
       let(:query) {{ next: '/admin' }}
       let(:expect_redirect) { true }
-      let!(:user) { create :admin }
+      let!(:user) { create :admin, :confirmed }
 
       scenario 'successfully logs in' do
         enter user.username, 'fishsticks'
@@ -90,6 +92,15 @@ feature 'Log In', js: true do
         expect(page).to have_content 'not authorized'
         enter user.username, 'fishsticks'
         try_login(true, 'Dashboard')
+      end
+    end
+
+    context 'with unconfirmed email' do
+      let!(:user) { create :user, email: "jdoe@example.com", password: "fishsticks", password_confirmation: "fishsticks" }
+
+      scenario 'rejects login' do
+        enter 'jdoe@example.com', 'fishsticks'
+        try_login false, "activation link"
       end
     end
   end
@@ -110,7 +121,7 @@ feature 'Log In', js: true do
       end
     end
 
-    xcontext 'invalid' do
+    context 'invalid' do
       let(:query) {{ email: user.email, auth: token + 'nacho' }}
 
       scenario 'fails auth confirm' do

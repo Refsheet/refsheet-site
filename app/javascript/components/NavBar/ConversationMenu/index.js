@@ -55,9 +55,10 @@ class ConversationMenu extends Component {
   }
 
   render() {
-    const { conversations = [], loading = false, refetch } = this.props
+    const { conversations, loading = false, refetch } = this.props
 
-    const unreadCount = conversations.filter(c => c.unreadCount > 0).length
+    const unreadCount = (conversations || []).filter(c => c.unreadCount > 0)
+      .length
 
     const tryRefetch = () => {
       if (refetch) refetch()

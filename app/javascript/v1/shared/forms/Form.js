@@ -272,6 +272,7 @@ export default Form = createReactClass({
         action={this.props.action}
         method={this.props.method}
         noValidate
+        id={this.props.formName}
       >
         {this.state.errors.base && (
           <ul className={'errors red-text'}>
