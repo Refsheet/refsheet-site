@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Session' do
-  let(:user) { create :user, password: 'fishsticks' }
+  let(:user) { create :user, :confirmed, password: 'fishsticks' }
   let(:user_params) {{ user: { username: user.username, password: 'fishsticks' }}}
   let(:json) { JSON.parse(response.body) }
 
