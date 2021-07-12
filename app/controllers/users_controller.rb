@@ -28,7 +28,8 @@ class UsersController < ApplicationController
             },
             title: @user.name,
             description: @user.profile.presence || 'This user is a mystery!',
-            image_src: @user.avatar_url(:medium)
+            image_src: @user.avatar_url(:medium),
+            robots: 'noindex',
         )
 
         eager_load user: UserSerializer.new(@user, scope: view_context).as_json
