@@ -87,7 +87,7 @@ class Character < ApplicationRecord
             presence: true,
             format: { with: /[a-z0-9]/i, message: 'must have at least one letter or number' }
 
-  # validates_uniqueness_of :shortcode
+  validates_uniqueness_of :shortcode
 
   validate :validate_profile_image
   validate :validate_featured_image
