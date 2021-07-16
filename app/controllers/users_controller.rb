@@ -58,7 +58,7 @@ class UsersController < ApplicationController
     authorize @user
 
     if @user.update user_params
-      render json: @user, serializer: UserSerializer
+      render json: @user, serializer: PrivateUserSerializer
     else
       render json: { errors: @user.errors }, status: :bad_request
     end
