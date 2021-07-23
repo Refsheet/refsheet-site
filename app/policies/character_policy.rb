@@ -1,5 +1,6 @@
 class CharacterPolicy < ApplicationPolicy
   UNCONFIRMED_CHARACTER_QUOTA = 5
+  FREE_ACCOUNT_CHARACTER_QUOTE = 20
 
   def index?
     admin?
