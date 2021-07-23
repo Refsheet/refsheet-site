@@ -59,6 +59,7 @@ class Mutations::ImageMutations < Mutations::ApplicationMutation
       @image = @character.images.new image_params_for_upload
     end
     authorize @image
+    @image.save!
 
     @image
   end
