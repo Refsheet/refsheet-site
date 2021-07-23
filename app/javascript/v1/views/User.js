@@ -96,7 +96,7 @@ const User = createReactClass({
   },
 
   handleUserChange(user) {
-    this.setState({ user })
+    this.setState({ user: { ...this.state.user, user } })
 
     if (user.username === this.props.currentUser.username) {
       return this.props.setCurrentUser(user)
