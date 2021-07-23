@@ -36,7 +36,6 @@ export default Characters = createReactClass({
     let listEditable
     const {
       groups,
-      characters,
       editable,
       userLink,
       activeGroupId,
@@ -46,6 +45,12 @@ export default Characters = createReactClass({
       onCharacterDelete,
       onCharacterSort,
     } = this.props
+
+    let { characters } = this.props
+
+    if (!characters) {
+      characters = []
+    }
 
     if (activeGroupId) {
       listEditable = false

@@ -125,7 +125,7 @@ export default BrowseApp = createReactClass({
             totalResults: 0,
           })
           return Materialize.toast({
-            html: error.responseText,
+            html: error.responseText || 'Unknown error.',
             displayLength: 3000,
             classes: 'red',
           })

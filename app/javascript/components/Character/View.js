@@ -18,6 +18,7 @@ import AvatarModal from './Modals/AvatarModal'
 import CoverModal from './Modals/CoverModal'
 import themes from '../../themes'
 import MarketplaceBuyModal from './Modals/MarketplaceBuyModal'
+import Error from '../Shared/Error'
 
 class View extends Component {
   constructor(props) {
@@ -95,6 +96,11 @@ class View extends Component {
    */
   render() {
     const { character, refetch, session } = this.props
+
+    if (!character) {
+      return <Error error={'Character was not found?'} />
+    }
+
     const {
       settingsOpen,
       colorOpen,

@@ -15,7 +15,9 @@ import React from 'react'
 import Main from './Main'
 
 const findError = error => {
-  if (error.map) {
+  if (typeof error === 'undefined') {
+    return 'Unknown Error'
+  } else if (error.map) {
     return error.map(findError).join(', ')
   } else {
     return error.toString()

@@ -6,6 +6,7 @@ import AttributeTable from 'v1/shared/attributes/attribute_table'
 
 import $ from 'jquery'
 import * as Materialize from 'materialize-css'
+import Flash from '../../../utils/Flash'
 
 // TODO: This file was created by bulk-decaffeinate.
 // Fix any style issues and re-enable lint.
@@ -55,9 +56,15 @@ export default SwatchPanel = createReactClass({
         }
       },
       error(error) {
-        const d = error.responseJSON.errors
-        if (onFail != null) {
-          return onFail({ value: d.color, name: d.name, notes: d.notes })
+        if (error.responseJSON) {
+          const d = error.responseJSON.errors
+          if (onFail != null) {
+            return onFail({ value: d.color, name: d.name, notes: d.notes })
+          }
+        } else {
+          Flash.error('An unknown error occurred saving this value.')
+          console.warn(error)
+          onFail({})
         }
       },
     })
@@ -75,9 +82,15 @@ export default SwatchPanel = createReactClass({
         }
       },
       error(error) {
-        const d = error.responseJSON.errors
-        if (onFail != null) {
-          return onFail({ value: d.color, name: d.name, notes: d.notes })
+        if (error.responseJSON) {
+          const d = error.responseJSON.errors
+          if (onFail != null) {
+            return onFail({ value: d.color, name: d.name, notes: d.notes })
+          }
+        } else {
+          Flash.error('An unknown error occurred saving this value.')
+          console.warn(error)
+          onFail({})
         }
       },
     })

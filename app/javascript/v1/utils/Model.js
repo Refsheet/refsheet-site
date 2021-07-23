@@ -55,13 +55,13 @@ const Model = {
       success,
 
       error: e => {
-        const msg = e.responseJSON || e.responseText
-        console.warn(`Error sending request: ${JSON.stringify(msg)}`)
+        const msg = e.responseJSON || e.responseText || 'Unknown error.'
+        console.warn(`Error sending request: ${JSON.stringify(msg)}`, e)
 
         if (error) {
           return error(msg)
         } else {
-          if (msg.error) {
+          if (msg && msg.error) {
             return Materialize.toast({
               html: msg.error,
               displayLength: 3000,
