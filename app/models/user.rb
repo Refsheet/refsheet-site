@@ -57,7 +57,7 @@ class User < ApplicationRecord
   has_many :character_groups, dependent: :destroy
   has_many :permissions, dependent: :destroy
   has_many :roles, through: :permissions
-  has_many :visits, class_name: "Ahoy::Visit", dependent: :nullify
+  has_many :visits, class_name: "Ahoy::Visit"
   has_many :sessions, class_name: 'UserSession', dependent: :destroy
   has_many :api_keys, dependent: :destroy
 
@@ -69,7 +69,7 @@ class User < ApplicationRecord
 
   has_many :favorites, class_name: "Media::Favorite", dependent: :destroy
   has_many :favorite_media, through: :favorites, source: :media
-  has_many :comments, class_name: "Media::Comment", dependent: :nullify
+  has_many :comments, class_name: "Media::Comment"
   has_many :notifications, dependent: :delete_all
 
   has_many :followers, class_name: "User::Follower", inverse_of: :following, foreign_key: :following_id, dependent: :destroy
@@ -86,13 +86,13 @@ class User < ApplicationRecord
 
   validates :username, presence: true,
             length: { minimum: 3, maximum: 50 },
-            format: { with: /\A[a-z0-9][a-z0-9_]+[a-z0-9]\z/i, message: 'no special characters' },
+            format: { with: /\A[a-z0-9][a-z0-9_-]+[a-z0-9]\z/i, message: 'no special characters' },
             exclusion: { in: RouteRecognizer.instance.initial_path_segments, message: 'is reserved' },
-            uniqueness: { case_sensitive: false, conditions: -> { with_deleted } }
+            uniqueness: { case_sensitive: false }
 
   validates :email, presence: true,
             format: { with: /@/, message: 'must have @ sign' },
-            uniqueness: { case_sensitive: false, conditions: -> { with_deleted } }
+            uniqueness: { case_sensitive: false }
 
   has_secure_password
   acts_as_paranoid
