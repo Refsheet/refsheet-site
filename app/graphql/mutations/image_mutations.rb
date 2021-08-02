@@ -57,9 +57,13 @@ class Mutations::ImageMutations < Mutations::ApplicationMutation
   def create
     PgLock.new(name: 'image_rank_lock').lock do
       @image = @character.images.new image_params_for_upload
+      authorize @image
+      @image.save!
     end
-    authorize @image
-    @image.save!
+
+    if @image.nil?
+      raise "Timeout acquiring database lock. Perhaps we are overloaded?"
+    end
 
     @image
   end
