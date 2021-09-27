@@ -1,17 +1,17 @@
 GIT
-  remote: git://github.com/harrybournis/will_paginate-materialize.git
-  revision: 86e86a9ea3b21636e685b0fafb5b4b1681ff9dbd
-  specs:
-    will_paginate-materialize (0.1.2)
-      will_paginate (~> 3.1.3)
-
-GIT
   remote: https://github.com/Refsheet/xivapi-ruby.git
   revision: ccbdb7adc7e5ef3ea9aaba633ac7b213c4056b61
   branch: extended-character
   specs:
     xivapi (0.3.0)
       rest-client (~> 2.0)
+
+GIT
+  remote: https://github.com/harrybournis/will_paginate-materialize.git
+  revision: 86e86a9ea3b21636e685b0fafb5b4b1681ff9dbd
+  specs:
+    will_paginate-materialize (0.1.2)
+      will_paginate (~> 3.1.3)
 
 GEM
   remote: https://rubygems.org/
@@ -389,7 +389,7 @@ GEM
       rake
     mini_magick (4.10.1)
     mini_mime (1.0.2)
-    mini_portile2 (2.4.0)
+    mini_portile2 (2.6.1)
     minitest (5.14.2)
     monetize (1.9.4)
       money (~> 6.12)
@@ -407,8 +407,9 @@ GEM
       ruby2_keywords (~> 0.0.1)
     netrc (0.11.0)
     nio4r (2.5.2)
-    nokogiri (1.10.10)
-      mini_portile2 (~> 2.4.0)
+    nokogiri (1.12.5)
+      mini_portile2 (~> 2.6.1)
+      racc (~> 1.4)
     non-stupid-digest-assets (1.0.9)
       sprockets (>= 2.0)
     oauth (0.5.4)
@@ -446,6 +447,7 @@ GEM
       puma (>= 2.7, < 5)
     pundit (2.1.0)
       activesupport (>= 3.0.0)
+    racc (1.5.2)
     rack (2.2.3)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
