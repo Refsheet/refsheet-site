@@ -1,17 +1,17 @@
 GIT
-  remote: git://github.com/harrybournis/will_paginate-materialize.git
-  revision: 86e86a9ea3b21636e685b0fafb5b4b1681ff9dbd
-  specs:
-    will_paginate-materialize (0.1.2)
-      will_paginate (~> 3.1.3)
-
-GIT
   remote: https://github.com/Refsheet/xivapi-ruby.git
   revision: ccbdb7adc7e5ef3ea9aaba633ac7b213c4056b61
   branch: extended-character
   specs:
     xivapi (0.3.0)
       rest-client (~> 2.0)
+
+GIT
+  remote: https://github.com/harrybournis/will_paginate-materialize.git
+  revision: 86e86a9ea3b21636e685b0fafb5b4b1681ff9dbd
+  specs:
+    will_paginate-materialize (0.1.2)
+      will_paginate (~> 3.1.3)
 
 GEM
   remote: https://rubygems.org/
@@ -295,7 +295,7 @@ GEM
       googleauth (~> 0.9)
       grpc (~> 1.24)
       rly (~> 0.2.3)
-    google-protobuf (3.11.4)
+    google-protobuf (3.19.2)
     googleapis-common-protos (1.3.9)
       google-protobuf (~> 3.0)
       googleapis-common-protos-types (~> 1.0)
