@@ -18,6 +18,7 @@ const ImageMeta = ({
   hidden,
   image_processing,
   nsfw,
+  is_v2_image,
   t,
 }) => (
   <div className={'image-meta'}>
@@ -43,6 +44,13 @@ const ImageMeta = ({
         <li>
           <Icon className={'left'}>hourglass_empty</Icon>
           {t('images.processing', 'Image Processing...')}
+        </li>
+      )}
+
+      {is_v2_image && (
+        <li>
+          <Icon className={'left'}>alert</Icon>
+          {t('images.is_v2_image', 'V2 Upload!')}
         </li>
       )}
 

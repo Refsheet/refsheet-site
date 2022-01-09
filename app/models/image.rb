@@ -85,11 +85,11 @@ class Image < ApplicationRecord # < Media
                      },
                      styles: {
                          thumbnail: { fill: [SIZE[:thumbnail], SIZE[:thumbnail]] },
-                         small: { fit: [SIZE[:small], SIZE[:small]] },
+                         small: { fit: [SIZE[:small], SIZE[:small]], crop: nil },
                          small_square: { fill: [SIZE[:small], SIZE[:small]] },
-                         medium: { fit: [SIZE[:medium], SIZE[:medium]] },
+                         medium: { fit: [SIZE[:medium], SIZE[:medium]], crop: nil },
                          medium_square: { fill: [SIZE[:medium], SIZE[:medium]] },
-                         large: { fit: [SIZE[:large], SIZE[:large]] },
+                         large: { fit: [SIZE[:large], SIZE[:large]], crop: nil },
                          large_square: { fill: [SIZE[:large], SIZE[:large]] },
                      }
 
@@ -226,6 +226,10 @@ class Image < ApplicationRecord # < Media
       visible
     end
   }
+
+  def v2_image?
+    self.upload.attached?
+  end
 
   def active_image
     if self.upload.attached?

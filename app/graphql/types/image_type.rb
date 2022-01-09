@@ -20,6 +20,12 @@ Types::ImageType = GraphQL::ObjectType.define do
   field :image_processing_error, types.String
   field :watermark, types.Boolean
 
+  field :is_v2_image, types.Boolean do
+    resolve -> (obj, _args, _ctx) {
+      obj.upload.attached?
+    }
+  end
+
   field :url, Types::ImageUrlType, property: :active_image
   field :size, Types::ImageSizeType, property: :active_image
   field :download_link, types.String

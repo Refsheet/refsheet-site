@@ -29,7 +29,7 @@ export default Comment = createReactClass({
       return (
         <Row key={comment.id} noMargin className="padding-top--small">
           <Column s={6} m={4}>
-            <GalleryImage image={comment.media} size="small_square" />
+            <GalleryImage image={comment.media} size="small" />
           </Column>
           <Column s={12} m={8}>
             <div className="chat-bubble receive turn-up-for-what margin-right--rlarge">

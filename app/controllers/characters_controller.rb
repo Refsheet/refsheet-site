@@ -12,22 +12,22 @@ class CharactersController < ApplicationController
 
     respond_to do |format|
       format.html do
+        character_avatar = @character.avatar.url(:medium, allow_nil: true) || @character.profile_image.image.url(:medium)
         set_meta_tags(
             twitter: {
                 card: 'photo',
                 image: {
-                    _: @character.profile_image.image.url(:medium)
+                    _: character_avatar
                 }
             },
             og: {
-                image: @character.profile_image.image.url(:medium)
+                image: character_avatar
             },
             title: @character.name,
             description: @character.profile.presence || 'This character has no description!',
-            image_src: @character.profile_image.image.url(:medium)
+            image_src: character_avatar
         )
 
-        eager_load character: CharacterSerializer.new(@character, scope: view_context).as_json
         render 'application/show'
       end
 
@@ -43,7 +43,8 @@ class CharactersController < ApplicationController
                  :thumbnail
                end
 
-        redirect_to @character.profile_image.image.url(size)
+        character_avatar = @character.avatar.url(size, allow_nil: true) || @character.profile_image.image.url(size)
+        redirect_to character_avatar
       end
       format.json { render json: @character, serializer: CharacterSerializer }
     end

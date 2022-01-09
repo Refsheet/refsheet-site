@@ -4,6 +4,10 @@ Types::ImageSizeType = GraphQL::ObjectType.define do
   Image.new.image.styles.keys.each do |style|
     field style, Types::GeometryType do
       resolve -> (obj, _args, _ctx) {
+        unless obj.respond_to? :instance
+          return OpenStruct.new(obj.size(style))
+        end
+
         current_geometry = obj.instance.geometry rescue nil
         return if current_geometry.nil?
         resize_to = obj.styles[style].geometry

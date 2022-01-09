@@ -47,6 +47,8 @@ module HasImageAttached
       has_one_attached name
       alias_method "as_#{name}", "#{name}"
 
+      options.freeze
+
       define_method name do |*args|
         base = self.send("as_#{name}", *args)
         ImageAttachmentWrapper.new(name, base, options, self)
@@ -73,6 +75,29 @@ module HasImageAttached
     end
 
 
+    # TODO: The metadata handling here is a holdover from Paperclip.
+    #       We have helpers to handle how they marshal the data.
+    #       I'll probably just keep it idgaf.
+    def image_meta
+      @image_meta ||= meta_decode @instance.image_meta
+    end
+
+    def width
+      image_meta[:original][:width] || 0
+    end
+
+    def height
+      image_meta[:original][:height] || 0
+    end
+
+    def aspect_ratio
+      width.to_f / height
+    end
+
+    def size(style=:original)
+      image_meta[style]
+    end
+
     # Returns a list of styles associated with this attachment.
     def styles
       @options[:styles]&.keys
@@ -90,7 +115,7 @@ module HasImageAttached
       end
 
       style = @options[:defaults] || {}
-      style.merge! @options[:styles][key] || {}
+      style = style.merge(@options[:styles][key] || {})
 
       # Process Procs
       style.each do |skey, value|
@@ -142,6 +167,8 @@ module HasImageAttached
     def url(style, opts={})
       variant = self.style(style)
 
+      Rails.logger.debug("IMAGE URL: style=#{style}, variant=#{variant.inspect}")
+
       unless @base.attached? && @base.representable?
         if !opts[:allow_nil] && @options[:default_url]
           if @options[:default_url].respond_to? :call
@@ -173,6 +200,16 @@ module HasImageAttached
     end
 
     class InvalidStyleError < ArgumentError
+    end
+
+  private
+
+    def meta_encode(meta)
+      Base64.encode64(Marshal.dump(meta))
+    end
+
+    def meta_decode(meta)
+      Marshal.load(Base64.decode64(meta))
     end
   end
 end
