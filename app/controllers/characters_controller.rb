@@ -12,7 +12,7 @@ class CharactersController < ApplicationController
 
     respond_to do |format|
       format.html do
-        character_avatar = @character.profile_image.attached? ? @character.profile_image.image.url(:medium) : @character.avatar.url(:medium, allow_nil: true)
+        character_avatar = @character.profile_image.image.url(:medium)
         set_meta_tags(
             twitter: {
                 card: 'photo',
