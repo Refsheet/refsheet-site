@@ -2,12 +2,19 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Modal from '../../../Styled/Modal'
 import { withTranslation } from 'react-i18next'
-import {Col, Row, TextInput, Button} from "react-materialize"
-import validate, { isRequired, isSluggable, isSlug, errorProps } from 'utils/validate'
-import M from "materialize-css"
-import compose, {withCurrentUser, withMutations} from "../../../../utils/compose"
-import createFolder from "./createFolder.graphql"
-
+import { Col, Row, TextInput, Button } from 'react-materialize'
+import validate, {
+  isRequired,
+  isSluggable,
+  isSlug,
+  errorProps,
+} from 'utils/validate'
+import M from 'materialize-css'
+import compose, {
+  withCurrentUser,
+  withMutations,
+} from '../../../../utils/compose'
+import createFolder from './createFolder.graphql'
 
 class NewFolderModal extends Component {
   constructor(props) {
@@ -21,7 +28,7 @@ class NewFolderModal extends Component {
     this.state = {
       folder: this.props.folder || {},
       submitting: false,
-      errors: {}
+      errors: {},
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -53,7 +60,7 @@ class NewFolderModal extends Component {
       wrapped: true,
       variables: {
         ...this.state.folder,
-        characterId
+        characterId,
       },
     })
       .then(({ data: { createFolder } }) => {
@@ -71,9 +78,9 @@ class NewFolderModal extends Component {
   }
 
   render() {
-    const {onClose, t} = this.props
+    const { onClose, t } = this.props
     const { folder, errors, submitting } = this.state
-    console.log({folder})
+    console.log({ folder })
 
     return (
       <div>
@@ -108,11 +115,13 @@ class NewFolderModal extends Component {
             </Row>
 
             <Row className={'actions'}>
-              <Col s={6}>
-
-              </Col>
+              <Col s={6}></Col>
               <Col s={6} className={'right-align'}>
-                <Button type={'submit'} className={'btn btn-primary'} disabled={submitting}>
+                <Button
+                  type={'submit'}
+                  className={'btn btn-primary'}
+                  disabled={submitting}
+                >
                   {t('actions.save', 'Save')}
                 </Button>
               </Col>
@@ -134,5 +143,5 @@ NewFolderModal.propTypes = {
 export default compose(
   withTranslation('common'),
   withMutations({ createFolder }),
-  withCurrentUser(),
+  withCurrentUser()
 )(NewFolderModal)

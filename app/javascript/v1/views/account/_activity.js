@@ -67,7 +67,7 @@ export default Activity = createReactClass({
       () => {
         this.setState({
           since:
-            (this.state.activity && this.state.activity[0] != null)
+            this.state.activity && this.state.activity[0] != null
               ? this.state.activity[0].timestamp
               : undefined,
           lastUpdate: Math.floor(Date.now() / 1000),
@@ -97,7 +97,7 @@ export default Activity = createReactClass({
           () => {
             this.setState({
               since:
-                (this.state.activity && this.state.activity[0] != null)
+                this.state.activity && this.state.activity[0] != null
                   ? this.state.activity[0].timestamp
                   : undefined,
               lastUpdate: Math.floor(Date.now() / 1000),
@@ -142,7 +142,7 @@ export default Activity = createReactClass({
     const act = (this.state.newActivity || []).concat(this.state.activity)
     return this.setState({
       activity: act,
-      since: (act && act[0] != null) ? act[0].timestamp : undefined,
+      since: act && act[0] != null ? act[0].timestamp : undefined,
       newActivity: null,
     })
   },

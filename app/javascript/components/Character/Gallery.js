@@ -122,7 +122,12 @@ const Gallery = function ({
       buttons={galleryActions}
       onTabClick={id => console.log(id)}
     >
-      {newFolderModalOpen && <NewFolderModal characterId={characterId} onClose={closeNewFolderModal} />}
+      {newFolderModalOpen && (
+        <NewFolderModal
+          characterId={characterId}
+          onClose={closeNewFolderModal}
+        />
+      )}
       <Restrict development>{renderSubfolders(folders)}</Restrict>
 
       <Measure bounds>
