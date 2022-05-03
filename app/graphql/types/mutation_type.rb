@@ -23,6 +23,10 @@ Types::MutationType = GraphQL::ObjectType.define do
   field :addComment, field: Mutations::MediaCommentMutations::Create
   field :removeComment, field: Mutations::MediaCommentMutations::Destroy
 
+  # Media Galleries
+  field :createMediaFolder, field: Mutations::MediaFolderMutations::Create
+  field :destroyMediaFolder, field: Mutations::MediaFolderMutations::Destroy
+
   # Chat
   field :sendMessage, field: Mutations::MessageMutations::Create
   field :updateConversation, field: Mutations::ConversationMutations::Update

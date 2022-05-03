@@ -268,6 +268,7 @@ const Component = createReactClass({
           />
 
           <Gallery
+            characterId={this.state.character.id}
             folders={folders}
             images={images}
             loading={loading}

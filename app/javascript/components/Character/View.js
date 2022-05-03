@@ -214,6 +214,7 @@ class View extends Component {
 
                   {/*<Reference />*/}
                   <Gallery
+                    characterId={character.id}
                     images={character.images}
                     folders={character.media_folders}
                     editable={character.can_edit}
