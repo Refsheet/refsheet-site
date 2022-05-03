@@ -5,5 +5,3 @@
 //= link serviceworker.js
 //= link admin.css
 //= link admin.js
-//= link graphiql/rails/application.css
-//= link graphiql/rails/application.js
