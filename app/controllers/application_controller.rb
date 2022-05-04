@@ -18,6 +18,8 @@ class ApplicationController < ActionController::Base
   before_action :set_default_meta
   before_action :eager_load_session
   before_action :set_raven_context
+  before_action :set_csrf_cookie
+
   protect_from_forgery with: :exception
 
   around_action :tag_logs
@@ -255,5 +257,9 @@ class ApplicationController < ActionController::Base
     else
       Rails.logger.tagged("#{params[:controller]}##{params[:action]}", &block)
     end
+  end
+
+  def set_csrf_cookie
+    cookies["CSRF_TOKEN"] = form_authenticity_token
   end
 end
