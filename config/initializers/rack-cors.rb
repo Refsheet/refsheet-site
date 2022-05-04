@@ -62,5 +62,10 @@ if defined? Rack::Cors
       origins '*'
       resource '/health.json', headers: :any, methods: [:get]
     end
+
+    allow do
+      origins CORS_PROD
+      resource '*', headers: :any, methods: :any, credentials: true
+    end
   end
 end
