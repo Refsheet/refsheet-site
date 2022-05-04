@@ -20,6 +20,7 @@ CORS_PROD = _cors(
     'ref.st',
     'staging.refsheet.net',
     'kube.refsheet.net',
+    'static.refsheet.net',
 )
 
 CORS_EXT = _cors(
@@ -38,18 +39,28 @@ CORS_DEV = _cors(
 if defined? Rack::Cors
   Rails.configuration.middleware.insert_before 0, Rack::Cors do
     allow do
-      origins CORS_PROD | CORS_DEV
+      origins CORS_PROD | CORS_EXT | CORS_DEV
       resource '/assets/*'
     end
 
     allow do
-      origins CORS_PROD | CORS_EXT | CORS_DEV
+      origins CORS_PROD | CORS_EXT
       resource '/graphql', headers: :any, methods: [:get, :post, :options], credentials: true
     end
 
     allow do
-      origins CORS_PROD | CORS_DEV
-      resource '*'
+      origins CORS_PROD | CORS_EXT
+      resource '/session', headers: :any, methods: [:get, :post, :options], credentials: true
+    end
+
+    allow do
+      origins '*'
+      resource '/api/*', headers: :any, methods: :any
+    end
+
+    allow do
+      origins '*'
+      resource '/health.json', headers: :any, methods: [:get]
     end
   end
 end
