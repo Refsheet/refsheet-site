@@ -46,5 +46,10 @@ if defined? Rack::Cors
       origins CORS_PROD | CORS_EXT | CORS_DEV
       resource '/graphql', headers: :any, methods: [:get, :post, :options], credentials: true
     end
+
+    allow do
+      origins CORS_PROD | CORS_DEV
+      resource '*'
+    end
   end
 end
