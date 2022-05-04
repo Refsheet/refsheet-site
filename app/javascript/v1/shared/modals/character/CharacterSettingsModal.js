@@ -30,9 +30,10 @@ export default CharacterSettingsModal = createReactClass({
   },
 
   _handleSettingsClose(e) {
-    return Materialize.Modal.getInstance(
-      document.getElementById('character-settings-form')
-    ).close()
+    const el = document.getElementById('character-settings-form')
+    if (el) {
+      return Materialize.Modal.getInstance(el).close()
+    }
   },
 
   _handleChange(character) {

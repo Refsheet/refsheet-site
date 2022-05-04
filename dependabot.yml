@@ -1,0 +1,19 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    target-branch: "staging"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "docker"
+    directory: "/"
+    target-branch: "staging"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "bundler"
+    directory: "/"
+    target-branch: "staging"
+    schedule:
+      interval: "daily"

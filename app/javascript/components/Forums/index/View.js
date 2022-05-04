@@ -5,10 +5,15 @@ import { StickyContainer } from 'react-sticky'
 import { Col, Container, Row } from 'react-materialize'
 import Jumbotron from '../../Shared/Jumbotron'
 import { Link } from 'react-router-dom'
+import Error from '../../Shared/Error'
 
 class View extends Component {
   render() {
     const { forums } = this.props
+
+    if (!forums) {
+      return <Error error={'This forum did not load properly, it seems.'} />
+    }
 
     return (
       <Main title={'Forums'}>

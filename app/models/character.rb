@@ -87,7 +87,12 @@ class Character < ApplicationRecord
             presence: true,
             format: { with: /[a-z0-9]/i, message: 'must have at least one letter or number' }
 
-  # validates_uniqueness_of :shortcode
+  validates_uniqueness_of :shortcode
+  
+  validates_format_of :shortcode,
+                      with: /\A[^\s?&=.+]{3,}\z/i,
+                      message: 'can not contain spaces or special characters, and must be at least 3 letters',
+                      allow_blank: true
 
   validate :validate_profile_image
   validate :validate_featured_image

@@ -75,7 +75,8 @@ class ImageSerializer < ActiveModel::Serializer
              :comments_count,
              :aspect_ratio,
              :watermark,
-             :image_phash
+             :image_phash,
+             :is_v2_image
 
   has_one :character, serializer: ImageCharacterSerializer
   has_many :favorites, serializer: Media::FavoriteSerializer

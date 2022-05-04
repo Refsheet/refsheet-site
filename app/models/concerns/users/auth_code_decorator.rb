@@ -21,6 +21,8 @@ module Users::AuthCodeDecorator
       auth_code = SecureRandom.base58
       update_columns email_confirmation_token: auth_code,
                      email_confirmation_created_at: Time.zone.now
+    else
+      auth_code = self.email_confirmation_token
     end
 
     UserMailer.welcome(self.id, auth_code).deliver_later!
@@ -43,6 +45,8 @@ module Users::AuthCodeDecorator
       auth_code = SecureRandom.base58
       update_columns email_change_token: auth_code,
                      email_change_created_at: Time.zone.now
+    else
+      auth_code = self.email_change_token
     end
 
     UserMailer.email_changed(self.id, auth_code).deliver_later!

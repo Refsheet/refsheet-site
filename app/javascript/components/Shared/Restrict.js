@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import { connect, useSelector } from 'react-redux'
 
 const restrict = ({
+  tag = '',
   admin,
   patron,
   user,
@@ -19,6 +20,22 @@ const restrict = ({
   const { currentUser: stateUser } = useSelector(state => state.session)
   const { is_admin, is_patron, is_supporter, email_confirmed_at } =
     currentUser || stateUser || {}
+
+  console.log({
+    tag,
+    userFlags: { is_admin, is_patron, is_supporter, email_confirmed_at },
+    restrictFlags: {
+      admin,
+      patron,
+      user,
+      confirmed,
+      hideAll,
+      development,
+      invert,
+      nsfw,
+      nsfwOk,
+    },
+  })
 
   let hide = false
   if (hideAll) return false

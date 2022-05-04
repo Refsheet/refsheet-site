@@ -17,8 +17,9 @@ fragment GalleryImageFields on Image {
     url {
         thumbnail
         small
-        small_square
+        small
         medium
+        large
     }
     size {
         small {

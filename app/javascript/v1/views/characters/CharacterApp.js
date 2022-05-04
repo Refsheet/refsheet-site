@@ -159,7 +159,12 @@ const Component = createReactClass({
         },
         error: error => {
           const { errors } = error.responseJSON
-          Flash.error(errors.featured_image.join(', '))
+          if (errors.featured_image && errors.featured_image.length) {
+            Flash.error(errors.featured_image.join(', '))
+          } else {
+            console.error(error)
+            Flash.error('Unknown issue!' + JSON.stringify(errors))
+          }
           reject(errors)
         },
       })
@@ -178,9 +183,18 @@ const Component = createReactClass({
           resolve(data)
         },
         error: error => {
-          const { errors } = error.responseJSON
-          Flash.error(errors.profile_image.join(', '))
-          reject(errors)
+          if (error.responseJSON) {
+            const { errors } = error.responseJSON
+            if (errors.profile_image && errors.profile_image.length) {
+              Flash.error(errors.profile_image.join(', '))
+            } else {
+              console.error(error)
+              Flash.error('Unknown issue: ' + JSON.stringify(errors))
+            }
+            reject(errors)
+          } else {
+            reject({ error })
+          }
         },
       })
     })
@@ -254,6 +268,7 @@ const Component = createReactClass({
           />
 
           <Gallery
+            characterId={this.state.character.id}
             folders={folders}
             images={images}
             loading={loading}

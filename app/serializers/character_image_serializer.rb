@@ -8,7 +8,8 @@ class CharacterImageSerializer < ActiveModel::Serializer
              :large,
              :large_square,
              :gravity,
-             :nsfw
+             :nsfw,
+             :is_v2_image
 
   def id
     object.guid

@@ -38,6 +38,7 @@ class ImagesController < ApplicationController
 
   def full
     head :unauthorized and return unless @image.managed_by? current_user
+    authorize @image
     redirect_to @image.image.expiring_url(30, :original)
   end
 
@@ -45,6 +46,7 @@ class ImagesController < ApplicationController
     head :unauthorized and return unless @character.managed_by? current_user
 
     @image = Image.new image_params.merge(character: @character)
+    authorize @image
     saved = nil
 
     PgLock.new(name: 'image_rank_lock').lock do
@@ -60,6 +62,7 @@ class ImagesController < ApplicationController
 
   def update
     head :unauthorized and return unless @image.managed_by? current_user
+    authorize @image
 
     if params[:image][:swap_target_image_id]
       target = Image.find_by!(guid: params[:image][:swap_target_image_id])
@@ -84,6 +87,7 @@ class ImagesController < ApplicationController
 
   def destroy
     head :unauthorized and return unless @image.managed_by? current_user
+    authorize @image
 
     @image.destroy
     render json: @image, serializer: ImageSerializer

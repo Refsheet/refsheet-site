@@ -191,13 +191,13 @@ export default Form = createReactClass({
           data.responseJSON != null ? data.responseJSON.error : undefined
         ) {
           return Materialize.toast({
-            html: data.responseJSON.error,
+            html: data.responseJSON.error || 'Unknown Error',
             displayLength: 3000,
             classes: 'red',
           })
         } else {
           return Materialize.toast({
-            html: data.responseText,
+            html: data.responseText || 'Unknown Error',
             displayLength: 3000,
             classes: 'red',
           })

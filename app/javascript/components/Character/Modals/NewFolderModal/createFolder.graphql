@@ -1,0 +1,6 @@
+mutation createMediaFolder($characterId: ID!, $name: String!, $slug: String) {
+    createMediaFolder(characterId: $characterId, name: $name, slug: $slug) {
+        name
+        slug
+    }
+}

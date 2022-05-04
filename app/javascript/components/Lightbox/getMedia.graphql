@@ -8,6 +8,7 @@ query getMedia($mediaId: ID!) {
       caption_html
       source_url
       source_url_display
+        is_v2_image
 
         nsfw
         hidden

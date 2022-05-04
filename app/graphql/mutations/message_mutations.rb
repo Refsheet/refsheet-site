@@ -14,10 +14,14 @@ class Mutations::MessageMutations < Mutations::ApplicationMutation
       sender = context.current_user.call
       recipient = User.find_by!(guid: params[:recipientId])
 
-      @conversation = Conversation.with(sender, recipient).tap(&:save!)
+      @conversation = Conversation.with(sender, recipient)
+      authorize @conversation, :create?
+      @conversation.tap(&:save!)
     end
 
-    @message = @conversation.messages.create! message_params
+    @message = @conversation.messages.new message_params
+    authorize @message, :create?
+    @message.tap(&:save!)
   end
 
   private

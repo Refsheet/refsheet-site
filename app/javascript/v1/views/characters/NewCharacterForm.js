@@ -92,7 +92,7 @@ const NewCharacterForm = createReactClass({
           </Column>
         </Row>
 
-        <Restrict patron>
+        <Restrict tag="CREATE V2 PROFILE" patron>
           <Row>
             <Column m={6}>
               <div className="beta-feature">

@@ -37,6 +37,7 @@ const Gallery = function ({
   folders,
   openUploadModal,
   sortGalleryImage,
+  characterId,
   editable,
 }) {
   let imageData = images
@@ -121,7 +122,12 @@ const Gallery = function ({
       buttons={galleryActions}
       onTabClick={id => console.log(id)}
     >
-      {newFolderModalOpen && <NewFolderModal onClose={closeNewFolderModal} />}
+      {newFolderModalOpen && (
+        <NewFolderModal
+          characterId={characterId}
+          onClose={closeNewFolderModal}
+        />
+      )}
       <Restrict development>{renderSubfolders(folders)}</Restrict>
 
       <Measure bounds>
@@ -205,6 +211,7 @@ Gallery.propTypes = {
   v1Data: PropTypes.bool,
   noHeader: PropTypes.bool,
   loading: PropTypes.bool,
+  characterId: PropTypes.string.isRequired,
   folders: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,

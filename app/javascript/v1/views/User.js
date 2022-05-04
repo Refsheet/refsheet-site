@@ -88,14 +88,15 @@ const User = createReactClass({
   },
 
   goToCharacter(character) {
-    Materialize.Modal.getInstance(
-      document.getElementById('character-form')
-    ).close()
+    const el = document.getElementById('character-form')
+    if (el) {
+      Materialize.Modal.getInstance(el).close()
+    }
     return this.props.history.push(character.link)
   },
 
   handleUserChange(user) {
-    this.setState({ user })
+    this.setState({ user: { ...this.state.user, user } })
 
     if (user.username === this.props.currentUser.username) {
       return this.props.setCurrentUser(user)
