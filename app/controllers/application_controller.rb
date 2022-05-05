@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
 
   #== Global Hooks
 
+  before_action :set_default_format
   before_action :set_user_locale
   before_action :set_default_meta
   before_action :eager_load_session
@@ -261,5 +262,9 @@ class ApplicationController < ActionController::Base
 
   def set_csrf_cookie
     cookies["CSRF_TOKEN"] = form_authenticity_token
+  end
+
+  def set_default_format
+    request.format = :json unless params[:format]
   end
 end
