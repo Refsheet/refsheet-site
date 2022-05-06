@@ -4,8 +4,6 @@ steps:
     volumes:
       - name: 'cache'
         path: '/cache'
-      - name: 'artifacts'
-        path: '/artifacts'
     entrypoint: bash
     args:
       - -c
@@ -22,8 +20,6 @@ steps:
     volumes:
       - name: 'cache'
         path: '/cache'
-      - name: 'artifacts'
-        path: '/artifacts'
     waitFor:
       - Pull Cache
 
@@ -43,30 +39,10 @@ steps:
     volumes:
       - name: 'cache'
         path: '/cache'
-      - name: 'artifacts'
-        path: '/artifacts'
     waitFor:
       - Pull Cache
 
   #== Asset Pipeline
-
-  - name: 'gcr.io/cloud-builders/gsutil'
-    id: Upload Artifacts
-    volumes:
-      - name: 'artifacts'
-        path: '/artifacts'
-    args:
-      - -m
-      - -h
-      - 'Cache-Control:"Cache-Control: public, max-age=31559652"'
-      - cp
-      - -a
-      - public-read
-      - -rZ
-      - /artifacts/*
-      - gs://assets.refsheet.net/
-    waitFor:
-      - Build Container
 
   - name: 'gcr.io/cloud-builders/gsutil'
     id: Push Cache
@@ -100,7 +76,7 @@ steps:
       - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
       - 'CLOUDSDK_CONTAINER_CLUSTER=refsheet-prod-clone-1'
     waitFor:
-      - Upload Artifacts
+      - Build Container
 
   - name: 'gcr.io/cloud-builders/kubectl'
     id: Deploy Nginx

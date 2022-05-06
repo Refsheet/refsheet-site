@@ -1,8 +1,6 @@
 class AdminController < ApplicationController
   before_action :validate_admin
 
-  respond_to :html, :js, :json
-
   private
 
   def validate_admin

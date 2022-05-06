@@ -14,20 +14,9 @@ class StaticController < ApplicationController
     if lookup_context.exists?(path, ['static'])
       html = render_to_string partial, layout: false
       data = { id: path, content: html, title: @meta_tags[:title] }
-
-      respond_to do |format|
-        format.html do
-          eager_load page: data
-          render 'application/show', layout: 'application'
-        end
-
-        format.json { render json: data }
-      end
+      render json: data
     else
-      respond_to do |format|
-        format.html { render 'application/show', layout: 'application' }
-        format.json { render json: { error: 'Page not found' }, status: :not_found }
-      end
+      render json: { error: 'Page not found' }, status: :not_found
     end
   end
 end

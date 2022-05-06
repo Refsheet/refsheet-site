@@ -1,7 +1,0 @@
-#import "graphql/fragments/WidgetFields.graphql"
-
-mutation updateProfileWidget($id: ID!, $title: String, $data: String, $row_order_position: String, $column: Int) {
-    updateProfileWidget(id: $id, title: $title, data: $data, row_order_position: $row_order_position, column: $column) {
-        ... WidgetFields
-    }
-}

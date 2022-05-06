@@ -13,15 +13,7 @@ class Account::NotificationsController < AccountController
       @notifications = @notifications.where('notifications.type' => 'Notifications::' + filter)
     end
 
-    respond_to do |format|
-      format.html do
-        render 'application/show'
-      end
-
-      format.json do
-        render api_collection_response @notifications, each_serializer: NotificationSerializer, root: 'notifications'
-      end
-    end
+    render api_collection_response @notifications, each_serializer: NotificationSerializer, root: 'notifications'
   end
 
   def show

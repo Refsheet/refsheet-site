@@ -3,37 +3,13 @@ class ImagesController < ApplicationController
   before_action :get_character, except: [:show, :full, :update, :destroy, :refresh]
   before_action :get_image, only: [:show, :full, :update, :destroy, :refresh]
 
-  respond_to :json
-
   def index
     render json: image_scope.includes(:favorites, :character, :comments),
            each_serializer: ImageSerializer
   end
 
   def show
-    set_meta_tags(
-        twitter: {
-            card: 'photo',
-            image: {
-                _: @image.image.url(:medium)
-            }
-        },
-        og: {
-            image: @image.image.url(:medium)
-        },
-        title: @image.title,
-        description: @image.caption || 'This image has no caption!',
-        image_src: @image.image.url(:medium)
-    )
-
-    respond_to do |format|
-      format.html do
-        eager_load image: ImageSerializer.new(@image, scope: self).as_json
-        render 'application/show'
-      end
-
-      format.json { render json: @image, serializer: ImageSerializer, include: 'character,comments,comments.user,favorites' }
-    end
+    render json: @image, serializer: ImageSerializer, include: 'character,comments,comments.user,favorites'
   end
 
   def full
@@ -97,11 +73,7 @@ class ImagesController < ApplicationController
     head :unauthorized and return unless @image.managed_by? current_user
 
     @image.image.reprocess_without_delay!
-
-    respond_to do |format|
-      format.html { redirect_to @image.image.url(params[:size] || :large) }
-      format.json { render json: @image, serializer: ImageSerializer }
-    end
+    render json: @image, serializer: ImageSerializer
   end
 
   private

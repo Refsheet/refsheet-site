@@ -12,7 +12,6 @@ module SessionHelper
         domain: :all
     }
 
-    ahoy.authenticate user
     remember(user) if remember
     @current_user = user
   end
@@ -39,7 +38,7 @@ module SessionHelper
       end
     end
 
-    if (user_id = session[UserSession::COOKIE_USER_ID_NAME] ||
+    if (user_id = (defined? session and session[UserSession::COOKIE_USER_ID_NAME]) ||
         (defined? cookies and cookies.signed[UserSession::COOKIE_USER_ID_NAME]))
       @current_user ||= User.unscoped.find_by id: user_id
 
@@ -157,6 +156,12 @@ module SessionHelper
         time_zone: session[:time_zone],
         current_user: signed_in? ? PrivateUserSerializer.new(current_user).as_json : nil
     }
+  end
+
+  def session_data
+    OpenStruct.new({
+                     current_user: current_user
+                   })
   end
 
   def eager_load(object_or_key, resource=nil, serializer=nil)

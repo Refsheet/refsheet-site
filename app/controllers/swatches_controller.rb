@@ -3,8 +3,6 @@ class SwatchesController < ApplicationController
   before_action :get_character, except: [:update, :destroy]
   before_action :get_swatch, only: [:update, :destroy]
 
-  respond_to :json
-
   def index
     render json: @character.swatches.rank(:row_order), each_serializer: SwatchSerializer
   end

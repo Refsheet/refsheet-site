@@ -1,16 +1,13 @@
 Rails.application.configure do
   # Test gcloud logging
   config.google_cloud.project_id = ENV.fetch('GKE_PROJECT') { "refsheet-239409" }
-  config.google_cloud.keyfile = ENV.fetch('GKE_CREDENTIALS') { Rails.root.join("refsheet-prod.json") }
+  config.google_cloud.keyfile = ENV.fetch('GKE_CREDENTIALS') { Rails.root.join("refsheet-prod.json").to_s }
   config.google_cloud.use_logging = false
   # config.google_cloud.logging.log_name = "refsheet-prod"
   # config.google_cloud.logging.resource = "global"
 
   # Gcloud Trace
   config.google_cloud.use_trace = true
-
-  # Verifies that versions and hashed value of the package contents in the project's package.json
-  config.webpacker.check_yarn_integrity = false
 
   # Settings specified here will take precedence over those in config/application.rb.
   config.colorize_logging = false
@@ -36,21 +33,6 @@ Rails.application.configure do
   # Apache or NGINX already handles this.
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
-  # Compress JavaScripts and CSS.
-  config.assets.js_compressor = :uglifier
-  # config.assets.css_compressor = :sass
-
-  # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = false
-
-  # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
-
-  # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-
-  if ENV['ASSET_DOMAIN']
-    config.action_controller.asset_host = "https://#{ENV['ASSET_DOMAIN']}"
-  end
-
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
@@ -69,6 +51,7 @@ Rails.application.configure do
     https://green.refsheet.net
     https://blue.refsheet.net
     https://kube.refsheet.net
+    https://static.refsheet.net
     https://refsheet.net
     https://websocket.org
   )

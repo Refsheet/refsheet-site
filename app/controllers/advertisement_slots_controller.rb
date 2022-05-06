@@ -11,8 +11,8 @@ class AdvertisementSlotsController < ApplicationController
   def shortcode
     @ad = Advertisement::Campaign.find_by! guid: params[:id]
 
-    ahoy.track 'advertisement.click',
-               advertisement_id: @ad.guid
+    # ahoy.track 'advertisement.click',
+    #            advertisement_id: @ad.guid
 
     redirect_to @ad.generate_link
   end

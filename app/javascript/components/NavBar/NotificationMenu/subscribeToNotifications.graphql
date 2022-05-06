@@ -1,7 +1,0 @@
-#import 'graphql/fragments/NotificationsFields.graphql'
-
-subscription subscribeToNotifications {
-    newNotification {
-        ...NotificationsFields
-    }
-}

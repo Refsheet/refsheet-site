@@ -1,7 +1,0 @@
-fragment CharacterAttributes on Character {
-    custom_attributes {
-        id
-        name
-        value
-    }
-}

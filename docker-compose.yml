@@ -35,22 +35,6 @@ services:
       PORT: 3200
       FORMATION: web=1
 
-  webpacker:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
-    ports:
-      - '3035:3035'
-    volumes:
-      - '.:/app'
-      - 'bundle:/usr/local/bundle'
-      - './node_modules:/app/node_modules'
-    env_file:
-      - '.env'
-      - '.env.local'
-    environment:
-      FORMATION: webpacker=1
-
   nginx:
     depends_on:
       - 'website'

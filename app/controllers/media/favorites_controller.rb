@@ -2,8 +2,6 @@ class Media::FavoritesController < ApplicationController
   before_action :get_media
   before_action :get_favorite, only: [:destroy]
 
-  respond_to :json
-
   def index
     @favorites = @media.favorites
     respond_with @favorites, location: nil, each_serializer: Media::FavoriteSerializer

@@ -1,8 +1,6 @@
 class CharacterGroupsController < ApplicationController
   before_action :get_character_group, only: [:update, :destroy]
 
-  respond_to :json
-
   def create
     @character_group = CharacterGroup.create group_params
     respond_with @character_group, location: nil, json: @character_group, serializer: CharacterGroupSerializer

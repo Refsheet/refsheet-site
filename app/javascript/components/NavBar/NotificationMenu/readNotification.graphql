@@ -1,7 +1,0 @@
-#import 'fragments/NotificationsFields.graphql'
-
-mutation readNotification($id: ID!) {
-    readNotification(id: $id) {
-        ...NotificationsFields
-    }
-}

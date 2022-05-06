@@ -7,9 +7,6 @@ class ApiController < ApplicationController
   # Skip authenticity tokens since we use API tokens
   skip_before_action :verify_authenticity_token
 
-  # We don't need visitor metrics on the API
-  skip_before_action :track_ahoy_visit
-
   before_action :force_json
   before_action :authenticate_from_token
   after_action :skip_cookies

@@ -1,7 +1,0 @@
-#import 'graphql/fragments/WidgetFields.graphql'
-
-mutation createWidget($characterId: ID!, $sectionId: ID!, $columnId: ID!, $type: String!) {
-    createProfileWidget(characterId: $characterId, sectionId: $sectionId, columnId: $columnId, type: $type) {
-        ... WidgetFields
-    }
-}

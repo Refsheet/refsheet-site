@@ -1,8 +1,0 @@
-fragment CharacterSwatches on Character {
-    swatches {
-        id
-        name
-        color
-        notes
-    }
-}

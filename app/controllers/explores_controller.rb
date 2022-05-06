@@ -2,19 +2,7 @@ class ExploresController < ApplicationController
   def show
     @media = filter_scope get_scope
 
-    respond_to do |format|
-      format.json { render api_collection_response @media, each_serializer: ImageSerializer, include: 'character', root: 'media' }
-      format.html do
-        set_meta_tags(
-            title: 'Explore Images',
-            description: 'Explore recent artwork uploads across all of Refsheet.net!'
-        )
-
-        eager_load media: @media
-
-        render 'application/show'
-      end
-    end
+    render api_collection_response @media, each_serializer: ImageSerializer, include: 'character', root: 'media'
   end
 
   def popular
@@ -24,19 +12,7 @@ class ExploresController < ApplicationController
                               .where('media_favorites.created_at' => 1.week.ago..Time.zone.now),
                           'COUNT(media_favorites.id)'
 
-    respond_to do |format|
-      format.json { render api_collection_response @media, each_serializer: ImageSerializer, include: 'character', root: 'media' }
-      format.html do
-        set_meta_tags(
-            title: 'Popular Media',
-            description: 'See what\'s getting a lot of love this week on Refsheet.net!'
-        )
-
-        eager_load media: @media
-
-        render 'application/show'
-      end
-    end
+    render api_collection_response @media, each_serializer: ImageSerializer, include: 'character', root: 'media'
   end
 
   def favorites
@@ -45,19 +21,7 @@ class ExploresController < ApplicationController
     @media = filter_scope get_scope(current_user.favorite_media),
                           'media_favorites.created_at'
 
-    respond_to do |format|
-      format.json { render api_collection_response @media, each_serializer: ImageSerializer, include: 'character', root: 'media' }
-      format.html do
-        set_meta_tags(
-            title: 'Your Favorites',
-            description: 'Everything you\'ve ever loved in one place (finally)!'
-        )
-
-        eager_load media: @media
-
-        render 'application/show'
-      end
-    end
+    render api_collection_response @media, each_serializer: ImageSerializer, include: 'character', root: 'media'
   end
 
   private

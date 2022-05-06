@@ -1,6 +1,0 @@
-mutation sendKarma($postId: ID!, $take: Boolean!) {
-    sendKarma(discussionId: $postId, take: $take) {
-        id,
-        karma_total
-    }
-}

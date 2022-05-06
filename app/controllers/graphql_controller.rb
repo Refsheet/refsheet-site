@@ -5,7 +5,6 @@ class GraphqlController < ApplicationController
   skip_before_action :eager_load_session
   skip_before_action :set_default_meta
   skip_before_action :set_user_locale
-  skip_before_action :track_ahoy_visit
 
   if Rails.env.development?
     rescue_from Exception do |e|

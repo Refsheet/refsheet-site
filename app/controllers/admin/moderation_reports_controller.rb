@@ -39,15 +39,10 @@ class Admin::ModerationReportsController < AdminController
       @report.errors.add :state, "transition invalid"
     end
 
-    respond_to do |format|
-      format.js
-      format.html {
-        if (next_id = ModerationReport.next&.id)
-          redirect_to admin_moderation_report_path(next_id)
-        else
-          redirect_to admin_moderation_reports_path
-        end
-      }
+    if (next_id = ModerationReport.next&.id)
+      redirect_to admin_moderation_report_path(next_id)
+    else
+      redirect_to admin_moderation_reports_path
     end
   end
 

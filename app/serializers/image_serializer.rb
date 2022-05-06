@@ -47,7 +47,6 @@
 
 class ImageSerializer < ActiveModel::Serializer
   include RichTextHelper
-  include SessionHelper
   include Rails.application.routes.url_helpers
 
   attributes :id,
@@ -139,11 +138,7 @@ class ImageSerializer < ActiveModel::Serializer
   end
 
   def is_favorite
-    object.favorites.any? { |f| f.user == current_user } if signed_in?
-  end
-
-  def session
-    scope.session
+    object.favorites.any? { |f| f.user_id == scope.id }
   end
 
   def image_phash

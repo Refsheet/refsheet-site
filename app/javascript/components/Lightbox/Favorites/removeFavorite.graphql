@@ -1,5 +1,0 @@
-mutation removeFavorite($mediaId: ID!) {
-    removeFavorite(mediaId: $mediaId) {
-        id
-    }
-}

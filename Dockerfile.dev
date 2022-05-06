@@ -6,10 +6,8 @@ WORKDIR /app
 # Environment
 ENV RACK_ENV development
 ENV RAILS_ENV development
-ENV NODE_ENV development
 ENV PORT 5000
 
-ENV NODE_VERSION 10.17.0
 ENV VIPS_VERSION 8.9.0
 ENV BUNDLE_VERSION 2.0.1
 
@@ -31,21 +29,6 @@ RUN apt-get -o Acquire::Check-Valid-Until=false update && \
     gem install foreman
 
 
-# Install Node
-
-ENV NVM_DIR /usr/local/nvm
-WORKDIR $NVM_DIR
-
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash && \
-    . $NVM_DIR/nvm.sh && \
-    nvm install $NODE_VERSION && \
-    nvm alias default $NODE_VERSION && \
-    nvm use default
-
-ENV NODE_PATH $NVM_DIR/versions/node/v$NODE_VERSION/lib/node_modules
-ENV PATH      $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
-
-
 # Install Vips
 
 WORKDIR /libvips
@@ -61,19 +44,8 @@ RUN curl -L "https://github.com/libvips/libvips/releases/download/v$VIPS_VERSION
     rm -rf vips-*
 
 
-# Install Yarn
-
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-    apt-get -o Acquire::Check-Valid-Until=false update && apt-get install -y yarn
-
-
-# Install Google Chrome
-
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
-    sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' && \
-    apt-get -o Acquire::Check-Valid-Until=false update && \
-    apt-get install -y google-chrome-stable
+# Copy System Config
+COPY ./config/imagemagick/policy.xml /etc/ImageMagick-6/policy.xml
 
 
 # Bundle
@@ -84,12 +56,6 @@ COPY Gemfile      /app/Gemfile
 COPY Gemfile.lock /app/Gemfile.lock
 
 RUN bundle install
-
-COPY package.json /app/package.json
-COPY yarn.lock    /app/yarn.lock
-COPY .yalc        /app/.yalc
-
-RUN yarn install
 
 # Move App and Precompile
 

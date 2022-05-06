@@ -1,7 +1,0 @@
-#import "./ForumPostFields.graphql"
-
-mutation editReply($postId: ID!, $content: String!) {
-    editReply(postId: $postId, content: $content) {
-        ...ForumPostFields
-    }
-}

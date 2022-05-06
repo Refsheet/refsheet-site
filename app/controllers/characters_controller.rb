@@ -9,45 +9,7 @@ class CharactersController < ApplicationController
 
   def show
     authorize @character
-
-    respond_to do |format|
-      format.html do
-        character_avatar = @character.avatar.attached? ? @character.avatar.url(:medium, allow_nil: true) : @character.profile_image.image.url(:medium)
-        set_meta_tags(
-            twitter: {
-                card: 'photo',
-                image: {
-                    _: character_avatar
-                }
-            },
-            og: {
-                image: character_avatar
-            },
-            title: @character.name,
-            description: @character.profile.presence || 'This character has no description!',
-            image_src: character_avatar
-        )
-
-        render 'application/show'
-      end
-
-      format.png do
-        size = case params[:size]&.to_s&.downcase
-               when "small"
-                 :small
-               when "medium"
-                 :medium
-               when "large"
-                 :large
-               else
-                 :thumbnail
-               end
-
-        character_avatar = @character.avatar.url(size, allow_nil: true) || @character.profile_image.image.url(size)
-        redirect_to character_avatar
-      end
-      format.json { render json: @character, serializer: CharacterSerializer }
-    end
+    render json: @character, serializer: CharacterSerializer
   end
 
   def create

@@ -45,7 +45,7 @@ class ForumSerializer < ActiveModel::Serializer
   # has_many :threads, serializer: Forum::ThreadsSerializer
 
   def threads
-    object.discussions.with_unread_count(scope.current_user).with_last_post_at.collect do |discussion|
+    object.discussions.with_unread_count(scope).with_last_post_at.collect do |discussion|
       Forum::ThreadsSerializer.new discussion, scope: scope
     end
   end

@@ -24,6 +24,6 @@ class Activity::ImageSerializer < ActiveModel::Serializer
   end
 
   def is_favorite
-    object.favorites.any? { |f| f.user == scope.current_user } if scope.signed_in?
+    object.favorites.any? { |f| f.user_id == scope.id } unless scope.nil?
   end
 end

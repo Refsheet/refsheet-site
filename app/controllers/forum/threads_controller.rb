@@ -13,23 +13,7 @@ class Forum::ThreadsController < ApplicationController
                   .with_unread_count(current_user)
                   .lookup! params[:id]
 
-    respond_to do |format|
-      format.json do
-        render json: @thread, serializer: Forum::ThreadSerializer
-      end
-
-      format.html do
-        set_meta_tags(
-            title: @thread.topic,
-            description: @thread.content.to_text.truncate(120)
-        )
-
-        eager_load :forum, @forum, ForumSerializer
-        eager_load :thread, @thread, Forum::ThreadSerializer
-
-        render 'application/show'
-      end
-    end
+    render json: @thread, serializer: Forum::ThreadSerializer
   end
 
   def create

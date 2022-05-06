@@ -1,4 +1,7 @@
-class ApplicationController < ActionController::Base
+class ApplicationController < ActionController::API
+  include ActionController::Cookies
+  include ActionController::RequestForgeryProtection
+
   include ApplicationHelper
   include SessionHelper
   include CollectionHelper
@@ -10,13 +13,10 @@ class ApplicationController < ActionController::Base
 
   serialization_scope :view_context
 
-  respond_to :json, :html
-
   #== Global Hooks
 
   before_action :set_default_format
   before_action :set_user_locale
-  before_action :set_default_meta
   before_action :eager_load_session
   before_action :set_raven_context
   before_action :set_csrf_cookie
@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
 
   #== Serialization Help
 
-  serialization_scope :view_context
+  serialization_scope :current_user
 
 
   #== Error Handling
@@ -113,41 +113,16 @@ class ApplicationController < ActionController::Base
   end
 
   def not_found(e)
-    respond_to do |format|
-      format.html do
-        eager_load error: e.message
-        render 'application/show', flash: { error: e.message }, status: :not_found
-      end
-
-      format.json { render json: { error: e.message }, status: :not_found }
-      format.any  { head :not_found }
-    end
+    render json: { error: e.message }, status: :not_found
   end
 
   def bad_request(e)
-    respond_to do |format|
-      format.html do
-        eager_load error: e.message
-        render 'application/show', flash: { error: e.message }, status: :bad_request
-      end
-
-      format.json { render json: { error: e.message }, status: :bad_request }
-      format.any  { head :bad_request }
-    end
+    render json: { error: e.message }, status: :bad_request
   end
 
   def unauthorized(e=nil)
     message = e&.message || "You are not authorized to do that."
-
-    respond_to do |format|
-      format.html do
-        eager_load error: message
-        render 'application/show', flash: { error: message }, status: :unauthorized
-      end
-
-      format.json { render json: { error: message }, status: :unauthorized }
-      format.any  { head :unauthorized }
-    end
+    render json: { error: message }, status: :unauthorized
   end
 
   private
@@ -176,38 +151,6 @@ class ApplicationController < ActionController::Base
     Rails.logger.tagged "eager_load_session" do
       eager_load session: session_hash
     end
-  end
-
-  def set_default_meta
-    site = 'Refsheet.net'
-    desc = 'Easily create and share reference sheets and art galleries for all your characters; perfect for artists, world builders, and role players.'
-
-    if params[:page] == :home
-      site += ': Your Characters, Organized.'
-    end
-
-    default_image = ActionController::Base.helpers.image_path("sandbox/RefsheetAdBanner3.png")
-
-    set_meta_tags(
-        site: site,
-        description: desc,
-        reverse: true,
-        separator: '-',
-        image_src: default_image,
-        og: {
-            title: :title,
-            description: :description,
-            site_name: site,
-            image: default_image
-        },
-        twitter: {
-            title: :title,
-            description: :description,
-            image: {
-                _: default_image
-            }
-        }
-    )
   end
 
   def set_raven_context

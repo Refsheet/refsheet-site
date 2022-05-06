@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   before_action :get_user, only: [:show, :update]
-  respond_to :json
 
   def index
     not_allowed!
@@ -14,29 +13,7 @@ class UsersController < ApplicationController
     @user = User.includes(:characters => [:profile_image, :featured_image, :color_scheme, :character_groups], :character_groups => [:user]).find(@user.id)
     authorize @user
 
-    respond_to do |format|
-      format.html do
-        set_meta_tags(
-            twitter: {
-                card: 'photo',
-                image: {
-                    _: @user.avatar_url(:medium)
-                }
-            },
-            og: {
-                image: @user.avatar_url(:medium)
-            },
-            title: @user.name,
-            description: @user.profile.presence || 'This user is a mystery!',
-            image_src: @user.avatar_url(:medium),
-            robots: 'noindex',
-        )
-
-        eager_load user: UserSerializer.new(@user, scope: view_context).as_json
-        render 'application/show'
-      end
-      format.json { render json: @user, serializer: UserSerializer, include: %w(characters.color_scheme character_groups) }
-    end
+    render json: @user, serializer: UserSerializer, include: %w(characters.color_scheme character_groups)
   end
 
   def create

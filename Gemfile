@@ -14,16 +14,12 @@ gem 'pg_lock'
 gem 'puma', '~> 3.12'
 gem 'redis', '~> 3.3.5'
 gem 'bcrypt', '~> 3.1.7'
-gem 'execjs'
 gem 'money-rails'
 gem 'responders', '~> 3.0'
-gem 'ahoy_matey'
 gem 'aws-sdk-s3'
 gem 'aws-sdk-sqs'
 gem 'resque'
-gem 'non-stupid-digest-assets'
 gem 'rollbar'
-gem 'webpacker'
 gem 'faraday_middleware'
 gem 'json', '~> 2.1.0'
 gem 'rails_semantic_logger'
@@ -35,30 +31,14 @@ gem 'activejob-uniqueness'
 # == Instrumentation
 gem 'stackdriver', group: [:development, :production]
 
-# == FRONT END
-
-gem 'uglifier', '>= 1.3.0'
-gem 'sass-rails', '~> 6.0'
-gem 'haml'
-gem 'materialize-sass', '~> 1.0.0'
-
-gem 'rails-ujs'
-gem 'autoprefixer-rails'
-gem 'font-awesome-sass'
-gem 'meta-tags'
-gem 'gravatar_image_tag'
-gem 'chartkick'
-gem 'breadcrumbs_on_rails'
-gem 'highcharts-rails'
-gem 'serviceworker-rails'
-
 # == UTILITY
 
+gem 'meta-tags'
+gem 'gravatar_image_tag'
 gem 'active_model_serializers', '~> 0.10.10'
 gem 'aws-ses', '~> 0.4.4'
 gem 'carrierwave'
 gem 'counter_culture'
-gem 'dropzonejs-rails'
 gem 'faker'
 gem 'fog-aws'
 gem 'graphql', '~> 1.9.18'
@@ -76,7 +56,6 @@ gem 'redcarpet'
 gem 'ruby-progressbar', require: false
 gem 'scoped_search'
 gem 'semantic'
-gem 'simple_form'
 gem 'sitemap_generator'
 gem 'slack-notifier'
 gem 'state_machines'
@@ -120,15 +99,10 @@ end
 group :development, :test do
   gem 'bullet'
   gem 'byebug', platform: :mri
-  gem 'capybara'
-  gem 'capybara-screenshot', require: false
-  gem 'capybara-selenium'
-  gem 'webdrivers'
   gem 'codecov', require: false
   gem 'database_cleaner'
   gem 'factory_bot_rails'
   gem 'letter_opener'
-  gem 'letter_opener_web'
   gem 'rack_session_access'
   gem 'rspec-collection_matchers', require: false
   gem 'rspec-expectations', require: false

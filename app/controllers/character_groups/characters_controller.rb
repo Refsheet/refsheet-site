@@ -2,8 +2,6 @@ class CharacterGroups::CharactersController < ApplicationController
   before_action :get_group
   before_action :get_character
 
-  respond_to :json
-
   def create
     if @group.characters.include? @character
       @group.characters.destroy @character

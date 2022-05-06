@@ -1,8 +1,0 @@
-query getApiKeys {
-  getApiKeys {
-      id
-      name
-      read_only
-      secret
-  }
-}
