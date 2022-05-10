@@ -30,7 +30,10 @@ steps:
     volumes:
       - name: 'artifacts'
         path: '/artifacts'
+    entrypoint: bash
     args:
+      - -c
+      - gsutil
       - -m
       - -h
       - 'Cache-Control:"Cache-Control: public, max-age=31559652"'
@@ -40,6 +43,8 @@ steps:
       - -rZ
       - /artifacts/*
       - gs://assets.refsheet.net/
+      - &&
+      - exit 0
     waitFor:
       - Build Container
 
