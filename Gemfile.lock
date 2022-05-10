@@ -88,17 +88,10 @@ GEM
     after_commit_action (1.1.0)
       activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
-    ahoy_matey (3.0.1)
-      activesupport (>= 5)
-      device_detector
-      geocoder (>= 1.4.5)
-      safely_block (>= 0.2.1)
     annotate (3.0.3)
       activerecord (>= 3.2, < 7.0)
       rake (>= 10.4, < 14.0)
     ast (2.4.0)
-    autoprefixer-rails (9.7.4)
-      execjs
     aws-eventstream (1.0.3)
     aws-partitions (1.269.0)
     aws-sdk-core (3.89.1)
@@ -128,26 +121,11 @@ GEM
     bindex (0.8.1)
     binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
-    breadcrumbs_on_rails (3.0.1)
     builder (3.2.4)
     bullet (6.1.0)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
     byebug (11.1.1)
-    capybara (3.31.0)
-      addressable
-      mini_mime (>= 0.1.3)
-      nokogiri (~> 1.8)
-      rack (>= 1.6.0)
-      rack-test (>= 0.6.3)
-      regexp_parser (~> 1.5)
-      xpath (~> 3.2)
-    capybara-screenshot (1.0.24)
-      capybara (>= 1.0, < 4)
-      launchy
-    capybara-selenium (0.0.6)
-      capybara
-      selenium-webdriver
     carrierwave (2.0.2)
       activemodel (>= 5.0.0)
       activesupport (>= 5.0.0)
@@ -157,8 +135,6 @@ GEM
       mini_mime (>= 0.1.3)
     case_transform (0.2)
       activesupport
-    chartkick (3.3.1)
-    childprocess (3.0.0)
     climate_control (0.2.0)
     codecov (0.2.11)
       json
@@ -190,18 +166,13 @@ GEM
       rake (> 10, < 14)
       ruby-statistics (>= 2.1)
       thor (>= 0.19, < 2)
-    device_detector (1.0.3)
     diff-lcs (1.3)
     digest-crc (0.4.1)
     docile (1.3.2)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
-    dropzonejs-rails (0.8.4)
-      rails (> 3.1)
-    errbase (0.2.0)
     erubi (1.9.0)
     excon (0.72.0)
-    execjs (2.7.0)
     factory_bot (5.1.1)
       activesupport (>= 4.2.0)
     factory_bot_rails (5.1.1)
@@ -230,10 +201,7 @@ GEM
     fog-xml (0.1.3)
       fog-core
       nokogiri (>= 1.5.11, < 2.0.0)
-    font-awesome-sass (5.12.0)
-      sassc (>= 1.11)
     formatador (0.2.5)
-    geocoder (1.6.1)
     get_process_mem (0.2.5)
       ffi (~> 1.0)
     globalid (0.4.2)
@@ -321,17 +289,12 @@ GEM
     grpc (1.27.0)
       google-protobuf (~> 3.11)
       googleapis-common-protos-types (~> 1.0)
-    haml (5.1.2)
-      temple (>= 0.8.0)
-      tilt
     hashdiff (1.0.0)
     heapy (0.1.4)
     her (1.1.0)
       activemodel (>= 4.2.1)
       faraday (>= 0.8, < 1.0)
       multi_json (~> 1.7)
-    highcharts-rails (6.0.3)
-      railties (>= 3.1)
     hkdf (0.3.0)
     htmlentities (4.3.4)
     http-accept (1.7.0)
@@ -360,10 +323,6 @@ GEM
       activerecord (>= 4.2)
     letter_opener (1.7.0)
       launchy (~> 2.2)
-    letter_opener_web (1.3.4)
-      actionmailer (>= 3.2)
-      letter_opener (~> 1.0)
-      railties (>= 3.2)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -374,8 +333,6 @@ GEM
       mini_mime (>= 0.1.1)
     marcel (0.3.3)
       mimemagic (~> 0.3.2)
-    materialize-sass (1.0.0)
-      autoprefixer-rails (>= 6.0.3)
     memoist (0.16.2)
     memory_profiler (0.9.14)
     meta-tags (2.13.0)
@@ -409,8 +366,6 @@ GEM
     nio4r (2.5.2)
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
-    non-stupid-digest-assets (1.0.9)
-      sprockets (>= 2.0)
     oauth (0.5.4)
     os (1.0.1)
     paper_trail (10.3.1)
@@ -451,8 +406,6 @@ GEM
       rack (>= 2.0.0)
     rack-protection (2.0.8.1)
       rack
-    rack-proxy (0.6.5)
-      rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rack_session_access (0.2.0)
@@ -482,8 +435,6 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.3.0)
       loofah (~> 2.3)
-    rails-ujs (0.1.0)
-      railties (>= 3.1)
     rails_semantic_logger (4.4.3)
       rack
       railties (>= 3.2)
@@ -509,7 +460,6 @@ GEM
       redis (>= 3.0.4)
     redlock (1.2.1)
       redis (>= 3.0.0, < 5.0)
-    regexp_parser (1.6.0)
     representable (3.0.4)
       declarative (< 0.1.0)
       declarative-option (< 0.2.0)
@@ -589,29 +539,12 @@ GEM
       ffi (~> 1.9)
     ruby2_keywords (0.0.2)
     ruby_http_client (3.3.0)
-    rubyzip (2.1.0)
     safe_yaml (1.0.5)
-    safely_block (0.3.0)
-      errbase (>= 0.1.1)
-    sass-rails (6.0.0)
-      sassc-rails (~> 2.1, >= 2.1.1)
-    sassc (2.2.1)
-      ffi (~> 1.9)
-    sassc-rails (2.1.2)
-      railties (>= 4.0.0)
-      sassc (>= 2.0)
-      sprockets (> 3.0)
-      sprockets-rails
-      tilt
     scoped_search (4.1.7)
       activerecord (>= 4.2.0)
-    selenium-webdriver (3.142.7)
-      childprocess (>= 0.5, < 4.0)
-      rubyzip (>= 1.2.2)
     semantic (1.6.1)
     semantic_logger (4.6.0)
       concurrent-ruby (~> 1.0)
-    semantic_range (2.3.0)
     sendgrid-actionmailer (2.6.0)
       mail (~> 2.5)
       sendgrid-ruby (~> 6.0)
@@ -619,8 +552,6 @@ GEM
       ruby_http_client (~> 3.3.0)
     sentry-raven (2.13.0)
       faraday (>= 0.7.6, < 1.0)
-    serviceworker-rails (0.6.0)
-      railties (>= 3.1)
     shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
     signet (0.12.0)
@@ -628,9 +559,6 @@ GEM
       faraday (~> 0.9)
       jwt (>= 1.5, < 3.0)
       multi_json (~> 1.10)
-    simple_form (5.0.1)
-      actionpack (>= 5.0)
-      activemodel (>= 5.0)
     simplecov (0.17.1)
       docile (~> 1.1)
       json (>= 1.8, < 3)
@@ -671,7 +599,6 @@ GEM
       state_machines-activemodel (>= 0.5.0)
     stripe (5.14.0)
     table_print (1.5.6)
-    temple (0.8.2)
     terrapin (0.6.0)
       climate_control (>= 0.0.3, < 1.0)
     thor (1.0.1)
@@ -681,8 +608,6 @@ GEM
     tzinfo (1.2.8)
       thread_safe (~> 0.1)
     uber (0.1.0)
-    uglifier (4.2.0)
-      execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.6)
@@ -696,19 +621,10 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
-    webdrivers (4.2.0)
-      nokogiri (~> 1.6)
-      rubyzip (>= 1.3.0)
-      selenium-webdriver (>= 3.0, < 4.0)
     webmock (3.8.0)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
-    webpacker (5.2.1)
-      activesupport (>= 5.2)
-      rack-proxy (>= 0.6.1)
-      railties (>= 5.2)
-      semantic_range (>= 2.3.0)
     webpush (1.0.0)
       hkdf (~> 0.2)
       jwt (~> 2.0)
@@ -717,8 +633,6 @@ GEM
     websocket-extensions (0.1.4)
     will_paginate (3.1.8)
     xml-simple (1.1.5)
-    xpath (3.2.0)
-      nokogiri (~> 1.8)
     yard (0.9.24)
     zeitwerk (2.4.1)
 
@@ -730,53 +644,38 @@ DEPENDENCIES
   active_record_slave
   activejob-uniqueness
   activerecord-nulldb-adapter (~> 0.4.0)
-  ahoy_matey
   annotate
-  autoprefixer-rails
   aws-sdk-s3
   aws-sdk-sqs
   aws-ses (~> 0.4.4)
   bcrypt (~> 3.1.7)
-  breadcrumbs_on_rails
   bullet
   byebug
-  capybara
-  capybara-screenshot
-  capybara-selenium
   carrierwave
-  chartkick
   codecov
   counter_culture
   database_cleaner
   delayed_paperclip
   derailed_benchmarks
-  dropzonejs-rails
-  execjs
   factory_bot_rails
   faker
   faraday_middleware
   fog-aws
-  font-awesome-sass
   google-cloud-storage (~> 1.11)
   graphiql-rails
   graphql (~> 1.9.18)
   graphql-errors
   gravatar_image_tag
   groupdate
-  haml
   her
-  highcharts-rails
   httplog (~> 1.1.1)
   json (~> 2.1.0)
   ledermann-rails-settings
   letter_opener
-  letter_opener_web
   listen (~> 3.0.5)
-  materialize-sass (~> 1.0.0)
   meta-tags
   mini_magick
   money-rails
-  non-stupid-digest-assets
   paper_trail
   paperclip
   paperclip-meta
@@ -792,7 +691,6 @@ DEPENDENCIES
   rack_session_access
   rails (~> 6.0.0)
   rails-controller-testing
-  rails-ujs
   rails_semantic_logger
   rake (~> 12.3.1)
   ranked-model
@@ -816,14 +714,11 @@ DEPENDENCIES
   rubocop-rspec
   ruby-progressbar
   ruby-trello
-  sass-rails (~> 6.0)
   scoped_search
   semantic
   sendgrid-actionmailer
   sentry-raven
-  serviceworker-rails
   shoulda-matchers (~> 2.8)
-  simple_form
   simplecov
   sitemap_generator
   slack-notifier
@@ -835,11 +730,8 @@ DEPENDENCIES
   stripe
   table_print
   timecop
-  uglifier (>= 1.3.0)
   web-console
-  webdrivers
   webmock
-  webpacker
   webpush
   will_paginate
   will_paginate-materialize!
