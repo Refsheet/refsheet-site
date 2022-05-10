@@ -15,8 +15,6 @@ ENV RAILS_ROOT /app
 WORKDIR $RAILS_ROOT
 # create log directory
 RUN mkdir log
-# copy over static assets
-COPY public public/
 # Copy Nginx config template
 COPY .nginx/nginx.conf /tmp/docker.nginx
 # substitute variable references in the Nginx config template for real values from the environment
