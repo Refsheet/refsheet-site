@@ -348,7 +348,7 @@ GEM
       ruby-vips (>= 2.0.17, < 3)
     ipaddress (0.8.3)
     jaro_winkler (1.5.4)
-    jmespath (1.4.0)
+    jmespath (1.6.1)
     json (2.1.0)
     json-schema (2.8.1)
       addressable (>= 2.4)
