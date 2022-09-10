@@ -44,12 +44,12 @@ if defined? Rack::Cors
     end
 
     allow do
-      origins CORS_PROD | CORS_EXT
+      origins CORS_PROD | CORS_EXT | CORS_DEV
       resource '/graphql', headers: :any, methods: [:get, :post, :options], credentials: true
     end
 
     allow do
-      origins CORS_PROD | CORS_EXT
+      origins CORS_PROD | CORS_EXT | CORS_DEV
       resource '/session', headers: :any, methods: [:get, :post, :options], credentials: true
     end
 
