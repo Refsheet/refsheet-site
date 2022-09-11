@@ -50,8 +50,22 @@ Types::UserType = GraphQL::ObjectType.define do
   end
 
   field :characters, types[Types::CharacterType] do
-    resolve -> (obj, _args, ctx) {
-      obj.characters.visible_to(ctx[:current_user].call).rank(:row_order)
+    argument :group_id, types.ID
+
+    resolve -> (obj, args, ctx) {
+      scope = obj.characters.visible_to(ctx[:current_user].call).rank(:row_order)
+
+      unless args[:group_id].nil?
+        scope = scope.joins(:character_groups).where(character_groups: { slug: args[:group_id] })
+      end
+
+      scope
+    }
+  end
+
+  field :character_groups, types[Types::CharacterGroupType] do
+    resolve -> (obj, _args, _ctx) {
+      obj.character_groups.rank(:row_order)
     }
   end
 
