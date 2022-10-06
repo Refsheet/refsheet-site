@@ -83,8 +83,8 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2)
-    addressable (2.7.0)
-      public_suffix (>= 2.0.2, < 5.0)
+    addressable (2.8.1)
+      public_suffix (>= 2.0.2, < 6.0)
     after_commit_action (1.1.0)
       activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -163,7 +163,6 @@ GEM
     codecov (0.2.11)
       json
       simplecov
-      url
     concurrent-ruby (1.1.7)
     counter_culture (2.2.4)
       activerecord (>= 4.2)
@@ -439,7 +438,7 @@ GEM
     premailer-rails (1.10.3)
       actionmailer (>= 3)
       premailer (~> 1.7, >= 1.7.9)
-    public_suffix (4.0.3)
+    public_suffix (4.0.7)
     puma (3.12.4)
     puma_worker_killer (0.1.1)
       get_process_mem (~> 0.2)
@@ -688,7 +687,6 @@ GEM
     unf_ext (0.0.7.6)
     unicode-display_width (1.6.1)
     uniform_notifier (1.13.0)
-    url (0.3.2)
     vegas (0.1.11)
       rack (>= 1.0.0)
     web-console (4.0.1)
