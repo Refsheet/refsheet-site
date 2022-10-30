@@ -8,7 +8,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def show?
-    admin? or (!blocked? and !blocks?)
+    admin? or (!blocked?)
   end
 
   def update?
