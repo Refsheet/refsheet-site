@@ -163,7 +163,6 @@ GEM
     codecov (0.2.11)
       json
       simplecov
-      url
     concurrent-ruby (1.1.7)
     counter_culture (2.2.4)
       activerecord (>= 4.2)
@@ -367,7 +366,7 @@ GEM
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
-    loofah (2.7.0)
+    loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -389,7 +388,7 @@ GEM
       rake
     mini_magick (4.10.1)
     mini_mime (1.0.2)
-    mini_portile2 (2.4.0)
+    mini_portile2 (2.6.1)
     minitest (5.14.2)
     monetize (1.9.4)
       money (~> 6.12)
@@ -407,8 +406,9 @@ GEM
       ruby2_keywords (~> 0.0.1)
     netrc (0.11.0)
     nio4r (2.5.2)
-    nokogiri (1.10.10)
-      mini_portile2 (~> 2.4.0)
+    nokogiri (1.12.5)
+      mini_portile2 (~> 2.6.1)
+      racc (~> 1.4)
     non-stupid-digest-assets (1.0.9)
       sprockets (>= 2.0)
     oauth (0.5.4)
@@ -446,6 +446,7 @@ GEM
       puma (>= 2.7, < 5)
     pundit (2.1.0)
       activesupport (>= 3.0.0)
+    racc (1.6.1)
     rack (2.2.3)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
@@ -688,7 +689,6 @@ GEM
     unf_ext (0.0.7.6)
     unicode-display_width (1.6.1)
     uniform_notifier (1.13.0)
-    url (0.3.2)
     vegas (0.1.11)
       rack (>= 1.0.0)
     web-console (4.0.1)
