@@ -163,7 +163,6 @@ GEM
     codecov (0.2.11)
       json
       simplecov
-      url
     concurrent-ruby (1.1.7)
     counter_culture (2.2.4)
       activerecord (>= 4.2)
@@ -446,7 +445,7 @@ GEM
       puma (>= 2.7, < 5)
     pundit (2.1.0)
       activesupport (>= 3.0.0)
-    rack (2.2.3)
+    rack (2.2.6.2)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
     rack-protection (2.0.8.1)
@@ -688,7 +687,6 @@ GEM
     unf_ext (0.0.7.6)
     unicode-display_width (1.6.1)
     uniform_notifier (1.13.0)
-    url (0.3.2)
     vegas (0.1.11)
       rack (>= 1.0.0)
     web-console (4.0.1)
