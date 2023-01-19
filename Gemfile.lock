@@ -163,8 +163,7 @@ GEM
     codecov (0.2.11)
       json
       simplecov
-      url
-    concurrent-ruby (1.1.7)
+    concurrent-ruby (1.1.10)
     counter_culture (2.2.4)
       activerecord (>= 4.2)
       activesupport (>= 4.2)
@@ -236,8 +235,8 @@ GEM
     geocoder (1.6.1)
     get_process_mem (0.2.5)
       ffi (~> 1.0)
-    globalid (0.4.2)
-      activesupport (>= 4.2.0)
+    globalid (1.0.1)
+      activesupport (>= 5.0)
     google-api-client (0.36.4)
       addressable (~> 2.5, >= 2.5.1)
       googleauth (~> 0.9)
@@ -341,7 +340,7 @@ GEM
     httplog (1.1.1)
       rack (>= 1.0)
       rainbow (>= 2.0.0)
-    i18n (1.8.5)
+    i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     image_processing (1.10.3)
       mini_magick (>= 4.9.5, < 5)
@@ -390,7 +389,7 @@ GEM
     mini_magick (4.10.1)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
-    minitest (5.14.2)
+    minitest (5.15.0)
     monetize (1.9.4)
       money (~> 6.12)
     money (6.13.7)
@@ -678,7 +677,7 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.10)
     timecop (0.9.1)
-    tzinfo (1.2.8)
+    tzinfo (1.2.10)
       thread_safe (~> 0.1)
     uber (0.1.0)
     uglifier (4.2.0)
@@ -688,7 +687,6 @@ GEM
     unf_ext (0.0.7.6)
     unicode-display_width (1.6.1)
     uniform_notifier (1.13.0)
-    url (0.3.2)
     vegas (0.1.11)
       rack (>= 1.0.0)
     web-console (4.0.1)
@@ -720,7 +718,7 @@ GEM
     xpath (3.2.0)
       nokogiri (~> 1.8)
     yard (0.9.24)
-    zeitwerk (2.4.1)
+    zeitwerk (2.6.6)
 
 PLATFORMS
   ruby
