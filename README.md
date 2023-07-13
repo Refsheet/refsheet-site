@@ -8,6 +8,18 @@ related to their characters in one unified format, allowing artists and
 story writers to access the specific details of a character, maintaining
 synchronized dynamic canon.
 
+## THE SOURCE CODE FOR THIS REPOSITORY IS SPLITTING
+## THE FRONTEND LIVES IN A NEW REPOSITORY
+## THIS IS JUST THE BACKEND CODE NOW
+## AND THE SPLIT IS NOT DONE
+## THEREFORE I AM NOT RESPONSIBLE FOR YOU CONTRIBUTING TO THIS DEAD CODEBASE
+## AND WOULD POLITELY REQUEST THAT YOU DO NOT CONTRIBUTE TO THIS BRANCH
+## IF YOU WOULD LIKE TO HELP
+### which would be a miracle this thing has been open source for like 3 years and hasn't had much help
+## PLEASE DIRECT YOUR ATTENTION AND JAVASCRIPT LOVING BRAIN TO THIS SHINY LINK
+## [https://github.com/Refsheet/refsheet-site-frontend](https://github.com/Refsheet/refsheet-site-frontend)
+## THAT IS ALL
+
 ## Development
 
 This app is now Dockerized. Install Docker and `docker-compose` to get going.
