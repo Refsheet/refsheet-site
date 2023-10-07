@@ -5,6 +5,7 @@ module Mutations
     end
 
     def index
+      return []
       Forum.all
     end
 
@@ -15,6 +16,7 @@ module Mutations
     end
 
     def show
+      return nil
       Forum.find_by(slug: params[:slug])
     end
 
