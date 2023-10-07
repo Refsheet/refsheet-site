@@ -38,7 +38,10 @@ Rails.application.routes.draw do
   #== Account Stuff
 
   namespace :account do
-    get '/activity' => 'activities#index'
+    if false
+      get '/activity' => 'activities#index'
+    end
+    
     resource :settings, only: [:show, :update]
 
     resource :notifications, only: [:show, :update] do
