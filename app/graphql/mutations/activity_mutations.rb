@@ -8,6 +8,7 @@ class Mutations::ActivityMutations < Mutations::ApplicationMutation
   end
 
   def index
+    return nil
     current_user.activity.page(params[:page] || 1)
   end
 
@@ -19,6 +20,7 @@ class Mutations::ActivityMutations < Mutations::ApplicationMutation
   end
 
   def create
+    return nil
     @activity = Activity.create!(activity_params)
   end
 
