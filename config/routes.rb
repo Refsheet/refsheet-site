@@ -128,11 +128,17 @@ Rails.application.routes.draw do
 
   #== Forums
 
-  resources :forums, only: [:index, :show] do
-    get ':id', to: 'forum/threads#show', as: :thread # TODO: Rename to discussions
-
-    resources :threads, only: [:index, :show, :create], controller: 'forum/threads' do
-      resources :posts, only: [:index, :show, :create], controller: 'forum/posts'
+  # The Forums have not been used much for lack of moderation and proper categories, etc. I just looked, 
+  # and it's an incredible cesspool of spam. I'm shutting those down now as part of the temporary cuts 
+  # to get costs under control, and later we'll re-implement them.
+  # src: https://twitter.com/refsheet/status/1710715921138954471
+  if false
+    resources :forums, only: [:index, :show] do
+      get ':id', to: 'forum/threads#show', as: :thread # TODO: Rename to discussions
+  
+      resources :threads, only: [:index, :show, :create], controller: 'forum/threads' do
+        resources :posts, only: [:index, :show, :create], controller: 'forum/posts'
+      end
     end
   end
 
@@ -144,23 +150,25 @@ Rails.application.routes.draw do
 
   #== Marketplace
 
-  namespace :marketplace do
-    root to: 'test#show'
-
-    get :sell, to: 'test#sell'
-    get :cart, to: 'test#cart'
-    get :orders, to: 'test#orders'
-    get :sales, to: 'test#sales'
-    get :setup, to: 'test#setup'
-
-    post :test_listing, to: 'test#create_listing'
-    post :test_cart, to: 'test#create_cart'
-    post :test_payment, to: 'test#create_payment'
-    post :test_setup, to: 'test#create_seller'
-    post :setup, to: 'test#create_bank_account'
-
-    delete :test_listing, to: 'test#destroy_listing'
-    delete :test_cart, to: 'test#destroy_cart'
+  if false
+    namespace :marketplace do
+      root to: 'test#show'
+  
+      get :sell, to: 'test#sell'
+      get :cart, to: 'test#cart'
+      get :orders, to: 'test#orders'
+      get :sales, to: 'test#sales'
+      get :setup, to: 'test#setup'
+  
+      post :test_listing, to: 'test#create_listing'
+      post :test_cart, to: 'test#create_cart'
+      post :test_payment, to: 'test#create_payment'
+      post :test_setup, to: 'test#create_seller'
+      post :setup, to: 'test#create_bank_account'
+  
+      delete :test_listing, to: 'test#destroy_listing'
+      delete :test_cart, to: 'test#destroy_cart'
+    end
   end
 
   resources :artists, only: [:index, :show]
