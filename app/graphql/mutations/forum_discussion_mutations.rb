@@ -11,6 +11,7 @@ module Mutations
     end
 
     def show
+      return nil
       @discussion = @forum.threads.find_by!(slug: params[:id])
       @discussion
     end
@@ -26,6 +27,7 @@ module Mutations
     end
 
     def create
+      return nil
       @discussion = Forum::Discussion.new(discussion_props)
       authorize @discussion
       @discussion.save!
@@ -43,6 +45,7 @@ module Mutations
     end
 
     def update
+      return nil
       authorize @discussion
       @discussion.update!(discussion_params)
       @discussion
@@ -55,6 +58,7 @@ module Mutations
     end
 
     def destroy
+      return nil
       authorize @discussion
       @discussion.destroy
       @discussion
