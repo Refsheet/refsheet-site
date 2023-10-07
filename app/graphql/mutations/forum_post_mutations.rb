@@ -11,6 +11,7 @@ module Mutations
     end
 
     def index
+      return []
       scope = Forum::Post.all
       authorize scope
 
@@ -34,6 +35,7 @@ module Mutations
     end
 
     def show
+      return nil
       Forum.find_by(slug: params[:slug])
     end
 
@@ -47,6 +49,7 @@ module Mutations
     end
 
     def create
+      return nil
       @discussion.posts.create! post_params
     end
 
@@ -58,6 +61,7 @@ module Mutations
     end
 
     def update
+      return nil
       authorize @post
       @post.update!(post_update_params)
       @post
@@ -72,6 +76,7 @@ module Mutations
     end
 
     def send_karma
+      return nil
       value = params[:take] ? -1 : 1
       @discussion.karmas.for_user(current_user).destroy_all
       @discussion.karmas.create(user: current_user, value: value)
@@ -82,10 +87,12 @@ module Mutations
     private
 
     def get_discussion
+      return nil
       @discussion = Forum::Discussion.find_by!(id: params[:discussionId])
     end
 
     def get_post
+      return nil
       @post = Forum::Post.find_by!(guid: params[:postId])
     end
 
