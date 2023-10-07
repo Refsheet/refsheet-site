@@ -8,6 +8,7 @@ class Mutations::MessageMutations < Mutations::ApplicationMutation
   end
 
   def create
+    return nil
     if params[:conversationId]
       @conversation = Conversation.find_by!(guid: params[:conversationId])
     else
