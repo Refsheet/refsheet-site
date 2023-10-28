@@ -173,7 +173,7 @@ class App extends Component {
                     history={this.history}
                     onUpdate={this.handleRouteUpdate}
                   >
-                    <Layout />
+                    <Layout notice={this.props.notice} />
                   </BrowserRouter>
                 </DndProvider>
               </DropzoneProvider>
