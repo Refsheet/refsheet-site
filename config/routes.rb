@@ -59,11 +59,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :notifications, only: [:index, :update], controller: 'account/notifications' do
-    collection do
-      put :bulk_update
-    end
-  end
+  # resources :notifications, only: [:index, :update], controller: 'account/notifications' do
+  #   collection do
+  #     put :bulk_update
+  #   end
+  # end
 
 
   #== Login
@@ -87,17 +87,17 @@ Rails.application.routes.draw do
 
   resources :transfers, only: [:update]
 
-  resources :users, only: [:index, :show, :create, :update] do
+  resources :users, only: [:index, :show, :update] do
     collection do
       get :suggested, to: 'follows#suggested'
     end
 
     resource :follow, only: [:show, :create, :destroy]
 
-    resources :characters, only: [:show, :update, :create, :destroy] do
-      resources :attributes, only: [:create, :update, :destroy], controller: 'characters/attributes'
-      resources :swatches, only: [:index, :create, :update, :destroy], shallow: true
-      resources :images, only: [:index, :show, :create, :update, :destroy], shallow: true do
+    resources :characters, only: [:show, :destroy] do
+      resources :attributes, only: [:destroy], controller: 'characters/attributes'
+      resources :swatches, only: [:index, :destroy], shallow: true
+      resources :images, only: [:index, :show, :destroy], shallow: true do
         member do
           get :full
           get :refresh
@@ -111,7 +111,7 @@ Rails.application.routes.draw do
 
     resources :favorites, only: [:index, :create], controller: 'media/favorites'
     resource :favorite, only: [:destroy], controller: 'media/favorites'
-    resources :comments, only: [:index, :create, :destroy], controller: 'media/comments'
+    resources :comments, only: [:index, :destroy], controller: 'media/comments'
   end
 
   resources :reports, only: [:create]
@@ -121,12 +121,12 @@ Rails.application.routes.draw do
 
   #== Browsing
 
-  resource :explore, only: [:show] do
-    member do
-      get :favorites
-      get :popular
-    end
-  end
+  # resource :explore, only: [:show] do
+  #   member do
+  #     get :favorites
+  #     get :popular
+  #   end
+  # end
 
 
   #== Forums
@@ -135,15 +135,15 @@ Rails.application.routes.draw do
   # and it's an incredible cesspool of spam. I'm shutting those down now as part of the temporary cuts 
   # to get costs under control, and later we'll re-implement them.
   # src: https://twitter.com/refsheet/status/1710715921138954471
-  if false
-    resources :forums, only: [:index, :show] do
-      get ':id', to: 'forum/threads#show', as: :thread # TODO: Rename to discussions
+  # if false
+  #   resources :forums, only: [:index, :show] do
+  #     get ':id', to: 'forum/threads#show', as: :thread # TODO: Rename to discussions
   
-      resources :threads, only: [:index, :show, :create], controller: 'forum/threads' do
-        resources :posts, only: [:index, :show, :create], controller: 'forum/posts'
-      end
-    end
-  end
+  #     resources :threads, only: [:index, :show, :create], controller: 'forum/threads' do
+  #       resources :posts, only: [:index, :show, :create], controller: 'forum/posts'
+  #     end
+  #   end
+  # end
 
 
   #== Asks / Blog
@@ -230,7 +230,7 @@ Rails.application.routes.draw do
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
 
-  mount Ahoy::Engine => '/ahoy', as: :my_ahoy
+  # mount Ahoy::Engine => '/ahoy', as: :my_ahoy
 
   #== API
 
