@@ -16,6 +16,7 @@
 
 class Media::Favorite < ApplicationRecord
   include NamespacedModel
+  include ReadOnlyMode
   include Rails.application.routes.url_helpers
 
   belongs_to :media, class_name: "Image", counter_cache: :favorites_count, inverse_of: :favorites

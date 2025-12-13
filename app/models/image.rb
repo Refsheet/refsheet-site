@@ -52,6 +52,7 @@ class Image < ApplicationRecord # < Media
   include RankedModel
   include HasDirectUpload
   include HasImageAttached
+  include ReadOnlyMode
 
   IMAGE_GRAVITIES = %w(NorthWest North NorthEast West Center East SouthWest South SouthEast).freeze
   DEFAULT_GRAVITY = IMAGE_GRAVITIES[1].freeze

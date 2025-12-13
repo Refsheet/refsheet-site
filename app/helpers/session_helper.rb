@@ -28,31 +28,61 @@ module SessionHelper
   end
 
   def current_user
-    if defined? cookies and cookies[UserSession::COOKIE_SESSION_TOKEN_NAME]
-      @current_user ||= get_remembered_user
-
-      if @current_user
-        Raven.user_context(id: @current_user&.id, username: @current_user&.username)
-        PaperTrail.request.whodunnit = @current_user&.to_global_id
-        return @current_user
-      end
-    end
-
-    if (user_id = (defined? session and session[UserSession::COOKIE_USER_ID_NAME]) ||
-        (defined? cookies and cookies.signed[UserSession::COOKIE_USER_ID_NAME]))
-      @current_user ||= User.unscoped.find_by id: user_id
-
-      if @current_user
-        Raven.user_context(id: @current_user&.id, username: @current_user&.username)
-        PaperTrail.request.whodunnit = @current_user&.to_global_id
-        return @current_user
-      end
-    end
+    @current_user ||= authenticate_from_jwt || authenticate_from_cookies
   end
 
   def current_user_id
     current_user&.id
   end
+
+  private
+
+  def authenticate_from_jwt
+    return nil unless defined?(request) && request.respond_to?(:headers)
+    header = request.headers['Authorization']
+    return nil if header.blank?
+
+    token = header.split(' ').last
+    return nil if token.blank?
+
+    secret = ENV['JWT_SECRET']
+    return nil if secret.blank?
+
+    payload = JWT.decode(token, secret, true, algorithm: 'HS256')[0]
+    user = User.unscoped.find_by(id: payload['sub'])
+
+    if user
+      Raven.user_context(id: user.id, username: user.username)
+      PaperTrail.request.whodunnit = user.to_global_id
+    end
+
+    user
+  rescue JWT::DecodeError, JWT::ExpiredSignature, JWT::VerificationError
+    nil
+  end
+
+  def authenticate_from_cookies
+    if defined?(cookies) && cookies[UserSession::COOKIE_SESSION_TOKEN_NAME]
+      user = get_remembered_user
+      return user if user
+    end
+
+    if (user_id = (defined?(session) && session[UserSession::COOKIE_USER_ID_NAME]) ||
+        (defined?(cookies) && cookies.signed[UserSession::COOKIE_USER_ID_NAME]))
+      user = User.unscoped.find_by(id: user_id)
+
+      if user
+        Raven.user_context(id: user.id, username: user.username)
+        PaperTrail.request.whodunnit = user.to_global_id
+      end
+
+      return user
+    end
+
+    nil
+  end
+
+  public
 
 
   #== Marketplace

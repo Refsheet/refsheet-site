@@ -5,6 +5,16 @@ class GraphqlController < ApplicationController
   skip_before_action :eager_load_session
   skip_before_action :set_user_locale
 
+  rescue_from ActiveRecord::ReadOnlyRecord do |e|
+    render json: {
+      data: nil,
+      errors: [{
+        message: "Site is in read-only mode during maintenance. Please try again later.",
+        extensions: { code: "READ_ONLY" }
+      }]
+    }, status: :service_unavailable
+  end
+
   if Rails.env.development?
     rescue_from Exception do |e|
       Rails.logger.error(e)

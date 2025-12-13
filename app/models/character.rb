@@ -48,6 +48,7 @@ class Character < ApplicationRecord
   include Sluggable
   include RankedModel
   include HasImageAttached
+  include ReadOnlyMode
 
   belongs_to :user
   belongs_to :color_scheme, autosave: true

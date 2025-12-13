@@ -28,6 +28,7 @@
 
 class Transfer < ApplicationRecord
   include HasGuid
+  include ReadOnlyMode
 
   belongs_to :character, -> { with_deleted }
   belongs_to :item

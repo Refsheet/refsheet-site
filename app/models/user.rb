@@ -42,6 +42,7 @@
 
 class User < ApplicationRecord
   include HasGuid
+  include ReadOnlyMode
 
   include Rails.application.routes.url_helpers
 
