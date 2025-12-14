@@ -52,8 +52,5 @@ ARG SENTRY_RELEASE_TOKEN
 
 COPY . /app
 
-# Execute Order 66
-
 EXPOSE $PORT
-
-CMD echo "Starting with formation: $FORMATION" && foreman start --formation "$FORMATION" --env ""
+CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]

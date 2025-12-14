@@ -54,6 +54,7 @@ Rails.application.configure do
     https://static.refsheet.net
     https://refsheet.net
     https://websocket.org
+    https://new.refsheet.net
   )
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
@@ -104,24 +105,11 @@ Rails.application.configure do
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
-  # if ENV["RAILS_LOG_TO_STDOUT"].present?
   STDOUT.sync = true
+  config.logger = ActiveSupport::Logger.new(STDOUT)
+  config.log_formatter = ::Logger::Formatter.new
 
-  config.rails_semantic_logger.add_file_appender = false
-  config.rails_semantic_logger.format = Refsheet::LogFormatter.new
-
-  config.log_tags = {
-      request_id: :request_id,
-      ip: :remote_ip,
-      username: -> request { SessionHelper.user_jar(request) }
-  }
-
-  config.semantic_logger.add_appender(io: STDOUT, level: config.log_level, formatter: config.rails_semantic_logger.format)
-  # end
-  #
   config.action_dispatch.cookies_same_site_protection = :none
-
-  # config.logger = Refsheet::Logger.new(STDOUT)
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
