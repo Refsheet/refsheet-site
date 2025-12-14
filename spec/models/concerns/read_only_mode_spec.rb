@@ -5,36 +5,43 @@ describe ReadOnlyMode, type: :model do
   let(:character) { create(:character, user: user) }
 
   describe 'when RAILS_READ_ONLY is true' do
-    around do |example|
-      original_value = ENV['RAILS_READ_ONLY']
-      ENV['RAILS_READ_ONLY'] = 'true'
-      example.run
-      ENV['RAILS_READ_ONLY'] = original_value
-    end
-
     it 'prevents saving Character' do
+      character # force creation before read-only
+      ENV['RAILS_READ_ONLY'] = 'true'
       character.name = 'New Name'
       expect { character.save! }.to raise_error(ActiveRecord::ReadOnlyRecord)
+      ENV['RAILS_READ_ONLY'] = nil
     end
 
     it 'prevents destroying Character' do
+      character
+      ENV['RAILS_READ_ONLY'] = 'true'
       expect { character.destroy! }.to raise_error(ActiveRecord::ReadOnlyRecord)
+      ENV['RAILS_READ_ONLY'] = nil
     end
 
     it 'prevents creating new Character' do
+      user # force user creation first
+      ENV['RAILS_READ_ONLY'] = 'true'
       new_char = Character.new(name: 'Test', user: user)
       expect { new_char.save! }.to raise_error(ActiveRecord::ReadOnlyRecord)
+      ENV['RAILS_READ_ONLY'] = nil
     end
 
     it 'prevents saving User' do
+      user
+      ENV['RAILS_READ_ONLY'] = 'true'
       user.name = 'New Name'
       expect { user.save! }.to raise_error(ActiveRecord::ReadOnlyRecord)
+      ENV['RAILS_READ_ONLY'] = nil
     end
 
     it 'prevents saving Image' do
       image = create(:image, character: character)
+      ENV['RAILS_READ_ONLY'] = 'true'
       image.caption = 'New Caption'
       expect { image.save! }.to raise_error(ActiveRecord::ReadOnlyRecord)
+      ENV['RAILS_READ_ONLY'] = nil
     end
   end
 

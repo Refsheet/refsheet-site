@@ -670,6 +670,7 @@ DEPENDENCIES
   her
   httplog (~> 1.1.1)
   json (~> 2.1.0)
+  jwt
   ledermann-rails-settings
   letter_opener
   listen (~> 3.0.5)
@@ -742,4 +743,4 @@ RUBY VERSION
    ruby 2.5.5p157
 
 BUNDLED WITH
-   2.0.1
+   2.3.18
