@@ -1,4 +1,4 @@
-FROM ruby:2.7.8-slim-bookworm
+FROM ruby:2.7.8-slim-bullseye
 LABEL maintainer="Refsheet.net Team <nerds@refsheet.net>"
 
 WORKDIR /app
