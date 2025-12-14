@@ -21,22 +21,15 @@ test:
   database: <%= ENV['DB_DATABASE'] || 'refsheet-site-test' %>
 
 production:
-  adapter: <%= ENV['RDS_DB_ADAPTER'] || 'postgresql' %>
-  database: <%= ENV['RDS_DB_NAME'] %>
-  username: <%= ENV['RDS_USERNAME'] %>
-  password: <%= ENV['RDS_PASSWORD'] %>
-  host: <%= ENV['RDS_HOSTNAME'] %>
-  port: <%= ENV['RDS_PORT'] %>
+  adapter: postgresql
+  database: <%= ENV['DB_DATABASE'] || ENV['RDS_DB_NAME'] %>
+  username: <%= ENV['DB_USERNAME'] || ENV['RDS_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] || ENV['RDS_PASSWORD'] %>
   pool: <%= ENV['DB_POOL'] || ENV['RAILS_MAX_THREADS'] || 10 %>
   timeout: 5000
-<% if ENV['RDS_READ_1_DB_NAME'] != "" %>
-  slave:
-    adapter: <%= ENV['RDS_READ_1_DB_ADAPTER'] || 'postgresql' %>
-    database: <%= ENV['RDS_READ_1_DB_NAME'] %>
-    username: <%= ENV['RDS_READ_1_USERNAME'] %>
-    password: <%= ENV['RDS_READ_1_PASSWORD'] %>
-    host: <%= ENV['RDS_READ_1_HOSTNAME'] %>
-    port: <%= ENV['RDS_READ_1_PORT'] || 5432 %>
-    pool: <%= ENV['RDS_READ_1_DB_POOL'] || ENV['RAILS_MAX_THREADS'] || 10 %>
-    timeout: 5000
+<% if ENV['CLOUD_SQL_CONNECTION_NAME'] %>
+  host: /cloudsql/<%= ENV['CLOUD_SQL_CONNECTION_NAME'] %>
+<% else %>
+  host: <%= ENV['DB_HOST'] || ENV['RDS_HOSTNAME'] %>
+  port: <%= ENV['DB_PORT'] || ENV['RDS_PORT'] || 5432 %>
 <% end %>
