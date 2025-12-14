@@ -2,14 +2,17 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}.git" }
 
-ruby '~> 2.5.5'
+ruby '>= 2.5.5', '< 3.0'
 
 # == BACK END
 
 gem 'rails', '~> 6.0.0'
+gem 'bigdecimal', '~> 1.4.0'
+gem 'concurrent-ruby', '~> 1.1.0'
+gem 'logger', '~> 1.5.0'
 gem 'rake', '~> 12.3.1'
 gem 'rack-cors'
-gem 'pg', '~> 0.21'
+gem 'pg', '~> 1.2'
 gem 'pg_lock'
 gem 'puma', '~> 3.12'
 gem 'redis', '~> 3.3.5'
@@ -22,11 +25,12 @@ gem 'aws-sdk-sqs'
 gem 'resque'
 gem 'rollbar'
 gem 'faraday_middleware'
-gem 'json', '~> 2.1.0'
-gem 'rails_semantic_logger'
+gem 'json', '~> 2.7.0'
+gem 'rails_semantic_logger', '~> 4.4.0'
+gem 'semantic_logger', '~> 4.6.0'
 gem 'activerecord-nulldb-adapter', '~> 0.4.0'
 gem 'mini_magick'
-gem 'paper_trail'
+gem 'paper_trail', '~> 10.3.0'
 gem 'activejob-uniqueness'
 
 # == Instrumentation

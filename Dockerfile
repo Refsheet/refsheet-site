@@ -1,19 +1,17 @@
-FROM ruby:2.5.5
+FROM ruby:2.7.8-slim-bookworm
 LABEL maintainer="Refsheet.net Team <nerds@refsheet.net>"
 
 WORKDIR /app
 
-# Envirionment
+# Environment
 ENV RACK_ENV production
 ENV RAILS_ENV production
 ENV PORT 3000
-
-ENV VIPS_VERSION 8.9.0
-ENV BUNDLE_VERSION 2.0.1
+ENV BUNDLE_VERSION 2.3.26
 
 # Install System Deps
 
-RUN apt-get -o Acquire::Check-Valid-Until=false update && \
+RUN apt-get update && \
     apt-get install -y \
         build-essential \
         libpq-dev \
@@ -22,25 +20,14 @@ RUN apt-get -o Acquire::Check-Valid-Until=false update && \
         libjpeg-dev \
         libpng-dev \
         libwebp-dev \
+        libvips-dev \
         curl \
-        git && \
+        git \
+        pkg-config && \
     gem install bundler -v $BUNDLE_VERSION && \
-    gem install foreman
-
-
-# Install Vips
-
-WORKDIR /libvips
-
-RUN curl -L "https://github.com/libvips/libvips/releases/download/v$VIPS_VERSION/vips-$VIPS_VERSION.tar.gz" \
-    | tar -xzC /libvips && \
-    cd vips-$VIPS_VERSION && \
-    ./configure && \
-    make && \
-    make install && \
-    ldconfig && \
-    cd /libvips && \
-    rm -rf vips-*
+    gem install foreman && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 
 # Copy System Config
@@ -54,7 +41,9 @@ WORKDIR /app
 COPY Gemfile      /app/Gemfile
 COPY Gemfile.lock /app/Gemfile.lock
 
-RUN bundle install --without="development test" --deployment
+RUN bundle config set --local without 'development test' && \
+    bundle config set --local deployment 'true' && \
+    bundle install
 
 ## This will leak the token into our docker history, which is very bad
 ## but I didn't feel like spending all day trying to figure out if Kaniko

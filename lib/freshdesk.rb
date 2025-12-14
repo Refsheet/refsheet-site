@@ -31,7 +31,7 @@ class Freshdesk
       c.use Faraday::Request::BasicAuthentication, @api_key, 'X'
       c.use FaradayMiddleware::EncodeJson
       c.use Her::Middleware::DefaultParseJSON
-      c.use Faraday::Adapter::NetHttp
+      c.adapter Faraday.default_adapter
     end
 
     @client
