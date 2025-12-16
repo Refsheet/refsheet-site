@@ -63,6 +63,9 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  # Avoid external mailer dependencies in development
+  config.action_mailer.perform_deliveries = false
+  config.action_mailer.delivery_method = :test
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
@@ -77,7 +80,8 @@ Rails.application.configure do
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   config.file_watcher = ActiveSupport::FileUpdateChecker
 
-  config.active_job.queue_adapter = :resque
+  # Use in-process async job adapter to avoid Redis during development
+  config.active_job.queue_adapter = :async
 
   config.after_initialize do
     Bullet.enable = true

@@ -25,7 +25,10 @@ module Users::AuthCodeDecorator
       auth_code = self.email_confirmation_token
     end
 
-    UserMailer.welcome(self.id, auth_code).deliver_later!
+    # Skip sending emails in development to avoid template/dependency issues
+    unless Rails.env.development?
+      UserMailer.welcome(self.id, auth_code).deliver_later!
+    end
     auth_code
   end
 
@@ -49,7 +52,9 @@ module Users::AuthCodeDecorator
       auth_code = self.email_change_token
     end
 
-    UserMailer.email_changed(self.id, auth_code).deliver_later!
+    unless Rails.env.development?
+      UserMailer.email_changed(self.id, auth_code).deliver_later!
+    end
     auth_code
   end
 
@@ -69,7 +74,9 @@ module Users::AuthCodeDecorator
     update_columns account_recovery_token: BCrypt::Password.create(auth_code),
                    account_recovery_created_at: Time.zone.now
 
-    UserMailer.password_reset(self.id, auth_code).deliver_later!
+    unless Rails.env.development?
+      UserMailer.password_reset(self.id, auth_code).deliver_later!
+    end
     auth_code
   end
 

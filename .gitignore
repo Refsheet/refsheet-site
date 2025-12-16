@@ -77,3 +77,4 @@ refsheet-prod-storage.json
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+.envrc
